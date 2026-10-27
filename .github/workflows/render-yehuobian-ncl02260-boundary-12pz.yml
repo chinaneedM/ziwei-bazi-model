@@ -1,0 +1,93 @@
+name: render-yehuobian-ncl02260-boundary-12pz
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/render-yehuobian-ncl02260-boundary-12pz.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  render-boundary:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install reproducible PDF imaging tools
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils imagemagick
+
+      - name: Download source-bound old manuscript PDFs and hash bytes
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p 12pz/source 12pz/thumbnails 12pz/contacts 12pz/tail 12pz/part2
+          root='https://commons.wikimedia.org/wiki/Special:Redirect/file'
+          # These TWO objects are parts of NCL catalog 204.26 02260 (舊鈔本).
+          curl -L --fail --retry 5 --retry-all-errors --retry-delay 3 --max-time 1100             -A 'Tianwen-Historical-Provenance-R1/1.0'             "$root/NCL-02260_1_%E8%90%AC%E6%9B%86%E9%87%8E%E7%8D%B2%E7%B7%A8.pdf"             -o 12pz/source/ncl-02260-1.pdf
+          curl -L --fail --retry 5 --retry-all-errors --retry-delay 3 --max-time 300             -A 'Tianwen-Historical-Provenance-R1/1.0'             "$root/NCL-02260_2_%E8%90%AC%E6%9B%86%E9%87%8E%E7%8D%B2%E7%B7%A8.pdf"             -o 12pz/source/ncl-02260-2.pdf
+          (cd 12pz/source && sha256sum *.pdf) | tee 12pz/source-sha256.txt
+          for part in 1 2; do
+            pdfinfo "12pz/source/ncl-02260-$part.pdf" > "12pz/part-$part-pdfinfo.txt"
+          done
+          test "$(awk '/^Pages:/ {print $2}' 12pz/part-1-pdfinfo.txt)" = 1000
+          test "$(awk '/^Pages:/ {print $2}' 12pz/part-2-pdfinfo.txt)" = 35
+
+      - name: Render first-pass tail navigation without OCR
+        shell: bash
+        run: |
+          set -euo pipefail
+          # These are PDF pages 841..1000 (1-based), not scribal folios.
+          pdftoppm -f 841 -l 1000 -scale-to 1000 -jpeg -jpegopt quality=85             12pz/source/ncl-02260-1.pdf 12pz/thumbnails/p >/dev/null 2>&1
+          mapfile -t pages < <(find 12pz/thumbnails -maxdepth 1 -name 'p-*.jpg' | sort -V)
+          test "${#pages[@]}" -eq 160
+          for (( offset=0; offset<160; offset+=16 )); do
+            low=$((841+offset))
+            high=$((low+15))
+            chunk=("${pages[@]:offset:16}")
+            montage -label '%f' "${chunk[@]}" -thumbnail 390x315               -tile 4x4 -geometry +5+23               "12pz/contacts/old20-02260-1-p${low}-p${high}.jpg"
+          done
+          # The last part-1 pages and the first part-2 pages allow checking
+          # continuity without assuming the digital split marks a historical folio.
+          pdftoppm -f 985 -l 1000 -r 165 -jpeg -jpegopt quality=93             12pz/source/ncl-02260-1.pdf 12pz/tail/p >/dev/null 2>&1
+          pdftoppm -f 1 -l 3 -r 165 -jpeg -jpegopt quality=93             12pz/source/ncl-02260-2.pdf 12pz/part2/p >/dev/null 2>&1
+          sha256sum 12pz/contacts/*.jpg | sort -V > 12pz/contact-sha256.txt
+          sha256sum 12pz/tail/*.jpg | sort -V > 12pz/tail-sha256.txt
+          sha256sum 12pz/part2/*.jpg | sort -V > 12pz/part2-sha256.txt
+          cat > 12pz/manifest.txt <<'EOF'
+          COLLECTION=Taiwan National Central Library; 204.26 02260; old manuscript
+          OBJECT1=NCL-02260_1_萬曆野獲編.pdf
+          OBJECT2=NCL-02260_2_萬曆野獲編.pdf
+          PART1_PAGES=1000
+          PART2_PAGES=35
+          PDF_PAGE_NUMBERING=1_BASED;NOT_HISTORICAL_FOLIATION
+          NAVIGATION_CONTACTS=PART1_P841_P1000;TEN_GROUPS_OF_16
+          PHYSICAL_DETAIL=PART1_P985_P1000;PART2_P1_P3
+          OCR_USED=false
+          TARGET_HEADING=改造漏刻
+          TARGET_HEADING_TO_PAGE_STATUS=UNRESOLVED_UNTIL_VISUAL_COLLATION
+          TARGET_GLYPH_STATUS=NO_AUTO_GLYPH_CLAIM
+          NOTE=Do not infer full original volume or target presence from modern 30v article order.
+          EOF
+
+      - name: Upload contact and boundary evidence (no large source PDF)
+        uses: actions/upload-artifact@v4
+        with:
+          name: ncl02260-old20-tail-boundary-12pz
+          path: |
+            12pz/contacts/
+            12pz/tail/
+            12pz/part2/
+            12pz/*sha256.txt
+            12pz/*pdfinfo.txt
+            12pz/manifest.txt
+          if-no-files-found: error
+          compression-level: 5
+          retention-days: 30

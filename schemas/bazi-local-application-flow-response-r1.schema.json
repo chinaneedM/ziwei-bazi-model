@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/chinaneedM/ziwei-bazi-model/schemas/bazi-local-application-flow-response-r1.schema.json",
+  "title": "Bazi Local Application Flow Response R1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "application_bundle", "target_flow_bundle"],
+  "properties": {
+    "schema": {"const": "BAZI-LOCAL-APP-FLOW-RESOLVE-R1"},
+    "application_bundle": {
+      "type": "object",
+      "required": ["schema", "status", "source_fact_hash", "view_hash", "bundle_hash", "integrity"],
+      "properties": {
+        "schema": {"const": "BAZI-LOCAL-APPLICATION-RESOLUTION-V1"},
+        "status": {"enum": ["RESOLVED", "MULTI_CANDIDATE"]},
+        "source_fact_hash": {"$ref": "#/$defs/hash"},
+        "view_hash": {"$ref": "#/$defs/hash"},
+        "bundle_hash": {"$ref": "#/$defs/hash"},
+        "integrity": {
+          "type": "object",
+          "required": ["status"],
+          "properties": {"status": {"const": "PASS"}}
+        }
+      }
+    },
+    "target_flow_bundle": {
+      "type": "object",
+      "required": ["schema", "status", "source_fact_hash", "view_hash", "bundle_hash", "integrity"],
+      "properties": {
+        "schema": {"const": "BAZI-APPLICATION-FLOW-RESOLUTION-R1"},
+        "status": {"enum": ["RESOLVED", "MULTI_CANDIDATE"]},
+        "source_fact_hash": {"$ref": "#/$defs/hash"},
+        "view_hash": {"$ref": "#/$defs/hash"},
+        "bundle_hash": {"$ref": "#/$defs/hash"},
+        "integrity": {
+          "type": "object",
+          "required": ["status"],
+          "properties": {"status": {"const": "PASS"}}
+        }
+      }
+    }
+  },
+  "$defs": {
+    "hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}

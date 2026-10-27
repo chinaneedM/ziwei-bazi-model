@@ -1,0 +1,103 @@
+name: research-ziwei-fullbook-volume4-gzip-decoded-route-af
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-ziwei-fullbook-volume4-gzip-decoded-route-af.yml
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Decode gzip public index response and inspect emitted file routes
+        shell: python
+        run: |
+          import gzip, hashlib, html, json, re, urllib.parse, urllib.request
+          from pathlib import Path
+
+          OUT=Path('probe'); OUT.mkdir()
+          UA='Mozilla/5.0 provenance-research gzip-aware-public-route'
+          pages=[('sanfenge','https://www.sanfenge.com/col.jsp?id=112&m485pageno=2')]
+          needles=['紫薇斗数全书卷4.pdf','紫薇斗数全书卷四.pdf','紫微斗数全书卷4.pdf','紫微斗数全书卷四.pdf','紫薇术《紫微斗数全书》四卷.pdf']
+
+          def get(url, referer=None, limit=12_000_000):
+            headers={'User-Agent':UA,'Accept-Language':'zh-CN,zh;q=0.9,en;q=0.5','Accept-Encoding':'gzip, identity'}
+            if referer: headers['Referer']=referer
+            try:
+              with urllib.request.urlopen(urllib.request.Request(url,headers=headers),timeout=35) as r:
+                raw=r.read(limit)
+                ce=(r.headers.get('content-encoding') or '').lower()
+                data=raw
+                if 'gzip' in ce:
+                  try: data=gzip.decompress(raw)
+                  except Exception: pass
+                return {'ok':True,'status':r.status,'final_url':r.geturl(),'content_type':r.headers.get('content-type'),'content_encoding':ce or None,'raw_bytes':len(raw),'raw_sha256':hashlib.sha256(raw).hexdigest(),'decoded_bytes':len(data),'decoded_sha256':hashlib.sha256(data).hexdigest(),'data':data}
+            except Exception as e:
+              return {'ok':False,'error':repr(e),'raw_bytes':0,'decoded_bytes':0,'data':b''}
+
+          def decode(raw):
+            for enc in ('utf-8','gb18030','big5','latin1'):
+              try: return raw.decode(enc),enc
+              except Exception: pass
+            return raw.decode('utf-8','replace'),'utf-8-replace'
+
+          result={'schema':'ZIWEI-FULLBOOK-VOLUME4-GZIP-DECODED-ROUTE-AF-R1','access_date':'2026-09-09','authentication_attempted':False,'purchase_attempted':False,'identifier_guessing_attempted':False,'access_control_bypass_attempted':False,'pages':[]}
+          for label,url in pages:
+            row=get(url); data=row.pop('data')
+            rec={'label':label,'url':url,**row,'decode_encoding':None,'needle_hits':[],'contexts':[],'links_near_hits':[],'source_emitted_routes':[],'script_sources':[]}
+            if data:
+              (OUT/f'{label}.decoded.bin').write_bytes(data)
+              txt,enc=decode(data); rec['decode_encoding']=enc
+              (OUT/f'{label}.decoded.html').write_text(txt,encoding='utf-8')
+              for needle in needles:
+                for m in re.finditer(re.escape(needle),txt,re.I):
+                  rec['needle_hits'].append(needle)
+                  ctx=txt[max(0,m.start()-2500):min(len(txt),m.end()+4500)]
+                  rec['contexts'].append(ctx)
+                  for lm in re.finditer(r'''(?:href|src|data-url|data-href|data-link|onclick)\s*=\s*["']([^"']+)["']''',ctx,re.I):
+                    v=html.unescape(lm.group(1)).replace('\\/','/').strip()
+                    if v and not v.startswith(('#','javascript:void')):
+                      u=urllib.parse.urljoin(row.get('final_url') or url,v)
+                      if u not in rec['links_near_hits']: rec['links_near_hits'].append(u)
+              routes=[]
+              for m in re.finditer(r'''(?:href|src|action|data-url|data-href|data-link|content)\s*=\s*["']([^"']+)["']''',txt,re.I):
+                v=html.unescape(m.group(1)).replace('\\/','/').strip()
+                if not v or v.startswith(('javascript:','#','data:')): continue
+                u=urllib.parse.urljoin(row.get('final_url') or url,v)
+                if u not in routes: routes.append(u)
+              for u in routes:
+                ul=u.lower()
+                if ul.endswith('.js') or '.js?' in ul: rec['script_sources'].append(u)
+                if any(k in ul for k in ('ajax','api','load','list','module','col.jsp','download','file','resource','pdf','quark','pan.baidu','aliyundrive')):
+                  rec['source_emitted_routes'].append(u)
+            result['pages'].append(rec)
+
+          # Probe exact links adjacent to the indexed filename only; never infer or enumerate hidden IDs.
+          probes=[]
+          seen=set()
+          for p in result['pages']:
+            for u in p['links_near_hits']:
+              if u in seen: continue
+              seen.add(u)
+              row=get(u,referer=p['url'],limit=3_000_000); data=row.pop('data')
+              probes.append({'url':u,**row,'pdf_magic':data[:5]==b'%PDF-'})
+          result['near_hit_link_probes']=probes
+          result['adjudication']={'provider_source_filename_observed':any(p['needle_hits'] for p in result['pages']),'direct_pdf_observed':any(p.get('pdf_magic') for p in probes),'edition_identity':'UNRESOLVED_UNTIL_FILE_OR_INTERNAL_TITLE_PAGE','target_page_status':'NOT_CLAIMED','algorithm_effect':'NONE'}
+          (OUT/'ziwei-fullbook-volume4-gzip-decoded-route-af.json').write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding='utf-8')
+          print(json.dumps({'pages':[{'label':p['label'],'ok':p.get('ok'),'status':p.get('status'),'content_encoding':p.get('content_encoding'),'raw_bytes':p.get('raw_bytes'),'decoded_bytes':p.get('decoded_bytes'),'decode_encoding':p.get('decode_encoding'),'needle_hits':p['needle_hits'],'links_near_hits':p['links_near_hits'][:30],'routes':p['source_emitted_routes'][:50],'scripts':p['script_sources'][:30]} for p in result['pages']],'probes':probes,'adjudication':result['adjudication']},ensure_ascii=False,indent=2))
+
+      - name: Upload gzip-decoded route artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ziwei-fullbook-volume4-gzip-decoded-route-af
+          path: probe/
+          if-no-files-found: warn
+          retention-days: 14

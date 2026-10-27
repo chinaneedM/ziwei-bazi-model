@@ -1,0 +1,113 @@
+name: research-ziwei-jinzhang-public-facsimile-surfaces-af
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-ziwei-jinzhang-public-facsimile-surfaces-af.yml
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Capture source-emitted Jinzhang/facsimile public surfaces
+        shell: python
+        run: |
+          import gzip, hashlib, html, json, re, urllib.parse, urllib.request
+          from pathlib import Path
+
+          OUT=Path('probe'); IMG=OUT/'images'; OUT.mkdir(); IMG.mkdir()
+          UA='Mozilla/5.0 provenance-research jinzhang-public-facsimile'
+          pages=[
+            ('xinyi_jinyuan','https://hr.xinyi.hk/goods-5266.html'),
+            ('artron_oldset','https://zxp.artron.net/specials/goods/goodsdetail/1689675'),
+            ('guoxuemi_shucang','https://www.guoxuemi.com/csfz/203424bbkr/'),
+            ('homeinmists_shucang','https://homeinmists.ilotus.org/%E7%B6%B2%E7%AB%99%E5%85%AC%E5%91%8A/%E9%81%93%E5%AE%B6%E8%B3%87%E8%A8%8A/%E9%81%93%E5%AD%B8%E5%9C%96%E6%9B%B8%E5%87%BA%E7%89%88%E4%BF%A1%E6%81%AF/%E3%80%8A%E9%87%8D%E5%88%8A%E8%A1%93%E8%97%8F%E3%80%8B/'),
+          ]
+
+          def fetch(url, referer=None, limit=16_000_000):
+            headers={'User-Agent':UA,'Accept':'text/html,image/avif,image/webp,image/apng,image/*,*/*;q=0.8','Accept-Language':'zh-CN,zh-TW;q=0.9,en;q=0.5','Accept-Encoding':'gzip, identity'}
+            if referer: headers['Referer']=referer
+            try:
+              with urllib.request.urlopen(urllib.request.Request(url,headers=headers),timeout=40) as r:
+                raw=r.read(limit); ce=(r.headers.get('content-encoding') or '').lower(); data=raw
+                if 'gzip' in ce:
+                  try: data=gzip.decompress(raw)
+                  except Exception: pass
+                return {'ok':True,'status':r.status,'final_url':r.geturl(),'content_type':r.headers.get('content-type'),'content_encoding':ce or None,'raw_bytes':len(raw),'decoded_bytes':len(data),'sha256':hashlib.sha256(data).hexdigest(),'data':data}
+            except Exception as e:
+              return {'ok':False,'error':repr(e),'raw_bytes':0,'decoded_bytes':0,'data':b''}
+
+          result={'schema':'ZIWEI-JINZHANG-PUBLIC-FACSIMILE-SURFACES-AF-R1','access_date':'2026-09-09','authentication_attempted':False,'purchase_attempted':False,'identifier_guessing_attempted':False,'access_control_bypass_attempted':False,'pages':[],'images':[]}
+          emitted=[]
+          for label,url in pages:
+            row=fetch(url); raw=row.pop('data')
+            rec={'label':label,'url':url,**row,'contexts':[],'source_emitted_image_urls':[]}
+            if raw:
+              txt=None
+              for enc in ('utf-8','gb18030','big5','latin1'):
+                try: txt=raw.decode(enc); break
+                except Exception: pass
+              txt=txt or raw.decode('utf-8','replace')
+              (OUT/f'{label}.html').write_text(txt,encoding='utf-8')
+              for needle in ('錦章書局','锦章书局','紫微斗數全書','紫微斗数全书','術藏','术藏','第五十九卷','333','三三三','進源','进源'):
+                start=0
+                while True:
+                  i=txt.find(needle,start)
+                  if i<0: break
+                  rec['contexts'].append({'needle':needle,'text':txt[max(0,i-1000):min(len(txt),i+2200)]})
+                  start=i+len(needle)
+              urls=[]
+              pats=[
+                r'''(?:src|href|data-src|data-original|data-lazy-src|data-actualsrc|content)\s*=\s*["']([^"']+)["']''',
+                r'''["'](https?:\\?/\\?/[^"']+\.(?:jpe?g|png|webp|gif)(?:\?[^"']*)?)["']'''
+              ]
+              for pat in pats:
+                for m in re.finditer(pat,txt,re.I):
+                  v=html.unescape(m.group(1)).replace('\\/','/').strip()
+                  u=urllib.parse.urljoin(row.get('final_url') or url,v)
+                  if u.startswith(('http://','https://')) and re.search(r'\.(?:jpe?g|png|webp|gif)(?:\?|#|$)',u,re.I) and u not in urls:
+                    urls.append(u)
+              keep=[]
+              for u in urls:
+                ul=u.lower()
+                if any(x in ul for x in ('logo','icon','avatar','qrcode','qr_code','banner','smiley','common/','error.jpg')): continue
+                if label=='xinyi_jinyuan' and any(x in ul for x in ('xinyi','goods','upload','images')): keep.append(u)
+                elif label=='artron_oldset' and any(x in ul for x in ('artron','auction','goods','img')): keep.append(u)
+                elif label in ('guoxuemi_shucang','homeinmists_shucang') and any(x in ul for x in ('upload','images','wp-content','attachment')): keep.append(u)
+              rec['source_emitted_image_urls']=keep[:180]
+              for u in keep[:180]: emitted.append((label,url,u))
+            result['pages'].append(rec)
+
+          seen=set()
+          for label,page,u in emitted:
+            if u in seen: continue
+            seen.add(u)
+            row=fetch(u,referer=page,limit=12_000_000); raw=row.pop('data')
+            item={'source_page':label,'page_url':page,'url':u,**row}
+            ct=(row.get('content_type') or '').lower()
+            magic=(raw[:3]==b'\xff\xd8\xff' or raw[:8]==b'\x89PNG\r\n\x1a\n' or raw[:4]==b'RIFF' or raw[:6] in (b'GIF87a',b'GIF89a'))
+            if raw and row.get('ok') and (magic or 'image/' in ct) and len(raw)>20_000:
+              ext='.png' if raw[:8]==b'\x89PNG\r\n\x1a\n' else '.webp' if raw[:4]==b'RIFF' else '.gif' if raw[:6] in (b'GIF87a',b'GIF89a') else '.jpg'
+              p=IMG/f'{label}-{len(result["images"])+1:03d}{ext}'
+              p.write_bytes(raw); item['saved_file']=str(p)
+            result['images'].append(item)
+
+          result['adjudication']={'source_emitted_only':True,'visual_review_status':'PENDING_DIRECT_NO_OCR_REVIEW','jinzhang_bibliographic_identity':'PENDING_CONTEXT_REVIEW','physical_imprint_observed':'PENDING_DIRECT_IMAGE_REVIEW','target_page_status':'PENDING_DIRECT_NO_OCR_REVIEW','independent_textual_witness_increment':0,'algorithm_effect':'NONE'}
+          (OUT/'ziwei-jinzhang-public-facsimile-surfaces-af.json').write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding='utf-8')
+          print(json.dumps({'pages':[{'label':p['label'],'ok':p.get('ok'),'status':p.get('status'),'raw_bytes':p.get('raw_bytes'),'decoded_bytes':p.get('decoded_bytes'),'context_count':len(p.get('contexts',[])),'image_url_count':len(p.get('source_emitted_image_urls',[]))} for p in result['pages']],'saved':[{'source_page':x['source_page'],'bytes':x.get('decoded_bytes'),'sha256':x.get('sha256'),'saved_file':x.get('saved_file'),'url':x['url']} for x in result['images'] if x.get('saved_file')],'adjudication':result['adjudication']},ensure_ascii=False,indent=2))
+
+      - name: Upload Jinzhang public-surface artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ziwei-jinzhang-public-facsimile-surfaces-af
+          path: probe/
+          if-no-files-found: warn
+          retention-days: 14

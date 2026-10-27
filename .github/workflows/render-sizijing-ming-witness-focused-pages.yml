@@ -1,0 +1,49 @@
+name: render-sizijing-ming-witness-focused-pages
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/render-sizijing-ming-witness-focused-pages.yml
+
+permissions:
+  contents: read
+
+jobs:
+  render-focused:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install poppler
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils
+      - name: Download public-domain facsimiles
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p focused/tw focused/yimen
+          curl -L --fail --retry 3 \
+            'https://commons.wikimedia.org/wiki/Special:Redirect/file/NCL-15275-0058_%E5%9B%9B%E5%AD%97%E7%B6%93.pdf' \
+            -o focused/tw.pdf
+          curl -L --fail --retry 3 \
+            'https://commons.wikimedia.org/wiki/Special:Redirect/file/NLC892-411999013864-69586_%E5%A4%B7%E9%96%80%E5%BB%A3%E7%89%98%E4%B8%80%E7%99%BE%E2%97%8B%E5%85%AD%E7%A8%AE_%E7%AC%AC10%E5%86%8A.pdf' \
+            -o focused/yimen.pdf
+          sha256sum focused/*.pdf | tee focused/pdf-sha256.txt
+      - name: Render focused pages without OCR
+        shell: bash
+        run: |
+          set -euo pipefail
+          pdftoppm -f 3 -l 5 -jpeg -r 180 focused/tw.pdf focused/tw/page
+          pdftoppm -f 108 -l 116 -jpeg -r 150 focused/yimen.pdf focused/yimen/page
+          sha256sum focused/tw/*.jpg focused/yimen/*.jpg > focused/rendered-sha256.txt
+      - name: Upload focused evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: sizijing-ming-witness-focused-pages
+          path: |
+            focused/tw/*.jpg
+            focused/yimen/*.jpg
+            focused/*.txt
+          retention-days: 30

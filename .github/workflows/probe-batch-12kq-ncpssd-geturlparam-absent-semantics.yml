@@ -1,0 +1,118 @@
+name: probe-batch-12kq-ncpssd-geturlparam-absent-semantics
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12kq-ncpssd-geturlparam-absent-semantics.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Recover source-emitted getUrlParam definition without executing result API
+        run: |
+          python - <<'PY'
+          import hashlib, html, json, re
+          from html.parser import HTMLParser
+          from pathlib import Path
+          from urllib.parse import urljoin
+          import requests
+
+          SHELL_URL="https://www.ncpssd.cn/Literature/articlelist?sType=0&search=KElLVEU9Iue6oualvOaipiIgT1IgSUtQWVRFPSLnuqLmpbzmoqYiICBPUiBJS1NUPSLnuqLmpbzmoqYiIE9SIElLRVQ9Iue6oualvOaipiIgT1IgSUtTRT0i57qi5qW85qKmIik=&searchname=6aKY5ZCNL+WFs+mUruivjT0i57qi5qW85qKmIg==&nav=0&nav=0&showBack=true"
+          UA={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; NCPSsd getUrlParam semantics)"}
+
+          def sha(b): return hashlib.sha256(b).hexdigest()
+          def decode_text(raw):
+              for enc in ("utf-8","utf-8-sig","gb18030","gbk","big5"):
+                  try: return raw.decode(enc),enc
+                  except UnicodeDecodeError: pass
+              return raw.decode("utf-8","replace"),"utf-8-replacement"
+
+          class Scan(HTMLParser):
+              def __init__(self):
+                  super().__init__(convert_charrefs=False); self.scripts=[]
+              def handle_starttag(self,tag,attrs):
+                  if tag=="script":
+                      d={k:v for k,v in attrs}
+                      if d.get("src"): self.scripts.append(d["src"])
+
+          s=requests.Session(); s.headers.update(UA)
+          shell=s.get(SHELL_URL,timeout=45,allow_redirects=True)
+          shelltxt,shellenc=decode_text(shell.content)
+          sc=Scan(); sc.feed(shelltxt)
+          urls=[]
+          for src in sc.scripts:
+              u=urljoin(shell.url,html.unescape(src))
+              if u not in urls: urls.append(u)
+
+          rows=[]; defs=[]
+          patterns=[
+              r"function\s+getUrlParam\s*\([^)]*\)\s*\{[\s\S]{0,5000?}\}",
+              r"(?:var|let|const)\s+getUrlParam\s*=\s*function\s*\([^)]*\)\s*\{[\s\S]{0,5000?}\}",
+              r"getUrlParam\s*[:=]\s*(?:function)?\s*\([^)]*\)\s*=>?\s*\{[\s\S]{0,5000?}\}"
+          ]
+          # Use balanced-ish context around every declaration hit; do not execute JavaScript.
+          for u in urls:
+              try:
+                  r=s.get(u,timeout=30,allow_redirects=True)
+                  txt,enc=decode_text(r.content)
+                  row={"url":u,"http_status":r.status_code,"bytes":len(r.content),"sha256":sha(r.content),"decode_used":enc}
+                  hits=[]
+                  for m in re.finditer(r"\bgetUrlParam\b",txt):
+                      ctx=txt[max(0,m.start()-1800):min(len(txt),m.end()+5200)]
+                      if re.search(r"function\s+getUrlParam|getUrlParam\s*=\s*function|getUrlParam\s*:",ctx):
+                          hits.append({"start":m.start(),"context":ctx})
+                          defs.append({"script_url":u,"script_sha256":sha(r.content),"start":m.start(),"context":ctx})
+                          if len(hits)>=20: break
+                  row["definition_context_count"]=len(hits)
+                  rows.append(row)
+              except Exception as e:
+                  rows.append({"url":u,"error_class":type(e).__name__,"error":str(e)[:500]})
+
+          # The exact positive-control URL lacks ajaxKeys. Record that as a transport fact.
+          has_ajaxkeys=("ajaxKeys=" in SHELL_URL or "&ajaxKeys" in SHELL_URL or "?ajaxKeys" in SHELL_URL)
+
+          out={
+            "source_contract":{
+              "parent_batch":"12KP",
+              "positive_control_url":SHELL_URL,
+              "positive_control_has_ajaxKeys_parameter":has_ajaxkeys,
+              "dynamic_endpoint_executed":False
+            },
+            "shell_response":{"http_status":shell.status_code,"bytes":len(shell.content),"sha256":sha(shell.content),"decode_used":shellenc},
+            "source_emitted_script_count":len(urls),
+            "script_probes":rows,
+            "getUrlParam_definition_contexts":defs,
+            "adjudication":{
+              "ajaxKeys_absent_from_positive_control_url":not has_ajaxkeys,
+              "dynamic_endpoint_executed":False,
+              "post_request_used":False,
+              "target_zhao_query_submitted":False,
+              "login_used":False
+            },
+            "security":{
+              "anonymous_get_only":True,
+              "reader_account_used":False,
+              "registration_used":False,
+              "post_request_used":False,
+              "state_changing_request_used":False,
+              "private_endpoint_guessed":False,
+              "dynamic_endpoint_guessed":False,
+              "captcha_bypass_used":False,
+              "tls_verification_disabled":False
+            }
+          }
+          Path("batch-12kq-ncpssd-geturlparam-absent-semantics.json").write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12kq-ncpssd-geturlparam-absent-semantics
+          path: batch-12kq-ncpssd-geturlparam-absent-semantics.json

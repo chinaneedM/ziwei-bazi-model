@@ -1,0 +1,99 @@
+{
+  "schema": "MING-DATONG-1569-TIME-COORDINATE-R1",
+  "schema_version": "1.0.0",
+  "status": "INTERNAL_COORDINATE_CLOSED_GEOGRAPHIC_QISHUO_REFERENCE_UNRESOLVED",
+  "runtime_calendar_adapter_authorized": false,
+  "internal_coordinate": {
+    "primary_source_id": "EXT-KOTENMON-DAMING-DATONG-1569",
+    "primary_facsimile_pdf_page_index_zero_based": 41,
+    "primary_method_heading": "推合朔時刻法",
+    "received_corroboration_source_id": "EXT-WIKISOURCE-MINGSHI-V35-DATONG-TIME",
+    "day_cycle_source_units": 10000,
+    "ke_per_day": 100,
+    "fen_per_ke": 100,
+    "miao_per_fen": 100,
+    "below_miao_radix": "DECIMAL_HUNDRED_BASED_WHERE_RECORDED",
+    "small_remainder_domain": "0 <= 小餘 < 10000 SOURCE_FEN",
+    "computational_day_boundary": "ZI_ZHENG",
+    "computational_zero_label": "子正",
+    "half_shichen_label_family": "子初/各支初",
+    "normalized_primary_mechanics": [
+      "Take event 定朔/弦望/恒氣 small remainder.",
+      "Multiply the small remainder by 12 for the 12-shichen clock conversion.",
+      "Full 10000 units determine the shichen position counted from 子正.",
+      "The half-shichen threshold is 5000 in the multiplied coordinate and uses the 初 label family.",
+      "Residual source fractions are converted to ke under the 100-ke day."
+    ],
+    "certainty": "HIGH_FOR_DAY_UNIT_ZI_ZHENG_ANCHOR_AND_100_KE_STRUCTURE; DISPLAY_EDGE_CARRY_REMAINS_SOURCE_SCOPED"
+  },
+  "ming_worked_replay": {
+    "source_id": "EXT-WIKISOURCE-GUJIN-LULIKAO-V49-DATONG",
+    "example_scope": "萬曆二十四年丙申歲閏八月朔日食曆〈大統〉",
+    "fixed_day_and_small_remainder_text": "定朔一萬五千〇三十九分二十二秒（normalized numeric 15039.22 source units）",
+    "small_remainder_source_units": "5039.22",
+    "source_shortcut": "餘以發斂法一分二十秒乘之",
+    "normalized_shortcut_multiplier": "1.20",
+    "expected_scaled_value": "6047.064",
+    "recorded_clock_label": "乙丑日午正初刻",
+    "evidence_role": "DETERMINISTIC_MING_WORKED_EXAMPLE_FOR_TIME_COORDINATE"
+  },
+  "boundary_semantics": {
+    "status": "SOURCE_SCOPED_COMPUTATIONAL_DAY_BOUNDARY_CLOSED",
+    "boundary": "ZI_ZHENG",
+    "late_zi_pre_boundary_label": "夜子初",
+    "reasoning": [
+      "The primary 1569 conversion counts the internal day clock from 子正.",
+      "The event small remainder is bounded below the next 10000-unit day.",
+      "Late 子初 is therefore represented before the next 子正 rollover in this calendar-astronomy coordinate.",
+      "Published comparisons preserve examples labelled 夜子初 immediately before the next 子正 boundary."
+    ],
+    "supporting_validation_source_id": "EXT-YTLIU-MING-DATONG-CONJUNCTION-D1-D2"
+  },
+  "scope_firewalls": {
+    "astrological_day_boundary_inference_forbidden": true,
+    "bazi_day_boundary_selection_forbidden": true,
+    "ziwei_day_boundary_selection_forbidden": true,
+    "rationale": "This is the day/time coordinate used by Ming calendrical astronomy for qishuo/event timing. It is not an astrological doctrine for Bazi or Ziwei date rollover."
+  },
+  "geographic_realization": {
+    "status": "PARTIALLY_RESEARCHED_NOT_CLOSED_FOR_QISHUO",
+    "qishuo_meridian_reference_status": "UNRESOLVED",
+    "implicit_utc_mapping_forbidden": true,
+    "implicit_modern_timezone_mapping_forbidden": true,
+    "inherit_sunrise_sunset_table_location_forbidden": true,
+    "evidence": [
+      {
+        "source_id": "EXT-CTEXT-MINGSHI-ASTRONOMY-BEIJING-NANJING-CLOCK",
+        "finding": "Ming institutional records explicitly distinguish Beijing and Nanjing polar altitude, sunrise/sunset and clepsydra/timekeeping behavior."
+      },
+      {
+        "source_id": "EXT-WIKISOURCE-WANLI-YEHUO-DATONG-DAYLENGTH",
+        "finding": "Late-Ming witness preserves the policy dispute over Beijing versus Nanjing daylength values in Datong almanacs."
+      },
+      {
+        "source_id": "EXT-RAA-MIHN-SHOUSHI-AFFILIATED-2014",
+        "finding": "International peer-reviewed reconstruction verifies Shoushi-Licheng sunrise/sunset tables as Beijing and Mingshi Datong sunrise/sunset tables as Nanjing."
+      },
+      {
+        "source_id": "EXT-WILEY-CHOI-DATONGLI-SUNRISE-2018",
+        "finding": "International peer-reviewed reconstruction independently reproduces the Datongli sunrise/sunset subsystem and its location-dependent tables."
+      }
+    ],
+    "unresolved_question": "Which geographical/meridian reference was operationally attached to qishuo/conjunction small remainder in the 1578 official Datong almanac context?"
+  },
+  "overseas_oracle_expansion": {
+    "source_id": "EXT-LOC-DATONG-1524-ALMANAC",
+    "role": "DIGITIZED_MING_OFFICIAL_ALMANAC_FOR_FUTURE_PAGE_LEVEL_TIME_ORACLE_EXTRACTION",
+    "note": "This broadens the official-almanac evidence pool beyond current East Asian holdings and is not yet transcribed into a qishuo fixture."
+  },
+  "unresolved_before_general_adapter": [
+    "QISHUO_GEOGRAPHIC_OR_MERIDIAN_REFERENCE",
+    "COMPLETE_1569_YINGSUO_AND_CHIJI_TABLE_TRANSCRIPTION",
+    "COMPLETE_1569_INTERPOLATION_CARRY_AND_SOURCE_UNIT_SEMANTICS",
+    "SOURCE_DERIVED_D1_REPLAY_TO_1578_MONTH_START_ORACLE",
+    "EXACT_1578_QINTIANJIAN_ALMANAC_PAGE_COLLATION",
+    "INVALID_DATE_AND_MONTH_LENGTH_ADDITION_SEMANTICS",
+    "MULTI_YEAR_LEAP_MONTH_GENERALIZATION",
+    "TEN_YEAR_DAYUN_RECURRENCE_UNDER_SAME_HISTORICAL_REGIME"
+  ]
+}

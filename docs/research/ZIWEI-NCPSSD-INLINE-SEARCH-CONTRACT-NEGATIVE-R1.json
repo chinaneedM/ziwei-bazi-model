@@ -1,0 +1,100 @@
+{
+  "schema": "ZIWEI-NCPSSD-INLINE-SEARCH-CONTRACT-NEGATIVE-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-NCPSSD-INLINE-SEARCH-CONTRACT-NEGATIVE-KI",
+  "prior_batch_id": "BATCH-12-ZIWEI-NCPSSD-PUBLIC-SEARCH-SURFACE-KH",
+  "question": "Are the NCPSsd public search execution functions Basicsearch/AdvancedSearch/Search_text and related functions defined inline in the first-party homepage source?",
+  "answer": "No. The same 198,008-byte public homepage contains six inline script blocks, but direct brace-aware extraction finds none of Basicsearch, AdvancedSearch, Search_text, qkSearchCondition, Search_GJ or waiwen_search. Only hideSearch is defined inline. No route/navigation expression or referenced search-control ID is recovered from the target function set because the target functions are absent. This refutes the KH working hypothesis that the executable search contract is likely inline; the contract remains unresolved and must be sought only in scripts actually source-emitted by the homepage.",
+  "controlling_probe": {
+    "workflow": ".github/workflows/probe-batch-12ki-ncpssd-inline-search-contract.yml",
+    "exact_head": "5a95c334f1147070f66bd175f4dca4547fe7d111",
+    "workflow_run_id": 36858551261,
+    "workflow_job_id": 110356811675,
+    "artifact_id": 11159996909,
+    "artifact_name": "batch-12ki-ncpssd-inline-search-contract",
+    "artifact_digest": "sha256:2e5d7a674f5028a07334526e3d3cb6e9c4e78f88ef8e8d67839690eee444b0d5"
+  },
+  "home_response": {
+    "http_status": 200,
+    "url": "https://www.ncpssd.cn/",
+    "bytes": 198008,
+    "sha256": "19823cf7d2d3a89bd3f86081b113f779507ebe45acb86273fd961b537b056544",
+    "decode_used": "utf-8"
+  },
+  "inline_analysis": {
+    "inline_script_count": 6,
+    "target_functions": {
+      "Basicsearch": false,
+      "AdvancedSearch": false,
+      "Search_text": false,
+      "qkSearchCondition": false,
+      "Search_GJ": false,
+      "waiwen_search": false
+    },
+    "hideSearch": {
+      "found": true,
+      "sha256": "ccbcf39d89619b7b01640f38ef8df9cb86294994b6378cb6fb41a9bc6258df75"
+    },
+    "target_route_or_navigation_expression_count": 0,
+    "target_referenced_control_id_count": 0
+  },
+  "adjudication": {
+    "kh_likely_inline_hypothesis": "REFUTED",
+    "inline_executable_search_contract": "NOT_FOUND",
+    "overall_executable_public_search_contract": "UNRESOLVED_PENDING_ALL_SOURCE_EMITTED_SCRIPT_INVENTORY",
+    "query_submitted": false,
+    "form_submitted": false,
+    "login_used": false
+  },
+  "evidence_firewall": {
+    "missing_inline_definition_does_not_mean_search_unavailable": true,
+    "onclick_reference_without_definition_does_not_authorize_endpoint_guessing": true,
+    "next_search_must_follow_source_emitted_script_inventory": true,
+    "no_query_execution_means_no_target_result_claim": true
+  },
+  "security": {
+    "anonymous_get_only": true,
+    "reader_account_used": false,
+    "registration_used": false,
+    "post_request_used": false,
+    "state_changing_request_used": false,
+    "private_endpoint_guessed": false,
+    "search_endpoint_guessed": false,
+    "search_parameter_guessed": false,
+    "captcha_bypass_used": false,
+    "tls_verification_disabled": false
+  },
+  "transmission_impact": {
+    "status": "NONE_ACCESS_CONTRACT_ONLY",
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": [],
+    "reason": "Client-contract localization only; no historical text or transmission relation."
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Inventory every script URL actually source-emitted by the NCPSsd homepage, including non-ncpssd hosts and relative/protocol-relative sources.",
+    "Fetch only those source-emitted script resources and search them for Basicsearch/AdvancedSearch/Search_text/qkSearchCondition/Search_GJ/waiwen_search definitions.",
+    "Do not submit any query until a source-emitted executable contract is closed."
+  ],
+  "updated_at": "2026-10-01"
+}

@@ -1,0 +1,61 @@
+{
+  "schema": "ZIWEI-NANYANGTANG-LATE-ZI-NATAL-CANDIDATE-PRODUCT-SURFACE-RECONCILIATION-EVIDENCE-R1",
+  "schema_version": "1.0.0",
+  "parent_head": "644fc1072872f73e8ef9b2f8ae8172e776dc567e",
+  "source_and_runtime": {
+    "policy_registry_path": "config/time-calendar-policies.json",
+    "policy_registry_blob_sha": "23e5828aed4934a24caee7b9402943efb29b50ba",
+    "ziwei_policy_keys": [
+      "ziwei.calendar_date_policy",
+      "ziwei.life_body_leap_month_policy"
+    ],
+    "natal_path": "src/fortune_training/ziwei_chart/natal.py",
+    "natal_blob_sha": "75ae02c671607a1364e7fc5219d0649032c654dd",
+    "natal_uniform_zi_mapping_observed": true,
+    "profile_path": "src/fortune_training/ziwei_chart/profile.py",
+    "profile_blob_sha": "c7481cd8a3d5723a45ddf6028cd12b6355140104",
+    "profile_has_hour_branch_reclassification_policy": false,
+    "production_profile_path": "src/fortune_training/ziwei_chart/production_profile.py",
+    "production_profile_blob_sha": "6d237ce7f8db8b9dee6d0ac323c2e0f5b2077b7e",
+    "production_single_profile_contract": true
+  },
+  "adjacent_historical_candidate_api": {
+    "package_init_path": "src/fortune_training/ziwei_chart/__init__.py",
+    "package_init_blob_sha": "647e407563568c3f6c33d4318ccea7fd4a70350e",
+    "temporal_candidate_path": "src/fortune_training/ziwei_chart/temporal_historical_candidates.py",
+    "temporal_candidate_blob_sha": "3df52da7cd226c510506ad73856eacd6625bf0a8",
+    "package_exports_nanyang_candidate": false,
+    "temporal_registry_contains_nanyang_natal_method": false,
+    "temporal_methods_are_flow_hour_and_leap_month_only": true
+  },
+  "product_surface_checks": {
+    "combined_local_app_path": "src/fortune_training/combined_chart_application/local_app.py",
+    "combined_local_app_blob_sha": "8ef6d471499018b5dc027cf8acf29b3e118233cc",
+    "combined_local_has_ziwei_historical_natal_candidate_selector": false,
+    "combined_local_uses_single_production_ziwei_profile": true,
+    "workbench_path": "src/fortune_training/combined_chart_application/workbench_local_app.py",
+    "workbench_blob_sha": "29cb21dcef67ec61810afabcba3a21d80a7f6f90",
+    "workbench_contains_nanyang_late_zi_selector": false
+  },
+  "regression_and_source_controls": {
+    "regression_path": "tests/test_ziwei_quanshu_nanyangtang_late_zi_facsimile_r1.py",
+    "regression_blob_sha": "9d1d34aa9ab0d34bcba705965331b107aa5eb31a",
+    "regression_asserts_no_profile_can_express_half_zi_to_hai": true,
+    "nanyang_direct_collation_path": "docs/research/ZIWEI-QUANSHU-NANYANGTANG-LATE-ZI-DIRECT-COLLATION-R1.json",
+    "nanyang_direct_collation_blob_sha": "dfbed7a8e1bfd58c52a8c74403eec4682e77d47a",
+    "time_coordinate_narrowing_path": "docs/research/ZIWEI-LATE-ZI-HISTORICAL-TIME-COORDINATE-NARROWING-R1.json",
+    "time_coordinate_narrowing_blob_sha": "d23c029accc7c602cf0ea2a36df2b1d1b9949df7",
+    "direct_rule_attested": true,
+    "generic_orientation_closed": true,
+    "runtime_time_standard_binding_closed": false
+  },
+  "adjudication": {
+    "status": "MISSING_FROM_PRODUCT",
+    "new_provenance_defect": false,
+    "existing_matrix_gap_description_materially_stale": false,
+    "runtime_behavior_changed": false,
+    "candidate_selection_changed": false,
+    "production_default_changed": false,
+    "transmission_edge_created": false
+  }
+}

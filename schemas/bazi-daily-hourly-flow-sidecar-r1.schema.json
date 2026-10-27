@@ -1,0 +1,133 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/chinaneedM/ziwei-bazi-model/schemas/bazi-daily-hourly-flow-sidecar-r1.schema.json",
+  "title": "Bazi Daily Hourly Flow Sidecar R1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "status", "candidates", "diagnostics"],
+  "properties": {
+    "schema": {"const": "BAZI-DAILY-HOURLY-FLOW-RESOLUTION-R1"},
+    "status": {"enum": ["RESOLVED", "MULTI_CANDIDATE", "FAILED"]},
+    "candidates": {"type": "array", "items": {"$ref": "#/$defs/candidate"}},
+    "diagnostics": {"type": "array", "items": {"type": "string"}}
+  },
+  "$defs": {
+    "dailyFrame": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["frame_id", "ganzhi", "sexagenary_index", "effective_day_date", "start_las", "end_las", "interval_semantics", "day_boundary_policy", "source_flow_fact_hash", "source_target_coordinate_fact_hash", "source_target_coordinate_candidate_id", "natal_profile_id", "natal_profile_version"],
+      "properties": {
+        "frame_id": {"type": "string", "pattern": "^DAILY:[0-9a-f]{64}$"},
+        "ganzhi": {"type": "string", "minLength": 2, "maxLength": 2},
+        "sexagenary_index": {"type": "integer", "minimum": 0, "maximum": 59},
+        "effective_day_date": {"type": "string"},
+        "start_las": {"type": "string"},
+        "end_las": {"type": "string"},
+        "interval_semantics": {"const": "START_INCLUSIVE_END_EXCLUSIVE"},
+        "day_boundary_policy": {"enum": ["MIDNIGHT", "ZI_START_23"]},
+        "source_flow_fact_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "source_target_coordinate_fact_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "source_target_coordinate_candidate_id": {"type": "string", "pattern": "^BAZI-TARGET-TEMPORAL-CANDIDATE:[0-9a-f]{64}$"},
+        "natal_profile_id": {"type": "string", "minLength": 1},
+        "natal_profile_version": {"type": "string", "minLength": 1}
+      }
+    },
+    "hourlyFrame": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["frame_id", "ganzhi", "sexagenary_index", "branch", "start_las", "end_las", "interval_semantics", "hour_stem_source_date", "late_zi_hour_stem_policy", "daily_frame_id", "source_flow_fact_hash", "source_target_coordinate_fact_hash", "source_target_coordinate_candidate_id", "natal_profile_id", "natal_profile_version"],
+      "properties": {
+        "frame_id": {"type": "string", "pattern": "^HOURLY:[0-9a-f]{64}$"},
+        "ganzhi": {"type": "string", "minLength": 2, "maxLength": 2},
+        "sexagenary_index": {"type": "integer", "minimum": 0, "maximum": 59},
+        "branch": {"type": "string", "minLength": 1, "maxLength": 1},
+        "start_las": {"type": "string"},
+        "end_las": {"type": "string"},
+        "interval_semantics": {"const": "START_INCLUSIVE_END_EXCLUSIVE"},
+        "hour_stem_source_date": {"type": "string"},
+        "late_zi_hour_stem_policy": {"enum": ["CLASSICAL_CONTINUOUS", "CURRENT_DAY_STEM", "ZI_START_ROLLOVER"]},
+        "daily_frame_id": {"type": "string", "pattern": "^DAILY:[0-9a-f]{64}$"},
+        "source_flow_fact_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "source_target_coordinate_fact_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "source_target_coordinate_candidate_id": {"type": "string", "pattern": "^BAZI-TARGET-TEMPORAL-CANDIDATE:[0-9a-f]{64}$"},
+        "natal_profile_id": {"type": "string", "minLength": 1},
+        "natal_profile_version": {"type": "string", "minLength": 1}
+      }
+    },
+    "context": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["upstream_natal_fact_hash", "upstream_temporal_fact_hash", "source_flow_fact_hash", "source_flow_computation_hash", "source_flow_candidate_index", "source_target_coordinate_fact_hash", "source_target_coordinate_computation_hash", "source_target_coordinate_candidate_id", "source_target_coordinate_candidate_index", "target_utc", "target_local_apparent_solar_datetime", "target_longitude", "daily_frame", "hourly_frame", "natal_profile_id", "natal_profile_version", "day_boundary_policy", "late_zi_hour_stem_policy", "year_boundary_policy", "algorithm_versions"],
+      "properties": {
+        "upstream_natal_fact_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "upstream_temporal_fact_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "source_flow_fact_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "source_flow_computation_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "source_flow_candidate_index": {"type": "integer", "minimum": 0},
+        "source_target_coordinate_fact_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "source_target_coordinate_computation_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "source_target_coordinate_candidate_id": {"type": "string", "pattern": "^BAZI-TARGET-TEMPORAL-CANDIDATE:[0-9a-f]{64}$"},
+        "source_target_coordinate_candidate_index": {"type": "integer", "minimum": 0},
+        "target_utc": {"type": "string", "pattern": "Z$"},
+        "target_local_apparent_solar_datetime": {"type": "string"},
+        "target_longitude": {"type": "number", "minimum": -180, "maximum": 180},
+        "daily_frame": {"$ref": "#/$defs/dailyFrame"},
+        "hourly_frame": {"$ref": "#/$defs/hourlyFrame"},
+        "natal_profile_id": {"type": "string", "minLength": 1},
+        "natal_profile_version": {"type": "string", "minLength": 1},
+        "day_boundary_policy": {"enum": ["MIDNIGHT", "ZI_START_23"]},
+        "late_zi_hour_stem_policy": {"enum": ["CLASSICAL_CONTINUOUS", "CURRENT_DAY_STEM", "ZI_START_ROLLOVER"]},
+        "year_boundary_policy": {"const": "START_OF_SPRING"},
+        "algorithm_versions": {
+          "type": "object",
+          "additionalProperties": {"type": "string"},
+          "required": ["daily_hourly", "daily", "hourly", "bazi_time"]
+        }
+      }
+    },
+    "integrityDiagnostic": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["code", "path", "detail"],
+      "properties": {
+        "code": {"type": "string"},
+        "path": {"type": "string"},
+        "detail": {"type": "string"}
+      }
+    },
+    "integrity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "diagnostics", "algorithm_id", "algorithm_version"],
+      "properties": {
+        "status": {"enum": ["PASS", "FAIL"]},
+        "diagnostics": {"type": "array", "items": {"$ref": "#/$defs/integrityDiagnostic"}},
+        "algorithm_id": {"const": "BAZI-DAILY-HOURLY-FLOW-INTEGRITY-R1"},
+        "algorithm_version": {"const": "1.0.0"}
+      }
+    },
+    "hashes": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["fact_hash", "computation_hash", "algorithm_id", "algorithm_version"],
+      "properties": {
+        "fact_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "computation_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "algorithm_id": {"const": "BAZI-DAILY-HOURLY-FLOW-HASH-R1"},
+        "algorithm_version": {"const": "1.0.0"}
+      }
+    },
+    "candidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_flow_candidate_index", "source_target_coordinate_candidate_index", "context", "integrity", "hashes"],
+      "properties": {
+        "source_flow_candidate_index": {"type": "integer", "minimum": 0},
+        "source_target_coordinate_candidate_index": {"type": "integer", "minimum": 0},
+        "context": {"$ref": "#/$defs/context"},
+        "integrity": {"$ref": "#/$defs/integrity"},
+        "hashes": {"$ref": "#/$defs/hashes"}
+      }
+    }
+  }
+}

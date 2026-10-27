@@ -1,0 +1,80 @@
+name: research-huixian-nlcpress-booktext-postback-ae
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-huixian-nlcpress-booktext-postback-ae.yml
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Invoke public Booktext download action exactly as page exposes it
+        shell: python
+        run: |
+          import hashlib, html, http.cookiejar, json, re, urllib.parse, urllib.request
+          from pathlib import Path
+          OUT=Path('probe'); OUT.mkdir()
+          page='https://www.nlcpress.com/ProductView.aspx?Id=11941'
+          ua='Mozilla/5.0 provenance-research official-public-download-action'
+          cj=http.cookiejar.CookieJar()
+          opener=urllib.request.build_opener(urllib.request.HTTPCookieProcessor(cj))
+          req=urllib.request.Request(page,headers={'User-Agent':ua,'Accept-Language':'zh-CN,zh;q=0.9,en;q=0.5'})
+          with opener.open(req,timeout=35) as r:
+            raw=r.read(); status=r.status; final=r.geturl()
+          txt=raw.decode('utf-8','replace')
+          hidden={}
+          for m in re.finditer(r'''<input[^>]+type=["']hidden["'][^>]*>''',txt,re.I):
+            tag=m.group(0)
+            nm=re.search(r'''name=["']([^"']+)["']''',tag,re.I)
+            if not nm: continue
+            vm=re.search(r'''value=["']([^"']*)["']''',tag,re.I)
+            hidden[html.unescape(nm.group(1))]=html.unescape(vm.group(1)) if vm else ''
+          # The product page explicitly exposes javascript:__doPostBack('Booktext','').
+          data={k:v for k,v in hidden.items() if k.startswith('__')}
+          data['__EVENTTARGET']='Booktext'
+          data['__EVENTARGUMENT']=''
+          body=urllib.parse.urlencode(data).encode()
+          post=urllib.request.Request(final,data=body,headers={
+            'User-Agent':ua,
+            'Referer':page,
+            'Content-Type':'application/x-www-form-urlencoded',
+            'Accept':'text/plain,text/html,application/octet-stream,*/*;q=0.8'
+          },method='POST')
+          try:
+            with opener.open(post,timeout=40) as r:
+              out=r.read(8_000_000)
+              rec={'status':r.status,'final_url':r.geturl(),'content_type':r.headers.get('content-type'),'content_disposition':r.headers.get('content-disposition'),'bytes':len(out),'sha256':hashlib.sha256(out).hexdigest()}
+          except Exception as e:
+            out=b''; rec={'error':repr(e),'bytes':0}
+          if out:
+            (OUT/'booktext-response.bin').write_bytes(out)
+            # Save a decoded preview only for adjudication, not as OCR.
+            preview=None
+            for enc in ('utf-8','gb18030','utf-16','latin1'):
+              try: preview=out.decode(enc); break
+              except Exception: pass
+            if preview is not None:
+              (OUT/'booktext-response.txt').write_text(preview,encoding='utf-8')
+              rec['contains_huixian_title']='辉县市博物馆' in preview or '輝縣市博物館' in preview
+              rec['contains_ziwei_title']='紫微斗數全書' in preview or '紫微斗数全书' in preview
+              rec['contains_late_zi_target']='子時有十刻' in preview or '子时有十刻' in preview
+              rec['text_preview']=preview[:3500]
+          result={'schema':'ZIWEI-HUIXIAN-NLCPRESS-BOOKTEXT-POSTBACK-AE-R1','access_date':'2026-09-09','product_url':page,'initial_get_status':status,'public_action_observed':"__doPostBack('Booktext','')",'postback_result':rec,'authentication_attempted':False,'purchase_attempted':False,'identifier_guessing_attempted':False,'access_control_bypass_attempted':False,'adjudication':{'action_scope':'PUBLIC_PRODUCT_PAGE_BOOKTEXT_BUTTON_ONLY','target_page_claim_authorized':False,'algorithm_effect':'NONE'}}
+          (OUT/'huixian-nlcpress-booktext-postback-ae.json').write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding='utf-8')
+          print(json.dumps(result,ensure_ascii=False,indent=2))
+      - name: Upload public Booktext response
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ziwei-huixian-nlcpress-booktext-postback-ae
+          path: probe/
+          if-no-files-found: warn
+          retention-days: 14

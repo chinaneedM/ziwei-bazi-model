@@ -1,0 +1,114 @@
+{
+  "schema": "ZIWEI-WENWU-CANKAO-1951-V2N9-NABUNKEN-EXACT-ISSUE-AND-REMOTE-COPY-BOUNDARY-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-WENWU-CANKAO-1951-V2N9-NABUNKEN-EXACT-ISSUE-AND-REMOTE-COPY-BOUNDARY-JB",
+  "prior_batch_id": "BATCH-12-ZIWEI-ZHAO-WANLI-WENJI-V1-GOOGLE-BOOKS-SOURCE-EMITTED-OBJECT-CONFLICT-JA",
+  "question": "Can the 1951 《文物参攷資料》 volume 2 issue 9 target be upgraded from union-holding scope to a first-party exact single-issue item, and what is the current lawful remote-copy boundary without submitting an external request?",
+  "answer": "Yes for exact first-party issue identity and the current mediated remote-copy policy; no for direct pp.221–233 text. CiNii NCID AA11467834 source-emits the Nabunken OPAC route. The first-party Nabunken item closes Vol.2 no.9 / 1951 / local bib SB00333452 / hold TS00027259 / Document ID 10024273 / request number 202.505||3||1951-9C. The public surface exposes no direct target page surrogate. Nabunken's current official library policy states that copy inquiries from individuals are not accepted directly; individuals are directed to their institution library or nearest public library, with listed per-page fees and an institutional NACSIS-ILL route. No copy, ILL, login, identity-transmission or payment action was taken.",
+  "relation_to_prior_batches": {
+    "batch_12hh_original_issue_holding_routes_remain_closed": true,
+    "batch_12is_ndl_digital_provider_boundary_remains_closed": true,
+    "batch_12ig_official_2026_p197_quote_bridge_remains_closed": true,
+    "batch_12ja_direct_2011_p197_remains": "NOT_REVIEWED",
+    "new_increment": "FIRST_PARTY_EXACT_1951_V2N9_SINGLE_ISSUE_ITEM_PLUS_CURRENT_MEDIATED_REMOTE_COPY_POLICY"
+  },
+  "source_emitted_route": {
+    "cinii_ncid": "AA11467834",
+    "cinii_url": "https://ci.nii.ac.jp/ncid/AA11467834",
+    "nabunken_entry_source_emitted_by_cinii": true,
+    "nabunken_entry": "http://opac.nabunken.go.jp/gate?module=search&path=search.do&method=search&searchForm.library=true&searchForm.orderNumber=AA11467834",
+    "guessed_local_bib_id_used": false,
+    "guessed_hold_id_used": false
+  },
+  "nabunken_exact_issue": {
+    "provider": "奈良文化財研究所 図書資料室 OPAC",
+    "title": "文物参攷資料",
+    "ncid": "AA11467834",
+    "local_bib_id": "SB00333452",
+    "volume_issue": "Vol.2, no.9",
+    "year": 1951,
+    "hold_id": "TS00027259",
+    "document_id": "10024273",
+    "request_number": "202.505||3||1951-9C",
+    "first_party_exact_single_issue_identity_closed": true,
+    "public_page_level_surrogate_recovered": false,
+    "direct_target_pages_221_233_reviewed": false,
+    "direct_ding_six_wording_collated": false
+  },
+  "reproducible_probe": {
+    "workflow": ".github/workflows/probe-batch-12jb-nabunken-wenwu-1951-v2n9.yml",
+    "exact_head": "d6397eb2a68e0ca771fa8705d305fb2a5c63eb21",
+    "workflow_run_id": 36752861983,
+    "artifact_id": 11115411027,
+    "artifact_name": "batch-12jb-nabunken-wenwu-1951-v2n9",
+    "artifact_digest": "sha256:062324181d463477152c18c189152474d334ec842ac41ae09a0bf52304455884",
+    "required_identity_markers_all_true": true,
+    "policy_markers_all_true": true
+  },
+  "remote_copy_policy": {
+    "provider": "奈良文化財研究所",
+    "official_url": "https://www.nabunken.go.jp/usage/library.html",
+    "remote_use_policy_observed": true,
+    "direct_copy_inquiries_from_individuals_accepted": false,
+    "individual_must_use_institution_or_nearest_public_library_intermediary": true,
+    "nacsis_ill_route_observed": true,
+    "black_and_white_fee_yen_per_page": 60,
+    "color_fee_yen_per_page": 200,
+    "shipping_additional": true,
+    "policy_does_not_guarantee_target_copy_fulfillment": true,
+    "actual_request_requires_explicit_user_authorization": true
+  },
+  "text_and_access_firewall": {
+    "exact_issue_item_does_not_equal_direct_article_text": true,
+    "physical_holding_does_not_equal_copy_receipt": true,
+    "copy_policy_does_not_equal_copy_entitlement_or_success": true,
+    "direct_1951_vs_2011_textual_identity": "UNRESOLVED_PENDING_DIRECT_COLLATION",
+    "original_1951_pp221_233_directly_reviewed": false,
+    "direct_2011_p197": "NOT_REVIEWED"
+  },
+  "security": {
+    "login_used": false,
+    "account_action_used": false,
+    "copy_request_sent": false,
+    "interlibrary_loan_request_sent": false,
+    "identity_transmitted": false,
+    "payment_used": false,
+    "captcha_bypass_used": false,
+    "tls_verification_disabled": false,
+    "guessed_hold_id_used": false
+  },
+  "transmission_impact": {
+    "status": "NONE",
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": [],
+    "reason": "Modern first-party holding/access-policy control only; no historical transmission relation is established."
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Continue new lawful public/institutional page-level discovery for 2011 《赵万里文集》第1卷 p.197.",
+    "Continue no-action public page-level discovery for original 1951 《文物参考资料》第9期 pp.221–233 before using mediated/paid copy routes.",
+    "Treat Nabunken mediated remote copy and NDL paid remote copy as explicit-user-authorization-gated external actions.",
+    "Continue direct pp.446–449 recovery for the 1997 Beijing Library history compilation."
+  ],
+  "updated_at": "2026-10-01"
+}

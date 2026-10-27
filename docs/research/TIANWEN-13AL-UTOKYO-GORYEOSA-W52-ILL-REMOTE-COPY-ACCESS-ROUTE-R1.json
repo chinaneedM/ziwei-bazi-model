@@ -1,0 +1,120 @@
+{
+  "schema": "TIANWEN-13AL-UTOKYO-GORYEOSA-W52-FIRSTPARTY-ILL-AND-EXTERNAL-USER-ACCESS-FIREWALL-R1",
+  "date": "2026-10-20",
+  "issue_id": "TW-OPEN-0005",
+  "targets": [
+    {
+      "ncid": "BC15973641",
+      "call_number": "G23:194",
+      "work_volume": 52,
+      "registration": "0008542011",
+      "medium": "KOREAN_PRINT",
+      "direct_original_target_image": false,
+      "original_D16": null
+    },
+    {
+      "ncid": "BC15670118",
+      "call_number": "G23:12",
+      "work_volume": 52,
+      "registration": "0008535809",
+      "medium": "KOREAN_MANUSCRIPT",
+      "direct_original_target_image": false,
+      "original_D16": null
+    }
+  ],
+  "firstparty_pages": [
+    {
+      "url": "https://www.lib.u-tokyo.ac.jp/ja/library/general/user-guide/outside/gakugai",
+      "provider": "University of Tokyo General Library",
+      "type": "EXTERNAL_USER_AND_COPY_REQUEST_POLICY",
+      "key_claims": [
+        "Individual direct remote copy requests are not accepted",
+        "Domestic remote copy requests should be routed through university/affiliated or public library",
+        "For nonmembers, research-purpose onsite visits require advance reservation; older books may require staff-controlled use"
+      ]
+    },
+    {
+      "url": "https://www.lib.u-tokyo.ac.jp/ja/library/general/user-guide/outside/other-inst",
+      "provider": "University of Tokyo General Library",
+      "type": "LIBRARY_MEDIATED_ILL_POLICY",
+      "key_claims": [
+        "NACSIS-ILL university-library requests are supported for copies subject to holdings and individual material constraints",
+        "Japanese public-library requests accept copies, not loans",
+        "Individuals cannot submit directly",
+        "Rare/semi-rare copy may require staff-contractor digital photography and separate permission rather than electronic photocopy"
+      ]
+    },
+    {
+      "url": "https://www.lib.u-tokyo.ac.jp/en/library/general/user-guide/outside/other-inst",
+      "provider": "University of Tokyo General Library",
+      "type": "FOREIGN_LIBRARY_ILL_CONDITIONAL_POLICY_NOT_ADDITIONAL_SOURCE_COUNT",
+      "key_claims": [
+        "Only library staff may submit",
+        "Foreign library requests restricted where material is solely held by General Library (not established for these copies)",
+        "Some materials may be ineligible"
+      ]
+    }
+  ],
+  "access_routes": {
+    "remote_individual_direct_request": "NOT_ACCEPTED_BY_PROVIDER",
+    "japan_domestic_academic_library": "LIBRARY_MEDIATED_NACSIS_ILL_CONDITIONAL",
+    "japan_domestic_public_library": "LIBRARY_MEDIATED_COPIES_ONLY_CONDITIONAL",
+    "foreign_library": "LIBRARY_MEDIATED_ONLY_AND_SOLE_DOMESTIC_HOLDING_TEST_NOT_VERIFIED",
+    "onsite_nonmember": "ADVANCE_RESERVATION_RESEARCH_ONLY_SUBJECT_TO_EXACT_ITEM_AND_PRESERVATION",
+    "old_books": "STAFF_OR_CONTRACTOR_CONTROL_AS_APPLICABLE_TO_EXACT_SHELF_CLASS",
+    "firstparty_OPAC_copy_status": "UNREAD_AND_NOT_INFERABLE_FROM_UNION_CATALOG",
+    "request_sent": false,
+    "approval_received": false,
+    "original_scan_captured": false
+  },
+  "acquisition_request_minimum": {
+    "item_identification": [
+      "NCID",
+      "G23 call number",
+      "volume 52 registration number",
+      "physical holding library",
+      "catalog/OPAC shelf classification"
+    ],
+    "first_request_scope": [
+      "Confirm both exact physical volume52 items and shelf/access category",
+      "Ask whether in-house digital/microfilm substitutes exist for exact two items",
+      "Locate original solar (太陽盈縮/盈縮) D15-D18 table leaf for each separately",
+      "Ask permissible manuscript/print leaf photography or staff-contractor reproduction and institutional ILL procedure"
+    ],
+    "originals_required_for_numerical_vote": [
+      "holding provider",
+      "physical-copy call number and item ID",
+      "edition/impression identity if established",
+      "work volume and native folio/page",
+      "table heading and column",
+      "source bytes SHA256",
+      "source-native glyph crop",
+      "date and independent transcription",
+      "comparison to G893 NLC Waseda same-column values"
+    ]
+  },
+  "provenance_fences": {
+    "catalog_entry_is_original_page": false,
+    "copy_order_is_print_order": false,
+    "remote_route_response_is_permission_grant": false,
+    "direct_individual_ill_available": false,
+    "foreign_ill_exemption_established": false,
+    "same_work_title_establishes_same_plate": false,
+    "different_location_implies_independent_text_vote": false,
+    "sources_are_access_policy_not_historical_print": false
+  },
+  "non_promotions": {
+    "new_provider_policy_sources": 2,
+    "registry_root": 647,
+    "registry_extension": 103,
+    "registry_total": 750,
+    "original_target_images_added": 0,
+    "independent_original_numeric_votes_added": 0,
+    "graph_nodes_added": 0,
+    "graph_edges_added": 0,
+    "algorithm_reopens": 0,
+    "research_issues_remain_open": 11,
+    "product": "CLOSED"
+  },
+  "next_action": "Confirm with UTokyo staff exact G23:194/0008542011 and G23:12/0008535809 physical access and available surrogate; use a qualifying institution/library for a formal copy request or an authorized onsite visit, then record native leaf/folio and SHA; never assert a request was sent."
+}

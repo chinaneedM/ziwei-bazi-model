@@ -1,0 +1,78 @@
+{
+  "schema": "TIANWEN-12XG-STRICT-IOC-ORIGINAL-FOLIO-INTAKE-GATE-R1",
+  "date": "2026-10-15",
+  "status": "TECHNICAL_INTEGRITY_HARDENING_OF_12XD_ACTUAL_CLI_NO_ANCIENT_IMAGES_ACQUIRED",
+  "parent_intake": "scripts/verify-yehuobian-original-folio-intake-12xd.py",
+  "target": "1827 Oki item 6403767830, 1869 Kuraishi item 6403148395, original juan20 改造漏刻",
+  "defect": "12XD legacy check_receipt accepted an arbitrary HTTPS origin and magic-header-only fake PNG as METADATA_COMPLETE; this only checked the submitter-provided hash against the supplied bytes, not actual raster decoding or genuine institutional origin.",
+  "correction": "12XD real CLI now delegates received material to 12XG fail-closed image/URL gate after existing catalog+digest checks. 12XD standalone record remains historical snapshot. Any external delivery or PDF must wait for a separately scoped authorization/page-map path.",
+  "domain_policy": {
+    "allowed_exact_hosts": [
+      "ioc.u-tokyo.ac.jp",
+      "www.ioc.u-tokyo.ac.jp"
+    ],
+    "external_delivery_policy": "QUARANTINE_PENDING_INDEPENDENT_STAFF_COPY_BINDING",
+    "blacklist_modern_1959_path": "B1765700-1,2_photo.html",
+    "no_credentialed_urls": true,
+    "no_nonstandard_ports": true,
+    "no_fragment_links": true
+  },
+  "decoder_policy": {
+    "recognized_formats": [
+      "PNG",
+      "JPEG",
+      "TIFF_LE",
+      "TIFF_BE"
+    ],
+    "pdf_policy": "BLOCK_PENDING_SEPARATE_SOURCE_PAGE_RENDER",
+    "real_decode_library": "Pillow",
+    "pixel_limit": 80000000,
+    "max_bytes": 262144000,
+    "container_verify_and_pixel_load_both_required": true,
+    "synthetically_generated_images_are_only_for_tests": true
+  },
+  "test_policy": {
+    "fake_png_that_passed_12xd_rejected": true,
+    "fake_provider_host_rejected": true,
+    "url_userinfo_rejected": true,
+    "percent_encoded_1959_path_rejected": true,
+    "TIFF_and_JPEG_supported_when_decodable": true,
+    "PDF_requires_page_map": true,
+    "crypto_hash_equal_synthetic_file_does_not_mean_archival_provenance": true,
+    "capture_and_authorization_strings_self_reported_not_independently_verified": true,
+    "no_fake_staff_reply": true
+  },
+  "parent_sources": [
+    "docs/research/MING-DATONG-YEHUOBIAN-12WZ-TOKYO-SEVEN-FIRSTPARTY-RECORDS-AND-IMABORI-LEAF-GATE-R1.json",
+    "docs/research/MING-DATONG-YEHUOBIAN-12XC-TOKYO-ITEM-SPECIFIC-REPRODUCTION-DOSSIER-R1.json",
+    "docs/research/MING-DATONG-YEHUOBIAN-12XD-IOC-COPY-FORM-AND-ORIGINAL-FOLIO-INTAKE-R1.json",
+    "docs/research/MING-DATONG-YEHUOBIAN-12XF-UTOKYO-DIGITAL-ACCESS-DISAMBIGUATION-R1.json"
+  ],
+  "counts": {
+    "matrix_rows": 222,
+    "matrix_audited": 222,
+    "provenance_fixes": 45,
+    "sources_root": 647,
+    "sources_ext": 59,
+    "sources_total": 706,
+    "graph_nodes": 252,
+    "graph_edges": 238,
+    "formal_batches": 487
+  },
+  "historical_glpyh_votes_awarded": 0,
+  "plate_independence_votes_awarded": 0,
+  "ancient_original_page_acquired": false,
+  "communication_or_reproduction_request_submitted": false,
+  "algorithm_reopened": false,
+  "product": "CLOSED",
+  "next_step": "Official original 1827/1869 book page delivery; item and edition/source image binding; actual human four-locus glyph and plate adjudication.",
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [],
+    "unresolved_lineage_questions": [
+      "Two independent original printed juan20 target leaves have yet to be located or authorized."
+    ]
+  }
+}

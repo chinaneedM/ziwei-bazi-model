@@ -1,0 +1,108 @@
+{
+  "schema": "ZIWEI-KOREA-CNTS-ZIWEIDOUSHUFANGSHU-DIRECT-LATE-ZI-COLLATION-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-KOREA-CNTS-ZIWEIDOUSHUFANGSHU-DIRECT-LATE-ZI-COLLATION-Z",
+  "hpa_rule_id": "HPA-ZDATE-006",
+  "access_date": "2026-09-08",
+  "preliminary_public_sample_controls": {
+    "workflow_run_id": 34246929528,
+    "workflow_head_sha": "0d89c1fb636f3358f311bc6759b6f1fb9f41a72e",
+    "artifact_id": 10064408521,
+    "artifact_zip_sha256": "cb0f87ae9daf385142ff0a141e29b6d4d6d88b4b06bb3088b0c432eabed6f97f",
+    "artifact_json_sha256": "0634cb1f84ce76384bdb732b5c73d06593a577d3ef0ef6cd69bc2036c609a207",
+    "direct_visual_review_without_ocr": {
+      "gujiwu_67626": "9 source-emitted Dayuan images reviewed; modern cover/front-matter/contents surfaces only; target passage not observed",
+      "jiwen_2book": "9 source-emitted objects reviewed; multiple genuine old-print facsimile spreads visible, but no 五凶神/子有十刻 target passage observed",
+      "guoxuezhan_6058_6154": "retrieved images are site UI/logo/QR-type assets, not target book pages",
+      "quark_alternative_route": "later public locator resolves to the already-controlled SNU share 3b7b731e41f2; same SNU digitization lineage, do not double count"
+    },
+    "target_text_witness_increment": 0,
+    "algorithm_effect": "NONE"
+  },
+  "korea_cnts_acquisition": {
+    "workflow_run_id": 34247945308,
+    "workflow_head_sha": "b6343215b0aa8c6f16e3a1a1d95ccfbdcd3df89d",
+    "artifact_id": 10064784871,
+    "artifact_zip_sha256": "64b1729df1523991a4ac764e8a4672cf7b6edeb41f94b56a47da49d5b17a6f95",
+    "pdf_url": "https://upload.wikimedia.org/wikipedia/commons/9/98/CNTS-00047996572_%E7%B4%AB%E5%BE%AE%E6%96%97%E6%95%B8%E6%96%B9%E6%9B%B8.pdf",
+    "pdf_sha256": "b21bbf3e2c7cdada4153f847ff9f359dbb29e71998e1f931417d108b571b23c3",
+    "pdf_bytes": 75687209,
+    "pdf_page_count": 153,
+    "authentication_attempted": false,
+    "purchase_attempted": false,
+    "identifier_guessing_attempted": false,
+    "access_control_bypass_attempted": false
+  },
+  "source_identity": {
+    "catalog_title": "紫微斗數方書",
+    "catalog_edition": "筆寫本",
+    "catalog_author": "編者未詳",
+    "extent": "2卷1冊; 34.2 x 23.3 cm",
+    "provider": "National Digital Library of Korea / National Library of Korea",
+    "cnts_id": "CNTS-00047996572",
+    "master_bib_no": "21581878",
+    "uci": "G701:B-00047996572",
+    "format_identifier": "KOL200100663",
+    "keywords": [
+      "자미두수",
+      "비전자미",
+      "춘강장",
+      "자미두수방서"
+    ],
+    "direct_cover_pdf_page_1": "秘傳紫微 / 春岡藏",
+    "exact_copying_date": "UNRESOLVED"
+  },
+  "direct_physical_collation_no_ocr": {
+    "pdf_page_124": {
+      "direct_glyphs": [
+        "五神天殤天使奏書直符將軍",
+        "凡五凶神不可重犯惡殺不可合湊更加歲限合死若流年二限凡一二位者只作災重凡論人"
+      ],
+      "derived_hires_render_sha256": "c14a114140cceea6a5e8602f8ead790dababd5456454675d57c30f3c4cfd1e1b"
+    },
+    "pdf_page_125": {
+      "direct_glyphs": "命有稱兩時者可詳之子有十刻上五刻屬昨夜下五刻屬今夜",
+      "explicit_hai_glyph_observed_in_exact_target_span": false,
+      "explicit_current_night_zi_glyph_observed_in_exact_target_span": false,
+      "derived_hires_render_sha256": "93e1ecfe606f16c857fa1c95ee337306eb16a5f1265a7f918c29f1b8a390a3a7"
+    },
+    "ocr_used": false
+  },
+  "philological_adjudication": {
+    "wushen_surface": "五神天殤天使奏書直符將軍",
+    "wuxiongshen_surface": "凡五凶神",
+    "relation": "SAME_FIVE_ENTITY_SET_DIFFERENT_PHRASE_ROLES_IN_SAME_PHYSICAL_PASSAGE",
+    "silent_wushen_to_wuxiongshen_character_correction_authorized": false,
+    "implication_for_dayuan_directory": "The physical Korean manuscript proves 五神 can be an authentic phrase introducing the five named spirits while the prose then calls them 五凶神; Dayuan's exact underlying page is still unobserved, so its directory must not be silently corrected."
+  },
+  "temporal_adjudication": {
+    "korea_manuscript_surface": "子有十刻上五刻屬昨夜下五刻屬今夜",
+    "nanyangtang_fullbook_surface": "子時有十刻上五刻屬昨夜亥時下五刻屬今日子時",
+    "mechanically_identical_branch_reclassification": false,
+    "explicit_hai_reclassification_in_korea_manuscript": false,
+    "conclusion": "EXPLICIT_HAI_RECLASSIFICATION_IS_NOT_UNIVERSAL_ACROSS_BROADER_RECEIVED_ZIWEI_TRANSMISSION; PRESERVE SOURCE_SCOPED METHODS",
+    "within_fullbook_family_hai_stability": "UNRESOLVED_PENDING_DIRECT_FULLBOOK_PHYSICAL_TARGET_PAGES"
+  },
+  "evidence_independence": {
+    "distinct_physical_object_from_nanyangtang_fullbook": true,
+    "distinct_physical_object_from_snu_mingjingge_1870_print": true,
+    "deep_textual_stemma_independence": "UNRESOLVED",
+    "direct_physical_target_text_witness_increment": 1,
+    "independent_hai_glyph_witness_increment": 0
+  },
+  "adjudication": {
+    "hpa_zdate_006": "MISSING_FROM_PRODUCT",
+    "new_missing_candidate_family": false,
+    "new_chart_rule_candidate_authorized": false,
+    "candidate_selection_authorized": false,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_count": 0,
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "identified_missing_candidate_families": 14,
+    "algorithm_effect": "NONE",
+    "next_gate": "DIRECT_FULLBOOK_TARGET_PAGE_FROM_DUNHUATANG_JISHUTANG_JINGLUNTANG_WENCHENGTANG_OR_EQUIVALENT_PLUS_RUNTIME_TIME_STANDARD_BINDING"
+  }
+}

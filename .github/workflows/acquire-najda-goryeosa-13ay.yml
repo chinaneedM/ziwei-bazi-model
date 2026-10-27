@@ -1,0 +1,38 @@
+name: acquire-najda-goryeosa-13ay
+on:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - scripts/acquire-najda-goryeosa-13ay.py
+      - .github/workflows/acquire-najda-goryeosa-13ay.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  eight-pages-per-artifact:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    strategy:
+      fail-fast: false
+      matrix:
+        part: [1, 2, 3, 4]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Confirm strict source-manifest parser and no URL guessing
+        run: python -m unittest discover -s tests -p 'test_najda_goryeosa_13ay.py' -v
+      - name: Obtain bounded original 8-page group from exact firstparty manifest
+        env:
+          NAJ_13AY_PART: ${{ matrix.part }}
+        run: python scripts/acquire-najda-goryeosa-13ay.py
+      - name: Preserve source byte hashes and bounded JPEG evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: najda-goryeosa-13ay-part${{ matrix.part }}
+          path: najda-goryeosa-13ay-part${{ matrix.part }}/
+          retention-days: 30
+          if-no-files-found: error

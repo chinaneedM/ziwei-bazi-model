@@ -1,0 +1,107 @@
+name: probe-batch-12kw-ncpssd-articleinfo-script-contract
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12kw-ncpssd-articleinfo-script-contract.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inspect source-emitted articleinfo.js without executing discovered APIs
+        run: |
+          python - <<'PY'
+          import hashlib, json, re
+          from pathlib import Path
+          import requests
+
+          URL="https://www.ncpssd.cn/js/web/Literature/articleinfo.js"
+          UA={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; NCPSsd articleinfo source contract)"}
+          r=requests.get(URL,headers=UA,timeout=45,allow_redirects=False)
+          raw=r.content
+          for enc in ("utf-8","utf-8-sig","gb18030","gbk","big5"):
+              try:
+                  txt=raw.decode(enc); used=enc; break
+              except UnicodeDecodeError:
+                  continue
+          else:
+              txt=raw.decode("utf-8","replace"); used="utf-8-replacement"
+
+          def contexts(pattern,limit=120,before=1800,after=5000,flags=re.I|re.S):
+              rows=[]
+              for m in re.finditer(pattern,txt,flags):
+                  rows.append({
+                      "match":m.group(0)[:1200],
+                      "start":m.start(),
+                      "context":txt[max(0,m.start()-before):min(len(txt),m.end()+after)]
+                  })
+                  if len(rows)>=limit: break
+              return rows
+
+          string_routes=[]
+          for m in re.finditer(r"""(?:"|')((?:/|https?://)[^"'\r\n]{1,500})(?:"|')""",txt):
+              v=m.group(1)
+              if re.search(r"(Handler|handler|Literature|article|read|download|login|user|detail|info)",v,re.I):
+                  if v not in string_routes: string_routes.append(v)
+
+          ajax=contexts(r"""\$\.ajax\s*\(\s*\{""",120)
+          axios=contexts(r"""\baxios\s*\.\s*(?:get|post|request)\s*\(""",80)
+          params=contexts(r"""getUrlParam\s*\(\s*["'][^"']+["']\s*\)""",120)
+          login=contexts(r"""login|登录|登錄|islogin|isLogin|userInfo|userid|token""",120)
+          encrypted=contexts(r"""encryptedUrl|params\b|pageUrl""",100)
+          init=contexts(r"""(?:\$\s*\(\s*function\s*\(|document\.ready|window\.onload|mounted\s*[:(])""",60)
+
+          out={
+              "source_contract":{
+                  "parent_batch":"12KV",
+                  "script_url":URL,
+                  "script_source":"directly source-emitted by the exact secure articleinfo shell",
+                  "discovered_endpoint_executed":False
+              },
+              "script_response":{
+                  "http_status":r.status_code,
+                  "bytes":len(raw),
+                  "sha256":hashlib.sha256(raw).hexdigest(),
+                  "decode_used":used
+              },
+              "route_like_string_literals":string_routes[:300],
+              "route_like_string_literal_count":len(string_routes),
+              "ajax_call_contexts":ajax,
+              "axios_call_contexts":axios,
+              "url_param_contexts":params,
+              "login_auth_contexts":login,
+              "encrypted_param_contexts":encrypted,
+              "init_contexts":init,
+              "adjudication":{
+                  "script_retrieved":r.status_code==200,
+                  "discovered_endpoint_executed":False,
+                  "target_detail_data_requested":False,
+                  "login_used":False
+              },
+              "security":{
+                  "anonymous_get_only":True,
+                  "reader_account_used":False,
+                  "registration_used":False,
+                  "post_request_used":False,
+                  "state_changing_request_used":False,
+                  "private_endpoint_guessed":False,
+                  "captcha_bypass_used":False,
+                  "tls_verification_disabled":False
+              }
+          }
+          Path("batch-12kw-ncpssd-articleinfo-script-contract.json").write_text(
+              json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12kw-ncpssd-articleinfo-script-contract
+          path: batch-12kw-ncpssd-articleinfo-script-contract.json

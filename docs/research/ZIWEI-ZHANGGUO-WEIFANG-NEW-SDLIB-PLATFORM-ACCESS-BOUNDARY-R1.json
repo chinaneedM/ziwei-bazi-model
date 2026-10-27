@@ -1,0 +1,137 @@
+{
+  "schema": "ZIWEI-ZHANGGUO-WEIFANG-NEW-SDLIB-PLATFORM-ACCESS-BOUNDARY-R1",
+  "batch_id": "BATCH-12-ZIWEI-ZHANGGUO-WEIFANG-NEW-SDLIB-PLATFORM-ACCESS-BOUNDARY-BD",
+  "question": "Does the 2026 replacement Shandong Ancient Books digital platform now expose first-party object bytes or metadata for the high-value Weifang Wanli-22 / 1594 locator 151613020240003?",
+  "target_locator": {
+    "resource_id": "151613020240003",
+    "title": "新編評註通玄先生張果星宗大全",
+    "secondary_edition_claim": "明萬曆二十二年(1594)唐謙刻本",
+    "secondary_holding_claim": "濰坊市圖書館",
+    "locator_status": "HIGH_VALUE_SECONDARY_LOCATOR_NOT_FIRST_PARTY_OBJECT_BINDING"
+  },
+  "platform_migration_context": {
+    "new_desktop_url": "https://guji.sdlib.cn/",
+    "new_mobile_url": "https://guji.sdlib.cn/gujih5/",
+    "public_announcement_report_url": "https://news.iqilu.com/shandong/shandonggedi/20260828/5940003.shtml",
+    "report_date": "2026-08-28",
+    "reported_builder": "山东省图书馆（山东省古籍保护中心）",
+    "reported_scope": "新版整合18家公藏单位，古籍全文资源587部、5834册；支持聚合检索、纯影像/图文对照和全文穿透检索",
+    "relation_to_batch_12az": "CURRENT_PUBLIC_PLATFORM_ENTRY_SUPERSEDES_OLD_SDLIB_COM_ENTRY_FOR_NEW_ACCESS_ATTEMPTS; AZ'S OLD-ROUTE RESULTS REMAIN HISTORICAL_EXECUTION_EVIDENCE"
+  },
+  "execution_evidence": {
+    "contract_probe": {
+      "workflow_run_id": 34645996628,
+      "job_id": 103416806990,
+      "head_sha": "010db0ac000e8a57a7f3c99fe9e2f912c05d8c2d",
+      "artifact_id": 10281512891,
+      "artifact_name": "sdlib-new-platform-public-contract-probe",
+      "artifact_zip_sha256": "a928ebde2ca48e6c38e32355b4abc943bbe63798e2688129c0a1828fee5c6c7a",
+      "root_results": {
+        "https://guji.sdlib.cn/": "URLError: <urlopen error timed out>",
+        "https://guji.sdlib.cn/gujih5/": "URLError: <urlopen error timed out>"
+      },
+      "root_success_count": 0,
+      "js_asset_count": 0,
+      "candidate_literal_count": 0,
+      "target_literal_hit_count": 0
+    },
+    "cross_egress_probe": {
+      "workflow_run_id": 34646138731,
+      "head_sha": "256c6821cf1c61b8678ea5eb685c3ece6d018f3a",
+      "dns": {
+        "host": "guji.sdlib.cn",
+        "address": "58.59.15.30"
+      },
+      "jobs": [
+        {
+          "os": "Linux",
+          "azure_region": "eastus",
+          "job_id": 103417271132,
+          "artifact_id": 10281888731,
+          "artifact_zip_sha256": "070d95a0c6e9b3d10806ed0040c0fae5869c989c7c3551b2a4c731a68c07ee57",
+          "tcp_443": "TIMEOUT",
+          "tcp_80": "TIMEOUT",
+          "tls_reached": false,
+          "https_root": "TIMEOUT",
+          "https_mobile": "TIMEOUT",
+          "http_root": "TIMEOUT"
+        },
+        {
+          "os": "Windows",
+          "azure_region": "westus2",
+          "job_id": 103417270900,
+          "artifact_id": 10281619241,
+          "artifact_zip_sha256": "f3a59f2a36d936f696b26526599d88a27b7dae2d2f56fa87c8e7b2d341916d68",
+          "tcp_443": "TIMEOUT",
+          "tcp_80": "TIMEOUT",
+          "tls_reached": false,
+          "https_root": "TIMEOUT",
+          "https_mobile": "TIMEOUT",
+          "http_root": "TIMEOUT"
+        },
+        {
+          "os": "macOS",
+          "azure_region": "westus",
+          "job_id": 103417271136,
+          "artifact_id": 10282178367,
+          "artifact_zip_sha256": "f0fb18d3e93e0840674deec8979bee9fadb2835003463d763855ee1a569d9837",
+          "tcp_443": "TIMEOUT",
+          "tcp_80": "TIMEOUT",
+          "tls_reached": false,
+          "https_root": "TIMEOUT",
+          "https_mobile": "TIMEOUT",
+          "http_root": "TIMEOUT"
+        }
+      ],
+      "all_reviewed_egresses_dns_resolved_same_ipv4": true,
+      "all_reviewed_egresses_tcp_80_443_timed_out": true,
+      "http_or_tls_layer_reached": false
+    }
+  },
+  "access_adjudication": {
+    "new_platform_hostname_dns_resolved": true,
+    "resolved_ipv4": "58.59.15.30",
+    "reviewed_runner_egress_count": 3,
+    "reviewed_os": [
+      "Linux",
+      "Windows",
+      "macOS"
+    ],
+    "reviewed_azure_regions": [
+      "eastus",
+      "westus2",
+      "westus"
+    ],
+    "tcp_80_or_443_connection_obtained": false,
+    "tls_handshake_obtained": false,
+    "http_response_obtained": false,
+    "first_party_frontend_bytes_obtained": false,
+    "first_party_api_contract_recovered": false,
+    "first_party_target_catalog_record_obtained": false,
+    "first_party_target_image_or_page_bytes_obtained": false,
+    "target_leaf_obtained": false,
+    "boundary_class": "REVIEWED_GITHUB_MULTI_REGION_EGRESS_TCP_TIMEOUT_BEFORE_TLS_HTTP",
+    "site_down_claim_authorized": false,
+    "resource_gone_claim_authorized": false,
+    "no_holding_inference_authorized": true,
+    "no_digitization_inference_authorized": true,
+    "whole_holding_text_negative_authorized": false
+  },
+  "witness_accounting": {
+    "independent_exact_1594_material_witness_increment": 0,
+    "independent_target_text_witness_increment": 0,
+    "independent_hai_glyph_witness_increment": 0,
+    "locator_strength_change": "CURRENT_PLATFORM_ENTRY_IDENTIFIED_AND_NETWORK_BOUNDARY_NARROWED; NO_ITEM_PROMOTION"
+  },
+  "project_consequence": {
+    "audit_row": "HPA-ZDATE-006",
+    "audit_status": "MISSING_FROM_PRODUCT",
+    "matrix_row_count_change": false,
+    "identified_missing_candidate_family_count_change": false,
+    "provenance_defect_count_change": false,
+    "new_candidate_family": false,
+    "runtime_winner_selected": false,
+    "candidate_collapsed": false,
+    "algorithm_reopen": false
+  }
+}

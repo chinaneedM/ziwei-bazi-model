@@ -1,0 +1,113 @@
+name: probe-batch-12iy-ji15-google-books-transaction-chronology
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12iy-ji15-google-books-transaction-chronology.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Probe Ji15 Google Books transaction chronology terms
+        run: |
+          python - <<'PY'
+          import hashlib, html, json, re, time
+          from pathlib import Path
+          from urllib.parse import urlencode
+          import requests
+
+          BOOK_ID="k4MzlCiOPIcC"
+          BASE="https://books.google.com/books"
+          TERMS=[
+            "1950年1月7日","1950年3月","1953年3月",
+            "一九五〇年一月七日","一九五〇年三月","一九五三年三月",
+            "304种","三百零四种","52种","五十二种",
+            "123种","一百二十三种","97种","九十七种",
+            "三百多种","第一批","第二批","第三批",
+            "卖了304种","捐赠52种","卖了123种","捐赠97种"
+          ]
+          UA="Mozilla/5.0 (Tianwen provenance audit; Google Books page-numbered transaction chronology probe)"
+          MAX_BYTES=2*1024*1024
+
+          def visible(raw):
+              raw=re.sub(r'<script\b.*?</script>',' ',raw,flags=re.I|re.S)
+              raw=re.sub(r'<style\b.*?</style>',' ',raw,flags=re.I|re.S)
+              raw=re.sub(r'<[^>]+>',' ',raw)
+              return re.sub(r'\s+',' ',html.unescape(raw)).strip()
+
+          def contexts(text,term,radius=280,limit=8):
+              out=[]; p=0
+              while len(out)<limit:
+                  i=text.find(term,p)
+                  if i<0: break
+                  out.append(text[max(0,i-radius):min(len(text),i+len(term)+radius)])
+                  p=i+len(term)
+              return out
+
+          s=requests.Session()
+          s.headers.update({"User-Agent":UA,"Accept-Language":"zh-CN,zh;q=0.9,en;q=0.7"})
+          out={
+            "book_id":BOOK_ID,
+            "scope":"Exact Google Books object source-emitted by ISBN 9787501340637; same public in-book q= contract as Batch 12IX.",
+            "queries":[],
+            "security":{"login_used":False,"account_action_used":False,"copy_request_used":False,
+                        "payment_used":False,"captcha_bypass_used":False,"tls_verification_disabled":False,
+                        "guessed_object_id_used":False,"guessed_endpoint_used":False}
+          }
+
+          for term in TERMS:
+              url=BASE+"?"+urlencode({"id":BOOK_ID,"q":term,"hl":"zh-CN"})
+              row={"term":term,"url":url}
+              try:
+                  r=s.get(url,timeout=45,allow_redirects=True,stream=True)
+                  data=bytearray(); trunc=False
+                  for chunk in r.iter_content(65536):
+                      if not chunk: continue
+                      if len(data)+len(chunk)>MAX_BYTES:
+                          take=MAX_BYTES-len(data)
+                          if take>0: data.extend(chunk[:take])
+                          trunc=True; break
+                      data.extend(chunk)
+                  b=bytes(data)
+                  raw=b.decode(r.encoding or "utf-8","replace")
+                  text=visible(raw)
+                  page_hits=[]
+                  for m in re.finditer(r'第\s*(\d{1,3})\s*页',text):
+                      n=int(m.group(1))
+                      if n not in page_hits: page_hits.append(n)
+                  row.update({
+                    "status":r.status_code,
+                    "final_url":r.url,
+                    "content_type":r.headers.get("Content-Type",""),
+                    "bytes_read":len(b),
+                    "truncated_at_2mib":trunc,
+                    "body_sha256":hashlib.sha256(b).hexdigest(),
+                    "term_visible":term in text,
+                    "result_count_text":re.findall(r'共有\s*\d+\s*个结果',text)[:4],
+                    "page_hits":page_hits[:30],
+                    "term_contexts":contexts(text,term),
+                    "chapter9_marker":("第九讲" in text and "铁琴铜剑楼" in text),
+                    "raw_body_saved":False,
+                    "raw_body_logged":False
+                  })
+              except Exception as e:
+                  row["error"]=f"{type(e).__name__}: {e}"
+              out["queries"].append(row)
+              time.sleep(0.3)
+
+          Path("ji15-google-books-transaction-chronology.json").write_text(
+              json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12iy-ji15-google-books-transaction-chronology
+          path: ji15-google-books-transaction-chronology.json

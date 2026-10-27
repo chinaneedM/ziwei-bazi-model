@@ -1,0 +1,48 @@
+{
+  "schema": "MING-DATONG-YEHUOBIAN-12QI-NLC-OLD20-FASC1-3-ATLAS-STAGING-R1",
+  "date": "2026-10-10",
+  "status": "SOURCE_IMAGE_CAPTURE_TRIGGERED_NOT_MANUAL_GLYPH_COLLATION",
+  "reason": "12QE old20 missing target passage; no search across entire original 20v manuscript is complete. Source-specific page atlas for first 3 of 10 NLC fascicles allows later manual folio localization instead of matching later reorganized volume numbers.",
+  "source_holding": "China National Library NLC-411999003250",
+  "physical_copy_count_delta": 0,
+  "fascicles_to_capture": [
+    {
+      "number": 1,
+      "volume_labels": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "expected_pages": 119,
+      "commons_file_id": "NLC892-411999003250-383065"
+    },
+    {
+      "number": 2,
+      "volume_labels": [
+        5
+      ],
+      "expected_pages": 72,
+      "commons_file_id": "NLC892-411999003250-383064"
+    },
+    {
+      "number": 3,
+      "volume_labels": [
+        6,
+        7
+      ],
+      "expected_pages": 121,
+      "commons_file_id": "NLC892-411999003250-383068"
+    }
+  ],
+  "expected_total_pages": 312,
+  "ocr_performed": false,
+  "derived_page_images_are_not_direct_manually_verified_glyphs": true,
+  "prior_fascicle10_pdf_hash": "8e746faaadcd961c7983981d419862d97fdc2a1f3ec33ecb02046e9e79a6376c",
+  "source_url_index": "docs/research/MING-DATONG-YEHUOBIAN-12PZ-CHINA-NLC-OLD20-TEN-FASCICLE-PUBLIC-DIGITAL-ROUTE-CROSSWALK-R1.json",
+  "runtime_or_algorithm_changes": false,
+  "old20_target_found": false,
+  "old20_whole_work_absence_proven": false,
+  "chart_r1": "CLOSED",
+  "followup": "Read hash and status manifests, manually review contact sheets against title and snippet, then inspect original page at full resolution; no whole-work negative inference if not found."
+}

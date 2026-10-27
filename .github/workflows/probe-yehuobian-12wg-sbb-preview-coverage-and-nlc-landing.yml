@@ -1,0 +1,36 @@
+name: probe-yehuobian-12wg-sbb-preview-coverage-and-nlc-landing
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-yehuobian-12wg-sbb-preview-coverage-and-nlc-landing.yml
+      - scripts/probe-yehuobian-sbb1827-coverage-and-nlc-12wg.py
+      - tests/test_yehuobian_sbb1827_coverage_and_nlc_12wg.py
+      - docs/research/MING-DATONG-YEHUOBIAN-12WG-*
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify-and-capture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Exact provider-only synthetic test and continuity gate
+        run: |
+          set -euo pipefail
+          python scripts/verify-project-continuity-state-r1.py
+          python -m unittest discover -s tests -p 'test_yehuobian_sbb1827_coverage_and_nlc_12wg.py' -v
+          python scripts/verify-yehuobian-sbb1827-original-boundary-12wf.py
+      - name: Source emitted preview coverage and NLC public landing (no OCR)
+        run: python scripts/probe-yehuobian-sbb1827-coverage-and-nlc-12wg.py --output-dir sbb-12wg-coverage
+      - name: Save first-party metadata and bounded report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sbb-preview-coverage-and-nlc-landing-12wg
+          path: sbb-12wg-coverage/
+          if-no-files-found: warn

@@ -1,0 +1,68 @@
+{
+  "schema": "ZIWEI-DATONG-RICHU-NCL06267-DIGITAL-SURROGATE-DEDUP-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-DATONG-RICHU-NCL06267-DIGITAL-SURROGATE-DEDUP-CT",
+  "question": "Does the NCL 6267 follow-up route opened by Batch 12CS supply a new independent physical witness, or does the acquired public facsimile collapse to the already reviewed NCL-06267 digital object from Batch 12CG?",
+  "batch_12cs_bridge": {
+    "source_id": "EXT-NPM-DATONG-RICHU-PINGTU011910",
+    "npm_identifier": "平圖011910",
+    "npm_title": "大統日出分一卷",
+    "npm_edition_description": "明烏絲欄鈔本",
+    "npm_digitization_status": "未數位化",
+    "ncl_union_catalog_number_observed": "6267",
+    "scope": "BIBLIOGRAPHIC_CROSS_REFERENCE_ONLY; DOES_NOT_PROVE NPM_AND_NCL_ARE_THE_SAME_PHYSICAL_COPY"
+  },
+  "current_acquisition": {
+    "workflow_run_id": 35255298130,
+    "workflow_head_sha": "a8cfadb7272054507a4b3ab282d853fda13cab73",
+    "artifact_id": 10511369697,
+    "artifact_name": "ncl06267-datong-richu-physical-dedup-r5",
+    "artifact_digest": "sha256:a5d094101fd86265654938bbf07bdfe796a9e643b34f5aa97a2aeeb1ffb2f355",
+    "resolved_object": "NCL-06267 大統日出分 public facsimile via Wikimedia Commons imageinfo-resolved original PDF",
+    "pdf_sha256": "0d3ed2b54f92b5eb2f11e5d06babebcc177e04ec5b8c7168b56f1fb25f94797d",
+    "page_count": 21,
+    "rendered_page_count": 21,
+    "ocr_used_for_glyph_or_numeric_claims": false,
+    "workflow_result": "SUCCESS"
+  },
+  "prior_batch_12cg_object": {
+    "batch_id": "BATCH-12-ZIWEI-DATONG-RICHU-DAILY-TABLE-SANMING-MULTIPOINT-REPLAY-CG",
+    "source_id": "EXT-NCL-DATONG-RICHU-NCL06267",
+    "workflow_run_id": 34869676923,
+    "artifact_id": 10358685142,
+    "pdf_sha256": "0d3ed2b54f92b5eb2f11e5d06babebcc177e04ec5b8c7168b56f1fb25f94797d",
+    "page_count": 21,
+    "prior_direct_review_scope": "Daily table with 晨分 / 日出分 / 半晝分 / 日入分 / 昏分 and multipoint replay against the Sanming integer ladder"
+  },
+  "deduplication": {
+    "same_pdf_as_batch_12cg": true,
+    "identity_basis": "BYTE_IDENTICAL_SHA256",
+    "independent_physical_witness_increment": 0,
+    "independent_recension_vote_increment": 0,
+    "sanming_59_41_vote_increment": 0,
+    "sanming_intermediate_or_change_day_fingerprint_vote_increment": 0,
+    "new_numeric_claim_authorized": false,
+    "new_direct_parentage_edge_authorized": false,
+    "reason": "The acquired PDF is byte-identical to the NCL-06267 object already directly reviewed and counted in Batch 12CG. Reacquisition through the Batch 12CS follow-up route cannot be double-counted as a new witness."
+  },
+  "physical_copy_firewall": {
+    "npm_pingtu011910_same_physical_copy_as_ncl06267_proved": false,
+    "reason": "Batch 12CS establishes an NPM catalog object and an NCL union-catalog cross-reference. Byte identity is established only between the newly acquired NCL/Commons PDF and the prior Batch 12CG NCL-06267 PDF, not between the NPM manuscript and the NCL physical holding."
+  },
+  "adjudication": {
+    "transmission_impact": "NONE",
+    "new_runtime_candidate_created": false,
+    "runtime_winner_selected": false,
+    "candidate_collapsed": false,
+    "algorithm_reopen_authorized": false,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "hpa_zdate_006_status": "MISSING_FROM_PRODUCT",
+    "deterministic_fusion_chart_product_r1": "CLOSED"
+  },
+  "next_gate": [
+    "Do not repeat NCL-06267/Commons acquisition as an independent witness; treat alternate routes to this exact PDF as duplicates unless new physical-copy evidence proves otherwise.",
+    "Prioritize an independent directly readable 大統曆通軌 / 大統曆日通軌 / 大統日出分 witness carrying 晨昏分 or mechanically equivalent numerical cells.",
+    "Prioritize securely pre-1578 Nanjing/Datong evidence reproducing both the 59/41 cap and the 1578 Sanming intermediate/change-day fingerprint or an explicit quantization rule that deterministically generates it.",
+    "Keep the Fullbook 上五刻 -> 昨夜亥時 lineage/time-coordinate problem separate from this seasonal-table ancestry search."
+  ]
+}

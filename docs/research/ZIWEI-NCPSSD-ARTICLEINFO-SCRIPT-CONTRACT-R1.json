@@ -1,0 +1,106 @@
+{
+  "schema": "ZIWEI-NCPSSD-ARTICLEINFO-SCRIPT-CONTRACT-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-NCPSSD-ARTICLEINFO-SCRIPT-CONTRACT-KW",
+  "prior_batch_id": "BATCH-12-ZIWEI-NCPSSD-ZHAO-SECURE-DETAIL-BOUNDARY-KV",
+  "question": "What first-party detail-data and access-control contract is emitted by the secure-detail shell's articleinfo.js?",
+  "answer": "The source-emitted articleinfo.js returns HTTP 200 and exposes 11 route-like literals. For Chinese journal articles, initialization reads server-emitted hidden id/type/typename values, Base64-decodes them when applicable, maps 中文期刊文章 to journalArticle, and get_QKInfo(id) POSTs JSON {lngid:id,type:typename,pageType:pageType} to /articleinfoHandler/getjournalarticletable. The script also shows read/download paths are login/signature gated. KW executes no discovered endpoint.",
+  "controlling_probe": {
+    "workflow": ".github/workflows/probe-batch-12kw-ncpssd-articleinfo-script-contract.yml",
+    "exact_head": "eaf47da8b7c5bf524b9647a3287d71aaff93c61f",
+    "workflow_run_id": 36865867041,
+    "workflow_job_id": 110381080380,
+    "artifact_id": 11164580641,
+    "artifact_name": "batch-12kw-ncpssd-articleinfo-script-contract",
+    "artifact_digest": "sha256:df67075add6d133c6b40cd9214a82b58521bc8d34d717a085885946b981ed0f4"
+  },
+  "script_response": {
+    "http_status": 200,
+    "url": "https://www.ncpssd.cn/js/web/Literature/articleinfo.js",
+    "bytes": 48783,
+    "sha256": "4f1d600ea6177e0e4cb3031892efb137a8d432d89daaff6506ac682dadc7f797",
+    "decode_used": "utf-8"
+  },
+  "route_like_string_literals": [
+    "/articleinfoHandler/getTopicArticleInfo",
+    "/articleinfoHandler/getjournalarticletable",
+    "/journal/secure/details?params=",
+    "/Literature/readurl?id=",
+    "/articleinfoHandler/getancientbooktable",
+    "/articleinfoHandler/getforeignbooksinfo",
+    "/Literature/Download?id=",
+    "/searchHandler/getdatabasecollectkind",
+    "/user/addCollect",
+    "/user/delSingleCollect",
+    "/articleinfoHandler/getAttachmentList"
+  ],
+  "journal_detail_contract": {
+    "endpoint": "/articleinfoHandler/getjournalarticletable",
+    "method": "POST",
+    "content_type": "application/json; charset=utf-8",
+    "request_object": {
+      "lngid": "decoded #ftl_urlId",
+      "type": "typename / decoded #ftl_urlTypename",
+      "pageType": "derived from #ftl_urlPagetype"
+    },
+    "response_binding": "data.data",
+    "type_mapping": "中文期刊文章 -> journalArticle"
+  },
+  "access_control_contract": {
+    "read_topic_article_requires_checkLogin": true,
+    "read_download_requires_signed_request": true,
+    "userInfo_header_required_for_blob_read": true,
+    "login_message": "抱歉！请先登录才能下载和阅读。"
+  },
+  "adjudication": {
+    "script_retrieved": true,
+    "route_like_string_literal_count": 11,
+    "journal_detail_contract_recovered": true,
+    "discovered_endpoint_executed": false,
+    "target_detail_data_requested": false,
+    "login_used": false
+  },
+  "security": {
+    "anonymous_get_only": true,
+    "reader_account_used": false,
+    "registration_used": false,
+    "post_request_used": false,
+    "state_changing_request_used": false,
+    "private_endpoint_guessed": false,
+    "captcha_bypass_used": false,
+    "tls_verification_disabled": false
+  },
+  "transmission_impact": {
+    "status": "NONE_ACCESS_CONTRACT_ONLY",
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": [],
+    "reason": "Public access/client-contract calibration only; no new historical transmission relation."
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Extract only the exact secure shell's server-emitted hidden values for ftl_urlId, ftl_urlType, ftl_urlTypename, ftl_urlPagetype and related controls.",
+    "Apply only local Base64 decoding if the values satisfy the same client condition.",
+    "Do not POST /articleinfoHandler/getjournalarticletable in the same batch."
+  ],
+  "updated_at": "2026-10-01"
+}

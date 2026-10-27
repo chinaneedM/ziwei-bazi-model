@@ -1,0 +1,137 @@
+name: probe-batch-12lm-cnbksy-common-hints-null-post
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12lm-cnbksy-common-hints-null-post.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Execute only the source-closed anonymous null-payload common-hints POST
+        run: |
+          python - <<'PY'
+          import collections, hashlib, html, json, re
+          from pathlib import Path
+          from urllib.parse import urljoin
+          import requests
+
+          seed="https://www.cnbksy.com/portal/newsCategoryBrowse/newsContent?id=202"
+          UA="Mozilla/5.0 (Tianwen provenance audit; CNBKSY common-hints null POST)"
+          s=requests.Session()
+          s.headers.update({"User-Agent":UA})
+
+          def get(url):
+              r=s.get(url,timeout=45,allow_redirects=False)
+              raw=r.content
+              return r,raw,raw.decode("utf-8","replace")
+
+          sr,sraw,stxt=get(seed)
+          nav=None
+          for m in re.finditer(r'''(?is)<a\b[^>]*?href\s*=\s*["']([^"']+)["'][^>]*>(.*?)</a>''',stxt):
+              href=html.unescape(m.group(1)).strip()
+              label=html.unescape(re.sub(r"<[^>]+>"," ",m.group(2)))
+              label=re.sub(r"\s+"," ",label).strip()
+              if "信息动态" in label:
+                  nav=urljoin(seed,href)
+                  break
+          if not nav:
+              raise SystemExit("source-emitted 信息动态 navigation missing")
+
+          nr,nraw,ntxt=get(nav)
+          csrf_m=re.search(r'''(?is)<meta\b[^>]*?name\s*=\s*["']_csrf["'][^>]*?content\s*=\s*["']([^"']+)["']''',ntxt)
+          if not csrf_m:
+              csrf_m=re.search(r'''(?is)<meta\b[^>]*?content\s*=\s*["']([^"']+)["'][^>]*?name\s*=\s*["']_csrf["']''',ntxt)
+
+          csrf_present=bool(csrf_m)
+          response_meta=None
+          parsed=None
+          request_executed=False
+          if csrf_present:
+              csrf=csrf_m.group(1)
+              endpoint=urljoin(nav,"/common/hints")
+              # Emulate same-origin jQuery $.ajax POST used by bksy.post.
+              headers={
+                  "Referer":nav,
+                  "X-Requested-With":"XMLHttpRequest",
+                  "Content-Type":"application/x-www-form-urlencoded; charset=UTF-8",
+              }
+              r=s.post(endpoint,params={"_csrf":csrf},data=None,headers=headers,timeout=45,allow_redirects=False)
+              request_executed=True
+              raw=r.content
+              response_meta={
+                  "status":r.status_code,
+                  "content_type":r.headers.get("content-type"),
+                  "location":r.headers.get("location"),
+                  "server":r.headers.get("server"),
+                  "bytes":len(raw),
+                  "sha256":hashlib.sha256(raw).hexdigest(),
+                  "starts_json_like":raw.lstrip()[:1] in (b"[",b"{"),
+              }
+              try:
+                  obj=r.json()
+                  if isinstance(obj,list):
+                      item_types=collections.Counter(type(x).__name__ for x in obj)
+                      sample=[]
+                      for x in obj[:30]:
+                          if isinstance(x,(str,int,float,bool)) or x is None:
+                              sample.append(x if not isinstance(x,str) else x[:200])
+                          else:
+                              sample.append({"type":type(x).__name__})
+                      parsed={"json_type":"list","item_count":len(obj),"item_type_counts":dict(item_types),"sample_items":sample}
+                  elif isinstance(obj,dict):
+                      parsed={"json_type":"dict","key_count":len(obj),"keys":list(obj.keys())[:100]}
+                  else:
+                      parsed={"json_type":type(obj).__name__,"value_preview":str(obj)[:500]}
+              except Exception as e:
+                  parsed={"json_parse_error":type(e).__name__}
+
+          out={
+              "source_contract":{
+                  "parent_batch":"12LL",
+                  "seed_url":seed,
+                  "source_emitted_navigation_url":nav,
+                  "endpoint":"/common/hints",
+                  "method":"POST",
+                  "payload":"NULL_EMPTY",
+                  "csrf_source":"page meta _csrf",
+                  "csrf_value_recorded":False,
+                  "target_term_submitted":False
+              },
+              "seed_response":{"status":sr.status_code,"sha256":hashlib.sha256(sraw).hexdigest()},
+              "navigation_response":{"status":nr.status_code,"sha256":hashlib.sha256(nraw).hexdigest()},
+              "csrf_present":csrf_present,
+              "request_executed":request_executed,
+              "response":response_meta,
+              "parsed_response":parsed,
+              "adjudication":{
+                  "only_source_closed_common_hints_post_used":request_executed,
+                  "target_term_submitted":False,
+                  "target_query_submitted":False,
+                  "login_used":False,
+                  "registration_used":False
+              },
+              "security":{
+                  "anonymous_session_only":True,
+                  "csrf_value_recorded":False,
+                  "credential_value_recorded":False,
+                  "private_endpoint_guessed":False,
+                  "captcha_bypass_used":False,
+                  "tls_verification_disabled":False
+              }
+          }
+          Path("batch-12lm-cnbksy-common-hints-null-post.json").write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12lm-cnbksy-common-hints-null-post
+          path: batch-12lm-cnbksy-common-hints-null-post.json

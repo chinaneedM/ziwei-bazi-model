@@ -1,0 +1,125 @@
+{
+  "schema": "ZIWEI-WENYUANGE1441-ZHUNZHAI-TITLE-EXISTENCE-CHRONOLOGY-FIREWALL-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-WENYUANGE1441-ZHUNZHAI-TITLE-EXISTENCE-CHRONOLOGY-FIREWALL-EQ",
+  "prior_batch_id": "BATCH-12-ZIWEI-KYUDB-GK02538-IMJIN-TYPE-LOSS-RECOVERY-CONTINUITY-FIREWALL-EP",
+  "question": "Can the received 《文淵閣書目》 establish a pre-1578 catalog-level antecedent for the Zhunzhai clepsydra work family without falsely backdating the directly reviewed 25-arrow rule text?",
+  "answer": "YES_1441_CATALOG_EVENT_AND_ZHUNZHAI_LEAK_CLOCK_TITLE_FAMILY_ANTECEDENT_CLOSED; DIRECT_1799_PHYSICAL_TRANSMISSION_WITNESS_HASH_LOCKED; EXACT_TITLE_IDENTITY_WITH_1823_準齋心製几漏圖式_NOT_PROVED; EXACT_25ARROW_RULE_TEXT_PRE1578_NOT_PROVED; SECURE_PRE1578_PHYSICAL_RULE_WITNESS_REMAINS_FALSE; ZERO_SANMING_PARENT_VOTE",
+  "catalog_compilation_control": {
+    "source_id": "EXT-CTEXT-WENYUANGE-SHUMU-1441-PREFACE-CONTROL",
+    "work": "《文淵閣書目》",
+    "compiler_group": "楊士奇、馬愉、曹鼐等",
+    "received_preface_date_text": "正統六年六月二十六日",
+    "catalog_event_year": 1441,
+    "received_preface_url": "https://ctext.org/wiki.pl?chapter=461421&if=gb",
+    "event_scope": "MING_IMPERIAL_CATALOG_COMPILATION_AND_INVENTORY_EVENT",
+    "physical_1441_catalog_copy_directly_reviewed": false,
+    "implication": "The catalog text itself claims a 1441 compilation/inventory event; this dates the catalog textual event, not the surviving 1799 scan."
+  },
+  "physical_transmission_witness": {
+    "source_id": "EXT-NLC-WENYUANGE-SHUMU-1799-V5-ZHUNZHAI-CATALOG-CONTROL",
+    "title": "《文淵閣書目》二十卷 第五冊",
+    "provider": "National Library of China scan via Wikimedia Commons",
+    "catalogued_physical_edition_year": 1799,
+    "catalogued_edition_label": "清嘉慶四年本",
+    "source_pdf_sha256": "dce49b1a0cafc092fad3668f161968ae8d0d8c306829850d7a7914b643091fb9",
+    "source_pdf_pages": 79,
+    "workflow_run_id": 35692047498,
+    "artifact_id": 10678747062,
+    "artifact_name": "wenyuange-1799-zhunzhai-catalog-r1",
+    "artifact_digest": "sha256:6e60e7e22cb6cfefa7b1a5dbdd963bbfbd59c312315219352662464499296e64",
+    "probe_head_sha": "d524bc6693c2f99bd2b785a66002341743a21ba0",
+    "ocr_used_for_final_title_claims": false
+  },
+  "direct_image_collation": {
+    "pdf_page_3": {
+      "page_sha256": "40ab791f8d1ae5c90aa84ca6fe4ff5beabfbe475955e33fa594bf60fe81b6bf1",
+      "direct_readings": [
+        "文淵閣書目卷十五",
+        "列字號第一廚書目",
+        "陰陽"
+      ],
+      "role": "juan/category identity control"
+    },
+    "pdf_page_6": {
+      "page_sha256": "19f595c0ce0af6e19d33596fb25817a633a862d8a4eeef8997c8c289f801550e",
+      "direct_sequence": [
+        "漏刻圖",
+        "官曆漏刻圖",
+        "銅壺漏箭制度",
+        "準齋九漏新式",
+        "二十四氣"
+      ],
+      "target_title": "準齋九漏新式",
+      "companion_title": "銅壺漏箭制度",
+      "role": "direct received catalog-title sequence"
+    }
+  },
+  "title_relation_firewall": {
+    "catalog_title_1441_text_layer": "準齋九漏新式",
+    "received_rule_text_title_1823": "準齋心製几漏圖式",
+    "later_bibliographic_association_exists": true,
+    "exact_title_identity_proven": false,
+    "exact_same_text_state_proven": false,
+    "exact_copy_direction_proven": false,
+    "safe_relation": "PRE1578_CATALOG_TITLE_FAMILY_ANTECEDENT_FOR_RECEIVED_ZHUNZHAI_CLEPSYDRA_TRADITION",
+    "catalog_title_alone_proves_25arrow_rule_wording": false
+  },
+  "rule_chronology_adjudication": {
+    "work_or_title_family_pre1578_catalog_attestation": "CLOSED_AT_1441_CATALOG_TEXT_LAYER",
+    "exact_25arrow_rule_text_pre1578_attestation": "NOT_CLOSED",
+    "exact_phrases_pre1578_attested": false,
+    "received_exact_phrases_scope": [
+      "分界定數二十有五箭",
+      "冬至後自第一箭順數用之",
+      "夏至後自二十五箭逆數用之",
+      "却依日曆參照節候"
+    ],
+    "received_exact_phrases_direct_physical_witness_year": 1823,
+    "secure_pre1578_physical_rule_witness": false,
+    "exact_sanming_dahan_yushui_fingerprint_closed": false,
+    "exact_nanjing_59_endpoint_binding_closed": false
+  },
+  "transmission_impact": {
+    "nodes_strengthened": [
+      "PHYSICAL-COPY-NLC-ZHUNZHAI-JILOU-DAOGUANG3-HUANG-SHILIJU-MS",
+      "RULE-FAMILY-ZHUNZHAI-25ARROW-JIEHOU-SELECTION-38-62"
+    ],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "1441 catalog title -> exact 1823 text-state identity",
+      "1441 catalog title -> exact 25-arrow wording already present",
+      "1441 catalog title -> direct unchanged Sanming 1578 parentage"
+    ],
+    "unresolved_lineage_questions": [
+      "Can a securely pre-1578 physical or textual witness be found that directly contains the 25-arrow / calendar-solar-term selection wording?",
+      "Can an early 《說郛》 or another pre-1578 carrier physically bind the received Zhunzhai rule text before 1578?",
+      "Can a pre-1578 carrier combine discrete arrow selection with the Nanjing 59-ke endpoint and the exact Sanming/Yueling Dahan-Rainwater fingerprint?"
+    ],
+    "interpretation": "12EQ moves only the work/title-family chronology backward to a 1441 catalog-text event. The directly reviewed 25-arrow rule text remains physically attested only in the 1823 manuscript recension."
+  },
+  "adjudication": {
+    "direct_sanming_parent_vote_increment": 0,
+    "matrix_count_change": false,
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false
+  },
+  "project_consequence": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "missing_from_product_rows": 10,
+    "provenance_defects_repaired": "12/12",
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0,
+    "deterministic_product_status": "CLOSED"
+  },
+  "next_gate": [
+    "Search pre-1578 《說郛》 or other directly datable carriers for the exact Zhunzhai 25-arrow operating text, not merely the title.",
+    "Continue the pre-1578 exact Sanming/Yueling Rainwater+Dahan fingerprint search, prioritizing Tongshu/almanac families not already physically excluded.",
+    "Continue searching for a pre-1578 physical operator that binds calendar/term-driven arrow selection to the Nanjing 59-ke endpoint."
+  ],
+  "updated_at": "2026-09-22"
+}

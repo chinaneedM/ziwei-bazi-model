@@ -1,0 +1,123 @@
+{
+  "schema": "ZIWEI-WUZONG-SHILU-1518-MULTISOURCE-LOCAL-CALIBRATION-PROPOSAL-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-WUZONG-SHILU-1518-MULTISOURCE-LOCAL-CALIBRATION-PROPOSAL-DY",
+  "status": "PRE1578_MING_OFFICIAL_RECORD_CLOSES_QINTIANJIAN_MULTISOURCE_LOCAL_CALIBRATION_PROPOSAL_WITH_NONADOPTION_FIREWALL",
+  "source": {
+    "work": "《明武宗毅皇帝實錄》",
+    "physical_provider": "National Library of China manuscript surrogate mirrored by Wikimedia Commons",
+    "commons_file_title": "File:NLC892-CBM0106-366484 大明武宗毅皇帝實錄 一百九十七卷 第18冊.pdf",
+    "commons_file_url": "https://commons.wikimedia.org/wiki/File:NLC892-CBM0106-366484_%E5%A4%A7%E6%98%8E%E6%AD%A6%E5%AE%97%E6%AF%85%E7%9A%87%E5%B8%9D%E5%AF%A6%E9%8C%84_%E4%B8%80%E7%99%BE%E4%B9%9D%E5%8D%81%E4%B8%83%E5%8D%B7_%E7%AC%AC18%E5%86%8A.pdf",
+    "source_pdf_sha256": "22dd2aa63acae395da5bd354b6caa73d54b437f260d287a6b927f18f03cbd07c",
+    "pdf_pages": 74,
+    "date_firewall": {
+      "historical_event_date": "MING_ZHENGDE_13_12_BINGYIN_SHUO_1518",
+      "work_compilation_layer": "MING_DYNASTIC_SHILU_COMPILATION_AFTER_EVENT",
+      "surviving_manuscript_copy_date": "MING_1368_1644_BROAD_CATALOG_RANGE_FROM_SURROGATE_METADATA",
+      "digital_surrogate_date": "MODERN_NLC_COMMONS_DIGITIZATION_OR_MIRROR",
+      "rule": "event / compilation / surviving copy / digital surrogate dates are not collapsed"
+    }
+  },
+  "workflow_evidence": {
+    "commit_sha": "c8502fc9c9ea8cd6c21a3dfa24c8b8881f303c8d",
+    "run_id": 35442351436,
+    "job_id": 105895239882,
+    "artifact_id": 10584073616,
+    "artifact_digest": "sha256:8571848a057a66457f4e80bc8415601c962d3a55cb01489e489eabf89093f5ed",
+    "commons_sha1": "87887ae7d1565c177268cbbbb62745eb138c7dbf",
+    "rendered_page_count": 74,
+    "ocr_locator_authority": "LOCATOR_ONLY_NOT_FINAL_TEXT_AUTHORITY",
+    "ocr_used_for_final_glyph_mechanism_or_policy_claims": false
+  },
+  "direct_physical_collation": {
+    "p66": {
+      "sha256": "847c5820698e107d4ebfa867be71ac637ea40868517373beee645bf20b0a4b83",
+      "direct": [
+        "明武宗毅皇帝實錄卷之一百六十九",
+        "正德十三年十二月丙寅朔"
+      ],
+      "role": "Direct volume/date boundary for the target event block."
+    },
+    "p70": {
+      "sha256": "7b820c0edd2fe97dc10658c006eca4d7140fdd54f84ac9a5faccfc7bd3c92f33",
+      "direct": [
+        "先是欽天監漏刻博士朱裕請修改曆法上疏曰",
+        "令本監曆科官生半推古法半推新法兩相較驗奚疏奚密孰是孰非",
+        "觀象臺測驗黃道赤道度分若干日月五星躔度疏密",
+        "漏刻科推測昏旦中星調品晝夜壺漏",
+        "回回科推驗西域九執曆法",
+        "仍遣官之南京及浙江諸省候土圭以測今時與至元"
+      ],
+      "mechanism": "Zhu Yu proposes multiple independent institutional observation/computation channels plus cross-regional gnomon measurements in Nanjing and Zhejiang."
+    },
+    "p71": {
+      "sha256": "70b65988493a0a451d6747801687c0e9a83190d9874942b9f1b58bbe236e1d8a",
+      "direct": [
+        "天道修短若干節氣早晚何如衆途同歸方可成曆",
+        "事下禮部看詳",
+        "今裕及欽天監官曆法未必皆精難遽委以是任"
+      ],
+      "status_firewall": "The record transmits a proposal and ministry review; it does not prove that Zhu Yu's full proposed calibration program was adopted or executed."
+    }
+  },
+  "institutional_mechanism": {
+    "proposer": "欽天監漏刻博士朱裕",
+    "proposal_components": [
+      "曆科: old/new method cross-computation",
+      "觀象臺: ecliptic/equatorial and celestial-motion measurement",
+      "漏刻科: dawn/dusk culminating stars and day/night clepsydra adjustment",
+      "回回科: western/nine-method calendar verification",
+      "南京及浙江諸省: gnomon observations for regional/current-vs-Zhiyuan comparison",
+      "cross-channel convergence: 衆途同歸方可成曆"
+    ],
+    "locality_materiality": "EXPLICIT_IN_PROPOSAL",
+    "day_night_clepsydra_materiality": "EXPLICIT_IN_PROPOSAL",
+    "solar_term_timing_materiality": "EXPLICIT_IN_PROPOSAL",
+    "proposal_adopted_or_executed": "NOT_PROVED",
+    "ministry_response": "REVIEWED_AND_NOT_IMMEDIATELY_ENTRUSTED"
+  },
+  "relationship_to_prior_nanjing_line": {
+    "official_1447_nanjing_59_standard_already_closed": true,
+    "official_1449_nanjing_beijing_three_ke_and_old_style_restoration_already_closed": true,
+    "new_1518_contribution": "A later pre-1578 Qintianjian proposal explicitly treats Nanjing and other regional gnomon observations, clepsydra work and astronomical/calendrical computations as cross-checkable inputs to calendar correction.",
+    "direct_nanjing_59_numeral_in_target_passage": false,
+    "explicit_59_86_to_59_reduction_rule": false,
+    "exact_sanming_multipoint_ladder": false,
+    "exact_dahan13_yushui4_fingerprint": false,
+    "direct_sanming_parent_vote_increment": 0
+  },
+  "adjudication": {
+    "pre1578_multisource_local_calibration_proposal": "CLOSED",
+    "adopted_official_calibration_program": "NOT_PROVED",
+    "direct_numeric_59_rule": "NOT_ATTESTED_IN_REVIEWED_PASSAGE",
+    "whole_ke_reduction_rule": "NOT_ATTESTED_IN_REVIEWED_PASSAGE",
+    "direct_sanming_parent_vote_increment": 0,
+    "matrix_count_change": false,
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false
+  },
+  "transmission_impact": {
+    "nodes_added": [
+      "DIGITAL-SURROGATE-WUZONG-SHILU-NLC-V18",
+      "PASSAGE-WUZONG169-ZHUYU-CALIBRATION-PROPOSAL-1518",
+      "RULE-FAMILY-MING-QINTIANJIAN-MULTISOURCE-LOCAL-CALIBRATION-PROPOSAL-1518"
+    ],
+    "edges_added": [
+      "TG-E0081",
+      "TG-E0082",
+      "TG-E0083"
+    ],
+    "lineage_scope": "Institutional-methodology continuity only; no direct numeric/table-parent claim."
+  },
+  "project_consequence": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "missing_from_product_rows": 10,
+    "provenance_defects_repaired": "12/12",
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0,
+    "deterministic_product_status": "CLOSED"
+  }
+}

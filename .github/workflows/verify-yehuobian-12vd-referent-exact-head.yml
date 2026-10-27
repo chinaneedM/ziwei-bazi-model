@@ -1,0 +1,34 @@
+name: verify-yehuobian-12vd-referent-exact-head
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/verify-yehuobian-12vd-referent-exact-head.yml
+      - docs/PROJECT-CURRENT-STATE-R1.json
+      - docs/research/MING-DATONG-YEHUOBIAN-12VD-*.json
+      - docs/research/MING-DATONG-YEHUOBIAN-12VD-*.md
+      - scripts/verify-yehuobian-jingzhiju-referent-12vd.py
+      - tests/test_yehuobian_jingzhiju_referent_12vd.py
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Continuity, registry, genealogy
+        run: |
+          set -euo pipefail
+          python scripts/verify-project-continuity-state-r1.py
+          python scripts/verify-historical-source-registry-extensions-r1.py
+          python scripts/verify-tianwen-transmission-genealogy-r1.py
+      - name: Jingzhiju scoped referent 12VD
+        run: |
+          set -euo pipefail
+          python scripts/verify-yehuobian-jingzhiju-referent-12vd.py
+          python -m unittest discover -s tests -p 'test_yehuobian_jingzhiju_referent_12vd.py' -v

@@ -1,0 +1,114 @@
+name: probe-batch-12hm-fid070-crosscheck
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - '.github/workflows/probe-batch-12hm-fid070-crosscheck.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - name: Crosscheck NLC fid 412004000070
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/batch-12hm-fid070-crosscheck'
+          rm -rf "$ROOT"; mkdir -p "$ROOT"
+          UA='Tianwen-Provenance-Audit/1.0'
+
+          body=$(python - <<'PY'
+          import json
+          q='412004000070'
+          print(json.dumps({"q":q,"searchWay":"ANY","page_num":"1","query":q,"sort":[{"_score":"DESC"}],"size":100,"facetVal":[],"exactMatch":False},ensure_ascii=False,separators=(',',':')))
+          PY
+          )
+          set +e
+          code=$(curl -L -sS --connect-timeout 6 --max-time 20 -A "$UA" \
+            -H 'Accept: application/json, text/javascript, */*; q=0.01' \
+            -H 'X-Requested-With: XMLHttpRequest' -H 'Referer: https://meta.nlc.cn/v2/search' \
+            -H 'Content-Type: application/x-www-form-urlencoded; charset=UTF-8' \
+            --data-binary "$body" -o "$ROOT/nlc-meta-any-070.json" -w '%{http_code}' \
+            'https://meta.nlc.cn/v2/doSearch?hight=false')
+          rc=$?; set -e
+          echo "NLC_META rc=$rc http=$code bytes=$(wc -c < "$ROOT/nlc-meta-any-070.json" 2>/dev/null || echo 0)"
+
+          : > "$ROOT/nlc-read-status.tsv"
+          for attempt in 1 2 3 4; do
+            out="$ROOT/nlc-read-070-$attempt.html"
+            set +e
+            code=$(curl --http1.1 -L -sS --connect-timeout 6 --max-time 20 -A 'Mozilla/5.0' \
+              -H 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8' \
+              -H 'Referer: https://read.nlc.cn/' \
+              -o "$out" -w '%{http_code}' \
+              'https://read.nlc.cn/allSearch/searchDetail?indexName=data_892&fid=412004000070')
+            rc=$?; set -e
+            printf '%s\trc=%s\thttp=%s\tbytes=%s\n' "$attempt" "$rc" "$code" "$(wc -c < "$out" 2>/dev/null || echo 0)" >> "$ROOT/nlc-read-status.tsv"
+            [ "$rc" -eq 0 ] && [ "$code" = "200" ] && break
+            sleep 1
+          done
+
+          curl -L -sS --connect-timeout 6 --max-time 25 -A "$UA" \
+            --get 'https://commons.wikimedia.org/w/api.php' \
+            --data-urlencode 'action=query' --data-urlencode 'format=json' \
+            --data-urlencode 'list=search' --data-urlencode 'srnamespace=6' \
+            --data-urlencode 'srlimit=50' --data-urlencode 'srsearch=412004000070' \
+            -o "$ROOT/commons-search-070.json" || true
+
+          curl -L -sS --connect-timeout 6 --max-time 25 -A "$UA" \
+            --get 'https://commons.wikimedia.org/w/api.php' \
+            --data-urlencode 'action=query' --data-urlencode 'format=json' \
+            --data-urlencode 'generator=search' --data-urlencode 'gsrnamespace=6' \
+            --data-urlencode 'gsrlimit=50' --data-urlencode 'gsrsearch=412004000070' \
+            --data-urlencode 'prop=imageinfo' --data-urlencode 'iiprop=url|size|sha1|extmetadata' \
+            -o "$ROOT/commons-imageinfo-070.json" || true
+
+          python - <<'PY'
+          from pathlib import Path
+          import json,re
+          root=Path('audit/batch-12hm-fid070-crosscheck')
+          out=[]
+          for fn in ['nlc-meta-any-070.json','commons-search-070.json','commons-imageinfo-070.json']:
+              p=root/fn
+              out.append('### '+fn)
+              try:o=json.loads(p.read_text('utf-8'))
+              except Exception as e: out.append('PARSE '+repr(e)); continue
+              if fn.startswith('nlc-meta'):
+                  out.append('status='+repr(o.get('status'))+' total='+repr(o.get('total'))+' message='+repr(o.get('message')))
+                  for row in o.get('result') or []:
+                      out.append(json.dumps(row,ensure_ascii=False,separators=(',',':')))
+              elif fn=='commons-search-070.json':
+                  for x in (o.get('query') or {}).get('search') or []:
+                      out.append(json.dumps({k:x.get(k) for k in ('pageid','title','snippet','timestamp')},ensure_ascii=False,separators=(',',':')))
+              else:
+                  for _,x in ((o.get('query') or {}).get('pages') or {}).items():
+                      y={'pageid':x.get('pageid'),'title':x.get('title'),'imageinfo':x.get('imageinfo')}
+                      out.append(json.dumps(y,ensure_ascii=False,separators=(',',':')))
+          for p in sorted(root.glob('nlc-read-070-*.html')):
+              t=p.read_text('utf-8',errors='replace')
+              out.append('### '+p.name+' bytes='+str(len(t)))
+              for term in ['412004000070','附释音春秋左传注疏','附釋音春秋左傳注疏','铁琴','鐵琴','元刻明修','元刻元印','32册','32冊']:
+                  if term in t: out.append('TOKEN '+term)
+              for pat in [r'<title[^>]*>(.*?)</title>',r'OpenObjectBook\?aid=([^&"\']+)&bid=([^&"\']+)']:
+                  vals=[]
+                  for m in re.finditer(pat,t,re.I|re.S): vals.append(m.groups() if len(m.groups())>1 else m.group(1))
+                  if vals: out.append(pat+' => '+json.dumps(vals[:20],ensure_ascii=False))
+          (root/'summary.txt').write_text('\n'.join(out)+'\n',encoding='utf-8')
+          print((root/'summary.txt').read_text('utf-8')[:120000])
+          PY
+
+          find "$ROOT" -type f -size +0c -print0 | xargs -0 -r sha256sum | sort -V > "$ROOT/files.sha256"
+          cat "$ROOT/nlc-read-status.tsv"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12hm-fid070-crosscheck
+          path: audit/batch-12hm-fid070-crosscheck/
+          if-no-files-found: error
+          retention-days: 30

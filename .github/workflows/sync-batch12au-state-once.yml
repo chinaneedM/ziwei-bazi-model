@@ -1,0 +1,139 @@
+name: sync-batch12au-state-once
+
+on:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/sync-batch12au-state-once.yml
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/fusion-chart-core-r1-20260822
+      - name: Synchronize Batch 12AU continuity state, verifier and source registry
+        shell: python
+        run: |
+          import json
+          from pathlib import Path
+
+          batch = 'BATCH-12-ZIWEI-SANCAI-1697-NIGHT-ZI-HAI-CONTROVERSY-AU'
+          batch_doc = 'docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-SANCAI-1697-NIGHT-ZI-HAI-CONTROVERSY-AU.md'
+          evidence_doc = 'docs/research/ZIWEI-SANCAI-1697-NIGHT-ZI-HAI-CONTROVERSY-R1.json'
+
+          state_path = Path('docs/PROJECT-CURRENT-STATE-R1.json')
+          state = json.loads(state_path.read_text('utf-8'))
+          assert state['schema'] == 'ZIWEI-BAZI-PROJECT-CURRENT-STATE-R1'
+          assert state['historical_audit']['row_count'] == 198
+          assert state['historical_audit']['audited_row_count'] == 166
+          assert state['historical_audit']['current_missing_from_product_row_count'] == 10
+          assert state['historical_audit']['identified_missing_candidate_family_count'] == 14
+          assert state['invariants']['deterministic_fusion_chart_product_r1'] == 'CLOSED'
+          assert state['invariants']['confirmed_chart_algorithm_defect_count'] == 0
+          assert state['invariants']['algorithm_reopen_count'] == 0
+          assert state['invariants']['candidate_collapse_count'] == 0
+          assert state['invariants']['ziwei_self_inward_transformation_direction'] == 'NOT_YET_FORMALIZED'
+
+          completed = state['historical_audit']['completed_batches']
+          if batch not in completed:
+              completed.append(batch)
+          state['historical_audit']['latest_batch_doc'] = batch_doc
+          state['schema_version'] = '1.54.0'
+
+          additions = [
+              'Batch 12AU directly collates Harvard-Yenching 1697 三才發秘天部卷二 without OCR. PDF p16 原甲子日有兩子時 states 前半子還屬陰原為昨日之辰, 至交正子方一陽生始為今日之辰, and 子時八刻前四刻為昨日辰後四刻為今日辰.',
+              'Batch 12AU PDF p17 directly reads 今人不知此理往往以夜子作亥用于尅擇祿命豈能協于天地之真機乎. This physically attests 夜子作亥 as a historical shushu practice used in 尅擇/祿命 while simultaneously showing that Chen Wen rejects the practice.',
+              'The Fullbook upper-half-Zi-to-Hai rule is therefore no longer historically isolated: a same-problem 夜子作亥 operation is directly attested as a historical controversy. This does not prove textual genealogy, exact mechanical identity, universality, or a runtime winner.',
+              'HPA-ZDATE-006 remains MISSING_FROM_PRODUCT after Batch 12AU. Preserve competing late-Zi candidates; candidate collapse and algorithm reopen remain forbidden. The separate Fullbook cloudy/rain current-time acquisition mechanism remains unresolved.'
+          ]
+          focus = state['historical_audit']['current_focus']
+          for item in additions:
+              if item not in focus:
+                  focus.append(item)
+          state_path.write_text(json.dumps(state, ensure_ascii=False, indent=2) + '\n', 'utf-8')
+
+          registry_path = Path('docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json')
+          registry = json.loads(registry_path.read_text('utf-8'))
+          assert registry['schema'] == 'FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1'
+          source_id = 'EXT-SANCAI-HARVARD-1697-V3'
+          ids = {s.get('source_id') for s in registry['sources']}
+          if source_id not in ids:
+              registry['sources'].append({
+                  'source_id': source_id,
+                  'title': '《三才發秘》天部卷二《原甲子日有兩子時》',
+                  'author': '陳雯',
+                  'historical_period': '清康熙',
+                  'edition': '1697? / 康熙三十六年自序；德星堂寶翰樓藏版；Harvard-Yenching physical scan object v.3',
+                  'provider': 'Harvard-Yenching Library scan via Wikimedia Commons',
+                  'url': 'https://commons.wikimedia.org/wiki/File:Harvard_drs_52822721_%E4%B8%89%E6%89%8D%E7%99%BC%E7%A7%98%E5%A4%A9%E9%83%A8%E4%BA%8C%E5%8D%B7_v.3.pdf',
+                  'source_role': 'DIRECT_PRIMARY_PHYSICAL_FACSIMILE_HISTORICAL_NIGHT_ZI_TO_HAI_CONTROVERSY_WITNESS',
+                  'quality_notes': 'Batch 12AU no-OCR direct physical collation. PDF SHA-256 3c226eb8b1d70568e0ce6c5df7f4f4eae8c6ad35b44f6ed6ec47d78261786a11. PDF p16 directly reads 原甲子日有兩子時, 前半子還屬陰原為昨日之辰, 至交正子方一陽生始為今日之辰, and 子時八刻前四刻為昨日辰後四刻為今日辰. PDF p17 directly reads 今人不知此理往往以夜子作亥用于尅擇祿命豈能協于天地之真機乎. The passage directly attests 夜子作亥 as a historical 尅擇/祿命 practice but the author rejects it. It proves a historical controversy, not authorial endorsement, direct Fullbook genealogy, exact equivalence to the Fullbook ten-position mechanics, or a runtime winner.',
+                  'research_artifact': evidence_doc,
+                  'audit_batch': batch,
+                  'workflow_evidence': {
+                      'broad_locator_run': 34558586685,
+                      'broad_locator_artifact': 10183491031,
+                      'target_lock_run': 34559011255,
+                      'target_lock_artifact': 10183637134,
+                      'target_lock_artifact_digest': 'sha256:9df6312b4424a42243f4834e56252e07e087af4c8d56a9a3720479372da4af8a'
+                  }
+              })
+          registry['access_date'] = '2026-09-11'
+          registry_path.write_text(json.dumps(registry, ensure_ascii=False, indent=2) + '\n', 'utf-8')
+
+          verifier_path = Path('scripts/verify-project-continuity-state-r1.py')
+          verifier = verifier_path.read_text('utf-8')
+          if 'ZIWEI_SANCAI_AU_BATCH' not in verifier:
+              constants_anchor = 'ZIWEI_SANMING_AT_EVIDENCE = ROOT / "docs/research/ZIWEI-SANMING-TONGHUI-1578-TIMEKEEPING-PHYSICAL-COLLATION-R1.json"\n\nEXPECTED_BRANCH'
+              constants_new = (
+                  'ZIWEI_SANMING_AT_EVIDENCE = ROOT / "docs/research/ZIWEI-SANMING-TONGHUI-1578-TIMEKEEPING-PHYSICAL-COLLATION-R1.json"\n'
+                  'ZIWEI_SANCAI_AU_BATCH = ROOT / "' + batch_doc + '"\n'
+                  'ZIWEI_SANCAI_AU_EVIDENCE = ROOT / "' + evidence_doc + '"\n\nEXPECTED_BRANCH'
+              )
+              assert constants_anchor in verifier, 'AU verifier constant anchor missing'
+              verifier = verifier.replace(constants_anchor, constants_new, 1)
+
+              list_anchor = '    "BATCH-12-ZIWEI-SANMING-TONGHUI-1578-TIMEKEEPING-PHYSICAL-COLLATION-AT",\n]\nLATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]\nLATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-SANMING-TONGHUI-1578-TIMEKEEPING-PHYSICAL-COLLATION-AT.md"'
+              list_new = (
+                  '    "BATCH-12-ZIWEI-SANMING-TONGHUI-1578-TIMEKEEPING-PHYSICAL-COLLATION-AT",\n'
+                  '    "' + batch + '",\n'
+                  ']\nLATEST_BATCH_ID = SUPPLEMENTAL_BATCH_IDS[-1]\n'
+                  'LATEST_BATCH_DOC = "' + batch_doc + '"'
+              )
+              assert list_anchor in verifier, 'AU supplemental list anchor missing'
+              verifier = verifier.replace(list_anchor, list_new, 1)
+
+              main_anchor = 'def main() -> int:\n    for path in (ZIWEI_SANMING_AT_BATCH, ZIWEI_SANMING_AT_EVIDENCE):'
+              main_new = (
+                  'def main() -> int:\n'
+                  '    for path in (ZIWEI_SANCAI_AU_BATCH, ZIWEI_SANCAI_AU_EVIDENCE):\n'
+                  '        if not path.is_file():\n'
+                  '            fail(f"Batch 12AU continuity artifact missing: {path.relative_to(ROOT)}")\n\n'
+                  '    for path in (ZIWEI_SANMING_AT_BATCH, ZIWEI_SANMING_AT_EVIDENCE):'
+              )
+              assert main_anchor in verifier, 'AU verifier main anchor missing'
+              verifier = verifier.replace(main_anchor, main_new, 1)
+              verifier_path.write_text(verifier, 'utf-8')
+
+      - name: Verify continuity invariants
+        run: python scripts/verify-project-continuity-state-r1.py
+      - name: Commit synchronized durable state
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add docs/PROJECT-CURRENT-STATE-R1.json docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json scripts/verify-project-continuity-state-r1.py
+          if git diff --cached --quiet; then
+            echo 'No state changes required.'
+            exit 0
+          fi
+          git commit -m 'sync Batch 12AU continuity state'
+          git push origin HEAD:agent/fusion-chart-core-r1-20260822

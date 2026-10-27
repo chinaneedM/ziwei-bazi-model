@@ -1,0 +1,151 @@
+{
+  "schema": "ZIWEI-NCL06627-DATONGLIZHU-THRESHOLD-FINGERPRINT-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-NCL06627-DATONGLIZHU-THRESHOLD-FINGERPRINT-EC",
+  "status": "NCL06627_DIRECTLY_COLOCATES_TERM_SPECIFIC_WINTER_SOLSTICE_REMAINDER_THRESHOLDS_WITH_WHOLE_KE_DAY_NIGHT_SCHEDULE_AND_59_41_SUMMER_ENDPOINT; SANMING_DAHAN_YUSHUI_CHANGE_DAY_FINGERPRINT_MISMATCHES; EXACT_COPY_DATE_UNRESOLVED; ZERO_DIRECT_SANMING_PARENT_VOTE",
+  "workflow_evidence": {
+    "head_commit_sha": "635e64a660328756eedbd490e5da190040d93871",
+    "workflow_run_id": 35509501620,
+    "artifact_id": 10605095954,
+    "artifact_name": "ncl06627-datonglizhu-endpoint-threshold",
+    "artifact_digest": "sha256:2e38447cba4ead0885a0f6c0a84de965c7f01d17f0a7fb0f4b73fe1ed60baf83",
+    "probe_schema_version": "1.1.0",
+    "ocr_used_for_final_glyph_numeric_or_lineage_claims": false
+  },
+  "physical_source": {
+    "work": "大統曆註",
+    "author": "(明)不著撰人",
+    "provider": "National Central Library surrogate via Wikimedia Commons",
+    "ncl_identifier": "NCL-06627 / 索書號 6627",
+    "commons_file_title": "File:NCL-06627 大統曆註.pdf",
+    "commons_artist_metadata": "(明)不著撰人",
+    "commons_publication_date_metadata": null,
+    "pdf_sha256": "a9bc6bd645f327afde884cb87dc35b48dfd9080bce96bf6f425fd4af205c22a2",
+    "pdf_pages": 195,
+    "physical_copy_date": "MING_MANUSCRIPT_EXACT_DATE_UNRESOLVED",
+    "secure_pre1578_physical_witness": false,
+    "chronology_review": "Selected direct front/back review pages p1-p12 and p184-p195 did not yield a secure internal year, colophon date or copy note sufficient to date this reviewed physical/textual state before 1578.",
+    "chronology_firewall": "Ming attribution alone does not authorize a pre-1578 ancestry claim. The reviewed object remains a Ming manuscript control of unresolved exact copy date."
+  },
+  "direct_physical_collation": {
+    "adjudication_method": "Direct visual inspection of source-bound 320dpi renders from the exact workflow artifact. OCR is locator-only and is not final glyph authority.",
+    "page_1": {
+      "page_sha256": "90b16f62961ddb57fe90e8f562b06f0738068cf77d373dd4ec2b40d89f490cd1",
+      "direct_sequence": [
+        "大統曆註",
+        "立春 冬至餘三十四刻四十分已上為退",
+        "雨水 冬至餘一十二刻六十分已上為退"
+      ],
+      "safe_reading": "The first monthly rule leaf explicitly uses winter-solstice remainder thresholds to decide a 為退 state for individual solar terms."
+    },
+    "page_2": {
+      "page_sha256": "1c0ab772ac469a26e2621953b20cd8a1d7b5da0268d2bfef6cad36ab49155cf0",
+      "direct_sequence": [
+        "後六日 晝四十七刻 夜五十三刻",
+        "後十四日 晝四十八刻 夜五十二刻"
+      ],
+      "safe_reading": "In the Rainwater-side continuation, 47/53 is explicitly attached to 後六日 and 48/52 to 後十四日."
+    },
+    "page_66": {
+      "page_sha256": "cfe70aef0b6cbdcc337e789ffe9d109eabffe3534744673b28d6b5547e6c24da",
+      "direct_sequence": [
+        "芒種五月節 冬至餘一十八刻一十五分已上為退",
+        "夏至五月中",
+        "初日 日出寅正四刻 日入戌初初刻 晝五十九刻 夜四十一刻"
+      ],
+      "safe_reading": "The same May rule page physically co-locates a term-specific winter-solstice remainder threshold and the summer-solstice 59/41 whole-ke endpoint display. Co-location does not by itself prove that the threshold numerically generates 59/41."
+    },
+    "page_179": {
+      "page_sha256": "2efc7a5fedb470656fc7376691508e248c30c760ec6fb520424fa47c0e070c61",
+      "direct_sequence": [
+        "十二月",
+        "大寒十二月中",
+        "大寒 冬至餘五十六刻三十分已上為退",
+        "晝四十三刻 夜五十七刻"
+      ],
+      "safe_reading": "The December leaf preserves both a Dahan-specific winter-solstice remainder threshold and the 43/57 state before the following leaf's 44/56 transition."
+    },
+    "page_180": {
+      "page_sha256": "4e5547e6ab9b14bc87cc093f56d3de05d2593506972469894ea1df2e3c04f708",
+      "direct_sequence": [
+        "後十四日 晝四十四刻 夜五十六刻"
+      ],
+      "safe_reading": "The transition to 44/56 is explicitly marked 後十四日 in this reviewed text state."
+    }
+  },
+  "comparison_with_sanming_1578": {
+    "controlling_source": "NCL-06589-1 三命通會 明萬曆六年（1578）刊本",
+    "controlling_batch": "BATCH-12-ZIWEI-SANMING-1578-SEASONAL-TABLE-DIRECT-PHYSICAL-COLLATION-CP",
+    "shared_endpoint": {
+      "summer_solstice": "59/41",
+      "result": "MATCH_AT_ENDPOINT_ONLY"
+    },
+    "decisive_change_day_loci": [
+      {
+        "locus": "大寒 43/57 -> 44/56",
+        "ncl06627": "p179 preserves 43/57; p180 states 後十四日 for 44/56",
+        "sanming_1578": "physical sequence 十三後日 before 44/56",
+        "result": "MISMATCH"
+      },
+      {
+        "locus": "雨水-side 47/53 -> 48/52",
+        "ncl06627": "p2 states 後六日 47/53 and 後十四日 48/52",
+        "sanming_1578": "雨水 47/53; 後四日 48/52",
+        "result": "MISMATCH"
+      }
+    ],
+    "unchanged_table_identity_result": "DISPROVED_FOR_REVIEWED_NCL06627_TEXT_STATE",
+    "consequence": "A shared 59/41 endpoint plus a broadly similar stepped whole-ke architecture is insufficient to identify this reviewed Datonglizhu text state as the unchanged Sanming 1578 parent table."
+  },
+  "mechanism_scope": {
+    "direct_term_specific_threshold_family": "WINTER_SOLSTICE_REMAINDER_THRESHOLD_WITH_已上為退",
+    "whole_ke_schedule_physically_adjacent": true,
+    "term_threshold_proved_to_generate_whole_ke_schedule": false,
+    "full_interior_42_58_selector_explained": false,
+    "exact_endpoint_reduction_operator_explained": false,
+    "safe_consequence": "NCL-06627 strengthens a compound calendrical architecture in which term-state thresholds and day/night whole-ke schedules coexist, but does not close the operator linking them."
+  },
+  "adjudication": {
+    "direct_physical_term_threshold_and_wholeke_coexistence": "CLOSED_FOR_REVIEWED_NCL06627_TEXT_STATE",
+    "summer_solstice_59_41_endpoint": "DIRECT_PHYSICAL_ATTESTATION",
+    "sanming_exact_change_day_fingerprint_match": false,
+    "direct_unchanged_table_identity_with_sanming_1578": "DISPROVED_FOR_REVIEWED_TEXT_STATE",
+    "threshold_is_proved_operator_for_wholeke_schedule": false,
+    "exact_physical_copy_date": "UNRESOLVED",
+    "secure_pre1578_binding_witness": false,
+    "direct_sanming_parent_vote_increment": 0,
+    "matrix_count_change": false,
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false
+  },
+  "transmission_impact": {
+    "nodes_added": [
+      "PHYSICAL-COPY-DATONGLIZHU-NCL06627-MING-MANUSCRIPT",
+      "RULE-FAMILY-DATONGLIZHU-TERM-THRESHOLD-WHOLEKE-SCHEDULE"
+    ],
+    "edges_added": [
+      "TG-E0091",
+      "TG-E0092"
+    ],
+    "explicit_non_edges_added": [
+      "RULE-FAMILY-DATONGLIZHU-TERM-THRESHOLD-WHOLEKE-SCHEDULE DIRECT_UNCHANGED_TABLE_IDENTITY_WITH TABLE-SANMING-1578-DAYNIGHT-KE = DISPROVED"
+    ],
+    "lineage_scope": "Direct Ming manuscript mechanical/recensional control. It strengthens the structural mechanism family while negatively adjudicating unchanged-table identity with Sanming 1578. Exact chronology remains insufficient for pre-1578 ancestry."
+  },
+  "project_consequence": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "missing_from_product_rows": 10,
+    "provenance_defects_repaired": "12/12",
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0,
+    "deterministic_product_status": "CLOSED"
+  },
+  "next_gate": [
+    "Prioritize a securely pre-1578 Datong/Tongshu/Datonglizhu witness that reproduces the Sanming high-information change-day fingerprint rather than merely the 59/41 endpoint.",
+    "Search for an explicit operator connecting winter-solstice-remainder or arrow/table state selection to the whole-ke schedule, while preserving the already closed C-II-N interior thresholds.",
+    "Keep NCL-06627 as a divergent control recension: its Dahan and Yushui change-day loci must not be silently normalized into the Sanming 1578 fingerprint."
+  ]
+}

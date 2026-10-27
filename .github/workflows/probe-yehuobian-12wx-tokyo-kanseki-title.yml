@@ -1,0 +1,41 @@
+name: probe-yehuobian-12wx-tokyo-kanseki-title
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-yehuobian-12wx-tokyo-kanseki-title.yml
+      - scripts/probe-yehuobian-12wx-tokyo-kanseki-exact-title.py
+      - tests/test_yehuobian_12wx_tokyo_kanseki_exact_title.py
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Exact official JS-separated one title, no fabricated pages
+        run: python -m unittest discover -s tests -p 'test_yehuobian_12wx_tokyo_kanseki_exact_title.py' -v
+  capture:
+    needs: verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: One official advanced form title search without item ID invention
+        run: python scripts/probe-yehuobian-12wx-tokyo-kanseki-exact-title.py --output-dir 12wx-tokyo-one-title-output
+      - name: Preserve source response or access boundary receipt
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: 12wx-tokyo-kanseki-one-exact-title-result
+          path: 12wx-tokyo-one-title-output/
+          retention-days: 30
+          if-no-files-found: warn

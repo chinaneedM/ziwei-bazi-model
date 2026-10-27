@@ -1,0 +1,173 @@
+{
+  "schema": "ZIWEI-NDL-WENWU-CANKAO-1951-H2-DIGITAL-PROVIDER-BOUNDARY-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-NDL-WENWU-CANKAO-1951-H2-DIGITAL-PROVIDER-BOUNDARY-IS",
+  "prior_batch_id": "BATCH-12-ZIWEI-ZHAO-WANLI-WENJI-V1-NLCPRESS-OPENLIBRARY-PUBLIC-PREVIEW-BOUNDARY-IR",
+  "question": "Can the exact NDL-held 1951 second-half 《文物参考资料》 object containing volume 2 issue 9 be bound to an NDL Digital object or an openly exposed page surrogate through current NDL Search provider APIs?",
+  "answer": "The exact NDL paper bound-volume object is re-confirmed, but no current NDL Digital object is exposed. NDL OpenSearch is first calibrated with a positive dpid=ndl-dl query that returns 165 results and direct dl.ndl.go.jp PID references, proving the provider filter is functioning. Against that working control, 1951 《文物参考資料/文物参考资料》 with dpid=ndl-dl returns totalResults=0, the same target with dpid=ndl-dl-open returns 0, and the Zhao Wanli article title in traditional and simplified forms with dpid=ndl-dl also returns 0. Without provider restriction, NDL Search returns the exact paper bound-volume item R100000002-Ia0000051292-i25241426, labelled 2(7)-2(12) 1951. Its public record states material form 紙, call number Z8-AC150, NDL bibliographic ID a0000051292, publisher 文物出版社, and the serial chronology 2巻1期 (1951.1) through 2巻12期 (1951.12). The exact item page exposes no dl.ndl.go.jp or PID link. This closes only the current NDL Digital/provider access route; it does not prove that no digitization exists elsewhere, does not recover wwck195109.pdf, and does not directly review issue 9 or Zhao Wanli pp.221–233.",
+  "prior_identity_control": {
+    "controlling_batch": "BATCH-12-ZIWEI-WENWU-CANKAO-NDL-1951-H2-AND-RYUKOKU-1986-FACSIMILE-ACCESS-REDUNDANCY-HI",
+    "source_id": "EXT-NDL-WENWU-CANKAO-1951-V2-7-12-Z8-AC150",
+    "physical_holding_increment_this_batch": 0,
+    "reason": "Batch 12HI already closed the same NDL paper bound-volume identity; Batch 12IS upgrades only the current digital-provider/access boundary."
+  },
+  "opensearch_digital_provider_calibration": {
+    "commit_sha": "c8fcdc56183cfecb8a8969fadc128de0c61c1ff2",
+    "workflow_run_id": 36725564116,
+    "workflow_job_id": 109921418457,
+    "artifact_id": 11101099530,
+    "artifact_digest": "sha256:09b01cb0a764774379700295aee0cccb88004c586223dd71106217c471b63665",
+    "endpoint": "https://ndlsearch.ndl.go.jp/api/opensearch",
+    "positive_control": {
+      "title": "吾輩は猫である",
+      "dpid": "ndl-dl",
+      "http_status": 200,
+      "total_results": 165,
+      "returned_items": 5,
+      "direct_dl_ndl_pid_refs_observed": true
+    },
+    "target_serial_traditional": {
+      "title": "文物参考資料",
+      "year": 1951,
+      "dpid": "ndl-dl",
+      "http_status": 200,
+      "total_results": 0
+    },
+    "target_serial_simplified": {
+      "title": "文物参考资料",
+      "year": 1951,
+      "dpid": "ndl-dl",
+      "http_status": 200,
+      "total_results": 0
+    },
+    "target_serial_open_provider": {
+      "title": "文物参考資料",
+      "year": 1951,
+      "dpid": "ndl-dl-open",
+      "http_status": 200,
+      "total_results": 0
+    },
+    "target_article_traditional": {
+      "title": "永樂大典展覽的意義",
+      "dpid": "ndl-dl",
+      "http_status": 200,
+      "total_results": 0
+    },
+    "target_article_simplified": {
+      "title": "永乐大典展览的意义",
+      "dpid": "ndl-dl",
+      "http_status": 200,
+      "total_results": 0
+    },
+    "all_provider_target_serial": {
+      "title": "文物参考資料",
+      "year": 1951,
+      "http_status": 200,
+      "total_results": 8,
+      "exact_second_half_item_observed": true,
+      "exact_second_half_item_id": "R100000002-Ia0000051292-i25241426"
+    }
+  },
+  "exact_item_metadata_resolution": {
+    "commit_sha": "9fed9012d2588ac25d22985c144276976fef11cd",
+    "workflow_run_id": 36726939009,
+    "workflow_job_id": 109926126221,
+    "artifact_id": 11103381479,
+    "artifact_digest": "sha256:47258b89b3bb5ad74df33ff8ca161479aec374d3edb80aac133100af253b445f",
+    "item_id": "R100000002-Ia0000051292-i25241426",
+    "title": "文物参考资料",
+    "volume_display": "2(7)-2(12) 1951",
+    "year": 1951,
+    "parent_bibliographic_id": "a0000051292",
+    "target_issue_9_numerically_contained": true,
+    "direct_issue_9_item_id_resolved": false,
+    "direct_target_article_record_resolved": false
+  },
+  "exact_public_record_access_control": {
+    "commit_sha": "884c0bb5a2e8ecdb5b2c5d04bdbf4d76125e2b22",
+    "workflow_run_id": 36727184158,
+    "workflow_job_id": 109926960625,
+    "artifact_id": 11102617533,
+    "artifact_digest": "sha256:d3c0adf567f1583082095c036ad5b591dfbe9ad1c64e648068f8c68d155d3446",
+    "url": "https://ndlsearch.ndl.go.jp/books/R100000002-Ia0000051292-i25241426",
+    "http_status": 200,
+    "page_sha256": "06c0469934fe4ec794db5de756df56fa4f8a5232cfe7df2eee8d8276b82fe84c",
+    "call_number": "Z8-AC150",
+    "material_type": "雑誌",
+    "material_form": "紙",
+    "publisher": "文物出版社",
+    "volume_display": "2(7)-2(12) 1951",
+    "parent_bibliographic_id": "a0000051292",
+    "has_dl_ndl_link": false,
+    "has_pid_link": false
+  },
+  "access_adjudication": {
+    "current_ndl_digital_provider_target_serial_hit": false,
+    "current_ndl_digital_open_provider_target_serial_hit": false,
+    "current_ndl_digital_provider_target_article_hit": false,
+    "exact_ndl_paper_bound_volume_closed": true,
+    "target_issue_9_contained_in_bound_range": true,
+    "target_issue_9_independent_digital_object_closed": false,
+    "target_article_digital_object_closed": false,
+    "wwck195109_pdf_recovered": false,
+    "direct_scan_bytes_recovered": false,
+    "direct_pp221_233_reviewed": false,
+    "negative_scope": "CURRENT_NDL_SEARCH_NDL_DL_AND_NDL_DL_OPEN_PROVIDER_ROUTES_PLUS_EXACT_ITEM_PAGE_ONLY",
+    "global_no_digitization_claim_authorized": false,
+    "repeat_same_ndl_digital_queries_without_provider_state_change_authorized": false
+  },
+  "target_text_firewall": {
+    "target_article": "永乐大典展览的意义——一九五一年八月北京图书馆举办",
+    "bibliographic_locator": "《文物参考资料》1951年第9期 pp.221–233",
+    "direct_original_text": "NOT_REVIEWED",
+    "zhao_wanli_wenji_2011_p197": "NOT_REVIEWED",
+    "quoted_song_print_member_must_not_collapse_to_fid070": true,
+    "fid070_physical_research_adjudication": "元刻元印十行本"
+  },
+  "security_and_evidence_firewall": {
+    "login_executed": false,
+    "account_action_executed": false,
+    "copy_request_executed": false,
+    "payment_executed": false,
+    "captcha_bypass_attempted": false,
+    "tls_certificate_verification_disabled": false,
+    "bulk_harvest_used": false,
+    "fulltext_requested": false,
+    "provider_zero_result_is_route_scoped_only": true,
+    "absence_of_dl_link_is_not_global_no_digitization_proof": true
+  },
+  "transmission_impact": {
+    "status": "NONE",
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": [],
+    "reason": "Modern library access/digital-provider boundary only; no historical transmission relation is established."
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Do not repeat the current NDL dpid=ndl-dl / ndl-dl-open title probes unless NDL provider state changes or a source-emitted NDL Digital PID appears.",
+    "Continue authoritative/open-object discovery for wwck195109.pdf outside the closed current NDL Digital route; if bytes are lawfully recovered, hash and bind issue identity/pagination before reviewing pp.221-233.",
+    "Continue lawful public/direct recovery of 2011 《赵万里文集》第1卷 p.197.",
+    "Continue newly discovered direct/page-numbered Ji Shuying Chapter 9 or Chapter 10/11 pagination routes."
+  ],
+  "updated_at": "2026-09-30"
+}

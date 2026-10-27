@@ -1,0 +1,35 @@
+name: close-batch-12ah-jiaojingshanfang-detail-photo-adjudication
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JIAOJINGSHANFANG-HANAUCTION-DETAIL-PHOTO-VISUAL-ADJUDICATION-AH.md
+      - docs/research/ZIWEI-JIAOJINGSHANFANG-HANAUCTION-DETAIL-PHOTO-VISUAL-ADJUDICATION-R1.json
+      - docs/PROJECT-CURRENT-STATE-R1.json
+      - docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json
+      - docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.md
+      - docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json
+      - scripts/verify-project-continuity-state-r1.py
+      - scripts/verify-fusion-chart-historical-provenance-audit-r1.py
+      - tests/test_fusion_chart_historical_provenance_audit_matrix_r1.py
+      - README.md
+      - .github/workflows/close-batch-12ah-jiaojingshanfang-detail-photo-adjudication.yml
+
+permissions:
+  contents: read
+
+jobs:
+  close:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Historical provenance gate
+        run: python scripts/verify-fusion-chart-historical-provenance-audit-r1.py
+      - name: Project continuity gate
+        run: python scripts/verify-project-continuity-state-r1.py
+      - name: Focused historical matrix tests
+        run: python -m unittest discover -s tests -p "test_fusion_chart_historical_provenance_audit_matrix_r1.py" -v

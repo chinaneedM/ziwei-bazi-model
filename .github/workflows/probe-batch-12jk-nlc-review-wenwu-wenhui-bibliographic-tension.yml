@@ -1,0 +1,101 @@
+name: probe-batch-12jk-nlc-review-wenwu-wenhui-bibliographic-tension
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12jk-nlc-review-wenwu-wenhui-bibliographic-tension.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Probe official NLC review PDF bibliographic control
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils > /dev/null
+          python - <<'PY'
+          import hashlib,json,re,subprocess
+          from pathlib import Path
+          import requests
+
+          URL="https://www.nlc.cn/upload/attachments/2025-04-08/753b026e.pdf"
+          UA={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; official NLC scholarly-review PDF probe)"}
+          MAX=25*1024*1024
+          outdir=Path("audit/batch-12jk-nlc-review")
+          outdir.mkdir(parents=True,exist_ok=True)
+          pdf=outdir/"nlc-review.pdf"
+
+          r=requests.get(URL,headers=UA,timeout=60)
+          r.raise_for_status()
+          b=r.content
+          if len(b)>MAX:
+              raise RuntimeError("official PDF exceeds 25 MiB bound")
+          if not b.startswith(b"%PDF-"):
+              raise RuntimeError("official URL did not return a PDF")
+          pdf.write_bytes(b)
+
+          info=subprocess.run(["pdfinfo",str(pdf)],check=True,capture_output=True,text=True,timeout=60).stdout
+          m=re.search(r"^Pages:\s+(\d+)\s*$",info,re.M)
+          pages=int(m.group(1)) if m else None
+
+          full_txt=outdir/"full.txt"
+          page5_txt=outdir/"page5.txt"
+          subprocess.run(["pdftotext","-raw",str(pdf),str(full_txt)],check=True,timeout=60)
+          subprocess.run(["pdftotext","-f","5","-l","5","-raw",str(pdf),str(page5_txt)],check=True,timeout=60)
+
+          full=full_txt.read_text("utf-8",errors="replace")
+          p5=page5_txt.read_text("utf-8",errors="replace")
+          compact=lambda s: re.sub(r"\s+","",s)
+          c5=compact(p5)
+
+          flags={
+              "author_affiliation_present":"刘鹏" in p5 or "刘 鹏" in p5,
+              "zhao_wanli_present":"赵万里" in p5,
+              "article_title_present":"永乐大典展览的意义" in c5,
+              "event_subtitle_present":"一九五一年八月北京图书馆举办" in c5,
+              "wenwu_cankao_present":"文物参考资料" in p5,
+              "year_1951_present":"1951" in p5,
+              "issue9_present":bool(re.search(r"1951\s*年\s*第\s*9\s*期",p5)),
+              "pages221_233_present":bool(re.search(r"221\s*[—–-]\s*233",p5)),
+              "wenhui_present":"文汇报" in p5,
+              "aug18_present":"8月18日" in p5 or "8 月 18 日" in p5
+          }
+          summary={
+              "url":URL,
+              "http_status":r.status_code,
+              "content_type":r.headers.get("Content-Type"),
+              "bytes":len(b),
+              "sha256":hashlib.sha256(b).hexdigest(),
+              "pdf_pages":pages,
+              "target_pdf_page":5,
+              "target_printed_page":10,
+              "text_layer_extracted":True,
+              "ocr_used":False,
+              "page5_chars":len(p5),
+              "target_flags":flags,
+              "target_bibliographic_bundle_closed":all(flags[k] for k in (
+                  "zhao_wanli_present","article_title_present","event_subtitle_present",
+                  "wenwu_cankao_present","year_1951_present","issue9_present","pages221_233_present"
+              )),
+              "wenhui_absence_on_review_page_is_negative_publication_evidence":False,
+              "first_publication_adjudication_authorized":False,
+              "raw_pdf_saved_in_artifact":True,
+              "raw_text_logged":False
+          }
+          (outdir/"summary.json").write_text(json.dumps(summary,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+          print(json.dumps(summary,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12jk-nlc-review-wenwu-wenhui-bibliographic-tension
+          path: audit/batch-12jk-nlc-review/
+          if-no-files-found: error
+          retention-days: 30

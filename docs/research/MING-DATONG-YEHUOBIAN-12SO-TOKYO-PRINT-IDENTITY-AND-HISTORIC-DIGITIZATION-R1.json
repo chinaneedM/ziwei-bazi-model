@@ -1,0 +1,157 @@
+{
+  "schema": "MING-DATONG-YEHUOBIAN-12SO-TOKYO-PRINT-IDENTITY-AND-DIGITIZATION-R1",
+  "date": "2026-10-12",
+  "parent_batch": "12QE_OPEN",
+  "checkpoint_kind": "TWO_DISTINCT_PRINT_PHYSICAL_FORMAT_FINGERPRINTS_AND_DATED_2005_IMAGE_POLICY",
+  "direct_catalog_recheck": {
+    "provider": "CiNii / National Institute of Informatics bibliographic records",
+    "checked_date": "2026-10-12",
+    "items": [
+      {
+        "ncid": "BC0492354X",
+        "url": "https://ci.nii.ac.jp/ncid/BC0492354X",
+        "collection": "大木文庫",
+        "callmark": "大木;子部:雜家類:16-20",
+        "physical_item": "6403767830",
+        "target_binding": "卷20",
+        "cataloged_impression_year": 1827,
+        "edition_record": "野獲編 30卷首1卷補遺4卷",
+        "fascicles": 34,
+        "outer_dimensions_cm": [
+          25.6,
+          17.3
+        ],
+        "inner_frame_cm": [
+          18.4,
+          13.2
+        ],
+        "layout": "四周雙邊有界10行21字注文雙行;白口單黑魚尾",
+        "catalog_copy_condition": "虫損甚だし; stains/damage/fading in set",
+        "copy_notes_scope": "補遺卷4第31–32葉乱丁; does not locate a problem at 卷20 target leaf",
+        "public_target_leaf_seen": false,
+        "public_target_page_number": null,
+        "independent_glyph_vote": 0
+      },
+      {
+        "ncid": "BB23196128",
+        "url": "https://ci.nii.ac.jp/ncid/BB23196128.amp?l=en",
+        "collection": "倉石文庫",
+        "callmark": "倉石文庫:20128:11",
+        "physical_item": "6403148395",
+        "target_binding": "卷19–20",
+        "cataloged_impression_year": 1869,
+        "edition_record": "野獲編 30卷補遺4卷",
+        "fascicles": 20,
+        "outer_dimensions_cm": [
+          25.7,
+          15.6
+        ],
+        "inner_frame_cm": [
+          18.2,
+          13.1
+        ],
+        "layout": "四周雙邊有界10行21字注文雙行;單魚尾",
+        "catalog_copy_condition": "not specified in reviewed record",
+        "copy_notes_scope": "卷30第12葉重複; does not locate a problem at 卷20 target leaf",
+        "public_target_leaf_seen": false,
+        "public_target_page_number": null,
+        "independent_glyph_vote": 0
+      }
+    ],
+    "edition_scope": "Differences in physical format, casing and cataloged impression are grounds for independent-copy collation, not proof of different printing blocks or textual variants. 1827 Dōkō preface appears in 1869 revised catalog; inherited preface does not prove identical impressions.",
+    "author_attribution_variance": "CiNii 1827 record labels 錢枋 as (明); CiNii 1869 labels 錢枋 as (清). Catalog metadata discrepancy must not be converted into a biographical or textual conclusion without independent checking.",
+    "precise_opac_openurl_probe": {
+      "source_urls": [
+        "https://opac.dl.itc.u-tokyo.ac.jp/opac/opac_openurl/?ncid=BC0492354X",
+        "https://opac.dl.itc.u-tokyo.ac.jp/opac/opac_openurl/?ncid=BB23196128"
+      ],
+      "results_observed": "WEB_FETCH_HTTP_403_FOR_BOTH_AT_2026_10_12",
+      "scope": "This particular crawler path is blocked; it is not proof of nonholding, non-digitization or institution-wide denial.",
+      "items_visited_by_source_emitted_catalog_links_only": true
+    }
+  },
+  "historic_official_handout": {
+    "url": "https://www.ioc.u-tokyo.ac.jp/~library/kouenkai/report/1_okayama.pdf",
+    "internal_date": "2005-12-15",
+    "pdf_pages_one_based": [
+      11,
+      12
+    ],
+    "printed_pages": [
+      57,
+      58
+    ],
+    "institution_holding_context": "Oki 大木文庫 and Kuraishi 倉石文庫 collections explicitly mentioned in printed57",
+    "selection_method": "Special rare books chosen first; later collection prioritization, not all rare and post-1735 books automatically digitized",
+    "priority_cutoff_context": "2005 interview describes pre-1735 special rare status; not a 2026 catalogue-wide classification",
+    "source_surrogate_sequence": [
+      "35mm microfilm",
+      "microfilm-derived facsimile copy",
+      "preservation 400dpi TIFF",
+      "historical web 120dpi JPEG"
+    ],
+    "web_2005_titles": 537,
+    "historical_access_policy": {
+      "class_A": "FULL_IMAGES_FROM_PUBLIC_IN_2005",
+      "class_B": "FIRST_TEN_PAGES_ONLY_OUTSIDE_LISTED_CAMPUSES_IN_2005",
+      "class_indicator_in_list": "NOT_SHOWN_AS_OF_2005_HANDOUT"
+    },
+    "inference_limits": [
+      "2005 snapshot does not prove 2026 A/B categories or actual remote access",
+      "Neither exact cataloged physical item has an original target-leaf image supplied by this source",
+      "A 120dpi web JPEG cannot silently be hashed or identified as a 400dpi archival TIFF or a 35mm microfilm copy",
+      "A first-ten-page historical preview limit does not mean article absent; target could be beyond page ten",
+      "The historic prioritization of pre-1735 sources cannot prove that the 1827 or 1869 item has not been digitized"
+    ]
+  },
+  "next_actions": [
+    "Follow exact Tokyo catalog records to source-emitted item-level full-text link if accessible, without guessed URLs or permissions bypass",
+    "If no target link, use official library inquiry only after an explicit external-action authorization and required contact context",
+    "Ask for exact 卷20〈改造漏刻〉leaf/folio and available permitted surrogates for the separate 1827/1869 catalog objects; do not assume the same page index",
+    "If physical page arrives, independently bind cover/plate/callmark and all four word/numeric loci with separate file and page hashes as specified by 12SM"
+  ],
+  "claims": {
+    "full_1827_target_read": false,
+    "full_1869_target_read": false,
+    "digitization_absence_proven": false,
+    "print_plate_identity_proven": false,
+    "target_word_or_number_revised": false,
+    "lineage_edges_added": 0,
+    "algorithm_reopens": 0,
+    "independent_target_glyph_votes_added": 0
+  },
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Different fascicle arrangements and near-identical 10x21 text layout do not demonstrate either shared or independent exact typesetting/plate state",
+      "A historical digitization-policy sheet is not DIGITAL_SURROGATE_OF either specific catalog physical copy",
+      "1869 inherited 1827 preface is not an original 1827 target image or direct-copy evidence"
+    ],
+    "remaining_lineage_questions": [
+      "Is the target article located on a physically inspectable original leaf in each catalog copy?",
+      "Are observed dimensions/layout differences due to type setting, copy measurement, plate substitution or edition-level revision?",
+      "Can specific post-1827 records or source-leaf photos be obtained without bypassing institutional restrictions?"
+    ]
+  },
+  "counts": {
+    "matrix_rows": 222,
+    "audited_rows": 222,
+    "metadata_repairs": 45,
+    "root_sources": 647,
+    "extension_sources_before": 10,
+    "extension_sources_after": 11,
+    "unique_sources_after": 658,
+    "graph_nodes": 248,
+    "graph_edges": 235,
+    "formal_completed_batches_delta": 0
+  },
+  "invariants": {
+    "parent": "12QE_OPEN",
+    "latest_formal_batch_suffix": "-QD.md",
+    "product_r1": "CLOSED",
+    "md_g03": "OPEN_BLOCKING_GENERAL_ADAPTER",
+    "algorithm_reopens": 0
+  }
+}

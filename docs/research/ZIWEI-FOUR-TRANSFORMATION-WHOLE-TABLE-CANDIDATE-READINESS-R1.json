@@ -1,0 +1,237 @@
+{
+  "schema": "ZIWEI-FOUR-TRANSFORMATION-WHOLE-TABLE-CANDIDATE-READINESS-R1",
+  "version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-FOUR-TRANSFORMATION-WHOLE-TABLE-CANDIDATE-READINESS-OJ",
+  "date": "2026-10-06",
+  "target_rule_id": "HPA-ZIWEI-014",
+  "question": "Can divergent Four-Transformation traditions be preserved as complete source-scoped deterministic table candidates without cell-level hybridization or production selection?",
+  "baseline": {
+    "production_rule_set_id": "S08_CURRENT_40_ASSIGNMENT_R1",
+    "production_table_matches_jielan_1581": true,
+    "jielan_registry_id": "ZIWEI-JIELAN-1581-HISTORICAL-CANDIDATES-R1",
+    "jielan_registry_version": "1.1.0"
+  },
+  "candidate_registry": {
+    "registry_id": "ZIWEI-FOUR-TRANSFORMATION-HISTORICAL-CANDIDATES-R1",
+    "registry_version": "1.0.0",
+    "runtime_resolver_id": "ZIWEI-FOUR-TRANSFORMATION-SOURCE-SCOPED-CANDIDATE-RUNTIME-R1",
+    "runtime_resolver_version": "1.0.0",
+    "selection_status": "PRESERVED_NOT_SELECTED",
+    "whole_table_only": true,
+    "cell_level_hybridization_allowed": false,
+    "public_product_surface": false
+  },
+  "candidates": [
+    {
+      "candidate_id": "RECEIVED-FULLBOOK-SHIDIAN-V3-FOUR-TRANSFORMATION-R1",
+      "source_id": "EXT-SHIDIAN-ZWDSQS-FOUR-TRANSFORMATIONS",
+      "source_scope": "SOURCE_SCOPED_RECEIVED_FULLBOOK_DIGITAL_TRANSCRIPTION_NOT_UNIVERSAL_FULLBOOK_RECENSION",
+      "table": {
+        "甲": [
+          "廉贞",
+          "破军",
+          "武曲",
+          "太阳"
+        ],
+        "乙": [
+          "天机",
+          "天梁",
+          "紫微",
+          "太阴"
+        ],
+        "丙": [
+          "天同",
+          "天机",
+          "文昌",
+          "廉贞"
+        ],
+        "丁": [
+          "太阴",
+          "天同",
+          "天机",
+          "巨门"
+        ],
+        "戊": [
+          "贪狼",
+          "太阴",
+          "右弼",
+          "天机"
+        ],
+        "己": [
+          "武曲",
+          "贪狼",
+          "天梁",
+          "文曲"
+        ],
+        "庚": [
+          "太阳",
+          "武曲",
+          "天同",
+          "天相"
+        ],
+        "辛": [
+          "巨门",
+          "太阳",
+          "文曲",
+          "文昌"
+        ],
+        "壬": [
+          "天梁",
+          "紫微",
+          "天府",
+          "武曲"
+        ],
+        "癸": [
+          "破军",
+          "巨门",
+          "太阴",
+          "贪狼"
+        ]
+      },
+      "mismatch_vs_production": [
+        [
+          "庚",
+          "化科",
+          "太阴",
+          "天同"
+        ],
+        [
+          "庚",
+          "化忌",
+          "天同",
+          "天相"
+        ],
+        [
+          "壬",
+          "化科",
+          "左辅",
+          "天府"
+        ]
+      ],
+      "mismatch_count_vs_production": 3
+    },
+    {
+      "candidate_id": "ZHONGZHOU-WANGTINGZHI-FOUR-TRANSFORMATION-R1",
+      "source_refs": [
+        "EXT-WANGTINGZHI-ZHONGZHOU-CHUJI",
+        "EXT-XINGQIAO-WANGTINGZHI-ZHONGZHOU-CHUJI",
+        "S01:ZZZA-A-0391",
+        "S01:ZZZA-A-0392",
+        "S01:ZZZA-A-0393",
+        "S01:ZZZA-A-0394",
+        "S01:ZZZA-A-0395"
+      ],
+      "source_scope": "MODERN_ZHONGZHOU_WANGTINGZHI_COMPLETE_TABLE",
+      "table": {
+        "甲": [
+          "廉贞",
+          "破军",
+          "武曲",
+          "太阳"
+        ],
+        "乙": [
+          "天机",
+          "天梁",
+          "紫微",
+          "太阴"
+        ],
+        "丙": [
+          "天同",
+          "天机",
+          "文昌",
+          "廉贞"
+        ],
+        "丁": [
+          "太阴",
+          "天同",
+          "天机",
+          "巨门"
+        ],
+        "戊": [
+          "贪狼",
+          "太阴",
+          "太阳",
+          "天机"
+        ],
+        "己": [
+          "武曲",
+          "贪狼",
+          "天梁",
+          "文曲"
+        ],
+        "庚": [
+          "太阳",
+          "武曲",
+          "天府",
+          "天同"
+        ],
+        "辛": [
+          "巨门",
+          "太阳",
+          "文曲",
+          "文昌"
+        ],
+        "壬": [
+          "天梁",
+          "紫微",
+          "天府",
+          "武曲"
+        ],
+        "癸": [
+          "破军",
+          "巨门",
+          "太阴",
+          "贪狼"
+        ]
+      },
+      "mismatch_vs_production": [
+        [
+          "戊",
+          "化科",
+          "右弼",
+          "太阳"
+        ],
+        [
+          "庚",
+          "化科",
+          "太阴",
+          "天府"
+        ],
+        [
+          "壬",
+          "化科",
+          "左辅",
+          "天府"
+        ]
+      ],
+      "mismatch_count_vs_production": 3
+    }
+  ],
+  "source_cautions": {
+    "fullbook_recensional_variance": "Other received Fullbook surfaces preserve different Geng readings. The Shidian table is therefore source-scoped and must not be renamed as a universal Fullbook table.",
+    "zhongzhou_chronology": "Wang Tingzhi is a modern school witness. Do not backdate the Zhongzhou table merely because some cells overlap older texts.",
+    "jielan_identity": "Jielan 1581 exactly matches the current production targets and remains a distinct source identity even though its coordinates are target-identical."
+  },
+  "adjudication": {
+    "audit_status_before": "MISSING_FROM_PRODUCT",
+    "audit_status_after": "MISSING_FROM_PRODUCT",
+    "reason": "Two genuinely divergent source families are now complete deterministic internal candidates, but no public read-only candidate API/Workbench table-family surface exists yet.",
+    "runtime_candidate_readiness_closed": true,
+    "public_product_gap_closed": false,
+    "production_default_changed": false,
+    "candidate_winner_selected": false,
+    "chart_algorithm_reopened": false
+  },
+  "accounting": {
+    "matrix_rows_after": 222,
+    "audited_rows_after": 222,
+    "current_missing_from_product_after": 7,
+    "historical_candidate_extension_count_after": 13,
+    "historical_candidate_registry_count_after": 4,
+    "historical_candidate_runtime_resolver_count_after": 4,
+    "identified_missing_candidate_family_count_after": 14,
+    "provenance_defects_after": 43,
+    "repaired_provenance_defects_after": 43
+  },
+  "next": "12OK — expose the two whole-table Four-Transformation candidates through a read-only product API/Workbench surface without changing production S08."
+}

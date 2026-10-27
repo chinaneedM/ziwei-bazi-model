@@ -1,0 +1,34 @@
+name: probe-tianwen-13fh-snu-gk5553-catalog
+on:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - scripts/probe-tianwen-13fh-snu-gk5553.py
+      - tests/test_probe_tianwen_13fh_snu_gk5553.py
+      - .github/workflows/probe-tianwen-13fh-snu-gk5553-catalog.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  official-catalog-evidence:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Source-bound negative tests
+        run: |
+          python -m py_compile scripts/probe-tianwen-13fh-snu-gk5553.py
+          python -m unittest discover -s tests -p 'test_probe_tianwen_13fh_snu_gk5553.py' -v
+      - name: Capture first-party SNU catalog
+        run: python scripts/probe-tianwen-13fh-snu-gk5553.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: tianwen-13fh-snu-gk5553-catalog
+          path: /tmp/tianwen-13fh-catalog/
+          if-no-files-found: warn
+          retention-days: 30

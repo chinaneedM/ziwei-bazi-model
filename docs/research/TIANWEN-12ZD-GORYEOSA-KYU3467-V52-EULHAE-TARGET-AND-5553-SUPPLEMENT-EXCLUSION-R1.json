@@ -1,0 +1,100 @@
+{
+  "schema": "TIANWEN-12ZD-GORYEOSA-KYU3467-V52-MIXED-COPY-SCOPE-R1",
+  "date": "2026-10-18",
+  "kind": "NEW_FIRST_PARTY_INSTITUTIONAL_BIBLIOGRAPHIC_TARGET_LEAD_NO_NEW_ORIGINAL_FOLIO",
+  "previous_batch": "docs/research/TIANWEN-12ZC-GORYEOSA-KYU-COPY-REPLACEMENT-AND-TARGET-FOLIO-PRIORITY-R1.json",
+  "source": {
+    "url": "https://kyudb.snu.ac.kr/brd/viewBrd.do?book_cate=HEJ23&focus=d11sd114&listChk=tree&menuId=10022&mid=HEJ&postSeq=10775&siteCd=DBSP",
+    "role": "KYUJANGGAK_FIRST_PARTY_HISTORICAL_BIBLIOGRAPHIC_OVERVIEW_NOT_DIRECT_HISTORICAL_GLYPH",
+    "table_label": "[표 1] 규장각 소장 『고려사』",
+    "source_scope": "BIBLIOGRAPHIC_DESCRIPTIONS_NOT_TARGET_ORIGINAL_SCAN",
+    "original_d16_d18_folio_in_source": false
+  },
+  "new_leads": [
+    {
+      "shelfmark": "奎3467",
+      "work_volume": 52,
+      "reported_fascicle_number": 6,
+      "reported_fascicle_medium": "乙亥字_MOVABLE_TYPE",
+      "physical_collection": "INCOMPLETE_MIXED_WOODBLOCK_MOVABLE_TYPE_AND_MANUSCRIPT_SET",
+      "print_year": "UNVERIFIED",
+      "exact_present_day_item_id": null,
+      "original_target_folio_bound": false,
+      "scope": "Official overview explicitly lists 奎3467 第6冊(卷52) as movable type; its separate remarks call fascicles6,26-30 the six 乙亥字 books and describe other fascicles as mixed woodblock/manuscript. Need reconcile digital split 奎3467의1/의2/의3/의4 and source item before seeing original."
+    },
+    {
+      "shelfmark": "奎貴5553",
+      "known_manuscript_replacements": [
+        {
+          "fascicle": 8,
+          "work_volumes": [
+            19,
+            20,
+            21
+          ]
+        },
+        {
+          "fascicle": 26,
+          "work_volumes": [
+            73,
+            74
+          ]
+        },
+        {
+          "fascicle": 29,
+          "work_volumes": [
+            81,
+            82,
+            83
+          ]
+        }
+      ],
+      "target_volume": 52,
+      "known_whole_fascicle_replacements_intersect_target": false,
+      "unknown_local_repair_possible": true,
+      "physical_target_fascicle_unknown": true,
+      "printed_target_glyph_bound": false,
+      "scope": "Official first-party table lists each known manuscript-supplement fascicle and work-volume range; none names volume52, but this cannot prove absence of local mending or which physical fascicle carries D16."
+    },
+    {
+      "shelfmark": "奎貴3539",
+      "print_year": 1613,
+      "microfilm_catalog_groups": [
+        {
+          "mf": "M/F74-102-5",
+          "physical_fascicles": "v.48-60"
+        }
+      ],
+      "target_work_volume": 52,
+      "target_microfilm_group_identified": false,
+      "scope": "MF identifier indexes physical fascicle v.48-60 only; identical number 52 is not proof that work volume52 is physical fascicle52, so target group remains unbound."
+    }
+  ],
+  "digital_catalog_scope": {
+    "source": "https://kyudb.snu.ac.kr/book/list.do?book_cate=KRE01&mid=GDS",
+    "reported_split_labels": [
+      "奎3467의1",
+      "奎3467의2",
+      "奎3467의3-v.12",
+      "奎3467의4"
+    ],
+    "exact_match_of_fascicle_6_to_split_catalog_item": "UNRESOLVED",
+    "first_party_records_not_counted_as_four_printing_branches": true
+  },
+  "risk_controls": {
+    "work_completion_1451_is_not_print_year": true,
+    "type_name_乙亥字_does_not_date_specific_copy": true,
+    "bibliographic_fascicle_binding_is_not_page_glyph": true,
+    "manuscript_replacement_exclusion_does_not_exclude_local_touchups": true,
+    "catalog_record_split_is_not_independent_edition": true,
+    "source_witness_count_new": 0,
+    "named_original_d16_d18_page_new": 0,
+    "G893_principal_original_controls": "5/6",
+    "G893_cross_original_decisions": "0/6",
+    "all_11_omission_issues_open": true,
+    "deterministic_product": "CLOSED",
+    "algorithm_reopen_count": 0,
+    "genealogy_new_edges": 0
+  },
+  "next_action": "Locate 奎3467 six-book mixed-copy object, bind book6 (卷52) to exact digital item and source-emitted original page; first collate D16/D18 and inspect local handwriting/printing. Independently map 奎貴5553's vol52 physical fascicle and scan. Do not infer ancestor or target glyph from bibliography."
+}

@@ -1,0 +1,91 @@
+{
+  "schema": "ZIWEI-NLC-OPAC-PUBLIC-SEARCH-CONTRACT-TRANSPORT-BOUNDARY-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-NLC-OPAC-PUBLIC-SEARCH-CONTRACT-TRANSPORT-BOUNDARY-JW",
+  "prior_batch_id": "BATCH-12-ZIWEI-NLC-WENHUI-RESOURCE-TITLE-SEARCH-ZERO-RESULT-BOUNDARY-JV",
+  "question": "Can the NLC-homepage-emitted OPAC login-session route be directly reproduced to recover a public catalog search contract without guessing parameters or submitting a target query?",
+  "answer": "Not on the controlling runner. The source-emitted OPAC root is reachable at HTTP 200, but the source-emitted /F/?func=file&file_name=login-session route times out after 35 seconds. No public search form/action is therefore directly observed. This is a transport boundary only and does not authorize any holding/nonholding inference.",
+  "controlling_probe": {
+    "workflow": ".github/workflows/probe-batch-12jw-nlc-opac-public-search-contract.yml",
+    "exact_head": "147c75d234ffca1bb8a7101ba48461c37a2488ed",
+    "workflow_run_id": 36845686120,
+    "workflow_job_id": 110315142748,
+    "artifact_id": 11153541592,
+    "artifact_name": "batch-12jw-nlc-opac-public-search-contract",
+    "artifact_digest": "sha256:2933160c6211d76c6ea25264241975fffed1f75f719b81acd509144ea770d039"
+  },
+  "routes": {
+    "opac_root": {
+      "url": "http://opac.nlc.cn/",
+      "http_status": 200,
+      "final_url": "http://opac.nlc.cn/",
+      "bytes": 318,
+      "sha256": "999e28e32e671494ad7a97c0a46446f192c8767264adca9d068ef0c3f4fe2a68",
+      "forms": 0,
+      "inputs": 0,
+      "links": 0
+    },
+    "source_emitted_login_session": {
+      "url": "http://opac.nlc.cn/F/?func=file&file_name=login-session",
+      "reached": false,
+      "error_class": "ConnectTimeout",
+      "timeout_seconds": 35
+    }
+  },
+  "adjudication": {
+    "opac_root_route": "REACHED",
+    "login_session_route": "TRANSPORT_TIMEOUT",
+    "public_search_contract": "NOT_OBSERVED",
+    "guessed_find_parameters_used": false,
+    "target_title_query_submitted": false,
+    "target_person_query_submitted": false,
+    "target_date_query_submitted": false,
+    "nlc_opac_nonholding": "NOT_PROVED",
+    "item_level_wenhui_identity": "UNRESOLVED",
+    "direct_wenhui_1951_08_18": "NOT_REVIEWED"
+  },
+  "evidence_firewall": {
+    "login_session_timeout_does_not_prove_opac_unavailability": true,
+    "root_reachability_does_not_prove_search_contract": true,
+    "transport_failure_does_not_prove_nonholding": true,
+    "outres_zero_result_does_not_equal_opac_nonholding": true
+  },
+  "security": {
+    "login_used": false,
+    "reader_account_used": false,
+    "registration_used": false,
+    "target_query_submitted": false,
+    "form_submitted": false,
+    "private_endpoint_guessed": false,
+    "captcha_bypass_used": false,
+    "tls_verification_disabled": false,
+    "state_changing_request_used": false
+  },
+  "transmission_impact": {
+    "status": "NONE",
+    "graph_change": false
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Do not guess Aleph find-* query parameters while the source-emitted login-session contract is not reproducible.",
+    "Use a current first-party/source-emitted NLC catalog alternative, including an already audited 文津 route if available, to seek item-level identity for the donated Wenhui CD-ROM.",
+    "Keep current outRes zero-result evidence separate from OPAC/catalog holding evidence.",
+    "Continue direct page-level recovery of Shanghai 《文汇报》 1951-08-18, 《文物参考资料》 no.9 pp.221-233 and 2011 《赵万里文集》第1卷 p.197."
+  ],
+  "updated_at": "2026-10-01"
+}

@@ -1,0 +1,102 @@
+{
+  "schema": "KYUJANGGAK-G893-MF-PDF-ROUTE-R1",
+  "schema_version": "1.0.0",
+  "status": "DIRECT_MF_PDF_ROUTE_CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED",
+  "source_id": "EXT-KYUJANGGAK-SHOUSHI-LICHENG-G893",
+  "book_cd": "GK00893_00",
+  "catalog_identifier": "奎貴893",
+  "title": "授時曆立成",
+  "item_cd": "SIC",
+  "volume_id": "0001",
+  "microfilm_number": "M/F73-102-37-A",
+  "read_only": true,
+  "ocr_used": false,
+  "route_scope": "KYUJANGGAK_MF_PDF_LIST_AND_DIRECT_PDF_ENDPOINT_ONLY_NOT_RENDERER_RETRY",
+  "technical_protocol_witnesses": [
+    {
+      "source_id": "EXT-GITHUB-BOOKGET-KYUJANGGAK-ADAPTER",
+      "endpoint": "https://kyudb.snu.ac.kr/ajax/book/mfPdfList.do",
+      "method": "POST",
+      "body": "book_cd=GK00893_00",
+      "pdf_selection_rule": "ONLY_IS_PDF_Y_ENTRIES_AUTHORIZE_mfPdf.do_CONSTRUCTION"
+    },
+    {
+      "source_id": "EXT-GITHUB-OPEN-GUJI-BOOKGET-PY-KYUJANGGAK-DOC",
+      "direct_pdf_shape": "https://kyudb.snu.ac.kr/book/mfPdf.do?book_cd={book_cd}&vol_no={vol_no}",
+      "role": "PUBLIC_TECHNICAL_PROTOCOL_CORROBORATION_ONLY"
+    }
+  ],
+  "direct_provider_probe": {
+    "initial_list_probe": {
+      "workflow_run_id": 34044864073,
+      "job_id": 101518006693,
+      "artifact_id": 9992787144,
+      "head_sha": "59d14a1c6156814a17c92e282c07f2ff736867ff",
+      "workflow_conclusion": "success",
+      "list_transport_http_200": true,
+      "list_result": "ERROR - DIR NOT EXIST",
+      "returned_volume": {
+        "CALL_NUM": "奎貴893",
+        "ORI_TIT": "授時曆立成",
+        "BOOK_CD": "GK00893_00",
+        "ITEM_CD": "SIC",
+        "VOL_NO": "0001",
+        "TOTAL_CNT": 1,
+        "REL_MAIN_IMG": "GK00893_00IH_0001_000a.jpg",
+        "REL_ADD_IMG": "GK00893_00IH_0001_004b.jpg",
+        "IS_PDF": null
+      }
+    },
+    "direct_pdf_control": {
+      "workflow_run_id": 34044991699,
+      "job_id": 101518359210,
+      "artifact_id": 9992817769,
+      "head_sha": "065c99dca8eae78bc3ed67314afe5e8142415553",
+      "workflow_conclusion": "success",
+      "list_transport_http_200": true,
+      "list_result": "ERROR - DIR NOT EXIST",
+      "vol_list_count": 1,
+      "is_pdf_values": [null],
+      "direct_url": "https://kyudb.snu.ac.kr/book/mfPdf.do?book_cd=GK00893_00&vol_no=0001",
+      "direct_transport_http_200": true,
+      "direct_pdf_magic": false,
+      "direct_pdf_returned": false
+    }
+  },
+  "adjudication": {
+    "mf_pdf_route_status": "CLOSED_NO_DOWNLOADABLE_PDF_OBJECT_OBSERVED",
+    "object_metadata_reconfirmed": true,
+    "renderer_route_retried": false,
+    "provider_record_absence_inference": "FORBIDDEN",
+    "physical_microfilm_absence_inference": "FORBIDDEN",
+    "future_same_mf_pdf_route_repeat_without_provider_change": "LOW_VALUE_AVOID",
+    "target_folio_effect": "NONE",
+    "target_glyph_effect": "NONE",
+    "target_numeric_effect": "NONE",
+    "algorithm_or_runtime_effect": "NONE"
+  },
+  "epistemic_boundaries": {
+    "mf_pdf_ui_marker_as_downloadable_pdf_proof": "FORBIDDEN",
+    "microfilm_catalog_number_as_online_pdf_presence": "FORBIDDEN",
+    "error_dir_not_exist_as_physical_microfilm_absence": "FORBIDDEN",
+    "returned_thumbnail_filename_as_target_folio_binding": "FORBIDDEN",
+    "technical_endpoint_success_as_target_glyph_authority": "FORBIDDEN",
+    "source_count_voting": "FORBIDDEN"
+  },
+  "target_controls": [
+    "VAR-NUM-SOLAR-WINTER-D16-DIFFERENCE",
+    "VAR-NUM-LUNAR-L8-LOSSGAIN",
+    "NORM-LUNAR-L101-CHIJI-DEGREE-POSITIONAL-GROUPING",
+    "VAR-NUM-LUNAR-L114-DAYRATE",
+    "VAR-NUM-LUNAR-L124-JI-XINGDU",
+    "VAR-NUM-LUNAR-L132-LOSSGAIN"
+  ],
+  "target_status": "ALL_SIX_PENDING_DIRECT_TARGET_PAGE",
+  "next_work": [
+    "SEARCH_PUBLICLY_REVIEWABLE_G893_TARGET_PAGE_REPRODUCTIONS_WITH_VISIBLE_TABLE_HEADINGS_AND_TARGET_ROWS",
+    "PREFER_AUTHORIZED_KYUJANGGAK_REPRODUCTION_OR_CONSULTATION_FOR_GK00893_00_USING_MF73_102_37_A_WHEN_PUBLIC_TARGET_PAGES_REMAIN_UNAVAILABLE",
+    "DO_NOT_REPEAT_EQUIVALENT_GITHUB_HOSTED_RENDERER_PROBES",
+    "DO_NOT_TREAT_THE_MF_PDF_UI_OR_MICROFILM_NUMBER_AS_AN_EXISTING_DOWNLOADABLE_PDF",
+    "KEEP_ALL_SIX_VALUES_FAIL_CLOSED_UNTIL_DIRECT_TARGET_GLYPHS_ARE_VISIBLE"
+  ]
+}

@@ -1,0 +1,67 @@
+name: lock-loc-hebing-tongshu-1554-juan17-opening-jp2-fixed
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/lock-loc-hebing-tongshu-1554-juan17-opening-jp2-fixed.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  lock:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install JP2 image tools
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq imagemagick libopenjp2-tools
+
+      - name: Download fixed LOC Juan-17 opening JP2 resources
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/loc-hebing-tongshu-1554-juan17-opening-jp2-fixed'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT/jp2" "$ROOT/png"
+
+          ids=(00000a 00001a 01b02a 02b03a 03b04a 04b05a 05b06a 06b07a 07b08a 08b09a 09b10a 10b11a)
+          : > "$ROOT/routes.tsv"
+          for i in "${!ids[@]}"; do
+            n=$((i+1))
+            id="${ids[$i]}"
+            url="https://tile.loc.gov/storage-services/service/asian/lcnclscd/2012402919/1A017/${id}.jp2"
+            out="$ROOT/jp2/page-$(printf '%03d' "$n")-${id}.jp2"
+            printf '%03d\t%s\t%s\n' "$n" "$id" "$url" >> "$ROOT/routes.tsv"
+            curl -L --fail --retry 5 --retry-all-errors --retry-delay 2               -A 'Tianwen-Provenance-Audit/1.0' "$url" -o "$out"
+            if command -v opj_decompress >/dev/null 2>&1; then
+              opj_decompress -i "$out" -o "$ROOT/png/page-$(printf '%03d' "$n")-${id}.png" >/dev/null
+            else
+              convert "$out" "$ROOT/png/page-$(printf '%03d' "$n")-${id}.png"
+            fi
+          done
+
+          test "$(find "$ROOT/jp2" -type f -name '*.jp2' | wc -l)" -eq 12
+          test "$(find "$ROOT/png" -type f -name '*.png' | wc -l)" -eq 12
+          sha256sum "$ROOT"/jp2/*.jp2 | sort -V > "$ROOT/jp2.sha256"
+          sha256sum "$ROOT"/png/*.png | sort -V > "$ROOT/png.sha256"
+          file "$ROOT"/jp2/*.jp2 > "$ROOT/jp2-file-types.txt"
+          file "$ROOT"/png/*.png > "$ROOT/png-file-types.txt"
+
+          printf '%s\n'             'LOC_ITEM=2012402919'             'RESOURCE_GROUP=Juan 17 / 1A017'             'SOURCE_DATE=明嘉靖33年[1554]'             'ROUTE_SOURCE=previous successful run 35361144052 artifact 10553899912; fixed resource ids extracted from resources-pretty.json'             'TARGET=opening 選時寶鏡局 and 銅壺晝夜百刻圖式'             'PAGES=Juan-17 resource images 1-12'             'SOURCE_FORMAT=LOC storage-services JP2'             'DERIVATIVE_FORMAT=PNG via OpenJPEG/ImageMagick for direct visual collation'             'OCR_USED_FOR_GLYPH_CLAIMS=false'             > "$ROOT/manifest.txt"
+
+      - name: Upload fixed opening evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: loc-hebing-tongshu-1554-juan17-opening-jp2-fixed
+          path: audit/loc-hebing-tongshu-1554-juan17-opening-jp2-fixed/
+          if-no-files-found: error
+          compression-level: 6
+          retention-days: 30

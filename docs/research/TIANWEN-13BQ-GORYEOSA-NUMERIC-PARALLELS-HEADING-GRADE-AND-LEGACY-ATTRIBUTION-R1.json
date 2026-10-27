@@ -1,0 +1,191 @@
+{
+  "schema": "TIANWEN-13BQ-ORIGINAL-NUMERIC-PARALLELS-HEADING-EVIDENCE-GRADE-AND-LEGACY-CUMULATIVE-ATTRIBUTION-R1",
+  "date": "2026-10-21",
+  "issue_id": "TW-OPEN-0005",
+  "grade": "GIT_BLOB_SHA_PINNED_PRIOR_ORIGINAL_IMAGE_READ_RECORD_CROSSCHECK_NOT_NEW_DIRECT_GLYPH_REVIEW",
+  "source_files": [
+    {
+      "key": "WBO",
+      "path": "docs/research/TIANWEN-13BO-GORYEOSA-WASEDA-P23-D17-D18-ORIGINAL-HEADER-CUMULATIVE-LONG-R1.json",
+      "blob_sha": "e4115ce8d121c976bd9866b2307bb7662e09fc4d"
+    },
+    {
+      "key": "WBN",
+      "path": "docs/research/TIANWEN-13BN-GORYEOSA-WASEDA-P23-P24-TIGHT-CUMULATIVE-AND-LONG-ROI-R1.json",
+      "blob_sha": "e5e7df6d6b1d8553b81561b9ee0e6798bedc1726"
+    },
+    {
+      "key": "NBG",
+      "path": "docs/research/TIANWEN-13BG-GORYEOSA-NAJ-ADJACENT-FOLIOS-CUMULATIVE-D17-D19-R1.json",
+      "blob_sha": "9a4c91bf0cfc0928a461d3691374b3771ad03c49"
+    },
+    {
+      "key": "NBK",
+      "path": "docs/research/TIANWEN-13BK-GORYEOSA-NAJ-CANVAS18-D19-LONG-D20-D21-CUMULATIVE-R1.json",
+      "blob_sha": "3513e5957302e644ce4d064e0cf896e33549cfb0"
+    },
+    {
+      "key": "BJ",
+      "path": "docs/research/TIANWEN-13BJ-GORYEOSA-WASEDA-P23-D18-D20-DIRECT-CUMULATIVE-AND-LONG-R1.json",
+      "blob_sha": "11a96d090e44076943e9ae1785352d883dc8fba0"
+    },
+    {
+      "key": "BE",
+      "path": "docs/research/TIANWEN-13BE-GORYEOSA-D16-ORIGINAL-LONG-LANE-DUAL-COPY-COLLATION-R1.json",
+      "blob_sha": "603b63097bc24c8ef958b22f4b1999e85fa3d908"
+    },
+    {
+      "key": "BP",
+      "path": "docs/research/TIANWEN-13BP-GORYEOSA-TWO-HOLDING-LOCAL-FIELD-DAY-ALIGNMENT-R1.json",
+      "blob_sha": "9e6517eeae40f074d41a9d14113cb293f5cd799a"
+    }
+  ],
+  "local_original_numeric_parallels": [
+    {
+      "value": "8000.2697",
+      "field": "CUMULATIVE",
+      "waseda": {
+        "day": 17,
+        "source": "WBO",
+        "key": "P23_D17_C",
+        "grade": "DIRECT_ORIGINAL_NUMERIC_AND_DAY_HEADING"
+      },
+      "naj": {
+        "day": 18,
+        "source": "NBG",
+        "key": "canvas18_slot18",
+        "grade": "DIRECT_ORIGINAL_NUMERIC_APPARENT_LAYOUT_DAY_NO_INDIVIDUAL_DAY_HEADER"
+      }
+    },
+    {
+      "value": "8424.6408",
+      "field": "CUMULATIVE",
+      "waseda": {
+        "day": 18,
+        "source": "WBO",
+        "key": "P23_D18_C",
+        "grade": "DIRECT_ORIGINAL_NUMERIC_AND_DAY_HEADING"
+      },
+      "naj": {
+        "day": 19,
+        "source": "NBG",
+        "key": "canvas18_slot19",
+        "grade": "DIRECT_ORIGINAL_NUMERIC_APPARENT_LAYOUT_DAY_NO_INDIVIDUAL_DAY_HEADER"
+      }
+    },
+    {
+      "value": "8843.7571",
+      "field": "CUMULATIVE",
+      "waseda": {
+        "day": 19,
+        "source": "WBN",
+        "key": "P23_D19_C",
+        "grade": "DIRECT_ORIGINAL_NUMERIC_AND_DAY_HEADING"
+      },
+      "naj": {
+        "day": 20,
+        "source": "NBK",
+        "key": "D20_CUM",
+        "grade": "DIRECT_ORIGINAL_NUMERIC_AND_DAY_HEADING"
+      }
+    },
+    {
+      "value": "9257.6000",
+      "field": "CUMULATIVE",
+      "waseda": {
+        "day": 20,
+        "source": "WBN",
+        "key": "P23_D20_C",
+        "grade": "DIRECT_ORIGINAL_NUMERIC_AND_DAY_HEADING"
+      },
+      "naj": {
+        "day": 21,
+        "source": "NBK",
+        "key": "D21_CUM",
+        "grade": "DIRECT_ORIGINAL_NUMERIC_AND_DAY_HEADING"
+      }
+    }
+  ],
+  "subfinding": {
+    "four_numeric_matches": true,
+    "naj_individual_day_heading_confirmed_pairs": 2,
+    "naj_apparent_layout_without_individual_day_header_pairs": 2,
+    "whole_table_day_offset_proven": false,
+    "all_field_date_offset_proven": false,
+    "independent_physical_transmission_votes": 0,
+    "note": "Four existing source-original numeric atoms match between Waseda D17-D20 and NAJ apparent D18-D19/heading-bound D20-D21. Two NAJ early-day labels are only apparent layout, not independent heading ROIs. Long-lane local comparison from 13BP is deliberately separate."
+  },
+  "legacy_13bj_cumulative_rebindings": [
+    {
+      "source": "docs/research/TIANWEN-13BJ-GORYEOSA-WASEDA-P23-D18-D20-DIRECT-CUMULATIVE-AND-LONG-R1.json",
+      "key": "D18_CUMULATIVE",
+      "old_layout_day": 18,
+      "value": "8000.2697",
+      "rebound_waseda_original_day": 17,
+      "new_source": "docs/research/TIANWEN-13BO-GORYEOSA-WASEDA-P23-D17-D18-ORIGINAL-HEADER-CUMULATIVE-LONG-R1.json",
+      "new_key": "P23_D17_C",
+      "status": "OLD_DAY_ATTRIBUTION_SUPERSEDED_NOT_OLD_DIGITS"
+    },
+    {
+      "source": "docs/research/TIANWEN-13BJ-GORYEOSA-WASEDA-P23-D18-D20-DIRECT-CUMULATIVE-AND-LONG-R1.json",
+      "key": "D19_CUMULATIVE",
+      "old_layout_day": 19,
+      "value": "8424.6408",
+      "rebound_waseda_original_day": 18,
+      "new_source": "docs/research/TIANWEN-13BO-GORYEOSA-WASEDA-P23-D17-D18-ORIGINAL-HEADER-CUMULATIVE-LONG-R1.json",
+      "new_key": "P23_D18_C",
+      "status": "OLD_DAY_ATTRIBUTION_SUPERSEDED_NOT_OLD_DIGITS"
+    },
+    {
+      "source": "docs/research/TIANWEN-13BJ-GORYEOSA-WASEDA-P23-D18-D20-DIRECT-CUMULATIVE-AND-LONG-R1.json",
+      "key": "D20_CUMULATIVE",
+      "old_layout_day": 20,
+      "value": "8843.7571",
+      "rebound_waseda_original_day": 19,
+      "new_source": "docs/research/TIANWEN-13BN-GORYEOSA-WASEDA-P23-P24-TIGHT-CUMULATIVE-AND-LONG-ROI-R1.json",
+      "new_key": "P23_D19_C",
+      "status": "OLD_DAY_ATTRIBUTION_SUPERSEDED_NOT_OLD_DIGITS"
+    }
+  ],
+  "older_13be_adjoining_numerals": {
+    "source": "docs/research/TIANWEN-13BE-GORYEOSA-D16-ORIGINAL-LONG-LANE-DUAL-COPY-COLLATION-R1.json",
+    "holdings": [
+      "NAJ-282-0006-PHYSICAL51",
+      "WASEDA-RI06-02809-BOOK33"
+    ],
+    "older_adjoining_waseda_16": "7135.8375",
+    "older_adjoining_waseda_17": "7570.6624",
+    "status": "ADJACENT_MIXED_ROI_NOT_SAFE_AS_SAME_HEADING_CUMULATIVE",
+    "numeric_digit_status": "PRESERVED",
+    "day_heading_authority_for_cumulative": "NOT_PROMOTED",
+    "source_original_day16_short_glyph": "5.1362",
+    "day16_short_ancestral_winner": "UNRESOLVED"
+  },
+  "next_original_targets": [
+    "Waseda source-native D16 narrowly isolated cumulative and visible day heading; do not infer value from difference.",
+    "NAJ D18/D19 individual printed headings independently bounded by source-native ROIs, to strengthen apparent layout grade.",
+    "Waseda/NAJ source table first/last header and explicit field definitions; physical exemplar/impression relation.",
+    "G893 original 少/微 cross-work units, Ming1569 same-field mechanical identity and D16 one/two ancestral variant."
+  ],
+  "scope_firewall": {
+    "new_original_pixel_reads": 0,
+    "new_original_image_downloads": 0,
+    "new_source_registry_entries": 0,
+    "new_physical_witnesses": 0,
+    "new_stemmatic_votes": 0,
+    "new_matrix_rows": 0,
+    "new_genealogy_nodes": 0,
+    "new_genealogy_edges": 0,
+    "algorithm_reopens": 0,
+    "open_or_blocked_risks": 11,
+    "product": "CLOSED"
+  },
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproven": [
+      "Matched original numeric digits do not establish textual copying, independent stemmata, or global all-field date shift."
+    ]
+  }
+}

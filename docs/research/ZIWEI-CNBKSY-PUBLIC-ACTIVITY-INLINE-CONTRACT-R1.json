@@ -1,0 +1,113 @@
+{
+  "schema": "ZIWEI-CNBKSY-PUBLIC-ACTIVITY-INLINE-CONTRACT-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-CNBKSY-PUBLIC-ACTIVITY-INLINE-CONTRACT-LI",
+  "prior_batch_id": "BATCH-12-ZIWEI-CNBKSY-SOURCE-EMITTED-SCRIPT-CONTRACT-LH",
+  "question": "Does the anonymously retrievable CNBKSY public activity HTML itself expose a form/action, onclick handler, inline-script route or inline search contract that was missed by the external-script inventory?",
+  "answer": "No. The public activity page returns HTTP 200 but contains zero forms and zero onclick handlers. It has two inline script blocks; neither contains a route literal nor the configured search/query/find/navigation/AJAX/submit signals. The only hrefs are /home, /signUp, /login and a mailto. No route is executed and no target query is submitted.",
+  "controlling_probe": {
+    "workflow": ".github/workflows/probe-batch-12li-cnbksy-public-activity-inline-contract.yml",
+    "exact_head": "2346585319ea83902ea0c78fdeeb3ea3d2279b2a",
+    "workflow_run_id": 36880399113,
+    "workflow_job_id": 110430406848,
+    "artifact_id": 11170582729,
+    "artifact_digest": "sha256:7b16b2890d5015ba8259546c972ce8c1bdd10c6709aa3b3c5dfdac0170a419e6"
+  },
+  "response": {
+    "url": "https://www.cnbksy.com/portal/pushManager/pushItem?id=322&isActivity=true&source=index",
+    "http_status": 200,
+    "content_type": "text/html;charset=UTF-8",
+    "server_header": "ESA",
+    "bytes": 17232,
+    "sha256": "99d70e27f16ac5c32798a7947e5fbadb1f2a7494ee55e208e6736d9841ed2f09"
+  },
+  "static_surface": {
+    "form_count": 0,
+    "onclick_count": 0,
+    "inline_script_count": 2,
+    "inline_scripts": [
+      {
+        "bytes": 33,
+        "sha256": "56a588684c58050a89cb5c234b8bcc7f02f97d7a1f3793cf598c2a792b34c231",
+        "function_names": [],
+        "route_literals": [],
+        "keyword_counts": {}
+      },
+      {
+        "bytes": 8921,
+        "sha256": "657f2892f4162dd554703c08dc87395bb01bca25f1fd67b983e1853d490f42af",
+        "function_names": [],
+        "route_literals": [],
+        "keyword_counts": {}
+      }
+    ],
+    "hrefs": [
+      {
+        "href": "/home",
+        "label": ""
+      },
+      {
+        "href": "/signUp",
+        "label": "注册"
+      },
+      {
+        "href": "/login",
+        "label": "登录"
+      },
+      {
+        "href": "mailto:journal@libnet.sh.cn",
+        "label": "journal@libnet.sh.cn"
+      }
+    ]
+  },
+  "adjudication": {
+    "public_activity_retrieved": true,
+    "form_or_inline_search_contract_observed": false,
+    "activity_page_contract_exhausted_for_configured_static_surface": true,
+    "sitewide_search_absence_inference_authorized": false,
+    "discovered_route_followed": false,
+    "form_submitted": false,
+    "target_query_submitted": false,
+    "login_used": false,
+    "registration_used": false
+  },
+  "security": {
+    "anonymous_get_only": true,
+    "post_request_used": false,
+    "private_endpoint_guessed": false,
+    "captcha_bypass_used": false,
+    "tls_verification_disabled": false
+  },
+  "transmission_impact": {
+    "status": "NONE_ACCESS_BOUNDARY_ONLY",
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": []
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Use the publicly indexed first-party CNBKSY news page /portal/newsCategoryBrowse/newsContent?id=202 only as a route-discovery surface.",
+    "Follow only a navigation URL emitted by that first-party page and inventory the resulting form/action/field/script contract.",
+    "Do not submit a search term, do not execute login or registration, and do not infer that site-news search equals the historical newspaper database search."
+  ],
+  "updated_at": "2026-10-01"
+}

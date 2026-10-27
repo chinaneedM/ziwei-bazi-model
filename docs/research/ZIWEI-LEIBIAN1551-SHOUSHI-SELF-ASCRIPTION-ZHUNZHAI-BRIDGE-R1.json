@@ -1,0 +1,92 @@
+{
+  "schema": "ZIWEI-LEIBIAN1551-SHOUSHI-SELF-ASCRIPTION-ZHUNZHAI-BRIDGE-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-LEIBIAN1551-SHOUSHI-SELF-ASCRIPTION-ZHUNZHAI-BRIDGE-ES",
+  "prior_batch_id": "BATCH-12-ZIWEI-ZHUNZHAI-YUAN-SHOUSHI-COMPOSITION-ATTRIBUTION-FIREWALL-ER",
+  "question": "Can the Shoushi attribution of the pre-1578 fine 38/62 Tongshu table be closed from the source-bound 1551 physical image itself, and does that physical statement strengthen the Zhunzhai Yuan/Shoushi chronology bridge?",
+  "answer": "YES_AT_THE_1551_PHYSICAL_TEXT_LAYER. NLC 1551 P20 DIRECTLY READS 四時加減晝夜節氣 WITH THE SIDE ASCRIPTION 依授時曆抄白, AND THE SAME PAGE'S FIRST STATE 冬至節日連小寒後四日同=38/62 EXACTLY MATCHES THE 1823 ZHUNZHAI FIRST ARROW 自冬至用至小寒後四日=38/62. THIS CLOSES A DIRECT_PRE1578_SHOUSHI-ASCRIBED_TABLE_PLUS_EXACT_FIRST-STATE BRIDGE, NOT THE FULL 25-ARROW SEQUENCE, NOT AN UNCHANGED YUAN ROWSET, AND NOT PRE1578 ZHUNZHAI PROSE.",
+  "physical_binding": {
+    "source_id": "EXT-NLC-LEIBIAN-LIFA-TONGSHU-JIAJING30-1551",
+    "nlc_set_id": "411999026677",
+    "public_file": "NLC892-411999026677-72517 類編曆法通書大全 第1冊",
+    "bibliographic_publication_date": "劉釪明嘉靖30年[1551]",
+    "source_pdf_sha256": "22811dd2b2291ed4a94a63b51665c24785a4c1795637a4a89b05f979208d76f2",
+    "highres_run_id": 35359354362,
+    "highres_artifact_id": 10554051966,
+    "highres_artifact_digest": "sha256:3c13f48b0df8b82989e765bfa8bd32f0bcf3e489838985ac75d6d7fb6cc47fb4",
+    "p20_sha256": "ac71e579493ff892476c1534aabd3b53cb26d64f185d6bb12a837476ba3f6fa9",
+    "ocr_used_for_final_glyph_claims": false
+  },
+  "direct_p20_collation": {
+    "heading": "四時加減晝夜節氣",
+    "side_ascription": "依授時曆抄白",
+    "side_ascription_glyph_status": "DIRECT_360DPI_PHYSICAL_RENDER_CLOSED",
+    "first_state": {
+      "date_range": "冬至節日連小寒後四日同",
+      "day_ke": 38,
+      "night_ke": 62
+    },
+    "ascription_meaning_scope": "The 1551 table text explicitly states that this section was copied/extracted according to the Shoushi calendar tradition.",
+    "ascription_historical_accuracy_independently_proved_by_this_label_alone": false
+  },
+  "zhunzhai_cross_witness": {
+    "source_id": "EXT-XUXIU1031-ZHUNZHAI-TONGHU-CLEPSYDRA-QING-MSS-PHYSICAL",
+    "physical_copy_date": 1823,
+    "first_arrow": {
+      "date_range": "自冬至用至小寒後四日",
+      "day_ke": 38,
+      "night_ke": 62
+    },
+    "exact_date_span_and_value_match_with_1551_first_state": true,
+    "source_table_directly_shoushi_ascribed": true,
+    "bridge_status": "DIRECT_PRE1578_SHOUSHI_ASCRIPTION_PLUS_EXACT_FIRST_STATE_MATCH",
+    "full_25arrow_sequence_replay_closed": false
+  },
+  "chronology_firewall": {
+    "direct_pre1578_shoushi_ascribed_fine_table": "CLOSED_AT_1551_PHYSICAL_TEXT_LAYER",
+    "exact_25arrow_rule_text_pre1578_attestation": "NOT_CLOSED",
+    "secure_pre1578_physical_zhunzhai_rule_witness": false,
+    "unchanged_yuan_rowset_proved": false,
+    "direct_copy_direction_proved": false,
+    "exact_work_composition_year": "UNRESOLVED",
+    "exact_zhunzhai_author_identity": "UNRESOLVED"
+  },
+  "sanming_firewall": {
+    "exact_sanming_yueling_dahan_yushui_fingerprint_closed": false,
+    "exact_nanjing_59_endpoint_binding_closed": false,
+    "direct_sanming_parent_vote_increment": 0
+  },
+  "transmission_impact": {
+    "nodes_strengthened": [
+      "PHYSICAL-COPY-LEIBIAN-NLC-JIAJING30-1551-VOL1",
+      "TABLE-LEIBIAN-FINE-SISHI-38-62",
+      "PHYSICAL-COPY-NLC-ZHUNZHAI-JILOU-DAOGUANG3-HUANG-SHILIJU-MS",
+      "RULE-FAMILY-ZHUNZHAI-25ARROW-JIEHOU-SELECTION-38-62"
+    ],
+    "edges_supported": [],
+    "hypothesis_update": "TG-H0001 receives a source-ascription/substrate bridge refinement only; no direct-copy or Sanming-parent edge is closed.",
+    "unresolved_questions": [
+      "Can the remaining Zhunzhai arrows be directly replayed against the 1551 physical table at source-image level?",
+      "Can a securely pre-1578 physical witness be found with the exact Zhunzhai 25-arrow / winter-forward / summer-reverse / 日曆節候 prose?",
+      "Can the Yuan Yanling Sun Fengji be connected to the Zhunzhai title by a primary author/title statement?",
+      "Which pre-1578 Tongshu/almanac witness carries the exact Sanming/Yueling 大寒十三後 / 雨水後四日 fingerprint?"
+    ]
+  },
+  "adjudication": {
+    "matrix_count_change": false,
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "deterministic_fusion_chart_product_r1": "CLOSED"
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 12,
+    "repaired_provenance_metadata_defect_count": 12,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  }
+}

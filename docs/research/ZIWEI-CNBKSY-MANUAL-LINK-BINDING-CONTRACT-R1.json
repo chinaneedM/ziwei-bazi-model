@@ -1,0 +1,134 @@
+{
+  "schema": "ZIWEI-CNBKSY-MANUAL-LINK-BINDING-CONTRACT-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-CNBKSY-MANUAL-LINK-BINDING-CONTRACT-LV",
+  "prior_batch_id": "BATCH-12-ZIWEI-CNBKSY-USER-MANUAL-NODE-CONTRACT-LU",
+  "question": "Which exact uploadFile hrefs are bound by the source HTML to the visible old-platform and new-platform manual labels, without downloading the files?",
+  "answer": "The visible old-platform anchor text 平台用户手册（老平台）.doc binds to /common/uploadFile/5efc186123b099148b42c395, while the anchor's title/textvalue says .docx; this extension tension remains unresolved. The visible new-platform anchor text 平台用户手册（新平台）.docx binds directly to https://www.cnbksy.com/common/uploadFile/65e9592f7fa00c5f66cdb1f5. Empty anchors and image/icon upload objects are separately inventoried and not promoted to the primary manual bindings.",
+  "controlling_probe": {
+    "workflow": ".github/workflows/probe-batch-12lv-cnbksy-manual-link-binding-contract.yml",
+    "exact_head": "29615172edf2ae81ff1226a121147141b4f17fc1",
+    "workflow_run_id": 36893032541,
+    "workflow_job_id": 110473087527,
+    "artifact_id": 11178090449,
+    "artifact_digest": "sha256:8294ba61cb385c51b67a8fd9273f718b49941d16189d0fc70be168a5e0bf28fd"
+  },
+  "source_contract": {
+    "node_id": 161,
+    "node_label": "用户手册下载",
+    "endpoint": "/portal/footCategory/findNews",
+    "method": "POST",
+    "payload": {
+      "id": 161
+    },
+    "static_html_association_only": true,
+    "source_emitted_link_followed": false,
+    "file_downloaded": false
+  },
+  "response": {
+    "http_status": 200,
+    "content_type": "application/json;charset=UTF-8",
+    "server_header": "ESA",
+    "bytes": 6491,
+    "sha256": "3a3b5fa45cfe28a53a05f230b70086396b14e8f9bc65aa7d6875769728bdce91",
+    "content_sha256": "2906c292cb3b417cab8149aa0bc87ece4994adbb2ac745eb0df52866a4336408"
+  },
+  "scalar_fields": {
+    "id": 224,
+    "title": "用户手册下载",
+    "linkUrl": null,
+    "linkItemId": null,
+    "keywords": null,
+    "publishDate": null
+  },
+  "primary_bindings": {
+    "old_platform": {
+      "anchor_index": 0,
+      "href": "/common/uploadFile/5efc186123b099148b42c395",
+      "visible_text": "平台用户手册（老平台）.doc",
+      "html_title_or_textvalue": "平台用户手册（老平台）.docx",
+      "inner_sha256": "8fdcc358c6e4fdeefb17e1769f7792138882799ba8bbace7ca6c849d473af1b2",
+      "extension_tension": "VISIBLE_.doc_VS_HTML_TITLE_.docx__UNRESOLVED"
+    },
+    "new_platform": {
+      "anchor_index": 2,
+      "href": "https://www.cnbksy.com/common/uploadFile/65e9592f7fa00c5f66cdb1f5",
+      "visible_text": "平台用户手册（新平台）.docx",
+      "html_title": "平台用户手册（新平台）.docx",
+      "inner_sha256": "b5728493d59ade731d6201fbb1fcb60d5f94d27a72ee550f67be9ec878f06e16"
+    }
+  },
+  "auxiliary_bindings": {
+    "duplicate_old_empty_anchor": {
+      "anchor_index": 1,
+      "href": "/common/uploadFile/5efc186123b099148b42c395",
+      "visible_text": ""
+    },
+    "generic_manual_empty_anchor": {
+      "anchor_index": 3,
+      "href": "https://www.cnbksy.com/common/uploadFile/65c1fb6bf74f7f939f8cec86",
+      "visible_text": "",
+      "html_title": "平台用户手册.docx"
+    },
+    "legacy_icon_upload": {
+      "src": "/common/uploadFile/65d85a357fa00c579dfdc79e",
+      "alt": "icon_txt.gif",
+      "title": "65d85a357fa00c579dfdc79e"
+    },
+    "static_ueditor_icon": {
+      "src": "https://www.cnbksy.com/public/plugin/ueditor/dialogs/attachment/fileTypeImages/icon_txt.gif"
+    }
+  },
+  "adjudication": {
+    "old_platform_text_href_binding_closed": true,
+    "new_platform_text_href_binding_closed": true,
+    "old_platform_extension_identity_closed": false,
+    "auxiliary_empty_anchor_promoted": false,
+    "icon_upload_promoted_to_manual": false,
+    "source_emitted_link_followed": false,
+    "file_downloaded": false,
+    "target_term_submitted": false,
+    "target_query_submitted": false
+  },
+  "security": {
+    "anonymous_session_only": true,
+    "csrf_value_recorded": false,
+    "credential_value_recorded": false,
+    "private_endpoint_guessed": false,
+    "captcha_bypass_used": false,
+    "tls_verification_disabled": false
+  },
+  "transmission_impact": {
+    "status": "NONE_ACCESS_BOUNDARY_ONLY",
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": []
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Perform bounded Range GET identity checks only on the two text-bearing old/new manual hrefs.",
+    "Use no redirects; capture HTTP status, content-type, content-length/content-range/content-disposition and first-byte magic/prefix digest.",
+    "Do not include the empty auxiliary anchor or icon upload object in the primary file check.",
+    "Do not parse or rely on manual text until file identity and format are closed."
+  ],
+  "updated_at": "2026-10-02"
+}

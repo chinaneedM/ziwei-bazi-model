@@ -1,0 +1,155 @@
+{
+  "schema": "ZIWEI-R8-ADJACENT-PALACE-SOURCE-PHILOLOGY-SCOPE-AUDIT-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-R8-ADJACENT-PALACE-SOURCE-PHILOLOGY-SCOPE-AUDIT-MZ",
+  "prior_batch_id": "BATCH-12-ZIWEI-R7-ONE-SIX-SOURCE-PHILOLOGY-SCOPE-AUDIT-MY",
+  "parent_rule_id": "HPA-STRUCT-008",
+  "parent_status": "MODERN_COMPATIBILITY_ONLY",
+  "new_child_rows": [
+    "HPA-STRUCT-019",
+    "HPA-STRUCT-020"
+  ],
+  "coordinate_status": "SUPPORTED_BUT_SCHOOL_SPECIFIC",
+  "engineering_status": "MODERN_COMPATIBILITY_ONLY",
+  "algorithm_reopen_authorized": false,
+  "witnesses": [
+    {
+      "source_id": "EXT-WANGTINGZHI-ZHONGZHOU-CHUJI",
+      "evidence_class": "MODERN_ZHONGZHOU_GENERIC_ADJACENT_TERM_WITNESS",
+      "short_quote": "邻宫：相夹本宫的两个宫垣",
+      "claim": "Modern Zhongzhou-school text explicitly defines the generic adjacent-palace concept and separately defines 相夹 through stars occupying the two adjacent palaces."
+    },
+    {
+      "source_id": "EXT-WANGTINGZHI-ANXING-2013",
+      "evidence_class": "MODERN_ZHONGZHOU_LATER_EDITION_CORROBORATION",
+      "claim": "Edition-bound modern Wang Tingzhi witness preserves the same basic terminology family; it is not Ming/Qing authority."
+    },
+    {
+      "source_id": "EXT-WIKISOURCE-QUANSHU-FLANK-RECEIVED",
+      "url": "https://zh.wikisource.org/wiki/%E7%B4%AB%E5%BE%AE%E6%96%97%E6%95%B8%E5%85%A8%E6%9B%B8/%E5%85%A8%E8%A6%BD",
+      "evidence_class": "PREMODERN_RECEIVED_SPECIFIC_FLANK_PATTERN_WITNESS_NOT_GENERIC_ADJACENT_TERM_DEFINITION",
+      "short_quote": "论夹贵格者有六",
+      "claim": "Received Fullbook tradition attests specific flank configurations and 三夹/六夹 language. It does not by itself supply the generic modern term definition 邻宫 for every rotating local origin.",
+      "glyph_authority": false
+    }
+  ],
+  "internal_source_anchors": {
+    "s04_paragraph_id": "ZZTERM-P-0018",
+    "s04_segment_ids": [
+      "ZZTERM-L-0057",
+      "ZZTERM-L-0058"
+    ],
+    "s04_relation_id": "ZZTERM-R-0057-0058",
+    "s04_term_id": "ZZTERM-PAL-04",
+    "s04_definition": "本宫两侧相邻之两个宫垣。如子宫为本宫，则丑宫与亥宫即为其邻宫。",
+    "s05_source_family_id": "S05-SRC-ZZTERM-METHOD",
+    "s05_recovered_title": "中州派紫微斗数基础术语及推导技法.txt",
+    "s05_adjacent_line": "十五、邻宫",
+    "s05_flank_line": "两星曜位于本宫之邻宫，称为相夹",
+    "epistemic_scope": "S04/S05 are project-normalized source layers. External modern Wang Tingzhi witnesses support school attribution; internal normalization is not self-authenticating ancient authority."
+  },
+  "philology": {
+    "local_origin": "本宫 is the current subject palace. 邻宫 is defined bilaterally relative to that rotating origin, not permanently around natal LIFE.",
+    "counterclockwise_neighbor": "relative ordinal 2 / relative role SIBLINGS / physical clockwise offset 11.",
+    "clockwise_neighbor": "relative ordinal 12 / relative role PARENTS / physical clockwise offset 1.",
+    "term_vs_interpretation": "邻宫 names physical adjacency; 相夹/夹格 adds conditions on what occupies both adjacent positions and is a separate interpretive or pattern layer.",
+    "ancient_flank_scope": "Received Fullbook 夹贵/夹败/三夹六夹 passages demonstrate older flank-pattern usage but do not automatically define a universal rotating adjacency API.",
+    "interpretation_authorized": false
+  },
+  "historical_scope": {
+    "modern_zhongzhou_generic_bilateral_definition_supported": true,
+    "premodern_specific_flank_patterns_attested": true,
+    "premodern_generic_adjacent_term_definition_attested": false,
+    "earliest_generic_adjacent_definition_closed": false,
+    "exact_zhongzhou_physical_page_bound": false,
+    "direct_fullbook_to_zhongzhou_term_transmission_closed": false,
+    "fullbook_negative_claim_authorized": false,
+    "note": "Repository Fullbook normalized layer did not surface 邻宫 in this audit search, but absence from the reviewed route is not proof of global historical absence."
+  },
+  "engineering_firewall": {
+    "rule_id": "HPA-STRUCT-020",
+    "status": "MODERN_COMPATIBILITY_ONLY",
+    "semantic_scope": "BILATERAL_ADJACENT_PALACE_GEOMETRY_ONLY",
+    "flank_semantics_permission": false,
+    "direct_event_permission": false,
+    "direct_endpoint_permission": false,
+    "direct_score_permission": false,
+    "premodern_flank_patterns_imported": false,
+    "policy": "Adjacency geometry may feed later explicitly sourced flank/pattern candidates, but R8 itself cannot assert 夹宫/夹格, auspiciousness, strength, score, event or endpoint."
+  },
+  "provenance_correction": {
+    "defect_id": "PROV-DEFECT-019",
+    "defect_type": "NEXT_GATE_RULE_IDENTITY_MISLABEL",
+    "defect_scope": "Batch 12MY next-gate/current-focus described HPA-STRUCT-008 as 'R8 太极点/主题宫 composition'. Canonical Matrix, runtime paths, product closure and R8 profile identify HPA-STRUCT-008 as R8 邻宫 bilateral geometry.",
+    "original_historical_snapshot_rewritten": false,
+    "superseding_batch_id": "BATCH-12-ZIWEI-R8-ADJACENT-PALACE-SOURCE-PHILOLOGY-SCOPE-AUDIT-MZ",
+    "repaired": true,
+    "chart_algorithm_affected": false,
+    "candidate_selection_affected": false
+  },
+  "accounting": {
+    "rows_before": 218,
+    "rows_after": 220,
+    "audited_rows_before": 201,
+    "audited_rows_after": 204,
+    "current_missing_from_product_rows": 10,
+    "provenance_defects_confirmed_before": 18,
+    "provenance_defects_confirmed_after": 19,
+    "provenance_defects_repaired_before": 18,
+    "provenance_defects_repaired_after": 19,
+    "chart_algorithm_defects": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0,
+    "new_provenance_defect": true
+  },
+  "frozen_files": [
+    {
+      "path": "src/fortune_training/ziwei_structural/r8/profile.py",
+      "blob_sha": "ae3f9fe51722b57f83dd203e47b354497f208c70"
+    },
+    {
+      "path": "src/fortune_training/ziwei_structural/r8/projection.py",
+      "blob_sha": "df18b13d454256ca0c4ba77ecf5caa16f9c6cc48"
+    },
+    {
+      "path": "src/fortune_training/ziwei_structural/r8/engine.py",
+      "blob_sha": "9a92e16c5f1274d6f5c1299dd1ffad9ed95a590b"
+    },
+    {
+      "path": "src/fortune_training/ziwei_structural/r8/models.py",
+      "blob_sha": "ecd9c1fa16e4256a377aa39bbe19103c274bed80"
+    },
+    {
+      "path": "src/fortune_training/ziwei_structural/r8/integrity.py",
+      "blob_sha": "bb4106f7ef7871172cb1ca61e5bdda2e12dfda82"
+    },
+    {
+      "path": "docs/ZIWEI-STRUCTURAL-RUNTIME-V2-R8-ADJACENT-PALACES.md",
+      "blob_sha": "4f028faa92cf46a8a9e08a3cd9692f1a8c7a396d"
+    },
+    {
+      "path": "sources/canonical-runtime/S04/segment-0001.txt",
+      "blob_sha": "8401f1d190e3ee4b87aab86f82216972bea7dde8"
+    },
+    {
+      "path": "sources/canonical-runtime/S05/segment-0015.txt",
+      "blob_sha": "aa0a91c16bde9c5a28c1b11c956704c0ff0bd19b"
+    }
+  ],
+  "replay_evidence": "docs/research/evidence/batch-12mz/r8-adjacent-palace-geometry-replay.json",
+  "replay_scope": "Independent 12 LIFE physical rotations × 12 named origins = 144 bilateral facts / 288 neighbor endpoints; project_adjacent_palace_pairs is checked against hard-coded named-role and physical-offset oracles.",
+  "transmission_impact": {
+    "status": "NONE",
+    "reason": "Premodern specific flank-pattern terminology and modern Zhongzhou generic 邻宫 definition do not prove a direct copying, teacher or textual lineage edge."
+  },
+  "next_gate": [
+    "12NA: audit HPA-STRUCT-001 R1 neutral Z12 topology as modern coordinate infrastructure; distinguish neutral cyclic geometry from traditional Ziwei semantic names.",
+    "Then audit HPA-STRUCT-002 R2 relative-palace frame before leaving the Structural R1-R8 family."
+  ],
+  "verification": {
+    "new_tests": 5,
+    "expected_replay_records": 144,
+    "expected_neighbor_endpoints": 288,
+    "exact_head_ci_policy": "Publish forward-only and require Historical Provenance, continuity, focused audit tests, Verify, full unittest and workbench smokes to pass."
+  }
+}

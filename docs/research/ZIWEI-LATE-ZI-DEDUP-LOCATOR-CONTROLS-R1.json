@@ -1,0 +1,179 @@
+{
+  "schema": "ZIWEI-LATE-ZI-DEDUP-LOCATOR-CONTROLS-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-LATE-ZI-DEDUP-LOCATOR-CONTROLS-I",
+  "status": "POST_12H_PROVENANCE_DEDUP_AND_LOCATOR_CONTROLS_CLOSED_NO_INDEPENDENT_TARGET_PAGE",
+  "hpa_rule_id": "HPA-ZDATE-006",
+  "purpose": "Adjudicate all committed post-Batch-12H probes without double-counting duplicate scan lineages, bibliographic/index objects, or received-text API surfaces as independent physical late-Zi glyph witnesses.",
+  "nanyangtang_naaj_copy_dedup": {
+    "artifact": "docs/research/ZIWEI-QUANSHU-NANYANGTANG-NAAJ-PHYSICAL-COPY-BRIDGE-R1.json",
+    "status": "SAME_PHYSICAL_COPY_AND_DIGITIZATION_LINEAGE_HIGHLY_SUPPORTED_NOT_FILE_HASH_CLOSED",
+    "batch_12a_pdf_sha256": "32ca49bb3a02454067e6deddb97921779837a10e59e946c12d2f6d14f33509e7",
+    "naj_call_number": "子０６０－０００１",
+    "naj_parent_file_id": "1078787",
+    "naj_known_volume1_item_id": "4468520",
+    "physical_copy_identity": "HIGHLY_SUPPORTED_SAME_NAAJ_CABINET_LIBRARY_COPY",
+    "digitization_lineage": "HIGHLY_SUPPORTED_DERIVED_FROM_SAME_JAPAN_CABINET_LIBRARY_SCAN_FAMILY",
+    "file_level_identity": "UNRESOLVED_UNTIL_OFFICIAL_NAAJ_JP2_OR_SHUGE_BINARY_HASH_BRIDGE",
+    "independent_witness_count_policy": "DO_NOT_DOUBLE_COUNT_SAME_PHYSICAL_COPY_OR_DIGITIZATION_LINEAGE",
+    "direct_hai_glyph_witness_count_added": 0
+  },
+  "zihai_google_books_locator": {
+    "artifact": "docs/research/ZIWEI-QUANSHU-ZIHAI-NAIKAKU-VOLUME-LOCATOR-R1.json",
+    "formal_set": {
+      "title": "子海珍本編·海外卷·日本：內閣文庫",
+      "publisher": "鳳凰出版社",
+      "publication_year": 2016,
+      "set_volume_count": 15,
+      "isbn": "9787550624016",
+      "exact_set_subvolume": "UNRESOLVED"
+    },
+    "api_discovery": {
+      "workflow_run_id": 34134962705,
+      "job_id": 101783639820,
+      "artifact_id": 10023583175,
+      "artifact_zip_sha256": "119a0f56f33f1557e146574608866597f8773030b83689de0e32ac5bb715c99a",
+      "discovered_volume_ids": [],
+      "negative_bibliographic_proof_authorized": false
+    },
+    "public_volume4_control": {
+      "google_books_volume_id": "hyotxQEACAAJ",
+      "workflow_run_id": 34135974564,
+      "job_id": 101786920531,
+      "artifact_id": 10023985930,
+      "artifact_zip_sha256": "cd0fad9f64a30096a11dcf5b8d91138f79d20b6541d1b0d4f16b824b02fcc986",
+      "target_work_presence": "UNRESOLVED",
+      "target_page_observed": false
+    },
+    "standalone_target_fullbook": {
+      "google_books_volume_id": "kxdy0QEACAAJ",
+      "workflow_run_id": 34136387337,
+      "job_id": 101788256607,
+      "artifact_id": 10024140134,
+      "artifact_zip_sha256": "95590b7cde84bfa010e36c38e2880213b105b2ac2015364d4898b8bf791edc70",
+      "bibliographic_html_status": 200,
+      "bibliographic_html_bytes": 79458,
+      "bibliographic_html_sha256": "b8da1b1fda8493c97dad0af82045a644b029a0ea786a8915664a7cb63015fa78",
+      "title": "新鋟希夷陳先生紫微斗數全書",
+      "seven_juan_present": true,
+      "publication_year_2016_present": true,
+      "searchable": false,
+      "target_page_observed": false,
+      "adjudication": "BIBLIOGRAPHIC_OBJECT_CLOSED_EXACT_15_VOLUME_SET_SUBVOLUME_AND_TARGET_PAGE_UNRESOLVED"
+    }
+  },
+  "wenguang_secondary_comparison_locator": {
+    "artifact": "docs/research/ZIWEI-WENGUANG-COMPARISON-BOOK-LATE-ZI-INDEX-LOCATOR-R1.json",
+    "google_books_volume_id": "RISpDgAAQBAJ",
+    "title": "紫微斗數全書古訣辨正",
+    "author": "潘國森",
+    "publication_year": 2017,
+    "workflow_run_id": 34137662618,
+    "job_id": 101792276066,
+    "artifact_id": 10024619096,
+    "artifact_zip_sha256": "1925cb92aa0ce9855991748cf39b9f0b659809ba3ac847f1d56ca10499f70351",
+    "bibliographic_html_status": 200,
+    "bibliographic_html_sha256": "11190b2e3aed0854bb1fc423e7a027675e6c1bb37cd9f801b614a9f33de5be0f",
+    "edition_locator_hits": {
+      "文光堂": [
+        "PA13",
+        "PA14",
+        "PA15",
+        "PA17",
+        "PA19",
+        "PA72",
+        "PA89",
+        "PA95",
+        "PA100",
+        "PA214"
+      ],
+      "敦化堂": [
+        "PA13",
+        "PA14"
+      ],
+      "繼述堂": [
+        "PA13",
+        "PA14"
+      ]
+    },
+    "target_late_zi_reading_obtained": false,
+    "unrelated_hai_hits": [
+      "PA43",
+      "PA53"
+    ],
+    "unrelated_hai_hits_count_as_late_zi_evidence": false,
+    "source_role": "MODERN_SECONDARY_EDITION_LOCATOR_ONLY_NOT_PHYSICAL_GLYPH_AUTHORITY"
+  },
+  "shidian_public_target_page_api_control": {
+    "source_id": "EXT-SHIDIAN-ZWDSQS-LATE-ZI",
+    "commit_sha": "afaab66575f89d6e34f4ded4c0150d3deb42fe76",
+    "workflow_run_id": 34138050721,
+    "job_id": 101793499709,
+    "artifact_id": 10024763004,
+    "artifact_zip_sha256": "d6087c445fedfd3a8eb75e8c2bec681e94e90d1cc642a3c3d6d4877e8c1244dd",
+    "book_id": "SDZJ0170",
+    "volume_id": "7330179081331277875",
+    "middle_page_id": "7330179103183667235",
+    "version": "44",
+    "public_page": {
+      "http_status": 200,
+      "bytes": 241798,
+      "sha256": "e068c1b18ac7f4da92528270360d6442e089e4865bd30b389937a0ff627abb66"
+    },
+    "known_api_controls": {
+      "volume": {
+        "http_status": 200,
+        "bytes": 33,
+        "sha256": "757892ec1b4b89c47dfa1d7df9b00af36f4d1f840d0dd0416ed6b82287997709",
+        "json_parse_success": true
+      },
+      "middle_page_minimal": {
+        "http_status": 200,
+        "bytes": 33,
+        "sha256": "757892ec1b4b89c47dfa1d7df9b00af36f4d1f840d0dd0416ed6b82287997709",
+        "json_parse_success": true
+      },
+      "middle_page_render_params": {
+        "http_status": 200,
+        "bytes": 33,
+        "sha256": "757892ec1b4b89c47dfa1d7df9b00af36f4d1f840d0dd0416ed6b82287997709",
+        "json_parse_success": true
+      }
+    },
+    "returned_url_candidate_count": 0,
+    "fetched_image_candidate_count": 0,
+    "saved_image_count": 0,
+    "target_physical_page_directly_observed": false,
+    "identifier_guessing_attempted": false,
+    "authentication_or_paywall_bypass_attempted": false,
+    "glyph_authority_upgrade": "NONE"
+  },
+  "epistemic_boundaries": {
+    "duplicate_scan_lineage_as_independent_cross_edition_witness": "FORBIDDEN",
+    "bibliographic_object_as_physical_target_page": "FORBIDDEN",
+    "google_books_index_as_physical_glyph_authority": "FORBIDDEN",
+    "secondary_comparison_as_physical_wenguang_glyph_authority": "FORBIDDEN",
+    "zero_index_result_as_complete_negative_textual_proof": "FORBIDDEN",
+    "received_transcription_api_reachability_as_image_or_glyph_authority": "FORBIDDEN",
+    "unrelated_hai_hour_hits_as_late_zi_target_evidence": "FORBIDDEN"
+  },
+  "adjudication": {
+    "hpa_zdate_006": "MISSING_FROM_PRODUCT",
+    "direct_independent_hai_glyph_witness_count_added": 0,
+    "hai_glyph_stability_across_independent_physical_editions": "UNRESOLVED_PENDING_DIRECT_INDEPENDENT_PHYSICAL_TARGET_PAGES",
+    "runtime_time_standard_binding": "UNRESOLVED",
+    "new_candidate_authorized": false,
+    "candidate_selection_authorized": false,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_count": 0,
+    "algorithm_effect": "NONE",
+    "next_high_value_targets": [
+      "WENGUANGTANG_DUNHUATANG_OR_JISHUTANG_DIRECT_PHYSICAL_TARGET_PAGE",
+      "JINGLUNTANG_DIRECT_PHYSICAL_TARGET_PAGE",
+      "WENCHENGTANG_OR_GUANGYI_DIRECT_PHYSICAL_TARGET_PAGE",
+      "LIANYUANGE_QUANJI_DIRECT_PHYSICAL_TARGET_PAGE",
+      "OFFICIAL_NAAJ_PAGE_HASH_FOR_SAME_COPY_PROVENANCE_CLOSURE_NOT_AS_AN_INDEPENDENT_EDITION_WITNESS"
+    ]
+  }
+}

@@ -1,0 +1,74 @@
+name: extract-yehuobian-ncl02260-p2-p3-preface-12pz
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/extract-yehuobian-ncl02260-p2-p3-preface-12pz.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  old20-authorial-preface:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Download exactly source-validated NCL 02260 artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: ncl02260-old20-preface-sampled-leaves-12pz
+          run-id: 38024646251
+          repository: chinaneedM/ziwei-bazi-model
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: evidence
+      - name: Verify the already sampled source-image checksums
+        shell: bash
+        run: |
+          set -euo pipefail
+          (cd evidence && sha256sum -c image-sha256.txt)
+          grep -q '^SHELFMARK=204.26 02260$' evidence/manifest.txt
+          grep -q '^SOURCE_COMMONS_SHA1_PRECHECK=PASS$' evidence/manifest.txt
+          grep -q '^8e00a60e91d42761b4443954897678686c88a0a9 ' evidence/source-sha1.txt
+          cat evidence/source-sha256.txt evidence/source-sha1.txt
+          mkdir -p dated-preface
+      - name: Copy and log p2 p3 source images for direct glyph collation
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          from base64 import b64encode
+          import json,hashlib,shutil
+          items=[]
+          for p in (2,3):
+              src=Path(f"evidence/pages/ncl02260-p{p:04d}.jpg")
+              assert src.exists(),src
+              dst=Path("dated-preface")/src.name
+              shutil.copy2(src,dst)
+              raw=dst.read_bytes()
+              sha=hashlib.sha256(raw).hexdigest()
+              s=b64encode(raw).decode("ascii")
+              items.append({"pdf_page_1based":p,"jpeg_sha256":sha,"jpeg_bytes":len(raw),"encoded_chars":len(s)})
+              print(f"TIANWEN_NCL02260_PREFACE_BEGIN page={p} chars={len(s)} sha256={sha}",flush=True)
+              for i in range(0,len(s),4000):
+                  print("TIANWEN_NCL02260_PREFACE_CHUNK "+s[i:i+4000],flush=True)
+              print(f"TIANWEN_NCL02260_PREFACE_END page={p}",flush=True)
+          Path("dated-preface/manifest.json").write_text(json.dumps({
+              "source":"NCL 204.26 02260 old twenty-volume manuscript",
+              "parent_run_id":38024646251,
+              "source_pdf_sha256":"5b91b5cad4a9d7573271ffd275085b046339cdfab80341b60a6156706e80e191",
+              "source_pdf_sha1":"8e00a60e91d42761b4443954897678686c88a0a9",
+              "parent_jpeg_sha256_manifest_checked":"PASS",
+              "reading_not_automatically_adjudicated":True,
+              "no_ocr":True,"pages":items
+          },ensure_ascii=False,indent=2)+"\n")
+          PY
+      - name: Upload small exact source-derived page proof
+        uses: actions/upload-artifact@v4
+        with:
+          name: ncl02260-p2-p3-preface-12pz
+          path: dated-preface/
+          retention-days: 30
+          if-no-files-found: error

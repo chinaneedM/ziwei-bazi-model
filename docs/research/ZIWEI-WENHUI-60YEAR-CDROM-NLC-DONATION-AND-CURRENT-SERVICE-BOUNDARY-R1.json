@@ -1,0 +1,131 @@
+{
+  "schema": "ZIWEI-WENHUI-60YEAR-CDROM-NLC-DONATION-AND-CURRENT-SERVICE-BOUNDARY-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-WENHUI-60YEAR-CDROM-NLC-DONATION-AND-CURRENT-SERVICE-BOUNDARY-JS",
+  "prior_batch_id": "BATCH-12-ZIWEI-CNBKSY-2020-2026-OPEN-DATA-LISTING-SCOPE-CHRONOLOGY-JR",
+  "question": "Does the reported 2003 donation of a Wenhui historical newspaper CD-ROM to the National Library of China create a distinct lawful route toward the 1951-08-18 target page, and can the donated object be bound to a current NLC item identity?",
+  "answer": "Yes at the historical digital-object/provenance level, but not yet at item/page level. A directly retrieved 2003 contemporary web reprint labeled as sourced from 文汇报 reports donation to NLC of 《文汇报60年报纸光盘》, 13 discs, with declared coverage from 1938-01 through 1998-12 containing all text and images and supporting date/name lookup. That declared range includes 1951-08-18. However no CD-ROM target query is performed and target article presence is not proved. Current first-party NLC entry/service pages expose catalog/digital-resource/optical-disc service context but do not name the CD-ROM or expose an item-level record. The 2005 IFLA archive PDF is not directly retrievable on the controlling runner, so any '61-year' object remains separate and uncollapsed.",
+  "controlling_probe": {
+    "workflow": ".github/workflows/probe-batch-12js-wenhui-cdrom-nlc-provenance.yml",
+    "exact_head": "78060029cde5f3e231c756ad08b56c6427daea6a",
+    "workflow_run_id": 36842368572,
+    "workflow_job_id": 110304235769,
+    "artifact_id": 11151074382,
+    "artifact_name": "batch-12js-wenhui-cdrom-nlc-provenance",
+    "artifact_digest": "sha256:19b9a05049bbda7dcd43b92f151ab00f7aedb90d7e70bde64e6bf16b5cf8caad"
+  },
+  "contemporary_reprint": {
+    "url": "https://tech.sina.com.cn/me/2003-01-21/1231162357.shtml",
+    "http_status": 200,
+    "bytes": 59026,
+    "sha256": "3ff35d135af4fa2976273239ce08cf10a56526b3bd6b4634f8cdad075998071f",
+    "decode_used": "gb18030",
+    "source_class": "CONTEMPORARY_WEB_REPRINT_LABELED_WENHUI_NOT_FIRST_PARTY_WENHUI_HOST",
+    "page_source_labels_wenhui": true,
+    "nlc_donation_phrase": true,
+    "title": "文汇报60年报纸光盘",
+    "disc_count": 13,
+    "declared_coverage_start": "1938-01",
+    "declared_coverage_end": "1998-12",
+    "all_text_and_images_declared": true,
+    "date_lookup_declared": true,
+    "name_lookup_declared": true,
+    "declared_coverage_includes_1951_08_18": true
+  },
+  "current_nlc_surfaces": {
+    "main_entry": {
+      "url": "https://www.nlc.cn/web/",
+      "http_status": 200,
+      "bytes": 70374,
+      "sha256": "7b00972aa48455db32714445aa637ee70a62a615341892aaee9fe97778e5f4d8",
+      "catalog_search_present": true,
+      "digital_resource_service_present": true,
+      "disc_service_present": false,
+      "wenhui_60year_title_present": false
+    },
+    "service_page": {
+      "url": "https://www.nlc.cn/web/dzzn/dsb_kgsj/index.shtml",
+      "http_status": 200,
+      "bytes": 91623,
+      "sha256": "e29d3b7390b0ac3212d3392aee5d0b510570ef03b7501ca8fc1f7d9d6400431c",
+      "catalog_search_present": true,
+      "digital_resource_service_present": true,
+      "disc_service_present": true,
+      "wenhui_60year_title_present": false
+    },
+    "item_level_catalog_identity_observed": false
+  },
+  "ifla_2005_archive_boundary": {
+    "direct_pdf_retrieved": false,
+    "first_route_http_status": 503,
+    "other_tested_routes": "CONNECTION_ERROR",
+    "direct_61year_phrase_reviewed": false,
+    "discovered_61year_object_same_as_2003_60year_object_proved": false,
+    "shared_digitization_lineage_proved": false
+  },
+  "adjudication": {
+    "historical_wenhui_60year_cdrom_donation_route": "CLOSED_AT_CONTEMPORARY_REPRINT_PROVENANCE_LEVEL",
+    "declared_coverage_includes_1951_08_18": true,
+    "target_article_presence_in_cdrom": "NOT_PROVED",
+    "target_query_submitted": false,
+    "current_nlc_item_identity": "NOT_OBSERVED_ON_REVIEWED_SURFACES",
+    "current_nlc_holding_nonexistence": "NOT_PROVED",
+    "60year_2003_and_61year_2005_same_object": "NOT_PROVED",
+    "direct_wenhui_1951_08_18": "NOT_REVIEWED",
+    "direct_wenwu_issue9_pp221_233": "NOT_REVIEWED",
+    "direct_2011_wenji_p197": "NOT_REVIEWED"
+  },
+  "evidence_firewall": {
+    "declared_date_coverage_does_not_prove_target_article_presence": true,
+    "donation_report_does_not_equal_current_item_catalog_identity": true,
+    "current_page_nonlisting_does_not_prove_nonholding": true,
+    "60year_and_61year_objects_must_not_be_collapsed_without_identity_evidence": true,
+    "digital_object_provenance_does_not_equal_direct_historical_page_review": true
+  },
+  "security": {
+    "login_used": false,
+    "reader_account_used": false,
+    "registration_used": false,
+    "email_action_used": false,
+    "payment_used": false,
+    "copy_request_used": false,
+    "target_query_submitted": false,
+    "private_endpoint_guessed": false,
+    "tls_verification_disabled": false
+  },
+  "transmission_impact": {
+    "status": "NONE",
+    "graph_change": false,
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": [],
+    "reason": "Modern digital-object/access provenance only; no chart-rule historical text recovered."
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Follow only source-emitted NLC catalog/digital-resource links from the current first-party surfaces and search for an item-level identity of 《文汇报60年报纸光盘》 or an equivalent title variant.",
+    "If an item record is found, separate catalog identity, access policy and target-date/page access before any 1951 textual claim.",
+    "Do not collapse the 2003 60-year donated object with any 2005 61-year production object until direct identity/lineage evidence is recovered.",
+    "Continue direct recovery of Shanghai 《文汇报》 1951-08-18, 《文物参考资料》 no.9 pp.221-233 and 2011 《赵万里文集》第1卷 p.197."
+  ],
+  "updated_at": "2026-10-01"
+}

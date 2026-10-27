@@ -1,0 +1,81 @@
+name: locate-beitu-1959-vol4-tonghu-zhunzhai-image-only
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/locate-beitu-1959-vol4-tonghu-zhunzhai-image-only.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  locate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install render tools
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils imagemagick
+
+      - name: Render complete volume 4 image locator
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/beitu-1959-vol4-image-locator'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT/pages" "$ROOT/contacts"
+
+          URL='https://upload.wikimedia.org/wikipedia/commons/7/75/SSID-12335510_%E5%8C%97%E4%BA%AC%E5%9C%96%E6%9B%B8%E9%A4%A8%E5%96%84%E6%9C%AC%E6%9B%B8%E7%9B%AE_4.pdf'
+          curl -L --fail --retry 5 --retry-all-errors --retry-delay 2 \
+            -A 'Tianwen-Provenance-Audit/1.0' "$URL" -o "$ROOT/source.pdf"
+
+          sha256sum "$ROOT/source.pdf" | tee "$ROOT/source.sha256"
+          pages=$(pdfinfo "$ROOT/source.pdf" | awk '/^Pages:/ {print $2}')
+          test "$pages" -eq 163
+          pdftoppm -jpeg -jpegopt quality=84 -r 78 "$ROOT/source.pdf" "$ROOT/pages/page"
+
+          mapfile -t imgs < <(find "$ROOT/pages" -name 'page-*.jpg' | sort -V)
+          test "${#imgs[@]}" -eq 163
+
+          n="${#imgs[@]}"
+          for offset in $(seq 0 20 160); do
+            start=$((offset+1))
+            [ "$start" -gt "$n" ] && break
+            count=20
+            rem=$((n-offset))
+            [ "$rem" -lt 20 ] && count="$rem"
+            end=$((offset+count))
+            chunk=("${imgs[@]:offset:count}")
+            montage "${chunk[@]}" \
+              -thumbnail 250x500 -label '%f' -tile 5x4 -geometry +8+26 \
+              "$ROOT/contacts/contact-$(printf '%03d' "$start")-$(printf '%03d' "$end").jpg"
+          done
+
+          sha256sum "$ROOT"/contacts/*.jpg | sort -V > "$ROOT/contacts.sha256"
+          printf '%s\n' \
+            'SOURCE=北京圖書館善本書目 第4冊 / 1959 / SSID-12335510' \
+            'SOURCE_ROLE=1959_NEW_ACQUISITIONS_RARE_BOOK_CATALOG / 子部' \
+            'TARGETS=銅壺漏箭制度 ; 準齋心製几漏圖式 ; 瞿捐' \
+            'METHOD=complete 163-page image-only locator at 78 dpi / 20 pages per contact sheet' \
+            'TEXT_LAYER_UNUSABLE=true' \
+            'OCR_USED=false' \
+            'CONTENT_NEGATIVE_AUTHORITY=false UNTIL TARGET CLASS/PAGE IS VISUALLY EXHAUSTED' \
+            > "$ROOT/manifest.txt"
+
+          rm -rf "$ROOT/pages" "$ROOT/source.pdf"
+
+      - name: Upload volume-4 contacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: beitu-1959-vol4-image-locator
+          path: audit/beitu-1959-vol4-image-locator/
+          if-no-files-found: error
+          compression-level: 6
+          retention-days: 30

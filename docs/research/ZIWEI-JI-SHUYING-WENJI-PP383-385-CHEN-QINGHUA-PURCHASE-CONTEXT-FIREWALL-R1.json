@@ -1,0 +1,96 @@
+{
+  "schema": "ZIWEI-JI-SHUYING-WENJI-PP383-385-CHEN-QINGHUA-PURCHASE-CONTEXT-FIREWALL-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-JI-SHUYING-WENJI-PP383-385-CHEN-QINGHUA-PURCHASE-CONTEXT-FALSE-LEAD-FIREWALL-GR",
+  "prior_batch_id": "BATCH-12-ZIWEI-JI-SHUYING-WENJI-2010-SUPPLEMENT-ARTICLE-DISCOVERY-BOUNDARY-GQ",
+  "question": "Can 《冀淑英文集》 pp.383–385, cited by Liu Qiang in 2010, be used as a page locator for Ji Shuying's Tieqin narrative or 《百川归海，蔚为大观》?",
+  "answer": "No. Direct review of Liu Qiang's official Palace Museum article pages 62–63 shows that the citation to 《冀淑英文集》 pp.383–385 occurs in a cross-page discussion of state-supported bulk acquisition of the Shanghai collector Chen Qinghua's library. This calibrates the function of the citation in Liu's article and makes pp.383–385 an unauthorized shortcut for locating 《百川归海，蔚为大观》 or the Tieqin chapter. The underlying Ji pages themselves have not been directly reviewed, so this does not prove that they contain no Tieqin-related material.",
+  "dpm_article_identity": {
+    "source_id": "EXT-DPM-LIU-QIANG-2010-TIANLU-PP62-63-JI383-385-CONTEXT",
+    "provider": "故宫博物院",
+    "journal": "故宫博物院院刊",
+    "issue": "2010年第3期·总第149期",
+    "author": "刘蔷",
+    "title": "清宫“天禄琳琅”书存世状况总述",
+    "printed_page_range": "53—70",
+    "first_page_url": "https://www.dpm.org.cn/Uploads/File/pdf/c4/bb/14/c4bb14e0b1fb48568af4ee1670f86ff1.pdf",
+    "first_page_directly_reviewed": true
+  },
+  "printed_page_62_control": {
+    "url": "https://www.dpm.org.cn/Uploads/File/pdf/d5/56/25/d556259a2c1f5ce32014728979b155d4.pdf",
+    "printed_page": 62,
+    "directly_reviewed_page_image": true,
+    "discussion_transition": "from donation cases to state-supported bulk acquisition of private collectors' libraries",
+    "footnote_2_contains_ji_wenji_pages": "383—385",
+    "footnote_2_other_controls": [
+      "李致忠《略谈建国以来北京图书馆入藏的善本书》1984年第3期 p.138",
+      "雷梦水《北京藏书家赵元方》1994年第1期 p.46"
+    ],
+    "sentence_continues_to_next_page": true
+  },
+  "printed_page_63_control": {
+    "url": "https://www.dpm.org.cn/Uploads/File/pdf/53/04/d6/5304d6ea733be73932a3420770966bd0.pdf",
+    "printed_page": 63,
+    "directly_reviewed_page_image": true,
+    "collector": "陈清华",
+    "lifespan": "1894—1978",
+    "contextual_label": "北周南陈",
+    "state_acquisition_years": [
+      1956,
+      1965
+    ],
+    "context_identity": "CHEN_QINGHUA_BULK_PURCHASE_DISCUSSION"
+  },
+  "adjudication": {
+    "liu_2010_use_of_ji_pp383_385": "CHEN_QINGHUA_BULK_PURCHASE_CONTEXT",
+    "direct_ji_pp383_385_text": "NOT_REVIEWED",
+    "ji_pp383_385_as_baichuan_page_locator": "NOT_AUTHORIZED",
+    "ji_pp383_385_as_tieqin_chapter_page_locator": "NOT_AUTHORIZED",
+    "ji_pp383_385_proven_absent_of_tieqin_material": false,
+    "baichuan_exact_page_range": "UNRESOLVED",
+    "direct_2004_editor_note": "NOT_REVIEWED",
+    "direct_2009_postscript": "NOT_REVIEWED",
+    "derivation_status": "SECONDARY_REPORTED_NOT_DIRECTLY_CLOSED",
+    "target_specific_purchase_route_selected": false,
+    "target_specific_donation_route_selected": false,
+    "final_nlc_acquisition_transfer_path": "UNRESOLVED"
+  },
+  "false_lead_firewall": {
+    "formal_secondary_citation_is_not_direct_underlying_page_text": true,
+    "citation_context_cannot_be_reassigned_to_tieqin_without_direct_review": true,
+    "exact_page_numbers_do_not_equal_baichuan_page_range": true,
+    "chen_qinghua_context_does_not_assign_target_3482_3483_transaction": true
+  },
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_added": [],
+    "direct_copy_edge_authorized": false,
+    "same_object_edge_authorized": false,
+    "acquisition_edge_authorized": false
+  },
+  "chronology_and_rule_firewall": {
+    "direct_sanming_parent_vote_increment": 0,
+    "pre1578_zhunzhai_rule_witness_increment": 0,
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_count_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 14,
+    "repaired_provenance_metadata_defect_count": 14,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Directly inspect the 2004 《冀淑英文集》 table of contents and locate 《百川归海，蔚为大观》 rather than using pp.383–385 as a shortcut.",
+    "Directly inspect the 2010 《文津学志》第三辑《〈冀淑英文集〉补遣》 article.",
+    "Directly inspect the 2004 editor note and 2009 《冀淑英古籍善本十五讲》 postscript.",
+    "Continue direct 《北京图书馆馆史资料汇编（二）：1949—1966》 pp.446—449 acquisition/collation in parallel."
+  ],
+  "updated_at": "2026-09-25"
+}

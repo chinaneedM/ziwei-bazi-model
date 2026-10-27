@@ -1,0 +1,128 @@
+name: probe-batch-12ll-cnbksy-bksy-post-transport-contract
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12ll-cnbksy-bksy-post-transport-contract.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Locate bksy.post transport implementation only; do not call discovered application endpoints
+        run: |
+          python - <<'PY'
+          import hashlib, html, json, re
+          from pathlib import Path
+          from urllib.parse import urljoin
+          import requests
+
+          UA={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; CNBKSY bksy.post transport contract)"}
+          seed="https://www.cnbksy.com/portal/newsCategoryBrowse/newsContent?id=202"
+
+          def get(url):
+              r=requests.get(url,headers=UA,timeout=45,allow_redirects=False)
+              raw=r.content
+              return r,raw,raw.decode("utf-8","replace")
+
+          sr,sraw,stxt=get(seed)
+          nav=None
+          for m in re.finditer(r'''(?is)<a\b[^>]*?href\s*=\s*["']([^"']+)["'][^>]*>(.*?)</a>''',stxt):
+              href=html.unescape(m.group(1)).strip()
+              label=html.unescape(re.sub(r"<[^>]+>"," ",m.group(2)))
+              label=re.sub(r"\s+"," ",label).strip()
+              if "信息动态" in label:
+                  nav=urljoin(seed,href)
+                  break
+          if not nav:
+              raise SystemExit("source-emitted 信息动态 navigation missing")
+
+          nr,nraw,ntxt=get(nav)
+          sources=[]
+
+          for i,m in enumerate(re.finditer(r"(?is)<script\b(?![^>]*\bsrc\s*=)[^>]*>(.*?)</script>",ntxt)):
+              body=m.group(1)
+              sources.append({"kind":"inline","id":f"inline:{i}","url":None,"status":None,"content_type":None,"text":body})
+
+          ext=[]
+          for m in re.finditer(r'''(?is)<script\b[^>]*?src\s*=\s*["']([^"']+)["']''',ntxt):
+              u=urljoin(nav,html.unescape(m.group(1)).strip())
+              if u not in ext: ext.append(u)
+          for u in ext:
+              try:
+                  r,raw,txt=get(u)
+                  sources.append({"kind":"external","id":u,"url":u,"status":r.status_code,"content_type":r.headers.get("content-type"),"text":txt})
+              except Exception as e:
+                  sources.append({"kind":"external","id":u,"url":u,"error":type(e).__name__+": "+str(e)[:500],"text":""})
+
+          needles=["bksy.post","bksy.jsonPost","post:function","jsonPost:function","post = function","jsonPost = function","post:function(","jsonPost:function("]
+          contexts=[]
+          for src in sources:
+              txt=src.get("text","")
+              for needle in needles:
+                  for m in re.finditer(re.escape(needle),txt,re.I):
+                      a=max(0,m.start()-2600)
+                      b=min(len(txt),m.end()+5200)
+                      ctx=re.sub(r"\s+"," ",txt[a:b]).strip()
+                      contexts.append({
+                          "source_id":src["id"],"source_kind":src["kind"],"needle":needle,
+                          "context":ctx[:9000],"context_sha256":hashlib.sha256(ctx.encode("utf-8")).hexdigest()
+                      })
+
+          ajaxlike=[]
+          for src in sources:
+              txt=src.get("text","")
+              for m in re.finditer(r"(?is)(?:post|jsonPost)\s*[:=]\s*function\s*\([^)]*\)\s*\{",txt):
+                  a=max(0,m.start()-800)
+                  b=min(len(txt),m.start()+6500)
+                  ctx=re.sub(r"\s+"," ",txt[a:b]).strip()
+                  ajaxlike.append({
+                      "source_id":src["id"],"source_kind":src["kind"],
+                      "context":ctx[:9000],"context_sha256":hashlib.sha256(ctx.encode("utf-8")).hexdigest()
+                  })
+
+          out={
+              "source_contract":{
+                  "parent_batch":"12LK",
+                  "seed_url":seed,
+                  "source_emitted_navigation_url":nav,
+                  "source_emitted_external_script_count":len(ext),
+                  "application_endpoint_invoked":False,
+                  "target_query_submitted":False
+              },
+              "seed_response":{"status":sr.status_code,"sha256":hashlib.sha256(sraw).hexdigest()},
+              "navigation_response":{"status":nr.status_code,"sha256":hashlib.sha256(nraw).hexdigest()},
+              "external_script_urls":ext,
+              "source_inventory":[{k:v for k,v in s.items() if k!="text"} for s in sources],
+              "bksy_transport_contexts":contexts,
+              "function_definition_contexts":ajaxlike,
+              "adjudication":{
+                  "transport_definition_inventory_completed":True,
+                  "application_endpoint_invoked":False,
+                  "post_request_used_for_application_endpoint":False,
+                  "target_query_submitted":False,
+                  "login_used":False,
+                  "registration_used":False
+              },
+              "security":{
+                  "source_emitted_script_gets_only":True,
+                  "application_post_used":False,
+                  "private_endpoint_guessed":False,
+                  "captcha_bypass_used":False,
+                  "tls_verification_disabled":False
+              }
+          }
+          Path("batch-12ll-cnbksy-bksy-post-transport-contract.json").write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12ll-cnbksy-bksy-post-transport-contract
+          path: batch-12ll-cnbksy-bksy-post-transport-contract.json

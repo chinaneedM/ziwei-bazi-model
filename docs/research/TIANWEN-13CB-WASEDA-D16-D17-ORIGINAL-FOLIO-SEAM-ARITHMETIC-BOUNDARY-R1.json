@@ -1,0 +1,132 @@
+{
+  "schema": "TIANWEN-13CB-WASEDA-P23-ORIGINAL-FOLIO-SEAM-SOURCE-NUMERALS-AND-BOUNDED-ARITHMETIC-R1",
+  "date": "2026-10-21",
+  "issue_id": "TW-OPEN-0005",
+  "source_grade": "ORIGINAL_FIRSTPARTY_JPEG_REPLAY_MANUAL_NATIVE_RGB_TIGHT_LANE_NO_OCR",
+  "source": {
+    "holding": "WASEDA-RI06-02809-BOOK33",
+    "pdf_url": "https://archive.wul.waseda.ac.jp/kosho/ri06/ri06_02809/ri06_02809_0033/ri06_02809_0033.pdf",
+    "pdf_sha256": "28ebfeb34191f45715bc449d27da61fe04fb05eb45e84dd00cf569699f46225f",
+    "pdf_page_1based": 23,
+    "jpeg_xref": 70,
+    "jpeg_sha256": "388f3d5dd9e9861f8ce90c304b154edaeaee98614bb12cd3468f957dcde6fc66",
+    "image_dimensions": [
+      2592,
+      1728
+    ],
+    "source_run": 39588454662,
+    "artifact_id": 12340588249,
+    "artifact_filename": "original-source.jpg",
+    "artifact_zip_sha256": "41863a3d931122d53cce3bcdd59af1828eb41cc7efbab53b32ec738273a9306c"
+  },
+  "new_original_rgb_rois": [
+    {
+      "key": "P23_LEFT_FOLIO_RIGHT_EDGE_NUMERAL",
+      "bbox": [
+        1135,
+        680,
+        1175,
+        1410
+      ],
+      "rgb_sha256": "39915c512c38efb29fa64b9b97be6528e3144284dd2ce1af74466514dd661fa2",
+      "literal": "七千五百七十〇六六二四",
+      "decimal": "7570.6624",
+      "role": "OUTER_RIGHT_NUMERIC_LANE_OF_LEFT_FOLIO_NO_INDEPENDENT_SAME_DAY_FIELD_ASSIGNMENT"
+    },
+    {
+      "key": "P23_INTERFOLIO_SPACING",
+      "bbox": [
+        1230,
+        320,
+        1395,
+        1500
+      ],
+      "rgb_sha256": "eb328b627cb674d64d2aeeb49ec7de39ad1715b8fdefd09d7027c8358a12c7fc",
+      "role": "BOUNDING_GEOMETRY_BETWEEN_DAY16_RIGHT_FOLIO_AND_LEFT_FOLIO_EDGE_NUMERAL"
+    },
+    {
+      "key": "P23_D16_LEFT_BOUNDARY",
+      "bbox": [
+        1360,
+        680,
+        1420,
+        1420
+      ],
+      "rgb_sha256": "b199877388bf7fb904ea74312556e19f6970285998080daa9d5c722252b8564a",
+      "role": "SOURCE_ORIGINAL_RIGHT_FOLIO_BORDER_BEFORE_DAY16_LONG_LANE"
+    }
+  ],
+  "prior_direct_original_records": [
+    {
+      "source": "docs/research/TIANWEN-13BS-GORYEOSA-WASEDA-D16-NAJ-D18-D19-SOURCE-NATIVE-GLYPH-COLLATION-R1.json",
+      "key": "W_D16_DAY",
+      "literal": "十六日",
+      "status": "DIRECT_ORIGINAL_HEADING"
+    },
+    {
+      "source": "docs/research/TIANWEN-13BS-GORYEOSA-WASEDA-D16-NAJ-D18-D19-SOURCE-NATIVE-GLYPH-COLLATION-R1.json",
+      "key": "W_D16_LONG",
+      "decimal": "429.6073",
+      "status": "DIRECT_ORIGINAL_LONG_LANE"
+    },
+    {
+      "source": "docs/research/TIANWEN-13BO-GORYEOSA-WASEDA-P23-D17-D18-ORIGINAL-HEADER-CUMULATIVE-LONG-R1.json",
+      "key": "P23_D17_C",
+      "decimal": "8000.2697",
+      "status": "DIRECT_ORIGINAL_TIGHT_NUMERIC_AND_PRINTED_DAY_HEADING_PAIR"
+    },
+    {
+      "source": "docs/research/TIANWEN-13BE-GORYEOSA-D16-ORIGINAL-LONG-LANE-DUAL-COPY-COLLATION-R1.json",
+      "key": "adjacent_cumulative_scope.printed_under_day17_layout",
+      "decimal": "7570.6624",
+      "status": "PRIOR_WIDE_LAYOUT_ATTRIBUTION_NOT_HISTORICAL_DAY_FIELD_IDENTIFICATION"
+    }
+  ],
+  "local_numeric_identity": {
+    "outer_folio_numeral": "7570.6624",
+    "printed_day16_long": "429.6073",
+    "tightly_bound_day17_cumulative": "8000.2697",
+    "exact_additive_relation": "7570.6624 + 429.6073 = 8000.2697",
+    "int_units_1e4": {
+      "outer": 75706624,
+      "long": 4296073,
+      "result": 80002697
+    },
+    "arithmetic_true": true,
+    "source_specific_only": true,
+    "globally_proven_day_index_or_unit_formula": false
+  },
+  "field_day_binding_boundary": {
+    "printed_waseda_d16_heading": "十六日",
+    "outer_folio_numeric_is_on_opposite_leaf_from_D16_heading": true,
+    "earlier_13BE_layout_position_name": "PRINTED_UNDER_DAY17_LAYOUT",
+    "earlier_13BO_field_convention_for_D17_C": "8000.2697",
+    "mutually_exclusive_same_day_attributions_from_bare_layout_are_forbidden": true,
+    "original_D16_same_day_isolated_yingsuoji": "UNBOUND",
+    "printed_D16_source_field_winner": "UNRESOLVED",
+    "signed_historical_D16_C_field_value": "NOT_ADJUDICATED",
+    "deterministic_product_algorithm_change_authorized": false
+  },
+  "relation_to_previous_batch": "13CA separately bound printed 積日 versus 盈縮積 headers but did not prove a P23 seam-spanning printed field/day binding; this batch independently isolates the outer-leaf source numeral and checks bounded arithmetic, not a global shift.",
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproven": [
+      "Local arithmetic within a single Waseda printed opening is not evidence for Waseda->NAJ direct copying, any independent stemmatic vote, or original historical unit equivalence."
+    ]
+  },
+  "scope_firewall": {
+    "new_physical_historical_witnesses": 0,
+    "new_provider_image_objects": 0,
+    "new_source_registry_rows": 0,
+    "new_matrix_rows": 0,
+    "new_genealogy_nodes": 0,
+    "new_genealogy_edges": 0,
+    "new_independent_stemma_votes": 0,
+    "algorithm_reopens": 0,
+    "open_issues": 11,
+    "product": "CLOSED"
+  },
+  "next_action": "Independently verify the historical day/field mapping across D15-D18 of the Waseda original print against the first-table printed header and NAJ counterpart; isolate true same-day 盈縮積 for D16 only if original printed field geometry supports it; then G893 少/微 and Ming1569 equivalent originals, and separate physical-copy genealogy."
+}

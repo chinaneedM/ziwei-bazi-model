@@ -1,0 +1,50 @@
+name: fix-batch-12cn-graph-ontology
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/fix-batch-12cn-graph-ontology.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Normalize Batch 12CN graph vocabulary
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('scripts/formalize-batch-12cn-datong-ritonggui-kyujanggak-daynight-bridge.py')
+          s = p.read_text(encoding='utf-8')
+          replacements = {
+              '"node_type": "CATALOG_RECORD"': '"node_type": "DIGITAL_SURROGATE"',
+              '"node_type": "RECENSION"': '"node_type": "EDITION"',
+              '"node_type": "PHYSICAL_HOLDING_LOCATOR"': '"node_type": "PHYSICAL_COPY"',
+              '"node_type": "TABLE_FAMILY"': '"node_type": "OPERATIONAL_ARTIFACT"',
+              '"relation": "DESCRIBES"': '"relation": "ATTESTS"',
+              '"relation": "BINDS_TO_HOLDING"': '"relation": "ATTESTS"',
+              '"relation": "CONTAINS_TABLE_FAMILY"': '"relation": "ATTESTS"',
+              '"status": "CONFIRMED_AT_INSTITUTIONAL_CONTENT_RECORD_LEVEL"': '"status": "CONFIRMED"',
+          }
+          for old, new in replacements.items():
+              if old not in s:
+                  raise SystemExit(f'missing expected Batch 12CN token: {old}')
+              s = s.replace(old, new)
+          p.write_text(s, encoding='utf-8')
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add scripts/formalize-batch-12cn-datong-ritonggui-kyujanggak-daynight-bridge.py
+          git diff --cached --check
+          git commit -m "normalize Batch 12CN graph ontology"
+          git push origin HEAD:agent/fusion-chart-core-r1-20260822

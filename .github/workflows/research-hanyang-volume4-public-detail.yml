@@ -1,0 +1,198 @@
+name: research-hanyang-volume4-public-detail
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-hanyang-volume4-public-detail.yml
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Install Selenium
+        run: python -m pip install --disable-pip-version-check selenium
+
+      - name: Follow only the public UI-rendered volume-4 result
+        shell: python
+        run: |
+          import json
+          import time
+          import urllib.parse
+          from pathlib import Path
+
+          from selenium import webdriver
+          from selenium.webdriver.chrome.options import Options
+          from selenium.webdriver.common.by import By
+          from selenium.webdriver.common.keys import Keys
+
+          OUT = Path("probe")
+          OUT.mkdir()
+          ROUTE = "https://lib.hanyang.ac.kr/search/i-discovery"
+          QUERY = "新刻合倂十八飛星策天紫微斗數全集"
+          EXPECTED_TITLE = "新刻合倂十八飛星策天紫微斗數全集. 卷4"
+          EXPECTED_ID_FROM_OBSERVED_JSON = 484926
+
+          options = Options()
+          options.add_argument("--headless=new")
+          options.add_argument("--no-sandbox")
+          options.add_argument("--disable-dev-shm-usage")
+          options.add_argument("--disable-gpu")
+          options.add_argument("--window-size=1800,2400")
+          options.add_argument("--lang=ko")
+          options.set_capability("goog:loggingPrefs", {"performance": "ALL"})
+
+          result = {
+              "schema": "ZIWEI-HANYANG-VOLUME4-PUBLIC-DETAIL-R1",
+              "search_route": ROUTE,
+              "query": QUERY,
+              "expected_title": EXPECTED_TITLE,
+              "expected_biblio_id_from_observed_search_json": EXPECTED_ID_FROM_OBSERVED_JSON,
+              "source_search_run_id": 34177957476,
+              "source_search_json_run_id": 34178106456,
+              "authentication_attempted": False,
+              "detail_url_guessing_attempted": False,
+              "public_ui_click_only": True,
+          }
+
+          driver = webdriver.Chrome(options=options)
+          try:
+              driver.set_page_load_timeout(90)
+              driver.get(ROUTE)
+              time.sleep(7)
+              inp = None
+              for el in driver.find_elements(By.CSS_SELECTOR, "input#keyword, input[type='search'], input[type='text']"):
+                  if el.is_displayed() and el.is_enabled():
+                      inp = el
+                      if el.get_attribute("id") == "keyword":
+                          break
+              if inp is None:
+                  raise RuntimeError("public search input not found")
+              inp.click(); inp.clear(); inp.send_keys(QUERY); inp.send_keys(Keys.ENTER)
+              time.sleep(9)
+              driver.save_screenshot(str(OUT / "search-results.png"))
+              (OUT / "search-results.html").write_text(driver.page_source, encoding="utf-8")
+
+              candidates = []
+              # Find UI elements whose rendered text is the exact volume-4 title. Then inspect only
+              # their DOM ancestors for a public href or click the text element itself.
+              for el in driver.find_elements(By.XPATH, "//*[contains(normalize-space(.), '新刻合倂十八飛星策天紫微斗數全集. 卷4')]"):
+                  try:
+                      if not el.is_displayed():
+                          continue
+                      txt = " ".join((el.text or "").split())
+                      if EXPECTED_TITLE not in txt:
+                          continue
+                      href = el.get_attribute("href")
+                      tag = el.tag_name
+                      candidates.append({"tag": tag, "text": txt[:1000], "href": href})
+                  except Exception:
+                      pass
+              result["rendered_volume4_candidates"] = candidates[:100]
+
+              target = None
+              # Prefer an actual displayed anchor that contains exact title.
+              for a in driver.find_elements(By.CSS_SELECTOR, "a[href]"):
+                  try:
+                      if a.is_displayed() and EXPECTED_TITLE in " ".join((a.text or "").split()):
+                          target = a
+                          break
+                  except Exception:
+                      pass
+              if target is None:
+                  # Otherwise locate the smallest visible element with the exact title and click it.
+                  elems = driver.find_elements(By.XPATH, "//*[normalize-space(text())='新刻合倂十八飛星策天紫微斗數全集. 卷4']")
+                  elems = [e for e in elems if e.is_displayed()]
+                  if elems:
+                      target = elems[0]
+
+              result["click_target_found"] = target is not None
+              if target is not None:
+                  result["click_target_tag"] = target.tag_name
+                  result["click_target_href_before_click"] = target.get_attribute("href")
+                  driver.execute_script("arguments[0].scrollIntoView({block:'center'});", target)
+                  time.sleep(1)
+                  driver.execute_script("arguments[0].click();", target)
+                  time.sleep(10)
+                  result["detail_final_url"] = driver.current_url
+                  body = driver.find_element(By.TAG_NAME, "body").text
+                  result["detail_body_text"] = body[:30000]
+                  result["detail_markers"] = {
+                      "expected_title": EXPECTED_TITLE in body,
+                      "mingjingge": "明經閣" in body,
+                      "1870": "1870" in body,
+                      "woodblock_korean": "木板本" in body or "목판" in body,
+                      "call_number": "133.3 진412ㅅ v.4" in body,
+                      "digital_terms": any(x in body.lower() for x in ("원문", "digital", "preview", "미리보기", "이미지", "pdf", "전자")),
+                      "five_xiong_shen": "五凶神" in body,
+                      "zi_you_shi_ke": "子有十刻" in body,
+                  }
+                  links = []
+                  for a in driver.find_elements(By.CSS_SELECTOR, "a[href]"):
+                      try:
+                          if not a.is_displayed():
+                              continue
+                          txt = " ".join((a.text or "").split())
+                          href = a.get_attribute("href")
+                          if href and (any(k in txt.lower() for k in ("원문", "digital", "preview", "미리보기", "pdf", "이미지")) or any(k in href.lower() for k in ("digital", "viewer", "preview", "pdf", "image", "file"))):
+                              links.append({"text": txt[:500], "href": href})
+                      except Exception:
+                          pass
+                  result["detail_public_digital_like_links"] = links[:100]
+                  driver.save_screenshot(str(OUT / "detail.png"))
+                  (OUT / "detail.html").write_text(driver.page_source, encoding="utf-8")
+
+              network = []
+              for entry in driver.get_log("performance"):
+                  try:
+                      msg = json.loads(entry["message"])["message"]
+                  except Exception:
+                      continue
+                  if msg.get("method") not in ("Network.requestWillBeSent", "Network.responseReceived"):
+                      continue
+                  p = msg.get("params", {})
+                  if msg["method"] == "Network.requestWillBeSent":
+                      req = p.get("request", {}); url = req.get("url", ""); method = req.get("method"); status = None
+                  else:
+                      resp = p.get("response", {}); url = resp.get("url", ""); method = None; status = resp.get("status")
+                  if "lib.hanyang.ac.kr" not in url:
+                      continue
+                  parsed = urllib.parse.urlsplit(url)
+                  q = {}
+                  for k, v in urllib.parse.parse_qsl(parsed.query, keep_blank_values=True):
+                      q[k] = "__REDACTED__" if any(s in k.lower() for s in ("token", "auth", "password", "session")) else v[:500]
+                  network.append({
+                      "event": msg["method"], "method": method, "status": status,
+                      "url": urllib.parse.urlunsplit((parsed.scheme, parsed.netloc, parsed.path, "", "")),
+                      "safe_query": q,
+                  })
+              result["public_ui_network_observations"] = network[-1000:]
+          finally:
+              driver.quit()
+
+          result["adjudication"] = {
+              "official_hanyang_volume4_record": "BOUND_TO_BIBLIO_484926_FROM_PUBLIC_SEARCH_JSON",
+              "detail_navigation": "PUBLIC_UI_CLICK_ONLY",
+              "public_digital_object_status": "REVIEW_DETAIL_MARKERS_AND_LINKS",
+              "target_text_status": "NOT_ESTABLISHED_UNLESS_DETAIL_EXPLICITLY_EXPOSES_PAGE_CONTENT",
+              "algorithm_effect": "NONE",
+          }
+          (OUT / "hanyang-volume4-public-detail.json").write_text(
+              json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8"
+          )
+          print(json.dumps(result, ensure_ascii=False, indent=2))
+
+      - name: Upload Hanyang volume-4 detail evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ziwei-hanyang-volume4-public-detail
+          path: probe/
+          if-no-files-found: warn
+          retention-days: 14

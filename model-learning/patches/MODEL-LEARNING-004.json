@@ -1,0 +1,88 @@
+{
+  "contains_case_answer_mapping": false,
+  "content": {
+    "learning_type": "REASONING_STRATEGY",
+    "rules": [
+      {
+        "applicability": "同一题各选项原子数量明显不同，或某选项由多个一般原子加一个高严重度、精确身份、精确时间或连续事件原子组成时。",
+        "capability_ceiling": "缺少区别原子的专属闭合时，只能输出相对首选并降低置信度，不宣称复合叙事中的每个细节均已证实。",
+        "counterexamples": "若复合选项的高严重度或精确原子具有独立人物、主题、时间与现实动作链，而较短选项只有宽泛相似性，则复合选项应优先，不能因复杂度而受罚。",
+        "decision_procedure": "先列出每项全部原子并标记共享、区别、严重度和完成状态；再为区别原子建立人物、主题、时间、动作、结果五列证据；共享原子只作背景分，直接冲突优先于一般同向证据；最后执行Top1与最强竞争项反转测试。",
+        "limits": "原子分账只改变选项比较权重，不能从缺失信息中创造事实；多个来源若来自同一物理结构仍只计一条父证据。",
+        "reasoning_skill_tags": [
+          "EVENT_ENDPOINT_CLOSURE",
+          "OPTION_GRANULARITY",
+          "COMPOSITE_OPTION_ATOMIZATION",
+          "EVIDENCE_WEIGHTING",
+          "COUNTEREVIDENCE_REVERSAL",
+          "UNCERTAINTY_CALIBRATION"
+        ],
+        "rule_id": "RULE-COMPOSITE-DISTINCTIVE-ATOM-LEDGER",
+        "source_basis": "S02定义现代语义与量级，S03裁决两轨和同源证据，S04路由人物与主题，S10和S15约束时间层，S16限制八字映射，S17闭合人物—动作—终点，S18负责原子化和成对比较。",
+        "source_routes": [
+          "S02",
+          "S03",
+          "S04",
+          "S10",
+          "S15",
+          "S16",
+          "S17",
+          "S18"
+        ],
+        "statement": "比较复合选项时，必须把共享原子、区别原子、高严重度原子和直接冲突原子分账；一般场景或多数宽泛原子的命中，不能冲销一个未闭合的死亡、判决、残疾、制度婚姻、精确职业或连续生育终点。较短选项也不得仅因原子少而自动获胜。",
+        "stop_conditions": "若两个候选的区别原子均无法闭合，停止在强制相对选择并降置信度，不用原子数量、来源数量或叙事顺滑度决胜。",
+        "topic_tags": [
+          "FAMILY_ORIGIN",
+          "MARRIAGE_RELATIONSHIP",
+          "CAREER_EDUCATION",
+          "MAJOR_YEAR_EVENT"
+        ],
+        "trigger_conditions": "临时第一名主要依靠与多个选项共享的场景、性格或趋势，而其关键区别原子没有专属证据；或竞争项更短但唯一原子获得强闭合。"
+      },
+      {
+        "applicability": "选项同时竞争父亲与母亲、不同亲属、多个子女、多个关系阶段，或多个相邻年份的高严重度事件时。",
+        "capability_ceiling": "无法排除同主题内其他人物时，最高释放为该人物群体或关系轴的重大变化风险，不输出精确死亡主体、子女性别、婚姻次数或事件年份。",
+        "counterexamples": "若同一人物的主题宫、对宫或气数位、八字角色轴和指定年份动作链三者同向，并且其他人物存在直接反证，则可以完成排他性人物判定。",
+        "decision_procedure": "为每个候选建立人物ID、参考年、主题宫或十神轴、现实动作、完成结果五元组；任何证据只允许绑定一个人物—年份父链；先排除人物转移和年份借用，再比较完成度与直接反证。",
+        "limits": "宫位重叠、借宫、四化同名、十神同气、合冲刑害和通用凶曜都只提供主题许可；人物与终点仍需独立证据。",
+        "reasoning_skill_tags": [
+          "SUBJECT_ENTITY_ROUTING",
+          "TIME_LAYER_ACTIVATION",
+          "EVENT_ENDPOINT_CLOSURE",
+          "DEATH_ENTITY_TIME_CLOSURE",
+          "COUNTEREVIDENCE_REVERSAL",
+          "CAUSAL_ACTOR_DIRECTION",
+          "RELATIONSHIP_SEQUENCE"
+        ],
+        "rule_id": "RULE-ACTOR-YEAR-ENDPOINT-EXCLUSIVITY",
+        "source_basis": "S02区分现实人物和完成状态，S03处理两轨冲突与证据同源，S04建立人物太极，S08和S10约束四化与岁运，S14和S15提供中性结构触发，S16限制八字角色映射，S17闭合人物动作终点，S18执行反转测试。",
+        "source_routes": [
+          "S02",
+          "S03",
+          "S04",
+          "S08",
+          "S10",
+          "S14",
+          "S15",
+          "S16",
+          "S17",
+          "S18"
+        ],
+        "statement": "同一家庭或关系主题中的不同人物、年份和终点必须分别绑定；父母宫、夫妻宫、子女宫或同一冲忌的主题激活，不能在父亲、母亲、配偶、子女之间转移，也不能把相邻年份的风险补成指定年份的死亡、结婚、出生或法律完成。",
+        "stop_conditions": "若人物或年份仍有两个以上同强候选，停止在主题风险层并降置信度，不以跨题一致性或叙事连贯性补齐排他终点。",
+        "topic_tags": [
+          "PARENTS",
+          "MARRIAGE_RELATIONSHIP",
+          "CHILDREN_FERTILITY",
+          "MAJOR_YEAR_EVENT"
+        ],
+        "trigger_conditions": "临时第一名依赖一个主题宫或通用岁运信号，却要求指定人物、指定年份和不可逆终点；竞争项与其共享同一主题但人物或动作不同。"
+      }
+    ]
+  },
+  "created_at": "2026-07-23T07:04:01Z",
+  "modifies_canonical_source_files": false,
+  "release_id": "MODEL-LEARNING-004",
+  "schema": "MODEL-LEARNING-PATCH-V2",
+  "validation_status": "CANDIDATE_RULES"
+}

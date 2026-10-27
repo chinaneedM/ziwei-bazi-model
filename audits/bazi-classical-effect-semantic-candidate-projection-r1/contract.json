@@ -1,0 +1,154 @@
+{
+  "admission_projection_contract": {
+    "ADMITTED": "ONE_SEMANTIC_CANDIDATE_PER_UNIT2_EFFECT_CONSTRAINT",
+    "PRESERVED_NOT_ADMITTED": "PRESERVE_FRAGMENT_ZERO_SEMANTIC_CANDIDATES",
+    "PRESERVED_OUTSIDE_PROFILE": "PRESERVE_FRAGMENT_ZERO_SEMANTIC_CANDIDATES",
+    "unit3_admission_re_evaluation": "FORBIDDEN"
+  },
+  "audit_id": "BAZI-CLASSICAL-EFFECT-SEMANTIC-CANDIDATE-PROJECTION-R1",
+  "authority": {
+    "unit2_contract_path": "audits/bazi-classical-effect-constraint-graph-factorized-composition-r1/contract.json",
+    "unit2_contract_semantics_sha256": "0c6dfccb89710c57f96a762406df32a70395b8fef2bb15ab6654445a22108950",
+    "unit3_contract_path": "audits/bazi-classical-source-semantic-profile-resolver-admission-r1/contract.json",
+    "unit3_contract_semantics_sha256": "869916b557dcc889831b4775679cf1bd0db9e786f280ec42493cafd188e9bec6"
+  },
+  "candidate_preservation_contract": {
+    "candidate_coexistence": "NOT_RELEASED",
+    "candidate_conflict": "NOT_RELEASED",
+    "candidate_exclusivity": "NOT_RELEASED",
+    "candidate_priority": "NOT_RELEASED",
+    "candidate_rewrite": "NOT_RELEASED",
+    "candidate_selection": "NOT_RELEASED",
+    "candidate_state_transition": "NOT_RELEASED",
+    "candidate_truth": "NOT_RELEASED",
+    "candidate_winner_loser": "NOT_RELEASED",
+    "cartesian_expansion": "NOT_RELEASED",
+    "constraint_drop": "FORBIDDEN",
+    "constraint_merge": "FORBIDDEN",
+    "constraint_split": "FORBIDDEN",
+    "cross_outer_composition": "NOT_RELEASED"
+  },
+  "closed_vocabularies": {
+    "fragment_projection_statuses": [
+      "SEMANTIC_CANDIDATES_PROJECTED",
+      "PRESERVED_NO_SEMANTIC_CANDIDATES",
+      "PRESERVED_OUTSIDE_PROFILE_NO_SEMANTIC_CANDIDATES"
+    ],
+    "semantic_candidate_kinds": [
+      "SOURCE_GROUNDED_RESOLUTION_CANDIDATE",
+      "SOURCE_GROUNDED_RESOLUTION_FAILURE_CANDIDATE",
+      "SOURCE_GROUNDED_REVERSAL_OR_REAPPEARANCE_CANDIDATE",
+      "SOURCE_GROUNDED_ATTENUATION_CANDIDATE",
+      "SOURCE_GROUNDED_PARTICIPANT_ALLOCATION_CANDIDATE"
+    ],
+    "source_claim_to_semantic_candidate": {
+      "SOURCE_ASSERTED_ATTENUATION": {
+        "effect_facet": "RELATION_EFFECT_GRADE",
+        "semantic_candidate_kind": "SOURCE_GROUNDED_ATTENUATION_CANDIDATE"
+      },
+      "SOURCE_ASSERTED_PARTICIPANT_ALLOCATION": {
+        "effect_facet": "RELATION_PARTICIPANT_ALLOCATION",
+        "semantic_candidate_kind": "SOURCE_GROUNDED_PARTICIPANT_ALLOCATION_CANDIDATE"
+      },
+      "SOURCE_ASSERTED_RESOLUTION": {
+        "effect_facet": "RELATION_EFFECT_DISPOSITION",
+        "semantic_candidate_kind": "SOURCE_GROUNDED_RESOLUTION_CANDIDATE"
+      },
+      "SOURCE_ASSERTED_RESOLUTION_FAILURE": {
+        "effect_facet": "RELATION_EFFECT_DISPOSITION",
+        "semantic_candidate_kind": "SOURCE_GROUNDED_RESOLUTION_FAILURE_CANDIDATE"
+      },
+      "SOURCE_ASSERTED_REVERSAL_OR_REAPPEARANCE": {
+        "effect_facet": "RELATION_EFFECT_DISPOSITION",
+        "semantic_candidate_kind": "SOURCE_GROUNDED_REVERSAL_OR_REAPPEARANCE_CANDIDATE"
+      }
+    }
+  },
+  "determinism": {
+    "contract_semantics_sha256": "d96ea5a66bea6ff5b71b280723c460954d80ed8da6d05008f909cef30a13a3c8"
+  },
+  "hard_exclusions": [
+    "UNIT5_REWRITE_OR_ARBITRATION",
+    "MECHANISM_CANDIDATE_MATRIX",
+    "CLOSURE_GAP_MATRIX",
+    "SOURCE_CLAIM_ARBITRATION",
+    "CONTRADICTION_RESOLUTION",
+    "SOURCE_TRUTH_SELECTION",
+    "CANDIDATE_APPLICABILITY_SELECTION_BEYOND_UNIT3_ADMISSION",
+    "CLASSICAL_OPERABILITY_TRUTH",
+    "PRECEDENCE",
+    "PRIORITY",
+    "WINNER_OR_LOSER",
+    "SUPPRESSION",
+    "ACTIVATION",
+    "DEACTIVATION",
+    "RELEASE",
+    "CANCELLATION",
+    "OVERRIDE",
+    "NEGATION",
+    "RELATION_OR_EFFECT_STATE",
+    "NUMERIC_ATTENUATION_GRADE",
+    "PARTICIPANT_OR_PATH_SELECTION",
+    "UNIT6_ALLOCATION_ELABORATION",
+    "UNIT7_EFFECT_CANDIDATE_ENVELOPE",
+    "GRAPH_REWRITE",
+    "FIXPOINT",
+    "CYCLE_HANDLING",
+    "MONOTONICITY_LATTICE_TERMINATION_SOLVING",
+    "CROSS_SOURCE_COMPOSITION",
+    "CARTESIAN_CANDIDATE_WORLD_GENERATION",
+    "FINAL_CLASSICAL_VERDICT",
+    "PREDICTION_SEMANTICS"
+  ],
+  "record_specific_locks": {
+    "ZPZQ-CL-09-005-002": {
+      "allocation_policy": "PRESERVE_ALL_COMPATIBLE_EXACT_INSTANCE_PATHS_NO_SELECTION",
+      "released_candidate_kinds": [
+        "SOURCE_GROUNDED_REVERSAL_OR_REAPPEARANCE_CANDIDATE",
+        "SOURCE_GROUNDED_RESOLUTION_CANDIDATE",
+        "SOURCE_GROUNDED_PARTICIPANT_ALLOCATION_CANDIDATE"
+      ]
+    },
+    "ZPZQ-CL-09-007-002_003": {
+      "arbitration": "NOT_RELEASED",
+      "candidate_preservation_when_admitted": [
+        "SOURCE_GROUNDED_RESOLUTION_FAILURE_CANDIDATE",
+        "SOURCE_GROUNDED_RESOLUTION_CANDIDATE",
+        "SOURCE_GROUNDED_REVERSAL_OR_REAPPEARANCE_CANDIDATE"
+      ],
+      "current_unit3_partial_admission_authoritative": true
+    },
+    "ZPZQ-CL-09-009-004": {
+      "disposition_synthesis": "FORBIDDEN",
+      "effect_facet": "RELATION_EFFECT_GRADE",
+      "numeric_grade": "NOT_RELEASED",
+      "semantic_candidate_kind": "SOURCE_GROUNDED_ATTENUATION_CANDIDATE"
+    }
+  },
+  "schema": "BAZI-CLASSICAL-EFFECT-SEMANTIC-CANDIDATE-PROJECTION-CONTRACT-R1",
+  "semantic_candidate_profile": {
+    "algorithm_id": "BAZI-CLASSICAL-EFFECT-SEMANTIC-CANDIDATE-PROJECTION-R1",
+    "algorithm_version": "1.0.0",
+    "attenuation_grade_policy": "CANDIDATE_ONLY_NO_NUMERIC_GRADE",
+    "candidate_applicability_semantics": "NOT_RELEASED_BEYOND_UNIT3_ADMISSION",
+    "candidate_coexistence_semantics": "NOT_RELEASED",
+    "candidate_conflict_semantics": "NOT_RELEASED",
+    "candidate_exclusivity_semantics": "NOT_RELEASED",
+    "candidate_priority_semantics": "NOT_RELEASED",
+    "candidate_rewrite_semantics": "NOT_RELEASED",
+    "candidate_state_transition_semantics": "NOT_RELEASED",
+    "candidate_truth_semantics": "NOT_RELEASED",
+    "candidate_winner_loser_semantics": "NOT_RELEASED",
+    "cartesian_expansion": "NOT_RELEASED",
+    "cross_outer_composition": "NOT_RELEASED",
+    "cross_source_composition": "NOT_RELEASED",
+    "fragment_selection_semantics": "NOT_RELEASED",
+    "participant_allocation_policy": "PRESERVE_UPSTREAM_MULTIPLICITY_NO_SELECTION",
+    "profile_id": "BAZI-CLASSICAL-EFFECT-SEMANTIC-CANDIDATE-PROJECTION-R1",
+    "profile_version": "1.0.0",
+    "raw_relation_immutability_contract": "IMMUTABLE_EXACT_REFERENCE_ONLY",
+    "source_narrative_semantics": "PROVENANCE_ORDER_ONLY",
+    "source_unresolved_graph_requirement_policy": "PROVENANCE_ONLY_NEVER_DIRECT_PREDICATE",
+    "unresolved_classical_requirement_policy": "PASS_THROUGH_UNSOLVED"
+  }
+}

@@ -1,0 +1,1006 @@
+{
+  "schema": "MING-DATONG-EXECUTABLE-ADAPTER-BLOCKER-DECOMPOSITION-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-BAZI-MING-DATONG-EXECUTABLE-ADAPTER-BLOCKER-DECOMPOSITION-OU",
+  "rule_id": "HPA-DAYUN-CAL-002",
+  "status": "DECOMPOSED_RUNTIME_STILL_FAIL_CLOSED",
+  "runtime_selection_authorized": false,
+  "production_default_changed": false,
+  "algorithm_reopen_authorized": false,
+  "candidate_collapse_authorized": false,
+  "purpose": "Turn the remaining Ming Datong historical-calendar adapter uncertainty into independent, testable certification gates without treating partial source closure as executable calendar authority.",
+  "source_scope": [
+    "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-DAYUN-CALENDAR-REALIZATION-B.md",
+    "docs/HISTORICAL-CHINESE-CALENDAR-ADAPTER-CONTRACT-R1.md",
+    "docs/research/MING-DATONG-1569-QISHUO-METHOD-RESEARCH-R1.json",
+    "docs/research/MING-DATONG-1569-TIME-COORDINATE-R1.json",
+    "docs/research/MING-DATONG-QISHUO-GEOGRAPHIC-REFERENCE-RESEARCH-R1.md",
+    "docs/research/MING-DATONG-QISHUO-GEOGRAPHIC-CRITICAL-CASES-R1.json",
+    "docs/research/MING-DATONG-1569-FIXED-POINT-PRECISION-AUDIT-R1.json",
+    "docs/research/MING-DATONG-1578-D1-SOURCE-REPLAY-R1.json",
+    "docs/research/MING-DATONG-1578-NCL-06313-PHYSICAL-ALMANAC-COLLATION-R1.json"
+  ],
+  "gate_status_vocabulary": {
+    "CLOSED_SOURCE_SCOPED": "The named source-scoped requirement is directly closed, but closure does not automatically generalize to another stage, year, edition, geography or runtime.",
+    "OPEN_BLOCKING_GENERAL_ADAPTER": "The requirement is independently unresolved and blocks certification of a general executable Ming Datong adapter.",
+    "DEPENDENCY_BLOCKED": "The requirement cannot be certified before its listed historical-calendar dependencies close."
+  },
+  "gates": [
+    {
+      "gate_id": "MD-G01-D1-CONJUNCTION-METHOD",
+      "domain": "MONTH_START_GENERATION",
+      "status": "CLOSED_SOURCE_SCOPED",
+      "finding": "The corresponding lunar Chi/Ji Xingdu divisor (D1) is adjudicated as the Ming official production method; the Qing-compiled Dingxiandu (D2) is preserved as a later received-text variant, not an equal production candidate.",
+      "evidence": [
+        "1569 Zhou Xiang primary facsimile directly gives the D1 divisor mechanics.",
+        "Xing Yunlu's Ming Datong worked example independently uses the Chi/Ji Xingdu divisor.",
+        "Reported comparison of 56 printed conjunction-time entries across six surviving Ming official almanacs supports D1 over D2."
+      ],
+      "general_runtime_effect": "Necessary but not sufficient."
+    },
+    {
+      "gate_id": "MD-G02-INTERNAL-DAY-AND-CLOCK-COORDINATE",
+      "domain": "EVENT_TIME_COORDINATE",
+      "status": "CLOSED_SOURCE_SCOPED",
+      "finding": "The source-internal event coordinate is a 100-ke day counted from Zi-zheng; this is a calendrical-astronomy coordinate only.",
+      "firewalls": [
+        "DO_NOT_INFER_BAZI_DAY_BOUNDARY",
+        "DO_NOT_INFER_ZIWEI_DAY_BOUNDARY",
+        "DO_NOT_MAP_TO_UTC_OR_UTC_PLUS_8_WITHOUT_A_SEPARATE_HISTORICAL_GEOGRAPHIC_BRIDGE"
+      ],
+      "general_runtime_effect": "Closes the internal coordinate but not its geographic/meridian realization."
+    },
+    {
+      "gate_id": "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
+      "domain": "EVENT_TIME_GEOGRAPHY",
+      "status": "OPEN_BLOCKING_GENERAL_ADAPTER",
+      "finding": "Nanjing and Beijing/Dadu hypotheses remain unselected; primary and operational evidence supports historically mixed location-dependent modules but does not define the qishuo small-remainder meridian.",
+      "preserved_hypotheses": [
+        "INHERITED_SHOUSHI_DADU_ORIGIN_COORDINATE",
+        "MING_NANJING_OR_OFFICIAL_TONGGUI_COORDINATE",
+        "MODULE_SPECIFIC_MIXED_GEOGRAPHY"
+      ],
+      "diagnostics": [
+        "1462 demonstrates that a physical same-year almanac can override a reign-record/later-table consensus.",
+        "1495 cannot be repaired by a simple Beijing-Nanjing longitude shift.",
+        "1497 is boundary-sensitive but does not identify the historical meridian.",
+        "1581 physical almanac, reign record and D1 converge.",
+        "1281 epoch inheritance cannot identify qishuo geography: Yuan received text separates 立元 from revisable 諸應, Tonggui/GK12437 carry revised response constants, and Goryeosa preserves a mixed response-constant recension under the same epoch.",
+        "12PF: Yuan official records prove multi-site observation infrastructure (Dadu plus Shangdu and other sites). The later 1294 eclipse/two-ke revision trigger names no site; Dadu-only default is rejected but neither Dadu nor Shangdu is selected.",
+        "12PH: Later narratives converge on the 1294 response-constant revision, but no reviewed passage explicitly cites Guo Shoujing's 修改源流 or 古今交食考 and no site word is recovered. Narrative convergence cannot be promoted to lost-work quotation.",
+        "12PI: the 56 official-almanac clock bins and D1 outputs share the same unresolved historical coordinate. Their 56/56 internal fit validates D1 but cannot identify an absolute meridian; ±9.8667-minute Beijing-Nanjing shifts are coordinate changes, not geographic tests without an independent absolute-time anchor.",
+        "12PJ: modern absolute astronomy is precise enough for a diagnostic in the Ming period (DE431 coverage; ~20 s Delta-T uncertainty versus ~592 s Beijing-Nanjing longitude signal), but Datong qishuo 子正/刻 is not source-bound to apparent solar, mean solar, clepsydra or another absolute clock standard. Time-standard semantics remain the blocker.",
+        "12PK: Shoushi/Datong qishuo is source-closed as a uniform 10000-unit day converted to shichen/ke from 子正, but its absolute physical realization is not directly identified as apparent solar, mean solar, clepsydra, or named-longitude time. Separate local daylight/clepsydra modules and a distinct Gengwu explicit 里差 control cannot fill that gap.",
+        "12PL: Wanli Daming Huidian places official clepsydra/time service, eclipse 分秒時刻 reporting and Datong almanac production under Qintianjian, but does not identify qishuo as the tower clepsydra or a capital-local solar coordinate. Mingshi daylight history disproves automatic capital inheritance as a universal calendrical rule.",
+        "12PM: Jiajing-7 測晷影定氣朔 and Jiajing-2 Hua Xiang year-long observatory program attest observational calibration/verification, including 合朔 as a target, but no direct local gnomon/clock -> 定朔 remainder operator or longitude is stated. 一以元法為斷 preserves method continuity without selecting Dadu qishuo meridian.",
+        "12PN: Ming Yingzong Shilu v187 directly records Jingtai-1 eclipse at 卯正三刻 versus Qintianjian prediction 辰初初刻 with rescue failure and immediate impeachment. This closes contemporaneous operational discrepancy provenance but does not identify the actual-time observer, phase, clock instrument, solar-time standard, longitude or explicit event locality.",
+        "12PO: Wanli Huidian shows eclipse rescue timing is precomputed and officially reported even when cloud/rain prevents visibility, so rescue reporting is not intrinsically direct observation. Chongzhen-5 Xinfa Suanshu explicitly names 初虧, 測候 and timing methods as a positive control; Jingtai-1 still lacks phase/clock acquisition binding.",
+        "12PP: Qianan draft Mingshi, Wang Hongxu Mingshigao, Mingshi, Ming Huiyao and Xu Wenxian Tongkao repeat the Jingtai-1 timing error but add no target phase/observer/clock/locality. Public derivative search is parked; ZJLib Guoque v25 provides the next physical page route.",
+        "12PQ: direct no-OCR Guoque v25 p112 reads 卯刻月食欽天監官以辰初刻被劾下法司宥之; it abridges Shilu precision and adds no phase/observer/instrument/locality, so its labels are not independent absolute values.",
+        "12PR: direct no-OCR NLC/Wikimedia Yingzong Shilu v19 p10 physically confirms the precise Jingtai-1 卯正三刻 actual label, 辰初初刻 Qintianjian prediction, rescue failure, impeachment and 許惇 glyph. This upgrades target wording to physical-page authority but adds no explicit phase, observer, instrument, acquisition method, solar-time standard or locality; the event remains not admissible as an absolute anchor.",
+        "12PS: comparative Ming Shilu philology closes only a normalization prohibition. The 1450 target says 月食當在卯正三刻 without a phase word; 1464 explicitly writes 初虧 for initial-contact forecasts, 1500 explicitly distinguishes 虧/圓, and 1610 enumerates 初虧/食甚/復圓 with measurement vocabulary. Therefore 當在某時 cannot be silently normalized to 初虧某時, but no alternate phase is selected.",
+        "12PT: Hongwu-period Zhusi Zhizhang rescue ritual says Qintianjian reports 日初蝕 before rescue begins and waits for 復圓; lunar ritual is 同前. Zhengde Huidian v95 preserves the same structure. Thus Jingtai-1 致失救護 source-binds the operational rescue trigger to eclipse onset, while bare 當在 remains lexically phase-unmarked and observer/clock acquisition/locality remain unresolved.",
+        "12PU: Xianzong Shilu 1464 explicitly separates competing pre-event 初虧 predictions from an emperor-ordered 臨時測候, so calculation/report and live observation are source-distinct procedures. Wanli Huidian v103 transmits a Hongwu cloud/rain ritual waiver but does not define report acquisition. Jingtai-1 辰初初刻 is the failed predictive determination; corrected 卯正三刻 observer/clock/acquisition/locality remain unresolved.",
+        "12PV: Reuse previously physically collated Shilu 1447 Peng Deqing leak-arrow rebuild order (no completion date), 1449 Xu Dun calendar day/night old-style rollback (not physical clock rollback), and 1450 corrected 卯正三刻 target. Wanli Huidian separates Qiaolou time service, older Nanjing-style observatory clock/instruments and a new 1455 copper clepsydra. No target-specific observer, clock, acquired time standard or locality. Existing witnesses reused with zero new independent votes."
+      ],
+      "general_runtime_effect": "Required for general exact event-time/day realization, especially boundary-sensitive cases. It does not invalidate the already physically certified 1578 month-page chain.",
+      "batch_12pd_refinement": {
+        "batch_id": "BATCH-12-BAZI-MING-DATONG-GK12437-QISHUO-LOCALITY-OPERATOR-AUDIT-PD",
+        "research_artifact": "docs/research/MING-DATONG-GK12437-QISHUO-LOCALITY-OPERATOR-AUDIT-R1.json",
+        "source_id": "EXT-KYUDB-DATONGLI-RITONGGUI-GK12437-PHYSICAL",
+        "method_block_reviewed": "001a-005b",
+        "qishuo_positive_controls": [
+          "002b 求經朔分",
+          "004b-005a 求定朔及望分"
+        ],
+        "explicit_locality_operator_subquestion": "CLOSED_NEGATIVE_OBJECT_METHOD_BLOCK_SCOPE",
+        "explicit_named_place_or_meridian_operator_attested": false,
+        "implicit_or_inherited_reference": "UNRESOLVED",
+        "status_after_batch": "OPEN_BLOCKING_GENERAL_ADAPTER",
+        "historical_snapshot_top_level_status_preserved": "OPEN_BLOCKING_GENERAL_ADAPTER",
+        "runtime_authorized": false,
+        "forbidden_inferences": [
+          "NO_HIDDEN_MERIDIAN",
+          "NANJING_FROM_SUNRISE_DAYLENGTH",
+          "DADU_FROM_SHOUSHI_LINEAGE",
+          "MODERN_TIMEZONE_SUBSTITUTION"
+        ]
+      },
+      "batch_12pe_refinement": {
+        "batch_id": "BATCH-12-BAZI-MING-DATONG-SHOUSHI-QISHUO-EPOCH-RESPONSE-CONSTANT-LINEAGE-PE",
+        "research_artifact": "docs/research/MING-DATONG-SHOUSHI-QISHUO-EPOCH-RESPONSE-CONSTANT-LINEAGE-R1.json",
+        "epoch_identity_proves_qishuo_meridian": false,
+        "yuanshi_liyuan_vs_yingshu_separation": "CLOSED_RECEIVED_TEXT",
+        "tonggui_revised_response_constant_lineage": "CLOSED_RECEIVED_TEXT_PLUS_GK12437_DIRECT_PHYSICAL_VALUES",
+        "goryeosa_mixed_response_constant_recension": "ATTESTED_RECEIVED_TRANSMISSION",
+        "dadu_beijing_actual_reference": "UNRESOLVED",
+        "nanjing_actual_reference": "UNRESOLVED",
+        "module_specific_mixed_geography": "STRENGTHENED_NOT_SELECTED",
+        "status_after_batch": "OPEN_BLOCKING_GENERAL_ADAPTER",
+        "runtime_authorized": false
+      },
+      "batch_12pf_refinement": {
+        "batch_id": "BATCH-12-BAZI-MING-DATONG-1294-REVISED-YING-OBSERVATION-SITE-PROVENANCE-PF",
+        "research_artifact": "docs/research/MING-DATONG-1294-REVISED-YING-OBSERVATION-SITE-PROVENANCE-R1.json",
+        "yuan_observation_network": "MULTI_SITE_DADU_PLUS_SHANGDU_AND_OTHERS",
+        "later_1294_revision_trigger_site_named": false,
+        "exact_1294_revision_site": "UNRESOLVED",
+        "dadu_target_revision_site": "UNRESOLVED",
+        "shangdu_target_revision_site": "UNRESOLVED",
+        "dadu_unique_observation_site": false,
+        "court_location_to_observation_site_inference": "FORBIDDEN",
+        "status_after_batch": "OPEN_BLOCKING_GENERAL_ADAPTER",
+        "runtime_authorized": false
+      },
+      "batch_12pg_refinement": {
+        "batch_id": "BATCH-12-BAZI-GUOSHOUJING-LOST-WORKS-BIBLIOGRAPHIC-SURVIVAL-CONTROL-PG",
+        "research_artifact": "docs/research/GUOSHOUJING-LOST-WORKS-BIBLIOGRAPHIC-SURVIVAL-CONTROL-R1.json",
+        "xiugai_yuanliu_preferred_volume_count": "1卷",
+        "xiugai_yuanliu_seven_juan_variant": "PRESERVED_NOT_SELECTED",
+        "gujin_jiaoshikao_homonym_firewall": true,
+        "direct_guo_work_text_located": false,
+        "site_evidence_increment": 0,
+        "exact_qishuo_reference": "UNRESOLVED",
+        "status_after_batch": "OPEN_BLOCKING_GENERAL_ADAPTER",
+        "runtime_authorized": false
+      },
+      "batch_12ph_refinement": {
+        "batch_id": "BATCH-12-BAZI-GUOSHOUJING-LOST-WORK-QUOTATION-CHAIN-AUDIT-PH",
+        "research_artifact": "docs/research/GUOSHOUJING-LOST-WORK-QUOTATION-CHAIN-AUDIT-R1.json",
+        "direct_lost_work_quote_recovered": false,
+        "explicit_source_binding_recovered": false,
+        "site_or_meridian_wording_recovered": false,
+        "later_revision_narrative_convergence": "ATTESTED",
+        "generic_lost_work_search_route": "PARKED_UNLESS_MATERIALLY_NEW_WITNESS",
+        "status_after_batch": "OPEN_BLOCKING_GENERAL_ADAPTER",
+        "runtime_authorized": false
+      },
+      "batch_12pi_refinement": {
+        "batch_id": "BATCH-12-BAZI-MING-DATONG-QISHUO-GEOGRAPHIC-IDENTIFIABILITY-AUDIT-PI",
+        "research_artifact": "docs/research/MING-DATONG-QISHUO-GEOGRAPHIC-IDENTIFIABILITY-AUDIT-R1.json",
+        "internal_d1_almanac_bin_validation": "56_OF_56",
+        "plus_beijing_nanjing_delta_bin_matches": 22,
+        "minus_delta_bin_matches": 17,
+        "shifted_sexagenary_day_crossings": 0,
+        "nearest_sampled_zizheng_boundary_minutes": 17.28,
+        "absolute_meridian_identifiable_from_56_internal_bins": false,
+        "no_shift_best_fit_is_geographic_evidence": false,
+        "required_next_evidence": "INDEPENDENT_ABSOLUTE_ASTRONOMICAL_TIME_ANCHOR_WITH_CONTROLLED_TIME_COORDINATE_UNCERTAINTY",
+        "status_after_batch": "OPEN_BLOCKING_GENERAL_ADAPTER",
+        "runtime_authorized": false
+      },
+      "batch_12pj_refinement": {
+        "batch_id": "BATCH-12-BAZI-MING-DATONG-QISHUO-ABSOLUTE-TIME-ANCHOR-FEASIBILITY-PJ",
+        "research_artifact": "docs/research/MING-DATONG-QISHUO-ABSOLUTE-TIME-ANCHOR-FEASIBILITY-R1.json",
+        "modern_absolute_ephemeris_anchor_feasible": true,
+        "de431_target_period_covered": true,
+        "delta_t_uncertainty_seconds_1300_1600": 20,
+        "beijing_nanjing_signal_seconds": 592,
+        "delta_t_uncertainty_dominant": false,
+        "historical_qishuo_clock_standard_semantics": "UNRESOLVED",
+        "apparent_vs_mean_solar_difference_can_reach_minutes": 16,
+        "absolute_time_fit_authorized_for_meridian_selection": false,
+        "status_after_batch": "OPEN_BLOCKING_GENERAL_ADAPTER",
+        "runtime_authorized": false
+      },
+      "batch_12pk_refinement": {
+        "batch_id": "BATCH-12-BAZI-MING-DATONG-QISHUO-ZIZHENG-CLOCK-STANDARD-SEMANTICS-PK",
+        "research_artifact": "docs/research/MING-DATONG-QISHUO-ZIZHENG-CLOCK-STANDARD-SEMANTICS-R1.json",
+        "internal_uniform_zizheng_clock": "CLOSED_SOURCE_SCOPED",
+        "absolute_physical_time_realization": "UNRESOLVED",
+        "apparent_solar_time_identity": "NOT_ATTESTED",
+        "mean_solar_time_identity": "NOT_ATTESTED",
+        "physical_clepsydra_identity_in_qishuo_method": "NOT_ATTESTED",
+        "separate_location_sensitive_daylight_clepsydra_modules": "ATTESTED",
+        "gengwu_explicit_licha_positive_control": "CROSS_CALENDAR_ONLY",
+        "status_after_batch": "OPEN_BLOCKING_GENERAL_ADAPTER",
+        "runtime_authorized": false
+      },
+      "batch_12pl_refinement": {
+        "batch_id": "BATCH-12-BAZI-MING-DATONG-QINTIANJIAN-ALMANAC-CLOCK-CAPITAL-BINDING-PL",
+        "research_artifact": "docs/research/MING-QINTIANJIAN-ALMANAC-CLOCK-CAPITAL-BINDING-R1.json",
+        "institutional_clock_eclipse_almanac_colocation": "CLOSED_SOURCE_SCOPED",
+        "gnomon_qishuo_calibration_clause": "ATTESTED",
+        "same_bureau_equals_same_numeric_coordinate": "REJECTED_SHORTCUT",
+        "capital_auto_inheritance": "REJECTED",
+        "qishuo_capital_clock_binding": "UNRESOLVED",
+        "absolute_physical_time_realization": "UNRESOLVED",
+        "status_after_batch": "OPEN_BLOCKING_GENERAL_ADAPTER",
+        "runtime_authorized": false
+      },
+      "batch_12pm_refinement": {
+        "batch_id": "BATCH-12-BAZI-MING-DATONG-QISHUO-GNOMON-OBSERVATION-BRIDGE-PM",
+        "research_artifact": "docs/research/MING-DATONG-QISHUO-GNOMON-OBSERVATION-BRIDGE-R1.json",
+        "observational_qishuo_calibration_purpose": "ATTESTED",
+        "huaxiang_heshuo_verification_target": "ATTESTED_RECEIVED_TEXT",
+        "direct_gnomon_to_qishuo_numeric_bridge": "NOT_ATTESTED",
+        "direct_local_clock_to_qishuo_numeric_bridge": "NOT_ATTESTED",
+        "yuan_method_continuity": "ATTESTED_WITHOUT_MERIDIAN_SELECTION",
+        "qishuo_geographic_reference": "UNRESOLVED",
+        "status_after_batch": "OPEN_BLOCKING_GENERAL_ADAPTER",
+        "runtime_authorized": false
+      },
+      "batch_12pn_refinement": {
+        "batch_id": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-ECLIPSE-CLOCK-PROVENANCE-PN",
+        "research_artifact": "docs/research/MING-DATONG-JINGTAI1-ECLIPSE-CLOCK-PROVENANCE-R1.json",
+        "contemporaneous_ming_shilu_event_record": "CLOSED_SOURCE_SCOPED",
+        "operational_actual_vs_prediction_discrepancy": "ATTESTED",
+        "actual_time_measurement_provenance": "UNRESOLVED",
+        "eclipse_phase_identity": "UNRESOLVED",
+        "explicit_event_locality_binding": "UNRESOLVED",
+        "official_clepsydra_identity": "UNRESOLVED",
+        "independent_absolute_anchor_status": "NOT_YET_ADMISSIBLE",
+        "status_after_batch": "OPEN_BLOCKING_GENERAL_ADAPTER",
+        "runtime_authorized": false
+      },
+      "batch_12po_refinement": {
+        "batch_id": "BATCH-12-BAZI-MING-DATONG-ECLIPSE-RESCUE-PHASE-CLOCK-PROTOCOL-PO",
+        "research_artifact": "docs/research/MING-DATONG-ECLIPSE-RESCUE-PHASE-CLOCK-PROTOCOL-R1.json",
+        "rescue_protocol_forecast_reporting": "CLOSED_SOURCE_SCOPED",
+        "direct_visual_observation_universal_requirement": false,
+        "late_ming_explicit_phase_time_method_positive_control": "CLOSED_SOURCE_SCOPED",
+        "jingtai1_phase_identity": "UNRESOLVED",
+        "jingtai1_actual_time_measurement_chain": "UNRESOLVED",
+        "jingtai1_official_clepsydra_identity": "UNRESOLVED",
+        "independent_absolute_anchor_status": "NOT_YET_ADMISSIBLE",
+        "status_after_batch": "OPEN_BLOCKING_GENERAL_ADAPTER",
+        "runtime_authorized": false
+      },
+      "batch_12pp_refinement": {
+        "batch_id": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-ECLIPSE-SOURCE-CHAIN-AUDIT-PP",
+        "research_artifact": "docs/research/MING-DATONG-JINGTAI1-ECLIPSE-SOURCE-CHAIN-AUDIT-R1.json",
+        "derivative_chain_adds_phase_observer_clock": false,
+        "dependent_repetition_independent_witness": false,
+        "public_search_negative_scope": "PUBLIC_DIGITAL_SEARCH_HORIZON_ONLY",
+        "generic_derivative_search_route": "PARKED_UNLESS_NEW_WITNESS",
+        "guoque_physical_route": "IDENTIFIED_NOT_YET_COLLATED",
+        "jingtai1_absolute_anchor_status": "NOT_YET_ADMISSIBLE",
+        "status_after_batch": "OPEN_BLOCKING_GENERAL_ADAPTER",
+        "runtime_authorized": false
+      },
+      "batch_12pq_refinement": {
+        "batch_id": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-GUOQUE-PHYSICAL-COLLATION-PQ",
+        "research_artifact": "docs/research/MING-DATONG-JINGTAI1-GUOQUE-PHYSICAL-COLLATION-R1.json",
+        "guoque_physical_target": "CLOSED_DIRECT_PHYSICAL_SURROGATE",
+        "target_pdf_page": 112,
+        "target_page_sha256": "44f14d7b7580fb581c32f86949dda1416c4e9e5bc8cf0900021e0cfb73222657",
+        "relation_to_shilu": "DERIVATIVE_ABRIDGMENT",
+        "new_phase_observer_clock_locality": false,
+        "independent_absolute_anchor_status": "NOT_YET_ADMISSIBLE",
+        "status_after_batch": "OPEN_BLOCKING_GENERAL_ADAPTER",
+        "runtime_authorized": false
+      },
+      "batch_12pr_refinement": {
+        "batch_id": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-MINGSHILU-PHYSICAL-COLLATION-PR",
+        "research_artifact": "docs/research/MING-DATONG-JINGTAI1-MINGSHILU-PHYSICAL-COLLATION-R1.json",
+        "mingshilu_physical_target": "CLOSED_DIRECT_PHYSICAL_SURROGATE",
+        "source_volume": 19,
+        "target_juan": 187,
+        "opening_pdf_page": 2,
+        "target_pdf_page": 10,
+        "target_page_sha256": "8e431e1b51a8cf7b040564d94d18f120ac31b4418053b0abee9ffb30937c07e5",
+        "precise_actual_label": "卯正三刻",
+        "precise_prediction_label": "辰初初刻",
+        "physical_person_name": "許惇",
+        "received_digital_name_variant": "許敦",
+        "phase_identity": "UNRESOLVED",
+        "observer_clock_acquisition_locality_gain": false,
+        "independent_absolute_anchor_status": "NOT_YET_ADMISSIBLE",
+        "status_after_batch": "OPEN_BLOCKING_GENERAL_ADAPTER",
+        "runtime_authorized": false
+      },
+      "batch_12ps_refinement": {
+        "batch_id": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-BARE-DANGZAI-PHASE-SEMANTICS-PS",
+        "research_artifact": "docs/research/MING-DATONG-JINGTAI1-BARE-DANGZAI-PHASE-SEMANTICS-R1.json",
+        "target_bare_syntax": "月食當在卯正三刻",
+        "target_explicit_phase_lexeme": false,
+        "near_contemporary_1464_control": "酉正二刻初虧 / competing 酉初初刻初虧",
+        "hongzhi_1500_control": "寅虧卯圓 / observed 虧於卯而復圓於辰",
+        "later_ming_1610_positive_control": "初虧 / 食甚 / 復圓 plus 壺漏 / 簡儀 measurement vocabulary",
+        "philological_adjudication": "BARE_DANGZAI_IS_TIMING_PREDICATION_NOT_ATTESTED_PHASE_LEXEME",
+        "normalize_dangzai_to_chukui": "FORBIDDEN",
+        "select_alternate_phase": false,
+        "phase_identity_after_batch": "UNRESOLVED",
+        "independent_absolute_anchor_status": "NOT_YET_ADMISSIBLE",
+        "status_after_batch": "OPEN_BLOCKING_GENERAL_ADAPTER",
+        "runtime_authorized": false
+      },
+      "batch_12pt_refinement": {
+        "batch_id": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-RESCUE-INITIATION-PHASE-SEMANTICS-PT",
+        "research_artifact": "docs/research/MING-DATONG-JINGTAI1-RESCUE-INITIATION-PHASE-SEMANTICS-R1.json",
+        "early_ming_rescue_start_endpoint": "INITIAL_ECLIPSE_ONSET_初蝕_初食",
+        "lunar_ritual_inherits_solar_start_end_structure": true,
+        "jingtai1_rescue_operational_phase_bridge": "SOURCE_SUPPORTED_HIGH_CONFIDENCE",
+        "bare_dangzai_lexical_phase_identity": "UNRESOLVED",
+        "normalize_dangzai_to_chukui_lexeme": "FORBIDDEN",
+        "direct_visual_observation_required": false,
+        "actual_time_measurement_chain": "UNRESOLVED",
+        "official_clepsydra_identity": "UNRESOLVED",
+        "explicit_event_locality": "UNRESOLVED",
+        "independent_absolute_anchor_status": "NOT_YET_ADMISSIBLE",
+        "status_after_batch": "OPEN_BLOCKING_GENERAL_ADAPTER",
+        "runtime_authorized": false
+      },
+      "batch_12pu_refinement": {
+        "batch_id": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-RESCUE-REPORT-ACQUISITION-SEMANTICS-PU",
+        "research_artifact": "docs/research/MING-DATONG-JINGTAI1-RESCUE-REPORT-ACQUISITION-SEMANTICS-R1.json",
+        "forecast_vs_live_cehou_separation": "CLOSED_SOURCE_SCOPED_BY_1464_CONTROL",
+        "rescue_report_intrinsically_direct_observation": false,
+        "hongwu_weather_waiver": "RITUAL_EXECUTION_VISIBILITY_CONDITION_NOT_ACQUISITION_METHOD",
+        "jingtai1_failed_qintianjian_label": "FAILED_PREDICTIVE_DETERMINATION",
+        "jingtai1_corrected_time_acquisition": "UNRESOLVED",
+        "jingtai1_corrected_time_observer": "UNRESOLVED",
+        "jingtai1_corrected_time_clock_instrument": "UNRESOLVED",
+        "jingtai1_corrected_time_locality": "UNRESOLVED",
+        "independent_absolute_anchor_status": "NOT_YET_ADMISSIBLE",
+        "status_after_batch": "OPEN_BLOCKING_GENERAL_ADAPTER",
+        "runtime_authorized": false
+      },
+      "batch_12pv_refinement": {
+        "batch_id": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-CLOCK-REGIME-PROVENANCE-PV",
+        "research_artifact": "docs/research/MING-DATONG-JINGTAI1-CLOCK-REGIME-PROVENANCE-R1.json",
+        "zhengtong12_clock_rebuild_order": "CONFIRMED_SOURCE_SCOPED",
+        "zhengtong12_clock_rebuild_completion": "NOT_ATTESTED",
+        "zhengtong14_calendar_daynight_rollback": "CONFIRMED_SOURCE_SCOPED",
+        "zhengtong14_physical_clock_rollback": "NOT_ATTESTED",
+        "jingtai1_corrected_maozheng_clock": "UNRESOLVED",
+        "jingtai1_clock_acquisition_locality": "UNRESOLVED",
+        "independent_absolute_anchor_status": "NOT_YET_ADMISSIBLE",
+        "independent_physical_witness_increment": 0,
+        "status_after_batch": "OPEN_BLOCKING_GENERAL_ADAPTER",
+        "runtime_authorized": false
+      }
+    },
+    {
+      "gate_id": "MD-G04-1569-TABLE-GENERATION-PRECISION",
+      "domain": "FIXED_POINT_TABLE_GENERATION",
+      "status": "CLOSED_SOURCE_SCOPED",
+      "finding": "The 1569 primary table-generation precision map is stage-scoped: day-rate floor, loss-gain shortcut truncation, line-speed ceiling with two central overrides, and reciprocal shortcut truncation.",
+      "firewall": "SINGLE_GLOBAL_ROUNDING_RULE_REJECTED",
+      "general_runtime_effect": "Closes table-generation stages only; it does not certify every dynamic interpolation/D1 intermediate."
+    },
+    {
+      "gate_id": "MD-G05-DYNAMIC-D1-PRECISION-GENERALIZATION",
+      "domain": "DYNAMIC_EVENT_COMPUTATION",
+      "status": "OPEN_BLOCKING_GENERAL_ADAPTER",
+      "finding": "The 1596 Datong worked example supplies one local dynamic precision control, but its widths/carries are not yet source-closed as a general rule across years and edge cases.",
+      "prohibited_shortcut": "DO_NOT_PROJECT_1596_LOCAL_PRINTED_PRECISION_AS_A_UNIVERSAL_DYNAMIC_RULE",
+      "batch_12ow_refinement": {
+        "final_time_operational_validation": "CLOSED_56_OF_56_D1_WITHIN_PRINTED_BINS",
+        "d2_comparator": "8_OF_56_WITHIN_BINS_48_OUTSIDE",
+        "narrowest_final_time_control": "1639_MONTH_4_APPROX_2.3_MIN_FULL_WIDTH",
+        "dynamic_intermediate_precision_profile": "OPEN_NOT_UNIQUELY_IDENTIFIED",
+        "research_artifact": "docs/research/MING-DATONG-DYNAMIC-D1-PRECISION-GENERALIZATION-R1.json",
+        "validation_fixture": "docs/research/MING-DATONG-D1-56-CONJUNCTION-VALIDATION-R1.json"
+      },
+      "batch_12ox_refinement": {
+        "corpus_discrimination_result": "NEGATIVE_ALL_4_PROFILES_MATCH_56_OF_56",
+        "tested_profiles": 4,
+        "max_profile_spread_seconds_upper_bound": "0.10",
+        "minimum_profile_to_bin_edge_margin_seconds_lower_bound": "13",
+        "edge_margin_to_spread_ratio_lower_bound": "150",
+        "universal_1596_profile_authorized": false,
+        "gate_status_after_batch": "OPEN_BLOCKING_GENERAL_ADAPTER",
+        "research_artifact": "docs/research/MING-DATONG-D1-PRECISION-PROFILE-SENSITIVITY-R1.json",
+        "harness": "scripts/research_ming_datong_d1_precision_profile_sensitivity_r1.py"
+      }
+    },
+    {
+      "gate_id": "MD-G06-1578-TARGET-YEAR-MONTH-STRUCTURE",
+      "domain": "TARGET_YEAR_ORACLE",
+      "status": "CLOSED_SOURCE_SCOPED",
+      "finding": "The source-derived D1 replay matches all twelve Wanli-6 month starts plus the Wanli-7 first-month anchor at day level, and the exact same-year Qintianjian physical pages close all 12 month identities/large-small labels with zero mismatch.",
+      "scope_limit": "TARGET_YEAR_AND_BOUND_ORACLE_ONLY_NOT_MULTI_YEAR_GENERALIZATION"
+    },
+    {
+      "gate_id": "MD-G07-INVALID-TARGET-DATE-POLICY",
+      "domain": "DAYUN_CALENDAR_ADDITION",
+      "status": "OPEN_BLOCKING_GENERAL_ADAPTER",
+      "finding": "The classical source family requires real lunisolar calendarization, but the current evidence does not source-close what to do when a target day number is invalid in a small month.",
+      "forbidden_fallbacks": [
+        "NO_SILENT_CLAMP_TO_LAST_DAY",
+        "NO_SILENT_ROLL_FORWARD",
+        "NO_SILENT_ROLL_BACKWARD",
+        "NO_GREGORIAN_INVALID_DATE_POLICY"
+      ],
+      "batch_12ov_refinement": {
+        "small_month_deficit_correction": "CLOSED_RECEIVED_TEXT_WORKED_EXAMPLE",
+        "invalid_carried_day_number": "UNRESOLVED_NOT_ATTESTED",
+        "research_artifact": "docs/research/MING-SANMING-DAYUN-CALENDAR-ADDITION-EDGE-SEMANTICS-R1.json"
+      }
+    },
+    {
+      "gate_id": "MD-G08-INTERCALARY-MONTH-IDENTITY-AND-TRAVERSAL",
+      "domain": "DAYUN_CALENDAR_ADDITION",
+      "status": "OPEN_BLOCKING_GENERAL_ADAPTER",
+      "finding": "The source explicitly requires leap-month correction, but exact semantics for duplicate regular/intercalary month identity, target selection and traversal across the intercalary insertion are not yet source-closed for executable realization.",
+      "forbidden_fallbacks": [
+        "NO_TREAT_LEAP_MONTH_AS_ORDINARY_NUMBERED_MONTH_WITHOUT_SOURCE_RULE",
+        "NO_DROP_INTERCALARY_IDENTITY",
+        "NO_MODERN_CALENDAR_LIBRARY_BEHAVIOR_AS_HISTORICAL_AUTHORITY"
+      ],
+      "batch_12ov_refinement": {
+        "aggregate_intercalary_extra_month_counting": "CLOSED_RECEIVED_TEXT_WORKED_EXAMPLE",
+        "regular_vs_intercalary_duplicate_identity": "UNRESOLVED_NOT_ATTESTED",
+        "birth_or_anchor_inside_intercalary_month": "UNRESOLVED_NOT_ATTESTED",
+        "research_artifact": "docs/research/MING-SANMING-DAYUN-CALENDAR-ADDITION-EDGE-SEMANTICS-R1.json"
+      }
+    },
+    {
+      "gate_id": "MD-G09-MULTI-YEAR-LEAP-GENERALIZATION",
+      "domain": "CALENDAR_GENERATION",
+      "status": "OPEN_BLOCKING_GENERAL_ADAPTER",
+      "finding": "The 1578 chain is directly closed, but a general Ming Datong adapter must generate and verify month/leap structure across multiple years, including intercalary years and boundary-sensitive new moons.",
+      "dependency_note": "Requires source-faithful qishuo generation plus the geographic and dynamic-precision gates for general certification.",
+      "batch_12oy_refinement": {
+        "leap_year_existence_subrule": "CLOSED_SOURCE_SCOPED_PRIMARY_1569_RUNYU_VS_RUNXIAN",
+        "old_datong_leap_position_subrule": "CLOSED_SOURCE_SCOPED_DAY_LEVEL_NO_ZHONGQI",
+        "sampled_years": 7,
+        "precision_profiles": 4,
+        "profile_year_controls": "28_OF_28_MATCH",
+        "sampled_leap_months": {
+          "1531": 6,
+          "1596": 8,
+          "1629": 4
+        },
+        "g09_status_after_batch": "OPEN_BLOCKING_GENERAL_ADAPTER",
+        "remaining_gate": "FULL_MING_ERA_1368_1644_BOUNDARY_CENSUS_AND_CRITICAL_YEAR_SOURCE_VALIDATION",
+        "research_artifact": "docs/research/MING-DATONG-MULTI-YEAR-LEAP-RULE-VALIDATION-R1.json",
+        "harness": "scripts/research_ming_datong_multi_year_leap_validation_r1.py"
+      },
+      "batch_12oz_refinement": {
+        "batch_id": "BATCH-12-BAZI-MING-DATONG-MING-ERA-BOUNDARY-CENSUS-OZ",
+        "research_artifact": "docs/research/MING-DATONG-MING-ERA-BOUNDARY-CENSUS-R1.json",
+        "civil_year_control_artifact": "docs/research/MING-DATONG-CIVIL-YEAR-LATE-LEAP-CONTROLS-R1.json",
+        "full_ming_year_range": "1368-1644",
+        "profile_structural_divergence_year_count": 0,
+        "profile_new_moon_source_day_divergence_year_count": 0,
+        "runyu_vs_true_sui_tension_years": [
+          1384,
+          1385,
+          1479,
+          1480
+        ],
+        "primary_runyu_formula_identity": "SOURCE_SCOPED",
+        "global_runyu_to_civil_year_mapping": "NOT_CERTIFIED",
+        "global_runyu_to_true_sui_alignment": "NOT_CERTIFIED",
+        "batch_12oy_snapshot_preserved": true,
+        "g09_status_after_batch": "OPEN_BLOCKING_GENERAL_ADAPTER",
+        "runtime_authorized": false
+      },
+      "batch_12pa_refinement": {
+        "four_12oz_tensions": "RESOLVED_PREYEAR_CIVIL_OWNERSHIP_BRANCH",
+        "full_ming_preyear_formula_candidate_count": 15,
+        "directly_controlled_preyear_pairs": [
+          "1385_TO_1384_LEAP10",
+          "1480_TO_1479_LEAP10"
+        ],
+        "fixed_k2_civil_anchor_universal": false,
+        "status_after_batch": "OPEN_BLOCKING_GENERAL_ADAPTER",
+        "runtime_authorized": false,
+        "research_artifact": "docs/research/MING-DATONG-PREYEAR-LEAP-CIVIL-YEAR-BINDING-R1.json"
+      },
+      "batch_12pb_refinement": {
+        "batch_id": "BATCH-12-BAZI-MING-DATONG-PREYEAR-LEAP-CIVIL-YEAR-GLOBAL-VALIDATION-PB",
+        "research_artifact": "docs/research/MING-DATONG-PREYEAR-LEAP-CIVIL-YEAR-GLOBAL-VALIDATION-R1.json",
+        "oracle": "docs/research/MING-DATONG-PREYEAR-LEAP-CIVIL-YEAR-ORACLE-R1.json",
+        "preyear_candidate_count": 15,
+        "precision_profiles": 4,
+        "profile_year_controls": "60_OF_60_MATCH",
+        "civil_year_extraction": "FIRST_REGULAR_MONTH_1_TO_BEFORE_NEXT_REGULAR_MONTH_1",
+        "fixed_k2_civil_anchor_universal": false,
+        "full_ming_profile_structural_divergence_year_count": 0,
+        "formula_ownership_mismatch_count_1368_1643": 10,
+        "status_after_batch": "OPEN_BLOCKING_GENERAL_ADAPTER",
+        "historical_snapshot_top_level_status_preserved": "OPEN_BLOCKING_GENERAL_ADAPTER",
+        "runtime_authorized": false,
+        "remaining_jintui_boundary_mismatch_count": 10,
+        "subset_closure": "15_Q0_Q1_PREYEAR_CONTROLS_60_OF_60_MATCH",
+        "full_era_owner_mapping_certified": false,
+        "reason_open": "Received placement is provisional because the text explicitly allows 閏有進退 and makes 定朔無中氣 final; the full-era rerun still exposes 10 owner/existence mismatches."
+      },
+      "batch_12pc_refinement": {
+        "batch_id": "BATCH-12-BAZI-MING-DATONG-RUNYU-JINTUI-FINAL-PLACEMENT-PC",
+        "research_artifact": "docs/research/MING-DATONG-RUNYU-JINTUI-FINAL-PLACEMENT-R1.json",
+        "oracle": "docs/research/MING-DATONG-RUNYU-JINTUI-BOUNDARY-ORACLE-R1.json",
+        "runyu_threshold_label_count": 102,
+        "q2_boundary_count": 10,
+        "q2_retreat_count": 5,
+        "q2_stay_count": 5,
+        "q2_profile_controls": "40_OF_40_MATCH",
+        "full_final_owner_count": 102,
+        "full_owner_ambiguity_count": 0,
+        "profile_structural_divergence_year_count": 0,
+        "final_owner_existence_mismatch_count_1368_1643": 0,
+        "status_after_batch": "CLOSED_SOURCE_SCOPED",
+        "historical_snapshot_top_level_status_preserved": "OPEN_BLOCKING_GENERAL_ADAPTER",
+        "runtime_authorized": false
+      }
+    },
+    {
+      "gate_id": "MD-G10-TEN-YEAR-RECURRENCE-SAME-REGIME",
+      "domain": "DAYUN_RECURRENCE",
+      "status": "DEPENDENCY_BLOCKED",
+      "finding": "ADD_CALENDAR_YEARS exists only at the contract vocabulary layer. Historical Dayun recurrence must inherit the same certified regime and cannot switch silently to Gregorian anniversaries.",
+      "depends_on": [
+        "MD-G07-INVALID-TARGET-DATE-POLICY",
+        "MD-G08-INTERCALARY-MONTH-IDENTITY-AND-TRAVERSAL",
+        "MD-G09-MULTI-YEAR-LEAP-GENERALIZATION"
+      ],
+      "batch_12ov_refinement": {
+        "ten_anniversary_textual_statement": "CLOSED",
+        "executable_add_calendar_years": "DEPENDENCY_BLOCKED",
+        "research_artifact": "docs/research/MING-SANMING-DAYUN-CALENDAR-ADDITION-EDGE-SEMANTICS-R1.json"
+      }
+    },
+    {
+      "gate_id": "MD-G11-BAZI-RUNTIME-AND-PRODUCT-INTEGRATION",
+      "domain": "PRODUCT_INTEGRATION",
+      "status": "DEPENDENCY_BLOCKED",
+      "finding": "BaziTemporalEngine still does not import the historical-calendar adapter. No historical profile/API/Workbench selector is authorized before a source-scoped adapter is certified.",
+      "depends_on": [
+        "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
+        "MD-G05-DYNAMIC-D1-PRECISION-GENERALIZATION",
+        "MD-G07-INVALID-TARGET-DATE-POLICY",
+        "MD-G08-INTERCALARY-MONTH-IDENTITY-AND-TRAVERSAL",
+        "MD-G09-MULTI-YEAR-LEAP-GENERALIZATION",
+        "MD-G10-TEN-YEAR-RECURRENCE-SAME-REGIME"
+      ],
+      "current_required_behavior": "FailClosedHistoricalCalendarAdapter must continue returning UNRESOLVED_NO_CERTIFIED_HISTORICAL_CALENDAR_ADAPTER."
+    }
+  ],
+  "counts": {
+    "closed_source_scoped": 4,
+    "open_blocking_general_adapter": 5,
+    "dependency_blocked": 2,
+    "total_gates": 11
+  },
+  "decomposition_findings": [
+    "QISHUO_GEOGRAPHY_AND_DAYUN_CALENDAR_ADDITION_ARE_DISTINCT_RESEARCH_FRONTS_AND_CAN_BE_AUDITED_IN_PARALLEL.",
+    "THE_PHYSICALLY_CERTIFIED_1578_MONTH_PAGE_CHAIN_REMAINS_VALID_TARGET_YEAR_EVIDENCE_EVEN_THOUGH_GENERAL_QISHUO_GEOGRAPHY_IS_UNRESOLVED.",
+    "A_GENERAL_MULTI_YEAR_MONTH_GENERATOR_CANNOT_INHERIT_THE_1578_SUCCESS_WITHOUT_CLOSING_GEOGRAPHY_DYNAMIC_PRECISION_AND_LEAP_GENERALIZATION.",
+    "CALENDAR_ADDITION_MUST_FAIL_CLOSED_ON_INVALID_DAY_AND_INTERCALARY_MONTH_IDENTITY_UNTIL_SOURCE_RULES_ARE_BOUND.",
+    "RUNTIME_INTEGRATION_IS_A_DEPENDENT_ENGINEERING_STEP_NOT_A_SUBSTITUTE_FOR_HISTORICAL_CERTIFICATION."
+  ],
+  "next_research_priority": {
+    "batch": "12OZ",
+    "gate_id": "MD-G09-MULTI-YEAR-LEAP-GENERALIZATION",
+    "focus": "Sweep 1368-1644 under all four research profiles; identify day-boundary/profile-sensitive month identities and prioritize direct historical controls."
+  },
+  "accounting": {
+    "matrix_rows": 222,
+    "audited_rows": 222,
+    "current_missing_from_product_rows": 4,
+    "provenance_defects_confirmed": 45,
+    "provenance_defects_repaired": 45,
+    "historical_candidate_extensions": 14,
+    "historical_candidate_registries": 5,
+    "historical_candidate_runtime_resolvers": 5,
+    "chart_algorithm_defects": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0
+  },
+  "latest_calendar_addition_edge_semantics_batch": "BATCH-12-BAZI-MING-SANMING-DAYUN-CALENDAR-ADDITION-EDGE-SEMANTICS-OV",
+  "latest_calendar_addition_edge_semantics_artifact": "docs/research/MING-SANMING-DAYUN-CALENDAR-ADDITION-EDGE-SEMANTICS-R1.json",
+  "latest_dynamic_precision_batch": "BATCH-12-BAZI-MING-DATONG-D1-PRECISION-PROFILE-SENSITIVITY-OX",
+  "latest_dynamic_precision_artifact": "docs/research/MING-DATONG-D1-PRECISION-PROFILE-SENSITIVITY-R1.json",
+  "latest_multi_year_leap_batch": "BATCH-12-BAZI-MING-DATONG-MULTI-YEAR-LEAP-RULE-VALIDATION-OY",
+  "latest_multi_year_leap_artifact": "docs/research/MING-DATONG-MULTI-YEAR-LEAP-RULE-VALIDATION-R1.json",
+  "latest_multi_year_boundary_batch": "BATCH-12-BAZI-MING-DATONG-MING-ERA-BOUNDARY-CENSUS-OZ",
+  "latest_multi_year_boundary_artifact": "docs/research/MING-DATONG-MING-ERA-BOUNDARY-CENSUS-R1.json",
+  "batch_12pb_forward_refinement": {
+    "status": "MD_G09_REMAINS_OPEN_AFTER_12PB_FULL_ERA_JINTUI_RESIDUAL",
+    "historical_12ou_top_level_counts_preserved": true,
+    "current_live_gate_accounting_after_12pb": {
+      "closed_source_scoped": 4,
+      "open_blocking_general_adapter": 5,
+      "dependency_blocked": 2,
+      "total_gates": 11
+    },
+    "next_research_priority": {
+      "batch": "12PC",
+      "gate_id": "MD-G09-MULTI-YEAR-LEAP-GENERALIZATION",
+      "focus": "RUNYU_JINTUI_FINAL_NO_ZHONGQI_CIVIL_OWNERSHIP_BOUNDARY"
+    }
+  },
+  "batch_12pc_forward_refinement": {
+    "status": "MD_G09_CLOSED_SOURCE_SCOPED_AFTER_12PC_JINTUI_FINAL_PLACEMENT",
+    "historical_12ou_top_level_counts_preserved": true,
+    "current_live_gate_accounting_after_12pc": {
+      "closed_source_scoped": 5,
+      "open_blocking_general_adapter": 4,
+      "dependency_blocked": 2,
+      "total_gates": 11
+    },
+    "remaining_open_independent_gates": [
+      "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
+      "MD-G05-DYNAMIC-D1-INTERMEDIATE-PRECISION",
+      "MD-G07-CALENDAR-ADDITION-INVALID-TARGET-DATE",
+      "MD-G08-CALENDAR-ADDITION-INTERCALARY-IDENTITY-TRAVERSAL"
+    ],
+    "next_research_priority": {
+      "batch": "12PD",
+      "gate_id": "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
+      "focus": "KYUDB_GK12437_COMPLETE_PHYSICAL_QISHUO_LOCALITY_OPERATOR_AUDIT"
+    }
+  },
+  "latest_runyu_jintui_batch": "BATCH-12-BAZI-MING-DATONG-RUNYU-JINTUI-FINAL-PLACEMENT-PC",
+  "latest_runyu_jintui_artifact": "docs/research/MING-DATONG-RUNYU-JINTUI-FINAL-PLACEMENT-R1.json",
+  "batch_12pd_forward_refinement": {
+    "status": "G03_EXPLICIT_LOCALITY_OPERATOR_SUBQUESTION_CLOSED_NEGATIVE_METHOD_BLOCK_SCOPE_IMPLICIT_REFERENCE_REMAINS_OPEN",
+    "historical_12ou_top_level_counts_preserved": true,
+    "current_live_gate_accounting_after_12pd": {
+      "closed_source_scoped": 5,
+      "open_blocking_general_adapter": 4,
+      "dependency_blocked": 2,
+      "total_gates": 11
+    },
+    "remaining_open_independent_gates": [
+      "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
+      "MD-G05-DYNAMIC-D1-INTERMEDIATE-PRECISION",
+      "MD-G07-CALENDAR-ADDITION-INVALID-TARGET-DATE",
+      "MD-G08-CALENDAR-ADDITION-INTERCALARY-IDENTITY-TRAVERSAL"
+    ],
+    "next_research_priority": {
+      "batch": "12PE",
+      "gate_id": "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
+      "focus": "SHOUSHI_DATONG_TONGGUI_GK12437_ZHOUXIANG_QISHUO_EPOCH_CONSTANT_METHOD_NAMED_PLACE_BINDING"
+    }
+  },
+  "latest_qishuo_geography_batch": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-CLOCK-REGIME-PROVENANCE-PV",
+  "latest_qishuo_geography_artifact": "docs/research/MING-DATONG-JINGTAI1-CLOCK-REGIME-PROVENANCE-R1.json",
+  "batch_12pe_forward_refinement": {
+    "status": "G03_EPOCH_TO_MERIDIAN_LINEAGE_SHORTCUT_REJECTED_ACTUAL_REFERENCE_REMAINS_OPEN",
+    "historical_12ou_top_level_counts_preserved": true,
+    "current_live_gate_accounting_after_12pe": {
+      "closed_source_scoped": 5,
+      "open_blocking_general_adapter": 4,
+      "dependency_blocked": 2,
+      "total_gates": 11
+    },
+    "remaining_open_independent_gates": [
+      "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
+      "MD-G05-DYNAMIC-D1-INTERMEDIATE-PRECISION",
+      "MD-G07-CALENDAR-ADDITION-INVALID-TARGET-DATE",
+      "MD-G08-CALENDAR-ADDITION-INTERCALARY-IDENTITY-TRAVERSAL"
+    ],
+    "next_research_priority": {
+      "batch": "12PF",
+      "gate_id": "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
+      "focus": "REVISED_SHOUSHI_YING_RESPONSE_CONSTANT_OBSERVATION_SITE_COORDINATE_PROVENANCE"
+    }
+  },
+  "batch_12pf_forward_refinement": {
+    "status": "G03_DADU_ONLY_DEFAULT_REJECTED_1294_REVISION_SITE_STILL_UNRESOLVED",
+    "historical_12ou_top_level_counts_preserved": true,
+    "current_live_gate_accounting_after_12pf": {
+      "closed_source_scoped": 5,
+      "open_blocking_general_adapter": 4,
+      "dependency_blocked": 2,
+      "total_gates": 11
+    },
+    "remaining_open_independent_gates": [
+      "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
+      "MD-G05-DYNAMIC-D1-INTERMEDIATE-PRECISION",
+      "MD-G07-CALENDAR-ADDITION-INVALID-TARGET-DATE",
+      "MD-G08-CALENDAR-ADDITION-INTERCALARY-IDENTITY-TRAVERSAL"
+    ],
+    "next_research_priority": {
+      "batch": "12PG",
+      "gate_id": "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
+      "focus": "LOST_GUO_SHOUJING_XIUGAI_YUANLIU_GUJIN_JIAOSHIKAO_AND_YUAN_TAISHIYUAN_REVISION_LOG_SURVIVAL"
+    }
+  },
+  "batch_12pg_forward_refinement": {
+    "status": "G03_LOST_WORKS_BIBLIOGRAPHIC_IDENTITY_CONTROLLED_NO_CONTENT_RECOVERED",
+    "historical_12ou_top_level_counts_preserved": true,
+    "current_live_gate_accounting_after_12pg": {
+      "closed_source_scoped": 5,
+      "open_blocking_general_adapter": 4,
+      "dependency_blocked": 2,
+      "total_gates": 11
+    },
+    "remaining_open_independent_gates": [
+      "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
+      "MD-G05-DYNAMIC-D1-INTERMEDIATE-PRECISION",
+      "MD-G07-CALENDAR-ADDITION-INVALID-TARGET-DATE",
+      "MD-G08-CALENDAR-ADDITION-INTERCALARY-IDENTITY-TRAVERSAL"
+    ],
+    "next_research_priority": {
+      "batch": "12PH",
+      "gate_id": "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
+      "focus": "SOURCE_BOUND_QUOTATION_HUNT_FOR_GUO_XIUGAI_YUANLIU_GUJIN_JIAOSHIKAO_1294_REVISION_SITE"
+    }
+  },
+  "batch_12ph_forward_refinement": {
+    "status": "G03_LOST_WORK_QUOTATION_CHAIN_NOT_RECOVERED_ROUTE_PARKED",
+    "historical_12ou_top_level_counts_preserved": true,
+    "current_live_gate_accounting_after_12ph": {
+      "closed_source_scoped": 5,
+      "open_blocking_general_adapter": 4,
+      "dependency_blocked": 2,
+      "total_gates": 11
+    },
+    "remaining_open_independent_gates": [
+      "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
+      "MD-G05-DYNAMIC-D1-INTERMEDIATE-PRECISION",
+      "MD-G07-CALENDAR-ADDITION-INVALID-TARGET-DATE",
+      "MD-G08-CALENDAR-ADDITION-INTERCALARY-IDENTITY-TRAVERSAL"
+    ],
+    "next_research_priority": {
+      "batch": "12PI",
+      "gate_id": "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
+      "focus": "SOURCE_BOUND_OFFICIAL_ALMANAC_QISHUO_CLOCK_GEOGRAPHIC_HYPOTHESIS_DIAGNOSTIC_REPLAY"
+    }
+  },
+  "batch_12pi_forward_refinement": {
+    "status": "G03_INTERNAL_ALMANAC_BIN_CORPUS_PROVEN_NON_IDENTIFYING_FOR_ABSOLUTE_MERIDIAN",
+    "historical_12ou_top_level_counts_preserved": true,
+    "current_live_gate_accounting_after_12pi": {
+      "closed_source_scoped": 5,
+      "open_blocking_general_adapter": 4,
+      "dependency_blocked": 2,
+      "total_gates": 11
+    },
+    "remaining_open_independent_gates": [
+      "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
+      "MD-G05-DYNAMIC-D1-INTERMEDIATE-PRECISION",
+      "MD-G07-CALENDAR-ADDITION-INVALID-TARGET-DATE",
+      "MD-G08-CALENDAR-ADDITION-INTERCALARY-IDENTITY-TRAVERSAL"
+    ],
+    "next_research_priority": {
+      "batch": "12PJ",
+      "gate_id": "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
+      "focus": "ABSOLUTE_TIME_ANCHOR_FEASIBILITY_DELTA_T_LOCAL_APPARENT_SOLAR_TIME_UNCERTAINTY"
+    }
+  },
+  "batch_12pj_forward_refinement": {
+    "status": "G03_MODERN_ABSOLUTE_TIME_ANCHOR_FEASIBLE_HISTORICAL_CLOCK_STANDARD_MAPPING_OPEN",
+    "historical_12ou_top_level_counts_preserved": true,
+    "current_live_gate_accounting_after_12pj": {
+      "closed_source_scoped": 5,
+      "open_blocking_general_adapter": 4,
+      "dependency_blocked": 2,
+      "total_gates": 11
+    },
+    "remaining_open_independent_gates": [
+      "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
+      "MD-G05-DYNAMIC-D1-INTERMEDIATE-PRECISION",
+      "MD-G07-CALENDAR-ADDITION-INVALID-TARGET-DATE",
+      "MD-G08-CALENDAR-ADDITION-INTERCALARY-IDENTITY-TRAVERSAL"
+    ],
+    "next_research_priority": {
+      "batch": "12PK",
+      "gate_id": "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
+      "focus": "SOURCE_CLOSE_QISHUO_ZIZHENG_CLOCK_STANDARD_APPARENT_MEAN_CLEPSYDRA_CONVENTIONAL_AND_LOCALITY_BINDING"
+    }
+  },
+  "batch_12pk_forward_refinement": {
+    "status": "G03_INTERNAL_ZIZHENG_CLOCK_CLOSED_ABSOLUTE_REALIZATION_AND_LOCALITY_BINDING_OPEN",
+    "historical_12ou_top_level_counts_preserved": true,
+    "current_live_gate_accounting_after_12pk": {
+      "closed_source_scoped": 5,
+      "open_blocking_general_adapter": 4,
+      "dependency_blocked": 2,
+      "total_gates": 11
+    },
+    "remaining_open_independent_gates": [
+      "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
+      "MD-G05-DYNAMIC-D1-INTERMEDIATE-PRECISION",
+      "MD-G07-CALENDAR-ADDITION-INVALID-TARGET-DATE",
+      "MD-G08-CALENDAR-ADDITION-INTERCALARY-IDENTITY-TRAVERSAL"
+    ],
+    "next_research_priority": {
+      "batch": "12PL",
+      "gate_id": "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
+      "focus": "MING_QINTIANJIAN_ALMANAC_STANDARD_CLOCK_CAPITAL_BINDING_FOR_PUBLISHED_QISHUO_TIME_LABELS"
+    }
+  },
+  "batch_12pl_forward_refinement": {
+    "status": "G03_INSTITUTIONAL_COLOCATION_CLOSED_AUTOMATIC_CAPITAL_AND_CLEPSYDRA_QISHUO_BINDING_REJECTED_REFERENCE_OPEN",
+    "historical_12ou_top_level_counts_preserved": true,
+    "current_live_gate_accounting_after_12pl": {
+      "closed_source_scoped": 5,
+      "open_blocking_general_adapter": 4,
+      "dependency_blocked": 2,
+      "total_gates": 11
+    },
+    "remaining_open_independent_gates": [
+      "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
+      "MD-G05-DYNAMIC-D1-INTERMEDIATE-PRECISION",
+      "MD-G07-CALENDAR-ADDITION-INVALID-TARGET-DATE",
+      "MD-G08-CALENDAR-ADDITION-INTERCALARY-IDENTITY-TRAVERSAL"
+    ],
+    "next_research_priority": {
+      "batch": "12PM",
+      "gate_id": "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
+      "focus": "MING_QINTIANJIAN_GNOMON_QISHUO_OBSERVATIONAL_VERIFICATION_TO_NUMERICAL_DINGSHUO_REMAINDER_BRIDGE"
+    }
+  },
+  "batch_12pm_forward_refinement": {
+    "status": "G03_OBSERVATIONAL_CALIBRATION_PURPOSE_CLOSED_DIRECT_LOCAL_OBSERVATION_TO_QISHUO_NUMERIC_CLOCK_BRIDGE_NOT_ATTESTED",
+    "historical_12ou_top_level_counts_preserved": true,
+    "current_live_gate_accounting_after_12pm": {
+      "closed_source_scoped": 5,
+      "open_blocking_general_adapter": 4,
+      "dependency_blocked": 2,
+      "total_gates": 11
+    },
+    "remaining_open_independent_gates": [
+      "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
+      "MD-G05-DYNAMIC-D1-INTERMEDIATE-PRECISION",
+      "MD-G07-CALENDAR-ADDITION-INVALID-TARGET-DATE",
+      "MD-G08-CALENDAR-ADDITION-INTERCALARY-IDENTITY-TRAVERSAL"
+    ],
+    "next_research_priority": {
+      "batch": "12PN",
+      "gate_id": "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
+      "focus": "JINGTAI1_LUNAR_ECLIPSE_ACTUAL_VS_PREDICTED_CLOCK_PROVENANCE_AS_INDEPENDENT_ABSOLUTE_TIME_ANCHOR"
+    }
+  },
+  "batch_12pn_forward_refinement": {
+    "status": "G03_CONTEMPORANEOUS_OPERATIONAL_ECLIPSE_DISCREPANCY_CLOSED_ABSOLUTE_CLOCK_PHASE_LOCALITY_CHAIN_OPEN",
+    "historical_12ou_top_level_counts_preserved": true,
+    "current_live_gate_accounting_after_12pn": {
+      "closed_source_scoped": 5,
+      "open_blocking_general_adapter": 4,
+      "dependency_blocked": 2,
+      "total_gates": 11
+    },
+    "remaining_open_independent_gates": [
+      "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
+      "MD-G05-DYNAMIC-D1-INTERMEDIATE-PRECISION",
+      "MD-G07-CALENDAR-ADDITION-INVALID-TARGET-DATE",
+      "MD-G08-CALENDAR-ADDITION-INTERCALARY-IDENTITY-TRAVERSAL"
+    ],
+    "next_research_priority": {
+      "batch": "12PO",
+      "gate_id": "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
+      "focus": "MING_ECLIPSE_RESCUE_REPORTING_PHASE_AND_ACTUAL_CLOCK_PROVENANCE_CHAIN"
+    }
+  },
+  "batch_12po_forward_refinement": {
+    "status": "G03_RESCUE_REPORTING_FORECAST_SEMANTICS_CLOSED_JINGTAI_PHASE_AND_ACTUAL_CLOCK_CHAIN_OPEN",
+    "historical_12ou_top_level_counts_preserved": true,
+    "current_live_gate_accounting_after_12po": {
+      "closed_source_scoped": 5,
+      "open_blocking_general_adapter": 4,
+      "dependency_blocked": 2,
+      "total_gates": 11
+    },
+    "remaining_open_independent_gates": [
+      "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
+      "MD-G05-DYNAMIC-D1-INTERMEDIATE-PRECISION",
+      "MD-G07-CALENDAR-ADDITION-INVALID-TARGET-DATE",
+      "MD-G08-CALENDAR-ADDITION-INTERCALARY-IDENTITY-TRAVERSAL"
+    ],
+    "next_research_priority": {
+      "batch": "12PP",
+      "gate_id": "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
+      "focus": "JINGTAI1_XUDUN_IMPEACHMENT_PHASE_OBSERVER_CLOCK_SOURCE_CHAIN"
+    }
+  },
+  "batch_12pp_forward_refinement": {
+    "status": "G03_DERIVATIVE_CHAIN_NEGATIVE_CLOSED_PHYSICAL_GUOQUE_ROUTE_NEXT",
+    "historical_12ou_top_level_counts_preserved": true,
+    "current_live_gate_accounting_after_12pp": {
+      "closed_source_scoped": 5,
+      "open_blocking_general_adapter": 4,
+      "dependency_blocked": 2,
+      "total_gates": 11
+    },
+    "remaining_open_independent_gates": [
+      "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
+      "MD-G05-DYNAMIC-D1-INTERMEDIATE-PRECISION",
+      "MD-G07-CALENDAR-ADDITION-INVALID-TARGET-DATE",
+      "MD-G08-CALENDAR-ADDITION-INTERCALARY-IDENTITY-TRAVERSAL"
+    ],
+    "next_research_priority": {
+      "batch": "12PQ",
+      "gate_id": "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
+      "focus": "GUOQUE_V25_VOL29_JINGTAI1_MONTH1_PHYSICAL_PAGE_COLLATION"
+    }
+  },
+  "batch_12pq_forward_refinement": {
+    "status": "G03_GUOQUE_PHYSICAL_ABRIDGMENT_CLOSED_SHILU_PHYSICAL_TARGET_NEXT",
+    "historical_12ou_top_level_counts_preserved": true,
+    "current_live_gate_accounting_after_12pq": {
+      "closed_source_scoped": 5,
+      "open_blocking_general_adapter": 4,
+      "dependency_blocked": 2,
+      "total_gates": 11
+    },
+    "remaining_open_independent_gates": [
+      "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
+      "MD-G05-DYNAMIC-D1-INTERMEDIATE-PRECISION",
+      "MD-G07-CALENDAR-ADDITION-INVALID-TARGET-DATE",
+      "MD-G08-CALENDAR-ADDITION-INTERCALARY-IDENTITY-TRAVERSAL"
+    ],
+    "next_research_priority": {
+      "batch": "12PR",
+      "gate_id": "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
+      "focus": "MING_SHILU_V19_V187_JINGTAI1_TARGET_DIRECT_PHYSICAL_COLLATION"
+    }
+  },
+  "batch_12pr_forward_refinement": {
+    "status": "G03_MING_SHILU_PHYSICAL_TARGET_CLOSED_PHASE_SEMANTICS_NEXT",
+    "historical_12ou_top_level_counts_preserved": true,
+    "current_live_gate_accounting_after_12pr": {
+      "closed_source_scoped": 5,
+      "open_blocking_general_adapter": 4,
+      "dependency_blocked": 2,
+      "total_gates": 11
+    },
+    "remaining_open_independent_gates": [
+      "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
+      "MD-G05-DYNAMIC-D1-INTERMEDIATE-PRECISION",
+      "MD-G07-CALENDAR-ADDITION-INVALID-TARGET-DATE",
+      "MD-G08-CALENDAR-ADDITION-INTERCALARY-IDENTITY-TRAVERSAL"
+    ],
+    "next_research_priority": {
+      "batch": "12PS",
+      "gate_id": "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
+      "focus": "MING_SHILU_ECLIPSE_BARE_DANGZAI_PHASE_SEMANTICS_CORPUS_AUDIT"
+    }
+  },
+  "batch_12ps_forward_refinement": {
+    "status": "G03_DANGZAI_PHASE_NORMALIZATION_FORBIDDEN_RESCUE_TRIGGER_NEXT",
+    "historical_12ou_top_level_counts_preserved": true,
+    "current_live_gate_accounting_after_12ps": {
+      "closed_source_scoped": 5,
+      "open_blocking_general_adapter": 4,
+      "dependency_blocked": 2,
+      "total_gates": 11
+    },
+    "next_research_priority": {
+      "batch": "12PT",
+      "gate_id": "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
+      "focus": "EARLY_MID_MING_ECLIPSE_RESCUE_INITIATION_PHASE_TRIGGER_SEMANTICS"
+    }
+  },
+  "batch_12pt_forward_refinement": {
+    "status": "G03_RESCUE_INITIAL_ONSET_TRIGGER_SOURCE_CLOSED_CLOCK_ACQUISITION_NEXT",
+    "historical_12ou_top_level_counts_preserved": true,
+    "current_live_gate_accounting_after_12pt": {
+      "closed_source_scoped": 5,
+      "open_blocking_general_adapter": 4,
+      "dependency_blocked": 2,
+      "total_gates": 11
+    },
+    "next_research_priority": {
+      "batch": "12PU",
+      "gate_id": "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
+      "focus": "EARLY_MING_QINTIANJIAN_RESCUE_REPORT_CLOCK_ACQUISITION_OBSERVATION_SEMANTICS"
+    }
+  },
+  "batch_12pu_forward_refinement": {
+    "status": "G03_REPORT_ACQUISITION_FIREWALL_SOURCE_CLOSED_CORRECTED_TIME_PROVENANCE_NEXT",
+    "historical_12ou_top_level_counts_preserved": true,
+    "current_live_gate_accounting_after_12pu": {
+      "closed_source_scoped": 5,
+      "open_blocking_general_adapter": 4,
+      "dependency_blocked": 2,
+      "total_gates": 11
+    },
+    "next_research_priority": {
+      "batch": "12PV",
+      "gate_id": "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
+      "focus": "JINGTAI1_CORRECTED_MAOZHENG_TIME_OBSERVER_CLOCK_ACQUISITION_PROVENANCE"
+    }
+  },
+  "batch_12pv_forward_refinement": {
+    "status": "G03_PRE_1450_CLOCK_REGIME_DISTINCTION_CLOSED_IMPLEMENTATION_AND_TARGET_CLOCK_PROVENANCE_NEXT",
+    "historical_12ou_top_level_counts_preserved": true,
+    "current_live_gate_accounting_after_12pv": {
+      "closed_source_scoped": 5,
+      "open_blocking_general_adapter": 4,
+      "dependency_blocked": 2,
+      "total_gates": 11
+    },
+    "next_research_priority": {
+      "batch": "12PW",
+      "gate_id": "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
+      "focus": "1447_LEAK_ARROW_REBUILD_IMPLEMENTATION_AND_1450_MAOZHENG_CORRECTED_VALUE_ACQUISITION"
+    }
+  }
+}

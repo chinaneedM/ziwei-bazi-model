@@ -1,0 +1,81 @@
+name: inspect-batch-12cn-provenance-objects
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/inspect-batch-12cn-provenance-objects.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Enumerate Batch 12CN affected objects
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          needles = [
+              'DIC_A3_000150', 'GR35954_00',
+              'ZIWEI_DATONG_RITONGGUI_KYUJANGGAK_DAYNIGHT_TABLE_CLASS_R1',
+              'BATCH-12-ZIWEI-DATONG-RITONGGUI-KYUJANGGAK-DAYNIGHT-BRIDGE-CN',
+              '日出入晨刻表', '晝夜刻分表'
+          ]
+          files = [
+              'docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json',
+              'docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json',
+              'docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.md',
+              'docs/FUSION-CHART-KNOWLEDGE-REGISTRY-R1.json',
+              'docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json',
+              'docs/research/FUSION-CHART-PROVENANCE-GRAPH-R1.json',
+              'docs/research/ZIWEI-DATONG-RITONGGUI-KYUJANGGAK-DAYNIGHT-BRIDGE-R1.json',
+              'docs/PROJECT-CURRENT-STATE-R1.json',
+              'scripts/verify_fusion_chart_historical_source_matrix.py',
+              'scripts/verify-project-continuity-state-r1.py',
+              'scripts/formalize-batch-12cn-datong-ritonggui-kyujanggak-daynight-bridge.py',
+          ]
+
+          def walk(obj, path='$'):
+              if isinstance(obj, dict):
+                  for k,v in obj.items():
+                      yield from walk(v, f'{path}.{k}')
+              elif isinstance(obj, list):
+                  for i,v in enumerate(obj):
+                      yield from walk(v, f'{path}[{i}]')
+              elif isinstance(obj, str):
+                  if any(n in obj for n in needles):
+                      yield path, obj
+
+          for fn in files:
+              p=Path(fn)
+              if not p.exists():
+                  continue
+              print('\n===== FILE',fn,'=====')
+              if p.suffix == '.json':
+                  try:
+                      data=json.loads(p.read_text(encoding='utf-8'))
+                  except Exception as exc:
+                      print('JSON_ERROR',exc); continue
+                  hits=list(walk(data))
+                  for path,val in hits:
+                      print('PATH',path)
+                      print('VALUE',val[:4000].replace('\n','\\n'))
+                  print('HIT_COUNT',len(hits))
+              else:
+                  text=p.read_text(encoding='utf-8')
+                  count=0
+                  for i,line in enumerate(text.splitlines(),1):
+                      if any(n in line for n in needles):
+                          count+=1
+                          print(f'LINE {i}: {line[:5000]}')
+                  print('HIT_COUNT',count)
+          PY

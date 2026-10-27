@@ -1,0 +1,83 @@
+{
+  "schema": "ZIWEI-NCPSSD-RED-CHAMBER-SEMANTIC-POSITIVE-CONTROL-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-NCPSSD-RED-CHAMBER-SEMANTIC-POSITIVE-CONTROL-KS",
+  "prior_batch_id": "BATCH-12-ZIWEI-NCPSSD-JQUERY-NULL-SERIALIZATION-KR",
+  "question": "Does the fully reconstructed first-party result-search request return semantically correct results for the source-emitted 红楼梦 positive control?",
+  "answer": "Yes. The anonymous read-only POST to /searchHandler/search returns HTTP 200 application/json, total=19652 and 10 first-page rows. All 10 first-page rows contain 红楼梦 in the relevant title surface. This closes the semantic positive control for the reconstructed transport contract.",
+  "controlling_probe": {
+    "workflow": ".github/workflows/probe-batch-12ks-ncpssd-red-chamber-semantic-positive-control.yml",
+    "exact_head": "9fb90bfd4f40c459a37a03fb52c1ff2d928ceb7c",
+    "workflow_run_id": 36864946981,
+    "workflow_job_id": 110378030228,
+    "artifact_id": 11162359292,
+    "artifact_name": "batch-12ks-ncpssd-red-chamber-semantic-positive-control",
+    "artifact_digest": "sha256:8db3c9855713cb671b2ec91e2c0a9cb7c54d8175d4504c00976cc941bede8871"
+  },
+  "response": {
+    "http_status": 200,
+    "content_type": "application/json",
+    "bytes": 51906,
+    "sha256": "b2004abf0447291f3ea4b7100a07708d246f01ce01f8442a4cdbe4a8e0e0a687"
+  },
+  "result_summary": {
+    "positive_control_term": "红楼梦",
+    "total": 19652,
+    "returned_row_count": 10,
+    "positive_term_row_count_first_page": 10
+  },
+  "adjudication": {
+    "semantic_positive_control_closed": true,
+    "positive_control_term_observed_in_first_page_rows": true,
+    "result_search_post_executed": true,
+    "only_read_result_endpoint_executed": true,
+    "target_zhao_query_submitted": false,
+    "downstream_item_followed": false,
+    "login_used": false
+  },
+  "security": {
+    "anonymous_read_only_search_post": true,
+    "reader_account_used": false,
+    "registration_used": false,
+    "state_changing_endpoint_used": false,
+    "search_log_endpoint_used": false,
+    "facet_endpoint_used": false,
+    "download_read_endpoint_used": false,
+    "detail_endpoint_used": false,
+    "private_endpoint_guessed": false,
+    "captcha_bypass_used": false,
+    "tls_verification_disabled": false
+  },
+  "transmission_impact": {
+    "status": "NONE_ACCESS_CONTRACT_ONLY",
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": [],
+    "reason": "Public access/client-contract calibration only; no new historical transmission relation."
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Use the identical closed request contract for the already-established traditional title root 永樂大典展覽的意義.",
+    "Do not follow a result item in the same batch."
+  ],
+  "updated_at": "2026-10-01"
+}

@@ -1,0 +1,44 @@
+{
+  "schema": "ZIWEI-JIANGQIAN-TEMPORAL-SOURCE-SCOPE-EVIDENCE-R1",
+  "schema_version": "1.0.0",
+  "parent_head": "0286815075bca32c42a3014ad4a92a8f4d110665",
+  "files": {
+    "rings_path": "src/fortune_training/ziwei_chart/rings.py",
+    "rings_blob_sha": "e4a5adaab7fe84262df6762dd29551e393d10b9b",
+    "engine_path": "src/fortune_training/ziwei_chart/engine.py",
+    "engine_blob_sha": "f23a764383b7357cffbdc130f1bcc9be7bf24850",
+    "ring_runtime_tests_path": "tests/test_ziwei_ring_runtime.py",
+    "ring_runtime_tests_blob_sha": "6bc4a82b72f590d2c9707b38c2e587ac265e7014",
+    "source_scope_tests_path": "tests/test_ziwei_three_ring_source_scope_audit_r1.py",
+    "source_scope_tests_blob_sha": "d8660368ad2ac844454ea84c4631d462e86a9e21",
+    "prior_research_path": "docs/research/ZIWEI-THREE-RING-SOURCE-SCOPE-AUDIT-R1.json",
+    "prior_research_blob_sha": "6f397595006910b567159f8fad6f428814806dbd"
+  },
+  "runtime_controls": {
+    "jiangqian_anchor_map_covers_all_12_birth_branches": true,
+    "jiangqian_direction_forward": true,
+    "jiangqian_members_count": 12,
+    "natal_engine_passes_ziwei_birth_year_branch": true,
+    "annual_target_ring_materialized": false,
+    "same_label_physical_star_and_ring_member_remain_distinct": true
+  },
+  "source_controls": {
+    "jielan_ch58_heading_explicitly_flow_year_taisui": true,
+    "jielan_ch58_contains_related_trine_year_branch_yima_rule": true,
+    "jielan_ch58_contains_complete_jiangqian_twelve_member_sequence": false,
+    "modern_zhongzhou_received_manual_contains_complete_sequence": true,
+    "modern_annual_table_contains_same_complete_sequence": true,
+    "modern_natal_table_contains_same_complete_sequence": true,
+    "early_edition_complete_ring_closed": false
+  },
+  "adjudication": {
+    "row_status": "SOURCE_INSUFFICIENT",
+    "natal_and_annual_mutually_exclusive": false,
+    "temporal_layers_preserved_separately": true,
+    "runtime_behavior_changed": false,
+    "candidate_selection_changed": false,
+    "annual_productization_authorized": false,
+    "provenance_defect_count_changed": false,
+    "transmission_edge_created": false
+  }
+}

@@ -1,0 +1,165 @@
+{
+  "schema": "ZIWEI-NLC-WENJIN-WENHUI-2004-PUBLIC-SERVICE-CONTROLS-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-NLC-WENJIN-WENHUI-2004-PUBLIC-SERVICE-CONTROLS-KC",
+  "prior_batch_id": "BATCH-12-ZIWEI-NLC-WENJIN-WENHUI-2004-CDROM-1951-HK-SUPPLEMENT-DETAIL-KB",
+  "question": "What anonymous first-party public service controls does the current NLC Wenjin detail page expose for the 2004 《文汇报》 1938-1999 / 13-DVD item, and do any of them provide a direct public page-level route without account action?",
+  "answer": "The anonymous detail page visibly exposes online-reading, document-delivery and holdings controls, but no direct page-level newspaper object is recovered. The document-delivery control is a POST form to the NLC document-delivery gateway and is not submitted. The page source emits an SSO-wrapped OPAC item link whose inner catalog locator is NLC01 / 002860236; because the page deliberately wraps it in SSO, the inner OPAC URL is recorded as a catalog cross-anchor but not bypassed or executed. The source-emitted rdDetails.js client logic is login-state dependent: online-reading resolution uses uri/directLink/VPN variables only after login-state handling, and the anonymous page displays the login-required marker. No login, VPN, SSO, POST, document-delivery submission or online-reading action is executed.",
+  "source_item": {
+    "parent_batch": "12KB",
+    "title": "文汇报",
+    "docId": "-7686431772105481921",
+    "dataSource": "ucs01",
+    "isbn": "7-89999-583-3",
+    "carrier": "13光盘（DVD-ROM）",
+    "declared_coverage": "1938-1999 图文数据光盘",
+    "source_emitted_http_detail_url": "http://find.nlc.cn/search/showDocDetails?docId=-7686431772105481921&dataSource=ucs01&query=%E6%96%87%E6%B1%87%E6%8A%A5"
+  },
+  "controlling_probe": {
+    "workflow": ".github/workflows/probe-batch-12kc-nlc-wenjin-2004-wenhui-public-service-controls.yml",
+    "exact_head": "87b3dd0d4d3fdb2b30425ae4ec1cda0a622f9e2a",
+    "workflow_run_id": 36854024255,
+    "workflow_job_id": 110342117815,
+    "artifact_id": 11157530228,
+    "artifact_name": "batch-12kc-nlc-wenjin-2004-wenhui-public-service-controls",
+    "artifact_digest": "sha256:89d4b2f4dd009beada084715875d7f515198d17f8cd43d2858983e2e598c9961"
+  },
+  "detail_response": {
+    "http_status": 200,
+    "bytes": 28830,
+    "sha256": "8bd9bf6d8ec50ae70f0a19cd96a322de5558659e9cbd6ef16aba4e8414ffe1fb",
+    "prior_batch_12kb_sha256": "a76daf5e6c6867d2a9b9ff01c5dce914cf4513702a22c22014f01d8945c1afdf",
+    "same_byte_count_as_12kb": true,
+    "wrapper_digest_drift_observed": true,
+    "metadata_identity_reopened": false,
+    "interpretation": "The application response changed digest between KB and KC while keeping the same byte count; KC treats this as dynamic response-wrapper drift unless a future metadata comparison proves otherwise. The KB item metadata remains the controlling item-identity record."
+  },
+  "visible_markers": {
+    "online_reading": true,
+    "document_delivery": true,
+    "holdings_information": true,
+    "national_library_location": true,
+    "login_required_marker": true
+  },
+  "document_delivery": {
+    "form_action": "http://wxtgzx.nlc.cn:8111/gateway/UserRequestAdd.jsf",
+    "method": "POST",
+    "target": "_blank",
+    "source_emitted": true,
+    "fileTransfer_function_behavior": "records a docDelivery view-log POST then submits Form1",
+    "submitted": false,
+    "user_authorization_required_before_submission": true
+  },
+  "opac_cross_anchor": {
+    "source_emitted_sso_wrapper": "http://sso1.nlc.cn:9080/nlclogin/ssologin-url-find.jsp?url=http%3A%2F%2Fopac.nlc.cn%2FF%3Ffunc%3Ditem-global%26doc_library%3DNLC01%26doc_number%3D002860236",
+    "wrapped_inner_catalog_locator": {
+      "host": "opac.nlc.cn",
+      "func": "item-global",
+      "doc_library": "NLC01",
+      "doc_number": "002860236"
+    },
+    "wrapper_followed": false,
+    "inner_url_followed": false,
+    "sso_bypass_authorized": false,
+    "classification": "SOURCE_EMITTED_CATALOG_CROSS_ANCHOR_BEHIND_SSO_WRAPPER_NOT_EXECUTED"
+  },
+  "online_reading_client_contract": {
+    "script_url": "http://find.nlc.cn/js/rdDetails.js",
+    "script_sha256": "94a94b41d94e11b3f5d68ff23f5f62b6c46d9cefce87e5784e816fff0e04bbfe",
+    "init_function": "initDocGetLink",
+    "variables_referenced": [
+      "uri",
+      "isUserLogin",
+      "isInnerIP",
+      "isTsingHuaTongFang",
+      "directLink",
+      "isVpnLink",
+      "vpnUrlPrefix",
+      "isSamlLink"
+    ],
+    "behavior_summary": [
+      "If uri is absent/empty, the client removes the all-electronic-resource control.",
+      "When logged in, readingurl is selected from directLink, uri or vpnUrlPrefix+uri according to network/resource flags.",
+      "When not logged in, clicking the reading control opens the book-getter dialog and loginLink resolves through getSSOLoginUrl()."
+    ],
+    "concrete_uri_value_recovered_in_kc": false,
+    "online_reading_executed": false,
+    "login_executed": false,
+    "vpn_executed": false
+  },
+  "source_emitted_service_urls_not_followed": [
+    "http://dportal.nlc.cn:8332/zylb/zylb_szzymh_sjkcz.htm",
+    "http://sso1.nlc.cn/sso/userRegist/toRegisteUser",
+    "http://wxtgzx.nlc.cn:8111/gateway/UserRequestAdd.jsf",
+    "https://vpn2.nlc.cn/prx/000/http/"
+  ],
+  "adjudication": {
+    "public_service_controls_observed": true,
+    "direct_public_date_or_page_object_recovered": false,
+    "opac_catalog_cross_anchor_observed": true,
+    "opac_sso_wrapper_bypassed": false,
+    "document_delivery_is_state_changing_post": true,
+    "document_delivery_request_submitted": false,
+    "anonymous_online_reading_direct_url_recovered": false,
+    "direct_wenhui_1951_08_18": "NOT_REVIEWED",
+    "direct_wenwu_1951_no9_pp221_233": "NOT_REVIEWED",
+    "direct_2011_p197": "NOT_REVIEWED"
+  },
+  "evidence_firewall": {
+    "source_emitted_sso_wrapper_does_not_authorize_inner_url_bypass": true,
+    "source_emitted_document_delivery_form_does_not_authorize_submission": true,
+    "online_reading_label_does_not_prove_anonymous_access": true,
+    "catalog_doc_number_is_not_historical_page_text": true,
+    "application_wrapper_digest_drift_is_not_automatic_item_identity_change": true,
+    "current_catalog_or_service_controls_are_not_primary_1951_article_text": true
+  },
+  "security": {
+    "login_used": false,
+    "reader_account_used": false,
+    "registration_used": false,
+    "post_request_used": false,
+    "document_delivery_request_submitted": false,
+    "sso_wrapper_followed": false,
+    "inner_opac_url_followed": false,
+    "vpn_used": false,
+    "service_url_followed": false,
+    "private_endpoint_guessed": false,
+    "record_identifier_guessed": false,
+    "captcha_bypass_used": false,
+    "tls_verification_disabled": false,
+    "state_changing_request_used": false
+  },
+  "transmission_impact": {
+    "status": "NONE_ACCESS_CONTRACT_ONLY",
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": [],
+    "reason": "Modern catalog/service-access contract only. No historical article text, physical-copy lineage or carrier-to-carrier transmission relation is established."
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Read only the anonymous detail-page-emitted uri/directLink/VPN/login variables to determine whether a concrete resource URI exists without following it.",
+    "Do not follow SSO, VPN, login, document-delivery POST or account-registration routes without explicit authorization.",
+    "If no concrete anonymous resource URI is emitted, preserve the access boundary and continue public direct-page discovery for Shanghai 文汇报 1951-08-18, 文物参考资料 1951 no.9 pp.221-233 and 2011 赵万里文集 vol.1 p.197."
+  ],
+  "updated_at": "2026-10-01"
+}

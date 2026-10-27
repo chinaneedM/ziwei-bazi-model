@@ -1,0 +1,102 @@
+name: research-ziwei-sancai-1697-nightzi-hai-au-r1
+
+on:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-ziwei-sancai-1697-nightzi-hai-au-r1.yml
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install PDF tooling
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils
+      - name: Resolve Commons original and render target window
+        shell: python
+        run: |
+          import hashlib
+          import json
+          import subprocess
+          import urllib.parse
+          import urllib.request
+          from pathlib import Path
+
+          out = Path('out')
+          out.mkdir()
+          title = 'File:Harvard drs 52822721 三才發秘天部二卷 v.3.pdf'
+          params = {
+              'action': 'query',
+              'format': 'json',
+              'prop': 'imageinfo',
+              'iiprop': 'url|sha1|size',
+              'titles': title,
+          }
+          api = 'https://commons.wikimedia.org/w/api.php?' + urllib.parse.urlencode(params)
+          req = urllib.request.Request(api, headers={'User-Agent': 'ziwei-bazi-model-research/1.0'})
+          data = json.load(urllib.request.urlopen(req, timeout=60))
+          page = next(iter(data['query']['pages'].values()))
+          info = page['imageinfo'][0]
+          pdf_url = info['url']
+          pdf = out / 'sancai-v3.pdf'
+          req = urllib.request.Request(pdf_url, headers={'User-Agent': 'ziwei-bazi-model-research/1.0'})
+          with urllib.request.urlopen(req, timeout=180) as r, pdf.open('wb') as f:
+              while True:
+                  chunk = r.read(1024 * 1024)
+                  if not chunk:
+                      break
+                  f.write(chunk)
+
+          pdf_bytes = pdf.read_bytes()
+          pdf_sha256 = hashlib.sha256(pdf_bytes).hexdigest()
+          pdfinfo = subprocess.check_output(['pdfinfo', str(pdf)], text=True, errors='replace')
+          pages_line = next(line for line in pdfinfo.splitlines() if line.startswith('Pages:'))
+          page_count = int(pages_line.split(':', 1)[1].strip())
+
+          # CText OCR blocks 72-74 place the target around the midpoint of a 76-page
+          # double-leaf PDF. Render a deliberately wider no-OCR window first.
+          render_dir = out / 'renders'
+          render_dir.mkdir()
+          for p in range(33, 43):
+              subprocess.run([
+                  'pdftoppm', '-f', str(p), '-singlefile', '-jpeg', '-r', '260',
+                  str(pdf), str(render_dir / f'page-{p:04d}')
+              ], check=True)
+
+          rendered = []
+          for path in sorted(render_dir.glob('*.jpg')):
+              rendered.append({
+                  'file': path.name,
+                  'sha256': hashlib.sha256(path.read_bytes()).hexdigest(),
+                  'bytes': path.stat().st_size,
+              })
+
+          manifest = {
+              'schema': 'ZIWEI-SANCAI-1697-NIGHTZI-HAI-AU-R1-PROBE',
+              'source_title': title,
+              'commons_api': api,
+              'resolved_original_url': pdf_url,
+              'commons_sha1': info.get('sha1'),
+              'commons_size': info.get('size'),
+              'pdf_sha256': pdf_sha256,
+              'pdf_page_count': page_count,
+              'rendered_pdf_pages': list(range(33, 43)),
+              'render_dpi': 260,
+              'ocr_used': False,
+              'locator_only': 'CText OCR blocks 72-74 suggest this physical window; decisive glyph reading must be visual from rendered pages.',
+              'rendered_files': rendered,
+          }
+          (out / 'manifest.json').write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + '\n', 'utf-8')
+          (out / 'pdfinfo.txt').write_text(pdfinfo, 'utf-8')
+          print(json.dumps(manifest, ensure_ascii=False, indent=2))
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ziwei-sancai-1697-nightzi-hai-au-r1
+          path: out/
+          retention-days: 90

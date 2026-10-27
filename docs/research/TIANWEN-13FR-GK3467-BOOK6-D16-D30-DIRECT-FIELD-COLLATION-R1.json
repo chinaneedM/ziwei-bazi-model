@@ -1,0 +1,114 @@
+{
+  "schema": "TIANWEN-13FR-GK3467-BOOK6-D16-D30-DIRECT-FIELD-COLLATION-R1",
+  "date": "2026-10-24",
+  "review_status": "BOUNDED_NATIVE_PIXEL_DIRECT_READING",
+  "issue_id": "TW-OPEN-0005",
+  "parent_head": "2a59fcbb2283cb1c898c064f8dff128d72839701",
+  "parent_tree": "f1bf549374080afb03932f12ef665269bb2bcd4e",
+  "source_batch": "docs/research/TIANWEN-13FQ-GK3467-ORIGINAL-BOOK6-JUAN52-ACQUISITION-R1.json",
+  "original_pdf": {
+    "provider": "Seoul National University Kyujanggak",
+    "subcatalog": "GK03467_04",
+    "digital_volume": "0001",
+    "physical_group": "奎3467",
+    "physical_book": 6,
+    "work_juan": 52,
+    "source_url": "https://kyudb.snu.ac.kr/book/mfPdf.do?book_cd=GK03467_04&vol_no=0001",
+    "pdf_sha256": "b75009805dae9ccc22797c005bd5f32c7870a192945b503f6b3af3fbf14e1386",
+    "pdf_pages": 53,
+    "durable_library_archive": "libfile_bb34400cc108819185027e61217ce461",
+    "archive_filename": "tianwen-13fp-gk3467-six-source-pdfs.zip"
+  },
+  "method": "Direct human reading of unresampled original PDF embedded raster pages and hash-bound RGB crops; no OCR or decimal/unit inference. Embedded PNG bytes and cropped decoded RGB SHA-256 can be replayed from the exact source PDF using verify-tianwen-13fr-gk3467-day16-day30.py --pdf PATH.",
+  "readings": [
+    {
+      "day": 16,
+      "pdf_page_one_based": 15,
+      "original_image_xref": 42,
+      "native_wh": [
+        2432,
+        2064
+      ],
+      "embedded_image_format": "png",
+      "embedded_image_sha256": "ddf7872baecfc5c06d982f4e8b2df2d48221fa6b64e06a4b2b23dc7d9572d000",
+      "decoded_rgb_sha256": "60b39d52c2fcf88459a839f6d50a4803537b16d24cd9e952331d811e83ec09fc",
+      "roi_xyxy": [
+        675,
+        290,
+        920,
+        1730
+      ],
+      "roi_rgb_sha256": "696262e49022811a4c16a3b554eb84115e7ea993ea43213b1cfe164f1a29180b",
+      "roi_png_sha256": "0867c8d0f4ca19ee3cfb36a2e60bb74f15795eb9282f38677649ef7219806995",
+      "heading_literal": "十六日",
+      "printed_field": "四分",
+      "numeric_glyph_literal": "六九五四",
+      "reading_grade": "DIRECT_ORIGINAL_NATIVE_PIXEL_BOUNDED_HEADING_AND_FOURFEN_LANE",
+      "ancient_folio_number": null
+    },
+    {
+      "day": 30,
+      "pdf_page_one_based": 17,
+      "original_image_xref": 48,
+      "native_wh": [
+        2432,
+        2064
+      ],
+      "embedded_image_format": "png",
+      "embedded_image_sha256": "375acd8814bca370bc9d83402f6ca6f77368efbadddef646bac0632faf5db585",
+      "decoded_rgb_sha256": "7bb9428f748f61875bf0ca1470b3bd8ada29ee8e0c79a5b8621f27c6d2467238",
+      "roi_xyxy": [
+        1670,
+        290,
+        1985,
+        1720
+      ],
+      "roi_rgb_sha256": "f07fc02579eb6ca9af4bedce0ca1817faa7117755e55302030f029778dfb237b",
+      "roi_png_sha256": "786f7a6964d29d80fde2accd37950786d8550691dbffe8f5c407a3ce9f72614b",
+      "heading_literal": "三十日",
+      "printed_field": "四分",
+      "numeric_glyph_literal": "九二二一四三",
+      "reading_grade": "DIRECT_ORIGINAL_NATIVE_PIXEL_BOUNDED_HEADING_AND_FOURFEN_LANE",
+      "ancient_folio_number": null
+    }
+  ],
+  "adjudication": {
+    "day16_historical_winner": null,
+    "day30_historical_winner": null,
+    "day5_opposing_originals": {
+      "NLC": "四分〇一七二",
+      "NIKH": "四分五一七二",
+      "GK3467": "四分五一七二",
+      "winner": null
+    },
+    "original_column_labels_to_modern_unit_bridge": "UNPROVEN",
+    "historical_numeric_scaling": null,
+    "physical_copy_independence_vs_NLC_NIKH": null,
+    "impression_date": null,
+    "season_labels_for_day16_day30": null,
+    "original_D9_NLC": null,
+    "g893_six_controls": "OPEN",
+    "source_book52_same_as_NIKH_GK5553": null,
+    "full_work52_line_by_line_collation": false
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [],
+    "unresolved_lineage_questions": [
+      "The day16/day30 original readings are source-specific and do not establish direct copying, original numeric units, a unique winner, or the NIKH GK5553 book/folio identity."
+    ]
+  },
+  "impact": {
+    "matrix_total": 222,
+    "matrix_audited": 222,
+    "registry_total": 761,
+    "genealogy_nodes": 252,
+    "genealogy_edges": 238,
+    "open_issues": 11,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0,
+    "product": "CLOSED"
+  }
+}

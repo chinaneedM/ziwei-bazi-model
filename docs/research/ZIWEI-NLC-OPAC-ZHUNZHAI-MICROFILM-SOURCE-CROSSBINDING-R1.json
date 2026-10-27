@@ -1,0 +1,145 @@
+{
+  "schema": "ZIWEI-NLC-OPAC-ZHUNZHAI-MICROFILM-SOURCE-CROSSBINDING-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-NLC-OPAC-ZHUNZHAI-MICROFILM-SOURCE-CROSSBINDING-FF",
+  "prior_batch_id": "BATCH-12-ZIWEI-NCL-UNION-TONGHU-RARECATX0514818-BOUNDARY-FE",
+  "question": "Can China NLC's own OPAC expose an official Zhunzhai companion/source record and object-level Copper/Zhunzhai binding beyond the union-catalog record boundary, without misclassifying OPAC/control/microfilm identifiers as a unique physical shelfmark?",
+  "answer": "YES FOR THE OFFICIAL COMPANION/SOURCE-RECORD AND COMPOSITE-BINDING LAYER; NO FOR A UNIQUE PHYSICAL SHELFMARK. A SOURCE-BOUND NLC OPAC RESPONSE FOR 準齋心製几漏圖式 [縮微品] DIRECTLY EXPOSES MICROFILM DOC_NUMBER 002597934, OPAC ID 602003002862, 1985 NATIONAL MICROFILM-CENTER REPRODUCTION METADATA, AND A FIRST-PARTY '複製自' LINK TO ORIGINAL RARE-BOOK DOC_NUMBER 001775083 WITH SOURCE CONTROL 001411999008601. THE SAME OFFICIAL FIELD DIRECTLY STATES 原文獻03482銅壺漏箭制度、03483準齋心製几漏圖式為一冊 AND THAT 銅壺漏箭制度 WAS SEPARATELY PHOTOGRAPHED AT 00O003570. THIS CLOSES AN NLC OPAC-LEVEL COMPANION RECORD AND ONE-VOLUME ORIGINAL-DOCUMENT CROSS-BINDING. HOWEVER 03482/03483 ARE ONLY EXPLICITLY LABELLED 原文獻 NUMBERS IN THE REVIEWED FIELD, 00O003570 IS ONLY AN 另拍在 REFERENCE, AND 001411999008601 IS A SOURCE CONTROL VALUE; NONE IS PROMOTED TO A PHYSICAL CALL NUMBER, ACCESSION/DONATION NUMBER OR TIEQIN-ERA UNIQUE SHELFMARK WITHOUT AN EXPLICIT FIELD LABEL.",
+  "source_binding": {
+    "source_id": "EXT-NLC-OPAC-ZHUNZHAI-MICROFILM-002597934-SOURCE001775083",
+    "provider": "National Library of China OPAC / 全国图书馆文献缩微中心",
+    "observed_at": "2026-09-24",
+    "workflow_run_id": 36008292540,
+    "workflow_artifact_id": 10810554622,
+    "workflow_artifact_digest": "sha256:cf95715cd7f92c3df9fce626c716d32b3bbe4bfd8a4a4c86dda080a2f44c7ccb",
+    "captured_html_sha256": "5bf2bc998414724c8d52d869f615114c8cd83762afc13a4f850ff1a9e4baefc0",
+    "search_title": "準齋心製几漏圖式",
+    "opac_microfilm_record": {
+      "doc_number": "002597934",
+      "displayed_id": "602003002862",
+      "title": "准斋心制几漏图式 [缩微品] : 一卷 / (宋)孙逢吉撰",
+      "version_statement": "发行拷贝片",
+      "publication": "北京 : 全国图书馆文献缩微中心, 1985 (北京 : 国家图书馆, 1985)",
+      "carrier": "1盘卷片 : 正像, 1:10 ; 35mm",
+      "added_entry": "黄丕烈 清 跋",
+      "holding_surface": "南区善本阅览室",
+      "call_number_field_on_reviewed_microfilm_record": "BLANK"
+    },
+    "copied_from_field": {
+      "original_doc_number": "001775083",
+      "source_control_value": "001411999008601",
+      "source_title": "准斋心制几漏图式",
+      "source_class": "善本",
+      "source_version": "抄本",
+      "source_provenance_and_date": "黄氏士礼居 清道光三年[1823]",
+      "source_extent": "1册",
+      "direct_composite_note": "原文献03482铜壶漏箭制度、03483准斋心制几漏图式为一册，铜壶漏箭制度另拍在00O003570"
+    },
+    "follow_retry_boundary": {
+      "workflow_run_id": 36009054595,
+      "conclusion": "failure",
+      "cause": "opac.nlc.cn connection timeouts before source-record acquisition",
+      "negative_authority": false,
+      "note": "The failed retry does not negate the already captured first-party copied-from field or prove absence of a physical call number."
+    }
+  },
+  "identifier_adjudication": {
+    "002597934": "NLC_OPAC_MICROFILM_BIBLIOGRAPHIC_DOC_NUMBER",
+    "602003002862": "NLC_OPAC_DISPLAYED_ID_FOR_MICROFILM_RECORD",
+    "001775083": "NLC_OPAC_ORIGINAL_RARE_BOOK_BIBLIOGRAPHIC_DOC_NUMBER",
+    "001411999008601": "NLC_SOURCE_RECORD_CONTROL_VALUE_EXACT_SEMANTIC_SUBTYPE_NOT_YET_EXPLICITLY_LABELLED",
+    "03482": "ORIGINAL_DOCUMENT_NUMBER_FOR_TONGHU_AS_EXPLICITLY_DESCRIBED_BY_OPAC_NOTE_NOT_PROVED_CALL_NUMBER",
+    "03483": "ORIGINAL_DOCUMENT_NUMBER_FOR_ZHUNZHAI_AS_EXPLICITLY_DESCRIBED_BY_OPAC_NOTE_NOT_PROVED_CALL_NUMBER",
+    "00O003570": "SEPARATE_PHOTOGRAPH_OR_MICROFILM_REFERENCE_FOR_TONGHU_EXACT_IDENTIFIER_CLASS_NOT_EXPLICITLY_LABELLED",
+    "unique_physical_call_number_proved": false,
+    "acquisition_or_donation_number_proved": false,
+    "tieqin_era_unique_shelfmark_proved": false,
+    "rarecatx0514818_to_03482_cross_system_identifier_equivalence_proved": false,
+    "rule": "Only explicit source labels determine identifier class; numeric/string appearance alone is insufficient."
+  },
+  "object_binding_adjudication": {
+    "official_zhunzhai_companion_record_located": true,
+    "official_nlc_original_source_record_linked": true,
+    "official_copper_zhunzhai_one_volume_binding_closed": true,
+    "direct_binding_text": "原文献03482铜壶漏箭制度、03483准斋心制几漏图式为一册",
+    "source_date_and_provenance_binding": "黄氏士礼居 清道光三年[1823]",
+    "current_nlc_huang_composite_family_binding": "VERY_HIGH_CONFIDENCE_OFFICIAL_OPAC_SOURCE_RECORD_CONVERGENCE",
+    "exact_crosswalk_to_union_registration_rarecatx0514818": "NOT_PROVED",
+    "exact_specific_tieqin_catalogued_object_identity": "VERY_STRONGLY_SUPPORTED_NOT_FORMALLY_UNIQUE_OBJECT_CLOSED",
+    "huang_原書舊鈔_vs_錄副_role": "UNRESOLVED",
+    "same_object_edge_authorized": false
+  },
+  "microfilm_chain": {
+    "microfilm_record": "002597934",
+    "reproduction_year": 1985,
+    "reproduction_provider": "全国图书馆文献缩微中心",
+    "original_source_record": "001775083",
+    "original_source_control": "001411999008601",
+    "copper_separate_photo_reference": "00O003570",
+    "significance": "Preserves an official NLC reproduction/source-record chain and an object-level composite note; it is not evidence that any identifier in the chain is a physical shelfmark."
+  },
+  "union_catalog_consequence": {
+    "prior_registration": "rarecatx0514818",
+    "prior_role": "PUBLIC_UNION_CATALOG_REGISTRATION_OR_RECORD_IDENTIFIER",
+    "companion_search_boundary_before": "NO_EXACT_TITLE_OFFICIAL_COMPANION_RECORD_CLOSED",
+    "companion_search_boundary_after": "NLC_OPAC_ZHUNZHAI_COMPANION_AND_ORIGINAL_SOURCE_RECORD_CLOSED",
+    "rarecatx_to_opac_source_direct_identifier_bridge": false,
+    "note": "The OPAC resolves the companion/title/object-binding question independently of the Taiwan NCL union record, but no reviewed first-party field equates rarecatx0514818 with 03482, 001775083 or 001411999008601."
+  },
+  "chronology_and_rule_firewall": {
+    "microfilm_or_catalog_record_does_not_date_work_composition": true,
+    "secure_pre1578_exact_25arrow_physical_witness": false,
+    "exact_yuan_1281_person_identity": "POSSIBLE_NOT_PROVED",
+    "exact_sanming_yueling_dahan_yushui_fingerprint_closed": false,
+    "exact_nanjing_59_endpoint_binding_closed": false,
+    "direct_sanming_parent_vote_increment": 0
+  },
+  "adjudication": {
+    "opac_companion_record_closed": true,
+    "original_source_one_volume_cross_binding_closed": true,
+    "unique_physical_shelfmark_closed": false,
+    "acquisition_donation_path_closed": false,
+    "matrix_count_change": false,
+    "provenance_defect_count_change": false,
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "deterministic_fusion_chart_product_r1": "CLOSED"
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 13,
+    "repaired_provenance_metadata_defect_count": 13,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "transmission_impact": {
+    "nodes_added": [
+      "CATALOG-NLC-OPAC-ZHUNZHAI-MICROFILM-002597934"
+    ],
+    "nodes_strengthened": [
+      "PHYSICAL-COPY-NLC-ZHUNZHAI-JILOU-DAOGUANG3-HUANG-SHILIJU-MS"
+    ],
+    "edges_supported": [
+      "TG-E0109"
+    ],
+    "same_object_edge_authorized": false,
+    "direct_copy_edges_authorized": [],
+    "unresolved_lineage_questions": [
+      "Can a first-party source explicitly label the physical call number/shelfmark for original source doc 001775083 or original-document numbers 03482/03483?",
+      "Can a first-party field directly equate rarecatx0514818 with OPAC original-document 03482 or source record 001775083/001411999008601?",
+      "Can acquisition/donation archives explain how this Huang/Tieqin object entered the National Library of China?",
+      "Which surviving Huang layer is 原書舊鈔 and which is 錄副?"
+    ]
+  },
+  "next_gate": [
+    "Resolve the exact identifier classes of 001411999008601, 03482, 03483 and 00O003570 from a first-party OPAC/item/microfilm field or archival guide; do not infer from shape alone.",
+    "Acquire the original source record 001775083/item page when the legacy OPAC is reachable and capture any explicit physical call number/barcode/accession field.",
+    "Search acquisition/donation and Qu-family transfer records for the NLC entry path of the composite object.",
+    "Keep the pre-1578 Zhunzhai rule line and independent Sanming/Yueling Dahan-Rainwater + Nanjing-59 lines active."
+  ],
+  "updated_at": "2026-09-24"
+}

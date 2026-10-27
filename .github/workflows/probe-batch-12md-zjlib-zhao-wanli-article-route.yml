@@ -1,0 +1,162 @@
+name: probe-batch-12md-zjlib-zhao-wanli-article-route
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12md-zjlib-zhao-wanli-article-route.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Follow only ZJLIB archive-emitted 2026 No.4 and inventory Zhao article/PDF routes
+        run: |
+          python - <<'PY'
+          import hashlib, html, json, re
+          from pathlib import Path
+          from urllib.parse import urljoin, urlparse
+          import requests
+
+          archive="https://bjb.zjlib.cn/CN/archive_by_years"
+          expected_issue_path="/CN/Y2026/V0/I4"
+          UA={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; ZJLIB Zhao Wanli article route)"}
+          s=requests.Session()
+          s.headers.update(UA)
+
+          def get(url):
+              try:
+                  r=s.get(url,timeout=45,allow_redirects=False)
+                  return r,None
+              except Exception as e:
+                  return None,f"{type(e).__name__}: {e}"
+
+          def anchors(base,text):
+              out=[]
+              for m in re.finditer(r'''(?is)<a\b([^>]*)>(.*?)</a>''',text):
+                  attrs,body=m.group(1),m.group(2)
+                  hm=re.search(r'''(?is)\bhref\s*=\s*["']([^"']+)["']''',attrs)
+                  if not hm:
+                      continue
+                  href=html.unescape(hm.group(1)).strip()
+                  label=html.unescape(re.sub(r"<[^>]+>"," ",body))
+                  label=re.sub(r"\s+"," ",label).strip()
+                  tm=re.search(r'''(?is)\btitle\s*=\s*["']([^"']+)["']''',attrs)
+                  title=html.unescape(tm.group(1)).strip() if tm else None
+                  out.append({
+                      "label":label,
+                      "title":title,
+                      "href":href,
+                      "absolute_href":urljoin(base,href)
+                  })
+              return out
+
+          ar,ae=get(archive)
+          archive_rec={"url":archive,"fetch_error":ae}
+          issue_binding=[]
+          issue_url=None
+          if ar is not None:
+              araw=ar.content
+              atxt=araw.decode("utf-8","replace")
+              archive_rec.update({
+                  "status":ar.status_code,
+                  "content_type":ar.headers.get("content-type"),
+                  "server":ar.headers.get("server"),
+                  "bytes":len(araw),
+                  "sha256":hashlib.sha256(araw).hexdigest()
+              })
+              aa=anchors(ar.url,atxt)
+              for a in aa:
+                  path=urlparse(a["absolute_href"]).path.rstrip("/")
+                  if path==expected_issue_path or ("2026" in a["label"] and "No. 4" in a["label"]):
+                      issue_binding.append(a)
+              same=[a for a in issue_binding if urlparse(a["absolute_href"]).hostname=="bjb.zjlib.cn"]
+              if same:
+                  issue_url=same[0]["absolute_href"]
+
+          ir=None; ie=None
+          issue_rec=None
+          relevant=[]
+          pdf_like=[]
+          if issue_url:
+              ir,ie=get(issue_url)
+              issue_rec={"url":issue_url,"fetch_error":ie}
+              if ir is not None:
+                  raw=ir.content
+                  txt=raw.decode("utf-8","replace")
+                  issue_rec.update({
+                      "status":ir.status_code,
+                      "content_type":ir.headers.get("content-type"),
+                      "server":ir.headers.get("server"),
+                      "bytes":len(raw),
+                      "sha256":hashlib.sha256(raw).hexdigest()
+                  })
+                  ia=anchors(ir.url,txt)
+                  for a in ia:
+                      hay=" ".join(x for x in (a.get("label"),a.get("title"),a.get("href")) if x)
+                      if any(k in hay for k in ("赵万里","趙萬里","肖玲","Zhao Wanli","Xiao Ling")):
+                          relevant.append(a)
+                  for a in ia:
+                      u=a["absolute_href"]
+                      hay=((a.get("label") or "")+" "+(a.get("title") or "")+" "+u).lower()
+                      if "pdf" in hay:
+                          pdf_like.append(a)
+                  visible=re.sub(r"(?is)<script\b.*?</script>"," ",txt)
+                  visible=re.sub(r"(?is)<style\b.*?</style>"," ",visible)
+                  visible=html.unescape(re.sub(r"<[^>]+>"," ",visible))
+                  visible=re.sub(r"\s+"," ",visible).strip()
+                  issue_rec["token_counts"]={
+                      t:visible.count(t) for t in ("赵万里","趙萬里","肖玲","赵万里与古籍保护","2026","第4期")
+                  }
+
+          out={
+              "source_contract":{
+                  "parent_batch":"12MC",
+                  "archive_url":archive,
+                  "expected_issue_path":expected_issue_path,
+                  "issue_route_must_be_source_emitted":True,
+                  "article_route_followed":False,
+                  "pdf_route_followed":False,
+                  "pdf_downloaded":False,
+                  "account_action_used":False,
+                  "payment_action_used":False
+              },
+              "archive_response":archive_rec,
+              "source_emitted_issue_bindings":issue_binding,
+              "issue_url_followed":issue_url,
+              "issue_response":issue_rec,
+              "zhao_or_xiao_relevant_anchors":relevant[:200],
+              "pdf_like_anchors":pdf_like[:300],
+              "adjudication":{
+                  "archive_page_get_only_before_source_binding":True,
+                  "issue_route_source_closed":bool(issue_url),
+                  "only_source_emitted_issue_route_followed":bool(issue_url),
+                  "article_route_followed":False,
+                  "pdf_route_followed":False,
+                  "pdf_downloaded":False,
+                  "wenji_p197_direct_page_claimed_reviewed":False,
+                  "primary_text_upgrade_authorized":False
+              },
+              "security":{
+                  "anonymous_get_only":True,
+                  "credential_value_recorded":False,
+                  "private_endpoint_guessed":False,
+                  "captcha_bypass_used":False,
+                  "tls_verification_disabled":False
+              }
+          }
+          Path("batch-12md-zjlib-zhao-wanli-article-route.json").write_text(
+              json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8"
+          )
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12md-zjlib-zhao-wanli-article-route
+          path: batch-12md-zjlib-zhao-wanli-article-route.json

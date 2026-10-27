@@ -1,0 +1,29 @@
+{
+  "schema": "BAZI-CHART-SPECIFIC-EXACT-SOURCE-PATTERN-BINDING-DISCRIMINATION-FIXTURE-R1",
+  "birth_place": {
+    "name": "Beijing",
+    "latitude": 39.9042,
+    "longitude": 116.4074,
+    "timezone_id": "Asia/Shanghai"
+  },
+  "scenarios": {
+    "cross_layer_mao_you_mao_xu": {
+      "reported_local_datetime": "2024-09-17T12:00:00",
+      "target_utc": "2035-10-15T00:00:00+00:00",
+      "source_occurrence_id": "ZPZQ-CL-09-003-002",
+      "expected_binding_candidate_count": 2
+    },
+    "two_mao_exchangeability": {
+      "reported_local_datetime": "2024-12-16T06:00:00",
+      "target_utc": "2035-10-15T00:00:00+00:00",
+      "source_occurrence_id": "ZPZQ-CL-09-005-002",
+      "minimum_binding_candidate_count": 2
+    },
+    "complete_sanhe": {
+      "reported_local_datetime": "2025-02-07T10:10:00",
+      "target_utc": "2026-09-15T00:00:00+00:00",
+      "semantic_relation_id": "BRANCH.TRINE.METAL",
+      "expected_arity": 3
+    }
+  }
+}

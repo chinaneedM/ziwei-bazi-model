@@ -1,0 +1,126 @@
+{
+  "schema": "ZIWEI-NLC-WENJIN-OPAC-SOURCE-EMITTED-GET-SEARCH-CONTRACT-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-NLC-WENJIN-OPAC-SOURCE-EMITTED-GET-SEARCH-CONTRACT-JX",
+  "prior_batch_id": "BATCH-12-ZIWEI-NLC-OPAC-PUBLIC-SEARCH-CONTRACT-TRANSPORT-BOUNDARY-JW",
+  "question": "Do current first-party NLC pages emit reproducible anonymous GET contracts for Wenjin Search and OPAC without guessing parameters?",
+  "answer": "Yes. The first-party resource-search page emits index.main.js?v=1212 and its searchFn directly constructs both Wenjin and OPAC GET query strings. This refines the 12JG/12JW HTML/root-level nonobservation boundaries; no target query is executed in JX.",
+  "controlling_probe": {
+    "workflow": ".github/workflows/probe-batch-12jx-nlc-wenjin-client-search-contract.yml",
+    "exact_head": "3062fdc5d9ae6cc9c97af7c2cfe7fe8748f54b1a",
+    "workflow_run_id": 36847389376,
+    "workflow_job_id": 110320682834,
+    "artifact_id": 11153204934,
+    "artifact_name": "batch-12jx-nlc-wenjin-client-search-contract",
+    "artifact_digest": "sha256:5a0644d8eb6a297b32e5ccb79036593abda06597f3bed389ed81fece3d3d45a9"
+  },
+  "first_party_surfaces": {
+    "home": {
+      "url": "https://www.nlc.cn/web/",
+      "http_status": 200,
+      "bytes": 70374,
+      "sha256": "7b00972aa48455db32714445aa637ee70a62a615341892aaee9fe97778e5f4d8"
+    },
+    "resource_search": {
+      "url": "https://www.nlc.cn/web/ziyuansousuo/index.shtml",
+      "http_status": 200,
+      "bytes": 40920,
+      "sha256": "5ee279212c918dd3340e726a98399541c05ece2ab54a67038b4cc5ae9a317e0b"
+    },
+    "contract_script": {
+      "url": "https://www.nlc.cn/template_resource/20241/index.main.js?v=1212",
+      "http_status": 200,
+      "bytes": 2278,
+      "sha256": "89714aa2de74ff6f170bb33590b945ff3c41b3377864f0fcd6579fb51bbc575c",
+      "searchFn_present": true
+    }
+  },
+  "contracts": {
+    "wenjin": {
+      "data_id": "50018",
+      "route": "http://find.nlc.cn/search/doSearch",
+      "method": "GET",
+      "user_value_parameters": [
+        "query",
+        "actualQuery"
+      ],
+      "fixed_parameters": {
+        "secQuery": "",
+        "searchType": "2",
+        "docType": "全部",
+        "isGroup": "isGroup",
+        "targetFieldLog": "全部字段",
+        "fromHome": "true"
+      }
+    },
+    "opac": {
+      "data_id": "50019",
+      "route": "http://opac.nlc.cn/F/",
+      "method": "GET",
+      "user_value_parameters": [
+        "request"
+      ],
+      "fixed_parameters": {
+        "func": "find-m",
+        "find_code": "WRD",
+        "FIND_BASE": [
+          "NLC01",
+          "NLC09"
+        ]
+      }
+    }
+  },
+  "adjudication": {
+    "named_query_contract_directly_observed": true,
+    "contract_authority": "FIRST_PARTY_SOURCE_EMITTED_CLIENT_SCRIPT",
+    "batch_12jg_anonymous_wenjin_parameter_contract_refined_from": "UNRESOLVED",
+    "batch_12jw_public_opac_search_contract_refined_from": "NOT_OBSERVED",
+    "prior_transport_observations_invalidated": false,
+    "query_submitted": false,
+    "target_title_query_submitted": false,
+    "target_person_query_submitted": false,
+    "target_date_query_submitted": false
+  },
+  "security": {
+    "login_used": false,
+    "reader_account_used": false,
+    "registration_used": false,
+    "target_query_submitted": false,
+    "private_endpoint_guessed": false,
+    "search_parameter_guessed": false,
+    "captcha_bypass_used": false,
+    "tls_verification_disabled": false
+  },
+  "transmission_impact": {
+    "status": "NONE",
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": [],
+    "reason": "Modern search-contract refinement only; no historical text witness recovered."
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Execute positive-control and Wenhui title queries using only these source-emitted GET contracts.",
+    "Keep search contract, holdings result, item identity and direct page text as separate evidence layers."
+  ],
+  "updated_at": "2026-10-01"
+}

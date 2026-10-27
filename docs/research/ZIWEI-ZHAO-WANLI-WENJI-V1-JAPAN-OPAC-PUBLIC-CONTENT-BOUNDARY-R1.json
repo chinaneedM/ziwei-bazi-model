@@ -1,0 +1,144 @@
+{
+  "schema": "ZIWEI-ZHAO-WANLI-WENJI-V1-JAPAN-OPAC-PUBLIC-CONTENT-BOUNDARY-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-ZHAO-WANLI-WENJI-V1-JAPAN-OPAC-PUBLIC-CONTENT-BOUNDARY-IU",
+  "prior_batch_id": "BATCH-12-ZIWEI-WENWU-1951-V2N9-OPEN-REPOSITORY-CATALOG-BOUNDARY-IT",
+  "question": "Do CiNii-source-emitted Japanese institutional OPAC routes expose page 197, target quotation terms, or electronic contents for 2011 《赵万里文集》第1卷?",
+  "answer": "Kansai University, Kyoto University KULINE, and NIJL publicly bind 《趙萬里文集》 volume 1 to NCID BB08679512 and ISBN 9787501346653, but neither static nor rendered surfaces expose page 197 or the configured target terms. Kansai states that no electronic contents/summary information is available; Kyoto openBD and BOOKデータASP independently report no contents/summary information. Saitama and Tohoku are current access-boundary routes (HTTP 403 in the static probe). These findings close only the tested public OPAC content surfaces; they do not prove the physical volume lacks the target page or text. Direct 2011 p.197 remains NOT_REVIEWED.",
+  "controlling_probe": {
+    "commit_sha": "6bf22b4a54ca2f828071ed461194ab1a3d02a1b7",
+    "workflow_run_id": 36730261776,
+    "workflow_job_id": 109937664416,
+    "artifacts": {
+      "static": {
+        "artifact_id": 11105575170,
+        "digest": "sha256:ddcdf6d11bef808de2f228a6950865890df511e2ba296c9388efbdef86e29d13"
+      },
+      "rendered": {
+        "artifact_id": 11105525251,
+        "digest": "sha256:87c0c39a7ec0630b0f07667169bbf9bc99b86ed5aefd9c5f16d5acd145b0fa95"
+      }
+    }
+  },
+  "bibliographic_target": {
+    "ncid": "BB08679512",
+    "volume_1_isbn": "9787501346653",
+    "edition": "2011 《赵万里文集》第1卷",
+    "target_page": "197"
+  },
+  "route_results": {
+    "kansai": {
+      "static_status": 200,
+      "final_route": "ctlsrh.do?ncid=BB08679512",
+      "target_title_present": true,
+      "target_ncid_present": true,
+      "volume_1_isbn_present": true,
+      "volume_1_marker_present": true,
+      "p197_literal_present": false,
+      "target_terms_present": false,
+      "rendered_contents_summary": "There is no electronic information on contents and summary.",
+      "adjudication": "INSTITUTIONAL_BIBLIOGRAPHIC_AND_VOLUME_BINDING; PUBLIC_CONTENT_SURFACE_CLOSED"
+    },
+    "kyoto": {
+      "static_status": 200,
+      "target_title_present": true,
+      "target_ncid_present": true,
+      "volume_1_isbn_present": true,
+      "volume_1_marker_present": true,
+      "p197_literal_present": false,
+      "target_terms_present": false,
+      "openbd_block_text": "目次・あらすじの電子情報はありません。",
+      "bookdata_block_text": "あらすじ・目次の情報はありません。",
+      "adjudication": "INSTITUTIONAL_BIBLIOGRAPHIC_AND_VOLUME_BINDING; OPENBD_BOOKDATA_CONTENT_SURFACES_CLOSED"
+    },
+    "nijl": {
+      "static_status": 200,
+      "target_title_present": true,
+      "target_ncid_present": true,
+      "volume_1_isbn_present": true,
+      "volume_1_marker_present": true,
+      "p197_literal_present": false,
+      "target_terms_present": false,
+      "adjudication": "INSTITUTIONAL_BIBLIOGRAPHIC_AND_VOLUME_BINDING; NO_TARGET_PUBLIC_CONTENT_OBSERVED"
+    },
+    "saitama": {
+      "static_status": 403,
+      "rendered_target_identity_observed": false,
+      "adjudication": "CURRENT_ANONYMOUS_ROUTE_ACCESS_BOUNDARY_ONLY",
+      "negative_textual_authority": false
+    },
+    "tohoku": {
+      "static_status": 403,
+      "rendered_target_identity_observed": false,
+      "adjudication": "CURRENT_ANONYMOUS_ROUTE_ACCESS_BOUNDARY_ONLY",
+      "negative_textual_authority": false
+    }
+  },
+  "configured_target_terms": [
+    "丁惠康",
+    "東家雜記",
+    "东家杂记",
+    "太平樂府",
+    "太平乐府",
+    "永樂大典",
+    "永乐大典",
+    "六十二",
+    "六種",
+    "六种"
+  ],
+  "target_status": {
+    "direct_2011_p197": "NOT_REVIEWED",
+    "page_197_publicly_exposed": false,
+    "target_quotation_publicly_exposed": false,
+    "physical_volume_absence_claim_authorized": false
+  },
+  "scope_firewall": {
+    "opac_no_contents_means_physical_no_contents": false,
+    "public_p197_nonobservation_means_physical_p197_absent": false,
+    "saitama_403_negative_textual_claim_authorized": false,
+    "tohoku_403_negative_textual_claim_authorized": false,
+    "institutional_holding_identity_is_not_direct_textual_witness": true
+  },
+  "security": {
+    "login_used": false,
+    "account_action_used": false,
+    "ill_request_used": false,
+    "copy_request_used": false,
+    "payment_used": false,
+    "captcha_bypass_used": false,
+    "tls_verification_disabled": false
+  },
+  "transmission_impact": {
+    "status": "NONE",
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": []
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Do not repeat the same Kansai/Kyoto/NIJL public contents-summary surfaces unless their content-service state changes.",
+    "Continue new lawful institutional digital-object, page-level preview, citation-page, or other first-party routes for direct 2011 《赵万里文集》第1卷 p.197.",
+    "Continue authoritative/open-object discovery for wwck195109.pdf or an equivalent provenance-bound 1951 issue-9 scan.",
+    "Continue direct/page-numbered Ji Shuying Chapter 9 or Chapter 10/11 evidence."
+  ],
+  "updated_at": "2026-09-30"
+}

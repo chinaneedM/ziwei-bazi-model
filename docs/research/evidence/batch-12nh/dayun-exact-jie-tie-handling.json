@@ -1,0 +1,59 @@
+{
+  "schema": "BAZI-DAYUN-EXACT-JIE-TIE-HANDLING-EVIDENCE-R1",
+  "schema_version": "1.0.0",
+  "parent_head": "cc5f1df3635cff9978fc2649be7325ba31e1f6b3",
+  "runtime": {
+    "engine_path": "src/fortune_training/bazi_temporal/engine.py",
+    "engine_blob_sha": "fecd235ac5c4f53c3fc3308d48eb92b7734c6310",
+    "profile_path": "src/fortune_training/bazi_temporal/profile.py",
+    "profile_blob_sha": "894b610576438b5713ceae6632fab4c37d636d80",
+    "test_path": "tests/test_bazi_temporal_v1.py",
+    "test_blob_sha": "ffe64c6b15767bcab0e94a9451a65bb21aae3488",
+    "documentation_path": "docs/BAZI-TEMPORAL-V1-R1.md",
+    "documentation_blob_sha": "4c4caeef4cf5a187fdd4440105cf46ee46aa3425",
+    "policy": "FAIL_CLOSED",
+    "diagnostic": "EXACT_JIE_TIE_UNRESOLVED",
+    "applies_to_profiles": [
+      "BAZI-TEMPORAL-V1-CONTINUOUS-R1",
+      "BAZI-TEMPORAL-WENZHEN-CHINA-COMPATIBILITY-R1"
+    ]
+  },
+  "historical_controls": [
+    {
+      "source_id": "EXT-CTEXT-WUXING-JINGJI-V33-DAYUN",
+      "period": "SONG",
+      "wording_scope": "生日后未来节气 / 生日前过去节气",
+      "equality_case_explicitly_resolved": false,
+      "role": "EARLY_DAYUN_DIRECTIONAL_INTERVAL_CONTROL"
+    },
+    {
+      "source_id": "EXT-CTEXT-SANMING-V2-DAYUN",
+      "period": "MING",
+      "wording_scope": "生日后未来节气 / 生日前过去节气",
+      "equality_case_explicitly_resolved": false,
+      "role": "MING_DAYUN_DIRECTIONAL_INTERVAL_CONTROL"
+    }
+  ],
+  "philological_adjudication": {
+    "strict_before_after_wording_observed": true,
+    "equality_operator_stated": false,
+    "zero_interval_rule_stated": false,
+    "current_jie_inclusive_rule_stated": false,
+    "adjacent_jie_on_equality_rule_stated": false,
+    "conclusion": "BOUND_WITNESSES_DEFINE_DIRECTIONAL_BEFORE_AFTER_COUNTING_BUT_DO_NOT_CLOSE_EXACT_EQUALITY"
+  },
+  "provenance_repair": {
+    "defect_id": "PROV-DEFECT-029",
+    "before_historical_period": "MODERN_STANDARD",
+    "after_historical_period": "MODERN_FAIL_CLOSED_BOUNDARY_POLICY_OVER_HISTORICALLY_UNRESOLVED_EQUALITY_CASE",
+    "profile_scope_repaired": true,
+    "runtime_behavior_changed": false
+  },
+  "authority_firewall": {
+    "fail_closed_is_classical_doctrine": false,
+    "historical_equality_rule_selected": false,
+    "hypothetical_inclusive_convention_promoted_to_candidate": false,
+    "algorithm_reopen_authorized": false,
+    "transmission_edge_created": false
+  }
+}

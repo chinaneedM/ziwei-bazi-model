@@ -1,0 +1,99 @@
+name: research-ziwei-zhangguo-1594-nightzi-aw-r1
+
+on:
+  push:
+    paths:
+      - '.github/workflows/research-ziwei-zhangguo-1594-nightzi-aw-r1.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install image tooling
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y imagemagick
+
+      - name: Fetch Tohoku IIIF manifests and render no-OCR contact evidence
+        run: |
+          set -euo pipefail
+          mkdir -p out/vol12 out/vol78 out/full
+          curl -L --fail --retry 3 'https://touda.tohoku.ac.jp/collection/iiif/metadata/10020000001141/manifest.json' -o out/manifest-vol12.json
+          curl -L --fail --retry 3 'https://touda.tohoku.ac.jp/collection/iiif/metadata/10020000001144/manifest.json' -o out/manifest-vol78.json
+          python - <<'PY'
+          import json, pathlib, urllib.request, hashlib, time
+
+          ROOT = pathlib.Path('out')
+
+          def service_url(body):
+              svc = body.get('service') or []
+              if isinstance(svc, dict):
+                  svc = [svc]
+              if svc:
+                  sid = svc[0].get('id') or svc[0].get('@id')
+                  if sid:
+                      return sid.rstrip('/') + '/full/1000,/0/default.jpg'
+              return body.get('id') or body.get('@id')
+
+          def extract(manifest_path, dest, limit=None):
+              m = json.loads(pathlib.Path(manifest_path).read_text(encoding='utf-8'))
+              rows=[]
+              items=m.get('items',[])
+              for i,canvas in enumerate(items,1):
+                  body={}
+                  try:
+                      body=canvas['items'][0]['items'][0]['body']
+                  except Exception:
+                      pass
+                  url=service_url(body) if body else None
+                  label=canvas.get('label',{})
+                  rows.append((i, canvas.get('id',''), label, url or ''))
+                  if url and (limit is None or i <= limit):
+                      out=pathlib.Path(dest)/f'page-{i:04d}.jpg'
+                      req=urllib.request.Request(url, headers={'User-Agent':'Mozilla/5.0 research-collation'})
+                      for attempt in range(3):
+                          try:
+                              with urllib.request.urlopen(req, timeout=60) as r:
+                                  out.write_bytes(r.read())
+                              break
+                          except Exception:
+                              if attempt==2: raise
+                              time.sleep(2)
+              meta={
+                  'id':m.get('id') or m.get('@id'),
+                  'label':m.get('label'),
+                  'metadata':m.get('metadata'),
+                  'canvas_count':len(items),
+              }
+              pathlib.Path(dest,'manifest-summary.json').write_text(json.dumps(meta,ensure_ascii=False,indent=2),encoding='utf-8')
+              with pathlib.Path(dest,'canvas-map.tsv').open('w',encoding='utf-8') as f:
+                  for i,cid,label,url in rows:
+                      f.write(f'{i}\t{cid}\t{json.dumps(label,ensure_ascii=False)}\t{url}\n')
+
+          extract(ROOT/'manifest-vol12.json', ROOT/'vol12', limit=14)
+          extract(ROOT/'manifest-vol78.json', ROOT/'vol78', limit=None)
+
+          with (ROOT/'sha256.txt').open('w') as f:
+              for p in sorted(ROOT.rglob('*')):
+                  if p.is_file() and p.name != 'sha256.txt':
+                      h=hashlib.sha256(p.read_bytes()).hexdigest()
+                      f.write(f'{h}  {p.as_posix()}\n')
+          PY
+
+          montage out/vol12/page-*.jpg -thumbnail '360x520>' -tile 4x -geometry +10+10 out/vol12-contact.jpg
+          montage out/vol78/page-*.jpg -thumbnail '300x430>' -tile 5x -geometry +8+8 out/vol78-contact.jpg
+          identify out/vol12-contact.jpg out/vol78-contact.jpg | tee out/contact-identify.txt
+          cat out/vol12/manifest-summary.json | tee out/vol12-summary-console.txt
+          cat out/vol78/manifest-summary.json | tee out/vol78-summary-console.txt
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ziwei-zhangguo-1594-nightzi-aw-r1
+          path: out/
+          if-no-files-found: error
+          compression-level: 0

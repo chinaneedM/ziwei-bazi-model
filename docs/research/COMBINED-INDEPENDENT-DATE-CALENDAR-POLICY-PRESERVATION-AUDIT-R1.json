@@ -1,0 +1,80 @@
+{
+  "schema": "COMBINED-INDEPENDENT-DATE-CALENDAR-POLICY-PRESERVATION-AUDIT-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-COMBINED-INDEPENDENT-DATE-CALENDAR-POLICY-PRESERVATION-AUDIT-NK",
+  "prior_batch_id": "BATCH-12-COMBINED-SHARED-TIME-CREDENTIAL-SCOPE-AUDIT-NJ",
+  "rule_id": "HPA-COMB-002",
+  "audit_status": "MODERN_COMPATIBILITY_ONLY",
+  "algorithm_reopen_authorized": false,
+  "architecture_contract": {
+    "purpose": "Share physical-time facts while preserving independent Ziwei and Bazi calendar/date conventions.",
+    "shared_equalities": [
+      "time_calendar_policy_registry_version",
+      "civil_ambiguous_time_policy"
+    ],
+    "independent_ziwei_policies": [
+      "ziwei_calendar_date_policy",
+      "ziwei_life_body_leap_month_policy",
+      "ziwei_day_boundary_policy"
+    ],
+    "independent_bazi_policies": [
+      "bazi_year_boundary_policy",
+      "bazi_day_boundary_policy",
+      "bazi_late_zi_hour_stem_policy"
+    ],
+    "policy_namespace_collapse": false
+  },
+  "runtime_adjudication": {
+    "ziwei_and_bazi_time_results_resolved_separately": true,
+    "shared_credential_constructed_after_separate_resolution": true,
+    "selected_policy_snapshots_kept_in_separate_namespaces": true,
+    "validator_reconstructs_and_compares_separate_policy_snapshots": true,
+    "combined_service_reuses_shared_physical_facts_without_overwriting_subsystem_rules": true
+  },
+  "regression_adjudication": {
+    "late_zi_case_proves_distinct_day_boundaries_on_same_physical_time": true,
+    "standalone_ziwei_bundle_hash_matches_combined": true,
+    "standalone_bazi_bundle_hash_matches_combined": true,
+    "mixed_uncertainty_preserves_shared_candidate_branches_without_forcing_subsystem_winner": true
+  },
+  "provenance_defects": {
+    "new_confirmed": 0,
+    "new_repaired": 0,
+    "note": "The row was intentionally pending audit. Existing implementation/doc/test evidence supports the declared modern architecture; no provenance misstatement requiring a new defect ID was found."
+  },
+  "unchanged_mechanics": [
+    "Ziwei calendar-date policy",
+    "Ziwei leap-month policy",
+    "Ziwei day-boundary policy",
+    "Bazi year/day-boundary policies",
+    "Bazi late-Zi hour-stem policy",
+    "shared physical time branch resolution",
+    "shared-time hashes",
+    "candidate lineage",
+    "subsystem bundle hashes"
+  ],
+  "evidence": "docs/research/evidence/batch-12nk/combined-independent-date-calendar-policy-preservation.json",
+  "accounting": {
+    "rows_before": 220,
+    "rows_after": 220,
+    "audited_rows_before": 214,
+    "audited_rows_after": 215,
+    "current_missing_from_product_rows": 10,
+    "provenance_defects_confirmed_before": 30,
+    "provenance_defects_confirmed_after": 30,
+    "provenance_defects_repaired_before": 30,
+    "provenance_defects_repaired_after": 30,
+    "chart_algorithm_defects": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0,
+    "new_provenance_defects": 0
+  },
+  "transmission_impact": {
+    "status": "NONE",
+    "reason": "Independent subsystem policy preservation is modern software-composition architecture; it creates no historical text/school/person transmission edge."
+  },
+  "next_gate": [
+    "12NL: audit HPA-COMB-003 Candidate lineage preservation.",
+    "Verify that shared physical-time branch lineage cannot silently collapse Ziwei/Bazi candidate multiplicity."
+  ]
+}

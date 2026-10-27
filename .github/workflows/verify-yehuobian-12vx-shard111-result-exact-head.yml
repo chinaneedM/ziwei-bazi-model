@@ -1,0 +1,29 @@
+name: verify-yehuobian-12vx-shard111-result-exact-head
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/verify-yehuobian-12vx-shard111-result-exact-head.yml
+      - docs/PROJECT-CURRENT-STATE-R1.json
+      - docs/research/MING-DATONG-YEHUOBIAN-12VX-*
+      - scripts/verify-yehuobian-columbia-shard111-observation-12vx.py
+      - tests/test_yehuobian_columbia_shard111_observation_12vx.py
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Continuity / source shards / shard111 actual observed scope
+        run: |
+          set -euo pipefail
+          python scripts/verify-project-continuity-state-r1.py
+          python scripts/verify-historical-source-registry-extensions-r1.py
+          python scripts/verify-yehuobian-columbia-shard111-observation-12vx.py
+          python -m unittest discover -s tests -p 'test_yehuobian_columbia_shard111_observation_12vx.py' -v

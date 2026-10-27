@@ -1,0 +1,71 @@
+{
+  "schema": "TIANWEN-13BI-GORYEOSA-P0-RESEARCH-HANDOFF-STALE-ACTION-CORRECTION-R1",
+  "date": "2026-10-21",
+  "issue_id": "TW-OPEN-0005",
+  "revision_class": "SOURCE_SCOPED_FORWARD_ONLY_CURRENT_ACTION_CORRECTION_NOT_NEW_PHYSICAL_COLLATION",
+  "prior_12YY_action_is_historical_snapshot": true,
+  "prior_action_text": "12YY 新发现韩国国史编纂委员会《高丽史》卷52官方现代数字正文太阳盈缩表 D16「五分一三六二」(5.1362)，相邻D15「五分二一七六」与D17「五分二五四八」；仓库 G893 单件原书图002b 同位置 D16 为「五分二三六二」(5.2362)，短栏邻差均+0.0186。官方数字正文 D16 相邻差分别-0.0814、+0.1186，局部单字异文影响0.1000。网站原图入口尚未取得对应《高丽史》印本原叶和馆藏哈希，暂不能断定OCR/编辑/印误、独立纸本、明1569表同栏或「少／微」单位。下一步优先具体馆藏《高丽史》原叶，继续G893 001a少历史单位及明1569 D16原栏。TW-OPEN-0005与其余10项全部OPEN，G893 5/6、跨本0/6，产品CLOSED。",
+  "source_positive_reconciliation": [
+    {
+      "source": "NAJ-282-0006-PHYSICAL51",
+      "image": "book51 canvas17",
+      "evidence": "docs/research/TIANWEN-13BE-GORYEOSA-D16-ORIGINAL-LONG-LANE-DUAL-COPY-COLLATION-R1.json",
+      "verified_sha": "8362e8a2b8ddf5f36408d4450a81ebad2d9548b32f49dbe37e01493592b7c3e9",
+      "scope": "D16_D17_NATIVE_ORIGINAL_SHORT_LONG_CUM"
+    },
+    {
+      "source": "WASEDA-RI06-02809-BOOK33",
+      "image": "PDF p23 JPEG xref70",
+      "evidence": "docs/research/TIANWEN-13BE-GORYEOSA-D16-ORIGINAL-LONG-LANE-DUAL-COPY-COLLATION-R1.json",
+      "verified_sha": "388f3d5dd9e9861f8ce90c304b154edaeaee98614bb12cd3468f957dcde6fc66",
+      "scope": "D16_D17_NATIVE_ORIGINAL_SHORT_LONG_CUM"
+    },
+    {
+      "source": "NAJ-282-0006-PHYSICAL51",
+      "image": "book51 canvas16 and 18",
+      "evidence": "docs/research/TIANWEN-13BG-GORYEOSA-NAJ-ADJACENT-FOLIOS-CUMULATIVE-D17-D19-R1.json",
+      "verified_sha": "88cecf62c8cd0dd623199eb06e3044efbe61771c1ffe058b8e7a87cc2f8f88cc",
+      "scope": "ORIGINAL_DIRECT_HEADING_AND_D18_D19_CUM"
+    }
+  ],
+  "received_text_alignment": {
+    "evidence": "docs/research/TIANWEN-13BH-GORYEOSA-NAJ-ORIGINAL-RECEIVED-CUMULATIVE-FIVEPOINT-OFFSET-R1.json",
+    "five_local_values_replayed": 5,
+    "proof_of_universal_index": false
+  },
+  "first_party_Waseda_catalog": {
+    "url": "https://www.wul.waseda.ac.jp/kotenseki/html/ri06/ri06_02809/index.html",
+    "call_number": "リ06 02809",
+    "holding_description": "高麗史. 目録,1-137 / 鄭麟趾 [ほか]奉教修",
+    "volumes": "80冊",
+    "imprint": "[出版地不明] : [出版者不明], [出版年不明]",
+    "purpose": "IDENTITY_AND_UNDATED_IMPRINT_CONTROL_ONLY"
+  },
+  "corrected_next_action": "13BI CURRENT EVIDENCE-BOUND NEXT ACTION (2026-10-21): Existing 13BA/13BE original-image evidence ALREADY binds NAJ official book51 canvas17 and Waseda official PDF book33 p23 native JPEG (each source SHA and ROI); 13BG binds NAJ canvas16/18 and 13BH replays five locally offset original/received cumulative slots. Do NOT repeat the 12YY claim that no Goryeosa original page has been obtained. Next: direct native-resolution Waseda p23 D18-D19 cumulative ROI + source image hash; independently check NAJ same-work original section beginning/end and D13/14, D20/21, heading/index relationship; seek G893 original column-unit and Ming1569 same-field evidence. Original D16 short 5.1362 versus long difference 5.2362 and different-work G893 D16 5.2362 remain UNRESOLVED; original image capture is not historical adjudication. Waseda catalog does not date this exact print. Keep TW-OPEN-0005 P0/OPEN and chart R1 CLOSED.",
+  "unresolved_scopes": [
+    "WASEDA_P23_D18_D19_ORIGINAL_CUM_NATIVE_ROI",
+    "NAJ_SOURCE_TABLE_START_AND_END",
+    "NAJ_D13_D14_D20_D21_CUM_ALIGNMENT",
+    "G893_CROSS_WORK_COLUMN_UNIT_EQUALITY",
+    "MING_1569_INDEPENDENT_ORIGINAL_COLUMN",
+    "NAJ_WASEDA_COPY_GENEALOGY"
+  ],
+  "D16_facts": {
+    "NAJ_original_short": "5.1362",
+    "Waseda_original_short": "5.1362",
+    "NAJ_original_long_delta": "5.2362",
+    "G893_different_work_short": "5.2362",
+    "historical_archetype": "UNRESOLVED"
+  },
+  "counters": {
+    "new_original_images": 0,
+    "new_source_registry_items": 0,
+    "new_matrix_rows": 0,
+    "new_lineage_nodes": 0,
+    "new_lineage_edges": 0,
+    "algorithm_reopens": 0,
+    "research_issues_open_or_blocked": 11,
+    "chart_product": "CLOSED"
+  },
+  "future_sessions_must_not_reopen_acquisition_gap_from_12YY": true
+}

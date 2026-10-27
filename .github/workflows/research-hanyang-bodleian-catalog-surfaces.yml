@@ -1,0 +1,166 @@
+name: research-hanyang-bodleian-catalog-surfaces
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-hanyang-bodleian-catalog-surfaces.yml
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Capture official public catalog surfaces only
+        shell: python
+        run: |
+          import hashlib
+          import html
+          import json
+          import re
+          import urllib.parse
+          import urllib.request
+          from pathlib import Path
+
+          OUT = Path("probe")
+          OUT.mkdir()
+          UA = "Mozilla/5.0 research-only public catalog surface probe"
+
+          TARGETS = {
+              "hanyang": "https://lib.hanyang.ac.kr/",
+              "bodleian_east_asian": "https://east-asian.bodleian.ox.ac.uk/",
+              "bodleian_catalog_guide": "https://www.bodleian.ox.ac.uk/collections-and-resources/special-collections/finding-aids-and-catalogues",
+          }
+
+          def fetch(url, max_bytes=8_000_000):
+              req = urllib.request.Request(
+                  url,
+                  headers={
+                      "User-Agent": UA,
+                      "Accept": "text/html,application/xhtml+xml,*/*;q=0.8",
+                      "Accept-Language": "zh-TW,zh;q=0.8,ko;q=0.8,en;q=0.7",
+                  },
+              )
+              try:
+                  with urllib.request.urlopen(req, timeout=45) as resp:
+                      data = resp.read(max_bytes + 1)
+                      if len(data) > max_bytes:
+                          raise RuntimeError("response exceeded byte guard")
+                      return {
+                          "ok": True,
+                          "status": getattr(resp, "status", None),
+                          "final_url": resp.geturl(),
+                          "content_type": resp.headers.get("content-type"),
+                          "data": data,
+                      }
+              except Exception as exc:
+                  return {"ok": False, "url": url, "error": repr(exc), "data": b""}
+
+          def meta(row):
+              data = row.get("data", b"")
+              return {k: v for k, v in row.items() if k != "data"} | {
+                  "bytes": len(data),
+                  "sha256": hashlib.sha256(data).hexdigest() if data else None,
+              }
+
+          def parse_surface(base_url, raw):
+              text = raw.decode("utf-8", "replace")
+              forms = []
+              for fm in re.finditer(r"<form\b[^>]*>.*?</form>", text, flags=re.I | re.S):
+                  block = fm.group(0)
+                  open_tag = re.match(r"<form\b([^>]*)>", block, flags=re.I | re.S)
+                  attrs = open_tag.group(1) if open_tag else ""
+                  action_m = re.search(r"\baction\s*=\s*[\"']([^\"']*)[\"']", attrs, flags=re.I)
+                  method_m = re.search(r"\bmethod\s*=\s*[\"']([^\"']*)[\"']", attrs, flags=re.I)
+                  fields = []
+                  for im in re.finditer(r"<(?:input|textarea|select)\b([^>]*)>", block, flags=re.I | re.S):
+                      ia = im.group(1)
+                      name_m = re.search(r"\bname\s*=\s*[\"']([^\"']+)[\"']", ia, flags=re.I)
+                      type_m = re.search(r"\btype\s*=\s*[\"']([^\"']+)[\"']", ia, flags=re.I)
+                      if name_m:
+                          fields.append({
+                              "name": html.unescape(name_m.group(1)),
+                              "type": html.unescape(type_m.group(1)) if type_m else None,
+                          })
+                  forms.append({
+                      "action": urllib.parse.urljoin(base_url, html.unescape(action_m.group(1))) if action_m else base_url,
+                      "method": (method_m.group(1).upper() if method_m else "GET"),
+                      "fields": fields[:100],
+                  })
+
+              links = []
+              for m in re.finditer(r"<a\b[^>]*href\s*=\s*[\"']([^\"']+)[\"'][^>]*>(.*?)</a>", text, flags=re.I | re.S):
+                  href = html.unescape(m.group(1)).strip()
+                  label = re.sub(r"<[^>]+>", " ", m.group(2))
+                  label = " ".join(html.unescape(label).split())
+                  if not href or href.startswith(("javascript:", "mailto:", "#")):
+                      continue
+                  full = urllib.parse.urljoin(base_url, href)
+                  if any(token in (label + " " + full).lower() for token in (
+                      "search", "catalog", "catalogue", "rare", "manuscript", "digital",
+                      "검색", "자료", "소장", "고서", "古籍", "東亞", "east-asian"
+                  )):
+                      links.append({"label": label[:300], "url": full})
+
+              scripts = []
+              for m in re.finditer(r"<script\b[^>]*src\s*=\s*[\"']([^\"']+)[\"']", text, flags=re.I):
+                  scripts.append(urllib.parse.urljoin(base_url, html.unescape(m.group(1))))
+
+              markers = {
+                  "title_target_literal_present": "新刻合倂十八飛星策天紫微斗數全集" in text or "新刻合併十八飛星策天紫微斗數全集" in text,
+                  "ziwei_present": "紫微" in text,
+                  "search_literal_present": any(x in text.lower() for x in ("search", "검색")),
+              }
+              return {
+                  "forms": forms[:100],
+                  "relevant_links": links[:200],
+                  "script_srcs": list(dict.fromkeys(scripts))[:200],
+                  "markers": markers,
+              }
+
+          result = {
+              "schema": "ZIWEI-HANYANG-BODLEIAN-OFFICIAL-CATALOG-SURFACE-PROBE-R1",
+              "target_title": "新刻合倂十八飛星策天紫微斗數全集",
+              "target_rule_id": "HPA-ZDATE-006",
+              "ocr_used": False,
+              "authentication_attempted": False,
+              "hidden_api_guessing_attempted": False,
+              "search_submission_attempted": False,
+              "surfaces": {},
+          }
+
+          for key, url in TARGETS.items():
+              row = fetch(url)
+              item = meta(row) | {"requested_url": url}
+              raw = row.get("data", b"")
+              if raw:
+                  (OUT / f"{key}.html").write_bytes(raw)
+                  item["parsed_surface"] = parse_surface(row.get("final_url", url), raw)
+              result["surfaces"][key] = item
+
+          result["adjudication"] = {
+              "hanyang_title_record_status": "UNRESOLVED_PENDING_EXPLICIT_PUBLIC_SEARCH_ROUTE",
+              "bodleian_title_record_status": "UNRESOLVED_PENDING_EXPLICIT_PUBLIC_SEARCH_ROUTE",
+              "direct_target_page_status": "NOT_ATTEMPTED_IN_SURFACE_ONLY_PROBE",
+              "next_action": "USE_ONLY_EXPLICIT_PUBLIC_SEARCH_FORM_OR_CATALOG_LINKS_DISCOVERED_BY_THIS_PROBE",
+              "algorithm_effect": "NONE",
+          }
+
+          (OUT / "official-catalog-surfaces.json").write_text(
+              json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8"
+          )
+          print(json.dumps(result, ensure_ascii=False, indent=2))
+
+      - name: Upload official catalog surface evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ziwei-hanyang-bodleian-catalog-surfaces
+          path: probe/
+          if-no-files-found: warn
+          retention-days: 14

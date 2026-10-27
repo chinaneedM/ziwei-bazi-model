@@ -1,0 +1,186 @@
+{
+  "schema": "TIANWEN-13DW-NCL03130-SUMMER-HEADER-LANE-SCOPE-R1",
+  "date": "2026-10-23",
+  "issue_id": "TW-OPEN-0005",
+  "source_kind": "DIRECT_SOURCE_PHOTOGRAPH_MANUAL_VISUAL_REVIEW_NO_OCR",
+  "parent_evidence": [
+    "docs/research/TIANWEN-13DV-NCL03130-SUMMER-ORIGINAL-PAGE-COLUMN-BOUNDARY-R1.md",
+    "scripts/acquire-ncl03130-summer-day-crops-13du.py",
+    "scripts/acquire-ncl03130-summer-original-leaves-13dt.py"
+  ],
+  "source_identity": {
+    "url": "https://commons.wikimedia.org/wiki/Special:Redirect/file/NCL-03130_09_%E9%AB%98%E9%BA%97%E5%8F%B2.pdf",
+    "pdf_sha256": "3c2a5621fb3f4eabc593020bcde12a38f6ecdae2842940dec12d5a3a56afd32e",
+    "pdf_size_bytes": 50735589,
+    "source_pdf_pages": 189,
+    "physical_copy_firstparty_item_binding": "UNBOUND",
+    "qing_versus_1905_supplement_copy_layer": "UNBOUND"
+  },
+  "artifacts": [
+    {
+      "batch": "13DT",
+      "run_id": 39933256047,
+      "artifact_id": 12492163818,
+      "role": "p82/p83/p86 exact original photographed page images, not independent copies"
+    },
+    {
+      "batch": "13DU",
+      "run_id": 39933654897,
+      "artifact_id": 12492512318,
+      "role": "three source-native RGB crops of same p86 source photograph, not independent copies"
+    }
+  ],
+  "reviewed_original_pages": [
+    {
+      "pdf_page": 82,
+      "original_png_sha256": "4b8efc11d9ce84e9025f8115533cafb4a6a33e2653e33f548b1d85c9487c6ed7",
+      "native_dimensions": [
+        1095,
+        737
+      ],
+      "positive_visual": "page displays day-number headings 九十二 and 九十三 together with adjacent 限 explanatory prose",
+      "not_proven": "which numbered table subsequently resumes and its precise 行度 field correspondence"
+    },
+    {
+      "pdf_page": 83,
+      "original_png_sha256": "713d7dddf8f26030eaca40b3552f598acdc580cfbf291da059461a6d7bec83c0",
+      "native_dimensions": [
+        1095,
+        744
+      ],
+      "positive_visual": "right-to-left upper row resumes glyph labels 一 through 八",
+      "not_proven": "direct cross-edition identity of each lower numeric lane"
+    },
+    {
+      "pdf_page": 86,
+      "original_png_sha256": "9107be92e0381fb596ffec33f2e7fbcffda2adc0f17bca4da303ffec6032693c",
+      "native_dimensions": [
+        1095,
+        741
+      ],
+      "positive_visual": "day labels 二十七, 二十八, 二十九 and a repeated multi-column numeric/unit header band",
+      "not_proven": "one-to-one source 行度 literal value or its alignment with 1909 printed D28"
+    }
+  ],
+  "p86_native_roi_provenance": {
+    "image_render_dimensions": [
+      1348,
+      912
+    ],
+    "original_render_rgb_sha256": "550f80c6701408dcdab4e7728bec03a7480f0b762fda5837f514d4b9eb919cef",
+    "printed_day_roi_order_right_to_left": [
+      27,
+      28,
+      29
+    ],
+    "rois": [
+      {
+        "day": 27,
+        "bbox": [
+          428,
+          145,
+          566,
+          857
+        ],
+        "relative_bbox": [
+          0.318,
+          0.16,
+          0.42,
+          0.94
+        ],
+        "png_sha256": "f54a1e57a61c0fa8fe9876d1f388fa37b6ea52bb006707fdd62b93db962284e0",
+        "rgb_sha256": "de38e0c76f3e93036ca8b9c9ebde72d96a4111e9cb3bfa7b67f956b9e9bb409c"
+      },
+      {
+        "day": 28,
+        "bbox": [
+          291,
+          145,
+          427,
+          857
+        ],
+        "relative_bbox": [
+          0.216,
+          0.16,
+          0.317,
+          0.94
+        ],
+        "png_sha256": "5428823bed7f7b25fce08fae873583cdd3ae01b4717ac5a396cb81da86f30167",
+        "rgb_sha256": "4aa02c6a50b2cc9a6e9259396b9a2af1f5989fb3561adf2638f3f5194c44f2a1"
+      },
+      {
+        "day": 29,
+        "bbox": [
+          150,
+          145,
+          289,
+          857
+        ],
+        "relative_bbox": [
+          0.112,
+          0.16,
+          0.215,
+          0.94
+        ],
+        "png_sha256": "84bf5e203091a4cff47da390fce8ecd462842e6877da8947fbce124c71752c2d",
+        "rgb_sha256": "776f5bf8dea22dce03cde9e867339a0e6152f80df9eedf71e1bb8facfd7ed678"
+      }
+    ]
+  },
+  "source_native_d28_unit_band": {
+    "provenance": "13DU p86 D28 original crop; manually inspected character forms only; not OCR; right-to-left lane order",
+    "header_glyphs_right_to_left": [
+      "日",
+      "分",
+      "度",
+      "度"
+    ],
+    "heading_glyphs": "二十八",
+    "candidate_field_name": "行度",
+    "exact_xingdu_locus": "NOT_YET_INDEPENDENTLY_BOUND_TO_THE_UNIT_LANE",
+    "exact_xingdu_glyphs": null,
+    "exact_xingdu_decimal": null,
+    "caution": "The right edge of a day-level crop may include the neighboring day column; crop SHA proves pixels, not a single semantically isolated XingDu field.",
+    "observation_grade": "SOURCE_ORIGINAL_MULTI_LANE_HEADER_POSITIVE_NUMERIC_FIELD_UNRESOLVED"
+  },
+  "cross_original_scope": {
+    "waseda_day29": "0.994549",
+    "naj_day29": "0.994549",
+    "later_1909_day28": "0.994549",
+    "computed_only_candidate": "0.964549",
+    "ncl03130_day28_printed_xingdu": "UNREAD",
+    "ncl03130_matches_any_previous_original": null,
+    "day_label_mapping_proven": false,
+    "whole_table_day_offset_proven": false,
+    "physical_copy_independence_proven": false
+  },
+  "negative_and_access_limits": [
+    "This is a positive header/lane observation, not negative proof that the value is absent on p86.",
+    "No decimal may be inferred by interpolating neighboring source or version data.",
+    "The NCL digital mirror cannot authenticate copy stratigraphy or prove the 1905 supplemented hand.",
+    "Two separately rendered versions of p86 and three crops are ONE underlying digitized source witness."
+  ],
+  "next_direct_action": "Isolate and label full parent table heading and each field header using p81-p86 primary source, then derive a field-specific XingDu bbox independent of printed day-title alone. Read exact glyphs from that native bbox, or retain UNREAD. Keep winter D16 and G893 source-six-control targets independently open.",
+  "resolution": {
+    "new_original_numeric_judgments": 0,
+    "new_source_registry_entries": 0,
+    "new_genealogy_nodes": 0,
+    "new_genealogy_edges": 0,
+    "new_stemmatic_votes": 0,
+    "algorithms_reopened": 0,
+    "research_issues_closed": 0,
+    "chart_product": "CLOSED"
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Page day-heading and unit-label proximity do not authorize cross-edition exact-field identity, unique ancestry, or a source-value vote."
+    ],
+    "unresolved_lineage_questions": [
+      "Does the source-native p86 printed-day D28 exact XingDu field share the cross-holding value 0.994549 or another glyph sequence?",
+      "Which table-lane/title system and physical copy stratum does p86 actually bind?"
+    ]
+  }
+}

@@ -1,0 +1,73 @@
+name: verify-batch-12jl-exact-head
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/verify-batch-12jl-exact-head.yml
+      - .github/workflows/probe-batch-12jl-wenhui-history-1997-public-preview.yml
+      - docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-WENHUI-SHILUE-1997-PUBLIC-PREVIEW-BOUNDARY-JL.md
+      - docs/research/ZIWEI-WENHUI-SHILUE-1997-PUBLIC-PREVIEW-BOUNDARY-R1.json
+      - docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json
+      - docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.md
+      - docs/PROJECT-CURRENT-STATE-R1.json
+      - scripts/verify-project-continuity-state-r1.py
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  statuses: write
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Publish pending JL status
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.repos.createCommitStatus({owner: context.repo.owner, repo: context.repo.repo, sha: context.sha, state: 'pending', context: 'tianwen/batch-12jl-exact-head', description: 'Batch 12JL exact-head verification running'})
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify Batch 12JL exact head
+        run: |
+          set -euo pipefail
+          python scripts/verify-tianwen-transmission-genealogy-r1.py
+          python scripts/verify-project-continuity-state-r1.py
+          python scripts/verify-fusion-chart-historical-provenance-audit-r1.py
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          e=json.loads(Path('docs/research/ZIWEI-WENHUI-SHILUE-1997-PUBLIC-PREVIEW-BOUNDARY-R1.json').read_text(encoding='utf-8'))
+          assert e['batch_id']=='BATCH-12-ZIWEI-WENHUI-SHILUE-1997-PUBLIC-PREVIEW-BOUNDARY-JL'
+          assert e['controlling_probe']['workflow_run_id']==36831227298
+          assert e['controlling_probe']['artifact_id']==11146734959
+          assert e['exact_book_identity']['isbn_10']=='7805314705'
+          assert e['openlibrary']['edition_key']=='/books/OL61042343M'
+          assert e['openlibrary']['ocaid'] is None
+          assert e['google_books_exact_isbn']['source_emitted_object_id']=='4bmRAAAACAAJ'
+          assert e['google_books_exact_isbn']['worldcat_redirect_is_inbook_search_contract'] is False
+          assert e['google_books_source_emitted_object']['forms_emitted']==0
+          assert e['google_books_source_emitted_object']['source_emitted_inbook_candidate_link_count']==0
+          assert e['adjudication']['public_page_level_preview_observed'] is False
+          assert e['adjudication']['direct_wenhui_1951_08_18_page']=='NOT_REVIEWED'
+          assert e['adjudication']['direct_wenwu_issue9_pp221_233']=='NOT_REVIEWED'
+          assert e['adjudication']['direct_2011_wenji_p197']=='NOT_REVIEWED'
+          assert e['transmission_impact']['status']=='NONE'
+          assert e['project_consequence']['product_change'] is False
+          PY
+      - name: Publish success JL status
+        if: success()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.repos.createCommitStatus({owner: context.repo.owner, repo: context.repo.repo, sha: context.sha, state: 'success', context: 'tianwen/batch-12jl-exact-head', description: 'Batch 12JL exact-head verification passed'})
+      - name: Publish failure JL status
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.repos.createCommitStatus({owner: context.repo.owner, repo: context.repo.repo, sha: context.sha, state: 'failure', context: 'tianwen/batch-12jl-exact-head', description: 'Batch 12JL exact-head verification failed'})

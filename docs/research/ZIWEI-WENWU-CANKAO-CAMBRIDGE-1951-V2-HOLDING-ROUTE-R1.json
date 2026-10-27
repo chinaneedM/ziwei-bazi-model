@@ -1,0 +1,124 @@
+{
+  "schema": "ZIWEI-WENWU-CANKAO-CAMBRIDGE-1951-V2-HOLDING-ROUTE-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-WENWU-CANKAO-CAMBRIDGE-1951-V2-HOLDING-ROUTE-IF",
+  "prior_batch_id": "BATCH-12-ZIWEI-GUOXUEJIKAN11-CORRECTED-ISBN-PUBLIC-ROUTE-RECHECK-IE",
+  "question": "Can Zhao Wanli's 1951 《文物参考资料》 volume 2 issue 9 article be given an additional independent first-party physical holding route beyond the already-closed NDL original bundle and Ryukoku facsimile routes?",
+  "answer": "Yes. Cambridge University Library's first-party Chinese Periodicals union catalogue directly lists 《文物参考资料》 under Cambridge UL call number FB.252:14 with holdings including 卷2 i–xii, explicitly covering the complete 1951 volume 2 and therefore issue 9. The same union catalogue also lists a Needham Research Institute holding for 1951–58, but because that row does not enumerate issue-level gaps, Batch 12IF does not count it as a second exact issue-9 closure. This adds one independent original-periodical physical holding route. It does not recover Zhao Wanli pp.221–233, a digital surrogate, or the Qu-family 62-title wording.",
+  "target_article": {
+    "author": "赵万里",
+    "title": "永乐大典展览的意义——一九五一年八月北京图书馆举办",
+    "periodical": "文物参考资料",
+    "year": 1951,
+    "volume": 2,
+    "issue": 9,
+    "pages": "221–233",
+    "bibliographic_control_source": "National Library of China Liu Peng review",
+    "direct_article_text_reviewed": false
+  },
+  "cambridge_first_party_holding": {
+    "provider": "Cambridge University Library",
+    "page_title": "Chinese Periodicals",
+    "url": "https://www.lib.cam.ac.uk/collections/departments/chinese-collections/chinese-collections-physical-format/chinese-periodicals",
+    "union_catalog_scope": "Cambridge University Library and other Cambridge libraries including Needham Research Institute",
+    "title": "文物参考资料",
+    "place": "北京",
+    "explicit_holding_range": "总1-6,8,卷2i-xii,总53-64,69-71,73-88,91-100",
+    "year_range": "1950-58",
+    "call_number": "FB.252:14",
+    "target_volume": 2,
+    "target_issue": 9,
+    "target_issue_explicitly_contained_in_volume2_i_xii": true,
+    "holding_route_status": "CLOSED_FIRST_PARTY_EXPLICIT_RANGE",
+    "material_assumption": "BOUND_EARLIER_PERIODICAL_HOLDING_AS_DESCRIBED_BY_CAMBRIDGE_PAGE",
+    "direct_target_pages_reviewed": false,
+    "digital_surrogate_exposed": false,
+    "copy_request_sent": false
+  },
+  "needham_secondary_row": {
+    "provider": "Needham Research Institute Library via Cambridge union catalogue",
+    "title": "文物参考资料",
+    "holding_years": "1951-58",
+    "location_marker": "NRI",
+    "exact_issue9_explicitly_enumerated": false,
+    "exact_issue9_holding_increment": 0,
+    "reason": "YEAR_RANGE_WITHOUT_EXPLICIT_ISSUE_GAP_ENUMERATION_NOT_DOUBLE_COUNTED_AS_EXACT_ISSUE_CLOSURE"
+  },
+  "probe": {
+    "workflow_commit": "ae893a4d1ff04d5c83a05e82c675279d0d33a4e7",
+    "workflow_run_id": 36597896944,
+    "artifact_id": 11046349391,
+    "artifact_digest": "sha256:20655cf6666e696b15fb70c15a5aed23fb325ba0f1c8be7883454e3d3a61ac3f",
+    "fetched_bytes": 315789,
+    "title_marker_count": 2,
+    "target_title_seen": true,
+    "call_number_seen": true,
+    "explicit_volume2_i_xii_seen": true,
+    "target_issue_contained": true,
+    "direct_target_pages_reviewed": false,
+    "digital_surrogate_recovered": false
+  },
+  "relation_to_prior_routes": {
+    "batch_12hh_exact_issue_physical_routes_preserved": true,
+    "batch_12hi_ndl_original_bundle": {
+      "provider": "国立国会図書館",
+      "call_number": "Z8-AC150",
+      "held_range": "2(7)-2(12) 1951",
+      "target_issue_contained": true
+    },
+    "batch_12hi_ryukoku_facsimile": {
+      "provider": "龍谷大学図書館",
+      "ncid": "AN10296217",
+      "call_number": "054/638",
+      "target_1951_volume2_covered": true,
+      "route_type": "1986_FACSIMILE_BACKUP"
+    },
+    "new_independent_cambridge_original_holding_increment": 1,
+    "direct_article_text_increment": 0
+  },
+  "adjudication": {
+    "cambridge_explicit_issue9_physical_route": "CLOSED",
+    "independent_original_periodical_holding_increment": 1,
+    "needham_exact_issue_holding_increment": 0,
+    "direct_article_text_recovered": false,
+    "target_2011_p197_direct_text_recovered": false,
+    "qu_62_title_original_wording_directly_collated": false,
+    "target_fid070_exact_donation_date": "UNRESOLVED",
+    "exact_3368_to_3288_causal_mechanism": "UNRESOLVED"
+  },
+  "access_firewall": {
+    "first_party_holding_page_does_not_equal_article_text": true,
+    "physical_holding_does_not_equal_public_digital_surrogate": true,
+    "year_range_without_issue_enumeration_not_counted_as_exact_issue_closure": true,
+    "no_copy_request_sent": true,
+    "no_library_account_action": true,
+    "no_fee_incurred": true
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "transmission_topology_change": false,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Recover Zhao Wanli 1951 issue-9 pp.221–233 through a lawful page-level route from an original or facsimile holding; prioritize direct text over further holding-count expansion.",
+    "Directly collate NDL-held 2011 《赵万里文集》第1卷 p.197 and compare with the 1951 original passage.",
+    "Directly inspect Ji Shuying chapter 9 for the 1950/1953 Qu transfer batches and underlying sources.",
+    "Do not assign FID070 to a precise Qu donation batch/date until an object-level member list, accession record or stable identifier bridge is recovered."
+  ],
+  "updated_at": "2026-09-29"
+}

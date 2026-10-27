@@ -1,0 +1,92 @@
+{
+  "schema": "MING-DATONG-YEHUOBIAN-12PZ-NDL-KANGXI39-MOVABLE-TYPE-AND-TOKYO1827-COPY-SEPARATION-R1",
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-10-10",
+  "batch": "12PZ_IN_PROGRESS",
+  "research_question": "Whether Shanghai PDF2 p441-442 can be directly identified as an 1827 扶茘山房 impression, or whether independent three-decade recension/physical copy lines require separate collation",
+  "catalog_witnesses": [
+    {
+      "source_id": "NDL-000007607208",
+      "bibliographic_authority": "National Diet Library Japan NDL Search (first-party)",
+      "url": "https://ndlsearch.ndl.go.jp/books/R100000002-I000007607208",
+      "title": "萬暦野獲編30卷",
+      "compiler": "清錢枋輯",
+      "call_number": "184-65",
+      "bib_id": "000007607208",
+      "bibliographic_date_literal": "康煕39序活字印",
+      "structured_date": "1700",
+      "book_form": "和古書・漢籍 / 印刷資料 / 16冊（合8冊） / 18cm",
+      "edition_attribution": "MOVABLE_TYPE_PRINT_WITH_KANGXI_39_PREFACE_AS_DESCRIBED_BY_NDL",
+      "date_scope": "1700_IS_SOURCE_BIBLIOGRAPHIC_DATE; ACTUAL_IMPRESSION_AND_COPY_DATES_NOT_DIRECTLY_INSPECTED",
+      "target_page": "NOT_DIRECTLY_ACCESSED",
+      "target_four_glyphs": "NOT_COLLATION_CHECKED",
+      "source_role": "FIRST_PARTY_CATALOG_FOR_EARLIER_PRINTING_FAMILY_NOT_TARGET_TEXT"
+    },
+    {
+      "source_id": "NII-CINII-BC0492354X",
+      "bibliographic_authority": "CiNii Books / University of Tokyo Institute for Advanced Studies on Asia",
+      "url": "https://ci.nii.ac.jp/ncid/BC0492354X",
+      "title": "野獲編 30卷首1卷補遺4卷",
+      "record_id": "BC0492354X",
+      "copy_identifier": "大木;子部:雜家類:16-20",
+      "volume20_identifier": "6403767830",
+      "dating_basis": "封面: 道光丁亥[1827]春鐫/錢唐姚氏鑒藏; 版心下部: 扶茘山房",
+      "format": "PRINTED / each volume mostly separate / 34冊; inner frame 18.4 x 13.2 cm",
+      "physical_copy_access": "PUBLIC_BIBLIOGRAPHIC_METADATA_ONLY",
+      "target_page": "NOT_DIRECTLY_ACCESSED",
+      "target_four_glyphs": "NOT_COLLATION_CHECKED",
+      "source_role": "FIRST_PARTY_INSTITUTIONAL_CATALOG_1827_PHYSICAL_COPY_IDENTITY"
+    },
+    {
+      "source_id": "NII-CINII-BC08398372",
+      "bibliographic_authority": "CiNii Books / University of Tokyo Institute for Advanced Studies on Asia",
+      "url": "https://ci.nii.ac.jp/ncid/BC08398372",
+      "title": "野獲編 30卷首1卷補遺4卷",
+      "record_id": "BC08398372",
+      "copy_identifier": "夕嵐草堂:S2024:3",
+      "volume19_20_identifier": "6411758714",
+      "dating_basis": "封面: 道光丁亥[1827]春鐫/錢唐姚氏鑒藏; 版心下部: 扶茘山房",
+      "format": "PRINTED / volumes19-20 bound together / 20冊; inner frame 18.1 x 13.2 cm",
+      "copy_specific_lacuna": "卷19第30葉以降",
+      "access_condition": "虫損甚だし(劣化につき利用不可)",
+      "significance": "Do not propagate volume19 copy-specific lacuna to volume20 or to the other independent Tokyo copy",
+      "target_page": "NOT_DIRECTLY_ACCESSED",
+      "target_four_glyphs": "NOT_COLLATION_CHECKED",
+      "source_role": "SEPARATE_INSTITUTIONAL_CATALOG_1827_PHYSICAL_COPY_WITH_ACCESS_WARNING"
+    }
+  ],
+  "prior_source_witness_not_promoted": {
+    "source": "Shanghai Library-labelled Commons categorized-30v part2 PDF p441-442",
+    "evidence_file": "docs/research/MING-DATONG-YEHUOBIAN-12PZ-SHANGHAI30-GAIZAO-LOUKE-P441-P442-DIRECT-COLLATION-R1.json",
+    "source_copy_printing_year": "UNVERIFIED",
+    "source_copy_1827_fulishanfang_identity": "NOT_PROVEN",
+    "identified_target_glyph_count": 4,
+    "no_automatic_bridge_to_ndl_or_toyko_1827": true
+  },
+  "adjudication": {
+    "catalogued_1700_preface_movability_family": "POSITIVE_IN_NDL_CATALOG_ONLY",
+    "contemporaneous_1700_impression": "NOT_DIRECTLY_ESTABLISHED",
+    "original_old20v_target": "UNRESOLVED",
+    "earlier_30v_target_glyphs": "PENDING_DIRECT_IMAGES",
+    "dated_1827_printed_target_glyphs": "PENDING_DIRECT_IMAGES",
+    "independent_target_text_witnesses_added": 0,
+    "source_date_vs_edition_vs_copy_vs_digital_firewall": "ENFORCED",
+    "same_30_volume_count_does_not_imply_same_impression_or_copy": true,
+    "no_copy_to_copy_transmission_edges_proved": true,
+    "matrix_modified": false,
+    "project_state_modified": false,
+    "graph_modified": false,
+    "runtime_changed": false,
+    "algorithm_reopened": false,
+    "batch_closed": false,
+    "md_g03": "OPEN_BLOCKING_GENERAL_ADAPTER",
+    "hpa_dayun_cal_002": "MISSING_FROM_PRODUCT",
+    "chart_r1": "CLOSED"
+  },
+  "next": [
+    "Prioritize first-party or legitimate publicly accessible image access for NDL 184-65 volume 20 to compare the four glyphs to Shanghai p441.",
+    "Acquire a concrete volume 20 target image in the date-identified Tokyo 1827 大木 copy; avoid assuming 夕嵐 copy is readable due to catalog damage restriction.",
+    "Match Shanghai impression only after directly inspecting colophon/page-grid/版心 against physically identified catalog copy.",
+    "Continue independent exact original-NCL02260 old20v passage localization without using categorized 30v volume-number equivalence."
+  ]
+}

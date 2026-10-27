@@ -1,0 +1,79 @@
+name: verify-batch-12fk-exact-head
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/verify-batch-12fk-exact-head.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify Batch 12FK exact head
+        run: |
+          set -euo pipefail
+          python scripts/verify-tianwen-transmission-genealogy-r1.py
+          python scripts/verify-project-continuity-state-r1.py
+          python scripts/verify-fusion-chart-historical-provenance-audit-r1.py
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          e=json.loads(Path('docs/research/ZIWEI-NLC-OPENOBJECT-PUBLIC-SHELL-ACCESS-BOUNDARY-R1.json').read_text(encoding='utf-8'))
+          assert e['batch_id']=='BATCH-12-ZIWEI-NLC-OPENOBJECT-PUBLIC-SHELL-ACCESS-BOUNDARY-FK'
+          assert e['public_open_object_shells']['tonghu']['fid_identifier']=='411999008600'
+          assert e['public_open_object_shells']['tonghu']['bid_numeric']=='113028'
+          assert e['public_open_object_shells']['tonghu']['internal_pdf_object_path'].endswith('SBGJ03908_00001.pdf')
+          assert e['public_open_object_shells']['zhunzhai']['fid_identifier']=='411999008601'
+          assert e['public_open_object_shells']['zhunzhai']['bid_numeric']=='113029'
+          assert e['public_open_object_shells']['zhunzhai']['internal_pdf_object_path'].endswith('SBGJ03909_00001.pdf')
+          assert e['public_format_catalog']['tonghu']['page_count_exposed'] is False
+          assert e['public_format_catalog']['zhunzhai']['page_manifest_exposed'] is False
+          p=e['permission_boundary']
+          assert p['permission_endpoint_invoked'] is False
+          assert p['login_or_sso_emulation_attempted'] is False
+          assert p['token_acquisition_attempted'] is False
+          assert p['direct_internal_pdf_retrieval_attempted'] is False
+          assert p['authorization_bypass_attempted'] is False
+          assert p['page_count_status']=='NOT_EXPOSED_ON_REVIEWED_PRE_PERMISSION_PUBLIC_SURFACE'
+          assert p['page_manifest_status']=='NOT_EXPOSED_ON_REVIEWED_PRE_PERMISSION_PUBLIC_SURFACE'
+          assert e['bounded_public_image_probe']['page_count_inference_authorized'] is False
+          assert e['identifier_and_object_firewall']['semantic_layer_collapse_forbidden'] is True
+          assert e['identifier_and_object_firewall']['public_barcode_proved'] is False
+          assert e['acquisition_provenance_adjudication']['final_nlc_acquisition_transfer_path']=='UNRESOLVED'
+          assert e['chronology_and_rule_firewall']['direct_sanming_parent_vote_increment']==0
+
+          state=json.loads(Path('docs/PROJECT-CURRENT-STATE-R1.json').read_text(encoding='utf-8'))
+          assert state['historical_audit']['latest_batch_doc'].endswith('NLC-OPENOBJECT-PUBLIC-SHELL-ACCESS-BOUNDARY-FK.md')
+          assert 'BATCH-12-ZIWEI-NLC-OPENOBJECT-PUBLIC-SHELL-ACCESS-BOUNDARY-FK' in state['historical_audit']['completed_batches']
+          assert state['invariants']['deterministic_fusion_chart_product_r1']=='CLOSED'
+
+          graph=json.loads(Path('docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json').read_text(encoding='utf-8'))
+          canonical_r='docs/research/ZIWEI-NLC-OPENOBJECT-PUBLIC-SHELL-ACCESS-BOUNDARY-R1.json'
+          canonical_d='docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NLC-OPENOBJECT-PUBLIC-SHELL-ACCESS-BOUNDARY-FK.md'
+          for nid in (
+              'DIGITAL-NLC-DATA892-TONGHU-FID411999008600-BID113028',
+              'DIGITAL-NLC-DATA892-ZHUNZHAI-FID411999008601-BID113029',
+          ):
+              n=next(x for x in graph['nodes'] if x.get('node_id')==nid)
+              assert canonical_r in n['evidence'] and canonical_d in n['evidence']
+              c=n['open_object_public_shell_permission_boundary_12fk']
+              assert c['public_shell_metadata_closed'] is True
+              assert c['public_page_count_status']=='NOT_EXPOSED_ON_REVIEWED_PRE_PERMISSION_PUBLIC_SURFACE'
+              assert c['permission_endpoint_invoked'] is False
+          for eid in ('TG-E0113','TG-E0114'):
+              edge=next(x for x in graph['edges'] if x.get('edge_id')==eid)
+              assert edge['status']=='HIGH_CONFIDENCE'
+              assert canonical_r in edge['evidence'] and canonical_d in edge['evidence']
+              assert edge['latest_scope_update_batch']=='BATCH-12-ZIWEI-NLC-OPENOBJECT-PUBLIC-SHELL-ACCESS-BOUNDARY-FK'
+          PY

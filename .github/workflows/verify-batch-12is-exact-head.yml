@@ -1,0 +1,86 @@
+name: verify-batch-12is-exact-head
+# Durable exact-head gate: current NDL Digital provider is closed for target routes; paper identity remains separate.
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/verify-batch-12is-exact-head.yml
+      - docs/research/ZIWEI-NDL-WENWU-CANKAO-1951-H2-DIGITAL-PROVIDER-BOUNDARY-R1.json
+      - docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NDL-WENWU-CANKAO-1951-H2-DIGITAL-PROVIDER-BOUNDARY-IS.md
+      - docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json
+      - docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.md
+      - docs/PROJECT-CURRENT-STATE-R1.json
+      - scripts/verify-project-continuity-state-r1.py
+      - .github/workflows/probe-batch-12is-ndl-digital-wenwu195109.yml
+      - .github/workflows/probe-batch-12is-ndl-wenwu195109-item-metadata.yml
+      - .github/workflows/probe-batch-12is-ndl-wenwu195109-bound-volume-access.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  statuses: write
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Publish pending IS status
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.repos.createCommitStatus({
+              owner: context.repo.owner, repo: context.repo.repo, sha: context.sha,
+              state: 'pending', context: 'tianwen/batch-12is-exact-head',
+              description: 'Batch 12IS NDL Digital provider verification running'
+            })
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify Batch 12IS exact head
+        run: |
+          set -euo pipefail
+          python scripts/verify-tianwen-transmission-genealogy-r1.py
+          python scripts/verify-project-continuity-state-r1.py
+          python scripts/verify-fusion-chart-historical-provenance-audit-r1.py
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          e=json.loads(Path('docs/research/ZIWEI-NDL-WENWU-CANKAO-1951-H2-DIGITAL-PROVIDER-BOUNDARY-R1.json').read_text(encoding='utf-8'))
+          assert e['batch_id']=='BATCH-12-ZIWEI-NDL-WENWU-CANKAO-1951-H2-DIGITAL-PROVIDER-BOUNDARY-IS'
+          c=e['opensearch_digital_provider_calibration']
+          assert c['positive_control']['total_results']==165
+          assert c['target_serial_traditional']['total_results']==0
+          assert c['target_serial_open_provider']['total_results']==0
+          assert c['target_article_simplified']['total_results']==0
+          assert c['all_provider_target_serial']['exact_second_half_item_id']=='R100000002-Ia0000051292-i25241426'
+          p=e['exact_public_record_access_control']
+          assert p['material_form']=='紙' and p['call_number']=='Z8-AC150'
+          assert p['has_dl_ndl_link'] is False and p['has_pid_link'] is False
+          a=e['access_adjudication']
+          assert a['global_no_digitization_claim_authorized'] is False
+          assert a['direct_pp221_233_reviewed'] is False
+          assert e['project_consequence']['product_change'] is False
+          PY
+      - name: Publish success IS status
+        if: success()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.repos.createCommitStatus({
+              owner: context.repo.owner, repo: context.repo.repo, sha: context.sha,
+              state: 'success', context: 'tianwen/batch-12is-exact-head',
+              description: 'Batch 12IS exact-head verification passed'
+            })
+      - name: Publish failure IS status
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.repos.createCommitStatus({
+              owner: context.repo.owner, repo: context.repo.repo, sha: context.sha,
+              state: 'failure', context: 'tianwen/batch-12is-exact-head',
+              description: 'Batch 12IS exact-head verification failed'
+            })

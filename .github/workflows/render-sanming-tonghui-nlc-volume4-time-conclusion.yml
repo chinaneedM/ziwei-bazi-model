@@ -1,0 +1,43 @@
+name: render-sanming-tonghui-nlc-volume4-time-conclusion
+
+on:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/render-sanming-tonghui-nlc-volume4-time-conclusion.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install PDF tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y poppler-utils
+      - name: Download NLC Ming-print Sanming Tonghui volume 4 facsimile
+        run: |
+          set -euo pipefail
+          mkdir -p evidence/rendered
+          url='https://commons.wikimedia.org/wiki/Special:Redirect/file/NLC892-411999029701-67187_%E4%B8%89%E5%91%BD%E9%80%9A%E6%9C%83_%E7%AC%AC4%E5%86%8A.pdf'
+          curl -L --fail --retry 3 --retry-delay 2 "$url" -o evidence/sanming_tonghui_v4.pdf
+          sha256sum evidence/sanming_tonghui_v4.pdf | tee evidence/source.sha256
+          pdfinfo evidence/sanming_tonghui_v4.pdf | tee evidence/pdfinfo.txt
+      - name: Render opening 10 pages without OCR
+        run: |
+          set -euo pipefail
+          pdftoppm -f 1 -l 10 -jpeg -jpegopt quality=94 -r 240 evidence/sanming_tonghui_v4.pdf evidence/rendered/page
+          sha256sum evidence/rendered/*.jpg | sort -V | tee evidence/rendered.sha256
+          printf 'NO_OCR_USED=true\nSOURCE_ROLE=MING_PRINT_FACSIMILE_SECOND_PHYSICAL_COPY_CONTROL\nTARGET_SCOPE=卷之二下開頭_論時刻結語_授時曆分之\n' > evidence/manifest.txt
+      - name: Upload facsimile evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: sanming-tonghui-nlc-v4-time-conclusion
+          path: evidence/
+          if-no-files-found: error
+          retention-days: 30

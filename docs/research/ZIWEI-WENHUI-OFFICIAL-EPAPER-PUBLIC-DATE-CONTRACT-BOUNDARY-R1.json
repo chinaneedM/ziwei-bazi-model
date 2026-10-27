@@ -1,0 +1,97 @@
+{
+  "schema": "ZIWEI-WENHUI-OFFICIAL-EPAPER-PUBLIC-DATE-CONTRACT-BOUNDARY-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-WENHUI-OFFICIAL-EPAPER-PUBLIC-DATE-CONTRACT-BOUNDARY-JO",
+  "prior_batch_id": "BATCH-12-ZIWEI-WENHUIBAO-SHU-2025-CURRENT-LOCATOR-AND-DIGITAL-ACCESS-BOUNDARY-JN",
+  "question": "Does Wenhui Daily's official public e-paper surface expose a reproducible source-emitted date-selection contract that authorizes a 1951-08-18 request without guessing a historical path?",
+  "answer": "A known modern official Wenhui e-paper dated page exists publicly, but on the controlling GitHub runner both the dzb.whb.cn root and the known 2024-12-31 control page time out. No same-host script or source-emitted date contract can therefore be inspected in the controlling environment. The target 1951-08-18 path is not guessed or requested. This batch closes only the runner access/calibration boundary and has zero authority to infer historical absence.",
+  "official_surface": {
+    "provider": "文汇报",
+    "host": "dzb.whb.cn",
+    "entry_url": "https://dzb.whb.cn/",
+    "known_control_url": "https://dzb.whb.cn/2024-12-31/1/index.html",
+    "target_date": "1951-08-18",
+    "target_date_request_submitted": false
+  },
+  "controlling_probe": {
+    "workflow": ".github/workflows/probe-batch-12jo-whb-epaper-public-date-contract.yml",
+    "exact_head": "d4bb22afafade69cf6e5f21ca9db11448798d568",
+    "workflow_run_id": 36834874380,
+    "workflow_job_id": 110279768574,
+    "artifact_id": 11148592500,
+    "artifact_name": "batch-12jo-whb-epaper-public-date-contract",
+    "artifact_digest": "sha256:fdf0f44210a45e233995e7142734ac9e7d94c124d05c30dad1fdc83bd72b3783"
+  },
+  "runner_results": {
+    "entry": {
+      "fetch_error_class": "ConnectTimeout",
+      "reached": false
+    },
+    "known_control": {
+      "fetch_error_class": "ConnectTimeout",
+      "reached": false
+    },
+    "same_host_scripts_followed": 0,
+    "source_emitted_candidate_date_contract_count": 0
+  },
+  "adjudication": {
+    "official_epaper_host_identity": "CLOSED_AT_PUBLIC_WEB_DISCOVERY_LEVEL",
+    "controlling_runner_surface": "UNREACHED_TIMEOUT",
+    "public_date_selector_contract": "NOT_CALIBRATED_ON_CONTROLLING_RUNNER",
+    "target_date_query_authorized": false,
+    "target_1951_08_18_submitted": false,
+    "target_page_observed": false,
+    "direct_wenhui_1951_08_18": "NOT_REVIEWED",
+    "direct_wenwu_issue9_pp221_233": "NOT_REVIEWED",
+    "direct_2011_wenji_p197": "NOT_REVIEWED"
+  },
+  "evidence_firewall": {
+    "timeout_is_not_target_absence": true,
+    "modern_dated_path_pattern_does_not_authorize_guessing_1951_path": true,
+    "public_web_indexing_does_not_equal_controlling_runner_contract": true,
+    "no_source_emitted_contract_means_no_target_date_submission": true
+  },
+  "security": {
+    "login_used": false,
+    "payment_used": false,
+    "captcha_bypass_used": false,
+    "private_endpoint_guessed": false,
+    "target_date_path_guessed": false,
+    "target_query_submitted": false,
+    "tls_verification_disabled": false
+  },
+  "transmission_impact": {
+    "status": "NONE",
+    "graph_change": false,
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": [],
+    "reason": "Modern access-contract boundary only; no historical page recovered."
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Do not guess /1951-08-18/... from modern URL patterns.",
+    "Revisit dzb.whb.cn only if the controlling environment can retrieve a page that source-emits a date-selection contract.",
+    "Continue direct public page-level recovery through independent institutional/newspaper digitization surfaces."
+  ],
+  "updated_at": "2026-10-01"
+}

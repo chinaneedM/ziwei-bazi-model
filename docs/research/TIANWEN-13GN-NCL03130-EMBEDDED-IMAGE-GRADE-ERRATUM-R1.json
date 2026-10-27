@@ -1,0 +1,188 @@
+{
+  "schema": "TIANWEN-13GN-NCL03130-EMBEDDED-IMAGE-GRADE-ERRATUM-R1",
+  "date": "2026-10-25",
+  "issue_id": "TW-OPEN-0005",
+  "grade": "DIRECT_EMBEDDED_JPEG_AND_EXACT_PRIOR_RENDER_REPLAY_NO_NEW_GLYPH",
+  "source": {
+    "url": "https://commons.wikimedia.org/wiki/Special:Redirect/file/NCL-03130_09_%E9%AB%98%E9%BA%97%E5%8F%B2.pdf",
+    "bytes": 50735589,
+    "sha256": "3c2a5621fb3f4eabc593020bcde12a38f6ecdae2842940dec12d5a3a56afd32e",
+    "pages": 189
+  },
+  "prior_gd": "docs/research/TIANWEN-13GD-NLC-P74-P75-D10-D15-BOUNDED-ORIGINAL-LANES-R1.json",
+  "prior_fv": "docs/research/TIANWEN-13FV-NLC-D30-GUTTER-DAY-HEADER-GEOMETRY-R1.json",
+  "acquisition_script": "scripts/acquire-ncl03130-correct-solar-leaves-13dy.py",
+  "old_images_reclassified_as": "PDF_RENDER_MATRIX_3_1_NOT_EMBEDDED_NATIVE_GRID",
+  "old_records_preserved": true,
+  "pages": [
+    {
+      "page": 74,
+      "embedded": {
+        "xref": 291,
+        "size": [
+          1754,
+          1173
+        ],
+        "jpeg_bytes": 225702,
+        "jpeg_sha256": "a800c8b7b2b365cf38fd9512f078fa83e076ff69b125561989f10cb29ed8c1b8",
+        "rgb_sha256": "69eaeb8c17181ef175165a373dfed27b9e30731527ee3982ee7f7a2a66e2cdb9",
+        "decode": "Pillow JPEG to RGB without resize/filter/ICC transform"
+      },
+      "previous_render": {
+        "matrix": [
+          3.1,
+          3.1
+        ],
+        "size": [
+          1305,
+          873
+        ],
+        "png_sha256": "a3f597f96f494a5ee9a6d582850f0642035d858bcbc587abc6fac11853018a14",
+        "rgb_sha256": "c0bf6332279b6ff77e155a5204710ca82d868454a039f8b6660109080b1c1160"
+      },
+      "old_roi_coordinates_cannot_be_reused_directly": true,
+      "review_rois": [
+        {
+          "target": "D9",
+          "coordinate_grid": "EMBEDDED_JPEG_PIXELS",
+          "xyxy": [
+            680,
+            560,
+            735,
+            830
+          ],
+          "file": "docs/research/TIANWEN-13GN-P74-D9-EMBEDDED-ROI.png",
+          "png_sha256": "ece11efe5f477a64da90313e0b5daddfb6a6d5064a61770d0c64c54f5bc6280f",
+          "rgb_sha256": "59569213377cd358bdf4ec322259a5bacff0b294ba62b7c80de43ce98e1a027a",
+          "complete_original_literal": null,
+          "reason": "Bounded direct visual review does not establish complete source-specific field. Gutter/terminal uncertainty persists; no interpolation."
+        },
+        {
+          "target": "D14",
+          "coordinate_grid": "EMBEDDED_JPEG_PIXELS",
+          "xyxy": [
+            125,
+            560,
+            160,
+            830
+          ],
+          "file": "docs/research/TIANWEN-13GN-P74-D14-EMBEDDED-ROI.png",
+          "png_sha256": "6a1b3c77fa6f3945d53399b9c77d7c5ccdb968057cfd4713866dc9c90032d3b7",
+          "rgb_sha256": "a4b3e1bdef0791b0483f3cd50e90bc4e7e12b045436d60f07c0475a1dbc6d1ee",
+          "complete_original_literal": null,
+          "reason": "Bounded direct visual review does not establish complete source-specific field. Gutter/terminal uncertainty persists; no interpolation."
+        }
+      ]
+    },
+    {
+      "page": 75,
+      "embedded": {
+        "xref": 295,
+        "size": [
+          1754,
+          1179
+        ],
+        "jpeg_bytes": 227339,
+        "jpeg_sha256": "9b0460abea30edfc2966877a444bb490825e68395b6d5db8c3a90c0280a241fa",
+        "rgb_sha256": "0695e9cabf46adc82f22abf3a431c17d5123498bf0eefcaa8c63f693c37b5add",
+        "decode": "Pillow JPEG to RGB without resize/filter/ICC transform"
+      },
+      "previous_render": {
+        "matrix": [
+          3.1,
+          3.1
+        ],
+        "size": [
+          1305,
+          878
+        ],
+        "png_sha256": "059821b008f41c1cdf11bf0daab89de01b44dc5ffee1263e569decb567f76458",
+        "rgb_sha256": "f90eb6e5be96ae16408833fb2722db9b90413347a8acd733efbd3836d7f5f534"
+      },
+      "old_roi_coordinates_cannot_be_reused_directly": true,
+      "review_rois": []
+    },
+    {
+      "page": 76,
+      "embedded": {
+        "xref": 299,
+        "size": [
+          1754,
+          1175
+        ],
+        "jpeg_bytes": 231140,
+        "jpeg_sha256": "b0662114cd5a94787d27d1fd345cedb64e3ac6ff9fca121d22cb66b20768466e",
+        "rgb_sha256": "5e92f49b23bf12885abbcfc54af9c7cf0d42e0141a6164b24502fbf61a3a6e1e",
+        "decode": "Pillow JPEG to RGB without resize/filter/ICC transform"
+      },
+      "previous_render": {
+        "matrix": [
+          3.1,
+          3.1
+        ],
+        "size": [
+          1305,
+          875
+        ],
+        "png_sha256": "ce4eb8b044868fe48bb41fe5453b10fa7bbd949d8fdf2c8e31037f8b89f32fad",
+        "rgb_sha256": "cd8e71f9a048323d58475576548dc0c18d4cc8d0fe26cc0eb3af50feb26a5c07"
+      },
+      "old_roi_coordinates_cannot_be_reused_directly": true,
+      "review_rois": [
+        {
+          "target": "D30",
+          "coordinate_grid": "EMBEDDED_JPEG_PIXELS",
+          "xyxy": [
+            700,
+            560,
+            820,
+            830
+          ],
+          "file": "docs/research/TIANWEN-13GN-P76-D30-EMBEDDED-ROI.png",
+          "png_sha256": "414f42dd2f20f97926f5e38404ab1f6cbc4b663585310d20846713605d3a850b",
+          "rgb_sha256": "21d0735d4b4d0083a2ebaddfd7173d104f4621d21c8b0eebc15cc56498907acc",
+          "complete_original_literal": null,
+          "reason": "Bounded direct visual review does not establish complete source-specific field. Gutter/terminal uncertainty persists; no interpolation."
+        }
+      ]
+    }
+  ],
+  "unresolved": {
+    "old_d9": null,
+    "old_d14": null,
+    "old_d30": null,
+    "old_d30_exact_field_roi": null,
+    "physical_book": null,
+    "original_folio": null,
+    "target_copying_layer": null,
+    "historical_unit": null
+  },
+  "historical_guards": {
+    "d5": "〇/五_UNRESOLVED",
+    "g893_six": "OPEN",
+    "legacy_13ei": "RETRACTED",
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0
+  },
+  "new_original_glyphs": 0,
+  "new_physical_witnesses": 0,
+  "transmission_impact": {
+    "edges_supported": [],
+    "unresolved": [
+      "Same mirror PDF only; greater embedded pixel grid is not a second manuscript or firstparty leaf authentication."
+    ]
+  },
+  "counts": {
+    "matrix": [
+      222,
+      222
+    ],
+    "sources": 761,
+    "graph": [
+      252,
+      238
+    ],
+    "open_or_blocked": 11,
+    "product": "CLOSED"
+  }
+}

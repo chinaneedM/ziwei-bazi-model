@@ -1,0 +1,130 @@
+{
+  "schema": "ZIWEI-GEXIANG-ZHENGDE15-1520-PRE1578-TEXTUAL-WITNESS-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-GEXIANG-ZHENGDE15-1520-PRE1578-TEXTUAL-WITNESS-DC",
+  "prior_batch_id": "BATCH-12-ZIWEI-SHENDAO-ZHAOYUANDU-TIMEKEEPING-TEXTUAL-BRIDGE-DB",
+  "question": "Can a securely pre-1578 physical print witness close the Zhao/Gexiang textual gate for the 若子時則上半時... half-Zi wording without overclaiming direct copying into Sanming 1578?",
+  "answer": "YES_FOR_A_DIRECT_1520_ZHENGDE_PRINT_WITNESS_OF_THE_HUNDRED_KE_HALF_ZI_WORDING; NO_FOR_DIRECT_COPY_DIRECTION_INTO_SANMING",
+  "physical_source": {
+    "source_id": "EXT-NCL-GEXIANG-NCL06265-ZHENGDE15-1520",
+    "title": "《重刊革象新書》",
+    "provider": "中華民國國家圖書館善本影像 lineage; public surrogate via Wikimedia Commons",
+    "public_file_url": "https://commons.wikimedia.org/wiki/File:NCL-06265_%E9%87%8D%E5%88%8A%E9%9D%A9%E8%B1%A1%E6%96%B0%E6%9B%B8.pdf",
+    "source_catalog_search_url": "https://rbook.ncl.edu.tw/NCLSearch",
+    "commons_catalog_author_field": "(元)趙敬撰 (明)王禕刪定",
+    "author_metadata_firewall": "The public file metadata's 趙敬 string is recorded verbatim and is not used here to normalize the work-author identity. Zhao Youqin/Yuandu attribution remains controlled by independent textual/bibliographic evidence.",
+    "edition_metadata": "明正德庚辰(十五年)宣威公署刊本",
+    "call_number": "6265",
+    "catalog_volume_count": 1,
+    "catalog_quantity": 2,
+    "pdf_page_count": 78,
+    "source_pdf_sha256": "97b3f060e2c78229c113c4f6854cbd5fb27b95999144486a84bbeaf2d1a5e5bf",
+    "internal_dated_paratext": true,
+    "edition_impression_date": 1520,
+    "pre1578_physical_witness": true,
+    "ocr_used_for_final_glyph_claims": false
+  },
+  "acquisition": {
+    "locator_workflow_run_id": 35345078553,
+    "locator_artifact_id": 10546224557,
+    "locator_artifact_digest": "sha256:3b86af218995de4589df338dee50e8f0c05b18878db5eef723877b31f4f5d3b3",
+    "highres_workflow_run_id": 35345404531,
+    "highres_artifact_id": 10546499551,
+    "highres_artifact_digest": "sha256:50331f7591658b15ca02f2bbafc9d6f4f89aaa88bf6a3fa84791cbdfdfd7e878",
+    "render_dpi": 360
+  },
+  "direct_physical_collation": {
+    "page5": {
+      "sha256": "a46be69e41452488857bf5365310686598a93b0c514c69aeb6228ba1aaa720ba",
+      "secure_readings": [
+        "正德十五年歲次庚辰"
+      ],
+      "role": "Internal dated prefatory/parataxtual control consistent with the catalogued Zhengde-15 edition.",
+      "caution": "Only the securely visible date phrase is promoted here; the full colophon/preface line is not normalized from partial visual certainty."
+    },
+    "page36": {
+      "sha256": "159f16034b3776ff5b9c13a246bb8671352f4edca38b029018bfc95a468a95fb",
+      "secure_readings": [
+        "時分百刻",
+        "晝夜十二時均分百刻",
+        "一時有八大刻二小刻",
+        "大刻總九十六",
+        "小刻總二十四"
+      ],
+      "role": "Opening and arithmetic framework of the hundred-ke section."
+    },
+    "page37": {
+      "sha256": "908d0c1162f46090c1e57d1a4d2279b934a957db1e5fec0bb3900276c5b2bc3c",
+      "secure_readings": [
+        "若子時則上半時在夜半前屬昨日",
+        "下半時在夜半後屬今日",
+        "古曆每時以二小刻為始乃各繼以四大刻",
+        "重刊革象新書上終"
+      ],
+      "role": "Decisive half-Zi wording and volume-one ending."
+    },
+    "method": "Direct visual collation of source-bound 360-dpi renders; OCR/text layer excluded from final glyph adjudication."
+  },
+  "recension_comparison": {
+    "zhengde_1520": "若子時則上半時在夜半前屬昨日 / 下半時在夜半後屬今日",
+    "later_received_gexiang_cadal06054852": "子時之上一半在夜半前屬昨日 / 下一半在夜半後屬今日",
+    "shendao_v11": "若子時則上半時在夜半前屬昨日 / 下半時在夜半後屬今日",
+    "sanming_1578": "若子時則上半時在夜半前為昨日 / 下半時在夜半後屬今日",
+    "finding": "The 1520 Zhengde witness physically proves that the 若子時則上半時 construction existed inside the Gexiang transmission before Sanming 1578. It exactly matches the reviewed Shendao construction at this locus and differs from exact Sanming only by 屬昨日 versus 為昨日.",
+    "later_cadal_variant_significance": "The later received CADAL witness preserves a different but mechanically equivalent opening (子時之上一半...), proving recension variation within the Gexiang tradition; the later wording must not be projected backward onto all witnesses."
+  },
+  "chronology_and_stemma": {
+    "years_before_sanming_1578": 58,
+    "securely_pre1578": true,
+    "closes_batch12db_pre1578_textual_witness_gate": true,
+    "direct_gexiang_1520_to_sanming_copying_proved": false,
+    "direct_gexiang_1520_to_shendao_copying_proved": false,
+    "safe_claim": "A 1520 printed Gexiang witness supplies a physical chronological antecedent for the hundred-ke / half-Zi rule and the closer 若子時則 wording. Direction of direct copying into Shendao or Sanming remains unresolved."
+  },
+  "probe_metadata_firewall": {
+    "affected_probe_workflows": [
+      ".github/workflows/audit-gexiang-1520-zhengde-timekeeping-witness.yml",
+      ".github/workflows/audit-gexiang-1520-zhengde-target-pages.yml"
+    ],
+    "issue": "Those exploratory NLC892 workflows initially copied Pingtu 011907/011908 and Zhengde-15 edition identity into their manifests without proving cross-copy identity.",
+    "repair": "Their manifests are corrected in Batch 12DC to mark the NLC892 catalog/edition identity unresolved for that surrogate. Batch 12DC relies on NCL-06265 instead.",
+    "formal_registry_or_matrix_defect_increment": 0,
+    "rationale": "The overbinding remained inside exploratory workflow manifests and was not promoted as a durable Matrix/source-registry/graph adjudication before this correction."
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [
+      "PHYSICAL-COPY-GEXIANG-NCL06265-ZHENGDE15-1520",
+      "PASSAGE-GEXIANG-HUNDRED-KE-HALF-ZI",
+      "RULE-FAMILY-HUNDRED-KE-HALF-ZI-TEXTUAL-LINEAGE"
+    ],
+    "edges_supported": [
+      "PHYSICAL-COPY-GEXIANG-NCL06265-ZHENGDE15-1520 ATTESTS PASSAGE-GEXIANG-HUNDRED-KE-HALF-ZI",
+      "The existing Gexiang -> Sanming textual-ancestry candidate is now supported by a direct 1520 physical antecedent, while direct copying remains unproved."
+    ],
+    "unresolved_lineage_questions": [
+      "Identify the exact carrier/common source behind the Sanming 1578 and Yueling 1589 十三後 / 雨水後四日 change-day fingerprint.",
+      "Identify the pre-1578 59/41 Nanjing/Datong numeric carrier at table level.",
+      "Identify the historically attested C-II-N -> whole-ke threshold/selection rule."
+    ]
+  },
+  "product_adjudication": {
+    "hpa_zdate_006_before": "MISSING_FROM_PRODUCT",
+    "hpa_zdate_006_after": "MISSING_FROM_PRODUCT",
+    "new_runtime_candidate": false,
+    "runtime_winner_selected": false,
+    "candidate_collapsed": false,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_authorized": false,
+    "deterministic_fusion_chart_product_r1": "CLOSED"
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 12,
+    "repaired_provenance_metadata_defect_count": 12,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  }
+}

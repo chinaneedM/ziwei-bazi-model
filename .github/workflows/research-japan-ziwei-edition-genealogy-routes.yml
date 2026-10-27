@@ -1,0 +1,148 @@
+name: research-japan-ziwei-edition-genealogy-routes
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-japan-ziwei-edition-genealogy-routes.yml
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Bind SDU facsimile route, Toyo Bunko Quanji catalog, and NCKU paper object
+        shell: python
+        run: |
+          import hashlib
+          import html
+          import json
+          import re
+          import urllib.error
+          import urllib.request
+          from pathlib import Path
+
+          OUT = Path("probe")
+          OUT.mkdir()
+          UA = "Mozilla/5.0 research-only public-bibliographic-route probe"
+          URLS = {
+              "sdu_japan_volume": "https://zhyhb.sdu.edu.cn/info/1116/2247.htm",
+              "sdu_hanjihebi_mirror": "https://hanjihebi.sdu.edu.cn/info/1068/1260.htm",
+              "toyo_bunko_result": "https://www.toyo-bunko.org/open/KansekiAllQueryResult.php?ORDERBY1=&UNIT=20&andor=1&bKanjiSeiki=&iPage=4048&iTotal=86958&navizonestart=405&searchtype=keyword&sw1=",
+              "ncku_paper_pdf": "https://chinese.ncku.edu.tw/var/file/142/1142/img/4253/7502.pdf",
+          }
+
+          def fetch(url, max_bytes=25_000_000):
+              req = urllib.request.Request(url, headers={
+                  "User-Agent": UA,
+                  "Accept": "text/html,application/xhtml+xml,application/pdf,*/*;q=0.8",
+                  "Accept-Language": "zh-TW,zh;q=0.9,ja;q=0.8,en;q=0.7",
+              })
+              try:
+                  with urllib.request.urlopen(req, timeout=35) as resp:
+                      data = resp.read(max_bytes + 1)
+                      if len(data) > max_bytes:
+                          raise RuntimeError("response exceeded byte guard")
+                      return {
+                          "ok": True,
+                          "status": getattr(resp, "status", None),
+                          "final_url": resp.geturl(),
+                          "content_type": resp.headers.get("content-type"),
+                          "data": data,
+                      }
+              except urllib.error.HTTPError as exc:
+                  data = exc.read(max_bytes)
+                  return {
+                      "ok": False,
+                      "status": exc.code,
+                      "final_url": url,
+                      "content_type": exc.headers.get("content-type"),
+                      "error": repr(exc),
+                      "data": data,
+                  }
+              except Exception as exc:
+                  return {"ok": False, "final_url": url, "error": repr(exc), "data": b""}
+
+          def meta(row):
+              data = row.get("data", b"")
+              return {
+                  k: v for k, v in row.items() if k != "data"
+              } | {
+                  "bytes": len(data),
+                  "sha256": hashlib.sha256(data).hexdigest() if data else None,
+              }
+
+          def plain(data):
+              raw = data.decode("utf-8", "replace")
+              raw = re.sub(r"(?is)<script.*?</script>|<style.*?</style>", " ", raw)
+              raw = re.sub(r"(?s)<[^>]+>", " ", raw)
+              return re.sub(r"\s+", " ", html.unescape(raw)).strip()
+
+          result = {
+              "schema": "JAPAN-ZIWEI-EDITION-GENEALOGY-PUBLIC-ROUTES-R1",
+              "authentication_or_paywall_bypass_attempted": False,
+              "identifier_bruteforce_attempted": False,
+              "ocr_used": False,
+              "routes": {},
+          }
+
+          for key, url in URLS.items():
+              row = fetch(url)
+              rec = meta(row)
+              result["routes"][key] = rec
+              data = row.get("data", b"")
+              if not data:
+                  continue
+              suffix = ".pdf" if data.startswith(b"%PDF") else ".html"
+              (OUT / f"{key}{suffix}").write_bytes(data)
+              if suffix == ".html":
+                  text = plain(data)
+                  if key.startswith("sdu_"):
+                      rec["ziwei_fullbook_title_present"] = (
+                          "新鋟希夷陳先生紫微斗數全書" in text
+                          or "新鋟希夷陳先生紫微斗数全書" in text
+                      )
+                      rec["seven_juan_present"] = "七卷" in text
+                      rec["naikaku_bunko_present"] = "內閣文庫" in text or "内閣文庫" in text
+                      rec["ming_print_present"] = "明刊本" in text
+                      rec["facsimile_word_present"] = "影印" in text
+                  elif key == "toyo_bunko_result":
+                      rec["callmark_present"] = "VII-3-157" in text
+                      rec["quanji_title_present"] = "新刊希夷陳先生紫微斗數全集" in text
+                      rec["unjuan_title_present"] = "新刊希夷陳先生紫微斗數全集不分卷" in text
+                      rec["chen_tuan_present"] = "陳摶" in text or "陳搏" in text
+                      rec["bai_yuchan_present"] = "白玉蟾" in text
+                      rec["copy_label_present"] = "鈔本" in text or "寫本" in text
+
+          result["adjudication"] = {
+              "sdu_facsimile_route": "DIRECT_OFFICIAL_PROJECT_PAGE_IF_ALL_CONTROLS_TRUE",
+              "toyo_bunko_quanji_identity": "DIRECT_OFFICIAL_CATALOG_RESULT_IF_ALL_CONTROLS_TRUE",
+              "ncku_pdf_role": "DIRECT_SCHOLARLY_PDF_OBJECT_ONLY_NO_PDF_TEXT_EXTRACTION_IN_THIS_WORKFLOW",
+              "target_page_status": "NOT_OBSERVED",
+              "algorithm_effect": "NONE",
+          }
+
+          (OUT / "japan-ziwei-edition-genealogy-routes.json").write_text(
+              json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8"
+          )
+          print(json.dumps({
+              key: {
+                  k: v for k, v in rec.items()
+                  if k not in ("data",)
+              }
+              for key, rec in result["routes"].items()
+          }, ensure_ascii=False, indent=2))
+
+      - name: Upload Japan edition genealogy route evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: japan-ziwei-edition-genealogy-public-routes
+          path: probe/
+          if-no-files-found: warn
+          retention-days: 14

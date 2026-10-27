@@ -1,0 +1,123 @@
+{
+  "schema": "TIANWEN-13CQ-NCL03130-MISSING-JUAN-1904-1905-STRATA-R1",
+  "date": "2026-10-22",
+  "issue_id": "TW-OPEN-0005",
+  "previous_checkpoint": "docs/research/TIANWEN-13CP-GORYEOSA-NCL03117-03130-SURROGATE-ID-CROSSWALK-R1.json",
+  "evidence_grade": "SECONDARY_COMMONS_BIBLIOGRAPHIC_PARATEXT_AND_INDEPENDENT_UNIVERSITY_ERA_MAPPING_NOT_NATIVE_FOLIO",
+  "sources": [
+    {
+      "type": "MIRROR_TRANSCRIBED_PARATEXT",
+      "url": "https://commons.wikimedia.org/wiki/File:NCL-03130_08_%E9%AB%98%E9%BA%97%E5%8F%B2.pdf",
+      "text_fragments": [
+        "缺卷朱記于首",
+        "光緒甲辰",
+        "乙巳夏",
+        "錢塘丁君和甫"
+      ],
+      "source_class": "SECONDARY_TRANSCRIPTION_NOT_ORIGINAL_RED_MISSING_REGISTER"
+    },
+    {
+      "type": "INDEPENDENT_YEAR_EQUIVALENCE",
+      "url": "https://www.ioc.u-tokyo.ac.jp/~koreandb/nengou.htm",
+      "pairs": [
+        {
+          "era": "光緒三十年甲辰",
+          "ce": 1904
+        },
+        {
+          "era": "光緒三十一年乙巳",
+          "ce": 1905
+        }
+      ],
+      "source_class": "UNIVERSITY_ERA_CORRESPONDENCE_ONLY"
+    },
+    {
+      "type": "FIRSTPARTY_NCL_ACCESS_POLICY",
+      "url": "https://rbook.ncl.edu.tw/NCLSearch/FAQ",
+      "scope": "ACCESS_REQUIREMENTS_NOT_ITEM_IDENTITY"
+    }
+  ],
+  "provenance": {
+    "work_composition": "1451_WORK_LEVEL_ONLY",
+    "old_copy_caption": "EARLY_QING_METADATA_CLAIM_NOT_PROVEN_FOR_JUAN52",
+    "wu_original_lost_juan_red_register_location": "BOOK_FRONT_AS_REPORTED_IN_SECONDARY_TRANSCRIPTION",
+    "red_register_original_image_obtained": false,
+    "red_register_actual_juan_membership": [],
+    "work_juan_52_register_membership": "UNRESOLVED",
+    "old_copy_acquisition": "GUANGXU_JIACHEN_1904_REPORTED",
+    "ding_hefu_supplement_completion": "GUANGXU_YISI_SUMMER_1905_REPORTED",
+    "date_layer_rule": "1905_COMPLETION_NOT_EQUAL_TO_EACH_EXISTING_FOLIO_DATE",
+    "juan52_original_stratum": "UNBOUND",
+    "old_qing_exemplar_relations": "UNRESOLVED"
+  },
+  "acquisition_gate": [
+    {
+      "id": "FRONT",
+      "task": "Obtain first-party 208/03130 exact item and source-native front-of-book red missing-juan list",
+      "must_have": "SOURCE_URL_IMAGE_SHA_FOLIO_LITERAL"
+    },
+    {
+      "id": "JUAN52",
+      "task": "Determine whether 卷五十二 is in the witnessed red missing-volume list, preserving illegible/undetermined branch",
+      "must_have": "JUAN52_EXPLICIT_POSITIVE_NEGATIVE_OR_UNRESOLVED"
+    },
+    {
+      "id": "STRATA",
+      "task": "Bind exact physical folio for solar D16 to alleged early-Qing handwriting or Guangxu 1905 supplement",
+      "must_have": "EDITION_COPY_HAND_PAPER_AND_REPLACEMENT_RECORD"
+    },
+    {
+      "id": "GLYPHS",
+      "task": "Only then read source-native volume52 D15–D18 SHORT/LONG/C and SHA-bound original pixels",
+      "must_have": "SOURCE_IMAGE_AND_HEADING_TO_VALUE_ROI"
+    },
+    {
+      "id": "LINEAGE",
+      "task": "Record independent exemplar status by effective original folio stratum, not composite book-level caption",
+      "must_have": "SOURCE_SCOPED_STEMMATIC_EVIDENCE"
+    }
+  ],
+  "limits": {
+    "first_party_ncl03130_exact_item": "UNBOUND",
+    "provider_original_pdf_downloaded": false,
+    "provider_original_pdf_sha256": null,
+    "missing_register_read_directly": false,
+    "juan52_original_folio_read": false,
+    "juan52_in_missing_list": "UNRESOLVED",
+    "juan52_1905_replacement_status": "UNRESOLVED",
+    "third_independent_d16_original_witnesses": 0,
+    "original_d16_short_waseda_naj": "5.1362",
+    "derived_candidate_d16_short_not_original": "5.2362",
+    "no_adjudication_of_printed_digit": true,
+    "no_source_image_or_ocr_this_batch": true,
+    "avoid_1904_date_as_folio_copy_age": true,
+    "avoid_commons_pdf_counts_as_independent_copies": true
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Composite copy historical completion in 1905 does not confer a single date or independent stemma to any work-volume-52 leaf.",
+      "A reported front red missing-volume list is not the original list; its membership for volume52 remains unknown."
+    ],
+    "unresolved_lineage_questions": [
+      "Original book-front red missing-volume register and 208/03130 provider object",
+      "Effective date/hand of solar day16 volume52 original leaf",
+      "Independent ancestor relationship to Waseda and NAJ existing copies"
+    ]
+  },
+  "scope": {
+    "matrix_rows": 222,
+    "registered_sources": 754,
+    "graph_nodes": 252,
+    "graph_edges": 238,
+    "open_risks": 11,
+    "new_registry_rows": 0,
+    "new_graph_nodes": 0,
+    "new_graph_edges": 0,
+    "new_original_historical_witnesses": 0,
+    "algorithm_reopens": 0,
+    "product": "CLOSED"
+  }
+}

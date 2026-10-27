@@ -1,0 +1,111 @@
+name: probe-batch-12ia-r2-nlc-callnumber-index-control
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - '.github/workflows/probe-batch-12ia-r2-nlc-callnumber-index-control.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  statuses: write
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Compare known-positive 905s controls with 03368
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/batch-12ia-r2-nlc-callnumber-index-control'
+          rm -rf "$ROOT"; mkdir -p "$ROOT/raw"
+          UA='Tianwen-Provenance-Audit/1.0'
+
+          cat > "$ROOT/queries.tsv" <<'EOF'
+          target-03288	03288
+          target-sbyl03288	SBYL:03288
+          adjacent-08643	08643
+          adjacent-sbyl08643	SBYL:08643
+          disputed-03368	03368
+          disputed-sbyl03368	SBYL:03368
+          EOF
+
+          : > "$ROOT/status.tsv"
+          while IFS=$'\t' read -r key q; do
+            body=$(Q="$q" python - <<'PY'
+          import json,os
+          q=os.environ['Q']
+          print(json.dumps({
+            "q":q,"searchWay":"ANY","page_num":"1","query":q,
+            "sort":[{"_score":"DESC"}],"size":200,"facetVal":[],"exactMatch":False
+          },ensure_ascii=False,separators=(',',':')))
+          PY
+            )
+            ok=0
+            for attempt in 1 2 3; do
+              out="$ROOT/raw/$key-attempt-$attempt.json"
+              set +e
+              code=$(curl -L -sS --connect-timeout 7 --max-time 40 --retry 1 --retry-delay 2 --retry-all-errors                 -A "$UA"                 -H 'Accept: application/json, text/javascript, */*; q=0.01'                 -H 'X-Requested-With: XMLHttpRequest'                 -H 'Referer: https://meta.nlc.cn/v2/search'                 -H 'Content-Type: application/x-www-form-urlencoded; charset=UTF-8'                 --data-binary "$body" -o "$out" -w '%{http_code}'                 'https://meta.nlc.cn/v2/doSearch?hight=false')
+              rc=$?; set -e
+              bytes=0; [ -f "$out" ] && bytes=$(wc -c < "$out")
+              printf '%s\tq=%s\tattempt=%s\trc=%s\thttp=%s\tbytes=%s\n' "$key" "$q" "$attempt" "$rc" "$code" "$bytes" >> "$ROOT/status.tsv"
+              if [ "$rc" -eq 0 ] && [ "$code" = "200" ] && [ "$bytes" -gt 20 ]; then
+                cp "$out" "$ROOT/raw/$key.json"; ok=1; break
+              fi
+              sleep 1
+            done
+            [ "$ok" -eq 1 ] || printf '%s\tFINAL=NO_SUCCESSFUL_HTTP_200\n' "$key" >> "$ROOT/status.tsv"
+          done < "$ROOT/queries.tsv"
+
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          root=Path('audit/batch-12ia-r2-nlc-callnumber-index-control')
+          out=[]
+          for p in sorted((root/'raw').glob('*.json')):
+              if '-attempt-' in p.name: continue
+              out.append('### '+p.name)
+              try:o=json.loads(p.read_text('utf-8'))
+              except Exception as e:
+                  out.append('PARSE_ERROR '+repr(e)); continue
+              out.append('status='+repr(o.get('status'))+' total='+repr(o.get('total'))+' message='+repr(o.get('message')))
+              for i,row in enumerate(o.get('result') or [],1):
+                  s=row.get('_source') or {}
+                  if i<=20:
+                      out.append(str(i)+' '+json.dumps({
+                        'UID':s.get('UID'),'SYS':s.get('SYS'),'TIT':s.get('TIT'),'YEA':s.get('YEA'),
+                        'holding_count':s.get('holding_count')
+                      },ensure_ascii=False,separators=(',',':')))
+          (root/'summary.txt').write_text('\n'.join(out)+'\n',encoding='utf-8')
+          print((root/'status.tsv').read_text('utf-8'))
+          print((root/'summary.txt').read_text('utf-8')[:120000])
+          PY
+
+          find "$ROOT" -type f -size +0c -print0 | xargs -0 -r sha256sum | sort -V > "$ROOT/files.sha256"
+          printf '%s\n'             'SOURCE=National Library of China current meta.nlc.cn search API'             'PURPOSE=positive-control whether current local-call-number values 03288 and 08643 are discoverable through the same ANY search used for disputed 03368'             'KNOWN_TARGET_03288=FID070 current 905s from Batch 12HS'             'KNOWN_ADJACENT_08643=adjacent Liu Shugang copy current 905s from Batch 12HS'             'DISPUTED_03368=zero-padded form of 1959 historical target number 3368'             'NEGATIVE_POLICY=no-result is endpoint/index nonattestation only, not proof of nonexistence' > "$ROOT/manifest.txt"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12ia-r2-nlc-callnumber-index-control
+          path: audit/batch-12ia-r2-nlc-callnumber-index-control/
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Publish probe status
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.repos.createCommitStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              sha: context.sha,
+              state:'success',
+              context:'tianwen/batch-12ia-r2-probe',
+              description:'NLC 03288/08643 positive-control vs 03368 probe complete'
+            })

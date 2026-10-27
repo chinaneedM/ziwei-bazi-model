@@ -1,0 +1,103 @@
+name: probe-nlc-meta-tonghu-zhunzhai-search
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-nlc-meta-tonghu-zhunzhai-search.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Query current NLC holdings search and follow target details
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/nlc-meta-tonghu-zhunzhai-search'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT/raw" "$ROOT/text" "$ROOT/detail"
+          UA='Tianwen-Provenance-Audit/1.0'
+
+          cat > "$ROOT/queries.tsv" <<'EOF'
+          zhunzhai-trad	準齋心製几漏圖式
+          zhunzhai-simp	准斋心制几漏图式
+          tonghu-trad	銅壺漏箭制度
+          tonghu-simp	铜壶漏箭制度
+          control-id	411999008601
+          EOF
+
+          : > "$ROOT/status.tsv"
+          while IFS=$'\t' read -r key query; do
+            url=$(QUERY="$query" python - <<'PY'
+          import os
+          from urllib.parse import quote_plus
+          print('https://meta.nlc.cn/v2/search?q='+quote_plus(os.environ['QUERY'])+'&searchWay=TIT')
+          PY
+            )
+            out="$ROOT/raw/$key.html"
+            set +e
+            curl -L -sS --retry 2 --retry-all-errors --retry-delay 1               --connect-timeout 5 --max-time 20 -A "$UA"               -D "$ROOT/raw/$key.headers" "$url" -o "$out"
+            rc=$?
+            set -e
+            printf '%s\t%s\t%s\t%s\t%s\n' "$key" "$rc" "$(wc -c < "$out" 2>/dev/null || echo 0)" "$query" "$url" >> "$ROOT/status.tsv"
+          done < "$ROOT/queries.tsv"
+
+          python - <<'PY'
+          from bs4 import BeautifulSoup
+          from pathlib import Path
+          from urllib.parse import urljoin,urlparse
+          root=Path('audit/nlc-meta-tonghu-zhunzhai-search')
+          detail=[]
+          report=[]
+          for p in sorted((root/'raw').glob('*.html')):
+              s=BeautifulSoup(p.read_text('utf-8',errors='replace'),'html.parser')
+              txt='\n'.join(s.stripped_strings)
+              (root/'text'/f'{p.stem}.txt').write_text(txt+'\n',encoding='utf-8')
+              report.append('### '+p.name)
+              report.extend(list(s.stripped_strings)[:500])
+              for a in s.find_all('a',href=True):
+                  u=urljoin('https://meta.nlc.cn/',a['href'])
+                  t=a.get_text(' ',strip=True)
+                  if urlparse(u).netloc=='meta.nlc.cn' and any(x in u.lower() for x in ['detail','record','book','item','source','resource']):
+                      detail.append((p.stem,t,u))
+          (root/'search-report.txt').write_text('\n'.join(report)+'\n',encoding='utf-8')
+          seen=[]
+          for x in detail:
+              if x[2] not in [y[2] for y in seen]: seen.append(x)
+          (root/'detail-links.tsv').write_text(''.join(f'{s}\t{t}\t{u}\n' for s,t,u in seen[:30]),encoding='utf-8')
+          PY
+
+          n=0
+          if [ -s "$ROOT/detail-links.tsv" ]; then
+            while IFS=$'\t' read -r src text url; do
+              n=$((n+1))
+              [ "$n" -gt 20 ] && break
+              set +e
+              curl -L -sS --retry 1 --retry-all-errors --retry-delay 1                 --connect-timeout 5 --max-time 15 -A "$UA" "$url"                 -o "$ROOT/detail/$n.html"
+              rc=$?
+              set -e
+              printf 'detail-%s\t%s\t%s\t%s\n' "$n" "$rc" "$(wc -c < "$ROOT/detail/$n.html" 2>/dev/null || echo 0)" "$url" >> "$ROOT/status.tsv"
+            done < "$ROOT/detail-links.tsv"
+          fi
+
+          grep -RniE '准斋|準齋|铜壶|銅壺|几漏|漏箭|411999008601|001775083|002597934|03482|03483|索书号|索書號|登录号|登錄號|馆藏|館藏|善本|缩微|縮微|黄氏|黃氏|士礼居|士禮居|1823|道光三|南区善本' "$ROOT" > "$ROOT/target-hits.txt" || true
+          find "$ROOT" -type f -size +0c -print0 | xargs -0 -r sha256sum | sort -V > "$ROOT/files.sha256"
+
+          printf '%s\n'             'SOURCE=National Library of China current holdings search meta.nlc.cn'             'TARGETS=銅壺漏箭制度 ; 準齋心製几漏圖式 ; control number 411999008601'             'PURPOSE=map the legacy OPAC first-party discovery to current public records and extract any physical holding/call/accession identifiers'             'NEGATIVE_POLICY=current search nonreturn is a route/index boundary only'             'OCR_USED=false' > "$ROOT/manifest.txt"
+
+      - name: Upload current-search evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: nlc-meta-tonghu-zhunzhai-search
+          path: audit/nlc-meta-tonghu-zhunzhai-search/
+          if-no-files-found: error
+          compression-level: 6
+          retention-days: 30

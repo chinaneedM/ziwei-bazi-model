@@ -1,0 +1,504 @@
+from __future__ import annotations
+
+from dataclasses import replace
+from pathlib import Path
+from typing import Any
+
+from fortune_training.bazi_application import (
+    BaziApplicationRequest,
+    BaziApplicationResolutionError,
+    BaziChartService,
+    validate_application_resolution as validate_bazi_application_resolution,
+)
+from fortune_training.bazi_temporal import BaziSex
+from fortune_training.calendar_foundation.models import json_value
+from fortune_training.util import object_sha256
+from fortune_training.ziwei_application import (
+    ApplicationBirthRequest,
+    ApplicationResolutionError,
+    ZiweiChartService,
+    application_export,
+    validate_application_bundle,
+)
+from fortune_training.ziwei_chart import Sex, ZiweiChartFoundation, ZiweiChartRequest
+
+from .models import (
+    CombinedApplicationIntegrityReport,
+    CombinedChartApplicationRequest,
+    CombinedChartApplicationResolution,
+    CombinedSubsystemError,
+)
+from .fusion_time import (
+    build_candidate_lineage,
+    build_shared_time_credential,
+    validate_candidate_lineage,
+    validate_shared_policy_contract,
+    validate_subsystem_time_binding,
+    validate_shared_time_credential,
+)
+
+
+COMBINED_RESOLUTION_SCHEMA = "ZIWEI-BAZI-COMBINED-APPLICATION-RESOLUTION-V1"
+COMBINED_EXPORT_SCHEMA = "ZIWEI-BAZI-COMBINED-APPLICATION-EXPORT-V1"
+
+
+class CombinedApplicationResolutionError(ValueError):
+    def __init__(self, code: str, detail: str) -> None:
+        super().__init__(detail)
+        self.code = code
+        self.detail = detail
+
+
+def _error_payload(error: CombinedSubsystemError | None) -> dict[str, str] | None:
+    if error is None:
+        return None
+    return {"code": error.code, "detail": error.detail}
+
+
+def _profile_ref(profile: Any) -> dict[str, str]:
+    return {
+        "profile_id": str(profile.profile_id),
+        "profile_version": str(profile.profile_version),
+    }
+
+
+def combined_manifest_payload(
+    resolution: CombinedChartApplicationResolution,
+) -> dict[str, Any]:
+    return {
+        "manifest_schema": resolution.combined_profile.manifest_schema,
+        "birth": json_value(resolution.birth),
+        "sex": resolution.sex,
+        "combined_profile": {
+            **_profile_ref(resolution.combined_profile),
+            "algorithm_id": resolution.combined_profile.algorithm_id,
+            "algorithm_version": resolution.combined_profile.algorithm_version,
+            "composition_semantics": resolution.combined_profile.composition_semantics,
+        },
+        "profiles": {
+            "ziwei_calculation": _profile_ref(resolution.ziwei_calculation_profile),
+            "ziwei_application": _profile_ref(resolution.ziwei_application_profile),
+            "ziwei_presentation": _profile_ref(resolution.ziwei_presentation_profile),
+            "bazi_natal": _profile_ref(resolution.bazi_natal_profile),
+            "bazi_temporal": _profile_ref(resolution.bazi_temporal_profile),
+            "bazi_application": _profile_ref(resolution.bazi_application_profile),
+        },
+        "shared_time_credential": dict(resolution.shared_time_credential),
+        "candidate_lineage": dict(resolution.candidate_lineage),
+        "subsystems": {
+            "ziwei": {
+                "bundle_hash": (
+                    resolution.ziwei_bundle.bundle_hash
+                    if resolution.ziwei_bundle is not None
+                    else None
+                ),
+                "error": _error_payload(resolution.ziwei_error),
+            },
+            "bazi": {
+                "bundle_hash": (
+                    resolution.bazi_bundle.bundle_hash
+                    if resolution.bazi_bundle is not None
+                    else None
+                ),
+                "error": _error_payload(resolution.bazi_error),
+            },
+        },
+        "composition_status": resolution.status,
+    }
+
+
+def combined_manifest_hash(
+    resolution: CombinedChartApplicationResolution,
+) -> str:
+    return object_sha256(combined_manifest_payload(resolution))
+
+
+def validate_combined_resolution(
+    resolution: CombinedChartApplicationResolution,
+) -> CombinedApplicationIntegrityReport:
+    diagnostics: list[str] = []
+    try:
+        resolution.combined_profile.validate()
+        resolution.ziwei_application_profile.validate()
+        resolution.ziwei_presentation_profile.validate()
+        resolution.bazi_application_profile.validate()
+        validate_shared_policy_contract(
+            resolution.ziwei_calculation_profile,
+            resolution.bazi_natal_profile,
+        )
+    except ValueError as exc:
+        diagnostics.append(f"PROFILE_INVALID:{exc}")
+
+    diagnostics.extend(
+        validate_shared_time_credential(
+            resolution.birth,
+            dict(resolution.shared_time_credential),
+        )
+    )
+    if resolution.shared_time_credential.get("policy_registry_version") != (
+        resolution.ziwei_calculation_profile.time_calendar_policy_registry_version
+    ):
+        diagnostics.append("SHARED_TIME_PROFILE_REGISTRY_BINDING_MISMATCH")
+    expected_shared_policies = {
+        "shared_physical": {
+            "civil_ambiguous_time_policy": resolution.ziwei_calculation_profile.time_calendar_policies.civil_ambiguous_time_policy,
+            "time_coordinate_policy": "LOCAL_APPARENT_SOLAR",
+        },
+        "ziwei": {
+            "calendar_date_policy": resolution.ziwei_calculation_profile.time_calendar_policies.ziwei_calendar_date_policy,
+            "life_body_leap_month_policy": resolution.ziwei_calculation_profile.time_calendar_policies.ziwei_life_body_leap_month_policy,
+            "day_boundary_policy": resolution.ziwei_calculation_profile.ziwei_day_boundary_policy,
+        },
+        "bazi": json_value(resolution.bazi_natal_profile.time_calendar_policies),
+    }
+    if resolution.shared_time_credential.get("selected_policies") != expected_shared_policies:
+        diagnostics.append("SHARED_TIME_SELECTED_POLICIES_BINDING_MISMATCH")
+
+    if resolution.sex not in {"MALE", "FEMALE"}:
+        diagnostics.append("SHARED_SEX_INVALID")
+
+    if resolution.ziwei_bundle is not None:
+        try:
+            validate_application_bundle(resolution.ziwei_bundle)
+        except (ApplicationResolutionError, ValueError) as exc:
+            diagnostics.append(f"ZIWEI_BUNDLE_REPLAY_FAILED:{exc}")
+        if resolution.ziwei_error is not None:
+            diagnostics.append("ZIWEI_BUNDLE_AND_ERROR_BOTH_PRESENT")
+        if resolution.ziwei_bundle.calculation_profile != resolution.ziwei_calculation_profile:
+            diagnostics.append("ZIWEI_CALCULATION_PROFILE_BINDING_MISMATCH")
+        if resolution.ziwei_bundle.application_profile != resolution.ziwei_application_profile:
+            diagnostics.append("ZIWEI_APPLICATION_PROFILE_BINDING_MISMATCH")
+        if resolution.ziwei_bundle.presentation_profile != resolution.ziwei_presentation_profile:
+            diagnostics.append("ZIWEI_PRESENTATION_PROFILE_BINDING_MISMATCH")
+    elif resolution.ziwei_error is None:
+        diagnostics.append("ZIWEI_RESULT_MISSING")
+
+    if resolution.bazi_bundle is not None:
+        report = validate_bazi_application_resolution(resolution.bazi_bundle)
+        if report.status != "PASS":
+            diagnostics.append(
+                "BAZI_BUNDLE_REPLAY_FAILED:" + ";".join(report.diagnostics)
+            )
+        if resolution.bazi_error is not None:
+            diagnostics.append("BAZI_BUNDLE_AND_ERROR_BOTH_PRESENT")
+        if resolution.bazi_bundle.natal_profile != resolution.bazi_natal_profile:
+            diagnostics.append("BAZI_NATAL_PROFILE_BINDING_MISMATCH")
+        if resolution.bazi_bundle.temporal_profile != resolution.bazi_temporal_profile:
+            diagnostics.append("BAZI_TEMPORAL_PROFILE_BINDING_MISMATCH")
+        if resolution.bazi_bundle.application_profile != resolution.bazi_application_profile:
+            diagnostics.append("BAZI_APPLICATION_PROFILE_BINDING_MISMATCH")
+        if resolution.bazi_bundle.birth != resolution.birth:
+            diagnostics.append("BAZI_SHARED_BIRTH_BINDING_MISMATCH")
+        if resolution.bazi_bundle.sex.value != resolution.sex:
+            diagnostics.append("BAZI_SHARED_SEX_BINDING_MISMATCH")
+    elif resolution.bazi_error is None:
+        diagnostics.append("BAZI_RESULT_MISSING")
+
+    diagnostics.extend(
+        validate_candidate_lineage(
+            dict(resolution.shared_time_credential),
+            dict(resolution.candidate_lineage),
+            resolution.ziwei_bundle,
+            resolution.bazi_bundle,
+            ziwei_error_code=(
+                resolution.ziwei_error.code
+                if resolution.ziwei_error is not None
+                else None
+            ),
+        )
+    )
+    diagnostics.extend(
+        validate_subsystem_time_binding(
+            dict(resolution.shared_time_credential),
+            resolution.ziwei_bundle,
+            resolution.bazi_bundle,
+        )
+    )
+
+    present_count = int(resolution.ziwei_bundle is not None) + int(
+        resolution.bazi_bundle is not None
+    )
+    if present_count == 0 and resolution.status != "FAILED":
+        diagnostics.append("COMPOSITION_STATUS_MISMATCH")
+    if present_count == 1 and resolution.status != "PARTIAL":
+        diagnostics.append("COMPOSITION_STATUS_MISMATCH")
+    if present_count == 2 and resolution.status not in {
+        "RESOLVED_BOTH",
+        "UNCERTAINTY_PRESENT",
+    }:
+        diagnostics.append("COMPOSITION_STATUS_MISMATCH")
+
+    if resolution.manifest_hash != combined_manifest_hash(resolution):
+        diagnostics.append("COMBINED_MANIFEST_HASH_MISMATCH")
+
+    return CombinedApplicationIntegrityReport(
+        status="PASS" if not diagnostics else "FAIL",
+        diagnostics=tuple(diagnostics),
+    )
+
+
+class CombinedChartService:
+    def __init__(
+        self,
+        ziwei_foundation: ZiweiChartFoundation,
+        bazi_service: BaziChartService,
+    ) -> None:
+        self.ziwei_foundation = ziwei_foundation
+        self.bazi_service = bazi_service
+
+    @classmethod
+    def from_repository(cls, repository_root: Path) -> "CombinedChartService":
+        return cls(
+            ZiweiChartFoundation.from_repository(repository_root),
+            BaziChartService.from_repository(repository_root),
+        )
+
+    @staticmethod
+    def _normalize_sex(value: str) -> str:
+        normalized = value.strip().upper()
+        aliases = {"男": "MALE", "女": "FEMALE", "M": "MALE", "F": "FEMALE"}
+        normalized = aliases.get(normalized, normalized)
+        if normalized not in {"MALE", "FEMALE"}:
+            raise CombinedApplicationResolutionError(
+                "COMBINED_INVALID_SEX",
+                "sex must be MALE or FEMALE",
+            )
+        return normalized
+
+    def resolve(
+        self,
+        request: CombinedChartApplicationRequest,
+    ) -> CombinedChartApplicationResolution:
+        request.combined_profile.validate()
+        request.ziwei_application_profile.validate()
+        request.ziwei_presentation_profile.validate()
+        request.bazi_application_profile.validate()
+        try:
+            validate_shared_policy_contract(
+                request.ziwei_calculation_profile,
+                request.bazi_natal_profile,
+            )
+        except ValueError as exc:
+            raise CombinedApplicationResolutionError(
+                "COMBINED_SHARED_TIME_POLICY_MISMATCH",
+                str(exc),
+            ) from exc
+        sex = self._normalize_sex(request.sex)
+        if request.ziwei_daxian_count < 1 or request.ziwei_daxian_count > 20:
+            raise CombinedApplicationResolutionError(
+                "COMBINED_INVALID_ZIWEI_DAXIAN_COUNT",
+                str(request.ziwei_daxian_count),
+            )
+        if request.bazi_dayun_count < 1 or request.bazi_dayun_count > 20:
+            raise CombinedApplicationResolutionError(
+                "COMBINED_INVALID_BAZI_DAYUN_COUNT",
+                str(request.bazi_dayun_count),
+            )
+
+        ziwei_time_result = self.ziwei_foundation.time_calendar.resolve(
+            request.birth,
+            request.ziwei_calculation_profile.time_calendar_policies,
+        )
+        bazi_time_result = self.ziwei_foundation.time_calendar.resolve_bazi(
+            request.birth,
+            request.bazi_natal_profile.time_calendar_policies,
+        )
+        shared_time_credential = build_shared_time_credential(
+            request.birth,
+            ziwei_time_result,
+            bazi_time_result,
+            ziwei_day_boundary_policy=(
+                request.ziwei_calculation_profile.ziwei_day_boundary_policy
+            ),
+        )
+
+        ziwei_bundle = None
+        ziwei_error = None
+        ziwei_fact_hash_by_branch: dict[int, str] | None = None
+        try:
+            ziwei_service = ZiweiChartService(
+                self.ziwei_foundation,
+                request.ziwei_application_profile,
+            )
+            ziwei_bundle = ziwei_service.resolve(
+                ApplicationBirthRequest(
+                    birth=request.birth,
+                    sex=Sex(sex),
+                    calculation_profile=request.ziwei_calculation_profile,
+                    presentation_profile=request.ziwei_presentation_profile,
+                    daxian_frame_id=request.ziwei_daxian_frame_id,
+                    annual_year=request.ziwei_annual_year,
+                    lunar_month=request.ziwei_lunar_month,
+                    minor_limit_age=request.ziwei_minor_limit_age,
+                    daxian_count=request.ziwei_daxian_count,
+                )
+            )
+            validate_application_bundle(ziwei_bundle)
+        except (ApplicationResolutionError, ValueError) as exc:
+            error_code = str(
+                getattr(exc, "diagnostic_code", None)
+                or "COMBINED_ZIWEI_RESOLUTION_FAILED"
+            )
+            ziwei_error = CombinedSubsystemError(
+                code=error_code,
+                detail=str(exc),
+            )
+            ziwei_bundle = None
+            if error_code == "APPLICATION_UNIQUE_NATAL_CANDIDATE_REQUIRED":
+                replay = self.ziwei_foundation.resolve_typed(
+                    ZiweiChartRequest(
+                        birth=request.birth,
+                        sex=Sex(sex),
+                        profile=request.ziwei_calculation_profile,
+                    )
+                )
+                time_binding_matches = replay.time_calendar == ziwei_time_result
+                if not time_binding_matches:
+                    raise CombinedApplicationResolutionError(
+                        "COMBINED_ZIWEI_MULTI_CANDIDATE_REPLAY_MISMATCH",
+                        (
+                            f"status={replay.status} candidates={len(replay.candidates)} "
+                            f"time_binding={time_binding_matches}"
+                        ),
+                    ) from exc
+                if replay.status == "MULTI_CANDIDATE" and len(replay.candidates) >= 2:
+                    ziwei_fact_hash_by_branch = {}
+                    for candidate in replay.candidates:
+                        for branch_index in candidate.branch_indices:
+                            existing = ziwei_fact_hash_by_branch.get(branch_index)
+                            if (
+                                existing is not None
+                                and existing != candidate.hashes.fact_hash
+                            ):
+                                raise CombinedApplicationResolutionError(
+                                    "COMBINED_ZIWEI_BRANCH_FACT_HASH_CONFLICT",
+                                    str(branch_index),
+                                ) from exc
+                            ziwei_fact_hash_by_branch[branch_index] = (
+                                candidate.hashes.fact_hash
+                            )
+                elif (
+                    replay.status == "FAILED"
+                    and not replay.candidates
+                    and replay.diagnostics == ("TIME_CALENDAR_UNRESOLVED",)
+                    and not ziwei_time_result.get("branches")
+                ):
+                    ziwei_error = CombinedSubsystemError(
+                        code="COMBINED_ZIWEI_TIME_CALENDAR_UNRESOLVED",
+                        detail=str(exc),
+                    )
+                else:
+                    raise CombinedApplicationResolutionError(
+                        "COMBINED_ZIWEI_MULTI_CANDIDATE_REPLAY_MISMATCH",
+                        (
+                            f"status={replay.status} candidates={len(replay.candidates)} "
+                            f"time_binding={time_binding_matches}"
+                        ),
+                    ) from exc
+
+        bazi_bundle = None
+        bazi_error = None
+        try:
+            bazi_bundle = self.bazi_service.resolve(
+                BaziApplicationRequest(
+                    birth=request.birth,
+                    sex=BaziSex(sex),
+                    natal_profile=request.bazi_natal_profile,
+                    temporal_profile=request.bazi_temporal_profile,
+                    application_profile=request.bazi_application_profile,
+                    dayun_count=request.bazi_dayun_count,
+                )
+            )
+            report = validate_bazi_application_resolution(bazi_bundle)
+            if report.status != "PASS":
+                raise BaziApplicationResolutionError(
+                    "COMBINED_BAZI_BUNDLE_REPLAY_FAILED",
+                    ";".join(report.diagnostics),
+                )
+        except (BaziApplicationResolutionError, ValueError) as exc:
+            bazi_error = CombinedSubsystemError(
+                code=str(
+                    getattr(exc, "code", None)
+                    or "COMBINED_BAZI_RESOLUTION_FAILED"
+                ),
+                detail=str(exc),
+            )
+            bazi_bundle = None
+
+        if ziwei_bundle is None and bazi_bundle is None:
+            status = "FAILED"
+        elif ziwei_bundle is None or bazi_bundle is None:
+            status = "PARTIAL"
+        else:
+            uncertainty = (
+                ziwei_bundle.resolution_status != "RESOLVED"
+                or bazi_bundle.status != "RESOLVED"
+            )
+            status = "UNCERTAINTY_PRESENT" if uncertainty else "RESOLVED_BOTH"
+
+        candidate_lineage = build_candidate_lineage(
+            shared_time_credential,
+            ziwei_bundle,
+            bazi_bundle,
+            ziwei_fact_hash_by_branch=ziwei_fact_hash_by_branch,
+        )
+        resolution = CombinedChartApplicationResolution(
+            schema=COMBINED_RESOLUTION_SCHEMA,
+            status=status,
+            birth=request.birth,
+            sex=sex,
+            combined_profile=request.combined_profile,
+            ziwei_calculation_profile=request.ziwei_calculation_profile,
+            ziwei_application_profile=request.ziwei_application_profile,
+            ziwei_presentation_profile=request.ziwei_presentation_profile,
+            bazi_natal_profile=request.bazi_natal_profile,
+            bazi_temporal_profile=request.bazi_temporal_profile,
+            bazi_application_profile=request.bazi_application_profile,
+            ziwei_bundle=ziwei_bundle,
+            bazi_bundle=bazi_bundle,
+            ziwei_error=ziwei_error,
+            bazi_error=bazi_error,
+            shared_time_credential=shared_time_credential,
+            candidate_lineage=candidate_lineage,
+            manifest_hash="PENDING",
+            integrity=CombinedApplicationIntegrityReport(
+                status="PENDING",
+                diagnostics=(),
+            ),
+        )
+        resolution = replace(
+            resolution,
+            manifest_hash=combined_manifest_hash(resolution),
+        )
+        report = validate_combined_resolution(resolution)
+        if report.status != "PASS":
+            raise CombinedApplicationResolutionError(
+                "COMBINED_BUNDLE_INTEGRITY_FAILED",
+                ";".join(report.diagnostics),
+            )
+        return replace(resolution, integrity=report)
+
+    def export(self, resolution: CombinedChartApplicationResolution) -> dict[str, Any]:
+        report = validate_combined_resolution(resolution)
+        if report.status != "PASS":
+            raise CombinedApplicationResolutionError(
+                "COMBINED_EXPORT_INTEGRITY_FAILED",
+                ";".join(report.diagnostics),
+            )
+        return {
+            "schema": COMBINED_EXPORT_SCHEMA,
+            "manifest": {
+                **combined_manifest_payload(resolution),
+                "manifest_hash": resolution.manifest_hash,
+            },
+            "ziwei_export": (
+                application_export(resolution.ziwei_bundle)
+                if resolution.ziwei_bundle is not None
+                else None
+            ),
+            "bazi_export": (
+                json_value(resolution.bazi_bundle)
+                if resolution.bazi_bundle is not None
+                else None
+            ),
+        }

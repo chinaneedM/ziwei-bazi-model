@@ -1,0 +1,139 @@
+{
+  "schema": "ZIWEI-WENWU-SERIAL-RENAME-CROSSWALK-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-WENWU-SERIAL-RENAME-CROSSWALK-LA",
+  "prior_batch_id": "BATCH-12-ZIWEI-NCPSSD-ZHAO-DETAIL-SCALAR-INVENTORY-KZ",
+  "question": "Do authoritative public serial-history witnesses explicitly establish that the 1950-1958 historical periodical 《文物参考资料/文物参攷資料》 was renamed to the successor title 《文物》 from January 1959?",
+  "answer": "Yes. CiNii NCID AA11467834 records 《文物参攷資料》 for 1950.1-1958.12, including 1951 volume 2 issues 1-12, and marks an after-rename/continues-by relation. CiNii NCID AN00060837 records 《文物》 from 1959.1, starting with 总101号, marks a before-rename/continues relation, carries ISSN 05114772, and shares Bibliographic History ID 41870900 with the predecessor record. Independently, the official 文物出版社 development-history page states that in January 1959 《文物参考资料》月刊 was renamed 《文物》月刊. Therefore the carrier-title crosswalk is closed as a serial rename. For a 1951 citation the historical carrier title remains 《文物参考资料》; current federated-database label 文物 may be annotated as a successor/current normalized title for the same serial chain, not treated as a distinct 1951 journal.",
+  "controlling_probe": {
+    "workflow": ".github/workflows/probe-batch-12la-wenwu-serial-rename-crosswalk.yml",
+    "exact_head": "9b0e7cf5cf1b4c8bcc361e70235da88120838f10",
+    "workflow_run_id": 36870949644,
+    "workflow_job_id": 110398272473,
+    "artifact_id": 11166419064,
+    "artifact_name": "batch-12la-wenwu-serial-rename-crosswalk",
+    "artifact_digest": "sha256:9418133824dc8378982fcbffb0ebc28a222fabd12e35a8c81ae50223283b27ea"
+  },
+  "sources": {
+    "cinii_predecessor": {
+      "provider": "CiNii / 国立情報学研究所",
+      "url": "https://ci.nii.ac.jp/ncid/AA11467834",
+      "ncid": "AA11467834",
+      "title": "文物参攷資料",
+      "variant_title": "文物参考資料",
+      "publication_span": "1950.1-1958.12",
+      "numbering_1951": "2巻1期 (1951.1)-2巻12期 (1951.12)",
+      "relation_marker": "After Rename / Continues by",
+      "bibliographic_history_id": "41870900",
+      "http_status": 200,
+      "bytes": 95301,
+      "sha256": "ec99a21db468b7d98eb4ad1f13b91db0fecf97b346ad19d69877d95b5c62aef3"
+    },
+    "cinii_successor": {
+      "provider": "CiNii / 国立情報学研究所",
+      "url": "https://ci.nii.ac.jp/ncid/AN00060837",
+      "ncid": "AN00060837",
+      "title": "文物",
+      "publication_span": "1959.1-",
+      "numbering_start": "1959年1期 (1959.1)- = 总101号 (1959.1)-",
+      "relation_marker": "Before Rename / Continues",
+      "issn": "05114772",
+      "bibliographic_history_id": "41870900",
+      "http_status": 200,
+      "bytes": 277352,
+      "sha256": "2a6ae5f22acf8e90b89f23b00462d885ce880871f90ceca4ecca99421b4c6100"
+    },
+    "publisher_history": {
+      "provider": "文物出版社有限公司",
+      "url": "https://www.zgwwcbcm.com/fzlc",
+      "statement": "1959年1月，《文物参考资料》月刊改名为《文物》月刊。",
+      "http_status": 200,
+      "bytes": 314660,
+      "sha256": "eb0f20c18bc9da4bd5afef5660c0afe071394406cbb40c308ca70f6056d1066a"
+    }
+  },
+  "crosswalk": {
+    "historical_title_1950_1958": "文物参考资料",
+    "historical_cinii_display": "文物参攷資料",
+    "successor_title_from_1959": "文物",
+    "rename_effective": "1959-01",
+    "same_serial_history": true,
+    "cinii_bibliographic_history_id": "41870900",
+    "historical_1951_article_citation_title": "文物参考资料",
+    "modern_federated_label": "文物",
+    "modern_label_interpretation": "SUCCESSOR_CURRENT_NORMALIZED_TITLE_IN_SAME_SERIAL_CHAIN",
+    "silent_retroactive_renaming_for_historical_citation_forbidden": true
+  },
+  "relation_to_zhao_1951": {
+    "article": "永樂大典展覽的意義——一九五一年八月北京圖書舘舉辦",
+    "author": "趙萬里",
+    "year": 1951,
+    "issue": 9,
+    "pages": "221-233",
+    "ncpssd_wenjin_label": "文物",
+    "nlc_review_historical_label": "文物参考资料",
+    "carrier_label_tension_status": "RESOLVED_AS_SERIAL_RENAME_AND_MODERN_NORMALIZATION_CROSSWALK",
+    "direct_1951_pages_reviewed": false,
+    "wenhui_1951_08_18_relation": "UNRESOLVED",
+    "newspaper_to_periodical_reprint_edge_authorized": false
+  },
+  "adjudication": {
+    "cinii_predecessor_identity_closed": true,
+    "cinii_successor_identity_closed": true,
+    "same_cinii_bibliographic_history_id": true,
+    "official_publisher_rename_statement_observed": true,
+    "rename_crosswalk_closed": true,
+    "carrier_identity_tension_closed": true,
+    "direct_1951_page_text_increment": 0,
+    "newspaper_periodical_relation_resolved": false
+  },
+  "evidence_firewall": {
+    "rename_relation_does_not_prove_textual_identity_between_editions_or_carriers": true,
+    "rename_relation_does_not_prove_newspaper_to_periodical_reprint_relation": true,
+    "1951_historical_citation_must_not_be_retroactively_labeled_only_as_wenwu": true,
+    "current_database_label_does_not_replace_original_issue_title": true,
+    "direct_1951_pages_still_not_reviewed": true
+  },
+  "security": {
+    "anonymous_get_only": true,
+    "reader_account_used": false,
+    "registration_used": false,
+    "state_changing_request_used": false,
+    "private_endpoint_guessed": false,
+    "captcha_bypass_used": false,
+    "tls_verification_disabled": false
+  },
+  "transmission_impact": {
+    "status": "NONE_BIBLIOGRAPHIC_SERIAL_RENAME_CROSSWALK",
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": [],
+    "reason": "Serial-title identity is clarified, but no historical rule/text transmission edge is added."
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Return to direct primary-text acquisition: recover lawful public page images or direct text for 《文物参考资料》1951 volume 2 issue 9 pp.221-233 if any official/open route exists.",
+    "In parallel, continue the direct 1951-08-18 Shanghai 《文汇报》 page route and 2011 《赵万里文集》第1卷 p.197 route; do not infer a reprint relation until direct text is compared.",
+    "Do not follow NCPSsd pdf/read/download/login routes merely because metadata exposes a pdfurl."
+  ],
+  "updated_at": "2026-10-01"
+}

@@ -1,0 +1,274 @@
+{
+  "schema": "ZIWEI-JI-SHUYING-2009-GOOGLE-BOOKS-PAGE-NUMBERED-SNIPPET-ANCHORS-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-JI-SHUYING-2009-GOOGLE-BOOKS-PAGE-NUMBERED-SNIPPET-ANCHORS-IX",
+  "prior_batch_id": "BATCH-12-ZIWEI-JI-SHUYING-2009-STANFORD-EXACT-RECORD-ACCESS-BOUNDARY-IW",
+  "question": "Can the exact 2009 Ji Shuying volume's Google Books public object provide direct page-numbered TOC and in-book snippets sufficient to resolve Chapter 9 and adjacent Chapter 10/11 pagination without interpolation or full-book download?",
+  "answer": "Yes. The exact ISBN public page source-emits Google Books object k4MzlCiOPIcC and an in-book q= search contract. Page-numbered TOC snippets directly place Chapter 9 at p.133, Chapter 10 at p.163, Chapter 11 at p.179 and Chapter 12 at p.189. In-book snippets directly show Chapter-9 material through p.162, including Qu-family names and the three-batch sale/donation narrative, so Chapter 9 is directly closed as pp.133-162. Chapter 10 starts directly at p.163 and is textually observed at least through p.171; its structural interval is [163,179), but p.178 content is not directly reviewed. Chapter 11 starts at p.179 and has direct content at p.188, while Chapter 12 starts p.189, directly closing Chapter 11 as pp.179-188. No full ebook or full-page image corpus was downloaded or archived.",
+  "controlling_probe": {
+    "commit_sha": "3aa0d43d9c5bef848520e2a6c39605a323015a86",
+    "workflow_run_id": 36743418611,
+    "workflow_job_id": 109983419614,
+    "artifacts": {
+      "public_html": {
+        "artifact_id": 11111496279,
+        "digest": "sha256:15772fbd315d9cd739ffbb892c4f701d6fdbe27af18258e7ee2e7c5352b8555f"
+      },
+      "source_emitted_followup": {
+        "artifact_id": 11111771034,
+        "digest": "sha256:1162c1f03ef67fd11b9f6ab802a0655991991249d0aebba1fe41912ca710ea34"
+      },
+      "targeted_inbook_search": {
+        "artifact_id": 11111581167,
+        "digest": "sha256:01196e9f08189e7efe5517df348a12adac93aa586f563d7cadaf32656bf190a9"
+      }
+    }
+  },
+  "exact_edition": {
+    "title": "冀淑英古籍善本十五讲",
+    "author": "冀淑英",
+    "illustrator": "李文洁",
+    "publisher": "国家图书馆出版社",
+    "publication_year": 2009,
+    "isbn_13": "9787501340637",
+    "extent_pages": 241
+  },
+  "google_books_objects": {
+    "primary": {
+      "object_id": "k4MzlCiOPIcC",
+      "url": "https://books.google.com/books?id=k4MzlCiOPIcC",
+      "source_display": "加利福尼亚大学",
+      "digitization_date_display": "2022-04-18",
+      "exact_isbn_bound": true,
+      "extent_pages": 241,
+      "ebook_available": false
+    },
+    "source_emitted_other_version": {
+      "object_id": "8vHm2Qj1JO8C",
+      "url": "https://books.google.com/books?id=8vHm2Qj1JO8C",
+      "source_display": "伊利诺伊大学厄巴纳-尚佩恩分校",
+      "digitization_date_display": "2025-07-16",
+      "exact_isbn_bound": true,
+      "extent_pages": 241,
+      "ebook_available": false
+    }
+  },
+  "page_numbered_toc_direct": {
+    "chapter_8": {
+      "title": "快雪堂分馆与杨守敬藏书",
+      "start_page": 119
+    },
+    "chapter_9": {
+      "title": "铁琴铜剑楼藏书的收购入藏",
+      "start_page": 133
+    },
+    "chapter_10": {
+      "title": "吴梅、朱偰、赵元方的捐赠",
+      "start_page": 163
+    },
+    "chapter_11": {
+      "title": "涵芬楼藏书",
+      "start_page": 179
+    },
+    "chapter_12": {
+      "title": "周叔弢先生与北京图书馆的深厚渊源",
+      "start_page": 189
+    },
+    "chapter_13": {
+      "title": "潘氏宝礼堂",
+      "start_page": 201
+    },
+    "chapter_14": {
+      "title": "刘少山等藏书家的捐赠",
+      "start_page": 209
+    },
+    "chapter_15": {
+      "title": "邢之襄、陈清华先生的捐书",
+      "start_page": 223
+    },
+    "postscript": {
+      "start_page": 239
+    }
+  },
+  "chapter_9_direct_page_controls": {
+    "exact_title_query": {
+      "result_count": 2,
+      "page_hits": [
+        133
+      ]
+    },
+    "tieqin_query": {
+      "result_count": 20,
+      "page_hits": [
+        133,
+        134,
+        138
+      ]
+    },
+    "qu_jicang_query": {
+      "result_count": 3,
+      "page_hits": [
+        134,
+        138,
+        140
+      ]
+    },
+    "qu_fengqi_query": {
+      "result_count": 5,
+      "page_hits": [
+        138,
+        140,
+        162
+      ]
+    },
+    "qu_xuchu_query": {
+      "result_count": 1,
+      "page_hits": [
+        134
+      ]
+    },
+    "donation_query_first_displayed_hits": [
+      139,
+      191,
+      238
+    ],
+    "p139_facts": [
+      "three sale batches described",
+      "sale accompanied by donation batches"
+    ],
+    "p140_facts": [
+      "first sale batch count 304",
+      "accompanying donation count 52"
+    ],
+    "p162_chapter9_content_observed": true,
+    "exact_printed_span": {
+      "start_page": 133,
+      "end_page": 162,
+      "status": "DIRECTLY_CLOSED"
+    }
+  },
+  "adjacent_chapter_controls": {
+    "chapter_10": {
+      "start_page": 163,
+      "exact_title_query_page_hits": [
+        163
+      ],
+      "wu_mei_page_hits": [
+        163,
+        164,
+        165
+      ],
+      "zhu_xie_page_hits": [
+        165
+      ],
+      "zhao_yuanfang_page_hits": [
+        20,
+        171
+      ],
+      "next_chapter_start_page": 179,
+      "structural_interval": "[163,179)",
+      "direct_end_page_content_reviewed": false,
+      "exact_start_status": "DIRECTLY_CLOSED"
+    },
+    "chapter_11": {
+      "start_page": 179,
+      "exact_title_query_page_hits": [
+        179
+      ],
+      "hanfenlou_page_hits": [
+        179,
+        186,
+        188
+      ],
+      "next_chapter_start_page": 189,
+      "exact_printed_span": {
+        "start_page": 179,
+        "end_page": 188,
+        "status": "DIRECTLY_CLOSED"
+      }
+    },
+    "chapter_12": {
+      "start_page": 189,
+      "status": "DIRECT_TOC_START_PAGE"
+    }
+  },
+  "access_contract": {
+    "exact_isbn_vid_url": "https://books.google.com/books?vid=ISBN9787501340637",
+    "source_emitted_html_text": true,
+    "source_emitted_primary_book_id": true,
+    "source_emitted_other_version_id": true,
+    "source_emitted_q_search_contract": true,
+    "guessed_book_id_used": false,
+    "guessed_endpoint_used": false
+  },
+  "evidence_firewall": {
+    "page_numbered_snippet_is_not_full_book_download": true,
+    "whole_book_acquired": false,
+    "page_image_corpus_acquired": false,
+    "raw_book_body_archived": false,
+    "google_object_is_not_local_university_repository_object": true,
+    "query_nonmatch_is_not_global_text_absence": true,
+    "chapter10_p178_direct_content_claim_authorized": false,
+    "interpolation_used_for_chapter9": false
+  },
+  "pagination_adjudication": {
+    "chapter_9_exact_page_range": "133-162",
+    "chapter_9_exact_range_status": "DIRECTLY_CLOSED",
+    "chapter_10_start_page": 163,
+    "chapter_10_start_status": "DIRECTLY_CLOSED",
+    "chapter_10_structural_interval": "[163,179)",
+    "chapter_10_end_page_directly_reviewed": false,
+    "chapter_11_exact_page_range": "179-188",
+    "chapter_11_exact_range_status": "DIRECTLY_CLOSED",
+    "chapter_12_start_page": 189,
+    "anti_interpolation_firewall_preserved": true
+  },
+  "direct_text_increment": {
+    "chapter_9_page_numbered_snippet_witness_increment": 1,
+    "chapter_9_full_page_image_increment": 0,
+    "full_book_text_increment": 0
+  },
+  "security": {
+    "login_used": false,
+    "account_action_used": false,
+    "copy_request_used": false,
+    "payment_used": false,
+    "captcha_bypass_used": false,
+    "tls_verification_disabled": false,
+    "access_control_bypass_used": false
+  },
+  "transmission_impact": {
+    "status": "NONE",
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": [],
+    "reason": "Modern page-numbered access/pagination evidence upgrade; no historical transmission topology change."
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Use the now page-bound Chapter 9 snippets to collate the 1950/1953 three-batch Tieqin transaction chronology against existing direct and secondary source chains; do not infer item-level accession identity from collection narrative alone.",
+    "Do not repeat Chapter 9/10/11 page-number discovery unless the Google Books object state changes; pagination is now sufficiently closed for the audit purpose.",
+    "Continue lawful direct/public recovery of 2011 《赵万里文集》第1卷 p.197.",
+    "Continue authoritative/open-object recovery of wwck195109.pdf or an equivalent provenance-bound 1951 issue-9 scan and collate pp.221-233."
+  ],
+  "updated_at": "2026-10-01"
+}

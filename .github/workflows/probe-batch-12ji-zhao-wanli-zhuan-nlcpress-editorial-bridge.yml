@@ -1,0 +1,161 @@
+name: probe-batch-12ji-zhao-wanli-zhuan-nlcpress-editorial-bridge
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12ji-zhao-wanli-zhuan-nlcpress-editorial-bridge.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inspect NLC Press Product 11443 public Booktext boundary
+        run: |
+          python - <<'PY'
+          import hashlib, html, json, re
+          from html.parser import HTMLParser
+          from pathlib import Path
+          import requests
+
+          URL="https://www.nlcpress.com/ProductView.aspx?Id=11443"
+          TITLE="赵万里传"
+          ISBN="9787501371655"
+          UA="Mozilla/5.0 (Tianwen provenance audit; public Zhao Wanli biography editorial-bridge probe)"
+          MAX_BYTES=8192
+
+          class Parser(HTMLParser):
+              def __init__(self):
+                  super().__init__(convert_charrefs=True)
+                  self.hidden={}
+                  self.anchors=[]
+              def handle_starttag(self,tag,attrs):
+                  d={str(k):("" if v is None else str(v)) for k,v in attrs}
+                  if tag.lower()=="input" and d.get("type","").lower()=="hidden" and d.get("name"):
+                      self.hidden[d["name"]]=d.get("value","")
+                  if tag.lower()=="a":
+                      self.anchors.append(d)
+
+          def clean(raw):
+              raw=re.sub(r'<script\\b.*?</script>',' ',raw,flags=re.I|re.S)
+              raw=re.sub(r'<style\\b.*?</style>',' ',raw,flags=re.I|re.S)
+              raw=re.sub(r'<[^>]+>',' ',raw)
+              return re.sub(r'\\s+',' ',html.unescape(raw)).strip()
+
+          def flags(txt):
+              compact=re.sub(r'[-\\s]','',txt)
+              return {
+                  "title_present": TITLE in txt,
+                  "isbn_present": ISBN in compact,
+                  "author_liu_bo_present": "刘波" in txt or "劉波" in txt,
+                  "wenji_editorial_team_term": "赵万里文集" in txt or "趙萬里文集" in txt,
+                  "donation_chapter_term": "劝导藏家捐赠图书" in txt or "勸導藏家捐贈圖書" in txt,
+                  "purchase_chapter_term": "大举购入善本古籍" in txt or "大舉購入善本古籍" in txt,
+                  "qu_jicang": "瞿济苍" in txt or "瞿濟蒼" in txt,
+                  "qu_fengqi": "瞿凤起" in txt or "瞿鳳起" in txt,
+                  "qu_xuchu": "瞿旭初" in txt,
+                  "sixty_two_titles": "六十二种" in txt or "六十二種" in txt,
+                  "zuozhuan": "春秋左传注疏" in txt or "春秋左傳注疏" in txt,
+                  "ding_huikang": "丁惠康" in txt,
+                  "dongjia_zaji": "东家杂记" in txt or "東家雜記" in txt,
+                  "taiping_yuefu": "太平乐府" in txt or "太平樂府" in txt,
+                  "wenwu_cankao": "文物参考资料" in txt or "文物參考資料" in txt,
+                  "year_1951": "1951" in txt or "一九五一" in txt,
+                  "page_197_literal": bool(re.search(r'(?<!\\d)197(?!\\d)',txt)),
+              }
+
+          s=requests.Session()
+          s.headers.update({"User-Agent":UA})
+          g=s.get(URL,timeout=45)
+          g.raise_for_status()
+          raw=g.text
+          vis=clean(raw)
+          p=Parser(); p.feed(raw)
+          book_anchor=next((a for a in p.anchors if a.get("id")=="Booktext"),None)
+          cat_anchor=next((a for a in p.anchors if a.get("id")=="CatalogPrecisFile"),None)
+
+          result={
+              "product_url":URL,
+              "get_status":g.status_code,
+              "get_body_bytes":len(g.content),
+              "get_body_sha256":hashlib.sha256(g.content).hexdigest(),
+              "visible_flags":flags(vis),
+              "booktext_anchor":book_anchor,
+              "catalog_anchor":cat_anchor,
+              "booktext_source_emitted":bool(book_anchor and "Booktext" in (book_anchor.get("href") or "")),
+              "catalog_href":cat_anchor.get("href") if cat_anchor else None,
+              "postback":None,
+              "raw_product_html_saved":False,
+              "raw_product_html_logged":False,
+              "raw_booktext_saved":False,
+              "raw_booktext_logged":False,
+          }
+
+          if result["booktext_source_emitted"]:
+              form=dict(p.hidden)
+              form.update({"__EVENTTARGET":"Booktext","__EVENTARGUMENT":""})
+              r=s.post(URL,data=form,timeout=45,stream=True,allow_redirects=False,
+                       headers={"User-Agent":UA,"Referer":URL})
+              clen=None
+              try:
+                  clen=int(r.headers.get("Content-Length",""))
+              except Exception:
+                  pass
+              row={
+                  "status":r.status_code,
+                  "reason":r.reason,
+                  "content_type":r.headers.get("Content-Type"),
+                  "content_length":clen,
+                  "content_disposition":r.headers.get("Content-Disposition"),
+                  "is_redirect":bool(r.is_redirect or r.is_permanent_redirect),
+                  "bounded_read_performed":False,
+                  "bytes_read":0,
+                  "body_sha256":None,
+                  "decoded_encoding":None,
+                  "decoded_char_count":None,
+                  "target_flags":None,
+              }
+              if clen is not None and clen <= MAX_BYTES:
+                  chunks=[]; total=0
+                  for chunk in r.iter_content(1024):
+                      if not chunk:
+                          continue
+                      total += len(chunk)
+                      if total > MAX_BYTES:
+                          raise RuntimeError("bounded payload exceeded 8 KiB")
+                      chunks.append(chunk)
+                  body=b"".join(chunks)
+                  row["bounded_read_performed"]=True
+                  row["bytes_read"]=len(body)
+                  row["body_sha256"]=hashlib.sha256(body).hexdigest()
+                  txt=""
+                  for enc in ("utf-8","gb18030","gbk"):
+                      try:
+                          txt=body.decode(enc)
+                          row["decoded_encoding"]=enc
+                          break
+                      except Exception:
+                          pass
+                  if not txt:
+                      txt=body.decode("utf-8","replace")
+                      row["decoded_encoding"]="utf-8-replacement"
+                  normtxt=re.sub(r'\\s+',' ',txt)
+                  row["decoded_char_count"]=len(normtxt)
+                  row["target_flags"]=flags(normtxt)
+              r.close()
+              result["postback"]=row
+
+          Path("batch-12ji-zhao-wanli-zhuan-nlcpress-editorial-bridge.json").write_text(
+              json.dumps(result,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(result,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12ji-zhao-wanli-zhuan-nlcpress-editorial-bridge
+          path: batch-12ji-zhao-wanli-zhuan-nlcpress-editorial-bridge.json

@@ -1,0 +1,898 @@
+{
+  "schema": "MING-DATONG-1569-CROSS-EDITION-VARIANT-LEDGER-R1",
+  "schema_version": "2.6.0",
+  "status": "IN_PROGRESS_CROSS_EDITION_VARIANT_LEDGER_G894_FIVE_LUNAR_CONTROLS_DIRECTLY_CLOSED_D16_STRUCTURALLY_NONCOMPARABLE_G893_PENDING",
+  "runtime_selection_authorized": false,
+  "general_calendar_arithmetic_certified": false,
+  "primary_reference": {
+    "source_id": "EXT-KOTENMON-DAMING-DATONG-1569",
+    "edition": "周相《大明大統曆法》隆慶三年（1569）刊本",
+    "solar_primary_collation": "185_OF_185_DIRECT_ZERO_VARIANTS_ZERO_AMBIGUOUS",
+    "lunar_chiji_primary_collation": "169_OF_169_DIRECT_ZERO_VARIANTS_ZERO_AMBIGUOUS",
+    "lunar_xingdu_primary_collation": "169_OF_169_DIRECT_ZERO_VARIANTS_ZERO_AMBIGUOUS",
+    "authority_role": "EDITION_SCOPED_PRIMARY_REFERENCE_FOR_THIS_LEDGER"
+  },
+  "comparison_witnesses": [
+    {
+      "source_id": "EXT-KRDB-GORYEOSA-V52-SHOUSHI-LICHENG",
+      "role": "KRDB_HAN_TEXT_TRANSCRIPTION_WITH_NON_INDEPENDENT_KOREAN_NORMALIZED_RENDERING_AND_DIRECT_ORIGINAL_IMAGE_L114_CONTROL",
+      "date_context": "《高麗史》1451 compilation preserving earlier Goryeo Shoushi material",
+      "authority_disposition": "USE_O_AS_DATABASE_TRANSCRIPTION_SURFACE; USE_R_ONLY_AS_KRDB_EDITORIAL_NORMALIZATION; DIRECTLY_BOUND_ORIGINAL_IMAGE_GLYPHS OVERRIDE O-TRANSCRIPTION CLAIMS FOR THAT EXACT CONTROL ONLY; DO_NOT OVERRIDE MING_1569_EDITION_PRIMARY",
+      "direct_target_image_status": "L114_DIRECTLY_READ_NO_OCR_OTHER_CONTROLS_NOT_IMPLIED",
+      "reading_artifact": "docs/research/GORYEOSA-V52-KRDB-DIRECT-IMAGE-CONTROL-R1.json"
+    },
+    {
+      "source_id": "EXT-WIKISOURCE-GORYEOSA-V52-SHOUSHI-LICHENG",
+      "role": "SECOND_DIGITAL_TRANSCRIPTION_OF_SAME_CROSS_REGIONAL_RECEIVED_TRADITION",
+      "authority_disposition": "USE_TO_SEPARATE_SINGLE_DATABASE_TRANSCRIPTION_ERRORS_FROM_SHARED_RECEIVED_OR_DIGITAL_VARIANTS"
+    },
+    {
+      "source_id": "EXT-WIKISOURCE-GUJIN-LULIKAO-V45-LICHENG",
+      "role": "MING_AUTHORIAL_LATER_RECEIVED_EXPLANATORY_WITNESS",
+      "authority_disposition": "EXPLAINS_TABLE_CONSTRUCTION_NOT_PRIMARY_GLYPH_REPLACEMENT"
+    },
+    {
+      "source_id": "EXT-KYUJANGGAK-SHOUSHI-LICHENG-G893",
+      "role": "EARLY_15C_JOSEON_PHYSICAL_SHOUSHI_LICHENG_PRINT_WITH_CATALOGUED_ORIGINAL_IMAGES",
+      "date_context": "Kyujanggak provider: first half of 15th century / Sejong 1418-1450 甲寅字; exact surviving-copy year unresolved because secondary reports conflict at 1434 vs 1444",
+      "authority_disposition": "INDEPENDENT_PHYSICAL_TRANSMISSION_WITNESS; DO_NOT_OVERRIDE_MING_1569_EDITION_PRIMARY",
+      "direct_target_image_status": "PUBLIC_OPENING_SOLAR_OBJECT_FIGURE_VISIBLE_INITIAL_TO_DAY8; SIX_TARGET_FOLIOS_STILL_PENDING",
+      "date_adjudication_artifact": "docs/research/KYUJANGGAK-G893-PROVENANCE-AND-PUBLIC-FIGURE-CONTROL-R1.json",
+      "public_opening_figure": {
+        "source_id": "EXT-LI-LIANG-SHOUSHI-SPREAD-KOREA-JAPAN-2023",
+        "visible_block": "授時曆立成卷上 / 王恂奉敕撰 / 太陽冬至前後二象盈初縮末限 / 初日-八日",
+        "target_control_visible": false,
+        "target_value_effect": "NONE"
+      }
+    },
+    {
+      "source_id": "EXT-COMMONS-CADAL-GORYEOSA-V52-FACSIMILE",
+      "role": "PUBLIC_GORYEOSA_V52_RECEIVED_FACSIMILE_WITH_CURRENT_CONTROL_PAGES_DIRECTLY_READ",
+      "authority_disposition": "USE_FOR_VISIBLE_SURFACE_AND_PAGE_LEVEL_RECEIVED_COPY_EVIDENCE; DO_NOT_EQUATE_WITH_G893_EARLY_GORYEO_ORIGINAL_OR_MING_1569_AUTHORITY",
+      "direct_target_image_status": "CURRENT_CONTROL_PAGES_DIRECTLY_READ_NO_OCR",
+      "reading_artifact": "docs/research/GORYEOSA-V52-CADAL-FACSIMILE-CONTROL-READINGS-R1.json"
+    },
+    {
+      "source_id": "EXT-COMMONS-NLC-GORYEOSA-1909-FACSIMILE",
+      "role": "1909_LATER_RECEIVED_GORYEOSA_FACSIMILE_CONTAINER",
+      "authority_disposition": "USE_AS_LATER_REPRINT_IMAGE_CROSSCHECK_ONLY; NOT EARLY_TRANSMISSION_AUTHORITY",
+      "direct_target_image_status": "V52_UNIT_CATALOGUED_TARGET_LICHENG_PAGES_PENDING"
+    },
+    {
+      "source_id": "EXT-KYUSHU-OGAWA-SHOUSHI-LICHENG-1673",
+      "role": "INDEPENDENT_1673_OGAWA_PUBLIC_DOMAIN_IIIF_DIRECT_IMAGE_WITNESS",
+      "date_context": "寛文13年（1673）same-year independent Ogawa holding",
+      "authority_disposition": "USE_FOR_OGAWA_SAME_EDITION_SURFACE_AND_DERIVED_LAYER_COLLATION; DO_NOT_PROMOTE_TO_MING_1569_PRIMARY_OR_G893_EARLY_TRANSMISSION_AUTHORITY",
+      "direct_target_image_status": "D16_L8_L35_L67_L101_L114_L124_DERIVED_L132_L159_DIRECTLY_BOUND_NO_OCR",
+      "reading_artifact": "docs/research/KYUSHU-OGAWA-1673-SHOUSHI-LICHENG-DIRECT-COLLATION-R1.json"
+    },
+    {
+      "source_id": "EXT-KYUJANGGAK-CHILJEONGSAN-NAEPYEON-G894-1444",
+      "role": "INDEPENDENT_1444_JOSEON_OFFICIAL_CHILJEONGSAN_NAEPYEON_PRINT_WITNESS",
+      "date_context": "Kyujanggak provider directly dates G894 七政算內篇 to 1444; separate work/object from G893",
+      "authority_disposition": "USE_AS_DIRECT_1444_JOSEON_ALGORITHMIC_TABLE_WITNESS_FOR_THE_FIVE_FIELD_MAPPED_LUNAR_CONTROLS; D16 IS STRUCTURALLY_NONCOMPARABLE; NEVER SUBSTITUTE_FOR_G893_OR_MING_1569_EDITION_PRIMARY",
+      "direct_target_image_status": "FIVE_LUNAR_CONTROLS_DIRECTLY_READ_NO_OCR_AFTER_G894_OWN_METHOD_PROSE_CLOSED_FIELD_SEMANTICS; SOLAR_D16_TARGET_FIELD_STRUCTURALLY_ABSENT",
+      "route_artifact": "docs/research/JOSEON-1444-CHILJEONGSAN-EARLY-TABLE-WITNESS-ROUTES-R1.json",
+      "reading_artifact": "docs/research/KYUJANGGAK-G894-DIRECT-TARGET-PAGE-BINDING-R1.json",
+      "field_bridge_artifact": "docs/research/KYUJANGGAK-G894-LUNAR-FIELD-SEMANTIC-BRIDGE-R1.json"
+    },
+    {
+      "source_id": "EXT-NIKH-SEJONG-SILLOK-V156-CHILJEONGSAN-TABLES",
+      "role": "OFFICIAL_SEJONG_SILLOK_RECEIVED_TABLE_WITNESS_WITH_TAEBAEKSAN_ORIGINAL_IMAGE_ROUTE",
+      "date_context": "Sejong Sillok vol.156 transmits the Chiljeongsan solar/lunar table families; physical Sillok transmission layer is not assumed identical to 1444 G894 print",
+      "authority_disposition": "USE_AS_OFFICIAL_RECEIVED_TABLE_AND_LEAF_LOCALIZATION_WITNESS; EXACT GLYPHS ONLY AFTER ORIGINAL IMAGE CELL READING; NEVER SUBSTITUTE_FOR_G893",
+      "direct_target_image_status": "FIVE_LUNAR_CONTROLS_DIRECTLY_READ_NO_OCR; SOLAR_D16_CONTINUATION_STILL_PENDING",
+      "route_artifact": "docs/research/JOSEON-1444-CHILJEONGSAN-EARLY-TABLE-WITNESS-ROUTES-R1.json",
+      "reading_artifact": "docs/research/SILLOK-CHILJEONGSAN-NATIVE-DIRECT-COLLATION-R1.json"
+    }
+  ],
+  "structural_variants": [
+    {
+      "id": "VAR-STRUCT-SOLAR-001",
+      "system": "SOLAR_YINGSUO",
+      "ming_1569_schema": [
+        "積日",
+        "消息分",
+        "盈縮加分",
+        "盈縮積度"
+      ],
+      "goryeosa_schema": [
+        "積日",
+        "日差加一秒八十六少/六十二少",
+        "盈縮加分",
+        "盈縮積",
+        "行度"
+      ],
+      "observed_relation": "The first numeric series aligns with the Ming message/difference series on checked controls, while Goryeosa additionally prints a line-speed column.",
+      "philological_disposition": "TERMINOLOGY_AND_TABLE_SCHEMA_VARIANT; DO_NOT_DECLARE 消息分 AND 日差加一秒... FULLY_IDENTICAL_WITHOUT_EXPLICIT_BRIDGE",
+      "numeric_authority_effect": "NONE"
+    },
+    {
+      "id": "VAR-STRUCT-LUNAR-001",
+      "system": "LUNAR_CHIJI_XINGDU",
+      "ming_1569_schema": {
+        "chiji": [
+          "限數",
+          "遲疾日率分",
+          "損益捷法",
+          "損益分",
+          "遲疾度"
+        ],
+        "xingdu": [
+          "限數",
+          "疾曆行度",
+          "疾曆捷法",
+          "遲曆行度",
+          "遲曆捷法"
+        ]
+      },
+      "goryeosa_schema": [
+        "限數",
+        "遲疾曆日率",
+        "損益分",
+        "遲疾度",
+        "疾曆限行度",
+        "遲曆限行度"
+      ],
+      "observed_relation": "Goryeosa combines the two line-speed columns into the main lunar table and omits the shortcut columns; Zhou 1569 separates the line-speed table and prints shortcut columns.",
+      "philological_disposition": "TABLE_ORGANIZATION_AND_DERIVED_COLUMN_VARIANT_WITH_SHARED_CORE_NUMERIC_LINEAGE",
+      "numeric_authority_effect": "NONE"
+    }
+  ],
+  "numeric_variant_controls": [
+    {
+      "id": "VAR-NUM-SOLAR-WINTER-D16-DIFFERENCE",
+      "field": "WINTER_SOLAR_SECOND_COLUMN_DAY_16",
+      "ming_1569_primary": "5.2362",
+      "krdb_goryeosa_current_transcript": "5.1362",
+      "neighboring_sequence_controls": {
+        "day15": "5.2176",
+        "day17": "5.2548",
+        "increment": "0.0186"
+      },
+      "wikisource_goryeosa_value": "5.1362",
+      "classification": "PUBLIC_GORYEOSA_FACSIMILE_CONFIRMED_RECEIVED_NUMERIC_VARIANT_AGAINST_MING_1569",
+      "image_level_cause_status": "CADAL_RECEIVED_FACSIMILE_GLYPH_CONFIRMED_TRANSMISSION_STAGE_CAUSE_STILL_OPEN",
+      "propagate_to_ming_primary": false,
+      "note": "KRDB o/r and Wikisource preserve 5.1362; CADAL Goryeosa V52 scan 39 directly confirms 五分一三六二 in a public received facsimile, while Ming 1569 directly reads 5.2362. The disagreement is therefore not digital-transcription-only. Its earlier transmission stage/cause and G893 reading remain open.",
+      "krdb_r_korean_normalized_rendering": "5.1362",
+      "cadal_direct_facsime": {
+        "scan_page": 39,
+        "surface": "五分一三六二",
+        "normalized": "5.1362",
+        "reading_confidence": "HIGH"
+      },
+      "ogawa_1673_kyushu": {
+        "direct_raw_value": null,
+        "result": "FIELD_STRUCTURALLY_NOT_DIRECTLY_COMPARABLE",
+        "significance": "Independent 1673 Ogawa copy repeats the solar schema without the separate D16 difference/message-difference field."
+      },
+      "g894_1444": {
+        "exact_day16_page": "0001-009b",
+        "target_field_directly_printed": false,
+        "directly_visible_solar_schema": [
+          "積日",
+          "盈縮加分",
+          "盈縮積"
+        ],
+        "result": "FIELD_STRUCTURALLY_NOT_DIRECTLY_COMPARABLE",
+        "significance": "G894 directly prints day 16 inside the winter solar table but omits the active second difference/message-difference field; no neighboring printed column is substituted."
+      }
+    },
+    {
+      "id": "VAR-NUM-LUNAR-L8-LOSSGAIN",
+      "field": "LUNAR_LIMIT_8_LOSS_GAIN_FEN",
+      "ming_1569_primary": "10.561775",
+      "krdb_goryeosa_current_transcript": "10.5601775",
+      "wikisource_goryeosa_current_transcript": "10.5601775",
+      "classification": "PUBLIC_GORYEOSA_FACSIMILE_CONFIRMED_RECEIVED_NUMERIC_VARIANT_AGAINST_MING_1569",
+      "image_level_cause_status": "CADAL_RECEIVED_FACSIMILE_SUPPORTS_GLYPH_SEQUENCE_TRANSMISSION_STAGE_CAUSE_STILL_OPEN",
+      "note": "KRDB o/r and Wikisource agree at 10.5601775; CADAL Goryeosa V52 scan 81 visually supports the same printed sequence 一十〇分五六〇一七七五 against Ming 1569 10.561775. The print is faint, so the direct reading is marked medium-high rather than absolute; transmission cause remains open.",
+      "propagate_to_ming_primary": false,
+      "krdb_r_korean_normalized_rendering": "10.5601775",
+      "cadal_direct_facsime": {
+        "scan_page": 81,
+        "surface": "一十〇分五六〇一七七五",
+        "normalized": "10.5601775",
+        "reading_confidence": "MEDIUM_HIGH_FAINT_PRINT"
+      },
+      "ogawa_1673_kyushu": {
+        "direct_target_page": 51,
+        "same_copy_symmetric_control_limit": 159,
+        "same_copy_control_page": 58,
+        "relation": "NUMERIC_GLYPH_LAYOUT_IDENTICAL_AFTER_益_TO_損_SIGN_REVERSAL",
+        "normalized_value": "NOT_FORCED_FROM_PHOTOGRAPH_ALONE",
+        "significance": "Constrains Ogawa split-place typography without importing the Goryeosa or Ming linear surface."
+      },
+      "g894_1444": {
+        "page": "0001-019b",
+        "direct_surface": "益一十〇分五六〇一七七五",
+        "normalized": "10.5601775",
+        "reading_confidence": "HIGH",
+        "field_identity": "損益分_DIRECTLY_CLOSED_BY_G894_041B_METHOD",
+        "significance": "Direct 1444 G894 agrees with the Sejong Sillok/Goryeosa received L8 branch against Ming 1569 10.561775."
+      }
+    },
+    {
+      "id": "VAR-NUM-LUNAR-L114-DAYRATE",
+      "field": "LUNAR_LIMIT_114_DAY_RATE",
+      "ming_1569_primary": "9日3489",
+      "krdb_goryeosa_current_transcript": "9日2489",
+      "wikisource_goryeosa_current_transcript": "9日3489",
+      "classification": "KRDB_O_TRANSCRIPTION_ERROR_CONFIRMED_BY_KRDB_OWN_UNDERLYING_SCAN",
+      "image_level_cause_status": "KRDB_IMAGE_1116_DIRECTLY_READS_3489_O_TRANSCRIPTION_2489_CONFIRMED_ERROR",
+      "propagate_to_ming_primary": false,
+      "note": "KRDB own underlying image kr_052_1116.jpg directly prints limits 114-116 and L114 reads 九日三四八九. This agrees with CADAL scan 117, Wikisource, KRDB r and Ming 1569; the KRDB types=o surface 九日二四八九 is therefore a confirmed database transcription error, not a cross-edition transmission variant.",
+      "krdb_r_korean_normalized_rendering": "9日3489",
+      "cadal_direct_facsime": {
+        "scan_page": 117,
+        "surface": "九日三四八九",
+        "normalized": "9日3489",
+        "reading_confidence": "HIGH"
+      },
+      "krdb_direct_image": {
+        "image_no": 1116,
+        "printed_limit_headings": [
+          "一百十四",
+          "一百十五",
+          "一百十六"
+        ],
+        "surface": "九日三四八九",
+        "normalized": "9日3489",
+        "reading_confidence": "HIGH",
+        "workflow_run_id": 33971921953,
+        "artifact_id": 9971177420,
+        "reading_artifact": "docs/research/GORYEOSA-V52-KRDB-DIRECT-IMAGE-CONTROL-R1.json"
+      },
+      "ogawa_1673_kyushu": {
+        "direct_surface": "九日三四八九",
+        "normalized": "9日3489",
+        "reading_confidence": "HIGH",
+        "significance": "Second independent 1673 Ogawa holding aligns at 3489."
+      },
+      "g894_1444": {
+        "page": "0001-034a",
+        "direct_surface": "九日三四八九",
+        "normalized": "9日3489",
+        "reading_confidence": "HIGH",
+        "field_identity": "遲疾曆日率_DIRECTLY_CLOSED_BY_G894_041B_METHOD",
+        "significance": "Independent 1444 G894 supports 3489, further isolating KRDB types=o 2489 as a transcription error."
+      }
+    },
+    {
+      "id": "VAR-NUM-LUNAR-L124-JI-XINGDU",
+      "field": "LUNAR_LIMIT_124_JI_XINGDU",
+      "ming_1569_primary": "1.0281",
+      "krdb_goryeosa_current_transcript": "1.0821",
+      "wikisource_goryeosa_current_transcript": "1.0821",
+      "classification": "PUBLIC_GORYEOSA_FACSIMILE_CONFIRMED_RECEIVED_NUMERIC_VARIANT_AGAINST_MING_1569",
+      "image_level_cause_status": "CADAL_RECEIVED_FACSIMILE_GLYPH_CONFIRMED; KYUSHU_1673_DERIVED_LAYER_SUPPORTS_MING_1_0281_LINEAGE; EARLIER_TRANSMISSION_STAGE_CAUSE_STILL_OPEN",
+      "note": "CADAL Goryeosa V52 scan 120 directly reads 一度〇八二一 (1.0821), aligning with KRDB o/r and Wikisource against Ming 1569 1.0281. The disagreement is therefore not digital-transcription-only; transmission stage/cause remains open.",
+      "propagate_to_ming_primary": false,
+      "krdb_r_korean_normalized_rendering": "1.0821",
+      "cadal_direct_facsime": {
+        "scan_page": 120,
+        "surface": "一度〇八二一",
+        "normalized": "1.0821",
+        "reading_confidence": "HIGH"
+      },
+      "ogawa_1673_kyushu": {
+        "raw_ji_xingdu_directly_printed": false,
+        "printed_table_title": "遲疾限行度",
+        "printed_derived_ji": "0.0797587",
+        "printed_derived_chi": "0.0704164",
+        "ming_1569_raw_and_derived_alignment": {
+          "ji_raw": "1.0281",
+          "ji_derived": "0.0797587",
+          "chi_raw": "1.1645",
+          "chi_derived": "0.0704164"
+        },
+        "goryeosa_1_0821_counterfactual_derived": "0.0757785",
+        "classification": "MECHANICALLY_LINKED_DERIVED_CONTROL_SUPPORTS_MING_1_0281_LINEAGE_NOT_DIRECT_RAW_GLYPH",
+        "significance": "Kyushu does not directly print the raw 1.x field, but its reciprocal/shortcut layer excludes the 1.0821-derived control at printed precision."
+      },
+      "g894_1444": {
+        "page": "0001-035a",
+        "direct_surface": "疾一度〇二八一",
+        "normalized": "1.0281",
+        "reading_confidence": "HIGH",
+        "field_identity": "疾曆限行度_DIRECTLY_CLOSED_BY_G894_018A_041B_METHOD",
+        "significance": "Direct 1444 G894 aligns with Sejong Sillok and Ming 1569 at raw 1.0281 against Goryeosa received 1.0821."
+      }
+    },
+    {
+      "id": "VAR-NUM-LUNAR-L132-LOSSGAIN",
+      "field": "LUNAR_LIMIT_132_LOSS_GAIN_FEN",
+      "ming_1569_primary_normalized": "7.886075",
+      "krdb_o_exact_surface": "七分八八六七五",
+      "wikisource_exact_surface": "七分八八六七五",
+      "symmetric_control_limit_35": {
+        "ming_1569_primary_normalized": "7.886075",
+        "krdb_o_exact_surface": "七分八八六〇七五",
+        "krdb_r_exact_grouped_surface": "7″88‴60''''75'''''",
+        "wikisource_exact_surface": "七分八八六〇七五"
+      },
+      "normalized_cross_witness_value": "NOT_FORCED_PENDING_PLACE_VALUE_AND_IMAGE_ADJUDICATION",
+      "classification": "PUBLIC_GORYEOSA_FACSIMILE_CONFIRMED_RECEIVED_COMPACT_SURFACE_VARIANT_NORMALIZATION_UNRESOLVED",
+      "image_level_cause_status": "CADAL_RECEIVED_FACSIMILE_SURFACE_CONFIRMED_SAME_COPY_L35_ZERO_CONTROL_CONFIRMED_CAUSE_OPEN",
+      "propagate_to_ming_primary": false,
+      "note": "CADAL scan 123 directly preserves L132 七分八八六七五, while same-copy scan 90 directly preserves symmetric L35 七分八八六〇七五. Thus the visible zero-practice difference is physical in this received copy, not merely a digital transcription artifact. L132 is still not silently decimal-normalized and its transmission cause remains unresolved.",
+      "krdb_r_korean_normalized_surface": "7″88‴67''''5'''''",
+      "cadal_direct_facsime": {
+        "scan_page": 123,
+        "surface": "七分八八六七五",
+        "reading_confidence": "HIGH",
+        "same_copy_l35": {
+          "scan_page": 90,
+          "surface": "七分八八六〇七五",
+          "normalized": "7.886075",
+          "reading_confidence": "HIGH"
+        }
+      },
+      "ogawa_1673_kyushu": {
+        "direct_target_page": 57,
+        "same_copy_symmetric_control_limit": 35,
+        "same_copy_control_page": 52,
+        "relation": "NUMERIC_GLYPH_LAYOUT_IDENTICAL_AFTER_益_TO_損_SIGN_REVERSAL",
+        "normalized_value": "NOT_FORCED_FROM_PHOTOGRAPH_ALONE",
+        "significance": "Ogawa same-copy typography differs from the Goryeosa L35/L132 compact-surface contrast; the Goryeosa zero-practice is not universalized."
+      },
+      "g894_1444": {
+        "page": "0001-036b",
+        "direct_surface": "損七分八八六〇七五",
+        "normalized": "7.886075",
+        "reading_confidence": "HIGH",
+        "field_identity": "損益分_DIRECTLY_CLOSED_BY_G894_041B_METHOD",
+        "significance": "G894 preserves the explicit positional zero, as does Sejong Sillok, so the Goryeosa received compact L132 surface is not generalized to early Joseon computational-table practice."
+      }
+    }
+  ],
+  "matching_numeric_controls": [
+    {
+      "scope": "SOLAR_WINTER_INITIAL_ROWS_0_TO_7",
+      "result": "YINGSUO_ADD_AND_ACCUMULATED_VALUES_ALIGN_ON_CHECKED_ROWS",
+      "witness": "EXT-KRDB-GORYEOSA-V52-SHOUSHI-LICHENG"
+    },
+    {
+      "scope": "SOLAR_SUMMER_INITIAL_ROWS_0_TO_7",
+      "result": "YINGSUO_ADD_AND_ACCUMULATED_VALUES_ALIGN_ON_CHECKED_ROWS",
+      "witness": "EXT-KRDB-GORYEOSA-V52-SHOUSHI-LICHENG"
+    },
+    {
+      "scope": "LUNAR_INITIAL_ROWS_0_TO_7",
+      "result": "DAY_RATE_LOSS_GAIN_ACCUMULATED_AND_CHI_JI_SPEEDS_ALIGN",
+      "witness": "EXT-KRDB-GORYEOSA-V52-SHOUSHI-LICHENG"
+    },
+    {
+      "scope": "LUNAR_LIMIT_116",
+      "result": "9日5129 / 5.629675 / accumulated 4.56040000 / chi 1.1526 / ji 1.0400 ALIGN",
+      "witness": "EXT-WIKISOURCE-GORYEOSA-V52-SHOUSHI-LICHENG"
+    },
+    {
+      "scope": "LUNAR_LIMITS_140_TO_168_EXCEPT_NO_NEW_VARIANT_OBSERVED_IN_REVIEWED_DIGITAL_ROWS",
+      "result": "CORE_VALUES_ALIGN_AND_TERMINAL_LIMIT_168_IS_BLANK_EXCEPT_DAY_RATE",
+      "witness": "EXT-WIKISOURCE-GORYEOSA-V52-SHOUSHI-LICHENG"
+    }
+  ],
+  "current_variant_count": 4,
+  "exhaustive_cross_witness_row_comparison_complete": false,
+  "image_level_variant_cause_adjudication_complete": false,
+  "primary_ming_numeric_layer_changed_by_cross_witness_variants": false,
+  "epistemic_firewalls": {
+    "cross_regional_source_as_ming_edition_authority": "FORBIDDEN",
+    "digital_transcript_difference_as_manuscript_variant_without_image": "FORBIDDEN",
+    "matching_numeric_lineage_as_identical_table_schema": "FORBIDDEN",
+    "similar_numeric_series_as_automatic_term_equivalence": "FORBIDDEN",
+    "shared_digital_variant_as_formula_defect": "FORBIDDEN",
+    "runtime_activation_from_variant_ledger": "FORBIDDEN",
+    "compact_han_numeric_surface_as_simple_decimal_digits": "FORBIDDEN",
+    "philological_normalization_bridge_as_numeric_variant": "FORBIDDEN",
+    "krdb_r_normalized_rendering_as_independent_textual_witness": "FORBIDDEN",
+    "krdb_r_normalized_rendering_as_direct_original_image_glyph": "FORBIDDEN",
+    "earlier_cross_regional_physical_witness_as_ming_1569_edition_authority": "FORBIDDEN",
+    "catalog_original_image_availability_as_direct_target_glyph_reading": "FORBIDDEN",
+    "modern_version_study_as_direct_g893_glyph_reading": "FORBIDDEN",
+    "print_history_year_as_copy_specific_colophon_date": "FORBIDDEN",
+    "textual_volume_localization_as_target_folio_certification": "FORBIDDEN",
+    "secondary_reproduced_non_target_page_as_target_glyph_reading": "FORBIDDEN",
+    "mediated_1998_version_claim_as_direct_article_transcription": "FORBIDDEN",
+    "hosted_runner_connection_reset_as_source_unavailable": "FORBIDDEN",
+    "hosted_runner_connection_reset_as_target_folio_or_glyph_evidence": "FORBIDDEN",
+    "external_wrapper_volume_number_as_internal_goryeosa_volume_number": "FORBIDDEN",
+    "public_facsimile_container_as_target_glyph_reading_before_page_binding": "FORBIDDEN",
+    "later_reprint_facsimile_as_early_physical_transmission_witness": "FORBIDDEN",
+    "cadal_received_facsime_as_early_goryeo_original": "FORBIDDEN",
+    "cadal_received_facsime_as_g893_substitute": "FORBIDDEN",
+    "cadal_direct_surface_as_transmission_cause_proof": "FORBIDDEN",
+    "cadal_l114_3489_as_proven_krdb_transcription_error_without_krdb_scan": "FORBIDDEN",
+    "fixed_cadal_to_krdb_scan_offset_as_page_binding": "FORBIDDEN",
+    "g893_thumbnail_filename_as_target_folio_binding": "FORBIDDEN",
+    "kang_bo_jiefa_licheng_as_same_text_as_g893": "FORBIDDEN",
+    "secondary_transmission_study_as_g893_target_glyph_authority": "FORBIDDEN",
+    "kang_bo_public_sample_media_as_g893_target_glyph": "FORBIDDEN",
+    "aks_reference_description_as_primary_copy_colophon": "FORBIDDEN",
+    "mingshi_received_copy_description_as_g893_physical_copy_identity": "FORBIDDEN",
+    "modern_download_adapter_as_historical_or_glyph_authority": "FORBIDDEN",
+    "documented_g893_renderer_candidate_as_observed_response": "FORBIDDEN",
+    "image_url_construction_as_target_value": "FORBIDDEN"
+  },
+  "next_work": [
+    "BIND_SEJONG_SILLOK_WDA_50016011_AND_WDA_50016016_EXACT_ORIGINAL_IMAGE_IDS_AND_READ_TARGET_CELLS_WITHOUT_OCR",
+    "BIND_KYUJANGGAK_G894_EXACT_SOLAR_AND_LUNAR_TARGET_FOLIOS_THROUGH_ITS_ORIGINAL_IMAGE_SERVICE",
+    "COMPARE_G894_SILLOK_G893_GORYEOSA_ONLY_AFTER_EACH_TARGET_CELL_IS_INDEPENDENTLY_READ; DO_NOT_USE_SOURCE_COUNT",
+    "G893_OPENING_SOLAR_OBJECT_PAGE_IS_NOW_PUBLICLY_VISIBLE_THROUGH_LI_2023_FIGURE_1_BUT_CONTAINS_ONLY_INITIAL_TO_DAY8; DO_NOT_USE_IT_FOR_D16_OR_LUNAR_VALUES",
+    "KEEP_G893_EXACT_SURVIVING_COPY_YEAR_UNRESOLVED_WITHIN_PROVIDER_1418_1450_RANGE_PENDING_COPY_SPECIFIC_EVIDENCE; DO_NOT_SELECT_1434_OR_1444_BY_SOURCE_COUNT",
+    "OGAWA_1673_KYUSHU_DIRECT_COLLATION_CLOSED_FOR_CURRENT_CONTROLS; KEEP_L124_AS_DERIVED_LINEAGE_EVIDENCE_NOT_DIRECT_RAW_GLYPH_AND_DO_NOT_FORCE_LINEAR_SERIALIZATION_OF_SPLIT_PLACE_GROUPS",
+    "KRDB_L114_OWN_SCAN_ADJUDICATED_AS_3489_AND_O_TRANSCRIPTION_ERROR_CLOSED; EXTEND_DIRECT_IMAGE_BINDING_TO_OTHER_CONTROLS_ONLY_WHERE_IT_ADDS_SOURCE_VALUE",
+    "BIND_NLC_1909_GORYEOSA_V52_TARGET_SCAN_PAGES_AS_LATER_RECEIVED_IMAGE_CROSSCHECK_WITHOUT_EARLY_WITNESS_PROMOTION",
+    "USE_BOOKGET_DOCUMENTED_KYUJANGGAK_RENDERER_AND_IMAGESERVLET_PROTOCOL_FROM_A_NON_HOSTED_NETWORK_PATH_TO_BIND_G893_TARGET_FOLIOS",
+    "USE_NON_GITHUB_HOSTED_DIRECT_IMAGE_CHANNELS_OR_PUBLIC_IMAGE_MIRRORS_TO_BIND_G893_JUANSHANG_TARGET_FOLIOS",
+    "BIND_KYUJANGGAK_G893_JUANSHANG_EXACT_TARGET_FOLIOS_AND_DIRECTLY_READ_THE_SIX_CONTROL_TARGETS",
+    "BIND_KANG_BO_SHOUSHI_JIEFA_LICHENG_G20981_CATALOG_AND_IMAGE_AS_A_SEPARATE_DERIVED_KOREAN_WITNESS_WITHOUT_MERGING_IT_INTO_G893",
+    "USE_LI_2018_FIGURE_6_ONLY_AS_JUANSHANG_LAYOUT_LOCALIZATION_NOT_AS_D16_OR_LUNAR_TARGET_VALUE",
+    "OBTAIN_DIRECT_PIXEL_OR_FACSIMILE_GLYPH_CONFIRMATION_FOR_GORYEOSA_VARIANTS_WHERE_G893_DOES_NOT_RESOLVE_TRANSMISSION_STAGE",
+    "EXPAND_ROW_BY_ROW_CROSS_WITNESS_COMPARISON_WITH_POSITIONAL_GROUP_AWARE_NORMALIZATION_AND_SOURCE_LAYER_SEMANTICS",
+    "COLLATE_LATER_MING_QING_RECEIVED_TABLES_WITHOUT_OVERRIDING_1569_PRIMARY",
+    "ONLY_AFTER_DIRECT_IMAGE_CAUSE_ADJUDICATION_CLOSE_THE_CROSS_EDITION_VARIANT_GATE"
+  ],
+  "krdb_evidence_layers": {
+    "o_original_han_transcript": {
+      "locator": "types=o / kr_052_*",
+      "role": "KRDB_ORIGINAL_HAN_TEXT_TRANSCRIPTION_LAYER",
+      "direct_original_image_glyph_inspection": false,
+      "authority_note": "A database transcription of the Han-text surface; it is not the underlying facsimile."
+    },
+    "r_korean_translation_or_normalized_rendering": {
+      "locator": "types=r / kr_052r_*",
+      "role": "KRDB_KOREAN_TRANSLATION_OR_NORMALIZED_NUMERIC_RENDERING_LAYER",
+      "direct_original_image_glyph_inspection": false,
+      "independent_textual_witness": false,
+      "caution": "Use this layer to understand KRDB's editorial/normalized interpretation of the o-layer numbers. Do not treat it as an independent edition witness or as a direct reading of the original-image glyphs."
+    },
+    "original_image_button": {
+      "locator": "원문이미지 UI control",
+      "role": "SEPARATE_ORIGINAL_IMAGE_ENTRY_POINT",
+      "direct_original_image_glyph_inspection": true,
+      "current_access_status": "DIRECT_IMAGE_PROXY_RETRIEVED_AND_L114_BOUND_TO_KR_052_1116",
+      "direct_read_scope": [
+        "VAR-NUM-LUNAR-L114-DAYRATE"
+      ],
+      "reading_artifact": "docs/research/GORYEOSA-V52-KRDB-DIRECT-IMAGE-CONTROL-R1.json"
+    }
+  },
+  "reading_layer_comparison_complete_for_current_controls": true,
+  "current_classification_summary": {
+    "shared_cross_regional_received_or_digital_variant_count": 4,
+    "krdb_o_text_surface_divergence_pending_image_adjudication_count": 0,
+    "philological_same_mechanical_value_bridge_count": 1,
+    "public_goryeosa_facsimile_confirmed_received_numeric_variant_count": 3,
+    "public_goryeosa_facsimile_confirmed_received_compact_surface_variant_count": 1,
+    "krdb_o_surface_isolated_against_cadal_wikisource_ming_and_r_count": 0,
+    "same_copy_symmetric_zero_control_count": 2,
+    "confirmed_krdb_o_transcription_error_count": 1
+  },
+  "philological_normalization_controls": [
+    {
+      "id": "NORM-LUNAR-L101-CHIJI-DEGREE-POSITIONAL-GROUPING",
+      "field": "LUNAR_LIMIT_101_ACCUMULATED_CHIJI_DEGREE",
+      "ming_1569_primary_normalized": "5.20481125",
+      "krdb_o_surface": "五度二十四八一一二五",
+      "wikisource_surface": "五度二十四八一一二五",
+      "explicit_place_groups": [
+        "5",
+        "20",
+        "48",
+        "11",
+        "25"
+      ],
+      "classification": "SURFACE_NOTATION_DIFFERENCE_SAME_MECHANICAL_VALUE",
+      "philological_disposition": "DO_NOT_TREAT_COMPACT_HAN_SURFACE_AS_A_SIMPLE_DECIMAL_DIGIT_STRING_OR_AS_A_NUMERIC_VARIANT_WITHOUT_POSITIONAL_ANALYSIS; KRDB_R_SHOWS_KRDBS_OWN_NORMALIZED_INTERPRETATION_BUT_IS_NOT_AN_INDEPENDENT_TEXTUAL_WITNESS",
+      "variant_count_effect": 0,
+      "note": "CADAL scan 112 directly preserves L101 `五度二十四八一一二五`, while same-copy scan 101 directly preserves symmetric L67 `五度二十〇四八一一二五`. The zero-present/zero-omitted contrast exists in the physical received facsimile while both map to positional groups 5|20|48|11|25 and Ming 1569 normalized 5.20481125. This strengthens the philological normalization bridge and does not create a numeric variant.",
+      "krdb_r_korean_normalized_surface": "5′20″48‴11''''25'''''",
+      "symmetric_control_limit_67": {
+        "krdb_o_surface": "五度二十〇四八一一二五",
+        "krdb_r_korean_normalized_surface": "5′20″48‴11''''25'''''",
+        "wikisource_surface": "五度二十〇四八一一二五",
+        "ming_1569_primary_normalized": "5.20481125"
+      },
+      "cadal_direct_facsime": {
+        "scan_page": 112,
+        "surface": "五度二十四八一一二五",
+        "reading_confidence": "HIGH",
+        "same_copy_l67": {
+          "scan_page": 101,
+          "surface": "五度二十〇四八一一二五",
+          "explicit_place_groups": [
+            "5",
+            "20",
+            "48",
+            "11",
+            "25"
+          ],
+          "normalized": "5.20481125",
+          "reading_confidence": "HIGH"
+        }
+      },
+      "ogawa_1673_kyushu": {
+        "target_page": 55,
+        "same_copy_symmetric_control_limit": 67,
+        "control_page": 54,
+        "relation": "DIFFERENT_VISIBLE_ZERO_PLACE_GROUP_SURFACE_IN_A_SAME_SYMMETRIC_MECHANICAL_CONTEXT",
+        "normalized_value": "NOT_REDERIVED_FROM_PHOTOGRAPH_ALONE",
+        "significance": "Independent Ogawa typography confirms that surface-string inequality cannot by itself create a mechanical variant."
+      },
+      "g894_1444": {
+        "page": "0001-032a",
+        "direct_surface": "五度二十〇四八一一二五",
+        "explicit_place_groups": [
+          "5",
+          "20",
+          "48",
+          "11",
+          "25"
+        ],
+        "normalized": "5.20481125",
+        "reading_confidence": "HIGH",
+        "field_identity": "遲疾度_DIRECTLY_CLOSED_BY_G894_041B_METHOD",
+        "significance": "G894 preserves the explicit zero at L101 and therefore strengthens the same-mechanical-value positional normalization bridge without adding a numeric variant."
+      }
+    }
+  ],
+  "philological_normalization_control_count": 1,
+  "independent_physical_image_adjudication": {
+    "source_id": "EXT-KYUJANGGAK-SHOUSHI-LICHENG-G893",
+    "status": "SOURCE_TEXTUAL_VOLUME_AND_OPENING_SOLAR_OBJECT_PAGE_BOUND_TARGET_FOLIOS_NOT_YET_BOUND",
+    "purpose": "Adjudicate the five numeric variant controls and the L101 positional-normalization bridge against an independent early physical Shoushi-table print.",
+    "targets": [
+      {
+        "control_id": "VAR-NUM-SOLAR-WINTER-D16-DIFFERENCE",
+        "target_table": "太陽冬至前後二象盈初縮末限",
+        "target_reading_status": "PENDING_DIRECT_IMAGE",
+        "target_textual_volume": "卷上",
+        "volume_localization_confidence": "HIGH",
+        "exact_target_folio_status": "UNRESOLVED"
+      },
+      {
+        "control_id": "VAR-NUM-LUNAR-L8-LOSSGAIN",
+        "target_table": "太陰限數遲疾度",
+        "target_reading_status": "PENDING_DIRECT_IMAGE",
+        "target_textual_volume": "卷上",
+        "volume_localization_confidence": "HIGH",
+        "exact_target_folio_status": "UNRESOLVED"
+      },
+      {
+        "control_id": "VAR-NUM-LUNAR-L114-DAYRATE",
+        "target_table": "太陰限數遲疾度",
+        "target_reading_status": "PENDING_DIRECT_IMAGE",
+        "target_textual_volume": "卷上",
+        "volume_localization_confidence": "HIGH",
+        "exact_target_folio_status": "UNRESOLVED"
+      },
+      {
+        "control_id": "VAR-NUM-LUNAR-L124-JI-XINGDU",
+        "target_table": "太陰限數遲疾度 / associated line-speed table if separately printed",
+        "target_reading_status": "PENDING_DIRECT_IMAGE",
+        "target_textual_volume": "卷上",
+        "volume_localization_confidence": "HIGH",
+        "exact_target_folio_status": "UNRESOLVED"
+      },
+      {
+        "control_id": "VAR-NUM-LUNAR-L132-LOSSGAIN",
+        "target_table": "太陰限數遲疾度",
+        "target_reading_status": "PENDING_DIRECT_IMAGE",
+        "target_textual_volume": "卷上",
+        "volume_localization_confidence": "HIGH",
+        "exact_target_folio_status": "UNRESOLVED"
+      },
+      {
+        "control_id": "NORM-LUNAR-L101-CHIJI-DEGREE-POSITIONAL-GROUPING",
+        "target_table": "太陰限數遲疾度",
+        "target_reading_status": "PENDING_DIRECT_IMAGE",
+        "target_textual_volume": "卷上",
+        "volume_localization_confidence": "HIGH",
+        "exact_target_folio_status": "UNRESOLVED"
+      }
+    ],
+    "no_prepopulation_rule": "NO_NUMERIC_VALUE_MAY_BE_ENTERED_FOR_G893_BEFORE_DIRECT_TARGET_IMAGE_READING",
+    "provenance_strengthening": "EARLY_PHYSICAL_TARGET_IS_SUPPORTED_BY_KYUJANGGAK_COPY_CATALOG_1434_GAPJA_PRINT_HISTORY_SHI_YUNLI_1998_TRANSMISSION_STUDY_LI_LIANG_2018_VERSION_STRUCTURE_AND_LEE_JING_1998_SPECIALIST_VERSION_STUDY",
+    "search_space_reduction": "ALL_SIX_TARGETS_LOCALIZED_TO_SHOUSHI_LICHENG_JUANSHANG; DO_NOT_SCAN_SUNRISE_SUNSET_VOLUME",
+    "hosted_runner_access_status": "NETWORK_BLOCKED_ON_GITHUB_HOSTED_UBUNTU_RUNNER_ONLY",
+    "direct_image_source_status": "CATALOG_FILENAMES_AND_DOCUMENTED_RENDERER_IMAGESERVLET_PROTOCOL_BOUND; TARGET_FOLIOS_AND_GLYPHS_UNRESOLVED",
+    "image_access_topology_artifact": "docs/research/KYUJANGGAK-G893-IMAGE-ACCESS-TOPOLOGY-R1.json",
+    "exact_copy_year_status": "UNRESOLVED_WITHIN_PROVIDER_1418_1450_RANGE",
+    "public_opening_figure": "docs/research/KYUJANGGAK-G893-PROVENANCE-AND-PUBLIC-FIGURE-CONTROL-R1.json"
+  },
+  "transmission_history_evidence": [
+    {
+      "source_id": "EXT-SHI-YUNLI-KOREAN-SHOUSHI-STUDY-1998",
+      "role": "PEER_REVIEWED_MODERN_VERSION_HISTORY",
+      "findings": [
+        "GORYEOSA_CALENDRICAL_TRADITION_PRESERVES_ATTACHED_SHOUSHI_LICHENG_TABLE_FAMILY",
+        "KOREAN_INDEPENDENT_LICHENG_COPY_AND_GORYEOSA_HISTORY_VERSION_FORM_A_REAL_TRANSMISSION_PROBLEM_NOT_A_SINGLE_WEBSITE_TEXT_PROBLEM",
+        "EARLY_JOSEON_JIAOSHI_TUIBUFA_DERIVES_GENERAL_FORMULAS_FROM_LICHENG_STRUCTURE"
+      ],
+      "direct_glyph_authority": false,
+      "numeric_variant_adjudication_authorized": false
+    },
+    {
+      "source_id": "EXT-KOSTMA-GAPJA-SHOUSHI-LICHENG-1434",
+      "role": "BIBLIOGRAPHIC_PRINT_HISTORY",
+      "findings": [
+        "SHOUSHI_LICHENG_RECORDED_IN_1434_FIRST_CAST_GAPJA_TYPE_PRINT_TRADITION"
+      ],
+      "direct_glyph_authority": false,
+      "exact_surviving_copy_year_authorized": false
+    },
+    {
+      "source_id": "EXT-LI-LIANG-LICHENG-TABLES-2018",
+      "role": "PEER_REVIEWED_VERSION_STRUCTURE_AND_SECONDARY_FIGURE_REPRODUCTION",
+      "findings": [
+        "EXTANT_KYUJANGGAK_SHOUSHI_LICHENG_REPRINTED_1434_AND_ASSOCIATED_WITH_KING_SEJONG_REPRINT",
+        "TEXTUAL_VOLUME_WITH_SUN_MOON_FIVE_PLANETS_IS_SEPARATE_FROM_SUNRISE_SUNSET_VOLUME",
+        "FIGURE_6_REPRODUCES_SOLAR_PICKUP_TABLE_WITH_VISIBLE_TITLE_SHOUSHI_LICHENG_JUANSHANG",
+        "LI_2018_REPORTS_LEE_JING_1998_ESTABLISHED_IDENTITY_WITH_MINGSHI_MENTIONED_LICHENG_VERSION"
+      ],
+      "direct_target_glyph_authority": false,
+      "target_folio_certification_authorized": false
+    },
+    {
+      "source_id": "EXT-LEE-JING-KYUJANGGAK-SHOUSHI-LICHENG-1998",
+      "role": "SPECIALIST_VERSION_STUDY_BIBLIOGRAPHIC_AND_MEDIATED_FINDING",
+      "findings": [
+        "SPECIALIST_1998_STUDY_EXISTS_AND_IS_CITED_BY_LI_2018_FOR_VERSION_IDENTITY"
+      ],
+      "direct_full_text_retrieved_in_current_workflow": false,
+      "direct_target_glyph_authority": false
+    },
+    {
+      "source_id": "EXT-LI-LIANG-SHOUSHI-SPREAD-KOREA-JAPAN-2023",
+      "role": "PEER_REVIEWED_EAST_ASIAN_TRANSMISSION_AND_KOREAN_LICHENG_CONTEXT",
+      "findings": [
+        "KYUJANGGAK_PRESERVES_A_KOREAN_PRINTED_TWO_VOLUME_SHOUSHI_LICHENG_COPY",
+        "THE_FIRST_PAGE_IS_REPORTED_TO_ATTRIBUTE_COMPILATION_TO_WANG_XUN_BY_IMPERIAL_EDICT",
+        "THE_COPY_MAY_PRESERVE_CONTENT_TRANSMITTED_TO_KOREA_DURING_THE_GORYEO_PERIOD",
+        "KANG_BO_SHOUSHI_LI_JIEFA_LICHENG_IS_IDENTIFIED_AS_A_SEPARATE_TWO_VOLUME_KOREAN_WORK_WITH_SEVENTEEN_NEW_TABLES",
+        "KANG_BO_JIEFA_LICHENG_IS_REPORTED_AS_INDEPENDENTLY_WORKED_FROM_SHOUSHI_TECHNICAL_METHODS_AND_NOT_AS_THE_SAME_TEXT_AS_G893"
+      ],
+      "direct_target_glyph_authority": false,
+      "target_folio_certification_authorized": false,
+      "causal_variant_adjudication_authorized": false
+    },
+    {
+      "source_id": "EXT-WIKISOURCE-MINGSHI-V34-SHOUSHI-LICHENG-COPY-IDENTITY",
+      "role": "QING_COMPILED_DYNASTIC_HISTORY_RECEIVED_WITNESS_FOR_SHOUSHI_LICHENG_COMPILATION_AND_COPY_IDENTITY",
+      "findings": [
+        "MINGSHI_REPORTS_GUO_SHOUJING_CLASSIFIED_AND_REGULARIZED_THE_LICHENG_NUMBERS_AND_MADE_TWO_TEXTUAL_VOLUMES",
+        "MINGSHI_REPORTS_THE_THEN_CURRENT_QINTIANJIAN_COPY_CARRIED_WANG_XUN_IMPERIAL_COMMISSION_ATTRIBUTION",
+        "THIS_RECEIVED_DESCRIPTION_MATCHES_TWO_VERSION_FEATURES_REPORTED_FOR_THE_EXTANT_KYUJANGGAK_SHOUSHI_LICHENG"
+      ],
+      "quoted_identity_fragments": [
+        "郭守敬比類編次，整齊分秒，裁為二卷",
+        "嘉議大夫太史令臣王恂奉敕撰"
+      ],
+      "direct_physical_g893_copy_identity": false,
+      "direct_target_glyph_authority": false,
+      "target_folio_certification_authorized": false,
+      "numeric_variant_adjudication_authorized": false
+    }
+  ],
+  "textual_volume_localization": {
+    "source_id": "EXT-KYUJANGGAK-SHOUSHI-LICHENG-G893",
+    "target_textual_volume": "卷上",
+    "status": "CLOSED_AT_TEXTUAL_VOLUME_LEVEL_EXACT_FOLIOS_OPEN",
+    "evidence": [
+      {
+        "source_id": "EXT-LI-LIANG-LICHENG-TABLES-2018",
+        "evidence_class": "PEER_REVIEWED_TEXT_PLUS_SECONDARY_PAGE_REPRODUCTION",
+        "finding": "Sun/Moon/five-planet tables occupy one textual volume; Figure 6's reproduced solar page visibly carries 授時曆立成卷上."
+      },
+      {
+        "source_id": "EXT-KYUJANGGAK-SHOUSHI-LICHENG-G893",
+        "evidence_class": "INSTITUTIONAL_CATALOG",
+        "finding": "Catalog contents explicitly include 太陽冬至前後二象盈初縮末限 and 太陰限數遲疾度 in the same physical copy."
+      }
+    ],
+    "figure_6_scope": {
+      "visible_table_family": "SOLAR_PICKUP_TABLE",
+      "visible_day_block": "初日_TO_八日",
+      "target_control_directly_visible": false,
+      "use_as_target_value": false
+    },
+    "exact_folio_status": "UNRESOLVED",
+    "exact_image_filename_status": "UNRESOLVED",
+    "public_object_figure": {
+      "source_id": "EXT-LI-LIANG-SHOUSHI-SPREAD-KOREA-JAPAN-2023",
+      "directly_visible": "授時曆立成卷上; 王恂奉敕撰; 太陽冬至前後二象盈初縮末限; 初日-八日",
+      "effect": "DIRECT_PUBLIC_SECONDARY_OBJECT_REPRODUCTION_CONFIRMS_OPENING_SOLAR_PAGE_FAMILY_NOT_TARGET_FOLIO"
+    }
+  },
+  "hosted_runner_access_diagnostics": {
+    "status": "ENVIRONMENT_SCOPED_NETWORK_BLOCK_CONFIRMED_FOR_GITHUB_HOSTED_UBUNTU_RUNNER",
+    "source_id": "EXT-KYUJANGGAK-SHOUSHI-LICHENG-G893",
+    "attempts": [
+      {
+        "workflow_run_id": 33962192868,
+        "transport": "REQUESTS_URLLIB3_DEFAULT_TLS",
+        "result": "CONNECTION_RESET_BEFORE_APPLICATION_RESPONSE",
+        "evidence_scope": "NETWORK_ENVIRONMENT_ONLY"
+      },
+      {
+        "workflow_run_id": 33962291588,
+        "transport": "CURL_CFFI_CHROME_TLS_IMPERSONATION",
+        "result": "CONNECTION_RESET_BEFORE_APPLICATION_RESPONSE",
+        "diagnostic_artifact_id": 9968309178,
+        "evidence_scope": "NETWORK_ENVIRONMENT_ONLY"
+      }
+    ],
+    "public_web_counterevidence": [
+      "Kyujanggak institutional catalog page remains reachable in ordinary web retrieval.",
+      "Kyujanggak public thumbnail URLs expose GK00893_00IH_0001_000a.jpg and ...004b.jpg with item_cd=SIC.",
+      "Li Liang 2018 reproduces a Kyujanggak solar-table page, independently confirming physical/image accessibility outside the hosted-runner path."
+    ],
+    "conclusion": "DO_NOT_RETRY_EQUIVALENT_GITHUB_HOSTED_RUNNER_TRANSPORTS_AS_PRIMARY_RESEARCH_PATH; USE_MANUAL_PROBE_ONLY_IF_NETWORK_ENVIRONMENT_CHANGES_OR_USE_OTHER_DIRECT_IMAGE_CHANNELS",
+    "target_folio_effect": "NONE",
+    "target_reading_effect": "NONE"
+  },
+  "public_facsimile_containers": [
+    {
+      "source_id": "EXT-COMMONS-CADAL-GORYEOSA-V52-FACSIMILE",
+      "status": "DIRECT_TARGET_PAGE_BINDING_AND_SURFACE_READING_COMPLETE_FOR_CURRENT_CONTROLS",
+      "direct_evidence": {
+        "scan_page": 2,
+        "visible_heading": "志卷第六 / 高麗史五十二 / 曆三 / 授時曆經下 / 步五星第七",
+        "control_pages": [
+          39,
+          81,
+          90,
+          101,
+          112,
+          117,
+          120,
+          123
+        ],
+        "reading_artifact": "docs/research/GORYEOSA-V52-CADAL-FACSIMILE-CONTROL-READINGS-R1.json",
+        "ocr_used": false
+      },
+      "philological_boundary": "The external CADAL wrapper number 四十九 is a container sequence label and is not mechanically equated with the internal 高麗史卷 number.",
+      "target_effect": "VISIBLE_SURFACES_CONFIRMED_FOR_THIS_RECEIVED_FACSIMILE; TRANSMISSION_CAUSE_G893_AND_RUNTIME_SELECTION_REMAIN_OPEN"
+    },
+    {
+      "source_id": "EXT-COMMONS-NLC-GORYEOSA-1909-FACSIMILE",
+      "status": "LATER_REPRINT_CONTAINER_METADATA_CONFIRMED_TARGET_TABLE_PAGES_UNBOUND",
+      "direct_evidence": {
+        "edition": "1909",
+        "catalogued_contents_unit": "第六 高麗史五十二 曆三",
+        "total_pages": 755
+      },
+      "philological_boundary": "This received reprint can test later image/transcription surfaces but cannot be back-projected as a 15th-century original witness.",
+      "target_effect": "NONE_UNTIL_EXACT_LICHENG_TABLE_PAGE_AND_GLYPH_BINDING"
+    }
+  ],
+  "public_facsimile_control_readings_artifact": "docs/research/GORYEOSA-V52-CADAL-FACSIMILE-CONTROL-READINGS-R1.json",
+  "g893_image_access_topology": {
+    "status": "CATALOG_FILENAMES_PUBLIC_OPENING_OBJECT_FIGURE_AND_RENDERER_PROTOCOL_BOUND_TARGET_FOLIOS_PENDING",
+    "artifact": "docs/research/KYUJANGGAK-G893-IMAGE-ACCESS-TOPOLOGY-R1.json",
+    "observed_image_files": [
+      "GK00893_00IH_0001_000a.jpg",
+      "GK00893_00IH_0001_004b.jpg"
+    ],
+    "item_cd": "SIC",
+    "book_cd": "GK00893_00",
+    "protocol_source_id": "EXT-GITHUB-BOOKGET-KYUJANGGAK-ADAPTER",
+    "renderer_get_candidate": "https://kyudb.snu.ac.kr/pf01/rendererImg.do?item_cd=SIC&book_cd=GK00893_00&vol_no=0001&page_no=000a",
+    "renderer_candidate_response_observed": false,
+    "exact_target_folio_status": "UNRESOLVED",
+    "target_reading_status": "PENDING_DIRECT_TARGET_IMAGE",
+    "public_opening_figure_status": "DIRECTLY_VISIBLE_NON_TARGET_SOLAR_OPENING_PAGE_INITIAL_TO_DAY8"
+  },
+  "supplementary_physical_witness_candidates": [
+    {
+      "id": "CAND-KANG-BO-SHOUSHI-JIEFA-LICHENG-G20981",
+      "title": "《授時曆捷法立成》",
+      "author": "姜保",
+      "reported_kyujanggak_call_number": "奎20981",
+      "identification_source_id": "EXT-LI-LIANG-SHOUSHI-SPREAD-KOREA-JAPAN-2023",
+      "relationship_to_g893": "SEPARATE_KOREAN_DERIVED_LICHENG_WORK_NOT_G893_COPY",
+      "reported_structure": "TWO_VOLUMES_SEVENTEEN_NEW_TABLES",
+      "reported_scope_note": "ARTICLE_STATES_IT_WAS_INDEPENDENTLY_WORKED_FROM_SHOUSHI_TECHNICAL_METHODS_AND_LACKED_FIVE_PLANET_LICHENG",
+      "direct_catalog_binding_status": "PENDING",
+      "direct_image_status": "SAMPLE_IMAGES_BOUND_FULL_BOOK_TARGET_COLLATION_PENDING",
+      "use_for_g893_target_values": "FORBIDDEN",
+      "public_media_status": "DIRECT_SAMPLE_IMAGES_BOUND_VIA_AKS_ENCYCLOPEDIA",
+      "public_media_artifact": "docs/research/KANG-BO-SHOUSHI-JIEFA-LICHENG-PUBLIC-MEDIA-WITNESS-R1.json",
+      "observed_media_roles": [
+        "VOLUME_UPPER_OPENING_PAGE",
+        "COVER",
+        "DOUBLE_PAGE_TABLE_SPREAD"
+      ]
+    }
+  ],
+  "technical_access_evidence": [
+    {
+      "source_id": "EXT-GITHUB-BOOKGET-KYUJANGGAK-ADAPTER",
+      "role": "MODERN_OPEN_SOURCE_TECHNICAL_ACCESS_PROTOCOL_WITNESS",
+      "repository": "deweizhu/bookget",
+      "repository_commit": "2cdbf6d6c3ce70355a5c4411c0faf3450e9ae877",
+      "path": "app/kyudbsnu.go",
+      "blob_sha": "d5ebadc1ba11bb35d9205e136599dffa1197708e",
+      "findings": [
+        "KYUJANGGAK_RENDERER_VOLUME_AND_PAGE_DISCOVERY_USES_RENDERERIMG_POST_FORMS",
+        "RENDERER_HTML_EXPOSES_FIRST_PAGE_NO_IMG_FILE_NAME_AND_PAGE_JUMP_IDENTIFIERS",
+        "FULL_IMAGES_ARE_CONSTRUCTED_THROUGH_IMAGESERVLET_WITH_IMG_FILENAME_AND_PATH_REPLACEMENT"
+      ],
+      "historical_authority": false,
+      "glyph_authority": false,
+      "g893_response_observed": false,
+      "runtime_or_algorithm_effect": "NONE"
+    }
+  ],
+  "g893_version_identity_bridge": {
+    "status": "RECEIVED_HISTORICAL_DESCRIPTION_ALIGNS_WITH_EXTANT_COPY_FEATURES_NOT_COPY_IDENTITY_PROOF",
+    "historical_source_id": "EXT-WIKISOURCE-MINGSHI-V34-SHOUSHI-LICHENG-COPY-IDENTITY",
+    "extant_copy_source_id": "EXT-KYUJANGGAK-SHOUSHI-LICHENG-G893",
+    "aligned_features": [
+      "TWO_TEXTUAL_VOLUMES",
+      "WANG_XUN_IMPERIAL_COMMISSION_ATTRIBUTION"
+    ],
+    "direct_same_physical_copy_proven": false,
+    "target_glyph_effect": "NONE"
+  },
+  "ogawa_1673_independent_collation": {
+    "ndl_source_id": "EXT-NDL-OGAWA-SHOUSHI-LICHENG-1673",
+    "kyushu_source_id": "EXT-KYUSHU-OGAWA-SHOUSHI-LICHENG-1673",
+    "kyushu_reading_artifact": "docs/research/KYUSHU-OGAWA-1673-SHOUSHI-LICHENG-DIRECT-COLLATION-R1.json",
+    "conclusion": "INDEPENDENT_SAME_YEAR_COLLATION_ADDS_STRUCTURAL_SYMMETRY_PHILOLOGY_AND_L124_DERIVED_LINEAGE_EVIDENCE_WITHOUT_RUNTIME_EFFECT",
+    "runtime_effect": "NONE"
+  },
+  "g893_copy_date_adjudication": {
+    "provider_range": "1418-1450",
+    "secondary_1434": [
+      "EXT-KOSTMA-GAPJA-SHOUSHI-LICHENG-1434",
+      "EXT-LI-LIANG-LICHENG-TABLES-2018"
+    ],
+    "secondary_1444": [
+      "EXT-LI-LIANG-SUNRISE-TABLES-2022"
+    ],
+    "status": "EXACT_COPY_YEAR_UNRESOLVED",
+    "disposition": "COPY_CHRONOLOGY_MUST_NOT_BE_USED_AS_NUMERIC_VARIANT_TIE_BREAKER_UNTIL_EXACT_YEAR_CLOSES",
+    "artifact": "docs/research/KYUJANGGAK-G893-PROVENANCE-AND-PUBLIC-FIGURE-CONTROL-R1.json"
+  },
+  "joseon_1444_chiljeongsan_witness_routes": {
+    "artifact": "docs/research/JOSEON-1444-CHILJEONGSAN-EARLY-TABLE-WITNESS-ROUTES-R1.json",
+    "g894_source_id": "EXT-KYUJANGGAK-CHILJEONGSAN-NAEPYEON-G894-1444",
+    "sillok_source_id": "EXT-NIKH-SEJONG-SILLOK-V156-CHILJEONGSAN-TABLES",
+    "g894_provider_publication_year": 1444,
+    "sillok_solar_binding": {
+      "article_id": "wda_50016011",
+      "title": "太陽冬至前後二象盈初縮末限",
+      "taebaeksan_location": "60冊 156卷 6張 A面",
+      "target_value_status": "PENDING_DIRECT_TABLE_GLYPH_READING"
+    },
+    "sillok_lunar_binding": {
+      "article_id": "wda_50016016",
+      "title": "太陰限數遲疾度",
+      "taebaeksan_location": "60冊 156卷 13張 A面",
+      "target_value_status": "PENDING_DIRECT_TABLE_GLYPH_READING"
+    },
+    "relationship_to_g893": "INDEPENDENT_SAME_PERIOD_COMPARISON_ROUTES_NOT_SUBSTITUTES",
+    "source_count_adjudication": "FORBIDDEN",
+    "runtime_effect": "NONE"
+  },
+  "g894_1444_direct_collation": {
+    "status": "FIVE_LUNAR_CONTROLS_DIRECTLY_CLOSED_D16_STRUCTURALLY_NONCOMPARABLE",
+    "reading_artifact": "docs/research/KYUJANGGAK-G894-DIRECT-TARGET-PAGE-BINDING-R1.json",
+    "field_bridge_artifact": "docs/research/KYUJANGGAK-G894-LUNAR-FIELD-SEMANTIC-BRIDGE-R1.json",
+    "cell_level_alignment_summary": {
+      "l8": "GORYEOSA_RECEIVED_AND_SILLOK_BRANCH",
+      "l101": "SAME_NORMALIZED_VALUE_EXPLICIT_ZERO_SURFACE",
+      "l114": "3489_CONSENSUS_EXCEPT_KRDB_O_TRANSCRIPTION_ERROR",
+      "l124": "MING_1569_AND_SILLOK_1_0281_BRANCH",
+      "l132": "EXPLICIT_ZERO_SURFACE_WITH_MING_SILLOK_STYLE_NOT_GORYEOSA_COMPACT_SURFACE",
+      "solar_d16": "STRUCTURALLY_NONCOMPARABLE_FIELD_ABSENT"
+    },
+    "copy_wide_variant_inheritance": "FORBIDDEN",
+    "source_count_voting": "FORBIDDEN",
+    "runtime_effect": "NONE"
+  }
+}

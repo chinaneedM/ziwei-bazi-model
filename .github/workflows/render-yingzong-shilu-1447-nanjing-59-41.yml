@@ -1,0 +1,58 @@
+name: render-yingzong-shilu-1447-nanjing-59-41
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/render-yingzong-shilu-1447-nanjing-59-41.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install PDF tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y poppler-utils imagemagick
+      - name: Download NLC Yingzong Shilu volume 16
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p evidence/pages evidence/contact
+          url='https://commons.wikimedia.org/wiki/Special:Redirect/file/NLC892-CBM0103-366390_%E6%98%8E%E8%8B%B1%E5%AE%97%E7%9D%BF%E7%9A%87%E5%B8%9D%E5%AF%A6%E9%8C%84_%E4%B8%89%E7%99%BE%E5%85%AD%E5%8D%81%E4%B8%80%E5%8D%B7_%E7%AC%AC16%E5%86%8A.pdf'
+          curl -L --fail --retry 3 --retry-delay 2 "$url" -o evidence/yingzong_shilu_v16.pdf
+          sha256sum evidence/yingzong_shilu_v16.pdf | tee evidence/source.sha256
+          pdfinfo evidence/yingzong_shilu_v16.pdf | tee evidence/pdfinfo.txt
+      - name: Render all pages without OCR
+        shell: bash
+        run: |
+          set -euo pipefail
+          pdftoppm -jpeg -jpegopt quality=90 -r 140 evidence/yingzong_shilu_v16.pdf evidence/pages/page
+          mapfile -t pages < <(find evidence/pages -maxdepth 1 -name 'page-*.jpg' | sort -V)
+          n=${#pages[@]}
+          echo "RENDERED_PAGE_COUNT=$n" | tee evidence/render-count.txt
+          test "$n" -eq 104
+          sha256sum "${pages[@]}" | sort -V > evidence/pages.sha256
+          for offset in 0 20 40 60 80 100; do
+            [ "$offset" -ge "$n" ] && break
+            start=$((offset+1))
+            end=$((offset+20)); [ "$end" -gt "$n" ] && end=$n
+            chunk=("${pages[@]:offset:20}")
+            montage "${chunk[@]}" -thumbnail 260x360 -tile 5x -geometry +4+4 "evidence/contact/contact-${start}-${end}.jpg"
+          done
+          sha256sum evidence/contact/*.jpg | sort -V > evidence/contact.sha256
+          printf 'NO_OCR_USED=true\nTARGET=ZHENGTONG_12_11_JIAYIN_PENG_DEQING_NANJING_59_BEIJING_62\nSOURCE_ROLE=PRE1578_OFFICIAL_MING_SHILU_PHYSICAL_WITNESS\n' > evidence/manifest.txt
+      - name: Upload evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: yingzong-shilu-1447-nanjing-59-41
+          path: evidence/
+          if-no-files-found: error
+          compression-level: 6
+          retention-days: 30

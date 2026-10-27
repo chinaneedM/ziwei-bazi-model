@@ -1,0 +1,158 @@
+{
+  "schema": "GORYEOSA-V52-CADAL-FACSIMILE-CONTROL-READINGS-R1",
+  "schema_version": "1.0.0",
+  "status": "DIRECT_PUBLIC_FACSIMILE_PAGE_BINDING_COMPLETE_FOR_CURRENT_VARIANT_AND_PHILOLOGICAL_CONTROLS",
+  "source_id": "EXT-COMMONS-CADAL-GORYEOSA-V52-FACSIMILE",
+  "source_file": "CADAL02050311 高麗史（四十九）.djvu",
+  "source_internal_identity": "高麗史卷五十二·志第六·曆三",
+  "source_provider_chain": "Wikimedia Commons mirror of CADAL / Peking University source",
+  "copy_level_date_status": "NOT_ADJUDICATED",
+  "page_count": 151,
+  "djvu_embedded_text_pages": 0,
+  "ocr_used": false,
+  "reading_method": "DIRECT_HUMAN_VISUAL_READING_OF_RENDERED_FACSIMILE_PAGES",
+  "reproduction": {
+    "probe_script": "scripts/research_goryeosa_cadal_facsimile_probe.py",
+    "workflow": ".github/workflows/research-goryeosa-cadal-facsimile-probe.yml",
+    "workflow_run_id": 33968138492,
+    "workflow_head_sha": "f91d5c28649aec4df3cede96911abd41f3afd696",
+    "artifact_id": 9970086664,
+    "artifact_digest": "sha256:08a823cb9ff4d1c77641e085cc53e0793d31ce548269bcf00333957ea087c953",
+    "target_pages": [
+      39,
+      81,
+      90,
+      101,
+      112,
+      117,
+      120,
+      123
+    ]
+  },
+  "controls": [
+    {
+      "control_id": "VAR-NUM-SOLAR-WINTER-D16-DIFFERENCE",
+      "scan_page": 39,
+      "direct_surface": "五分一三六二",
+      "normalized_value": "5.1362",
+      "reading_confidence": "HIGH",
+      "comparison": {
+        "ming_1569_primary": "5.2362",
+        "krdb_o": "5.1362",
+        "krdb_r": "5.1362",
+        "wikisource": "5.1362"
+      },
+      "finding": "PUBLIC_GORYEOSA_RECEIVED_FACSIMILE_CONFIRMS_5_1362_SURFACE_AGAINST_MING_1569_5_2362"
+    },
+    {
+      "control_id": "VAR-NUM-LUNAR-L8-LOSSGAIN",
+      "scan_page": 81,
+      "direct_surface": "一十〇分五六〇一七七五",
+      "normalized_value": "10.5601775",
+      "reading_confidence": "MEDIUM_HIGH_FAINT_PRINT_BUT_TABLE_POSITION_AND_VISIBLE_SEQUENCE_CONVERGE",
+      "comparison": {
+        "ming_1569_primary": "10.561775",
+        "krdb_o": "10.5601775",
+        "krdb_r": "10.5601775",
+        "wikisource": "10.5601775"
+      },
+      "finding": "PUBLIC_GORYEOSA_RECEIVED_FACSIMILE_SUPPORTS_10_5601775_SURFACE_AGAINST_MING_1569_10_561775"
+    },
+    {
+      "control_id": "SYM-LUNAR-L35-LOSSGAIN-ZERO",
+      "scan_page": 90,
+      "direct_surface": "七分八八六〇七五",
+      "normalized_value": "7.886075",
+      "reading_confidence": "HIGH",
+      "role": "SAME_FACSIMILE_SYMMETRIC_CONTROL_FOR_L132_COMPACT_ZERO_PRACTICE"
+    },
+    {
+      "control_id": "SYM-LUNAR-L67-CHIJI-DEGREE-ZERO",
+      "scan_page": 101,
+      "direct_surface": "五度二十〇四八一一二五",
+      "explicit_place_groups": [
+        "5",
+        "20",
+        "48",
+        "11",
+        "25"
+      ],
+      "normalized_value": "5.20481125",
+      "reading_confidence": "HIGH",
+      "role": "SAME_FACSIMILE_SYMMETRIC_CONTROL_FOR_L101_POSITIONAL_ZERO_PRACTICE"
+    },
+    {
+      "control_id": "NORM-LUNAR-L101-CHIJI-DEGREE-POSITIONAL-GROUPING",
+      "scan_page": 112,
+      "direct_surface": "五度二十四八一一二五",
+      "explicit_place_groups": [
+        "5",
+        "20",
+        "48",
+        "11",
+        "25"
+      ],
+      "normalized_value": "5.20481125",
+      "reading_confidence": "HIGH",
+      "finding": "SAME_FACSIMILE_L67_AND_L101_SHOW_ZERO_PRESENT_VS_OMITTED_SURFACE_WITH_SAME_POSITIONAL_VALUE"
+    },
+    {
+      "control_id": "VAR-NUM-LUNAR-L114-DAYRATE",
+      "scan_page": 117,
+      "direct_surface": "九日三四八九",
+      "normalized_value": "9日3489",
+      "reading_confidence": "HIGH",
+      "comparison": {
+        "ming_1569_primary": "9日3489",
+        "krdb_o": "9日2489",
+        "krdb_r": "9日3489",
+        "wikisource": "9日3489"
+      },
+      "finding": "CADAL_WIKISOURCE_MING_AND_KRDB_R_ALIGN_AT_3489_KRDB_O_2489_REMAINS_ISOLATED_UNTIL_KRDB_OWN_SCAN"
+    },
+    {
+      "control_id": "VAR-NUM-LUNAR-L124-JI-XINGDU",
+      "scan_page": 120,
+      "direct_surface": "一度〇八二一",
+      "normalized_value": "1.0821",
+      "reading_confidence": "HIGH",
+      "comparison": {
+        "ming_1569_primary": "1.0281",
+        "krdb_o": "1.0821",
+        "krdb_r": "1.0821",
+        "wikisource": "1.0821"
+      },
+      "finding": "PUBLIC_GORYEOSA_RECEIVED_FACSIMILE_CONFIRMS_1_0821_SURFACE_AGAINST_MING_1569_1_0281"
+    },
+    {
+      "control_id": "VAR-NUM-LUNAR-L132-LOSSGAIN",
+      "scan_page": 123,
+      "direct_surface": "七分八八六七五",
+      "normalized_value": "NOT_FORCED",
+      "reading_confidence": "HIGH",
+      "same_copy_symmetric_control": {
+        "control_id": "SYM-LUNAR-L35-LOSSGAIN-ZERO",
+        "scan_page": 90,
+        "surface": "七分八八六〇七五",
+        "normalized_value": "7.886075"
+      },
+      "finding": "PUBLIC_GORYEOSA_RECEIVED_FACSIMILE_CONFIRMS_COMPACT_L132_SURFACE_WITHOUT_VISIBLE_ZERO_NORMALIZED_VALUE_REMAINS_UNFORCED"
+    }
+  ],
+  "epistemic_boundaries": {
+    "cadal_copy_as_15c_goryeosa_original": "FORBIDDEN",
+    "cadal_copy_as_g893_equivalent": "FORBIDDEN",
+    "cadal_surface_as_ming_1569_authority": "FORBIDDEN",
+    "l114_as_proven_krdb_transcription_error_before_krdb_scan": "FORBIDDEN",
+    "l132_compact_surface_as_forced_decimal_normalization": "FORBIDDEN",
+    "direct_page_reading_as_transmission_cause_adjudication": "FORBIDDEN",
+    "algorithm_or_runtime_selection_effect": "NONE"
+  },
+  "conclusions": [
+    "D16, L8 and L124 are no longer digital-transcription-only disagreements: the public Goryeosa received facsimile preserves the KRDB/Wikisource-side values directly.",
+    "L132's compact surface 七分八八六七五 is directly present in the public received facsimile, while same-copy L35 directly preserves 七分八八六〇七五; therefore the visible zero-practice difference is physical in this received copy, but its normalized L132 value and transmission cause are not forced.",
+    "L101 directly preserves 五度二十四八一一二五 while same-copy L67 preserves 五度二十〇四八一一二五; the same-copy contrast strengthens the positional-normalization bridge rather than creating a new numeric variant.",
+    "L114 directly reads 九日三四八九 in CADAL, aligning with Ming 1569, Wikisource and KRDB r; KRDB o's 九日二四八九 is isolated but is not called a proven transcription error until KRDB's own underlying image is inspected.",
+    "The independent early G893 target remains unresolved; this received facsimile does not substitute for G893 and does not close transmission-stage causality."
+  ]
+}

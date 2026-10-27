@@ -1,0 +1,263 @@
+name: research-quark-snu-v4-folder-navigation
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-quark-snu-v4-folder-navigation.yml
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Navigate only visible public Quark folder and target file
+        shell: bash
+        run: |
+          set -e
+          python -m pip install --quiet selenium
+          python - <<'PY'
+          import hashlib
+          import json
+          import time
+          from pathlib import Path
+          from selenium import webdriver
+          from selenium.common.exceptions import TimeoutException, WebDriverException
+          from selenium.webdriver.chrome.options import Options
+          from selenium.webdriver.common.by import By
+          from selenium.webdriver.support.ui import WebDriverWait
+          from selenium.webdriver.support import expected_conditions as EC
+
+          OUT = Path("probe")
+          OUT.mkdir()
+          SHARE = "https://pan.quark.cn/s/3b7b731e41f2"
+          FOLDER = "紫微斗数"
+          TARGET_MARKERS = ("飛星策天紫微斗數全集", "飞星策天紫微斗数全集")
+          VOL4_MARKERS = ("木版本（4）.pdf", "木版本(4).pdf", "木版本（4）", "木版本(4)")
+
+          result = {
+              "schema": "QUARK-SNU-MINGJINGGE-V4-PUBLIC-FOLDER-NAVIGATION-R1",
+              "share_url": SHARE,
+              "authentication_attempted": False,
+              "save_to_cloud_attempted": False,
+              "download_attempted": False,
+              "api_endpoint_guessing_attempted": False,
+              "access_control_bypass_attempted": False,
+              "login_modal_close_is_normal_ui_action": True,
+              "folder_click_is_normal_ui_action": True,
+              "target_click_only_if_visible_public_filename": True,
+              "root": {},
+              "folder": {},
+              "target_preview": {},
+          }
+
+          def snapshot(driver, stem):
+              html = driver.page_source or ""
+              body = ""
+              try:
+                  body = driver.find_element(By.TAG_NAME, "body").text or ""
+              except Exception:
+                  pass
+              (OUT / f"{stem}.html").write_text(html, encoding="utf-8")
+              (OUT / f"{stem}.txt").write_text(body, encoding="utf-8")
+              shot = OUT / f"{stem}.png"
+              shot_ok = False
+              try:
+                  shot_ok = driver.save_screenshot(str(shot))
+              except Exception:
+                  pass
+              return {
+                  "url": driver.current_url,
+                  "title": driver.title,
+                  "dom_bytes": len(html.encode("utf-8")),
+                  "dom_sha256": hashlib.sha256(html.encode("utf-8")).hexdigest(),
+                  "visible_text_bytes": len(body.encode("utf-8")),
+                  "visible_text": body[:20000],
+                  "screenshot_exists": shot.exists() and shot_ok,
+                  "screenshot_sha256": hashlib.sha256(shot.read_bytes()).hexdigest() if shot.exists() else None,
+              }
+
+          def close_visible_login_modals(driver):
+              closed = 0
+              for _ in range(4):
+                  btns = driver.find_elements(By.CSS_SELECTOR, "button.ant-modal-close[aria-label='Close']")
+                  visible = [b for b in btns if b.is_displayed()]
+                  if not visible:
+                      break
+                  try:
+                      visible[0].click()
+                      closed += 1
+                      time.sleep(1)
+                  except Exception:
+                      break
+              return closed
+
+          opts = Options()
+          opts.add_argument("--headless=new")
+          opts.add_argument("--no-sandbox")
+          opts.add_argument("--disable-dev-shm-usage")
+          opts.add_argument("--disable-gpu")
+          opts.add_argument("--disable-background-networking")
+          opts.add_argument("--disable-component-update")
+          opts.add_argument("--disable-default-apps")
+          opts.add_argument("--disable-sync")
+          opts.add_argument("--no-first-run")
+          opts.add_argument("--window-size=1600,1800")
+          opts.page_load_strategy = "eager"
+
+          driver = None
+          try:
+              driver = webdriver.Chrome(options=opts)
+              driver.set_page_load_timeout(20)
+              try:
+                  driver.get(SHARE)
+                  result["root"]["get_status"] = "RETURNED"
+              except TimeoutException:
+                  result["root"]["get_status"] = "PAGE_LOAD_TIMEOUT_PARTIAL_DOM_RETAINED"
+              time.sleep(10)
+
+              result["root"]["login_modals_closed"] = close_visible_login_modals(driver)
+              time.sleep(2)
+              root_snap = snapshot(driver, "root-after-modal-close")
+              result["root"].update({k:v for k,v in root_snap.items() if k != "visible_text"})
+              result["root"]["visible_text"] = root_snap["visible_text"]
+
+              folder_candidates = driver.find_elements(
+                  By.XPATH,
+                  "//*[@title='紫微斗数' or normalize-space(text())='紫微斗数']"
+              )
+              visible_folders = [e for e in folder_candidates if e.is_displayed()]
+              result["root"]["visible_folder_element_count"] = len(visible_folders)
+
+              if visible_folders:
+                  elem = visible_folders[0]
+                  driver.execute_script("arguments[0].scrollIntoView({block:'center'});", elem)
+                  try:
+                      elem.click()
+                  except Exception:
+                      driver.execute_script("arguments[0].click();", elem)
+                  result["root"]["folder_click_succeeded"] = True
+                  time.sleep(8)
+              else:
+                  result["root"]["folder_click_succeeded"] = False
+
+              result["folder"]["login_modals_closed"] = close_visible_login_modals(driver)
+              time.sleep(2)
+              folder_snap = snapshot(driver, "folder-after-click")
+              result["folder"].update({k:v for k,v in folder_snap.items() if k != "visible_text"})
+              result["folder"]["visible_text"] = folder_snap["visible_text"]
+
+              names = []
+              for e in driver.find_elements(By.CSS_SELECTOR, ".filename-text"):
+                  try:
+                      t = (e.get_attribute("title") or e.text or "").strip()
+                      if t and t not in names:
+                          names.append(t)
+                  except Exception:
+                      pass
+              result["folder"]["visible_filename_count"] = len(names)
+              result["folder"]["visible_filenames"] = names
+
+              candidates = [
+                  n for n in names
+                  if any(m in n for m in TARGET_MARKERS) and any(v in n for v in VOL4_MARKERS)
+              ]
+              result["folder"]["target_candidate_filenames"] = candidates
+              result["folder"]["target_candidate_count"] = len(candidates)
+
+              if candidates:
+                  target_name = candidates[0]
+                  elems = driver.find_elements(By.XPATH, f"//*[@title={json.dumps(target_name, ensure_ascii=False)}]")
+                  # XPath string literal fallback for titles with punctuation.
+                  if not elems:
+                      elems = driver.find_elements(By.CSS_SELECTOR, ".filename-text")
+                      elems = [
+                          e for e in elems
+                          if (e.get_attribute("title") or e.text or "").strip() == target_name
+                      ]
+                  visible = [e for e in elems if e.is_displayed()]
+                  result["folder"]["visible_target_element_count"] = len(visible)
+                  if visible:
+                      result["target_preview"]["normal_target_click_attempted"] = True
+                      driver.execute_script("arguments[0].scrollIntoView({block:'center'});", visible[0])
+                      try:
+                          visible[0].click()
+                      except Exception:
+                          driver.execute_script("arguments[0].click();", visible[0])
+                      result["target_preview"]["normal_target_click_succeeded"] = True
+                      time.sleep(10)
+                      result["target_preview"]["login_modals_visible_after_click"] = len([
+                          b for b in driver.find_elements(By.CSS_SELECTOR, "button.ant-modal-close[aria-label='Close']")
+                          if b.is_displayed()
+                      ])
+                      preview_snap = snapshot(driver, "target-preview")
+                      result["target_preview"].update({k:v for k,v in preview_snap.items() if k != "visible_text"})
+                      pv = preview_snap["visible_text"]
+                      result["target_preview"]["visible_text"] = pv
+                      result["target_preview"]["five_xiong_shen_text_visible"] = "五凶神" in pv or "五凶神" in (driver.page_source or "")
+                      result["target_preview"]["late_zi_text_visible"] = "上五刻" in pv or "上五刻" in (driver.page_source or "")
+                      result["target_preview"]["preview_ui_terms"] = [
+                          x for x in ("PDF", "预览", "上一页", "下一页", "页", "打开客户端", "登录", "扫码")
+                          if x in pv
+                      ]
+                  else:
+                      result["target_preview"]["normal_target_click_attempted"] = False
+                      result["target_preview"]["normal_target_click_succeeded"] = False
+              else:
+                  result["target_preview"]["normal_target_click_attempted"] = False
+                  result["target_preview"]["normal_target_click_succeeded"] = False
+
+          except WebDriverException as exc:
+              result["webdriver_error"] = repr(exc)
+          finally:
+              if driver is not None:
+                  try:
+                      driver.quit()
+                  except Exception:
+                      pass
+
+          result["adjudication"] = {
+              "same_snu_physical_digitization_lineage": True,
+              "independent_physical_witness_increment": 0,
+              "direct_five_xiong_shen_target_page_observed": bool(result.get("target_preview", {}).get("five_xiong_shen_text_visible")),
+              "download_or_save_action_performed": False,
+              "algorithm_effect": "NONE",
+          }
+
+          (OUT / "quark-snu-v4-folder-navigation.json").write_text(
+              json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8"
+          )
+          print(json.dumps({
+              "root": {
+                  "folder_click_succeeded": result["root"].get("folder_click_succeeded"),
+                  "visible_folder_element_count": result["root"].get("visible_folder_element_count"),
+                  "login_modals_closed": result["root"].get("login_modals_closed"),
+              },
+              "folder": {
+                  "url": result["folder"].get("url"),
+                  "visible_filename_count": result["folder"].get("visible_filename_count"),
+                  "visible_filenames": result["folder"].get("visible_filenames"),
+                  "target_candidate_filenames": result["folder"].get("target_candidate_filenames"),
+              },
+              "target_preview": {
+                  k:v for k,v in result["target_preview"].items()
+                  if k not in ("visible_text",)
+              },
+              "adjudication": result["adjudication"],
+              "webdriver_error": result.get("webdriver_error"),
+          }, ensure_ascii=False, indent=2))
+          PY
+
+      - name: Upload folder-navigation evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: quark-snu-v4-folder-navigation
+          path: probe/
+          if-no-files-found: warn
+          retention-days: 14

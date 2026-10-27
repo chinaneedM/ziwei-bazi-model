@@ -1,0 +1,30 @@
+name: probe-najda-goryeosa-13ap
+on:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - scripts/probe-najda-goryeosa-13ap.py
+      - .github/workflows/probe-najda-goryeosa-13ap.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  bounded-firstparty-index:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Read only official source-emitted exact-item anchors
+        run: python scripts/probe-najda-goryeosa-13ap.py
+      - name: Upload bounded access result
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: najda-goryeosa-13ap-source-index
+          path: najda-goryeosa-13ap-evidence/
+          retention-days: 30
+          if-no-files-found: warn

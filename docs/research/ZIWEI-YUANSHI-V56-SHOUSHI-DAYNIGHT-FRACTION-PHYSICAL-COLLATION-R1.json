@@ -1,0 +1,91 @@
+{
+  "schema": "ZIWEI-YUANSHI-V56-SHOUSHI-DAYNIGHT-FRACTION-PHYSICAL-COLLATION-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-YUANSHI-V56-SHOUSHI-DAYNIGHT-FRACTION-PHYSICAL-COLLATION-CX",
+  "prior_batch_id": "BATCH-12-ZIWEI-KYUDB-G893-SHOUSHI-TYPE-II-BEIJING-PHYSICAL-COLLATION-CW",
+  "question": "Does the received Yuan-shi Shoushi day/night conversion preserve sub-ke remainders, or does it itself collapse precise daily values to whole integer ke in a way that could directly generate the 1578 Sanming displayed ladder?",
+  "source_identity": {
+    "source_id": "EXT-CADAL-WIKIMEDIA-YUANSHI-V55-56-SIKU-SHOUSHI-FRACTION",
+    "title": "元史卷五十五~卷五十六",
+    "provider_route": "CADAL digital surrogate delivered through Wikimedia Commons",
+    "identifier": "CADAL06056892",
+    "reviewed_recension": "欽定四庫全書 received recension",
+    "rule_subject_layer": "Yuan Shoushi calendrical method as transmitted in Yuan-shi",
+    "work_text_layer": "Yuan-shi compilation completed in early Ming; this batch does not equate work-text date with the reviewed physical recension",
+    "exact_physical_exemplar_impression_date": "UNRESOLVED",
+    "date_firewall": [
+      "Yuan Shoushi rule subject date is not the reviewed copy date",
+      "Yuan-shi work-text compilation date is not the reviewed copy date",
+      "Qing Siku received-recension identity is not a pre-1578 physical witness",
+      "Modern CADAL/Wikimedia digital-surrogate date is not the physical exemplar date"
+    ]
+  },
+  "acquisition": {
+    "workflow_run_id": 35326506325,
+    "workflow_job_id": 105540679987,
+    "artifact_id": 10539204266,
+    "artifact_name": "yuanshi-v55-56-daynight-fraction-rule",
+    "artifact_digest": "sha256:4f2ec714855b2d8f99887088c7ccc508bd49318fc9843a33b95b82c9ea386914",
+    "source_djvu_sha256": "6abcfe75ea823aa5a5548fe51a889256ae55949592b7ebe7739c42958beb96db",
+    "rendered_page_count": 156,
+    "complete_render_sequence": true,
+    "text_layer_authority": "LOCATOR_ONLY_NOT_GLYPH_AUTHORITY",
+    "ocr_used_for_final_glyph_claims": false
+  },
+  "direct_facsimile_collation": {
+    "render_123": {
+      "sha256": "f37742072ae4e70e9e948060a7a1ab2d27914fd7eee4529ecb3d4e9c7c10cd87",
+      "visible_heading": "求每日日出入晨昏半晝分",
+      "visible_subheading": "求日出入辰刻",
+      "role": "Begins the received Shoushi sunrise/sunset conversion procedure immediately before the target day/night-ke rule."
+    },
+    "render_124": {
+      "sha256": "3277b5fed27a758b75de6c2ba2573c34571393827273302c6f9d56f6ebde6f0d",
+      "visible_continuation": "除之為刻不滿為分命子正算外即得所求",
+      "visible_heading": "求晝夜刻",
+      "visible_rule": "置日出分十二乘之刻法而一為刻不滿為分即為夜刻覆減一百餘為晝刻及分秒",
+      "adjudication": "The conversion explicitly retains a non-integral remainder as 分 and describes the result at 刻及分秒 resolution."
+    }
+  },
+  "mechanical_adjudication": {
+    "received_shoushi_conversion_discards_subke_remainder": false,
+    "received_shoushi_conversion_preserves_fractional_resolution": true,
+    "simple_remainder_discard_at_this_conversion_layer": "DISPROVED_FOR_REVIEWED_RECEIVED_RECENSION",
+    "sanming_whole_ke_display_can_be_generated_by_this_conversion_alone": false,
+    "downstream_reduction_binning_or_editorial_layer_required_as_mechanical_inference": true,
+    "exact_downstream_historical_rule_identified": false,
+    "exact_sanming_change_day_rule_identified": false,
+    "direct_copy_parent_identified": false,
+    "scope_note": "The required downstream layer is a mechanical inference from the contrast between fractional-output conversion and the 1578 whole-ke display. This batch does not prove which historical text, editor, table, threshold or rounding convention supplied that later layer."
+  },
+  "transmission_impact": {
+    "added_nodes": [
+      "DIGITAL-SURROGATE-CADAL06056892-YUANSHI-V55-56-SIKU",
+      "RULE-YUANSHI-V56-SHOUSHI-DAYNIGHT-FRACTION-RETENTION"
+    ],
+    "added_edges": [
+      "TG-E0032",
+      "TG-E0033"
+    ],
+    "sanming_composite_model_effect": "STRENGTHENED_BY_SEPARATING_PRECISE_CONVERSION_FROM_UNRESOLVED_INTEGER_DISPLAY_REDUCTION"
+  },
+  "product_impact": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product": 10,
+    "hpa_zdate_006": "MISSING_FROM_PRODUCT",
+    "new_runtime_candidate": false,
+    "runtime_change": false,
+    "runtime_winner_selected": false,
+    "candidate_collapsed": false,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen": false,
+    "deterministic_fusion_chart_product_r1": "CLOSED"
+  },
+  "next_gate": [
+    "Find a securely pre-1578 Chinese witness that explicitly performs or states the post-conversion whole-ke reduction/binning/change-day rule.",
+    "Mechanically test any such rule against the exact 1578 Sanming 大寒十三後日 and 雨水後四日 transitions using the Nanjing Datong C-II-N daily curve.",
+    "Continue the search for an independent Chinese physical C-II-N witness so Chinese origin and Joseon transmission remain distinct.",
+    "Keep the six older G893 page-specific controls separate from the Sanming reduction-layer question."
+  ]
+}

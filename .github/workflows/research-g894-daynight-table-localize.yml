@@ -1,0 +1,40 @@
+name: research-g894-daynight-table-localize
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/research-g894-daynight-table-localize.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  localize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install transport and image dependencies
+        run: python -m pip install --disable-pip-version-check curl_cffi pillow
+      - name: Sample all three G894 volumes without OCR
+        run: |
+          python scripts/research_kyujanggak_g894_visual_sampler.py \
+            --output artifacts/g894-daynight-localize
+          cat > artifacts/g894-daynight-localize/manifest.txt <<'EOF'
+          NO_OCR_USED_FOR_GLYPH_CLAIMS=true
+          SOURCE=Kyujanggak G894 七政算內篇 provider-dated 1444
+          PURPOSE=LOCALIZE_SEOUL_DAILY_SUNRISE_SUNSET_DAY_NIGHT_KE_TABLE
+          SAMPLE_AUTHORITY=LOCALIZATION_ONLY_NOT_TARGET_GLYPH_CLOSURE
+          EOF
+      - name: Upload localization evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: g894-daynight-table-localization
+          path: artifacts/g894-daynight-localize/
+          if-no-files-found: error
+          retention-days: 30

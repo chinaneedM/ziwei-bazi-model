@@ -1,0 +1,189 @@
+name: probe-kyudb-datonglizhu-gk02538-viewer-route
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-kyudb-datonglizhu-gk02538-viewer-route.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install browser
+        shell: bash
+        run: npm install --no-save --silent puppeteer-core@24.16.0
+
+      - name: Inspect exact GK02538 original-image viewer routing
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/kyudb-datonglizhu-gk02538-viewer-route'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT"
+          BROWSER="$(command -v google-chrome || command -v chromium || command -v chromium-browser || true)"
+          test -n "$BROWSER"
+
+          cat > "$ROOT/probe.mjs" <<'JS'
+          import puppeteer from 'puppeteer-core';
+          import fs from 'node:fs';
+
+          const root='audit/kyudb-datonglizhu-gk02538-viewer-route';
+          const book='GK02538_00';
+          const browser=await puppeteer.launch({
+            headless:true,
+            executablePath:process.env.BROWSER,
+            args:['--no-sandbox','--disable-setuid-sandbox']
+          });
+          const page=await browser.newPage();
+          await page.setUserAgent('Mozilla/5.0 Tianwen-Provenance-Audit/1.0');
+
+          await page.goto('https://kyudb.snu.ac.kr/book/list.do?book_cate=SIC04&mid=GDS',{
+            waitUntil:'networkidle2',timeout:90000
+          });
+          await Promise.all([
+            page.waitForNavigation({waitUntil:'networkidle2',timeout:90000}),
+            page.evaluate((book)=>{
+              const f=document.getElementById('frmBookSearchInf');
+              f.querySelector('#book_cd').value=book;
+              f.querySelector('#target').value='master';
+              f.action='/book/view.do'; f.method='post'; f.submit();
+            },book)
+          ]);
+
+          const detail=await page.evaluate(()=>({
+            url:location.href,
+            title:document.title,
+            text:document.body.innerText,
+            originalImgFunction:typeof window.fn_originalImg==='function' ? window.fn_originalImg.toString() : null,
+            forms:[...document.forms].map(f=>({
+              id:f.id,name:f.name,action:f.action,method:f.method,
+              fields:[...f.elements].slice(0,100).map(e=>({name:e.name,id:e.id,type:e.type,value:e.value}))
+            })),
+            scripts:[...document.scripts].map(s=>({src:s.src,text:s.src?'':(s.textContent||'').slice(0,20000)}))
+          }));
+          fs.writeFileSync(root+'/detail.json',JSON.stringify(detail,null,2));
+
+          const before=new Set(browser.targets().map(t=>t._targetId));
+          await page.evaluate((book)=>window.fn_originalImg('SIC',book,'',''),book);
+          let viewer=null;
+          for(let i=0;i<40 && !viewer;i++){
+            await new Promise(r=>setTimeout(r,500));
+            for(const t of browser.targets()){
+              if(t.type()==='page' && !before.has(t._targetId)){
+                const p=await t.page();
+                const u=t.url();
+                if(p && (u.includes('/pf01/') || u.includes('rendererImg') || u.includes('viewer'))){
+                  viewer=p; break;
+                }
+              }
+            }
+          }
+          if(!viewer) throw new Error('viewer target not resolved');
+          await viewer.waitForNetworkIdle({idleTime:1500,timeout:30000}).catch(()=>{});
+
+          // The actual visible viewer is authoritative for routing discovery.
+          const viewerProbe=await viewer.evaluate(()=>({
+            url:location.href,
+            title:document.title,
+            text:(document.body.innerText||'').slice(0,30000),
+            html:document.documentElement.outerHTML.slice(0,800000),
+            resources:performance.getEntriesByType('resource').map(e=>({
+              name:e.name,initiatorType:e.initiatorType,transferSize:e.transferSize,
+              encodedBodySize:e.encodedBodySize,decodedBodySize:e.decodedBodySize
+            })),
+            images:[...document.images].map(i=>({
+              id:i.id,className:i.className,src:i.src,currentSrc:i.currentSrc,
+              width:i.width,height:i.height,naturalWidth:i.naturalWidth,naturalHeight:i.naturalHeight
+            })),
+            iframes:[...document.querySelectorAll('iframe')].map(x=>({id:x.id,name:x.name,src:x.src})),
+            canvases:[...document.querySelectorAll('canvas')].map(x=>({id:x.id,className:x.className,width:x.width,height:x.height})),
+            links:[...document.links].slice(0,500).map(a=>({text:a.innerText,href:a.href,onclick:a.getAttribute('onclick')})),
+            buttons:[...document.querySelectorAll('button,input[type=button],input[type=submit],a')].slice(0,800).map(x=>({
+              tag:x.tagName,id:x.id,name:x.getAttribute('name'),text:(x.innerText||x.value||'').trim(),
+              onclick:x.getAttribute('onclick'),href:x.getAttribute('href')
+            })),
+            forms:[...document.forms].map(f=>({
+              id:f.id,name:f.name,action:f.action,method:f.method,
+              fields:[...f.elements].slice(0,200).map(e=>({name:e.name,id:e.id,type:e.type,value:e.value}))
+            })),
+            scripts:[...document.scripts].map(s=>({src:s.src})),
+            interestingGlobals:Object.keys(window).filter(k=>/img|image|page|book|vol|viewer|render|item|file/i.test(k)).slice(0,1000)
+          }));
+          fs.writeFileSync(root+'/viewer.json',JSON.stringify(viewerProbe,null,2));
+          fs.writeFileSync(root+'/viewer.html',viewerProbe.html);
+          await viewer.screenshot({path:root+'/viewer-full.png',fullPage:true}).catch(()=>{});
+
+          const frames=[];
+          for(const f of viewer.frames()){
+            let snapshot={url:f.url(),name:f.name()};
+            try{
+              snapshot={...snapshot,...await f.evaluate(()=>({
+                title:document.title,
+                text:(document.body.innerText||'').slice(0,20000),
+                html:document.documentElement.outerHTML.slice(0,300000),
+                images:[...document.images].map(i=>({src:i.src,currentSrc:i.currentSrc,naturalWidth:i.naturalWidth,naturalHeight:i.naturalHeight})),
+                resources:performance.getEntriesByType('resource').map(e=>e.name)
+              }))};
+            }catch(e){snapshot.error=String(e);}
+            frames.push(snapshot);
+          }
+          fs.writeFileSync(root+'/frames.json',JSON.stringify(frames,null,2));
+
+          // Preserve a few wrong-route responses verbatim so a 200 HTML/error shell cannot masquerade as image access.
+          const guessed=[];
+          for(const p of ['000a','001a','002a','050a','051a']){
+            const fn=`${book}IH_0001_${p}.jpg`;
+            const path=`/data01/stream/SIC/IMG/${book}/${book}_0001/${fn}`;
+            const url=`https://kyudb.snu.ac.kr/ImageServlet.do?imgFileNm=${encodeURIComponent(fn)}&path=${encodeURIComponent(path)}`;
+            const r=await viewer.evaluate(async(url)=>{
+              const rr=await fetch(url); const b=await rr.arrayBuffer();
+              const u8=new Uint8Array(b);
+              return {
+                url,status:rr.status,contentType:rr.headers.get('content-type'),bytes:u8.length,
+                prefixHex:[...u8.slice(0,48)].map(x=>x.toString(16).padStart(2,'0')).join(''),
+                prefixText:new TextDecoder().decode(u8.slice(0,1000))
+              };
+            },url).catch(e=>({url,error:String(e)}));
+            guessed.push(r);
+          }
+          fs.writeFileSync(root+'/guessed-route-responses.json',JSON.stringify(guessed,null,2));
+
+          const candidateUrls=[
+            ...viewerProbe.resources.map(x=>x.name),
+            ...viewerProbe.images.flatMap(x=>[x.src,x.currentSrc]),
+            ...frames.flatMap(x=>[...(x.resources||[]),...(x.images||[]).flatMap(i=>[i.src,i.currentSrc])])
+          ].filter(Boolean);
+          const interesting=[...new Set(candidateUrls)].filter(u=>/ImageServlet|stream|\.jpg|\.jpeg|\.png|\.tif|tile|image|img|pf01/i.test(u));
+          fs.writeFileSync(root+'/interesting-resource-urls.txt',interesting.join('\n')+'\n');
+
+          console.log(JSON.stringify({
+            detail_url:detail.url,
+            viewer_url:viewerProbe.url,
+            frame_count:frames.length,
+            resource_count:viewerProbe.resources.length,
+            image_count:viewerProbe.images.length,
+            canvas_count:viewerProbe.canvases.length,
+            interesting_resource_count:interesting.length,
+            first_interesting:interesting.slice(0,30)
+          },null,2));
+          await browser.close();
+          JS
+
+          BROWSER="$BROWSER" node "$ROOT/probe.mjs"
+
+      - name: Upload viewer-route probe
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: kyudb-datonglizhu-gk02538-viewer-route-r1
+          path: audit/kyudb-datonglizhu-gk02538-viewer-route
+          if-no-files-found: error
+          retention-days: 30

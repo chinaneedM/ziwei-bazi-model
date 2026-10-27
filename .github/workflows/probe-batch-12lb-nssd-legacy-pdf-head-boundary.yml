@@ -1,0 +1,107 @@
+name: probe-batch-12lb-nssd-legacy-pdf-head-boundary
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12lb-nssd-legacy-pdf-head-boundary.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Probe only HEAD/redirect metadata for the exact source-emitted legacy PDF URL
+        run: |
+          python - <<'PY'
+          import hashlib, json
+          from pathlib import Path
+          from urllib.parse import urljoin, urlparse
+          import requests
+
+          START="http://www.nssd.org/articles/article_down.aspx?id=1002462903"
+          UA="Mozilla/5.0 (Tianwen provenance audit; source-emitted legacy PDF HEAD boundary)"
+          max_hops=8
+          chain=[]
+          current=START
+          s=requests.Session()
+          s.headers.update({"User-Agent":UA})
+
+          for hop in range(max_hops):
+              r=s.head(current,timeout=45,allow_redirects=False)
+              item={
+                  "hop":hop,
+                  "method":"HEAD",
+                  "url":current,
+                  "status":r.status_code,
+                  "content_type":r.headers.get("content-type"),
+                  "content_length":r.headers.get("content-length"),
+                  "location":r.headers.get("location"),
+                  "server":r.headers.get("server"),
+                  "set_cookie_present":bool(r.headers.get("set-cookie")),
+              }
+              chain.append(item)
+              if r.status_code not in (301,302,303,307,308) or not r.headers.get("location"):
+                  break
+              nxt=urljoin(current,r.headers["location"])
+              p=urlparse(nxt)
+              # Follow only ordinary public HTTP(S) redirects. Stop before any explicit auth/login route.
+              if p.scheme not in ("http","https"):
+                  item["stop_reason"]="NON_HTTP_REDIRECT"
+                  break
+              low=(p.path+"?"+p.query).lower()
+              if any(x in low for x in ("login","signin","sso","oauth","passport","auth")):
+                  item["stop_reason"]="AUTH_ROUTE_REDIRECT"
+                  item["auth_route_target"]=nxt
+                  break
+              current=nxt
+
+          terminal=chain[-1]
+          ct=(terminal.get("content_type") or "").lower()
+          adjudication={
+              "head_only":True,
+              "body_downloaded":False,
+              "get_request_used":False,
+              "source_emitted_url_exact":True,
+              "terminal_status":terminal.get("status"),
+              "terminal_content_type":terminal.get("content_type"),
+              "public_pdf_metadata_observed":terminal.get("status")==200 and "pdf" in ct,
+              "auth_redirect_observed":any(x.get("stop_reason")=="AUTH_ROUTE_REDIRECT" for x in chain),
+              "network_error":False,
+          }
+          out={
+              "source_contract":{
+                  "parent_batch":"12LA",
+                  "source_emitted_by":"12KY NCPSsd first-party detail object",
+                  "legacy_pdfurl":START,
+                  "probe_method":"HEAD_ONLY",
+                  "no_body_authorized":True,
+              },
+              "redirect_chain":chain,
+              "redirect_hop_count":len(chain)-1,
+              "adjudication":adjudication,
+              "security":{
+                  "anonymous_head_only":True,
+                  "reader_account_used":False,
+                  "registration_used":False,
+                  "get_request_used":False,
+                  "body_downloaded":False,
+                  "range_request_used":False,
+                  "login_used":False,
+                  "captcha_bypass_used":False,
+                  "tls_verification_disabled":False,
+              }
+          }
+          Path("batch-12lb-nssd-legacy-pdf-head-boundary.json").write_text(
+              json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12lb-nssd-legacy-pdf-head-boundary
+          path: batch-12lb-nssd-legacy-pdf-head-boundary.json

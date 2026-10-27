@@ -1,0 +1,183 @@
+{
+  "schema": "TIANWEN-12XS-G893-TARGET-SOURCE-ROI-BOUND-NO-FIELD-OR-NUMERIC-DECISION-R1",
+  "date": "2026-10-16",
+  "source_id": "EXT-KYUJANGGAK-SHOUSHI-LICHENG-G893",
+  "provider": "Seoul National University Kyujanggak",
+  "book_cd": "GK00893_00",
+  "archive": {
+    "source_run": 35324088110,
+    "source_artifact": 10538746764,
+    "source_original_jpgs_total": 204,
+    "source_jpg_digest_matches": 204,
+    "archive_zip_sha256": "ee9ecf1de3bb6abe5678e0f8ec8383ef985051e77d091ee40840756e57081107",
+    "source_images_not_added_to_public_repo": true
+  },
+  "pixel_replay": {
+    "method": "Pillow Image.open(BytesIO(exact_original_jpg)).convert('RGB').crop(rect_px).tobytes() then SHA256",
+    "coordinates": "UNROTATED_PROVIDER_ORIGINAL_1150x2000",
+    "order": "[left,top,right,bottom), bottom and right exclusive",
+    "colorspace": "RGB",
+    "ocr": false
+  },
+  "reviews": [
+    {
+      "control_id": "VAR-NUM-SOLAR-WINTER-D16-DIFFERENCE",
+      "target_page_id": "002b",
+      "target_original_jpeg_sha256": "f9812e8c6a357eb6cd1117bb2af58d816e01030d5b93f34e7094bddb766b2b55",
+      "header_page_id": "001a",
+      "header_original_jpeg_sha256": "8b07513ca8aad42ae167a93f22c39f14850c8cd1c345db9ce98c1e0e769226a5",
+      "day_heading_region": {
+        "rect_px": [
+          510,
+          215,
+          610,
+          550
+        ],
+        "rgb_pixel_sha256": "41c316acd24eea7b58ee12f2b9bf2e463a4091ae3c255b5bd0c90670bead75a8"
+      },
+      "table_candidate_region": {
+        "rect_px": [
+          415,
+          555,
+          665,
+          1400
+        ],
+        "rgb_pixel_sha256": "d339a3b5e30f36ff59754e3c9ec0d80972f28b5165ec9c7f8fd3daa18a9fe5ea"
+      },
+      "source_header_region": {
+        "rect_px": [
+          430,
+          210,
+          740,
+          950
+        ],
+        "rgb_pixel_sha256": "c3dce34ca72a1f246ca42a521c1eccbb2e3440097fc514480562bb67ee676635"
+      },
+      "source_image_size_px": [
+        1150,
+        2000
+      ],
+      "day_heading_observed": "十六日",
+      "table_family": "SOLAR_WINTER_YINGSUO",
+      "header_terms_observed": "積日／日差加一秒八十六少／盈縮加分／盈縮積度",
+      "field_identity_status": "UNRESOLVED_SOLAR_D16_SECOND_DIFFERENCE_COLUMN",
+      "field_identity_positive": false,
+      "field_literal": null,
+      "numeric_value": null,
+      "negative_absence_proven": false,
+      "cross_witness_comparability": "PENDING_SOURCE_COLUMN_MAPPING",
+      "warning": "太阳初缩末限页可见D16，但还不能把盈缩加分等同明1569／高丽史的5.2362或5.1362第二差分。",
+      "source_url": "https://kyudb.snu.ac.kr/ImageServlet.do?imgFileNm=GK00893_00IH_0001_002b.jpg&path=%2Fdata01%2Fstream%2FSIC%2FIMG%2FGK00893_00%2FGK00893_00_0001%2FGK00893_00IH_0001_002b.jpg"
+    },
+    {
+      "control_id": "NORM-LUNAR-L101-CHIJI-DEGREE-POSITIONAL-GROUPING",
+      "target_page_id": "032b",
+      "target_original_jpeg_sha256": "65457d858a2b2a6c5d04603d4e03430e25e671cbb7f66f6563f9d36798bc300c",
+      "header_page_id": "018b",
+      "header_original_jpeg_sha256": "4decd1801d832ba5b471b047dd84cca487245038622a589b48552a0fb43ab83a",
+      "day_heading_region": {
+        "rect_px": [
+          805,
+          222,
+          904,
+          555
+        ],
+        "rgb_pixel_sha256": "a313c256093db2b169df6f35e5856d21a274036ae54825b7123d9dc6b5c1f6b4"
+      },
+      "table_candidate_region": {
+        "rect_px": [
+          630,
+          580,
+          915,
+          1440
+        ],
+        "rgb_pixel_sha256": "3d3082dcd50425565cb8b1bcadb7529f77722767ca94f66581ef1847dca2bae9"
+      },
+      "source_header_region": {
+        "rect_px": [
+          408,
+          220,
+          835,
+          1040
+        ],
+        "rgb_pixel_sha256": "b1014a82a0107d54863a51f3a99022efd36ffc3c08054d681602bfdc58e50b9e"
+      },
+      "source_image_size_px": [
+        1150,
+        2000
+      ],
+      "day_heading_observed": "一百〇一",
+      "table_family": "LUNAR_CHIJI_LIMIT",
+      "header_terms_observed": "太陰限數遲疾度／遲疾曆日率等表头",
+      "field_identity_status": "UNRESOLVED_L101_POSITIONAL_ACCUMULATED_DEGREE",
+      "field_identity_positive": false,
+      "field_literal": null,
+      "numeric_value": null,
+      "negative_absence_proven": false,
+      "cross_witness_comparability": "PENDING_SOURCE_COLUMN_MAPPING",
+      "warning": "异版五度二十四八一一二五不能未经逐列原字核定直接填入本页G893。",
+      "source_url": "https://kyudb.snu.ac.kr/ImageServlet.do?imgFileNm=GK00893_00IH_0001_032b.jpg&path=%2Fdata01%2Fstream%2FSIC%2FIMG%2FGK00893_00%2FGK00893_00_0001%2FGK00893_00IH_0001_032b.jpg"
+    },
+    {
+      "control_id": "VAR-NUM-LUNAR-L124-JI-XINGDU",
+      "target_page_id": "035b",
+      "target_original_jpeg_sha256": "06b5a0ba80c5604576f84b59fc1017b5b0822920e737ef5c96a66b2d82d9e02c",
+      "header_page_id": "018b",
+      "header_original_jpeg_sha256": "4decd1801d832ba5b471b047dd84cca487245038622a589b48552a0fb43ab83a",
+      "day_heading_region": {
+        "rect_px": [
+          570,
+          220,
+          675,
+          580
+        ],
+        "rgb_pixel_sha256": "7694f31e8a78125dad78961f4e50a64966a0eee9078f09f2b655a31878b6b7c8"
+      },
+      "table_candidate_region": {
+        "rect_px": [
+          400,
+          580,
+          680,
+          1450
+        ],
+        "rgb_pixel_sha256": "b28c8292c79415425d8aa6a363262fe109ad8abf23e1dc598aea30e8ae554bb9"
+      },
+      "source_header_region": {
+        "rect_px": [
+          408,
+          220,
+          835,
+          1040
+        ],
+        "rgb_pixel_sha256": "b1014a82a0107d54863a51f3a99022efd36ffc3c08054d681602bfdc58e50b9e"
+      },
+      "source_image_size_px": [
+        1150,
+        2000
+      ],
+      "day_heading_observed": "一百二十四",
+      "table_family": "LUNAR_CHIJI_LIMIT",
+      "header_terms_observed": "太陰限數遲疾度／遲疾限行度等表头",
+      "field_identity_status": "UNRESOLVED_L124_JI_LIMIT_MOTION_FIELD",
+      "field_identity_positive": false,
+      "field_literal": null,
+      "numeric_value": null,
+      "negative_absence_proven": false,
+      "cross_witness_comparability": "PENDING_SOURCE_COLUMN_MAPPING",
+      "warning": "不能把其他版本1.0281或本页相邻損益分、日率、积度字段当作本原书疾限行度。",
+      "source_url": "https://kyudb.snu.ac.kr/ImageServlet.do?imgFileNm=GK00893_00IH_0001_035b.jpg&path=%2Fdata01%2Fstream%2FSIC%2FIMG%2FGK00893_00%2FGK00893_00_0001%2FGK00893_00IH_0001_035b.jpg"
+    }
+  ],
+  "guards": {
+    "candidate_pixel_regions_are_not_textual_absence_or_numeric_proof": true,
+    "original_L114_full_field_review_retained": true,
+    "source_field_full_literals_new": 0,
+    "cross_edition_complete_numeric_decisions_new": 0,
+    "new_historical_physical_witnesses": 0,
+    "new_external_source_records": 0,
+    "new_genealogy_nodes": 0,
+    "new_genealogy_edges": 0,
+    "algorithm_reopens": 0,
+    "remaining_issues_open": 11
+  }
+}

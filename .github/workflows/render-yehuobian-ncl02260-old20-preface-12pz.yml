@@ -1,0 +1,87 @@
+name: render-yehuobian-ncl02260-old20-preface-12pz
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/render-yehuobian-ncl02260-old20-preface-12pz.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  source-original-preface:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - name: Install PDF renderer
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils
+
+      - name: Acquire independent NCL 02260 old 20v manuscript and check Commons SHA1
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p ncl02260-12pz/source ncl02260-12pz/pages
+          url='https://commons.wikimedia.org/wiki/Special:Redirect/file/NCL-02260_1_%E8%90%AC%E6%9B%86%E9%87%8E%E7%8D%B2%E7%B7%A8.pdf'
+          curl -L --fail --retry 5 --retry-all-errors --retry-delay 3 --max-time 1700 \
+            -A 'Tianwen-Historical-Provenance-R1/1.0' "$url" -o ncl02260-12pz/source/ncl02260-part1.pdf
+          test "$(stat -c%s ncl02260-12pz/source/ncl02260-part1.pdf)" -gt 150000000
+          echo '8e00a60e91d42761b4443954897678686c88a0a9  ncl02260-12pz/source/ncl02260-part1.pdf' | sha1sum -c -
+          sha256sum ncl02260-12pz/source/ncl02260-part1.pdf | tee ncl02260-12pz/source-sha256.txt
+          sha1sum ncl02260-12pz/source/ncl02260-part1.pdf | tee ncl02260-12pz/source-sha1.txt
+          pdfinfo ncl02260-12pz/source/ncl02260-part1.pdf > ncl02260-12pz/pdfinfo.txt
+          test "$(awk '/^Pages:/ {print $2}' ncl02260-12pz/pdfinfo.txt)" = 1000
+
+      - name: Source-render bounded beginning and end of first digital segment without OCR
+        shell: bash
+        run: |
+          set -euo pipefail
+          for p in $(seq 1 24) 980 990 995 997 999 1000; do
+            pdftoppm -f "$p" -l "$p" -scale-to 1500 -jpeg -jpegopt quality=86 \
+              -singlefile ncl02260-12pz/source/ncl02260-part1.pdf \
+              "ncl02260-12pz/pages/ncl02260-p$(printf '%04d' "$p")"
+          done
+          (cd ncl02260-12pz && sha256sum pages/*.jpg > image-sha256.txt)
+          printf '%s\n' \
+            'LIBRARY=NCL_TAIWAN' \
+            'SHELFMARK=204.26 02260' \
+            'RECENSION=OLD_20V_MANUSCRIPT_WITH_SUPPLEMENT_AND_12V_CONTINUATION' \
+            'NCL_CATALOG_PREFACE=萬曆三十四年丙午' \
+            'SOURCE_COMMONS_SHA1_PRECHECK=PASS' \
+            'SOURCE_DIGITAL_FILE_PART=1_OF_2' \
+            'PDF_PAGES_THIS_FILE=1000' \
+            'PDF_PAGE_IS_NOT_PHYSICAL_FOLIO=true' \
+            'NOT_A_DIRECT_KAIZAO_TARGET_COLLATION_YET=true' \
+            'OCR=false' > ncl02260-12pz/manifest.txt
+
+      - name: Log bounded source-derived previews for direct visual collation
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          from base64 import b64encode
+          for p in [1,4,5,6,7,8,9,10,12,16]:
+              f=Path(f"ncl02260-12pz/pages/ncl02260-p{p:04d}.jpg")
+              s=b64encode(f.read_bytes()).decode("ascii")
+              print(f"TIANWEN_NCL02260_IMAGE_BEGIN page={p} chars={len(s)}",flush=True)
+              for j in range(0,len(s),4000):
+                  print("TIANWEN_NCL02260_IMAGE_CHUNK "+s[j:j+4000],flush=True)
+              print(f"TIANWEN_NCL02260_IMAGE_END page={p}",flush=True)
+          PY
+      - name: Preserve NCL 02260 image proof and manifest
+        uses: actions/upload-artifact@v4
+        with:
+          name: ncl02260-old20-preface-sampled-leaves-12pz
+          path: |
+            ncl02260-12pz/pages/
+            ncl02260-12pz/source-sha1.txt
+            ncl02260-12pz/source-sha256.txt
+            ncl02260-12pz/pdfinfo.txt
+            ncl02260-12pz/image-sha256.txt
+            ncl02260-12pz/manifest.txt
+          retention-days: 30
+          if-no-files-found: error

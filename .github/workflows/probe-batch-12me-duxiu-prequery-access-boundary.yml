@@ -1,0 +1,112 @@
+name: probe-batch-12me-duxiu-prequery-access-boundary
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12me-duxiu-prequery-access-boundary.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inspect only Duxiu root source-emitted redirect/login boundary before any target query
+        run: |
+          python - <<'PY'
+          import hashlib, html, json, re
+          from pathlib import Path
+          from urllib.parse import urljoin, urlparse
+          import requests
+
+          root="https://edu.duxiu.com/"
+          UA={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; Duxiu pre-query access boundary)"}
+          s=requests.Session()
+          s.headers.update(UA)
+
+          def get(url):
+              try:
+                  r=s.get(url,timeout=45,allow_redirects=False)
+                  return r,None
+              except Exception as e:
+                  return None,f"{type(e).__name__}: {e}"
+
+          def rec(r,e,url):
+              out={"url":url,"fetch_error":e}
+              if r is not None:
+                  out.update({
+                      "status":r.status_code,
+                      "location":r.headers.get("location"),
+                      "content_type":r.headers.get("content-type"),
+                      "server":r.headers.get("server"),
+                      "bytes":len(r.content),
+                      "sha256":hashlib.sha256(r.content).hexdigest()
+                  })
+              return out
+
+          def visible_text(raw):
+              txt=raw.decode("utf-8","replace")
+              txt=re.sub(r"(?is)<script\b.*?</script>"," ",txt)
+              txt=re.sub(r"(?is)<style\b.*?</style>"," ",txt)
+              txt=html.unescape(re.sub(r"<[^>]+>"," ",txt))
+              return re.sub(r"\s+"," ",txt).strip()
+
+          rr,re_=get(root)
+          root_rec=rec(rr,re_,root)
+          follow_url=None
+          redirect_binding=None
+          if rr is not None and rr.status_code in (301,302,303,307,308) and rr.headers.get("location"):
+              u=urljoin(root,rr.headers["location"])
+              if urlparse(u).hostname=="edu.duxiu.com":
+                  follow_url=u
+                  redirect_binding={"kind":"same_host_http_redirect","absolute_href":u}
+
+          fr=fe=None
+          follow_rec=None
+          tokens={}
+          if follow_url:
+              fr,fe=get(follow_url)
+              follow_rec=rec(fr,fe,follow_url)
+              if fr is not None:
+                  vis=visible_text(fr.content)
+                  token_list=("登录","机构","账号","CARSI","IP","服务范围","验证码","读秀","搜索")
+                  tokens={t:vis.count(t) for t in token_list}
+                  follow_rec["visible_text_excerpt"]=vis[:6000]
+
+          out={
+              "source_contract":{
+                  "parent_batch":"12MD",
+                  "root_url":root,
+                  "anonymous_get_only":True,
+                  "target_title_or_isbn_query_submitted":False,
+                  "login_attempted":False,
+                  "credential_used":False,
+                  "captcha_bypass_used":False,
+                  "private_endpoint_guessed":False,
+                  "only_same_host_http_redirect_followed":True
+              },
+              "root_response":root_rec,
+              "source_emitted_redirect":redirect_binding,
+              "redirect_target_response":follow_rec,
+              "visible_token_counts":tokens,
+              "adjudication":{
+                  "prequery_access_boundary_only":True,
+                  "target_book_object_claimed_bound":False,
+                  "wenji_p197_direct_page_claimed_reviewed":False,
+                  "primary_text_upgrade_authorized":False
+              }
+          }
+          Path("batch-12me-duxiu-prequery-access-boundary.json").write_text(
+              json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8"
+          )
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12me-duxiu-prequery-access-boundary
+          path: batch-12me-duxiu-prequery-access-boundary.json

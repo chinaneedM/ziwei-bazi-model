@@ -1,0 +1,198 @@
+name: research-quark-snu-v4-public-download
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-quark-snu-v4-public-download.yml
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Test only the visible public target-row download action
+        shell: bash
+        run: |
+          set -e
+          python -m pip install --quiet selenium
+          python - <<'PY'
+          import hashlib
+          import json
+          import time
+          from pathlib import Path
+          from selenium import webdriver
+          from selenium.common.exceptions import TimeoutException
+          from selenium.webdriver.chrome.options import Options
+          from selenium.webdriver.common.by import By
+          from selenium.webdriver.common.action_chains import ActionChains
+
+          OUT=Path("probe")
+          DL=OUT/"downloads"
+          DL.mkdir(parents=True)
+          SHARE="https://pan.quark.cn/s/3b7b731e41f2"
+          FOLDER="紫微斗数"
+          TARGET="【飛星策天紫微斗數全集】一簑古523.5-J562b-v.1-6 陳博(宋) 著 羊城[同治9年(1870)]明經閣 木版本（4）.pdf"
+
+          result={
+            "schema":"QUARK-SNU-MINGJINGGE-V4-PUBLIC-DOWNLOAD-ACTION-R1",
+            "share_url":SHARE,
+            "target_filename":TARGET,
+            "expected_visible_size":"31.5M",
+            "authentication_attempted":False,
+            "save_to_cloud_attempted":False,
+            "api_endpoint_guessing_attempted":False,
+            "access_control_bypass_attempted":False,
+            "normal_public_download_button_clicked":False,
+            "downloaded_files":[],
+          }
+
+          def close_modals(driver):
+              c=0
+              for _ in range(5):
+                  vis=[e for e in driver.find_elements(By.CSS_SELECTOR,"button.ant-modal-close[aria-label='Close']") if e.is_displayed()]
+                  if not vis: break
+                  try: vis[0].click(); c+=1; time.sleep(.6)
+                  except Exception: break
+              return c
+
+          def body_text(driver):
+              try: return driver.find_element(By.TAG_NAME,"body").text or ""
+              except Exception: return ""
+
+          opts=Options()
+          for a in ("--headless=new","--no-sandbox","--disable-dev-shm-usage","--disable-gpu","--disable-background-networking","--disable-component-update","--disable-default-apps","--disable-sync","--no-first-run","--window-size=1600,1800"):
+              opts.add_argument(a)
+          opts.add_experimental_option("prefs",{
+              "download.default_directory":str(DL.resolve()),
+              "download.prompt_for_download":False,
+              "download.directory_upgrade":True,
+              "safebrowsing.enabled":True,
+          })
+          opts.page_load_strategy="eager"
+          driver=webdriver.Chrome(options=opts)
+          driver.set_page_load_timeout(20)
+          try:
+              # Permit Chrome headless downloads to the research artifact directory.
+              try:
+                  driver.execute_cdp_cmd("Browser.setDownloadBehavior",{"behavior":"allow","downloadPath":str(DL.resolve())})
+              except Exception:
+                  try: driver.execute_cdp_cmd("Page.setDownloadBehavior",{"behavior":"allow","downloadPath":str(DL.resolve())})
+                  except Exception: pass
+
+              try: driver.get(SHARE)
+              except TimeoutException: pass
+              time.sleep(9)
+              close_modals(driver)
+
+              folders=[e for e in driver.find_elements(By.CSS_SELECTOR,".filename-text") if (e.get_attribute("title") or e.text or "").strip()==FOLDER and e.is_displayed()]
+              if not folders: raise RuntimeError("public folder not visible")
+              folders[0].click(); time.sleep(7); close_modals(driver)
+
+              scrollers=[]
+              for e in driver.find_elements(By.CSS_SELECTOR,".ant-table-body"):
+                  sh=driver.execute_script("return arguments[0].scrollHeight",e); ch=driver.execute_script("return arguments[0].clientHeight",e)
+                  if sh and ch and sh>ch+20: scrollers.append((sh-ch,e))
+              if not scrollers: raise RuntimeError("scrollable file table not found")
+              scroller=max(scrollers,key=lambda x:x[0])[1]
+
+              target=None
+              for step in range(13):
+                  mx=driver.execute_script("return Math.max(0,arguments[0].scrollHeight-arguments[0].clientHeight)",scroller)
+                  driver.execute_script("arguments[0].scrollTop=Math.round(arguments[1]*arguments[2]/12); arguments[0].dispatchEvent(new Event('scroll',{bubbles:true}));",scroller,mx,step)
+                  time.sleep(.8)
+                  es=[e for e in driver.find_elements(By.CSS_SELECTOR,".filename-text") if (e.get_attribute("title") or e.text or "").strip()==TARGET and e.is_displayed()]
+                  if es: target=es[0]; break
+              result["target_visible"]=target is not None
+              if target is None: raise RuntimeError("target filename not mounted after normal scrolling")
+
+              row=target.find_element(By.XPATH,"ancestor::tr[1]")
+              result["target_row_key"]=row.get_attribute("data-row-key")
+              result["target_row_text"]=row.text
+              driver.execute_script("arguments[0].scrollIntoView({block:'center'});",row)
+              ActionChains(driver).move_to_element(row).perform()
+              time.sleep(1)
+
+              downs=[e for e in row.find_elements(By.CSS_SELECTOR,".hover-oper-item.hoitem-down[title='下载']") if e.is_displayed()]
+              result["visible_target_row_download_button_count"]=len(downs)
+              if not downs:
+                  # visibility can be CSS hover-dependent; the source-emitted row action
+                  # may still be present, so use the exact row-local element only.
+                  downs=row.find_elements(By.CSS_SELECTOR,".hover-oper-item.hoitem-down[title='下载']")
+              if not downs: raise RuntimeError("target row download action not present")
+
+              before=body_text(driver)
+              result["before_action_terms"]=[x for x in ("登录","打开客户端","保存到网盘","下载") if x in before]
+              downs[0].click()
+              result["normal_public_download_button_clicked"]=True
+
+              # Do not interact with any login/client/save prompt. Merely observe for
+              # up to 90 seconds whether an anonymous file arrives.
+              last_sizes={}
+              stable=0
+              for _ in range(90):
+                  files=[p for p in DL.iterdir() if p.is_file()]
+                  current={p.name:p.stat().st_size for p in files}
+                  partial=any(p.suffix.lower() in (".crdownload",".tmp") for p in files)
+                  if current and current==last_sizes and not partial:
+                      stable+=1
+                  else:
+                      stable=0
+                  last_sizes=current
+                  if stable>=3: break
+                  time.sleep(1)
+
+              after=body_text(driver)
+              result["after_action_terms"]=[x for x in ("登录","扫码","打开客户端","保存到网盘","下载","客户端") if x in after]
+              result["current_url_after_action"]=driver.current_url
+              result["visible_modal_close_count_after_action"]=len([e for e in driver.find_elements(By.CSS_SELECTOR,"button.ant-modal-close[aria-label='Close']") if e.is_displayed()])
+              result["visible_modal_texts_after_action"]=[]
+              for m in driver.find_elements(By.CSS_SELECTOR,".ant-modal"):
+                  try:
+                      if m.is_displayed(): result["visible_modal_texts_after_action"].append(m.text[:4000])
+                  except Exception: pass
+              try: driver.save_screenshot(str(OUT/"after-download-click.png"))
+              except Exception: pass
+
+              for p in sorted(DL.iterdir()):
+                  if not p.is_file(): continue
+                  data=p.read_bytes()
+                  result["downloaded_files"].append({
+                    "name":p.name,
+                    "bytes":len(data),
+                    "sha256":hashlib.sha256(data).hexdigest(),
+                    "prefix_hex":data[:16].hex(),
+                    "pdf_magic":data.startswith(b"%PDF"),
+                    "partial_suffix":p.suffix.lower() in (".crdownload",".tmp"),
+                  })
+          except Exception as exc:
+              result["error"]=repr(exc)
+          finally:
+              try: driver.quit()
+              except Exception: pass
+
+          result["adjudication"]={
+            "anonymous_complete_pdf_obtained":any(x.get("pdf_magic") and not x.get("partial_suffix") for x in result["downloaded_files"]),
+            "login_or_client_followup_interaction_performed":False,
+            "save_to_cloud_action_performed":False,
+            "same_snu_physical_digitization_lineage":True,
+            "independent_physical_witness_increment":0,
+            "algorithm_effect":"NONE",
+          }
+          (OUT/"quark-snu-v4-public-download.json").write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(result,ensure_ascii=False,indent=2))
+          PY
+
+      - name: Upload public-download evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: quark-snu-v4-public-download
+          path: probe/
+          if-no-files-found: warn
+          retention-days: 14

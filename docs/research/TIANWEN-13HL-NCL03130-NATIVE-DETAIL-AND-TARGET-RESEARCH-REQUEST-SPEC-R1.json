@@ -1,0 +1,118 @@
+{
+  "schema": "TIANWEN-13HL-NCL03130-NATIVE-DETAIL-AND-TARGET-RESEARCH-REQUEST-SPEC-R1",
+  "date": "2026-10-26",
+  "issue_id": "TW-OPEN-0005",
+  "grade": "PROVIDER_NATIVE_INTERFACE_CONTROL_AND_UNSENT_RESEARCH_INTAKE_SPECIFICATION",
+  "provider_controls": {
+    "source_native_search_entry": "https://rbook.ncl.edu.tw/NCLSearch/Search/Index/1",
+    "official_search_supports_book_number_field": true,
+    "exact_03130_native_item_url_obtained": false,
+    "exact_03130_native_folio_url_obtained": false,
+    "indexed_neighbor_example": {
+      "url": "https://rbook.ncl.edu.tw/NCLSearch/Search/SearchDetail?HasImage=&SourceID=1&item=333537bcbb354006bb5092f043b4cb65fDUyODgy0.M_Qq2W0IA9UdE1rOcfjBtnF7UUKDHRtB6tRhx8Htw1c_&page=928&sourceWhereString=&whereString=IChOVUxMSUYoQ3JlYXRlcl9OYW1lLCAnICcpIGlzIE5VTEwgYW5kIE5VTExJRihEb2N1bWVudF9Xcml0ZXIsICcgJykgaXMgTlVMTCBhbmQgTlVMTElGKEpvdXJuYWxfV3JpdGVyLCAnICcpIGlzIE5VTEwgKSA1.cHNKVlDaZLqmac_B_QboEZhR4vv4gJ8MEx7vCx6fK8U_",
+      "source_id": "1",
+      "book_number": "03128",
+      "title": "東國史略",
+      "current_holding": "國家圖書館",
+      "is_03130_target": false
+    },
+    "indexed_neighbor_does_not_infer_target_opaque_item_token": true,
+    "catalog_aggregate_target": "https://catalog.digitalarchives.tw/item/00/08/64/27.html",
+    "catalog_item_id": "549927",
+    "catalog_shelfmark": "03130",
+    "aggregate_original_source_link_final": "https://rbook.ncl.edu.tw/NCLSearch/Search/Index/1",
+    "catalog_aggregate_does_not_equal_native_record": true
+  },
+  "evidence_requirements": [
+    {
+      "id": "A",
+      "request": "Please identify the exact current source-native NCL item and permanent SearchDetail/catalog number for 高麗史, 書號/索書號 03130; do not substitute a neighboring 03128 record.",
+      "verified": false
+    },
+    {
+      "id": "B",
+      "request": "Please bind 《高麗史》卷52《授時曆立成》 summer day14 and adjacent 四分/初度 column to the physical fascicle and folio (recto/verso), with the digital equivalent of Commons NCL-03130_09 PDF page74.",
+      "verified": false
+    },
+    {
+      "id": "C",
+      "request": "Please confirm from the book's red missing-juan annotation and other physical/codicological evidence whether juan52 target folio is Qing-early old transcription or Guangxu Ding-family supplementation; if unknown report unknown.",
+      "verified": false
+    },
+    {
+      "id": "D",
+      "request": "If allowed for personal research, identify the precise written authorization and staff-produced higher-resolution original image route and any conditions; prefer source-native unresized image with dimensions and SHA-256.",
+      "verified": false
+    },
+    {
+      "id": "E",
+      "request": "For physical high-resolution line-level collation, include D14 complete numeral and terminal, D5 〇/五 control, nearby field-heading/day and season context; no OCR-only substitution and no inferred ancient units.",
+      "verified": false
+    }
+  ],
+  "authorization_firewall": {
+    "research_copy_policy": "https://rbook.ncl.edu.tw/NCLSearch/Search/Index/8",
+    "official_research_highres_rule": "Personal-research higher-resolution copies require written approval and staff reproduction.",
+    "license_reuse_policy": "https://rbook.ncl.edu.tw/NCLSearch/Search/Index/9",
+    "separate_purpose_bound_reuse_rights": true,
+    "rights_formats_catalogued_not_item_assured": [
+      "F1 72dpi JPEG",
+      "F2 300dpi JPEG",
+      "F3 300dpi TIFF"
+    ],
+    "contact_point": "國家圖書館特藏文獻組 (published public contact channel)",
+    "contact_email_from_first_party_footer": "rbook@ncl.edu.tw",
+    "requires_applicant_identity_and_purpose_to_submit": true,
+    "contact_or_application_submitted": false,
+    "license_granted": false,
+    "permission_inferred_from_public_catalog": false,
+    "user_identifying_information_collected": false
+  },
+  "proposed_inquiry": {
+    "language": "繁體中文",
+    "subject": "《高麗史》書號03130 卷五十二《授時曆立成》原葉與研究圖像查核",
+    "text": "敬啟者：擬進行《高麗史》卷五十二《授時曆立成》夏表日數及版本源流的學術校勘。數位典藏聯合目錄條目549927記載館藏書號03130，清初葉舊鈔並有光緒間錢塘丁氏補鈔。煩請確認現行貴館第一方詳目及書號03130與卷五十二的裝訂冊、原葉（正反面）對應，尤其公開影像 NCL-03130_09《高麗史》PDF 第74數字頁《授時曆立成》夏表十四日及相鄰「四分／初度」欄。另請確認卷五十二是否屬舊鈔或光緒補鈔層次，或是否尚無法判斷。若能依貴館規定書面申請個人研究用途的較高解析度影像，敬請指示所需原件識別碼、頁範圍、申請程序及費用；如涉及後續圖像公開利用，將另外查詢正式授權規範。本詢問僅為前置查核，尚未代表任何個人完成申請。敬謝。"
+  },
+  "source_scope": {
+    "stable_predecessor_json": "docs/research/TIANWEN-13HK-NCL03130-TELDAP-ITEM549927-CATALOG-COPY-DATE-CROSSWALK-R1.json",
+    "stable_predecessor_blob": "9b63a80f3cac5c97c98e9f6e6acf020e3ede7d59",
+    "institutional_research_policy_predecessor": "docs/research/TIANWEN-13HF-NCL03130-FIRSTPARTY-HIGHRES-SERVICE-AND-RIGHTS-SCOPE-R1.json",
+    "research_policy_predecessor_blob": "eec1ce0d334f587f588356883c0210b78d8a1c03",
+    "image_source_previously_logged": "NCL-03130_09 高麗史.pdf",
+    "target_pdf_page_one_based": 74,
+    "local_original_d14_full_numeral": null,
+    "local_original_d14_terminal": null,
+    "nikh_photo4_scoped_reading": "四分六六三〇",
+    "old_day5_〇_五": "OPEN",
+    "g893_six": "OPEN",
+    "inherited_13ei": "RETRACTED",
+    "volume52_old_or_supplement_layer": null,
+    "historical_ancient_unit": null,
+    "四分_初度_equivalence": null
+  },
+  "evidence_effect": {
+    "new_registry_entries": 0,
+    "new_physical_witnesses": 0,
+    "new_target_original_glyphs": 0,
+    "new_genealogy_nodes": 0,
+    "new_genealogy_edges": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0,
+    "research_request_sent": false
+  },
+  "invariants": {
+    "matrix": [
+      222,
+      222
+    ],
+    "sources": 761,
+    "graph": [
+      252,
+      238
+    ],
+    "open_issues": 11,
+    "chart": "CLOSED"
+  },
+  "transmission_impact": "NONE",
+  "next_action": "Obtain exact NCL03130 native item/fascicle/folio and permitted images by official channels; record approval, item and SHA independently. This packet is unsent and cannot adjudicate original D14 or copy stratum."
+}

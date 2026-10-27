@@ -1,0 +1,41 @@
+name: probe-yehuobian-12wq-tokyo-shanben-source-index
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-yehuobian-12wq-tokyo-shanben-source-index.yml
+      - scripts/probe-yehuobian-12wq-tokyo-shanben-source-issued-index.py
+      - tests/test_yehuobian_12wq_tokyo_shanben_source_index.py
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate source-issued only bounded HTML index and no print votes
+        run: python -m unittest discover -s tests -p 'test_yehuobian_12wq_tokyo_shanben_source_index.py' -v
+  capture:
+    needs: verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Download only official linked shanben list.php HTML for form controls, no images
+        run: python scripts/probe-yehuobian-12wq-tokyo-shanben-source-issued-index.py --output-dir 12wq-source-index-output
+      - name: Preserve raw source index and form evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tokyo-shanben-12wq-source-issued-catalog-index
+          path: 12wq-source-index-output/
+          retention-days: 30
+          if-no-files-found: warn

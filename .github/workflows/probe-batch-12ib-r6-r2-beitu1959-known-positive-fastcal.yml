@@ -1,0 +1,109 @@
+name: probe-batch-12ib-r6-r2-beitu1959-known-positive-fastcal
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - '.github/workflows/probe-batch-12ib-r6-r2-beitu1959-known-positive-fastcal.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  statuses: write
+
+jobs:
+  calibrate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fast known-positive calibration
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/batch-12ib-r6-r2'
+          TMP="$RUNNER_TEMP/ib6r2"
+          rm -rf "$ROOT" "$TMP"; mkdir -p "$ROOT/debug" "$TMP"
+          URL='https://upload.wikimedia.org/wikipedia/commons/2/28/SSID-12335507_%E5%8C%97%E4%BA%AC%E5%9C%96%E6%9B%B8%E9%A4%A8%E5%96%84%E6%9C%AC%E6%9B%B8%E7%9B%AE_1.pdf'
+          EXPECTED_SHA1='3ff9c94a69a5b5b799d65fba4a6d00fc2daecc97'
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils tesseract-ocr tesseract-ocr-chi-tra python3-pil > /dev/null
+          curl -L --fail --retry 3 --retry-delay 2 --connect-timeout 10 --max-time 240 -A 'Tianwen-Provenance-Audit/1.0' -o "$TMP/source.pdf" "$URL"
+          GOT=$(sha1sum "$TMP/source.pdf" | awk '{print $1}')
+          [ "$GOT" = "$EXPECTED_SHA1" ] || { echo sha1-mismatch; exit 1; }
+          sha256sum "$TMP/source.pdf" > "$ROOT/source.sha256"
+          for dpi in 220 300; do
+            pdftoppm -f 55 -l 56 -png -r "$dpi" "$TMP/source.pdf" "$TMP/p$dpi" >/dev/null 2>&1
+          done
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image,ImageOps,ImageEnhance
+          import subprocess,json,re,os
+
+          root=Path('audit/batch-12ib-r6-r2')
+          tmp=Path(os.environ['RUNNER_TEMP'])/'ib6r2'
+          expected={55:['七二八三','八六四三','7283','8643','10010'],56:['三三六八','3368','10010']}
+          rows=[]
+          for dpi in (220,300):
+            files=sorted(tmp.glob(f'p{dpi}-*.png'))
+            for idx,path in enumerate(files):
+              page=55+idx
+              base=Image.open(path).convert('L')
+              w,h=base.size
+              for crop_name,top in (('lower55',.45),('lower45',.55)):
+                crop=base.crop((0,int(h*top),w,int(h*.995)))
+                for rot in (90,270):
+                  x=crop.rotate(rot,expand=True,fillcolor=255)
+                  x=ImageOps.autocontrast(x)
+                  x=ImageEnhance.Contrast(x).enhance(1.8)
+                  if max(x.size)>5000:
+                    scale=5000/max(x.size); x=x.resize((int(x.width*scale),int(x.height*scale)))
+                  for psm in (5,6,11):
+                    key=f'p{page}-d{dpi}-{crop_name}-r{rot}-m{psm}'
+                    fp=tmp/f'{key}.png'; x.save(fp)
+                    try:
+                      txt=subprocess.check_output(['tesseract',str(fp),'stdout','-l','chi_tra+eng','--psm',str(psm),'-c','preserve_interword_spaces=1'],stderr=subprocess.DEVNULL,text=True,errors='replace',timeout=30)
+                    except Exception:
+                      txt=''
+                    fp.unlink(missing_ok=True)
+                    n=re.sub(r'\s+','',txt)
+                    hits=[t for t in expected[page] if t in n]
+                    rows.append({'key':key,'page':page,'dpi':dpi,'crop':crop_name,'rotation':rot,'psm':psm,'hits':hits,'raw_text':txt[:5000]})
+                    if hits and len(list((root/'debug').glob('*.png')))<8:
+                      x.save(root/'debug'/f'{key}.png')
+          positives=[r for r in rows if r['hits']]
+          positives.sort(key=lambda r:(-len(r['hits']),r['page'],r['key']))
+          pass56=any(any(x in r['hits'] for x in ('三三六八','3368')) for r in positives if r['page']==56)
+          pass55=any(r['hits'] for r in positives if r['page']==55)
+          summary={
+            'source_ssid':'12335507','pages':[55,56],
+            'known_positive_authority':'DIRECT_NO_OCR_VISUAL_COLLATION_FROM_BATCH_12HZ',
+            'variant_count':len(rows),'positive_variant_count':len(positives),
+            'calibration_pass_56_3368':pass56,'calibration_pass_55_controls':pass55,
+            'calibration_pass':bool(pass56 and pass55),
+            'top_positive_variants':[{k:r[k] for k in ('key','page','dpi','crop','rotation','psm','hits')} for r in positives[:30]],
+            'ocr_role':'LOCATOR_CALIBRATION_ONLY','ocr_authority':False,'negative_inference_authorized':False
+          }
+          (root/'summary.json').write_text(json.dumps(summary,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          (root/'positive-variants.json').write_text(json.dumps(positives,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print(json.dumps(summary,ensure_ascii=False,indent=2))
+          PY
+          printf '%s\n' 'OCR_AUTHORITY=false' 'NEGATIVE_ABSENCE_INFERENCE_AUTHORIZED=false' > "$ROOT/manifest.txt"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12ib-r6-r2-fastcal
+          path: audit/batch-12ib-r6-r2/
+          if-no-files-found: error
+          retention-days: 30
+      - name: Publish calibration status
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs=require('fs'); let ok=false
+            try { ok=!!JSON.parse(fs.readFileSync('audit/batch-12ib-r6-r2/summary.json','utf8')).calibration_pass } catch(e) {}
+            await github.rest.repos.createCommitStatus({
+              owner:context.repo.owner,repo:context.repo.repo,sha:context.sha,
+              state:ok?'success':'failure',context:'tianwen/batch-12ib-r6-r2-fastcal',
+              description:ok?'known-positive 3368/neighbor calibration passed':'known-positive calibration failed; no inference'
+            })

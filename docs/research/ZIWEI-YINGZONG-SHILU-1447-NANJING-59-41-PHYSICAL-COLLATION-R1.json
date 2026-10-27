@@ -1,0 +1,74 @@
+{
+  "schema": "ZIWEI-YINGZONG-SHILU-1447-NANJING-59-41-PHYSICAL-COLLATION-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-YINGZONG-SHILU-1447-NANJING-59-41-PHYSICAL-COLLATION-CF",
+  "prior_batch_id": "BATCH-12-ZIWEI-LEIBIAN-MING-DUAL-DAYNIGHT-TABLES-CE",
+  "question": "Is the Nanjing 59-ke solstitial locality standard directly attested before the 1578 Sanming Tonghui witness, rather than only explained by later Ming technical works?",
+  "physical_source": {
+    "source_id": "EXT-NLC-YINGZONG-SHILU-V16-1447-NANJING59",
+    "metadata": "Wikimedia/NLC: 明英宗睿皇帝實錄三百六十一卷, 第16冊, 抄本, 明[1368-1644], 104 pages; volume contains 卷158-169",
+    "event_date": "正統十二年十一月甲寅 / 1447",
+    "workflow_run_id": 34867577915,
+    "job_id": 104055174135,
+    "artifact_id": 10357442493,
+    "artifact_digest": "sha256:f1bd8daba93a6c5752b99da13f465a1802ed01090dc001d2be4075bc7fa14d0f",
+    "source_pdf_sha256": "1e9546177289930ae33a64793df94518fcc21c90184c935a30ea975461990268",
+    "render_trigger_commit": "ad9aa62b0c72cc96f98dadf278b0ad01cc5be746",
+    "page_count": 104,
+    "page_sha256": {
+      "21": "613e026a94949cf721088225d7215dedd94f9a8faad2529f164e8886946975fb",
+      "28": "b7d95f00fd529468c4242f60b7255b5305df6298d14841a9d9f6ac03eccccfea",
+      "30": "fa8f7c30b2ede6b10379fb12c4ba2366ab8b93968cfb201ae565c4ae30852b35"
+    },
+    "ocr_used_for_glyph_claims": false
+  },
+  "physical_binding": {
+    "p21": "directly opens 大明英宗睿皇帝實錄卷之一百六十 and 正統十二年十一月",
+    "p28": "contains 甲寅欽天監監正彭德清 memorial and the Nanjing/Beijing latitude, sunrise/sunset and ke comparison",
+    "p30": "directly opens 卷之一百六十一 / 正統十二年十二月, proving p28 lies inside vol.160"
+  },
+  "secure_direct_reading": {
+    "date_marker": "甲寅",
+    "speaker": "欽天監監正彭德清",
+    "nanjing_latitude": "北極出地三十六度",
+    "beijing_latitude": "北極出地四十度強",
+    "nanjing_winter": "冬至日出辰初初刻，入申正四刻，夜刻五十九",
+    "nanjing_summer": "夏至日出寅正四刻，入戌初初刻，晝刻五十九",
+    "beijing_winter": "冬至日出辰初一刻，入申正二刻，夜刻六十二",
+    "beijing_summer": "夏至日出寅正二刻，入戌初一刻，晝刻六十二",
+    "institutional_note": "今宮禁及官府漏箭皆南京舊式不可用",
+    "imperial_response": "上令內官監改造"
+  },
+  "numerical_adjudication": {
+    "nanjing_59_direct": true,
+    "nanjing_41_printed_in_this_memorial": false,
+    "nanjing_41_status": "COMPLEMENT_DERIVED_FROM_INDEPENDENTLY_ESTABLISHED_100_KE_DAY_NIGHT_TOTAL",
+    "beijing_62_direct": true,
+    "beijing_38_printed_in_this_memorial": false,
+    "beijing_38_status": "COMPLEMENT_DERIVED_FROM_INDEPENDENTLY_ESTABLISHED_100_KE_DAY_NIGHT_TOTAL",
+    "pre1578_nanjing_59_ke_locality_standard_closed": true,
+    "pre1578_complete_sanming_multipoint_table_closed": false
+  },
+  "historical_consequence": {
+    "later_1600_xingyunlu_needed_to_prove_pre1578_59": false,
+    "later_1600_xingyunlu_role_after_this_batch": "SECONDARY/LATER EXPLANATORY CONFIRMATION OF A STANDARD NOW DIRECTLY ATTESTED IN A 1447 OFFICIAL RECORD",
+    "sanming_1578_summer_59_has_pre1578_ming_nanjing_precedent": true,
+    "sanming_direct_copy_from_this_memorial_proved": false,
+    "remaining_genealogy_problem": "Find a pre-1578 table or generative rule that carries the Sanming-like intermediate anchors (e.g. 42/58, 45/55, 47/53, 48/52) into the Nanjing 59-ke solstitial layer."
+  },
+  "adjudication": {
+    "exact_pre1578_nanjing_59_layer_closed": true,
+    "exact_pre1578_sanming_multipoint_table_parent_closed": false,
+    "new_runtime_candidate_created": false,
+    "runtime_winner_selected": false,
+    "upper_zi_to_hai_mechanical_vote_increment": 0,
+    "candidate_collapsed": false,
+    "algorithm_reopen_authorized": false
+  },
+  "impact_on_hpa_zdate_006": {
+    "status_before": "MISSING_FROM_PRODUCT",
+    "status_after": "MISSING_FROM_PRODUCT",
+    "reason": "The official 1447 locality/timekeeping evidence closes the pre-1578 Nanjing 59-ke historical layer but does not establish the Fullbook-specific upper-five-ke -> previous-night Hai branch mechanism.",
+    "next_gate": "Trace the 1447-to-1578 multipoint table transmission/generative bridge, while independently continuing the upper-five-ke -> Hai physical-source search."
+  }
+}

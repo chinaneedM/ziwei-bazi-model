@@ -1,0 +1,90 @@
+name: probe-olcc-microform-tongshu-leiju-1551
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-olcc-microform-tongshu-leiju-1551.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Z39.50 client
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq yaz
+
+      - name: Probe OLCC microform logical database
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/olcc-microform-tongshu-leiju-1551'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT"
+          
+          cat > "$ROOT/targets.tsv" <<'EOF'
+          ucs-host	ucs.nlc.cn	9991
+          fallback-ip	202.96.31.28	9991
+          EOF
+
+          cat > "$ROOT/queries.tsv" <<'EOF'
+          title-trad	@attr 1=4 "通書類聚尅擇大全"
+          title-alt	@attr 1=4 "通書類聚抉擇大全"
+          title-simp	@attr 1=4 "通书类聚克择大全"
+          title-short	@attr 1=4 "通書類聚"
+          any-internal-id	@attr 1=1016 "411999023866"
+          any-call-number	@attr 1=1016 "14202"
+          EOF
+
+          : > "$ROOT/connect-status.tsv"
+          : > "$ROOT/query-status.tsv"
+
+          while IFS=$'\t' read -r label host port; do
+            # Anonymous, read-only connection probe to UTF-8 microform logical DB.
+            set +e
+            timeout 25s bash -lc "printf 'open tcp:$host:$port/B1MICU\nquit\n' | yaz-client"               > "$ROOT/$label-connect.txt" 2>&1
+            rc=$?
+            set -e
+            printf '%s\t%s\t%s\t%s\n' "$label" "$host" "$port" "$rc" >> "$ROOT/connect-status.tsv"
+
+            while IFS=$'\t' read -r qlabel pqf; do
+              out="$ROOT/$label-$qlabel.txt"
+              set +e
+              timeout 35s bash -lc "{
+                printf 'open tcp:$host:$port/B1MICU\n';
+                printf 'querytype prefix\n';
+                printf 'find %s\n' \"$pqf\";
+                printf 'show 1+20\n';
+                printf 'quit\n';
+              } | yaz-client" > "$out" 2>&1
+              qrc=$?
+              set -e
+              hits=$(grep -Eio 'Number of hits: *[0-9]+' "$out" | tail -1 | grep -Eo '[0-9]+' || true)
+              auth=$(grep -Eic 'auth|authentication|access.?denied|permission|user.?name|password' "$out" || true)
+              conn=$(grep -Eic 'Connection accepted|Connected|connect' "$out" || true)
+              printf '%s\t%s\t%s\t%s\t%s\n' "$label" "$qlabel" "$qrc" "${hits:-}" "$auth" >> "$ROOT/query-status.tsv"
+            done < "$ROOT/queries.tsv"
+          done < "$ROOT/targets.tsv"
+
+          grep -RniE             '通書類聚|通书类聚|尅擇|抉擇|克择|411999023866|14202|Number of hits|record|001790345|嘉靖|芝城|國家圖書館|国家图书馆|福建'             "$ROOT" > "$ROOT/target-hits.txt" || true
+
+          printf '%s\n'             'SOURCE=National Library of China National Library Union Cataloging Center Z39.50'             'OFFICIAL_CONFIG=https://olcc.nlc.cn/book/faq/z3950-4.html'             'HOST_PRIMARY=ucs.nlc.cn'             'HOST_FALLBACK=202.96.31.28'             'PORT=9991'             'DATABASE=B1MICU (UTF-8 microform logical database)'             'AUTH_MODE=anonymous probe only; no credentials supplied'             'TARGET=通書類聚尅擇大全 / NLC call 14202 / internal id 411999023866'             'NEGATIVE_POLICY=connection/auth/query failure has no content-negative authority; only a successful query with explicit zero hits could narrow this catalog route'             'OCR_USED=false'             > "$ROOT/manifest.txt"
+
+      - name: Upload OLCC microform evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: olcc-microform-tongshu-leiju-1551-probe
+          path: audit/olcc-microform-tongshu-leiju-1551/
+          if-no-files-found: error
+          compression-level: 6
+          retention-days: 30

@@ -1,0 +1,113 @@
+name: probe-batch-12hm-nlc-zuozhuan-fast
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - '.github/workflows/probe-batch-12hm-nlc-zuozhuan-fast.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fast exact-title NLC probe
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/batch-12hm-nlc-zuozhuan-fast'
+          rm -rf "$ROOT"; mkdir -p "$ROOT/raw" "$ROOT/detail"
+          UA='Tianwen-Provenance-Audit/1.0'
+
+          for q in '附釋音春秋左傳注疏' '附释音春秋左传注疏'; do
+            key=$(Q="$q" python - <<'PY'
+          import os,hashlib
+          print(hashlib.sha1(os.environ['Q'].encode()).hexdigest()[:8])
+          PY
+            )
+            body=$(Q="$q" python - <<'PY'
+          import json,os
+          q=os.environ['Q']
+          print(json.dumps({"q":q,"searchWay":"TIT","page_num":"1","query":"TIT="+q,"sort":[{"_score":"DESC"}],"size":40,"facetVal":[],"exactMatch":False},ensure_ascii=False,separators=(',',':')))
+          PY
+            )
+            set +e
+            code=$(curl -L -sS --connect-timeout 5 --max-time 15 -A "$UA" \
+              -H 'Accept: application/json, text/javascript, */*; q=0.01' \
+              -H 'X-Requested-With: XMLHttpRequest' -H 'Referer: https://meta.nlc.cn/v2/search' \
+              -H 'Content-Type: application/x-www-form-urlencoded; charset=UTF-8' \
+              --data-binary "$body" -o "$ROOT/raw/$key.json" -w '%{http_code}' \
+              'https://meta.nlc.cn/v2/doSearch?hight=false')
+            rc=$?; set -e
+            echo "$key rc=$rc http=$code q=$q bytes=$(wc -c < "$ROOT/raw/$key.json" 2>/dev/null || echo 0)"
+          done
+
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          root=Path('audit/batch-12hm-nlc-zuozhuan-fast')
+          uids=[]; out=[]
+          terms=('附釋音春秋左傳注疏','附释音春秋左传注疏')
+          for p in sorted((root/'raw').glob('*.json')):
+              out.append('### '+p.name)
+              try: o=json.loads(p.read_text('utf-8'))
+              except Exception as e: out.append('PARSE '+repr(e)); continue
+              out.append('total='+repr(o.get('total'))+' status='+repr(o.get('status')))
+              for i,row in enumerate(o.get('result') or [],1):
+                  src=row.get('_source') or {}
+                  titles=src.get('TIT') or []
+                  if isinstance(titles,str): titles=[titles]
+                  title=' | '.join(map(str,titles))
+                  if any(t in title for t in terms):
+                      uid=str(src.get('UID') or row.get('_id') or '')
+                      if uid and uid not in uids: uids.append(uid)
+                      out.append('TARGET '+str(i)+' '+json.dumps(row,ensure_ascii=False,separators=(',',':')))
+          (root/'search-summary.txt').write_text('\n'.join(out)+'\n',encoding='utf-8')
+          (root/'uids.txt').write_text('\n'.join(uids[:20])+'\n',encoding='utf-8')
+          print('===== FAST SEARCH ====='); print('\n'.join(out))
+          print('UIDS',uids[:20])
+          PY
+
+          while IFS= read -r uid; do
+            [ -z "$uid" ] && continue
+            set +e
+            code=$(curl -L -sS --connect-timeout 5 --max-time 15 -A "$UA" \
+              -H 'Accept: application/json, text/javascript, */*; q=0.01' \
+              -H 'X-Requested-With: XMLHttpRequest' \
+              -H "Referer: https://meta.nlc.cn/v2/detail/$uid" \
+              -X POST -o "$ROOT/detail/$uid.json" -w '%{http_code}' \
+              "https://meta.nlc.cn/api/v1/item/$uid/1/999")
+            rc=$?; set -e
+            echo "DETAIL $uid rc=$rc http=$code bytes=$(wc -c < "$ROOT/detail/$uid.json" 2>/dev/null || echo 0)"
+          done < "$ROOT/uids.txt"
+
+          python - <<'PY'
+          from pathlib import Path
+          import json,re
+          root=Path('audit/batch-12hm-nlc-zuozhuan-fast')
+          keys=['001','200a','200f','205a','210a','210c','210d','215a','300a','305a','307a','316a','3165','317a','318a','321a','423a','4231','455a','4551','610a','690a','701a','702a','852a','905a','905b','905q','905s','910n','910l']
+          print('===== FAST DETAILS =====')
+          for p in sorted((root/'detail').glob('*.json')):
+              print('###',p.name)
+              try:o=json.loads(p.read_text('utf-8'))
+              except Exception as e: print('PARSE',repr(e)); continue
+              r=o.get('result') or {}; b=r.get('biblio') or {}; e=r.get('esBook') or {}
+              print('ES',json.dumps({k:e.get(k) for k in ('SYS','UID','WDT','YEA','PUB','PAG','TIT','AUT','holdings')},ensure_ascii=False,separators=(',',':')))
+              print('BIB',json.dumps({k:b.get(k) for k in keys if k in b},ensure_ascii=False,separators=(',',':')))
+              print('HOLD',json.dumps(r.get('holding'),ensure_ascii=False,separators=(',',':')))
+              raw=json.dumps(r,ensure_ascii=False)
+              print('FLAGS',json.dumps({t:(t in raw) for t in ['铁琴','鐵琴','铜剑','銅劍','元刻明修','元刻元印','宋刻','瞿']},ensure_ascii=False))
+          PY
+
+          find "$ROOT" -type f -size +0c -print0 | xargs -0 -r sha256sum | sort -V > "$ROOT/files.sha256"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12hm-nlc-zuozhuan-fast
+          path: audit/batch-12hm-nlc-zuozhuan-fast/
+          if-no-files-found: error
+          retention-days: 30

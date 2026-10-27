@@ -1,0 +1,108 @@
+{
+  "schema": "KYUJANGGAK-G893-1940-PRECIOUS-CATALOG-IDENTIFIER-BINDING-R1",
+  "schema_version": "1.0.0",
+  "status": "DIRECT_NO_OCR_1940_PRECIOUS_BOOK_NUMBER_893_BINDING_CLOSES_CATALOG_ITEM_CONTINUITY",
+  "source_object": {
+    "source_id": "EXT-KYUJANGGAK-PRECIOUS-BOOK-RELATIONS-1940",
+    "title": "奎章閣貴重圖書關係書類",
+    "compiler": "京城帝國大學",
+    "year": 1940,
+    "catalog_identifier": "奎26786",
+    "book_cd": "GK26786_00",
+    "item_cd": "BBG",
+    "volume_id": "0001",
+    "renderer_page_count": 148,
+    "ocr_used": false
+  },
+  "direct_digital_object_access": {
+    "locator_workflow_run_id": 34040408637,
+    "locator_artifact_id": 9991493659,
+    "full_object_visual_workflow_run_id": 34040506687,
+    "full_object_visual_artifact_ids": [
+      9991559339,
+      9991588078,
+      9991584471
+    ],
+    "entry_fullpage_workflow_run_id": 34043076959,
+    "entry_fullpage_artifact_id": 9992272428,
+    "header_fullpage_workflow_run_id": 34043588257,
+    "header_fullpage_artifact_id": 9992418378,
+    "all_provider_pages_directly_available": true,
+    "all_review_workflows_ocr_false": true
+  },
+  "internal_catalog_header": {
+    "page_id": "0125",
+    "image_path": "/data01/stream/BBG/IMG/GK26786_00/GK26786_00_0001/GK26786_00IH_0001_0125.jpg",
+    "image_sha256": "bdb4afa606130e8f2aeb6cc733e756fbb5a3818e828292a23c597c00323cb02f",
+    "visible_title": "奎章閣貴重圖書目錄",
+    "section": "朝鮮本（一）",
+    "revision_note": "昭和十五年八月改訂",
+    "visible_field_headers": [
+      "書名",
+      "圖書番號",
+      "冊數",
+      "備考"
+    ],
+    "review_mode": "DIRECT_NATIVE_IMAGE_VISUAL_REVIEW_NO_OCR"
+  },
+  "direct_entry_binding": {
+    "page_id": "0129",
+    "image_path": "/data01/stream/BBG/IMG/GK26786_00/GK26786_00_0001/GK26786_00IH_0001_0129.jpg",
+    "image_sha256": "5f383f699c6db4a7d35549e6ea17fda939b832b9bd26bf8e15bcbee866bc221d",
+    "target_entry": {
+      "title": "授時曆立成",
+      "book_number": 893,
+      "volume_count": 1
+    },
+    "adjacent_control_entry": {
+      "title": "授時曆捷法立成",
+      "book_number": 892,
+      "volume_count": 1,
+      "relationship": "SEPARATE_ADJACENT_ENTRY_NOT_THE_TARGET"
+    },
+    "review_mode": "DIRECT_NATIVE_IMAGE_VISUAL_REVIEW_NO_OCR",
+    "title_to_number_alignment_directly_visible": true
+  },
+  "current_object_binding": {
+    "current_title": "授時曆立成",
+    "current_catalog_identifier": "奎貴893",
+    "current_book_cd": "GK00893_00",
+    "current_extent": "1冊(102張)",
+    "binding_basis": [
+      "1940 internal catalog is explicitly titled 奎章閣貴重圖書目錄",
+      "the table explicitly labels the numeric row as 圖書番號",
+      "the 授時曆立成 column directly carries 圖書番號 893",
+      "the current provider record carries the same title with catalog identifier 奎貴893",
+      "official collection-level custody continuity covers the Keijo-to-SNU transition"
+    ],
+    "catalog_item_continuity": "RESOLVED",
+    "exact_item_continuity_to_current_gk00893_00": "RESOLVED_AT_CATALOG_IDENTIFIER_LEVEL",
+    "copy_specific_seal_or_leaf_chain": "NOT_SEPARATELY_PROVEN"
+  },
+  "1930_control": {
+    "generic_numeric_order_893_as_current_precious_893": "DISPROVEN_BY_DIRECT_1930_PAGE_READING",
+    "disposition": "DO_NOT_USE_1930_MAIN_NUMERIC_ORDER_893_AS_A_G893_BINDING; THE_1940_PRECIOUS_CATALOG_SUPPLIES_THE_RELEVANT_ITEM_NUMBER_FIELD"
+  },
+  "epistemic_boundaries": {
+    "catalog_item_continuity_as_target_folio_identity": "FORBIDDEN",
+    "catalog_item_continuity_as_target_glyph_authority": "FORBIDDEN",
+    "catalog_item_continuity_as_exact_print_year": "FORBIDDEN",
+    "adjacent_kang_bo_entry_as_textual_identity": "FORBIDDEN",
+    "source_count_voting": "FORBIDDEN",
+    "algorithm_or_runtime_selection_effect": "NONE"
+  },
+  "target_controls": [
+    "VAR-NUM-SOLAR-WINTER-D16-DIFFERENCE",
+    "VAR-NUM-LUNAR-L8-LOSSGAIN",
+    "NORM-LUNAR-L101-CHIJI-DEGREE-POSITIONAL-GROUPING",
+    "VAR-NUM-LUNAR-L114-DAYRATE",
+    "VAR-NUM-LUNAR-L124-JI-XINGDU",
+    "VAR-NUM-LUNAR-L132-LOSSGAIN"
+  ],
+  "target_status": "ALL_SIX_PENDING_DIRECT_TARGET_PAGE",
+  "next_work": [
+    "CONTINUE_PUBLIC_OR_AUTHORIZED_G893_TARGET_PAGE_ACQUISITION",
+    "USE_1940_CATALOG_ITEM_BINDING_AS_PROVENANCE_ONLY_NOT_AS_TARGET_VALUE_AUTHORITY",
+    "OPTIONALLY_SEARCH_EARLIER_PREWAR_IDENTIFIER_CONTROLS_TO_DATE_WHEN_PRECIOUS_BOOK_NUMBER_893_FIRST_APPEARS"
+  ]
+}

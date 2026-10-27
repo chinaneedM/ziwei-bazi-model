@@ -1,0 +1,45 @@
+name: render-sizijing-transition-pages
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/render-sizijing-transition-pages.yml
+
+permissions:
+  contents: read
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install poppler
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils
+      - name: Download facsimiles
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p out/tw out/yimen
+          curl -L --fail --retry 3 'https://commons.wikimedia.org/wiki/Special:Redirect/file/NCL-15275-0058_%E5%9B%9B%E5%AD%97%E7%B6%93.pdf' -o out/tw.pdf
+          curl -L --fail --retry 3 'https://commons.wikimedia.org/wiki/Special:Redirect/file/NLC892-411999013864-69586_%E5%A4%B7%E9%96%80%E5%BB%A3%E7%89%98%E4%B8%80%E7%99%BE%E2%97%8B%E5%85%AD%E7%A8%AE_%E7%AC%AC10%E5%86%8A.pdf' -o out/yimen.pdf
+          sha256sum out/*.pdf > out/pdf-sha256.txt
+      - name: Render transition ranges without OCR
+        shell: bash
+        run: |
+          set -euo pipefail
+          pdftoppm -f 1 -l 3 -jpeg -r 190 out/tw.pdf out/tw/page
+          pdftoppm -f 117 -l 140 -jpeg -r 125 out/yimen.pdf out/yimen/page
+          sha256sum out/tw/*.jpg out/yimen/*.jpg > out/rendered-sha256.txt
+      - name: Upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: sizijing-transition-pages
+          path: |
+            out/tw/*.jpg
+            out/yimen/*.jpg
+            out/*.txt
+          retention-days: 30

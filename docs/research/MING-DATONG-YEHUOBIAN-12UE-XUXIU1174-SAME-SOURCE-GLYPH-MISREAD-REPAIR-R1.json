@@ -1,0 +1,78 @@
+{
+  "schema": "TIANWEN-12UE-SAME-PDF-FORWARD-GLYPH-REPAIR",
+  "date": "2026-10-12",
+  "parent": "12QE_OPEN",
+  "controlling_earlier": "docs/research/MING-DATONG-YEHUOBIAN-12TB-PRINT-IMAGE-MISREAD-CORRECTION-R1.json",
+  "superseded_recent": "docs/research/MING-DATONG-YEHUOBIAN-12UD-XUXIU1174-FOUR-LOCI-SEAM-CORRECTION-R1.json",
+  "exact_pdf_sha256": "bee08d95d6b141a978f4d7fb068b97b74cf8ee25b46c6273110b2891a0faf953",
+  "exact_pdf_page": 506,
+  "corrected_same_source_loci": [
+    "宮禁",
+    "官漏",
+    "辰初二刻",
+    "戌初三刻"
+  ],
+  "erroneous_12ud_loci": [
+    "宮禁",
+    "宮漏",
+    "辰初二刻",
+    "戌初一刻"
+  ],
+  "interpretation": "12UD reading is a same-source visual misread, not a distinct recension; 12TB earlier high-resolution image and photo registration govern.",
+  "evidence": {
+    "earlier_run": 38201449617,
+    "updated_zoom_runs": [
+      38228377415,
+      38228556782
+    ],
+    "same_pdf_sha_verified": true,
+    "no_ocr": true,
+    "crop_pixel_sha256": [
+      "eb5c34310bd48fab1933d980213e28c7312e26b3ed35d92c43a38f92863279a2",
+      "ecfe599ed6423c44ebf734b861935702c0ee850b7d9fb8a3602d687dfb2ea9c0",
+      "e1146a1fd37eb966607bf4b66d2a6beaa1cfc73270af9c230d87382a782bddf1",
+      "5964691ccf45bf077e88be0bfae3e71f9aa3efcc1e175428ef07f3ca6a2bce14"
+    ]
+  },
+  "comparator": {
+    "shanghai": [
+      "宮禁",
+      "宮漏",
+      "辰初一刻",
+      "戌初一刻"
+    ],
+    "cadal": [
+      "宮禁",
+      "官漏",
+      "辰初二刻",
+      "戌初三刻"
+    ],
+    "xuxiu": [
+      "宮禁",
+      "官漏",
+      "辰初二刻",
+      "戌初三刻"
+    ]
+  },
+  "gates": {
+    "original_1827_unrepaired_leaf_seen": false,
+    "original_1869_physical_copy_bound": false,
+    "shared_cadal_xuxiu_physical_copy_proven": false,
+    "registered_new_sources": 0,
+    "new_graph_edges": 0,
+    "algorithm_reopens": 0,
+    "product": "CLOSED"
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "12UD is not independent source evidence"
+    ],
+    "unresolved_lineage_questions": [
+      "Independent exact 1827 and 1869 printing-state glyph images"
+    ]
+  },
+  "correction_type": "FORWARD_ONLY_PRESERVE_12UC_12UD_PRIOR_SNAPSHOTS"
+}

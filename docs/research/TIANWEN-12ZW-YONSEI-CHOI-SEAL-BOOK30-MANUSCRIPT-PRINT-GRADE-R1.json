@@ -1,0 +1,95 @@
+{
+  "schema": "TIANWEN-12ZW-YONSEI-GORYEOSA-33BOOK-OWNER-SEAL-MIXED-COPY-GRADE-R1",
+  "date": "2026-10-18",
+  "issue": "TW-OPEN-0005",
+  "prior": "docs/research/TIANWEN-12ZV-GORYEOSA-YONSEI-33BOOK-LATER-IMPRESSION-BOUNDARY-R1.json",
+  "original_source_id": "EXT-TIANWEN-12ZV-KHS-GORYEOSA-2021-5-YONSEI-33BOOK",
+  "new_source_registry_entries": 0,
+  "record_evidence": {
+    "indexed_first_party_heritage_detail_url": "https://www.heritage.go.kr/heri/cul/culSelectDetail.do?ccbaAsno=21150300&ccbaBcode=01&ccbaCpno=1121121150300&ccbaCtcd=11&ccbaGcode=MH&ccbaKdcd=12&ccbaMcode=02&culPageNo=30&header=div&pageNo=1_1_2_0&pageNo__=4_3_2_0&returnUrl=%2Fheri%2Fcul%2FculSelectDivList.do&searchCondition=&searchCondition2=",
+    "alternate_heritage_item_url": "https://heritage.go.kr/heri/cul/culSelectDetail.do?ccbaAsno=0021150000300&ccbaCpno=1121121150300&pageNo=1_1_1_1&sngl=Y",
+    "direct_heritage_detail_current_session": "HTTP403_ON_EXPLICIT_OPEN",
+    "search_index_heritage_description": "KHS_SEARCH_INDEX_TARGETED_SNIPPETS",
+    "reproduced_heritage_description_url": "https://99sangk.tistory.com/9201?category=670166",
+    "reproduced_text_is_independent_physical_witness": false,
+    "original_17c_work52_folio_or_pixels_reviewed": false,
+    "text_claims_not_human_verified_from_original_copy": true,
+    "source_grade": "FIRST_PARTY_HERITAGE_INDEXED_BIBLIOGRAPHIC_DESCRIPTION__NOT_ORIGINAL_BOOK_FOLIO"
+  },
+  "physical": {
+    "heritage_record": "고려사(2021-5)",
+    "designation": "2115-3",
+    "holder": "Yonsei University Library / 연세대학교 학술정보원",
+    "printed_work_volume_total": 139,
+    "physical_book_total": 33,
+    "plate_year": 1613,
+    "official_printing_class": "17_TO_18C_LATER_IMPRESSION",
+    "specific_item_shelfmark": null,
+    "work52_physical_book_number": null,
+    "work52_target_original_image_sha256": null
+  },
+  "later_owner_seal": {
+    "catalog_quoted_seal": "崔漢綺藏",
+    "attribution": "崔漢綺 / 최한기",
+    "heritage_description_language": "推定为崔漢綺个人经手本；以有藏印为依据",
+    "confidence": "OFFICIAL_CATALOG_PROPOSED_OWNER_NOT_DIRECT_SEAL_PIXEL_VERIFIED",
+    "photo_or_stamp_sha256": null,
+    "proof_of_1613_or_17c_impression_date": false,
+    "proof_of_textual_lineage": false
+  },
+  "explicit_book_level_composite": {
+    "physical_book_number": 30,
+    "work_volumes": [
+      122,
+      123
+    ],
+    "catalog_class": "LATER_HANDWRITTEN_SUPPLEMENT_PAGES_IN_OTHERWISE_WOODBLOCK_RECORDED_SET",
+    "original_book30_page_sha256": null,
+    "original_manuscript_folio_sha256": null,
+    "identity_of_copyist": null,
+    "hand_copy_date": null,
+    "ordinary_woodblock_numeric_vote_for_122_123": false,
+    "work52_same_book_30": false,
+    "work52_printed_status_verified": false,
+    "work52_d16_d18_numeric_glyphs_read": false
+  },
+  "impression_scope": {
+    "woodblock_frame_comparison_reported": {
+      "yonsei_vs_SNU_archival": "SAME_FRAME_SIZE",
+      "yonsei_vs_DongA": "YONSEI_RELATIVELY_LARGER",
+      "direct_original_frame_measurement_this_session": false
+    },
+    "inference": "POSSIBILITY_YONSEI_IMPRESSION_APPROX_SNU_ARCHIVAL_PRINTING_TIME",
+    "competing_official_catalog_label": "17_TO_18C_LATER_IMPRESSION",
+    "frame_size_equal_does_not_establish_same_printing_year": true,
+    "same_frame_size_does_not_establish_same_physical_copy": true,
+    "same_frame_size_does_not_establish_independent_plate_ancestor": true,
+    "dated_edition_colophon_seen": false,
+    "adjudication": "KEEP_CATALOG_PRINT_GRADE_AND_FRAME_TIME_SUGGESTION_SIDE_BY_SIDE_UNRESOLVED"
+  },
+  "scopes_not_proven": [
+    "Yonsei physical book30 manuscript supplements work volumes122/123 cannot be counted as original 1613 woodblock character witnesses",
+    "Book30 scope does not locate physical work volume52; 33 physical books do not map numerically to work volume numbers",
+    "Choi seal attribution does not date 1613 plate cutting or copy impression and is not an independent historical rule/text witness",
+    "Relative printed frame size alone cannot adjudicate impression-year or transmission ancestry",
+    "Modern official heritage description is not original vol52 solar D16 or D18 scanned text"
+  ],
+  "target_intake_status": {
+    "new_original_target_folio_images": 0,
+    "new_original_numeric_votes": 0,
+    "G893_principal_direct_controls": "5/6",
+    "G893_cross_copy_controls": "0/6",
+    "omission_issues_open": 11,
+    "source_registry_total": 717,
+    "genealogy_new_edges": 0,
+    "chart_algorithm_reopens": 0,
+    "chart_r1": "CLOSED"
+  },
+  "transmission_impact": "COMPONENT_LEVEL_MATERIAL_TYPE_FIREWALL_WITHIN_EXISTING_YONSEI_PHYSICAL_RECORD_NO_GRAPH_EDGE",
+  "next_actions": [
+    "Search Yonsei first-party item catalog and determine book-to-work volume concordance for work卷52 (not book30)",
+    "Request or locate authorized item-identified original D16 and D18 work卷52 folios with exact URL, leaf signature, and SHA256",
+    "Independently photograph/recheck Choi seal and printed frame measurements before raising physical-copy provenance confidence",
+    "Preserve catalog later-print class and same-period possibility separately pending material comparison"
+  ]
+}

@@ -1,0 +1,53 @@
+name: research-ziwei-zhangguo-vol56-fast-locator-aw-r2f
+
+on:
+  push:
+    paths:
+      - '.github/workflows/research-ziwei-zhangguo-vol56-fast-locator-aw-r2f.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  locate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install image tooling
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y imagemagick jq
+      - name: Fetch vol5-6 IIIF pages in parallel, no OCR
+        run: |
+          set -euo pipefail
+          mkdir -p out/pages
+          curl -L --fail --retry 3 'https://touda.tohoku.ac.jp/collection/iiif/metadata/10020000001143/manifest.json' -o out/manifest.json
+          python - <<'PY'
+          import json
+          m=json.load(open('out/manifest.json'))
+          rows=[]
+          for i,c in enumerate(m.get('items',[]),1):
+              b=c['items'][0]['items'][0]['body']
+              svc=b.get('service') or []
+              if isinstance(svc,dict): svc=[svc]
+              if svc:
+                  sid=svc[0].get('id') or svc[0].get('@id')
+                  url=sid.rstrip('/')+'/full/650,/0/default.jpg'
+              else:
+                  url=b.get('id') or b.get('@id')
+              rows.append((i,url,c.get('id','')))
+          with open('out/urls.tsv','w') as f:
+              for i,u,cid in rows: f.write(f'{i}\t{u}\t{cid}\n')
+          meta={'id':m.get('id') or m.get('@id'),'label':m.get('label'),'metadata':m.get('metadata'),'canvas_count':len(rows)}
+          json.dump(meta,open('out/manifest-summary.json','w'),ensure_ascii=False,indent=2)
+          PY
+          cut -f1,2 out/urls.tsv | xargs -P12 -n2 sh -c 'i="$0"; u="$1"; printf -v n "%04d" "$i"; curl -L --fail --retry 3 --silent --show-error "$u" -o "out/pages/page-${n}.jpg"'
+          montage out/pages/page-*.jpg -thumbnail '230x330>' -set label '%t' -pointsize 16 -tile 6x -geometry +5+20 out/vol56-fast-contact.jpg
+          sha256sum out/manifest.json out/urls.tsv out/pages/*.jpg out/vol56-fast-contact.jpg > out/sha256.txt
+          cat out/manifest-summary.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ziwei-zhangguo-vol56-fast-locator-aw-r2f
+          path: out/
+          if-no-files-found: error
+          compression-level: 0

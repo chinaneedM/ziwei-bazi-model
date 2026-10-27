@@ -1,0 +1,132 @@
+{
+  "schema": "TIANWEN-12UO-NLC-OLD20-DIRECT-IMAGE-FOLIO-ANCHORS-R1",
+  "schema_version": "1.0.0",
+  "date": "2026-10-12",
+  "status": "DIRECT_IMAGE_PARTIAL_MANUAL_COLLATION_NO_TARGET_PASSAGE",
+  "source_object": {
+    "registered_source_id": "EXT-WIKIMEDIA-NLC411999003250-YEHUOBIAN-MS-V10-18-20",
+    "bibliographic_source_item": "NLC 411999003250 fascicle 10, Commons backup file NLC892-411999003250-383067",
+    "source_catalog_scope": "OLD_CHRONOLOGICAL_20_MANUSCRIPT_NOT_LATER_THEMATIC_30",
+    "source_url": "https://commons.wikimedia.org/wiki/File:NLC892-411999003250-383067_%E8%90%AC%E6%9B%86%E9%87%8E%E7%8D%B2%E7%B7%A8_%E2%96%A1%E2%96%A1%E5%8D%B7_%E7%AC%AC10%E5%86%8A.pdf",
+    "original_source_pdf_sha256_from_12qd": "8e746faaadcd961c7983981d419862d97fdc2a1f3ec33ecb02046e9e79a6376c",
+    "original_pdf_bytes_reacquired_this_batch": false,
+    "original_pdf_sha256_independently_rehashed_this_batch": false,
+    "original_physical_manuscript_date": "UNBOUND",
+    "upstream_batch_record": "docs/research/MING-DATONG-YEHUOBIAN-12QD-SHLIB-FIRSTPARTY-AND-NLC-OLD20-ATLAS-R1.json",
+    "upstream_workflow_id": 38044584678,
+    "upstream_artifact_id": 11666856770,
+    "upstream_artifact_name": "nlc411999003250-old20-fascicle10-12qd",
+    "page_atlas_member": "page-atlas.json",
+    "upstream_rasterization": "85dpi JPEG from 145-page PDF in 12QD, no OCR"
+  },
+  "archive_check": {
+    "artifact_zip_bytes_retrieved": true,
+    "upstream_artifact_page_atlas_entries": 145,
+    "visual_page_sample": [
+      1,
+      67,
+      80,
+      81,
+      82,
+      102,
+      121,
+      125,
+      139,
+      144,
+      145
+    ],
+    "rehashed_jpeg_pages": [
+      {
+        "page": 1,
+        "sha256": "eb185b6f31c1f285f5690627d4b199f2d2b73679ae4ed0a3648595059239e40b"
+      },
+      {
+        "page": 67,
+        "sha256": "68ada0f2bae10b554e5676112bbf9c190c737fe9cb48e139d21a3b45739b44e1"
+      },
+      {
+        "page": 102,
+        "sha256": "e0c248ee341a9cd50c19070438ea2279207943dd2d6d9cd39800b06555b69da6"
+      },
+      {
+        "page": 121,
+        "sha256": "8c873d70098eb90df748af0bdf15bb86af6197a89be408bbbd9416e5b3b2f58b"
+      },
+      {
+        "page": 139,
+        "sha256": "5bc2cc1149b63c03b2a07db0e3b9eff0708f99dc6cb897b431821436e43a3ceb"
+      },
+      {
+        "page": 144,
+        "sha256": "061fc64fe082bdaea201538f972ea1cf8abcd98777e2e8445bc9a05a029d6df4"
+      },
+      {
+        "page": 145,
+        "sha256": "b26468c9399352a5c947e8dac74e810761fff28bff54dc71ad555a264b00977c"
+      }
+    ],
+    "hash_method": "SHA256 of artifact-extracted JPEG matched each individual JSON page-atlas index; this does not rehash original 145-page PDF.",
+    "full_145_page_manual_transcription": false,
+    "ocr_performed": false
+  },
+  "direct_image_anchors": [
+    {
+      "anchor": "ORIGINAL_OLD20_JUAN18_TITLE",
+      "pdf_page": 1,
+      "page_image_sha256": "eb185b6f31c1f285f5690627d4b199f2d2b73679ae4ed0a3648595059239e40b",
+      "manual_visible_text": "萬曆野獲編卷十八",
+      "evidence_status": "DIRECT_VISUAL_IMAGE_HEADING",
+      "scope": "This page contains the juan18 heading in the earlier 20-volume chronological arrangement; not an individual 1827 30-volume page"
+    },
+    {
+      "anchor": "ORIGINAL_OLD20_JUAN20_END",
+      "pdf_page": 145,
+      "page_image_sha256": "b26468c9399352a5c947e8dac74e810761fff28bff54dc71ad555a264b00977c",
+      "manual_visible_text": "萬曆野獲編二十卷紀事畢",
+      "evidence_status": "DIRECT_VISUAL_IMAGE_TERMINAL_LINE",
+      "scope": "End-of-juan20 terminal wording witnessed in this image only; not proof of a later 30-volume title matching"
+    }
+  ],
+  "negative_inference_firewall": {
+    "intermediate_juan19_or_juan20_opening_page_located": false,
+    "gaizao_louke_target_heading_located": false,
+    "gaizao_louke_not_present_in_this_book": false,
+    "entire_145_pages_checked_for_target": false,
+    "new_variant_locus_reads": 0,
+    "new_physically_distinct_source_objects": 0,
+    "has_new_1827_or_1869_target_image": false,
+    "old_20_juan20_equal_1827_new_30_juan20": false,
+    "image_dates_original_physical_impression": false,
+    "source_scope": "ONE_PREVIOUSLY_REGISTERED_DIGITAL_SOURCE_TWO_NEW_PAGE_SCOPED_READINGS"
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "The 145-page 12QD atlas is not a second independent physical manuscript witness when its exact JPEGs are reopened from the same artifact.",
+      "The end of original chronological juan20 cannot be used as evidence of identical 1827 thematic juan20 page content."
+    ],
+    "unresolved_lineage_questions": [
+      "Locate directly imaged original old20 juan19-to-20 seam before assigning internal folio ranges.",
+      "Acquire independent 1827 original thematic juan20 leaf of 改造漏刻 and compare against 1869 repair."
+    ]
+  },
+  "accounting": {
+    "source_registry_root": 647,
+    "source_registry_extension": 40,
+    "source_registry_unique": 687,
+    "matrix_rows": 222,
+    "matrix_audited": 222,
+    "provenance_repairs": 45,
+    "formal_batches": 487,
+    "formal_latest": "12QD",
+    "graph_nodes": 250,
+    "graph_edges": 237,
+    "new_external_source_records": 0,
+    "new_original_physical_items": 0,
+    "new_target_glyph_votes": 0,
+    "algorithm_reopens": 0,
+    "product": "CLOSED"
+  }
+}

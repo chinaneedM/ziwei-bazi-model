@@ -1,0 +1,164 @@
+name: research-kangjie-ziwei-target-page
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-kangjie-ziwei-target-page.yml
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Ensure PDF tools
+        run: |
+          if ! command -v pdfinfo >/dev/null 2>&1 || ! command -v pdftotext >/dev/null 2>&1 || ! command -v pdftoppm >/dev/null 2>&1; then
+            sudo apt-get update
+            sudo apt-get install -y poppler-utils
+          fi
+
+      - name: Capture target pages from public Kangjie Ziwei PDF
+        shell: python
+        run: |
+          import hashlib
+          import json
+          import os
+          import re
+          import subprocess
+          import urllib.request
+          from pathlib import Path
+
+          OUT=Path("probe")
+          OUT.mkdir()
+          PDF=OUT/"kangjie-ziwei.pdf"
+          URL="https://vr-d.com/pdf-file/%E7%B4%AB%E5%BE%AE%E6%96%97%E6%95%B0%2F%E5%BA%B7%E8%8A%82%E8%AF%B4%E6%98%93_%E7%B4%AB%E5%BE%AE%E6%96%97%E6%95%B0.pdf"
+          UA="Mozilla/5.0 research-only public historical-source probe"
+
+          req=urllib.request.Request(URL,headers={"User-Agent":UA,"Accept":"application/pdf,*/*;q=0.8"})
+          with urllib.request.urlopen(req,timeout=90) as resp:
+              data=resp.read(30_000_001)
+              if len(data)>30_000_000:
+                  raise RuntimeError("PDF exceeded 30 MB guard")
+              PDF.write_bytes(data)
+              transport={
+                  "status":getattr(resp,"status",None),
+                  "final_url":resp.geturl(),
+                  "content_type":resp.headers.get("content-type"),
+                  "bytes":len(data),
+                  "sha256":hashlib.sha256(data).hexdigest(),
+                  "pdf_magic":data.startswith(b"%PDF"),
+              }
+
+          info=subprocess.check_output(["pdfinfo",str(PDF)],text=True,errors="replace")
+          m=re.search(r"^Pages:\s+(\d+)\s*$",info,re.M)
+          pages=int(m.group(1)) if m else None
+          if not pages:
+              raise RuntimeError("could not determine page count")
+
+          target_terms=[
+              "論人生日時要審的確","论人生日时要审的确",
+              "論人生時要審的確","论人生时要审的确",
+              "上五刻","下五刻","亥時","亥时","子時有十刻","子时有十刻"
+          ]
+          identity_terms=[
+              "新鐫希夷陳先生紫微斗數全書卷之三",
+              "新镌希夷陈先生紫微斗数全书卷之三",
+              "紫微斗數卷之三","紫微斗数卷之三",
+              "康節說易全書","康节说易全书"
+          ]
+
+          def page_text(p):
+              cp=subprocess.run(
+                  ["pdftotext","-f",str(p),"-l",str(p),"-layout",str(PDF),"-"],
+                  stdout=subprocess.PIPE,stderr=subprocess.PIPE,text=True,errors="replace",check=False
+              )
+              return cp.stdout
+
+          hits=[]
+          identity_hits=[]
+          page_text_cache={}
+          for p in range(1,pages+1):
+              txt=page_text(p)
+              page_text_cache[p]=txt
+              th=[t for t in target_terms if t in txt]
+              ih=[t for t in identity_terms if t in txt]
+              if th:
+                  hits.append({"pdf_page_1_based":p,"terms":th,"text_excerpt":" ".join(txt.split())[:1200]})
+              if ih:
+                  identity_hits.append({"pdf_page_1_based":p,"terms":ih,"text_excerpt":" ".join(txt.split())[:1200]})
+
+          render_pages=set()
+          for rec in hits:
+              p=rec["pdf_page_1_based"]
+              render_pages.update(range(max(1,p-2),min(pages,p+2)+1))
+          for rec in identity_hits[:8]:
+              p=rec["pdf_page_1_based"]
+              render_pages.update(range(max(1,p-1),min(pages,p+1)+1))
+          # Also render the first twelve pages to expose publication/title/front-matter controls.
+          render_pages.update(range(1,min(pages,12)+1))
+          render_pages=sorted(render_pages)
+
+          rendered=[]
+          for p in render_pages:
+              prefix=OUT/f"render-p{p:04d}"
+              subprocess.run(
+                  ["pdftoppm","-f",str(p),"-l",str(p),"-r","180","-png","-singlefile",str(PDF),str(prefix)],
+                  check=True,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL
+              )
+              png=prefix.with_suffix(".png")
+              b=png.read_bytes()
+              rendered.append({
+                  "pdf_page_1_based":p,
+                  "file":png.name,
+                  "bytes":len(b),
+                  "sha256":hashlib.sha256(b).hexdigest(),
+              })
+
+          result={
+              "schema":"ZIWEI-KANGJIE-PUBLIC-PDF-TARGET-PAGE-PROBE-R1",
+              "source_url":URL,
+              "transport":transport,
+              "pdfinfo":info,
+              "page_count":pages,
+              "ocr_used":False,
+              "pdf_text_layer_locator_used":True,
+              "text_layer_is_glyph_authority":False,
+              "target_terms":target_terms,
+              "target_locator_hits":hits,
+              "identity_locator_hits":identity_hits,
+              "rendered_pages":rendered,
+              "adjudication":{
+                  "target_visual_review_status":"REQUIRES_DIRECT_HUMAN_VISUAL_REVIEW_NO_OCR",
+                  "edition_identity_status":"REQUIRES_DIRECT_FRONT_MATTER_AND_FACSIMILE_VISUAL_REVIEW",
+                  "hpa_zdate_006_effect":"NONE_UNTIL_DIRECT_VISUAL_AND_PROVENANCE_REVIEW",
+                  "algorithm_effect":"NONE"
+              }
+          }
+          (OUT/"kangjie-ziwei-target-page-probe.json").write_text(
+              json.dumps(result,ensure_ascii=False,indent=2),encoding="utf-8"
+          )
+          # Do not upload the whole source PDF; retain only machine metadata and rendered review pages.
+          PDF.unlink()
+          print(json.dumps({
+              "transport":transport,
+              "page_count":pages,
+              "target_locator_hits":hits,
+              "identity_locator_hits":identity_hits,
+              "rendered_pages":rendered,
+              "adjudication":result["adjudication"],
+          },ensure_ascii=False,indent=2))
+
+      - name: Upload Kangjie target-page evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ziwei-kangjie-target-page
+          path: probe/
+          if-no-files-found: warn
+          retention-days: 14

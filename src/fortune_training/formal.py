@@ -1,0 +1,666 @@
+from __future__ import annotations
+
+import os
+import shutil
+import tempfile
+from pathlib import Path
+from typing import Any
+
+from .chat_input import (
+    CHAT_INPUT_RELATIVE_PATH,
+    CHAT_RUNTIME_MODEL_RELATIVE_PATH,
+    PREDICTION_ROW_TEMPLATE_RELATIVE_PATH,
+    compose_chat_input,
+    write_chat_input,
+)
+from .prediction_access import PREDICTION_ACCESS_CONTRACT_PATH
+from .learning import (
+    LEDGER_RELATIVE_PATH,
+    ensure_learning_extensions,
+    load_learning_ledger,
+    load_rule_catalog,
+    write_learning_ledger,
+)
+from .runtime import _fernet_from_key, _validate_answers
+from .util import (
+    TrainingError,
+    atomic_write_bytes,
+    atomic_write_json,
+    canonical_bytes,
+    exclusive_write_json,
+    load_json,
+    next_round_id,
+    object_sha256,
+    require_outside,
+    sha256_file,
+    utc_now,
+)
+from .verify import verify_repository
+
+
+FORMAL_GROUP_ID = "FORMAL-DEVELOPMENT-001"
+FORMAL_GROUP_PATH = Path("training/formal-development-group.json")
+FORMAL_ANSWER_DIR = Path("answer-vault/formal")
+FORMAL_ANSWER_MANIFEST = FORMAL_ANSWER_DIR / "manifest.json"
+PRE_FORMAL_STATE_ARCHIVE = Path("training/history/PRE-FORMAL-STATE.json")
+PRE_FORMAL_LEDGER_ARCHIVE = Path("training/history/PRE-FORMAL-LEARNING-LEDGER.json")
+PREDICTION_CONTEXT_VIOLATION = "PREDICTION_CONTEXT_ALLOWLIST_VIOLATION"
+PREDICTION_ACCESS_STARTUP_ORDER_VIOLATION = (
+    "PREDICTION_ACCESS_CONTRACT_NOT_EXECUTED_BEFORE_REPOSITORY_READ"
+)
+PREDICTION_CANONICAL_RUNTIME_READ_GATE_FAILURE = (
+    "PREDICTION_CANONICAL_RUNTIME_READ_GATE_FAILURE"
+)
+PRE_FREEZE_CONTAMINATED_NOT_EXECUTED = (
+    "PRE-FREEZE_CONTAMINATED_NOT_EXECUTED"
+)
+PRE_FREEZE_RUNTIME_GATE_FAILED_NOT_EXECUTED = (
+    "PRE-FREEZE_RUNTIME_GATE_FAILED_NOT_EXECUTED"
+)
+
+
+def _chat_output_paths(root: Path) -> tuple[Path, ...]:
+    return tuple(
+        root / relative
+        for relative in (
+            CHAT_INPUT_RELATIVE_PATH,
+            PREDICTION_ACCESS_CONTRACT_PATH,
+            CHAT_RUNTIME_MODEL_RELATIVE_PATH,
+            PREDICTION_ROW_TEMPLATE_RELATIVE_PATH,
+        )
+    )
+
+
+def _dataset_case_ids(root: Path) -> list[str]:
+    manifest = load_json(root / "case-bank" / "manifest.json")
+    partitions = manifest.get("partitions")
+    if not isinstance(partitions, dict):
+        raise TrainingError("case-bank manifest has no partition mapping")
+    case_ids = [
+        case_id
+        for partition_id in ("DEVELOPMENT", "STAGE_VALIDATION", "FINAL_HOLDOUT")
+        for case_id in partitions.get(partition_id, [])
+    ]
+    if len(case_ids) != len(set(case_ids)) or len(case_ids) != manifest.get("accepted_case_count"):
+        raise TrainingError("case-bank partition ids do not cover the accepted corpus exactly once")
+    return case_ids
+
+
+def _load_answer_batch(root: Path, batch_path: Path) -> tuple[dict[str, Any], dict[str, dict[str, Any]]]:
+    require_outside(root, batch_path, "plaintext answer batch")
+    payload = load_json(batch_path)
+    if not isinstance(payload, dict) or set(payload) != {"schema", "corpus_id", "cases"}:
+        raise TrainingError("answer batch must contain exactly schema, corpus_id, and cases")
+    manifest = load_json(root / "case-bank" / "manifest.json")
+    if payload.get("schema") != "FORTUNE-ANSWER-BATCH-V2":
+        raise TrainingError("wrong formal answer-batch schema")
+    if payload.get("corpus_id") != manifest.get("corpus_id"):
+        raise TrainingError("answer batch corpus_id does not match the case bank")
+    rows = payload.get("cases")
+    if not isinstance(rows, list):
+        raise TrainingError("answer batch cases must be an array")
+    by_id: dict[str, dict[str, Any]] = {}
+    for row in rows:
+        if not isinstance(row, dict) or set(row) != {"case_id", "answers"}:
+            raise TrainingError("every answer-batch case must be an object")
+        case_id = row.get("case_id")
+        if not isinstance(case_id, str) or case_id in by_id:
+            raise TrainingError(f"invalid or duplicate answer-batch case: {case_id!r}")
+        by_id[case_id] = row
+    required = set(_dataset_case_ids(root))
+    if set(by_id) != required:
+        missing = sorted(required - set(by_id))
+        unexpected = sorted(set(by_id) - required)
+        raise TrainingError(
+            "answer batch must cover all 107 cases exactly once "
+            f"(missing={missing[:5]}, unexpected={unexpected[:5]})"
+        )
+    for case_id, row in by_id.items():
+        case = load_json(root / "case-bank" / "cases" / f"{case_id}.json")
+        _validate_answers(case, row)
+    return manifest, by_id
+
+
+def import_answer_batch(
+    root: Path,
+    batch_path: Path,
+    key: str | bytes | None = None,
+) -> dict[str, Any]:
+    root = root.resolve()
+    state = load_json(root / "training" / "state.json")
+    if state.get("status") != "DATASET_FROZEN_AWAITING_ANSWER_IMPORT":
+        raise TrainingError("formal answers may only be imported while the dataset is frozen")
+    destination = root / FORMAL_ANSWER_DIR
+    if destination.exists():
+        raise TrainingError("formal answer vault already exists; refusing a partial or replacement import")
+    manifest, by_id = _load_answer_batch(root, batch_path)
+    fernet = _fernet_from_key(key)
+    vault_parent = destination.parent
+    vault_parent.mkdir(parents=True, exist_ok=True)
+    staging = Path(tempfile.mkdtemp(prefix=".formal-answer-import-", dir=vault_parent))
+    try:
+        envelope_hashes: dict[str, str] = {}
+        scoreable_question_count = 0
+        unscored_question_count = 0
+        for case_id in _dataset_case_ids(root):
+            case = load_json(root / "case-bank" / "cases" / f"{case_id}.json")
+            normalized = _validate_answers(case, by_id[case_id])
+            scoreable_question_count += sum(
+                row["scoring_status"] == "SCORED" for row in normalized.values()
+            )
+            unscored_question_count += sum(
+                row["scoring_status"] == "UNSCORED" for row in normalized.values()
+            )
+            token = fernet.encrypt(canonical_bytes(by_id[case_id]))
+            envelope = staging / f"{case_id}.json.fernet"
+            with envelope.open("xb") as handle:
+                handle.write(token + b"\n")
+                handle.flush()
+                os.fsync(handle.fileno())
+            envelope_hashes[case_id] = sha256_file(envelope)
+        vault_manifest = {
+            "schema": "FORMAL-ANSWER-VAULT-MANIFEST-V1",
+            "answer_batch_schema": "FORTUNE-ANSWER-BATCH-V2",
+            "corpus_id": manifest["corpus_id"],
+            "case_count": len(envelope_hashes),
+            "question_count": scoreable_question_count + unscored_question_count,
+            "scoreable_question_count": scoreable_question_count,
+            "unscored_question_count": unscored_question_count,
+            "envelope_hashes": envelope_hashes,
+            "plaintext_stored_in_repository": False,
+            "answer_read_phase": "POST_FREEZE_ONLY",
+            "created_at": utc_now(),
+        }
+        atomic_write_json(staging / "manifest.json", vault_manifest)
+        os.replace(staging, destination)
+    except Exception:
+        if staging.exists():
+            shutil.rmtree(staging)
+        raise
+    return {
+        "status": "FORMAL_ANSWERS_ENCRYPTED",
+        "corpus_id": manifest["corpus_id"],
+        "answer_envelopes": len(by_id),
+        "scoreable_questions": scoreable_question_count,
+        "unscored_questions": unscored_question_count,
+        "vault_manifest": FORMAL_ANSWER_MANIFEST.as_posix(),
+        "plaintext_stored_in_repository": False,
+    }
+
+
+def verify_formal_answer_vault(
+    root: Path,
+    key: str | bytes | None = None,
+) -> dict[str, Any]:
+    root = root.resolve()
+    fernet = _fernet_from_key(key)
+    case_ids = _dataset_case_ids(root)
+    scoreable_question_count = 0
+    unscored_question_count = 0
+    for case_id in case_ids:
+        envelope = root / FORMAL_ANSWER_DIR / f"{case_id}.json.fernet"
+        try:
+            plaintext = fernet.decrypt(envelope.read_bytes().strip())
+        except FileNotFoundError as exc:
+            raise TrainingError(f"missing formal encrypted answer: {case_id}") from exc
+        except Exception as exc:
+            raise TrainingError(f"formal answer envelope failed decryption: {case_id}") from exc
+        try:
+            import json
+
+            payload = json.loads(plaintext.decode("utf-8"))
+        except (UnicodeDecodeError, ValueError) as exc:
+            raise TrainingError(f"formal answer envelope is invalid JSON: {case_id}") from exc
+        case = load_json(root / "case-bank" / "cases" / f"{case_id}.json")
+        normalized = _validate_answers(case, payload)
+        scoreable_question_count += sum(
+            row["scoring_status"] == "SCORED" for row in normalized.values()
+        )
+        unscored_question_count += sum(
+            row["scoring_status"] == "UNSCORED" for row in normalized.values()
+        )
+    vault_manifest = load_json(root / FORMAL_ANSWER_MANIFEST)
+    observed = {
+        "answer_batch_schema": "FORTUNE-ANSWER-BATCH-V2",
+        "question_count": scoreable_question_count + unscored_question_count,
+        "scoreable_question_count": scoreable_question_count,
+        "unscored_question_count": unscored_question_count,
+    }
+    for field, expected in observed.items():
+        if vault_manifest.get(field) != expected:
+            raise TrainingError(f"formal answer-vault manifest mismatch: {field}")
+    return {
+        "status": "FORMAL_ANSWER_VAULT_VERIFIED",
+        "answer_envelopes": len(case_ids),
+        "scoreable_questions": scoreable_question_count,
+        "unscored_questions": unscored_question_count,
+        "plaintext_disclosed": False,
+    }
+
+
+def _formal_group(root: Path) -> dict[str, Any]:
+    partition = load_json(root / "case-bank" / "partitions" / "development.json")
+    return _formal_group_from_partition(partition)
+
+
+def _formal_group_from_partition(partition: dict[str, Any]) -> dict[str, Any]:
+    schedule = partition.get("first_blind_schedule")
+    cases = partition.get("cases")
+    if not isinstance(schedule, list) or not schedule:
+        raise TrainingError("development partition has no first-blind schedule")
+    if not isinstance(cases, dict) or not set(schedule).issubset(cases):
+        raise TrainingError("development first-blind schedule has invalid case mapping")
+    return {
+        "schema": "TRAINING-GROUP-V1",
+        "group_id": FORMAL_GROUP_ID,
+        "partition_id": "DEVELOPMENT",
+        "case_order": schedule,
+        "cases": {case_id: cases[case_id] for case_id in schedule},
+        "excluded_first_blind_cases": sorted(
+            set(partition["case_order"]) - set(schedule)
+        ),
+        "exclusion_reasons": {
+            **{
+                case_id: "HISTORICAL_REVEALED"
+                for case_id in partition.get("historical_case_ids", [])
+            },
+            **{
+                case_id: "SOURCE_EXPOSED"
+                for case_id in partition.get("source_exposed_case_ids", [])
+            },
+            **{
+                case_id: "PRE_FREEZE_CONTEXT_CONTAMINATION"
+                for case_id in partition.get(
+                    "contaminated_development_reference_case_ids", []
+                )
+            },
+        },
+    }
+
+
+def quarantine_current_case(
+    root: Path,
+    round_id: str,
+    case_id: str,
+    *,
+    reason: str = PREDICTION_CONTEXT_VIOLATION,
+) -> dict[str, Any]:
+    """Remove a contaminated, not-yet-started first-blind case without training effects."""
+    root = root.resolve()
+    if reason != PREDICTION_CONTEXT_VIOLATION:
+        raise TrainingError("unsupported prediction-contamination reason")
+
+    partition_path = root / "case-bank" / "partitions" / "development.json"
+    group_path = root / FORMAL_GROUP_PATH
+    state_path = root / "training" / "state.json"
+    chat_output_paths = _chat_output_paths(root)
+    partition = load_json(partition_path)
+    group = load_json(group_path)
+    state = load_json(state_path)
+    old_file_bytes = {
+        path: path.read_bytes() if path.is_file() else None
+        for path in (partition_path, group_path, state_path, *chat_output_paths)
+    }
+
+    if state.get("mode") != "FORMAL_CASE_BANK" or state.get("formal_phase") != "DEVELOPMENT":
+        raise TrainingError("prediction contamination quarantine requires formal development mode")
+    if (
+        state.get("status") != "READY_FOR_ROUND"
+        or state.get("active_round_id") is not None
+        or state.get("active_replay_case_id") is not None
+    ):
+        raise TrainingError("only a not-yet-started first-blind case may be quarantined")
+    if round_id != next_round_id(state):
+        raise TrainingError("contamination report round_id is stale or not current")
+    index = state.get("current_case_index")
+    schedule = partition.get("first_blind_schedule")
+    if (
+        not isinstance(index, int)
+        or not isinstance(schedule, list)
+        or index >= len(schedule)
+        or schedule[index] != case_id
+        or group.get("case_order") != schedule
+    ):
+        raise TrainingError("contamination report case_id is stale or not current")
+    case_state = state.get("cases", {}).get(case_id)
+    if not isinstance(case_state, dict) or case_state != {
+        "status": "ACTIVE",
+        "first_blind_passed": None,
+        "remediation_status": "NOT_EVALUATED",
+        "first_blind_round_id": None,
+        "replay_round_ids": [],
+        "round_ids": [],
+    }:
+        raise TrainingError("current case already has training effects and cannot be quarantined")
+    if any(
+        item.get("round_id") == round_id
+        for item in state.get("non_executed_rounds", [])
+    ):
+        raise TrainingError("contamination report was already processed")
+    if any(item.get("case_id") == case_id for item in state.get("spaced_replay_queue", [])):
+        raise TrainingError("a queued replay case cannot be quarantined as a fresh first blind")
+
+    schedule.remove(case_id)
+    contaminated = set(partition.get("contaminated_development_reference_case_ids", []))
+    contaminated.add(case_id)
+    partition["contaminated_development_reference_case_ids"] = [
+        item for item in partition["case_order"] if item in contaminated
+    ]
+    new_group = _formal_group_from_partition(partition)
+
+    del state["cases"][case_id]
+    state["round_sequence"] = state.get("round_sequence", state["round_count"]) + 1
+    state.setdefault("non_executed_rounds", []).append(
+        {
+            "round_id": round_id,
+            "case_id": case_id,
+            "status": "PRE-FREEZE_CONTAMINATED_NOT_EXECUTED",
+            "prediction_frozen": False,
+            "scored": False,
+            "counts_toward_first_blind": False,
+            "prediction_directions_retained": False,
+            "reason": reason,
+            "recorded_at": utc_now(),
+        }
+    )
+
+    next_case_id = None
+    state["active_replay_case_id"] = None
+    if index < len(new_group["case_order"]):
+        next_case_id = new_group["case_order"][index]
+        state["cases"][next_case_id]["status"] = "ACTIVE"
+        state["status"] = "READY_FOR_ROUND"
+    else:
+        eligible = next(
+            (
+                item
+                for item in state.get("spaced_replay_queue", [])
+                if item["eligible_after_first_blind_count"]
+                <= state.get("first_blind_cases_closed", 0)
+            ),
+            None,
+        )
+        if eligible is not None:
+            next_case_id = eligible["case_id"]
+            state["active_replay_case_id"] = next_case_id
+            state["cases"][next_case_id]["status"] = "REPLAY_ACTIVE"
+            state["status"] = "READY_FOR_ROUND"
+        else:
+            state["status"] = (
+                "FIRST_BLIND_COMPLETE_REPLAY_PENDING"
+                if state.get("spaced_replay_queue")
+                else "GROUP_COMPLETE"
+            )
+
+    try:
+        atomic_write_json(partition_path, partition)
+        atomic_write_json(group_path, new_group)
+        atomic_write_json(state_path, state)
+        write_chat_input(root)
+        verification = verify_repository(root)
+    except Exception:
+        for path, payload in old_file_bytes.items():
+            if payload is None:
+                path.unlink(missing_ok=True)
+            else:
+                atomic_write_bytes(path, payload)
+        raise
+
+    return {
+        "schema": "PREDICTION-CONTAMINATION-RESULT-V1",
+        "status": "PRE-FREEZE_CONTAMINATED_NOT_EXECUTED",
+        "round_id": round_id,
+        "case_id": case_id,
+        "prediction_frozen": False,
+        "scored": False,
+        "counts_toward_first_blind": False,
+        "prediction_directions_retained": False,
+        "answers_accessed": False,
+        "current_model_release": state["current_model_release"],
+        "next_case_id": next_case_id,
+        "next_round_id": next_round_id(state) if next_case_id is not None else None,
+        "next_status": state["status"],
+        "verification": verification["status"],
+    }
+
+
+def invalidate_current_pre_freeze_round(
+    root: Path,
+    round_id: str,
+    case_id: str,
+    *,
+    reason: str = PREDICTION_ACCESS_STARTUP_ORDER_VIOLATION,
+) -> dict[str, Any]:
+    """Invalidate one unexecuted round while preserving first-blind eligibility."""
+    root = root.resolve()
+    status_by_reason = {
+        PREDICTION_ACCESS_STARTUP_ORDER_VIOLATION: (
+            PRE_FREEZE_CONTAMINATED_NOT_EXECUTED
+        ),
+        PREDICTION_CANONICAL_RUNTIME_READ_GATE_FAILURE: (
+            PRE_FREEZE_RUNTIME_GATE_FAILED_NOT_EXECUTED
+        ),
+    }
+    if reason not in status_by_reason:
+        raise TrainingError("unsupported same-case round invalidation reason")
+    non_executed_status = status_by_reason[reason]
+
+    state_path = root / "training" / "state.json"
+    state = load_json(state_path)
+    group = load_json(root / FORMAL_GROUP_PATH)
+    chat_output_paths = _chat_output_paths(root)
+    old_file_bytes = {
+        path: path.read_bytes() if path.is_file() else None
+        for path in (state_path, *chat_output_paths)
+    }
+
+    if state.get("mode") != "FORMAL_CASE_BANK" or state.get("formal_phase") != "DEVELOPMENT":
+        raise TrainingError("round invalidation requires formal development mode")
+    if (
+        state.get("status") != "READY_FOR_ROUND"
+        or state.get("active_round_id") is not None
+        or state.get("active_replay_case_id") is not None
+    ):
+        raise TrainingError("only a not-yet-started first-blind round may be invalidated")
+    if round_id != next_round_id(state):
+        raise TrainingError("round invalidation id is stale or not current")
+    index = state.get("current_case_index")
+    case_order = group.get("case_order")
+    if (
+        not isinstance(index, int)
+        or not isinstance(case_order, list)
+        or index >= len(case_order)
+        or case_order[index] != case_id
+    ):
+        raise TrainingError("round invalidation case is stale or not current")
+    case_state = state.get("cases", {}).get(case_id)
+    if not isinstance(case_state, dict) or case_state != {
+        "status": "ACTIVE",
+        "first_blind_passed": None,
+        "remediation_status": "NOT_EVALUATED",
+        "first_blind_round_id": None,
+        "replay_round_ids": [],
+        "round_ids": [],
+    }:
+        raise TrainingError("current case already has training effects")
+    if any(
+        item.get("round_id") == round_id
+        for item in state.get("non_executed_rounds", [])
+    ):
+        raise TrainingError("round invalidation was already processed")
+
+    state["round_sequence"] = state.get("round_sequence", state["round_count"]) + 1
+    state.setdefault("non_executed_rounds", []).append(
+        {
+            "round_id": round_id,
+            "case_id": case_id,
+            "status": non_executed_status,
+            "prediction_frozen": False,
+            "scored": False,
+            "counts_toward_first_blind": False,
+            "prediction_directions_retained": False,
+            "reason": reason,
+            "recorded_at": utc_now(),
+        }
+    )
+
+    try:
+        atomic_write_json(state_path, state)
+        write_chat_input(root)
+        verification = verify_repository(root)
+    except Exception:
+        for path, payload in old_file_bytes.items():
+            if payload is None:
+                path.unlink(missing_ok=True)
+            else:
+                atomic_write_bytes(path, payload)
+        raise
+
+    return {
+        "schema": "PREDICTION-ROUND-INVALIDATION-RESULT-V1",
+        "status": non_executed_status,
+        "round_id": round_id,
+        "case_id": case_id,
+        "prediction_frozen": False,
+        "scored": False,
+        "counts_toward_first_blind": False,
+        "prediction_directions_retained": False,
+        "answers_accessed": False,
+        "case_first_blind_eligibility_preserved": True,
+        "current_model_release": state["current_model_release"],
+        "next_case_id": case_id,
+        "next_round_id": next_round_id(state),
+        "next_status": state["status"],
+        "verification": verification["status"],
+    }
+
+
+def activate_formal_controller(
+    root: Path,
+    key: str | bytes | None = None,
+) -> dict[str, Any]:
+    root = root.resolve()
+    migrated_ledger = load_learning_ledger(root)
+    ensure_learning_extensions(
+        migrated_ledger,
+        rule_ids=set(load_rule_catalog(root)),
+    )
+    write_learning_ledger(root, migrated_ledger)
+    verify_repository(root, require_answers=True)
+    answer_check = verify_formal_answer_vault(root, key)
+    old_state = load_json(root / "training" / "state.json")
+    if old_state.get("status") != "DATASET_FROZEN_AWAITING_ANSWER_IMPORT":
+        raise TrainingError("formal controller activation requires the frozen pre-activation state")
+    if old_state.get("active_round_id") is not None:
+        raise TrainingError("formal controller cannot activate while a round is active")
+    group = _formal_group(root)
+    group_path = root / FORMAL_GROUP_PATH
+    if group_path.exists():
+        raise TrainingError("formal group file already exists")
+    old_chat_input = load_json(root / "chat-input" / "current.json")
+    old_ledger = migrated_ledger
+    state_archive = root / PRE_FORMAL_STATE_ARCHIVE
+    ledger_archive = root / PRE_FORMAL_LEDGER_ARCHIVE
+    if state_archive.exists() or ledger_archive.exists():
+        raise TrainingError("pre-formal history archive already exists")
+    new_state = {
+        "schema": "GENERALIZATION-TRAINING-STATE-R2",
+        "mode": "FORMAL_CASE_BANK",
+        "formal_phase": "DEVELOPMENT",
+        "group_id": FORMAL_GROUP_ID,
+        "group_path": FORMAL_GROUP_PATH.as_posix(),
+        "policy_path": old_state["policy_path"],
+        "source_manifest_path": old_state["source_manifest_path"],
+        "current_model_release": old_state["current_model_release"],
+        "current_case_index": 0,
+        "status": "READY_FOR_ROUND",
+        "dataset_manifest_path": "case-bank/manifest.json",
+        "dataset_runtime_status": "FORMAL_DEVELOPMENT_ACTIVE",
+        "active_round_id": None,
+        "round_count": 0,
+        "round_sequence": 0,
+        "non_executed_rounds": [],
+        "round_id_prefix": "FORMAL-ROUND",
+        "round_limit": None,
+        "first_blind_cases_closed": 0,
+        "independent_pass_streak": 0,
+        "required_consecutive_independent_passes": 3,
+        "active_replay_case_id": None,
+        "spaced_replay_queue": [],
+        "cases": {
+            case_id: {
+                "status": "ACTIVE" if index == 0 else "PENDING",
+                "first_blind_passed": None,
+                "remediation_status": "NOT_EVALUATED",
+                "first_blind_round_id": None,
+                "replay_round_ids": [],
+                "round_ids": [],
+            }
+            for index, case_id in enumerate(group["case_order"])
+        },
+        "formal_activation": {
+            "activated_at": utc_now(),
+            "answer_vault_manifest": FORMAL_ANSWER_MANIFEST.as_posix(),
+            "answer_vault_manifest_sha256": sha256_file(root / FORMAL_ANSWER_MANIFEST),
+            "verified_answer_envelopes": answer_check["answer_envelopes"],
+            "verified_scoreable_questions": answer_check["scoreable_questions"],
+            "verified_unscored_questions": answer_check["unscored_questions"],
+            "previous_state_archive": PRE_FORMAL_STATE_ARCHIVE.as_posix(),
+            "previous_ledger_archive": PRE_FORMAL_LEDGER_ARCHIVE.as_posix(),
+        },
+    }
+    try:
+        exclusive_write_json(state_archive, old_state)
+        exclusive_write_json(ledger_archive, old_ledger)
+        exclusive_write_json(group_path, group)
+        atomic_write_json(root / "training" / "state.json", new_state)
+        write_chat_input(root)
+        verification = verify_repository(root, require_answers=True)
+    except Exception:
+        atomic_write_json(root / "training" / "state.json", old_state)
+        atomic_write_json(root / "chat-input" / "current.json", old_chat_input)
+        group_path.unlink(missing_ok=True)
+        state_archive.unlink(missing_ok=True)
+        ledger_archive.unlink(missing_ok=True)
+        raise
+    return {
+        "status": "FORMAL_CONTROLLER_ACTIVE",
+        "group_id": FORMAL_GROUP_ID,
+        "formal_phase": "DEVELOPMENT",
+        "scheduled_first_blind_cases": len(group["case_order"]),
+        "current_case_id": group["case_order"][0],
+        "recommended_round_id": next_round_id(new_state),
+        "answers_disclosed": False,
+        "verification": verification["status"],
+    }
+
+
+def rehearse_formal_no_reveal(root: Path) -> dict[str, Any]:
+    root = root.resolve()
+    verification = verify_repository(root, require_answers=True)
+    state = load_json(root / "training" / "state.json")
+    if state.get("mode") != "FORMAL_CASE_BANK" or state.get("formal_phase") != "DEVELOPMENT":
+        raise TrainingError("formal no-reveal rehearsal requires the active development controller")
+    if state.get("status") != "READY_FOR_ROUND" or state.get("active_round_id") is not None:
+        raise TrainingError("formal no-reveal rehearsal requires a clean ready-for-round state")
+    bundle = compose_chat_input(root)
+    summary = bundle["state_summary"]
+    if (
+        bundle.get("contains_answers") is not False
+        or bundle.get("contains_old_predictions") is not False
+        or bundle.get("contains_scores_or_reviews") is not False
+        or summary.get("prediction_allowed") is not True
+    ):
+        raise TrainingError("formal Chat bundle failed the answer-isolation rehearsal")
+    return {
+        "status": "NO_REVEAL_REHEARSAL_PASS",
+        "formal_phase": state["formal_phase"],
+        "current_case_id": summary["current_case_id"],
+        "recommended_round_id": summary["recommended_round_id"],
+        "prediction_allowed": True,
+        "answer_payload_read": False,
+        "answers_disclosed": False,
+        "current_case_sha256": bundle["component_hashes"]["current_case_sha256"],
+        "chat_input_sha256": object_sha256(bundle),
+        "verification": verification["status"],
+    }

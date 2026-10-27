@@ -1,0 +1,114 @@
+{
+  "schema": "ZIWEI-KYUDB-DATONGLIZHU-GK02538-GWANSANGGAM-TYPE-CATEGORY-AND-INHERITED-COLOPHON-CONTROL-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-KYUDB-DATONGLIZHU-GK02538-GWANSANGGAM-TYPE-CATEGORY-AND-INHERITED-COLOPHON-CONTROL-EG",
+  "prior_batch_id": "BATCH-12-ZIWEI-KYUDB-DATONGLIZHU-GK02538-1442-TERMINAL-DATE-IMPRESSION-FIREWALL-EF",
+  "question": "Can the Kyujanggak catalog label 觀象監活字 or an inherited internal 印出/date statement be treated as an exact impression date for surviving GK02538?",
+  "answer": "NO; GWANSANGGAM_MOVABLE_TYPE_IS_A_RECURRING_CALENDAR_TYPE_CATEGORY_NOT_A_UNIQUE_1434_CASTING_EVENT; KYUJANGGAK_DIRECTLY_CATALOGS_A_1707_MUSINJA_REPRINT_THAT_RETAINS_A_1434_GABINJA_ORIGINAL_IMPRINT; INTERNAL_COLOPHON_DATE_AND_CURRENT_PHYSICAL_COPY_DATE_MUST_REMAIN_SEPARATE; GK02538_EXACT_IMPRESSION_YEAR_UNRESOLVED",
+  "controlling_gk02538": {
+    "provider": "Kyujanggak Institute for Korean Studies, Seoul National University",
+    "book_cd": "GK02538_00",
+    "call_number": "奎2538-v.1-4",
+    "title": "大統曆註",
+    "catalog_edition": "觀象監活字",
+    "catalog_impression_year": "[刊年未詳]",
+    "internal_type_postface_year": 1434,
+    "internal_terminal_date_year": 1442,
+    "exact_surviving_copy_impression_year": "UNRESOLVED"
+  },
+  "external_controls": {
+    "aks_inryeokja": {
+      "source_id": "EXT-AKS-INRYEOKJA-GWANSANGGAM-TYPE-CATEGORY-CONTROL",
+      "provider": "Academy of Korean Studies / 한국민족문화대백과사전",
+      "title": "인력자(印曆字)",
+      "url": "https://encykorea.aks.ac.kr/Article/E0046873",
+      "direct_public_statements": [
+        "印曆字 is also called 觀象監活字 and was used by the Gwansanggam to print calendrical books.",
+        "The exact beginning of Gwansanggam ownership/use is not known, but documentary and extant-calendar evidence reaches before the Imjin War.",
+        "The type was frequently recast, contains different iron-type forms, and was often mixed with wooden type; impressions are diverse."
+      ],
+      "adjudication": "觀象監活字 is a functional/institutional type category with repeated recasting and multiple manifestations. The catalog label alone is not a unique identifier for the 1434 Gabinja casting event or a copy-specific impression year."
+    },
+    "kyudb_1707_daehakyeonui": {
+      "source_id": "EXT-KYUDB-DAEHAKYEONUI-1707-INHERITED-GABINJA-ORIGINAL-COLOPHON-CONTROL",
+      "provider": "Kyujanggak Institute for Korean Studies, Seoul National University",
+      "book_cd": "GC00509_00",
+      "call_number": "奎中509-v.1-12",
+      "title": "眞西山讀書記乙集上大學衍義",
+      "current_copy_impression_year": 1707,
+      "current_copy_type": "金屬活字本(戊申字)",
+      "retained_internal_imprint": "宣德九年(1434)十月日印出",
+      "catalog_scope_note": "Kyujanggak explicitly labels the retained 1434 line as 衍義跋 末尾, 甲寅字本 原刊記 and separately identifies the current object as a 1707 Musinja edition.",
+      "adjudication": "A later physical reprint can preserve an earlier original-imprint statement verbatim. Therefore an internal historical 印出/date statement does not, by itself, date the current physical copy."
+    },
+    "nikh_goryeosa_jeolyo": {
+      "source_id": "EXT-NIKH-GORYEOSAJEOLYO-1434-TYPE-POSTFACE-1453-PRINT-CONTROL",
+      "provider": "National Institute of Korean History / 한국사데이터베이스",
+      "title": "高麗史節要 金鑌跋",
+      "url": "https://db.history.go.kr/goryeo/itemLevelKrList.do?parentId=kj_035_0010_0020_0070&types=o",
+      "direct_received_text": [
+        "宣德九年九月日 … 臣金鑌…敬跋",
+        "景泰四年四月日印出"
+      ],
+      "gregorian_years": {
+        "kim_bin_postface": 1434,
+        "explicit_print_out": 1453
+      },
+      "adjudication": "The same transmitted postface unit can carry a 1434 type-event postface and a distinct later explicit 印出 date. This supports separating type-event date, imprint statement, and physical-copy date."
+    }
+  },
+  "chronology_adjudication": {
+    "gwansanggam_hwalja_equals_inryeokja_category": true,
+    "gwansanggam_hwalja_is_unique_single_casting_event": false,
+    "catalog_type_label_identifies_exact_1434_gabinja": false,
+    "catalog_type_label_alone_dates_current_copy": false,
+    "inherited_original_imprint_statements_attested_in_later_physical_reprints": true,
+    "internal_imprint_statement_alone_dates_current_physical_copy": false,
+    "gk02538_1434_postface_is_current_copy_impression_date": false,
+    "gk02538_1442_terminal_date_is_current_copy_impression_date": false,
+    "gk02538_exact_impression_year_adjudicated": false,
+    "gk02538_secure_pre1578_physical_impression_witness": false,
+    "safe_conclusion": "GK02538 may preserve early textual/postface strata while being printed in an unresolved later impression. Exact copy dating requires type/form/edition-specific evidence beyond the generic 觀象監活字 label and inherited internal dates."
+  },
+  "transmission_impact": {
+    "nodes_strengthened": [
+      "PHYSICAL-COPY-KYUDB-DATONGLIZHU-GK02538-GWANSANGGAM-MOVABLETYPE"
+    ],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [],
+    "unresolved_lineage_questions": [
+      "Which dated Gwansanggam/印曆字 physical impressions are typographically closest to GK02538, and can a type-generation or impression window be bounded from direct form comparison?",
+      "Is the GK02538 1442 line an original imprint, copied terminal note, or another event statement?",
+      "Which securely pre-1578 witness carries the exact combined Sanming/Yueling Rainwater 後四日 and Dahan 十三後日 fingerprint?"
+    ],
+    "interpretation": "12EG strengthens the copy/edition chronology firewall. It explicitly prevents the institutional type label or inherited original-colophon dates from being collapsed into the surviving-copy date. No new direct transmission edge is created."
+  },
+  "adjudication": {
+    "exact_surviving_copy_impression_date": "UNRESOLVED",
+    "secure_pre1578_surviving_physical_impression": false,
+    "exact_sanming_fingerprint_match_changed": false,
+    "direct_sanming_parent_vote_increment": 0,
+    "threshold_to_wholeke_operator_closed": false,
+    "matrix_count_change": false,
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false
+  },
+  "project_consequence": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "missing_from_product_rows": 10,
+    "provenance_defects_repaired": "12/12",
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0,
+    "deterministic_product_status": "CLOSED"
+  },
+  "next_gate": [
+    "Perform copy-specific typographic comparison against dated Gwansanggam/印曆字 impressions rather than infer from the category label.",
+    "Continue exact pre-1578 Rainwater+Dahan fingerprint search.",
+    "Continue explicit threshold-to-whole-ke operator search."
+  ],
+  "updated_at": "2026-09-21"
+}

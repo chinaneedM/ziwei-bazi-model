@@ -1,0 +1,104 @@
+{
+  "schema": "ZIWEI-SANMING-SHOUSHI-LOCALITY-AND-TABLE-MISMATCH-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-SANMING-SHOUSHI-LOCALITY-AND-TABLE-MISMATCH-CA",
+  "prior_batch_id": "BATCH-12-ZIWEI-SANMING-SHOUSHI-BIRTH-TIME-BRIDGE-BZ",
+  "question": "Does the Shoushi-calendar bridge in Sanming Tonghui authorize a specific locality standard such as Dadu/Yandu, and is Wan Minying's displayed seasonal table the Shoushi Yandu table?",
+  "shoushi_locality_control": {
+    "source_id": "EXT-YUANSHI-V55-SHOUSHI-JIUFU-LOCALITY",
+    "direct_received_text": [
+      "其九服所在晝夜刻分及中星諸率並準隨處北極出地度數推之",
+      "求九服所在漏刻各於所在以儀測驗或下水漏以定其處冬至或夏至夜刻"
+    ],
+    "adjudication": "SHOUSHI_SYSTEM_REGIONAL_LOCALITY_CAPABILITY_SOURCE_CLOSED",
+    "mechanical_scope": "Local day/night ke and related rates are explicitly location-dependent and may be calibrated by local latitude/instrument/water-clock observation.",
+    "wan_minying_birthplace_localization_proved": false
+  },
+  "historical_standard_comparison": {
+    "source_id": "EXT-BAIBIAN-V54-DIZHONG-YANDU-DAYNIGHT",
+    "reported_dizhong_extremes": {
+      "summer_day": 60,
+      "summer_night": 40,
+      "winter_day": 40,
+      "winter_night": 60
+    },
+    "reported_yandu_shoushi_extremes": {
+      "summer_day": 62,
+      "summer_night": 38,
+      "winter_day": 38,
+      "winter_night": 62
+    },
+    "semantic_value": "Historical technical tradition explicitly recognized that 40/60 and 62/38 can represent different geographic standards rather than mere scribal disagreement.",
+    "authority_boundary": "Ming compilation transmitting earlier discussion; comparative control only."
+  },
+  "sanming_actual_table": {
+    "source_id": "EXT-SANMING-NCL-1578-MAIN",
+    "physical_and_received_controls": [
+      "Ming physical juan-2 witnesses reviewed in Batches 12AT/12BZ",
+      "received/Siku text lists 小寒 42/58, 立春 45/55, 雨水 47/53 then 48/52, 春秋分 near/equal 50/50, 夏至 59/41"
+    ],
+    "exact_yandu_62_38_equivalence": false,
+    "reason": "The displayed mantic table does not use the Yandu Shoushi 62/38 solstitial extreme; the summer-solstice line is 59/41 and the winter sequence belongs to a different rounded/simplified table structure.",
+    "beijing_dadu_runtime_binding_authorized": false
+  },
+  "huqianjing_cross_disciplinary_physical_control": {
+    "source_ids": [
+      "EXT-TIANYIGE-HUQIANJING-MING-CHUANJIAN",
+      "EXT-WIKISOURCE-HUQIANJING-V7-CHUANJIAN"
+    ],
+    "workflow_run_id": 34832306143,
+    "artifact_id": 10342711240,
+    "artifact_digest": "sha256:87bd11223e5fdbfe1ec79b2bc4e2a7577fbe459559e0386287c96f3074f2f27d",
+    "pdf_sha256": "52ea8f81c8cd6ccc1000db4bb15a07b18b5e2196966a3ebdcf740bc423686dfc",
+    "target_page_hashes": {
+      "74": "a86cade9b99ed1b5cc943370e4b66e914d7968bc08943225bb99530fb15721ab",
+      "75": "cc7546f4d93b85fb0327e30cead9c994ae017d81dc2f1dd1b86e994babb3cf83",
+      "76": "2136201c372c0f8ea51dce46c1babcfc135758a98c775afa52c09c39fc8d5534"
+    },
+    "direct_no_ocr_findings": [
+      "PDF p74: 傳箭第七十六; 一日十二時合一百刻; 冬至第一箭晝四十刻夜六十刻",
+      "PDF p76: summer transition reaches 夏至 first arrow with 晝六十刻夜四十刻"
+    ],
+    "full_received_sequence_role": "Shows the 40/60 seasonal arrow-table family is a wider premodern timekeeping tradition and is not unique to later mantic texts.",
+    "direct_genealogy_to_sanming": false,
+    "independent_mantic_vote_increment": 0,
+    "ocr_used_for_glyph_claims": false
+  },
+  "adjudication": {
+    "shoushi_regional_locality_algorithm_attested": true,
+    "wan_minying_birthplace_localization_proved": false,
+    "sanming_table_exact_dadu_shoushi_equivalence": false,
+    "dadu_beijing_runtime_binding_authorized": false,
+    "sanming_invokes_shoushi_framework_but_uses_exact_yandu_table": false,
+    "most_conservative_reading": "Wan Minying invokes Shoushi calendrical/time-division authority while presenting a table that is not the exact Yandu 62/38 Shoushi standard; its precise table genealogy/locality remains unresolved.",
+    "huqianjing_direct_genealogy_to_sanming": false,
+    "forty_sixty_family_is_broader_historical_control": true,
+    "exact_sanming_table_provenance_closed": false
+  },
+  "impact_on_hpa_zdate_006": {
+    "status_before": "MISSING_FROM_PRODUCT",
+    "status_after": "MISSING_FROM_PRODUCT",
+    "runtime_time_standard_binding": "SHOUSHI_LOCALITY_CAPABILITY_CLOSED_BUT_SANMING_SELECTED_LOCALITY_TABLE_UNRESOLVED",
+    "new_runtime_candidate_created": false,
+    "runtime_winner_selected": false,
+    "upper_zi_to_hai_mechanical_vote_increment": 0,
+    "candidate_collapsed": false,
+    "algorithm_reopen_authorized": false,
+    "remaining_blockers": [
+      "trace the exact pre-1578 provenance of the Sanming seasonal sunrise/sunset/day-night table rather than assuming Yandu Shoushi",
+      "identify whether Wan's operational practice selected a normative standard location, practitioner location, or merely a conventional rounded table",
+      "independently close the Fullbook upper-five-ke -> previous-night Hai branch mechanism"
+    ]
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "identified_missing_candidate_families": 14,
+    "confirmed_provenance_metadata_defect_count": 11,
+    "repaired_provenance_metadata_defect_count": 11,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  }
+}

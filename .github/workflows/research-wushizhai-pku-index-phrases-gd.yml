@@ -1,0 +1,112 @@
+name: research-wushizhai-pku-index-phrases-gd
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/research-wushizhai-pku-index-phrases-gd.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Query finite known phrases through PKU source-emitted search backend
+        run: |
+          set -euo pipefail
+          mkdir -p artifacts/pku-index-phrases-gd
+          python - <<'PY'
+          from __future__ import annotations
+          import http.cookiejar, hashlib, html, json, re, urllib.parse, urllib.request
+          from pathlib import Path
+
+          OUT=Path("artifacts/pku-index-phrases-gd")
+          ORIGIN="https://ccj.pku.edu.cn"
+          API=ORIGIN+"/Search/SearchArticleByElasticsearch"
+          TARGET="286663046"
+          TERMS=["四千万人民券","十二箱","以归公","一月二十九日","铁琴铜剑楼"]
+          UA="Mozilla/5.0 TianwenResearch/1.0"
+
+          def run_term(term):
+              cj=http.cookiejar.CookieJar()
+              opener=urllib.request.build_opener(urllib.request.HTTPCookieProcessor(cj))
+              search=ORIGIN+"/Search/search?fd0=0&kw0="+urllib.parse.quote(term)
+              def fetch(req):
+                  try:
+                      with opener.open(req,timeout=30) as r:
+                          return r.status,r.geturl(),dict(r.headers),r.read()
+                  except Exception as e:
+                      code=getattr(e,"code",None); body=b""
+                      try: body=e.read()
+                      except Exception: body=repr(e).encode()
+                      return code,getattr(e,"url",req.full_url),dict(getattr(e,"headers",{}) or {}),body
+              st,final,hs,page=fetch(urllib.request.Request(search,headers={"User-Agent":UA}))
+              text=page.decode("utf-8","replace")
+              m=re.search(r'name="__RequestVerificationToken"[^>]*value="([^"]+)"',text)
+              token=html.unescape(m.group(1)) if m else None
+              pairs=[
+                  ("pageSize","100"),("pageIndex","1"),("sortType","desc"),("sortField","_score"),
+                  ("queryItem[0][Field]","0"),("queryItem[0][Desc]","All fields"),
+                  ("queryItem[0][Type]","0"),("queryItem[0][IsAccurate]","false"),
+                  ("queryItem[0][IsExactValue]","false"),("queryItem[0][Value]",term),
+              ]
+              if token: pairs.append(("__RequestVerificationToken",token))
+              body=urllib.parse.urlencode(pairs).encode()
+              req=urllib.request.Request(API,data=body,method="POST",headers={
+                  "User-Agent":UA,"Content-Type":"application/x-www-form-urlencoded; charset=UTF-8",
+                  "Referer":search,"X-Requested-With":"XMLHttpRequest",
+                  "Accept":"application/json, text/javascript, */*; q=0.01",
+              })
+              ast,afinal,ah,abody=fetch(req)
+              parsed=None; err=None
+              try: parsed=json.loads(abody.decode("utf-8"))
+              except Exception as e: err=repr(e)
+              rows=[]
+              if isinstance(parsed,dict):
+                  if isinstance(parsed.get("list"),list): rows=parsed["list"]
+                  elif isinstance(parsed.get("data"),dict) and isinstance(parsed["data"].get("list"),list): rows=parsed["data"]["list"]
+              target=[r for r in rows if str(r.get("id") or r.get("Id"))==TARGET]
+              return {
+                  "term":term,
+                  "search_page_status":st,
+                  "search_page_sha256":hashlib.sha256(page).hexdigest(),
+                  "csrf_token_source_emitted":bool(token),
+                  "backend_status":ast,
+                  "backend_sha256":hashlib.sha256(abody).hexdigest(),
+                  "json_parsed":parsed is not None,
+                  "parse_error":err,
+                  "total": parsed.get("total") if isinstance(parsed,dict) else None,
+                  "result_count":len(rows),
+                  "target_match_count":len(target),
+                  "target_matches":target,
+              }
+
+          results=[run_term(t) for t in TERMS]
+          manifest={
+              "policy":{
+                  "authentication_used":False,
+                  "paywall_bypass_attempted":False,
+                  "id_enumeration_or_guessing":False,
+                  "finite_known_derivative_phrase_set_only":True,
+                  "search_index_text_not_primary_page_glyph_authority":True,
+              },
+              "target_article_id":TARGET,
+              "terms":TERMS,
+              "results":results,
+          }
+          (OUT/"manifest.json").write_text(json.dumps(manifest,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(manifest,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: wushizhai-pku-index-phrases-gd
+          path: artifacts/pku-index-phrases-gd
+          if-no-files-found: error

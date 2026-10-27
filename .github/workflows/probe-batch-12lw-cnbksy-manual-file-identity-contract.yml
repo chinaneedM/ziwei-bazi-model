@@ -1,0 +1,111 @@
+name: probe-batch-12lw-cnbksy-manual-file-identity-contract
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12lw-cnbksy-manual-file-identity-contract.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inspect only text-bound manual file response identity
+        run: |
+          python - <<'PY'
+          import hashlib, json
+          from pathlib import Path
+          from urllib.parse import urljoin
+          import requests
+
+          base="https://www.cnbksy.com/"
+          targets=[
+              {"label":"old_platform_text_anchor","visible_label":"平台用户手册（老平台）.doc","url":"/common/uploadFile/5efc186123b099148b42c395"},
+              {"label":"new_platform_text_anchor","visible_label":"平台用户手册（新平台）.docx","url":"https://www.cnbksy.com/common/uploadFile/65e9592f7fa00c5f66cdb1f5"},
+          ]
+          s=requests.Session()
+          s.headers.update({"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; CNBKSY manual file identity)"})
+          results=[]
+          for t in targets:
+              url=urljoin(base,t["url"])
+              r=s.get(
+                  url,
+                  headers={"Range":"bytes=0-8191","Referer":"https://www.cnbksy.com/portal/footCategory?id=61"},
+                  timeout=45,
+                  allow_redirects=False,
+                  stream=True,
+              )
+              prefix=b""
+              for chunk in r.iter_content(chunk_size=8192):
+                  if not chunk:
+                      continue
+                  need=8192-len(prefix)
+                  prefix += chunk[:need]
+                  if len(prefix)>=8192:
+                      break
+              r.close()
+              sig=prefix[:16]
+              results.append({
+                  **t,
+                  "resolved_url":url,
+                  "status":r.status_code,
+                  "content_type":r.headers.get("content-type"),
+                  "content_length":r.headers.get("content-length"),
+                  "content_range":r.headers.get("content-range"),
+                  "accept_ranges":r.headers.get("accept-ranges"),
+                  "content_disposition":r.headers.get("content-disposition"),
+                  "location":r.headers.get("location"),
+                  "server":r.headers.get("server"),
+                  "bytes_read":len(prefix),
+                  "prefix_sha256":hashlib.sha256(prefix).hexdigest(),
+                  "magic_hex":sig.hex(),
+                  "ole_cfb_magic":prefix.startswith(bytes.fromhex("d0cf11e0a1b11ae1")),
+                  "zip_magic":prefix.startswith(b"PK\x03\x04"),
+                  "pdf_magic":prefix.startswith(b"%PDF-"),
+                  "html_like":prefix.lstrip().lower().startswith((b"<!doctype html",b"<html")),
+                  "redirect_followed":False,
+              })
+
+          out={
+              "source_contract":{
+                  "parent_batch":"12LV",
+                  "targets":"ONLY_TEXT_BEARING_OLD_AND_NEW_MANUAL_ANCHORS",
+                  "method":"GET",
+                  "range_header":"bytes=0-8191",
+                  "max_body_bytes_read_per_target":8192,
+                  "redirect_followed":False,
+                  "full_manual_parsed":False,
+                  "target_term_submitted":False,
+                  "target_query_submitted":False,
+              },
+              "results":results,
+              "adjudication":{
+                  "only_text_bound_manual_hrefs_checked":True,
+                  "auxiliary_empty_anchor_checked":False,
+                  "icon_upload_checked":False,
+                  "redirect_followed":False,
+                  "full_manual_parsed":False,
+                  "target_term_submitted":False,
+                  "target_query_submitted":False,
+              },
+              "security":{
+                  "anonymous_get_only":True,
+                  "credential_value_recorded":False,
+                  "private_endpoint_guessed":False,
+                  "captcha_bypass_used":False,
+                  "tls_verification_disabled":False,
+              },
+          }
+          Path("batch-12lw-cnbksy-manual-file-identity-contract.json").write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12lw-cnbksy-manual-file-identity-contract
+          path: batch-12lw-cnbksy-manual-file-identity-contract.json

@@ -1,0 +1,190 @@
+name: probe-batch-12ly-cnbksy-professional-section-media-map
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12ly-cnbksy-professional-section-media-map.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Map only the actual body section 4.3 professional-search OOXML media; no OCR
+        run: |
+          python - <<'PY'
+          import hashlib, io, json, posixpath, re, struct, zipfile
+          from pathlib import Path
+          import xml.etree.ElementTree as ET
+          import requests
+
+          url="https://www.cnbksy.com/common/uploadFile/65e9592f7fa00c5f66cdb1f5"
+          expected="51cdcd228ae5cc64708399fd0454c6629606a1fbe3364bd2079eec69742f5dcc"
+          r=requests.get(
+              url,
+              headers={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; CNBKSY professional-section media map repaired)",
+                       "Referer":"https://www.cnbksy.com/portal/footCategory?id=61"},
+              timeout=90,
+              allow_redirects=False,
+          )
+          raw=r.content
+          outdir=Path("batch-12ly-professional-media")
+          outdir.mkdir(exist_ok=True)
+
+          W="http://schemas.openxmlformats.org/wordprocessingml/2006/main"
+          R="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
+          A="http://schemas.openxmlformats.org/drawingml/2006/main"
+          V="urn:schemas-microsoft-com:vml"
+          PR="http://schemas.openxmlformats.org/package/2006/relationships"
+
+          out={
+              "source_contract":{
+                  "parent_batch":"12LX",
+                  "manual_url":url,
+                  "manual_expected_sha256":expected,
+                  "section_start_exact":"4.3 专业检索",
+                  "section_end_exact":"4.4 检索结果可视化",
+                  "scope_repair_reason":"initial 12LY run matched the table-of-contents block because it used substring search; this run requires exact normalized heading text and a body-order control after 4. 高级功能",
+                  "initial_run_superseded":36894975137,
+                  "ocr_used":False,
+                  "search_endpoint_invoked":False,
+                  "target_term_submitted":False,
+                  "target_query_submitted":False,
+              },
+              "http":{
+                  "status":r.status_code,
+                  "bytes":len(raw),
+                  "sha256":hashlib.sha256(raw).hexdigest(),
+                  "content_type":r.headers.get("content-type"),
+                  "content_disposition":r.headers.get("content-disposition"),
+                  "server":r.headers.get("server"),
+              },
+              "heading_occurrences":{},
+              "section":{
+                  "start_found":False,
+                  "end_found":False,
+                  "body_child_start_index":None,
+                  "body_child_end_index":None,
+                  "text_blocks":[],
+                  "relationship_ids":[],
+                  "media":[],
+              },
+              "adjudication":{
+                  "initial_run_scope_defect_confirmed":True,
+                  "actual_body_section_local_media_mapped":False,
+                  "ocr_used":False,
+                  "media_text_inferred":False,
+                  "search_endpoint_invoked":False,
+                  "target_term_submitted":False,
+                  "target_query_submitted":False,
+              },
+              "security":{
+                  "anonymous_get_only":True,
+                  "credential_value_recorded":False,
+                  "private_endpoint_guessed":False,
+                  "captcha_bypass_used":False,
+                  "tls_verification_disabled":False,
+              },
+          }
+
+          def png_dims(data):
+              if len(data)>=24 and data[:8]==b"\x89PNG\r\n\x1a\n" and data[12:16]==b"IHDR":
+                  return list(struct.unpack(">II",data[16:24]))
+              return None
+
+          if r.status_code==200 and hashlib.sha256(raw).hexdigest()==expected:
+              with zipfile.ZipFile(io.BytesIO(raw)) as z:
+                  doc=ET.fromstring(z.read("word/document.xml"))
+                  body=doc.find(f"{{{W}}}body")
+                  relroot=ET.fromstring(z.read("word/_rels/document.xml.rels"))
+                  rels={}
+                  for rel in relroot.findall(f"{{{PR}}}Relationship"):
+                      rels[rel.attrib.get("Id")]={
+                          "target":rel.attrib.get("Target"),
+                          "type":rel.attrib.get("Type"),
+                          "target_mode":rel.attrib.get("TargetMode"),
+                      }
+
+                  children=list(body) if body is not None else []
+
+                  def visible_text(el):
+                      parts=[]
+                      for n in el.iter():
+                          if n.tag==f"{{{W}}}t": parts.append(n.text or "")
+                          elif n.tag==f"{{{W}}}tab": parts.append("\t")
+                          elif n.tag==f"{{{W}}}br": parts.append("\n")
+                      return re.sub(r"\s+"," ","".join(parts)).strip()
+
+                  texts=[visible_text(ch) for ch in children]
+                  for label in ("4. 高级功能","4.3 专业检索","4.4 检索结果可视化"):
+                      out["heading_occurrences"][label]=[i for i,t in enumerate(texts) if t==label]
+
+                  advanced=out["heading_occurrences"]["4. 高级功能"]
+                  starts=out["heading_occurrences"]["4.3 专业检索"]
+                  ends=out["heading_occurrences"]["4.4 检索结果可视化"]
+                  advanced_idx=advanced[-1] if advanced else None
+                  start=next((i for i in starts if advanced_idx is not None and i>advanced_idx),None)
+                  end=next((i for i in ends if start is not None and i>start),None)
+
+                  if start is not None and end is not None:
+                      out["section"]["start_found"]=True
+                      out["section"]["end_found"]=True
+                      out["section"]["body_child_start_index"]=start
+                      out["section"]["body_child_end_index"]=end
+
+                      rid_order=[]
+                      rid_body={}
+                      for idx in range(start,end):
+                          ch=children[idx]
+                          txt=texts[idx]
+                          if txt:
+                              out["section"]["text_blocks"].append({"body_index":idx,"text":txt[:1200]})
+                          local=[]
+                          for blip in ch.iter(f"{{{A}}}blip"):
+                              rid=blip.attrib.get(f"{{{R}}}embed") or blip.attrib.get(f"{{{R}}}link")
+                              if rid: local.append(rid)
+                          for im in ch.iter(f"{{{V}}}imagedata"):
+                              rid=im.attrib.get(f"{{{R}}}id")
+                              if rid: local.append(rid)
+                          for rid in local:
+                              if rid not in rid_order: rid_order.append(rid)
+                              rid_body.setdefault(rid,[]).append(idx)
+
+                      out["section"]["relationship_ids"]=rid_order
+                      for ordinal,rid in enumerate(rid_order):
+                          rel=rels.get(rid,{})
+                          target=rel.get("target")
+                          rec={"ordinal":ordinal,"rid":rid,"body_indices":rid_body.get(rid,[]),**rel}
+                          if target and rel.get("target_mode")!="External":
+                              norm=posixpath.normpath(posixpath.join("word",target))
+                              if norm in z.namelist():
+                                  data=z.read(norm)
+                                  suffix=Path(norm).suffix.lower()
+                                  dest=outdir/f"{ordinal:02d}-{rid}{suffix}"
+                                  dest.write_bytes(data)
+                                  rec.update({
+                                      "zip_member":norm,
+                                      "bytes":len(data),
+                                      "sha256":hashlib.sha256(data).hexdigest(),
+                                      "png_dimensions":png_dims(data),
+                                      "exported_file":dest.name,
+                                  })
+                          out["section"]["media"].append(rec)
+
+                      out["adjudication"]["actual_body_section_local_media_mapped"]=True
+
+          (outdir/"batch-12ly-professional-section-media-map.json").write_text(
+              json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8"
+          )
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12ly-cnbksy-professional-section-media-map
+          path: batch-12ly-professional-media/

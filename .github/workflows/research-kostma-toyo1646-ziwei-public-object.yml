@@ -1,0 +1,200 @@
+name: research-kostma-toyo1646-ziwei-public-object
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-kostma-toyo1646-ziwei-public-object.yml
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Install public-object probe dependencies
+        run: python -m pip install --disable-pip-version-check requests selenium beautifulsoup4 pillow
+
+      - name: Probe exact public KOSTMA TOYO_1646 object without route enumeration
+        shell: python
+        run: |
+          import hashlib
+          import json
+          import time
+          from pathlib import Path
+          from urllib.parse import urljoin, urlsplit
+          import requests
+          from bs4 import BeautifulSoup
+          from selenium import webdriver
+          from selenium.webdriver.chrome.options import Options
+          from selenium.webdriver.common.by import By
+
+          OUT=Path("probe"); OUT.mkdir()
+          UCI="RIKS+CRMA+KSM-WZ.0000.0000-20140423.TOYO_1646"
+          URL="https://kostma.korea.ac.kr/dir/list?uci="+UCI
+          UA="Mozilla/5.0 (compatible; ziwei-provenance-research/1.0)"
+          result={
+            "schema":"ZIWEI-KOSTMA-TOYO1646-PUBLIC-OBJECT-PROBE-R1",
+            "source_locator":"PUBLIC_SHUGE_FORUM_LINK_TO_KOREA_UNIVERSITY_OVERSEAS_KOREAN_STUDIES_DATA_CENTER",
+            "uci":UCI,
+            "source_url":URL,
+            "authentication_attempted":False,
+            "captcha_bypass_attempted":False,
+            "route_guessing_attempted":False,
+            "sequential_page_enumeration_attempted":False,
+            "hidden_download_attempted":False,
+          }
+
+          s=requests.Session(); s.headers.update({"User-Agent":UA})
+          try:
+            r=s.get(URL,timeout=40,allow_redirects=True)
+            result["requests"]={
+              "status":r.status_code,"final_url":r.url,"bytes":len(r.content),
+              "sha256":hashlib.sha256(r.content).hexdigest(),
+              "content_type":r.headers.get("content-type","")
+            }
+            (OUT/"requests.html").write_bytes(r.content)
+            soup=BeautifulSoup(r.content,"html.parser")
+            result["requests_title"]=soup.title.get_text(" ",strip=True) if soup.title else ""
+            result["requests_visible_text"]="\n".join(soup.stripped_strings)[:100000]
+            emitted=[]
+            for tag in soup.find_all(True):
+              for attr in ("href","src","data-src","action"):
+                v=tag.get(attr)
+                if isinstance(v,str) and v.strip():
+                  emitted.append({"tag":tag.name,"attr":attr,"url":urljoin(r.url,v)})
+            result["requests_emitted_urls"]=emitted[:3000]
+          except Exception as e:
+            result["requests_error"]=type(e).__name__+": "+str(e)
+
+          opts=Options()
+          opts.add_argument("--headless=new"); opts.add_argument("--no-sandbox")
+          opts.add_argument("--disable-dev-shm-usage"); opts.add_argument("--disable-gpu")
+          opts.add_argument("--window-size=1800,3200"); opts.add_argument("--lang=ko-KR")
+          opts.set_capability("goog:loggingPrefs", {"performance":"ALL","browser":"ALL"})
+          d=webdriver.Chrome(options=opts)
+          try:
+            d.set_page_load_timeout(90); d.get(URL); time.sleep(12)
+            result["browser_final_url"]=d.current_url
+            result["browser_title"]=d.title
+            body=d.find_element(By.TAG_NAME,"body").text
+            result["browser_body_text"]=body[:140000]
+            result["browser_terms_present"]={t:(t in body) for t in (
+              "紫微","斗數","斗数","新刊希夷","陳搏","陈搏","白玉蟾","金陵","益軒","益轩",
+              "唐謙","唐谦","五凶神","子有十刻","上五刻","下五刻","TOYO_1646","VII-3-157"
+            )}
+
+            dom=[]
+            for css,kind in (("a[href]","a"),("img[src]","img"),("iframe[src]","iframe"),("frame[src]","frame"),("script[src]","script")):
+              for el in d.find_elements(By.CSS_SELECTOR,css):
+                try:
+                  attr="href" if kind=="a" else "src"
+                  u=el.get_attribute(attr) or ""
+                  if not u: continue
+                  rec={"kind":kind,"url":u}
+                  if kind=="a": rec["text"]=" ".join((el.text or "").split())[:1000]
+                  if kind=="img":
+                    rec["alt"]=el.get_attribute("alt") or ""
+                    rec["width"]=el.get_attribute("naturalWidth")
+                    rec["height"]=el.get_attribute("naturalHeight")
+                  dom.append(rec)
+                except Exception:
+                  pass
+            result["browser_dom_urls"]=dom[:5000]
+
+            net=[]
+            for entry in d.get_log("performance"):
+              try:
+                msg=json.loads(entry["message"])["message"]
+                if msg.get("method")!="Network.responseReceived": continue
+                p=msg.get("params",{})
+                resp=p.get("response",{})
+                u=resp.get("url","")
+                if not u: continue
+                if "kostma" in u.lower() or "korea.ac.kr" in u.lower():
+                  net.append({
+                    "url":u,"status":resp.get("status"),
+                    "mimeType":resp.get("mimeType"),
+                    "type":p.get("type")
+                  })
+              except Exception:
+                pass
+            seen=set(); dedup=[]
+            for x in net:
+              k=(x["url"],x.get("status"),x.get("mimeType"))
+              if k not in seen:
+                seen.add(k); dedup.append(x)
+            result["browser_network_responses"]=dedup[:5000]
+            result["browser_logs"]=d.get_log("browser")[:500]
+
+            d.save_screenshot(str(OUT/"page.png"))
+            (OUT/"browser.html").write_text(d.page_source,encoding="utf-8")
+
+            # Download only image URLs actually emitted by the public DOM or observed network log.
+            candidates=[]
+            for x in dom:
+              if x.get("kind")=="img": candidates.append(x["url"])
+            for x in dedup:
+              mt=(x.get("mimeType") or "").lower()
+              if mt.startswith("image/"): candidates.append(x["url"])
+            uniq=[]; seen=set()
+            for u in candidates:
+              if u not in seen:
+                seen.add(u); uniq.append(u)
+            downloads=[]
+            for i,u in enumerate(uniq[:120]):
+              try:
+                rr=s.get(u,headers={"User-Agent":UA,"Referer":d.current_url},timeout=25,allow_redirects=True)
+                ct=rr.headers.get("content-type","")
+                rec={"url":u,"status":rr.status_code,"bytes":len(rr.content),"content_type":ct,"sha256":hashlib.sha256(rr.content).hexdigest()}
+                if rr.status_code==200 and len(rr.content)>500 and ct.lower().startswith("image/"):
+                  ext=".jpg"
+                  if "png" in ct.lower(): ext=".png"
+                  elif "gif" in ct.lower(): ext=".gif"
+                  elif "webp" in ct.lower(): ext=".webp"
+                  p=OUT/f"emitted-image-{i:03d}{ext}"; p.write_bytes(rr.content)
+                  rec["file"]=p.name
+                downloads.append(rec)
+              except Exception as e:
+                downloads.append({"url":u,"error":type(e).__name__+": "+str(e)})
+            result["downloaded_emitted_images"]=downloads
+          except Exception as e:
+            result["browser_error"]=type(e).__name__+": "+str(e)
+          finally:
+            d.quit()
+
+          result["adjudication"]={
+            "public_object_identity":"PENDING_REVIEW",
+            "institutional_digital_object_bound":False,
+            "target_page_observed":False,
+            "independent_hai_glyph_vote_added":0,
+            "algorithm_effect":"NONE",
+            "next_gate":"REVIEW_NATURALLY_EMITTED_KOSTMA_METADATA_AND_PAGE_ASSETS_ONLY"
+          }
+          (OUT/"probe.json").write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps({
+            "requests":result.get("requests"),
+            "requests_title":result.get("requests_title"),
+            "browser_final_url":result.get("browser_final_url"),
+            "browser_title":result.get("browser_title"),
+            "browser_terms_present":result.get("browser_terms_present"),
+            "dom_url_count":len(result.get("browser_dom_urls",[])),
+            "network_response_count":len(result.get("browser_network_responses",[])),
+            "network_responses":result.get("browser_network_responses",[])[:250],
+            "downloaded_emitted_images":result.get("downloaded_emitted_images",[])[:250],
+            "browser_error":result.get("browser_error"),
+            "adjudication":result["adjudication"]
+          },ensure_ascii=False,indent=2))
+
+      - name: Upload KOSTMA TOYO_1646 evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ziwei-kostma-toyo1646-public-object
+          path: probe/
+          if-no-files-found: warn
+          retention-days: 14

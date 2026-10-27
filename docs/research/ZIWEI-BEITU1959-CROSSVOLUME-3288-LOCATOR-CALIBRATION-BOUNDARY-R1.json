@@ -1,0 +1,266 @@
+{
+  "schema": "ZIWEI-BEITU1959-CROSSVOLUME-3288-LOCATOR-CALIBRATION-BOUNDARY-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-BEITU1959-CROSSVOLUME-3288-LOCATOR-CALIBRATION-BOUNDARY-IB",
+  "prior_batch_id": "BATCH-12-ZIWEI-NLC-BEITU1959-3368-3288-SEARCH-INDEX-BOUNDARY-IA",
+  "question": "Can the complete public eight-volume 1959 Beijing Library rare-book catalog scans be machine-searched for printed 3288 strongly enough to support a whole-catalog negative or explain the target-specific 3368 -> 3288 change?",
+  "answer": "No. The complete eight-volume public scan set is mapped, but the tested machine-navigation layers fail positive calibration. The successful r5 eight-volume run emitted zero 3288 candidates in every volume, yet on volume 1 it also failed to recognize the already directly and manually closed positive controls on PDF55-56, including 3368. A separate pdftotext calibration shows the known-positive pages have no embedded text layer or fonts, and both a 48-variant conventional OCR calibration and a 64-variant native Traditional-Chinese vertical OCR calibration produce zero positive variants on the same known-positive pages. Therefore every zero-candidate result is non-evidentiary for absence. Batch 12HZ/12IA remain controlling: the observed 3368 -> 3288 change is target-specific inside a stable local neighborhood, but its causal mechanism is unresolved.",
+  "target_identity": {
+    "title": "附釋音春秋左傳註疏六十卷",
+    "fid": "412004000070",
+    "current_uid": "UCS01003868188",
+    "current_sys": "002838237",
+    "current_905s": "03288",
+    "beitu1987_book_number": "3288",
+    "beitu1959_book_number": "3368"
+  },
+  "public_scan_set": {
+    "provider": "Wikimedia Commons",
+    "category_url": "https://commons.wikimedia.org/wiki/Category:北京圖書館善本書目",
+    "route_map_workflow_commit": "6e55d79955777e4dd28d162d80b1ceb3967fd499",
+    "route_map_workflow_run_id": 36363002709,
+    "route_map_artifact_id": 10946168006,
+    "route_map_artifact_digest": "sha256:13b1be326f15cf042e1ba93b9037f18d8bcf691fc64f58d0700a5d69009a3f7b",
+    "volumes": [
+      {
+        "volume": 1,
+        "ssid": "12335507",
+        "pages": 104,
+        "commons_sha1": "3ff9c94a69a5b5b799d65fba4a6d00fc2daecc97"
+      },
+      {
+        "volume": 2,
+        "ssid": "12335508",
+        "pages": 127,
+        "commons_sha1": "0aa66bca2fa78068712d28361d53dbe8a52d5590"
+      },
+      {
+        "volume": 3,
+        "ssid": "12335509",
+        "pages": 118,
+        "commons_sha1": "92f14b7818d4b8d01ca01d1d659fdfaf0a89b4a6"
+      },
+      {
+        "volume": 4,
+        "ssid": "12335510",
+        "pages": 163,
+        "commons_sha1": "d400c10df649f2ff2ca85cedcc87c18128531c90"
+      },
+      {
+        "volume": 5,
+        "ssid": "12335511",
+        "pages": 154,
+        "commons_sha1": "1e4a7f26eb4d825a73e0cdc746adba71faab3579"
+      },
+      {
+        "volume": 6,
+        "ssid": "12335512",
+        "pages": 139,
+        "commons_sha1": "f981a9257737fa3dc136a5eb36b3616c60cdeefc"
+      },
+      {
+        "volume": 7,
+        "ssid": "12335513",
+        "pages": 164,
+        "commons_sha1": "64edc5f16e1a24f610b52306b4f607124cbbe97a"
+      },
+      {
+        "volume": 8,
+        "ssid": "12335514",
+        "pages": 193,
+        "commons_sha1": "e34d425ab6794e197d0ddf84b13e5a1b57d0912a"
+      }
+    ],
+    "all_eight_public_scans_mapped": true
+  },
+  "probe_history": {
+    "r2_initial": {
+      "workflow_run_id": 36363795357,
+      "conclusion": "failure",
+      "research_inference_authorized": false
+    },
+    "r2_rerun": {
+      "workflow_run_id": 36365128444,
+      "conclusion": "cancelled",
+      "research_inference_authorized": false
+    },
+    "r3_parallel": {
+      "workflow_run_id": 36365509100,
+      "conclusion": "cancelled",
+      "timeout_minutes": 18,
+      "artifact_count": 0,
+      "research_inference_authorized": false
+    },
+    "r5_eight_volume": {
+      "workflow_commit": "4bea0b096fc99b7051ca5b54577b584ef64c2bf6",
+      "workflow_run_id": 36503637232,
+      "workflow_conclusion": "success",
+      "per_volume": [
+        {
+          "volume": 1,
+          "pages": 104,
+          "candidate_count": 0,
+          "artifact_id": 11006596174,
+          "artifact_digest": "sha256:97ba6313570658673a19a7a3da62dc03d56aa99ed9ece27778bae83544feb471"
+        },
+        {
+          "volume": 2,
+          "pages": 127,
+          "candidate_count": 0,
+          "artifact_id": 11007185783,
+          "artifact_digest": "sha256:492b3d94ac316caf4a4c6c638dcb0d12bcd1393003bb54d3e045e373d3f0f739"
+        },
+        {
+          "volume": 3,
+          "pages": 118,
+          "candidate_count": 0,
+          "artifact_id": 11006800463,
+          "artifact_digest": "sha256:f883e90a09e046e73528a72f60384d4e490497e21927fe322783fffd020f8b64"
+        },
+        {
+          "volume": 4,
+          "pages": 163,
+          "candidate_count": 0,
+          "artifact_id": 11006566570,
+          "artifact_digest": "sha256:bffb6be4afd1cf189c117a479e53f5e944c217e898819f0369e70966056bf901"
+        },
+        {
+          "volume": 5,
+          "pages": 154,
+          "candidate_count": 0,
+          "artifact_id": 11006535812,
+          "artifact_digest": "sha256:a126b2f7b4389a67f5757c0a6bbd9c5541305b5e028839447a11744d7ad252f4"
+        },
+        {
+          "volume": 6,
+          "pages": 139,
+          "candidate_count": 0,
+          "artifact_id": 11006177200,
+          "artifact_digest": "sha256:e7af52944d1a1ebd50789d80d37a9b03192a659dd09fc27174cfadc32ed88ed6"
+        },
+        {
+          "volume": 7,
+          "pages": 164,
+          "candidate_count": 0,
+          "artifact_id": 11006292319,
+          "artifact_digest": "sha256:63943fb274a03da95a054e16fabb01cab47560bc82e96e7716d84cf1cf968342"
+        },
+        {
+          "volume": 8,
+          "pages": 193,
+          "candidate_count": 0,
+          "artifact_id": 11007270714,
+          "artifact_digest": "sha256:60e6aef6aa2d42de2457341b65731f0836f7b7c60e311dd99276639b77f43c1f"
+        }
+      ],
+      "known_positive_calibration": {
+        "volume": 1,
+        "pages": [
+          55,
+          56
+        ],
+        "expected_controls": {
+          "55": [
+            "七二八三",
+            "八六四三",
+            "10010"
+          ],
+          "56": [
+            "三三六八",
+            "10010"
+          ]
+        },
+        "recognized_on_page55": [],
+        "recognized_on_page56": [],
+        "calibration_pass": false
+      },
+      "all_volumes_candidate_count_zero": true,
+      "zero_candidate_result_usable_as_absence_evidence": false
+    },
+    "r6_r2_conventional_calibration": {
+      "workflow_commit": "18b2e97dd9194780a46771366c8c54fbb506dfb2",
+      "workflow_run_id": 36504215889,
+      "artifact_id": 11006222559,
+      "artifact_digest": "sha256:85d303ad78bd0a3889f8a4b02c79d70bb20ff07ea7f9c2472566f09a40afa438",
+      "tested_variant_count": 48,
+      "positive_variant_count": 0,
+      "calibration_pass_56_3368": false,
+      "calibration_pass_55_controls": false,
+      "calibration_pass": false
+    },
+    "r6_r3_embedded_text_calibration": {
+      "workflow_commit": "aeda07556ce7ef455be27f9020b5b2df94cc2f16",
+      "workflow_run_id": 36504285825,
+      "artifact_id": 11007166228,
+      "artifact_digest": "sha256:1b685e3e4299cb655fbf1c38f5b395fdb4f144896d35b296bf577690b7eb2c2b",
+      "pages": [
+        55,
+        56
+      ],
+      "pdftotext_raw_bytes": 2,
+      "pdftotext_layout_bytes": 2,
+      "non_whitespace_chars": 0,
+      "font_listing_nonempty": false,
+      "known_positive_text_layer_pass": false
+    },
+    "r6_r4_r3_vertical_calibration": {
+      "workflow_commit": "807e2de91b67fceb835ebbdf0c48655071339a27",
+      "workflow_run_id": 36504602447,
+      "artifact_id": 11006183498,
+      "artifact_digest": "sha256:adfe38e2259fd3eb84442f700740d93ad682d263325c47cdc7ab6fc257ec8aa8",
+      "ocr_model": "tessdata_best/chi_tra_vert",
+      "tested_variant_count": 64,
+      "positive_variant_count": 0,
+      "calibration_pass_56_3368": false,
+      "calibration_pass_55_controls": false,
+      "calibration_pass": false,
+      "note": "GitHub workflow completion was successful, but semantic research calibration was false."
+    }
+  },
+  "method_adjudication": {
+    "complete_public_eight_volume_route_map": "CLOSED",
+    "embedded_text_navigation": "CLOSED_NO_TEXT_LAYER_ON_KNOWN_POSITIVE_PAGES",
+    "tested_ocr_locator_calibration": "FAILED_KNOWN_POSITIVE_RECALL",
+    "r5_zero_candidate_output": "UNCALIBRATED_NON_EVIDENTIARY",
+    "whole_catalog_3288_absence_proved": false,
+    "1959_3288_presence_proved": false,
+    "exact_3368_to_3288_causal_mechanism": "UNRESOLVED",
+    "target_specific_change_scope_from_hz": "TARGET_SPECIFIC_WITHIN_SHARED_LOCAL_NEIGHBORHOOD",
+    "repeat_same_zero_search_without_new_positive_calibration_forbidden": true
+  },
+  "inference_firewall": {
+    "workflow_success_does_not_equal_calibration_success": true,
+    "zero_candidates_after_failed_positive_calibration_do_not_support_absence": true,
+    "no_embedded_text_layer_does_not_support_absence": true,
+    "ocr_is_navigation_only_not_historical_textual_authority": true,
+    "no_cross_volume_negative_claim": true,
+    "generic_1987_correction_environment_does_not_prove_target_specific_correction": true
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "transmission_topology_change": false,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 16,
+    "repaired_provenance_metadata_defect_count": 16,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Recover a target-specific Beijing Library/NLC catalog card, correction slip, catalog-preparation note, accession register or explicit 1959->1987 crosswalk naming 3368 and/or 3288.",
+    "Continue direct retrieval of Zhang Lijuan, 国图藏元刻十行本《附释音春秋左传注疏》, 《国学季刊》第十一期 (2018), for object-level catalog/shelfmark/version details.",
+    "Continue title/book-number/accession-level Qu donation ledger discovery for the exact target.",
+    "Do not repeat whole-catalog OCR zero-searching unless a new method first passes the known-positive 3368/neighbor calibration."
+  ],
+  "updated_at": "2026-09-29"
+}

@@ -1,0 +1,199 @@
+name: research-snu-v4-public-preview
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-snu-v4-public-preview.yml
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Install Selenium
+        run: python -m pip install --disable-pip-version-check selenium
+
+      - name: Open only the exact publicly rendered SNU volume4 file row
+        shell: python
+        run: |
+          import json
+          import time
+          import urllib.parse
+          from pathlib import Path
+          from selenium import webdriver
+          from selenium.webdriver.chrome.options import Options
+          from selenium.webdriver.common.action_chains import ActionChains
+          from selenium.webdriver.common.by import By
+
+          OUT=Path("probe"); OUT.mkdir()
+          URL="https://pan.quark.cn/s/3b7b731e41f2"
+          FOLDER="紫微斗数"
+          STEM="523.5-J562b-v.1-6"
+          SUFFIX="木版本（4）.pdf"
+
+          opts=Options()
+          opts.add_argument("--headless=new")
+          opts.add_argument("--no-sandbox")
+          opts.add_argument("--disable-dev-shm-usage")
+          opts.add_argument("--disable-gpu")
+          opts.add_argument("--window-size=1800,2600")
+          opts.add_argument("--lang=zh-CN")
+          opts.set_capability("goog:loggingPrefs",{"performance":"ALL"})
+
+          result={
+            "schema":"ZIWEI-SNU-V4-PUBLIC-PREVIEW-R1",
+            "share_url":URL,
+            "target_stem":STEM,
+            "target_suffix":SUFFIX,
+            "authentication_attempted":False,
+            "login_attempted":False,
+            "download_attempted":False,
+            "hidden_api_guessing_attempted":False,
+            "token_reuse_attempted":False,
+          }
+
+          driver=webdriver.Chrome(options=opts)
+          try:
+            driver.set_page_load_timeout(90)
+            driver.get(URL); time.sleep(10)
+
+            closes=[x for x in driver.find_elements(By.CSS_SELECTOR,"button.ant-modal-close") if x.is_displayed()]
+            if closes:
+              closes[0].click(); time.sleep(1)
+
+            folder_labels=[x for x in driver.find_elements(By.XPATH,f"//*[normalize-space(text())='{FOLDER}']") if x.is_displayed()]
+            result["folder_label_count"]=len(folder_labels)
+            if folder_labels:
+              wrap=folder_labels[-1].find_element(By.XPATH,"ancestor::div[contains(@class,'file-click-wrap')][1]")
+              ActionChains(driver).double_click(wrap).perform(); time.sleep(8)
+
+            result["folder_url"]=driver.current_url
+            labels=[x for x in driver.find_elements(By.XPATH,
+              "//*[@title and contains(@title,'523.5-J562b-v.1-6') and contains(@title,'木版本（4）.pdf')]"
+            ) if x.is_displayed()]
+            result["target_label_count"]=len(labels)
+            if labels:
+              label=labels[0]
+              result["target_title"]=label.get_attribute("title")
+              row=label.find_element(By.XPATH,"ancestor::tr[1]")
+              result["target_row_key"]=row.get_attribute("data-row-key")
+              wrap=label.find_element(By.XPATH,"ancestor::div[contains(@class,'file-click-wrap')][1]")
+              result["target_wrap_class"]=wrap.get_attribute("class")
+              driver.execute_script("arguments[0].scrollIntoView({block:'center'});",wrap)
+              time.sleep(1)
+              before=driver.current_url
+              ActionChains(driver).double_click(wrap).perform()
+              time.sleep(12)
+              result["url_changed_after_double_click"]=driver.current_url != before
+
+            result["post_open_url"]=driver.current_url
+            result["post_open_title"]=driver.title
+            body=driver.find_element(By.TAG_NAME,"body").text
+            result["post_open_body"]=body[:80000]
+
+            visible_modals=[m for m in driver.find_elements(By.CSS_SELECTOR,".ant-modal") if m.is_displayed()]
+            result["visible_modals"]=[]
+            result["visible_login_modal"]=False
+            for m in visible_modals:
+              txt=" ".join((m.text or "").split())
+              result["visible_modals"].append(txt[:5000])
+              if any(k in txt for k in ("登录账号","扫码登录","手机号登录","请登录")):
+                result["visible_login_modal"]=True
+
+            preview_terms=("预览","PDF","上一页","下一页","页码","放大","缩小","全屏")
+            result["preview_language_visible"]=[k for k in preview_terms if k in body]
+            selectors={
+              "canvas":"canvas",
+              "iframe":"iframe",
+              "embed":"embed",
+              "object":"object",
+              "visible_images":"img",
+            }
+            result["dom_counts"]={}
+            for name,sel in selectors.items():
+              els=driver.find_elements(By.CSS_SELECTOR,sel)
+              if name=="visible_images":
+                result["dom_counts"][name]=sum(1 for e in els if e.is_displayed())
+              else:
+                result["dom_counts"][name]=len(els)
+
+            controls=[]
+            for el in driver.find_elements(By.CSS_SELECTOR,"button,a,[role='button'],[title]"):
+              try:
+                if not el.is_displayed(): continue
+                txt=" ".join((el.text or "").split())
+                title=el.get_attribute("title") or ""
+                hay=txt+" "+title
+                if any(k in hay for k in ("预览","PDF","上一页","下一页","页","放大","缩小","全屏","关闭","下载")):
+                  controls.append({"tag":el.tag_name,"text":txt[:500],"title":title[:500],"href":el.get_attribute("href")})
+              except Exception:
+                pass
+            seen=set(); dedup=[]
+            for x in controls:
+              key=(x["tag"],x["text"],x["title"],x["href"])
+              if key not in seen:
+                seen.add(key); dedup.append(x)
+            result["visible_preview_controls"]=dedup[:500]
+
+            driver.save_screenshot(str(OUT/"post-open.png"))
+            (OUT/"post-open.html").write_text(driver.page_source,encoding="utf-8")
+
+            net=[]
+            for entry in driver.get_log("performance"):
+              try: msg=json.loads(entry["message"])["message"]
+              except Exception: continue
+              if msg.get("method") not in ("Network.requestWillBeSent","Network.responseReceived"): continue
+              p=msg.get("params",{})
+              if msg["method"]=="Network.requestWillBeSent":
+                req=p.get("request",{}); u=req.get("url",""); method=req.get("method"); status=None; mime=None
+              else:
+                resp=p.get("response",{}); u=resp.get("url",""); method=None; status=resp.get("status"); mime=resp.get("mimeType")
+              if not any(h in u for h in ("quark.cn","uc.cn","alicdn.com")): continue
+              s=urllib.parse.urlsplit(u)
+              q={}
+              for k,v in urllib.parse.parse_qsl(s.query,keep_blank_values=True):
+                q[k]="__REDACTED__" if any(t in k.lower() for t in ("token","auth","sign","ticket","session","cookie","stoken")) else v[:300]
+              net.append({
+                "event":msg["method"],"method":method,"status":status,"mime":mime,
+                "url":urllib.parse.urlunsplit((s.scheme,s.netloc,s.path,"","")),"safe_query":q
+              })
+            result["public_ui_network_observations"]=net[-3000:]
+          finally:
+            driver.quit()
+
+          result["adjudication"]={
+            "access_boundary":"STOP_IF_VISIBLE_LOGIN_MODAL_APPEARS",
+            "same_snu_lineage_independent_vote_added":0,
+            "public_preview_opened":bool(result.get("preview_language_visible") or result.get("dom_counts",{}).get("canvas",0) or result.get("dom_counts",{}).get("iframe",0) or result.get("dom_counts",{}).get("embed",0)),
+            "target_page_status":"PREVIEW_ROUTE_BOUND_NOT_TARGET_PAGE" if not result.get("visible_login_modal") else "AUTH_WALL",
+            "algorithm_effect":"NONE",
+          }
+          (OUT/"snu-v4-public-preview.json").write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps({
+            "folder_url":result.get("folder_url"),
+            "target_label_count":result.get("target_label_count"),
+            "target_title":result.get("target_title"),
+            "target_row_key":result.get("target_row_key"),
+            "post_open_url":result.get("post_open_url"),
+            "post_open_title":result.get("post_open_title"),
+            "visible_login_modal":result.get("visible_login_modal"),
+            "preview_language_visible":result.get("preview_language_visible"),
+            "dom_counts":result.get("dom_counts"),
+            "visible_preview_controls":result.get("visible_preview_controls"),
+            "adjudication":result["adjudication"],
+          },ensure_ascii=False,indent=2))
+
+      - name: Upload public-preview evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ziwei-snu-v4-public-preview
+          path: probe/
+          if-no-files-found: warn
+          retention-days: 14

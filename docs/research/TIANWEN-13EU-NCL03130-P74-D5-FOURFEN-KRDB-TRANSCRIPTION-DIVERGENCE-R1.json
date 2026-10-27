@@ -1,0 +1,136 @@
+{
+  "schema": "TIANWEN-13EU-NCL03130-P74-D5-FOURFEN-KRDB-TRANSCRIPTION-DIVERGENCE-R1",
+  "date": "2026-10-24",
+  "issue_id": "TW-OPEN-0005",
+  "evidence_grade": "ORIGINAL_NCL_SINGLE_IMAGE_DIRECT_GLYPH_VS_KRDB_EDITORIAL_TRANSCRIPTION_CANDIDATE_NOT_PROVEN_EDITION_VARIANT",
+  "source_ancestors": [
+    {
+      "path": "docs/research/TIANWEN-13EN-NCL03130-P74-FOURFEN-D4-D6-BOUNDED-PREFIX-R1.json",
+      "blob_sha": "1594a94dfb8bd9af930109d2a6039e68ded8b56b"
+    },
+    {
+      "path": "docs/research/TIANWEN-13ET-NCL03130-SIX-DAY-SOURCE-PIXEL-INTERSECTIONS-R1.json",
+      "blob_sha": "91f2f0bdba0d05b5e8193e52f546560eadbd4444"
+    }
+  ],
+  "ncl_original": {
+    "name": "NCL-03130_09_高麗史.pdf",
+    "archived_action_run": 39938606876,
+    "archive_artifact_id": 12494518841,
+    "pdf_page": 74,
+    "image_file": "original-p074.png",
+    "original_png_sha256": "a3f597f96f494a5ee9a6d582850f0642035d858bcbc587abc6fac11853018a14",
+    "original_rgb_sha256": "c0bf6332279b6ff77e155a5204710ca82d868454a039f8b6660109080b1c1160",
+    "image_dimensions": [
+      1305,
+      873
+    ],
+    "source_roi": {
+      "bbox": [
+        829,
+        405,
+        855,
+        671
+      ],
+      "rgb_sha256": "6e2b5a5a686c559ba9722920a0a10e74dfc82c3717f553f51fefb26cce0b3525"
+    },
+    "positive_d5_digit_roi": {
+      "bbox": [
+        835,
+        480,
+        855,
+        516
+      ],
+      "rgb_sha256": "73bdb68cc2145cad5f79af4ab65b98709e414e52a6f457b425b1289c4b390914",
+      "literal_visual_shape": "〇",
+      "grade": "DIRECT_PHOTOGRAPH_PIXEL_BOUNDED_SINGLE_CHARACTER_VISIBLE"
+    },
+    "previous_image_reading": "四分〇一七二",
+    "transcription_not_retroactively_edited": true,
+    "physical_copy_identity": "UNBOUND",
+    "impression_date": "UNBOUND",
+    "composition_date_not_equated_to_copy_date": true
+  },
+  "krdb_original_text": {
+    "provider": "韓國國史編纂委員會 고려시대사료 DB / 韓國史資料庫",
+    "source_registry_id": "EXT-KRDB-GORYEOSA-V52-SHOUSHI-LICHENG",
+    "url": "https://db.history.go.kr/id/kr_052_0010_0010_0020_0020",
+    "record_id": "kr_052_0010_0010_0020_0020",
+    "retrieved_date": "2026-10-24",
+    "table_title": "大陽夏至前後二象縮初盈末限",
+    "column_label": "日差加一秒六十二少",
+    "adjacent_daily_original_text_transcriptions": [
+      {
+        "day": 4,
+        "original_transcription": "四分五〇一〇"
+      },
+      {
+        "day": 5,
+        "original_transcription": "四分五一七二"
+      },
+      {
+        "day": 6,
+        "original_transcription": "四分五三三四"
+      }
+    ],
+    "page_type": "KOREAN_DB_HAN_TEXT_RENDERING_NOT_SAME_AS_SOURCE_IMAGE_NOT_INDEPENDENT_PHYSICAL_COPY",
+    "image_viewer_source_copy_identity": "NOT_BOUND_TO_NCL_COPY",
+    "same_edition_or_direct_copy": "UNPROVEN"
+  },
+  "alignment_candidate": {
+    "day": 5,
+    "source_roi_literal": "四分〇一七二",
+    "krdb_text_literal": "四分五一七二",
+    "unmatched_slot_index_1_based": 3,
+    "source_slot_literal": "〇",
+    "database_slot_literal": "五",
+    "other_recorded_slots_match": true,
+    "image_visual_reading_scope": "CHARACTER_SHAPE_ONLY_NOT_HISTORICAL_NUMERIC_PRECISION",
+    "apparent_single_slot_conflict": true,
+    "confirmed_historical_edition_variant": false,
+    "confirmed_krdb_transcription_error": false,
+    "confirmed_copyist_error": false,
+    "normalized_digit_for_algorithm": null,
+    "reason_to_not_autocorrect": "Other days are consistent with the official transcription, but local visible D5 glyph is ring-shaped. A monotonic number sequence or correlated web transcriptions cannot overrule source-visible glyph or establish source strata."
+  },
+  "limits": {
+    "samescan_one_witness_only": true,
+    "krdb_o_not_second_original_witness": true,
+    "wikipedia_wikisource_ctext_not_independent_edition_witness": true,
+    "source_field_identity_to_ncl_unruled_columns": "CANDIDATE_ONLY",
+    "ncl_d4_d6_full_fourfen_source_original": "UNRESOLVED",
+    "ncl_d5_visual_ellipse_is_not_zero_fixed_point_value": true,
+    "g893_six_controls": "OPEN",
+    "winter_d16_original_historic_numeric": null,
+    "solar_d30_historic_numeric": null,
+    "qing_vs_1905_physical_hands": "UNBOUND",
+    "retired_13ei_claim": "RETRACTED",
+    "retired_claim_restored": false
+  },
+  "impact": {
+    "new_verified_source_edition": 0,
+    "registry_sources_added": 0,
+    "matrix_rows_changed": 0,
+    "genealogy_nodes_added": 0,
+    "genealogy_edges_added": 0,
+    "risks_closed": 0,
+    "open_or_blocked_risks": 11,
+    "algorithm_reopened": 0,
+    "chart": "CLOSED"
+  },
+  "transmission_impact": {
+    "nodes_supported": [],
+    "edges_supported": [],
+    "edges_revision": [],
+    "rejected_edges": [
+      "Do not treat the official KRDB Han-text transcription as an additional early physical witness; its origin image is not bound to this NCL scan.",
+      "Do not treat differing third-character rendering as a documented imprint/edition variant before imaging separate copies."
+    ],
+    "remaining_questions": [
+      "Can the Korean original image viewer be tied to a separate physical copy with folio metadata?",
+      "Is the NCL photographed ring the actual copy glyph or a source reproduction intervention?",
+      "Can original column headings be assigned without using the typed database as proof?"
+    ]
+  },
+  "next": "Inspect independently controlled KRDB original-image leaf at D5 against SHA-bound NCL p74 original; catalog physical impression and folio before labeling edition variants. Preserve glyph 〇 in NCL candidate, glyph 五 in KRDB text, decimal precision NULL."
+}

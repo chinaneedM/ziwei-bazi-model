@@ -1,0 +1,114 @@
+{
+  "schema": "TIANWEN-12WS-TOKYO-IOC-SHANBEN-SOURCE-BOUND-TITLE-ZERO-RESULT-SCOPE-R1",
+  "date": "2026-10-15",
+  "status": "SOURCE_ISSUED_SELECTED_SHANBEN_INDEX_TITLE_QUERY_ZERO_ROWS_OTHER_PHYSICAL_BOOK_RECORDS_UNCHANGED",
+  "source_capture": [
+    {
+      "phase": "12WP",
+      "run": 38740016745,
+      "artifact": 11975441446,
+      "zip_sha256": "2ce0473b68ad6fb822ff5752ea7e46b9193835b663ce9e03e48ff522f969feda",
+      "original_html_pages": 6,
+      "original_html_sha256_rechecked": 6
+    },
+    {
+      "phase": "12WQ",
+      "run": 38740430429,
+      "artifact": 11976191702,
+      "zip_sha256": "78d4cdc145e4888a1f136bde79322be5dece8be868dc8597ac353db7c9d5a0ef",
+      "original_html_pages": 1,
+      "original_html_sha256_rechecked": 1,
+      "url": "https://shanben.ioc.u-tokyo.ac.jp/list.php",
+      "html_bytes": 22771,
+      "source_sha256": "4fdae7a8cdfae415615e9b3a942ce6d7c58ae0dd852989b1f0188d9e7138aa96",
+      "index_page_record_total": 3889,
+      "index_page_total": 195
+    },
+    {
+      "phase": "12WR",
+      "run": 38740731265,
+      "artifact": 11976172024,
+      "zip_sha256": "ec9b262329343f1092d0b2ab627df63d0f0813ad8ad7826aca590c07fa599b08",
+      "original_html_pages": 1,
+      "original_html_sha256_rechecked": 1,
+      "url": "https://shanben.ioc.u-tokyo.ac.jp/list.php?order=rn_no",
+      "post_form": {
+        "str": "野獲編",
+        "col": "ti",
+        "submits": "檢索"
+      },
+      "html_bytes": 7218,
+      "source_sha256": "3aefce2e0e2218d469e4e65c87b32efbe5d3c4ba668f9175b104a27db65f1d7d",
+      "visible_result_count": 0,
+      "visible_result_pages": 1,
+      "visible_no_row_phrase": "無任何資料",
+      "actual_target_title_links": 0,
+      "search_term_echoed_in_inline_javascript": true
+    }
+  ],
+  "source_inventory": {
+    "original_html_sources": 8,
+    "all_source_html_rehashed_locally": true,
+    "all_zip_hashes_rehashed_locally": true,
+    "original_page_image_sources": 0,
+    "ocr_used": false
+  },
+  "catalog_items": [
+    {
+      "year_catalog": 1827,
+      "ncid": "BC0492354X",
+      "library": "東京大学東洋文化研究所 大木文庫",
+      "copy_item": "6403767830",
+      "volume": "20",
+      "physical_item_in_catalog": true,
+      "original_folio_image_obtained": false,
+      "online_image_crosswalk_bound": false
+    },
+    {
+      "year_catalog": 1869,
+      "ncid": "BB23196128",
+      "library": "東京大学東洋文化研究所 倉石文庫",
+      "copy_item": "6403148395",
+      "volume": "19–20",
+      "physical_item_in_catalog": true,
+      "original_folio_image_obtained": false,
+      "online_image_crosswalk_bound": false
+    }
+  ],
+  "inference": {
+    "first_party_specialized_selected_image_index_exact_title_query_zero_hits": true,
+    "specialized_image_index_not_identical_to_general_holdings_catalog": true,
+    "index_no_hit_does_not_prove_physical_holding_absence": true,
+    "index_no_hit_does_not_prove_historical_original_print_absence": true,
+    "query_string_appearing_inside_js_does_not_mean_item_hit": true,
+    "no_speculative_iiif_or_folio_identifier": true,
+    "no_new_independent_1827_or_1869_original_paper_print_vote": true,
+    "no_original_juan20_gaizao_louke_glyph_vote": true,
+    "index_intro_2009_a_b_access_policy_not_item_specific_current_access": true,
+    "no_new_transmission_graph_edges": true,
+    "source_registry_additions": 0,
+    "algorithm_reopens": 0
+  },
+  "metrics": {
+    "matrix": 222,
+    "audited": 222,
+    "provenance_repairs": 45,
+    "registered_sources": 705,
+    "genealogy_nodes": 252,
+    "genealogy_edges": 238,
+    "formal_batches": 487,
+    "product": "CLOSED"
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Specialized selected Shanben image title-index zero-hit is not evidence against distinct cataloged original physical Oki 1827 or Kuraishi 1869 volumes.",
+      "A query term echoed in JavaScript is not a positive item record, let alone a physical-original rule glyph vote."
+    ],
+    "unresolved_lineage_questions": [
+      "Get item-specific permitted original 1827 Oki and 1869 Kuraishi volume20 Gaizao Louke source folios and image hashes."
+    ]
+  }
+}

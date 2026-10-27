@@ -1,0 +1,109 @@
+{
+  "schema": "ZIWEI-NCPSSD-ZHAO-DETAIL-SCALAR-INVENTORY-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-NCPSSD-ZHAO-DETAIL-SCALAR-INVENTORY-KZ",
+  "prior_batch_id": "BATCH-12-ZIWEI-NCPSSD-ZHAO-JOURNAL-DETAIL-DATA-KY",
+  "question": "What lower-case scalar bibliographic fields already present in the exact Zhao Wanli NCPSsd detail object close the page range, publication date, abstract and keyword locator without following any URL?",
+  "answer": "Replaying only the same already-closed detail POST returns the identical 2426-byte object and closes beginpage=221, endpage=233, publishdate=1951-09-01, source=nssd, a Chinese abstract, keywordc, firstwriter=趙萬里, vol=0 and volumn=1951. No new endpoint is executed and no URL-like value is followed. Together with KY, the NCPSsd detail now reproduces the same year/issue/page-range bundle as the separate NLC Wenjin and NLC scholarly-review records.",
+  "controlling_probe": {
+    "workflow": ".github/workflows/probe-batch-12kz-ncpssd-zhao-detail-scalar-inventory.yml",
+    "exact_head": "78090cb6aa8a186b0cc157e5fd0ff67a85a02c34",
+    "workflow_run_id": 36870170475,
+    "workflow_job_id": 110395607091,
+    "artifact_id": 11166187855,
+    "artifact_name": "batch-12kz-ncpssd-zhao-detail-scalar-inventory",
+    "artifact_digest": "sha256:8645f60140f9835a5ef32a32c76d649eb1e2a859f45c3fc1e3cdba1ac7c42e31"
+  },
+  "response": {
+    "http_status": 200,
+    "bytes": 2426,
+    "sha256": "90f093e92044908b8e16a0dc8147f408e875565a9bc82ccbddebc38c5a666243",
+    "top_level_code": 200,
+    "top_level_result": true
+  },
+  "scalar_inventory": {
+    "beginpage": "221",
+    "endpage": "233",
+    "pagenum": null,
+    "publishdate": "1951-09-01",
+    "publishDateTime": null,
+    "source": "nssd",
+    "remarkc": " &lt;正&gt; 永樂大典是中國一部規模最弘大卷帙最繁重的大類書,也就是大百科全書。這次展覽,不僅是表明永樂大典在圖書發展史上的優越性,和牠在歷史學古典文學和其他學科的研究上的重要性,而是有其更深刻更重大的意義的。",
+    "keywordc": "九五;文康;古典文化;北京;重要性;博物院;家文化;二二六;收藏家;翰林院",
+    "language": 1,
+    "type": 1,
+    "firstwriter": "趙萬里",
+    "firstorgan": "",
+    "vol": "0",
+    "volumn": "1951",
+    "processdate": "2014-05-26",
+    "subjectnum": "5",
+    "specialnum": "K",
+    "refercount": 0,
+    "isshield": false
+  },
+  "cross_record_alignment": {
+    "ncpssd_current_label": "文物",
+    "year": 1951,
+    "issue": "9",
+    "pages": "221-233",
+    "pagecount": 13,
+    "nlc_wenjin_same_year_issue_pages": true,
+    "nlc_review_same_year_issue_pages": true,
+    "historical_nlc_review_label": "文物参考资料",
+    "title_crosswalk_status_before_next_gate": "RELATION_STRONGLY_INDICATED_BUT_FORMAL_RENAME_CROSSWALK_NOT_YET_RECORDED_IN_THIS_CHAIN"
+  },
+  "adjudication": {
+    "target_id_matches": true,
+    "page_range_closed": true,
+    "publication_date_closed": true,
+    "abstract_and_keyword_metadata_closed": true,
+    "new_endpoint_executed": false,
+    "url_like_value_followed": false,
+    "read_download_login_collection_user_route_followed": false
+  },
+  "security": {
+    "anonymous_read_only_detail_post": true,
+    "reader_account_used": false,
+    "registration_used": false,
+    "read_download_endpoint_used": false,
+    "state_changing_endpoint_used": false,
+    "collection_user_endpoint_used": false,
+    "private_endpoint_guessed": false,
+    "captcha_bypass_used": false,
+    "tls_verification_disabled": false
+  },
+  "transmission_impact": {
+    "status": "NONE_BIBLIOGRAPHIC_LOCATOR_STRENGTHENING_ONLY",
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": [],
+    "reason": "The batch strengthens the article locator and metadata but does not itself prove a historical publication-to-publication transmission edge."
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Bind the historical serial 《文物参考资料》 to successor/current title 《文物》 using explicit authoritative serial-history evidence rather than title similarity.",
+    "Probe the CiNii predecessor/successor serial records and the official 文物出版社 development-history page, recording only public bibliographic text and relation markers.",
+    "If the rename crosswalk closes, reclassify NCPSsd/Wenjin label 文物 as a modern normalized/successor-title label for the 1951 record while preserving the original 1951 carrier title 《文物参考资料》."
+  ],
+  "updated_at": "2026-10-01"
+}

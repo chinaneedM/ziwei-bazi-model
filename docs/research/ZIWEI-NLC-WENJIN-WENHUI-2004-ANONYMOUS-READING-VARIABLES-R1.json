@@ -1,0 +1,137 @@
+{
+  "schema": "ZIWEI-NLC-WENJIN-WENHUI-2004-ANONYMOUS-READING-VARIABLES-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-NLC-WENJIN-WENHUI-2004-ANONYMOUS-READING-VARIABLES-KD",
+  "prior_batch_id": "BATCH-12-ZIWEI-NLC-WENJIN-WENHUI-2004-PUBLIC-SERVICE-CONTROLS-KC",
+  "question": "Does the anonymous NLC Wenjin detail page for the 2004 《文汇报》 13-DVD item emit a concrete item-specific content URI or directLink that can be inspected without login, SSO, VPN or document-delivery submission?",
+  "answer": "No. The anonymous item page directly emits uri='' and directLink='', isUserLogin=false, isInnerIP='false', isVpnLink='false', isTsingHuaTongFang='false' and isSamlLink='false'. It emits only the generic VPN prefix https://vpn2.nlc.cn/prx/000/http/, which is not an item-specific content URI. No readingurl attribute is emitted, loginLink hrefSrc is empty, and the page explicitly states that online reading cannot be used while not logged in. Therefore the current anonymous Wenjin item surface exposes no direct content object for the 1938-1999 DVD. Further use of online reading would enter account/SSO/VPN behavior; document delivery remains a separate POST action requiring explicit authorization.",
+  "source_item": {
+    "title": "文汇报",
+    "docId": "-7686431772105481921",
+    "dataSource": "ucs01",
+    "opac_cross_anchor": {
+      "doc_library": "NLC01",
+      "doc_number": "002860236"
+    },
+    "isbn": "7-89999-583-3",
+    "carrier": "13光盘（DVD-ROM）",
+    "coverage": "1938-1999 图文数据光盘"
+  },
+  "controlling_probe": {
+    "workflow": ".github/workflows/probe-batch-12kd-nlc-wenjin-2004-wenhui-reading-vars.yml",
+    "exact_head": "c36cfc48e17c8b12c5260f7cd53a11da50924a2a",
+    "workflow_run_id": 36854903830,
+    "workflow_job_id": 110344966161,
+    "artifact_id": 11157936477,
+    "artifact_name": "batch-12kd-nlc-wenjin-2004-wenhui-reading-vars",
+    "artifact_digest": "sha256:7398e16bf987ff5a379f383e500c9460ad442dba43b7c78550db7b957ac6e2f0"
+  },
+  "detail_response": {
+    "http_status": 200,
+    "bytes": 28831,
+    "sha256": "97076907ae5320fa497c95753b66d633fd76dfc1059ce8d767004b3f6544ab53",
+    "prior_digests": [
+      {
+        "batch": "12KB",
+        "bytes": 28830,
+        "sha256": "a76daf5e6c6867d2a9b9ff01c5dce914cf4513702a22c22014f01d8945c1afdf"
+      },
+      {
+        "batch": "12KC",
+        "bytes": 28830,
+        "sha256": "8bd9bf6d8ec50ae70f0a19cd96a322de5558659e9cbd6ef16aba4e8414ffe1fb"
+      }
+    ],
+    "dynamic_wrapper_drift_continues": true,
+    "item_identity_reopened": false
+  },
+  "anonymous_variables": {
+    "uri": "",
+    "directLink": "",
+    "isUserLogin": false,
+    "isInnerIP": "false",
+    "isVpnLink": "false",
+    "vpnUrlPrefix": "https://vpn2.nlc.cn/prx/000/http/",
+    "isTsingHuaTongFang": "false",
+    "isSamlLink": "false",
+    "loginTip": "立即登录",
+    "needlogin": "未登录情况下不能使用在线阅读功能，请您先登录!",
+    "mediaType": "计算机文件",
+    "title": "文汇报",
+    "dataSourceName": "馆藏中文资源"
+  },
+  "anonymous_controls": {
+    "getEleAll": "<a id=\"getEleAll\" href=\"javascript:void(0);\">",
+    "loginLink_hrefSrc": "",
+    "otherLink_initially_hidden": true,
+    "readingurl_attribute_emitted": false
+  },
+  "adjudication": {
+    "item_specific_uri_emitted": false,
+    "item_specific_directLink_emitted": false,
+    "generic_vpn_prefix_emitted": true,
+    "generic_vpn_prefix_is_item_content_uri": false,
+    "anonymous_concrete_content_uri_recovered": false,
+    "anonymous_online_reading_available_from_emitted_variables": false,
+    "account_or_sso_boundary_reached": true,
+    "document_delivery_post_boundary_still_separate": true,
+    "direct_wenhui_1951_08_18": "NOT_REVIEWED",
+    "direct_wenwu_1951_no9_pp221_233": "NOT_REVIEWED",
+    "direct_2011_p197": "NOT_REVIEWED"
+  },
+  "evidence_firewall": {
+    "generic_vpn_prefix_does_not_equal_item_uri": true,
+    "empty_uri_and_directLink_do_not_prove_disc_contents_absent": true,
+    "anonymous_access_boundary_does_not_prove_logged_in_access_would_succeed": true,
+    "no_readingurl_does_not_prove_nlc_lacks_the_physical_or_digital_item": true,
+    "no_account_action_authorized": true
+  },
+  "security": {
+    "anonymous_get_only": true,
+    "login_used": false,
+    "reader_account_used": false,
+    "registration_used": false,
+    "post_request_used": false,
+    "state_changing_request_used": false,
+    "sso_wrapper_followed": false,
+    "inner_opac_url_followed": false,
+    "vpn_used": false,
+    "private_endpoint_guessed": false,
+    "captcha_bypass_used": false,
+    "tls_verification_disabled": false
+  },
+  "transmission_impact": {
+    "status": "NONE_ACCESS_BOUNDARY_ONLY",
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": [],
+    "reason": "This batch resolves only the anonymous access surface. It adds no historical text or transmission relation."
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Stop anonymous online-reading probing for the 2004 NLC Wenhui DVD unless a new source-emitted public content URI appears; current uri/directLink are empty.",
+    "Do not use SSO, VPN, reader login or document-delivery POST without explicit user authorization.",
+    "Return public discovery priority to direct article-level search for Zhao Wanli 《永乐大典展览的意义》 and direct recovery of 1951 《文物参考资料》 no.9 pp.221-233 / Shanghai 《文汇报》 1951-08-18.",
+    "Continue lawful direct recovery of 2011 《赵万里文集》第1卷 p.197 in parallel."
+  ],
+  "updated_at": "2026-10-01"
+}

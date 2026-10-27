@@ -1,0 +1,119 @@
+name: probe-batch-12ho-fid070-book1-provenance-pages
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - '.github/workflows/probe-batch-12ho-fid070-book1-provenance-pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch and render FID070 book 1 provenance pages
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/batch-12ho-fid070-book1-provenance-pages'
+          rm -rf "$ROOT"; mkdir -p "$ROOT/render"
+          UA='Tianwen-Provenance-Audit/1.0'
+          TITLE='File:NLC892-412004000070-117576 附釋音春秋左傳註疏 第1冊.pdf'
+
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils > /dev/null
+
+          curl -L --fail --retry 3 --connect-timeout 10 --max-time 60 -A "$UA" \
+            --get 'https://commons.wikimedia.org/w/api.php' \
+            --data-urlencode 'action=query' --data-urlencode 'format=json' \
+            --data-urlencode "titles=$TITLE" \
+            --data-urlencode 'prop=imageinfo' \
+            --data-urlencode 'iiprop=url|size|sha1|extmetadata' \
+            -o "$ROOT/commons-imageinfo.json"
+
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          root=Path('audit/batch-12ho-fid070-book1-provenance-pages')
+          o=json.loads((root/'commons-imageinfo.json').read_text('utf-8'))
+          pages=(o.get('query') or {}).get('pages') or {}
+          if not pages:
+              raise SystemExit('no Commons page')
+          p=next(iter(pages.values()))
+          ii=(p.get('imageinfo') or [None])[0]
+          if not ii:
+              raise SystemExit('no imageinfo')
+          d={
+            'pageid':p.get('pageid'),
+            'title':p.get('title'),
+            'url':ii.get('url'),
+            'sha1':ii.get('sha1'),
+            'size':ii.get('size'),
+            'width':ii.get('width'),
+            'height':ii.get('height'),
+            'pagecount':ii.get('pagecount'),
+            'extmetadata':ii.get('extmetadata')
+          }
+          (root/'resolved.json').write_text(json.dumps(d,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          (root/'download-url.txt').write_text(d['url']+'\n',encoding='utf-8')
+          (root/'expected-sha1.txt').write_text((d.get('sha1') or '')+'\n',encoding='utf-8')
+          print(json.dumps({k:d.get(k) for k in ('pageid','title','sha1','size','pagecount')},ensure_ascii=False))
+          PY
+
+          URL=$(cat "$ROOT/download-url.txt")
+          curl -L --fail --retry 3 --retry-delay 2 --connect-timeout 10 --max-time 180 \
+            -A "$UA" -o "$ROOT/fid070-book1.pdf" "$URL"
+
+          ACTUAL_SHA1=$(sha1sum "$ROOT/fid070-book1.pdf" | awk '{print $1}')
+          EXPECTED_SHA1=$(cat "$ROOT/expected-sha1.txt")
+          test "$ACTUAL_SHA1" = "$EXPECTED_SHA1"
+          sha1sum "$ROOT/fid070-book1.pdf" > "$ROOT/pdf.sha1"
+          sha256sum "$ROOT/fid070-book1.pdf" > "$ROOT/pdf.sha256"
+          pdfinfo "$ROOT/fid070-book1.pdf" > "$ROOT/pdfinfo.txt"
+
+          PAGES=$(pdfinfo "$ROOT/fid070-book1.pdf" | awk '/^Pages:/ {print $2}')
+          # Provenance is most likely on cover/title/front matter; also retain the final four pages.
+          LAST_START=$(( PAGES > 4 ? PAGES - 3 : 1 ))
+          for p in $(seq 1 16); do
+            [ "$p" -le "$PAGES" ] || break
+            pdftoppm -f "$p" -l "$p" -jpeg -jpegopt quality=92 -r 200 -singlefile \
+              "$ROOT/fid070-book1.pdf" "$ROOT/render/page-$p"
+          done
+          for p in $(seq "$LAST_START" "$PAGES"); do
+            [ -f "$ROOT/render/page-$p.jpg" ] && continue
+            pdftoppm -f "$p" -l "$p" -jpeg -jpegopt quality=92 -r 200 -singlefile \
+              "$ROOT/fid070-book1.pdf" "$ROOT/render/page-$p"
+          done
+
+          sha256sum "$ROOT"/render/*.jpg | sort -V > "$ROOT/render.sha256"
+          cat > "$ROOT/manual-visual-contract.txt" <<'EOF'
+          TARGET=NLC-backed FID 412004000070, book 1 / 第1冊
+          PURPOSE=inspect cover/title/front matter and terminal leaves for direct ownership/provenance seals or notes
+          TERMS_OF_INTEREST=鐵琴銅劍樓|铁琴铜剑楼|瞿氏|瞿鏞|瞿镛|黃氏百宋一廛|黄氏百宋一廛|百宋一廛
+          METHOD=manual visual inspection of hash-bound rendered pages
+          OCR_USED=false
+          NEGATIVE_POLICY=absence on reviewed pages does not imply absence elsewhere in the 32-book object
+          SAME_OBJECT_POLICY=no Tieqin identity promotion without a directly readable provenance mark or equally unique physical fingerprint
+          EOF
+
+          echo '===== RESOLVED ====='
+          cat "$ROOT/resolved.json"
+          echo '===== PDF INFO ====='
+          cat "$ROOT/pdfinfo.txt"
+          echo '===== PDF HASHES ====='
+          cat "$ROOT/pdf.sha1"
+          cat "$ROOT/pdf.sha256"
+          echo '===== RENDER HASHES ====='
+          cat "$ROOT/render.sha256"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12ho-fid070-book1-provenance-pages
+          path: audit/batch-12ho-fid070-book1-provenance-pages/
+          if-no-files-found: error
+          retention-days: 30

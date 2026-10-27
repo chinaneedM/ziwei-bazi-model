@@ -1,0 +1,139 @@
+{
+  "schema": "ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-PKU-FULLTEXT-BRIDGE-PUBLIC-ACCESS-BOUNDARY-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-PKU-FULLTEXT-BRIDGE-PUBLIC-ACCESS-BOUNDARY-GA",
+  "prior_batch_id": "BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI-2008-ISSUE03-PKU-ARTICLE-RANGE-AND-P120-CITATION-REPAIR-FZ",
+  "question": "Does the official PKU 2008 Issue 03 fulltext bridge currently yield a lawful public primary-text object for 《五石斋文史札记（二十八）》 pp.121-129?",
+  "answer": "No target primary-text object was obtained from the reviewed public bridge routes. The first-party PKU issue page exposes five outbound fulltext links: publisher official website, National Social Sciences Database, CNKI, Wanfang and CQVIP. Under the current anonymous public review surface, the publisher link reaches a generic homepage without a target article object; the NSSD legacy journal route returns 404; the CNKI journal-navigation route returns a 502 fetch boundary in the reviewed environment; Wanfang reaches a JavaScript/account-oriented journal shell without source-emitted target article text; CQVIP's journal-summary route returns HTTP 412. These are access/routing observations only. They do not prove that the article is absent from any provider, do not authorize bypassing authentication or paywalls, and do not change the first-party indexed article range 121-129. Jan-29 exact journal page/text and the 2007 facsimile page/handwriting remain unresolved.",
+  "official_pku_issue_bridge": {
+    "source_id": "EXT-PKU-CCJ-2008-03-FULLTEXT-BRIDGE-ACCESS-CONTROL",
+    "provider": "北京大学期刊平台",
+    "issue_url": "https://ccj.pku.edu.cn/journal/info?issueNo=03&jid=94408&viid=12482306&volumeNo=",
+    "journal": "中国典籍与文化",
+    "issue_year": 2008,
+    "issue_no": "03",
+    "jid": "94408",
+    "viid": "12482306",
+    "outbound_fulltext_link_labels": [
+      "Official website",
+      "National social sciences database",
+      "知网",
+      "万方",
+      "维普"
+    ],
+    "outbound_link_count": 5,
+    "target_article_range_from_prior_fz": "121-129",
+    "target_primary_text_obtained": false
+  },
+  "route_observations": [
+    {
+      "provider": "凤凰出版社官网",
+      "route": "https://www.fhcbs.com/",
+      "current_public_observation": "GENERIC_PUBLISHER_HOMEPAGE_NO_SOURCE_EMITTED_TARGET_ARTICLE_OBJECT_ON_REVIEWED_SURFACE",
+      "target_article_text_obtained": false,
+      "content_absence_proved": false
+    },
+    {
+      "provider": "国家哲学社会科学文献中心 / NSSD",
+      "route": "https://nssd.cn/html/1/155/161/index.html?gch=81912X",
+      "current_public_observation": "LEGACY_JOURNAL_ROUTE_HTTP_404",
+      "target_article_text_obtained": false,
+      "provider_holding_absence_proved": false
+    },
+    {
+      "provider": "中国知网 / CNKI",
+      "route": "https://navi.cnki.net/knavi/JournalDetail?pcode=CJFD&pykm=DJWH",
+      "current_public_observation": "JOURNAL_NAVIGATION_ROUTE_FETCH_HTTP_502_IN_REVIEWED_ENVIRONMENT",
+      "target_article_text_obtained": false,
+      "provider_holding_absence_proved": false
+    },
+    {
+      "provider": "万方数据",
+      "route": "https://www.wanfangdata.com.cn/sns/perio/zgdjywh",
+      "redirected_route": "https://c.wanfangdata.com.cn/magazine/zgdjywh",
+      "current_public_observation": "JAVASCRIPT_ACCOUNT_ORIENTED_JOURNAL_SHELL_NO_SOURCE_EMITTED_TARGET_TEXT_ON_REVIEWED_STATIC_SURFACE",
+      "target_article_text_obtained": false,
+      "provider_holding_absence_proved": false
+    },
+    {
+      "provider": "维普",
+      "route": "https://qikan.cqvip.com/Qikan/Journal/Summary?gch=81912X&kind=1",
+      "current_public_observation": "JOURNAL_SUMMARY_ROUTE_HTTP_412_PRECONDITION_FAILED",
+      "target_article_text_obtained": false,
+      "provider_holding_absence_proved": false
+    }
+  ],
+  "pku_platform_article_route_control": {
+    "prior_index_metadata_title": "《五石斋文史札记》(二十八)",
+    "prior_index_metadata_page_range": "121-129",
+    "index_metadata_fulltext_label_emitted": true,
+    "indexed_detail_candidate_observed_in_search_surface": true,
+    "current_detail_route_behavior": "SEARCH_INDEX_TARGET_DETAIL_CANDIDATE_MISROUTES_TO_ANOTHER_PKU_JOURNAL_ON_DIRECT_OPEN",
+    "target_article_detail_stably_rendered": false,
+    "target_download_object_source_emitted": false,
+    "target_primary_text_source_emitted": false,
+    "aid_enumeration_or_guessing_performed": false
+  },
+  "access_and_authority_firewall": {
+    "outbound_fulltext_link_presence_does_not_equal_target_fulltext_retrieval": true,
+    "provider_http_error_does_not_equal_content_absence": true,
+    "javascript_or_login_shell_does_not_equal_content_absence": true,
+    "generic_publisher_homepage_does_not_equal_no_archive_or_no_article": true,
+    "no_authentication_bypass_attempted": true,
+    "no_paywall_bypass_attempted": true,
+    "no_article_id_enumeration_or_guessing": true,
+    "no_provider_account_action_taken": true,
+    "no_purchase_or_fee_incurred": true,
+    "first_party_indexed_page_range_121_129_remains_valid": true,
+    "article_range_does_not_prove_jan29_presence": true,
+    "no_date_to_page_interpolation": true,
+    "journal_pagination_does_not_map_to_2007_facsimile_pagination_without_direct_crosswalk": true
+  },
+  "target_status_after_batch": {
+    "article_page_range": "121-129",
+    "article_page_range_authority": "FIRST_PARTY_PKU_PLATFORM_INDEX_METADATA",
+    "target_1950_01_29_presence_in_article": "NOT_DIRECTLY_COLLATED",
+    "target_1950_01_29_exact_journal_page": "UNRESOLVED",
+    "target_1950_01_29_primary_journal_text": "NOT_REVIEWED",
+    "target_1950_01_29_facsimile_page": "UNRESOLVED",
+    "target_1950_01_29_facsimile_text": "NOT_REVIEWED",
+    "target_1950_01_29_handwriting_directly_collated": false,
+    "target_3482_3483_batch_membership": "UNRESOLVED",
+    "target_specific_purchase_route_selected": false,
+    "target_specific_donation_route_selected": false,
+    "final_nlc_acquisition_transfer_path": "UNRESOLVED"
+  },
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_added": [],
+    "acquisition_edge_authorized": false,
+    "same_object_edge_authorized": false
+  },
+  "chronology_and_rule_firewall": {
+    "direct_sanming_parent_vote_increment": 0,
+    "pre1578_zhunzhai_rule_witness_increment": 0,
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 14,
+    "repaired_provenance_metadata_defect_count": 14,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Continue lawful discovery for a source-emitted primary fulltext/page object for 《五石斋文史札记（二十八）》 pp.121-129, prioritizing stable first-party PKU or provider article records over guessed identifiers.",
+    "Search citations/snippets for exact 1950-01-29 wording that explicitly cite the 2008 serial page, but do not promote derivative quotations to primary text.",
+    "If a primary article PDF or page object is obtained, directly collate pp.121-129 and bind Jan-29 to its exact journal page without interpolation.",
+    "Resolve the exact 2007 facsimile volume-5 page/leaf for 1950-01-29 and directly collate handwriting.",
+    "Search the target and adjacent primary/facsimile pages for 铜壶漏箭制度, 准斋心制几漏图式, 3482/3483, 03482/03483, the 1823 士礼居 one-volume fingerprint or another stable identifier.",
+    "Continue Gu Tinglong 1950-01-06, NLC [23]/[24], Ji Shuying chapter 9 and Gao Xizeng annotated-catalog routes in parallel."
+  ],
+  "updated_at": "2026-09-25"
+}

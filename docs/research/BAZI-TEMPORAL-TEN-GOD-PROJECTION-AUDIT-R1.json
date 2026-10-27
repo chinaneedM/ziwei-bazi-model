@@ -1,0 +1,310 @@
+{
+  "schema": "BAZI-TEMPORAL-TEN-GOD-PROJECTION-AUDIT-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-BAZI-TEMPORAL-TEN-GOD-PROJECTION-AUDIT-ML",
+  "prior_batch_id": "BATCH-12-ZIWEI-BODY-PALACE-GANZHI-PROJECTION-AUDIT-MK",
+  "question": "Does the target-layer Ten-God consumer retain the true natal day-master anchor and exactly reuse the audited relation mapping without temporal reinterpretation?",
+  "answer": "Yes within inherited rule/profile scope. The direct 100-pair physical table agrees; all target-layer facts retain natal anchoring, candidate identity and upstream full replay. No runtime/source/schema/version mutation.",
+  "execution": {
+    "base_head": "9b8982ff0cd2d2d05ca32df55182797b84bf4aca",
+    "base_tree": "8833238f606b8060d3457196f3970d4c303c0a73",
+    "observed_date": "2026-10-04",
+    "environment": "LOCAL_WORK_MODE_PYTHON",
+    "github_runner_replay_claimed": false
+  },
+  "prior_row": {
+    "rule_id": "HPA-BAZI-FLOW-002",
+    "system": "BAZI",
+    "module": "八字动态时限",
+    "rule_or_field": "Target-layer Ten-God projection",
+    "current_implementation": "Projects Ten-God identity from natal day master to legal target Ganzhi.",
+    "current_profile": "BAZI target annotations",
+    "primary_source": "S11 ten-god rule set",
+    "source_quote": "PENDING_VERBATIM_EXTRACTION",
+    "source_quote_location": "docs/BAZI-TEMPORAL-CLASSICAL-ANNOTATIONS-R1.md",
+    "historical_period": "PENDING_BIBLIOGRAPHIC_DATING",
+    "later_witnesses": "PENDING_LATER_WITNESS_AUDIT",
+    "school_attribution": "PENDING_SCHOOL_ATTRIBUTION_AUDIT",
+    "competing_methods": [],
+    "current_implementation_match": "PENDING_RULE_BY_RULE_REPLAY",
+    "confidence": "INVENTORY_CONFIDENCE_HIGH",
+    "audit_status": "IMPLEMENTATION_REVIEW_REQUIRED",
+    "proposed_action": "Confirm pure reuse of natal Ten-God mapping.",
+    "algorithm_reopen_authorized": false
+  },
+  "upstream_rules": [
+    {
+      "rule_id": "HPA-BAZI-003",
+      "system": "BAZI",
+      "module": "八字派生字段",
+      "rule_or_field": "Ten-God relation mapping",
+      "current_implementation": "S11-TEN-GOD-RELATION-R1.",
+      "current_profile": "BAZI-FOUNDATION-V1-R1",
+      "primary_source": "S11 received 《渊海子平》十神/通变 chapters",
+      "source_quote": "剋我者为正官偏官，生我者为正印偏印，我剋者为正财偏财，我生者为伤官食神，同我者为劫财败财",
+      "source_quote_location": "S11:YHZP-CH-016|017|057|065; S11 canonical-runtime §7.8–7.9",
+      "historical_period": "RECEIVED_YUANHAI_ZIPING_TRADITION",
+      "later_witnesses": "received text preserves stem-by-stem 通变 names and polarity distinction",
+      "school_attribution": "ZIPING_DAY_MASTER_RELATION_FAMILY",
+      "competing_methods": [],
+      "current_implementation_match": "MATCHES_SOURCE_ELEMENT_AND_POLARITY_RELATION_MATRIX",
+      "confidence": "HIGH",
+      "audit_status": "HISTORICALLY_SUPPORTED",
+      "proposed_action": "No reopen; keep identity mapping separate from interpretive semantics.",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-02-BAZI-NATAL-DERIVED"
+    },
+    {
+      "rule_id": "HPA-BAZI-002",
+      "system": "BAZI",
+      "module": "八字派生字段",
+      "rule_or_field": "Hidden-stem membership",
+      "current_implementation": "S11-STANDARD-HIDDEN-STEM-MEMBERSHIP-R1 registry.",
+      "current_profile": "BAZI-FOUNDATION-V1-R1",
+      "primary_source": "S11 received 《渊海子平》藏遁歌 / hidden-stem fact table",
+      "source_quote": "子宫癸水在其中，丑癸辛金己土同",
+      "source_quote_location": "S11:YHZP-CH-061; S11 canonical-runtime §7.3; YHZP-COL-S00049..54",
+      "historical_period": "RECEIVED_YUANHAI_ZIPING_TRADITION",
+      "later_witnesses": "received public collation reproduces the same 12-branch membership verse",
+      "school_attribution": "YUANHAI_ZIPING_HIDDEN_STEM_MEMBERSHIP_FAMILY",
+      "competing_methods": [
+        "alternate hidden-stem compositions/orderings"
+      ],
+      "current_implementation_match": "MEMBERSHIP_SETS_MATCH_SOURCE; ORDER_AUDITED_SEPARATELY",
+      "confidence": "HIGH_FOR_MEMBERSHIP",
+      "audit_status": "HISTORICALLY_SUPPORTED",
+      "proposed_action": "No algorithm reopen. Keep membership semantics; audit tuple/display ordering independently.",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-02-BAZI-NATAL-DERIVED"
+    },
+    {
+      "rule_id": "HPA-BAZI-FLOW-003",
+      "system": "BAZI",
+      "module": "八字动态时限",
+      "rule_or_field": "Target-layer hidden stems",
+      "current_implementation": "Projects source-bound hidden-stem memberships into target branch.",
+      "current_profile": "BAZI target annotations",
+      "primary_source": "HPA-BAZI-002 audited hidden-stem membership; runtime directly reuses HIDDEN_STEMS and HIDDEN_STEM_RULE_SET_ID/VERSION",
+      "source_quote": "Each Dayun/Xiaoyun/annual/monthly/daily/hourly annotation enumerates the same branch hidden-stem membership table; no flow-specific hidden-stem composition is introduced.",
+      "source_quote_location": "src/fortune_training/bazi_application/temporal_annotations.py temporal_classical_annotation; docs/BAZI-TEMPORAL-CLASSICAL-ANNOTATIONS-R1.md",
+      "historical_period": "DERIVED_REUSE_OF_HISTORICALLY_SUPPORTED_NATAL_MEMBERSHIP",
+      "later_witnesses": "No independent dynamic hidden-stem doctrine is required because the target layer only instantiates the same branch identity table.",
+      "school_attribution": "PURE_REGISTRY_REUSE_NO_DYNAMIC_RECOMPOSITION",
+      "competing_methods": [],
+      "current_implementation_match": "EXACT_MEMBERSHIP_REUSE; REGISTRY_ORDER_RETAINED_AS_LINEAGE_ONLY_AFTER_PROV_DEFECT_009_REPAIR; NO_STRENGTH_OR_PATTERN_SEMANTICS",
+      "confidence": "HIGH",
+      "audit_status": "HISTORICALLY_SUPPORTED",
+      "proposed_action": "No algorithm reopen. Preserve pure natal-table reuse at every temporal layer.",
+      "algorithm_reopen_authorized": false,
+      "audit_batch": "BATCH-11-BAZI-HIDDEN-STEM-ORDER-A",
+      "defect_id": "PROV-DEFECT-009",
+      "defect_type": "DISPLAY_ORDER_INCLUDED_IN_TEMPORAL_FACT_HASH",
+      "defect_scope": "Temporal classical annotation FactHash previously included registry_ordinal and list order even though natal FactHash explicitly treats hidden-stem registry/display order as lineage rather than fact identity.",
+      "repair_status": "REPAIRED_FORWARD_ONLY_DURING_BATCH_11A",
+      "repair_action": "BAZI-TEMPORAL-CLASSICAL-ANNOTATION-PROJECTION-R1 bumped to 1.0.2 and hash version to 1.0.1. Fact projection now removes registry_ordinal and canonicalizes hidden-stem membership order; ComputationHash explicitly binds hidden_stem_registry_order. Output order and all chart coordinates remain unchanged."
+    }
+  ],
+  "physical_source": {
+    "source_id": "EXT-NTL-9900014379-YHZP-TEN-GOD-TABLE",
+    "title": "《淵海子平子平真詮》v.1 — 五陽/五陰通變表與日干己身錨點",
+    "provider": "National Taiwan Library holding / Taiwan eBook NCL catalog; Commons mechanical surrogate",
+    "url": "https://taiwanebook.ncl.edu.tw/zh-tw/book/NTL-9900014379",
+    "surrogate_url": "https://upload.wikimedia.org/wikipedia/commons/f/fa/NTL-9900014379_%E6%B7%B5%E6%B5%B7%E5%AD%90%E5%B9%B3%E5%AD%90%E5%B9%B3%E7%9C%9F%E8%A9%AE_v.1.pdf",
+    "access_date": "2026-10-04",
+    "source_role": "DIRECT_PHYSICAL_RECEIVED_WITNESS_FOR_TEN_GOD_IDENTITY_ONLY",
+    "catalog_binding": {
+      "book_id": "NTL-9900014379",
+      "registration_number": "31111003618756",
+      "catalog_author": "秦慎安 校勘",
+      "catalog_publisher": "文明",
+      "catalog_publication_year": 1926,
+      "catalog_place": "不詳",
+      "observed_cover_imprint_pdf_p2": "上海文明書局印行",
+      "page_count": 207
+    },
+    "pdf_sha256": "664bccd1ea4706c609df8ea6cd69a4565db97dc277e876fc22eb125ea41dcc9f",
+    "pdf_byte_count": 90837030,
+    "direct_table_pages_1_based": [
+      37,
+      38,
+      39
+    ],
+    "direct_day_self_anchor_page_1_based": 64,
+    "reading_method": "DIRECT_VISUAL_NO_OCR",
+    "date_scope": "1926 is catalog-assigned publication year. Work/rule origin and exact physical-copy/impression date are not proved. 2017 PDF metadata and 2022 Commons upload are surrogate metadata only.",
+    "quality_notes": "Direct table reading corroborates the inherited relation mapping; semantic aliases are contextual identity bridges only. No textual-stemma independence, earliest-rule or modern temporal-layer doctrine claim. No interpretive/gender/omen text enters runtime. PDF p61 / printed44 directly reads 夫生日為主者 in 詳解定真論. PDF p64 is in a 擇日之法 context and is only a day-self vocabulary corroboration, not independent proof of natal-versus-target anchoring.",
+    "direct_birth_day_master_page_1_based": 61
+  },
+  "direct_collation": {
+    "pdf_table_pages_1_based": [
+      37,
+      38,
+      39
+    ],
+    "printed_table_pages": [
+      18,
+      19,
+      20
+    ],
+    "pdf_anchor_page_1_based": 64,
+    "printed_anchor_page": 47,
+    "anchor_quote": "以日為己身",
+    "table_quote_scope": "Independent visually collated stem columns, normalized semantic roles in preserved oracle. No OCR.",
+    "normalization_oracle": "tests/fixtures/bazi-temporal-ten-god-physical-table-oracle-r1.json",
+    "parent_corpus_quote_is_not_claimed_as_same_physical_wording": true,
+    "whole_volume_collation_claimed": false,
+    "independent_textual_stemma_vote_claimed": false,
+    "classical_seven_layer_api_claimed": false,
+    "pdf_birth_anchor_page_1_based": 61,
+    "printed_birth_anchor_page": 44,
+    "birth_anchor_heading": "詳解定真論",
+    "birth_anchor_quote": "夫生日為主者",
+    "p64_context_heading": "擇日之法",
+    "p64_day_self_does_not_alone_bind_birth_or_target": true
+  },
+  "evidence_objects": {
+    "docs/research/evidence/batch-12ml/commons-file.html": {
+      "byte_count": 96610,
+      "sha256": "48161aa5104837b46c67f35609fb01ed60b9833ebdbf33c51755d1a93265ee00"
+    },
+    "docs/research/evidence/batch-12ml/ntl-catalog.html": {
+      "byte_count": 30939,
+      "sha256": "34b18426ad62f6bb4784eaf01b3f952e9f626a9ab987de4b2fe3742536eafffa"
+    },
+    "docs/research/evidence/batch-12ml/ntl-p002.jpg": {
+      "byte_count": 46312,
+      "sha256": "d890f7f45bf3109c5c804ebea818fcdc0529597e470280f384c0f8ee92b8537d"
+    },
+    "docs/research/evidence/batch-12ml/ntl-p037.jpg": {
+      "byte_count": 352996,
+      "sha256": "72cc869835d6e0a489f076af542a6fca8ee42671f56fae846673cb1ca258c585"
+    },
+    "docs/research/evidence/batch-12ml/ntl-p038.jpg": {
+      "byte_count": 324408,
+      "sha256": "11de8d0f1046b34f6a9a57b53b8fc825288e9fd6f1932298cc1d73eca5186573"
+    },
+    "docs/research/evidence/batch-12ml/ntl-p039.jpg": {
+      "byte_count": 298735,
+      "sha256": "fda89d4aa9ec2bfe9bddbaf51b65a9bb8eb3085f842d1d51b411304efefa3288"
+    },
+    "docs/research/evidence/batch-12ml/ntl-p064.jpg": {
+      "byte_count": 385276,
+      "sha256": "852a9b4e2028f7f501c0990c239bd34d0786d0ac2a70131a552f0d7ee283f973"
+    },
+    "docs/research/evidence/batch-12ml/projection-replay.json": {
+      "byte_count": 1546,
+      "sha256": "1b9ae85b274fc54e4d85c5629fccb7fd5c0d829aa52852428675c481ba148d8a"
+    },
+    "sources/canonical/S11_八字干支五行藏干与十神库.txt": {
+      "byte_count": 19789081,
+      "sha256": "779567cada7fc9eca88963115a1d3b44cc10dfdcc421194c4dbcd349b1c687c7",
+      "unchanged_from_base": true
+    },
+    "src/fortune_training/bazi_application/flow_service.py": {
+      "byte_count": 31616,
+      "sha256": "0a70fed26081d2355e8a50fe94e5fefd55e38555f290268ab49375f5d12313b2",
+      "unchanged_from_base": true
+    },
+    "src/fortune_training/bazi_application/temporal_annotations.py": {
+      "byte_count": 13473,
+      "sha256": "25ee47f98c7df2cd22fae93e4114aa00a6c7b856a1cefb50b950739f5b5b41fa",
+      "unchanged_from_base": true
+    },
+    "src/fortune_training/bazi_chart/registries.py": {
+      "byte_count": 2658,
+      "sha256": "45e6f9339735ba56b7e8df7f2d35860bdff369b5caa42d05095f8ca59d25a3d7",
+      "unchanged_from_base": true
+    },
+    "src/fortune_training/bazi_chart/ten_gods.py": {
+      "byte_count": 1572,
+      "sha256": "961ed943b9f52f91b22aed0057b70ec9c12da8f17198260bfabff8ed701d12f3",
+      "unchanged_from_base": true
+    },
+    "tests/fixtures/bazi-temporal-ten-god-physical-table-oracle-r1.json": {
+      "byte_count": 4115,
+      "sha256": "c30f14981b536692e41134a7118c24d74a0cd1d5446a0ed6b74464ba48f07ce6"
+    },
+    "docs/research/evidence/batch-12ml/ntl-p061.jpg": {
+      "byte_count": 375181,
+      "sha256": "73da5111fb2e56bd6be88df3a5900ea0e87c82941ce1debea840e48b65d414ed"
+    }
+  },
+  "row_adjudication": {
+    "rule_id": "HPA-BAZI-FLOW-002",
+    "prior_status": "IMPLEMENTATION_REVIEW_REQUIRED",
+    "new_status": "HISTORICALLY_SUPPORTED",
+    "scope": "INHERITED_RULES_MODERN_TEMPORAL_IDENTITY_ONLY",
+    "interpretive_application_authorized": false,
+    "historical_candidate_selection_changed": false
+  },
+  "executed_tests": [
+    {
+      "pattern": "test_bazi_temporal_ten_god_projection_audit_r1.py",
+      "test_count": 4,
+      "status": "PASS",
+      "skipped": 0
+    },
+    {
+      "pattern": "test_bazi_application_flow_integration_r1.py",
+      "test_count": 26,
+      "status": "PASS",
+      "skipped": 0
+    },
+    {
+      "pattern": "test_bazi_chart_foundation.py",
+      "test_count": 10,
+      "status": "PASS",
+      "skipped": 0
+    },
+    {
+      "pattern": "test_bazi_temporal_hidden_stem_order_lineage_r1.py",
+      "test_count": 2,
+      "status": "PASS",
+      "skipped": 0
+    }
+  ],
+  "ci_accounting_repair": {
+    "prior_run_id": 37207964061,
+    "prior_job_id": 111453040163,
+    "prior_exact_head": "9b8982ff0cd2d2d05ca32df55182797b84bf4aca",
+    "full_suite_test_count": 1840,
+    "failure_count": 8,
+    "root_cause": "STALE_GLOBAL_TOTAL_ASSERTIONS_AFTER_NEW_RULE_AUDIT; 166!=167 AND 88!=89",
+    "repair_scope": "EIGHT_LEGACY_TEST_FILES_ONLY; DERIVE_CURRENT_TOTALS_FROM_ACTUAL_MATRIX_ROWS_AND_AUDITED_IDS",
+    "affected_regression_test_count": 39,
+    "affected_regression_result": "PASS",
+    "historical_snapshots_rewritten": false,
+    "chart_algorithm_defect": false
+  },
+  "accounting": {
+    "row_count": 198,
+    "audited_rows_before": 167,
+    "audited_rows_after": 168,
+    "current_missing_from_product_rows": 10,
+    "provenance_defects_confirmed": 17,
+    "provenance_defects_repaired": 17,
+    "chart_algorithm_defects": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0
+  },
+  "transmission_impact": {
+    "status": "NONE",
+    "reason": "Adds a bounded received physical attestation of already audited primitives. No rule-origin, direct-copying, independent-stemma or ancestry relation is adjudicated; graph backfill remains separate."
+  },
+  "next_gate": [
+    "12MM: audit HPA-BAZI-014 Stem five-combination identity. Bind the five exact stem pairs to a directly readable historical table and verify the released neutral presentation; keep combination identity separate from transformation success, pattern or interpretation.",
+    "Original-issue recovery remains paused; no repeated closed acquisition routes."
+  ],
+  "full_suite_verification": {
+    "environment": "LOCAL_WORK_MODE_PYTHON",
+    "test_count": 1846,
+    "status": "PASS",
+    "failure_count": 0,
+    "error_count": 0,
+    "skipped_count": 0,
+    "elapsed_seconds": 405.603,
+    "log_sha256": "cce0313a180b9d07ae400465f7b4dd4fd30a875401b52cc30868583d3ca9e67b",
+    "log_vendored": false,
+    "github_runner_result_claimed": false
+  }
+}

@@ -1,0 +1,133 @@
+name: probe-batch-12hn-beitu1987-zuozhuan-callnumber
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - '.github/workflows/probe-batch-12hn-beitu1987-zuozhuan-callnumber.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Extract 1987 Beijing Library rare-book catalog target page
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/batch-12hn-beitu1987-zuozhuan-callnumber'
+          rm -rf "$ROOT"; mkdir -p "$ROOT"
+          URL='https://upload.wikimedia.org/wikipedia/commons/8/8d/SSID-10354752_%E5%8C%97%E4%BA%AC%E5%9C%96%E6%9B%B8%E9%A4%A8%E5%8F%A4%E7%B1%8D%E5%96%84%E6%9C%AC%E6%9B%B8%E7%9B%AE_%E7%B6%93%E9%83%A8.pdf'
+          UA='Tianwen-Provenance-Audit/1.0'
+
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils > /dev/null
+
+          curl -L --fail --retry 3 --retry-delay 2 --connect-timeout 10 --max-time 180 \
+            -A "$UA" -o "$ROOT/beitu1987-jingbu.pdf" "$URL"
+
+          sha256sum "$ROOT/beitu1987-jingbu.pdf" > "$ROOT/pdf.sha256"
+          pdfinfo "$ROOT/beitu1987-jingbu.pdf" > "$ROOT/pdfinfo.txt"
+          pdftotext -layout "$ROOT/beitu1987-jingbu.pdf" "$ROOT/layout.txt"
+          pdftotext -bbox-layout "$ROOT/beitu1987-jingbu.pdf" "$ROOT/bbox.html"
+
+          python - <<'PY'
+          from pathlib import Path
+          import re, json
+          root=Path('audit/batch-12hn-beitu1987-zuozhuan-callnumber')
+          text=root.joinpath('layout.txt').read_text('utf-8',errors='replace')
+          pages=text.split('\f')
+          terms=[
+            '附釋音春秋左傳註疏',
+            '附释音春秋左传注疏',
+            '春秋左傳註疏六十卷',
+            '春秋左传注疏六十卷',
+          ]
+          hits=[]
+          for idx,page in enumerate(pages,1):
+              norm=re.sub(r'\s+','',page)
+              if any(t in page or re.sub(r'\s+','',t) in norm for t in terms):
+                  hits.append(idx)
+          root.joinpath('hit-pages.json').write_text(json.dumps(hits,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          out=[]
+          for idx in hits:
+              page=pages[idx-1]
+              out.append(f'===== PDF_TEXT_PAGE {idx} =====')
+              for n,line in enumerate(page.splitlines(),1):
+                  out.append(f'{n:03d}: {line}')
+          root.joinpath('target-pages-layout.txt').write_text('\n'.join(out)+'\n',encoding='utf-8')
+          print('HIT_PAGES',hits)
+          print(root.joinpath('target-pages-layout.txt').read_text('utf-8')[:120000])
+          PY
+
+          python - <<'PY'
+          from pathlib import Path
+          import re, json, html as htmllib
+          root=Path('audit/batch-12hn-beitu1987-zuozhuan-callnumber')
+          hits=json.loads(root.joinpath('hit-pages.json').read_text('utf-8'))
+          bbox=root.joinpath('bbox.html').read_text('utf-8',errors='replace')
+
+          page_blocks=re.findall(r'<page\b[^>]*>(.*?)</page>',bbox,re.S|re.I)
+          out=[]
+          target_chars=('春','秋','左','傳','传','註','注','疏','六','十','卷','元','刻','明','修','三','二','冊','册')
+          for pno in hits:
+              if not (1 <= pno <= len(page_blocks)): continue
+              pb=page_blocks[pno-1]
+              out.append(f'===== BBOX_PAGE {pno} =====')
+              words=[]
+              for m in re.finditer(r'<word\s+xMin="([^"]+)"\s+yMin="([^"]+)"\s+xMax="([^"]+)"\s+yMax="([^"]+)">(.*?)</word>',pb,re.S|re.I):
+                  x1,y1,x2,y2,txt=m.groups()
+                  txt=htmllib.unescape(re.sub(r'<[^>]+>','',txt))
+                  words.append((float(y1),float(x1),float(x2),float(y2),txt))
+              # group by approximate baseline
+              rows=[]
+              for w in sorted(words):
+                  y=w[0]
+                  placed=False
+                  for row in rows:
+                      if abs(row[0]-y) < 2.2:
+                          row[1].append(w); placed=True; break
+                  if not placed: rows.append([y,[w]])
+              for y,row in rows:
+                  row=sorted(row,key=lambda z:z[1])
+                  txt=' '.join(w[4] for w in row)
+                  # emit full page rows; target page is small enough and x coords preserve columns
+                  coords=' | '.join(f'{w[1]:.1f}:{w[4]}' for w in row)
+                  out.append(f'y={y:.1f} TEXT={txt}')
+                  out.append(f'   X={coords}')
+          root.joinpath('target-pages-bbox.txt').write_text('\n'.join(out)+'\n',encoding='utf-8')
+          print(root.joinpath('target-pages-bbox.txt').read_text('utf-8')[:160000])
+          PY
+
+          # Render the hit pages to PNG for human audit without OCR.
+          python - <<'PY'
+          from pathlib import Path
+          import json, subprocess
+          root=Path('audit/batch-12hn-beitu1987-zuozhuan-callnumber')
+          for pno in json.loads(root.joinpath('hit-pages.json').read_text('utf-8')):
+              out=root/f'page-{pno}'
+              subprocess.run(['pdftoppm','-f',str(pno),'-l',str(pno),'-png','-r','150','-singlefile',str(root/'beitu1987-jingbu.pdf'),str(out)],check=True)
+          PY
+
+          printf '%s\n' \
+            'SOURCE=1987 北京图书馆古籍善本书目·经部 public SSID backup PDF on Wikimedia Commons' \
+            'PURPOSE=resolve exact catalog call-number association for the 32-book Yuan/Ming-repair 春秋左传注疏 entry linked to FID 412004000070' \
+            'METHOD=pdftotext layout + bbox coordinate extraction; rendered PNG retained for human audit' \
+            'OCR_USED=false' \
+            'IDENTIFIER_FIREWALL=catalog call number must be positionally bound to the exact row before use' > "$ROOT/manifest.txt"
+
+          find "$ROOT" -type f -size +0c -print0 | xargs -0 -r sha256sum | sort -V > "$ROOT/all-files.sha256"
+
+      - name: Upload evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: batch-12hn-beitu1987-zuozhuan-callnumber
+          path: audit/batch-12hn-beitu1987-zuozhuan-callnumber/
+          if-no-files-found: error
+          retention-days: 30

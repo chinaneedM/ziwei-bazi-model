@@ -1,0 +1,212 @@
+name: probe-heritage-ryu-daetongryeok-1594-1606-physical
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-heritage-ryu-daetongryeok-1594-1606-physical.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install browser/image tooling
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm install --no-save --silent puppeteer-core@24.16.0
+          python -m pip install --quiet pillow
+
+      - name: Capture dated Ryu Daetongryeok official physical surfaces
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/heritage-ryu-daetongryeok-1594-1606'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT/network-images"
+          BROWSER="$(command -v google-chrome || command -v chromium || command -v chromium-browser || true)"
+          test -n "$BROWSER"
+
+          cat > "$ROOT/capture.mjs" <<'JS'
+          import puppeteer from 'puppeteer-core';
+          import fs from 'node:fs';
+          import crypto from 'node:crypto';
+
+          const root='audit/heritage-ryu-daetongryeok-1594-1606';
+          const target='https://www.heritage.go.kr/heri/mem/selectSeojiDetail.do?pageNo=1_2_1_0&s_asno=01601000&s_cnum=0001&s_ctcd=00&s_kdcd=12';
+          const browser=await puppeteer.launch({
+            headless:true,
+            executablePath:process.env.BROWSER,
+            args:['--no-sandbox','--disable-setuid-sandbox']
+          });
+          const page=await browser.newPage();
+          await page.setUserAgent('Mozilla/5.0 Tianwen-Provenance-Audit/1.0');
+          await page.setViewport({width:1600,height:1200});
+
+          const seen=new Set(), images=[];
+          page.on('response',async resp=>{
+            try{
+              const url=resp.url(), h=resp.headers(), ctype=h['content-type']||'';
+              if(!ctype.toLowerCase().startsWith('image/') || seen.has(url)) return;
+              seen.add(url);
+              const buf=await resp.buffer();
+              if(buf.length<8000) return;
+              const sha=crypto.createHash('sha256').update(buf).digest('hex');
+              const ext=ctype.includes('png')?'png':ctype.includes('webp')?'webp':'jpg';
+              const name=`${String(images.length+1).padStart(3,'0')}-${sha.slice(0,12)}.${ext}`;
+              fs.writeFileSync(`${root}/network-images/${name}`,buf);
+              images.push({name,url,content_type:ctype,bytes:buf.length,sha256:sha});
+            }catch{}
+          });
+
+          let gotoError=null;
+          try{await page.goto(target,{waitUntil:'networkidle2',timeout:90000})}
+          catch(e){gotoError=String(e)}
+          await new Promise(r=>setTimeout(r,1500));
+
+          async function dump(tag){
+            await page.evaluate(async()=>{
+              for(let y=0;y<document.body.scrollHeight;y+=650){
+                window.scrollTo(0,y);
+                await new Promise(r=>setTimeout(r,120));
+              }
+              window.scrollTo(0,0);
+            }).catch(()=>{});
+            await new Promise(r=>setTimeout(r,700));
+            const dom=await page.evaluate(()=>({
+              title:document.title,
+              url:location.href,
+              text:document.body.innerText||'',
+              images:[...document.querySelectorAll('img')].map(x=>({
+                src:x.src,currentSrc:x.currentSrc,alt:x.alt,
+                dataSrc:x.getAttribute('data-src'),dataOriginal:x.getAttribute('data-original'),
+                width:x.naturalWidth,height:x.naturalHeight
+              })),
+              links:[...document.querySelectorAll('a')].map((x,i)=>({
+                i,text:(x.innerText||'').trim(),href:x.href,onclick:x.getAttribute('onclick')
+              })).filter(x=>x.text||x.href||x.onclick),
+              buttons:[...document.querySelectorAll('button,input[type=button]')].map((x,i)=>({
+                i,text:(x.innerText||x.value||'').trim(),onclick:x.getAttribute('onclick')
+              }))
+            }));
+            fs.writeFileSync(root+`/${tag}.html`,await page.content());
+            fs.writeFileSync(root+`/${tag}-dom.json`,JSON.stringify(dom,null,2));
+            fs.writeFileSync(root+`/${tag}-text.txt`,dom.text);
+            await page.screenshot({path:root+`/${tag}.png`,fullPage:true}).catch(()=>{});
+            return dom;
+          }
+
+          const initial=await dump('initial');
+
+          // Click the official 原文画像 tab/control and any image/page navigation controls.
+          const clickLabels=['원문이미지','원문 이미지','이미지'];
+          for(const label of clickLabels){
+            const els=await page.$$('a,button,input[type=button]');
+            for(const el of els){
+              const txt=await el.evaluate(x=>((x.innerText||x.value||'')+' '+(x.getAttribute('title')||'')+' '+(x.getAttribute('onclick')||'')).trim()).catch(()=>'');
+              if(!txt.includes(label)) continue;
+              try{await el.click(); await new Promise(r=>setTimeout(r,1800));}catch{}
+            }
+          }
+          const afterTab=await dump('after-image-tab');
+
+          // Exercise non-destructive page/thumbnail controls to expose lazy original images.
+          for(let round=0;round<3;round++){
+            const els=await page.$$('a,button,input[type=button]');
+            let clicks=0;
+            for(const el of els){
+              const txt=await el.evaluate(x=>((x.innerText||x.value||'')+' '+(x.getAttribute('title')||'')+' '+(x.getAttribute('onclick')||'')).trim()).catch(()=>'');
+              if(!/(다음|next|원본|확대|보기|페이지|쪽|장|이미지)/i.test(txt)) continue;
+              if(/로그인|신청|다운로드|구매/i.test(txt)) continue;
+              try{await el.click(); clicks++; await new Promise(r=>setTimeout(r,500));}catch{}
+              if(clicks>=12) break;
+            }
+            await page.evaluate(()=>window.scrollTo(0,document.body.scrollHeight)).catch(()=>{});
+            await new Promise(r=>setTimeout(r,900));
+          }
+          const final=await dump('final');
+
+          const report={
+            schema:'HERITAGE-RYU-DAETONGRYEOK-1594-1606-PHYSICAL-PROBE-R1',
+            schema_version:'1.0.0',
+            provider:'Korea Heritage Service / 국가유산포털',
+            target_url:target,
+            goto_error:gotoError,
+            pages:{initial,after_image_tab:afterTab,final},
+            network_images:images,
+            known_catalog_controls:{
+              item:'보물 제160호 유성룡 종가 문적-10.유성룡비망기입대통력',
+              volumes:[
+                {label:'甲辰',year:1604,half_frame_cm:'28.5x16.2',outer_cm:'38.8x21.0'},
+                {label:'丙午',year:1606,half_frame_cm:'28.2x16.0',outer_cm:'38.5x21.4'},
+                {label:'甲午',year:1594,half_frame_cm:'29.5x17.8',outer_cm:'41.9x22.2',printing:'WOODBLOCK_CONTROL'},
+                {label:'丙申',year:1596,half_frame_cm:'28.6x16.1',outer_cm:'40.4x21.2'},
+                {label:'丁酉',year:1597,half_frame_cm:'28.2x16.1',outer_cm:'41.3x21.6'}
+              ],
+              common_layout:'四周單邊; 行字數不定; 註雙行; 黑口; 上下內向三葉花紋魚尾',
+              printing_control:'AKS/Heritage explanatory record states 甲午 is woodblock, remaining four are iron Inryeokja/Gwansanggam movable-type prints.'
+            },
+            adjudication_firewall:'This is a dated comparison-series acquisition probe. Type/layout resemblance may strengthen a family-level comparison but cannot by itself date GK02538 or identify an exact casting generation.',
+            ocr_used_for_final_claims:false
+          };
+          fs.writeFileSync(root+'/report.json',JSON.stringify(report,null,2));
+          console.log(JSON.stringify({
+            goto_error:gotoError,
+            final_url:page.url(),
+            image_count:images.length,
+            useful:images.filter(x=>/data1|heritage|seoji|jpg/i.test(x.url)).slice(0,100),
+            initial_links:initial.links.filter(x=>/원문|이미지|jpg|image/i.test((x.text||'')+' '+(x.href||'')+' '+(x.onclick||''))).slice(0,60)
+          },null,2));
+          await browser.close();
+          JS
+
+          BROWSER="$BROWSER" node "$ROOT/capture.mjs"
+
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image,ImageDraw
+          import json
+          root=Path('audit/heritage-ryu-daetongryeok-1594-1606')
+          report=json.loads((root/'report.json').read_text())
+          rows=[]
+          for x in report['network_images']:
+              p=root/'network-images'/x['name']
+              try:
+                  im=Image.open(p).convert('RGB')
+                  x['width'],x['height']=im.size
+                  if im.width>=300 and im.height>=300:
+                      rows.append((x,im.copy()))
+              except: pass
+          sheets=[]
+          for start in range(0,len(rows),12):
+              batch=rows[start:start+12]; thumbs=[]
+              for row,im in batch:
+                  im.thumbnail((460,620))
+                  c=Image.new('RGB',(480,675),'white')
+                  c.paste(im,((480-im.width)//2,18))
+                  ImageDraw.Draw(c).text((8,645),row['name'],fill='black')
+                  thumbs.append(c)
+              cols=3; nr=(len(thumbs)+cols-1)//cols
+              sheet=Image.new('RGB',(cols*480,nr*675),'white')
+              for i,im in enumerate(thumbs): sheet.paste(im,((i%cols)*480,(i//cols)*675))
+              out=root/f'contact-{start//12+1:02d}.jpg'; sheet.save(out,quality=92); sheets.append(out.name)
+          report['contact_sheets']=sheets
+          (root/'report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
+          print(json.dumps({'decodable_large_images':len(rows),'contact_sheets':sheets},ensure_ascii=False))
+          PY
+
+      - name: Upload dated Ryu calendar comparison set
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: heritage-ryu-daetongryeok-1594-1606-physical-r1
+          path: audit/heritage-ryu-daetongryeok-1594-1606
+          if-no-files-found: error
+          retention-days: 30

@@ -1,0 +1,101 @@
+{
+  "schema": "ZIWEI-ZHOUXIANG-DAMING-DATONG-1569-1477-PHYSICAL-COLLATION-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-ZHOUXIANG-DAMING-DATONG-1569-1477-COMPUTATION-REPRINT-CONTROL-CM",
+  "prior_batch_id": "BATCH-12-ZIWEI-YINGZONG-SHILU-1449-DATONG-OLD-STYLE-RESTORATION-CL",
+  "question": "Does the public reproduction of Zhou Xiang's Longqing-3 Daming Datong lifa preserve a pre-1578 day/night-ke bridge to Sanming, and what date/provenance layers can be established directly?",
+  "source_binding": {
+    "source_id": "EXT-KOTENMON-ZHOUXIANG-DAMING-DATONG-VOL6-1569",
+    "secondary_provenance_source_id": "EXT-JSTAGE-KOBAYASHI-2014-ZHOUXIANG-DATONG",
+    "public_pdf_url": "https://www.kotenmon.com/cal/arabe/vol6.pdf",
+    "workflow_run_id": 35009608549,
+    "artifact_id": 10412298745,
+    "artifact_digest": "sha256:7ba11d497bd40e7683d0429662316e91ac900b60ab5f9f492a10d9d076c3356e",
+    "source_pdf_sha256": "4c006b7ce131902fe33012d42f62cd2bbc2140affa3d5886e0da02966352cb7c",
+    "rendered_page_count": 45,
+    "ocr_used_for_glyph_claims": false,
+    "page_sha256": {
+      "01": "826b6f828bd2cc71cd4820c1f4d5180a6ae9fa039802db28930a17746d319e1a",
+      "07": "6d79a3b51c8d8b291b8826f6df4034f495281ee19dbb9cceb0e330355f75052c",
+      "09": "c17b46ad82f9e619c2b90903fa6250d9bc9274e0673a51abed6f579054612010",
+      "14": "7389bab8c933cc6b9c3ebd033cb6145769072d0c9521daae1ca57b82b8ed5b56",
+      "19": "33db862f8ba5cedd8094d26afb9f2f8656db2ebb6e5e692fee62de607d767257",
+      "24": "cbaa75b6dff21f87c7432b790cdb04005b930afa0808e3de0ea5d8a66e3c4453",
+      "25": "845144997e9d39c29cb7320cdac2d050d0a07330381f37589b2c79d98bb595e0",
+      "33": "502aba602acf14da5d4901c1435d8209927ac018470b57232c85f0d1f86bdec9",
+      "42": "61db78a82caffd457eb02acc6e290693f9cfda469acc0d3636ec256fbf009519",
+      "43": "f2da7ae2411680e86a75951b5126b184a5218ea32d8578860708f76e55851273",
+      "44": "d56ed8b2ade8fd0f219ed2ede90d980f5e25626a613d540a4317ccb7115bd4f9",
+      "45": "8e6b9beba38161d03d86aa6a1f3c7df3958eb473ac9bf64127c86bd5a887ed55"
+    }
+  },
+  "date_firewall": {
+    "work_or_calculation_layer": "Page 9 explicitly uses 大明成化十三年丁酉 (1477) as the calculation epoch paired with 大元至元十八年辛巳.",
+    "edition_reprint_layer": "Page 7 visibly bears 隆慶三年七月 (1569) and 周相 in the reprint/prefatory layer.",
+    "physical_copy_layer": "Peer-reviewed scholarship identifies the six-book Zhou Xiang reprint as a National Archives of Japan holding; exact current call-number binding is intentionally left unresolved here because public locators conflict.",
+    "digital_surrogate_layer": "The reviewed PDF is a modern public reproduction whose PDF metadata creation date is 2019-07-08; this modern date is not the historical edition date.",
+    "rule": "1477 calculation epoch, 1569 reprint, physical holding, and 2019 digital surrogate are not collapsed."
+  },
+  "direct_visual_collation": {
+    "page_01": "Cover/title leaf visibly reads 大明大統曆法.",
+    "page_07": "Reprint layer visibly contains 隆慶三年七月 and 周相; adjacent material gives 一引相傳姓氏.",
+    "page_09": "步氣朔卷第一 directly states 大元至元十八年辛巳為元至 / 大明成化十三年丁酉所距積年共二百九十七算減一用之, followed by calendrical constants.",
+    "page_14": "Heading 太陽冬至前後立成卷第二 with numerical solar standing tables.",
+    "page_19": "Heading 太陽夏至前後立成卷第四 with numerical solar standing tables.",
+    "pages_24_45_scope": "Later leaves contain 曆成, 太陰遲疾, 定朔/月大小/交泛/直宿 and related computation tables; all 45 public pages were visually reviewed through contact sheets with key leaves individually enlarged.",
+    "explicit_daynight_table_observed": false,
+    "finite_scope_negative": "NO_EXPLICIT_CHENHUN_RICHURU_ZHOUYE_KE_TABLE_OBSERVED_IN_REVIEWED_45_PAGE_PUBLIC_REPRODUCTION_OF_ZHOUXIANG_VOL6",
+    "global_absence_claim_authorized": false
+  },
+  "secondary_scholarship_control": {
+    "source_id": "EXT-JSTAGE-KOBAYASHI-2014-ZHOUXIANG-DATONG",
+    "peer_reviewed_claim": "Kobayashi note 38 identifies the National Archives Zhou Xiang reprint, states that books 1-5 are Huihui li and book 6 is Daming Datong lifa, observes a Longqing 3 (1569) Zhou Xiang preface and Chenghua 13 (1477) Datong calculation content, and argues Zhou Xiang probably reprinted both together from the Bei Lin context.",
+    "direct_bei_lin_parent_edge_authorized": false,
+    "reason": "The Bei Lin -> Zhou Xiang reprint relation is a scholarly reconstruction (probably), not directly printed dependency evidence on the reviewed fascicle."
+  },
+  "historical_adjudication": {
+    "pre_1578_datong_technical_witness_confirmed": true,
+    "1477_computation_epoch_directly_attested": true,
+    "1569_reprint_layer_directly_attested": true,
+    "target_daynight_ke_bridge_closed": false,
+    "sanming_direct_parent_proved": false,
+    "value_of_negative": "Closes this specific public fascicle as a false-positive route for the missing day/night table while preserving it as a strong transmission witness for Datong computational material immediately before 1578."
+  },
+  "transmission_impact": {
+    "nodes_added": [
+      "DIGITAL-SURROGATE-KOTENMON-ZHOUXIANG-DATONG-VOL6-2019",
+      "EDITION-ZHOUXIANG-DAMING-DATONG-LONGQING3-1569",
+      "PASSAGE-ZHOUXIANG-VOL6-LONGQING3-1569",
+      "PASSAGE-ZHOUXIANG-VOL6-CHENGHUA13-EPOCH-1477"
+    ],
+    "edges_added": [
+      "TG-E0020",
+      "TG-E0021",
+      "TG-E0022"
+    ],
+    "edges_rejected_or_unproved": [
+      "Bei Lin 1477 -> Zhou Xiang 1569 direct reprint edge remains secondary/probable, not confirmed",
+      "Zhou Xiang vol6 -> Sanming 1578 day/night table parent is not established because the target table is not observed in the reviewed fascicle"
+    ],
+    "unresolved_lineage_questions": [
+      "Locate a direct pre-1578 Daitong Tonggui 晨昏分/日出入/晝夜刻 witness.",
+      "Locate the daily ladder/change-day rule connecting Nanjing 59-ke continuous tables to Sanming's stepped display."
+    ]
+  },
+  "product_adjudication": {
+    "matrix_rule_id": "HPA-ZDATE-006",
+    "status": "MISSING_FROM_PRODUCT",
+    "upper_zi_to_hai_vote_increment": 0,
+    "new_runtime_candidate": false,
+    "runtime_winner": false,
+    "candidate_collapse": false,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "deterministic_product_state": "CLOSED"
+  },
+  "next_gate": [
+    "Prioritize direct 大統曆通軌/大統曆日通軌 witnesses and the 晨昏分立成 or sunrise/sunset/day-night table family, rather than repeatedly probing Zhou Xiang vol6.",
+    "Search pre-1578 annual Datong almanacs and Yang Zan 閑中錄 for Nanjing 59-ke cap plus intra-term change-day fingerprints.",
+    "Keep the Batch 12CI quantization/rounding threshold question open until an explicit historical selection rule is found."
+  ]
+}

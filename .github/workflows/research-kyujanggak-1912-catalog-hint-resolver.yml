@@ -1,0 +1,37 @@
+name: research-kyujanggak-1912-catalog-hint-resolver
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - ".github/workflows/research-kyujanggak-1912-catalog-hint-resolver.yml"
+      - "scripts/research_kyujanggak_1912_catalog_hint_resolver.py"
+
+permissions:
+  contents: read
+
+jobs:
+  resolve:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install isolated research dependency
+        run: python -m pip install --disable-pip-version-check curl_cffi
+      - name: Resolve 1912 catalog locator hint from live provider
+        run: |
+          python scripts/research_kyujanggak_1912_catalog_hint_resolver.py \
+            --output artifacts/kyujanggak-1912-catalog-hint
+      - name: Upload resolver evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: kyujanggak-1912-catalog-hint-${{ github.sha }}
+          path: artifacts/kyujanggak-1912-catalog-hint/
+          if-no-files-found: warn
+          retention-days: 7

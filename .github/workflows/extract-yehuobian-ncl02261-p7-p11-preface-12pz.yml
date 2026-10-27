@@ -1,0 +1,74 @@
+name: extract-yehuobian-ncl02261-p7-p11-preface-12pz
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/extract-yehuobian-ncl02261-p7-p11-preface-12pz.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  expose-preface-leaves:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Acquire exact previous source-derived NCL 02261 page artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: ncl02261-old20-index-sampled-leaves-12pz
+          run-id: 38024279949
+          repository: chinaneedM/ziwei-bazi-model
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: evidence
+
+      - name: Verify frozen SHA256 image digest and source identity
+        shell: bash
+        run: |
+          set -euo pipefail
+          (cd evidence && sha256sum -c image-sha256.txt)
+          grep -q '^NCL=02261$' evidence/manifest.txt
+          grep -q '^COLLECTION_SHELFMARK=204.26 02261$' evidence/manifest.txt
+          test -f evidence/source-sha256.txt
+          mkdir -p bounded
+
+      - name: Emit exact original-image JPEG records for handwritten preface
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          from base64 import b64encode
+          import hashlib, json, shutil
+          pages=[4,5,7,8,9,10,11]
+          ledger=[]
+          for p in pages:
+              src=Path(f"evidence/pages/ncl02261-p{p:04d}.jpg")
+              assert src.exists(),src
+              dst=Path("bounded")/src.name
+              shutil.copy2(src,dst)
+              raw=dst.read_bytes()
+              sha=hashlib.sha256(raw).hexdigest()
+              ledger.append({"pdf_page_1based":p,"sha256":sha,"bytes":len(raw),"original_rendition":True})
+              s=b64encode(raw).decode("ascii")
+              print(f"TIANWEN_NCL02261_PREFACE_BEGIN page={p} chars={len(s)} sha256={sha}",flush=True)
+              for i in range(0,len(s),4000):
+                  print("TIANWEN_NCL02261_PREFACE_CHUNK "+s[i:i+4000],flush=True)
+              print(f"TIANWEN_NCL02261_PREFACE_END page={p}",flush=True)
+          Path("bounded/manifest.json").write_text(json.dumps({"parent_run_id":38024279949,
+            "parent_artifact":"ncl02261-old20-index-sampled-leaves-12pz",
+            "original_pdf_shelfmark":"204.26 02261",
+            "no_ocr":True,"visual_glyph_verification_pending":True,
+            "page_1based_not_physical_leaf":True,"pages":ledger},
+             ensure_ascii=False,indent=2)+"\n")
+          PY
+
+      - name: Archive checksum-verified preface page images
+        uses: actions/upload-artifact@v4
+        with:
+          name: ncl02261-old20-preface-crops-12pz
+          path: bounded/
+          retention-days: 30
+          if-no-files-found: error

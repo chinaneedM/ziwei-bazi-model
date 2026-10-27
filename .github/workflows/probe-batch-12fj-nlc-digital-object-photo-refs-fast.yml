@@ -1,0 +1,141 @@
+name: probe-batch-12fj-nlc-digital-object-photo-refs-fast
+
+on:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - '.github/workflows/probe-batch-12fj-nlc-digital-object-photo-refs-fast.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Probe nearest NLC digital routes and photo refs
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/batch-12fj-nlc-digital-object-photo-refs-fast'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT/locator" "$ROOT/read-nlc" "$ROOT/meta" "$ROOT/opac"
+          UA='Tianwen-Provenance-Audit/1.0'
+          LOCATOR='https://commons.wikimedia.org/wiki/Commons:Library_back_up_project/file_list/NLC/%E6%95%B8%E5%AD%97%E5%8F%A4%E7%B1%8D/04'
+          curl -L -sS --connect-timeout 8 --max-time 30 -A "$UA" "$LOCATOR" -o "$ROOT/locator/index.html"
+
+          python - <<'PY'
+          from pathlib import Path
+          from html import unescape
+          import re, json
+          root=Path('audit/batch-12fj-nlc-digital-object-photo-refs-fast')
+          s=(root/'locator/index.html').read_text('utf-8',errors='replace')
+          report={}
+          urls=[]
+          for key,target in [('tonghu','411999008600'),('zhunzhai','411999008601')]:
+              pos=s.find(target)
+              item={'target':target,'position':pos,'nearest_read_nlc_url':None}
+              if pos>=0:
+                  before=s[max(0,pos-5000):pos]
+                  pairs=list(re.finditer(r'href=["\']([^"\']*read\.nlc\.cn[^"\']*)["\']',before,re.I))
+                  if pairs:
+                      u=unescape(pairs[-1].group(1))
+                      if u.startswith('//'): u='https:'+u
+                      item['nearest_read_nlc_url']=u
+                      if u not in urls: urls.append(u)
+                  item['snippet']=s[max(0,pos-900):min(len(s),pos+900)]
+              report[key]=item
+          (root/'locator/extracted.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          (root/'locator/read-nlc-urls.txt').write_text('\n'.join(urls)+'\n',encoding='utf-8')
+          PY
+
+          : > "$ROOT/read-nlc/status.tsv"
+          n=0
+          while IFS= read -r url; do
+            [ -z "$url" ] && continue
+            n=$((n+1)); out="$ROOT/read-nlc/$n.html"; hdr="$ROOT/read-nlc/$n.headers"
+            set +e
+            final=$(curl -L -sS --connect-timeout 7 --max-time 25 -A "$UA" -D "$hdr" -o "$out" -w '%{url_effective}' "$url")
+            rc=$?
+            set -e
+            size=0; [ -f "$out" ] && size=$(wc -c < "$out")
+            code=$(awk 'toupper($1) ~ /^HTTP\// {c=$2} END{print c}' "$hdr" 2>/dev/null || true)
+            printf '%s\trc=%s\thttp=%s\tbytes=%s\trequested=%s\tfinal=%s\n' "$n" "$rc" "$code" "$size" "$url" "$final" >> "$ROOT/read-nlc/status.tsv"
+          done < "$ROOT/locator/read-nlc-urls.txt"
+          grep -RniE '411999008600|411999008601|銅壺|铜壶|準齋|准齋|准斋|幾漏|几漏|113028|113029|OutOpenBook|OpenObjectBook|aid=|bid=|book|pdf|image' "$ROOT/read-nlc" > "$ROOT/read-nlc/target-hits.txt" || true
+
+          # Only the unresolved separate-photo references are tested in current meta.
+          cat > "$ROOT/meta/targets.tsv" <<'EOF'
+          tonghu	00O003570
+          zhunzhai	00O003571
+          EOF
+          : > "$ROOT/meta/status.tsv"
+          while IFS=$'\t' read -r key q; do
+            for way in ANY SYS; do
+              body=$(Q="$q" WAY="$way" python - <<'PY'
+          import json,os
+          q=os.environ['Q']; way=os.environ['WAY']
+          print(json.dumps({
+            "q":q,"searchWay":way,"page_num":"1",
+            "query":q if way=="ANY" else "SYS="+q,
+            "sort":[{"_score":"DESC"}],"size":20,"facetVal":[],"exactMatch":True
+          },ensure_ascii=False,separators=(',',':')))
+          PY
+              )
+              out="$ROOT/meta/$key-$way.json"
+              set +e
+              code=$(curl -L -sS --connect-timeout 6 --max-time 15 -A "$UA"                 -H 'Accept: application/json, text/javascript, */*; q=0.01'                 -H 'X-Requested-With: XMLHttpRequest'                 -H 'Referer: https://meta.nlc.cn/v2/search'                 -H 'Content-Type: application/x-www-form-urlencoded; charset=UTF-8'                 --data-binary "$body" -o "$out" -w '%{http_code}'                 'https://meta.nlc.cn/v2/doSearch?hight=false')
+              rc=$?
+              set -e
+              printf '%s\t%s\trc=%s\thttp=%s\tbytes=%s\n' "$key" "$way" "$rc" "$code" "$(wc -c < "$out" 2>/dev/null || echo 0)" >> "$ROOT/meta/status.tsv"
+            done
+          done < "$ROOT/meta/targets.tsv"
+
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          root=Path('audit/batch-12fj-nlc-digital-object-photo-refs-fast/meta')
+          out=[]
+          for p in sorted(root.glob('*.json')):
+              try: obj=json.loads(p.read_text('utf-8'))
+              except Exception as e: out.append(p.name+' PARSE_ERROR '+repr(e)); continue
+              out.append('### '+p.name+' status='+repr(obj.get('status'))+' total='+repr(obj.get('total'))+' message='+repr(obj.get('message')))
+              for row in (obj.get('result') or [])[:20]:
+                  src=row.get('_source') or {}
+                  out.append(json.dumps({'SYS':src.get('SYS'),'UID':src.get('UID'),'TIT':src.get('TIT'),'WDT':src.get('WDT')},ensure_ascii=False,separators=(',',':')))
+          root.joinpath('summary.txt').write_text('\n'.join(out)+'\n',encoding='utf-8')
+          PY
+
+          # Legacy OPAC WRD only for the two photo-reference strings.
+          : > "$ROOT/opac/status.tsv"
+          while IFS=$'\t' read -r key q; do
+            url=$(Q="$q" python - <<'PY'
+          import os
+          from urllib.parse import quote_plus
+          print('http://opac.nlc.cn/F/?func=find-b&find_code=WRD&request='+quote_plus(os.environ['Q'])+'&local_base=NLC01')
+          PY
+            )
+            out="$ROOT/opac/$key.html"
+            set +e
+            code=$(curl -L -sS --connect-timeout 6 --max-time 12 -A "$UA" -o "$out" -w '%{http_code}' "$url")
+            rc=$?
+            set -e
+            printf '%s\trc=%s\thttp=%s\tbytes=%s\n' "$key" "$rc" "$code" "$(wc -c < "$out" 2>/dev/null || echo 0)" >> "$ROOT/opac/status.tsv"
+          done < "$ROOT/meta/targets.tsv"
+          grep -RniE '00O003570|00O003571|銅壺|铜壶|準齋|准齋|准斋|幾漏|几漏|doc_number' "$ROOT/opac" > "$ROOT/opac/target-hits.txt" || true
+
+          find "$ROOT" -type f -size +0c -print0 | xargs -0 -r sha256sum | sort -V > "$ROOT/all-files.sha256"
+          printf '%s\n'             'SOURCE=nearest first-party read.nlc.cn route localized from public NLC-backup index + current meta + legacy OPAC'             'LOCATOR_POLICY=secondary index is locator-only; first-party read.nlc response controls digital-object route claims'             'PURPOSE=close 411999008600/601 digital-object route if first-party responds; bound 00O003570/571 addressability only'             'NEGATIVE_POLICY=timeout/no-result has no physical-object or identifier-nonexistence authority'             'OCR_USED=false' > "$ROOT/manifest.txt"
+
+      - name: Upload fast FJ route evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: batch-12fj-nlc-digital-object-photo-refs-fast
+          path: audit/batch-12fj-nlc-digital-object-photo-refs-fast/
+          if-no-files-found: error
+          retention-days: 30

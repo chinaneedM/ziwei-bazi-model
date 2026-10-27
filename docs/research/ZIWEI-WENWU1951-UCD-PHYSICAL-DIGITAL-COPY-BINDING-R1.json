@@ -1,0 +1,402 @@
+{
+  "schema": "ZIWEI-WENWU1951-UCD-PHYSICAL-DIGITAL-COPY-BINDING-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-WENWU1951-UCD-PHYSICAL-DIGITAL-COPY-BINDING-MH",
+  "prior_batch_id": "BATCH-12-ZIWEI-WENWU1951-HATHITRUST-OCLC-DIGITAL-INVENTORY-MG",
+  "question": "Can the originating UC Davis record close physical/digital copy identity and the year of HathiTrust unyear-labelled aggregate no.13–18/no.19–24?",
+  "answer": "The documented anonymous Primo metadata route binds the UCD serial record and 12 bound physical items. All 12 item barcodes equal the suffixes of the corresponding UCD HathiTrust htids, and descriptions match exactly. No individual issue year is supplied; no.19–24 is not promoted to 1951 vol.2 no.9. Zero original pages or historical text votes are added.",
+  "execution": {
+    "environment": "LOCAL_WORK_MODE_NETWORK",
+    "observed_date": "2026-10-04",
+    "repository_base_head": "cb6ae41f0d692fab324770c9576a74fc668900e1",
+    "repository_base_tree": "28155d7fedbd4d47745915e88f1144fa2af7869f",
+    "github_runner_probe_claimed": false,
+    "method": "BOUNDED_ANONYMOUS_METADATA_GET_AND_READ_ONLY_HOLDINGS_POST",
+    "private_endpoint_guessed": false,
+    "bytes_limit_per_metadata_response": 2097152,
+    "client_bundle_bytes_limit": 25165824
+  },
+  "objects": {
+    "target-pnx": {
+      "url": "https://search.library.ucdavis.edu/primaws/rest/pub/pnxs/L/alma990022440100403126?vid=01UCD_INST:UCD&lang=en",
+      "started_at": "2026-10-04T08:49:00Z",
+      "status": 200,
+      "final_url": "https://search.library.ucdavis.edu/primaws/rest/pub/pnxs/L/alma990022440100403126?vid=01UCD_INST:UCD&lang=en",
+      "content_type": "application/json;charset=UTF-8",
+      "byte_count": 7428,
+      "sha256": "6d20a97a56680c9f7da9fbfc98122efba77b64f394f74c79f44a7a18c23eb843",
+      "evidence_file": "docs/research/evidence/batch-12mh/target-pnx.json"
+    },
+    "successor-control": {
+      "url": "https://search.library.ucdavis.edu/primaws/rest/pub/pnxs/L/alma990007812600403126?vid=01UCD_INST:UCD&lang=en",
+      "started_at": "2026-10-04T08:50:47Z",
+      "execution": "LOCAL_WORK_MODE_NETWORK",
+      "status": 200,
+      "final_url": "https://search.library.ucdavis.edu/primaws/rest/pub/pnxs/L/alma990007812600403126?vid=01UCD_INST:UCD&lang=en",
+      "content_type": "application/json;charset=UTF-8",
+      "byte_count": 8681,
+      "sha256": "65604594221f66800533e6e328e8422a418b824585db481c75f5ee6dc5e71af4",
+      "evidence_file": "docs/research/evidence/batch-12mh/successor-control.json"
+    },
+    "source-marc": {
+      "url": "https://search.library.ucdavis.edu/primaws/rest/pub/sourceRecord?docId=alma990022440100403126&vid=01UCD_INST:UCD&recordOwner=01UCS_NETWORK",
+      "started_at": "2026-10-04T08:50:47Z",
+      "execution": "LOCAL_WORK_MODE_NETWORK",
+      "status": 200,
+      "final_url": "https://search.library.ucdavis.edu/primaws/rest/pub/sourceRecord?docId=alma990022440100403126&vid=01UCD_INST:UCD&recordOwner=01UCS_NETWORK",
+      "content_type": "text/plain;charset=UTF-8",
+      "byte_count": 3328,
+      "sha256": "33636d16ac78ce36b67bf08fdf3907fb2e947f05b20b857f6f42d079106474fe",
+      "evidence_file": "docs/research/evidence/batch-12mh/source-marc.txt"
+    },
+    "physical-service": {
+      "url": "https://search.library.ucdavis.edu/primaws/rest/pub/getPhysicalService/990022440100403126?vid=01UCD_INST:UCD&lang=en&recordOwner=01UCS_NETWORK&sourceRecordId=990022440100403126&resource_type=journal&isRapido=null",
+      "started_at": "2026-10-04T08:50:47Z",
+      "execution": "LOCAL_WORK_MODE_NETWORK",
+      "status": 200,
+      "final_url": "https://search.library.ucdavis.edu/primaws/rest/pub/getPhysicalService/990022440100403126?vid=01UCD_INST:UCD&lang=en&recordOwner=01UCS_NETWORK&sourceRecordId=990022440100403126&resource_type=journal&isRapido=null",
+      "content_type": "application/json;charset=UTF-8",
+      "byte_count": 81,
+      "sha256": "a3ec5fce39fd4e66e77ab243e9edbe15a36d135c8ea39854b33f7f499b6b99fd",
+      "evidence_file": "docs/research/evidence/batch-12mh/physical-service.json"
+    },
+    "title-services": {
+      "url": "https://search.library.ucdavis.edu/primaws/rest/priv/ILSServices/titleServices/990022440100403126/svcId/32142182150003126?lang=en&record-institution=01UCD_INST&hideResourceSharing=false&isRapido=null&vid=01UCD_INST:UCD",
+      "execution": "LOCAL_WORK_MODE_NETWORK",
+      "started_at": "2026-10-04T08:52:00Z",
+      "contract_source": "source-emitted public client getIlsServicesList / makeIlsRequest",
+      "authorization_header_sent": false,
+      "status": 200,
+      "final_url": "https://search.library.ucdavis.edu/primaws/rest/priv/ILSServices/titleServices/990022440100403126/svcId/32142182150003126?lang=en&record-institution=01UCD_INST&hideResourceSharing=false&isRapido=null&vid=01UCD_INST:UCD",
+      "content_type": "application/json;charset=UTF-8",
+      "byte_count": 2775,
+      "sha256": "8a527d53715179406282c383d5b00027f5d41e9cea83936452f5676f9fd005ae",
+      "evidence_file": "docs/research/evidence/batch-12mh/title-services.json"
+    },
+    "holdings": {
+      "url": "https://search.library.ucdavis.edu/primaws/rest/priv/ILSServices/holdings/32142182150003126?record-institution=01UCD_INST&lang=en&vid=01UCD_INST:UCD",
+      "method": "POST",
+      "semantics": "READ_ONLY_HOLDINGS_QUERY_NOT_CIRCULATION_REQUEST",
+      "execution": "LOCAL_WORK_MODE_NETWORK",
+      "started_at": "2026-10-04T08:53:07Z",
+      "authorization_header_sent": false,
+      "contract_source": "source-emitted calculateRequestParams/getLocationsItems",
+      "status": 200,
+      "final_url": "https://search.library.ucdavis.edu/primaws/rest/priv/ILSServices/holdings/32142182150003126?record-institution=01UCD_INST&lang=en&vid=01UCD_INST:UCD",
+      "content_type": "application/json;charset=UTF-8",
+      "byte_count": 12172,
+      "sha256": "754cda77f17d800255e14064afd28641e61a2eba0c4153ccaaaa69c20c014428",
+      "evidence_file": "docs/research/evidence/batch-12mh/holdings.json"
+    },
+    "holdings-request": {
+      "method": "POST",
+      "semantics": "READ_ONLY_HOLDINGS_QUERY_NOT_CIRCULATION_REQUEST",
+      "evidence_file": "docs/research/evidence/batch-12mh/holdings-request.json",
+      "byte_count": 1450,
+      "sha256": "07335de2ef8c0ab8be4c6c11b399bd116ba0f753e54b096069536d9229f0f5c3"
+    }
+  },
+  "documentation": {
+    "ucd-guide": {
+      "url": "https://library.ucdavis.edu/library-search-guide/",
+      "started_at": "2026-10-04T08:50:56Z",
+      "execution": "LOCAL_WORK_MODE_NETWORK",
+      "status": 200,
+      "final_url": "https://library.ucdavis.edu/library-search-guide/",
+      "content_type": "text/html; charset=UTF-8",
+      "byte_count": 74675,
+      "sha256": "7188e33fda69dd5e8c8438d2d36b76a764ce09ce7847f2b0bc3b0ac16d13a6db"
+    },
+    "api-contract": {
+      "url": "https://knowledge.exlibrisgroup.com/Primo/Product_Documentation/Go_VE/Step_3:_Configuration/080Go_VE:_Converting_Primo_APIs_for_Use_in_Primo_VE",
+      "started_at": "2026-10-04T08:50:56Z",
+      "execution": "LOCAL_WORK_MODE_NETWORK",
+      "status": 200,
+      "final_url": "https://knowledge.exlibrisgroup.com/Primo/Product_Documentation/Go_VE/Step_3:_Configuration/080Go_VE:_Converting_Primo_APIs_for_Use_in_Primo_VE",
+      "content_type": "text/html; charset=utf-8",
+      "byte_count": 142556,
+      "sha256": "f5bb1ddc4feca0aec60c26d7d51d1d36def432d5fb98435ae59f4d44c08228ee"
+    }
+  },
+  "frontend_contract": {
+    "bundle_url": "https://search.library.ucdavis.edu/discovery/lib/bundle.js?version=57045887a5",
+    "status": 200,
+    "byte_count": 4434086,
+    "sha256": "82a666705f73986983739ec8f2c0761aa38b077a320072fa09c9cec6f3e7ccf2",
+    "full_bundle_stored_in_repository": false,
+    "function_fingerprints": {
+      "getSourceRecord=function": {
+        "character_offset": 1320111,
+        "prefix_400_character_sha256": "d74da6d859452c481f1039e627510f1234bd272d5b4aafdcee9a737dba4a2856"
+      },
+      "calculatePhysicalServiceId=function": {
+        "character_offset": 609791,
+        "prefix_400_character_sha256": "8ecfaf305650ba6e73229f37176da41d777365e18cd25dcd8e045d0c637af340"
+      },
+      "getIlsServicesList=function": {
+        "character_offset": 312720,
+        "prefix_400_character_sha256": "8070155963e0c85e17db89c0dd582b7e8986ff22bd95e08f86d141f8e7c0da98"
+      },
+      "calculateRequestParams=function": {
+        "character_offset": 739548,
+        "prefix_400_character_sha256": "ae3355d0ea6446615278e5a6e09d50b95d382cbc30d33bf2e6be31b7450e6cba"
+      },
+      "getLocationsItems=function": {
+        "character_offset": 741331,
+        "prefix_400_character_sha256": "0a236bf18b22d722770213481b05c5f05f91931ec4bbd5eecc59c1a191ae179a"
+      }
+    },
+    "api_prefix": "/primaws/rest",
+    "published_routes": {
+      "pnx": "/pub/pnxs/L/{recordid}",
+      "source_record": "/pub/sourceRecord",
+      "physical_service": "/pub/getPhysicalService/{mmsid}",
+      "title_services": "/priv/ILSServices/titleServices/{mmsid}/svcId/{serviceid}",
+      "holdings": "/priv/ILSServices/holdings/{serviceid}"
+    },
+    "priv_named_frontend_routes_used_without_authorization_header": true,
+    "private_alma_api_guessed": false,
+    "read_only_post_contract": "calculateRequestParams -> getLocationsItems -> makeIlsRequest(locations, POST) with existing published record/location/service IDs"
+  },
+  "serial_binding": {
+    "ucd_mmsid": "990022440100403126",
+    "uc_network_marc001": "9912383409706531",
+    "oclc": "18030125",
+    "romanized_title": "Wen wu can kao zi liao.",
+    "vernacular_title": "文物参考資料.",
+    "record_publication_span": "1950–1958",
+    "holding_id": "22237179290003126",
+    "location": "Shields Library",
+    "sub_location": "General Collection",
+    "call_number": "DS715 .W44",
+    "holding_statement": "no.1-27,33-35,37-39,41-100(1950-1958)",
+    "physical_item_count": 12,
+    "source_record_marc996_local_id": "990022440100403126",
+    "successor_positive_control_record": "alma990007812600403126",
+    "successor_positive_control_title": "Wen wu (1959)",
+    "successor_relation_points_back_to_target": true,
+    "marc776_online_version_oclc": "647437409",
+    "online_version_is_locator_only": true
+  },
+  "physical_digital_binding": {
+    "status": "RESOLVED_ITEM_BARCODE_AND_DESCRIPTION_CORRESPONDENCE",
+    "matching_item_count": 12,
+    "matches": [
+      {
+        "hathitrust_htid": "uc1.31175002281346",
+        "hathitrust_marc974_institution": "UCD",
+        "hathitrust_enumcron": "no.1-12",
+        "ucd_itembarcode": "31175002281346",
+        "ucd_itemid": "23237179170003126",
+        "ucd_itemdescription": "no.1-12",
+        "barcode_suffix_equal": true,
+        "description_equal": true,
+        "individual_issue_year_bound": false
+      },
+      {
+        "hathitrust_htid": "uc1.31175002281353",
+        "hathitrust_marc974_institution": "UCD",
+        "hathitrust_enumcron": "no.13-18",
+        "ucd_itembarcode": "31175002281353",
+        "ucd_itemid": "23237179140003126",
+        "ucd_itemdescription": "no.13-18",
+        "barcode_suffix_equal": true,
+        "description_equal": true,
+        "individual_issue_year_bound": false
+      },
+      {
+        "hathitrust_htid": "uc1.31175002281361",
+        "hathitrust_marc974_institution": "UCD",
+        "hathitrust_enumcron": "no.19-24",
+        "ucd_itembarcode": "31175002281361",
+        "ucd_itemid": "23237179130003126",
+        "ucd_itemdescription": "no.19-24",
+        "barcode_suffix_equal": true,
+        "description_equal": true,
+        "individual_issue_year_bound": false
+      },
+      {
+        "hathitrust_htid": "uc1.31175002281379",
+        "hathitrust_marc974_institution": "UCD",
+        "hathitrust_enumcron": "no.25-27",
+        "ucd_itembarcode": "31175002281379",
+        "ucd_itemid": "23237179110003126",
+        "ucd_itemdescription": "no.25-27",
+        "barcode_suffix_equal": true,
+        "description_equal": true,
+        "individual_issue_year_bound": false
+      },
+      {
+        "hathitrust_htid": "uc1.31175002281387",
+        "hathitrust_marc974_institution": "UCD",
+        "hathitrust_enumcron": "no.33-39 incompl.",
+        "ucd_itembarcode": "31175002281387",
+        "ucd_itemid": "23237179100003126",
+        "ucd_itemdescription": "no.33-39 incompl.",
+        "barcode_suffix_equal": true,
+        "description_equal": true,
+        "individual_issue_year_bound": false
+      },
+      {
+        "hathitrust_htid": "uc1.31175002281395",
+        "hathitrust_marc974_institution": "UCD",
+        "hathitrust_enumcron": "no.41-46",
+        "ucd_itembarcode": "31175002281395",
+        "ucd_itemid": "23237179090003126",
+        "ucd_itemdescription": "no.41-46",
+        "barcode_suffix_equal": true,
+        "description_equal": true,
+        "individual_issue_year_bound": false
+      },
+      {
+        "hathitrust_htid": "uc1.31175002281403",
+        "hathitrust_marc974_institution": "UCD",
+        "hathitrust_enumcron": "no.47-52",
+        "ucd_itembarcode": "31175002281403",
+        "ucd_itemid": "23237179080003126",
+        "ucd_itemdescription": "no.47-52",
+        "barcode_suffix_equal": true,
+        "description_equal": true,
+        "individual_issue_year_bound": false
+      },
+      {
+        "hathitrust_htid": "uc1.31175002281411",
+        "hathitrust_marc974_institution": "UCD",
+        "hathitrust_enumcron": "no.53-58",
+        "ucd_itembarcode": "31175002281411",
+        "ucd_itemid": "23237179050003126",
+        "ucd_itemdescription": "no.53-58",
+        "barcode_suffix_equal": true,
+        "description_equal": true,
+        "individual_issue_year_bound": false
+      },
+      {
+        "hathitrust_htid": "uc1.31175007140604",
+        "hathitrust_marc974_institution": "UCD",
+        "hathitrust_enumcron": "no.59-64",
+        "ucd_itembarcode": "31175007140604",
+        "ucd_itemid": "23237179040003126",
+        "ucd_itemdescription": "no.59-64",
+        "barcode_suffix_equal": true,
+        "description_equal": true,
+        "individual_issue_year_bound": false
+      },
+      {
+        "hathitrust_htid": "uc1.31175002281437",
+        "hathitrust_marc974_institution": "UCD",
+        "hathitrust_enumcron": "no.65-76",
+        "ucd_itembarcode": "31175002281437",
+        "ucd_itemid": "23237179030003126",
+        "ucd_itemdescription": "no.65-76",
+        "barcode_suffix_equal": true,
+        "description_equal": true,
+        "individual_issue_year_bound": false
+      },
+      {
+        "hathitrust_htid": "uc1.31175002281445",
+        "hathitrust_marc974_institution": "UCD",
+        "hathitrust_enumcron": "no.77-88",
+        "ucd_itembarcode": "31175002281445",
+        "ucd_itemid": "23237179010003126",
+        "ucd_itemdescription": "no.77-88",
+        "barcode_suffix_equal": true,
+        "description_equal": true,
+        "individual_issue_year_bound": false
+      },
+      {
+        "hathitrust_htid": "uc1.31175002281452",
+        "hathitrust_marc974_institution": "UCD",
+        "hathitrust_enumcron": "no.89-100",
+        "ucd_itembarcode": "31175002281452",
+        "ucd_itemid": "23237178980003126",
+        "ucd_itemdescription": "no.89-100",
+        "barcode_suffix_equal": true,
+        "description_equal": true,
+        "individual_issue_year_bound": false
+      }
+    ],
+    "new_independent_physical_text_witness_count": 0,
+    "catalogue_copy_binding_is_not_independent_text_vote": true
+  },
+  "chronology": {
+    "possible_year_filters": [
+      "Other.."
+    ],
+    "individual_item_year_field_observed": false,
+    "aggregate_19_24_target_year_identity": "UNRESOLVED",
+    "aggregate_19_24_equals_1951_issue9_claimed": false,
+    "whole_serial_dates_used_as_item_dates": false,
+    "hathitrust_marc974_y_1958_used_as_item_date": false
+  },
+  "response_scope": {
+    "initial_title_service_items_count": 0,
+    "expanded_holdings_items_count": 12,
+    "initial_zero_items_is_absence_proof": false,
+    "expanded_holdings_partial": false,
+    "expanded_current_start_pos": 13,
+    "expanded_no_items": 12,
+    "serviceinfo_types": [
+      "Report a Problem"
+    ],
+    "available_in_library_means_online_readable": false,
+    "loanable_means_unrestricted_fulltext_permission": false,
+    "report_problem_submitted": false
+  },
+  "adjudication": {
+    "copy_identity_bound": true,
+    "aggregate_year_identity_bound": false,
+    "exact_issue9_bound": false,
+    "direct_1951_pages_reviewed": false,
+    "primary_text_upgrade_authorized": false,
+    "target_global_absence_claim_authorized": false,
+    "public_fulltext_access_proved": false,
+    "evidence_vote_increment": 0
+  },
+  "security": {
+    "login_attempted": false,
+    "credential_used": false,
+    "rights_bypass_used": false,
+    "private_endpoint_guessed": false,
+    "copy_request_submitted": false,
+    "payment_action_used": false,
+    "fulltext_download_invoked": false,
+    "circulation_request_submitted": false,
+    "anonymous_frontend_priv_named_read_only_routes_used": true,
+    "authorization_header_sent": false,
+    "guest_jwt_acquired_or_used": false,
+    "hathitrust_403_viewer_repeated": false
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "transmission_impact": {
+    "status": "NONE_HISTORICAL_TEXT_LINEAGE_UNCHANGED_COPY_PROVENANCE_LEDGER_ONLY",
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": [],
+    "copy_provenance_binding_recorded_in": "physical_digital_binding.matches"
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "12MI: seek a direct first-party serial-number/year bridge for UCD no.13–18/no.19–24. UCD inventory is now closed at item/barcode level; do not repeat unfiltered holdings retrieval merely to rediscover the same 12 items.",
+    "Use the newly verified UC network MARC 776 Online version OCLC647437409 as an identifier-scoped digital-counterpart discovery route through documented public services; it is a locator, not an acquired readable page or a year bridge.",
+    "Keep 1951 vol.2 no.9 pp.221–233, 2011 Wenji p.197 and Shanghai Wenhui 1951-08-18 unreviewed. No arithmetic-only year assignment, original-text vote, login, reproduction request or rights bypass is authorized by catalogue metadata."
+  ],
+  "updated_at": "2026-10-04"
+}

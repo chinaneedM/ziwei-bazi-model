@@ -1,0 +1,159 @@
+{
+  "schema": "ZIWEI-NLC-ZUOZHUAN-FID070-SECOND-17CHAR-LINE-GBT-FORMAT-DEFECT-CLOSURE-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID070-SECOND-17CHAR-LINE-GBT-FORMAT-DEFECT-CLOSURE-HX",
+  "status": "PROV_DEFECT_016_CONFIRMED_AND_REPAIRED_FORWARD_ONLY_CURRENT_NLC_16_PRESERVED_AS_RAW_PROVIDER_VALUE_ADJUDICATED_FULL_LINE_COUNT_17",
+  "prior_batch_id": "BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID070-DIRECT-17CHAR-LINE-PHYSICAL-CONTROL-HW",
+  "object_identity": {
+    "fid": "412004000070",
+    "current_uid": "UCS01003868188",
+    "current_sys": "002838237",
+    "current_905s": "03288",
+    "current_provider_format_note": "10行16字，小字雙行23字，白口，左右雙邊。",
+    "provider_raw_value_preserved": true
+  },
+  "direct_physical_full_line_controls": {
+    "commons_file": "NLC892-412004000070-117576 附釋音春秋左傳註疏 第1冊.pdf",
+    "commons_file_url": "https://commons.wikimedia.org/wiki/File:NLC892-412004000070-117576_附釋音春秋左傳註疏_第1冊.pdf",
+    "book": 1,
+    "independent_page_samples": [
+      {
+        "pdf_page": 12,
+        "preview_resolution": "1280 × 1197",
+        "visual_locator": "right-hand leaf; complete large-type main-text line",
+        "direct_reading": "周禮有史官掌邦國四方之事達四方之志",
+        "counted_han_characters": [
+          "周",
+          "禮",
+          "有",
+          "史",
+          "官",
+          "掌",
+          "邦",
+          "國",
+          "四",
+          "方",
+          "之",
+          "事",
+          "達",
+          "四",
+          "方",
+          "之",
+          "志"
+        ],
+        "count": 17,
+        "ocr_used": false
+      },
+      {
+        "pdf_page": 16,
+        "preview_resolution": "1280 × 1199",
+        "visual_locator": "right-hand leaf; complete large-type main-text line beginning 策書成文 and ending 遵周",
+        "direct_reading": "策書成文考其真偽而志其典禮上以遵周",
+        "counted_han_characters": [
+          "策",
+          "書",
+          "成",
+          "文",
+          "考",
+          "其",
+          "真",
+          "偽",
+          "而",
+          "志",
+          "其",
+          "典",
+          "禮",
+          "上",
+          "以",
+          "遵",
+          "周"
+        ],
+        "count": 17,
+        "ocr_used": false
+      }
+    ],
+    "direct_full_line_sample_count": 2,
+    "distinct_pdf_pages": [
+      12,
+      16
+    ],
+    "all_samples_large_type_main_text": true,
+    "all_samples_count_17": true,
+    "ocr_used": false
+  },
+  "cataloging_standard_control": {
+    "source_id": "EXT-GBT3792-7-2008-GUJI-FULL-LINE-COUNT-RULE",
+    "standard": "GB/T 3792.7—2008",
+    "title": "古籍著录规则",
+    "section": "8.7.1.4(b)",
+    "direct_rule": "每半叶行数按满半叶行数计算；每行字数按满行字数计算。",
+    "applicability": "主要用于汉语文古籍著录；适用于编制国家书目及各类型目录。",
+    "main_drafting_institutions": [
+      "中国国家图书馆",
+      "北京大学图书馆",
+      "北京师范大学图书馆"
+    ],
+    "hubei_library_pdf": "https://guji.library.hb.cn/gywm/gjzc/202401/P020240125534976186520.pdf",
+    "nlc_pdf_mirror": "https://www.nlc.cn/migrated/pcab.nlc.cn/gjbhzs/bm/201412/P020150309516939790893.pdf",
+    "pdf_page_index_zero_based": 20,
+    "printed_page": 17
+  },
+  "convergent_description_controls": {
+    "tieqin_historical_catalog": "10行 / 17字 / 小字雙行23字",
+    "beitu1987_direct_catalog": "十行十七字 / 小字雙行二十三字",
+    "shanggu2017_publication_preview": "10行 / 17正文大字 / 小字雙行23字 / 原本32冊",
+    "current_nlc_raw": "10行16字 / 小字雙行23字",
+    "historical_and_publication_17_description_layers": 3,
+    "direct_physical_17_full_line_samples": 2
+  },
+  "provenance_defect_repair": {
+    "provenance_defect_id": "PROV-DEFECT-016",
+    "defect_class": "CURRENT_PROVIDER_FORMAT_NOTE_MAIN_TEXT_FULL_LINE_CHARACTER_COUNT_ERROR",
+    "affected_source_id": "EXT-NLC-META-ZUOZHUAN-UCS01003868188-CURRENT-SEARCH-20260927",
+    "affected_raw_field": "format_note",
+    "raw_provider_value": "10行16字，小字雙行23字，白口，左右雙邊。",
+    "adjudicated_full_line_value": "10行17字，小字雙行23字，白口，左右雙邊。",
+    "evidence_basis": [
+      "FID070 physical PDF p12 contains a complete 17-large-character main-text line",
+      "FID070 physical PDF p16 independently contains another complete 17-large-character main-text line",
+      "GB/T 3792.7—2008 section 8.7.1.4(b) says character count is taken from a full line",
+      "Tieqin historical catalog, 1987 Beijing Library catalog, and 2017 publication preview independently converge on 17/23"
+    ],
+    "provider_record_mutated": false,
+    "raw_provider_value_preserved_for_audit": true,
+    "project_adjudication_repaired_forward_only": true,
+    "defect_found_increment": 1,
+    "defect_repaired_increment": 1
+  },
+  "adjudication": {
+    "current_nlc_literal_16_full_line_count": "CONFIRMED_METADATA_DEFECT_UNDER_GBT_FULL_LINE_SEMANTICS",
+    "physical_main_text_full_line_count": 17,
+    "commentary_double_line_count": 23,
+    "defect_016_created": true,
+    "defect_016_repaired_forward_only": true,
+    "exact_object_identity_reopened": false,
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "transmission_topology_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 16,
+    "repaired_provenance_metadata_defect_count": 16,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Continue target-specific 1959 book number 3368 to 1987 book number 3288 catalog-card/correction/preparation evidence search.",
+    "Resolve the exact Qu donation/accession batch and date for FID070.",
+    "Continue Zhang Lijuan 2018 full-text retrieval for edition, shelfmark and physical-description detail.",
+    "Continue exact source-copy binding for the 2017 Shanghai Ancient Books facsimile."
+  ],
+  "updated_at": "2026-09-27"
+}

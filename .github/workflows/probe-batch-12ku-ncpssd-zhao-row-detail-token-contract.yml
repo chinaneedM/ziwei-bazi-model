@@ -1,0 +1,121 @@
+name: probe-batch-12ku-ncpssd-zhao-row-detail-token-contract
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12ku-ncpssd-zhao-row-detail-token-contract.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Recover exact Zhao row detail-token fields without following detail
+        run: |
+          python - <<'PY'
+          import hashlib, json
+          from pathlib import Path
+          from urllib.parse import quote
+          import requests
+
+          BASE="https://www.ncpssd.cn"
+          ENDPOINT="/searchHandler/search"
+          TERM="永樂大典展覽的意義"
+          SEARCH='(IKTE="'+TERM+'" OR IKPYTE="'+TERM+'"  OR IKST="'+TERM+'" OR IKET="'+TERM+'" OR IKSE="'+TERM+'")'
+          SEARCHNAME='题名/关键词="'+TERM+'"'
+          ORDER="synUpdateType|DESC,date|DESC,ik_subject|DESC,id|DESC"
+          fields=[
+              ("search",SEARCH),("pageNum","1"),("pageSize","10"),("sort",ORDER),
+              ("sType","0"),("ajaxKeys",""),("customShowCondition",SEARCHNAME),
+          ]
+          def jq_quote(v):
+              return quote(str(v),safe="~()*!.'").replace("%20","+")
+          body="&".join(jq_quote(k)+"="+jq_quote(v) for k,v in fields)
+          headers={
+              "User-Agent":"Mozilla/5.0 (Tianwen provenance audit; NCPSsd Zhao detail-token inventory)",
+              "Content-Type":"application/x-www-form-urlencoded; charset=UTF-8",
+              "X-Requested-With":"XMLHttpRequest",
+              "Referer":"https://www.ncpssd.cn/Literature/articlelist",
+              "Origin":BASE,
+          }
+          r=requests.post(BASE+ENDPOINT,data=body.encode("utf-8"),headers=headers,timeout=45,allow_redirects=False)
+          parsed=r.json()
+          payload=parsed.get("data") if isinstance(parsed,dict) else None
+          rows=payload.get("rows") if isinstance(payload,dict) else []
+          if not isinstance(rows,list): rows=[]
+          match=None
+          for row in rows:
+              if not isinstance(row,dict): continue
+              title=str(row.get("title",""))
+              creator=str(row.get("creator",""))
+              if TERM in title and "趙萬里" in creator:
+                  match=row; break
+          if match is None:
+              raise SystemExit("exact Zhao target row not recovered")
+
+          # Inventory only the fields used by the first-party hrefinfo() contract plus
+          # stable bibliographic identifiers. Do not follow the detail route here.
+          wanted=("title","creator","type","data_id","id","tab_name","encryptedUrl","synUpdateType","date","cbw_name","barcodenum")
+          selected={k:match.get(k) for k in wanted if k in match}
+          value_types={k:type(v).__name__ for k,v in selected.items()}
+          encrypted=selected.get("encryptedUrl")
+          secure_route_derivable=isinstance(encrypted,str) and len(encrypted)>0
+
+          out={
+              "source_contract":{
+                  "parent_batch":"12KT",
+                  "target_title_root":TERM,
+                  "result_endpoint":ENDPOINT,
+                  "first_party_detail_builder":"window.open(encodeURI('/Literature/secure/articleinfo?params=' + encryptedUrl + '&pageUrl=' + encodeURIComponent(window.location.href)), '_blank')",
+                  "only_result_search_endpoint_executed":True,
+                  "detail_endpoint_executed":False
+              },
+              "response":{
+                  "http_status":r.status_code,
+                  "bytes":len(r.content),
+                  "sha256":hashlib.sha256(r.content).hexdigest(),
+                  "total":payload.get("total") if isinstance(payload,dict) else None,
+                  "returned_row_count":len(rows)
+              },
+              "exact_row":{
+                  "selected_fields":selected,
+                  "selected_field_value_types":value_types,
+                  "all_row_keys":sorted(match.keys()),
+                  "all_row_key_count":len(match.keys())
+              },
+              "adjudication":{
+                  "exact_target_row_recovered":True,
+                  "encryptedUrl_observed":secure_route_derivable,
+                  "secure_detail_route_derivable_from_first_party_source":secure_route_derivable,
+                  "detail_endpoint_executed":False,
+                  "downstream_item_followed":False,
+                  "login_used":False
+              },
+              "security":{
+                  "anonymous_read_only_search_post":True,
+                  "reader_account_used":False,
+                  "registration_used":False,
+                  "state_changing_endpoint_used":False,
+                  "search_log_endpoint_used":False,
+                  "facet_endpoint_used":False,
+                  "download_read_endpoint_used":False,
+                  "detail_endpoint_used":False,
+                  "private_endpoint_guessed":False,
+                  "captcha_bypass_used":False,
+                  "tls_verification_disabled":False
+              }
+          }
+          Path("batch-12ku-ncpssd-zhao-row-detail-token-contract.json").write_text(
+              json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12ku-ncpssd-zhao-row-detail-token-contract
+          path: batch-12ku-ncpssd-zhao-row-detail-token-contract.json

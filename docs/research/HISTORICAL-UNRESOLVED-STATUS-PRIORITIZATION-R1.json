@@ -1,0 +1,103 @@
+{
+  "schema": "HISTORICAL-UNRESOLVED-STATUS-PRIORITIZATION-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-UNRESOLVED-HISTORICAL-STATUS-PRIORITIZATION-NV",
+  "prior_batch_id": "BATCH-12-POST-AUDIT-DAYUN-HISTORICAL-CALENDAR-CANDIDATE-PRODUCT-SURFACE-RECONCILIATION-NU",
+  "batch_classification": "POST_AUDIT_PRIORITIZATION_NOT_SUPPLEMENTAL_RULE_AUDIT",
+  "matrix_snapshot": {
+    "rows": 220,
+    "audited_rows": 220,
+    "statuses": {
+      "MODERN_COMPATIBILITY_ONLY": 50,
+      "HISTORICALLY_SUPPORTED": 94,
+      "DISPUTED_MULTIPLE_CANDIDATES": 30,
+      "SUPPORTED_BUT_SCHOOL_SPECIFIC": 24,
+      "SOURCE_INSUFFICIENT": 11,
+      "MISSING_FROM_PRODUCT": 10,
+      "NOT_YET_FORMALIZED": 1
+    },
+    "current_missing_from_product_all_post_audit_reconciled": true,
+    "provenance_defects_confirmed": 39,
+    "provenance_defects_repaired": 39,
+    "chart_algorithm_defects": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0
+  },
+  "prioritization_policy": [
+    "ACTIVE_PRODUCTION_OUTPUT_PLUS_SOURCE_INSUFFICIENT_PROVENANCE_FIRST",
+    "WITHIN_ACTIVE_OUTPUT_PRIORITIZE_UNIQUE_WINNER_OR_TEMPORAL_SCOPE_AMBIGUITY_OVER_DISPLAY_ONLY_ORDER",
+    "FAIL_CLOSED_NOT_YET_FORMALIZED_BEHAVIOR_HAS_HIGH_RESEARCH_IMPORTANCE_BUT_LOWER_IMMEDIATE_DETERMINISTIC_RISK",
+    "BROAD_PARENT_ROWS_ALREADY_DECOMPOSED_TO_CHILD_ROWS_ARE_NOT_DIRECT_RESEARCH_TARGETS",
+    "DISPUTED_MULTIPLE_CANDIDATES_ARE_NOT_COLLAPSED_MERELY_TO_REDUCE_STATUS_COUNT"
+  ],
+  "source_insufficient_ranking": [
+    {
+      "rank": 1,
+      "rule_id": "HPA-ZIWEI-023",
+      "risk_class": "ACTIVE_OUTPUT_UNIQUE_WINNER_NOT_SOURCE_CLOSED",
+      "reason": "Production Wenmo selects Fire for Zi/Wu Shenzhu, while strict QS fails closed and Jielan/received Fullbook preserve composite Fire/Bell wording. Direct source identity is known, making focused edition/commentary closure actionable."
+    },
+    {
+      "rank": 2,
+      "rule_id": "HPA-ZIWEI-026",
+      "risk_class": "ACTIVE_OUTPUT_TEMPORAL_SCOPE_AND_EARLY_SOURCE_NOT_CLOSED",
+      "reason": "Production Jiangqian ring mechanics are active; modern sequence corroboration exists, but early edition authority and exclusive natal temporal scope remain insufficient."
+    },
+    {
+      "rank": 3,
+      "rule_id": "HPA-ZMINOR-020",
+      "risk_class": "ACTIVE_OUTPUT_IDENTITY_COLLISION_SOURCE_GAP",
+      "reason": "Standalone Feilian table is active while Boshi-ring Feilian is a distinct identity; historical source genealogy for the standalone table remains weak."
+    },
+    {
+      "rank": 4,
+      "rule_ids": [
+        "HPA-ZMINOR-023",
+        "HPA-ZMINOR-024",
+        "HPA-ZMINOR-025",
+        "HPA-ZMINOR-026"
+      ],
+      "risk_class": "ACTIVE_OUTPUT_MONTH_TABLE_SOURCE_GAPS",
+      "reason": "Current coordinates are active compatibility/profile data but lack qualifying Ziwei-specific edition-bound provenance."
+    },
+    {
+      "rank": 5,
+      "rule_ids": [
+        "HPA-BAZI-015",
+        "HPA-BHIDDEN-002"
+      ],
+      "risk_class": "ACTIVE_OUTPUT_ORDERING_WITH_SEMANTIC_FIREWALL",
+      "reason": "Runtime ordering is active, but code and Matrix explicitly deny root/strength semantics to ordinal position, reducing immediate algorithmic risk."
+    },
+    {
+      "rank": 6,
+      "rule_ids": [
+        "HPA-ZIWEI-008",
+        "HPA-ZIWEI-011"
+      ],
+      "risk_class": "BROAD_PARENT_ROWS_ALREADY_DECOMPOSED",
+      "reason": "Both broad rows instruct follow-up on specific child rows; direct re-audit of the parent bundle would duplicate completed decomposition."
+    }
+  ],
+  "not_yet_formalized_priority": {
+    "rule_id": "HPA-ZT-016",
+    "relative_priority": "AFTER_HIGHER_RISK_ACTIVE_OUTPUT_SOURCE_GAPS",
+    "reason": "Conceptually important and explicitly tracked by project invariant, but runtime intentionally emits neutral topology only; no inward/outward selector is currently released."
+  },
+  "disputed_candidate_policy": {
+    "count": 30,
+    "default_priority": "AFTER_ACTIVE_SOURCE_INSUFFICIENT_GAPS_UNLESS_A_ROW_SELECTS_AN_UNSCOPED_WINNER",
+    "reason": "Dispute is not itself a defect. Candidate preservation is preferred over artificial status reduction."
+  },
+  "selected_next_target": {
+    "rule_id": "HPA-ZIWEI-023",
+    "field": "Zi/Wu Shenzhu Fire/Bell textual composite",
+    "current_runtime_boundary": "STRICT_QS_FAILS_CLOSED; PRODUCTION_WENMO_SELECTS_FIRE_AS_COMPATIBILITY",
+    "source_state": "JIELAN_1581_CH32_AND_RECEIVED_FULLBOOK_COMPOSITE_WORDING; UNIQUE_FIRE_WINNER_NOT_SOURCE_CLOSED",
+    "next_batch_id": "BATCH-12-ZIWEI-ZI-WU-SHENZHU-FIRE-BELL-EVIDENCE-CLOSURE-NW"
+  },
+  "transmission_impact": {
+    "status": "NONE",
+    "reason": "This batch only prioritizes already-audited unresolved rows and introduces no new historical lineage claim."
+  }
+}

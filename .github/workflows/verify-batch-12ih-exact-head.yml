@@ -1,0 +1,74 @@
+name: verify-batch-12ih-exact-head
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/verify-batch-12ih-exact-head.yml
+      - docs/research/ZIWEI-NDL-DIRECT-PAGE-REMOTE-COPY-POLICY-BOUNDARY-R1.json
+      - docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-NDL-DIRECT-PAGE-REMOTE-COPY-POLICY-BOUNDARY-IH.md
+      - docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json
+      - docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.md
+      - docs/PROJECT-CURRENT-STATE-R1.json
+      - scripts/verify-project-continuity-state-r1.py
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  statuses: write
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Publish pending IH status
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.repos.createCommitStatus({
+              owner: context.repo.owner, repo: context.repo.repo, sha: context.sha,
+              state: 'pending', context: 'tianwen/batch-12ih-exact-head',
+              description: 'Batch 12IH NDL copy-policy verification running'
+            })
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify Batch 12IH exact head
+        run: |
+          set -euo pipefail
+          python scripts/verify-tianwen-transmission-genealogy-r1.py
+          python scripts/verify-project-continuity-state-r1.py
+          python scripts/verify-fusion-chart-historical-provenance-audit-r1.py
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          e=json.loads(Path('docs/research/ZIWEI-NDL-DIRECT-PAGE-REMOTE-COPY-POLICY-BOUNDARY-R1.json').read_text(encoding='utf-8'))
+          assert e['batch_id']=='BATCH-12-ZIWEI-NDL-DIRECT-PAGE-REMOTE-COPY-POLICY-BOUNDARY-IH'
+          assert e['access_boundary']['policy_layer_remote_copy_route_closed'] is True
+          assert e['access_boundary']['boundary_status']=='POLICY_LAYER_ELIGIBLE_LOGIN_AND_FEE_GATED_NOT_EXECUTED'
+          assert e['targets']['wenji_2011_p197']['direct_target_page_reviewed'] is False
+          assert e['targets']['wenwu_1951_issue9_pp221_233']['direct_target_pages_reviewed'] is False
+          assert e['adjudication']['chart_rule_change'] is False
+          PY
+      - name: Publish success IH status
+        if: success()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.repos.createCommitStatus({
+              owner: context.repo.owner, repo: context.repo.repo, sha: context.sha,
+              state: 'success', context: 'tianwen/batch-12ih-exact-head',
+              description: 'Batch 12IH exact-head verification passed'
+            })
+      - name: Publish failure IH status
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.repos.createCommitStatus({
+              owner: context.repo.owner, repo: context.repo.repo, sha: context.sha,
+              state: 'failure', context: 'tianwen/batch-12ih-exact-head',
+              description: 'Batch 12IH exact-head verification failed'
+            })

@@ -1,0 +1,160 @@
+{
+  "schema": "ZIWEI-R7-ONE-SIX-SOURCE-PHILOLOGY-SCOPE-AUDIT-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-R7-ONE-SIX-SOURCE-PHILOLOGY-SCOPE-AUDIT-MY",
+  "prior_batch_id": "BATCH-12-ZIWEI-R6-QISHU-SOURCE-PHILOLOGY-SCOPE-AUDIT-MX",
+  "parent_rule_id": "HPA-STRUCT-007",
+  "parent_status": "MODERN_COMPATIBILITY_ONLY",
+  "new_child_rows": [
+    "HPA-STRUCT-017",
+    "HPA-STRUCT-018"
+  ],
+  "coordinate_status": "SUPPORTED_BUT_SCHOOL_SPECIFIC",
+  "engineering_status": "MODERN_COMPATIBILITY_ONLY",
+  "algorithm_reopen_authorized": false,
+  "witnesses": [
+    {
+      "source_id": "EXT-WIKISOURCE-QINGNANG-YILIU-RECEIVED",
+      "url": "https://zh.wikisource.org/zh/%E9%9D%92%E5%9B%8A%E7%B6%93",
+      "evidence_class": "PREMODERN_HELUO_TERM_ATTESTATION_NOT_ZIWEI_PALACE_RULE",
+      "short_quote": "一六共宗，二七同道，三八為朋，四九為友，五十同途",
+      "claim": "Received geomancy/Hetu text attests the number-pair phrase. It does not mention Ziwei twelve-palace projection.",
+      "glyph_authority": false
+    },
+    {
+      "source_id": "EXT-SHIDIAN-YANGZHAI-ZHENGZONG-YILIU-RECEIVED",
+      "url": "https://www.shidianguji.com/book/CADAL02034621/chapter/1l6uinpyqr48v",
+      "evidence_class": "QING_ATTRIBUTED_HELUO_TERM_CORROBORATION_NOT_ZIWEI_PALACE_RULE",
+      "short_quote": "一六共宗，二七同道，三八為朋，四九為友，五十同途",
+      "claim": "Public reading surface attributes 阳宅正宗 to 清姚承舆 and explains the pairs as Hetu directions/elements; exact physical edition/glyph layer is not closed here.",
+      "glyph_authority": false
+    },
+    {
+      "source_id": "EXT-GUOXUEDASHI-ZIWEI-JINGCHENG-YILIU-RECEIVED",
+      "url": "https://www.guoxuedashi.com/a/22567z/285479j.html",
+      "evidence_class": "MODERN_ZIWEI_DIRECT_COORDINATE_AND_TWELVE_PAIR_RECEIVED_TEXT",
+      "short_quote": "设命宫为“一”，逆时钟方向数到疾厄宫为“六”",
+      "claim": "Explicitly defines the Ziwei relative-six coordinate and enumerates all twelve rotating one-six palace pairs.",
+      "glyph_authority": false
+    },
+    {
+      "source_id": "EXT-GOOGLEBOOKS-DADE-ZIWEI-JINGCHENG-BIBLIO",
+      "evidence_class": "MODERN_WORK_BIBLIOGRAPHIC_CONTEXT_REUSED_FROM_12MX",
+      "claim": "Reused only to bind the modern work identity/context; not a direct one-six passage and not an earliest-origin witness."
+    },
+    {
+      "source_id": "EXT-HELUO-TONGBU-QISHU-RECEIVED",
+      "evidence_class": "MODERN_HELUO_ZIWEI_CORROBORATION_REUSED_FROM_12MX",
+      "claim": "Repeats 命一、疾六、一六共宗 in a modern Heluo received text; not counted as independent ancient evidence."
+    }
+  ],
+  "philology": {
+    "term_layer": "一六共宗 in premodern received geomancy/Hetu text denotes the pairing of Hetu generation/completion numbers 1 and 6; that phrase alone does not encode Ziwei palace addresses.",
+    "local_origin": "In modern Ziwei usage, 一 is the chosen local origin/太极点, not permanently natal LIFE.",
+    "inclusive_counting": "With the origin counted as 1, relative ordinal 6 moves five functional-palace steps.",
+    "coordinate_bridge": "Ziwei functional-palace order proceeds counterclockwise while physical Address indices increase clockwise; -5 mod 12 = +7.",
+    "runtime_identity": "relative_ordinal=6, relative_role_designation_id=HEALTH, clockwise_offset=7.",
+    "twelve_pair_oracle": [
+      "LIFE->HEALTH",
+      "SIBLINGS->TRAVEL",
+      "SPOUSE->SERVANTS_FRIENDS",
+      "CHILDREN->CAREER",
+      "WEALTH->PROPERTY",
+      "HEALTH->FORTUNE",
+      "TRAVEL->PARENTS",
+      "SERVANTS_FRIENDS->LIFE",
+      "CAREER->SIBLINGS",
+      "PROPERTY->SPOUSE",
+      "FORTUNE->CHILDREN",
+      "PARENTS->WEALTH"
+    ],
+    "interpretation_authorized": false
+  },
+  "historical_scope": {
+    "premodern_hetu_term_attested": true,
+    "premodern_ziwei_palace_projection_attested": false,
+    "earliest_ziwei_relative_six_definition_closed": false,
+    "exact_physical_edition_bound": false,
+    "direct_term_to_ziwei_transmission_closed": false,
+    "received_qing_text_date_scope": "Provider attributes 阳宅正宗 to Qing author 姚承舆; exact edition and physical glyph layer not independently bound in this batch.",
+    "qingnang_textual_date_scope": "Received 青囊经/蒋大鸿注 surface is term evidence only; work formation, recension and exact witness date are not promoted from the web transcription."
+  },
+  "engineering_firewall": {
+    "rule_id": "HPA-STRUCT-018",
+    "status": "MODERN_COMPATIBILITY_ONLY",
+    "semantic_scope": "DIRECTED_RELATIVE_SIXTH_PALACE_IDENTITY_ONLY",
+    "direct_event_permission": false,
+    "direct_endpoint_permission": false,
+    "modern_same_fortune_semantics_imported": false,
+    "stronger_received_interpretations_present": true,
+    "stronger_received_interpretations": [
+      "同一宫看待",
+      "一荣俱荣/一损俱损",
+      "冲六则一亡"
+    ],
+    "policy": "These interpretive doctrines remain source-scoped research candidates; R7 does not turn coordinate identity into same-strength, same-fortune, event or endpoint assertions."
+  },
+  "accounting": {
+    "rows_before": 216,
+    "rows_after": 218,
+    "audited_rows_before": 198,
+    "audited_rows_after": 201,
+    "current_missing_from_product_rows": 10,
+    "provenance_defects_confirmed": 18,
+    "provenance_defects_repaired": 18,
+    "chart_algorithm_defects": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0,
+    "new_provenance_defect": false,
+    "scope_revision_reason": "Unaudited parent conflated old Hetu terminology, modern Ziwei coordinate use and engineering closure. Split without changing runtime coordinates."
+  },
+  "frozen_files": [
+    {
+      "path": "src/fortune_training/ziwei_structural/r7/profile.py",
+      "blob_sha": "9835d8db5856889670c10986798d5daabdc34797"
+    },
+    {
+      "path": "src/fortune_training/ziwei_structural/r7/projection.py",
+      "blob_sha": "66f2b4792c32a2d201bf61c3f7e77d725dcb6887"
+    },
+    {
+      "path": "src/fortune_training/ziwei_structural/r7/engine.py",
+      "blob_sha": "611647fffdee3326585ff4bedf69e21cf3851b44"
+    },
+    {
+      "path": "src/fortune_training/ziwei_structural/r7/models.py",
+      "blob_sha": "6c371714719ef7816941e6007d8784374bb46c5e"
+    },
+    {
+      "path": "src/fortune_training/ziwei_structural/r7/integrity.py",
+      "blob_sha": "d4e28a2ba16eef95a36cad677ce500d1866fc8f6"
+    },
+    {
+      "path": "docs/ZIWEI-STRUCTURAL-RUNTIME-V2-R7-ONE-SIX.md",
+      "blob_sha": "26a11167682e96d7b47e5dacc719f796b22959cb"
+    },
+    {
+      "path": "sources/canonical-runtime/S04/segment-0001.txt",
+      "blob_sha": "8401f1d190e3ee4b87aab86f82216972bea7dde8"
+    },
+    {
+      "path": "sources/canonical-runtime/S04/segment-0003.txt",
+      "blob_sha": "69da3547b26d3b98b9bcf96dd8e5f3f2cc1e6fc6"
+    }
+  ],
+  "replay_evidence": "docs/research/evidence/batch-12my/r7-one-six-geometry-replay.json",
+  "replay_scope": "Independent 12 LIFE physical rotations × 12 named origins = 144 relative-six coordinate records; project_one_six_common_roots is checked against a hard-coded named-palace oracle.",
+  "transmission_impact": {
+    "status": "NONE",
+    "reason": "Premodern Hetu phrase attestation and modern Ziwei use are historically distinct evidence layers. No direct textual/teacher transmission bridge is proven."
+  },
+  "next_gate": [
+    "12MZ: audit HPA-STRUCT-008 R8 太极点/主题宫 composition, separating inherited relative-frame mechanics from modern composition and any school-specific naming.",
+    "Preserve R4, R6 and R7 earliest-definition, exact-edition and direct-lineage gaps."
+  ],
+  "verification": {
+    "new_tests": 5,
+    "expected_replay_records": 144,
+    "exact_head_ci_policy": "Publish forward-only, then require Historical Provenance gate, continuity gate, focused historical tests, Verify, full unittest and workbench smokes to pass."
+  }
+}

@@ -1,0 +1,100 @@
+{
+  "schema": "ZIWEI-TIANCHU-PREMODERN-TABLE-AND-SOURCE-BOUNDARY-R1",
+  "version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-TIANCHU-PREMODERN-TABLE-AND-SOURCE-BOUNDARY-OG",
+  "date": "2026-10-06",
+  "target_rule_id": "HPA-ZMINOR-007",
+  "question": "Whether the operational TianChu ten-stem table has premodern textual support, and whether the old 'Fullbook competing table' claim is source-bound strongly enough to remain a historical candidate.",
+  "operational_table": {
+    "甲": "巳",
+    "乙": "午",
+    "丙": "子",
+    "丁": "巳",
+    "戊": "午",
+    "己": "申",
+    "庚": "寅",
+    "辛": "午",
+    "壬": "酉",
+    "癸": "亥"
+  },
+  "controlling_sources": [
+    {
+      "source_id": "EXT-WIKISOURCE-XINGXUE-DACHENG-TIANCHU",
+      "work": "《星學大成》",
+      "author": "明·萬民英",
+      "received_edition": "四庫全書本卷一",
+      "heading": "論天厨",
+      "text": "甲乙巳午丙在子，丁戊己午己申儲，庚落寅中辛尋午，壬厨居酉癸居猪。",
+      "gloss": "天厨祿名食神祿；以甲食丙、丙祿在巳，乙食丁、丁祿居午為例。",
+      "parsed_table": {
+        "甲": "巳",
+        "乙": "午",
+        "丙": "子",
+        "丁": "巳",
+        "戊": "午",
+        "己": "申",
+        "庚": "寅",
+        "辛": "午",
+        "壬": "酉",
+        "癸": "亥"
+      },
+      "exact_runtime_match_count": 10,
+      "exact_runtime_mismatch_count": 0,
+      "authority_scope": "PREMODERN_SAME_NAME_SAME_INPUT_DIMENSION_GEOMETRY; NOT_DIRECT_ZIWEI_ADOPTION_LINEAGE"
+    },
+    {
+      "source_id": "EXT-ZIWEI-ZHANGGUO-NIJL-1594",
+      "role": "EARLY_MATERIAL_LINEAGE_CONTROL_FOR_ZHANGGUO_WORK_FAMILY",
+      "target_tianchu_leaf_directly_collated": false,
+      "target_text_vote_increment": 0,
+      "note": "A modern received transcription of ZhangGuo Xingzong reproduces the same TianChu verse and food-god-lu gloss, but the registered 1594 physical target leaf was not directly reviewed for TianChu in this batch."
+    }
+  ],
+  "fullbook_variant_audit": {
+    "old_claim_source_ref": "S01:ZZZA-PR-023",
+    "old_claim": "标记与全书异表 / Fullbook variant table pending verbatim extraction",
+    "canonical_s01_zzqs_tianchu_atom_found": false,
+    "quoted_fullbook_variant_found": false,
+    "located_fullbook_variant_found": false,
+    "bounded_search_result": "No source-scoped Fullbook TianChu table was identified in the reviewed repository canonical atoms and reviewed public Fullbook search surfaces.",
+    "absolute_global_absence_claim": false,
+    "candidate_action": "RETIRE_UNBOUND_FULLBOOK_VARIANT_FROM_CURRENT_MATRIX; REOPEN_ONLY_IF_QUOTED_LOCATED_SOURCE_APPEARS"
+  },
+  "adjudication": {
+    "audit_status_before": "DISPUTED_MULTIPLE_CANDIDATES",
+    "audit_status_after": "HISTORICALLY_SUPPORTED",
+    "historical_geometry_closed": true,
+    "ziwei_adoption_path_closed": false,
+    "competing_fullbook_candidate_source_bound": false,
+    "runtime_change_required": false,
+    "production_default_changed": false,
+    "chart_algorithm_reopened": false,
+    "candidate_runtime_changed": false
+  },
+  "provenance_repair": {
+    "defect_id": "PROV-DEFECT-043",
+    "defect": "HPA-ZMINOR-007 represented a Fullbook TianChu variant as a competing historical method although no verbatim table, canonical atom, locator or edition-bound source side was recorded.",
+    "repair": "Replace the phantom two-table dispute with the directly attested premodern TianChu table geometry, keep the Ziwei adoption route explicitly unresolved, and require any future Fullbook variant to be quoted and source-bound before candidate registration.",
+    "forward_only": true,
+    "old_batch_documents_rewritten": false
+  },
+  "precedent_alignment": "This follows the same evidence discipline used for standalone Feilian: exact premodern same-name mechanics may close placement geometry while the specific Ziwei adoption path remains genealogically open.",
+  "outcome": {
+    "matrix_row_count_after": 222,
+    "audited_row_count_after": 222,
+    "historical_status_counts_after": {
+      "HISTORICALLY_SUPPORTED": 99,
+      "SUPPORTED_BUT_SCHOOL_SPECIFIC": 24,
+      "DISPUTED_MULTIPLE_CANDIDATES": 27,
+      "MODERN_COMPATIBILITY_ONLY": 50,
+      "SOURCE_INSUFFICIENT": 11,
+      "MISSING_FROM_PRODUCT": 10,
+      "NOT_YET_FORMALIZED": 1
+    },
+    "confirmed_provenance_metadata_defect_count_after": 43,
+    "repaired_provenance_metadata_defect_count_after": 43,
+    "historical_candidate_extension_count_after": 8,
+    "current_missing_from_product_row_count_after": 10
+  },
+  "next": "12OH — re-rank the remaining active DISPUTED_MULTIPLE_CANDIDATES queue after TianShou/TianChu closure."
+}

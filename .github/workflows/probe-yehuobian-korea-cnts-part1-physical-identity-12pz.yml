@@ -1,0 +1,81 @@
+name: probe-yehuobian-korea-cnts-part1-physical-identity-12pz
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-yehuobian-korea-cnts-part1-physical-identity-12pz.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  korea-cnts-public-fascicle1-identity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Install source-image rendering tools
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils
+          python -m pip install --quiet pillow
+      - name: Download exact CNTS public scan and render limited physical opening
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p 12pz-korean-cnts/source 12pz-korean-cnts/pages 12pz-korean-cnts/contacts
+          url='https://commons.wikimedia.org/wiki/Special:Redirect/file/CNTS-00047974753_1_%E9%87%8E%E7%8D%B2%E7%B7%A8.pdf'
+          set +e
+          curl -L --fail --retry 3 --retry-all-errors --retry-delay 4 --connect-timeout 20 --max-time 600 -A 'Tianwen-Historical-Provenance-R1/1.0' "$url" -o 12pz-korean-cnts/source/part1.pdf
+          status=$?
+          set -e
+          if [ "$status" -ne 0 ]; then
+            echo "PUBLIC_SOURCE_FETCH_NOT_AVAILABLE: curl exit $status"
+            echo "TARGET_LEAF_NOT_ACQUIRED=true" > 12pz-korean-cnts/status.txt
+            exit 0
+          fi
+          test "$(head -c4 12pz-korean-cnts/source/part1.pdf)" = '%PDF'
+          pdfinfo 12pz-korean-cnts/source/part1.pdf > 12pz-korean-cnts/pdfinfo.txt
+          pages=$(awk '/^Pages:/ {print $2}' 12pz-korean-cnts/pdfinfo.txt)
+          test "$pages" -ge 3
+          (cd 12pz-korean-cnts && sha256sum source/part1.pdf > source-sha256.txt)
+          (cd 12pz-korean-cnts && sha1sum source/part1.pdf > source-sha1.txt)
+          for page in 1 2 3; do
+            pdftoppm -f "$page" -l "$page" -r 135 -jpeg -jpegopt quality=85 -singlefile \
+               12pz-korean-cnts/source/part1.pdf "12pz-korean-cnts/pages/$(printf 'source-p%03d' "$page")"
+          done
+          (cd 12pz-korean-cnts && sha256sum pages/*.jpg > rendered-sha256.txt)
+          python - <<'PY'
+          import base64,hashlib,io,json,pathlib
+          from PIL import Image,ImageDraw
+          root=pathlib.Path("12pz-korean-cnts")
+          imgs=[Image.open(root/"pages"/f"source-p{i:03}.jpg") for i in [1,2,3]]
+          out=Image.new("RGB",(3*470,640),(250,250,250))
+          dr=ImageDraw.Draw(out)
+          for i,img in enumerate(imgs):
+              img.thumbnail((450,595))
+              out.paste(img,(i*470+10,30))
+              dr.text((i*470+12,8),f"Source PDF page {i+1}",fill=(0,0,0))
+          file=root/"contacts"/"physical-opening-p1-p3.jpg"
+          out.save(file,"JPEG",quality=76)
+          print("CONTACT_SHEET_B64",file.name,base64.b64encode(file.read_bytes()).decode(),flush=True)
+          print("CONTACT_SHA256",hashlib.sha256(file.read_bytes()).hexdigest(),flush=True)
+          print("SOURCE_ID=CNTS-00047974753_1 PUBLIC_CATALOG_YEAR_1700_UNVERIFIED_AT_OBJECT_LEVEL")
+          PY
+          cat 12pz-korean-cnts/source-sha256.txt
+          grep -E '^(Pages|File size|Page size):' 12pz-korean-cnts/pdfinfo.txt
+          echo 'NO_OCR=true; EDITION_IDENTITY_GLYPH_NEEDS_MANUAL_VISUAL_REVIEW=true; SOURCE_DIGITAL_FILE_IS_NOT_PROOF_OF_1700_PHYSICAL_PRINT' > 12pz-korean-cnts/status.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: korea-cnts-yehuobian-part1-public-image-identity-probe-12pz
+          path: |
+            12pz-korean-cnts/pdfinfo.txt
+            12pz-korean-cnts/source-sha256.txt
+            12pz-korean-cnts/source-sha1.txt
+            12pz-korean-cnts/rendered-sha256.txt
+            12pz-korean-cnts/pages/
+            12pz-korean-cnts/contacts/
+            12pz-korean-cnts/status.txt
+          if-no-files-found: warn
+          retention-days: 30

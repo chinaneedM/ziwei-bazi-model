@@ -1,0 +1,122 @@
+{
+  "schema": "QIANLI-WORK-IDENTITY-AND-JIAOYUN-EDGE-BOUNDARY-R1",
+  "version": "1.0.0",
+  "batch_id": "BATCH-12-BAZI-QIANLI-WORK-IDENTITY-AND-JIAOYUN-EDGE-BOUNDARY-OS",
+  "prior_batch_id": "BATCH-12-BAZI-QIANLI-MINGXUE-JIANGYI-JIAOYUN-CALENDAR-SEMANTICS-OR",
+  "date": "2026-10-06",
+  "target_rows": [
+    "HPA-DAYUN-CAL-003",
+    "HPA-DAYUN-CAL-004"
+  ],
+  "provenance_repair": {
+    "defect_id": "PROV-DEFECT-045",
+    "defect_type": "QIANLI_CTEXT_RECEIVED_TEXT_OVERBOUND_TO_ORIGINAL_1935_MINGGAO_WORK_IDENTITY",
+    "status": "REPAIRED_FORWARD_ONLY",
+    "prior_problem": "Stable CText sources were named as 千里命稿 rule witnesses in a way that could be read as physical-work provenance.",
+    "direct_1935_control": "EXT-NLC-QIANLI-MINGGAO-1935-FIRST-JI",
+    "adjudication": "CText retains received-text witness status, but site title does not establish original 1935 physical work identity; direct 1934/1936 命學講義 controls the Jiaoyun physical rule witness.",
+    "algorithm_effect": "NONE"
+  },
+  "work_identity": {
+    "mingxue_jiangyi": {
+      "direct_physical_sources": [
+        "EXT-NLC-QIANLI-MINGXUE-JIANGYI-1934",
+        "EXT-NLC-QIANLI-MINGXUE-JIANGYI-1936"
+      ],
+      "modern_bibliographic_control": "EXT-XINYITANG-QIANLI-MINGXUE-JIANGYI-BIBLIOGRAPHY",
+      "first_edition_year_bibliographic": 1934,
+      "target_rule_material": "起例問答 / Jiaoyun worked examples directly physically bound"
+    },
+    "minggao_first_ji": {
+      "direct_physical_source": "EXT-NLC-QIANLI-MINGGAO-1935-FIRST-JI",
+      "modern_bibliographic_control": "EXT-XINYITANG-QIANLI-MINGGAO-FIRST-JI-BIBLIOGRAPHY",
+      "first_edition_year": 1935,
+      "direct_review": "cover plus sampled early and near-end body leaves",
+      "observed_body_identity": "千里命稿 第一集 / case-annotation collection",
+      "jiaoyun_rule_vote_increment": 0
+    },
+    "ctext_received": {
+      "stable_source_ids": [
+        "EXT-CTEXT-QIANLI-MINGGAO-YEAR",
+        "EXT-CTEXT-QIANLI-MINGGAO-DAYUN"
+      ],
+      "site_label": "千里命稿",
+      "base_edition_status": "UNKNOWN_ON_CTEXT_WORK_RECORD",
+      "may_be_used_as_original_1935_physical_authority": false
+    }
+  },
+  "edge_semantics_search_boundary": {
+    "direct_1934_1936_target_section": {
+      "invalid_target_day_rule_attested": false,
+      "leap_or_intercalary_birth_anchor_rule_attested": false,
+      "duplicated_target_month_selection_rule_attested": false,
+      "scope": "TARGET_SECTION_NONATTESTATION_ONLY_NOT_WHOLE_BOOK_OR_WHOLE_AUTHOR_ABSENCE"
+    },
+    "later_1987_control": {
+      "source_id": "EXT-WULING-XINBIAN-QIANLI-MINGXUE-JIANGYI-1987",
+      "toc_includes_qili_wenda": true,
+      "self_preface_allows_later_revision": true,
+      "public_target_leaf_bound": false,
+      "edge_rule_vote_increment": 0
+    },
+    "republican_parallel_firewall": {
+      "source_id": "EXT-CTEXT-MINGLI-TANYUAN-DAYUN",
+      "author": "袁樹珊",
+      "mechanic": "實歷過日時 / 多欠 arithmetic",
+      "same_mechanical_rule_as_qianli_nominal_30_day_remainder": false,
+      "may_fill_qianli_edge_semantics": false,
+      "adjudication": "CROSS_AUTHOR_AND_CROSS_MECHANIC_FALLBACK_FORBIDDEN"
+    },
+    "current_search_horizon": "EXHAUSTIVE_TO_CURRENT_PUBLIC_SEARCHABLE_HORIZON_NOT_GLOBAL_ABSENCE_PROOF",
+    "outcome": {
+      "invalid_target_day_in_small_month": "SOURCE_UNRESOLVED_AFTER_DIRECT_1934_1936_TARGET_SECTION_AND_CURRENT_PUBLIC_SEARCH_HORIZON",
+      "leap_or_intercalary_birth_anchor_identity": "SOURCE_UNRESOLVED_AFTER_DIRECT_1934_1936_TARGET_SECTION_AND_CURRENT_PUBLIC_SEARCH_HORIZON",
+      "duplicated_target_month_regular_vs_intercalary_selection": "SOURCE_UNRESOLVED_AFTER_DIRECT_1934_1936_TARGET_SECTION_AND_CURRENT_PUBLIC_SEARCH_HORIZON",
+      "recurrence_edge_policy": "SOURCE_UNRESOLVED_INHERIT_FROM_QIANLI_FIRST_HANDOVER_REGIME"
+    }
+  },
+  "product_boundary": {
+    "qianli_regime_descriptor_registered": false,
+    "qianli_runtime_candidate_authorized": false,
+    "qianli_historical_temporal_profile": false,
+    "product_selector_option": false,
+    "production_default_changed": false,
+    "matrix_status_changed": false,
+    "missing_from_product_count": 4
+  },
+  "transmission_impact": {
+    "status": "MATERIAL_GRAPH_UPDATE",
+    "nodes_added": [
+      "WORK-QIANLI-MINGGAO-FIRST-JI",
+      "EDITION-QIANLI-MINGGAO-1935",
+      "PHYSICAL-QIANLI-MINGGAO-NLC-01JH000372-10197",
+      "DIGITAL-QIANLI-MINGGAO-COMMONS-1935",
+      "DIGITAL-CTEXT-QIANLI-WIKI-303868"
+    ],
+    "edges_added": [
+      "TG-E0175",
+      "TG-E0176",
+      "TG-E0177",
+      "TG-E0178",
+      "TG-E0179"
+    ],
+    "direct_lineage_between_minggao_and_mingxue_jiangyi_asserted": false
+  },
+  "accounting": {
+    "matrix_rows": 222,
+    "audited_rows": 222,
+    "missing_from_product": 4,
+    "provenance_defects_confirmed": 45,
+    "provenance_defects_repaired": 45,
+    "historical_candidate_extensions": 14,
+    "historical_candidate_registries": 5,
+    "historical_candidate_runtime_resolvers": 5,
+    "chart_algorithm_defects": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0
+  },
+  "next_batch": {
+    "id": "12OT",
+    "objective": "Re-rank the four remaining MISSING_FROM_PRODUCT rows after Qianli work-identity repair and edge-source-boundary closure; do not repeat the same Qianli route absent materially new evidence."
+  }
+}

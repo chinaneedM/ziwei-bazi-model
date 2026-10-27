@@ -1,0 +1,97 @@
+{
+  "schema": "ZIWEI-ZHUNZHAI-YUAN-SHOUSHI-COMPOSITION-ATTRIBUTION-FIREWALL-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-ZHUNZHAI-YUAN-SHOUSHI-COMPOSITION-ATTRIBUTION-FIREWALL-ER",
+  "prior_batch_id": "BATCH-12-ZIWEI-WENYUANGE1441-ZHUNZHAI-TITLE-EXISTENCE-CHRONOLOGY-FIREWALL-EQ",
+  "question": "Does the modern Yuan-attribution argument for 《準齋心製几漏圖式》 survive replay against Tianwen's source-bound physical evidence, and how far may that result move the work-composition chronology without backdating the surviving Qing manuscript or exact rule wording?",
+  "answer": "YES_FOR_STRONG_CORROBORATION_OF_A_YUAN_SHOUSHI_PERIOD_TEXTUAL_SUBSTRATE_AND_FOR_DOWNGRADING_THE_RECEIVED_SONG_ATTRIBUTION_TO_A_CONTESTED_LATE_BIBLIOGRAPHIC_TRADITION; NO_FOR_PRIMARY_COLOPHON_CLOSURE, EXACT_AUTHOR_IDENTITY, OR_EXACT_PRE1578_25ARROW_RULE_TEXT. THE 1823 ZHUNZHAI FIRST ARROW EXACTLY MATCHES THE SOURCE-BOUND 1551 LEIBIAN FIRST FINE-TABLE STATE AT WINTER-SOLSTICE_THROUGH_XIAOHAN+4 = 38/62.",
+  "scholarship_control": {
+    "source_id": "EXT-WANG-XIAOHU-2014-ZHUNZHAI-YUAN-COMPOSITION-STUDY",
+    "title": "元代孙逢吉《准斋心制几漏图式》新探",
+    "author": "汪小虎",
+    "publication": "《中国科技史杂志》35(4), 2014, pp.446-458",
+    "scholarly_journal_identity_controlled": true,
+    "evidentiary_role": "SECONDARY_MECHANICAL_CHRONOLOGY_HYPOTHESIS_NOT_PRIMARY_DATING_AUTHORITY",
+    "core_argument": [
+      "received Zhunzhai has 25 arrows",
+      "solstitial extrema are 38/62 and 62/38",
+      "change-arrow dates are tied to almanac/solar-term state",
+      "the system is argued to fit the Yuan Shoushi regime rather than standard Song 40/60 conditions"
+    ],
+    "proposed_composition_period": "YUAN",
+    "proposed_author": "Yuan-era Yanling Sun Fengji"
+  },
+  "repository_physical_replay": {
+    "zhunzhai_1823": {
+      "source_id": "EXT-XUXIU1031-ZHUNZHAI-TONGHU-CLEPSYDRA-QING-MSS-PHYSICAL",
+      "physical_copy_date": 1823,
+      "direct_first_arrow": "自冬至用至小寒後四日 / 晝三十八刻 / 夜六十二刻",
+      "direct_mechanism": "25 arrows; winter-solstice forward; summer-solstice reverse; calendar/solar-term reference"
+    },
+    "leibian_1551": {
+      "source_id": "EXT-NLC-LEIBIAN-LIFA-TONGSHU-JIAJING30-1551",
+      "physical_edition_year": 1551,
+      "direct_first_state": "冬至節日連小寒後四日同 / 晝38 / 夜62",
+      "table_family": "FINE_ONE_KE_38_62_BRANCH"
+    },
+    "exact_first_state_date_range_and_value_match": true,
+    "whole_25_arrow_sequence_directly_replayed_against_1551_physical_table_in_this_batch": false,
+    "direct_copy_relation_proven": false,
+    "safe_implication": "The exact first-state match independently corroborates a shared Shoushi-like fine-table substrate/architecture; it does not by itself identify copying direction or composition year."
+  },
+  "primary_received_person_control": {
+    "source_id": "EXT-CTEXT-TONGJIANGJI-SUNJUN-SHANJING-1281-CONTROL",
+    "work": "方回《桐江集》卷一《孫君山經序》",
+    "received_person_name": "嚴陵孫君逢吉",
+    "received_subject_scope": "天文地理之學 and Yan Su-related clepsydra knowledge/tradition",
+    "passage_date_marker": "今歲在辛巳",
+    "scholarship_maps_marker_to_year": 1281,
+    "matches_received_zhunzhai_geographic_self_label": "古嚴 / 嚴陵 COMPATIBLE",
+    "exact_same_person_as_zhunzhai_author_proven": false,
+    "exact_zhunzhai_work_named_in_passage": false
+  },
+  "chronology_adjudication": {
+    "received_song_attribution_status": "CONTESTED_LATE_BIBLIOGRAPHIC_TRADITION_NOT_PRIMARY_COMPOSITION_PROOF",
+    "yuan_shoushi_composition_hypothesis": "STRONGLY_CORROBORATED_NOT_PRIMARY_COLOPHON_CLOSED",
+    "exact_work_composition_year": "UNRESOLVED",
+    "exact_author_identity": "UNRESOLVED",
+    "pre1578_title_family_catalog_attestation": "CLOSED_AT_1441_CATALOG_TEXT_LAYER",
+    "exact_title_identity_1441_to_1823": false,
+    "exact_25arrow_rule_text_pre1578_attestation": "NOT_CLOSED",
+    "secure_pre1578_physical_rule_witness": false,
+    "exact_sanming_yueling_dahan_yushui_fingerprint_closed": false,
+    "exact_nanjing_59_endpoint_binding_closed": false
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [
+      "PHYSICAL-COPY-NLC-ZHUNZHAI-JILOU-DAOGUANG3-HUANG-SHILIJU-MS",
+      "RULE-FAMILY-ZHUNZHAI-25ARROW-JIEHOU-SELECTION-38-62"
+    ],
+    "edges_supported": [],
+    "hypothesis_update": "TG-H0001 receives a chronology/substrate refinement only; no direct-copy edge or Sanming-parent edge is closed.",
+    "unresolved_questions": [
+      "Can any securely pre-1578 physical/textual carrier be found with the exact 25-arrow / winter-forward / summer-reverse / 日曆節候 wording?",
+      "Can the full Zhunzhai arrow-date sequence be physically replayed against a securely pre-1578 Shoushi-derived table rather than only the first state?",
+      "Can the Yanling Sun Fengji named by Fang Hui be connected to the Zhunzhai text by a primary title/author statement rather than circumstantial compatibility?",
+      "Which pre-1578 Tongshu/almanac witness carries the exact Sanming/Yueling 大寒十三後 / 雨水後四日 fingerprint?"
+    ]
+  },
+  "adjudication": {
+    "direct_sanming_parent_vote_increment": 0,
+    "matrix_count_change": false,
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "deterministic_fusion_chart_product_r1": "CLOSED"
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 12,
+    "repaired_provenance_metadata_defect_count": 12,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  }
+}

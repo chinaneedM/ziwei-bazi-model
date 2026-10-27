@@ -1,0 +1,144 @@
+{
+  "schema": "TIANWEN-13BX-WASEDA-ORIGINAL-D39-D56-HEADINGS-AND-P28-P44-ATLAS-R1",
+  "date": "2026-10-21",
+  "issue_id": "TW-OPEN-0005",
+  "grade": "DIRECT_FIRSTPARTY_NATIVE_RGB_MANUAL_NO_OCR_TWO_PAGE_DAY_ENDPOINTS",
+  "source": {
+    "holding": "WASEDA-RI06-02809-BOOK33",
+    "pdf": "https://archive.wul.waseda.ac.jp/kosho/ri06/ri06_02809/ri06_02809_0033/ri06_02809_0033.pdf",
+    "pdf_sha256": "28ebfeb34191f45715bc449d27da61fe04fb05eb45e84dd00cf569699f46225f",
+    "run_id": 39600263596,
+    "artifact_id": 12345517803,
+    "zip_sha256": "3bdfeb8635d237472d76cea12ee49aaac166e0a0f6a0b6ddd34a062a59d2cfca",
+    "images": [
+      {
+        "page": 26,
+        "xref": 79,
+        "jpeg_sha256": "a87c09d1a0b0711d8b0165e04a4f31df0d9a2bf755589e9b91ff43602243bb62",
+        "dimensions": [
+          2592,
+          1728
+        ]
+      },
+      {
+        "page": 27,
+        "xref": 82,
+        "jpeg_sha256": "bfe72c70715b152295d526b8921a0ca1821a38340c73d275343a694d015201a0",
+        "dimensions": [
+          2592,
+          1728
+        ]
+      }
+    ]
+  },
+  "original_day_header_rois": [
+    {
+      "key": "P26_D39_DAY",
+      "page": 26,
+      "day": 39,
+      "literal": "三十九日",
+      "bbox": [
+        2035,
+        345,
+        2195,
+        670
+      ],
+      "pixel_sha256": "00cd2a0ac1e828b07e9303ecd1d46e17b06737d6e3aca275f04b2079d6680045"
+    },
+    {
+      "key": "P26_D47_DAY",
+      "page": 26,
+      "day": 47,
+      "literal": "四十七日",
+      "bbox": [
+        465,
+        350,
+        620,
+        670
+      ],
+      "pixel_sha256": "e9e90512382a56437feab71f46052592882f14a92be9195a0f51199155e30f1d"
+    },
+    {
+      "key": "P27_D48_DAY",
+      "page": 27,
+      "day": 48,
+      "literal": "四十八日",
+      "bbox": [
+        2040,
+        345,
+        2190,
+        680
+      ],
+      "pixel_sha256": "cd25147733fc55af20298e0774a23656315cafc1a959ca5b3ef700e03e49f933"
+    },
+    {
+      "key": "P27_D56_DAY",
+      "page": 27,
+      "day": 56,
+      "literal": "五十六日",
+      "bbox": [
+        465,
+        350,
+        620,
+        680
+      ],
+      "pixel_sha256": "53519d9c27862bcb212f68880ec0949a8ef10ab6a746af79c0247ea16e934801"
+    }
+  ],
+  "extension_summary": {
+    "p26_first": "三十九日",
+    "p26_last": "四十七日",
+    "p27_first": "四十八日",
+    "p27_last": "五十六日",
+    "same_table_original_print": "太陽冬至前後二象盈初縮末限",
+    "observed_day_endpoint_span": "初日至五十六日",
+    "individual_original_day_headers_positive": [
+      "三十九日",
+      "四十七日",
+      "四十八日",
+      "五十六日"
+    ],
+    "all_intermediate_days_individually_hashed": false,
+    "historical_full_table_end": "UNBOUND_AFTER_D56",
+    "Waseda_D16_independent_cumulative": "UNBOUND",
+    "JIRI_printed_day_heading_is_not_proven_numeric_field": true,
+    "universal_day_offset_between_physical_holdings": "UNPROVEN"
+  },
+  "requested_atlas": {
+    "pages_first": 28,
+    "pages_last": 44,
+    "pages_count": 17,
+    "pages_captured": "PENDING_SOURCE_WORKFLOW",
+    "pdf_expected_sha256": "28ebfeb34191f45715bc449d27da61fe04fb05eb45e84dd00cf569699f46225f",
+    "prior_p27_jpeg_expected_sha256": "bfe72c70715b152295d526b8921a0ca1821a38340c73d275343a694d015201a0",
+    "image_hashes": "PENDING_ARTIFACT",
+    "source_image_pixels_interpreted": false,
+    "workflow": ".github/workflows/acquire-goryeosa-waseda-p28-p44-original-13bx.yml",
+    "script": "scripts/acquire-goryeosa-waseda-p28-p44-original-13bx.py",
+    "ocr": false
+  },
+  "source_dependencies": {
+    "previous_p24_p25_original": "docs/research/TIANWEN-13BW-GORYEOSA-WASEDA-P24-P25-ORIGINAL-D21-D38-AND-P26-P27-BOUNDARY-R1.json",
+    "original_table_start": "docs/research/TIANWEN-13BV-GORYEOSA-WASEDA-P21-P23-ORIGINAL-SOLAR-TABLE-TITLE-AND-FIRST-DAY-INDEX-R1.json"
+  },
+  "scope_firewall": {
+    "new_historical_physical_witnesses": 0,
+    "new_independent_stemmatic_votes": 0,
+    "new_source_registry_entries": 0,
+    "new_matrix_rows": 0,
+    "new_genealogy_nodes": 0,
+    "new_genealogy_edges": 0,
+    "algorithm_reopens": 0,
+    "research_risks_open_or_blocked": 11,
+    "chart": "CLOSED"
+  },
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproven": [
+      "Continuous original printed source folios alone cannot prove a date offset formula, source ancestor or shared type block."
+    ]
+  },
+  "next_action": "Inspect bulk official SHA-pinned original image pages28-44 in one source archive, identify the table's real ending and following title by direct visual evidence, and keep D16 isolated cumulative and cross-work source units unresolved until physical glyph proof."
+}

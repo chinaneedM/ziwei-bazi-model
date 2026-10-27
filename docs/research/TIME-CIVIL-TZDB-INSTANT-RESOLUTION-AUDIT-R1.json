@@ -1,0 +1,73 @@
+{
+  "schema": "TIME-CIVIL-TZDB-INSTANT-RESOLUTION-AUDIT-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-TIME-CIVIL-TZDB-INSTANT-RESOLUTION-AUDIT-NC",
+  "prior_batch_id": "BATCH-12-ZIWEI-R2-RELATIVE-PALACE-FRAME-AUDIT-NB",
+  "rule_id": "HPA-TIME-001",
+  "audit_status": "MODERN_COMPATIBILITY_ONLY",
+  "algorithm_reopen_authorized": false,
+  "authority": {
+    "iana_theory_source_id": "EXT-IANA-TZDB-2026E-THEORY",
+    "iana_china_source_id": "EXT-IANA-TZDB-2026E-ASIA-CHINA",
+    "python_zoneinfo_source_id": "EXT-PYTHON-314-ZONEINFO-DATA-SOURCES",
+    "epistemic_scope": "MODERN_CIVIL_TIME_INFRASTRUCTURE_NOT_CLASSICAL_DOCTRINE",
+    "iana_authoritative_status": "NOT_AUTHORITATIVE_BY_IANA_OWN_ACCURACY_STATEMENT"
+  },
+  "scope_findings": {
+    "post_1970_boundary": "UTC_POSIX_EPOCH_1970-01-01T00:00:00Z",
+    "pre_1970_confidence": "REDUCED",
+    "china_beijing_time_zone": "Asia/Shanghai",
+    "china_xinjiang_time_zone": "Asia/Urumqi",
+    "timezone_id_policy": "EXPLICIT_INPUT_SEMANTICS_NOT_INFERRED_FROM_LONGITUDE",
+    "chinese_calendar_day_boundary_relation": "SEPARATE_FIXED_UTC_PLUS_08_CALENDAR_STANDARD"
+  },
+  "provenance_repairs": [
+    {
+      "defect_id": "PROV-DEFECT-021",
+      "defect": "TZDB_HISTORICAL_CONFIDENCE_BOUNDARY_USED_LOCAL_CALENDAR_YEAR_INSTEAD_OF_UTC_POSIX_EPOCH",
+      "repair": "Compare possible UTC realization(s) against the POSIX epoch.",
+      "chart_algorithm_effect": false,
+      "candidate_effect": false
+    },
+    {
+      "defect_id": "PROV-DEFECT-022",
+      "defect": "TZDB_VERSION_METADATA_REPORTED_INSTALLED_PYPI_TZDATA_WHEN_SYSTEM_ZONEINFO_SOURCE_WON",
+      "repair": "Mirror ZoneInfo source precedence: system TZPATH first, PyPI tzdata fallback second.",
+      "chart_algorithm_effect": false,
+      "candidate_effect": false
+    }
+  ],
+  "unchanged_mechanics": [
+    "UTC candidate construction",
+    "UTC offset",
+    "DST seconds",
+    "fold enumeration",
+    "gap rejection",
+    "candidate deduplication",
+    "ambiguity candidate multiplicity"
+  ],
+  "replay_evidence": "docs/research/evidence/batch-12nc/timezone-confidence-and-source-provenance-replay.json",
+  "accounting": {
+    "rows_before": 220,
+    "rows_after": 220,
+    "audited_rows_before": 206,
+    "audited_rows_after": 207,
+    "current_missing_from_product_rows": 10,
+    "provenance_defects_confirmed_before": 20,
+    "provenance_defects_confirmed_after": 22,
+    "provenance_defects_repaired_before": 20,
+    "provenance_defects_repaired_after": 22,
+    "chart_algorithm_defects": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0,
+    "new_provenance_defects": 2
+  },
+  "transmission_impact": {
+    "status": "NONE",
+    "reason": "Modern timezone database/runtime provenance adds no historical Ziwei/Bazi transmission edge."
+  },
+  "next_gate": [
+    "12ND: audit HPA-TIME-002 Ambiguous civil time fold/gap handling as modern operational policy.",
+    "Preserve DST ambiguity candidates and fail-closed behavior; do not promote operational fold choice into classical doctrine."
+  ]
+}

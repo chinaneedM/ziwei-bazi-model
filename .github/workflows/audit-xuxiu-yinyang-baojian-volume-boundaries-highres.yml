@@ -1,0 +1,75 @@
+name: audit-xuxiu-yinyang-baojian-volume-boundaries-highres
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/audit-xuxiu-yinyang-baojian-volume-boundaries-highres.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install PDF renderer
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils
+
+      - name: Lock selected Xuxiu Yinyang Baojian volume boundaries
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/xuxiu-yinyang-baojian-volume-boundaries-highres'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT/1061" "$ROOT/1062"
+
+          U61='https://commons.wikimedia.org/wiki/Special:Redirect/file/%E7%BA%8C%E4%BF%AE%E5%9B%9B%E5%BA%AB%E5%85%A8%E6%9B%B8%E7%AC%AC1061%E5%86%8A.pdf'
+          U62='https://commons.wikimedia.org/wiki/Special:Redirect/file/%E7%BA%8C%E4%BF%AE%E5%9B%9B%E5%BA%AB%E5%85%A8%E6%9B%B8%E7%AC%AC1062%E5%86%8A.pdf'
+          curl -L --fail --retry 3 --retry-delay 2 -A 'Tianwen-Provenance-Audit/1.0' "$U61" -o "$ROOT/1061.pdf"
+          curl -L --fail --retry 3 --retry-delay 2 -A 'Tianwen-Provenance-Audit/1.0' "$U62" -o "$ROOT/1062.pdf"
+          sha256sum "$ROOT"/106*.pdf | sort -V | tee "$ROOT/source.sha256"
+
+          # 1061: published citation anchors front collection v4 around p767;
+          # inspect late leaves for front-v5 transition and damaged ending.
+          for p in 758 759 760 761 762 763 764 765 766 767 768 769 770 800 810 820 825 830 831 832 833 834 840 846; do
+            pdftoppm -f "$p" -l "$p" -singlefile -png -r 320 "$ROOT/1061.pdf" "$ROOT/1061/page-$p"
+          done
+
+          # 1062: low-res locator shows strong section changes around p66,
+          # a title leaf at p119, another title-like leaf at p167, and a
+          # blank/book boundary at p209 followed by next title at p210.
+          for p in 63 64 65 66 67 68 69 70 88 89 90 91 92 93 94 95 104 105 106 107 108 109 110 117 118 119 120 121 164 165 166 167 168 169 170 204 205 206 207 208 209 210; do
+            pdftoppm -f "$p" -l "$p" -singlefile -png -r 320 "$ROOT/1062.pdf" "$ROOT/1062/page-$p"
+          done
+
+          sha256sum "$ROOT"/1061/*.png "$ROOT"/1062/*.png | sort -V | tee "$ROOT/pages.sha256"
+
+          printf '%s\n' \
+            'SOURCE=續修四庫全書第1061-1062冊' \
+            'PURPOSE=high-resolution physical boundary mapping for 新刊陰陽寶鑑克擇通書前集五卷後集五卷' \
+            '1061_TARGETS=p758-770 selected; p800,p810,p820,p825,p830-834,p840,p846' \
+            '1062_TARGETS=p63-70,p88-95,p104-110,p117-121,p164-170,p204-210' \
+            'KNOWN_LOWRES_CONTROL=1062 p209 blank separator; p210 next title/layout' \
+            'DATE_FIREWALL=do not resolve 元刻本 vs 明初 catalog conflict from Xuxiu label alone' \
+            'RENDER_DPI=320' \
+            'OCR_USED_FOR_FINAL_GLYPH_CLAIMS=false' \
+            > "$ROOT/manifest.txt"
+
+          rm "$ROOT/1061.pdf" "$ROOT/1062.pdf"
+
+      - name: Upload selected high-resolution pages
+        uses: actions/upload-artifact@v4
+        with:
+          name: xuxiu-yinyang-baojian-volume-boundaries-highres
+          path: audit/xuxiu-yinyang-baojian-volume-boundaries-highres
+          if-no-files-found: error
+          retention-days: 30

@@ -1,0 +1,79 @@
+{
+  "schema": "COMBINED-FACT-COMPUTATION-VIEW-MANIFEST-HASH-AUDIT-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-COMBINED-FACT-COMPUTATION-VIEW-MANIFEST-HASH-AUDIT-NP",
+  "prior_batch_id": "BATCH-12-COMBINED-RESOLVED-PROFILE-RULE-ALGORITHM-LINEAGE-AUDIT-NO",
+  "rule_id": "HPA-COMB-008",
+  "audit_status": "MODERN_COMPATIBILITY_ONLY",
+  "algorithm_reopen_authorized": false,
+  "runtime_hash_domains": {
+    "shared_time_realization_hash": "ONE_PHYSICAL_REALIZATION_PAYLOAD",
+    "shared_time_fact_hash": "SHARED_INPUT_AND_RESOLUTION_FACTS",
+    "shared_time_computation_hash": "SHARED_FACTS_PLUS_POLICY_SNAPSHOT",
+    "candidate_lineage_hash": "BRANCH_TO_SUBSYSTEM_CANDIDATE_IDENTITY_MAPPING",
+    "combined_manifest_hash": "COMBINED_PROFILE_SHARED_CREDENTIAL_CANDIDATE_LINEAGE_SUBSYSTEM_BUNDLE_COMPOSITION",
+    "target_flow_source_fact_hash": "UPSTREAM_RELEASED_FACT_IDENTITIES",
+    "target_flow_view_hash": "RENDERER_NEUTRAL_TARGET_STATUS_VIEW_IDENTITIES",
+    "target_flow_bundle_hash": "SOURCE_VIEW_PLUS_COMPUTATION_PROFILE_ALGORITHM_IDENTITY"
+  },
+  "integrity_boundary": {
+    "structural_integrity_proves_local_payload_hash_consistency": true,
+    "structural_integrity_alone_proves_upstream_authenticity": false,
+    "full_replay_recomputes_released_objects": true,
+    "full_replay_rejects_self_consistently_rehashed_tampering": true,
+    "hash_identity_is_historical_authority": false
+  },
+  "historical_evidence_checksum_boundary": {
+    "external_source_registry_contains_digital_object_checksums": true,
+    "checksum_can_identify_reviewed_bytes_or_artifact": true,
+    "checksum_alone_proves_work_date": false,
+    "checksum_alone_proves_physical_copy_date": false,
+    "checksum_alone_proves_authorship": false,
+    "checksum_alone_proves_direct_transmission": false,
+    "checksum_alone_proves_school_authority": false,
+    "checksum_alone_proves_rule_correctness": false,
+    "edition_catalog_identity_kept_in_historical_evidence_namespace": true,
+    "connection_model": "EXPLICIT_AUDIT_CROSS_REFERENCE_NOT_RUNTIME_HASH_NAMESPACE_MERGER"
+  },
+  "provenance_repairs": [
+    {
+      "defect_id": "PROV-DEFECT-035",
+      "defect": "HPA_COMB_008_PENDING_SOURCE_SCOPE_AND_ACTION_AMBIGUOUSLY_MIXED_RUNTIME_HASH_DOMAINS_WITH_HISTORICAL_EVIDENCE_CHECKSUMS",
+      "repair": "Replace pending/non-specific source binding with explicit shared-time/manifest/target-flow/full-replay contracts and constrain bibliographic/page/file checksums to historical evidence-object provenance cross-referenced from audited rules.",
+      "runtime_effect": false,
+      "schema_effect": false,
+      "hash_algorithm_effect": false,
+      "hash_payload_effect": false,
+      "rule_effect": false,
+      "candidate_effect": false,
+      "chart_algorithm_effect": false
+    }
+  ],
+  "matrix_closure": {
+    "rows": 220,
+    "audited_rows_before": 219,
+    "audited_rows_after": 220,
+    "all_existing_rows_audited": true,
+    "current_missing_from_product_rows": 10,
+    "next_reconciliation_required": true
+  },
+  "evidence": "docs/research/evidence/batch-12np/combined-fact-computation-view-manifest-hashes.json",
+  "accounting": {
+    "provenance_defects_confirmed_before": 34,
+    "provenance_defects_confirmed_after": 35,
+    "provenance_defects_repaired_before": 34,
+    "provenance_defects_repaired_after": 35,
+    "chart_algorithm_defects": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0,
+    "new_provenance_defects": 1
+  },
+  "transmission_impact": {
+    "status": "NONE",
+    "reason": "This batch clarifies modern integrity-hash and historical evidence-checksum namespaces and creates no historical text/person/school transmission edge."
+  },
+  "next_gate": [
+    "12NQ: reconcile all 10 current MISSING_FROM_PRODUCT rows against the live runtime/product surfaces after the 220/220 audit pass.",
+    "Start with HPA-ZT-015 because later Zhongzhou leap-month candidate productization may make the old Matrix product-gap status stale."
+  ]
+}

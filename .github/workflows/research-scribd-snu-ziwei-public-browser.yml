@@ -1,0 +1,165 @@
+name: research-scribd-snu-ziwei-public-browser
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-scribd-snu-ziwei-public-browser.yml
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Install Selenium
+        run: python -m pip install --disable-pip-version-check selenium
+
+      - name: Observe only the unauthenticated public viewer
+        shell: python
+        run: |
+          import hashlib
+          import json
+          import time
+          import urllib.parse
+          from pathlib import Path
+
+          from selenium import webdriver
+          from selenium.webdriver.chrome.options import Options
+
+          OUT = Path("probe")
+          OUT.mkdir()
+          URL = "https://www.scribd.com/document/843784721/"
+
+          options = Options()
+          options.add_argument("--headless=new")
+          options.add_argument("--no-sandbox")
+          options.add_argument("--disable-dev-shm-usage")
+          options.add_argument("--disable-gpu")
+          options.add_argument("--window-size=1600,2000")
+          options.add_argument("--lang=en")
+          options.set_capability("goog:loggingPrefs", {"performance": "ALL"})
+
+          result = {
+              "schema": "SCRIBD-SNU-ZIWEI-UNAUTHENTICATED-PUBLIC-BROWSER-R1",
+              "url": URL,
+              "authentication_attempted": False,
+              "login_interaction_attempted": False,
+              "download_interaction_attempted": False,
+              "paywall_bypass_attempted": False,
+              "hidden_api_invocation_attempted": False,
+              "scrolling_public_document_only": True,
+              "screenshots": [],
+              "network_assets": [],
+          }
+
+          driver = webdriver.Chrome(options=options)
+          try:
+              driver.set_page_load_timeout(90)
+              driver.get(URL)
+              time.sleep(8)
+              result["initial_url"] = driver.current_url
+              result["initial_title"] = driver.title
+              driver.save_screenshot(str(OUT / "scribd-initial.png"))
+              result["screenshots"].append("scribd-initial.png")
+
+              # Public-page scrolling only. No clicks, login, download, or script calls into app internals.
+              scroll_states = []
+              for idx in range(14):
+                  state = driver.execute_script(
+                      "return {y: window.scrollY, h: document.documentElement.scrollHeight, "
+                      "vh: window.innerHeight, text: document.body.innerText.slice(0,20000)};"
+                  )
+                  scroll_states.append({
+                      "index": idx,
+                      "y": state.get("y"),
+                      "height": state.get("h"),
+                      "viewport": state.get("vh"),
+                      "snu_label": "서울대학교 규장각" in (state.get("text") or ""),
+                      "title_label": "飛星策天紫微斗數全集" in (state.get("text") or ""),
+                      "page_0035_label": "0035" in (state.get("text") or ""),
+                  })
+                  driver.execute_script(
+                      "window.scrollBy(0, Math.max(window.innerHeight*1.6, 1800));"
+                  )
+                  time.sleep(1.2)
+
+              driver.save_screenshot(str(OUT / "scribd-after-scroll.png"))
+              result["screenshots"].append("scribd-after-scroll.png")
+              result["scroll_states"] = scroll_states
+              result["final_url"] = driver.current_url
+              result["body_text_excerpt"] = driver.find_element("tag name", "body").text[:30000]
+              source = driver.page_source
+              (OUT / "scribd-rendered.html").write_text(source, encoding="utf-8")
+              result["rendered_html_bytes"] = len(source.encode("utf-8"))
+              result["rendered_html_sha256"] = hashlib.sha256(source.encode("utf-8")).hexdigest()
+
+              observed = []
+              seen = set()
+              for entry in driver.get_log("performance"):
+                  try:
+                      msg = json.loads(entry["message"])["message"]
+                  except Exception:
+                      continue
+                  if msg.get("method") != "Network.responseReceived":
+                      continue
+                  resp = msg.get("params", {}).get("response", {})
+                  url = resp.get("url", "")
+                  mime = resp.get("mimeType", "")
+                  if not url or url in seen:
+                      continue
+                  host = urllib.parse.urlsplit(url).netloc.lower()
+                  if (
+                      "scribdassets.com" not in host
+                      and "scribd.com" not in host
+                  ):
+                      continue
+                  seen.add(url)
+                  observed.append({
+                      "url": url,
+                      "status": resp.get("status"),
+                      "mime_type": mime,
+                      "from_disk_cache": resp.get("fromDiskCache"),
+                  })
+              result["network_assets"] = observed
+              result["adjudication"] = {
+                  "public_viewer_loaded": bool(result.get("initial_title")),
+                  "snu_label_observed_in_public_dom": "서울대학교 규장각" in result["body_text_excerpt"],
+                  "title_observed_in_public_dom": "飛星策天紫微斗數全集" in result["body_text_excerpt"],
+                  "page_0035_observed_in_public_dom": "0035" in result["body_text_excerpt"],
+                  "public_image_response_count": sum(
+                      1 for x in observed if (x.get("mime_type") or "").startswith("image/")
+                  ),
+                  "next_gate": "DIRECT_VISUAL_REVIEW_OF_PUBLIC_SCREENSHOTS_AND_ONLY_ALREADY_LOADED_IMAGE_RESPONSES",
+              }
+          finally:
+              driver.quit()
+
+          (OUT / "scribd-public-browser.json").write_text(
+              json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8"
+          )
+          print(json.dumps({
+              "initial_url": result.get("initial_url"),
+              "initial_title": result.get("initial_title"),
+              "scroll_states": result.get("scroll_states"),
+              "body_text_excerpt": result.get("body_text_excerpt", "")[:12000],
+              "network_asset_count": len(result.get("network_assets", [])),
+              "image_assets": [
+                  x for x in result.get("network_assets", [])
+                  if (x.get("mime_type") or "").startswith("image/")
+              ][:100],
+              "adjudication": result.get("adjudication"),
+          }, ensure_ascii=False, indent=2))
+
+      - name: Upload unauthenticated public-viewer evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: scribd-snu-ziwei-public-browser
+          path: probe/
+          if-no-files-found: warn
+          retention-days: 14

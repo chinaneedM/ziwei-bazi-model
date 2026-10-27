@@ -1,0 +1,94 @@
+{
+  "schema": "ZIWEI-GUOSHI1602-ZHUNZHAI-SUNFENGJI-DIRECT-AUTHOR-TITLE-BINDING-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-GUOSHI1602-ZHUNZHAI-SUNFENGJI-DIRECT-AUTHOR-TITLE-BINDING-EU",
+  "prior_batch_id": "BATCH-12-ZIWEI-LEIBIAN1551-ZHUNZHAI-MULTIPOINT-AND-CORRUPTION-REPLAY-ET",
+  "question": "Does a source-bound early bibliographic witness directly pair the Zhunzhai clepsydra title with the author name 孫逢吉, and what does that prove about the proposed Yuan Yanling Sun Fengji identity?",
+  "answer": "YES AT THE MING 1602 BIBLIOGRAPHIC LAYER ONLY. DIRECT NO-OCR REVIEW OF THE WANLI-30 ORIGINAL-PRINT WITNESS PDF P19 READS 準齋几漏圖式一卷 AND THE SMALL AUTHOR ANNOTATION 孫逢吉 IN THE SAME ENTRY. THIS CLOSES A 1602 TITLE-AUTHOR ATTRIBUTION, NOT THE EXACT IDENTITY OF THE AUTHOR WITH THE 1281 YANLING SUN FENGJI, NOT THE WORK'S COMPOSITION DATE, NOT PRE-1578 25-ARROW PROSE, AND NOT SANMING PARENTAGE.",
+  "source_binding": {
+    "source_id": "EXT-NCL-GUOSHI-JINGJIZHI-WANLI30-1602-V3-ZHUNZHAI-AUTHOR",
+    "source_file": "NCL-04980 03 國史經籍志.pdf",
+    "catalog_scope": "明萬曆壬寅（三十年，1602）原刊本",
+    "provider": "國家圖書館（Taiwan NCL）digitization via Wikimedia Commons",
+    "source_url": "https://commons.wikimedia.org/wiki/File:NCL-04980_03_%E5%9C%8B%E5%8F%B2%E7%B6%93%E7%B1%8D%E5%BF%97.pdf",
+    "source_pdf_sha256": "cc40a6517e748707a5af77535e073a11450da986cb7add0528916178d4e6bdd2",
+    "pdf_page": 19,
+    "full_render_sha256": "b0069785c581a37dafe2ab84799e4f60bfb36b79decd935632e72f60339b6a04",
+    "target_band_b_sha256": "3e7e665942c1b634d0d2fb8ee7dd44e440f9bb29df15ee2602bf5d6c60715625",
+    "render_size": [
+      10869,
+      8982
+    ],
+    "workflow_run_id": 35732165452,
+    "workflow_artifact_id": 10696230809,
+    "workflow_artifact_digest": "sha256:f1fc82267322bd77405d246249a95849df892845e6e4ec270ccac880148f9458",
+    "ocr_used_for_final_glyph_claims": false
+  },
+  "direct_physical_reading": {
+    "title_entry": "準齋几漏圖式一卷",
+    "attributed_author": "孫逢吉",
+    "same_entry_pairing": true,
+    "adjacent_layout_control": "燕几圖一卷 / 黃伯思 uses the same small-author-annotation layout immediately beside the target entry",
+    "adjudication": "MING_1602_ORIGINAL_PRINT_TITLE_AUTHOR_ATTRIBUTION_CLOSED"
+  },
+  "chronology_and_identity_firewall": {
+    "physical_bibliographic_attestation_year": 1602,
+    "pre1578_exact_25arrow_rule_text_attested": false,
+    "work_composition_date_proved_by_1602_catalog_entry": false,
+    "exact_identity_with_yuan_1281_yanling_sun_fengji": "POSSIBLE_NOT_PROVED",
+    "reason": "The 1602 original print physically pairs the work title with 孫逢吉, while Fang Hui's received Yuan passage names a Yanling Sun Fengji with astronomy/clepsydra interests but does not name this work. A direct person-title bridge in a Yuan or otherwise identity-closing witness is still absent."
+  },
+  "relationship_to_prior_witnesses": {
+    "wenyuange_1441_title_family": "PRE1578_TITLE_FAMILY_ANTECEDENT_CLOSED_BUT_NO_AUTHOR_OR_25ARROW_PROSE_IMPUTED",
+    "zhunzhai_1823_operational_text": "DIRECT_25ARROW_RULE_WITNESS_WITH_QING_COPY_DATE_FIREWALL",
+    "leibian_1551_shoushi_bridge": "SHARED_SHOUSHI_FINE_TABLE_SOURCE_FAMILY_STRONGLY_SUPPORTED",
+    "new_1602_contribution": "DIRECT_TITLE_AUTHOR_BIBLIOGRAPHIC_PAIRING"
+  },
+  "sanming_firewall": {
+    "exact_sanming_yueling_dahan_yushui_fingerprint_closed": false,
+    "exact_nanjing_59_endpoint_binding_closed": false,
+    "direct_sanming_parent_vote_increment": 0
+  },
+  "adjudication": {
+    "matrix_count_change": false,
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "deterministic_fusion_chart_product_r1": "CLOSED"
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 12,
+    "repaired_provenance_metadata_defect_count": 12,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "transmission_impact": {
+    "nodes_added": [
+      "PHYSICAL-COPY-NCL-GUOSHI-JINGJIZHI-WANLI30-1602-V3",
+      "PASSAGE-GUOSHI1602-ZHUNZHAI-SUNFENGJI-ENTRY"
+    ],
+    "nodes_strengthened": [
+      "RULE-FAMILY-ZHUNZHAI-25ARROW-JIEHOU-SELECTION-38-62"
+    ],
+    "edges_supported": [
+      "TG-E0098"
+    ],
+    "edges_revised": [],
+    "edges_rejected": [],
+    "remaining_lineage_questions": [
+      "Is the 1602 bibliographic author 孫逢吉 exactly the Yanling Sun Fengji named by Fang Hui in the Yuan passage?",
+      "Can a pre-1578 physical witness directly pair a Zhunzhai title with 孫逢吉?",
+      "Can a securely pre-1578 witness preserve the exact 25-arrow / winter-forward / summer-reverse / 日曆節候 prose?"
+    ]
+  },
+  "next_gate": [
+    "Continue the direct physical 內閣書目 author-line search and other pre-1578 bibliographic witnesses without using OCR as final glyph authority.",
+    "Seek a Yuan or otherwise identity-closing primary person-title bridge between Yanling Sun Fengji and the Zhunzhai work.",
+    "Continue the securely pre-1578 exact 25-arrow prose search.",
+    "Keep the independent exact Sanming/Yueling Dahan/Rainwater fingerprint and Nanjing-59 searches active."
+  ]
+}

@@ -1,0 +1,134 @@
+{
+  "schema": "ZIWEI-R5-BORROW-RESOLVED-SANFANG-COMPOSITION-AUDIT-R1",
+  "batch_id": "BATCH-12-ZIWEI-R5-BORROW-RESOLVED-SANFANG-COMPOSITION-AUDIT-MU",
+  "prior_batch_id": "BATCH-12-ZIWEI-R3-BORROW-PROJECTION-SCHOOL-MECHANICS-AND-MODERN-CLOSURE-AUDIT-MT",
+  "parent_rule_id": "HPA-STRUCT-005",
+  "audit_scope": "MODERN_REFERENCE_COMPOSITION_WITHOUT_CERTIFYING_UPSTREAM_R4_HISTORICAL_AUTHORITY",
+  "adjudication": {
+    "status": "MODERN_COMPATIBILITY_ONLY",
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "r4_historical_authority_certified": false,
+    "classical_unified_composition_doctrine_claimed": false
+  },
+  "source_scope": {
+    "modern_contract": "docs/ZIWEI-STRUCTURAL-RUNTIME-V2-R5.md",
+    "r3_audit": "docs/research/ZIWEI-R3-BORROW-PROJECTION-AUDIT-R1.json",
+    "r4_rule_id": "HPA-STRUCT-004",
+    "r4_formally_audited_at_batch_start": false,
+    "r4_pending_items": [
+      "verbatim source text",
+      "dating/version",
+      "external attribution"
+    ],
+    "new_historical_witness_count": 0
+  },
+  "runtime_contract": {
+    "evaluation_origins": 12,
+    "member_offsets": [
+      0,
+      4,
+      6,
+      8
+    ],
+    "frame_count": 12,
+    "member_reference_count": 48,
+    "active_time_layer": "NATAL",
+    "physical_payload_duplicated": false,
+    "second_borrow_pass": false,
+    "new_evidence_cause": false,
+    "identity_domains": [
+      "R3 structure_physical_key",
+      "R4 axis_key/group_key"
+    ],
+    "same_r2_fact_and_computation_hash_binding": true,
+    "upstream_hashes_recomputed_from_stored_facts": true,
+    "fresh_birth_input_to_upstream_oracle_replay_performed_by_r5": false,
+    "upstream_source_refs": "Inherited through R3/R4 computation lineage; no invented per-reference source-root atom links."
+  },
+  "runtime_files": [
+    {
+      "path": "src/fortune_training/ziwei_structural/r5/composition.py",
+      "blob_sha": "e33fa7bfbe780a993ec51e35b09ab0f0779c5197",
+      "unchanged_from_base": true
+    },
+    {
+      "path": "src/fortune_training/ziwei_structural/r5/engine.py",
+      "blob_sha": "7b346784a532c01cb4e21729d65891bf0f127dd9",
+      "unchanged_from_base": true
+    },
+    {
+      "path": "src/fortune_training/ziwei_structural/r5/profile.py",
+      "blob_sha": "2a63eae9e6bd4bb696442ba68e9a45a0fb572791",
+      "unchanged_from_base": true
+    },
+    {
+      "path": "src/fortune_training/ziwei_structural/r5/models.py",
+      "blob_sha": "8886cc530ef21cb7d45634cca37cecbc5da629a7",
+      "unchanged_from_base": true
+    },
+    {
+      "path": "src/fortune_training/ziwei_structural/r5/integrity.py",
+      "blob_sha": "4b401e0caef5da6837516113b0c38cc1acbbab0f",
+      "unchanged_from_base": true
+    },
+    {
+      "path": "schemas/ziwei-resolved-structural-view-v2-r5.schema.json",
+      "blob_sha": "eba0e3e759a65b6112befc76343b9a3455ea59ed",
+      "unchanged_from_base": true
+    },
+    {
+      "path": "docs/ZIWEI-STRUCTURAL-RUNTIME-V2-R5.md",
+      "blob_sha": "bea72f525127802f7d8af6e351ef5071026bf7a9",
+      "unchanged_from_base": true
+    }
+  ],
+  "replay_evidence": "docs/research/evidence/batch-12mu/composition-replay.json",
+  "accounting": {
+    "rows_before": 210,
+    "rows_after": 210,
+    "audited_rows_before": 189,
+    "audited_rows_after": 190,
+    "current_missing_from_product_rows": 10,
+    "provenance_defects_confirmed": 18,
+    "provenance_defects_repaired": 18,
+    "chart_algorithm_defects": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0
+  },
+  "ci_repair": {
+    "startup_run_id": 37223018133,
+    "failed_test": "test_accounting_separates_cumulative_discovery_from_current_gap_rows",
+    "stale_school_specific_count": 18,
+    "actual_school_specific_count_after_12mt": 21,
+    "repair": "reconcile actual Matrix rows with status inventory; do not rewrite historical batch snapshots",
+    "runtime_change": false
+  },
+  "transmission_impact": {
+    "status": "NONE",
+    "reason": "Engineering reference composition adds no new historical witness or ancestry edge; upstream source authority remains separately scoped."
+  },
+  "next_gate": [
+    "12MV: audit HPA-ZIWEI-011 博士/将前/岁前三环 as the remaining IMPLEMENTATION_REVIEW_REQUIRED row. Separate the three rings, anchors, directions, time layers and coverage of earlier audits; after that, prioritize unaudited HPA-STRUCT-004 historical source/terminology/dating gaps rather than treating its inventory status as closure.",
+    "Original Wenwu1951 recovery remains PAUSED_ACCESS_UNRESOLVED_PENDING_MATERIALLY_NEW_ROUTE; direct 1951 pp.221–233, 2011 Wenji p.197 and Wenhui1951-08-18 remain NOT_REVIEWED."
+  ],
+  "verification": {
+    "r5_focused_test_count": 16,
+    "matrix_regression_test_count": 38,
+    "stale_count_regression_test_count": 5,
+    "new_test_count": 3,
+    "focused_tests_status": "PASS",
+    "gates_passed": [
+      "project continuity",
+      "historical provenance matrix",
+      "transmission genealogy",
+      "deterministic product",
+      "capability/performance",
+      "credential persistence",
+      "fortune-train verify",
+      "workbench smoke",
+      "workbench HTTP smoke"
+    ],
+    "exact_head_ci_policy": "Inspect live CI after fast-forward publication; do not infer success from startup HEAD."
+  }
+}

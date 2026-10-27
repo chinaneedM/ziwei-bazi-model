@@ -1,0 +1,61 @@
+{
+  "schema": "MODEL-RUNTIME-GOVERNANCE-V1",
+  "authority": "AUTOMATED_TRAINING_MAINTENANCE",
+  "canonical_sources_mutated": false,
+  "suppressed_rules": [
+    {
+      "rule_id": "RULE-BENEFIC-MALEFIC-NONBINARY-TERMINAL",
+      "replaced_by": "RULE-BENEFIC-MITIGATION-NONCANCELLATION",
+      "reason": "The newer rule preserves the event mechanism while separating beneficial mitigation from the outcome, covering the older non-binary terminal distinction more precisely.",
+      "applied_in_maintenance": "MAINTENANCE-001"
+    },
+    {
+      "rule_id": "RULE-CAREER-CORE-OBJECT-INSTITUTION-PRIORITY",
+      "replaced_by": "RULE-CAREER-SERVICE-OBJECT-OVERRIDES-TRANSFERABLE-FUNCTION",
+      "reason": "The newer rule keeps the object and institution test while adding transferable-function separation and a stricter decision procedure.",
+      "applied_in_maintenance": "MAINTENANCE-001"
+    },
+    {
+      "rule_id": "RULE-CAREER-SPECIFICITY-CLOSURE",
+      "replaced_by": "RULE-CAREER-SERVICE-OBJECT-OVERRIDES-TRANSFERABLE-FUNCTION",
+      "reason": "The newer rule operationalizes career specificity through service object, institution, qualification, and income endpoints.",
+      "applied_in_maintenance": "MAINTENANCE-001"
+    },
+    {
+      "rule_id": "RULE-FAMILY-COMPOSITE-MULTIAXIS-ANCHOR",
+      "replaced_by": "RULE-COMPOSITE-FAMILY-ROLE-CAUSAL-INDEPENDENCE",
+      "reason": "The newer family rule retains multi-axis atomization and adds independent closure for role, absence cause, substitute carer, health, migration, and endpoint.",
+      "applied_in_maintenance": "MAINTENANCE-001"
+    },
+    {
+      "rule_id": "RULE-OCCUPATION-METHOD-SERVICE-OBJECT-SEPARATION",
+      "replaced_by": "RULE-CAREER-SERVICE-OBJECT-OVERRIDES-TRANSFERABLE-FUNCTION",
+      "reason": "The newer rule supersedes the same method-versus-service-object distinction with explicit institution, qualification, timing, and income checks.",
+      "applied_in_maintenance": "MAINTENANCE-001"
+    },
+    {
+      "rule_id": "RULE-RELATIONSHIP-ACTIVATION-NONCOMPLETION-BASELINE",
+      "replaced_by": "RULE-RELATIONSHIP-COMPLEXITY-ADDITIVE-EVIDENCE",
+      "reason": "The newer rule retains activation-versus-completion separation and extends it into an auditable relationship-complexity ladder.",
+      "applied_in_maintenance": "MAINTENANCE-001"
+    },
+    {
+      "rule_id": "RULE-RELATIONSHIP-CAPACITY-CURRENT-STATUS-SEPARATION",
+      "replaced_by": "RULE-RELATIONSHIP-COMPLEXITY-ADDITIVE-EVIDENCE",
+      "reason": "The newer rule includes capacity-versus-current-status separation and requires independent evidence for each additional relationship stage.",
+      "applied_in_maintenance": "MAINTENANCE-001"
+    },
+    {
+      "rule_id": "RULE-RELATIONSHIP-MULTISTAGE-SEQUENCE-BURDEN",
+      "replaced_by": "RULE-RELATIONSHIP-COMPLEXITY-ADDITIVE-EVIDENCE",
+      "reason": "The newer rule preserves the multistage burden and adds a concrete rollback procedure when a stage lacks evidence.",
+      "applied_in_maintenance": "MAINTENANCE-001"
+    },
+    {
+      "rule_id": "RULE-YEAR-EVENT-MECHANISM-OUTCOME-SEPARATION",
+      "replaced_by": "RULE-BENEFIC-MITIGATION-NONCANCELLATION",
+      "reason": "The newer rule keeps mechanism-versus-outcome separation and directly prevents beneficial signals from cancelling an otherwise complete event mechanism.",
+      "applied_in_maintenance": "MAINTENANCE-001"
+    }
+  ]
+}

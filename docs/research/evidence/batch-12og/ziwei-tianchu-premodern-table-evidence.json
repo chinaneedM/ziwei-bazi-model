@@ -1,0 +1,87 @@
+{
+  "schema": "ZIWEI-TIANCHU-PREMODERN-TABLE-EVIDENCE-R1",
+  "batch_id": "BATCH-12-ZIWEI-TIANCHU-PREMODERN-TABLE-AND-SOURCE-BOUNDARY-OG",
+  "exact_table_comparison": [
+    [
+      "甲",
+      "巳",
+      "巳",
+      true
+    ],
+    [
+      "乙",
+      "午",
+      "午",
+      true
+    ],
+    [
+      "丙",
+      "子",
+      "子",
+      true
+    ],
+    [
+      "丁",
+      "巳",
+      "巳",
+      true
+    ],
+    [
+      "戊",
+      "午",
+      "午",
+      true
+    ],
+    [
+      "己",
+      "申",
+      "申",
+      true
+    ],
+    [
+      "庚",
+      "寅",
+      "寅",
+      true
+    ],
+    [
+      "辛",
+      "午",
+      "午",
+      true
+    ],
+    [
+      "壬",
+      "酉",
+      "酉",
+      true
+    ],
+    [
+      "癸",
+      "亥",
+      "亥",
+      true
+    ]
+  ],
+  "exact_match_count": 10,
+  "exact_mismatch_count": 0,
+  "source_refs": [
+    "EXT-WIKISOURCE-XINGXUE-DACHENG-TIANCHU",
+    "S01:ZZZA-PR-023",
+    "src/fortune_training/ziwei_chart/minor_stars.py:TIANCHU_BY_STEM"
+  ],
+  "source_domain_boundary": {
+    "xingxue_dacheng_domain": "PREMODERN_ASTROLOGICAL_STAR_METHOD / NOT_ZIWEI-SPECIFIC",
+    "runtime_domain": "MODERN_ZIWEI_NATAL_MINOR_STAR",
+    "same_name": true,
+    "same_input_dimension": "BIRTH_YEAR_HEAVENLY_STEM",
+    "same_10_of_10_geometry": true,
+    "direct_ziwei_adoption_chain": false
+  },
+  "phantom_variant_boundary": {
+    "fullbook_variant_verbatim_text_bound": false,
+    "fullbook_variant_locator_bound": false,
+    "fullbook_variant_table_bound": false,
+    "do_not_preserve_as_candidate_without_source": true
+  }
+}

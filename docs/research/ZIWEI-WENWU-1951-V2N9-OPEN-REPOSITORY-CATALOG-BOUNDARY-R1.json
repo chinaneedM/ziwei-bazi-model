@@ -1,0 +1,130 @@
+{
+  "schema": "ZIWEI-WENWU-1951-V2N9-OPEN-REPOSITORY-CATALOG-BOUNDARY-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-WENWU-1951-V2N9-OPEN-REPOSITORY-CATALOG-BOUNDARY-IT",
+  "prior_batch_id": "BATCH-12-ZIWEI-NDL-WENWU-CANKAO-1951-H2-DIGITAL-PROVIDER-BOUNDARY-IS",
+  "question": "Do mainstream public/open digital-repository catalog routes expose an exact lawful object for 《文物参考资料》1951年第9期, wwck195109.pdf, or Zhao Wanli's target article?",
+  "answer": "No exact object is recovered from the calibrated current open-catalog routes, but two routes remain unadjudicated. Internet Archive Advanced Search returns zero for exact serial-title/year, exact filename wwck195109.pdf, and the target article title. Open Library title/year search returns zero. Wikimedia Commons and Chinese Wikisource search return zero. Google Books returns HTTP 429 quota exceeded, so it has no negative authority. HathiTrust's tested catalog export route returns HTTP 403, likewise with no negative authority. No fulltext or commercial download was invoked. Therefore this batch closes only the tested Internet Archive/Open Library/Wikimedia discovery surfaces; it does not prove global absence, and wwck195109.pdf remains a filename/size locator without recovered bytes, hash, provenance, or lawful open-object identity.",
+  "controlling_probe": {
+    "commit_sha": "68a17473639df1ae44f1d27c3ff48c7263fe2782",
+    "workflow_run_id": 36728284207,
+    "workflow_job_id": 109930767045,
+    "artifact_id": 11103188636,
+    "artifact_digest": "sha256:8eb5b65274080e6f37a410f0f15d1b9cd2ca4d8ab474d419a80b2e57cedb97a1"
+  },
+  "route_results": {
+    "internet_archive": {
+      "exact_serial_title_year": {
+        "status": 200,
+        "num_found": 0
+      },
+      "exact_filename": {
+        "status": 200,
+        "num_found": 0,
+        "filename": "wwck195109.pdf"
+      },
+      "exact_article_title": {
+        "status": 200,
+        "num_found": 0
+      },
+      "negative_scope": "CURRENT_ADVANCEDSEARCH_METADATA_QUERIES_ONLY"
+    },
+    "open_library": {
+      "serial_title_year": {
+        "status": 200,
+        "num_found": 0
+      },
+      "negative_scope": "CURRENT_SEARCH_JSON_TITLE_YEAR_QUERY_ONLY"
+    },
+    "wikimedia_commons": {
+      "filename_or_serial_search": {
+        "status": 200,
+        "result_count": 0
+      },
+      "negative_scope": "CURRENT_COMMONS_FILE_NAMESPACE_SEARCH_ONLY"
+    },
+    "chinese_wikisource": {
+      "article_or_serial_search": {
+        "status": 200,
+        "result_count": 0
+      },
+      "negative_scope": "CURRENT_WIKISOURCE_SEARCH_ONLY"
+    },
+    "google_books": {
+      "status": 429,
+      "result_adjudication": "UNRESOLVED_RATE_LIMITED",
+      "negative_authority": false
+    },
+    "hathitrust": {
+      "status": 403,
+      "result_adjudication": "UNRESOLVED_ACCESS_BOUNDARY",
+      "negative_authority": false
+    }
+  },
+  "target_object_status": {
+    "filename": "wwck195109.pdf",
+    "commercial_manifest_display_size": "9.73 MB",
+    "exact_issue": "1951年第9期",
+    "target_article": "永乐大典展览的意义——一九五一年八月北京图书馆举办",
+    "target_pages": "221–233",
+    "open_object_identifier": "UNRESOLVED",
+    "bytes_recovered": false,
+    "sha256": "UNRESOLVED",
+    "page_count": "UNRESOLVED",
+    "scan_provenance": "UNRESOLVED",
+    "lawful_open_access_identity": "UNRESOLVED",
+    "direct_target_pages_reviewed": false
+  },
+  "scope_firewall": {
+    "internet_archive_global_absence_claim_authorized": false,
+    "open_library_global_absence_claim_authorized": false,
+    "wikimedia_global_absence_claim_authorized": false,
+    "google_books_negative_claim_authorized": false,
+    "hathitrust_negative_claim_authorized": false,
+    "commercial_manifest_promoted_to_open_object": false,
+    "filename_match_is_not_object_identity": true
+  },
+  "security": {
+    "login_used": false,
+    "account_action_used": false,
+    "copy_request_used": false,
+    "payment_used": false,
+    "captcha_bypass_used": false,
+    "tls_verification_disabled": false,
+    "commercial_download_invoked": false,
+    "fulltext_download_invoked": false
+  },
+  "transmission_impact": {
+    "status": "NONE",
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": []
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Do not repeat the same Internet Archive/Open Library/Wikimedia queries unless their indexes change or a new source-emitted identifier appears.",
+    "Google Books and HathiTrust remain unresolved rather than negative; retry only through a functioning public route, not by bypassing quota/access controls.",
+    "Continue institutional/open-object discovery for wwck195109.pdf or an equivalent issue-9 scan with provenance and lawful access.",
+    "Continue lawful direct/public recovery of 2011 《赵万里文集》第1卷 p.197 and direct/page-numbered Ji Shuying Chapter 9 or Chapter 10/11 evidence."
+  ],
+  "updated_at": "2026-09-30"
+}

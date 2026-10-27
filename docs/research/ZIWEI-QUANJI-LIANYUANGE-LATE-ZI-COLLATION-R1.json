@@ -1,0 +1,152 @@
+{
+  "schema": "ZIWEI-QUANJI-LIANYUANGE-LATE-ZI-COLLATION-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-QUANJI-LIANYUANGE-LATE-ZI-COLLATION-G",
+  "status": "LIANYUANGE_COLLATION_ROUTE_CLOSED_RECEIVED_QUANJI_PARALLEL_BOUND_PHYSICAL_TARGET_PAGE_NOT_OBSERVED_NO_CANDIDATE_FORMALIZATION",
+  "scope": {
+    "primary_question": "Does a distinct Ziwei Doushu Quanji lineage preserve a late-Zi upper/lower-half distinction parallel to the Fullbook ten-ke rule?",
+    "not_authorized": "Do not infer upper-half Hai-branch reclassification from Quanji wording unless a direct physical Quanji target page says so.",
+    "ocr_used": false,
+    "search_index_is_glyph_authority": false,
+    "modern_received_transcription_is_glyph_authority": false
+  },
+  "publisher_lianyuange_route": {
+    "provider": "心一堂",
+    "url": "https://publish.sunyata.hk/product/972.html",
+    "http_status": 200,
+    "html_sha256": "d1767ab0ab78f424c3866448f053655ec4eaae921cf3d897d7263794bee27f0f",
+    "lianyuange_present": true,
+    "quanji_present": true,
+    "wenchengtang_present": true,
+    "adjudication": "DIRECT_PUBLISHER_TEXT_BINDS_QING_LIANYUANGE_ZIWEI_DOUSHU_QUANJI_AS_COLLATION_BASE_FOR_JIELAN_EDITION"
+  },
+  "google_books_jielan_index": {
+    "provider": "Google Books SearchWithinVolume2",
+    "volume_id": "rZRcCwAAQBAJ",
+    "workflow_run_id": 34133129317,
+    "artifact_id": 10022892119,
+    "artifact_zip_sha256": "829e50f775e79cb796383a6985a104d570f8880eb6a3725e962a5145582b47c8",
+    "lianyuange_query": {
+      "result_counts": [
+        2,
+        2,
+        2
+      ],
+      "page_ids": [
+        "PT176",
+        "PT177"
+      ],
+      "direct_index_meaning": "PT176 names the Qing Lianyuange Ziwei Doushu Quanji as 連本斗數全集 and says differences are annotated; PT177 says missing tail matter is supplemented from the Lianyuange Quanji."
+    },
+    "quanji_query": {
+      "result_counts": [
+        4,
+        4,
+        4
+      ],
+      "page_ids": [
+        "PT175",
+        "PT176",
+        "PT177",
+        "PT205"
+      ],
+      "direct_index_meaning": "The index shows the edition explicitly quotes and labels Quanji variants elsewhere (PT205), proving the editorial layer can surface Quanji differences, but not the late-Zi target."
+    },
+    "exact_late_zi_queries": {
+      "凡論人命有稱兩時者可詳之": [
+        0,
+        0,
+        0
+      ],
+      "凡论人命有称两时者可详之": [
+        0,
+        0,
+        0
+      ],
+      "上五刻屬昨夜": [
+        0,
+        0,
+        0
+      ],
+      "上五刻属昨夜": [
+        0,
+        0,
+        0
+      ],
+      "下五刻屬今夜子": [
+        0,
+        0,
+        0
+      ],
+      "下五刻属今夜子": [
+        0,
+        0,
+        0
+      ],
+      "如今夜子即上五刻": [
+        0,
+        0,
+        0
+      ],
+      "五凶神": [
+        0,
+        0,
+        0
+      ]
+    },
+    "ten_ke_query_anomaly": {
+      "term": "子有十刻",
+      "result_counts": [
+        1,
+        1,
+        1
+      ],
+      "page_id": "PT88",
+      "snippet_contains_query_term": false,
+      "snippet_relevance": "UNRELATED_OR_INDEX_MISMATCH",
+      "positive_target_evidence_authorized": false
+    },
+    "zero_result_as_negative_textual_proof": "FORBIDDEN",
+    "physical_lianyuange_target_page_observed": false
+  },
+  "received_quanji_transcription_control": {
+    "provider": "DestinyNet",
+    "url": "https://destiny.to/ubbthreads/ubbthreads.php/ubb/printthread/Board/7/main/122653/type/thread",
+    "http_status": 200,
+    "html_sha256": "854824540cd83e226edcf355610926516640b54ec0ec809c334a8bdec7a45e66",
+    "title_present": true,
+    "section_heading": "五凶神",
+    "normalized_received_text": "凡論人命有稱兩時者可詳之，子有十刻，上五刻屬昨夜，下五刻屬今夜子。如今夜子即上五刻。",
+    "controls": {
+      "two_hour_sentence_present": true,
+      "ten_ke_present": true,
+      "upper_five_previous_night_present": true,
+      "lower_five_current_night_zi_present": true,
+      "current_night_zi_upper_five_present": true
+    },
+    "authority": "SECONDARY_RECEIVED_TRANSCRIPTION_ONLY_NOT_PHYSICAL_GLYPH_AUTHORITY"
+  },
+  "philological_adjudication": {
+    "relation_to_nanyangtang_fullbook": "PARALLEL_BUT_NOT_MECHANICALLY_IDENTICAL",
+    "shared_semantics": "Both received traditions distinguish upper/lower halves of Zi and attach them to different night/day relations.",
+    "critical_difference": "The Quanji received text says upper five belong to previous night and lower five to current-night Zi, but does not directly state that the upper half is reclassified as Hai branch.",
+    "punctuation_and_transmission_status": "UNRESOLVED_PENDING_DIRECT_PHYSICAL_LIANYUANGE_OR_OTHER_QUANJI_TARGET_PAGE",
+    "new_candidate_row_authorized": false,
+    "hpa_zdate_006_reclassification_authorized": false
+  },
+  "adjudication": {
+    "hpa_zdate_006": "MISSING_FROM_PRODUCT",
+    "hai_glyph_stability_across_physical_editions": "UNRESOLVED_PENDING_DIRECT_PHYSICAL_TARGET_PAGES",
+    "quanji_parallel_lineage_status": "RECEIVED_TRANSCRIPTION_BOUND_PHYSICAL_TARGET_PENDING",
+    "runtime_time_standard_binding": "UNRESOLVED",
+    "candidate_selection_authorized": false,
+    "candidate_formalization_authorized": false,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_authorized": false,
+    "matrix_row_count": 198,
+    "audited_row_count": 166,
+    "current_missing_from_product_rows": 10,
+    "identified_missing_candidate_families": 14,
+    "candidate_collapse_count": 0
+  }
+}

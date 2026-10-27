@@ -1,0 +1,115 @@
+{
+  "schema": "ZIWEI-NEIGE-CANGSHU1605-ZHUNZHAI-SUNFENGJI-UNKNOWN-ERA-BIBLIOGRAPHIC-CONTROL-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-NEIGE-CANGSHU1605-ZHUNZHAI-SUNFENGJI-UNKNOWN-ERA-BIBLIOGRAPHIC-CONTROL-EV",
+  "prior_batch_id": "BATCH-12-ZIWEI-GUOSHI1602-ZHUNZHAI-SUNFENGJI-DIRECT-AUTHOR-TITLE-BINDING-EU",
+  "question": "Does the Ming 1605 Inner Cabinet Library Catalog text directly pair the Zhunzhai clepsydra title with 孫逢吉 and an explicit era-unknown note, and how does that constrain later Song/Yuan attribution and title-variant handling?",
+  "answer": "YES AT THE 1605 CATALOG-TEXT LAYER. SOURCE-BOUND DIRECT IMAGE REVIEW OF NLC892-1084-204844 PDF P105 READS 準齋几漏新式一冊, FOLLOWED BY 孫逢吉著莫詳時代, WITH 皇極經世衍數四十八冊不全 AS THE NEXT ENTRY. THIS CLOSES A MING-1605 TEXTUAL BIBLIOGRAPHIC TITLE/AUTHOR/UNKNOWN-ERA CONTROL. IT DOES NOT MAKE THE REVIEWED DIGITAL/PHYSICAL COPY A 1605 ORIGINAL, DOES NOT IDENTIFY THE AUTHOR WITH THE 1281 YANLING SUN FENGJI, DOES NOT PROVE SONG OR YUAN COMPOSITION, DOES NOT COLLAPSE 九漏/几漏/圖式/新式 TITLE VARIANTS, AND DOES NOT CLOSE PRE-1578 25-ARROW PROSE OR SANMING PARENTAGE.",
+  "source_binding": {
+    "source_id": "EXT-NLC-NEIGE-CANGSHU-WANLI33-1605-V2-ZHUNZHAI-SUNFENGJI-UNKNOWN-ERA",
+    "source_file": "NLC892-1084-204844 內閣藏書目錄 第2冊.pdf",
+    "work": "《內閣藏書目錄》八卷",
+    "compilers": "明 孫能傳、張萱等",
+    "catalog_text_compilation_event_year": 1605,
+    "provider": "National Library of China digitization via Wikimedia Commons",
+    "source_url": "https://commons.wikimedia.org/wiki/File:NLC892-1084-204844_%E5%85%A7%E9%96%A3%E8%97%8F%E6%9B%B8%E7%9B%AE%E9%8C%84_%E7%AC%AC2%E5%86%8A.pdf",
+    "source_pdf_sha256": "7d0ff9994a0a49c41e7ab287e5c355c343ffbd80573ce1aac69491b2e4639a43",
+    "pdf_page": 105,
+    "page_sha256": "b71944e1baa0c86a9801e441779b4d1f57956062f58cf35d39418e9304675db0",
+    "page_dimensions": [
+      8117,
+      6971
+    ],
+    "workflow_run_id": 35784888865,
+    "workflow_artifact_id": 10718814910,
+    "workflow_artifact_digest": "sha256:39ea2d7d7cc8612917cc4e14757e69f47cc2666cdaea0a7ecdc6d3ddb96c60a9",
+    "extraction_commit": "f014a8872a6ec7ca8ced7d8dcf3030081acf9af4",
+    "ocr_used_for_final_glyph_claims": false,
+    "reviewed_physical_copy_date": "UNRESOLVED_IN_THIS_BATCH",
+    "reviewed_copy_treated_as_1605_original": false
+  },
+  "direct_physical_reading": {
+    "title_entry": "準齋几漏新式一冊",
+    "author_and_era_annotation": "孫逢吉著莫詳時代",
+    "attributed_author": "孫逢吉",
+    "catalog_era_status": "莫詳時代",
+    "next_entry_control": "皇極經世衍數四十八冊不全",
+    "same_entry_pairing": true,
+    "adjudication": "MING_1605_CATALOG_TEXT_TITLE_AUTHOR_UNKNOWN_ERA_CONTROL_CLOSED"
+  },
+  "title_variant_firewall": {
+    "wenyuange_1441_received_catalog_title": "準齋九漏新式",
+    "neige_cangshu_1605_catalog_title": "準齋几漏新式一冊",
+    "guoshi_1602_catalog_title": "準齋几漏圖式一卷",
+    "received_1823_operational_title": "準齋心製几漏圖式",
+    "force_normalize_九_to_几": false,
+    "force_equate_新式_to_圖式": false,
+    "exact_title_state_identity_across_witnesses": "UNRESOLVED_TITLE_FAMILY_CONTINUITY_ONLY"
+  },
+  "chronology_and_identity_firewall": {
+    "catalog_text_event_year": 1605,
+    "reviewed_copy_physical_year": "UNRESOLVED",
+    "ming_catalog_explicitly_knew_author_era": false,
+    "exact_identity_with_yuan_1281_yanling_sun_fengji": "POSSIBLE_NOT_PROVED",
+    "song_attribution_closed_by_this_witness": false,
+    "yuan_attribution_closed_by_this_witness": false,
+    "pre1578_exact_25arrow_rule_text_attested": false,
+    "work_composition_date_proved": false,
+    "implication": "The 1605 catalog text itself records 孫逢吉 but says his era is unknown, so later Song/Yuan person-period assignments cannot be projected backward as if they were already settled by this Ming catalog."
+  },
+  "relationship_to_prior_witnesses": {
+    "wenyuange_1441": "Earlier title-family antecedent only; direct author/era note not imported from 1605.",
+    "guoshi_1602": "Independent nearby Ming bibliographic control at textual-witness level: 準齋几漏圖式一卷 / 孫逢吉; direct-copy direction or source dependence between the two catalogs is not proved.",
+    "zhunzhai_1823": "Operational 25-arrow received text remains the direct mechanical witness, with Qing-copy chronology firewall.",
+    "wang2014_yuan_hypothesis": "Remains strongly corroborated as a hypothesis by mechanical/Shoushi evidence, but 1605 莫詳時代 is not affirmative Yuan proof."
+  },
+  "sanming_firewall": {
+    "exact_sanming_yueling_dahan_yushui_fingerprint_closed": false,
+    "exact_nanjing_59_endpoint_binding_closed": false,
+    "direct_sanming_parent_vote_increment": 0
+  },
+  "adjudication": {
+    "matrix_count_change": false,
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "deterministic_fusion_chart_product_r1": "CLOSED"
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 12,
+    "repaired_provenance_metadata_defect_count": 12,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "transmission_impact": {
+    "nodes_added": [
+      "PHYSICAL-COPY-NLC-NEIGE-CANGSHU-NLC892-1084-204844-V2",
+      "PASSAGE-NEIGE1605-ZHUNZHAI-SUNFENGJI-UNKNOWN-ERA"
+    ],
+    "nodes_strengthened": [
+      "RULE-FAMILY-ZHUNZHAI-25ARROW-JIEHOU-SELECTION-38-62"
+    ],
+    "edges_supported": [
+      "TG-E0099",
+      "TG-E0100"
+    ],
+    "edges_revised": [],
+    "edges_rejected": [],
+    "remaining_lineage_questions": [
+      "What is the exact physical-copy date and recension identity of NLC892-1084-204844?",
+      "Is the 1605 bibliographic 孫逢吉 exactly the Yanling Sun Fengji named in Fang Hui's Yuan passage?",
+      "How are 準齋九漏新式, 準齋几漏新式, 準齋几漏圖式, and 準齋心製几漏圖式 textually related?",
+      "Can a securely pre-1578 witness preserve the exact 25-arrow / winter-forward / summer-reverse / 日曆節候 prose?"
+    ]
+  },
+  "next_gate": [
+    "Collate additional physical recensions of 《內閣藏書目錄》 and 《文淵閣書目》 to test 九/几 and 新式/圖式 title stability.",
+    "Seek a Yuan or otherwise identity-closing primary person-title bridge between Yanling Sun Fengji and the Zhunzhai work.",
+    "Continue the securely pre-1578 exact 25-arrow prose search.",
+    "Keep the independent exact Sanming/Yueling Dahan/Rainwater fingerprint and Nanjing-59 searches active."
+  ]
+}

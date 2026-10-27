@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/chinaneedM/ziwei-bazi-model/schemas/fusion-chart-field-parity-matrix-r1.schema.json",
+  "title": "Fusion Chart Field Parity Matrix R1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "version",
+    "evidence_baseline_commit",
+    "scope",
+    "status_definitions",
+    "fields"
+  ],
+  "properties": {
+    "schema": {"const": "FUSION-CHART-FIELD-PARITY-MATRIX-R1"},
+    "version": {"const": "1.0.0"},
+    "evidence_baseline_commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "scope": {"type": "string", "minLength": 1},
+    "status_definitions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ALREADY_VISIBLE",
+        "ALREADY_RELEASED_NOT_YET_VISIBLE",
+        "NOT_YET_FORMALIZED",
+        "DISPUTED_CANDIDATE_ONLY"
+      ],
+      "properties": {
+        "ALREADY_VISIBLE": {"type": "string", "minLength": 1},
+        "ALREADY_RELEASED_NOT_YET_VISIBLE": {"type": "string", "minLength": 1},
+        "NOT_YET_FORMALIZED": {"type": "string", "minLength": 1},
+        "DISPUTED_CANDIDATE_ONLY": {"type": "string", "minLength": 1}
+      }
+    },
+    "fields": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/field"}
+    }
+  },
+  "$defs": {
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "symbol", "claim"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "symbol": {"type": "string", "minLength": 1},
+        "claim": {"type": "string", "minLength": 1}
+      }
+    },
+    "field": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "field_id",
+        "system",
+        "display_name",
+        "status",
+        "priority",
+        "backend_evidence",
+        "api_evidence",
+        "workbench_evidence",
+        "compatibility_relevance",
+        "notes"
+      ],
+      "properties": {
+        "field_id": {"type": "string", "pattern": "^[A-Z0-9_]+$"},
+        "system": {"enum": ["BAZI", "ZIWEI", "SHARED"]},
+        "display_name": {"type": "string", "minLength": 1},
+        "status": {
+          "enum": [
+            "ALREADY_VISIBLE",
+            "ALREADY_RELEASED_NOT_YET_VISIBLE",
+            "NOT_YET_FORMALIZED",
+            "DISPUTED_CANDIDATE_ONLY"
+          ]
+        },
+        "priority": {"enum": ["P0", "P1", "P2", "REFERENCE"]},
+        "backend_evidence": {"$ref": "#/$defs/evidence"},
+        "api_evidence": {"$ref": "#/$defs/evidence"},
+        "workbench_evidence": {"$ref": "#/$defs/evidence"},
+        "compatibility_relevance": {"type": "string", "minLength": 1},
+        "notes": {"type": "string", "minLength": 1}
+      }
+    }
+  }
+}

@@ -1,0 +1,107 @@
+{
+  "schema": "ZIWEI-ZI-WU-SHENZHU-FIRE-BELL-EVIDENCE-CLOSURE-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-ZI-WU-SHENZHU-FIRE-BELL-EVIDENCE-CLOSURE-NW",
+  "prior_batch_id": "BATCH-12-UNRESOLVED-HISTORICAL-STATUS-PRIORITIZATION-NV",
+  "batch_classification": "POST_AUDIT_EVIDENCE_CLOSURE_NOT_SUPPLEMENTAL_RULE_AUDIT",
+  "target_rule_ids": [
+    "HPA-ZIWEI-023"
+  ],
+  "target_status_before": "SOURCE_INSUFFICIENT",
+  "target_status_after": "SOURCE_INSUFFICIENT",
+  "adjudication": "UNIQUE_FIRE_NOT_SOURCE_CLOSED_KEEP_COMPOSITE_AMBIGUITY_AND_OPERATIONAL_COMPATIBILITY_DEFAULT_SEPARATE",
+  "primary_text_controls": [
+    {
+      "source": "EXT-ZIWEI-JIELAN-1581:CH32",
+      "reading": "子午生人铃火宿；此亦看生年十二支，假如子午年生人，则火铃为身主",
+      "classification": "EARLY_EXTANT_PRINT_TRANSCRIPTION_COMPOSITE_FIRE_BELL_NO_UNIQUE_WINNER"
+    },
+    {
+      "source": "EXT-ZIWEI-QUANSHU-RECEIVED / S01:ZZQS-A-2003",
+      "reading": "子午人火玲星 / 子午人火铃星",
+      "classification": "RECEIVED_FULLBOOK_COMPOSITE_FIRE_BELL_NO_UNIQUE_WINNER"
+    }
+  ],
+  "public_research_snapshot": {
+    "retrieved_date": "2026-10-05",
+    "surfaces": [
+      {
+        "url": "https://tianjihq.com/zh-TW/learn/books/ziwei-jielan/32",
+        "authority_class": "PUBLIC_TRANSCRIPTION_OF_HISTORICAL_TEXT",
+        "finding": "Jielan CH32 preserves 铃火/火铃 composite wording and does not select one star."
+      },
+      {
+        "url": "https://ziwei.ist/learn/classics/tanxing-yaolun",
+        "authority_class": "MODERN_EDITORIAL_COMMENTARY_NOT_HISTORICAL_AUTHORITY",
+        "finding": "Editorial commentary states the base Fullbook text reads 火玲星 while common usage reads Fire; this is an interpretation, not an edition-bound unique-Fire witness."
+      },
+      {
+        "url": "https://www.astrofate.wiki/zh/docs/an-shen-zhu-jue",
+        "authority_class": "MODERN_RULES_SURFACE_NOT_HISTORICAL_AUTHORITY",
+        "finding": "Current public rules surface maps Zi/Wu Shenzhu to Bell, demonstrating that modern convention is not uniform and cannot arbitrate the Ming composite."
+      }
+    ]
+  },
+  "internal_normalization_boundary": {
+    "s01_raw_received_text": "子午人火铃星",
+    "s01_normalized_table": "子午 -> 火星",
+    "s01_status": "PROJECT_RESEARCH_CORPUS_NOT_INERRANT_AUTHORITY",
+    "production_table": "WENMO_SHENZHU_BY_YEAR_BRANCH Zi/Wu -> STAR.HUOXING",
+    "production_fire_is_historical_closure": false
+  },
+  "compatibility_fixture_boundary": {
+    "wenmo_profile_fixture": "tests/fixtures/wenmo-profile-discriminators-r1.json",
+    "zi_year_cases_present": true,
+    "zi_year_cases_observe_fire_bell_placement_stars": true,
+    "zi_year_cases_observe_role_shenzhu": false,
+    "only_observed_role_fixture_branch": "巳",
+    "only_observed_role_fixture_value": "天机",
+    "dedicated_zi_wu_shenzhu_compatibility_fixture": false
+  },
+  "runtime_boundary": {
+    "strict_qs_diagnostic": "QS_SHENZHU_ZI_WU_TEXTUAL_AMBIGUITY",
+    "jielan_status": "TEXTUAL_COMPOSITE_FIRE_BELL_NOT_UNIQUELY_ARBITRATED",
+    "jielan_winner_selected": false,
+    "production_fire_default": true,
+    "production_source_refs_for_zi_wu": [
+      "S01:ZZZA-PR-055"
+    ],
+    "dedicated_compat_ref_for_zi_wu": false
+  },
+  "provenance_repairs": [
+    {
+      "defect_id": "PROV-DEFECT-040",
+      "type": "WENMO_ZI_WU_FIRE_COMPATIBILITY_SCOPE_OVERCLAIM_IN_RUNTIME_DOCUMENTATION",
+      "repaired": true,
+      "repair": "NARROW_RUNTIME_DOCSTRING_AND_MATRIX_SCOPE_ONLY",
+      "runtime_behavior_effect": false,
+      "fact_hash_effect": false,
+      "computation_hash_effect": false,
+      "candidate_selection_effect": false
+    }
+  ],
+  "accounting": {
+    "rows": 220,
+    "audited_rows": 220,
+    "current_missing_from_product": 10,
+    "provenance_defects_confirmed_before": 39,
+    "provenance_defects_confirmed_after": 40,
+    "provenance_defects_repaired_before": 39,
+    "provenance_defects_repaired_after": 40,
+    "source_insufficient_before": 11,
+    "source_insufficient_after": 11,
+    "disputed_multiple_candidates": 30,
+    "not_yet_formalized": 1,
+    "chart_algorithm_defects": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0
+  },
+  "transmission_impact": {
+    "status": "NONE",
+    "reason": "No new historical witness or copying relation is established. Public modern commentary is used only to demonstrate interpretive non-closure, not to create a transmission edge."
+  },
+  "next_gate": [
+    "12NX: HPA-ZIWEI-026 Jiangqian twelve-spirit source and temporal-scope closure.",
+    "Keep natal/annual scope separate and do not infer early-edition authority from current production compatibility."
+  ]
+}

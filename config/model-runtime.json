@@ -1,0 +1,50 @@
+{
+  "schema": "FORTUNE-MODEL-RUNTIME-V2",
+  "reasoning_core": "model-learning/methods/REASONING-CORE-V3.json",
+  "knowledge_route_map": "config/knowledge-route-map.json",
+  "knowledge_cards": {
+    "build_time_sources": [
+      "knowledge-workbench/school-method-cards.json",
+      "knowledge-workbench/phase2-executable-cards.json"
+    ],
+    "knowledge_workbench_runtime_role": "BUILD_TIME_ONLY",
+    "chat_direct_read_allowed": false,
+    "compiled_runtime_ref": "chat-input/runtime-model.json#knowledge_cards"
+  },
+  "question_taxonomy": "config/question-taxonomy.json",
+  "rule_release_source": "training/state.json#current_model_release",
+  "activation_order": [
+    "frozen_canonical_sources",
+    "curated_knowledge_cards_for_routing_and_procedure",
+    "reasoning_core",
+    "validated_and_provisional_rules_with_matching_scope"
+  ],
+  "chat_source_access": {
+    "mode": "GITHUB_MAIN_ALLOWLIST_ONLY",
+    "repository": "chinaneedM/ziwei-bazi-model",
+    "ref": "main",
+    "tool_policy": "config/prediction-tool-policy.json",
+    "canonical_runtime_manifest": "sources/canonical-runtime-manifest.json",
+    "canonical_runtime_mode": "LOSSLESS_GIT_DERIVED_SEGMENTS",
+    "canonical_direct_large_file_reads_allowed": false,
+    "required_source_ids": [
+      "S00", "S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08", "S09",
+      "S10", "S11", "S12", "S13", "S14", "S15", "S16", "S17", "S18", "S19"
+    ],
+    "source_text_embedded_in_chat_input": false,
+    "file_library_allowed": false,
+    "project_sources_allowed": false,
+    "external_project_sources_required": false,
+    "historical_uploads_allowed": false,
+    "cross_conversation_memory_allowed": false,
+    "fail_closed_when_git_canonical_unavailable": true
+  },
+  "runtime_dependency_guard": {
+    "forbid_project_source_dependency": true,
+    "forbid_file_library_dependency": true,
+    "forbid_knowledge_workbench_chat_reads": true,
+    "require_compiled_knowledge_cards": true
+  },
+  "case_specific_memory_allowed": false,
+  "answer_mapping_allowed": false
+}

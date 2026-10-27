@@ -1,0 +1,54 @@
+{
+  "schema": "TIANWEN-12ZX-YONSEI-FORWARD-ERRATUM-WORK52-UNKNOWN-R1",
+  "date": "2026-10-18",
+  "issue": "TW-OPEN-0005",
+  "historical_snapshot_preserved": true,
+  "prior": "docs/research/TIANWEN-12ZW-YONSEI-CHOI-SEAL-BOOK30-MANUSCRIPT-PRINT-GRADE-R1.json",
+  "prior_field_overclaims": [
+    {
+      "field": "physical.printed_work_volume_total",
+      "old_value": 139,
+      "new_field": "catalog_work_volume_total",
+      "new_value": 139,
+      "original_woodblock_printed_work_volume_total": null,
+      "reason": "139 is the total catalogued volumes, but work122/123 are manuscript supplements. Do not label all 139 original-printed."
+    },
+    {
+      "field": "explicit_book_level_composite.work52_same_book_30",
+      "old_value": false,
+      "effective_new_value": null,
+      "reason": "No complete 33 physical-book / work-volume map. Cannot categorically assert whether work52 appears in physical book30."
+    }
+  ],
+  "effective_copy_reading": {
+    "registered_heritage_object": "2115-3",
+    "physical_book_count": 33,
+    "catalog_work_volume_count": 139,
+    "book30_includes_work_volumes": [
+      122,
+      123
+    ],
+    "book30_work122_123_later_manuscript": true,
+    "work52_physical_book_number": null,
+    "work52_in_physical_book30": null,
+    "work52_material_type": null,
+    "work52_d16_d18_original_folio_url": null,
+    "work52_d16_d18_original_image_sha256": null
+  },
+  "scope": {
+    "disproved_claims_in_prior_fields_are_not_kept_as_current_fact": true,
+    "no_edition_identity_change": true,
+    "no_source_record_change": true,
+    "no_new_physical_witness_vote": true,
+    "new_original_work52_pages": 0,
+    "new_D16_D18_numeric_votes": 0,
+    "source_registry_total": 717,
+    "omission_issues_open": 11,
+    "g893_original_direct": "5/6",
+    "g893_cross_original": "0/6",
+    "chart_reopen_count": 0,
+    "chart_product": "CLOSED"
+  },
+  "transmission_impact": "ERRATUM_ON_COPY_BOOK_VOLUME_MAPPING_FIELD_SEMANTICS_NO_GRAPH_EDGE",
+  "next": "Require source-issued item-level concordance of all 33 physical books to numbered work volumes, then page-bound original photos and digests for work52 D16/D18; record proven absences only after exhaustive physical scope."
+}

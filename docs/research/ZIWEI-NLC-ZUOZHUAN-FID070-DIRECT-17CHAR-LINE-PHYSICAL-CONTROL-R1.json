@@ -1,0 +1,109 @@
+{
+  "schema": "ZIWEI-NLC-ZUOZHUAN-FID070-DIRECT-17CHAR-LINE-PHYSICAL-CONTROL-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID070-DIRECT-17CHAR-LINE-PHYSICAL-CONTROL-HW",
+  "status": "ONE_DIRECT_PHYSICAL_17_LARGE_CHARACTER_MAIN_TEXT_LINE_CLOSED_ON_FID070; REPEAT_AND_CATALOGING_CONVENTION_STILL_PENDING; NO_DEFECT_INCREMENT",
+  "prior_batch_id": "BATCH-12-ZIWEI-SHANGGU2017-ZUOZHUAN-17CHAR-PUBLICATION-PREVIEW-CONTROL-HV",
+  "object": {
+    "fid": "412004000070",
+    "commons_file": "NLC892-412004000070-117576 附釋音春秋左傳註疏 第1冊.pdf",
+    "commons_file_url": "https://commons.wikimedia.org/wiki/File:NLC892-412004000070-117576_附釋音春秋左傳註疏_第1冊.pdf",
+    "commons_source_file_pages": 67,
+    "commons_reported_file_size_mb": 17.56,
+    "nlc_good_book_number": "03288",
+    "current_nlc_format_note": "10行16字，小字雙行23字，白口，左右雙邊。"
+  },
+  "direct_physical_control": {
+    "pdf_page": 12,
+    "preview_resolution": "1280 × 1197",
+    "preview_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/86/NLC892-412004000070-117576_%E9%99%84%E9%87%8B%E9%9F%B3%E6%98%A5%E7%A7%8B%E5%B7%A6%E5%82%B3%E8%A8%BB%E7%96%8F_%E7%AC%AC1%E5%86%8A.pdf/page12-1280px-NLC892-412004000070-117576_%E9%99%84%E9%87%8B%E9%9F%B3%E6%98%A5%E7%A7%8B%E5%B7%A6%E5%82%B3%E8%A8%BB%E7%96%8F_%E7%AC%AC1%E5%86%8A.pdf.jpg",
+    "visual_locator": "right-hand leaf; large-type main-text vertical line beginning 周禮有史官 and ending 之志",
+    "direct_reading": "周禮有史官掌邦國四方之事達四方之志",
+    "counted_han_characters": [
+      "周",
+      "禮",
+      "有",
+      "史",
+      "官",
+      "掌",
+      "邦",
+      "國",
+      "四",
+      "方",
+      "之",
+      "事",
+      "達",
+      "四",
+      "方",
+      "之",
+      "志"
+    ],
+    "direct_large_character_count": 17,
+    "punctuation_inside_counted_line": false,
+    "double_line_commentary_inside_counted_line": false,
+    "line_is_main_text_not_commentary": true,
+    "ocr_used": false,
+    "direct_visual_count_closed": true
+  },
+  "conservative_exclusion_controls": [
+    {
+      "pdf_page": 9,
+      "reason": "main text is interrupted by 音義 annotation around 繫; visual sequence must not be naively concatenated into a main-text character count",
+      "included_in_direct_count": false
+    },
+    {
+      "pdf_page": 11,
+      "reason": "故史之所記… paragraph breaks before a full standard line; short paragraph lines do not adjudicate the nominal maximum characters-per-line format field",
+      "included_in_direct_count": false
+    }
+  ],
+  "received_text_crosscheck": {
+    "source": "Chinese Text Project, 春秋左傳正義 卷一春秋序",
+    "url": "https://ctext.org/wiki.pl?chapter=868712&if=gb",
+    "role": "TEXT_SEQUENCE_CROSSCHECK_ONLY_NOT_PHYSICAL_GLYPH_OR_LAYOUT_AUTHORITY",
+    "confirms_sequence_contains": "周禮有史官掌邦國四方之事達四方之志"
+  },
+  "relation_to_prior_description_layers": {
+    "tieqin_historical_catalog_main_chars": 17,
+    "beitu1987_main_chars": 17,
+    "shanggu2017_publication_preview_main_chars": 17,
+    "current_nlc_main_chars": 16,
+    "direct_fid070_physical_sample_main_chars": 17,
+    "convergent_17_description_layers": 3,
+    "direct_17_physical_line_samples": 1
+  },
+  "adjudication": {
+    "at_least_one_17_large_char_main_text_line_on_fid070": "CLOSED_DIRECT_PHYSICAL",
+    "literal_uniform_maximum_16_only_interpretation": "DISPROVED_BY_DIRECT_17_CHAR_LINE",
+    "current_nlc_16_metadata_defect_proved": false,
+    "defect_016_created": false,
+    "reason_defect_not_yet_closed": "Need at least one additional independent clean full main-text line and/or explicit cataloging-convention evidence to exclude exceptional-line or field-semantics explanations.",
+    "evidence_direction": "LEAN_17_NOW_WITH_DIRECT_PHYSICAL_SAMPLE_PENDING_REPEAT_AND_FIELD_SEMANTICS",
+    "multi_line_reproducible_count_completed": false,
+    "zhang_2018_fulltext_retrieved": false,
+    "exact_2017_facsimile_source_copy_binding_closed": false,
+    "format_normalization_authorized": false,
+    "additional_provenance_defect_increment_authorized": false,
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_count_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 15,
+    "repaired_provenance_metadata_defect_count": 15,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Find and directly count at least one additional clean full FID070 main-text line on another leaf/page, excluding lines interrupted by 音義, 疏, paragraph breaks or blanks.",
+    "Determine whether NLC/Chinese rare-book cataloging convention uses nominal maximum, modal, exemplar or normalized character count for 行X字; do not equate one exceptional line with a catalog defect before field semantics are controlled.",
+    "Retrieve Zhang Lijuan 2018 full article for exact format/shelfmark/book-number statements.",
+    "Continue exact 2017 facsimile source-copy binding, target-specific 3368→3288 preparation/correction evidence, and Qu donation/accession batch/date research."
+  ],
+  "updated_at": "2026-09-27"
+}

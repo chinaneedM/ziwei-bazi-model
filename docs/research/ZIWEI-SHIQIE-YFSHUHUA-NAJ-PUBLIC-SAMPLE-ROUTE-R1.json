@@ -1,0 +1,95 @@
+{
+  "schema": "ZIWEI-SHIQIE-YFSHUHUA-NAJ-PUBLIC-SAMPLE-ROUTE-R1",
+  "batch_id": "BATCH-12-ZIWEI-SHIQIE-YFSHUHUA-NAJ-PUBLIC-SAMPLE-ROUTE-BJ",
+  "question": "Does the publicly accessible YFShuhua listing expose an exact physical target leaf for the Jiajing-44 Shiqie night-Zi passage, or at least materially bind the listed set to National Archives of Japan / Naikaku Bunko physical imagery without crossing its paid-download boundary?",
+  "secondary_public_listing": {
+    "url": "https://www.yfshuhua.com/864433.html",
+    "http_status": 200,
+    "body_len": 72758,
+    "html_sha256": "e14e6d8e4a1a9cc6607080f53f111cf150842e1b1b9a06e4fc7bb3a446c1e8e8",
+    "title_occurrence_count": 46,
+    "metadata_scope": {
+      "title": "筮箧理数日抄 / 筮篋理数日抄",
+      "author": "一壶天俱道人（明）",
+      "edition": "刊本（序刊）, 明嘉靖, 明嘉靖44年",
+      "holding": "日本内阁文库",
+      "former_collection": "红叶山文库",
+      "set_count": "12冊",
+      "listed_total_pages": 1111,
+      "listed_file_size": "1095.5MB",
+      "copyright_label": "公开"
+    },
+    "authority_limit": "SECONDARY LISTING METADATA; NOT HISTORICAL TEXTUAL AUTHORITY; NOT A SUBSTITUTE FOR FIRST-PARTY CATALOG OR TARGET LEAF",
+    "public_pdf_url_emitted": false,
+    "literal_national_archives_object_url_emitted": false,
+    "paid_download_area_present": true,
+    "paid_or_member_download_accessed": false
+  },
+  "public_sample_images": [
+    {
+      "index": 1,
+      "url": "https://www.yfshuhua.com/wp-content/uploads/2025/02/00724-筮箧理数日抄_0124142020_1.jpg",
+      "sha256": "ba38df0d322d263b4d6e4bb93b732e4cf70a1a7a0d08902985a35169198b9973",
+      "size": 94217,
+      "secure_visual_scope": "FIRST-VOLUME OUTER COVER; title strip reads 理數日抄; image visibly carries 国立公文書館 / National Archives of Japan watermark; an 内閣文庫 collection label visibly contains identifier 15857 and set/volume notation 12 (1).",
+      "target_leaf": false
+    },
+    {
+      "index": 2,
+      "url": "https://www.yfshuhua.com/wp-content/uploads/2025/02/00724-筮箧理数日抄_0124142024_4.jpg",
+      "sha256": "9fff89a958f8f0fadfb0ef2a13b68dd667540602e7c976914ce140815d31d0cf",
+      "size": 144719,
+      "secure_visual_scope": "PREFACE OPENING; left leaf heading visibly reads 筮篋理數日抄序; National Archives of Japan watermark visible.",
+      "target_leaf": false
+    },
+    {
+      "index": 3,
+      "url": "https://www.yfshuhua.com/wp-content/uploads/2025/02/00724-筮箧理数日抄_0124142025_5.jpg",
+      "sha256": "471a4e536a651dd642c18acded35247223f2cb76e9564ba44b5eb4ab934eff0b",
+      "size": 147555,
+      "secure_visual_scope": "VOLUME-ONE OPENING; left leaf heading visibly reads 筮篋理數日抄卷之一; National Archives of Japan watermark visible.",
+      "target_leaf": false
+    }
+  ],
+  "visual_adjudication": {
+    "public_sample_count": 3,
+    "national_archives_watermark_visible_on_samples": true,
+    "naikaku_bunko_label_visible_on_cover_sample": true,
+    "visible_cover_identifier": "15857",
+    "visible_set_volume_notation": "12 (1)",
+    "sample_two_preface_heading": "筮篋理數日抄序",
+    "sample_three_volume_heading": "筮篋理數日抄卷之一",
+    "volume_three_target_leaf_exposed": false,
+    "night_zi_target_text_exposed": false,
+    "exact_shiqie_upper_four_token_glyph_observed": false,
+    "physical_copy_route_binding_strengthened": true,
+    "independent_material_witness_increment": 0,
+    "reason_for_zero_increment": "The samples materially bind the secondary listing to National Archives/Naikaku Bunko imagery of the already-tracked Shiqie set; they do not establish a new independent copy and do not expose the target leaf."
+  },
+  "hosted_research_runs": [
+    {
+      "run_id": 34761086299,
+      "job_id": 103733927496,
+      "artifact_id": 10318857087,
+      "artifact_digest": "sha256:b9bc70b32242198ef950d7383f4c5c9f783c097b80f3e3c6ccf7e09cfbe688e3",
+      "role": "PUBLIC_HTML_AND_LITERAL_RESOURCE_CONTRACT_DISCOVERY"
+    },
+    {
+      "run_id": 34761220843,
+      "job_id": 103734284779,
+      "artifact_id": 10318454681,
+      "artifact_digest": "sha256:ac53e375a0698056cb9f11e16047c551ba5799f6c74f8fa780f8fffd1c69591d",
+      "role": "THREE_LITERAL_PUBLIC_SAMPLE_IMAGE_ACQUISITION"
+    }
+  ],
+  "rule_adjudication": {
+    "hpa_zdate_006_status": "MISSING_FROM_PRODUCT",
+    "hai_glyph_witness_increment": 0,
+    "upper_night_zi_to_hai_branch_directly_attested": false,
+    "runtime_winner_selected": false,
+    "candidate_collapsed": false,
+    "algorithm_reopen": false,
+    "next_gate": "Acquire the exact volume-three physical leaf containing 論子時隔界 / the 上四亥 transcription locus, or an independent early physical source explicitly mapping upper/night Zi to Hai branch."
+  },
+  "access_policy": "PUBLIC HTML AND THREE LITERAL PUBLIC SAMPLE IMAGE URLS ONLY; URL PERCENT-ENCODING USED ONLY FOR TRANSPORT; NO LOGIN; NO PAYMENT; NO MEMBER AJAX; NO PAID DOWNLOAD TARGET; NO PDF/OBJECT-ID GUESSING; NO ACCESS BYPASS"
+}

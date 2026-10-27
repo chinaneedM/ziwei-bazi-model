@@ -1,0 +1,13 @@
+{
+  "schema": "MODEL-RELEASE-V1",
+  "release_id": "MODEL-LEARNING-002",
+  "parent_release": "MODEL-LEARNING-001",
+  "base_source_manifest": "sources/canonical-manifest.json",
+  "patches": [
+    "model-learning/patches/MODEL-LEARNING-001.json",
+    "model-learning/patches/MODEL-LEARNING-002.json"
+  ],
+  "latest_patch_sha256": "daa71c1072bfab55835414577885a8f2673f3bc11224d37843d71b5bff14fa06",
+  "training_process_authority": "config/training-policy.json",
+  "canonical_sources_mutated": false
+}

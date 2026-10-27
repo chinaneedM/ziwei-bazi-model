@@ -1,0 +1,287 @@
+name: probe-batch-12iq-japan-opac-ji15-public-metadata
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12iq-japan-opac-ji15-public-metadata.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Probe CiNii source-emitted Japanese OPAC records and TOC controls anonymously
+        run: |
+          python - <<'PY'
+          import hashlib, html, json, re, time
+          from pathlib import Path
+          from urllib.parse import urljoin
+          import requests
+
+          NCID = "BB00252412"
+          TITLE = "冀淑英古籍善本十五讲"
+          URLS = {
+              "kyoto_u": "https://kuline.kulib.kyoto-u.ac.jp/opac/opac_openurl/?ncid=BB00252412",
+              "tenri_u": "https://tclopac.tenri-u.ac.jp/opac/opac_openurl/?ncid=BB00252412",
+              "utokyo": "https://opac.dl.itc.u-tokyo.ac.jp/opac/opac_openurl/?ncid=BB00252412",
+              "ritsumeikan": "https://runners.ritsumei.ac.jp/opac/opac_openurl/?ncid=BB00252412",
+          }
+          TERMS = [
+              TITLE, NCID, "9787501340637", "目次", "内容", "注記",
+              "铁琴铜剑楼藏书的收购入藏", "吴梅", "涵芬楼", "周叔弢",
+              "第九讲", "第9讲"
+          ]
+          MAX_BYTES = 2 * 1024 * 1024
+          UA = "Mozilla/5.0 (Tianwen provenance audit; anonymous public OPAC metadata inspection)"
+
+          def clean(raw):
+              raw = re.sub(r'<script\b.*?</script>', ' ', raw, flags=re.I|re.S)
+              raw = re.sub(r'<style\b.*?</style>', ' ', raw, flags=re.I|re.S)
+              raw = re.sub(r'<[^>]+>', ' ', raw)
+              return re.sub(r'\s+', ' ', html.unescape(raw)).strip()
+
+          def contexts(text, term, radius=120, limit=6):
+              out=[]
+              start=0
+              while len(out)<limit:
+                  i=text.find(term,start)
+                  if i<0: break
+                  out.append(text[max(0,i-radius):min(len(text),i+len(term)+radius)])
+                  start=i+len(term)
+              return out
+
+          def toc_controls(raw, base_url):
+              rows=[]
+              # Only preserve short source-emitted control metadata around anchors/buttons
+              # whose visible label or attributes mention 目次; never store the whole page.
+              for m in re.finditer(r'<a\b([^>]*)>(.*?)</a>', raw, re.I|re.S):
+                  attrs=html.unescape(m.group(1))
+                  visible=clean(m.group(2))
+                  if "目次" not in visible and "目次" not in attrs:
+                      continue
+                  hm=re.search(r'href\s*=\s*["\']([^"\']*)["\']', attrs, re.I)
+                  onclick=re.search(r'onclick\s*=\s*["\']([^"\']*)["\']', attrs, re.I)
+                  href=html.unescape(hm.group(1)) if hm else None
+                  rows.append({
+                      "tag":"a",
+                      "text":visible[:300],
+                      "href":href,
+                      "resolved_href":urljoin(base_url,href) if href and not href.lower().startswith("javascript:") else None,
+                      "onclick":html.unescape(onclick.group(1))[:500] if onclick else None,
+                  })
+              for m in re.finditer(r'<(?:button|input)\b([^>]*)>', raw, re.I|re.S):
+                  attrs=html.unescape(m.group(1))
+                  if "目次" not in attrs:
+                      continue
+                  rows.append({"tag":"button_or_input","attrs":re.sub(r'\s+',' ',attrs)[:800]})
+              return rows[:20]
+
+          session = requests.Session()
+          session.headers.update({"User-Agent": UA, "Accept-Language": "ja,en;q=0.8,zh-CN;q=0.7"})
+          results = {}
+
+          for key, url in URLS.items():
+              row = {"source_emitted_url": url}
+              try:
+                  r = session.get(url, timeout=45, allow_redirects=True, stream=True)
+                  data = bytearray()
+                  truncated = False
+                  for chunk in r.iter_content(65536):
+                      if not chunk:
+                          continue
+                      if len(data) + len(chunk) > MAX_BYTES:
+                          take = MAX_BYTES - len(data)
+                          if take > 0:
+                              data.extend(chunk[:take])
+                          truncated = True
+                          break
+                      data.extend(chunk)
+                  body = bytes(data)
+                  ctype = r.headers.get("Content-Type", "")
+                  decoded = ""
+                  if "text" in ctype.lower() or "html" in ctype.lower() or not ctype:
+                      encs = [r.encoding, "utf-8", "shift_jis", "cp932", "euc_jp"]
+                      seen = set()
+                      for enc in encs:
+                          if not enc or enc in seen:
+                              continue
+                          seen.add(enc)
+                          try:
+                              decoded = body.decode(enc)
+                              break
+                          except Exception:
+                              pass
+                      if not decoded:
+                          decoded = body.decode("utf-8", errors="replace")
+                  visible = clean(decoded) if decoded else ""
+                  row.update({
+                      "status": r.status_code,
+                      "final_url": r.url,
+                      "redirect_count": len(r.history),
+                      "content_type": ctype,
+                      "bytes_read": len(body),
+                      "truncated_at_2mib": truncated,
+                      "body_sha256": hashlib.sha256(body).hexdigest(),
+                      "visible_char_count": len(visible),
+                      "term_flags": {term: (term in visible) for term in TERMS},
+                      "toc_contexts": contexts(visible, "目次"),
+                      "toc_controls": toc_controls(decoded, r.url) if decoded else [],
+                      "bookdata_source_contexts": contexts(decoded, "BOOKデータASPサービス", radius=500, limit=4) if decoded else [],
+                      "view_bookplus_source_contexts": contexts(decoded, "view_bookplus", radius=1200, limit=10) if decoded else [],
+                      "view_openbd_source_contexts": contexts(decoded, "view_openbd", radius=1200, limit=10) if decoded else [],
+                      "bookdata_url_candidates": sorted(set(
+                          html.unescape(x) for x in re.findall(r"https?://[^\\s\\\"'<>]+", decoded, re.I)
+                          if any(k in x.lower() for k in ("book", "asp", "nichigai", "contents", "toc"))
+                      ))[:50] if decoded else [],
+                      "script_src_candidates": [
+                          urljoin(r.url, html.unescape(x))
+                          for x in re.findall(r"<script\\b[^>]*\\bsrc=[\\\"']([^\\\"']+)[\\\"']", decoded, re.I)
+                      ][:80] if decoded else [],
+                      "js_path_tokens": sorted(set(
+                          urljoin(r.url, html.unescape(x))
+                          for x in re.findall(r"[^\\s\\\"'<>]+?\\.js(?:\\?[^\\s\\\"'<>]*)?", decoded, re.I)
+                      ))[:120] if decoded else [],
+                      "login_marker": any(x in visible.lower() for x in ["login", "ログイン", "my library", "マイライブラリ"]),
+                      "raw_html_saved": False,
+                      "raw_html_logged": False,
+                  })
+              except Exception as e:
+                  row.update({"error": f"{type(e).__name__}: {e}"})
+              results[key] = row
+              time.sleep(0.6)
+
+          out = {
+              "ncid": NCID,
+              "target_title": TITLE,
+              "route_origin": "CiNii Books source-emitted OPAC links for exact NCID BB00252412",
+              "results": results,
+              "login_used": False,
+              "account_action_used": False,
+              "copy_request_used": False,
+              "payment_used": False,
+              "captcha_bypass_used": False,
+              "tls_verification_disabled": False,
+          }
+          Path("ji15-japan-opac-public-metadata.json").write_text(
+              json.dumps(out, ensure_ascii=False, indent=2), encoding="utf-8")
+          print(json.dumps(out, ensure_ascii=False, indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12iq-ji15-japan-opac-public-metadata
+          path: ji15-japan-opac-public-metadata.json
+      - name: Execute source page JavaScript in public headless Chrome
+        run: |
+          python - <<'PY'
+          import hashlib, html, json, re, shutil, subprocess
+          from pathlib import Path
+
+          src=json.loads(Path("ji15-japan-opac-public-metadata.json").read_text(encoding="utf-8"))
+          chrome=shutil.which("google-chrome") or shutil.which("google-chrome-stable") or shutil.which("chromium") or shutil.which("chromium-browser")
+          targets={k:v.get("source_emitted_url") for k,v in src["results"].items() if k in ("kyoto_u","ritsumeikan") and v.get("source_emitted_url")}
+          exact_terms=[
+              "铁琴铜剑楼藏书的收购入藏","吴梅、朱偰、赵元方的捐赠","涵芬楼藏书",
+              "周叔弢先生与北京图书馆的深厚渊源","国家图书馆藏《永乐大典》概述"
+          ]
+          out={"chrome_path":chrome,"targets":{},"login_used":False,"account_action_used":False}
+          for key,url in targets.items():
+              row={"url":url}
+              if not chrome:
+                  row["status"]="CHROME_NOT_AVAILABLE"
+                  out["targets"][key]=row
+                  continue
+              try:
+                  p=subprocess.run([
+                      chrome,"--headless=new","--no-sandbox","--disable-gpu",
+                      "--disable-dev-shm-usage","--virtual-time-budget=10000",
+                      "--dump-dom",url
+                  ],capture_output=True,timeout=45,check=False)
+                  dom=p.stdout.decode("utf-8","replace")
+                  visible=re.sub(r"\\s+"," ",html.unescape(re.sub(r"<[^>]+>"," ",dom))).strip()
+                  def block(id_):
+                      m=re.search(rf'<span[^>]+id="{re.escape(id_)}"[^>]*>(.*?)</span>',dom,re.I|re.S)
+                      return re.sub(r"\\s+"," ",html.unescape(re.sub(r"<[^>]+>"," ",m.group(1)))).strip() if m else None
+                  ob=block("openbd_block")
+                  bp=block("bookplus_block")
+                  row.update({
+                      "returncode":p.returncode,
+                      "dom_bytes":len(dom.encode("utf-8")),
+                      "dom_sha256":hashlib.sha256(dom.encode("utf-8")).hexdigest(),
+                      "visible_char_count":len(visible),
+                      "openbd_block_present":'id="openbd_block"' in dom or "id='openbd_block'" in dom,
+                      "openbd_block_text":ob[:2000] if ob else ob,
+                      "bookplus_block_present":'id="bookplus_block"' in dom or "id='bookplus_block'" in dom,
+                      "bookplus_block_text":bp[:4000] if bp else bp,
+                      "exact_chapter_flags":{x:(x in visible) for x in exact_terms},
+                      "target_title_present":"冀淑英古籍善本十五讲" in visible,
+                      "raw_dom_saved":False,
+                      "raw_dom_logged":False,
+                      "stderr_tail":p.stderr.decode("utf-8","replace")[-1000:],
+                  })
+              except Exception as e:
+                  row["error"]=f"{type(e).__name__}: {e}"
+              out["targets"][key]=row
+          Path("ji15-japan-opac-rendered-dom.json").write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12iq-ji15-japan-opac-rendered-dom
+          path: ji15-japan-opac-rendered-dom.json
+      - name: Probe official openBD ISBN record without reproducing long text
+        run: |
+          python - <<'PY'
+          import hashlib, json
+          from pathlib import Path
+          import requests
+
+          url="https://api.openbd.jp/v1/get?isbn=9787501340637"
+          r=requests.get(url,timeout=45,headers={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; openBD public ISBN control)"})
+          body=r.content
+          result={
+              "url":url,
+              "status":r.status_code,
+              "content_type":r.headers.get("Content-Type"),
+              "bytes":len(body),
+              "sha256":hashlib.sha256(body).hexdigest(),
+              "json_parsed":False,
+              "record_is_null":None,
+              "record_count":None,
+              "top_level_keys":[],
+              "has_target_title":False,
+              "has_target_isbn":False,
+              "has_chapter_9_title":False,
+              "has_chapter_10_title":False,
+              "has_chapter_11_title":False,
+              "raw_response_saved":False,
+              "raw_response_logged":False,
+          }
+          try:
+              data=r.json()
+              result["json_parsed"]=True
+              result["record_count"]=len(data) if isinstance(data,list) else None
+              rec=data[0] if isinstance(data,list) and data else None
+              result["record_is_null"]=rec is None
+              if isinstance(rec,dict):
+                  result["top_level_keys"]=sorted(rec.keys())
+                  serialized=json.dumps(rec,ensure_ascii=False)
+                  result["has_target_title"]="冀淑英古籍善本十五讲" in serialized
+                  result["has_target_isbn"]="9787501340637" in serialized
+                  result["has_chapter_9_title"]="铁琴铜剑楼藏书的收购入藏" in serialized
+                  result["has_chapter_10_title"]="吴梅、朱偰、赵元方的捐赠" in serialized
+                  result["has_chapter_11_title"]="涵芬楼藏书" in serialized
+          except Exception as e:
+              result["json_error"]=f"{type(e).__name__}: {e}"
+          Path("ji15-openbd-public-isbn-control.json").write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(result,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12iq-ji15-openbd-public-isbn-control
+          path: ji15-openbd-public-isbn-control.json

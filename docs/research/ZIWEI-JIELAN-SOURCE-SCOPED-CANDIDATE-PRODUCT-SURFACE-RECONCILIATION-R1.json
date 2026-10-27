@@ -1,0 +1,89 @@
+{
+  "schema": "ZIWEI-JIELAN-SOURCE-SCOPED-CANDIDATE-PRODUCT-SURFACE-RECONCILIATION-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-POST-AUDIT-JIELAN-SOURCE-SCOPED-CANDIDATE-PRODUCT-SURFACE-RECONCILIATION-NR",
+  "prior_batch_id": "BATCH-12-POST-AUDIT-MISSING-PRODUCT-RECONCILIATION-LEAP-MONTH-NQ",
+  "batch_classification": "POST_AUDIT_RECONCILIATION_NOT_SUPPLEMENTAL_RULE_AUDIT",
+  "target_rule_ids": [
+    "HPA-ZIWEI-015",
+    "HPA-ZIWEI-016",
+    "HPA-ZIWEI-022"
+  ],
+  "reconciliation_result": "ALL_THREE_MISSING_FROM_PRODUCT_STATUSES_CONFIRMED",
+  "algorithm_reopen_authorized": false,
+  "internal_runtime": {
+    "registry_id": "ZIWEI-JIELAN-1581-HISTORICAL-CANDIDATES-R1",
+    "registry_version": "1.1.0",
+    "runtime_resolver_id": "ZIWEI-JIELAN-1581-SOURCE-SCOPED-CANDIDATE-RUNTIME-R1",
+    "runtime_resolver_version": "1.0.0",
+    "selection_status": "PRESERVED_NOT_SELECTED",
+    "source_scoped_resolver_exists": true,
+    "deterministic_replay_tested": true,
+    "kui_yue_materialized": true,
+    "fire_bell_materialized": true,
+    "mingzhu_materialized": true,
+    "mingzhu_basis": "ZIWEI_BIRTH_YEAR_BRANCH"
+  },
+  "product_surface": {
+    "ziwei_package_root_exports_general_jielan_resolver": false,
+    "ziwei_package_root_exports_jielan_registry": false,
+    "local_app_uses_single_production_ziwei_profile": true,
+    "local_request_has_ziwei_historical_candidate_profile_selector": false,
+    "api_profiles_exposes_jielan_candidate_profiles": false,
+    "workbench_exposes_jielan_candidate_profile_selector": false,
+    "production_default_changed": false
+  },
+  "per_rule": {
+    "HPA-ZIWEI-015": {
+      "status_before": "MISSING_FROM_PRODUCT",
+      "status_after": "MISSING_FROM_PRODUCT",
+      "internal_fact": "JIELAN_KUI_YUE_SOURCE_SCOPED_RUNTIME",
+      "remaining_gap": "CANDIDATE_PROFILE_API_AND_WORKBENCH_LINEAGE"
+    },
+    "HPA-ZIWEI-016": {
+      "status_before": "MISSING_FROM_PRODUCT",
+      "status_after": "MISSING_FROM_PRODUCT",
+      "internal_fact": "JIELAN_FIRE_BELL_SOURCE_SCOPED_RUNTIME",
+      "remaining_gap": "CANDIDATE_PROFILE_API_AND_WORKBENCH_LINEAGE"
+    },
+    "HPA-ZIWEI-022": {
+      "status_before": "MISSING_FROM_PRODUCT",
+      "status_after": "MISSING_FROM_PRODUCT",
+      "internal_fact": "JIELAN_MINGZHU_BIRTH_YEAR_BASIS_SOURCE_SCOPED_RUNTIME",
+      "remaining_gap": "CANDIDATE_PROFILE_API_AND_WORKBENCH_LINEAGE"
+    }
+  },
+  "provenance_adjudication": {
+    "new_provenance_defect": false,
+    "existing_matrix_gap_description_materially_stale": false,
+    "reason": "The Matrix already distinguished an existing source-scoped runtime resolver from absent user-selectable product profile wiring."
+  },
+  "accounting": {
+    "rows": 220,
+    "audited_rows": 220,
+    "missing_from_product_before": 10,
+    "missing_from_product_after": 10,
+    "provenance_defects_confirmed_before": 36,
+    "provenance_defects_confirmed_after": 36,
+    "provenance_defects_repaired_before": 36,
+    "provenance_defects_repaired_after": 36,
+    "chart_algorithm_defects": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0
+  },
+  "matrix_membership": {
+    "historical_completed_batch": true,
+    "supplemental_rule_audit_batch": false,
+    "target_rows_keep_original_audit_batches": true,
+    "reconciliation_batch": "BATCH-12-POST-AUDIT-JIELAN-SOURCE-SCOPED-CANDIDATE-PRODUCT-SURFACE-RECONCILIATION-NR"
+  },
+  "evidence": "docs/research/evidence/batch-12nr/ziwei-jielan-source-scoped-candidate-product-surface-reconciliation.json",
+  "transmission_impact": {
+    "status": "NONE",
+    "reason": "This is a modern product-surface reconciliation over already source-bound Jielan candidates and creates no new historical transmission edge."
+  },
+  "next_gate": [
+    "12NS: reconcile HPA-ZIWEI-014 competing Four-Transformation table families.",
+    "12NS: reconcile HPA-ZIWEI-018 Jielan historical dignity table and its normalization boundary."
+  ]
+}

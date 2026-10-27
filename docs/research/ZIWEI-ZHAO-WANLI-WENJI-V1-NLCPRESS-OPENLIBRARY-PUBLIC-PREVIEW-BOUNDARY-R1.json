@@ -1,0 +1,182 @@
+{
+  "schema": "ZIWEI-ZHAO-WANLI-WENJI-V1-NLCPRESS-OPENLIBRARY-PUBLIC-PREVIEW-BOUNDARY-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-ZHAO-WANLI-WENJI-V1-NLCPRESS-OPENLIBRARY-PUBLIC-PREVIEW-BOUNDARY-IR",
+  "prior_batch_id": "BATCH-12-ZIWEI-JI-SHUYING-2009-JAPAN-OPAC-OPENBD-BOOKDATA-PUBLIC-CONTENT-BOUNDARY-IQ",
+  "question": "Can the exact 2011 《赵万里文集·第一卷》 and its p.197 be recovered from current lawful public publisher/library preview surfaces without login, purchase, copy request or guessed product identifiers?",
+  "answer": "The exact first volume is now independently closed at publisher/product and Open Library edition levels, but p.197 remains not directly reviewed. National Library of China Press ProductList page 315 source-emits ProductView.aspx?Id=5325 for 《赵万里文集·第一卷》; the product page directly matches ISBN 9787501346653. Its source-emitted Booktext postback returns a 464-byte GB18030 attachment (245 normalized characters; SHA-256 6cc2f2aecebdbb31294bad9149075dba0aa0aa2bb2a9e778474fb44e9b43529e) with no literal p.197, no 《永乐大典》展览 target term and no Qu-donation term set. CatalogPrecisFile has no href. The publisher's current public Rid=3 ebook list has one page and does not list the target title/ISBN or any DownloadView object. Open Library independently binds ISBN 9787501346653 to edition /books/OL30454631M and work /works/OL22369963W, 2011, first edition, volume 1, but ocaid and covers are null and no linked scan object is exposed. Internet Archive exact-ISBN discovery returns zero; Google Books exact ISBN/title API is currently quota-limited with HTTP 429. These are route-scoped access boundaries only. Direct 2011 p.197 remains NOT_REVIEWED and the existing NDL paid-copy route remains explicit-authorization-gated.",
+  "publisher_discovery": {
+    "provider": "国家图书馆出版社",
+    "product_list_url": "https://www.nlcpress.com/ProductList.aspx",
+    "source_list_page": 315,
+    "source_emitted_product_href": "ProductView.aspx?Id=5325",
+    "product_id": 5325,
+    "title": "赵万里文集·第一卷",
+    "isbn_13": "9787501346653",
+    "product_id_guessing_used": false,
+    "exact_first_volume_discovery_probe": {
+      "commit_sha": "641d04184515e5df2a1debd4f47f824b7ae9088e",
+      "workflow_run_id": 36721961464,
+      "workflow_job_id": 109909050237,
+      "artifact_id": 11101665197,
+      "artifact_digest": "sha256:be7f7807a04520446075e4ea47f07a79616a5dc4ead8e9b642f4fd942113d035"
+    }
+  },
+  "product5325_public_boundary": {
+    "product_url": "https://www.nlcpress.com/ProductView.aspx?Id=5325",
+    "controlling_commit": "869fd784ef11f936bc2d4caa9d001296976080f2",
+    "workflow_run_id": 36722889232,
+    "workflow_job_id": 109912255026,
+    "artifact_id": 11101261183,
+    "artifact_digest": "sha256:759a4ed87e407cea89f6ba3abe015f5bdc2f185e4f2ecbc1ba625206fe5f4854",
+    "get_status": 200,
+    "get_body_sha256": "9aadcbc2a4dbb9d32e684607adf2d09bb33cf2324ee53488884a24d0b75ba4e5",
+    "target_title_present": true,
+    "target_isbn_present": true,
+    "p197_literal_present": false,
+    "yongle_article_term_present": false,
+    "booktext_anchor": {
+      "id": "Booktext",
+      "href": "javascript:__doPostBack('Booktext','')"
+    },
+    "catalog_anchor": {
+      "id": "CatalogPrecisFile",
+      "href": null
+    },
+    "booktext": {
+      "status": 200,
+      "content_type": "application/octet-stream",
+      "content_length": 464,
+      "bytes_read": 464,
+      "body_sha256": "6cc2f2aecebdbb31294bad9149075dba0aa0aa2bb2a9e778474fb44e9b43529e",
+      "decoded_encoding": "gb18030",
+      "decoded_char_count": 245,
+      "p197_literal": false,
+      "yongle_article_term": false,
+      "qu_donation_terms": false,
+      "raw_text_logged": false,
+      "raw_text_saved": false
+    }
+  },
+  "publisher_ebook_resource_center": {
+    "url": "https://www.nlcpress.com/DownLoadList.aspx?Rid=3",
+    "controlling_commit": "869fd784ef11f936bc2d4caa9d001296976080f2",
+    "workflow_run_id": 36722889232,
+    "workflow_job_id": 109912255026,
+    "artifact_id": 11101551142,
+    "artifact_digest": "sha256:f0b8bd8cf2f6afb2783ff78861b0f45362035884ea5b056fcb1a0ebadacbc85e",
+    "http_status": 200,
+    "body_bytes": 29404,
+    "body_sha256": "df94ef4330c89416ea73a4e6aa7d1bdfd0792cd58cc6c34db02bc9d5a746f80e",
+    "page_count": 1,
+    "target_title_listed": false,
+    "target_isbn_listed": false,
+    "downloadview_count": 0,
+    "target_absence_claim_authorized": false,
+    "route_specific_nonlisting_only": true,
+    "download_invoked": false
+  },
+  "openlibrary_control": {
+    "provider": "Open Library",
+    "exact_isbn_url": "https://openlibrary.org/isbn/9787501346653.json",
+    "controlling_commit": "641d04184515e5df2a1debd4f47f824b7ae9088e",
+    "workflow_run_id": 36721961464,
+    "workflow_job_id": 109909050237,
+    "artifact_id": 11101375323,
+    "artifact_digest": "sha256:a4551e74def3615d79e9d5530cd842ffc61290663ee4c034990c7f4967a32369",
+    "edition_key": "/books/OL30454631M",
+    "work_key": "/works/OL22369963W",
+    "title": "Zhao Wanli wen ji",
+    "pagination": "v. <1>",
+    "publish_date": "2011",
+    "publisher": "Guo jia tu shu guan chu ban she",
+    "edition_name": "Di 1 ban",
+    "isbn_13": "9787501346653",
+    "oclc_number": "775628715",
+    "lccn": "2011426732",
+    "edition_count": 1,
+    "ocaid": null,
+    "covers": null,
+    "linked_internet_archive_scan_observed": false,
+    "direct_p197_page_observed": false
+  },
+  "other_public_route_controls": {
+    "google_books": {
+      "controlling_commit": "29c1f9ebb0c7d3f96a86697dfe6093cfbd7c497f",
+      "workflow_run_id": 36721344115,
+      "workflow_job_id": 109906959669,
+      "artifact_id": 11100405861,
+      "artifact_digest": "sha256:2b175657ecbaaf9f6fecf40e4af6ba7ef9ad449c6460939e9eb6ab287c0e8384",
+      "isbn_query_status": 429,
+      "title_query_status": 429,
+      "error_reason": "rateLimitExceeded",
+      "nonretrieval_has_zero_absence_authority": true
+    },
+    "internet_archive": {
+      "exact_isbn_query_status": 200,
+      "exact_isbn_num_found": 0,
+      "global_nonexistence_claim_authorized": false
+    }
+  },
+  "p197_adjudication": {
+    "direct_2011_p197": "NOT_REVIEWED",
+    "p197_public_preview_recovered": false,
+    "publisher_product_page_is_p197_evidence": false,
+    "publisher_booktext_is_p197_evidence": false,
+    "openlibrary_bibliographic_record_is_p197_evidence": false,
+    "quotation_bridge_2026_official_pdf_status": "CLOSED_BY_BATCH_12IG_NOT_DIRECT_2011_PAGE",
+    "ndl_exact_physical_holding_status": "CLOSED_BY_BATCH_12HG",
+    "ndl_paid_remote_copy_status": "EXPLICIT_USER_AUTHORIZATION_REQUIRED_BY_BATCH_12IH",
+    "direct_page_increment": 0
+  },
+  "security_copyright_and_evidence_firewall": {
+    "source_emitted_product_id_only": true,
+    "product_id_guessed": false,
+    "login_executed": false,
+    "purchase_executed": false,
+    "payment_executed": false,
+    "copy_request_executed": false,
+    "identity_transmission_executed": false,
+    "captcha_bypass_attempted": false,
+    "tls_certificate_verification_disabled": false,
+    "publisher_booktext_read_only_because_declared_under_4kib": true,
+    "raw_booktext_logged": false,
+    "raw_booktext_saved": false,
+    "rid3_download_invoked": false,
+    "no_bibliographic_surface_promoted_to_page_text": true
+  },
+  "transmission_impact": {
+    "status": "NONE",
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": [],
+    "reason": "Modern bibliographic/product-access and preview-route control only; no historical transmission relation is established."
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Do not repeat Product 5325 Booktext, CatalogPrecisFile, Rid=3 or the current Open Library edition/work routes unless their public response contract, payload hash or linked-object state changes.",
+    "Continue lawful public/institutional direct-page discovery for 2011 《赵万里文集》第1卷 p.197; do not trigger the NDL paid copy route without explicit user authorization.",
+    "Continue authoritative/open-object recovery of wwck195109.pdf and bind bytes/hash/pagination before collating 1951 pp.221-233.",
+    "Continue exact Ji Shuying Chapter 9 / Chapter 10-11 page-number recovery on newly discovered surfaces only."
+  ],
+  "updated_at": "2026-09-30"
+}

@@ -1,0 +1,117 @@
+{
+  "schema": "ZIWEI-NLC-2020-TIEQIN-700PLUS-DING-FUBAO-SIX-BOOK-INTERMEDIARY-TRANSFER-SCOPE-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-NLC-2020-TIEQIN-700PLUS-DING-FUBAO-SIX-BOOK-INTERMEDIARY-TRANSFER-SCOPE-HC",
+  "prior_batch_id": "BATCH-12-ZIWEI-CAI-CHENGPU-2026-TIEQIN-1950-1954-FOUR-TRANSFER-699-AGGREGATE-SCOPE-HB",
+  "question": "What does the National Library of China / Chinese Ancient Books Preservation Network's 2020 exhibition narrative add to the Tieqin transfer model, especially the 700-plus aggregate and Ding Fubao's purchase-and-donation of six rare books?",
+  "answer": "It adds an NLC-hosted institutional exhibition narrative that independently describes the Qu brothers as donating/transferring more than 700 rare-book titles plus the iron qin to the National Library after 1949, and explicitly identifies a separate third-party intermediary path in which Ding Fubao purchased six valuable books during the Tieqin dispersal and donated them to the National Library. The page names 《忘忧清乐集》 as one such Ding-donated item. This is valuable for transfer-topology scope: not every Tieqin-origin item reaching the National Library must have followed a direct Qu-family-to-library path. However, the 700-plus count is approximate, the page is a modern exhibition narrative sourced from 《藏书报》 rather than a contemporaneous accession ledger, and neither target 3482/3483 nor the 1823 Huang/Shiliju bound volume is named. No target-specific intermediary, purchase, donation or other transfer path is authorized.",
+  "source_control": {
+    "source_id": "EXT-NLC-PCAB-2020-TIEQIN-700PLUS-DING-FUBAO-SIX-BOOK-ROUTE",
+    "provider": "国家图书馆 / 中国古籍保护网",
+    "page_title": "典籍与文明相始终，藏书与民族相伴行（上）",
+    "displayed_source": "藏书报",
+    "displayed_date": "2020-01-02",
+    "url": "https://www.nlc.cn/pcab/zx/xw/20200414_191069.shtml",
+    "context": "国家图书馆建馆110周年“中华传统文化典籍保护传承大展” / 百代芸香",
+    "nlc_hosted_page_directly_reviewed": true,
+    "source_class": "NLC_HOSTED_MODERN_INSTITUTIONAL_EXHIBITION_NARRATIVE_NOT_CONTEMPORANEOUS_LEDGER"
+  },
+  "direct_qu_family_aggregate": {
+    "wording": "瞿济苍、瞿旭初、瞿凤起三兄弟将铁琴铜剑楼所藏700多部善本古籍及铁琴捐献、转让给国家图书馆",
+    "approximate_rare_book_title_count": "700+",
+    "iron_qin_included": true,
+    "transaction_wording": "捐献、转让",
+    "exact_total": "UNRESOLVED",
+    "exact_dates": "UNRESOLVED",
+    "per_event_breakdown": "UNRESOLVED",
+    "donation_vs_transfer_subtotals": "UNRESOLVED",
+    "transfer_means_purchase_or_sale": "NOT_PROVED"
+  },
+  "ding_fubao_intermediary_route": {
+    "wording": "铁琴铜剑楼书散时，丁福保先生曾出资购买6种珍贵古籍捐给国家图书馆",
+    "intermediary_person": "丁福保",
+    "purchased_from_tieqin_dispersal_title_count": 6,
+    "onward_donation_to_nlc": true,
+    "explicitly_named_example": "忘忧清乐集",
+    "route_model": "TIEQIN_ORIGIN -> DING_FUBAO_PURCHASE -> DING_FUBAO_DONATION_TO_NLC",
+    "exact_six_title_list": "UNRESOLVED",
+    "exact_purchase_dates": "UNRESOLVED",
+    "exact_donation_dates": "UNRESOLVED",
+    "payment_records": "UNRESOLVED"
+  },
+  "relation_to_recent_counts": {
+    "hb_699_aggregate": "BROADLY_COMPATIBLE_WITH_700_PLUS_BUT_NOT_NUMERICALLY_EQUATED",
+    "ha_20_190_cluster": "NOT_RECONCILED",
+    "count_normalization_authorized": false,
+    "arithmetic_equation_700plus_equals_52_plus_699": false,
+    "reason": "700多 IS APPROXIMATE MODERN_EXHIBITION_LANGUAGE_AND_MAY_HAVE_DIFFERENT_SCOPE; HB 699 EXCLUDES_ITS_SEPARATE_JANUARY_52_BY_WORDING"
+  },
+  "transfer_topology_firewall": {
+    "direct_qu_to_nlc_only_model_rejected_as_universal": true,
+    "third_party_intermediary_route_exists_for_at_least_six_tieqin_titles": true,
+    "target_volume_third_party_route": "UNRESOLVED",
+    "ding_fubao_target_intermediary": "NOT_PROVED",
+    "no_generalization_from_wangyou_qingleji_to_target": true
+  },
+  "target_volume_firewall": {
+    "target_titles": [
+      "铜壶漏箭制度",
+      "准斋心制几漏图式"
+    ],
+    "historical_catalog_numbers": [
+      3482,
+      3483
+    ],
+    "current_catalog_number_candidates": [
+      "03482",
+      "03483"
+    ],
+    "target_named_in_source": false,
+    "target_numbers_named_in_source": false,
+    "huang_shiliju_1823_one_volume_fingerprint_named": false,
+    "target_in_direct_qu_700plus": "UNRESOLVED",
+    "target_in_ding_fubao_six": "UNRESOLVED",
+    "target_specific_purchase_route_selected": false,
+    "target_specific_donation_route_selected": false,
+    "target_specific_intermediary_route_selected": false,
+    "target_exact_acquisition_date": "UNRESOLVED",
+    "final_nlc_acquisition_transfer_path": "UNRESOLVED"
+  },
+  "adjudication": {
+    "institutional_700plus_aggregate_control_increment": 1,
+    "third_party_intermediary_transfer_pattern_increment": 1,
+    "contemporaneous_ledger_increment": 0,
+    "target_item_transaction_increment": 0,
+    "acquisition_edge_authorized": false
+  },
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_added": [],
+    "direct_copy_edge_authorized": false,
+    "same_object_edge_authorized": false,
+    "acquisition_edge_authorized": false
+  },
+  "chronology_and_rule_firewall": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_count_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 14,
+    "repaired_provenance_metadata_defect_count": 14,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Recover the exact six Ding Fubao-purchased Tieqin titles and their direct acquisition/donation records; test whether any target predecessor identifier appears.",
+    "Trace the NLC exhibition narrative's 700-plus aggregate to contemporaneous accession/work-report sources and compare scope with HB's 52 + later 699 without arithmetic normalization.",
+    "Continue event-level recovery for the March-1950-to-April-1954 four events.",
+    "Continue direct 1997 pp.446—449, Ji Shuying chapter 9, 2004 p.335/final 編后記 and 2010 supplement discovery."
+  ],
+  "updated_at": "2026-09-27"
+}

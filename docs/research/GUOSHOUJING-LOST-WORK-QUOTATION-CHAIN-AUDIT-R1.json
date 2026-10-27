@@ -1,0 +1,96 @@
+{
+  "schema": "GUOSHOUJING-LOST-WORK-QUOTATION-CHAIN-AUDIT-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-BAZI-GUOSHOUJING-LOST-WORK-QUOTATION-CHAIN-AUDIT-PH",
+  "date": "2026-10-06",
+  "question": "Do later Ming/Qing narratives of Guo Shoujing's Zhiyuan-31 response-constant revision explicitly quote or cite Guo's lost 修改源流 or 古今交食考, especially with an observation-site or clock phrase?",
+  "reviewed_source_horizon": {
+    "explicit_marker_queries": [
+      "修改源流曰/云/載/引 + 郭守敬",
+      "古今交食考曰/云/載/引 + 郭守敬",
+      "至元三十一年五月望/差天二刻 + 修改源流",
+      "月食不效/三應 + 古今交食考"
+    ],
+    "targeted_public_surfaces": [
+      "Chinese Wikisource",
+      "Chinese Text Project",
+      "Shidian Guji",
+      "general indexed web results"
+    ],
+    "negative_scope": "REVIEWED_PUBLIC_TEXTUAL_HORIZON_ONLY_NOT_GLOBAL_NONEXISTENCE"
+  },
+  "witnesses": {
+    "xingyunlu": {
+      "source_id": "EXT-WIKISOURCE-XINGYUNLU-V1-SHOUSHI-YING-REVISION",
+      "work": "邢雲路《古今律曆考》卷一",
+      "narrative": "至元十七年 initial response constants; 至元三十一年甲午 郭守敬復測天道 and revised 閏/轉/交三應",
+      "explicitly_names_xiugai_yuanliu_as_source": false,
+      "explicitly_names_gujin_jiaoshikao_as_source": false,
+      "quotation_formula_attested": false,
+      "site_wording_attested": false,
+      "result": "LATE_MING_NARRATIVE_CONVERGENCE_WITHOUT_LOST_WORK_CITATION"
+    },
+    "mingshigao": {
+      "source_id": "EXT-SHIDIAN-MINGSHIGAO-V7-1294-ECLIPSE-RESPONSE-REVISION",
+      "narrative": "至元三十一年甲午五月望月食不效差天二刻，守敬於是取諸應損益之",
+      "explicitly_names_xiugai_yuanliu_as_source": false,
+      "explicitly_names_gujin_jiaoshikao_as_source": false,
+      "quotation_formula_attested": false,
+      "site_wording_attested": false,
+      "result": "QING_RECEIVED_REVISION_NARRATIVE_WITHOUT_LOST_WORK_CITATION"
+    },
+    "mingshi": {
+      "source_id": "EXT-WIKISOURCE-MINGSHI-V35-SHOUSHI-CONTINUED-YING-REVISION",
+      "narrative": "三十一年甲午五月望月食不效差天二刻，守敬因取諸應損益之; later explains revised response constants",
+      "explicitly_names_xiugai_yuanliu_as_source": false,
+      "explicitly_names_gujin_jiaoshikao_as_source": false,
+      "quotation_formula_attested": false,
+      "site_wording_attested": false,
+      "result": "QING_DYNASTIC_HISTORY_NARRATIVE_WITHOUT_LOST_WORK_CITATION"
+    },
+    "bibliographic_controls": {
+      "source_ids": [
+        "EXT-WIKISOURCE-YUANSHI-V164-GUOSHOUJING-WORKS",
+        "EXT-WIKISOURCE-QIANQINGTANG-V13-GUOSHOUJING-WORKS"
+      ],
+      "result": "TITLES_AND_ONE_JUAN_COUNTS_ATTESTED_BUT_NO_CONTENT_QUOTATION"
+    }
+  },
+  "adjudication": {
+    "direct_quote_from_xiugai_yuanliu_recovered": false,
+    "direct_quote_from_gujin_jiaoshikao_recovered": false,
+    "explicit_source_citation_for_1294_revision_recovered": false,
+    "later_narrative_convergence": "ATTESTED",
+    "narrative_convergence_proves_lost_work_origin": false,
+    "site_or_meridian_wording_recovered": false,
+    "evidence_increment_for_1294_site": 0,
+    "qishuo_geographic_reference": "UNRESOLVED",
+    "md_g03_status_after_batch": "OPEN_BLOCKING_GENERAL_ADAPTER",
+    "runtime_authorized": false,
+    "hpa_dayun_cal_002_status": "MISSING_FROM_PRODUCT",
+    "core_firewall": "CONTENT_SIMILARITY_OR_NARRATIVE_CONVERGENCE_MUST_NOT_BE_PROMOTED_TO_DIRECT_QUOTATION_OR_LOST_WORK_TEXTUAL_RECOVERY_WITHOUT_EXPLICIT_SOURCE_BINDING"
+  },
+  "route_disposition": {
+    "repeat_same_generic_lost_work_title_search": "PARKED_UNLESS_MATERIALLY_NEW_WITNESS",
+    "reason": "Repeated explicit quotation-marker searches recovered bibliography and unattributed narrative convergence but no source-bound lost-work quotation.",
+    "next_route": "DIAGNOSTIC_OFFICIAL_ALMANAC_QISHUO_CLOCK_REPLAY_ACROSS_GEOGRAPHIC_HYPOTHESES"
+  },
+  "accounting": {
+    "matrix_rows": 222,
+    "audited_rows": 222,
+    "current_missing_from_product_rows": 4,
+    "provenance_defects_confirmed": 45,
+    "provenance_defects_repaired": 45,
+    "historical_candidate_extensions": 14,
+    "historical_candidate_registries": 5,
+    "historical_candidate_runtime_resolvers": 5,
+    "chart_algorithm_defects": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0
+  },
+  "next_research_priority": {
+    "batch": "12PI",
+    "gate_id": "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
+    "focus": "Build a research-only diagnostic replay over source-bound official Ming almanac conjunction clock labels, prioritizing near-Zizheng boundaries, and compare inherited/no-shift, Dadu-Beijing and Nanjing longitude hypotheses without changing runtime."
+  }
+}

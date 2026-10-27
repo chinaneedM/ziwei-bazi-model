@@ -1,0 +1,115 @@
+{
+  "schema": "TIANWEN-13FY-NLC-P76-D29-D31-FOURFEN-SOURCE-NATIVE-COLLATION-R1",
+  "date": "2026-10-24",
+  "issue_id": "TW-OPEN-0005",
+  "grade": "TWO_DIRECT_SAME_SOURCE_ORIGINAL_FOURFEN_GLYPH_LANES_WITH_BOUNDED_D30_NONADJUDICATION",
+  "source": {
+    "holding_label": "NLC-03130_09 高麗史",
+    "original_provider_url": "https://commons.wikimedia.org/wiki/Special:Redirect/file/NCL-03130_09_%E9%AB%98%E9%BA%97%E5%8F%B2.pdf",
+    "original_capture_workflow_run": 39938606876,
+    "artifact_id": 12494518841,
+    "archive_file": "ncl13dy-original-p73-p80.zip",
+    "source_pdf_sha256": "3c2a5621fb3f4eabc593020bcde12a38f6ecdae2842940dec12d5a3a56afd32e",
+    "source_png": "original-p076.png",
+    "source_png_sha256": "ce4eb8b044868fe48bb41fe5453b10fa7bbd949d8fdf2c8e31037f8b89f32fad",
+    "source_native_rgb_sha256": "cd8e71f9a048323d58475576548dc0c18d4cc8d0fe26cc0eb3af50feb26a5c07",
+    "native_wh": [
+      1305,
+      875
+    ],
+    "original_page_pdf_one_based": 76,
+    "physical_copy_identity": null,
+    "physical_copy_date": null,
+    "impression_date": null,
+    "physical_ancient_leaf_number": null,
+    "reused_archived_original": true
+  },
+  "method": "Direct visual source-native RGB PNG reading without OCR. Crop RGB hashes and PNG byte hashes replay from artifact 12494518841 original-p076.png. The original image is one NLC digital surrogate, not an additional physical witness.",
+  "direct_original_fields": [
+    {
+      "day": 29,
+      "source_heading": "二十九日",
+      "source_field": "四分",
+      "digits": "九〇六〇",
+      "numeric": 9060,
+      "roi_xyxy": [
+        662,
+        419,
+        685,
+        611
+      ],
+      "roi_rgb_sha256": "67eea44e3a6bb7a6074abb3b33586d5992e7f0575e676fdffc09bd9b1bbb9d87",
+      "roi_png_sha256": "11279a96a8c95c8c2bd34b50d0b39e42165fa6f61f5ac6091d8488f4fc2ec54e"
+    },
+    {
+      "day": 31,
+      "source_heading": "三十一日",
+      "source_field": "四分",
+      "digits": "九三八四",
+      "numeric": 9384,
+      "roi_xyxy": [
+        512,
+        419,
+        535,
+        611
+      ],
+      "roi_rgb_sha256": "d339437d3111d6f8fb5a32e3717bde5bec476c7e39a38cbb8c664432e61e91a6",
+      "roi_png_sha256": "7689fd3ba77686b92ca325e6e35ee7bbc91117aff1a314c80379e07769a1a52e"
+    }
+  ],
+  "day30": {
+    "day_header": "三十日",
+    "day_header_geometry_ref": "docs/research/TIANWEN-13FV-NLC-D30-GUTTER-DAY-HEADER-GEOMETRY-R1.json",
+    "printed_fourfen_field_exact_roi": null,
+    "original_complete_fourfen_digits": null,
+    "derived_linear_midpoint_9222_not_original_glyph": true,
+    "do_not_assume_missing_field": true,
+    "nearby_numeric_strips_not_a_proven_fourfen_field": true,
+    "book_gutter_has_bounded_context_not_negative_original_proof": true
+  },
+  "cross_original": {
+    "gk3467_direct_13fx": "docs/research/TIANWEN-13FX-GK3467-P17-THREE-DAY-FOURFEN-SOURCE-FIELD-ERRATUM-R1.json",
+    "matching_day29_glyphs": true,
+    "matching_day31_glyphs": true,
+    "day30_gk_source_only": "九二二二",
+    "day30_nlc_original": null,
+    "source_copy_independence": null,
+    "original_numeric_unit_bridge": null,
+    "original_field_identity_not_transferred": true
+  },
+  "invariants": {
+    "NLC_day5_opposed": "〇/五",
+    "NLC_day9_fourfen": null,
+    "G893_original_six_controls": "OPEN",
+    "retracted_13EI": "RETRACTED",
+    "winner": null,
+    "algorithm_reopens": 0,
+    "chart_candidate_collapses": 0,
+    "new_registry_records": 0,
+    "new_physical_witnesses": 0,
+    "new_genealogy_nodes": 0,
+    "new_genealogy_edges": 0,
+    "closed_risk_issues": 0,
+    "product": "CLOSED"
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [],
+    "unresolved_lineage_questions": [
+      "NLC same-copy day29/day31 positive controls do not mechanically license any day30 ancient original glyph.",
+      "SNU GK3467 vs NLC physical edition and copy independence remain unverified."
+    ]
+  },
+  "counts": {
+    "matrix_total": 222,
+    "matrix_audited": 222,
+    "root_registry": 647,
+    "extension_registry": 114,
+    "external_sources": 761,
+    "genealogy_nodes": 252,
+    "genealogy_edges": 238,
+    "issues_open_or_blocked": 11
+  }
+}

@@ -1,0 +1,62 @@
+name: verify-batch-12jp-exact-head
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/verify-batch-12jp-exact-head.yml
+      - .github/workflows/probe-batch-12jp-cnbksy-current-open-api-auth-boundary.yml
+      - docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-CNBKSY-CURRENT-OPEN-API-AUTH-BOUNDARY-JP.md
+      - docs/research/ZIWEI-CNBKSY-CURRENT-OPEN-API-AUTH-BOUNDARY-R1.json
+      - docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json
+      - docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.md
+      - docs/PROJECT-CURRENT-STATE-R1.json
+      - scripts/verify-project-continuity-state-r1.py
+  workflow_dispatch:
+permissions:
+  contents: read
+  statuses: write
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Publish pending JP status
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.repos.createCommitStatus({owner: context.repo.owner, repo: context.repo.repo, sha: context.sha, state: 'pending', context: 'tianwen/batch-12jp-exact-head', description: 'Batch 12JP exact-head verification running'})
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: Verify 12JP
+        run: |
+          set -euo pipefail
+          python scripts/verify-tianwen-transmission-genealogy-r1.py
+          python scripts/verify-project-continuity-state-r1.py
+          python scripts/verify-fusion-chart-historical-provenance-audit-r1.py
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          e=json.loads(Path('docs/research/ZIWEI-CNBKSY-CURRENT-OPEN-API-AUTH-BOUNDARY-R1.json').read_text(encoding='utf-8'))
+          assert e['batch_id']=='BATCH-12-ZIWEI-CNBKSY-CURRENT-OPEN-API-AUTH-BOUNDARY-JP'
+          assert e['controlling_probe']['workflow_run_id']==36835297124
+          assert e['current_official_surfaces']['api_doc_2026']['api_key_required'] is True
+          assert e['current_official_surfaces']['intro_2025']['declared_year_scope']=='1850-1952'
+          assert e['endpoint_probe']['bare_request']['http_status']==200
+          assert e['endpoint_probe']['documented_sample_without_key']['http_status']==500
+          assert e['adjudication']['target_query_submitted'] is False
+          assert e['adjudication']['direct_wenhui_1951_08_18']=='NOT_REVIEWED'
+          assert e['project_consequence']['product_change'] is False
+          PY
+      - name: Publish success JP status
+        if: success()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.repos.createCommitStatus({owner: context.repo.owner, repo: context.repo.repo, sha: context.sha, state: 'success', context: 'tianwen/batch-12jp-exact-head', description: 'Batch 12JP exact-head verification passed'})
+      - name: Publish failure JP status
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.repos.createCommitStatus({owner: context.repo.owner, repo: context.repo.repo, sha: context.sha, state: 'failure', context: 'tianwen/batch-12jp-exact-head', description: 'Batch 12JP exact-head verification failed'})

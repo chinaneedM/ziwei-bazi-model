@@ -1,0 +1,167 @@
+{
+  "schema": "MING-DATONG-YEHUOBIAN-12SX-XUXIU1174-DIRECT-FOUR-LOCUS-FACSIMILE-COLLATION-R1",
+  "schema_version": "1.0.0",
+  "date": "2026-10-12",
+  "research_gate": "12QE_MD-G03_OPEN",
+  "predecessor": "docs/research/MING-DATONG-YEHUOBIAN-12SW-XUXIU1174-SOURCE-OBJECT-VERIFICATION-AND-VOL20-BOUND-R1.json",
+  "source_object": {
+    "exact_name": "續修四庫全書第1174冊.pdf",
+    "source_url": "https://commons.wikimedia.org/wiki/File:%E7%BA%8C%E4%BF%AE%E5%9B%9B%E5%BA%AB%E5%85%A8%E6%9B%B8%E7%AC%AC1174%E5%86%8A.pdf",
+    "source_page_count": 810,
+    "file_bytes": 68649578,
+    "pdf_sha1": "fc6a98b070c11372c557e22bb05cdc9859541715",
+    "verified_full_pdf_sha256": "bee08d95d6b141a978f4d7fb068b97b74cf8ee25b46c6273110b2891a0faf953",
+    "public_object_is_2002_shanghai_facsimile": true,
+    "original_impression_descriptor": "1827 Yao print, repaired in 1869 (public file catalog description)",
+    "original_1827_unrepaired_impression_verified": false,
+    "bound_to_precise_original_physical_exemplar": false,
+    "digital_upload_year": 2018
+  },
+  "exact_head_provenance": {
+    "workflow": "probe-xuxiu1174-volume20-dense-leaves-12sw",
+    "run_id": 38201449617,
+    "run_url": "https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/38201449617",
+    "run_conclusion": "success",
+    "artifact_id": 11726061430,
+    "artifact_name": "xuxiu1174-volume20-dense-original-leaves-12sw",
+    "atlas_range_pdf_pages_1based": [
+      486,
+      518
+    ],
+    "extracted_page_images": 33,
+    "contact_sheets": 6,
+    "method": "direct JPEG image rendering at 2300px and human visual reading without OCR",
+    "parent_atlas": "12SV SHA256 identity and 65-page sample atlas",
+    "image_hash_type": "sha256 of rendered JPEG bytes, not original physical folio",
+    "images_not_committed_to_repo": true
+  },
+  "target_passage": {
+    "heading": "改造漏刻",
+    "work": "野獲編",
+    "source_volume": "卷二十",
+    "title_seen_directly_pdf_page_1based": 506,
+    "primary_locus_pdf_page_1based": 506,
+    "continuation_pdf_page_1based": 507,
+    "printed_page_of_primary_loci": 503,
+    "printed_page_of_continuation": 504,
+    "pagination_contract": "1-based PDF page=printed modern bound-volume page+3",
+    "page_506_rendered_jpeg_sha256": "ece3094a332ca5f329a1c21f27f3e65a3412a2ad252452cae5a17fe50fd0ac11",
+    "page_507_rendered_jpeg_sha256": "2029bf73117e0369874bb1fb64a8aa5eefd8638183da5999df972c235c5ffe20",
+    "physical_folio_leaf_not_assigned": true,
+    "visual_scope": "Original printed facsimile page lower panel, checked manually after sha-gated acquisition"
+  },
+  "directly_read_four_loci": [
+    {
+      "id": "GONGJIN_WORD",
+      "reading": "宮禁",
+      "phrase": "今宮禁及官府漏箭",
+      "pdf_page_1based": 506,
+      "reading_class": "DIRECT_DIGITAL_FACSIMILE_IMAGE_GLYPH"
+    },
+    {
+      "id": "PALACE_CLOCK_NOUN",
+      "reading": "官漏",
+      "phrase": "是時禁中官漏循用新製",
+      "pdf_page_1based": 506,
+      "reading_class": "DIRECT_DIGITAL_FACSIMILE_IMAGE_GLYPH"
+    },
+    {
+      "id": "BEIJING_WINTER_SUNRISE_KE",
+      "reading": "辰初二刻",
+      "phrase": "北京冬至日出辰初二刻",
+      "pdf_page_1based": 506,
+      "reading_class": "DIRECT_DIGITAL_FACSIMILE_IMAGE_GLYPH"
+    },
+    {
+      "id": "BEIJING_SUMMER_SUNSET_KE",
+      "reading": "戌初二刻",
+      "phrase": "夏至日出寅正二刻入戌初二刻",
+      "pdf_page_1based": 506,
+      "reading_class": "DIRECT_DIGITAL_FACSIMILE_IMAGE_GLYPH"
+    }
+  ],
+  "registered_prior_witness_comparison": {
+    "source": "docs/research/MING-DATONG-YEHUOBIAN-12QD-SHLIB-FIRSTPARTY-AND-NLC-OLD20-ATLAS-R1.json",
+    "labels": [
+      "GONGJIN_WORD",
+      "PALACE_CLOCK_NOUN",
+      "BEIJING_WINTER_SUNRISE_KE",
+      "BEIJING_SUMMER_SUNSET_KE"
+    ],
+    "shanghai_GJ2312912_scanned": [
+      "宮禁",
+      "宮漏",
+      "辰初一刻",
+      "戌初一刻"
+    ],
+    "ctext_received_text": [
+      "官禁",
+      "官漏",
+      "辰初二刻",
+      "戌初二刻"
+    ],
+    "shidian_received_text": [
+      "宫禁",
+      "宫漏",
+      "辰初一刻",
+      "戌初一刻"
+    ],
+    "xuxiu_1174_facsimile": [
+      "宮禁",
+      "官漏",
+      "辰初二刻",
+      "戌初二刻"
+    ],
+    "interpretation": "Mixed 宮禁+官漏 and two 二刻 readings are directly attested to this digital facsimile. Text sites are transcription witnesses, not independent physical-copy votes. Similarities do not establish specific textual descent.",
+    "ctext_and_xuxiu_identical_across_four_loci": false,
+    "shanghai_and_xuxiu_identical_across_four_loci": false
+  },
+  "adjudication": {
+    "facsimile_target_passage_verified": true,
+    "facsimile_four_loci_read_count": 4,
+    "new_digital_facsimile_object_read_count": 1,
+    "verified_new_independent_1827_unrepaired_physical_copy_votes": 0,
+    "source_manifest_new_source_count": 0,
+    "later_repaired_recension_vs_1827_baseline": "UNADJUDICATED",
+    "same_physical_copy_as_Tokyo_Kyoto_Hokkaido": "NOT_ESTABLISHED",
+    "inherited_edition_ancestry": "NOT_ESTABLISHED",
+    "implications_for_1447_1450_clock": "NONE_UNTIL_INDEPENDENT_HISTORICAL_TIME_AND_PRINT_STATE_REPLAY",
+    "algorithm_reopen_authorized": false,
+    "machine_candidate_collapse_authorized": false,
+    "human_review_not_ocr": true
+  },
+  "follow_up": [
+    "Collate publication/colophon and original 1827 vs 1869 repaired sheet state; 2002 scanned exemplar not item-identified",
+    "Get authorized Tokyo Oki 1827 6403767830, Kuraishi 1869 6403148395, Kyoto 188987L / 200023037620 or other independent physical original leaves",
+    "Cross-compare plate breaks and line layouts, then classify 宮/官 and 一/二刻 variants without treating transcription pages as independent ancient witnesses",
+    "Keep MD-G03 and 12QE OPEN and historic calendar adapter fail-closed"
+  ],
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "rejected_or_unproved": [
+      "A matching two-刻 pair does not establish Xuxiu-to-CText copying",
+      "The 2002 facsimile cannot be promoted to an untouched 1827 print",
+      "No proof 上海GJ2312912 and facsimile share parent plates"
+    ],
+    "remaining": [
+      "Precise printed/physical exemplar and reproduction lineage",
+      "Independent unaltered 1827 and repaired 1869 target leaves"
+    ]
+  },
+  "repository_invariants": {
+    "matrix_rows": 222,
+    "matrix_audited": 222,
+    "metadata_repairs": 45,
+    "source_root": 647,
+    "source_ext": 13,
+    "source_total": 660,
+    "graph_nodes": 248,
+    "graph_edges": 235,
+    "formal_batches": 487,
+    "latest_formal": "12QD",
+    "product_r1": "CLOSED",
+    "algorithm_reopen_count": 0
+  }
+}

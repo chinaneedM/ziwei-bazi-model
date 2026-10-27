@@ -1,0 +1,32 @@
+name: research-yehuobian-cadal-opening-12qf
+on:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - docs/research/MING-DATONG-YEHUOBIAN-12QF-CADAL-OPENING-PREFACE-TRIGGER-R1.json
+permissions:
+  contents: read
+jobs:
+  capture-opening:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install no-OCR original page renderer
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq djvulibre-bin
+          python -m pip install Pillow
+      - name: Acquire original first fascicle and image bounded opening pages
+        run: python scripts/probe-yehuobian-cadal-opening-12qf.py
+      - name: Preserve bounded first-fascicle image atlas and hashes
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: yehuobian-cadal-first-preface-atlas-12qf
+          path: artifacts/yehuobian-cadal-opening-12qf/
+          retention-days: 7

@@ -1,0 +1,89 @@
+{
+  "schema": "YEHUOBIAN-12PZ-1869-YAO-IHP-DERIVATIVE-DEPENDENCY-R1",
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-10-10",
+  "batch": "12PZ_IN_PROGRESS",
+  "records": [
+    {
+      "key": "TOKYO-KURAISHI-1869",
+      "url": "https://ci.nii.ac.jp/ncid/BB23196128",
+      "authority": "CiNii Books / 東京大学 東洋文化研究所",
+      "title": "野獲編 30卷補遺4卷",
+      "book": "卷19-20",
+      "holding": "倉石文庫:20128:11",
+      "barcode": "6403148395",
+      "catalogue_edition": "[扶茘山房] 同治8 [1869] 重校刋補",
+      "older_cover": "道光丁亥春鐫 錢唐姚氏鑒藏",
+      "earlier_preface": "道光七年歳次丁亥春三月錢塘姚祖恩",
+      "later_statement": "同治八年己巳春月重校刋補 季男徳恆謹識",
+      "caution": "1869 revision in dated catalog; 1827 cover does not establish a particular 1827 physical printing. Whether individual target page plates or text changed is unknown.",
+      "target_page": "UNINSPECTED"
+    },
+    {
+      "key": "WEIWEN-IHP-1976",
+      "url": "https://ndlsearch.ndl.go.jp/books/R100000136-I1971712334746733208",
+      "cinii": "https://ci.nii.ac.jp/ncid/BA59231697",
+      "authority": "National Diet Library / CiNii",
+      "title": "萬暦野獲編",
+      "publication": "偉文圖書出版社 1976.9 (明季史料集珍)",
+      "catalogue_note": "中央研究院歴史語言研究所所蔵本の影印",
+      "witness_class": "MODERN_FACSIMILE_OF_IHP_HOLDING",
+      "exact_original_copy_and_barcode": "UNBOUND",
+      "target_page": "UNINSPECTED"
+    },
+    {
+      "key": "SHANGHAI-GUJI-YANGWANLI-2012",
+      "url": "https://ci.nii.ac.jp/ncid/BB11939247",
+      "marketing_source": "https://www.dedao.cn/ebook/detail?id=AnKgjNlArlXVNGKD1yL2Ek6YaogQv0YxepwbZ4RBn7j589zJpMxmdPeqOYDxqL4y",
+      "authority": "CiNii edition identification plus electronic book distributor's editorial-source statement",
+      "title": "万历野获编",
+      "publication": "上海古籍出版社 2012.11 / 杨万里校点 / ISBN 9787532563593",
+      "editorial_source_claim": "本书以台湾史语所傅斯年图书馆所藏钞本之影印件点校",
+      "exact_original_copy_and_barcode": "UNBOUND",
+      "relationship_to_1976_facsimile": "UNPROVEN",
+      "target_page": "UNINSPECTED"
+    }
+  ],
+  "decision": {
+    "1869_cover_1827_not_same_as_1827_physical_impression": true,
+    "independent_new_glyph_witnesses": 0,
+    "new_direct_target_page_collations": 0,
+    "IHP174009_copy_identity_for_1976_and_2012": "NOT_PROVEN",
+    "1976_and_2012_two_independent_original_witnesses": "NOT_ESTABLISHED",
+    "Shanghai30_four_glyphs": "UNCHANGED_ONE_COPY_SCOPED_DIRECT_IMAGE",
+    "old20v_target": "UNRESOLVED",
+    "source_transmission_impact": {
+      "nodes_added_or_strengthened": [
+        "1869 Kuraishi catalogued later Yao-family revision",
+        "1976 Weiwen facsimile IHP collection link",
+        "2012 Yang Wanli edition IHP-manuscript-facsimile editorial-base claim"
+      ],
+      "edges_supported": [
+        "1869 catalog retains 1827 cover and identifies 1869 revised printing separately",
+        "1976 <- IHP institutional holding (unknown exact copy)",
+        "2012 <- IHP-held manuscript facsimile (unknown exact copy)"
+      ],
+      "edges_revised": [],
+      "edges_rejected_or_unproved": [
+        "1869 impression is 1827 because its title page says 1827",
+        "1976 or 2012 exactly equals IHP barcode 174009",
+        "modern reprints are independent 1447 clock observations",
+        "identical library attribution implies same physical manuscript or text"
+      ],
+      "unresolved_lineage_questions": [
+        "1869 卷20 physical 改造漏刻 glyphs",
+        "Which IHP manuscript is 1976/2012 base?",
+        "184-65 and 1827 大木 vol20 direct image access"
+      ]
+    },
+    "matrix_modified": false,
+    "state_modified": false,
+    "graph_modified": false,
+    "runtime_changed": false,
+    "algorithm_reopened": false,
+    "batch_closed": false,
+    "md_g03": "OPEN_BLOCKING_GENERAL_ADAPTER",
+    "hpa_dayun_cal_002": "MISSING_FROM_PRODUCT",
+    "chart_r1": "CLOSED"
+  }
+}

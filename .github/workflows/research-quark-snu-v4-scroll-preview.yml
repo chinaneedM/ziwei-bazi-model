@@ -1,0 +1,269 @@
+name: research-quark-snu-v4-scroll-preview
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-quark-snu-v4-scroll-preview.yml
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Scroll public file list and preview visible SNU v4 target
+        shell: bash
+        run: |
+          set -e
+          python -m pip install --quiet selenium
+          python - <<'PY'
+          import hashlib
+          import json
+          import time
+          from pathlib import Path
+          from selenium import webdriver
+          from selenium.common.exceptions import TimeoutException, WebDriverException
+          from selenium.webdriver.chrome.options import Options
+          from selenium.webdriver.common.by import By
+
+          OUT = Path("probe")
+          OUT.mkdir()
+          SHARE = "https://pan.quark.cn/s/3b7b731e41f2"
+          FOLDER = "紫微斗数"
+
+          result = {
+              "schema": "QUARK-SNU-MINGJINGGE-V4-PUBLIC-SCROLL-PREVIEW-R1",
+              "share_url": SHARE,
+              "authentication_attempted": False,
+              "save_to_cloud_attempted": False,
+              "download_attempted": False,
+              "api_endpoint_guessing_attempted": False,
+              "access_control_bypass_attempted": False,
+              "normal_ui_actions": ["CLOSE_LOGIN_MODAL", "CLICK_VISIBLE_FOLDER", "SCROLL_VISIBLE_FILE_LIST", "CLICK_TARGET_IF_VISIBLE"],
+              "scroll": {},
+              "target": {},
+          }
+
+          def close_modals(driver):
+              closed = 0
+              for _ in range(5):
+                  vis = [b for b in driver.find_elements(By.CSS_SELECTOR, "button.ant-modal-close[aria-label='Close']") if b.is_displayed()]
+                  if not vis:
+                      break
+                  try:
+                      vis[0].click(); closed += 1; time.sleep(0.8)
+                  except Exception:
+                      break
+              return closed
+
+          def names_now(driver):
+              out = []
+              for e in driver.find_elements(By.CSS_SELECTOR, ".filename-text"):
+                  try:
+                      t = (e.get_attribute("title") or e.text or "").strip()
+                      if t and t not in out:
+                          out.append(t)
+                  except Exception:
+                      pass
+              return out
+
+          def snap(driver, stem):
+              html = driver.page_source or ""
+              body = ""
+              try: body = driver.find_element(By.TAG_NAME, "body").text or ""
+              except Exception: pass
+              (OUT/f"{stem}.html").write_text(html,encoding="utf-8")
+              (OUT/f"{stem}.txt").write_text(body,encoding="utf-8")
+              try: driver.save_screenshot(str(OUT/f"{stem}.png"))
+              except Exception: pass
+              return {
+                  "url": driver.current_url,
+                  "title": driver.title,
+                  "dom_bytes": len(html.encode("utf-8")),
+                  "dom_sha256": hashlib.sha256(html.encode("utf-8")).hexdigest(),
+                  "visible_text_bytes": len(body.encode("utf-8")),
+              }
+
+          opts=Options()
+          for a in ("--headless=new","--no-sandbox","--disable-dev-shm-usage","--disable-gpu","--disable-background-networking","--disable-component-update","--disable-default-apps","--disable-sync","--no-first-run","--window-size=1600,1800"):
+              opts.add_argument(a)
+          opts.page_load_strategy="eager"
+          driver=None
+          try:
+              driver=webdriver.Chrome(options=opts)
+              driver.set_page_load_timeout(20)
+              try: driver.get(SHARE)
+              except TimeoutException: result["initial_get"]="PAGE_LOAD_TIMEOUT_PARTIAL_DOM_RETAINED"
+              time.sleep(9)
+              result["root_modal_closed"]=close_modals(driver)
+              folders=[e for e in driver.find_elements(By.CSS_SELECTOR, ".filename-text") if (e.get_attribute("title") or e.text or "").strip()==FOLDER and e.is_displayed()]
+              result["visible_folder_count"]=len(folders)
+              if not folders:
+                  raise RuntimeError("public folder not visible")
+              folders[0].click()
+              time.sleep(7)
+              close_modals(driver)
+
+              # Discover actual scrollable file-list containers from rendered UI.
+              scrollables = driver.execute_script("""
+                const sels=['.ant-table-body','.ant-table-scroll','.virtual-list-wrap'];
+                const out=[];
+                for (const sel of sels) {
+                  for (const el of document.querySelectorAll(sel)) {
+                    const cs=getComputedStyle(el);
+                    const r=el.getBoundingClientRect();
+                    out.push({
+                      selector: sel,
+                      className: el.className,
+                      scrollHeight: el.scrollHeight,
+                      clientHeight: el.clientHeight,
+                      scrollWidth: el.scrollWidth,
+                      clientWidth: el.clientWidth,
+                      overflowY: cs.overflowY,
+                      top: r.top, bottom: r.bottom
+                    });
+                  }
+                }
+                return out;
+              """)
+              result["scroll"]["candidates"]=scrollables
+
+              # Selenium elements corresponding to discovered selectors. Pick a container
+              # with genuine vertical overflow; otherwise fall back to window scrolling.
+              elems=[]
+              for sel in (".ant-table-body",".ant-table-scroll",".virtual-list-wrap"):
+                  for e in driver.find_elements(By.CSS_SELECTOR, sel):
+                      try:
+                          sh=driver.execute_script("return arguments[0].scrollHeight",e)
+                          ch=driver.execute_script("return arguments[0].clientHeight",e)
+                          if sh and ch and sh>ch+20:
+                              elems.append((sh-ch,e,sel))
+                      except Exception:
+                          pass
+              elems.sort(key=lambda x:x[0],reverse=True)
+              scroller=elems[0][1] if elems else None
+              result["scroll"]["selected_selector"]=elems[0][2] if elems else "WINDOW"
+              result["scroll"]["selected_overflow_px"]=elems[0][0] if elems else None
+
+              all_names=[]
+              snapshots=[]
+              for step in range(0,18):
+                  for n in names_now(driver):
+                      if n not in all_names:
+                          all_names.append(n)
+                  target_names=[n for n in all_names if "一簑古523.5-J562b" in n and ("（4）" in n or "(4)" in n or "（4）.pdf" in n)]
+                  snapshots.append({"step":step,"name_count":len(all_names),"target_names":target_names})
+                  if target_names:
+                      break
+                  if scroller is not None:
+                      driver.execute_script("""
+                        const el=arguments[0], step=arguments[1];
+                        const max=Math.max(0, el.scrollHeight-el.clientHeight);
+                        el.scrollTop=Math.min(max, Math.round(max*step/12));
+                        el.dispatchEvent(new Event('scroll',{bubbles:true}));
+                      """, scroller, step+1)
+                  else:
+                      driver.execute_script("window.scrollTo(0, document.body.scrollHeight * arguments[0] / 12)", step+1)
+                  time.sleep(1.2)
+
+              # Force the bottom once and collect after lazy-load settling.
+              if scroller is not None:
+                  driver.execute_script("arguments[0].scrollTop=arguments[0].scrollHeight; arguments[0].dispatchEvent(new Event('scroll',{bubbles:true}));",scroller)
+              else:
+                  driver.execute_script("window.scrollTo(0,document.body.scrollHeight)")
+              time.sleep(3)
+              for n in names_now(driver):
+                  if n not in all_names:
+                      all_names.append(n)
+
+              targets=[n for n in all_names if "一簑古523.5-J562b" in n and ("（4）" in n or "(4)" in n)]
+              result["scroll"]["snapshots"]=snapshots
+              result["scroll"]["accumulated_filename_count"]=len(all_names)
+              result["scroll"]["accumulated_filenames"]=all_names
+              result["target"]["candidate_filenames"]=targets
+              result["target"]["candidate_count"]=len(targets)
+              result["folder_after_scroll"]=snap(driver,"folder-after-scroll")
+
+              if targets:
+                  target=targets[0]
+                  # Bring target row into the visible viewport using ordinary UI scrolling.
+                  target_elems=[]
+                  for e in driver.find_elements(By.CSS_SELECTOR,".filename-text"):
+                      try:
+                          if (e.get_attribute("title") or e.text or "").strip()==target:
+                              target_elems.append(e)
+                      except Exception: pass
+                  if not target_elems and scroller is not None:
+                      # Scroll through normal rendered list again until virtualization mounts target.
+                      for step in range(13):
+                          driver.execute_script("""
+                            const el=arguments[0], step=arguments[1], max=Math.max(0,el.scrollHeight-el.clientHeight);
+                            el.scrollTop=Math.round(max*step/12); el.dispatchEvent(new Event('scroll',{bubbles:true}));
+                          """,scroller,step)
+                          time.sleep(0.8)
+                          target_elems=[e for e in driver.find_elements(By.CSS_SELECTOR,".filename-text") if (e.get_attribute("title") or e.text or "").strip()==target]
+                          if target_elems: break
+                  visible=[e for e in target_elems if e.is_displayed()]
+                  result["target"]["visible_element_count_before_click"]=len(visible)
+                  if visible:
+                      driver.execute_script("arguments[0].scrollIntoView({block:'center'});",visible[0])
+                      time.sleep(1)
+                      result["target"]["normal_click_attempted"]=True
+                      try: visible[0].click()
+                      except Exception: driver.execute_script("arguments[0].click();",visible[0])
+                      result["target"]["normal_click_succeeded"]=True
+                      time.sleep(10)
+                      preview=snap(driver,"target-preview")
+                      result["target"]["preview"]=preview
+                      body=(OUT/"target-preview.txt").read_text(encoding="utf-8") if (OUT/"target-preview.txt").exists() else ""
+                      html=(OUT/"target-preview.html").read_text(encoding="utf-8") if (OUT/"target-preview.html").exists() else ""
+                      result["target"]["preview_visible_text"]=body[:20000]
+                      result["target"]["five_xiong_shen_visible"]="五凶神" in body or "五凶神" in html
+                      result["target"]["late_zi_upper_five_ke_visible"]="上五刻" in body or "上五刻" in html
+                      result["target"]["preview_terms"]=[x for x in ("PDF","预览","页","上一页","下一页","下载","保存到网盘","登录","扫码","打开客户端") if x in body]
+                  else:
+                      result["target"]["normal_click_attempted"]=False
+                      result["target"]["normal_click_succeeded"]=False
+              else:
+                  result["target"]["normal_click_attempted"]=False
+                  result["target"]["normal_click_succeeded"]=False
+
+          except Exception as exc:
+              result["error"]=repr(exc)
+          finally:
+              if driver is not None:
+                  try: driver.quit()
+                  except Exception: pass
+
+          result["adjudication"]={
+              "same_snu_physical_digitization_lineage":True,
+              "independent_physical_witness_increment":0,
+              "direct_five_xiong_shen_target_page_observed":bool(result.get("target",{}).get("five_xiong_shen_visible")),
+              "download_or_save_action_performed":False,
+              "algorithm_effect":"NONE"
+          }
+          (OUT/"quark-snu-v4-scroll-preview.json").write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps({
+              "scroll_selector":result.get("scroll",{}).get("selected_selector"),
+              "scroll_overflow_px":result.get("scroll",{}).get("selected_overflow_px"),
+              "accumulated_filename_count":result.get("scroll",{}).get("accumulated_filename_count"),
+              "accumulated_filenames":result.get("scroll",{}).get("accumulated_filenames"),
+              "target":{k:v for k,v in result.get("target",{}).items() if k!="preview_visible_text"},
+              "adjudication":result["adjudication"],
+              "error":result.get("error")
+          },ensure_ascii=False,indent=2))
+          PY
+
+      - name: Upload scroll-preview evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: quark-snu-v4-scroll-preview
+          path: probe/
+          if-no-files-found: warn
+          retention-days: 14

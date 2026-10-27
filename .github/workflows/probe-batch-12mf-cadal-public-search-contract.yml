@@ -1,0 +1,144 @@
+name: probe-batch-12mf-cadal-public-search-contract
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12mf-cadal-public-search-contract.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inventory only CADAL first-party public search contract before any target query
+        run: |
+          python - <<'PY'
+          import hashlib, html, json, re
+          from pathlib import Path
+          from urllib.parse import urljoin, urlparse
+          import requests
+
+          root="https://cadal.edu.cn/index/home"
+          UA={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; CADAL public search contract)"}
+          s=requests.Session()
+          s.headers.update(UA)
+
+          def get(url):
+              try:
+                  r=s.get(url,timeout=45,allow_redirects=False)
+                  return r,None
+              except Exception as e:
+                  return None,f"{type(e).__name__}: {e}"
+
+          def rec(r,e,url):
+              out={"url":url,"fetch_error":e}
+              if r is not None:
+                  out.update({
+                      "status":r.status_code,
+                      "location":r.headers.get("location"),
+                      "content_type":r.headers.get("content-type"),
+                      "server":r.headers.get("server"),
+                      "bytes":len(r.content),
+                      "sha256":hashlib.sha256(r.content).hexdigest()
+                  })
+              return out
+
+          def attrs(tag):
+              out={}
+              for m in re.finditer(r'''(?is)([a-zA-Z_:][-a-zA-Z0-9_:.]*)\s*=\s*(["'])(.*?)\2''',tag):
+                  out[m.group(1).lower()]=html.unescape(m.group(3))
+              return out
+
+          def forms(base,text):
+              out=[]
+              for m in re.finditer(r'''(?is)<form\b([^>]*)>(.*?)</form>''',text):
+                  a=attrs(m.group(1)); body=m.group(2)
+                  fields=[]
+                  for im in re.finditer(r'''(?is)<(?:input|select|textarea)\b([^>]*)>''',body):
+                      ia=attrs(im.group(1))
+                      fields.append({k:ia.get(k) for k in ("name","type","value","placeholder","id") if ia.get(k) is not None})
+                  out.append({
+                      "method":(a.get("method") or "GET").upper(),
+                      "action":a.get("action"),
+                      "absolute_action":urljoin(base,a.get("action") or ""),
+                      "id":a.get("id"),
+                      "class":a.get("class"),
+                      "fields":fields[:100]
+                  })
+              return out
+
+          def scripts(base,text):
+              out=[]
+              for m in re.finditer(r'''(?is)<script\b([^>]*)>''',text):
+                  a=attrs(m.group(1))
+                  if a.get("src"):
+                      out.append({"src":a["src"],"absolute_src":urljoin(base,a["src"])})
+              return out
+
+          r,e=get(root)
+          page=rec(r,e,root)
+          page_forms=[]; emitted_scripts=[]; script_records=[]
+          if r is not None and r.status_code==200:
+              txt=r.content.decode("utf-8","replace")
+              page_forms=forms(r.url,txt)
+              emitted_scripts=scripts(r.url,txt)
+              seen=set()
+              for x in emitted_scripts:
+                  u=x["absolute_src"]
+                  host=urlparse(u).hostname
+                  if host not in ("cadal.edu.cn","www.cadal.edu.cn") or u in seen:
+                      continue
+                  seen.add(u)
+                  sr,se=get(u)
+                  rr=rec(sr,se,u)
+                  if sr is not None and sr.status_code==200:
+                      st=sr.content.decode("utf-8","replace")
+                      hits=[]
+                      for line in st.splitlines():
+                          lo=line.lower()
+                          if any(k in lo for k in ("search","query","keyword","isbn","periodical","journal","resource","api","/index/")):
+                              hits.append(line.strip()[:1600])
+                              if len(hits)>=120: break
+                      rr["contract_hint_lines"]=hits
+                  script_records.append(rr)
+                  if len(script_records)>=40:
+                      break
+
+          out={
+              "source_contract":{
+                  "parent_batch":"12ME",
+                  "root_url":root,
+                  "anonymous_get_only":True,
+                  "target_query_submitted":False,
+                  "login_attempted":False,
+                  "credential_used":False,
+                  "private_endpoint_guessed":False,
+                  "only_first_party_source_emitted_scripts_followed":True
+              },
+              "home_response":page,
+              "forms":page_forms,
+              "source_emitted_scripts":emitted_scripts,
+              "first_party_script_responses":script_records,
+              "adjudication":{
+                  "public_search_contract_inventory_only":True,
+                  "target_serial_or_article_query_submitted":False,
+                  "target_object_bound":False,
+                  "direct_1951_pages_reviewed":False,
+                  "primary_text_upgrade_authorized":False
+              }
+          }
+          Path("batch-12mf-cadal-public-search-contract.json").write_text(
+              json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8"
+          )
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12mf-cadal-public-search-contract
+          path: batch-12mf-cadal-public-search-contract.json

@@ -1,0 +1,200 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/chinaneedM/ziwei-bazi-model/schemas/ziwei-chart-foundation-v1.schema.json",
+  "title": "Ziwei Chart Foundation Result V1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "status",
+    "calculation_profile",
+    "time_calendar",
+    "charts",
+    "chart_branch_indices",
+    "integrity_reports",
+    "hashes",
+    "events",
+    "diagnostics"
+  ],
+  "properties": {
+    "schema": {"const": "ZIWEI-CHART-FOUNDATION-RESULT-V1"},
+    "status": {"enum": ["RESOLVED", "RESOLVED_SINGLE_CHART_WITH_TIME_UNCERTAINTY", "MULTI_CANDIDATE", "FAILED"]},
+    "calculation_profile": {"$ref": "#/$defs/calculationProfile"},
+    "time_calendar": {"type": "object"},
+    "charts": {"type": "array", "items": {"$ref": "#/$defs/natalChart"}},
+    "chart_branch_indices": {"type": "array", "items": {"type": "array", "items": {"type": "integer", "minimum": 0}, "uniqueItems": true}},
+    "integrity_reports": {"type": "array", "items": {"$ref": "#/$defs/integrityReport"}},
+    "hashes": {"type": "array", "items": {"$ref": "#/$defs/hashBundle"}},
+    "events": {"type": "array", "items": {"type": "string"}},
+    "diagnostics": {"type": "array", "items": {"type": "string"}}
+  },
+  "$defs": {
+    "sourceRefs": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+    "integrityDiagnostic": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["code", "path", "detail"],
+      "properties": {
+        "code": {"type": "string", "minLength": 1},
+        "path": {"type": "string"},
+        "detail": {"type": "string"}
+      }
+    },
+    "integrityReport": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "diagnostics", "algorithm_id", "algorithm_version"],
+      "properties": {
+        "status": {"enum": ["PASS", "FAIL"]},
+        "diagnostics": {"type": "array", "items": {"$ref": "#/$defs/integrityDiagnostic"}},
+        "algorithm_id": {"const": "ZIWEI-INTEGRITY-HASH-V1"},
+        "algorithm_version": {"type": "string", "minLength": 1}
+      }
+    },
+    "hashBundle": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["fact_hash", "computation_hash", "algorithm_id", "algorithm_version"],
+      "properties": {
+        "fact_hash": {"pattern": "^[0-9a-f]{64}$"},
+        "computation_hash": {"pattern": "^[0-9a-f]{64}$"},
+        "algorithm_id": {"const": "ZIWEI-INTEGRITY-HASH-V1"},
+        "algorithm_version": {"type": "string", "minLength": 1}
+      }
+    },
+    "address": {
+      "type": "object", "additionalProperties": false, "required": ["index", "branch"],
+      "properties": {
+        "index": {"type": "integer", "minimum": 0, "maximum": 11},
+        "branch": {"enum": ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"]}
+      }
+    },
+    "calculationProfile": {
+      "type": "object",
+      "required": ["profile_id", "profile_version", "time_calendar_policy_registry_version", "time_calendar_policies", "natal_structure_algorithm_id", "natal_structure_algorithm_version", "main_star_algorithm_id", "main_star_algorithm_version"]
+    },
+    "designation": {
+      "type": "object", "additionalProperties": false, "required": ["designation_id", "display_name", "address"],
+      "properties": {"designation_id": {"type": "string"}, "display_name": {"type": "string"}, "address": {"$ref": "#/$defs/address"}}
+    },
+    "addressAttribute": {
+      "type": "object", "additionalProperties": false, "required": ["address", "stem"],
+      "properties": {"address": {"$ref": "#/$defs/address"}, "stem": {"enum": ["甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"]}}
+    },
+    "bureau": {
+      "type": "object", "additionalProperties": false, "required": ["element", "number", "life_palace_ganzhi", "nayin_name"],
+      "properties": {
+        "element": {"enum": ["水", "木", "金", "土", "火"]}, "number": {"enum": [2, 3, 4, 5, 6]},
+        "life_palace_ganzhi": {"type": "string"}, "nayin_name": {"type": "string"}
+      }
+    },
+    "generationStep": {
+      "type": "object", "additionalProperties": false,
+      "required": ["operation", "inputs", "outputs", "algorithm_id", "algorithm_version", "source_refs"],
+      "properties": {
+        "operation": {"type": "string"}, "inputs": {"type": "object"}, "outputs": {"type": "object"},
+        "algorithm_id": {"type": "string"}, "algorithm_version": {"type": "string"}, "source_refs": {"$ref": "#/$defs/sourceRefs"}
+      }
+    },
+    "structure": {
+      "type": "object", "additionalProperties": false,
+      "required": ["ziwei_birth_year_stem", "ziwei_birth_year_branch", "raw_lunar_month", "natal_month_coordinate", "lunar_birth_day", "birth_hour_branch", "month_anchor", "life_address", "body_address", "designation_bindings", "address_attributes", "bureau", "trace"],
+      "properties": {
+        "ziwei_birth_year_stem": {"enum": ["甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"]},
+        "ziwei_birth_year_branch": {"enum": ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"]},
+        "raw_lunar_month": {"type": "integer", "minimum": 1, "maximum": 12}, "natal_month_coordinate": {"type": "integer", "minimum": 1, "maximum": 12},
+        "lunar_birth_day": {"type": "integer", "minimum": 1, "maximum": 30},
+        "birth_hour_branch": {"$ref": "#/$defs/address"}, "month_anchor": {"$ref": "#/$defs/address"}, "life_address": {"$ref": "#/$defs/address"}, "body_address": {"$ref": "#/$defs/address"},
+        "designation_bindings": {"type": "array", "minItems": 12, "maxItems": 12, "items": {"$ref": "#/$defs/designation"}},
+        "address_attributes": {"type": "array", "minItems": 12, "maxItems": 12, "items": {"$ref": "#/$defs/addressAttribute"}},
+        "bureau": {"$ref": "#/$defs/bureau"}, "trace": {"type": "array", "items": {"$ref": "#/$defs/generationStep"}}
+      }
+    },
+    "placement": {
+      "type": "object", "additionalProperties": false, "required": ["entity_id", "display_name", "address", "generator_id", "algorithm_version", "source_refs"],
+      "properties": {"entity_id": {"type": "string"}, "display_name": {"type": "string"}, "address": {"$ref": "#/$defs/address"}, "generator_id": {"type": "string"}, "algorithm_version": {"type": "string"}, "source_refs": {"$ref": "#/$defs/sourceRefs"}}
+    },
+    "dignityAnnotation": {
+      "type": "object", "additionalProperties": false,
+      "required": ["annotation_id", "annotation_type", "target_entity_id", "target_address", "status", "grade", "scale_id", "scale_version", "rule_set_id", "rule_set_version", "generator_id", "algorithm_version", "source_refs"],
+      "properties": {
+        "annotation_id": {"type": "string", "minLength": 1},
+        "annotation_type": {"const": "DIGNITY"},
+        "target_entity_id": {"type": "string", "minLength": 1},
+        "target_address": {"$ref": "#/$defs/address"},
+        "status": {"enum": ["GRADED", "UNRATED"]},
+        "grade": {"enum": ["庙", "旺", "得", "利", "平", "不", "陷", null]},
+        "scale_id": {"type": "string", "minLength": 1},
+        "scale_version": {"type": "string", "minLength": 1},
+        "rule_set_id": {"type": "string", "minLength": 1},
+        "rule_set_version": {"type": "string", "minLength": 1},
+        "generator_id": {"type": "string", "minLength": 1},
+        "algorithm_version": {"type": "string", "minLength": 1},
+        "source_refs": {"$ref": "#/$defs/sourceRefs"}
+      },
+      "allOf": [
+        {"if": {"properties": {"status": {"const": "GRADED"}}}, "then": {"properties": {"grade": {"enum": ["庙", "旺", "得", "利", "平", "不", "陷"]}}}},
+        {"if": {"properties": {"status": {"const": "UNRATED"}}}, "then": {"properties": {"grade": {"type": "null"}}}}
+      ]
+    },
+    "transformationActivation": {
+      "type": "object", "additionalProperties": false,
+      "required": ["activation_id", "transformation_type", "target_entity_id", "target_display_name", "target_address", "source_layer", "source_stem", "context_id", "assignment_id", "mechanism_id", "generator_id", "algorithm_version", "source_refs"],
+      "properties": {
+        "activation_id": {"type": "string", "minLength": 1},
+        "transformation_type": {"enum": ["化禄", "化权", "化科", "化忌"]},
+        "target_entity_id": {"type": "string", "minLength": 1},
+        "target_display_name": {"type": "string", "minLength": 1},
+        "target_address": {"$ref": "#/$defs/address"},
+        "source_layer": {"type": "string", "minLength": 1},
+        "source_stem": {"enum": ["甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"]},
+        "context_id": {"type": "string", "minLength": 1},
+        "assignment_id": {"pattern": "^S08-ASG-[0-9]{2}$"},
+        "mechanism_id": {"pattern": "^S08-TN-[0-9]{2}$"},
+        "generator_id": {"type": "string", "minLength": 1},
+        "algorithm_version": {"type": "string", "minLength": 1},
+        "source_refs": {"$ref": "#/$defs/sourceRefs"}
+      }
+    },
+    "roleBinding": {
+      "type": "object", "additionalProperties": false,
+      "required": ["role_id", "display_name", "entity_id", "entity_display_name", "basis_type", "basis_value", "generator_id", "algorithm_version", "source_refs"],
+      "properties": {
+        "role_id": {"type": "string"}, "display_name": {"type": "string"}, "entity_id": {"type": "string"}, "entity_display_name": {"type": "string"},
+        "basis_type": {"enum": ["LIFE_PALACE_BRANCH", "ZIWEI_BIRTH_YEAR_BRANCH"]}, "basis_value": {"enum": ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"]},
+        "generator_id": {"type": "string"}, "algorithm_version": {"type": "string"}, "source_refs": {"$ref": "#/$defs/sourceRefs"}
+      }
+    },
+    "ringMember": {
+      "type": "object", "additionalProperties": false, "required": ["member_id", "display_name", "address", "ordinal", "source_refs"],
+      "properties": {
+        "member_id": {"type": "string"}, "display_name": {"type": "string"}, "address": {"$ref": "#/$defs/address"},
+        "ordinal": {"type": "integer", "minimum": 0, "maximum": 11}, "source_refs": {"$ref": "#/$defs/sourceRefs"}
+      }
+    },
+    "ringInstance": {
+      "type": "object", "additionalProperties": false,
+      "required": ["ring_id", "display_name", "anchor_address", "direction", "generator_id", "algorithm_version", "source_refs", "members"],
+      "properties": {
+        "ring_id": {"type": "string"}, "display_name": {"type": "string"}, "anchor_address": {"$ref": "#/$defs/address"},
+        "direction": {"enum": ["FORWARD", "REVERSE"]}, "generator_id": {"type": "string"}, "algorithm_version": {"type": "string"}, "source_refs": {"$ref": "#/$defs/sourceRefs"},
+        "members": {"type": "array", "minItems": 12, "maxItems": 12, "items": {"$ref": "#/$defs/ringMember"}}
+      }
+    },
+    "natalChart": {
+      "type": "object", "additionalProperties": false,
+      "required": ["structure", "placements", "profile_id", "profile_version", "annotations", "transformations", "role_bindings", "rings", "algorithm_versions"],
+      "properties": {
+        "structure": {"$ref": "#/$defs/structure"},
+        "placements": {"type": "array", "items": {"$ref": "#/$defs/placement"}},
+        "profile_id": {"type": "string"},
+        "profile_version": {"type": "string"},
+        "annotations": {"type": "array", "items": {"$ref": "#/$defs/dignityAnnotation"}},
+        "transformations": {"type": "array", "items": {"$ref": "#/$defs/transformationActivation"}},
+        "role_bindings": {"type": "array", "items": {"$ref": "#/$defs/roleBinding"}},
+        "rings": {"type": "array", "items": {"$ref": "#/$defs/ringInstance"}},
+        "algorithm_versions": {"type": "object", "additionalProperties": {"type": "string"}}
+      }
+    }
+  }
+}

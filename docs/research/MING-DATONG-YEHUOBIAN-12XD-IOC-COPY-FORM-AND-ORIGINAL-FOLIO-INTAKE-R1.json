@@ -1,0 +1,192 @@
+{
+  "schema": "TIANWEN-12XD-IOC-ORIGINAL-FOLIO-COPY-FORM-AND-SAFE-INTAKE-R1",
+  "date": "2026-10-15",
+  "status": "OFFICIAL_COPY_FORM_FIELDS_VERIFIED_MANUAL_PHYSICAL_LEAF_RECEIPT_REQUIRED_NO_APPLICATION_OR_ORIGINAL_IMAGE",
+  "predecessor": "docs/research/MING-DATONG-YEHUOBIAN-12XC-TOKYO-ITEM-SPECIFIC-REPRODUCTION-DOSSIER-R1.json",
+  "official_primary_page": {
+    "url": "https://www.ioc.u-tokyo.ac.jp/~library/guide/form.html",
+    "role": "SERVICE_AND_APPLICATION_POLICY_NOT_ORIGINAL_TEXT",
+    "observation": "Advance request required for designated rare copying; public copy normally from existing microfilm/reproductions; no individual postal copying; emailed forms must be .docx or PDF (not .doc)."
+  },
+  "official_copy_form": {
+    "url": "https://www.ioc.u-tokyo.ac.jp/~library/form/form_kicho_copy.pdf",
+    "pages": 1,
+    "verification": "FIRST_PARTY_PDF_TEXT_AND_VISUAL_PAGE_CHECKED_BYTES_SHA256_NOT_CAPTURED",
+    "fields": [
+      "申請日",
+      "氏名",
+      "住所",
+      "電話/Fax",
+      "E-mail",
+      "所属",
+      "所在地",
+      "所属電話/Fax",
+      "請求記号",
+      "資料名",
+      "複写箇所（頁）",
+      "複写目的"
+    ],
+    "filled": false,
+    "submitted": false,
+    "requires_personally_supplied_details": true
+  },
+  "official_example_pdf": {
+    "url": "https://www.ioc.u-tokyo.ac.jp/~library/form/form_kicho_copy_sample.pdf",
+    "pages": 1,
+    "example_date": "2013-03-01",
+    "verification": "FIRST_PARTY_PDF_VISUAL_EXAMPLE_NOT_CURRENT_GRANT_OR_ARCHIVAL_WITNESS",
+    "example_shelfmark": "倉石:919:24",
+    "example_pages": "p.56-82",
+    "example_book": "怪談全書",
+    "is_original_target": false
+  },
+  "reservation": {
+    "url": "https://www.ioc.u-tokyo.ac.jp/~library/news/reserve/reserve.html",
+    "page_last_updated": "2024-04",
+    "advance_open_days_start": 5,
+    "advance_open_days_end": 2,
+    "am": "09:20-13:00",
+    "pm": "13:00-16:50",
+    "maximum_books_per_booking": 10,
+    "maximum_stitched_cases_per_booking": 5,
+    "outside_readers_can_apply": true,
+    "booking_confirmed": false
+  },
+  "primary_catalogs": [
+    {
+      "catalog_detail": "9927",
+      "collection": "大木文庫",
+      "date_catalog": 1827,
+      "exact_shelfmark": "大木-子部-雜家類-16",
+      "request_shelfmark": "大木;子部:雜家類:16-20",
+      "ciNii": "BC0492354X",
+      "barcode": "6403767830",
+      "volume": "卷20",
+      "section": "歷法 / 改造漏刻",
+      "original_leaf_number": null,
+      "original_page_image": null,
+      "formal_request_ready": false
+    },
+    {
+      "catalog_detail": "90972",
+      "collection": "倉石文庫",
+      "date_catalog": 1869,
+      "exact_shelfmark": "倉石文庫:20128",
+      "request_shelfmark": "倉石文庫:20128:11",
+      "ciNii": "BB23196128",
+      "barcode": "6403148395",
+      "volume": "卷19-20（うち巻20）",
+      "section": "歷法 / 改造漏刻",
+      "original_leaf_number": null,
+      "original_page_image": null,
+      "formal_request_ready": false
+    }
+  ],
+  "supplementary_catalog": {
+    "catalog_detail": "103841",
+    "collection": "今堀文庫",
+    "shelfmark": "今堀文庫:J2006",
+    "reported_missing_juan": [
+      21,
+      22
+    ],
+    "juan20_present_verified": false,
+    "target_image_verified": false
+  },
+  "catalog_urls": [
+    "https://ci.nii.ac.jp/ncid/BC0492354X",
+    "https://ci.nii.ac.jp/ncid/BB23196128"
+  ],
+  "literary_locator": {
+    "work": "野獲編",
+    "juan": 20,
+    "category": "歷法",
+    "chapter": "改造漏刻",
+    "location_attested_in_received_chapter_table": true,
+    "received_text_not_original_print_page": true,
+    "received_locator_url": "https://ctext.org/wiki.pl?chapter=418967&if=en",
+    "original_folio_number": null
+  },
+  "four_loci": [
+    {
+      "key": "palace_domain",
+      "variants": [
+        "宮禁",
+        "官禁"
+      ],
+      "source_print_reading": null
+    },
+    {
+      "key": "palace_clock",
+      "variants": [
+        "宮漏",
+        "官漏"
+      ],
+      "source_print_reading": null
+    },
+    {
+      "key": "beijing_winter",
+      "variants": [
+        "辰初一刻",
+        "辰初二刻"
+      ],
+      "source_print_reading": null
+    },
+    {
+      "key": "beijing_summer",
+      "variants": [
+        "戌初一刻",
+        "戌初二刻"
+      ],
+      "source_print_reading": null
+    }
+  ],
+  "staged_workflow": [
+    "1. Confirm institution's exact item and material access status; ask for 卷20 改造漏刻 original leaf and original-fascicle page mapping.",
+    "2. Determine whether original, authorized camera copy, microfilm or facsimile is allowed; distinguish ancient printed item from modern surrogate.",
+    "3. Acquire an institution-issued original-page image and provider/document/item/page map with permission and original bytes.",
+    "4. Run the intake CLI on the original bytes and independent receipt; return metadata complete only, NEVER certify image glyphs automatically.",
+    "5. Human visibly collate four loci, source labels, plate layout, ink/woodblock defects, and whether two items share or differ in printing plate state.",
+    "6. Record reversible provenance/plate claims only with dated print/copy/scan layers; do not reopen chart algorithm without scoped defect gate."
+  ],
+  "intake_contract": {
+    "script": "scripts/verify-yehuobian-original-folio-intake-12xd.py",
+    "role": "VALIDATE_BINARY_DIGEST_AND_MANIFEST_COMPLETENESS_ONLY",
+    "never_auto_infer_print_or_historical_glyph": true,
+    "never_auto_link_distinct_copies": true,
+    "disallowed_modern_1959_image_path_substring": "B1765700-1,2_photo.html",
+    "initial_receipts": 0,
+    "fixture_images_are_only_synthetic_tests": true
+  },
+  "invariants": {
+    "source_registry_added": 0,
+    "source_root": 647,
+    "source_extensions": 59,
+    "source_union": 706,
+    "matrix_rows": 222,
+    "matrix_audited": 222,
+    "provenance_repairs": 45,
+    "graph_nodes": 252,
+    "graph_edges": 238,
+    "formal_batches": 487,
+    "ancient_print_page_images": 0,
+    "historical_glyph_votes": 0,
+    "historical_print_independence_votes": 0,
+    "letters_sent": 0,
+    "reservations_booked": 0,
+    "copy_orders_submitted": 0,
+    "algorithm_reopens": 0,
+    "product": "CLOSED"
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [],
+    "unresolved_lineage_questions": [
+      "Original printed page numbers and copy-specific leaf identity for Oki and Kuraishi.",
+      "Are they independent physical 1827/1869 plate states or reuse/revised plates? Catalog dates and matching character strings alone cannot decide.",
+      "May an authorized copy distinguish original printing from later reproductions?"
+    ]
+  }
+}

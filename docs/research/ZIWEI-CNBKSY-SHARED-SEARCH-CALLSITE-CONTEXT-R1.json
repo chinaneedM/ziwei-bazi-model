@@ -1,0 +1,120 @@
+{
+  "schema": "ZIWEI-CNBKSY-SHARED-SEARCH-CALLSITE-CONTEXT-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-CNBKSY-SHARED-SEARCH-CALLSITE-CONTEXT-LK",
+  "prior_batch_id": "BATCH-12-ZIWEI-CNBKSY-INDEXED-NEWS-NAVIGATION-CONTRACT-LJ",
+  "question": "What exact static call-site contracts surround the source-emitted /common/hints, /search/detail/, /search/picDetail/ and site-news listPortal routes, without invoking any of them?",
+  "answer": "The hint helper is source-closed at call-site level: searchHint(fields,hideclass) executes bksy.post('/common/hints', null, callback), assigns the returned result to conditions, and uses it only for local typeahead matching on caller-supplied fields. /search/detail/ and /search/picDetail/ are built from cart item.dataId and item.laId values and are therefore object-detail routes, not a free-text search endpoint. The site-news listPortal route is a separate jqGrid JSON filter using title/startDate/endDate postData.",
+  "controlling_probe": {
+    "workflow": ".github/workflows/probe-batch-12lk-cnbksy-shared-search-callsite-context.yml",
+    "exact_head": "ca62dc9074dc04f4bffc410d8b8f2170217d2ff5",
+    "workflow_run_id": 36884632716,
+    "workflow_job_id": 110444683909,
+    "artifact_id": 11173687084,
+    "artifact_digest": "sha256:a0ef4c32000ee750948c5f9a60b7ebdf9645862a204b4d2ead00af874b0bddbd"
+  },
+  "source_contract": {
+    "seed_url": "https://www.cnbksy.com/portal/newsCategoryBrowse/newsContent?id=202",
+    "source_emitted_navigation_url": "https://www.cnbksy.com/portal/newsCategoryBrowse",
+    "only_static_context_extraction": true,
+    "discovered_route_invoked": false,
+    "target_query_submitted": false
+  },
+  "hint_callsite": {
+    "function_signature": "searchHint(fields, hideclass)",
+    "call": "bksy.post('/common/hints', null, callback)",
+    "payload_at_callsite": null,
+    "callback_behavior": [
+      "assign result to conditions",
+      "iterate caller-supplied fields",
+      "bind typeahead minLength=1 using local substringMatcher(conditions)",
+      "optional twtypeahead class removal"
+    ],
+    "context_sha256": "3a09c804c4d66100c52764695d81116eab4b92fa1f92dda35cc9b9b11350f020",
+    "http_transport_semantics_closed": false
+  },
+  "object_detail_routes": {
+    "text": {
+      "route_template": "/search/detail/{dataId}/{laId}/{laId}",
+      "source_values": [
+        "item.dataId",
+        "item.laId",
+        "item.laId"
+      ],
+      "source_context": "cart/listCart response"
+    },
+    "image": {
+      "route_template": "/search/picDetail/{dataId}/{laId}/{laId}",
+      "source_values": [
+        "item.dataId",
+        "item.laId",
+        "item.laId"
+      ],
+      "source_context": "cart/listCart response"
+    },
+    "adjudication": "OBJECT_DETAIL_ROUTES_NOT_FREE_TEXT_SEARCH_ENDPOINTS"
+  },
+  "news_filter_confirmation": {
+    "list_route": "/portal/newsCategoryBrowse/listPortal",
+    "transport_surface": "jqGrid datatype=json",
+    "postData_source": "$('#search_area').filterValueMap()",
+    "fields": [
+      "title",
+      "startDate",
+      "endDate"
+    ],
+    "classification": "SITE_NEWS_FILTER_ONLY",
+    "context_sha256": "d483652313db767d2e1594bb941c16a04e28c25d1111e2ec16276d493502f8c1"
+  },
+  "adjudication": {
+    "common_hints_callsite_closed": true,
+    "common_hints_http_transport_closed": false,
+    "target_term_transmitted_by_hint_call": false,
+    "detail_routes_are_free_text_search": false,
+    "site_news_filter_is_historical_newspaper_search": false,
+    "discovered_route_invoked": false,
+    "form_submitted": false,
+    "target_query_submitted": false,
+    "login_used": false,
+    "registration_used": false
+  },
+  "security": {
+    "anonymous_get_only": true,
+    "post_request_used": false,
+    "private_endpoint_guessed": false,
+    "captcha_bypass_used": false,
+    "tls_verification_disabled": false
+  },
+  "transmission_impact": {
+    "status": "NONE_ACCESS_BOUNDARY_ONLY",
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": []
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Locate the implementation of bksy.post and bksy.jsonPost only in scripts source-emitted by the same public page.",
+    "Record exact HTTP method/body/content-type/dataType semantics without invoking /common/hints.",
+    "Only after the transport contract is closed may a null-payload /common/hints request be considered."
+  ],
+  "updated_at": "2026-10-01"
+}

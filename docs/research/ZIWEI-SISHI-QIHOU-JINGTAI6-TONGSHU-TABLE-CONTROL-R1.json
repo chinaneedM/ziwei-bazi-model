@@ -1,0 +1,205 @@
+{
+  "schema": "ZIWEI-SISHI-QIHOU-JINGTAI6-TONGSHU-TABLE-CONTROL-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-SISHI-QIHOU-JINGTAI6-TONGSHU-TABLE-CONTROL-CH",
+  "prior_batch_id": "BATCH-12-ZIWEI-DATONG-RICHU-DAILY-TABLE-SANMING-MULTIPOINT-REPLAY-CG",
+  "question": "Does a securely pre-1578 printed Sishi Qihou Jijie / Tongshu-labelled day-night-ke witness reproduce Sanming 1578's Xiazhi 59/41 anchor, and what does it imply for the transmission model?",
+  "scope_correction": {
+    "ncl_object_id": "NCL-03164",
+    "ncl_title": "四時氣候集解",
+    "ncl_public_edition_label": "舊鈔本",
+    "ncl_internal_preface_date": "洪熙元年 / 1425",
+    "ncl_internal_postface_date": "景泰六年 / 1455",
+    "ncl_workflow_run_id": 34926580491,
+    "ncl_artifact_id": 10380281774,
+    "ncl_artifact_digest": "sha256:9d09bcff59e25617a5ef1ad2477a3f8a63ef8f295adc526b9c02360617756576",
+    "ncl_source_pdf_sha256": "c9f037cab1815ac5ac5f630f9f13659bc8acdb25b05d501ff88b7ed62a8b2ae5",
+    "ncl_pdf_pages": 68,
+    "corrected_physical_scope": "OLD_MANUSCRIPT_OF_UNRESOLVED_COPY_DATE",
+    "physical_copy_itself_pre1578_proved": false,
+    "reason": "Internal preface/postface dates date textual paratext and do not by themselves date the surviving old manuscript copy.",
+    "prior_workflow_manifest_direct_pre1578_label_safe_for_ncl_physical_object": false
+  },
+  "physical_print": {
+    "source_id": "EXT-SISHI-QIHOU-JINGTAI6-CADAL02090387",
+    "title": "四時氣候集解四卷",
+    "author": "李泰",
+    "bibliographic_edition_binding": "上海圖書館藏明景泰六年胡廷璨刻本",
+    "bibliographic_routes": [
+      "《續修四庫全書》第885冊 reproduction description",
+      "《四庫全書存目叢書》史部第164冊 holding description"
+    ],
+    "public_digital_object": "Wikimedia Commons / CADAL02090387 四時氣候集解.djvu",
+    "workflow_run_id": 34929836894,
+    "artifact_id": 10380982344,
+    "artifact_digest": "sha256:74c581c8ef56ea20ece601e9699264466a903279c7cd67064555ac011aa9529e",
+    "source_djvu_sha256": "487180d204235660caf715b0b5a2a81dad366a68e2deecde6e44cefc5d7261fb",
+    "derived_pdf_sha256": "85e21d61ff32c5d25ea5e9eba35809dd21f671db28724bce9e38c4016b552c60",
+    "page_count": 123,
+    "ocr_used_for_final_glyph_judgment": false,
+    "dated_end_matter": {
+      "page": 123,
+      "secure_reading": "景泰六年龍集乙亥孟春吉日",
+      "following_attribution": "門人武略將軍鳳陽姚福世昌書",
+      "interpretation": "Direct physical dated paratext agrees with but does not replace the bibliographic binding of the object as a Jingtai-6 / 1455 Hu Tingcan print."
+    }
+  },
+  "direct_table_readings": [
+    {
+      "solar_term": "立夏",
+      "rendered_page": 41,
+      "page_sha256": "d5cd7938a682dc643d72d1491e5a5f2c8f89977d13d53873bcd3744333e8f448",
+      "secure_core": "通書云立夏……晝五十七刻，夜四十三刻",
+      "day_ke": 57,
+      "night_ke": 43
+    },
+    {
+      "solar_term": "小滿",
+      "rendered_page": 47,
+      "page_sha256": "89bfdacd0c9e0e5d4b506e380ba07a166724332a76852df9d05f67894dd1d126",
+      "secure_core": "通書云小滿……晝五十九刻，夜四十一刻",
+      "day_ke": 59,
+      "night_ke": 41
+    },
+    {
+      "solar_term": "夏至",
+      "rendered_page": 57,
+      "page_sha256": "9bc7fb4730a9d85cdfd219b8592baa23c283d933a2a5a14b00bada44007c32c5",
+      "secure_core": "通書云夏至……晝六十刻，夜四十刻",
+      "day_ke": 60,
+      "night_ke": 40
+    }
+  ],
+  "cross_batch_comparison": {
+    "batch_12ce_coarse_tongshu_family_match": true,
+    "batch_12ce_representative_sequence": [
+      "立夏 57/43",
+      "小滿 59/41",
+      "夏至 60/40"
+    ],
+    "sanming_1578_xiazhi": "59/41",
+    "jingtai6_1455_xiazhi": "60/40",
+    "exact_table_identity_with_sanming": false,
+    "same_numeric_pair_at_different_anchor": "1455 小滿=59/41 versus 1578 三命通會 夏至=59/41",
+    "safe_conclusion": "The 1455 print physically closes a pre-1578 coarse Tongshu 40↔60 family, but it is not the exact Sanming table parent by anchor identity."
+  },
+  "coexistence_model": {
+    "batch_12cf_official_1447_nanjing_extreme": 59,
+    "jingtai6_1455_tongshu_xiazhi_day_ke": 60,
+    "coexistence_closed": true,
+    "meaning": "An official Nanjing 59-ke locality standard and a printed Tongshu summer-solstice 60-ke branch coexisted in the early Ming. Historical transmission was layered rather than one-table replacement.",
+    "composite_model_strengthened": true,
+    "direct_genealogy_proved": false,
+    "model": "older coarse seasonal/leak-clock 40↔60 family + Ming Nanjing locality/calendar numerical layer + unresolved selection/quantization/editorial recomposition -> Sanming 1578 displayed 59/41 summer-solstice cap"
+  },
+  "transmission_impact": {
+    "purpose": "First explicit per-batch lineage impact record; intended to become compatible with the planned Tianwen transmission-genealogy layer.",
+    "nodes_strengthened": [
+      {
+        "node_id": "TEXT-WORK-SISHI-QIHOU-JIJIE",
+        "type": "TEXT_WORK",
+        "statement": "Early-Ming work carrying 1425 preface tradition and Tongshu-labelled seasonal day/night-ke material."
+      },
+      {
+        "node_id": "EDITION-SISHI-QIHOU-JINGTAI6-HUTINGCAN-1455",
+        "type": "PHYSICAL_EDITION",
+        "statement": "Secure pre-1578 printed witness bound bibliographically to Shanghai Library's Jingtai-6 Hu Tingcan print and directly reviewed through CADAL02090387."
+      },
+      {
+        "node_id": "TABLE-FAMILY-TONGSHU-COARSE-40-60",
+        "type": "MECHANICAL_RULE_FAMILY",
+        "statement": "Pre-1578 physical transmission closed for representative Lixia/Xiaoman/Xiazhi anchors 57/43, 59/41, 60/40."
+      },
+      {
+        "node_id": "STANDARD-NANJING-59KE-1447",
+        "type": "REGIONAL_TECHNICAL_STANDARD",
+        "statement": "Independent official Nanjing solstitial 59-ke layer already closed in Batch 12CF."
+      },
+      {
+        "node_id": "TABLE-SANMING-1578-DAYNIGHT-KE",
+        "type": "MANTIC_DISPLAY_TABLE",
+        "statement": "Later 1578 display whose Xiazhi 59/41 anchor differs from the 1455 Tongshu branch."
+      }
+    ],
+    "edges_supported": [
+      {
+        "from": "EDITION-SISHI-QIHOU-JINGTAI6-HUTINGCAN-1455",
+        "relation": "ATTESTS",
+        "to": "TABLE-FAMILY-TONGSHU-COARSE-40-60",
+        "confidence": "HIGH",
+        "evidence_class": "DIRECT_PHYSICAL_PRINT"
+      },
+      {
+        "from": "TABLE-FAMILY-TONGSHU-COARSE-40-60",
+        "relation": "PARALLEL_COEXISTS_WITH",
+        "to": "STANDARD-NANJING-59KE-1447",
+        "confidence": "HIGH",
+        "evidence_class": "INDEPENDENT_CONTEMPORARY_PHYSICAL_WITNESSES"
+      },
+      {
+        "from": "TABLE-FAMILY-TONGSHU-COARSE-40-60",
+        "relation": "STRUCTURAL_ANCESTRY_CANDIDATE_FOR",
+        "to": "TABLE-SANMING-1578-DAYNIGHT-KE",
+        "confidence": "MEDIUM",
+        "evidence_class": "SHARED_LADDER_FAMILY_WITH_NONIDENTICAL_ANCHORS"
+      },
+      {
+        "from": "STANDARD-NANJING-59KE-1447",
+        "relation": "LOCALITY_ADAPTATION_CANDIDATE_FOR",
+        "to": "TABLE-SANMING-1578-DAYNIGHT-KE",
+        "confidence": "MEDIUM_HIGH",
+        "evidence_class": "EARLIER_OFFICIAL_LOCALITY_STANDARD_PLUS_LATER_NUMERIC_CONVERGENCE"
+      }
+    ],
+    "edges_rejected_or_unproved": [
+      {
+        "from": "EDITION-SISHI-QIHOU-JINGTAI6-HUTINGCAN-1455",
+        "relation": "DIRECT_COPY_PARENT_OF",
+        "to": "TABLE-SANMING-1578-DAYNIGHT-KE",
+        "status": "NOT_PROVED_AND_EXACT_XIAZHI_ANCHOR_DIFFERS"
+      },
+      {
+        "from": "STANDARD-NANJING-59KE-1447",
+        "relation": "DIRECT_TEXT_PARENT_OF",
+        "to": "TABLE-SANMING-1578-DAYNIGHT-KE",
+        "status": "NOT_PROVED"
+      }
+    ],
+    "lineage_questions_remaining": [
+      "Which pre-1578 source first combines the 59-ke Nanjing cap with Sanming-like intermediate anchors?",
+      "Was the older 40↔60 Tongshu family explicitly recalibrated to Nanjing/Datong locality, or did Sanming inherit a separate already-recalibrated table?",
+      "What exact quantization/change-day rule maps the daily Nanjing Datong curve to Sanming's displayed bins?"
+    ]
+  },
+  "adjudication": {
+    "pre1578_coarse_tongshu_family_closed_at_physical_edition_level": true,
+    "sanming_exact_parent_closed": false,
+    "sanming_quantization_rule_closed": false,
+    "new_runtime_candidate_created": false,
+    "runtime_winner_selected": false,
+    "upper_zi_to_hai_mechanical_vote_increment": 0,
+    "candidate_collapsed": false,
+    "algorithm_reopen_authorized": false
+  },
+  "impact_on_hpa_zdate_006": {
+    "status_before": "MISSING_FROM_PRODUCT",
+    "status_after": "MISSING_FROM_PRODUCT",
+    "reason": "The evidence strengthens the historical timekeeping/transmission substrate but does not establish the Fullbook-specific upper-five-ke -> previous-night Hai branch transformation or a source-closed runtime clock binding.",
+    "next_gate": [
+      "find a securely pre-1578 source with Sanming Xiazhi 59/41 plus its intermediate change-day fingerprint",
+      "find an explicit recalibration or quantization rule from coarse Tongshu 40↔60 to Nanjing 59-ke cap",
+      "continue the independent Fullbook upper-five-ke -> Hai lineage"
+    ]
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "identified_missing_candidate_families": 14,
+    "confirmed_provenance_metadata_defect_count": 11,
+    "repaired_provenance_metadata_defect_count": 11,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  }
+}

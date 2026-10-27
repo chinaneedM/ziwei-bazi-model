@@ -1,0 +1,133 @@
+name: follow-nlc-zhunzhai-source-record
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/follow-nlc-zhunzhai-source-record.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  follow:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Follow NLC OPAC microfilm-to-original links
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/nlc-zhunzhai-source-record'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT/raw" "$ROOT/text"
+          UA='Tianwen-Provenance-Audit/1.0'
+
+          SEARCH_URL=$(python - <<'PY'
+          from urllib.parse import quote_plus
+          print('http://opac.nlc.cn/F/?func=find-b&find_code=WTI&request='+quote_plus('準齋心製几漏圖式')+'&local_base=NLC01')
+          PY
+          )
+
+          curl -L -sS --retry 5 --retry-all-errors --retry-delay 2             --connect-timeout 6 --max-time 30 -A "$UA"             "$SEARCH_URL" -o "$ROOT/raw/search.html"
+
+          python - <<'PY'
+          from bs4 import BeautifulSoup
+          from pathlib import Path
+          from urllib.parse import urljoin
+          import re
+          root=Path('audit/nlc-zhunzhai-source-record')
+          html=(root/'raw/search.html').read_text('utf-8',errors='replace')
+          s=BeautifulSoup(html,'html.parser')
+          links=[]
+          for a in s.find_all('a',href=True):
+              h=a['href']
+              if h.lower().startswith('javascript:'):
+                  continue
+              u=urljoin('http://opac.nlc.cn/F/',h)
+              txt=a.get_text(' ',strip=True)
+              if 'doc_number=001775083' in u or 'doc_number=002597934' in u or '复制自' in txt or '館藏' in txt or '馆藏' in txt:
+                  links.append((txt,u))
+          (root/'discovered-links.tsv').write_text(''.join(f'{t}\t{u}\n' for t,u in links),encoding='utf-8')
+          source=[u for t,u in links if 'doc_number=001775083' in u and 'func=direct' in u]
+          microitems=[u for t,u in links if 'doc_number=002597934' in u and 'func=item-global' in u]
+          if not source:
+              raise SystemExit('source-record link not found')
+          (root/'source-url.txt').write_text(source[0]+'\n',encoding='utf-8')
+          if microitems:
+              (root/'microfilm-item-url.txt').write_text(microitems[0]+'\n',encoding='utf-8')
+          PY
+
+          fetch_one () {
+            key="$1"; url="$2"
+            curl -L -sS --retry 5 --retry-all-errors --retry-delay 2               --connect-timeout 6 --max-time 30 -A "$UA" "$url"               -o "$ROOT/raw/$key.html"
+          }
+
+          fetch_one source-record "$(cat "$ROOT/source-url.txt")"
+          if [ -s "$ROOT/microfilm-item-url.txt" ]; then
+            fetch_one microfilm-items "$(cat "$ROOT/microfilm-item-url.txt")"
+          fi
+
+          python - <<'PY'
+          from bs4 import BeautifulSoup
+          from pathlib import Path
+          from urllib.parse import urljoin
+          root=Path('audit/nlc-zhunzhai-source-record')
+          summary=[]
+          source_item_urls=[]
+          for p in sorted((root/'raw').glob('*.html')):
+              s=BeautifulSoup(p.read_text('utf-8',errors='replace'),'html.parser')
+              txt='\n'.join(x.strip() for x in s.stripped_strings)
+              (root/'text'/f'{p.stem}.txt').write_text(txt+'\n',encoding='utf-8')
+              summary.append('### '+p.name)
+              for tr in s.find_all('tr'):
+                  cells=[x.get_text(' ',strip=True) for x in tr.find_all(['td','th'])]
+                  line=' | '.join(x for x in cells if x)
+                  if line and any(k in line for k in [
+                      'ID 号','ID號','题名','題名','版本','出版','载体','載體','并列','並列',
+                      '馆藏','館藏','索书号','索書號','登录号','登錄號','单册','單冊',
+                      '准斋','準齋','铜壶','銅壺','黄氏','黃氏','道光','士礼居','士禮居',
+                      '03482','03483','411999008601','001775083'
+                  ]):
+                      summary.append(line)
+              for a in s.find_all('a',href=True):
+                  u=urljoin('http://opac.nlc.cn/F/',a['href'])
+                  if 'doc_number=001775083' in u and 'func=item-global' in u:
+                      source_item_urls.append(u)
+          (root/'record-summary.txt').write_text('\n'.join(summary)+'\n',encoding='utf-8')
+          if source_item_urls:
+              (root/'source-item-url.txt').write_text(source_item_urls[0]+'\n',encoding='utf-8')
+          PY
+
+          if [ -s "$ROOT/source-item-url.txt" ]; then
+            fetch_one source-items "$(cat "$ROOT/source-item-url.txt")"
+            python - <<'PY'
+          from bs4 import BeautifulSoup
+          from pathlib import Path
+          p=Path('audit/nlc-zhunzhai-source-record/raw/source-items.html')
+          s=BeautifulSoup(p.read_text('utf-8',errors='replace'),'html.parser')
+          out=[]
+          for tr in s.find_all('tr'):
+              cells=[x.get_text(' ',strip=True) for x in tr.find_all(['td','th'])]
+              line=' | '.join(x for x in cells if x)
+              if line: out.append(line)
+          Path('audit/nlc-zhunzhai-source-record/source-items-summary.txt').write_text('\n'.join(out)+'\n',encoding='utf-8')
+          PY
+          fi
+
+          grep -RniE '准斋|準齋|铜壶|銅壺|03482|03483|411999008601|001775083|索书号|索書號|登录号|登錄號|馆藏|館藏|善本|士礼居|士禮居|道光三|1823|条码|條碼|单册|單冊|accession|call' "$ROOT/text" "$ROOT/raw" "$ROOT/"*.txt > "$ROOT/target-hits.txt" || true
+          find "$ROOT" -type f -size +0c -print0 | xargs -0 -r sha256sum | sort -V > "$ROOT/files.sha256"
+
+          printf '%s\n'             'SOURCE=National Library of China OPAC'             'DISCOVERY_RECORD=002597934 / microfilm record for 準齋心製几漏圖式'             'SOURCE_RECORD_LINK=001775083 / copied-from original rare-book bibliographic record'             'KNOWN_SOURCE_CONTROL_NUMBER_FROM_MICROFILM=411999008601'             'KNOWN_COMPOSITE_NOTE=原文献03482铜壶漏箭制度、03483准斋心制几漏图式为一册'             'PURPOSE=follow first-party source link and resolve physical call/item identifiers without promoting catalog identifiers by assumption'             'OCR_USED=false'             > "$ROOT/manifest.txt"
+
+      - name: Upload source-record follow evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: nlc-zhunzhai-source-record-follow
+          path: audit/nlc-zhunzhai-source-record/
+          if-no-files-found: error
+          compression-level: 6
+          retention-days: 30

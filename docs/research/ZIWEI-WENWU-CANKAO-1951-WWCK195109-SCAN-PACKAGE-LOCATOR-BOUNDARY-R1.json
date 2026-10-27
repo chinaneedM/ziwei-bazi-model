@@ -1,0 +1,117 @@
+{
+  "schema": "ZIWEI-WENWU-CANKAO-1951-WWCK195109-SCAN-PACKAGE-LOCATOR-BOUNDARY-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-WENWU-CANKAO-1951-WWCK195109-SCAN-PACKAGE-LOCATOR-BOUNDARY-IK",
+  "prior_batch_id": "BATCH-12-ZIWEI-JI-SHUYING-2009-PUBLIC-PAGINATION-CALIBRATION-BOUNDARY-IJ",
+  "question": "Does the public web expose a stable digital-scan locator for the exact 1951 issue 9 beyond library holdings, and if so what can be claimed without treating an unverified commercial scan manifest as article-text authority or as proof of lawful public download?",
+  "answer": "Yes, at locator level only. A public 51gushu package manifest for 《文物》/《文物参考资料》 explicitly lists the 1951 folder and file wwck195109.pdf with displayed size 9.73 MB; the same manifest pattern is also surfaced by a separate search-indexed copy at xy980.com. The reviewed 51gushu page exposes a package listing, not the PDF object bytes or an authoritative provenance chain. No public direct object URL, file hash, page count, scan source, completeness, rights basis, or page-level text is recovered. Therefore wwck195109.pdf becomes a high-value filename locator for further lawful discovery only. It contributes zero direct Zhao Wanli text and cannot be cited as proof of the original issue's contents.",
+  "target": {
+    "periodical": "文物参考资料",
+    "year": 1951,
+    "volume": 2,
+    "issue": 9,
+    "article_author": "赵万里",
+    "article_title": "永乐大典展览的意义——一九五一年八月北京图书馆举办",
+    "article_pages": "221-233",
+    "existing_original_holding_routes_closed": true,
+    "direct_article_text_reviewed": false
+  },
+  "public_manifest": {
+    "source_id": "EXT-51GUSHU-WENWU-KW143-WWCK195109-MANIFEST",
+    "provider": "51古书网",
+    "url": "https://www.51gushu.com/um006465s.html",
+    "page_title": "文物杂志",
+    "package_id": "KW143",
+    "package_display_format": "PDF",
+    "package_display_total_size": "9.76G",
+    "package_claim": "1950年创刊至2009年2月电子版 / 原刊扫描",
+    "target_folder_display": "1951.8-9",
+    "target_file_name": "wwck195109.pdf",
+    "target_file_display_size": "9.73 MB",
+    "target_issue_mapping": "1951年9期",
+    "reviewed_surface_type": "PUBLIC_PACKAGE_MANIFEST_HTML",
+    "direct_pdf_object_url_exposed_on_reviewed_surface": false,
+    "target_pdf_bytes_recovered": false,
+    "target_pdf_hash_recovered": false,
+    "target_pdf_page_count_recovered": false,
+    "scan_source_provenance_closed": false,
+    "rights_or_lawful_public_download_status_closed": false
+  },
+  "duplicate_index_surface": {
+    "provider": "史料文献馆 / xy980.com",
+    "url": "https://xy980.com/e/action/ShowInfo.php?classid=1&id=157",
+    "observation_mode": "SEARCH_INDEX_RESULT_ONLY",
+    "same_target_file_name": "wwck195109.pdf",
+    "same_target_file_display_size": "9.73 MB",
+    "direct_page_fetch_status": "HTTP_502_ON_REVIEWED_FETCH",
+    "independent_scan_object_claim_authorized": false,
+    "independent_source_provenance_claim_authorized": false,
+    "role": "DUPLICATED_MANIFEST_LOCATOR_ONLY"
+  },
+  "discovery_checks": {
+    "exact_filename_web_search_reran": true,
+    "internet_archive_domain_search_result_count": 0,
+    "public_direct_pdf_url_recovered": false,
+    "institutional_public_surrogate_recovered": false,
+    "google_books_1951_target_object_recovered": false,
+    "note": "Zero-result web searches are discovery-route observations only and are not nonexistence evidence."
+  },
+  "evidence_firewall": {
+    "commercial_manifest_is_not_primary_source": true,
+    "file_name_is_not_file_identity": true,
+    "display_size_is_not_file_hash": true,
+    "replicated_manifest_is_not_independent_scan_witness": true,
+    "package_claim_original_scan_is_not_verified_provenance": true,
+    "no_article_text_may_be_inferred_from_manifest": true,
+    "no_lawful_download_entitlement_inferred": true,
+    "no_unverified_mirror_download_executed": true
+  },
+  "adjudication": {
+    "stable_scan_filename_locator": "CLOSED_AS_PUBLIC_MANIFEST_LEAD",
+    "exact_target_scan_object_identity": "UNRESOLVED",
+    "exact_target_scan_provenance": "UNRESOLVED",
+    "lawful_public_direct_download": "NOT_ESTABLISHED",
+    "target_pdf_bytes": "NOT_RECOVERED",
+    "target_article_direct_text": "NOT_REVIEWED",
+    "direct_2011_page197": "NOT_REVIEWED",
+    "direct_ji_shuying_chapter9": "NOT_REVIEWED",
+    "target_3482_3483_transaction_increment": 0,
+    "exact_fid070_donation_batch": "UNRESOLVED",
+    "exact_fid070_donation_date": "UNRESOLVED",
+    "exact_3368_to_3288_causal_mechanism": "UNRESOLVED"
+  },
+  "transmission_impact": {
+    "status": "NONE",
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": [],
+    "reason": "Access-locator metadata only; no direct text, object identity, acquisition or lineage relation."
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Use the stable filename wwck195109.pdf only as a locator in lawful institutional/open-web discovery; prioritize a provider that exposes object provenance and public access rights.",
+    "If a candidate file is lawfully recovered, hash it first and verify issue identity, pagination and article pp.221-233 before using any text.",
+    "Continue public discovery for 2011 《赵万里文集》第1卷 p.197 and Ji Shuying Chapter 9 in parallel.",
+    "Do not download from unverified commercial/mirror packages or infer legality/completeness from manifest listings."
+  ],
+  "updated_at": "2026-09-30"
+}

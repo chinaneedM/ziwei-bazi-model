@@ -1,0 +1,361 @@
+{
+  "case_id": "CASE-004",
+  "frozen_at": "2026-07-23T14:08:10Z",
+  "prediction_sha256": "117030dc78837aeee4a7024fb625f8dd6d20b4295a62a626ce20aae1721bfcdb",
+  "predictions": [
+    {
+      "confidence": 64,
+      "evidence": [
+        "S04",
+        "S08",
+        "S09",
+        "S11",
+        "S16",
+        "S17",
+        "S18"
+      ],
+      "question_id": "Q1",
+      "question_profile": {
+        "applied_rule_ids": [],
+        "endpoint_tags": [
+          "OCCUPATION",
+          "HEALTH_CONDITION",
+          "MIGRATION"
+        ],
+        "reasoning_skill_tags": [
+          "SUBJECT_ENTITY_ROUTING",
+          "TOPIC_PALACE_ROUTING",
+          "NATAL_STRUCTURE",
+          "STATIC_DYNAMIC_LAYERING",
+          "PALACE_TRANSFORMATION_CHAIN",
+          "BAZI_STRUCTURE_THEN_TRIGGER",
+          "REALITY_SCALE_MAPPING",
+          "REGION_ERA_NORMALIZATION",
+          "OPTION_GRANULARITY",
+          "COMPOSITE_OPTION_ATOMIZATION",
+          "EVIDENCE_WEIGHTING",
+          "COUNTEREVIDENCE_REVERSAL",
+          "ZIWEI_BAZI_ARBITRATION",
+          "CAUSAL_ACTOR_DIRECTION",
+          "CAREER_PROFILE_CLOSURE",
+          "HEALTH_SEVERITY_LOCALIZATION",
+          "UNCERTAINTY_CALIBRATION"
+        ],
+        "source_routes": [
+          "S00",
+          "S01",
+          "S02",
+          "S03",
+          "S04",
+          "S08",
+          "S09",
+          "S11",
+          "S16",
+          "S17",
+          "S18",
+          "S19"
+        ],
+        "subject_tags": [
+          "FATHER",
+          "MOTHER",
+          "PARENTS"
+        ],
+        "time_scope_tags": [
+          "CHILDHOOD"
+        ],
+        "topic_tags": [
+          "PARENTS",
+          "CAREER_EDUCATION",
+          "HEALTH",
+          "MIGRATION_RELOCATION"
+        ]
+      },
+      "reasoning": "紫微轨以父母轴为主：父母宫巨门化权、对宫太阳，结构更支持父母因工作、奔波或离乡而减少直接照料，形成由长辈或他人代养的家庭主干。八字轨保留己未日与庚申日两套合法版本；两版本在童年乙卯运都能支持原生家庭角色与照料结构发生变化，但都不足以稳定闭合母亲患病。成对比较中，B只要求父母外出工作与外婆抚养；其中“父母外出工作、他人代养”的主干与双轨较一致。C虽然也有父亲聚少离多，但额外要求母亲患病，缺少专属健康链；A的父亲出轨与D的离异、改嫁外国均包含更高精度人物和终点，证据负担更重。因此保持B为Top1、C为Top2。",
+      "strongest_counterevidence": "外婆这一精确照料者身份没有独立闭合，盘面最多稳定支持长辈或他人代养；若母亲人物太极和健康动作链获得专属闭合，C会反转B。",
+      "top1": "B",
+      "top2": "C"
+    },
+    {
+      "confidence": 81,
+      "evidence": [
+        "S04",
+        "S08",
+        "S09",
+        "S10",
+        "S11",
+        "S14",
+        "S15",
+        "S16",
+        "S17",
+        "S18"
+      ],
+      "question_id": "Q2",
+      "question_profile": {
+        "applied_rule_ids": [],
+        "endpoint_tags": [
+          "HEALTH_CONDITION",
+          "ACCIDENT_INJURY",
+          "MAJOR_EVENT"
+        ],
+        "reasoning_skill_tags": [
+          "TOPIC_PALACE_ROUTING",
+          "NATAL_STRUCTURE",
+          "STATIC_DYNAMIC_LAYERING",
+          "PALACE_TRANSFORMATION_CHAIN",
+          "BAZI_STRUCTURE_THEN_TRIGGER",
+          "TIME_LAYER_ACTIVATION",
+          "EVENT_ENDPOINT_CLOSURE",
+          "OPTION_GRANULARITY",
+          "COMPOSITE_OPTION_ATOMIZATION",
+          "EVIDENCE_WEIGHTING",
+          "COUNTEREVIDENCE_REVERSAL",
+          "ZIWEI_BAZI_ARBITRATION",
+          "HEALTH_SEVERITY_LOCALIZATION",
+          "UNCERTAINTY_CALIBRATION"
+        ],
+        "source_routes": [
+          "S00",
+          "S01",
+          "S03",
+          "S04",
+          "S08",
+          "S09",
+          "S10",
+          "S11",
+          "S14",
+          "S15",
+          "S16",
+          "S17",
+          "S18",
+          "S19"
+        ],
+        "subject_tags": [
+          "SELF"
+        ],
+        "time_scope_tags": [
+          "SPECIFIC_YEAR"
+        ],
+        "topic_tags": [
+          "HEALTH",
+          "TRAVEL_ACCIDENT_SAFETY",
+          "MAJOR_YEAR_EVENT"
+        ]
+      },
+      "reasoning": "2001年为辛巳，命主处童年大限，虚岁九流年落父母宫巨门。紫微轨中辛年巨门化禄叠加原局巨门化权，明显强化语言、表达、辩论与竞赛输出；辛年文曲化科又与命宫文曲角色同轴，使小语种、演讲和获奖方向获得最直接的年份新增量。八字轨中己未日版本以辛为食神，补强输出与才艺表现；庚申日版本虽不完全同构，也未形成遗传病、休学或交通事故的完整动作终点。成对比较中，B的事件主干与年份、表达轴和获奖方向同轴；D只能得到出行与突发场景许可，A缺校园霸凌与正式休学程序，C缺遗传病诊断和用药链。因此保持B为Top1、D为Top2。",
+      "strongest_counterevidence": "太阳与迁动轴使交通或突发事件具有场景许可，吉化也可能只修饰事故结果为平安；若车辆、道路、碰撞和安全结果链能够同时闭合，D会反转B。",
+      "top1": "B",
+      "top2": "D"
+    },
+    {
+      "confidence": 77,
+      "evidence": [
+        "S02",
+        "S04",
+        "S08",
+        "S09",
+        "S10",
+        "S11",
+        "S14",
+        "S15",
+        "S16",
+        "S17",
+        "S18"
+      ],
+      "question_id": "Q3",
+      "question_profile": {
+        "applied_rule_ids": [],
+        "endpoint_tags": [
+          "OCCUPATION"
+        ],
+        "reasoning_skill_tags": [
+          "TOPIC_PALACE_ROUTING",
+          "NATAL_STRUCTURE",
+          "STATIC_DYNAMIC_LAYERING",
+          "PALACE_TRANSFORMATION_CHAIN",
+          "BAZI_STRUCTURE_THEN_TRIGGER",
+          "TIME_LAYER_ACTIVATION",
+          "EVENT_ENDPOINT_CLOSURE",
+          "REALITY_SCALE_MAPPING",
+          "REGION_ERA_NORMALIZATION",
+          "OPTION_GRANULARITY",
+          "EVIDENCE_WEIGHTING",
+          "COUNTEREVIDENCE_REVERSAL",
+          "ZIWEI_BAZI_ARBITRATION",
+          "CAREER_PROFILE_CLOSURE",
+          "UNCERTAINTY_CALIBRATION"
+        ],
+        "source_routes": [
+          "S00",
+          "S01",
+          "S02",
+          "S03",
+          "S04",
+          "S08",
+          "S09",
+          "S10",
+          "S11",
+          "S14",
+          "S15",
+          "S16",
+          "S17",
+          "S18",
+          "S19"
+        ],
+        "subject_tags": [
+          "SELF"
+        ],
+        "time_scope_tags": [
+          "SPECIFIC_YEAR"
+        ],
+        "topic_tags": [
+          "CAREER_EDUCATION",
+          "MAJOR_YEAR_EVENT"
+        ]
+      },
+      "reasoning": "紫微轨的官禄宫七杀在申，对宫紫微天府并会辅佐，优先形成独当一面、组织协调、运营管理和承担责任的职业功能。迁移宫武曲、财帛宫破军化禄并见禄存，使职业对象进一步落向流动、调度、资源周转、供应链或运营管理。2022壬年紫微化权，且流年进入夫妻宫紫微天府，对管理责任和职业阶段转换形成直接激活。八字两版本均可支持输出、资源配置和阶段转换，但不能单独证明宗教、殡葬或网红身份。成对比较中，C的运输流动对象与运营管理功能同时得到闭合，胜过D仅有的传播与公众表达能力；A、B均缺宗教机构或殡葬服务对象、资格与收入链。因此保持C为Top1、D为Top2。",
+      "strongest_counterevidence": "命身贪狼与文曲可支持传播、内容表达和公众接触，因此D保留为最强竞争项；但网红仍需要平台、粉丝、持续内容生产和流量收入链，若这些现实节点被闭合，D会反转C。",
+      "top1": "C",
+      "top2": "D"
+    },
+    {
+      "confidence": 59,
+      "evidence": [
+        "S04",
+        "S08",
+        "S09",
+        "S10",
+        "S11",
+        "S14",
+        "S15",
+        "S16",
+        "S17",
+        "S18"
+      ],
+      "question_id": "Q4",
+      "question_profile": {
+        "applied_rule_ids": [],
+        "endpoint_tags": [
+          "RELATIONSHIP_STATUS",
+          "RELATIONSHIP_QUALITY",
+          "DIVORCE"
+        ],
+        "reasoning_skill_tags": [
+          "SUBJECT_ENTITY_ROUTING",
+          "TOPIC_PALACE_ROUTING",
+          "NATAL_STRUCTURE",
+          "STATIC_DYNAMIC_LAYERING",
+          "PALACE_TRANSFORMATION_CHAIN",
+          "BAZI_STRUCTURE_THEN_TRIGGER",
+          "TIME_LAYER_ACTIVATION",
+          "EVENT_ENDPOINT_CLOSURE",
+          "OPTION_GRANULARITY",
+          "COMPOSITE_OPTION_ATOMIZATION",
+          "EVIDENCE_WEIGHTING",
+          "COUNTEREVIDENCE_REVERSAL",
+          "ZIWEI_BAZI_ARBITRATION",
+          "CAUSAL_ACTOR_DIRECTION",
+          "RELATIONSHIP_SEQUENCE",
+          "UNCERTAINTY_CALIBRATION"
+        ],
+        "source_routes": [
+          "S00",
+          "S01",
+          "S03",
+          "S04",
+          "S08",
+          "S09",
+          "S10",
+          "S11",
+          "S14",
+          "S15",
+          "S16",
+          "S17",
+          "S18",
+          "S19"
+        ],
+        "subject_tags": [
+          "SPOUSE_PARTNER"
+        ],
+        "time_scope_tags": [
+          "SPECIFIC_YEAR",
+          "CURRENT_STATUS"
+        ],
+        "topic_tags": [
+          "MARRIAGE_RELATIONSHIP",
+          "MAJOR_YEAR_EVENT"
+        ]
+      },
+      "reasoning": "紫微轨中夫妻宫紫微天府，并处二十五至三十四岁夫妻大限，支持持续性关系和稳定伴侣容量；2022年前后夫妻轴被明显激活。八字两套合法版本在2022至2024均出现配偶或关系星增强，但对正式婚姻登记的完成支持不稳定，更适合解释长期交往而未完成制度婚姻。命身贪狼生年忌与桃花、表达轴并存，使关系分叉、多线互动或复杂关系高于完全稳定的婚后状态。按法律序列规则，C和D都先要求已完成婚姻，D还要求持续矛盾与离婚手续，前置负担更高；A要求单身且恋情多短暂，又与夫妻大限和长期关系容量不符。因此保持B为Top1、C为Top2。",
+      "strongest_counterevidence": "“脚踏两条船”属于未完全闭合的精确动作，夫妻宫紫微天府本性也偏稳定；若更早已有正式婚姻建立、共同家庭或公开身份的完成链，C会反转B。",
+      "top1": "B",
+      "top2": "C"
+    },
+    {
+      "confidence": 69,
+      "evidence": [
+        "S04",
+        "S08",
+        "S09",
+        "S10",
+        "S11",
+        "S14",
+        "S15",
+        "S16",
+        "S17",
+        "S18"
+      ],
+      "question_id": "Q5",
+      "question_profile": {
+        "applied_rule_ids": [],
+        "endpoint_tags": [
+          "OTHER"
+        ],
+        "reasoning_skill_tags": [
+          "TOPIC_PALACE_ROUTING",
+          "NATAL_STRUCTURE",
+          "STATIC_DYNAMIC_LAYERING",
+          "PALACE_TRANSFORMATION_CHAIN",
+          "BAZI_STRUCTURE_THEN_TRIGGER",
+          "TIME_LAYER_ACTIVATION",
+          "EVENT_ENDPOINT_CLOSURE",
+          "OPTION_GRANULARITY",
+          "EVIDENCE_WEIGHTING",
+          "COUNTEREVIDENCE_REVERSAL",
+          "ZIWEI_BAZI_ARBITRATION",
+          "UNCERTAINTY_CALIBRATION"
+        ],
+        "source_routes": [
+          "S00",
+          "S01",
+          "S03",
+          "S04",
+          "S08",
+          "S09",
+          "S10",
+          "S11",
+          "S14",
+          "S15",
+          "S16",
+          "S17",
+          "S18",
+          "S19"
+        ],
+        "subject_tags": [
+          "SELF"
+        ],
+        "time_scope_tags": [
+          "SPECIFIC_YEAR"
+        ],
+        "topic_tags": [
+          "MAJOR_YEAR_EVENT"
+        ]
+      },
+      "reasoning": "原局福德宫为廉贞天相。2016丙申使廉贞化忌直接落入福德精神轴，是四个候选年份中对抑郁、多虑和精神压力最直接的紫微触发。八字己未日版本在2016形成申子辰水势，庚申日版本则出现申支重复并叠加丙火压力；两版本都显示心理承载与内在压力的显著变化。2018虽有辰戌冲，且己未版本可出现丑未戌刑，结构冲击很强，但紫微精神主题的直接命中不及2016。2024同时有换运、命疾忌动与关系变化，但福德廉贞化禄形成混合信号；2002则缺少同等级精神轴触发。因此保持2016为Top1、2018为Top2。",
+      "strongest_counterevidence": "2018的辰戌冲与部分版本丑未戌刑具有很强的结构冲击，若该年现实病程出现明确恶化、治疗或功能受损终点，C会反转B；2024也有换运和命疾轴强动，但吉凶信号混合。",
+      "top1": "B",
+      "top2": "C"
+    }
+  ],
+  "round_id": "FORMAL-ROUND-011",
+  "schema": "FROZEN-PREDICTION-V1"
+}

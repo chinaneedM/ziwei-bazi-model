@@ -1,0 +1,262 @@
+name: probe-kyudb-datong-catalog
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-kyudb-datong-catalog.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Probe current Kyujanggak old-book search contract
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import re, urllib.request
+          base='https://kyudb.snu.ac.kr/book/list.do?mid=GDS'
+          try:
+              req=urllib.request.Request(base, headers={'User-Agent':'Mozilla/5.0'})
+              html=urllib.request.urlopen(req, timeout=30).read().decode('utf-8','replace')
+          except Exception as exc:
+              print('KYUDB_ACCESS_BOUNDARY=NETWORK_OR_TLS_FAILURE')
+              print(type(exc).__name__, str(exc))
+              raise SystemExit(0)
+          print('KYUDB_ACCESS_BOUNDARY=OPEN')
+          print('HTML_LEN', len(html))
+          print('=== FORMS ===')
+          for m in re.finditer(r'<form\b[^>]*>.*?</form>', html, re.I|re.S):
+              frag=m.group(0)
+              if any(k in frag for k in ('검색어','search','sch','query','keyword','서명')):
+                  print(re.sub(r'\s+',' ',frag)[:12000])
+          print('=== INPUT_SELECT_NAMES ===')
+          names=[]
+          for tag in re.findall(r'<(?:input|select|textarea)\b[^>]*>', html, re.I):
+              nm=re.search(r'\bname=["\']?([^"\' >]+)',tag,re.I)
+              if nm and nm.group(1) not in names:
+                  names.append(nm.group(1))
+                  print(re.sub(r'\s+',' ',tag)[:1000])
+          print('NAMES', names)
+          print('=== SEARCH-RELATED JS ===')
+          for line in html.splitlines():
+              if any(k.lower() in line.lower() for k in ('search','검색','schword','keyword','book_nm','bookname')):
+                  s=line.strip()
+                  if s:
+                      print(s[:2500])
+          print('=== SCRIPT SRCS ===')
+          for src in re.findall(r'<script[^>]+src=["\']([^"\']+)',html,re.I):
+              print(src)
+          PY
+      - name: Probe legacy KOSTMA target anchors
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import html as htmlmod
+          import re, urllib.request
+          url='https://kostma.aks.ac.kr/dataSearch/dataSearchList.aspx?cateQ=dic&curPage=27&pageSize=100&query=&sType=&sort='
+          try:
+              req=urllib.request.Request(url,headers={'User-Agent':'Mozilla/5.0'})
+              text=urllib.request.urlopen(req,timeout=30).read().decode('utf-8','replace')
+          except Exception as exc:
+              print('KOSTMA_ACCESS_BOUNDARY=NETWORK_OR_TLS_FAILURE')
+              print(type(exc).__name__, str(exc))
+              raise SystemExit(0)
+          print('KOSTMA_ACCESS_BOUNDARY=OPEN')
+          targets=['대통력일통궤','大統曆日通軌','대통력주','大統曆註']
+          anchors=list(re.finditer(r'<a\b[^>]*>.*?</a>', text, re.I|re.S))
+          for key in targets:
+              print('===',key,'===')
+              hits=0
+              for m in re.finditer(re.escape(key),text):
+                  hits += 1
+                  container=None
+                  for a in anchors:
+                      if a.start() <= m.start() < a.end():
+                          container=a.group(0)
+                          break
+                  if container:
+                      clean=htmlmod.unescape(re.sub(r'\s+',' ',container))
+                      print('ANCHOR', clean[:8000])
+                  else:
+                      a=max(0,m.start()-5000); b=min(len(text),m.end()+9000)
+                      frag=text[a:b]
+                      print('CONTEXT', htmlmod.unescape(re.sub(r'\s+',' ',frag))[:14000])
+                  near=text[max(0,m.start()-7000):min(len(text),m.end()+12000)]
+                  attrs=[]
+                  for tag in re.findall(r'<(?:a|input|button|form)\b[^>]*>',near,re.I):
+                      if any(token in tag.lower() for token in ('href=', 'onclick=', 'value=', 'name=', 'id=')):
+                          attrs.append(htmlmod.unescape(re.sub(r'\s+',' ',tag)))
+                  print('NEARBY_TAGS')
+                  for tag in attrs[:80]:
+                      print(tag[:2500])
+              print('HIT_COUNT',hits)
+          PY
+      - name: Resolve legacy viewDicWord navigation contract
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import re, urllib.parse, urllib.request
+          page='https://kostma.aks.ac.kr/dataSearch/dataSearchList.aspx?cateQ=dic&curPage=27&pageSize=100&query=&sType=&sort='
+          headers={'User-Agent':'Mozilla/5.0'}
+          text=urllib.request.urlopen(urllib.request.Request(page,headers=headers),timeout=30).read().decode('utf-8','replace')
+          def emit(label, body):
+              hits=[]
+              for pat in (r'function\s+viewDicWord\s*\([^)]*\)\s*\{', r'viewDicWord\s*=\s*function\s*\([^)]*\)\s*\{'):
+                  for m in re.finditer(pat,body,re.I):
+                      hits.append(m.start())
+              for pos in sorted(set(hits)):
+                  print('VIEWDICWORD_SOURCE',label)
+                  print(re.sub(r'\s+',' ',body[pos:min(len(body),pos+6000)])[:6000])
+          emit('INLINE_PAGE',text)
+          srcs=[]
+          for src in re.findall(r'<script[^>]+src=["\']([^"\']+)',text,re.I):
+              full=urllib.parse.urljoin(page,src)
+              if full not in srcs:
+                  srcs.append(full)
+          print('SCRIPT_COUNT',len(srcs))
+          for full in srcs:
+              print('SCRIPT',full)
+              try:
+                  js=urllib.request.urlopen(urllib.request.Request(full,headers=headers),timeout=20).read().decode('utf-8','replace')
+              except Exception as exc:
+                  print('SCRIPT_FETCH_ERROR',type(exc).__name__,str(exc))
+                  continue
+              if 'viewDicWord' in js:
+                  emit(full,js)
+                  for m in re.finditer(r'viewDicWord',js,re.I):
+                      a=max(0,m.start()-1200); b=min(len(js),m.end()+4500)
+                      print('VIEWDICWORD_CONTEXT',full)
+                      print(re.sub(r'\s+',' ',js[a:b])[:5700])
+                      break
+          PY
+      - name: Fetch target dictionary records and resolve source URLs
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import html as htmlmod
+          import re, urllib.parse, urllib.request, xml.etree.ElementTree as ET
+          headers={'User-Agent':'Mozilla/5.0'}
+          ids=['DIC_A3_000150','DIC_A3_000151']
+          for uid in ids:
+              print('=== RECORD',uid,'===')
+              api='https://kostma.aks.ac.kr/api/API_dicView.aspx?searchid='+urllib.parse.quote(uid)
+              try:
+                  raw=urllib.request.urlopen(urllib.request.Request(api,headers=headers),timeout=30).read()
+              except Exception as exc:
+                  print('API_FETCH_ERROR',type(exc).__name__,str(exc))
+                  continue
+              text=raw.decode('utf-8','replace')
+              print('API_URL',api)
+              print('API_LEN',len(text))
+              print('API_XML',re.sub(r'\s+',' ',text)[:30000])
+              try:
+                  root=ET.fromstring(text)
+                  print('XML_FIELDS')
+                  for elem in root.iter():
+                      val=(elem.text or '').strip()
+                      if val:
+                          print(elem.tag,repr(val[:12000]))
+                          for u in re.findall(r'https?://[^\s<>"\']+',htmlmod.unescape(val)):
+                              print('XML_URL',u)
+              except Exception as exc:
+                  print('XML_PARSE_ERROR',type(exc).__name__,str(exc))
+              detail='https://kostma.aks.ac.kr/dic/dicMain.aspx?mT=A&searchid='+urllib.parse.quote(uid)
+              try:
+                  d=urllib.request.urlopen(urllib.request.Request(detail,headers=headers),timeout=30).read().decode('utf-8','replace')
+                  print('DETAIL_URL',detail)
+                  print('DETAIL_LEN',len(d))
+                  for tag in re.findall(r'<(?:iframe|a|form|input)\b[^>]*>',d,re.I):
+                      low=tag.lower()
+                      if any(k in low for k in ('src=', 'href=', 'action=', 'searchid', 'kyuj', 'mok', 'url', 'dic')):
+                          print('DETAIL_TAG',htmlmod.unescape(re.sub(r'\s+',' ',tag))[:5000])
+                  for u in re.findall(r'https?://[^\s<>"\']+',htmlmod.unescape(d)):
+                      if any(k in u.lower() for k in ('kyuj','snu','kostma','mok')):
+                          print('DETAIL_URL_FOUND',u[:5000])
+              except Exception as exc:
+                  print('DETAIL_FETCH_ERROR',type(exc).__name__,str(exc))
+          PY
+      - name: Fetch target dicView payloads and extract Kyujanggak bindings
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import html as htmlmod
+          import re, urllib.parse, urllib.request
+          from html.parser import HTMLParser
+
+          class TextExtractor(HTMLParser):
+              def __init__(self):
+                  super().__init__()
+                  self.parts=[]
+              def handle_data(self,data):
+                  data=' '.join(data.split())
+                  if data:
+                      self.parts.append(data)
+
+          headers={'User-Agent':'Mozilla/5.0'}
+          ids=['DIC_A3_000150','DIC_A3_000151']
+          keywords=('e-kyujanggak','kyuj','mok','conview','규장각','청구','소장','원문','자료','url','href','source')
+          for uid in ids:
+              url='https://kostma.aks.ac.kr/dic/dicView.aspx?searchid='+urllib.parse.quote(uid)
+              print('=== DICVIEW',uid,'===')
+              try:
+                  text=urllib.request.urlopen(urllib.request.Request(url,headers=headers),timeout=30).read().decode('utf-8','replace')
+              except Exception as exc:
+                  print('DICVIEW_FETCH_ERROR',type(exc).__name__,str(exc))
+                  continue
+              print('DICVIEW_URL',url)
+              print('DICVIEW_LEN',len(text))
+              parser=TextExtractor()
+              parser.feed(text)
+              clean=htmlmod.unescape(' | '.join(parser.parts))
+              print('DICVIEW_TEXT',clean[:40000])
+              print('=== TARGET TAGS ===')
+              seen=set()
+              for tag in re.findall(r'<(?:a|iframe|frame|form|input|button|script)\b[^>]*>',text,re.I):
+                  normalized=htmlmod.unescape(re.sub(r'\s+',' ',tag))
+                  low=normalized.lower()
+                  if any(k in low for k in keywords) and normalized not in seen:
+                      seen.add(normalized)
+                      print('TAG',normalized[:8000])
+              print('=== URLS ===')
+              urls=[]
+              for pat in (r'https?://[^\s<>"\']+', r'(?:href|src|action)=["\']([^"\']+)', r'(?:location(?:\.href)?\s*=\s*)["\']([^"\']+)'):
+                  for match in re.findall(pat,htmlmod.unescape(text),re.I):
+                      u=match if isinstance(match,str) else match[0]
+                      full=urllib.parse.urljoin(url,u)
+                      if full not in urls:
+                          urls.append(full)
+              for full in urls:
+                  if any(k in full.lower() for k in ('kyuj','mok','conview','kostma','snu')):
+                      print('URL',full[:8000])
+              print('=== KEYWORD CONTEXTS ===')
+              low=text.lower()
+              emitted=set()
+              for key in keywords:
+                  start=0
+                  while True:
+                      pos=low.find(key.lower(),start)
+                      if pos < 0:
+                          break
+                      a=max(0,pos-2500); b=min(len(text),pos+6500)
+                      frag=htmlmod.unescape(re.sub(r'\s+',' ',text[a:b]))
+                      sig=frag[:500]
+                      if sig not in emitted:
+                          emitted.add(sig)
+                          print('CTX',key,frag[:9000])
+                      start=pos+len(key)
+                      if len(emitted) >= 30:
+                          break
+                  if len(emitted) >= 30:
+                      break
+          PY

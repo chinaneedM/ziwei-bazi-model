@@ -1,0 +1,126 @@
+{
+  "schema": "ZIWEI-TIEQIN-NLC1823-COMPOSITE-OBJECT-FINGERPRINT-CONTROL-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-TIEQIN-NLC1823-COMPOSITE-OBJECT-FINGERPRINT-CONTROL-FB",
+  "prior_batch_id": "BATCH-12-ZIWEI-SHILIJU1823-ZHUNZHAI-HUANG-PILIE-OLD-COPY-RECOPY-FIREWALL-FA",
+  "question": "Does direct Tieqin catalog evidence for the Copper/Zhunzhai composite object's Huang seal set, one-volume binding and Raoweng provenance materially identify the currently reviewed 1823 NLC Shiliju manuscript as the same physical object?",
+  "answer": "THE COMPOUND OBJECT FINGERPRINT IS NOW DIRECTLY CLOSED AT THE TIEQIN CATALOG SURFACE AND MATCHES THE CURRENT NLC 1823 OBJECT AT MULTIPLE INDEPENDENT FEATURES: THE SAME TONGHU/ZHUNZHAI TITLE PAIR, ONE-VOLUME COMPOSITE STRUCTURE, HUANG/RAOWENG PROVENANCE, AND THE THREE-PART COPPER VOLUME-HEAD HUANG SEAL SET 士禮居藏 / 黃印丕烈 / 蕘圃. THIS MAKES SAME-PHYSICAL-OBJECT IDENTITY STRONGLY SUPPORTED, BUT IT IS NOT FORMALLY CLOSED BECAUSE NO UNIQUE LATER OWNERSHIP/CALL-NUMBER MARK HAS YET BEEN DIRECTLY MATCHED AND THE FOURTH LOWER SEAL ON THE NLC REPRODUCTION REMAINS UNADJUDICATED. THE HUANG 原書舊鈔 / 錄副 LAYER AND THE 1827 AIRIJINGLU SOURCE-COPY IDENTITY REMAIN UNRESOLVED.",
+  "tieqin_source_binding": {
+    "source_id": "EXT-TIANYIGE-TIEQIN-QING-MS-0004561-TONGHU-ZHUNZHAI-COMPOSITE-FINGERPRINT",
+    "source_title": "天一閣清抄本《鐵琴銅劍樓藏書目錄》卷十五《銅壺漏箭制度》《準齋心製几漏圖式》著錄",
+    "source_pdf_sha256": "29d6774b33087ee8140d7141ca85bd60d25d1872bc636a33da35be9b75dbfc6f",
+    "target_window": "PDF p383-p389; decisive p387-p388",
+    "p387_render_sha256": "1a27cb70651956d59e847f0161e45ccc2749992910f11bda5a2feaa86667b227",
+    "p388_render_sha256": "859162f056d140d1bdce6e288ca79ec5f72bb786b2b0d4710157fd10788b9f00",
+    "extraction_commit": "5f12da4b0815c76cebdb9076e09f6ec3658e6c7a",
+    "workflow_run_id": 35968905286,
+    "workflow_artifact_id": 10795545616,
+    "workflow_artifact_digest": "sha256:ddd321789cc420f2342a883efce0ee8e60514b79794a0476de0b783b2f901611",
+    "render_resolution_dpi": 400,
+    "ocr_used_for_final_glyph_claims": false
+  },
+  "nlc_1823_comparator": {
+    "source_id": "EXT-XUXIU1031-ZHUNZHAI-TONGHU-CLEPSYDRA-QING-MSS-PHYSICAL",
+    "object": "National Library of China-held Qing Daoguang-3 / 1823 Huang Shiliju manuscript reproduced in Xuxiu1031",
+    "source_pdf_sha256": "07348e40ec26ca38efe9c9736a69c403c61f9b07a2c89a847fc68d00ce6d8c25",
+    "zhunzhai_huang_colophon_page": 76,
+    "zhunzhai_huang_colophon_page_sha256": "64aad110e3cba4984cb784e9f97c99044fbc25e39a06744000a7a606ba73ffeb",
+    "tonghu_volume_head_page": 78,
+    "tonghu_volume_head_page_sha256": "43f91f0d11eb88a014bb1a5fe53bc5ec696df540cfc2318cc9e80ba04e4c1329",
+    "direct_visible_tonghu_volume_head_huang_seals": [
+      "士禮居藏",
+      "黃印丕烈",
+      "蕘圃"
+    ],
+    "lower_fourth_seal_identity": "UNADJUDICATED",
+    "ocr_used_for_final_seal_claims": false
+  },
+  "direct_tieqin_reading": {
+    "p387": [
+      "銅壺漏箭制度一卷 / 影鈔宋本",
+      "卷首有「士禮居藏」、「黃印丕烈」、「蕘圃」諸朱記",
+      "準齋心製几漏圖式一卷 / 影鈔宋本",
+      "宋孫逢古撰并序",
+      "是本與銅壺漏箭制度合裝"
+    ],
+    "p388": [
+      "一冊",
+      "郡中黃氏舊藏",
+      "蕘翁有跋",
+      "卷首有士禮居藏朱記"
+    ],
+    "adjudication": "TIEQIN_CATALOG_COMPOUND_OBJECT_SIGNATURE_DIRECTLY_CLOSED"
+  },
+  "composite_object_fingerprint": {
+    "matching_features": [
+      "同一《銅壺漏箭制度》+《準齋心製几漏圖式》題名組合",
+      "Tieqin explicitly describes the pair as 合裝一冊; current NLC reproduction preserves the paired composite object",
+      "Tieqin records 郡中黃氏舊藏 and 蕘翁有跋; current 1823 object carries Huang's 道光癸未仲冬月蕘夫書 paratext",
+      "Tieqin Copper entry directly records volume-head seals 士禮居藏 / 黃印丕烈 / 蕘圃; the current NLC Copper volume head visibly carries the same three Huang seals"
+    ],
+    "exact_identity_nlc1823_equals_tieqin_catalogued_composite_object": "STRONGLY_SUPPORTED_NOT_FORMALLY_CLOSED",
+    "confidence": "HIGH_BUT_FAIL_CLOSED",
+    "closure_blockers": [
+      "No unique Tieqin-era shelfmark/call-number or unambiguous later ownership mark has yet been directly matched across both surfaces.",
+      "The fourth lower seal visible on the current NLC Copper title page is not yet securely read and must not be called 鐵琴銅劍樓 by shape alone.",
+      "Multiple Huang-produced or Huang-circulated copies remain logically possible given Huang's own 原書舊鈔 / 錄副 distinction."
+    ],
+    "force_same_object_collapse_authorized": false
+  },
+  "copy_layer_firewall": {
+    "reviewed_1823_object_exact_role_as_原書舊鈔_or_錄副": "UNRESOLVED",
+    "exact_identity_with_airijinglu1827_吳門黃氏藏舊抄本": "NOT_PROVED",
+    "direct_copy_edge_to_airijinglu1827_authorized": false,
+    "huang_yingsong_judgment_remains_physical_date_proof": false
+  },
+  "sanming_firewall": {
+    "exact_sanming_yueling_dahan_yushui_fingerprint_closed": false,
+    "exact_nanjing_59_endpoint_binding_closed": false,
+    "direct_sanming_parent_vote_increment": 0
+  },
+  "adjudication": {
+    "matrix_count_change": false,
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "deterministic_fusion_chart_product_r1": "CLOSED"
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 12,
+    "repaired_provenance_metadata_defect_count": 12,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "transmission_impact": {
+    "nodes_added": [
+      "PASSAGE-TIEQIN-QING-MS-TONGHU-HUANG-SEALS-COMPOSITE-BINDING"
+    ],
+    "nodes_strengthened": [
+      "PHYSICAL-COPY-TIANYIGE-TIEQIN-QING-MS-0004561",
+      "PHYSICAL-COPY-NLC-ZHUNZHAI-JILOU-DAOGUANG3-HUANG-SHILIJU-MS",
+      "RULE-FAMILY-ZHUNZHAI-25ARROW-JIEHOU-SELECTION-38-62"
+    ],
+    "edges_supported": [
+      "TG-E0106"
+    ],
+    "same_object_edge_authorized": false,
+    "direct_copy_edges_authorized": [],
+    "remaining_lineage_questions": [
+      "Can the fourth lower seal on the NLC Copper title page be securely identified from an independent seal specimen or catalog record?",
+      "Can a unique Tieqin-era shelfmark, ownership annotation, paper defect, binding signature or later acquisition record close exact same-object identity?",
+      "Which surviving layer is Huang's 原書舊鈔 and which is 錄副?",
+      "Which Huang layer did Zhang Jinwu use by 1827?"
+    ]
+  },
+  "next_gate": [
+    "Identify the lower fourth seal and search object-specific NLC/Tieqin acquisition or shelfmark records.",
+    "Keep NLC1823 == Tieqin-catalogued object at STRONGLY_SUPPORTED_NOT_FORMALLY_CLOSED until a unique object-level signature closes it.",
+    "Keep Huang 原書舊鈔 / 錄副 and Airijinglu 1827 source-copy identities separate.",
+    "Continue Yuan person-title and securely pre-1578 exact 25-arrow prose searches; keep Sanming/Nanjing-59 searches active."
+  ],
+  "updated_at": "2026-09-24"
+}

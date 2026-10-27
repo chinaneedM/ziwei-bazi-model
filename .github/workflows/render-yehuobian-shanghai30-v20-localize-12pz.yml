@@ -1,0 +1,49 @@
+name: render-yehuobian-shanghai30-v20-localize-12pz
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/render-yehuobian-shanghai30-v20-localize-12pz.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install PDF tools
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils
+      - name: Fetch and hash-check source
+        run: |
+          set -euo pipefail
+          mkdir -p 12pz-v20/source 12pz-v20/pages
+          root='https://commons.wikimedia.org/wiki/Special:Redirect/file'
+          curl -L --fail --retry 5 --retry-all-errors --retry-delay 3 --max-time 1200 -A 'Tianwen-Historical-Provenance-R1/1.0' "$root/Shanghai_%E8%90%AC%E6%9B%86%E9%87%8E%E7%8D%B2%E7%B7%A8%E4%B8%89%E5%8D%81%E5%8D%B7_part_2.pdf" -o 12pz-v20/source/part2.pdf
+          echo '7ea8fe57f5baebd8f2841771d87ec5e3ed34c271e0fe89596a28d2521c9165a6  12pz-v20/source/part2.pdf' | sha256sum -c -
+          pdfinfo 12pz-v20/source/part2.pdf > 12pz-v20/pdfinfo.txt
+          test "$(awk '/^Pages:/ {print $2}' 12pz-v20/pdfinfo.txt)" = 550
+      - name: Render suspected volume-20 and adjacent navigation pages without OCR
+        run: |
+          set -euo pipefail
+          pages=(403 406 407 408 409 436 440 448)
+          for p in "${pages[@]}"; do
+            pdftoppm -f "$p" -l "$p" -r 175 -jpeg -jpegopt quality=92 -singlefile 12pz-v20/source/part2.pdf "12pz-v20/pages/$(printf 'part2-p%04d' "$p")"
+          done
+          test "$(find 12pz-v20/pages -maxdepth 1 -name '*.jpg' | wc -l)" -eq 8
+          (cd 12pz-v20 && sha256sum pages/*.jpg > image-sha256.txt)
+          printf 'SOURCE_SHA256=7ea8fe57f5baebd8f2841771d87ec5e3ed34c271e0fe89596a28d2521c9165a6\nPDF_PAGES=550\nPOSITIONS=403,406,407,408,409,436,440,448\nOCR=false\nEDITON_YEAR_AND_COPY_NOT_YET_PROVEN=true\nTARGET_GLYPHS_NOT_AUTO_ADJUDICATED=true\n' > 12pz-v20/manifest.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: shanghai30-v20-localization-12pz
+          path: |
+            12pz-v20/pages/
+            12pz-v20/image-sha256.txt
+            12pz-v20/manifest.txt
+            12pz-v20/pdfinfo.txt
+          if-no-files-found: error
+          retention-days: 30

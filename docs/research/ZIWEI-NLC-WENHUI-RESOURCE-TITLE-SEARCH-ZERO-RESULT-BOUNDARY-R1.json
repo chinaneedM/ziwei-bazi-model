@@ -1,0 +1,112 @@
+{
+  "schema": "ZIWEI-NLC-WENHUI-RESOURCE-TITLE-SEARCH-ZERO-RESULT-BOUNDARY-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-NLC-WENHUI-RESOURCE-TITLE-SEARCH-ZERO-RESULT-BOUNDARY-JV",
+  "prior_batch_id": "BATCH-12-ZIWEI-NLC-ELECTRONIC-NEWSPAPER-PUBLIC-SEARCH-CONTRACT-JU",
+  "question": "Using only the NLC page-emitted anonymous GET contract, do current outRes external-resource searches expose a Wenhui CD-ROM/resource item for the 60-year/61-year or simplified/traditional title variants?",
+  "answer": "No result item is returned on the current anonymous outRes external-resource index for the four tested title strings. Each request returns HTTP 200 with pageTotal=0. The query term is echoed into searchName, so term presence in HTML is not a hit. This negative evidence is confined to outRes; it does not prove NLC OPAC nonholding or negate the 2003 donation report.",
+  "controlling_probe": {
+    "workflow": ".github/workflows/probe-batch-12jv-nlc-wenhui-resource-title-search.yml",
+    "exact_head": "5f9050fdfe8907722ccd8cb73c96e738a2e41fc8",
+    "workflow_run_id": 36845037948,
+    "workflow_job_id": 110313030409,
+    "artifact_id": 11153465153,
+    "artifact_digest": "sha256:82a139a7312863b38bb7096d4bb87c94d0790d16155e3b9f0475b46af86d5f64"
+  },
+  "contract_used": {
+    "method": "GET",
+    "path": "/outRes/outResList",
+    "type": "全部",
+    "search_parameter": "searchName",
+    "source": "Batch 12JU direct page-emitted getOutResSearch()"
+  },
+  "queries": [
+    {
+      "term": "文汇报60年报纸光盘",
+      "http_status": 200,
+      "bytes": 17392,
+      "sha256": "392151706b41d84251941bb6984ef8cbadc930c50af2577d3420787a3b6416e1",
+      "page_total": 0,
+      "term_echoed": true,
+      "result_item_observed": false
+    },
+    {
+      "term": "文汇报",
+      "http_status": 200,
+      "bytes": 17375,
+      "sha256": "7d41a07958c49398cb9c7e4039e3d279c133f018eec04e837eb6487c579150af",
+      "page_total": 0,
+      "term_echoed": true,
+      "result_item_observed": false
+    },
+    {
+      "term": "文匯報",
+      "http_status": 200,
+      "bytes": 17371,
+      "sha256": "ed7afca7e364391728a6cdd8183d8559cd9414d7359a9e566ba723561e53cf3b",
+      "page_total": 0,
+      "term_echoed": true,
+      "result_item_observed": false
+    },
+    {
+      "term": "文汇报61年全文数据光盘",
+      "http_status": 200,
+      "bytes": 17394,
+      "sha256": "4f0ddc86ccf1c0e3e68a944666d84033955c0ce7359ae0923c21ca0e968b8a25",
+      "page_total": 0,
+      "term_echoed": true,
+      "result_item_observed": false
+    }
+  ],
+  "adjudication": {
+    "current_anonymous_outres_wenhui_title_results": "ZERO_FOR_FOUR_TESTED_TERMS",
+    "query_term_html_presence_is_echo_only": true,
+    "nlc_opac_nonholding": "NOT_PROVED",
+    "nlc_cdrom_current_holding": "UNRESOLVED",
+    "donation_report_invalidated": false,
+    "target_person_query_submitted": false,
+    "target_date_query_submitted": false,
+    "direct_wenhui_1951_08_18": "NOT_REVIEWED"
+  },
+  "evidence_firewall": {
+    "outres_zero_result_does_not_equal_opac_nonholding": true,
+    "search_term_echo_does_not_equal_result_hit": true,
+    "resource_index_zero_result_does_not_negate_historical_donation": true,
+    "resource_index_search_does_not_equal_direct_newspaper_page_review": true
+  },
+  "security": {
+    "login_used": false,
+    "reader_account_used": false,
+    "registration_used": false,
+    "private_endpoint_guessed": false,
+    "captcha_bypass_used": false,
+    "tls_verification_disabled": false,
+    "state_changing_request_used": false
+  },
+  "transmission_impact": {
+    "status": "NONE",
+    "graph_change": false
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Stop repeating outRes Wenhui title searches unless its index changes materially.",
+    "Recover the source-emitted public OPAC search contract from opac.nlc.cn / F/?func=file&file_name=login-session before an OPAC title search.",
+    "Continue direct page-level routes for 1951-08-18 and the parallel Wenwu/Wenji targets."
+  ],
+  "updated_at": "2026-10-01"
+}

@@ -1,0 +1,35 @@
+name: research-ndl-ogawa-shoushi-licheng
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/research-ndl-ogawa-shoushi-licheng.yml"
+      - "scripts/research_ndl_ogawa_shoushi_licheng_probe.py"
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install research image dependency
+        run: python -m pip install --disable-pip-version-check pillow
+      - name: Probe NDL Ogawa 1673 Shoushi licheng IIIF
+        run: |
+          python scripts/research_ndl_ogawa_shoushi_licheng_probe.py \
+            --output artifacts/ndl-ogawa-shoushi-licheng
+      - name: Upload no-OCR page maps and contact sheets
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ndl-ogawa-shoushi-licheng-${{ github.sha }}
+          path: artifacts/ndl-ogawa-shoushi-licheng/
+          if-no-files-found: warn
+          retention-days: 7

@@ -1,0 +1,171 @@
+name: probe-batch-12fj-nlc-digital-object-route
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12fj-nlc-digital-object-route.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Probe NLC digital-object control routes
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/batch-12fj-nlc-digital-object-route'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT/read/raw" "$ROOT/read/text" "$ROOT/meta"
+          UA='Tianwen-Provenance-Audit/1.0'
+
+          cat > "$ROOT/targets.tsv" <<'EOF'
+          tonghu	411999008600	113028	銅壺漏箭制度
+          zhunzhai	411999008601	113029	准齋心製幾漏圖式
+          control-prev	411999008599	102741	新儀象法要
+          EOF
+
+          : > "$ROOT/read/status.tsv"
+          while IFS=$'\t' read -r key fid fileid title; do
+            for scheme in http https; do
+              for searchType in 1002 all; do
+                url="$scheme://read.nlc.cn/allSearch/searchDetail?searchType=$searchType&showType=1&indexName=data_892&fid=$fid"
+                out="$ROOT/read/raw/${key}-${scheme}-${searchType}.html"
+                hdr="$ROOT/read/raw/${key}-${scheme}-${searchType}.headers"
+                set +e
+                code=$(curl -L -sS --connect-timeout 8 --max-time 35 -A "$UA" \
+                  -D "$hdr" -o "$out" -w '%{http_code}' "$url")
+                rc=$?
+                set -e
+                size=0; [ -f "$out" ] && size=$(wc -c < "$out")
+                final=$(awk 'BEGIN{IGNORECASE=1} /^location:/{gsub(/\r/,"");print $2}' "$hdr" 2>/dev/null | tail -1 || true)
+                printf '%s\t%s\t%s\trc=%s\thttp=%s\tbytes=%s\tredirect=%s\n' "$key" "$scheme" "$searchType" "$rc" "$code" "$size" "$final" >> "$ROOT/read/status.tsv"
+              done
+            done
+          done < "$ROOT/targets.tsv"
+
+          python - <<'PY'
+          from html.parser import HTMLParser
+          from pathlib import Path
+          from urllib.parse import urljoin
+          import re,json
+
+          root=Path('audit/batch-12fj-nlc-digital-object-route/read')
+          class P(HTMLParser):
+              def __init__(self):
+                  super().__init__(); self.text=[]; self.links=[]; self.scripts=[]; self.forms=[]; self.inputs=[]
+              def handle_data(self,d):
+                  s=' '.join(d.split())
+                  if s:self.text.append(s)
+              def handle_starttag(self,tag,attrs):
+                  a=dict(attrs)
+                  if tag=='a' and a.get('href'): self.links.append(a['href'])
+                  if tag=='script' and a.get('src'): self.scripts.append(a['src'])
+                  if tag=='form': self.forms.append(a)
+                  if tag=='input': self.inputs.append(a)
+          terms=re.compile(r'411999008600|411999008601|411999008599|113028|113029|102741|銅壺|铜壶|準齋|准齋|准斋|幾漏|几漏|fid|data_892|pdf|image|page|book|detail',re.I)
+          hits=[]; urls=[]
+          for p in sorted((root/'raw').glob('*.html')):
+              q=P(); q.feed(p.read_text('utf-8',errors='replace'))
+              (root/'text'/f'{p.stem}.txt').write_text('\n'.join(q.text)+'\n',encoding='utf-8')
+              hits.append('### '+p.name)
+              for line in q.text:
+                  if terms.search(line): hits.append('TEXT\t'+line)
+              for href in q.links:
+                  u=urljoin('https://read.nlc.cn/allSearch/searchDetail',href); urls.append(u)
+                  if terms.search(u): hits.append('LINK\t'+u)
+              for src in q.scripts:
+                  u=urljoin('https://read.nlc.cn/allSearch/searchDetail',src); urls.append(u)
+                  if terms.search(u): hits.append('SCRIPT\t'+u)
+              for form in q.forms: hits.append('FORM\t'+repr(form))
+              for inp in q.inputs:
+                  if terms.search(repr(inp)): hits.append('INPUT\t'+repr(inp))
+          root.joinpath('target-hits.txt').write_text('\n'.join(hits)+'\n',encoding='utf-8')
+          root.joinpath('candidate-urls.txt').write_text('\n'.join(dict.fromkeys(urls))+'\n',encoding='utf-8')
+          PY
+
+          # Current metadata search is a semantic boundary control: FID/file object ids
+          # may or may not be indexed as current bibliographic fields.
+          : > "$ROOT/meta/status.tsv"
+          while IFS=$'\t' read -r key fid fileid title; do
+            for q in "$fid" "$fileid"; do
+              for way in ANY SYS; do
+                body=$(Q="$q" WAY="$way" python - <<'PY'
+          import json,os
+          q=os.environ['Q']; way=os.environ['WAY']
+          print(json.dumps({
+            "q":q,"searchWay":way,"page_num":"1",
+            "query":q if way=="ANY" else way+"="+q,
+            "sort":[{"_score":"DESC"}],"size":20,"facetVal":[],"exactMatch":True
+          },ensure_ascii=False,separators=(',',':')))
+          PY
+                )
+                out="$ROOT/meta/${key}-${q}-${way}.json"
+                set +e
+                code=$(curl -L -sS --connect-timeout 8 --max-time 30 -A "$UA" \
+                  -H 'Accept: application/json, text/javascript, */*; q=0.01' \
+                  -H 'X-Requested-With: XMLHttpRequest' \
+                  -H 'Referer: https://meta.nlc.cn/v2/search' \
+                  -H 'Content-Type: application/json;charset=UTF-8' \
+                  --data-binary "$body" -o "$out" -w '%{http_code}' \
+                  'https://meta.nlc.cn/v2/doSearch?hight=false')
+                rc=$?
+                set -e
+                printf '%s\t%s\t%s\trc=%s\thttp=%s\tbytes=%s\n' "$key" "$q" "$way" "$rc" "$code" "$(wc -c < "$out" 2>/dev/null || echo 0)" >> "$ROOT/meta/status.tsv"
+              done
+            done
+          done < "$ROOT/targets.tsv"
+
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          root=Path('audit/batch-12fj-nlc-digital-object-route/meta')
+          out=[]
+          for p in sorted(root.glob('*.json')):
+              out.append('### '+p.name)
+              try: obj=json.loads(p.read_text('utf-8'))
+              except Exception as e:
+                  out.append('PARSE_ERROR '+repr(e)); continue
+              out.append('status='+repr(obj.get('status'))+' total='+repr(obj.get('total'))+' message='+repr(obj.get('message')))
+              for row in (obj.get('result') or [])[:10]:
+                  src=row.get('_source') or {}
+                  out.append(json.dumps({
+                    'id':row.get('_id'),'SYS':src.get('SYS'),'UID':src.get('UID'),
+                    'TIT':src.get('TIT'),'WDT':src.get('WDT'),'YEA':src.get('YEA'),
+                    'PUB':src.get('PUB'),'PAG':src.get('PAG')
+                  },ensure_ascii=False,separators=(',',':')))
+          root.joinpath('summary.txt').write_text('\n'.join(out)+'\n',encoding='utf-8')
+          PY
+
+          # Secondary locator control only: capture the public backup index lines that
+          # expose the read.nlc.cn FID -> file-object-id pairing. Never use as final
+          # first-party authority when NLC direct route is available.
+          set +e
+          curl -L -sS --connect-timeout 8 --max-time 30 -A "$UA" \
+            'https://commons.wikimedia.org/wiki/Commons:Library_back_up_project/file_list/NLC/%E6%95%B8%E5%AD%97%E5%8F%A4%E7%B1%8D/04' \
+            -o "$ROOT/commons-index.html"
+          set -e
+          grep -nE '411999008600|411999008601|113028|113029|銅壺漏箭制度|准齋心製' "$ROOT/commons-index.html" > "$ROOT/commons-target-lines.txt" || true
+
+          find "$ROOT" -type f -size +0c -print0 | xargs -0 -r sha256sum | sort -V > "$ROOT/all-files.sha256"
+          printf '%s\n' \
+            'PURPOSE=classify linked record controls 411999008600/601 and digital file-object ids 113028/113029 against NLC first-party read/meta routes' \
+            'FIRST_PARTY_PRIORITY=read.nlc.cn and meta.nlc.cn responses control; Wikimedia is locator/corroboration only' \
+            'IDENTIFIER_FIREWALL=read FID/control id != file/page object id != current bibliographic SYS/UID != 905 local call number != barcode' \
+            'NEGATIVE_POLICY=timeout/nonreturn is access boundary only' \
+            'OCR_USED=false' > "$ROOT/manifest.txt"
+
+      - name: Upload Batch 12FJ route evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: batch-12fj-nlc-digital-object-route-probe
+          path: audit/batch-12fj-nlc-digital-object-route/
+          if-no-files-found: error
+          retention-days: 30

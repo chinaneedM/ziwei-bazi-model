@@ -1,0 +1,145 @@
+{
+  "schema": "ZIWEI-NLC-SOURCE-EMITTED-OPAC-ELECTRONIC-NEWSPAPER-HTTP-ROUTE-CALIBRATION-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-NLC-SOURCE-EMITTED-OPAC-ELECTRONIC-NEWSPAPER-HTTP-ROUTE-CALIBRATION-JT",
+  "prior_batch_id": "BATCH-12-ZIWEI-WENHUI-60YEAR-CDROM-NLC-DONATION-AND-CURRENT-SERVICE-BOUNDARY-JS",
+  "question": "Do the current NLC source-emitted OPAC/electronic-newspaper routes remain publicly reachable, and does protocol choice affect the observed boundary before any target title search is submitted?",
+  "answer": "Yes. The current NLC homepage directly emits HTTP links to OPAC and the electronic-newspaper resource page. On the controlling runner, those exact HTTP routes are reachable while HTTPS comparison variants time out. The electronic-newspaper HTTP page exposes search-related field names but no target query is submitted. Its landing page itself does not contain Wenhui/CD-ROM target tokens, which does not prove nonexistence in searchable resources.",
+  "controlling_probe": {
+    "workflow": ".github/workflows/probe-batch-12jt-nlc-source-emitted-opac-electronic-newspaper-routes.yml",
+    "exact_head": "2989ef489012b32d46dd6291c94454fc5c8b20f0",
+    "workflow_run_id": 36844080482,
+    "workflow_job_id": 110309901228,
+    "artifact_id": 11152368933,
+    "artifact_name": "batch-12jt-nlc-source-emitted-routes",
+    "artifact_digest": "sha256:dc4f1f29fe9cff4c640b6ba34a29c7e0eab3c7a7fb20f22daaab6ef5c2c334d2"
+  },
+  "superseded_probe": {
+    "workflow_run_id": 36843786769,
+    "artifact_id": 11151948536,
+    "accepted_for_protocol_adjudication": false,
+    "reason": "Source-emitted href parsing was corrected, but that run tested only HTTPS variants while NLC emitted HTTP; final protocol adjudication deferred to controlling run."
+  },
+  "source_home": {
+    "url": "https://www.nlc.cn/web/",
+    "http_status": 200,
+    "bytes": 70374,
+    "sha256": "7b00972aa48455db32714445aa637ee70a62a615341892aaee9fe97778e5f4d8",
+    "link_count": 166,
+    "opac_url_source_emitted": true,
+    "opac_samples": [
+      "http://opac.nlc.cn/F/?func=file&file_name=login-session",
+      "http://opac.nlc.cn/"
+    ],
+    "electronic_newspaper_route_source_emitted": true,
+    "electronic_newspaper_url": "http://read.nlc.cn/outRes/outResList?type=电子报纸"
+  },
+  "route_calibration": {
+    "opac_http": {
+      "url": "http://opac.nlc.cn/",
+      "reached": true,
+      "http_status": 200,
+      "bytes": 318,
+      "sha256": "999e28e32e671494ad7a97c0a46446f192c8767264adca9d068ef0c3f4fe2a68",
+      "forms": 0,
+      "inputs": 0,
+      "links": 0
+    },
+    "opac_https": {
+      "url": "https://opac.nlc.cn/",
+      "reached": false,
+      "error_class": "ConnectTimeout"
+    },
+    "electronic_newspapers_http": {
+      "url": "http://read.nlc.cn/outRes/outResList?type=电子报纸",
+      "reached": true,
+      "http_status": 200,
+      "bytes": 404829,
+      "sha256": "b8991f6d96bb95e8fba6dff11866ece8b146ee097fa902d9afb25b0c7d7856cf",
+      "input_names": [
+        "type",
+        "urlType",
+        "searchName",
+        "ourReswords"
+      ],
+      "search_button_present": true,
+      "search_semantics_present": true,
+      "target_tokens": {
+        "wenhui_simplified": false,
+        "wenhui_traditional": false,
+        "60year_cdrom": false,
+        "61year_cdrom": false
+      }
+    },
+    "electronic_newspapers_https": {
+      "url": "https://read.nlc.cn/outRes/outResList?type=电子报纸",
+      "reached": false,
+      "error_class": "ConnectTimeout"
+    }
+  },
+  "adjudication": {
+    "source_emitted_http_routes": "CLOSED",
+    "protocol_asymmetry_observed": true,
+    "source_emitted_http_routes_reachable": true,
+    "https_comparison_routes_reachable": false,
+    "electronic_newspaper_public_search_fields_observed": true,
+    "public_search_contract_submission_semantics": "NOT_YET_REVIEWED",
+    "target_query_submitted": false,
+    "item_level_wenhui_cdrom_identity": "UNRESOLVED",
+    "landing_page_target_token_absence": "OBSERVED_WITH_ZERO_NEGATIVE_CATALOG_AUTHORITY",
+    "direct_wenhui_1951_08_18": "NOT_REVIEWED",
+    "direct_wenwu_issue9_pp221_233": "NOT_REVIEWED",
+    "direct_2011_wenji_p197": "NOT_REVIEWED"
+  },
+  "evidence_firewall": {
+    "https_timeout_does_not_equal_http_route_unreachable": true,
+    "landing_page_nonlisting_does_not_equal_search_result_zero": true,
+    "search_field_presence_does_not_authorize_guessing_private_endpoints": true,
+    "item_identity_must_precede_page_level_claim": true
+  },
+  "security": {
+    "login_used": false,
+    "reader_account_used": false,
+    "registration_used": false,
+    "form_submitted": false,
+    "target_query_submitted": false,
+    "private_endpoint_guessed": false,
+    "captcha_bypass_used": false,
+    "tls_verification_disabled": false
+  },
+  "transmission_impact": {
+    "status": "NONE",
+    "graph_change": false,
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": [],
+    "reason": "Modern NLC access-route calibration only."
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Inspect the source-emitted electronic-newspaper HTTP page client-side script around searchName/ourReswords to recover the public search submission contract before sending any target title query.",
+    "Do not infer item absence from the target-free landing page.",
+    "Keep OPAC HTTP root identity separate from the login-session route; no login action is authorized.",
+    "Continue direct recovery of Shanghai 《文汇报》 1951-08-18, 《文物参考资料》 no.9 pp.221-233 and 2011 《赵万里文集》第1卷 p.197."
+  ],
+  "updated_at": "2026-10-01"
+}

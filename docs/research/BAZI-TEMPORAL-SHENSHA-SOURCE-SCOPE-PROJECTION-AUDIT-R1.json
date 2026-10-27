@@ -1,0 +1,114 @@
+{
+  "schema": "BAZI-TEMPORAL-SHENSHA-SOURCE-SCOPE-PROJECTION-AUDIT-R1",
+  "batch_id": "BATCH-12-BAZI-TEMPORAL-SHENSHA-SOURCE-SCOPE-PROJECTION-AUDIT-MO",
+  "prior_batch_id": "BATCH-12-BAZI-TEMPORAL-CLASSICAL-IDENTITY-PROJECTION-AUDIT-MN",
+  "rule_id": "HPA-BAZI-FLOW-005",
+  "audit_scope": "VERIFY_MODERN_TEMPORAL_TARGET_MATCH_PRESERVES_UPSTREAM_SHENSHA_CANDIDATE_IDENTITY_SCOPE_AND_PROVENANCE_WITHOUT_CLASSICAL_APPLICABILITY_CLAIM",
+  "adjudication": {
+    "audit_status": "MODERN_COMPATIBILITY_ONLY",
+    "historical_scope": "MODERN_SOURCE_PRESERVING_TARGET_MATCH_ONLY_TEMPORAL_APPLICABILITY_UNADJUDICATED",
+    "classical_temporal_applicability_claimed": false,
+    "omen_strength_activation_event_semantics_authorized": false,
+    "algorithm_reopen_authorized": false
+  },
+  "upstream_rule_ids": [
+    "HPA-SHENSHA-001",
+    "HPA-SHENSHA-002",
+    "HPA-SHENSHA-003",
+    "HPA-SHENSHA-004",
+    "HPA-SHENSHA-005",
+    "HPA-SHENSHA-006",
+    "HPA-SHENSHA-007",
+    "HPA-SHENSHA-008",
+    "HPA-SHENSHA-009",
+    "HPA-SHENSHA-010",
+    "HPA-SHENSHA-011",
+    "HPA-SHENSHA-012",
+    "HPA-SHENSHA-013",
+    "HPA-SHENSHA-014",
+    "HPA-SHENSHA-015",
+    "HPA-SHENSHA-016",
+    "HPA-SHENSHA-017",
+    "HPA-SHENSHA-018",
+    "HPA-SHENSHA-019",
+    "HPA-SHENSHA-020",
+    "HPA-SHENSHA-021"
+  ],
+  "implementation_contract": {
+    "projection_policy": "ENGINEERING_TARGET_MATCH_NOT_CLASSICAL_TEMPORAL_APPLICABILITY",
+    "applicability_status": "NOT_CLASSICALLY_ARBITRATED",
+    "selection_semantics": "SOURCE_CANDIDATES_PRESERVED_NO_WINNER",
+    "semantic_scope": "TARGET_IDENTITY_MATCH_ONLY_NO_AUSPICIOUSNESS_OR_TEMPORAL_RULE_ADJUDICATION",
+    "simple_target_kinds": [
+      "STEM",
+      "BRANCH",
+      "GANZHI"
+    ],
+    "all_pillars_layers": [
+      "DAYUN",
+      "XIAOYUN",
+      "ANNUAL",
+      "MONTHLY",
+      "DAILY",
+      "HOURLY"
+    ],
+    "only_day_layers": [
+      "DAILY"
+    ],
+    "structural_target_kinds_excluded": [
+      "STEM_SEQUENCE",
+      "BRANCH_PAIR",
+      "HOUR_BRANCH_LONGSHENG_LIUHE_YIMA"
+    ]
+  },
+  "runtime_files": [
+    {
+      "path": "src/fortune_training/bazi_application/temporal_shensha.py",
+      "blob_sha": "a2a834618b254d15814f7222abefe82839c1af5d",
+      "unchanged_from_base": true
+    },
+    {
+      "path": "src/fortune_training/bazi_application/shensha.py",
+      "blob_sha": "a7dae1f3ff4c7704c2052153f5cef61121002923",
+      "unchanged_from_base": true
+    }
+  ],
+  "replay_evidence": "docs/research/evidence/batch-12mo/projection-replay.json",
+  "profile_metadata_sync": {
+    "upstream_matrix_previous_version": "1.7.0",
+    "upstream_live_version": "1.7.1",
+    "batch_03_tiande_candidate_extension_already_counted": true,
+    "yuancheng_root_repair": "PROV-DEFECT-003",
+    "new_provenance_defect_increment": 0,
+    "downstream_docs_synchronized": [
+      "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json",
+      "docs/BAZI-SHENSHA-FACTS-R1.md"
+    ]
+  },
+  "verification": {
+    "new_test_file": "tests/test_bazi_temporal_shensha_source_scope_projection_audit_r1.py",
+    "new_test_count": 5,
+    "exact_head_ci_status_at_commit_creation": "PENDING_BY_DEFINITION",
+    "note": "The commit does not reuse the prior head's CI as proof. Its own exact-head GitHub Actions are authoritative after the branch advances."
+  },
+  "accounting": {
+    "rows_before": 201,
+    "rows_after": 201,
+    "audited_rows_before": 173,
+    "audited_rows_after": 174,
+    "current_missing_from_product_rows": 10,
+    "provenance_defects_confirmed": 17,
+    "provenance_defects_repaired": 17,
+    "chart_algorithm_defects": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0
+  },
+  "transmission_impact": {
+    "status": "NONE",
+    "reason": "No new historical witness, ancestry edge, copy relation or school-transmission edge is adjudicated; existing source refs are only replayed and stale downstream descriptors synchronized."
+  },
+  "next_gate": [
+    "12MP: audit HPA-BAZI-FLOW-006 Structural Context target projection. Separate neutral structural facts from later interpretive schools and verify temporal projection does not promote context facts into strength/pattern/judgment semantics.",
+    "Original Wenwu1951 recovery remains paused pending a materially new lawful access mechanism."
+  ]
+}

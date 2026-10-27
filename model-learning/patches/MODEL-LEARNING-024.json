@@ -1,0 +1,33 @@
+{
+  "contains_case_answer_mapping": false,
+  "content": {
+    "correction": {
+      "applicability": "适用于经营成败、事业轨迹、他人健康与死亡、合作风险、关系恶化、财富量级及其他正负终点不对称的强制选择题；尤其适用于证据账本已承认现实记录不可见，却仍把未知写成反证，或较安全、较正面候选只凭容量和激活排首的场景。",
+      "capability_ceiling": "最高提升题内相对排序、证据账本一致性、全候选反转覆盖和置信校准；不能确认具体人物实际死亡、企业实际倒闭、真实盈亏金额、合作损失或十年现实轨迹，也不能保证后续个案命中。",
+      "expected_effect": "消除把中立背景当直接反证的符号错误，减少对严重或不可逆候选的单边保守惩罚，并把高Top2覆盖转化为更可靠的最终排序。预期改善经营正负结果、亲属健康终点、合作风险和多年趋势题的最强竞争回扫，同时降低缺少现实终点时的虚假确定性。",
+      "limitations": "该门禁不会把未知转换为严重候选的支持，也不允许从忌、冲、煞、空劫、十神或单一四化直接确认盘外死亡、倒闭、破产、巨额损失或长期破败。严重候选仍需独立的人物、机制和时间父链；若所有候选的区别机制均不足，只能低置信强制作答并保留未决，不能补造现实记录。",
+      "reasoning": "现有模型已经明确规定未知不等于反证，并已退役以未证严重原子一票否决候选的规则，但执行层仍把“无现实记录”和“终点未闭合”登记为COUNTEREVIDENCE，同时对正向容量、禄权科、人物能力和主题活跃采用较低完成标准。说明缺口不是新增命理象义，而是既有校准没有落实到证据字段、轨道引用和全候选回扫。把字段合法组合、正负终点对称和后位严重竞争项回扫设为冻结前硬门，才能让已有通用修正真正进入最终排序。",
+      "source_basis": "S02区分现实主张、未知、量级与直接反证；S03要求双轨独立并防止共同语义偏差；S08与S10区分静态容量、动态方向和现实完成；S14至S16限制八字冲合与岁运越级；S17要求人物—动作—对象—时间—终点闭合；S18要求全选项同深比较、同源去重、直接同轴反证、最强竞争反转和置信校准；S19要求失败后把执行遗漏固化为可审计门禁。",
+      "statement": "冻结前强制执行“证据符号一致—终点负担对称—遗漏严重竞争项回扫”门禁。第一，independence_status为NEUTRAL_BACKGROUND的证据只表示共同背景、能力边界或未知，decision_impact必须为NEUTRAL；“缺少现实记录、不能确认、未闭合、未知”不得进入任何轨道的contradicting_evidence_ids，也不得进入选项的direct_counterevidence_ids。直接反证必须是与候选必需原子在同一人物、时间、动作、对象或终点轴上逻辑不兼容的可观察事实或方向明确的结构链。第二，所有候选的成功、失败、持续、终止、严重度和量级原子承担同等证明负担；不能一边以缺少正式记录否决失败、死亡、倒闭或破败等严重候选，一边仅凭禄权科、容量、能力、活跃或变化支持成功、改善、扩张或胜任。若现实终点对全部候选都不可见，终点未知统一记零分，再按人物专属性、机制方向、时间新增量、持续性和替代解释净支持排序。第三，完成Top1对Top2反转后，必须再回扫所有因高严重度、高量级或不可逆标签而被排到后位、但仍有独立人物—机制—时间父链的候选；移除全部中立背景伪反证后重新成对比较。若该候选能吸收Top1无法解释的破坏、终止、持续恶化或责任风险，必须进入Top2或反超，不能因叙事更严重而默认降级。"
+    },
+    "learning_type": "EXECUTION_PROCEDURE",
+    "remediation_type": "EXECUTION_GATE",
+    "root_causes": [
+      "REALITY_TRANSLATION",
+      "PERIOD_TIMING",
+      "EVENT_MECHANISM",
+      "OPTION_COMPARISON",
+      "EVIDENCE_WEIGHTING",
+      "CONFIDENCE_CALIBRATION",
+      "EXECUTION_OMISSION"
+    ],
+    "rule_status_changes": [],
+    "rules": [],
+    "schema": "MODEL-LEARNING-CORRECTION-V3"
+  },
+  "created_at": "2026-07-30T13:16:50Z",
+  "modifies_canonical_source_files": false,
+  "release_id": "MODEL-LEARNING-024",
+  "schema": "MODEL-LEARNING-PATCH-V3",
+  "validation_status": "ACTIVE_PROCESS_CORRECTION"
+}

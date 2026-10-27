@@ -1,0 +1,59 @@
+name: research-kostma-toyo1646-image
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-kostma-toyo1646-image.yml
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Capture exact current KOSTMA TOYO_1646 image response
+        shell: python
+        run: |
+          import hashlib,json
+          from pathlib import Path
+          import urllib.request
+
+          OUT=Path('probe'); OUT.mkdir()
+          UCI='RIKS+CRMA+KSM-WZ.0000.0000-20140423.TOYO_1646'
+          URL='https://kostma.aks.ac.kr/inspection/getImageData.aspx?dataUCI='+UCI
+          req=urllib.request.Request(URL,headers={'User-Agent':'Mozilla/5.0 (compatible; provenance-research/1.0)','Referer':'https://kostma.aks.ac.kr/'})
+          result={'schema':'ZIWEI-KOSTMA-TOYO1646-IMAGE-R1','uci':UCI,'source_url':URL,'source_origin':'EXACT_IMAGE_URL_OBSERVED_IN_CURRENT_KOSTMA_NETWORK_LOG','route_guessing_attempted':False,'page_enumeration_attempted':False,'authentication_attempted':False}
+          try:
+            with urllib.request.urlopen(req,timeout=45) as r:
+              data=r.read()
+              headers=dict(r.headers.items())
+              result.update({'http_status':r.status,'final_url':r.geturl(),'headers':headers,'bytes':len(data),'sha256':hashlib.sha256(data).hexdigest()})
+              ctype=headers.get('Content-Type','')
+              if 'image/' in ctype.lower() and data:
+                ext='.jpg' if 'jpeg' in ctype.lower() else '.bin'
+                p=OUT/('TOYO_1646'+ext); p.write_bytes(data); result['saved_file']=p.name
+                try:
+                  from PIL import Image
+                  with Image.open(p) as im:
+                    result['image']={'format':im.format,'width':im.width,'height':im.height,'mode':im.mode}
+                except Exception as e:
+                  result['image_parse_error']=type(e).__name__+': '+str(e)
+          except Exception as e:
+            result['error']=type(e).__name__+': '+str(e)
+          result['adjudication']={'image_route_bound':bool(result.get('saved_file')),'target_page_observed':False,'independent_hai_glyph_vote_added':0,'algorithm_effect':'NONE'}
+          (OUT/'probe.json').write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding='utf-8')
+          print(json.dumps(result,ensure_ascii=False,indent=2))
+
+      - name: Upload KOSTMA TOYO_1646 image evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ziwei-kostma-toyo1646-image
+          path: probe/
+          if-no-files-found: warn
+          retention-days: 14

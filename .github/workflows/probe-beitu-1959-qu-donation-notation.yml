@@ -1,0 +1,87 @@
+name: probe-beitu-1959-qu-donation-notation
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-beitu-1959-qu-donation-notation.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install PDF tools
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils
+
+      - name: Locate and render 瞿捐 notation in 1959 catalog volume 7
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/beitu-1959-qu-donation-notation'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT/rendered"
+          URL='https://upload.wikimedia.org/wikipedia/commons/2/23/SSID-12335513_%E5%8C%97%E4%BA%AC%E5%9C%96%E6%9B%B8%E9%A4%A8%E5%96%84%E6%9C%AC%E6%9B%B8%E7%9B%AE_7.pdf'
+          curl -L --fail --retry 5 --retry-all-errors --retry-delay 2 \
+            -A 'Tianwen-Provenance-Audit/1.0' "$URL" -o "$ROOT/source.pdf"
+          sha256sum "$ROOT/source.pdf" > "$ROOT/source.sha256"
+          pdfinfo "$ROOT/source.pdf" > "$ROOT/pdfinfo.txt"
+          pdftotext -layout "$ROOT/source.pdf" "$ROOT/full.txt" 2>/dev/null || true
+
+          python - <<'PY'
+          from pathlib import Path
+          root=Path('audit/beitu-1959-qu-donation-notation')
+          text=(root/'full.txt').read_text('utf-8',errors='replace')
+          pages=text.split('\f')
+          hits=[]
+          for i,p in enumerate(pages,1):
+              if '瞿捐' in p:
+                  clean=' '.join(p.split())
+                  hits.append((i,clean[:1800]))
+          (root/'hits.tsv').write_text(
+              ''.join(f'{p}\t{s}\n' for p,s in hits),encoding='utf-8')
+          if not hits:
+              raise SystemExit('no 瞿捐 hit in extracted text layer')
+          (root/'hit-pages.txt').write_text(
+              '\n'.join(str(p) for p,_ in hits)+'\n',encoding='utf-8')
+          PY
+
+          while IFS= read -r p; do
+            [ -z "$p" ] && continue
+            for q in $((p-1)) "$p" $((p+1)); do
+              [ "$q" -lt 1 ] && continue
+              out="$ROOT/rendered/page-$(printf '%04d' "$q")"
+              [ -f "${out}.png" ] && continue
+              pdftoppm -f "$q" -l "$q" -singlefile -png -r 400 \
+                "$ROOT/source.pdf" "$out"
+            done
+          done < "$ROOT/hit-pages.txt"
+
+          sha256sum "$ROOT"/rendered/*.png | sort -V > "$ROOT/rendered.sha256"
+          printf '%s\n' \
+            'SOURCE=北京圖書館善本書目 第7冊 / 中華書局 1959 / SSID-12335513' \
+            'PURPOSE=prove from the same 1959 catalog that 瞿捐 is an explicit provenance/donation notation used on some entries' \
+            'TEXT_LAYER_ROLE=LOCATOR_ONLY' \
+            'FINAL_GLYPH_AUTHORITY=400dpi source-bound renders' \
+            'OCR_USED=false' \
+            > "$ROOT/manifest.txt"
+          rm "$ROOT/source.pdf"
+
+      - name: Upload Qu-donation notation evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: beitu-1959-qu-donation-notation
+          path: audit/beitu-1959-qu-donation-notation/
+          if-no-files-found: error
+          compression-level: 6
+          retention-days: 30

@@ -1,0 +1,68 @@
+name: audit-yueling-tongkao-1589-source-label-neighborhood
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/audit-yueling-tongkao-1589-source-label-neighborhood.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install PDF renderer
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils
+
+      - name: Lock target neighborhoods around Yushui and Dahan
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/yueling-tongkao-1589-source-label-neighborhood'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT"
+
+          URL='https://commons.wikimedia.org/wiki/Special:Redirect/file/NCL-03165%20%E6%9C%88%E4%BB%A4%E9%80%9A%E6%94%B7.pdf'
+          curl -L --fail --retry 3 --retry-delay 2 -A 'Tianwen-Provenance-Audit/1.0' "$URL" -o "$ROOT/source.pdf"
+
+          sha256sum "$ROOT/source.pdf" | tee "$ROOT/source.sha256"
+          pdfinfo "$ROOT/source.pdf" | tee "$ROOT/pdfinfo.txt"
+
+          # Batch 12DA direct targets were p27 (Rain Water) and p802 (Great Cold).
+          # Render neighboring physical leaves so source labels and diagram captions
+          # can be adjudicated without assuming a transcription-level attribution.
+          for p in 24 25 26 27 28 29 30 799 800 801 802 803 804 805; do
+            pdftoppm -f "$p" -l "$p" -singlefile -png -r 330 "$ROOT/source.pdf" "$ROOT/page-$p"
+          done
+          sha256sum "$ROOT"/page-*.png | sort -V | tee "$ROOT/pages.sha256"
+
+          printf '%s\n' \
+            'SOURCE=NCL-03165 月令通攷' \
+            'EDITION=明萬曆十七年(1589)王道增臨海刊本' \
+            'TARGET_1=PDF p27 雨水 fingerprint neighborhood p24-p30' \
+            'TARGET_2=PDF p802 大寒 fingerprint neighborhood p799-p805' \
+            'QUESTION=Does the physical target prose itself carry 訓/通書/other source labels, and what exactly is the scope of adjacent 通書 diagram captions?' \
+            'RENDER_DPI=330' \
+            'OCR_USED_FOR_FINAL_GLYPH_CLAIMS=false' \
+            'TEXT_LAYER_ROLE=NONE_FOR_FINAL_GLYPH_CLAIMS' \
+            > "$ROOT/manifest.txt"
+
+          rm "$ROOT/source.pdf"
+
+      - name: Upload target neighborhoods
+        uses: actions/upload-artifact@v4
+        with:
+          name: yueling-tongkao-1589-source-label-neighborhood
+          path: audit/yueling-tongkao-1589-source-label-neighborhood
+          if-no-files-found: error
+          retention-days: 30

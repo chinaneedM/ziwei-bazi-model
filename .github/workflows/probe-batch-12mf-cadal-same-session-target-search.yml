@@ -1,0 +1,138 @@
+name: probe-batch-12mf-cadal-same-session-target-search
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12mf-cadal-same-session-target-search.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Re-run CADAL homepage-emitted target search inside one anonymous session
+        run: |
+          python - <<'PY'
+          import hashlib, html, json, re
+          from pathlib import Path
+          from urllib.parse import urljoin
+          import requests
+
+          home="https://cadal.edu.cn/index/home"
+          endpoint="https://cadal.edu.cn/cadalinfo/search"
+          UA={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; CADAL same-session target search)"}
+          s=requests.Session()
+          s.headers.update(UA)
+
+          hr=s.get(home,timeout=45,allow_redirects=False)
+          htxt=hr.content.decode("utf-8","replace")
+          form_ok=(
+              hr.status_code==200
+              and 'action="/cadalinfo/search"' in htxt
+              and 'name="searchContent"' in htxt
+              and 'name="searchType"' in htxt
+              and 'value="sw"' in htxt
+              and 'name="oneOrSecond"' in htxt
+              and 'value="first"' in htxt
+          )
+
+          queries=[
+              ("target_serial","文物参考资料"),
+              ("target_article_traditional","永樂大典展覽的意義"),
+              ("target_article_simplified","永乐大典展览的意义")
+          ]
+
+          def attrs(tag):
+              out={}
+              for m in re.finditer(r'''(?is)([a-zA-Z_:][-a-zA-Z0-9_:.]*)\s*=\s*(["'])(.*?)\2''',tag):
+                  out[m.group(1).lower()]=html.unescape(m.group(3))
+              return out
+
+          def anchors(base,text):
+              out=[]
+              for m in re.finditer(r'''(?is)<a\b([^>]*)>(.*?)</a>''',text):
+                  a=attrs(m.group(1))
+                  if "href" not in a: continue
+                  label=html.unescape(re.sub(r"<[^>]+>"," ",m.group(2)))
+                  label=re.sub(r"\s+"," ",label).strip()
+                  out.append({"label":label,"href":a["href"],"absolute_href":urljoin(base,a["href"])})
+              return out
+
+          records=[]
+          if form_ok:
+              for label,term in queries:
+                  r=s.post(
+                      endpoint,
+                      data={"searchContent":term,"searchType":"sw","oneOrSecond":"first"},
+                      headers={"Referer":home},
+                      timeout=45,
+                      allow_redirects=False
+                  )
+                  rec={
+                      "label":label,"term":term,"status":r.status_code,
+                      "location":r.headers.get("location"),
+                      "content_type":r.headers.get("content-type"),
+                      "bytes":len(r.content),
+                      "sha256":hashlib.sha256(r.content).hexdigest()
+                  }
+                  if r.status_code==200:
+                      txt=r.content.decode("utf-8","replace")
+                      vis=html.unescape(re.sub(r"<[^>]+>"," ",txt))
+                      vis=re.sub(r"\s+"," ",vis)
+                      toks=("文物参考资料","文物參考資料","永樂大典展覽的意義","永乐大典展览的意义","赵万里","趙萬里","1951","221","233")
+                      rec["visible_token_counts"]={t:vis.count(t) for t in toks}
+                      aa=anchors(r.url,txt)
+                      rel=[]
+                      for a in aa:
+                          hay=" ".join((a.get("label") or "",a.get("href") or ""))
+                          if any(t in hay for t in ("文物参考资料","文物參考資料","永樂大典","永乐大典","赵万里","趙萬里","1951")):
+                              rel.append(a)
+                      rec["relevant_source_emitted_anchors"]=rel[:200]
+                      rec["anchor_count"]=len(aa)
+                  records.append(rec)
+
+          out={
+              "source_contract":{
+                  "parent_contract_run":37175585343,
+                  "parent_target_run":37175671876,
+                  "home_url":home,
+                  "endpoint":endpoint,
+                  "method":"POST",
+                  "fields":{"searchContent":"<query>","searchType":"sw","oneOrSecond":"first"},
+                  "same_anonymous_session":True,
+                  "login_attempted":False,
+                  "credential_used":False,
+                  "private_endpoint_guessed":False,
+                  "result_anchor_followed":False
+              },
+              "home_response":{
+                  "status":hr.status_code,
+                  "bytes":len(hr.content),
+                  "sha256":hashlib.sha256(hr.content).hexdigest(),
+                  "search_form_contract_reconfirmed":form_ok,
+                  "session_cookie_names":sorted(s.cookies.get_dict().keys())
+              },
+              "query_records":records,
+              "adjudication":{
+                  "same_session_recalibration_only":True,
+                  "target_result_anchor_followed":False,
+                  "target_object_claimed_bound":False,
+                  "direct_1951_pages_reviewed":False,
+                  "primary_text_upgrade_authorized":False
+              }
+          }
+          Path("batch-12mf-cadal-same-session-target-search.json").write_text(
+              json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8"
+          )
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12mf-cadal-same-session-target-search
+          path: batch-12mf-cadal-same-session-target-search.json

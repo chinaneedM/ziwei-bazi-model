@@ -1,0 +1,143 @@
+{
+  "schema": "MING-DATONG-YEHUOBIAN-12PZ-SHANGHAI30-PART3-ENDLEAF-IMAGE-COLLATION-R1",
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-10-10",
+  "batch": "12PZ_IN_PROGRESS",
+  "witness": {
+    "work": "萬曆野獲編三十卷",
+    "source": "Wikimedia Commons Shanghai Library-labelled PDF part 3",
+    "url": "https://commons.wikimedia.org/wiki/File:Shanghai_%E8%90%AC%E6%9B%86%E9%87%8E%E7%8D%B2%E7%B7%A8%E4%B8%89%E5%8D%81%E5%8D%B7_part_3.pdf",
+    "upload_filename": "dGJ2312912-1101-1457.pdf",
+    "source_pdf_commons_sha1": "80f3f426b0f658bc1773e25719299d71ea64ec83",
+    "digital_pdf_page_count": 357,
+    "upload_date": "2024-04-24",
+    "physical_edition_date": "UNVERIFIED",
+    "physical_copy_shelfmark": "UNVERIFIED",
+    "equivalence_to_Yao_1827_or_Yao_1869": "NOT_PROVEN"
+  },
+  "acquisition": {
+    "workflow": ".github/workflows/render-yehuobian-shanghai30-part3-colophon-12pz.yml",
+    "commit_sha": "fc7d37ed3e1709f63729c47f7a1d9f86c3a64419",
+    "run_id": 38022761974,
+    "run_conclusion": "success",
+    "artifact_id": 11658954120,
+    "artifact_zip_sha256": "47b1f8c38d617cebe8277c4e9e368ba79f2c840c917c2974e8bdf7d46319ea75",
+    "pdf_sha1_matched_commons_public_checksum": true,
+    "image_pages_created": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      346,
+      347,
+      348,
+      349,
+      350,
+      351,
+      352,
+      353,
+      354,
+      355,
+      356,
+      357
+    ],
+    "images_created_count": 18,
+    "image_pages_directly_visually_inspected": [
+      1,
+      2,
+      5,
+      350,
+      354,
+      356,
+      357
+    ],
+    "images_visually_inspected_count": 7,
+    "encoded_image_log_integrity": "ALL_7_BASE64_CHARACTER_COUNTS_MATCHED_BEGIN_MARKERS",
+    "ocr_used": false
+  },
+  "visual_collation": {
+    "opening_samples": [
+      {
+        "pdf_page": 1,
+        "observation": "Running prose on a facing-page spread; no explicit printing colophon visible."
+      },
+      {
+        "pdf_page": 2,
+        "observation": "Running prose on a facing-page spread; no explicit printing colophon visible."
+      },
+      {
+        "pdf_page": 5,
+        "observation": "Running prose on a facing-page spread; no explicit printing colophon visible."
+      }
+    ],
+    "ending_samples": [
+      {
+        "pdf_page": 350,
+        "observation": "Running prose on facing-page spread; no explicit printing date or publisher visible."
+      },
+      {
+        "pdf_page": 354,
+        "observation": "Running prose on facing-page spread; no explicit printing date or publisher visible."
+      },
+      {
+        "pdf_page": 356,
+        "observation": "Running prose on yellow/sepia background; no dated imprint visible. Background difference alone does not establish different physical copy."
+      },
+      {
+        "pdf_page": 357,
+        "observation": "The digital file's terminal spread has text on its right side, a mostly blank left side and two visible red seal impressions on lower right-side leaf; no dated 1827/1869 imprint or editorial colophon visibly attested there.",
+        "red_seal_impressions": "TWO_VISIBLE_UNREAD",
+        "owner_attribution": "NOT_ESTABLISHED",
+        "image_is_original_folio_number": "NOT_PROVEN"
+      }
+    ]
+  },
+  "evidence_scope_firewall": [
+    "Only seven specified page images directly inspected: no full-357-page or full-1457-page colophon-absence conclusion.",
+    "No ownership attribution or exact character reading of the two seals.",
+    "No proof of printing versus manuscript, or relation to 1827/1869 dated object, from image color or file-level label alone.",
+    "The 12PZ Shanghai part2 PDF2 p441-p442 four glyph fields remain one copy-scoped direct positive witness; no new lexical target pages were reviewed in this part3 task.",
+    "Digital PDF page numbers and filenames are not physical foliation."
+  ],
+  "adjudication": {
+    "newly_imaged_pages": 18,
+    "directly_visually_reviewed_images": 7,
+    "new_candidate_copy_fingerprint": "TWO_REDDISH_SEAL_IMPRESSIONS_AT_PART3_P357",
+    "part3_last_page_dated_colophon": "NOT_IDENTIFIED_ON_P357",
+    "shanghai_physical_edition_identity": "OPEN",
+    "old20v_target": "UNRESOLVED",
+    "independent_gaizao_louke_target_pages_gained": 0,
+    "transmission_impact": {
+      "nodes_added_or_strengthened": [
+        "Digital Shanghai part3 terminal page p357 with untranscribed red seal impressions"
+      ],
+      "edges_supported": [],
+      "edges_revised": [],
+      "edges_rejected_or_unproved": [
+        "p357 confirms 1827 Yao impression",
+        "p357 confirms 1869 re-collation",
+        "visible image-color shift proves a composite source"
+      ],
+      "unresolved_lineage_questions": [
+        "Interpret red seal impressions at higher source pixel resolution and bind to first-party Shanghai catalog copy",
+        "Inspect first-part opening title/preface leaves and actual source bibliographic colophon"
+      ]
+    },
+    "matrix_modified": false,
+    "state_modified": false,
+    "graph_modified": false,
+    "algorithm_reopened": false,
+    "runtime_changed": false,
+    "md_g03": "OPEN_BLOCKING_GENERAL_ADAPTER",
+    "hpa_dayun_cal_002": "MISSING_FROM_PRODUCT",
+    "chart_r1": "CLOSED",
+    "batch_closed": false
+  },
+  "next": [
+    "Physically review SHA-gated Shanghai part1 opening/front matter for original edition/copy-identifying text.",
+    "Independently compare red seal impressions at p357 to a first-party physical copy record, not via speculative seal reading.",
+    "Keep 12PZ open and continue separate NCL02260 original-20v target and dated 1827/1869 text acquisition."
+  ]
+}

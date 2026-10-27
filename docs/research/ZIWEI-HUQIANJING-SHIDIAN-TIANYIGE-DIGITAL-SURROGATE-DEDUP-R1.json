@@ -1,0 +1,87 @@
+{
+  "schema": "ZIWEI-HUQIANJING-SHIDIAN-TIANYIGE-DIGITAL-SURROGATE-DEDUP-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-HUQIANJING-SHIDIAN-TIANYIGE-DIGITAL-SURROGATE-DEDUP-CR",
+  "question": "Does Shidian book NGJ8921188204889 provide a new independent Huqianjing physical witness, or is it another digital route to the already-counted Tianyige Ming-print scan?",
+  "shidian_route": {
+    "provider": "識典古籍 / Shidian",
+    "book_id": "NGJ8921188204889",
+    "chapter_url": "https://www.shidianguji.com/zh/book/NGJ8921188204889/chapter/1lule4i9rsz6x",
+    "chapter": "虎鈐經卷第七",
+    "workflow_run_id": 35245252336,
+    "artifact_id": 10507166653,
+    "artifact_digest": "sha256:201c538217056e21b726c0ae9eb7b17eaa4d76e86543575f48f5e1730880c5bf",
+    "head_sha": "d14cbe2155e76bbce366acbb9be1cde612e2e7d1",
+    "reader_binding": {
+      "start_page_num": 137,
+      "end_page_num_requested": 159,
+      "returned_pages": 22,
+      "returned_page_range": "137..158",
+      "version": 4
+    },
+    "acquisition": "public page -> byted_psdk.getPtokenStatus -> pages/v3 -> byted_psdk.decrypt -> source-bound WebP",
+    "first_attempt_error_code": 40001,
+    "second_attempt_error_code": 0,
+    "ocr_used_for_glyph_or_identity_claims": false
+  },
+  "prior_counted_witness": {
+    "source_id": "EXT-TIANYIGE-HUQIANJING-MING-CHUANJIAN",
+    "physical_identity": "天一閣藏明刻本《虎鈐經》卷七《傳箭》第七十六",
+    "digital_route": "Tianyige Museum scan via Wikimedia Commons PDF",
+    "prior_batch": "BATCH-12-ZIWEI-HUQIANJING-TIANYIGE-SIKU-CROSS-RECENSION-COLLATION-CJ",
+    "prior_workflow_run_id": 34832306143,
+    "prior_artifact_id": 10342711240
+  },
+  "image_identity_test": {
+    "method": "No OCR. Direct visual comparison plus SIFT feature matching and RANSAC homography between individual Shidian leaves and corresponding left/right halves of the previously archived Tianyige spread images.",
+    "continuous_mapping": [
+      {"shidian_page": 147, "tianyige_pdf_page": 74, "half": "RIGHT", "sift_good_matches": 411, "ransac_inliers": 355, "inlier_ratio": 0.864},
+      {"shidian_page": 148, "tianyige_pdf_page": 74, "half": "LEFT", "sift_good_matches": 534, "ransac_inliers": 454, "inlier_ratio": 0.850},
+      {"shidian_page": 149, "tianyige_pdf_page": 75, "half": "RIGHT", "sift_good_matches": 558, "ransac_inliers": 491, "inlier_ratio": 0.880},
+      {"shidian_page": 150, "tianyige_pdf_page": 75, "half": "LEFT", "sift_good_matches": 371, "ransac_inliers": 309, "inlier_ratio": 0.833},
+      {"shidian_page": 151, "tianyige_pdf_page": 76, "half": "RIGHT", "sift_good_matches": 484, "ransac_inliers": 384, "inlier_ratio": 0.793},
+      {"shidian_page": 152, "tianyige_pdf_page": 76, "half": "LEFT", "sift_good_matches": 501, "ransac_inliers": 402, "inlier_ratio": 0.802},
+      {"shidian_page": 153, "tianyige_pdf_page": 77, "half": "RIGHT", "sift_good_matches": 487, "ransac_inliers": 409, "inlier_ratio": 0.840},
+      {"shidian_page": 154, "tianyige_pdf_page": 77, "half": "LEFT", "sift_good_matches": 505, "ransac_inliers": 401, "inlier_ratio": 0.794}
+    ],
+    "extended_sequence_mapping": "Shidian 137..158 maps in order to Tianyige spread halves 69R,69L,70R,70L,71R,71L,72R,72L,73R,73L,74R,74L,75R,75L,76R,76L,77R,77L,78R,78L,79R,79L.",
+    "visual_controls": [
+      "column boundaries align leaf-for-leaf",
+      "black scan borders and gutter geometry align",
+      "paper damage, ink defects and stains align at the same positions",
+      "Shidian page 147 carries the same 傳箭第七十六 opening leaf as Tianyige PDF page 74 right half",
+      "Shidian pages 151-152 correspond to the Tianyige summer-solstice region around PDF page 76"
+    ],
+    "adjudication": "SAME_UNDERLYING_DIGITIZED_PHYSICAL_COPY_HIGH_CONFIDENCE"
+  },
+  "dedup_adjudication": {
+    "shidian_is_new_independent_physical_witness": false,
+    "shidian_is_new_independent_recension_vote": false,
+    "shidian_is_alternate_digital_surrogate_or_rehost_route": true,
+    "tianyige_physical_witness_count_increment": 0,
+    "huqian_mechanical_vote_increment": 0,
+    "sanming_ancestry_vote_increment": 0,
+    "reason": "The same continuous leaf images, including identical physical defects, are present in both routes. Platform independence is not physical-witness independence."
+  },
+  "mechanical_control": {
+    "existing_huqian_rule_family_unchanged": "20-number-arrow cycle reused across opposite half-year directions; 100-ke day; 60-fen per ke; 40/60 <-> 60/40 one-ke ladder.",
+    "new_mechanical_rule_discovered": false,
+    "new_character_variant_claimed": false,
+    "new_independent_sanming_parent_claimed": false
+  },
+  "transmission_impact": "NONE; this batch changes digital-surrogate/access-route provenance and deduplication only. The already-counted Tianyige physical-copy node and Huqian rule-family lineage edges remain unchanged.",
+  "product_impact": {
+    "runtime_change": "NONE",
+    "new_runtime_candidate": false,
+    "algorithm_reopen": false,
+    "candidate_collapse": false,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "deterministic_fusion_chart_product_r1": "CLOSED",
+    "hpa_zdate_006": "MISSING_FROM_PRODUCT_UNCHANGED"
+  },
+  "next_gate": [
+    "Do not count Shidian and Wikimedia/Tianyige as two independent Huqian physical witnesses.",
+    "Return Sanming ancestry research to direct Datong Tonggui/Ritonggui morning-evening numerical cells and securely pre-1578 Nanjing/Datong witnesses.",
+    "Require any future 59/41 ancestry candidate to reproduce the 1578 Sanming intermediate/change-day fingerprint, not merely the extrema."
+  ]
+}

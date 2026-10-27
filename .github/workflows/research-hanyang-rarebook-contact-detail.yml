@@ -1,0 +1,113 @@
+name: research-hanyang-rarebook-contact-detail
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-hanyang-rarebook-contact-detail.yml
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Install Selenium
+        run: python -m pip install --disable-pip-version-check selenium
+
+      - name: Extract exact public organization rows for old-book and copy responsibilities
+        shell: python
+        run: |
+          import json
+          import time
+          from pathlib import Path
+          from selenium import webdriver
+          from selenium.webdriver.chrome.options import Options
+          from selenium.webdriver.common.by import By
+
+          OUT=Path("probe"); OUT.mkdir()
+          URL="https://lib.hanyang.ac.kr/library-guide/organization"
+          PHRASES=["개인문고/고전자료 관리","원문복사서비스","특별열람증 발급"]
+
+          opts=Options()
+          opts.add_argument("--headless=new")
+          opts.add_argument("--no-sandbox")
+          opts.add_argument("--disable-dev-shm-usage")
+          opts.add_argument("--disable-gpu")
+          opts.add_argument("--window-size=1800,2600")
+          opts.add_argument("--lang=ko-KR")
+
+          result={
+            "schema":"ZIWEI-HANYANG-RAREBOOK-CONTACT-DETAIL-R1",
+            "source_url":URL,
+            "source_route_origin":"PUBLIC_RENDERED_LINK_FROM_HANYANG_ORGANIZATION_NAVIGATION",
+            "target_biblio_id":484926,
+            "target_accession":"HOM000001861",
+            "authentication_attempted":False,
+            "form_submission_attempted":False,
+            "rows":[],
+          }
+
+          driver=webdriver.Chrome(options=opts)
+          try:
+            driver.set_page_load_timeout(90)
+            driver.get(URL); time.sleep(8)
+            result["final_url"]=driver.current_url
+            result["title"]=driver.title
+            driver.save_screenshot(str(OUT/"organization.png"))
+            (OUT/"organization.html").write_text(driver.page_source,encoding="utf-8")
+
+            for phrase in PHRASES:
+              matches=driver.find_elements(By.XPATH,f"//*[contains(normalize-space(.), '{phrase}')]")
+              candidates=[]
+              for el in matches:
+                try:
+                  if not el.is_displayed(): continue
+                  txt=" ".join((el.text or "").split())
+                  if phrase not in txt: continue
+                  # Prefer the nearest table row; otherwise nearest list/card-like ancestor.
+                  row=None
+                  try: row=el.find_element(By.XPATH,"ancestor::tr[1]")
+                  except Exception: pass
+                  if row is None:
+                    try: row=el.find_element(By.XPATH,"ancestor::*[self::li or self::div][1]")
+                    except Exception: row=el
+                  row_text="\n".join(x.strip() for x in row.text.splitlines() if x.strip())
+                  links=[]
+                  for a in row.find_elements(By.CSS_SELECTOR,"a[href]"):
+                    href=a.get_attribute("href") or ""
+                    links.append({"text":" ".join((a.text or "").split()),"href":href})
+                  candidates.append({"element_tag":el.tag_name,"row_text":row_text,"links":links})
+                except Exception as exc:
+                  candidates.append({"error":repr(exc)})
+              dedup=[]; seen=set()
+              for c in candidates:
+                key=c.get("row_text")
+                if key and key not in seen:
+                  seen.add(key); dedup.append(c)
+              result["rows"].append({"phrase":phrase,"candidate_count":len(dedup),"candidates":dedup[:20]})
+          finally:
+            driver.quit()
+
+          result["adjudication"]={
+            "goal":"BIND_FIRST_PARTY_RESPONSIBLE_CONTACTS_FOR_OLD_BOOK_MANAGEMENT_AND_DOCUMENT_COPY",
+            "contact_attempted":False,
+            "target_page_status":"PENDING_DIRECT_PAGE",
+            "algorithm_effect":"NONE",
+          }
+          (OUT/"hanyang-rarebook-contact-detail.json").write_text(
+            json.dumps(result,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(result,ensure_ascii=False,indent=2))
+
+      - name: Upload Hanyang contact detail evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ziwei-hanyang-rarebook-contact-detail
+          path: probe/
+          if-no-files-found: warn
+          retention-days: 14

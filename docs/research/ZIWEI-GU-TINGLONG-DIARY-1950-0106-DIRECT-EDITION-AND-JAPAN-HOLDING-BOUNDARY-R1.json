@@ -1,0 +1,151 @@
+{
+  "schema": "ZIWEI-GU-TINGLONG-DIARY-1950-0106-DIRECT-EDITION-AND-JAPAN-HOLDING-BOUNDARY-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-GU-TINGLONG-DIARY-1950-0106-DIRECT-EDITION-AND-JAPAN-HOLDING-BOUNDARY-FV",
+  "prior_batch_id": "BATCH-12-ZIWEI-ZHENG-ZHENDUO-NIANPU-REF24-2017-EDITION-AND-JAN10-SECONDARY-DATE-BOUNDARY-FU",
+  "question": "Can the publication-mediated 1950-01-06 Gu Tinglong diary report about a Tieqin Tongjian Lou transaction be upgraded to a direct-edition inspection route, without treating the quoted transaction wording as directly collated before the exact page is reviewed?",
+  "answer": "Yes at the edition/manuscript-coverage/holding-route layer, but not yet at the target-entry text layer. The 2022 Zhonghua Book Company edition 《顾廷龙日记》, edited by Li Jun and Shi Yuanguang, is bibliographically closed by CiNii as NCID BC15377496, ISBN 9787101153804, 1045 pages plus plates, and is held in multiple Japanese academic libraries with exact call/item identifiers. The editors' published preface states that the surviving 1950 manuscript volume is titled 《养新日记》 and preserves 1950-01-01 through 1950-12-06, so 1950-01-06 is securely inside the surviving manuscript and hence inside the edition's source coverage. However, the project has not directly opened the 1950-01-06 page in the 2022 edition or manuscript. Therefore the later publication-mediated wording about Zhao Wanli, purchase of 300 titles for 30 million yuan, and donation of 42 titles remains a secondary quotation pending direct page collation, and no target 3482/3483 transaction route is selected.",
+  "published_edition_control": {
+    "source_id": "EXT-CINII-GU-TINGLONG-DIARY-2022",
+    "provider": "CiNii Books / NII",
+    "url": "https://ge.nii.ac.jp/ncid/BC15377496",
+    "title": "顧廷龍日記",
+    "normalized_title": "顾廷龙日记",
+    "author": "顾廷龙",
+    "editors": [
+      "李军",
+      "师元光"
+    ],
+    "publisher": "中华书局",
+    "publication_date": "2022-01",
+    "ncid": "BC15377496",
+    "isbn": "9787101153804",
+    "pagination": "9, 5, 1, 1045p, 图版[12]p",
+    "size": "23cm",
+    "edition_identity": "CLOSED"
+  },
+  "surviving_manuscript_coverage_control": {
+    "source_id": "EXT-ZHONGHUA1912-REPRINT-GU-TINGLONG-DIARY-EDITORIAL-PREFACE-2022",
+    "provider": "中华书局1912来源文章的公开转载",
+    "url": "https://www.sohu.com/a/525751522_121124384",
+    "credited_editor": "李军",
+    "article_title": "《顾廷龙日记》整理前言 / 新书丨李军、师元光整理《顾廷龙日记》出版",
+    "observed_1950_manuscript_title": "养新日记",
+    "observed_1950_start_date": "1950-01-01",
+    "observed_1950_end_date": "1950-12-06",
+    "january_6_within_surviving_manuscript_range": true,
+    "manuscript_donor_or_custody_note": "整理前言说明日记稿本十五册由顾诵芬捐存上海图书馆",
+    "project_direct_manuscript_image_reviewed": false,
+    "project_direct_1950_01_06_page_reviewed": false,
+    "source_role": "EDITORIAL_PREFACE_REPRODUCTION_FOR_SURVIVING_MANUSCRIPT_DATE_RANGE_NOT_TARGET_ENTRY_TEXT"
+  },
+  "japan_holding_routes": {
+    "source_id": "EXT-CINII-GU-TINGLONG-DIARY-2022",
+    "holding_count_observed": 5,
+    "holdings": [
+      {
+        "institution": "京都大学 人文科学研究所 図書室",
+        "call_number": "289.22068||Ko/11",
+        "item_identifier": "200042944929"
+      },
+      {
+        "institution": "東京大学 大学院人文社会系研究科・文学部 図書室 中国思想",
+        "call_number": "A20:Gu",
+        "item_identifier": "4819775877"
+      },
+      {
+        "institution": "東京大学 大学院人文社会系研究科・文学部 図書室 東洋史",
+        "call_number": "漢籍B:9:8",
+        "item_identifier": "4820074682"
+      },
+      {
+        "institution": "東京大学 東洋文化研究所 図書室",
+        "call_number": "CK82:2675",
+        "item_identifier": "6413393247"
+      },
+      {
+        "institution": "奈良教育大学 図書館",
+        "call_number": "289.2||58",
+        "item_identifier": "120241811"
+      }
+    ],
+    "lawful_physical_inspection_routes_closed": true,
+    "remote_copy_eligibility_closed": false,
+    "copy_request_submitted": false
+  },
+  "secondary_1950_01_06_claim_control": {
+    "source_id": "EXT-SOHU-2019-ZHAO-WANLI-GU-DENG-TIEQIN-PURCHASE-DIARY-CONTROLS",
+    "status": "PUBLICATION_MEDIATED_QUOTATION_PENDING_DIRECT_EDITION_COLLATION",
+    "reported_date": "1950-01-06",
+    "reported_wording_scope": "赵万里来，并言常熟铁琴铜剑楼书成交，计购三百种，三千万元；赠四十二种",
+    "exact_punctuation_or_character_forms_not_promoted": true,
+    "direct_2022_diary_page_reviewed": false,
+    "direct_manuscript_page_reviewed": false,
+    "target_3482_3483_named_in_reported_excerpt": false,
+    "target_transaction_mode_closed": false
+  },
+  "adjudication": {
+    "gu_tinglong_diary_2022_edition_identity": "CLOSED",
+    "1950_surviving_manuscript_date_range": "CLOSED_AS_1950_01_01_TO_1950_12_06_FROM_EDITORIAL_PREFACE",
+    "1950_01_06_within_surviving_manuscript": true,
+    "japan_physical_holding_routes": "CLOSED_AT_UNION_CATALOG_LEVEL",
+    "1950_01_06_exact_published_page_number": "UNRESOLVED",
+    "1950_01_06_direct_published_text": "NOT_REVIEWED",
+    "1950_01_06_direct_manuscript_text": "NOT_REVIEWED",
+    "reported_purchase_300_titles_30_million": "SECONDARY_QUOTATION_PENDING_DIRECT_COLLATION",
+    "reported_donation_42_titles": "SECONDARY_QUOTATION_PENDING_DIRECT_COLLATION",
+    "target_tonghu_zhunzhai_named_in_direct_entry": "UNRESOLVED",
+    "target_3482_3483_named_in_direct_entry": "UNRESOLVED",
+    "target_3482_3483_batch_membership": "UNRESOLVED",
+    "target_specific_purchase_route_selected": false,
+    "target_specific_donation_route_selected": false,
+    "target_exact_acquisition_date": "UNRESOLVED",
+    "final_nlc_acquisition_transfer_path": "UNRESOLVED"
+  },
+  "inference_firewall": {
+    "surviving_date_range_does_not_equal_direct_entry_collation": true,
+    "union_catalog_holding_does_not_equal_page_text": true,
+    "publication_mediated_quote_does_not_equal_manuscript_image": true,
+    "collection_level_purchase_and_donation_counts_do_not_bind_target_volume": true,
+    "target_not_named_in_excerpt_does_not_prove_exclusion": true,
+    "target_route_requires_item_level_or_stable_identifier_level_transaction_evidence": true
+  },
+  "user_action_firewall": {
+    "no_library_account_action_taken": true,
+    "no_copy_request_submitted": true,
+    "no_fee_incurred": true,
+    "no_identity_document_submitted": true
+  },
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_added": [],
+    "acquisition_edge_authorized": false,
+    "same_object_edge_authorized": false
+  },
+  "chronology_and_rule_firewall": {
+    "direct_sanming_parent_vote_increment": 0,
+    "pre1578_zhunzhai_rule_witness_increment": 0,
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_count_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 13,
+    "repaired_provenance_metadata_defect_count": 13,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Determine the exact page number of the 1950-01-06 entry in the 2022 Zhonghua edition from a lawful catalog preview, citation, index, or physical copy; do not infer from surrounding years.",
+    "Directly collate the 1950-01-06 published diary entry and, where lawful, compare it against the Shanghai Library manuscript image or archival reproduction.",
+    "Record exact wording, punctuation/editorial normalization, persons, purchase/donation counts, and any title-level details.",
+    "Test whether the direct entry or adjacent notes name 铜壶漏箭制度, 准斋心制几漏图式, historical 3482/3483, current 03482/03483, the 1823 士礼居 bound-volume fingerprint, or another stable predecessor identifier.",
+    "Continue the 1950-01-29 Deng Zhicheng diary, NLC [23] pp.446—449, NLC [24] pp.1397—1398/original Zheng letter, Ji Shuying chapter 9, and Gao Xizeng annotated-catalog routes in parallel."
+  ],
+  "updated_at": "2026-09-25"
+}

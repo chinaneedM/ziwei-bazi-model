@@ -1,0 +1,117 @@
+{
+  "schema": "SILLOK-CHILJEONGSAN-VIEWER-IMGARR-DIRECT-BINDING-R1",
+  "schema_version": "1.0.0",
+  "status": "OFFICIAL_VIEWER_IMGARR_DIRECTLY_BOUND_NATIVE_IMAGE_TRANSPORT_PENDING",
+  "source_id": "EXT-NIKH-SEJONG-SILLOK-V156-CHILJEONGSAN-TABLES",
+  "reproduction": {
+    "head_sha": "ac242f16015ff49453e5f370fa974a3855a69a88",
+    "workflow_run_id": 34014882789,
+    "workflow_name": "research-sillok-chiljeongsan-image-routes",
+    "workflow_conclusion": "success",
+    "artifact_id": 9983594796,
+    "artifact_name": "sillok-chiljeongsan-image-routes-ac242f16015ff49453e5f370fa974a3855a69a88",
+    "artifact_digest": "sha256:d66175514bffa91e569f51c861c4cc94cea1cfa8c04f7569cecf93c2408876a4",
+    "artifact_size_bytes": 118017,
+    "ocr_used": false,
+    "target_values_authorized": false
+  },
+  "articles": {
+    "wda_50016011": {
+      "title": "太陽冬至前後二象盈初縮末限",
+      "taebaeksan_location": "60冊 156卷 6張 A面",
+      "viewer_urls_observed_success": [
+        "http://sillok.history.go.kr/popup/viewer.do?type=view&id=wda_50016011",
+        "http://sillok.history.go.kr/popup/viewer.do?id=wda_50016011&type=view",
+        "https://sillok.history.go.kr/popup/viewer.do?type=view&id=wda_50016011",
+        "https://sillok.history.go.kr/popup/viewer.do?id=wda_50016011&type=view"
+      ],
+      "imgarr_tokens": [
+        "da/ide_d156006a00"
+      ],
+      "highlight_imgsize": "2560,3616",
+      "embedded_table_images": [
+        "/images/slkimg/wda_50016011_01_v.jpg",
+        "/images/slkimg/wda_50016011_01_h.jpg"
+      ],
+      "control": "VAR-NUM-SOLAR-WINTER-D16-DIFFERENCE",
+      "target_value_status": "NOT_READ"
+    },
+    "wda_50016016": {
+      "title": "太陰限數遲疾度",
+      "taebaeksan_location": "60冊 156卷 13張 A面",
+      "viewer_urls_observed_success": [
+        "http://sillok.history.go.kr/popup/viewer.do?type=view&id=wda_50016016",
+        "http://sillok.history.go.kr/popup/viewer.do?id=wda_50016016&type=view",
+        "https://sillok.history.go.kr/popup/viewer.do?type=view&id=wda_50016016"
+      ],
+      "imgarr_tokens": [
+        "da/ide_d156013a00",
+        "da/ide_d156013b00",
+        "da/ide_d156014a00",
+        "da/ide_d156014b00",
+        "da/ide_d156015a00",
+        "da/ide_d156015b00",
+        "da/ide_d156016a00",
+        "da/ide_d156016b00",
+        "da/ide_d156017a00",
+        "da/ide_d156017b00",
+        "da/ide_d156018a00",
+        "da/ide_d156018b00",
+        "da/ide_d156019a00",
+        "da/ide_d156019b00",
+        "da/ide_d156020a00",
+        "da/ide_d156020b00",
+        "da/ide_d156021a00",
+        "da/ide_d156021b00",
+        "da/ide_d156022a00",
+        "da/ide_d156022b00",
+        "da/ide_d156023a00",
+        "da/ide_d156023b00",
+        "da/ide_d156024a00",
+        "da/ide_d156024b00",
+        "da/ide_d156025a00",
+        "da/ide_d156025b00",
+        "da/ide_d156026a00",
+        "da/ide_d156026b00",
+        "da/ide_d156027a00",
+        "da/ide_d156027b00",
+        "da/ide_d156028a00",
+        "da/ide_d156028b00",
+        "da/ide_d156029a00",
+        "da/ide_d156029b00",
+        "da/ide_d156030a00"
+      ],
+      "imgarr_token_count": 35,
+      "imgarr_first": "da/ide_d156013a00",
+      "imgarr_last": "da/ide_d156030a00",
+      "embedded_table_images": [
+        "/images/slkimg/wda_50016016_01_v.jpg",
+        "/images/slkimg/wda_50016016_01_h.jpg",
+        "/images/slkimg/wda_50016016_02_v.jpg",
+        "/images/slkimg/wda_50016016_02_h.jpg"
+      ],
+      "controls": [
+        "VAR-NUM-LUNAR-L8-LOSSGAIN",
+        "NORM-LUNAR-L101-CHIJI-DEGREE-POSITIONAL-GROUPING",
+        "VAR-NUM-LUNAR-L114-DAYRATE",
+        "VAR-NUM-LUNAR-L124-JI-XINGDU",
+        "VAR-NUM-LUNAR-L132-LOSSGAIN"
+      ],
+      "target_value_status": "NOT_READ"
+    }
+  },
+  "epistemic_boundaries": {
+    "viewer_imgarr_as_target_value": "FORBIDDEN",
+    "sequential_token_pattern_as_unobserved_page_generation": "FORBIDDEN",
+    "fallback_tokens_without_exact_prior_direct_binding": "FORBIDDEN",
+    "embedded_table_image_as_physical_scan": "FORBIDDEN",
+    "transient_viewer_failure_as_loss_of_prior_binding": "FORBIDDEN",
+    "algorithm_or_runtime_selection_effect": "NONE"
+  },
+  "next_work": [
+    "USE_THE_EXACT_DIRECTLY_BOUND_IMGARR_TOKENS_AS_FAIL_SOFT_FALLBACK_WHEN_THE_OFFICIAL_VIEWER_TRANSIENTLY_FAILS",
+    "ADJUDICATE_THE_OFFICIAL_NATIVE_IMAGE_TRANSPORT_ROUTE_AND_FETCH_ACTUAL_JPEG_BYTES",
+    "READ_TARGET_CELLS_ONLY_FROM_VALIDATED_IMAGE_BYTES_WITH_FIELD_AND_LIMIT_BINDING_NO_OCR"
+  ],
+  "runtime_effect": "NONE"
+}

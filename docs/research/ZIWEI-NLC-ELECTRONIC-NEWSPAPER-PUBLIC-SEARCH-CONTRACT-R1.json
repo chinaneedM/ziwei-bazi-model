@@ -1,0 +1,83 @@
+{
+  "schema": "ZIWEI-NLC-ELECTRONIC-NEWSPAPER-PUBLIC-SEARCH-CONTRACT-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-NLC-ELECTRONIC-NEWSPAPER-PUBLIC-SEARCH-CONTRACT-JU",
+  "prior_batch_id": "BATCH-12-ZIWEI-NLC-SOURCE-EMITTED-OPAC-ELECTRONIC-NEWSPAPER-HTTP-ROUTE-CALIBRATION-JT",
+  "question": "What exact anonymous search action does the current NLC outRes page itself emit around ourReswords/searchName?",
+  "answer": "The first-party page directly defines getOutResSearch(): it reads #ourReswords, sets typeName to 全部, and navigates with window.location.href to /outRes/outResList?type=<typeName>&searchName=<ourReswords>. Pagination separately uses the same public path with type, searchName, pageNo and urlType. No query is submitted in this batch.",
+  "controlling_probe": {
+    "workflow": ".github/workflows/probe-batch-12ju-nlc-electronic-newspaper-search-contract.yml",
+    "exact_head": "92694dd7336bdc7312fc9b666557cac5dbe76088",
+    "workflow_run_id": 36844745344,
+    "workflow_job_id": 110312077411,
+    "artifact_id": 11152144796,
+    "artifact_digest": "sha256:1fca09b8ec9b3db9a877c3d053601f9b9b8936bb65aeeb55d2b50b1beba0275f"
+  },
+  "landing_page": {
+    "url": "http://read.nlc.cn/outRes/outResList?type=%E7%94%B5%E5%AD%90%E6%8A%A5%E7%BA%B8",
+    "http_status": 200,
+    "bytes": 404829,
+    "sha256": "b8991f6d96bb95e8fba6dff11866ece8b146ee097fa902d9afb25b0c7d7856cf",
+    "ourReswords_field_present": true,
+    "searchName_field_present": true,
+    "search_button_onclick": "getOutResSearch()"
+  },
+  "direct_search_contract": {
+    "method": "GET",
+    "path": "/outRes/outResList",
+    "function_name": "getOutResSearch",
+    "input_mapping": "ourReswords -> searchName",
+    "fixed_type": "全部",
+    "url_template": "/outRes/outResList?type=全部&searchName=<ourReswords>",
+    "pagination_parameters": [
+      "type",
+      "searchName",
+      "pageNo",
+      "urlType"
+    ],
+    "contract_directly_observed": true
+  },
+  "adjudication": {
+    "public_search_contract": "CLOSED",
+    "query_submitted": false,
+    "opac_catalog_contract": "SEPARATE_NOT_CLOSED_BY_THIS_BATCH",
+    "item_level_wenhui_identity": "UNRESOLVED",
+    "direct_wenhui_1951_08_18": "NOT_REVIEWED"
+  },
+  "security": {
+    "login_used": false,
+    "reader_account_used": false,
+    "registration_used": false,
+    "target_query_submitted": false,
+    "form_submitted": false,
+    "private_endpoint_guessed": false,
+    "captcha_bypass_used": false,
+    "tls_verification_disabled": false
+  },
+  "transmission_impact": {
+    "status": "NONE",
+    "graph_change": false
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Use only this source-emitted GET contract for resource-title calibration.",
+    "Keep outRes external-resource results separate from OPAC holdings.",
+    "Do not infer direct 1951 page access from resource-index behavior."
+  ],
+  "updated_at": "2026-10-01"
+}

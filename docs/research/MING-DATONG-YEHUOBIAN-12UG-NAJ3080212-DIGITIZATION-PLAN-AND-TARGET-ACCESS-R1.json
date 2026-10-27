@@ -1,0 +1,128 @@
+{
+  "schema": "TIANWEN-12UG-NAJ-DATED-DIGITIZATION-PLAN-NOT-TARGET-FOLIO",
+  "schema_version": "1.0.0",
+  "date": "2026-10-12",
+  "parent": "12QE_OPEN",
+  "research_type": "SUPPLEMENTAL_FIRST_PARTY_INSTITUTIONAL_DIGITIZATION_PLAN_AND_QUARANTINED_ACCESS_LOCATOR",
+  "question": "Can an additional source-identified Japanese holding provide the original juan20 改造漏刻 folio needed by 12UF?",
+  "controlling_glyph_ledger": "docs/research/MING-DATONG-YEHUOBIAN-12UF-SOURCE-READING-CONTROL-AND-IMPRESSION-GATES-R1.json",
+  "official_plan": {
+    "url": "https://www.archives.go.jp/news/pdf/20230718.pdf",
+    "provider": "National Archives of Japan",
+    "title": "複製物の作成作業時期について",
+    "document_date": "2023-07",
+    "planned_work_window": "2023-07 through 2024-02",
+    "pdf_sha256": "42041ac392c208ac039b19b48ebc8501e0528ef5f2f102640bd3def143366e54",
+    "bytes": 827538,
+    "pages": 91,
+    "manual_visual_review": [
+      {
+        "pdf_page": 1,
+        "render_sha256": "7444ba48895b104640b63443eb834de440a69acd796f15dd7ed22fe1a3498129",
+        "finding": "Institution, July2023 notice and prospective July2023-February2024 work window."
+      },
+      {
+        "pdf_page": 21,
+        "render_sha256": "c764e4ca01ebc45da32f5c77c62c0c08b38d51fc2bfb4cf37b8e8b43b3c88346",
+        "finding": "内閣文庫（漢籍） table directly associates ３０８－０２１２ with 万暦野獲編."
+      },
+      {
+        "pdf_page": 91,
+        "render_sha256": "65ed54569e55b7731fd96b031590876367b80fc62a20c3611f6115561ca5be3f",
+        "finding": "Footnote states physical condition can prevent completing digitization of all targeted materials during fiscal2023."
+      }
+    ],
+    "render_method": "pdftoppm -png -singlefile -scale-to 1500 page1 / 1800 page21 / 1600 page91; visual review without OCR",
+    "all_91_pages_manually_reviewed": false,
+    "plan_is_completion_report": false,
+    "2026_public_access_proven": false,
+    "catalog_or_plan_shelfmark": "308-0212",
+    "ancient_edition_or_impression": "UNBOUND",
+    "physical_copy_date": "UNBOUND",
+    "juan20_target_folio": "UNLOCATED"
+  },
+  "search_index_locators": [
+    {
+      "url": "https://www.digital.archives.go.jp/item/5049563",
+      "indexed_title": "万暦野獲編6",
+      "indexed_item_shelfmark": "308－0212-0006"
+    },
+    {
+      "url": "https://www.digital.archives.go.jp/img/en/5049561",
+      "indexed_title": "万暦野獲編4"
+    },
+    {
+      "url": "https://www.digital.archives.go.jp/img/en/5049565",
+      "indexed_title": "万暦野獲編8"
+    },
+    {
+      "url": "https://www.digital.archives.go.jp/img/en/5049580",
+      "indexed_title": "万暦野獲編23"
+    }
+  ],
+  "index_limit": "Search-index metadata only; ordinal numbers 4/6/8/23 are not established juan numbers. Generic IIIF/download/on-site labels do not establish a target manifest or access permission. No IDs inferred or enumerated.",
+  "access_observations": {
+    "date": "2026-10-12",
+    "item5049563_curl_head_status": 403,
+    "item5049563_server": "CloudFront",
+    "item5049563_web_open": "NOT_ACCESSIBLE",
+    "img5049561_web_open": "NOT_ACCESSIBLE",
+    "img5049565_web_open": "NOT_ACCESSIBLE",
+    "scope": "Transport failure in this session; not evidence of absent holding, undigitized book or permanent on-site-only restriction. No target page bytes obtained."
+  },
+  "four_locus_readings": {
+    "GONGJIN": null,
+    "CLOCK_NOUN": null,
+    "BEIJING_WINTER_SUNRISE": null,
+    "BEIJING_SUMMER_SUNSET": null
+  },
+  "gates": {
+    "edition_1827_bound": false,
+    "edition_1869_bound": false,
+    "unrepaired_1827_first_impression_proven": false,
+    "source_bound_original_target_leaf_seen": false,
+    "new_independent_ancient_glyph_votes": 0,
+    "existing_glyph_controls_changed": false
+  },
+  "next_actions": [
+    "Read a source-issued full catalogue for 308-0212 and establish edition, format and any provenance marks.",
+    "Follow only item-issued fascicle/IIIF links to identify actual juan19-20; do not derive target item IDs arithmetically from indexed ordinals.",
+    "Require original file hashes, target folio and impression proof under 12UF before comparing ancient glyphs.",
+    "Continue Kyoto/Hokkaido1827 and Tokyo1869 independent item routes in parallel as independent research alternatives."
+  ],
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "2023 planned digitization is not a completion or public-image attestation.",
+      "A matching work title does not identify the 1827 or 1869 edition.",
+      "Indexed fascicle ordinal is not the historical juan number."
+    ],
+    "unresolved_lineage_questions": [
+      "NAJ308-0212 edition/impression and relationship to known CADAL/Xuxiu originals"
+    ]
+  },
+  "accounting": {
+    "root_sources": 647,
+    "extension_sources_before": 31,
+    "extension_sources_after": 32,
+    "unique_sources_after": 679,
+    "new_plan_sources": 1,
+    "new_ancient_textual_witnesses": 0,
+    "matrix_rows": 222,
+    "audited_rows": 222,
+    "provenance_repairs": 45,
+    "formal_batches": 487,
+    "latest_formal_batch": "12QD",
+    "graph_nodes": 250,
+    "graph_edges": 237,
+    "algorithm_reopens": 0,
+    "product": "CLOSED"
+  },
+  "external_actions": {
+    "messages_sent": 0,
+    "applications_submitted": 0,
+    "payments": 0
+  }
+}

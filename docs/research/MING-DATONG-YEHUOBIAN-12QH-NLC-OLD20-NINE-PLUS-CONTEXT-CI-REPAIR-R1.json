@@ -1,0 +1,54 @@
+{
+  "schema": "MING-DATONG-YEHUOBIAN-12QH-NLC-OLD20-CI-SCOPE-REPAIR-R1",
+  "date": "2026-10-10",
+  "status": "TEST_EXPECTATION_REPAIRED_PREVIOUS_CI_FAILURE",
+  "source_head": "08d9fbf826f294a55ab8518fcae67a0eadd30c52",
+  "failed_run": "https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/38062259594",
+  "failed_job_id": 114242734268,
+  "unit_tests": 2149,
+  "failures": 1,
+  "failed_test": "NLC12QEOld20V20Boundary.test_only_source_bound_nine_pages_reviewed",
+  "observed_review_pages": [
+    136,
+    137,
+    138,
+    139,
+    140,
+    141,
+    142,
+    143,
+    144,
+    145
+  ],
+  "previous_wrong_expected_pages": [
+    137,
+    138,
+    139,
+    140,
+    141,
+    142,
+    143,
+    144,
+    145
+  ],
+  "fixed_test_contract": {
+    "background_context_page": 136,
+    "scoped_target_pages": [
+      137,
+      138,
+      139,
+      140,
+      141,
+      142,
+      143,
+      144,
+      145
+    ],
+    "total_source_images": 10
+  },
+  "not_a_historical_glyph_defect": true,
+  "no_source_document_reinterpretation": true,
+  "no_algorithm_change": true,
+  "product": "CLOSED",
+  "batch_12qe": "OPEN"
+}

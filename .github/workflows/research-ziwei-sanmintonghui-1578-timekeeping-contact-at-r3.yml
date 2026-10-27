@@ -1,0 +1,94 @@
+name: research-ziwei-sanmintonghui-1578-timekeeping-contact-at-r3
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-ziwei-sanmintonghui-1578-timekeeping-contact-at-r3.yml
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install PDF tooling
+        run: python -m pip install --disable-pip-version-check pymupdf pillow
+      - name: Correct NCL 1578 physical-file locator and render likely juan-2 contacts
+        shell: python
+        run: |
+          import hashlib, io, json, urllib.parse, urllib.request
+          from pathlib import Path
+          import fitz
+          from PIL import Image, ImageDraw
+
+          out=Path('batch12at-r3'); out.mkdir(exist_ok=True)
+          # IMPORTANT: Commons suffix "1"/"2" is a scan-file split, not juan number.
+          # R1/R2 incorrectly probed the 187-page suffix-2 tail file for juan 2.
+          title='File:NCL-06589 1 三命通會.pdf'
+          api=('https://commons.wikimedia.org/w/api.php?action=query&format=json&prop=imageinfo'
+               '&iiprop=url%7Csize%7Csha1&titles='+urllib.parse.quote(title))
+          req=urllib.request.Request(api,headers={'User-Agent':'Mozilla/5.0'})
+          with urllib.request.urlopen(req,timeout=60) as r:
+              obj=json.loads(r.read().decode('utf-8'))
+          page=next(iter(obj.get('query',{}).get('pages',{}).values()))
+          info=(page.get('imageinfo') or [None])[0]
+          if not info or not info.get('url'): raise SystemExit('No source-emitted NCL PDF URL')
+
+          pdf=out/'sanming-1578-main.pdf'
+          req=urllib.request.Request(info['url'],headers={'User-Agent':'Mozilla/5.0'})
+          with urllib.request.urlopen(req,timeout=240) as r: pdf.write_bytes(r.read())
+          doc=fitz.open(str(pdf))
+          if len(doc) < 900: raise SystemExit(f'Unexpected main-file page count: {len(doc)}')
+
+          # Twelve physical books span the 1000-page main file plus 187-page tail.
+          # Probe a deliberately broad likely juan-2 window without OCR; this is
+          # locator work only and authorizes no content-negative inference.
+          first,last=70,230
+          thumbs=[]
+          for p1 in range(first,last+1):
+              pix=doc[p1-1].get_pixmap(matrix=fitz.Matrix(0.34,0.34),alpha=False)
+              im=Image.open(io.BytesIO(pix.tobytes('jpeg'))).convert('RGB')
+              c=Image.new('RGB',(im.width,im.height+28),'white')
+              c.paste(im,(0,28)); ImageDraw.Draw(c).text((5,5),f'PDF p{p1}',fill='black')
+              thumbs.append((p1,c))
+
+          sheets=[]; cols=3; rows=3; per=9
+          for start in range(0,len(thumbs),per):
+              batch=thumbs[start:start+per]
+              w=max(x[1].width for x in batch); h=max(x[1].height for x in batch)
+              sh=Image.new('RGB',(cols*w,rows*h),'white')
+              for j,(_,im) in enumerate(batch): sh.paste(im,((j%cols)*w,(j//cols)*h))
+              lo,hi=batch[0][0],batch[-1][0]
+              fn=f'contact-{lo:04d}-{hi:04d}.jpg'; sh.save(out/fn,quality=92)
+              sheets.append({'pages':[lo,hi],'file':fn,'sha256':hashlib.sha256((out/fn).read_bytes()).hexdigest()})
+
+          receipt={
+            'scope':'BATCH12AT_R3_SANMING_TONGHUI_1578_CORRECTED_MAIN_FILE_JUAN2_LOCATOR',
+            'commons_file_title':title,
+            'imageinfo':info,
+            'pdf_sha256':hashlib.sha256(pdf.read_bytes()).hexdigest(),
+            'page_count':len(doc),
+            'probe_pages':[first,last],
+            'contact_sheets':sheets,
+            'locator_correction':'NCL-06589 suffix is scan-file split, not juan number; suffix-2 R1/R2 is not a juan-2 locator',
+            'ocr_generated':False,
+            'manual_visual_review_required':True,
+            'content_negative_authorized':False,
+            'textual_independence_from_tushubian_assumed':False,
+            'borrowing_direction_assumed':False,
+            'runtime_standard_selected':False,
+            'algorithm_reopen_authorized':False
+          }
+          (out/'receipt.json').write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+'\n','utf-8')
+          pdf.unlink()
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ziwei-sanmintonghui-1578-corrected-main-file-contact-at-r3
+          path: batch12at-r3
+          retention-days: 90

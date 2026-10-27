@@ -1,0 +1,97 @@
+name: probe-batch-12ld-ndl-zhao-wenji-public-access-signals
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12ld-ndl-zhao-wenji-public-access-signals.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inventory public NDL record access signals without account or copy request
+        run: |
+          python - <<'PY'
+          import hashlib, html, json, re
+          from pathlib import Path
+          import requests
+
+          URL="https://ndlsearch.ndl.go.jp/books/R100000002-I023434359"
+          UA={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; NDL Zhao Wenji public access signals)"}
+          r=requests.get(URL,headers=UA,timeout=45,allow_redirects=True)
+          raw=r.content
+          for enc in ("utf-8","utf-8-sig","cp932","shift_jis"):
+              try:
+                  txt=raw.decode(enc); used=enc; break
+              except UnicodeDecodeError:
+                  continue
+          else:
+              txt=raw.decode("utf-8","replace"); used="utf-8-replacement"
+
+          links=[]
+          for m in re.finditer(r'''(?is)<a\b[^>]*?href\s*=\s*["']([^"']+)["'][^>]*>(.*?)</a>''',txt):
+              href=html.unescape(m.group(1)).strip()
+              label=html.unescape(re.sub(r"<[^>]+>"," ",m.group(2)))
+              label=re.sub(r"\s+"," ",label).strip()
+              ctx=html.unescape(re.sub(r"<[^>]+>"," ",txt[max(0,m.start()-700):min(len(txt),m.end()+1000)]))
+              ctx=re.sub(r"\s+"," ",ctx).strip()
+              if re.search(r"デジタル|digital|オンライン|online|閲覧|複写|コピー|copy|遠隔|送信|図書館|library|利用|入手|request|申込|download",label+" "+ctx,re.I):
+                  links.append({"href":href,"label":label[:400],"context":ctx[:1800]})
+          dedup=[];seen=set()
+          for x in links:
+              k=(x["href"],x["label"])
+              if k in seen: continue
+              seen.add(k);dedup.append(x)
+
+          tokens=["趙萬里文集","赵万里文集","UM11-C247","023434359","504","9787501346653",
+                  "デジタルコレクション","国立国会図書館デジタルコレクション","インターネット公開",
+                  "図書館・個人送信","遠隔複写","複写","オンライン","ログイン","利用登録"]
+          counts={t:len(re.findall(re.escape(t),txt,re.I)) for t in tokens}
+
+          out={
+              "source_contract":{
+                  "parent_batch":"12LC",
+                  "object":"2011 赵万里文集 第1卷",
+                  "ndl_bib_id":"023434359",
+                  "call_number":"UM11-C247",
+                  "target_page":197,
+                  "public_record_url":URL,
+                  "anonymous_get_only":True
+              },
+              "response":{"http_status":r.status_code,"final_url":r.url,"bytes":len(raw),"sha256":hashlib.sha256(raw).hexdigest(),"decode_used":used},
+              "token_counts":counts,
+              "access_related_source_emitted_links":dedup[:100],
+              "access_related_link_count":len(dedup),
+              "adjudication":{
+                  "record_retrieved":r.status_code==200,
+                  "target_identity_tokens_observed":counts["UM11-C247"]>0 or counts["023434359"]>0 or counts["趙萬里文集"]>0 or counts["赵万里文集"]>0,
+                  "copy_request_submitted":False,
+                  "login_used":False,
+                  "source_emitted_link_followed":False
+              },
+              "security":{
+                  "anonymous_get_only":True,
+                  "reader_account_used":False,
+                  "registration_used":False,
+                  "copy_request_used":False,
+                  "payment_used":False,
+                  "source_emitted_link_followed":False,
+                  "private_endpoint_guessed":False,
+                  "captcha_bypass_used":False,
+                  "tls_verification_disabled":False
+              }
+          }
+          Path("batch-12ld-ndl-zhao-wenji-public-access-signals.json").write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12ld-ndl-zhao-wenji-public-access-signals
+          path: batch-12ld-ndl-zhao-wenji-public-access-signals.json

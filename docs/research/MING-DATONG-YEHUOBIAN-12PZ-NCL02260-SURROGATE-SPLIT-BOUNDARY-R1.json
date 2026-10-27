@@ -1,0 +1,112 @@
+{
+  "schema": "MING-DATONG-YEHUOBIAN-12PZ-NCL02260-SURROGATE-SPLIT-BOUNDARY-R1",
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-10-09",
+  "batch": "12PZ_IN_PROGRESS",
+  "status": "SOURCE_BYTES_VERIFIED_AND_TWO_BOUNDARY_PAGES_PHYSICALLY_INSPECTED_WITH_NONCONTINUOUS_TEXT",
+  "acquisition": {
+    "workflow": ".github/workflows/render-yehuobian-ncl02260-boundary-12pz.yml",
+    "commit_that_started_workflow": "99967467e982495730f0bd29b11188771c9fdc41",
+    "github_actions_run_id": 37879659267,
+    "github_actions_run_conclusion": "success",
+    "artifact_id": 11593967535,
+    "artifact_name": "ncl02260-old20-tail-boundary-12pz",
+    "artifact_size_bytes": 15899587,
+    "artifact_digest_sha256": "89f84f571f432af4c444ada6900b67dafd21a07c0fddb78b65ba84a30c869bc9",
+    "artifact_expires_at": "2026-11-08T03:32:08Z",
+    "ocr_used": false,
+    "pdf_part1": {
+      "filename": "NCL-02260_1_萬曆野獲編.pdf",
+      "catalog": "Taiwan NCL 204.26 02260",
+      "digital_pdf_pages": 1000,
+      "sha256": "5b91b5cad4a9d7573271ffd275085b046339cdfab80341b60a6156706e80e191"
+    },
+    "pdf_part2": {
+      "filename": "NCL-02260_2_萬曆野獲編.pdf",
+      "catalog": "Taiwan NCL 204.26 02260",
+      "digital_pdf_pages": 35,
+      "sha256": "bb97af8a82afbc3412d743ba6638ca919440709d35fc14ef6810629e9c2c2ff2"
+    },
+    "contact_sheets": {
+      "part1_pdf_pages_1based": [
+        841,
+        1000
+      ],
+      "number_of_sheets": 10,
+      "images_per_sheet": 16,
+      "all_160_pages_rendered": true,
+      "all_160_pages_glyph_collated": false,
+      "manually_sampled_sheet_ranges": [
+        [
+          841,
+          856
+        ],
+        [
+          953,
+          968
+        ],
+        [
+          969,
+          984
+        ],
+        [
+          985,
+          1000
+        ]
+      ]
+    },
+    "enlarged_physical_render_ranges": {
+      "part1_pdf_pages_1based": [
+        985,
+        1000
+      ],
+      "part2_pdf_pages_1based": [
+        1,
+        3
+      ]
+    }
+  },
+  "visual_boundaries": {
+    "before_split": {
+      "source": "NCL-02260_1",
+      "pdf_page_1based": 1000,
+      "source_derived_page_sha256": "c7d69535afe46d0cfb0aaa8a8b89a19538fa9ffc0a8a0d454472283252ea7af4",
+      "section_heading": "武弁報恩",
+      "right_leaf_start": "武弁報恩 錢寧徵時受知於右都督毛倫",
+      "left_leaf_end": "至大將",
+      "status": "DIRECT_IMAGE_VISUAL_READ",
+      "text_at_page_end": "ONGOING_UNFINISHED_NARRATIVE"
+    },
+    "after_split": {
+      "source": "NCL-02260_2",
+      "pdf_page_1based": 1,
+      "source_derived_page_sha256": "e3a7b4e52e368a835aa7158dba68b35397b6505054f62a55046f93d5e2a0ffe9",
+      "section_heading": "居第吉凶",
+      "opening": "地理吉凶時亦有驗如余所知嚴分宜舊第已三度籍沒",
+      "status": "DIRECT_IMAGE_VISUAL_READ"
+    }
+  },
+  "adjudication": {
+    "pdf1_last_page_text_and_pdf2_first_page_text_continuous": false,
+    "exact_reason_for_noncontinuity": "UNRESOLVED; not evidence of a lost manuscript folio, editorial rearrangement or omitted PDF pages without independent binding data",
+    "prior_search_heuristic_pdf2_p1_adjacent_to_pdf1_last_page": "DISPROVED_AT_TEXT_CONTINUITY_LEVEL",
+    "physical_old20v_target_heading_to_leaf": "UNRESOLVED",
+    "physical_original_target_beijing_winter_one_two": "UNRESOLVED",
+    "physical_original_target_gong_guan": "UNRESOLVED",
+    "physical_1827_print_target": "UNRESOLVED",
+    "sample_contacts_exhaustive_search": false,
+    "no_target_found_claim_allowed": false,
+    "matrix_modified": false,
+    "graph_modified": false,
+    "source_registry_modified": false,
+    "algorithm_reopened": false,
+    "md_g03": "OPEN_BLOCKING_GENERAL_ADAPTER",
+    "hpa_dayun_cal_002": "MISSING_FROM_PRODUCT",
+    "batch_closed": false
+  },
+  "next": [
+    "Treat the digital-file join as NONCONTIGUOUS for positional searches and preserve both source SHA256.",
+    "Read volume/section headings in original-old20v PDF1 contact photos by bounded navigation, then request high-resolution render of promising leaf pages.",
+    "Inspect source-specific old20v target glyphs and separately identify 1827 30v print target. Do not assume either recensional order from another."
+  ]
+}

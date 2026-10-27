@@ -1,0 +1,149 @@
+name: probe-kyudb-datong-lifa-tonggui-complete
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-kyudb-datong-lifa-tonggui-complete.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Query exact Kyujanggak complete Datong Lifa Tonggui title variants
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/kyudb-datong-lifa-tonggui-complete'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT"
+          python - <<'PY'
+          from pathlib import Path
+          import html as htmlmod
+          import json, re, urllib.parse, urllib.request
+
+          root=Path('audit/kyudb-datong-lifa-tonggui-complete')
+          UA='Mozilla/5.0 Tianwen-Provenance-Audit/1.0'
+          QUERIES=[
+              ('exact-trad','大統曆法通軌'),
+              ('exact-ko','대통력법통궤'),
+              ('four-juan-trad','大統曆法通軌四卷'),
+              ('short-trad','大統通軌'),
+              ('short-ko','대통통궤'),
+          ]
+
+          def request(url,data=None):
+              body=urllib.parse.urlencode(data).encode() if data is not None else None
+              req=urllib.request.Request(url,data=body,headers={
+                  'User-Agent':UA,
+                  'Accept-Language':'ko,en;q=0.8,zh;q=0.7',
+                  'Content-Type':'application/x-www-form-urlencoded',
+                  'Referer':'https://kyudb.snu.ac.kr/book/list.do?mid=GDS',
+              })
+              with urllib.request.urlopen(req,timeout=40) as r:
+                  return r.geturl(),r.read().decode('utf-8','replace')
+
+          def compact(s):
+              return re.sub(r'\s+',' ',htmlmod.unescape(s)).strip()
+
+          rows=[]
+          all_ids={}
+          for key,q in QUERIES:
+              data={
+                  'prevSearchString':'',
+                  'bookCateRebrowsing':'Y',
+                  'dbBookCdRebrowsing':'N',
+                  'hasImgFilter':'N',
+                  'hasTxtFilter':'N',
+                  'searchArea':'-1',
+                  'viewType':'1',
+                  'pageIndex':'1',
+                  'recordIndex':'0',
+                  'mid':'GDS',
+                  'book_cate':'',
+                  'focus':'',
+                  'book_cd':'',
+                  'target':'',
+                  'heje_seq':'0',
+                  'toponym':'',
+                  'selSortInfo':'sortAlphabetical',
+                  'selCallNum':'ALL',
+                  'selSearchArea':'okTitle',
+                  'totalSearchString':q,
+                  'pageUnit':'100',
+              }
+              rec={'key':key,'query':q}
+              try:
+                  final,h=request('https://kyudb.snu.ac.kr/book/list.do',data)
+                  (root/f'list-{key}.html').write_text(h,encoding='utf-8')
+                  rec['final_url']=final
+                  rec['bytes']=len(h.encode())
+                  # Capture all result-like blocks carrying a book_cd.
+                  blocks=[]
+                  for m in re.finditer(r'(G[A-Z]\d{5}_00)',h):
+                      bid=m.group(1)
+                      a=h.rfind('<li',0,m.start())
+                      b=h.find('</li>',m.end())
+                      frag=h[a:b+5] if a>=0 and b>=0 else h[max(0,m.start()-5000):min(len(h),m.end()+9000)]
+                      clean=compact(frag)
+                      title_candidates=[compact(x) for x in re.findall(r'(?:title|alt)=["\']([^"\']+)',frag,re.I)]
+                      blocks.append({'book_cd':bid,'fragment':clean[:16000],'title_attrs':title_candidates[:20]})
+                      all_ids[bid]=q
+                  uniq={x['book_cd']:x for x in blocks}
+                  rec['matches']=list(uniq.values())
+              except Exception as e:
+                  rec['error']=type(e).__name__+': '+str(e)
+              rows.append(rec)
+
+          details=[]
+          for bid,trigger in sorted(all_ids.items()):
+              data={
+                  'recordIndex':'1','book_cd':bid,'target':'master','mid':'GDS',
+                  'book_cate':'','focus':'','heje_seq':'0'
+              }
+              try:
+                  final,d=request('https://kyudb.snu.ac.kr/book/view.do',data)
+                  (root/f'view-{bid}.html').write_text(d,encoding='utf-8')
+                  contexts=[]
+                  for pat in ('大統曆法通軌','大統通軌','대통력법통궤','청구기호','편저자','판본사항','발행년도',
+                              '원문이미지','fn_originalImg','item_cd','vol_no','page_no','M/F'):
+                      for mm in list(re.finditer(re.escape(pat),d,re.I))[:8]:
+                          contexts.append({'pattern':pat,'context':compact(d[max(0,mm.start()-2200):min(len(d),mm.end()+5000)])[:9000]})
+                  ids=sorted(set(re.findall(r'(?:GK|GR|GC|GG)\d+_\d+(?:_\d+)?|奎貴\s*\d+|奎\s*\d+',d)))
+                  details.append({'book_cd':bid,'trigger_query':trigger,'final_url':final,'identifiers':ids,'contexts':contexts})
+              except Exception as e:
+                  details.append({'book_cd':bid,'trigger_query':trigger,'error':type(e).__name__+': '+str(e)})
+
+          report={
+              'schema':'KYUDB-DATONG-LIFA-TONGGUI-COMPLETE-PROBE-R1',
+              'schema_version':'1.0.0',
+              'queries':rows,
+              'details':details,
+              'purpose':'Bind the complete Kyujanggak 大統曆法通軌 / 대통력법통궤 physical catalog object and its public image route before any 晝夜刻 glyph/numeric collation.',
+              'secondary_locator':'2019 明大統曆法彙編 says its base text is the Seoul National University Kyujanggak 正統刊本 of 元統 大統曆法通軌.',
+              'negative_policy':'Search nonreturn is only current-public-catalog search scope; it is not evidence that the physical witness does not exist.',
+              'ocr_used':False,
+              'numeric_claim_authorized':False,
+          }
+          (root/'report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print(json.dumps({
+              'queries':[{'key':x['key'],'query':x['query'],'error':x.get('error'),'book_cds':[m['book_cd'] for m in x.get('matches',[])]} for x in rows],
+              'details':[{'book_cd':x['book_cd'],'error':x.get('error'),'identifiers':x.get('identifiers',[]),'context_patterns':[c['pattern'] for c in x.get('contexts',[])]} for x in details],
+          },ensure_ascii=False,indent=2))
+          PY
+
+      - name: Upload complete-title probe
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: kyudb-datong-lifa-tonggui-complete-probe
+          path: audit/kyudb-datong-lifa-tonggui-complete/
+          if-no-files-found: error
+          retention-days: 30

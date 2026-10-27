@@ -1,0 +1,203 @@
+{
+  "schema": "TIANWEN-12PZ-DIRECT-VOLUME-HEADING-COLLATION-R1",
+  "batch": "12PZ",
+  "date": "2026-10-10",
+  "status": "RUNNER_SOURCE_DIGEST_AND_COMMONS_INDEPENDENT_IMAGEINFO_SHA1_SIZE_MATCH_PASS",
+  "source": {
+    "repository": "Taiwan National Central Library",
+    "shelfmark": "204.26 02260",
+    "catalog_edition": "舊鈔本",
+    "catalog_contents": "二十卷、補遺一卷、續編十二卷",
+    "physical_fascicles_catalog": 16,
+    "object": "NCL-02260_2 萬曆野獲編.pdf",
+    "upstream_file_name": "12047_2.pdf",
+    "pdf_pages": 35,
+    "commons_file_url": "https://commons.wikimedia.org/wiki/File:NCL-02260_2_%E8%90%AC%E6%9B%86%E9%87%8E%E7%8D%B2%E7%B7%A8.pdf",
+    "source_sha1": "b0ab33d76ec27457173f6285b920016a0f24cdab",
+    "source_sha256": "bb97af8a82afbc3412d743ba6638ca919440709d35fc14ef6810629e9c2c2ff2",
+    "rendered_image_sha256": "SEE_SHA256_BY_PDF_PAGE_1BASED_IN_WORKFLOW_ATTESTATION",
+    "physical_copy_date": "UNKNOWN",
+    "source_sha1_first_party_commons_checked": true,
+    "source_sha1_first_party_commons_result": "PASS_EXACT_UPSTREAM_IMAGEINFO_AND_DOWNLOAD_MATCH"
+  },
+  "visual_citation": {
+    "url": "https://commons.wikimedia.org/w/index.php?title=File:NCL-02260_2_%E8%90%AC%E6%9B%86%E9%87%8E%E7%8D%B2%E7%B7%A8.pdf&page=5",
+    "pdf_page_1based": 5,
+    "spread_side": "LEFT",
+    "reading": "萬曆野獲續編卷第十二",
+    "method": "MANUAL_VIEW_OF_BROWSER_PDF_RENDER_NO_OCR",
+    "physical_leaf_number": "NOT_READ",
+    "surrounding": "new volume heading followed by text"
+  },
+  "independent_copy_count_delta": 0,
+  "claims_supported": [
+    "Specific NCL 02260 manuscript image contains 續編卷第十二 volume opening.",
+    "This supports copy-scoped physical volume twelve beyond catalog-only description."
+  ],
+  "claims_not_supported": [
+    "It does not display 沈振1713 補遺序 and thus does not decide that physical preface's 十 versus 十二 character.",
+    "It does not prove an author's original intended volume count or whole-fascicle completeness.",
+    "It does not locate the original old20v 改造漏刻 target leaf.",
+    "It cannot prove direct relationship to CText or Wikisource versions.",
+    "It does not identify a 1447 clock instrument or 1450 eclipse standard."
+  ],
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "No direct lineage from this copied volume header to the 1713 preface autograph"
+    ],
+    "unresolved_lineage_questions": [
+      "Copy-specific 1713 補遺序 leaf and its exact glyph",
+      "NCL 02260 old20v 改造漏刻 target folio"
+    ]
+  },
+  "gates": {
+    "historical_matrix": "UNCHANGED",
+    "current_state": "UNCHANGED",
+    "genealogy_graph": "UNCHANGED",
+    "md_g03": "OPEN_BLOCKING_GENERAL_ADAPTER",
+    "hpa_dayun_cal_002": "MISSING_FROM_PRODUCT",
+    "chart_r1": "CLOSED",
+    "algorithm_reopen": false
+  },
+  "followup_source_page_pair_20261010": {
+    "method": "MANUAL_SOURCE_PDF_VISUAL_VERIFICATION_NO_OCR",
+    "original_pdf_url": "https://upload.wikimedia.org/wikipedia/commons/2/25/NCL-02260_2_%E8%90%AC%E6%9B%86%E9%87%8E%E7%8D%B2%E7%B7%A8.pdf",
+    "observed_pdf_page_1based_4": {
+      "zero_based_index": 3,
+      "side": "LEFT",
+      "reading": "萬曆野獲續編卷第十二目",
+      "function": "TABLE_OF_CONTENTS_HEADING",
+      "browser_screenshot": "web screenshot of actual public PDF page 4; no image file re-hosted",
+      "sha256": "NOT_COMPUTED",
+      "runner_rendered_jpeg_sha256": "9f0bd458bb8338874534f2f417eb6804f5dc4e7f5f40b9508f63907c637b6d76"
+    },
+    "observed_pdf_page_1based_5": {
+      "zero_based_index": 4,
+      "side": "LEFT",
+      "reading": "萬曆野獲續編卷第十二",
+      "function": "MAIN_BODY_VOLUME_OPENING",
+      "browser_screenshot": "web screenshot of actual public PDF page 5; no image file re-hosted",
+      "sha256": "NOT_COMPUTED",
+      "runner_rendered_jpeg_sha256": "800572b8cef27ed9577b9b91994d8881f638f63d4801851eec3601cc23ea08f2"
+    },
+    "observed_pdf_page_1based_3": {
+      "zero_based_index": 2,
+      "side": "RIGHT",
+      "function": "BLANK_SEPARATOR_PAGE",
+      "caveat": "Page blank is a layout clue, not textual or missing-work proof"
+    },
+    "observed_pdf_page_1based_6": {
+      "zero_based_index": 5,
+      "function": "RUNNING_BODY_TEXT_AFTER_VOLUME_OPENING"
+    },
+    "strength": "TWO_SEQUENTIAL_POSITIVE_SOURCE_IMAGES_IN_SAME_PHYSICAL_COPY; ONE_INDEPENDENT_COPY_NOT_TWO",
+    "source_pdf_sha1": "RUNNER_COMPUTED_SHA1_NOT_INDEPENDENT_PRECHECKED",
+    "source_pdf_sha256": "bb97af8a82afbc3412d743ba6638ca919440709d35fc14ef6810629e9c2c2ff2",
+    "browser_download_attempt": "Direct file download into local analysis runtime failed; visual screenshot remained accessible, so source digest still OPEN",
+    "not_proven": [
+      "Any 1713 補遺序 first-hand source glyph",
+      "Whether 十 or 十二 is original to Shen Zhen",
+      "Any full-corpus presence/absence of 改造漏刻",
+      "1447 clock construction or 1450 eclipse time standard"
+    ]
+  },
+  "revision_history": [
+    {
+      "date": "2026-10-10",
+      "reason": "CORROBORATING_SEQUENTIAL_CONTENTS_AND_BODY_OPENING_SOURCE_IMAGE_COLLATION",
+      "status": "COPY_SCOPED_POSITIVE_TWO_PAGES_SOURCE_HASH_OPEN",
+      "previous_page5_only_claim_preserved": true
+    },
+    {
+      "date": "2026-10-10",
+      "revision": "UPGRADE_P3_P6_SURROGATE_SOURCE_DIGEST_WITH_EXACT_HEAD_SUCCESSFUL_WORKFLOW",
+      "from_status": "DIRECT_BROWSER_PDF_IMAGES_P4_P5_PAIRED_CONTENTS_AND_TEXT_OPENERS_DIGEST_PENDING",
+      "to_status": "SOURCE_FILE_AND_RUNNER_DERIVED_PAGE_DIGEST_CAPTURED_EXTERNAL_SHA1_PRECHECK_PENDING",
+      "prior_browser_download_failure_retained": true,
+      "strictly_unresolved": "EXTERNAL_COMMONS_SHA1_PRECHECK_AND_ANCIENT_TARGET_LEAF"
+    },
+    {
+      "date": "2026-10-10",
+      "reason": "CLOSE_COMMONS_SOURCE_SHA1_INDEPENDENT_METADATA_GATE_USING_IMAGEINFO",
+      "from_status": "SOURCE_FILE_AND_RUNNER_DERIVED_PAGE_DIGEST_CAPTURED_EXTERNAL_SHA1_PRECHECK_PENDING",
+      "to_status": "RUNNER_SOURCE_DIGEST_AND_COMMONS_INDEPENDENT_IMAGEINFO_SHA1_SIZE_MATCH_PASS",
+      "source_page_glyph_revision": false,
+      "old20_target_adjudication": false
+    }
+  ],
+  "workflow_attestation_20261010": {
+    "workflow": ".github/workflows/render-yehuobian-ncl02260-part2-volume12-digest-12pz.yml",
+    "git_commit": "e117005de855c1073f85b74abf1dbcba621f32d6",
+    "run_id": 38028236031,
+    "run_url": "https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/38028236031",
+    "job_id": 114143554247,
+    "run_conclusion": "success",
+    "artifact_id": 11660463958,
+    "artifact_name": "ncl02260-part2-volume12-source-digest-pages-12pz",
+    "artifact_url": "https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/38028236031/artifacts/11660463958",
+    "artifact_zip_sha256_from_upload_action_log": "001455225d0a0e7bcba297b0a703edf4935301da7e6b959c578a81268ca1eb3f",
+    "artifact_zip_sha256_independently_downloaded_and_recomputed": false,
+    "downloaded_pdf": {
+      "size_bytes": 5959699,
+      "pdf_pages": 35,
+      "pdf_size_pts": "1057.5 x 807.75 on first page",
+      "pdf_magic_check": "PASS",
+      "sha1": "b0ab33d76ec27457173f6285b920016a0f24cdab",
+      "sha256": "bb97af8a82afbc3412d743ba6638ca919440709d35fc14ef6810629e9c2c2ff2",
+      "digest_method": "SHA1SUM_SHA256SUM_IN_SUCCESSFUL_GITHUB_ACTION_RUNNER",
+      "first_party_commons_sha1_independent_precheck": "NOT_PERFORMED"
+    },
+    "derived_images": [
+      {
+        "pdf_page_1based": 3,
+        "rendered_jpeg_sha256": "19b5de94807693c44c63a1c3b702eb88718b966faafd1f58573f7a6479132766",
+        "relative_artifact_path": "pages/part2-p0003.jpg",
+        "dpi": 170,
+        "ocr_used": false
+      },
+      {
+        "pdf_page_1based": 4,
+        "rendered_jpeg_sha256": "9f0bd458bb8338874534f2f417eb6804f5dc4e7f5f40b9508f63907c637b6d76",
+        "relative_artifact_path": "pages/part2-p0004.jpg",
+        "dpi": 170,
+        "ocr_used": false
+      },
+      {
+        "pdf_page_1based": 5,
+        "rendered_jpeg_sha256": "800572b8cef27ed9577b9b91994d8881f638f63d4801851eec3601cc23ea08f2",
+        "relative_artifact_path": "pages/part2-p0005.jpg",
+        "dpi": 170,
+        "ocr_used": false
+      },
+      {
+        "pdf_page_1based": 6,
+        "rendered_jpeg_sha256": "6b68442eef319b945608aec22a1d584407e4f7381283cbc6034f5965e5d82f0f",
+        "relative_artifact_path": "pages/part2-p0006.jpg",
+        "dpi": 170,
+        "ocr_used": false
+      }
+    ],
+    "note": "Runner hashes apply to its captured Commons redirect PDF and deterministic render settings; browser screenshots read separately, not claimed pixel-identical to rendered JPEG. One Commons digital object and one NCL physical copy, not four independent text witnesses."
+  },
+  "commons_imageinfo_independent_verification_20261010": {
+    "run_id": 38029093566,
+    "run_conclusion": "success",
+    "job_id": 114146075233,
+    "artifact_id": 11661805364,
+    "source": "Wikimedia Commons action=query imageinfo sha1|size|timestamp|url",
+    "file_title_normalization": "UNDERSCORES_CANONICALIZED_TO_SPACES_BY_MEDIAWIKI",
+    "commons_sha1_hex": "b0ab33d76ec27457173f6285b920016a0f24cdab",
+    "prior_captured_pdf_sha1": "b0ab33d76ec27457173f6285b920016a0f24cdab",
+    "commons_size_bytes": 5959699,
+    "prior_runner_pdf_size_bytes": 5959699,
+    "commons_file_timestamp": "2023-09-25T06:55:32Z",
+    "comparison_pass": true,
+    "commons_catalog_name": "NCL-02260 2 萬曆野獲編.pdf",
+    "public_source_url": "https://commons.wikimedia.org/wiki/File:NCL-02260_2_%E8%90%AC%E6%9B%86%E9%87%8E%E7%8D%B2%E7%B7%A8.pdf",
+    "source_physical_witness_number_added": 0,
+    "scope": "Digital-source object identity by SHA1 and exact byte count; not external confirmation of manually read ancient source glyphs."
+  }
+}

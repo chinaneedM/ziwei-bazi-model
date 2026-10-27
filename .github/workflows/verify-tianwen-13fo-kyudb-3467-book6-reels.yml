@@ -1,0 +1,44 @@
+name: verify-tianwen-13fo-kyudb-3467-book6-reels
+on:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - docs/research/TIANWEN-13FO-KYUDB-GK3467-BOOK6-EULHAE-SUBCATALOG-MICROFILM-UNBOUND-R1.json
+      - docs/PROJECT-CURRENT-STATE-R1.json
+      - docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json
+      - scripts/verify-tianwen-13fo-kyudb-3467-book6-reels.py
+      - scripts/verify-tianwen-13fn-kyudb-book-to-juan-crosswalk.py
+      - tests/test_verify_tianwen_13fo_kyudb_3467_book6_reels.py
+      - .github/workflows/verify-tianwen-13fo-kyudb-3467-book6-reels.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  official-catalog-eulhae-book6-subrecord-firewall:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Audit checkout HEAD and tree
+        run: |
+          git rev-parse HEAD
+          git rev-parse 'HEAD^{tree}'
+      - name: Current physical-item source scope test
+        run: |
+          python -m py_compile scripts/verify-tianwen-13fo-kyudb-3467-book6-reels.py tests/test_verify_tianwen_13fo_kyudb_3467_book6_reels.py
+          python scripts/verify-tianwen-13fo-kyudb-3467-book6-reels.py
+          python -m unittest discover -s tests -p 'test_verify_tianwen_13fo_kyudb_3467_book6_reels.py' -v
+      - name: Archived bibliographic source-firewalls
+        run: |
+          python scripts/verify-tianwen-13fn-kyudb-book-to-juan-crosswalk.py
+          python -m unittest discover -s tests -p 'test_verify_tianwen_13fn_kyudb_book_to_juan_crosswalk.py' -v
+          python scripts/verify-tianwen-13fm-gk05553-repair-material-scope.py
+          python -m unittest discover -s tests -p 'test_verify_tianwen_13fm_gk05553_repair_material_scope.py' -v
+          python scripts/verify-tianwen-13fl-gk05553-repair-ordinal-scope.py
+          python -m unittest discover -s tests -p 'test_verify_tianwen_13fl_gk05553_repair_ordinal_scope.py' -v
+          python scripts/verify-tianwen-13fk-ncl-fourfen-p74-crossphoto.py
+          python -m unittest discover -s tests -p 'test_verify_tianwen_13fk_ncl_fourfen_p74_crossphoto.py' -v

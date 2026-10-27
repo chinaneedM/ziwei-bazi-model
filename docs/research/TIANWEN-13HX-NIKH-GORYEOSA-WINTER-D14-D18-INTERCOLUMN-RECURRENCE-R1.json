@@ -1,0 +1,182 @@
+{
+  "schema": "TIANWEN-13HX-NIKH-GORYEOSA-WINTER-D14-D18-INTERCOLUMN-RECURRENCE-R1",
+  "date": "2026-10-26",
+  "issue_id": "TW-OPEN-0005",
+  "scope": "GORYEOSA_VOL52_SHOUSHI_LICHENG_WINTER_SOLSTICE_D14_D18_MODERN_INSTITUTIONAL_EDITORIAL_TRANSCRIPTION",
+  "source": {
+    "institution": "National Institute of Korean History",
+    "work": "高麗史",
+    "juan": 52,
+    "section": "授時曆立成 / 大陽冬至前後二象盈初縮末限",
+    "item_id": "kr_052_0010_0010_0020_0010",
+    "url": "https://db.history.go.kr/goryeo/level.do?levelId=kr_052_0010_0010_0020_0010&types=o",
+    "existing_source_id": "EXT-KRDB-GORYEOSA-V52-SHOUSHI-LICHENG",
+    "grade": "MODERN_INSTITUTIONAL_EDITORIAL_TRANSCRIPTION_NOT_NEW_PHYSICAL_WITNESS",
+    "columns": [
+      "積日",
+      "日差加一秒八十六少",
+      "盈縮加分",
+      "盈縮積",
+      "行度"
+    ],
+    "direct_text_rows": "OFFICIAL_PAGE_D14_TO_D18_EXACT_NUMERAL_STRINGS_NOT_EXHAUSTIVE_TABLE_ORIGINAL_FOLIO"
+  },
+  "method": {
+    "encoding": "DECIMAL_DIGIT_CONCATENATION_FOR_DIMENSIONLESS_COMPARISON_ONLY",
+    "table_alignment": "FIRST_DATE_DAY14_TO_DAY18_NO_SEASON_MIXING",
+    "differential_recurrence": "盈縮加分(n) - 盈縮加分(n+1) = 日差(n)",
+    "accumulation_recurrence": "盈縮積(n+1) - 盈縮積(n) = 盈縮加分(n)",
+    "historical_unit_identity": "UNADJUDICATED",
+    "arithmetic_consistency_not_printed_glyph_authority": true
+  },
+  "daily_rows": [
+    {
+      "day": 14,
+      "day_literal": "十四日",
+      "differential_literal": "五分一九九〇",
+      "differential_encoded": 51990,
+      "additive_literal": "四百四十〇〇二三九",
+      "additive_encoded": 4400239,
+      "cumulative_literal": "六千六百九十五八一三六",
+      "cumulative_encoded": 66958136
+    },
+    {
+      "day": 15,
+      "day_literal": "十五日",
+      "differential_literal": "五分二一七六",
+      "differential_encoded": 52176,
+      "additive_literal": "四百三十四八二四九",
+      "additive_encoded": 4348249,
+      "cumulative_literal": "七千一百三十五八三七五",
+      "cumulative_encoded": 71358375
+    },
+    {
+      "day": 16,
+      "day_literal": "十六日",
+      "differential_literal": "五分一三六二",
+      "differential_encoded": 51362,
+      "additive_literal": "四百二十九六〇七三",
+      "additive_encoded": 4296073,
+      "cumulative_literal": "七千五百七十〇六六二四",
+      "cumulative_encoded": 75706624
+    },
+    {
+      "day": 17,
+      "day_literal": "十七日",
+      "differential_literal": "五分二五四八",
+      "differential_encoded": 52548,
+      "additive_literal": "四百二十四三七一一",
+      "additive_encoded": 4243711,
+      "cumulative_literal": "八千〇〇〇二六九七",
+      "cumulative_encoded": 80002697
+    },
+    {
+      "day": 18,
+      "day_literal": "十八日",
+      "differential_literal": "五分二七三四",
+      "differential_encoded": 52734,
+      "additive_literal": "四百一十九一一六三",
+      "additive_encoded": 4191163,
+      "cumulative_literal": "八千四百二十四六四〇八三",
+      "cumulative_encoded": 84246408
+    }
+  ],
+  "transitions": [
+    {
+      "from_day": 14,
+      "to_day": 15,
+      "observed_differential": 51990,
+      "inferred_from_additive": 51990,
+      "differential_residual": 0,
+      "observed_additive": 4400239,
+      "inferred_from_cumulative": 4400239,
+      "additive_residual": 0
+    },
+    {
+      "from_day": 15,
+      "to_day": 16,
+      "observed_differential": 52176,
+      "inferred_from_additive": 52176,
+      "differential_residual": 0,
+      "observed_additive": 4348249,
+      "inferred_from_cumulative": 4348249,
+      "additive_residual": 0
+    },
+    {
+      "from_day": 16,
+      "to_day": 17,
+      "observed_differential": 51362,
+      "inferred_from_additive": 52362,
+      "differential_residual": -1000,
+      "observed_additive": 4296073,
+      "inferred_from_cumulative": 4296073,
+      "additive_residual": 0
+    },
+    {
+      "from_day": 17,
+      "to_day": 18,
+      "observed_differential": 52548,
+      "inferred_from_additive": 52548,
+      "differential_residual": 0,
+      "observed_additive": 4243711,
+      "inferred_from_cumulative": 4243711,
+      "additive_residual": 0
+    }
+  ],
+  "result": {
+    "checked_differential_transitions": 4,
+    "checked_accumulation_transitions": 4,
+    "nonzero_differential_residual_days": [
+      16
+    ],
+    "nonzero_accumulation_residual_days": [],
+    "day16_printed_literal": "五分一三六二",
+    "day16_printed_integer": 51362,
+    "day16_crosscolumn_implied_integer": 52362,
+    "day16_crosscolumn_implied_literal": "五分二三六二",
+    "day16_residual": -1000,
+    "physical_day16_glyph_must_not_be_replaced": true,
+    "all_0_to_88_rows_exhaustively_reviewed": false
+  },
+  "prior_original": {
+    "source_evidence": "docs/research/TIANWEN-13HV-NAJ-WASEDA-NDL-WINTER-D15-D17-SAME-LITERAL-R1.json",
+    "holdings": [
+      "NAJ",
+      "WASEDA",
+      "NDL1909"
+    ],
+    "direct_photo_d16": "五分一三六二",
+    "crosscolumn_values_direct_original_read_in_this_batch": false,
+    "same_print_block_independence_proven": false
+  },
+  "firewall": {
+    "received_edited_columns_not_independent_original_witnesses": true,
+    "no_corrected_2362_physical_glyph_claim": true,
+    "no_ancient_mechanical_unit_or_copy_stemma_determined": true,
+    "G893_six": "OPEN",
+    "D5_zero_five": "OPEN",
+    "NCL03130_summer_D14_original": null,
+    "legacy_13EI": "RETRACTED",
+    "added_registered_sources": 0,
+    "added_independent_physical_witnesses": 0,
+    "added_graph_nodes": 0,
+    "added_graph_edges": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0
+  },
+  "counts": {
+    "matrix": [
+      222,
+      222
+    ],
+    "sources": 761,
+    "graph": [
+      252,
+      238
+    ],
+    "omission_issues": 11,
+    "product": "CLOSED"
+  },
+  "transmission_impact": "NONE",
+  "next_action": "Locate independently dated early original winter D16 same-column print and physically review winter add/cumulative fields; modern edited recurrence is a diagnostic, never a substitute for original source glyph. Keep NCL03130 summer D14 and G893 six original controls separately open."
+}

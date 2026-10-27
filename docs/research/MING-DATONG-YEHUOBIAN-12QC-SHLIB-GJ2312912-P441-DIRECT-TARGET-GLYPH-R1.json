@@ -1,0 +1,137 @@
+{
+  "schema": "MING-DATONG-YEHUOBIAN-12QC-SHLIB-GJ2312912-P441-DIRECT-TARGET-GLYPH-R1",
+  "schema_version": "1.0.0",
+  "date": "2026-10-10",
+  "batch_id": "BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-GJ2312912-DIRECT-TARGET-GLYPH-QC",
+  "previous_batch": "BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-GJ2312912-DENSE-IMAGE-INDEX-QB",
+  "source": {
+    "source_id": "EXT-SHLIB-ATTRIBUTED-GJ2312912-YEHUOBIAN-30V-COMMONS-MIRROR",
+    "commons_file_page": "https://commons.wikimedia.org/wiki/File:Shanghai_%E8%90%AC%E6%9B%86%E9%87%8E%E7%8D%B2%E7%B7%A8%E4%B8%89%E5%8D%81%E5%8D%B7_part_2.pdf",
+    "original_mirror_label": "dGJ2312912-0551-1100.pdf",
+    "part": 2,
+    "pdf_pages": 550,
+    "source_pdf_sha256": "7ea8fe57f5baebd8f2841771d87ec5e3ed34c271e0fe89596a28d2521c9165a6",
+    "witness_class": "MANUALLY_REVIEWED_PUBLIC_DIGITAL_SURROGATE_PAGE_NOT_FIRST_PARTY_HOLDING_BINDING",
+    "official_shlib_item_id": "UNVERIFIED",
+    "edition_impression_date": "UNBOUND",
+    "physical_copy_date": "UNBOUND",
+    "digital_surrogate_capture_date": "UNBOUND",
+    "mirror_upload_date": "2024_PUBLIC_MIRROR_NOT_PHYSICAL_COPY_DATE",
+    "same_as_secondary_early_qing_manuscript": "UNPROVEN",
+    "same_as_1827_fulishanfang_print": "UNPROVEN"
+  },
+  "capture": {
+    "upstream_workflow_run": 38042316379,
+    "upstream_artifact_id": 11665913148,
+    "upstream_artifact_name": "shanghai-gj2312912-dense-part2-12qb",
+    "upstream_window_pdf": [
+      350,
+      550
+    ],
+    "method": "SOURCE_HASH_MATCHED_UPSTREAM_PDF; REFETCHED_ARTIFACT; DIRECT_MANUAL_VISUAL_READING_OF_JPEG_WITHOUT_OCR; BYTEWISE_IMAGE_SHA256_RECHECKED_AGAINST_UPSTREAM_MANIFEST",
+    "upstream_render_dpi": 52,
+    "physically_visually_reviewed_pages": [
+      {
+        "part": 2,
+        "pdf_page": 440,
+        "global_page": 990,
+        "sha256": "a3161bd9af6700a1529d8bbcfba3624dd7e12d44c67f1d69bf363f0a79467ca8",
+        "visible_scope": "Immediately preceding article 渾天儀; not the target title."
+      },
+      {
+        "part": 2,
+        "pdf_page": 441,
+        "global_page": 991,
+        "sha256": "c452e18d8da8f70114a5592a917f7bfc2611a610ba36ebf208b39d969c7a0d50",
+        "visible_scope": "改造漏刻 heading and explicit 官府漏箭 / 禁中宮漏 distinct referents; target body."
+      },
+      {
+        "part": 2,
+        "pdf_page": 442,
+        "global_page": 992,
+        "sha256": "146d2fc4c53a66b758f04af62525ca75661896c55a900be3a0bdaa32ee489445",
+        "visible_scope": "Target continuation and next article 釐正曆法; no assumption of a cataloged original leaf."
+      }
+    ],
+    "scanned_total_window_pages": 201,
+    "all_201_manually_read": false
+  },
+  "target": {
+    "work": "萬曆野獲編",
+    "article": "改造漏刻",
+    "chapter_locator": "PART2_PDF_441_GLOBAL_991",
+    "original_paper_folio": "UNRESOLVED",
+    "direct_verified_heading": true,
+    "original_glyph_controls": [
+      {
+        "loc": "PART2_PDF_441",
+        "text": "今宮禁及官府漏箭皆南京舊式不可用",
+        "concept": "官府漏箭",
+        "glyph": "官",
+        "visual_attested": true
+      },
+      {
+        "loc": "PART2_PDF_441",
+        "text": "是時禁中宮漏循用新製不待言",
+        "concept": "禁中宮漏",
+        "glyph": "宮",
+        "visual_attested": true
+      },
+      {
+        "loc": "PART2_PDF_441",
+        "text": "北京冬至日出辰初一刻",
+        "concept": "北京冬至日出时刻",
+        "glyph": "一",
+        "visual_attested": true
+      }
+    ],
+    "guardrail": "官府 and 宮漏 are distinct referents: this page directly gives both 官 and 宮, not a blanket emendation. Modern editorial punctuation supplied only for display.",
+    "cross_recension_winter_sunrise_reading": "SOURCE_SCOPED_ONLY_NOT_GLOBAL_CLOCK_BINDING"
+  },
+  "adjudication": {
+    "target_heading_to_digital_page": "RESOLVED",
+    "target_gong_lou_glyph_on_this_scanned_page": "宮",
+    "separate_guan_fu_glyph_on_this_scanned_page": "官",
+    "bu_dai_yan_visible_on_this_scanned_page": true,
+    "headings_around_source_page": "PREVIOUS_渾天儀_NEXT_釐正曆法",
+    "original_folio": "UNRESOLVED",
+    "first_party_library_copy_identity": "UNBOUND",
+    "independent_1827_or_old20_target_collation": "NOT_COMPLETED",
+    "entire_work_negative_search": "NOT_CLAIMED",
+    "independent_physical_witness_increment": 0,
+    "source_scoped_visual_text_vote_increment": 1,
+    "recension_or_clock_adoption_inference": "NOT_AUTHORIZED",
+    "matrix_rows": 222,
+    "audited_rows": 222,
+    "provenance_repairs": 45,
+    "confirmed_chart_algorithm_defects": 0,
+    "algorithm_reopen_authorized": false,
+    "deterministic_chart_product": "CLOSED",
+    "md_g03": "OPEN_BLOCKING_GENERAL_ADAPTER",
+    "hpa_dayun_cal_002": "MISSING_FROM_PRODUCT"
+  },
+  "transmission_impact": {
+    "nodes_added": [
+      "DIGITAL-SURROGATE-YEHUOBIAN-SHLIB-ATTRIBUTED-GJ2312912",
+      "PASSAGE-YEHUOBIAN-GJ2312912-GAIZAO-LOUKE"
+    ],
+    "nodes_added_or_strengthened": [
+      "DIGITAL-SURROGATE-YEHUOBIAN-SHLIB-ATTRIBUTED-GJ2312912",
+      "PASSAGE-YEHUOBIAN-GJ2312912-GAIZAO-LOUKE"
+    ],
+    "edges_supported": [
+      "TG-E0233"
+    ],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "No same-copy/edition edge between the Commons mirror and the secondary Shanghai early-Qing manuscript catalog; no edge to 1827 printing or old20 manuscript.",
+      "Source-scoped textual attestation of the retrospective 宮漏 statement is not independent proof of 1447 rebuilding completion or an absolute 1450 clock coordinate."
+    ],
+    "unresolved_lineage_questions": [
+      "Bind dGJ2312912 to first-party Shanghai Library item and physical copy, including manuscript date.",
+      "Read 1827 regrouped printed recension and old20 manuscripts on their independently identified 改造漏刻 leaves.",
+      "Locate original paper folio and independently recollate the highlighted 宮 and 官 at higher source resolution."
+    ]
+  },
+  "next": "12QD: first-party Shanghai Library item identity + independent 1827/old20 target page/glyph collation. No global clock or calendar adapter activation."
+}

@@ -1,0 +1,53 @@
+{
+  "schema": "COMBINED-TARGET-FLOW-FUSION-R2-EVIDENCE-R1",
+  "schema_version": "1.0.0",
+  "parent_head": "f1939c4371ba42b82d9fbb7ee26e99c044bb387d",
+  "implementation": {
+    "r2_service_path": "src/fortune_training/combined_chart_application/flow_fusion_r2.py",
+    "r2_service_blob_sha": "08996bdef0572ad3f7778ebad4702806afd7925d",
+    "r2_schema_path": "schemas/combined-target-flow-fusion-r2.schema.json",
+    "r2_schema_blob_sha": "43f64136c345ee59af4e498899a6f513c1a2e50d",
+    "local_adapter_path": "src/fortune_training/combined_chart_application/flow_fusion_local_app.py",
+    "local_adapter_blob_sha": "3a8feff5abce41b3be5a4ee61f1536fc8911706b",
+    "workbench_asset_path": "src/fortune_training/combined_chart_application/flow_fusion_assets.py",
+    "workbench_asset_blob_sha": "6680e01f761a0e2717fe9546aaad0f728276f26a",
+    "contract_doc": "docs/COMBINED-TARGET-FLOW-FUSION-R2.md",
+    "contract_doc_blob_sha": "39a44c5bca1090f355b12523788935483c718f7a"
+  },
+  "focused_regressions": {
+    "core_test": "tests/test_combined_target_flow_fusion_r2.py",
+    "core_test_blob_sha": "9815d57cdc0c4d7b4f1b57313b1e7af9e516c59e",
+    "local_test": "tests/test_combined_target_flow_fusion_local_r2.py",
+    "local_test_blob_sha": "7dd923af873b81b52d5670febd6e369cc96221a5",
+    "workbench_test": "tests/test_combined_workbench_flow_fusion_panel_r2.py",
+    "workbench_test_blob_sha": "cdc3ee07f57eb56a038f0a1830029ee05cc94cbe"
+  },
+  "observed_contract": {
+    "composition_semantics": "INDEPENDENT_BUNDLE_IDENTITY_COMPOSITION_ONLY",
+    "exact_target_binding_across_r1_bazi_ziwei": true,
+    "ziwei_and_bazi_calendar_policies_remain_upstream_and_independent": true,
+    "r1_immutable_after_r2": true,
+    "dst_fold_uncertainty_preserved": true,
+    "local_rehash_forgery_rejected_by_full_replay": true,
+    "full_selector_returned_separately_by_local_endpoint": true,
+    "r2_does_not_duplicate_upstream_candidate_inventory": true,
+    "workbench_read_only": true,
+    "browser_temporal_algorithms_absent": true,
+    "browser_candidates_zero_fallback_absent": true
+  },
+  "provenance_repair": {
+    "defect_id": "PROV-DEFECT-033",
+    "before": "HPA-COMB-006 had source_quote=PENDING_VERBATIM_EXTRACTION and source_quote_location only at COMBINED-TARGET-FLOW-FUSION-R2.md.",
+    "after": "Use the R2 Purpose statement as the quote and bind the row to flow_fusion_r2.py, local/workbench adapters and core/local/workbench regressions.",
+    "reason": "The documentation correctly declares composition-only intent but the audited live contract requires implementation and replay/uncertainty evidence.",
+    "runtime_behavior_changed": false
+  },
+  "adjudication": {
+    "status": "MODERN_COMPATIBILITY_ONLY",
+    "algorithm_reopen_authorized": false,
+    "candidate_change_authorized": false,
+    "candidate_collapse_found": false,
+    "historical_doctrine_claim_authorized": false,
+    "transmission_edge_created": false
+  }
+}

@@ -1,0 +1,199 @@
+name: research-quark-snu-v4-selected-download
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-quark-snu-v4-selected-download.yml
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Select exactly one public target PDF and use visible bottom download button
+        shell: bash
+        run: |
+          set -e
+          python -m pip install --quiet selenium
+          python - <<'PY'
+          import hashlib, json, time
+          from pathlib import Path
+          from selenium import webdriver
+          from selenium.common.exceptions import TimeoutException
+          from selenium.webdriver.chrome.options import Options
+          from selenium.webdriver.common.by import By
+
+          OUT=Path("probe"); DL=OUT/"downloads"; DL.mkdir(parents=True)
+          SHARE="https://pan.quark.cn/s/3b7b731e41f2"
+          FOLDER="紫微斗数"
+          TARGET="【飛星策天紫微斗數全集】一簑古523.5-J562b-v.1-6 陳博(宋) 著 羊城[同治9年(1870)]明經閣 木版本（4）.pdf"
+          result={
+            "schema":"QUARK-SNU-MINGJINGGE-V4-PUBLIC-SELECTED-DOWNLOAD-R1",
+            "share_url":SHARE,
+            "target_filename":TARGET,
+            "authentication_attempted":False,
+            "save_to_cloud_attempted":False,
+            "api_endpoint_guessing_attempted":False,
+            "access_control_bypass_attempted":False,
+            "normal_ui_actions":["CLOSE_LOGIN_MODAL","OPEN_VISIBLE_FOLDER","SCROLL_VISIBLE_LIST","CHECK_EXACT_TARGET_ROW","CLICK_VISIBLE_BOTTOM_DOWNLOAD_IF_SELECTED_COUNT_EQ_1"],
+            "bottom_download_click_attempted":False,
+            "downloaded_files":[],
+          }
+
+          def close_modals(d):
+              c=0
+              for _ in range(5):
+                  vs=[e for e in d.find_elements(By.CSS_SELECTOR,"button.ant-modal-close[aria-label='Close']") if e.is_displayed()]
+                  if not vs: break
+                  vs[0].click(); c+=1; time.sleep(.6)
+              return c
+
+          def body(d):
+              try:return d.find_element(By.TAG_NAME,"body").text or ""
+              except:return ""
+
+          opts=Options()
+          for a in ("--headless=new","--no-sandbox","--disable-dev-shm-usage","--disable-gpu","--disable-background-networking","--disable-component-update","--disable-default-apps","--disable-sync","--no-first-run","--window-size=1600,1800"):
+              opts.add_argument(a)
+          opts.add_experimental_option("prefs",{
+            "download.default_directory":str(DL.resolve()),
+            "download.prompt_for_download":False,
+            "download.directory_upgrade":True,
+          })
+          opts.page_load_strategy="eager"
+          d=webdriver.Chrome(options=opts); d.set_page_load_timeout(20)
+          try:
+              try:d.execute_cdp_cmd("Browser.setDownloadBehavior",{"behavior":"allow","downloadPath":str(DL.resolve())})
+              except Exception:pass
+              try:d.get(SHARE)
+              except TimeoutException:pass
+              time.sleep(9); close_modals(d)
+              fs=[e for e in d.find_elements(By.CSS_SELECTOR,".filename-text") if (e.get_attribute("title") or e.text or "").strip()==FOLDER and e.is_displayed()]
+              if not fs: raise RuntimeError("folder not visible")
+              fs[0].click(); time.sleep(7); close_modals(d)
+
+              ss=[]
+              for e in d.find_elements(By.CSS_SELECTOR,".ant-table-body"):
+                  sh=d.execute_script("return arguments[0].scrollHeight",e); ch=d.execute_script("return arguments[0].clientHeight",e)
+                  if sh and ch and sh>ch+20:ss.append((sh-ch,e))
+              if not ss:raise RuntimeError("file scroller missing")
+              sc=max(ss,key=lambda x:x[0])[1]
+              target=None
+              for step in range(13):
+                  mx=d.execute_script("return Math.max(0,arguments[0].scrollHeight-arguments[0].clientHeight)",sc)
+                  d.execute_script("arguments[0].scrollTop=Math.round(arguments[1]*arguments[2]/12);arguments[0].dispatchEvent(new Event('scroll',{bubbles:true}));",sc,mx,step)
+                  time.sleep(.8)
+                  es=[e for e in d.find_elements(By.CSS_SELECTOR,".filename-text") if (e.get_attribute("title") or e.text or "").strip()==TARGET and e.is_displayed()]
+                  if es:target=es[0];break
+              if target is None:raise RuntimeError("target not mounted")
+              row=target.find_element(By.XPATH,"ancestor::tr[1]")
+              result["target_row_key"]=row.get_attribute("data-row-key")
+              result["target_row_text"]=row.text
+
+              # Fail closed unless no rows are already selected.
+              selected_before=d.find_elements(By.CSS_SELECTOR,"tr.ant-table-row-selected")
+              result["selected_row_count_before"]=len(selected_before)
+              if selected_before:
+                  raise RuntimeError("unexpected pre-existing row selection")
+
+              cb=row.find_element(By.CSS_SELECTOR,"input.ant-checkbox-input[type='checkbox']")
+              d.execute_script("arguments[0].scrollIntoView({block:'center'});",cb)
+              cb.click(); time.sleep(1)
+              selected_after=d.find_elements(By.CSS_SELECTOR,"tr.ant-table-row-selected")
+              result["selected_row_count_after"]=len(selected_after)
+              result["selected_row_keys_after"]=[x.get_attribute("data-row-key") for x in selected_after]
+              result["selected_row_texts_after"]=[x.text for x in selected_after]
+              if len(selected_after)!=1 or selected_after[0].get_attribute("data-row-key")!=result["target_row_key"]:
+                  raise RuntimeError("single-target selection invariant failed")
+
+              # Locate a visible bottom/global Download control by text, excluding
+              # row-local hidden hover controls. Click only when exactly one target is selected.
+              candidates=[]
+              for e in d.find_elements(By.XPATH,"//*[normalize-space(text())='下载']"):
+                  try:
+                      if e.is_displayed():
+                          cls=e.get_attribute("class") or ""
+                          if "hoitem-down" not in cls:
+                              candidates.append(e)
+                  except Exception:pass
+              result["visible_non_row_download_controls"]=[
+                {"tag":e.tag_name,"class":e.get_attribute("class"),"text":e.text} for e in candidates
+              ]
+              try:d.save_screenshot(str(OUT/"one-target-selected.png"))
+              except Exception:pass
+              if not candidates:
+                  raise RuntimeError("no visible non-row download control after exact single selection")
+
+              # Prefer an actual button or nearest clickable ancestor.
+              dlbtn=None
+              for e in candidates:
+                  if e.tag_name.lower() in ("button","a"):
+                      dlbtn=e;break
+              if dlbtn is None:dlbtn=candidates[-1]
+              result["bottom_download_click_attempted"]=True
+              dlbtn.click()
+              result["bottom_download_click_succeeded"]=True
+
+              # Observe only. Do not interact with login/client/save prompts.
+              stable=0;prev={}
+              for _ in range(100):
+                  files=[p for p in DL.iterdir() if p.is_file()]
+                  cur={p.name:p.stat().st_size for p in files}
+                  partial=any(p.suffix.lower() in (".crdownload",".tmp") for p in files)
+                  if cur and cur==prev and not partial:stable+=1
+                  else:stable=0
+                  prev=cur
+                  if stable>=3:break
+                  time.sleep(1)
+
+              result["post_click_terms"]=[x for x in ("登录","扫码","打开客户端","客户端","下载","保存到网盘") if x in body(d)]
+              result["visible_modal_texts"]=[]
+              for m in d.find_elements(By.CSS_SELECTOR,".ant-modal"):
+                  try:
+                      if m.is_displayed():result["visible_modal_texts"].append(m.text[:4000])
+                  except Exception:pass
+              result["url_after_click"]=d.current_url
+              try:d.save_screenshot(str(OUT/"after-bottom-download-click.png"))
+              except Exception:pass
+
+              for p in sorted(DL.iterdir()):
+                  if p.is_file():
+                      data=p.read_bytes()
+                      result["downloaded_files"].append({
+                        "name":p.name,"bytes":len(data),"sha256":hashlib.sha256(data).hexdigest(),
+                        "pdf_magic":data.startswith(b"%PDF"),"prefix_hex":data[:16].hex(),
+                        "partial_suffix":p.suffix.lower() in (".crdownload",".tmp")
+                      })
+          except Exception as exc:
+              result["error"]=repr(exc)
+          finally:
+              try:d.quit()
+              except Exception:pass
+
+          result["adjudication"]={
+            "exact_single_target_selection_proven":result.get("selected_row_count_after")==1 and result.get("selected_row_keys_after")==[result.get("target_row_key")],
+            "anonymous_complete_pdf_obtained":any(x.get("pdf_magic") and not x.get("partial_suffix") for x in result["downloaded_files"]),
+            "login_or_client_followup_interaction_performed":False,
+            "save_to_cloud_action_performed":False,
+            "same_snu_physical_digitization_lineage":True,
+            "independent_physical_witness_increment":0,
+            "algorithm_effect":"NONE",
+          }
+          (OUT/"quark-snu-v4-selected-download.json").write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(result,ensure_ascii=False,indent=2))
+          PY
+
+      - name: Upload selected-download evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: quark-snu-v4-selected-download
+          path: probe/
+          if-no-files-found: warn
+          retention-days: 14

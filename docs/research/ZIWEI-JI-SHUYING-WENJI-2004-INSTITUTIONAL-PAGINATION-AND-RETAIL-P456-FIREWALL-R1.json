@@ -1,0 +1,103 @@
+{
+  "schema": "ZIWEI-JI-SHUYING-WENJI-2004-INSTITUTIONAL-PAGINATION-AND-RETAIL-P456-FIREWALL-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-JI-SHUYING-WENJI-2004-INSTITUTIONAL-PAGINATION-AND-RETAIL-P456-FIREWALL-GT",
+  "prior_batch_id": "BATCH-12-ZIWEI-JI-SHUYING-WENJI-2004-PUBLIC-FULL-TOC-ARTICLE74-EDITORIAL-ENDMATTER-BOUNDARY-GS",
+  "question": "Can the retail catalog string p456 from Batch 12GS be treated as the canonical pagination or used to infer the exact pages of TOC item 74 《百川归海，蔚为大观》?",
+  "answer": "No. The NII/CiNii institutional union-catalog record for the exact 2004 volume (NCID BA71484545, ISBN 7501324611) records physical extent as 4, 435p. Stanford University Libraries SearchWorks independently records the same title as 4, 10, 435 p. Both institutional records converge on a 435-page numbered main sequence while differing in how preliminary matter is represented. The public retail TOC surface instead prints p456. The project therefore preserves the three literal extent strings and treats retail p456 as non-authoritative for page interpolation. This improves the pagination firewall but still does not identify the start or end page of item 74, the final 編后記, or any direct article text.",
+  "institutional_extent_controls": {
+    "cinii": {
+      "source_id": "EXT-CINII-JI-SHUYING-WENJI-2004-HOLDINGS",
+      "provider": "CiNii Books / National Institute of Informatics",
+      "url": "https://ci.nii.ac.jp/ncid/BA71484545",
+      "ncid": "BA71484545",
+      "title": "冀淑英文集",
+      "author_display": "[冀淑英著]",
+      "publisher": "北京圖書館出版社",
+      "publication_date": "2004.9",
+      "isbn": "7501324611",
+      "extent_literal": "4, 435p",
+      "size": "22cm",
+      "holdings_count": 11,
+      "institutional_record_directly_reviewed": true
+    },
+    "stanford": {
+      "source_id": "EXT-STANFORD-SEARCHWORKS-JI-SHUYING-WENJI-2004-EXTENT",
+      "provider": "Stanford University Libraries SearchWorks",
+      "url": "https://searchworks.stanford.edu/view/6318452",
+      "catalog_key": "6318452",
+      "title_romanized": "Ji Shuying wen ji",
+      "title_chinese": "冀淑英文集",
+      "extent_literal": "4, 10, 435 p.",
+      "size": "22 cm",
+      "institutional_search_result_directly_reviewed": true,
+      "full_record_fetch_timed_out_in_reviewed_web_route": true
+    },
+    "retail_control_from_batch_12gs": {
+      "source_id": "EXT-FRELAX-SHUCHONG-JI-SHUYING-WENJI-2004-FULL-TOC",
+      "provider": "書虫精品 / 芸香閣叢書",
+      "extent_literal": "p456/32開/精装",
+      "source_layer": "PUBLIC_RETAIL_CATALOG",
+      "canonical_pagination_authorized": false
+    }
+  },
+  "adjudication": {
+    "exact_bibliographic_object_identity": "CLOSED",
+    "cinii_numbered_main_extent": "435p",
+    "stanford_numbered_main_extent": "435 p.",
+    "institutional_main_numbered_extent_convergence": 435,
+    "preliminary_matter_representation": "VARIANT_CINII_4_VS_STANFORD_4_10_PRESERVE_LITERAL",
+    "retail_p456_conflicts_with_institutional_extent_controls": true,
+    "retail_p456_as_canonical_pagination": "REJECTED_FOR_PAGE_INFERENCE",
+    "retail_p456_as_possible_total_or_vendor_count": "UNRESOLVED_DO_NOT_NORMALIZE",
+    "baichuan_toc_ordinal": 74,
+    "baichuan_exact_page_range": "UNRESOLVED",
+    "direct_2004_article_text": "NOT_REVIEWED",
+    "final_bianhouji_page_range": "UNRESOLVED",
+    "direct_final_bianhouji_text": "NOT_REVIEWED",
+    "page_interpolation_from_ordinal_total_pages_or_neighbor_order": "NOT_AUTHORIZED",
+    "direct_2009_postscript": "NOT_REVIEWED",
+    "derivation_status": "SECONDARY_REPORTED_NOT_DIRECTLY_CLOSED",
+    "target_specific_purchase_route_selected": false,
+    "target_specific_donation_route_selected": false
+  },
+  "inference_firewall": {
+    "same_isbn_does_not_make_extent_fields_identical": true,
+    "institutional_extent_convergence_on_435_does_not_locate_item_74": true,
+    "retail_total_display_does_not_override_union_catalog_extent": true,
+    "preliminary_extent_variation_is_preserved_not_silently_collapsed": true,
+    "no_reverse_page_estimation_from_item_74_of_75": true
+  },
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_added": [],
+    "direct_copy_edge_authorized": false,
+    "same_object_edge_authorized": false,
+    "acquisition_edge_authorized": false
+  },
+  "chronology_and_rule_firewall": {
+    "direct_sanming_parent_vote_increment": 0,
+    "pre1578_zhunzhai_rule_witness_increment": 0,
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_count_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 14,
+    "repaired_provenance_metadata_defect_count": 14,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Directly obtain or inspect the 2004 volume pages around TOC item 74; use item 74 as the structural locator but do not estimate pages from 435 or p456.",
+    "Directly inspect the final 《編后記》 and the 2009 《冀淑英古籍善本十五讲》 postscript before changing the 2004→2009 source-genealogy status.",
+    "Recover the 2010 《〈冀淑英文集〉补遣》 author, exact page span and body.",
+    "Continue direct 《北京图书馆馆史资料汇编（二）：1949—1966》 pp.446—449 collation in parallel."
+  ],
+  "updated_at": "2026-09-25"
+}

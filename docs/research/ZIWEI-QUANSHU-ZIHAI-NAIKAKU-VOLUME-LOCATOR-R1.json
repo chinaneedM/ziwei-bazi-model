@@ -1,0 +1,129 @@
+{
+  "schema": "ZIWEI-QUANSHU-ZIHAI-NAIKAKU-VOLUME-LOCATOR-R1",
+  "schema_version": "1.0.0",
+  "status": "STANDALONE_TARGET_FULLBOOK_BIBLIOGRAPHIC_OBJECT_CLOSED_SUBVOLUME_AND_TARGET_PAGE_UNRESOLVED",
+  "hpa_rule_id": "HPA-ZDATE-006",
+  "formal_set_context": {
+    "title": "子海珍本編·海外卷·日本：內閣文庫",
+    "publisher": "鳳凰出版社",
+    "publication_year": 2016,
+    "set_volume_count": 15,
+    "isbn": "9787550624016",
+    "target_work_catalog_description": "《新鋟希夷陳先生紫微斗數全書》七卷，（宋）陳摶撰，（明）潘希尹補。據内閣文庫藏明刊本影印。",
+    "exact_set_subvolume_containing_target_work": "UNRESOLVED"
+  },
+  "probe_1_api_discovery": {
+    "workflow_run_id": 34134962705,
+    "job_id": 101783639820,
+    "artifact_id": 10023583175,
+    "artifact_zip_sha256": "119a0f56f33f1557e146574608866597f8773030b83689de0e32ac5bb715c99a",
+    "queries": [
+      "isbn:9787550624016",
+      "intitle:子海珍本编 海外卷 日本 内阁文库",
+      "intitle:子海珍本編 海外卷 日本 內閣文庫",
+      "子海珍本编 凤凰出版社 西山尚志 王震"
+    ],
+    "discovered_volume_ids": [],
+    "adjudication": "GOOGLE_BOOKS_API_DISCOVERY_RETURNED_NO_USABLE_VOLUME_OBJECTS_IN_THIS_RUN; THIS_IS_NOT_NEGATIVE_BIBLIOGRAPHIC_PROOF"
+  },
+  "probe_2_public_volume_4_object": {
+    "commit_sha": "abfd84c7c104c663666ec093d75ee13e3fdbaf98",
+    "workflow_run_id": 34135974564,
+    "job_id": 101786920531,
+    "artifact_id": 10023985930,
+    "artifact_zip_sha256": "cd0fad9f64a30096a11dcf5b8d91138f79d20b6541d1b0d4f16b824b02fcc986",
+    "google_books_volume_id": "hyotxQEACAAJ",
+    "public_bibliographic_role": "PUBLIC_GOOGLE_BOOKS_OBJECT_LABELLED_AS_VOLUME_4_IN_SEARCH_RESULT_CONTEXT",
+    "isbn": "9787550624016",
+    "bibliographic_html": {
+      "http_status": 200,
+      "bytes": 80514,
+      "sha256": "d86b15f7426680053fe994a864565215a0c8fd78ea366b68f193e502d1d68ad4",
+      "isbn_present": true,
+      "literal_volume_4_label_present_in_fetched_html": false
+    },
+    "target_search_control": {
+      "request_templates": 3,
+      "target_term_count": 12,
+      "all_transport_statuses": 200,
+      "positive_index_hits": [],
+      "zero_result_as_negative_textual_proof": "FORBIDDEN"
+    },
+    "target_work_presence_in_volume_4": "UNRESOLVED",
+    "target_page_observed": false
+  },
+  "probe_3_standalone_target_fullbook_object": {
+    "commit_sha": "fe43407f3ebf1350e262d1808aeed44207e2ad33",
+    "workflow_run_id": 34136387337,
+    "job_id": 101788256607,
+    "artifact_id": 10024140134,
+    "artifact_zip_sha256": "95590b7cde84bfa010e36c38e2880213b105b2ac2015364d4898b8bf791edc70",
+    "google_books_volume_id": "kxdy0QEACAAJ",
+    "public_bibliographic_url": "https://books.google.com/books?id=kxdy0QEACAAJ",
+    "bibliographic_html": {
+      "http_status": 200,
+      "bytes": 79458,
+      "sha256": "b8da1b1fda8493c97dad0af82045a644b029a0ea786a8915664a7cb63015fa78",
+      "target_title_present": true,
+      "seven_juan_present": true,
+      "published_2016_present": true
+    },
+    "identity_adjudication": "DIRECT_PUBLIC_2016_GOOGLE_BOOKS_BIBLIOGRAPHIC_OBJECT_FOR_新鋟希夷陳先生紫微斗數全書_七卷",
+    "relationship_to_formal_naikaku_facsimile_set": "SUPPORTED_BY_INDEPENDENT_OFFICIAL_SDU_CATALOG_DESCRIPTION; GOOGLE_OBJECT_ALONE_DOES_NOT_STATE_SET_SUBVOLUME_NUMBER",
+    "search_within_volume": {
+      "target_terms": [
+        "新鋟希夷陳先生紫微斗數全書",
+        "紫微斗數全書",
+        "論人生時要審的確",
+        "上五刻",
+        "下五刻",
+        "亥時",
+        "子時有十刻",
+        "南陽堂較梓",
+        "紅葉山文庫",
+        "陳摶",
+        "潘希尹"
+      ],
+      "all_requests_http_status": 200,
+      "all_searchable_values": false,
+      "positive_index_hits": [],
+      "zero_result_interpretation": "NOT_TEXTUAL_ABSENCE_BECAUSE_VOLUME_EXPLICITLY_REPORTS_SEARCHABLE_FALSE"
+    },
+    "embedded_page_ids": [],
+    "public_target_page_observed": false
+  },
+  "public_facsimile_route": {
+    "provider": "书格 / Shuge",
+    "url": "https://www.shuge.org/view/zi_wei_dou_shu_quan_shu/",
+    "direct_page_metadata": {
+      "title": "新锓希夷陈先生紫微斗数全书",
+      "juan_count": 7,
+      "edition": "明代南阳堂（或葆和堂）写刻刊本",
+      "collection_source": "日本内阁文库藏本",
+      "volume_5_target_heading_listed": "论人生时要审的确",
+      "file_format": "PDF 高清+ with volume bookmarks",
+      "color_file_size": "813M",
+      "black_and_white_file_size": "34.5M"
+    },
+    "relationship_to_batch_12a": "SEE docs/research/ZIWEI-QUANSHU-NANYANGTANG-NAAJ-PHYSICAL-COPY-BRIDGE-R1.json",
+    "independent_hai_glyph_witness_added": false
+  },
+  "epistemic_boundaries": {
+    "volume_4_search_zero_as_target_absence": "FORBIDDEN",
+    "standalone_google_object_as_exact_15_VOLUME_SET_SUBVOLUME_NUMBER": "FORBIDDEN",
+    "searchable_false_zero_results_as_textual_absence": "FORBIDDEN",
+    "bibliographic_object_as_physical_target_page": "FORBIDDEN",
+    "duplicate_naikaku_scan_route_as_independent_physical_witness": "FORBIDDEN_UNLESS_DISTINCT_COPY_PROVEN"
+  },
+  "adjudication": {
+    "standalone_target_fullbook_bibliographic_identity": "CLOSED",
+    "exact_zihai_set_subvolume": "UNRESOLVED",
+    "target_late_zi_page_in_formal_facsimile": "NOT_DIRECTLY_OBSERVED",
+    "hpa_zdate_006": "MISSING_FROM_PRODUCT",
+    "hai_glyph_stability_across_independent_physical_editions": "UNRESOLVED_PENDING_DIRECT_INDEPENDENT_PHYSICAL_TARGET_PAGES",
+    "candidate_selection_authorized": false,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_count": 0
+  }
+}

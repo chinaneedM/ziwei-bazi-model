@@ -1,0 +1,17 @@
+{
+  "schema": "ZIWEI-EXTERNAL-TRANSFORMATION-COMPATIBILITY-FIXTURE-V1",
+  "fixture_id": "WENMO-CHARTDIFF-006-TRANSFORMATIONS",
+  "authority": "EXTERNAL_COMPATIBILITY_ORACLE_NOT_CANONICAL_AUTHORITY",
+  "source_case": "WENMO-CHARTDIFF-006",
+  "input": "2001-12-15T12:00:00",
+  "birth_year_stem": "辛",
+  "source_layer": "NATAL_BIRTH_YEAR",
+  "context_id": "NATAL",
+  "expected": [
+    {"transformation_type": "化禄", "target_entity_id": "STAR.JUMEN", "target_display_name": "巨门", "target_branch": "申", "assignment_id": "S08-ASG-29", "mechanism_id": "S08-TN-29"},
+    {"transformation_type": "化权", "target_entity_id": "STAR.TAIYANG", "target_display_name": "太阳", "target_branch": "申", "assignment_id": "S08-ASG-30", "mechanism_id": "S08-TN-30"},
+    {"transformation_type": "化科", "target_entity_id": "STAR.WENQU", "target_display_name": "文曲", "target_branch": "戌", "assignment_id": "S08-ASG-31", "mechanism_id": "S08-TN-31"},
+    {"transformation_type": "化忌", "target_entity_id": "STAR.WENCHANG", "target_display_name": "文昌", "target_branch": "辰", "assignment_id": "S08-ASG-32", "mechanism_id": "S08-TN-32"}
+  ],
+  "identity_note": "Transformations are causal activation facts targeting immutable physical placements; they do not move or duplicate the target stars."
+}

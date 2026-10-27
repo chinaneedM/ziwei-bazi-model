@@ -1,0 +1,152 @@
+{
+  "schema": "ZIWEI-NLCPRESS-JI15-FIRST-PARTY-BOOKTEXT-BOUNDED-PAYLOAD-BOUNDARY-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-NLCPRESS-JI15-FIRST-PARTY-BOOKTEXT-BOUNDED-PAYLOAD-BOUNDARY-IP",
+  "prior_batch_id": "BATCH-12-ZIWEI-NLCPRESS-JI15-FIRST-PARTY-PRODUCT-IDENTITY-AND-TOC-ATTACHMENT-BOUNDARY-IO",
+  "question": "Does the source-emitted National Library of China Press Booktext postback for product 4660 expose a usable full-text or page-numbered contents object that can resolve Chapter 9 or Chapters 10/11 pagination?",
+  "answer": "The first-party Booktext postback is a real public attachment response, but the current payload is only 739 bytes / 382 normalized GB18030 characters. It returns HTTP 200 application/octet-stream with Content-Disposition naming 冀淑英古籍善本十五讲.txt. A bounded 4 KiB classifier recovered the complete 739-byte object without logging or saving raw text. It contains the target book title and a 目录 marker, but none of the exact Chapter 9, 10, 11, 12 or 15 titles. Therefore this current Booktext payload is not usable as the fifteen-lecture chapter text or a page-numbered contents witness. Chapter 9 exact pagination and direct text remain unresolved/not reviewed; no interpolation or product/runtime change is authorized.",
+  "source": {
+    "provider": "国家图书馆出版社",
+    "product_url": "https://www.nlcpress.com/ProductView.aspx?Id=4660",
+    "product_id": 4660,
+    "isbn_13": "9787501340637",
+    "event_target": "Booktext",
+    "source_emitted_ui_label": "图书文件下载（TXT）"
+  },
+  "probe_history": {
+    "non_evidentiary_initial_failure": {
+      "commit_sha": "e9cfb88505383d1ea53d8f5bda86ec5bc8819994",
+      "workflow_run_id": 36714895389,
+      "cause": "Python syntax error before network POST",
+      "booktext_post_executed": false,
+      "evidentiary_weight": "NONE"
+    },
+    "metadata_only_probe": {
+      "commit_sha": "fce8003c342f145bc0e227c3d35bed76f1023ce1",
+      "workflow_run_id": 36715184159,
+      "workflow_job_id": 109886251724,
+      "artifact_id": 11095609154,
+      "artifact_digest": "sha256:bf7eaf6eb95af9d380248648bd41bb395186ec585ab021cf52f3f42febe07cbc",
+      "response_body_read": false,
+      "redirect_followed": false,
+      "download_bytes_read": 0,
+      "post_status": 200,
+      "content_type": "application/octet-stream",
+      "content_length": 739,
+      "content_disposition_repaired": "attachment; filename=冀淑英古籍善本十五讲.txt, attachment;filename=F:\\GTWeb\\Text\\冀淑英古籍善本十五讲.txt"
+    },
+    "bounded_payload_classification": {
+      "commit_sha": "bb5d21664c5997db53c112935279f6322fcacb88",
+      "workflow_run_id": 36715372154,
+      "workflow_job_id": 109886873074,
+      "artifact_id": 11095604530,
+      "artifact_digest": "sha256:5f5edddf01506566d854c8f010152005b8f3401b60db5b25cb5f4cd04697686c",
+      "max_authorized_bytes": 4096,
+      "declared_content_length": 739,
+      "bytes_read": 739,
+      "body_sha256": "c79284ab5f39ed7b8b48e8b1071b008990c583314455c7abf00699cd1fe4d1d3",
+      "decoded_encoding": "gb18030",
+      "decoded_char_count": 382,
+      "raw_text_logged": false,
+      "raw_text_saved": false,
+      "chapter_matches": {
+        "ch9": false,
+        "ch10": false,
+        "ch11": false,
+        "ch12": false,
+        "ch15": false
+      },
+      "marker_flags": {
+        "has_target_title": true,
+        "has_chapter_word": false,
+        "has_catalog_word": true,
+        "has_error_word": false,
+        "has_notfound_word": false,
+        "has_empty_word": false
+      }
+    }
+  },
+  "payload_adjudication": {
+    "public_attachment_response_closed": true,
+    "current_payload_is_full_book_text": false,
+    "current_payload_is_usable_page_numbered_toc": false,
+    "current_payload_contains_exact_chapter_9_title": false,
+    "current_payload_contains_exact_chapter_10_title": false,
+    "current_payload_contains_exact_chapter_11_title": false,
+    "current_payload_contains_exact_chapter_12_title": false,
+    "current_payload_contains_exact_chapter_15_title": false,
+    "chapter_9_page_range_resolved": false,
+    "chapter_10_11_pagination_resolved": false,
+    "negative_scope": "CURRENT_PRODUCT4660_BOOKTEXT_PAYLOAD_ONLY",
+    "booktext_route_repeat_without_payload_change_authorized": false
+  },
+  "pagination_adjudication": {
+    "exact_chapter_9_title": "铁琴铜剑楼藏书的收购入藏",
+    "exact_chapter_9_page_range": "UNRESOLVED",
+    "direct_chapter_9_text": "NOT_REVIEWED",
+    "exact_chapter_10_11_pagination": "UNRESOLVED",
+    "interpolation_to_chapter_9_authorized": false,
+    "linear_interpolation_authorized": false,
+    "proportional_interpolation_authorized": false,
+    "direct_chapter_9_page_increment": 0,
+    "direct_chapter_9_text_increment": 0
+  },
+  "security_copyright_and_evidence_firewall": {
+    "source_emitted_event_target_used": true,
+    "source_emitted_product_id_used": true,
+    "product_id_guessed": false,
+    "tls_certificate_verification_disabled": false,
+    "login_executed": false,
+    "purchase_invoked": false,
+    "paid_endpoint_invoked": false,
+    "captcha_bypass_attempted": false,
+    "permission_bypass_attempted": false,
+    "metadata_probe_body_read": false,
+    "bounded_payload_limit_bytes": 4096,
+    "bounded_payload_raw_text_logged": false,
+    "bounded_payload_raw_text_saved": false,
+    "full_book_text_archived": false
+  },
+  "target_object_firewall": {
+    "quoted_1951_member": "宋刻《春秋左传注疏》",
+    "fid070_physical_research_adjudication": "元刻元印十行本",
+    "same_object_collapse_authorized": false,
+    "exact_fid070_donation_batch": "UNRESOLVED",
+    "exact_fid070_donation_date": "UNRESOLVED",
+    "exact_3368_to_3288_causal_mechanism": "UNRESOLVED"
+  },
+  "transmission_impact": {
+    "status": "NONE",
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": [],
+    "reason": "Modern publisher access-surface boundary only; no historical transmission relation is established."
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Do not repeat the current Product 4660 Booktext route unless its response headers, content length or payload hash changes.",
+    "Continue lawful page-numbered contents/direct-scan recovery for Chapter 9 and exact Chapter 10/11 pagination; preserve the anti-interpolation firewall.",
+    "Continue lawful direct/public-preview recovery of 2011 《赵万里文集》第1卷 p.197.",
+    "Continue authoritative/open-object recovery of wwck195109.pdf and bind bytes/hash/pagination before collating 1951 pp.221-233."
+  ],
+  "updated_at": "2026-09-30"
+}

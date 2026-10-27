@@ -1,0 +1,137 @@
+{
+  "schema": "ZIWEI-CNBKSY-HELP-ROOT-CONTENT-CONTRACT-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-CNBKSY-HELP-ROOT-CONTENT-CONTRACT-LT",
+  "prior_batch_id": "BATCH-12-ZIWEI-CNBKSY-HELP-TREE-CONTRACT-LS",
+  "question": "What does the page's own active init() call findNews?id=61 return, and does the root help content expose any field-level search semantics or actionable source-emitted help links?",
+  "answer": "The root call returns JSON title 使用帮助 and 591 characters of HTML content whose stripped visible text is only generic browser-compatibility and support-contact guidance. All audited search-mode and field-semantic tokens are absent. One literal href-like value, http://service@cnbksy.com, is source-emitted and preserved verbatim but not followed or normalized. The root help content therefore does not close ordinary/advanced/professional search semantics.",
+  "controlling_probe": {
+    "workflow": ".github/workflows/probe-batch-12lt-cnbksy-help-root-content-contract.yml",
+    "exact_head": "c240d0564fa06838ac666ed20502be4f1cd16839",
+    "workflow_run_id": 36892057259,
+    "workflow_job_id": 110469837665,
+    "artifact_id": 11177147183,
+    "artifact_digest": "sha256:336b0c50b25c43a40f1e9eef3a966b6df1987e9a03c1b209dc32b0c5542ed0a0"
+  },
+  "request_contract": {
+    "page_url": "https://www.cnbksy.com/portal/footCategory?id=61",
+    "endpoint": "/portal/footCategory/findNews?id=61",
+    "method": "POST",
+    "payload": "EMPTY_OBJECT",
+    "source_call_role": "active init() root help-content load",
+    "csrf_source": "page meta _csrf",
+    "csrf_value_recorded": false,
+    "dynamic_tree_id_payload_used": false
+  },
+  "response": {
+    "http_status": 200,
+    "content_type": "application/json;charset=UTF-8",
+    "server_header": "ESA",
+    "bytes": 3831,
+    "sha256": "9d3e42888751ff998e76508b2325962ab1ffa7101f6721e85c1f21e5c5734ca6",
+    "json_type": "dict",
+    "keys": [
+      "content",
+      "createdBy",
+      "createdDate",
+      "deleted",
+      "id",
+      "isEnabled",
+      "isOrgNotice",
+      "keywords",
+      "language",
+      "lastModifiedBy",
+      "lastModifiedDate",
+      "linkItemId",
+      "linkUrl",
+      "newsCategory",
+      "publishDate",
+      "setTop",
+      "title",
+      "weight"
+    ]
+  },
+  "content_inventory": {
+    "title": "使用帮助",
+    "content_length": 591,
+    "content_sha256": "55be4b4fb7cc3bd728c733690ebe55778252ff5ae07cdfad93e39dd6a7fab35f",
+    "visible_text_length": 131,
+    "visible_text": "本网站使用适于IE7以上浏览器或FireFox浏览器，请您在访问资源时注意升级或更换您的浏览器。 咨询电话：(021)64451207；64455555*1042 联系时间：周一至周五早9:00至晚17:00 E-mail： service@cnbksy.com",
+    "token_counts": {
+      "普通检索": 0,
+      "高级检索": 0,
+      "专业检索": 0,
+      "图片检索": 0,
+      "题名": 0,
+      "作者": 0,
+      "刊名": 0,
+      "分类号": 0,
+      "年份": 0,
+      "期号": 0,
+      "检索词": 0,
+      "关键词": 0,
+      "全文": 0,
+      "逻辑": 0,
+      "布尔": 0,
+      "用户手册": 0,
+      "下载": 0
+    },
+    "source_emitted_links": [
+      "http://service@cnbksy.com"
+    ],
+    "source_emitted_link_count": 1,
+    "source_emitted_link_followed": false,
+    "href_like_value_normalized": false
+  },
+  "adjudication": {
+    "root_help_content_closed": true,
+    "field_level_search_semantics_observed": false,
+    "dynamic_tree_id_payload_used": false,
+    "source_emitted_link_followed": false,
+    "target_term_submitted": false,
+    "target_query_submitted": false,
+    "login_used": false,
+    "registration_used": false
+  },
+  "security": {
+    "anonymous_session_only": true,
+    "csrf_value_recorded": false,
+    "credential_value_recorded": false,
+    "private_endpoint_guessed": false,
+    "captcha_bypass_used": false,
+    "tls_verification_disabled": false
+  },
+  "transmission_impact": {
+    "status": "NONE_ACCESS_BOUNDARY_ONLY",
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": []
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Use only the first-party help-tree node 161 用户手册下载 recovered in Batch 12LS.",
+    "Execute the active zTreeOnClick transport POST /portal/footCategory/findNews with normal form payload id=161 in the same anonymous session.",
+    "Inventory returned title/content and source-emitted href/src links; follow none of them.",
+    "Do not submit any target search term or use node IDs not present in the first-party tree."
+  ],
+  "updated_at": "2026-10-02"
+}

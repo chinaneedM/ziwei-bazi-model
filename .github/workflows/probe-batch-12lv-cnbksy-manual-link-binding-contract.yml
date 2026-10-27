@@ -1,0 +1,162 @@
+name: probe-batch-12lv-cnbksy-manual-link-binding-contract
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12lv-cnbksy-manual-link-binding-contract.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Bind manual anchor text to hrefs statically; follow none
+        run: |
+          python - <<'PY'
+          import hashlib, html, json, re
+          from pathlib import Path
+          from urllib.parse import urljoin
+          import requests
+
+          page="https://www.cnbksy.com/portal/footCategory?id=61"
+          endpoint_path="/portal/footCategory/findNews"
+          node_id=161
+          UA="Mozilla/5.0 (Tianwen provenance audit; CNBKSY manual link binding)"
+          s=requests.Session()
+          s.headers.update({"User-Agent":UA})
+          g=s.get(page,timeout=45,allow_redirects=False)
+          grow=g.content
+          gtxt=grow.decode("utf-8","replace")
+          csrf_m=re.search(r'''(?is)<meta\b[^>]*?name\s*=\s*["']_csrf["'][^>]*?content\s*=\s*["']([^"']+)["']''',gtxt)
+          if not csrf_m:
+              csrf_m=re.search(r'''(?is)<meta\b[^>]*?content\s*=\s*["']([^"']+)["'][^>]*?name\s*=\s*["']_csrf["']''',gtxt)
+
+          response=None
+          anchors=[]
+          images=[]
+          upload_contexts=[]
+          scalar_fields={}
+          content_sha256=None
+          request_executed=False
+          if csrf_m:
+              r=s.post(
+                  urljoin(page,endpoint_path),
+                  params={"_csrf":csrf_m.group(1)},
+                  data={"id":node_id},
+                  headers={
+                      "Referer":page,
+                      "X-Requested-With":"XMLHttpRequest",
+                      "Content-Type":"application/x-www-form-urlencoded; charset=UTF-8",
+                  },
+                  timeout=45,
+                  allow_redirects=False,
+              )
+              request_executed=True
+              raw=r.content
+              response={
+                  "status":r.status_code,
+                  "content_type":r.headers.get("content-type"),
+                  "server":r.headers.get("server"),
+                  "bytes":len(raw),
+                  "sha256":hashlib.sha256(raw).hexdigest(),
+              }
+              obj=r.json()
+              if isinstance(obj,dict):
+                  for k in ("id","title","linkUrl","linkItemId","keywords","publishDate","createdDate","lastModifiedDate"):
+                      v=obj.get(k)
+                      if isinstance(v,(str,int,float,bool)) or v is None:
+                          scalar_fields[k]=v
+                  content=obj.get("content")
+                  if isinstance(content,str):
+                      content_sha256=hashlib.sha256(content.encode("utf-8")).hexdigest()
+                      for idx,m in enumerate(re.finditer(r'''(?is)<a\b([^>]*)>(.*?)</a>''',content)):
+                          attrs=m.group(1)
+                          inner=m.group(2)
+                          hm=re.search(r'''(?is)\bhref\s*=\s*["']([^"']+)["']''',attrs)
+                          href=html.unescape(hm.group(1)).strip() if hm else None
+                          text=html.unescape(re.sub(r"<[^>]+>"," ",inner))
+                          text=re.sub(r"\s+"," ",text).strip()
+                          nested=[]
+                          for im in re.finditer(r'''(?is)<img\b[^>]*?\bsrc\s*=\s*["']([^"']+)["']''',inner):
+                              u=html.unescape(im.group(1)).strip()
+                              if u and u not in nested:
+                                  nested.append(u)
+                          anchors.append({
+                              "index":idx,
+                              "href":href,
+                              "text":text,
+                              "nested_image_srcs":nested,
+                              "inner_sha256":hashlib.sha256(inner.encode("utf-8")).hexdigest(),
+                          })
+                      for idx,m in enumerate(re.finditer(r'''(?is)<img\b([^>]*)>''',content)):
+                          attrs=m.group(1)
+                          sm=re.search(r'''(?is)\bsrc\s*=\s*["']([^"']+)["']''',attrs)
+                          am=re.search(r'''(?is)\balt\s*=\s*["']([^"']*)["']''',attrs)
+                          tm=re.search(r'''(?is)\btitle\s*=\s*["']([^"']*)["']''',attrs)
+                          images.append({
+                              "index":idx,
+                              "src":html.unescape(sm.group(1)).strip() if sm else None,
+                              "alt":html.unescape(am.group(1)).strip() if am else None,
+                              "title":html.unescape(tm.group(1)).strip() if tm else None,
+                          })
+                      for m in re.finditer(r'''(?is)(?:https?://[^"' <]+)?/common/uploadFile/[A-Za-z0-9]+''',content):
+                          a=max(0,m.start()-260); b=min(len(content),m.end()+260)
+                          ctx=re.sub(r"\s+"," ",content[a:b]).strip()
+                          upload_contexts.append({
+                              "literal":m.group(0),
+                              "context":ctx,
+                              "context_sha256":hashlib.sha256(ctx.encode("utf-8")).hexdigest(),
+                          })
+
+          out={
+              "source_contract":{
+                  "parent_batch":"12LU",
+                  "node_id":node_id,
+                  "node_label":"用户手册下载",
+                  "endpoint":endpoint_path,
+                  "method":"POST",
+                  "payload":{"id":node_id},
+                  "static_html_association_only":True,
+                  "source_emitted_link_followed":False,
+                  "file_downloaded":False,
+                  "target_term_submitted":False,
+                  "target_query_submitted":False,
+              },
+              "request_executed":request_executed,
+              "response":response,
+              "content_sha256":content_sha256,
+              "scalar_fields":scalar_fields,
+              "anchors":anchors,
+              "images":images,
+              "upload_contexts":upload_contexts,
+              "adjudication":{
+                  "anchor_href_text_binding_inventoried":True,
+                  "source_emitted_link_followed":False,
+                  "file_downloaded":False,
+                  "target_term_submitted":False,
+                  "target_query_submitted":False,
+                  "login_used":False,
+                  "registration_used":False,
+              },
+              "security":{
+                  "anonymous_session_only":True,
+                  "csrf_value_recorded":False,
+                  "credential_value_recorded":False,
+                  "private_endpoint_guessed":False,
+                  "captcha_bypass_used":False,
+                  "tls_verification_disabled":False,
+              },
+          }
+          Path("batch-12lv-cnbksy-manual-link-binding-contract.json").write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12lv-cnbksy-manual-link-binding-contract
+          path: batch-12lv-cnbksy-manual-link-binding-contract.json

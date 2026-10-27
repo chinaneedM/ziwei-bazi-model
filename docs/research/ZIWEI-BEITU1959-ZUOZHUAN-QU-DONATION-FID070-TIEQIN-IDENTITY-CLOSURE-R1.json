@@ -1,0 +1,192 @@
+{
+  "schema": "ZIWEI-BEITU1959-ZUOZHUAN-QU-DONATION-FID070-TIEQIN-IDENTITY-CLOSURE-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-BEITU1959-ZUOZHUAN-QU-DONATION-FID070-TIEQIN-IDENTITY-CLOSURE-HP",
+  "prior_batch_id": "BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID070-PROVENANCE-SEAL-VISUAL-BOUNDARY-HO",
+  "question": "Does direct visual review of the 1959 《北京图书馆善本书目》 provide a donor/provenance bridge strong enough to identify NLC FID 412004000070 as Zhang Lijuan's Tieqin Tongjian Lou old-collection Yuan-impression ten-line 《附释音春秋左传注疏》 witness?",
+  "answer": "Yes, at a high-confidence multilayer historical-catalog/donor-provenance/bibliographic-fingerprint level, while the modern NLC SYS/UID/905s remains unresolved. In the 1959 Beijing Library rare-book catalog volume 1, direct no-OCR visual review of PDF page 56 reads the exact target 《附釋音春秋左傳註疏》六十卷, 晉杜預、唐孔穎達撰、唐陸德明釋文, 元刻明修本, 三十二冊, followed directly by the donor notation 《瞿捐》. The number printed below that 1959 entry is 三三六八 = 3368. An NLC-hosted catalog-history article independently states that the 1959 《北京图书馆善本书目》 annotated donor surnames after each book specifically to clarify provenance. An NLC/China Ancient Books Protection page independently states that fifth-generation Qu family members Qu Jicang, Qu Xuchu and Qu Fengqi donated/transferred more than 700 rare books from Tieqin Tongjian Lou to the National Library. This Qu-donor bridge converges with: (1) the historical Tieqin catalog's same 60-juan title, Huang/Baisong provenance and 10-line/17-character format; (2) the 1987 Beijing Library entry for the same Yuan-engraved/Ming-repaired 32-book, 10-line/17-character witness under book number 3388; (3) the 1985 NLC microfilm 455 original-control 412004000070 describing the original as Yuan + Ming repair + rare book + 32 books; (4) the NLC-backed FID 412004000070 digital object containing exactly 32 books covering juan 1-60; and (5) Zhang Lijuan's official NOPSS report identifying an NLC-held Tieqin-old-collection ten-line witness formerly cataloged 元刻明修本 and physically re-adjudicated 元刻元印十行本. The project therefore forward-revises HO's same-object status from STRONGLY_COMPATIBLE_NOT_PROVED to HIGH_CONFIDENCE_CLOSED_AT_MULTILAYER_HISTORICAL_CATALOG_DONOR_PROVENANCE_AND_FORMAT_LEVEL. This is a composite identity closure, not a claim that the 1959 number 3368, the 1987 book number 3388, a current 905s, or FID 412004000070 are interchangeable identifiers. The 1959→1987 renumbering mechanism and current NLC SYS/UID/905s remain unresolved. The faded seal text on FID070 book1 page2 also remains unreadable; the identity no longer depends on guessing that seal.",
+  "controlling_probe": {
+    "workflow_run_id": 36313051367,
+    "artifact_id": 10929183632,
+    "artifact_zip_sha256": "6701b3ac7dcbeb160b48e2d33b2048cb185c1cecf7b8b3ffefdcc57cb240e908",
+    "source_pdf_sha256": "3f7eb1d2ab0057f4524eee2fb3dd3ca08561257302ffed32fe1960188184452f",
+    "source_pdf_pages": 104,
+    "target_pdf_page": 56,
+    "target_page_render_sha256": "39f4348a6d0c3edbf353452251a5037ab9d3b0c88a35533940051382ca689835",
+    "google_books_volume_id": "8HUnrRREKsoC",
+    "google_books_locator_page_id": "PP64",
+    "locator_role": "NAVIGATION_ONLY_NOT_TEXTUAL_AUTHORITY",
+    "ocr_used": false,
+    "collation_method": "DIRECT_MANUAL_VISUAL_REVIEW_OF_HASH_BOUND_1959_SCAN"
+  },
+  "beitu1959_direct_target": {
+    "catalog_title": "北京图书馆善本书目",
+    "volume": 1,
+    "institution": "北京图书馆",
+    "publication_year": 1959,
+    "public_scan_url": "https://upload.wikimedia.org/wikipedia/commons/2/28/SSID-12335507_%E5%8C%97%E4%BA%AC%E5%9C%96%E6%9B%B8%E9%A4%A8%E5%96%84%E6%9C%AC%E6%9B%B8%E7%9B%AE_1.pdf",
+    "pdf_page": 56,
+    "title": "附釋音春秋左傳註疏六十卷",
+    "responsibility": [
+      "晉杜預",
+      "唐孔穎達",
+      "唐陸德明釋文"
+    ],
+    "version": "元刻明修本",
+    "extent": "三十二冊",
+    "donor_notation": "瞿捐",
+    "printed_bottom_number_chinese": "三三六八",
+    "printed_bottom_number_arabic": "3368",
+    "donor_notation_visually_direct": true,
+    "target_profile_visually_direct": true,
+    "printed_number_visually_direct": true,
+    "ocr_used": false
+  },
+  "beitu1959_catalog_semantics_control": {
+    "source_id": "EXT-NLC-PCAB-2019-BEITU1959-DONOR-SURNAME-CATALOG-METHOD",
+    "provider": "国家图书馆 / 中国古籍保护网《图书馆报》古籍史话",
+    "url": "https://www.nlc.cn/pcab/ztzl/tsgb/2020/202210/P020221017510797685830.pdf",
+    "statement_summary": "1959《北京图书馆善本书目》沿袭来源标注体例，于每部书后详注捐书人姓氏，用于厘清国图古籍善本递藏关系。",
+    "donor_notation_semantic": "DONOR_SURNAME",
+    "interpretation_of_qu_juan": "QU_SURNAME_DONATION_SOURCE",
+    "direct_target_identity_from_method_source": false
+  },
+  "qu_tieqin_donation_control": {
+    "source_id": "EXT-NLC-PCAB-2020-TIEQIN-700PLUS-DING-FUBAO-SIX-BOOK-ROUTE",
+    "provider": "国家图书馆 / 中国古籍保护网",
+    "url": "https://www.nlc.cn/pcab/zx/xw/20200414_191069.shtml",
+    "direct_summary": "第五代楼主瞿济苍、瞿旭初、瞿凤起三兄弟将铁琴铜剑楼所藏700多部善本古籍及铁琴捐献、转让给国家图书馆。",
+    "qu_family_is_tieqin_donor_to_nlc": true
+  },
+  "supporting_identity_layers": {
+    "historical_tieqin_catalog": {
+      "source_id": "EXT-TIEQIN-CATALOG-ZUOZHUAN-60-BAISONG-FINGERPRINT-SHIDIAN",
+      "title_entry": "附释音春秋左传注疏六十卷",
+      "old_provenance": "旧藏黄氏百宋一廛",
+      "lines_per_half_leaf": 10,
+      "main_chars_per_line": 17,
+      "commentary_double_line_chars": 23
+    },
+    "beitu1987": {
+      "source_id": "EXT-BEITU-1987-GUJISHANBEN-JINGBU-ZUOZHUAN-BOOKNO3388",
+      "title": "附釋音春秋左傳註疏六十卷",
+      "version": "元刻明修本",
+      "extent": "三十二冊",
+      "format": [
+        "十行十七字",
+        "小字雙行二十三字"
+      ],
+      "book_number": "3388"
+    },
+    "nlc1985_microfilm": {
+      "source_id": "EXT-NLC-MICROFILM-ZUOZHUAN-FID412004000070-OLD-CATALOG",
+      "original_control": "412004000070",
+      "old_profile": [
+        "元[1271-1368]",
+        "明[1368-1644]重修",
+        "善本",
+        "刻本",
+        "32册"
+      ]
+    },
+    "fid070_digital": {
+      "source_id": "EXT-NLC-DIGITAL-ZUOZHUAN-412004000070-COMMONS-BACKUP",
+      "fid": "412004000070",
+      "books": 32,
+      "extent": "卷首/卷1 through 卷60",
+      "nlc_credit": true
+    },
+    "zhang_physical_research": {
+      "source_id": "EXT-NOPSS-ZHANG-LIJUAN-NLC-TIEQIN-YUAN-ZUOZHUAN",
+      "holder": "中国国家图书馆",
+      "tieqin_old_collection": true,
+      "prior_catalog_classification": "元刻明修本",
+      "physical_adjudication": "元刻元印十行本"
+    },
+    "fid070_visual": {
+      "prior_batch": "BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID070-PROVENANCE-SEAL-VISUAL-BOUNDARY-HO",
+      "direct_provenance_marks_present_on_book1_page2": true,
+      "exact_seal_text": "UNRESOLVED"
+    }
+  },
+  "cross_catalog_identifier_firewall": {
+    "beitu1959_printed_bottom_number": "3368",
+    "beitu1987_book_number": "3388",
+    "numbers_equal": false,
+    "direct_3368_to_3388_renumbering_record_recovered": false,
+    "renumbering_or_catalog_succession_mechanism": "UNRESOLVED",
+    "current_sys": "UNRESOLVED",
+    "current_uid": "UNRESOLVED",
+    "current_905s": "UNRESOLVED",
+    "current_shelfmark": "UNRESOLVED",
+    "fid": "412004000070",
+    "identifiers_interchangeable": false,
+    "zero_padding_3388_to_03388": "FORBIDDEN_WITHOUT_DIRECT_CURRENT_RECORD"
+  },
+  "identity_adjudication": {
+    "fid": "412004000070",
+    "historical_1959_qu_donation_bridge": "CLOSED_DIRECT_VISUAL",
+    "qu_donation_is_tieqin_nlc_provenance": "CLOSED_AT_NLC_OFFICIAL_HISTORY_LEVEL",
+    "fid070_equals_1985_microfilm_original_control": "CLOSED",
+    "fid070_to_1987_book_number_3388": "HIGH_CONFIDENCE_CLOSED_AT_CATALOG_PROFILE_AND_CONTIGUOUS_GROUP_LEVEL",
+    "fid070_equals_zhang_tieqin_yuan_copy": "HIGH_CONFIDENCE_CLOSED_AT_MULTILAYER_HISTORICAL_CATALOG_DONOR_PROVENANCE_AND_FORMAT_LEVEL",
+    "prior_ho_status_forward_revised": true,
+    "ho_historical_record_mutated": false,
+    "same_physical_object_identity_authorized": true,
+    "direct_modern_machine_identifier_closed": false,
+    "exact_provenance_seal_text": "UNRESOLVED",
+    "closure_does_not_depend_on_seal_guess": true
+  },
+  "relation_to_hj": {
+    "hj_named_member": "宋刻《春秋左传注疏》",
+    "hj_named_song_member_equals_fid070": "UNRESOLVED",
+    "reason": "The newly closed Qu/Tieqin provenance identifies FID070's physical lineage but does not prove that Zhao Wanli's 1951 wording 宋刻 referred to this Yuan-impression witness rather than another Song-printed object. The historical Tieqin catalog uses layered carving/impression language, so a contemporaneous accession/title bridge remains required."
+  },
+  "target_volume_firewall": {
+    "target_titles": [
+      "铜壶漏箭制度",
+      "准斋心制几漏图式"
+    ],
+    "historical_catalog_numbers": [
+      3482,
+      3483
+    ],
+    "target_named_in_hp_sources": false,
+    "target_transaction_route_changed": false,
+    "target_specific_purchase_route_selected": false,
+    "target_specific_donation_route_selected": false,
+    "target_specific_ding_intermediary_selected": false
+  },
+  "transmission_impact": {
+    "scope": "OBJECT_LEVEL_PROVENANCE_IDENTITY_OUTSIDE_CURRENT_ZIWEI_TEXTUAL_TRANSMISSION_GRAPH",
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "physical_identity_between_fid070_original_and_zhang_tieqin_copy_authorized": true,
+    "textual_genealogy_edge_added": false,
+    "acquisition_edge_authorized": false
+  },
+  "chronology_and_rule_firewall": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_count_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 14,
+    "repaired_provenance_metadata_defect_count": 14,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Resolve the exact donation/accession batch and date for this Qu-donated object using Beijing Library/NLC accession ledgers or 1950-1954 transfer lists; do not infer the exact batch solely from aggregate Qu donation chronology.",
+    "Resolve the modern NLC SYS/UID/905s/shelfmark for the now-identified FID070/Tieqin physical copy and explain the 1959 printed number 3368 versus 1987 book number 3388 without assuming a renumbering rule.",
+    "Continue seeking Zhang Lijuan's 2018 full article for any explicit shelfmark, book number or physical fingerprint; it is now a current-identifier/detail gate rather than the sole identity gate.",
+    "Keep Zhao Wanli's 1951 Song-printed member and target 3482/3483 acquisition paths separately unresolved."
+  ],
+  "updated_at": "2026-09-27"
+}

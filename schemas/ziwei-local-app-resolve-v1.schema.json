@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/chinaneedM/ziwei-bazi-model/schemas/ziwei-local-app-resolve-v1.schema.json",
+  "title": "Ziwei Local Browser App Resolve Response V1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "application_export", "svg_artifact", "svg"],
+  "properties": {
+    "schema": {"const": "ZIWEI-LOCAL-APP-RESOLVE-V1"},
+    "application_export": {"type": "object"},
+    "svg_artifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema", "renderer_profile", "source_view_hash", "render_hash"],
+      "properties": {
+        "schema": {"const": "ZIWEI-TWELVE-PALACE-SVG-ARTIFACT-V1"},
+        "renderer_profile": {"type": "object"},
+        "source_view_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "render_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      }
+    },
+    "svg": {"type": "string", "minLength": 100}
+  }
+}

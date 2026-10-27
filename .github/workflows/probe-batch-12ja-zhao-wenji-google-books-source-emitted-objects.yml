@@ -1,0 +1,157 @@
+name: probe-batch-12ja-zhao-wenji-google-books-source-emitted-objects
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12ja-zhao-wenji-google-books-source-emitted-objects.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Discover Zhao Wenji Google Books objects only from exact ISBN public HTML
+        run: |
+          python - <<'PY'
+          import hashlib, html, json, re, time
+          from pathlib import Path
+          from urllib.parse import urljoin, urlparse, parse_qs, urlencode
+          import requests
+
+          ISBN="9787501346653"
+          START=f"https://books.google.com/books?vid=ISBN{ISBN}&hl=zh-CN"
+          TARGETS=["赵万里文集","趙萬里文集","丁惠康","东家杂记","東家雜記","太平乐府","太平樂府",
+                   "瞿济苍","瞿濟蒼","凤起","鳳起","旭初","六十二种","六十二種","永乐大典","永樂大典","197"]
+          UA="Mozilla/5.0 (Tianwen provenance audit; Zhao Wenji exact-ISBN source-emitted Google Books object probe)"
+          MAX_BYTES=2*1024*1024
+
+          def visible(raw):
+              raw=re.sub(r'<script\b.*?</script>',' ',raw,flags=re.I|re.S)
+              raw=re.sub(r'<style\b.*?</style>',' ',raw,flags=re.I|re.S)
+              raw=re.sub(r'<[^>]+>',' ',raw)
+              return re.sub(r'\s+',' ',html.unescape(raw)).strip()
+
+          def fetch(s,url):
+              r=s.get(url,timeout=45,allow_redirects=True,stream=True)
+              data=bytearray();tr=False
+              for chunk in r.iter_content(65536):
+                  if not chunk:continue
+                  if len(data)+len(chunk)>MAX_BYTES:
+                      take=MAX_BYTES-len(data)
+                      if take>0:data.extend(chunk[:take])
+                      tr=True;break
+                  data.extend(chunk)
+              b=bytes(data);raw=b.decode(r.encoding or "utf-8","replace")
+              return r,b,raw,tr
+
+          def contexts(text,term,radius=260,limit=6):
+              out=[];p=0
+              while len(out)<limit:
+                  i=text.find(term,p)
+                  if i<0:break
+                  out.append(text[max(0,i-radius):min(len(text),i+len(term)+radius)])
+                  p=i+len(term)
+              return out
+
+          s=requests.Session()
+          s.headers.update({"User-Agent":UA,"Accept-Language":"zh-CN,zh;q=0.9,en;q=0.7,ja;q=0.5"})
+          out={"isbn":ISBN,"start":START,"base":{},"discovered_objects":[],"followed":[],"searches":[],
+               "security":{"login_used":False,"account_action_used":False,"copy_request_used":False,"payment_used":False,
+               "captcha_bypass_used":False,"tls_verification_disabled":False,"guessed_object_id_used":False,
+               "guessed_endpoint_used":False,"only_source_emitted_objects_followed":True}}
+
+          r,b,raw,tr=fetch(s,START); text=visible(raw)
+          hrefs=[]
+          for m in re.finditer(r'href=[\"\']([^\"\']+)[\"\']',raw,re.I):
+              u=urljoin(r.url,html.unescape(m.group(1)))
+              if urlparse(u).scheme in ("http","https") and "books.google." in u:
+                  hrefs.append(u)
+          hrefs=list(dict.fromkeys(hrefs))
+
+          object_ids=[]
+          for u in hrefs:
+              q=parse_qs(urlparse(u).query)
+              for key in ("id","vid"):
+                  for v in q.get(key,[]):
+                      vv=v
+                      if vv.startswith("ISBN"): continue
+                      if re.fullmatch(r'[A-Za-z0-9_-]{8,32}',vv) and vv not in object_ids:
+                          object_ids.append(vv)
+
+          out["base"]={
+            "status":r.status_code,"final_url":r.url,"bytes_read":len(b),"body_sha256":hashlib.sha256(b).hexdigest(),
+            "truncated_at_2mib":tr,"isbn_present":ISBN in text.replace("-","").replace(" ",""),
+            "target_title_present":("赵万里文集" in text or "趙萬里文集" in text),
+            "ebook_unavailable_wording":("未提供电子书" in text or "No eBook available" in text),
+            "source_emitted_google_links":hrefs[:80],"source_emitted_object_ids":object_ids,
+            "raw_body_saved":False,"raw_body_logged":False
+          }
+
+          for oid in object_ids[:12]:
+              url=f"https://books.google.com/books?id={oid}&hl=zh-CN"
+              row={"object_id":oid,"url":url}
+              try:
+                  rr,bb,rrraw,rrtr=fetch(s,url); tt=visible(rrraw)
+                  ahrefs=[]
+                  for m in re.finditer(r'href=[\"\']([^\"\']+)[\"\']',rrraw,re.I):
+                      u=urljoin(rr.url,html.unescape(m.group(1)))
+                      if urlparse(u).scheme in ("http","https") and "books.google." in u: ahrefs.append(u)
+                  ahrefs=list(dict.fromkeys(ahrefs))
+                  qlinks=[]
+                  alternate_ids=[]
+                  for u in ahrefs:
+                      pu=urlparse(u); q=parse_qs(pu.query); qv=(q.get("q") or [""])[0]
+                      if pu.path=="/books" and q.get("id")==[oid] and "q" in q and not qv.startswith("editions:"):
+                          qlinks.append(u)
+                      for v in q.get("id",[]):
+                          if re.fullmatch(r'[A-Za-z0-9_-]{8,32}',v) and v!=oid and v not in alternate_ids:
+                              alternate_ids.append(v)
+                  row.update({
+                    "status":rr.status_code,"final_url":rr.url,"bytes_read":len(bb),"body_sha256":hashlib.sha256(bb).hexdigest(),
+                    "title_present":("赵万里文集" in tt or "趙萬里文集" in tt),"isbn_present":ISBN in tt.replace("-","").replace(" ",""),
+                    "visible_volume_markers":[x for x in ("第1卷","第一卷","第 1 卷","第3卷","第三卷","第 3 卷") if x in tt],
+                    "ebook_unavailable_wording":("未提供电子书" in tt or "No eBook available" in tt),
+                    "source_emitted_inbook_q_contract_observed":bool(qlinks),"q_link_examples":qlinks[:8],
+                    "source_emitted_alternate_ids":alternate_ids[:20],
+                    "target_flags":{t:(t in tt) for t in TARGETS},
+                    "target_contexts":{t:contexts(tt,t) for t in TARGETS if t in tt},
+                    "raw_body_saved":False,"raw_body_logged":False
+                  })
+                  if qlinks and row["title_present"] and row["isbn_present"]:
+                      out["discovered_objects"].append(oid)
+              except Exception as e:
+                  row["error"]=f"{type(e).__name__}: {e}"
+              out["followed"].append(row);time.sleep(0.3)
+
+          for oid in out["discovered_objects"]:
+              for term in ("瞿济苍","瞿濟蒼","凤起","鳳起","旭初","六十二种","六十二種","永乐大典","永樂大典","丁惠康","东家杂记","太平乐府"):
+                  url="https://books.google.com/books?"+urlencode({"id":oid,"q":term,"hl":"zh-CN"})
+                  row={"object_id":oid,"term":term,"url":url}
+                  try:
+                      rr,bb,rrraw,rrtr=fetch(s,url);tt=visible(rrraw)
+                      pages=[]
+                      for m in re.finditer(r'第\s*(\d{1,4})\s*[页頁]',tt):
+                          n=int(m.group(1))
+                          if n not in pages:pages.append(n)
+                      row.update({"status":rr.status_code,"body_sha256":hashlib.sha256(bb).hexdigest(),
+                                  "result_count_text":re.findall(r'共有\s*\d+\s*个结果',tt)[:4],
+                                  "term_literal_present":term in tt,"page_hits":pages[:30],
+                                  "contexts":contexts(tt,term),"raw_body_saved":False,"raw_body_logged":False})
+                  except Exception as e:
+                      row["error"]=f"{type(e).__name__}: {e}"
+                  out["searches"].append(row);time.sleep(0.25)
+
+          Path("zhao-wenji-google-books-source-emitted-objects.json").write_text(
+              json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12ja-zhao-wenji-google-books-source-emitted-objects
+          path: zhao-wenji-google-books-source-emitted-objects.json

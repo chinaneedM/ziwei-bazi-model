@@ -1,0 +1,384 @@
+{
+  "accuracy": 0.2,
+  "answers_published": false,
+  "case_id": "CASE-022",
+  "chat_input_url": "https://raw.githubusercontent.com/chinaneedM/ziwei-bazi-model/main/chat-input/current.json",
+  "correct_count": 1,
+  "evaluation_kind": "FIRST_BLIND",
+  "independent_pass_streak": 0,
+  "learning_release": "MODEL-LEARNING-012",
+  "learning_rules_created": [
+    "RULE-DATED-EVENT-OBSERVABLE-TERMINAL-ANCHOR",
+    "RULE-MULTIACTOR-INFORMATION-RESOURCE-TRANSFER-CHAIN",
+    "RULE-HEALTH-PATHOGENESIS-DIAGNOSIS-TREATMENT-DATE-SEPARATION"
+  ],
+  "learning_summary": {
+    "attributed_rule_status_counts": {
+      "CANDIDATE": 36,
+      "PROVISIONAL": 2
+    },
+    "confidence_calibration": {
+      "accuracy": 0.2,
+      "bins": {
+        "70-79": {
+          "confidence_sum": 150,
+          "correct": 0,
+          "questions": 2
+        },
+        "80-89": {
+          "confidence_sum": 84,
+          "correct": 0,
+          "questions": 1
+        },
+        "90-100": {
+          "confidence_sum": 183,
+          "correct": 1,
+          "questions": 2
+        }
+      },
+      "brier_score": 0.53706,
+      "brier_sum": 2.6853,
+      "confidence_sum": 417,
+      "correct": 1,
+      "mean_confidence": 0.8340000000000001,
+      "questions": 5,
+      "started_after_first_blind_questions": 40
+    },
+    "first_blind_totals": {
+      "cases": 9,
+      "questions": 45,
+      "top1_accuracy": 0.37777777777777777,
+      "top1_correct": 17,
+      "top2_coverage": 0.5777777777777777,
+      "top2_covered": 26
+    },
+    "legacy_unclassified": {
+      "first_blind_cases": 1,
+      "first_blind_questions": 5,
+      "replay_rounds_excluded": 1
+    },
+    "overall_maturity_claim": "NOT_DERIVED_FROM_A_SINGLE_CASE_OR_GLOBAL_STREAK",
+    "reasoning_skill_metrics": {
+      "BAZI_STRUCTURE_THEN_TRIGGER": {
+        "questions": 44,
+        "top1_accuracy": 0.38636363636363635,
+        "top1_correct": 17,
+        "top2_coverage": 0.5909090909090909,
+        "top2_covered": 26
+      },
+      "CAREER_PROFILE_CLOSURE": {
+        "questions": 20,
+        "top1_accuracy": 0.4,
+        "top1_correct": 8,
+        "top2_coverage": 0.55,
+        "top2_covered": 11
+      },
+      "CAUSAL_ACTOR_DIRECTION": {
+        "questions": 23,
+        "top1_accuracy": 0.43478260869565216,
+        "top1_correct": 10,
+        "top2_coverage": 0.6086956521739131,
+        "top2_covered": 14
+      },
+      "COMPOSITE_OPTION_ATOMIZATION": {
+        "questions": 30,
+        "top1_accuracy": 0.4,
+        "top1_correct": 12,
+        "top2_coverage": 0.6333333333333333,
+        "top2_covered": 19
+      },
+      "COUNTEREVIDENCE_REVERSAL": {
+        "questions": 45,
+        "top1_accuracy": 0.37777777777777777,
+        "top1_correct": 17,
+        "top2_coverage": 0.5777777777777777,
+        "top2_covered": 26
+      },
+      "CROSS_QUESTION_CONSISTENCY": {
+        "questions": 1,
+        "top1_accuracy": 1.0,
+        "top1_correct": 1,
+        "top2_coverage": 1.0,
+        "top2_covered": 1
+      },
+      "DEATH_ENTITY_TIME_CLOSURE": {
+        "questions": 5,
+        "top1_accuracy": 0.4,
+        "top1_correct": 2,
+        "top2_coverage": 0.4,
+        "top2_covered": 2
+      },
+      "EVENT_ENDPOINT_CLOSURE": {
+        "questions": 40,
+        "top1_accuracy": 0.35,
+        "top1_correct": 14,
+        "top2_coverage": 0.55,
+        "top2_covered": 22
+      },
+      "EVIDENCE_WEIGHTING": {
+        "questions": 40,
+        "top1_accuracy": 0.4,
+        "top1_correct": 16,
+        "top2_coverage": 0.6,
+        "top2_covered": 24
+      },
+      "HEALTH_SEVERITY_LOCALIZATION": {
+        "questions": 10,
+        "top1_accuracy": 0.5,
+        "top1_correct": 5,
+        "top2_coverage": 0.8,
+        "top2_covered": 8
+      },
+      "NATAL_STRUCTURE": {
+        "questions": 38,
+        "top1_accuracy": 0.39473684210526316,
+        "top1_correct": 15,
+        "top2_coverage": 0.6052631578947368,
+        "top2_covered": 23
+      },
+      "OPTION_GRANULARITY": {
+        "questions": 38,
+        "top1_accuracy": 0.4473684210526316,
+        "top1_correct": 17,
+        "top2_coverage": 0.631578947368421,
+        "top2_covered": 24
+      },
+      "PALACE_TRANSFORMATION_CHAIN": {
+        "questions": 42,
+        "top1_accuracy": 0.40476190476190477,
+        "top1_correct": 17,
+        "top2_coverage": 0.6190476190476191,
+        "top2_covered": 26
+      },
+      "RARE_TOPIC_SAMPLE_GUARD": {
+        "questions": 5,
+        "top1_accuracy": 0.4,
+        "top1_correct": 2,
+        "top2_coverage": 0.8,
+        "top2_covered": 4
+      },
+      "REALITY_SCALE_MAPPING": {
+        "questions": 22,
+        "top1_accuracy": 0.5,
+        "top1_correct": 11,
+        "top2_coverage": 0.5909090909090909,
+        "top2_covered": 13
+      },
+      "REGION_ERA_NORMALIZATION": {
+        "questions": 16,
+        "top1_accuracy": 0.5,
+        "top1_correct": 8,
+        "top2_coverage": 0.625,
+        "top2_covered": 10
+      },
+      "RELATIONSHIP_SEQUENCE": {
+        "questions": 13,
+        "top1_accuracy": 0.38461538461538464,
+        "top1_correct": 5,
+        "top2_coverage": 0.6153846153846154,
+        "top2_covered": 8
+      },
+      "SENSITIVE_ATTRIBUTE_CAUTION": {
+        "questions": 5,
+        "top1_accuracy": 0.2,
+        "top1_correct": 1,
+        "top2_coverage": 0.8,
+        "top2_covered": 4
+      },
+      "STATIC_DYNAMIC_LAYERING": {
+        "questions": 43,
+        "top1_accuracy": 0.3953488372093023,
+        "top1_correct": 17,
+        "top2_coverage": 0.6046511627906976,
+        "top2_covered": 26
+      },
+      "SUBJECT_ENTITY_ROUTING": {
+        "questions": 26,
+        "top1_accuracy": 0.4230769230769231,
+        "top1_correct": 11,
+        "top2_coverage": 0.5769230769230769,
+        "top2_covered": 15
+      },
+      "TIME_LAYER_ACTIVATION": {
+        "questions": 35,
+        "top1_accuracy": 0.4,
+        "top1_correct": 14,
+        "top2_coverage": 0.6285714285714286,
+        "top2_covered": 22
+      },
+      "TOPIC_PALACE_ROUTING": {
+        "questions": 45,
+        "top1_accuracy": 0.37777777777777777,
+        "top1_correct": 17,
+        "top2_coverage": 0.5777777777777777,
+        "top2_covered": 26
+      },
+      "UNCERTAINTY_CALIBRATION": {
+        "questions": 45,
+        "top1_accuracy": 0.37777777777777777,
+        "top1_correct": 17,
+        "top2_coverage": 0.5777777777777777,
+        "top2_covered": 26
+      },
+      "ZIWEI_BAZI_ARBITRATION": {
+        "questions": 45,
+        "top1_accuracy": 0.37777777777777777,
+        "top1_correct": 17,
+        "top2_coverage": 0.5777777777777777,
+        "top2_covered": 26
+      }
+    },
+    "rule_status_counts": {
+      "CANDIDATE": 17,
+      "CHALLENGED": 11,
+      "PROVISIONAL": 9,
+      "RETIRED": 1
+    },
+    "topic_metrics": {
+      "BUSINESS_PARTNERSHIP": {
+        "questions": 1,
+        "top1_accuracy": 0.0,
+        "top1_correct": 0,
+        "top2_coverage": 1.0,
+        "top2_covered": 1
+      },
+      "CAREER_EDUCATION": {
+        "questions": 21,
+        "top1_accuracy": 0.42857142857142855,
+        "top1_correct": 9,
+        "top2_coverage": 0.5714285714285714,
+        "top2_covered": 12
+      },
+      "CHILDREN_FERTILITY": {
+        "questions": 5,
+        "top1_accuracy": 0.6,
+        "top1_correct": 3,
+        "top2_coverage": 0.8,
+        "top2_covered": 4
+      },
+      "FAMILY_ORIGIN": {
+        "questions": 2,
+        "top1_accuracy": 0.5,
+        "top1_correct": 1,
+        "top2_coverage": 0.5,
+        "top2_covered": 1
+      },
+      "GAMBLING_WINDFALL": {
+        "questions": 2,
+        "top1_accuracy": 0.5,
+        "top1_correct": 1,
+        "top2_coverage": 0.5,
+        "top2_covered": 1
+      },
+      "HEALTH": {
+        "questions": 12,
+        "top1_accuracy": 0.4166666666666667,
+        "top1_correct": 5,
+        "top2_coverage": 0.6666666666666666,
+        "top2_covered": 8
+      },
+      "MAJOR_YEAR_EVENT": {
+        "questions": 33,
+        "top1_accuracy": 0.36363636363636365,
+        "top1_correct": 12,
+        "top2_coverage": 0.6060606060606061,
+        "top2_covered": 20
+      },
+      "MARRIAGE_RELATIONSHIP": {
+        "questions": 16,
+        "top1_accuracy": 0.3125,
+        "top1_correct": 5,
+        "top2_coverage": 0.5625,
+        "top2_covered": 9
+      },
+      "MIGRATION_RELOCATION": {
+        "questions": 6,
+        "top1_accuracy": 0.5,
+        "top1_correct": 3,
+        "top2_coverage": 0.6666666666666666,
+        "top2_covered": 4
+      },
+      "PARENTS": {
+        "questions": 7,
+        "top1_accuracy": 0.5714285714285714,
+        "top1_correct": 4,
+        "top2_coverage": 0.5714285714285714,
+        "top2_covered": 4
+      },
+      "PERSONALITY_APPEARANCE": {
+        "questions": 6,
+        "top1_accuracy": 0.5,
+        "top1_correct": 3,
+        "top2_coverage": 0.6666666666666666,
+        "top2_covered": 4
+      },
+      "PROPERTY_HOUSING": {
+        "questions": 6,
+        "top1_accuracy": 0.5,
+        "top1_correct": 3,
+        "top2_coverage": 0.5,
+        "top2_covered": 3
+      },
+      "SEXUALITY_INTIMACY": {
+        "questions": 5,
+        "top1_accuracy": 0.2,
+        "top1_correct": 1,
+        "top2_coverage": 0.6,
+        "top2_covered": 3
+      },
+      "SIBLINGS": {
+        "questions": 1,
+        "top1_accuracy": 0.0,
+        "top1_correct": 0,
+        "top2_coverage": 0.0,
+        "top2_covered": 0
+      },
+      "SOCIAL_FRIENDS": {
+        "questions": 4,
+        "top1_accuracy": 0.5,
+        "top1_correct": 2,
+        "top2_coverage": 0.75,
+        "top2_covered": 3
+      },
+      "SPIRITUAL_PARANORMAL": {
+        "questions": 3,
+        "top1_accuracy": 0.0,
+        "top1_correct": 0,
+        "top2_coverage": 0.3333333333333333,
+        "top2_covered": 1
+      },
+      "TRAVEL_ACCIDENT_SAFETY": {
+        "questions": 7,
+        "top1_accuracy": 0.5714285714285714,
+        "top1_correct": 4,
+        "top2_coverage": 0.8571428571428571,
+        "top2_covered": 6
+      },
+      "WEALTH_FINANCE": {
+        "questions": 8,
+        "top1_accuracy": 0.625,
+        "top1_correct": 5,
+        "top2_coverage": 0.875,
+        "top2_covered": 7
+      }
+    }
+  },
+  "maintenance": {
+    "first_blind_questions": 45,
+    "performed": false,
+    "reason": "NO_MAINTENANCE_DUE"
+  },
+  "next_case_id": "CASE-014",
+  "next_round_id": "FORMAL-ROUND-013",
+  "next_status": "READY_FOR_ROUND",
+  "passed": false,
+  "question_count": 5,
+  "required_consecutive_independent_passes": 3,
+  "required_correct": 4,
+  "round_id": "FORMAL-ROUND-012",
+  "schema": "TRAINING-ISSUE-RESULT-V2",
+  "spaced_replay_queue_size": 7,
+  "spaced_replay_required": true,
+  "top2_coverage": 0.6,
+  "verification": "PASS"
+}

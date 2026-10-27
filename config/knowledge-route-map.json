@@ -1,0 +1,218 @@
+{
+  "schema": "FORTUNE-KNOWLEDGE-ROUTE-MAP-V1",
+  "authority": {
+    "canonical_sources": "sources/canonical/S00-S19",
+    "canonical_mutability_during_training": "IMMUTABLE",
+    "derived_map_contribution": "ROUTING_ONLY_NO_ASTROLOGICAL_FACT",
+    "model_learning_path": "model-learning"
+  },
+  "layers": [
+    {
+      "layer": "INPUT_AND_SEMANTICS",
+      "sources": ["S00", "S01", "S02"],
+      "purpose": "Locate source text, freeze chart coordinates and define the real-world burden of each option atom."
+    },
+    {
+      "layer": "ZIWEI_STATIC",
+      "sources": ["S04", "S05", "S06", "S07"],
+      "purpose": "Route palace/subject coordinates, star nature, sixty star systems and palace-specific expression."
+    },
+    {
+      "layer": "ZIWEI_DYNAMIC_AND_METHOD",
+      "sources": ["S08", "S09", "S10"],
+      "purpose": "Apply transformations, 144 body-use lookup and natal/decade/year/month activation."
+    },
+    {
+      "layer": "BAZI_STATIC",
+      "sources": ["S11", "S12", "S13", "S14"],
+      "purpose": "Build stems/branches, ten-god roles, seasonal strength, structure, climate and structural changes."
+    },
+    {
+      "layer": "BAZI_DYNAMIC_AND_TOPIC",
+      "sources": ["S15", "S16"],
+      "purpose": "Project luck-cycle timing and topic capability while preserving Bazi-specific evidence limits."
+    },
+    {
+      "layer": "FUSION_AND_SELECTION",
+      "sources": ["S03", "S17", "S18", "S19"],
+      "purpose": "Arbitrate independent tracks, close real-world endpoints, compare every option pair and enforce runtime isolation."
+    }
+  ],
+  "school_interfaces": {
+    "CLASSICAL_QUANSHU_STATIC": {
+      "primary_sources": ["S05", "S07"],
+      "role": "Star nature, palace expression, combinations and classical pattern conditions.",
+      "limit": "A classical phrase is a conditional tendency, not a guaranteed modern event."
+    },
+    "ZHONGZHOU_STAR_SYSTEM": {
+      "primary_sources": ["S05", "S06", "S07", "S08"],
+      "role": "Read the complete star system and transformation-conditioned quality before topic projection.",
+      "limit": "Do not reduce the method to a single main star or count the same physical structure twice."
+    },
+    "FLYING_STAR_LIANG": {
+      "primary_sources": ["S08", "S10"],
+      "role": "Track heavenly-stem transformations, self-transformations and Lu/Ji direction through changing time layers.",
+      "limit": "Movement and salience do not by themselves prove actor, event type or completed outcome."
+    },
+    "HELUO_FANGWAI": {
+      "primary_sources": ["S04", "S09", "S10"],
+      "role": "Use topic taiji, body/use, qi-number position, palace stem and heaven-earth-human layering as coordinate methods.",
+      "limit": "These coordinate systems must not replace person routing, time activation or endpoint closure."
+    },
+    "ONE_HUNDRED_FORTY_FOUR": {
+      "primary_sources": ["S09"],
+      "role": "A 12 body-palace by 12 use-palace lookup, further expanded by taiji point and transformation; comparable to a conditional dictionary.",
+      "limit": "A lookup hit is not a standalone prediction and must return to the actual chart, conditions and time layer."
+    },
+    "BAZI_ZIPING": {
+      "primary_sources": ["S11", "S12", "S13", "S14", "S15", "S16"],
+      "role": "Move from seasonal qi and structure to role allocation, structural change, luck-cycle trigger and topic capability.",
+      "limit": "Useful-god, ten-god, clash, fu-yin or a shensha may not jump directly to an exact person, profession, disease or legal endpoint."
+    }
+  },
+  "topic_routes": {
+    "FAMILY_ORIGIN_OR_PARENTS": ["S02", "S04", "S05", "S06", "S07", "S08", "S09", "S10", "S11", "S12", "S13", "S14", "S15", "S16", "S17", "S18"],
+    "MARRIAGE_OR_RELATIONSHIP": ["S02", "S04", "S05", "S06", "S07", "S08", "S09", "S10", "S11", "S12", "S13", "S14", "S15", "S16", "S17", "S18"],
+    "CAREER_EDUCATION": ["S02", "S04", "S05", "S06", "S07", "S08", "S09", "S10", "S11", "S12", "S13", "S14", "S15", "S16", "S17", "S18"],
+    "WEALTH_PROPERTY_BUSINESS": ["S02", "S04", "S05", "S06", "S07", "S08", "S09", "S10", "S11", "S12", "S13", "S14", "S15", "S16", "S17", "S18"],
+    "HEALTH_ACCIDENT_DEATH": ["S02", "S04", "S05", "S06", "S07", "S08", "S09", "S10", "S11", "S12", "S13", "S14", "S15", "S16", "S17", "S18"],
+    "PERSONALITY_APPEARANCE": ["S02", "S04", "S05", "S06", "S07", "S08", "S09", "S11", "S12", "S13", "S16", "S17", "S18"],
+    "RARE_OR_SENSITIVE": ["S02", "S04", "S08", "S10", "S11", "S14", "S15", "S16", "S17", "S18", "S19"]
+  },
+  "execution_gates": {
+    "calendar_and_month_mapping": {
+      "route": ["S01", "S10", "S15", "S19"],
+      "required_order": ["civil_and_lunar_date_identity", "timezone_and_true_solar_time", "adjacent_solar_terms", "solar_term_month", "declared_month_numbering", "doujun_month_mapping"],
+      "limit": "Gregorian month, lunar month and solar-term month may not be substituted for one another. An unresolved boundary or convention blocks the affected flow-month conclusion."
+    },
+    "ziwei_coordinate_integrity": {
+      "route": ["S01", "S04", "S08", "S09", "S10", "S19"],
+      "required_order": ["twelve_palaces", "opposites_and_trines", "transformation_origin_layer_heavenly_stem_transformed_star_and_destination", "major_period_direction_and_age_range", "year_and_month_sequence", "doujun", "qi_position"],
+      "limit": "Interpretation may begin only after the coordinate receipt is internally reciprocal and reproducible."
+    },
+    "ziwei_coordinate_truth_table": {
+      "route": ["S01", "S04", "S08", "S09", "S10", "S19"],
+      "required_order": ["natal_twelve_palaces_and_physical_star_inventory", "ziwei_major_period_twelve_palaces", "ziwei_year_twelve_palaces", "each_rotated_subject_taiji_twelve_palaces", "same_branch_natal_coordinate_bindings", "mechanical_opposite_and_trine_topology", "separate_qi_and_one_six_links", "opposite_only_empty_palace_borrowing", "source_kind_type_star_origin_and_semantic_destination_for_transformations", "downstream_read_only_coordinate_references"],
+      "limit": "Every namespace must have exactly twelve unique palaces before interpretation. Natal owns physical star locations; dynamic and subject-Taiji palaces reference, rather than move or duplicate, those stars. Empty-palace borrowing is opposite-only, and transformation state cannot change physical coordinates."
+    },
+    "period_namespace_alignment": {
+      "route": ["S01", "S03", "S10", "S15", "S19"],
+      "required_order": ["ziwei_major_period_namespace", "bazi_luck_cycle_namespace", "explicit_start_and_end_years", "age_and_boundary_conventions", "independent_reference_year_membership", "preserved_cross_track_conflicts"],
+      "limit": "Ziwei major periods and Bazi luck cycles may not share an unqualified label or range. Each track maps the reference year independently before fusion."
+    },
+    "bazi_atomic_fact_ledger": {
+      "route": ["S01", "S11", "S14", "S19"],
+      "required_order": ["four_pillars", "hidden_stems", "ten_gods", "five_elements_and_element_roles", "visible_stem_roots", "heavenly_stem_five_combinations", "earthly_branch_combinations_clashes_punishments_harms_and_breaks", "mechanical_verification_receipt", "immutable_downstream_reference"],
+      "limit": "All Bazi atomic facts must be mechanically derived under one declared convention before interpretation. Option wording cannot repair, add or recalculate the ledger."
+    },
+    "bazi_strength_structure_favorability": {
+      "route": ["S11", "S12", "S13", "S14", "S19"],
+      "required_order": ["atomic_ledger_hash_binding", "month_command_and_seasonal_qi", "complete_support_drain_and_control_fact_classes", "day_master_roots", "relation_facts", "strength_candidate_comparison", "pattern_candidate_comparison", "favorability_candidate_comparison", "option_blind_freeze", "unresolved_method_conflicts"],
+      "limit": "Strength, pattern and favorability must share one complete option-blind evidence chain and cannot be reassigned to satisfy a question."
+    },
+    "bazi_dynamic_relation_scope": {
+      "route": ["S11", "S14", "S15", "S19"],
+      "required_order": ["natal_objects", "bazi_luck_cycle_objects", "active_query_year_and_month_objects", "historical_validation_anchors", "within_scope_relations", "declared_cross_time_method_if_any", "source_route_and_bounded_reactivated_objects"],
+      "limit": "Historical event years are inactive validation anchors by default. Objects from different years may interact only under an explicit source-routed and object-bounded method."
+    },
+    "result_dynamic_closure": {
+      "route": ["S08", "S10", "S15", "S17", "S18"],
+      "required_order": ["natal_capacity", "ziwei_major_period_and_bazi_luck_cycle", "reference_year", "defensible_candidate_months", "observable_or_formal_endpoint"],
+      "limit": "A result-bearing option cannot be ranked from natal capacity or general scene alone."
+    },
+    "question_scope_minimum_sufficient_retrieval": {
+      "route": ["S01", "S03", "S10", "S15", "S17", "S18", "S19"],
+      "required_order": ["question_mode", "target_time_resolution", "required_layers", "actually_inspected_layers", "advanced_module_justification", "core_layer_preservation"],
+      "limit": "Static questions start from natal structure; current, result and time-comparison questions retain both major-period namespaces and the year. Extra expansion needs a live competition reason, while efficiency may never remove a required layer."
+    },
+    "event_cause_sensitive_reality_atom_boundary": {
+      "route": ["S02", "S03", "S17", "S18", "S19"],
+      "required_order": ["event_atoms", "cause_atoms", "same_option_event_to_cause_bridge", "reality_identity_atoms", "primary_cashflow_atoms", "sensitive_noninferable_atoms", "closure_or_unknown"],
+      "limit": "Cause, current identity and primary cashflow do not inherit proof from event activation or general capacity. Sensitive non-inferable attributes remain unknown and cannot receive chart-derived support or refutation."
+    },
+    "entity_nonexistence": {
+      "route": ["S02", "S03", "S04", "S08", "S10", "S17", "S18"],
+      "required_order": ["entity_identity", "existence_or_absence", "condition_or_risk", "dynamic_action", "real_world_endpoint"],
+      "limit": "Severe or malefic symbolism is risk evidence, not standalone proof that an entity is absent or never existed."
+    },
+    "event_specificity": {
+      "route": ["S03", "S17", "S18"],
+      "required_order": ["same_axis_counterevidence", "direct_same_axis_event_evidence", "completed_event_specific_chain", "one_hop_transmission_with_complete_path", "time_bound_distinguishing_mechanism", "multi_hop_transmission_with_complete_path", "topic_specific_structure", "general_tendency"],
+      "limit": "General evidence quantity, source count and school count do not outweigh an independent event-specific chain. Transmitted evidence must disclose every hop and is discounted against equally reliable direct same-axis evidence."
+    },
+    "topic_palace_chain": {
+      "route": ["S04", "S08", "S09", "S10", "S17", "S18"],
+      "required_order": ["primary_palace", "opposite_and_trine_auxiliary_palaces", "qi_position_under_declared_taiji", "transformations", "major_period_year_month_realization", "endpoint"],
+      "limit": "Auxiliary palaces and qi position refine or challenge the primary route; they cannot replace subject identity, time activation or endpoint closure."
+    },
+    "cross_question_joint_candidates": {
+      "route": ["S02", "S03", "S17", "S18", "S19"],
+      "required_order": ["related_question_detection", "explicit_joint_dimensions", "per_question_independent_evidence", "direct_same_axis_counterevidence_edges_only", "acyclic_dependency_check", "story_coherence_and_duplicate_evidence_zeroing", "affected_pairwise_ranking_recheck"],
+      "limit": "A joint matrix exposes combinations and contradictions; its edges may constrain or refute only, may not form cycles, and cannot turn one option or coherent story into evidence for another question."
+    },
+    "status_transition_state_machine": {
+      "route": ["S02", "S03", "S10", "S15", "S17", "S18"],
+      "required_order": ["state_domain", "entry_transition", "maintenance_evidence", "impairment_or_interruption", "recovery_or_substitute_state", "terminal_exit_endpoint"],
+      "limit": "Damage, pressure, separation or interruption may impair a state without ending it. Entry, maintenance and terminal exit each require their own transition evidence."
+    },
+    "collaborative_hypothesis_revalidation": {
+      "route": ["S01", "S03", "S17", "S18", "S19"],
+      "required_order": ["unverified_hypothesis_label", "frozen_chart_return", "coordinate_and_time_recalculation", "independent_support_and_counterevidence", "accept_revise_or_reject_status", "ranking_eligibility"],
+      "limit": "User or model proposals remain hypotheses until independently checked against the frozen chart. Authority, confidence, agreement and narrative fluency are not evidence."
+    },
+    "cross_case_hypothesis_quarantine": {
+      "route": ["S01", "S03", "S18", "S19"],
+      "required_order": ["generic_hypothesis_registration", "case_detail_stripping", "scope_mechanism_and_falsification_predeclaration", "independent_cross_case_support", "counterexample_review", "pending_zero_decision_weight", "governed_promotion_or_rejection"],
+      "limit": "A recurrence signature found in one discussion remains a zero-weight hypothesis. Neither one case nor same-case replay can promote it into a runtime rule."
+    },
+    "composite_required_atom_closure": {
+      "route": ["S02", "S03", "S17", "S18", "S19"],
+      "required_order": ["required_atom_inventory", "independent_exact_support", "direct_same_axis_refutation", "explicit_unknowns", "disjoint_complete_partition", "top1_unclosed_atom_confidence_reduction", "existing_severe_precision_fail_closed"],
+      "limit": "A compound option is not closed by one matching fragment. Every required atom has exactly one closure status, and any Top1 atom lacking independent support reduces confidence while severe, irreversible, and high-precision atoms retain their stronger existing Fail Closed rule."
+    },
+    "upstream_fact_dependency_invalidation": {
+      "route": ["S01", "S03", "S08", "S10", "S11", "S14", "S15", "S18", "S19"],
+      "required_order": ["stable_upstream_fact_ids", "branch_scoped_source_resolution", "evidence_dependency_hashes", "upstream_recomputation", "transitive_evidence_invalidation", "downstream_contribution_removal", "ranking_recomputation"],
+      "limit": "Evidence weight follows verified fact IDs, not paraphrased premises. Any failed coordinate, transformation, Bazi atom, or period object neutralizes every dependent evidence row before ranking is rerun."
+    },
+    "time_boundary_parallel_branches": {
+      "route": ["S01", "S03", "S08", "S10", "S11", "S14", "S15", "S18", "S19"],
+      "required_order": ["boundary_detection", "all_legal_branch_materialization", "complete_ziwei_truth_table_per_branch", "complete_bazi_atomic_ledger_per_branch", "branch_labeled_evidence", "independent_branch_rankings", "option_blind_time_calibration", "divergence_preservation", "external_fact_only_resolution"],
+      "limit": "True-solar-time, late-Zi-day-change, and comparable legal boundary candidates remain parallel. Options cannot calibrate time, and divergent Top1 results stay uncertain until an independent external fact resolves the branch."
+    }
+  },
+  "mandatory_reasoning_order": [
+    "freeze_input_and_option_atoms",
+    "validate_calendar_solar_term_and_month_mapping",
+    "materialize_all_legal_time_boundary_branches_without_using_options",
+    "validate_ziwei_palace_transformation_age_doujun_and_qi_coordinates",
+    "materialize_ziwei_coordinate_truth_table_and_lock_downstream_references",
+    "separate_ziwei_major_period_and_bazi_luck_cycle_namespaces_and_validate_year_membership",
+    "materialize_and_mechanically_verify_bazi_immutable_atomic_fact_ledger",
+    "freeze_bazi_strength_structure_and_favorability_chain_before_option_ranking",
+    "bound_bazi_dynamic_relations_to_declared_time_scope",
+    "bind_evidence_to_branch_scoped_upstream_facts_and_propagate_failures",
+    "revalidate_collaborative_hypotheses_against_frozen_chart",
+    "quarantine_new_cross_case_hypotheses_at_zero_decision_weight",
+    "build_option_blind_fact_model",
+    "classify_question_scope_and_freeze_minimum_sufficient_layers",
+    "separate_event_cause_reality_identity_primary_cashflow_and_sensitive_atoms",
+    "build_status_transition_models_for_state_questions",
+    "build_acyclic_counterevidence_only_joint_candidate_matrices_for_related_questions",
+    "route_subject_topic_and_reference_period",
+    "route_primary_palace_auxiliary_palaces_and_qi_position",
+    "derive_ziwei_static_structure",
+    "derive_ziwei_major_period_year_and_month_activation_for_result_questions",
+    "derive_bazi_static_structure_independently",
+    "derive_bazi_luck_cycle_year_and_month_activation_for_result_questions",
+    "close_actor_action_object_time_and_endpoint",
+    "reject_malefic_only_entity_nonexistence_binary",
+    "deduplicate_same_physical_evidence",
+    "apply_event_specificity_and_axis_distance_before_general_evidence_count",
+    "partition_every_required_option_atom_and_reduce_confidence_for_top1_gaps",
+    "rank_each_time_boundary_branch_independently_and_preserve_divergence",
+    "compare_all_option_pairs_and_strongest_rival",
+    "freeze_top1_top2_and_uncertainty",
+    "reveal_only_after_freeze"
+  ]
+}

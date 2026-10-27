@@ -1,0 +1,117 @@
+{
+  "schema": "TIANWEN-13HM-NDL991069-IIIF-CANVAS-AND-COMMONS-PARTITION-LOCATOR-R1",
+  "date": "2026-10-26",
+  "issue_id": "TW-OPEN-0005",
+  "status": "PUBLIC_1909_RECEIVED_PRINT_PARTITION_IDENTIFIED_WITH_UNRUN_IIIF_PROBE",
+  "first_party": {
+    "catalog_url": "https://ndlsearch.ndl.go.jp/books/R100000039-I991069",
+    "pid": "991069",
+    "bib_id": "000000866443",
+    "jpno": "50001638",
+    "call_number": "221.04-Te127k",
+    "printed_work": "高麗史",
+    "volume": "第2",
+    "publisher": "国書刊行会",
+    "print_year": 1909,
+    "included_work_volumes": [
+      47,
+      87
+    ],
+    "exact_work_juan52_within_volume": true,
+    "online_access": "インターネット公開",
+    "iiif_manifest_url": "https://dl.ndl.go.jp/api/iiif/991069/manifest.json",
+    "iiif_manifest_uri_is_source_emitted": true,
+    "manifest_payload_fetched_in_this_research_batch": false,
+    "digital_format_listed": "image/jp2",
+    "original_target_image_fetched": false,
+    "reuse_source_notice": "pdm (provider catalog claim, not a blanket reuse adjudication)"
+  },
+  "commons_partition": {
+    "index_url": "https://commons.wikimedia.org/wiki/Category:%E9%AB%98%E9%BA%97%E5%8F%B2",
+    "original_pid": "991069",
+    "category_reports_identical_first_party_pid": true,
+    "parts": [
+      {
+        "file": "NDL991069 高麗史 第2 part1.pdf",
+        "pages": 100,
+        "approx_mb": 153.78
+      },
+      {
+        "file": "NDL991069 高麗史 第2 part2.pdf",
+        "pages": 100,
+        "approx_mb": 184
+      },
+      {
+        "file": "NDL991069 高麗史 第2 part3.pdf",
+        "pages": 100,
+        "approx_mb": 220.4
+      },
+      {
+        "file": "NDL991069 高麗史 第2 part4.pdf",
+        "pages": 95,
+        "approx_mb": 192.72
+      }
+    ],
+    "reported_page_total": 395,
+    "reported_image_resolution_px": [
+      5893,
+      4597
+    ],
+    "same_NDL_pid_is_one_digitization_object_not_four_independent_print_witnesses": true,
+    "particular_part_containing_juan52_target": null,
+    "source_pdf_byte_shas_obtained": false,
+    "precise_source_page_numbers_obtained": false
+  },
+  "third_witness_scope": {
+    "earlier_13co_document": "docs/research/TIANWEN-13CO-GORYEOSA-NCL03130-NDL1909-THIRD-WITNESS-ACCESS-FIREWALL-R1.json",
+    "previous_NDL_PID_already_registered_as_lead": true,
+    "new_material_gain": "FOUR_EXPLICIT_HIGH_RES_COMMONS_PARTITIONS_AND_SOURCE_EMITTED_OFFICIAL_IIIF_MANIFEST",
+    "print_is_1909_received_witness_not_1451_primary": true,
+    "different_digital_providers_do_not_establish_distinct_physical_copies": true,
+    "NLC416_1909_and_NDL_1909_same_edition_possible_copy_identity_unresolved": true,
+    "taiwan_NCL03130_old_supplement_layer": null,
+    "old_NCL_D14_numeral": null,
+    "old_NCL_D14_terminal": null,
+    "NIKH_photo4_D14": "四分六六三〇",
+    "ancient_unit": null,
+    "四分_初度_mechanical_equivalence": null,
+    "G893_six_controls": "OPEN",
+    "day5_〇_五": "OPEN",
+    "13EI": "RETRACTED"
+  },
+  "planned_probe": {
+    "script": "scripts/probe-tianwen-13hm-ndl991069-iiif.py",
+    "workflow": ".github/workflows/probe-tianwen-13hm-ndl991069-iiif.yml",
+    "exact_provider_manifest_only": true,
+    "no_credential_or_opaque_id_guessing": true,
+    "no_login_or_robots_bypass": true,
+    "no_OCR_only_numeral_vote": true,
+    "record_http_access_and_sha256": true,
+    "map_toc_canvas_only_if_source_manifest_emits_it": true,
+    "no_target_glyph_claim_from_toc_or_backup_list": true
+  },
+  "effects": {
+    "new_historical_source_registry_entries": 0,
+    "new_independent_original_glyph_voters": 0,
+    "new_ancient_numeric_rows": 0,
+    "new_genealogy_nodes": 0,
+    "new_genealogy_edges": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0
+  },
+  "invariants": {
+    "matrix": [
+      222,
+      222
+    ],
+    "registered_sources": 761,
+    "graph": [
+      252,
+      238
+    ],
+    "open_issues": 11,
+    "chart": "CLOSED"
+  },
+  "transmission_impact": "NONE",
+  "next_action": "Review exact-head 13HM GitHub Actions public IIIF manifest artifact and bind a printed juan52 canvas index and historical table page if source-issued; independently direct-read D14/D16 from source-native emitted images with SHA and keep NDL1909 received print separate from NCL03130 and early Waseda/NAJ original prints."
+}

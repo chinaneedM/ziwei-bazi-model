@@ -1,0 +1,176 @@
+{
+  "schema": "ZIWEI-DATONG-CIIN-INTEGER-CROSSING-AND-POST1578-59-41-LADDER-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-DATONG-CIIN-INTEGER-CROSSING-AND-POST1578-59-41-LADDER-DN",
+  "prior_batch_id": "BATCH-12-ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-NLC-CURRENT-REPRODUCTION-SERVICE-ROUTE-DM",
+  "question": "Does direct re-collation of the NCL-06267 C-II-N daily table repair the Batch 12CG day-67 approximation and reveal a historically transmitted 59/41 integer-ladder mechanism relevant to the Sanming/Yueling day-night-ke problem?",
+  "answer": "YES FOR A FORWARD-ONLY C-II-N CELL CORRECTION AND A POST-1578 MECHANICAL HOMOLOGY; NO FOR IDENTIFYING THE PRE-1578 SANMING/YUELING PARENT. Direct no-OCR re-collation fixes half-day day66 at 2348.73 and day67 at 2355.37, giving full daylight 46.9746 and 47.1074 ke. Batch 12CG's day67=2348.62 was explicitly DIRECT_VISUAL_APPROX and is superseded for exact indexing only; its macro C-II-N/Nanjing range conclusion remains valid. The same physical page fixes day73 at 2395.26 (47.9052 ke) and day74 at 2401.90 (48.0380 ke), locating whole-ke crossings 47 and 48 between 66/67 and 73/74. Separately, postdated 1616 Zhu Yi and 1624 Leijing Tuyi preserve a coherent 59/41 stepped family; chronology blocks both as direct ancestors of Sanming 1578. The exact Sanming/Yueling Dahan 十三後 / Yushui 後四日 fingerprint still requires a pre-1578 carrier or explicit reduction/editorial rule.",
+  "direct_physical_recollation": {
+    "source_id": "EXT-NCL-DATONG-RICHU-NCL06267",
+    "workflow_run_id": 34869676923,
+    "artifact_id": 10358685142,
+    "artifact_digest": "sha256:fdb1fd4b9e0fc785d9fb467e00daa71544c412482e2093d31cf553152bd518fe",
+    "source_pdf_sha256": "0d3ed2b54f92b5eb2f11e5d06babebcc177e04ec5b8c7168b56f1fb25f94797d",
+    "ocr_used_for_final_numeric_claims": false,
+    "page_controls": {
+      "page_05_sha256": "0ffa5e0c5f86a1ae1a1ebd63816475be26443f798bc4cbd4fdd2816a76d4eff4",
+      "page_06_sha256": "8424b8c33cdf04f8eabb52cacf55548096a27801fb49a1276812619cdd41157d"
+    },
+    "direct_cells": [
+      {
+        "accumulated_day": 59,
+        "half_day_fen": 2302.41,
+        "full_daylight_ke": 46.0482,
+        "page": 5,
+        "reading": "二千三百〇二四一"
+      },
+      {
+        "accumulated_day": 66,
+        "half_day_fen": 2348.73,
+        "full_daylight_ke": 46.9746,
+        "page": 6,
+        "reading": "二千三百四八七三"
+      },
+      {
+        "accumulated_day": 67,
+        "half_day_fen": 2355.37,
+        "full_daylight_ke": 47.1074,
+        "page": 6,
+        "reading": "[承前二千三百]五五三七"
+      },
+      {
+        "accumulated_day": 73,
+        "half_day_fen": 2395.26,
+        "full_daylight_ke": 47.9052,
+        "page": 6,
+        "reading": "[承前二千三百]九五二六"
+      },
+      {
+        "accumulated_day": 74,
+        "half_day_fen": 2401.9,
+        "full_daylight_ke": 48.038,
+        "page": 6,
+        "reading": "二千四百〇一九〇"
+      }
+    ],
+    "integer_crossing_controls": {
+      "47_ke": {
+        "lower_day": 66,
+        "lower_value": 46.9746,
+        "upper_day": 67,
+        "upper_value": 47.1074,
+        "crossing_between_days": true
+      },
+      "48_ke": {
+        "lower_day": 73,
+        "lower_value": 47.9052,
+        "upper_day": 74,
+        "upper_value": 48.038,
+        "crossing_between_days": true
+      }
+    }
+  },
+  "batch_12cg_forward_only_correction": {
+    "prior_artifact": "docs/research/ZIWEI-DATONG-RICHU-DAILY-TABLE-SANMING-MULTIPOINT-REPLAY-R1.json",
+    "prior_scope_label": "DIRECT_VISUAL_APPROX",
+    "prior_day67_half_day_fen": 2348.62,
+    "corrected_day66_half_day_fen": 2348.73,
+    "corrected_day67_half_day_fen": 2355.37,
+    "adjudication": "SUPERSEDED_FOR_EXACT_DAY_INDEXING_ONLY",
+    "prior_batch_rewritten": false,
+    "prior_macro_conclusion_changed": false,
+    "reason": "Direct page-06 column alignment places the 2348.xx cell under 六十六日 and 2355.37 under 六十七日. Forward-only history preserves the earlier approximate replay while this batch controls exact indexing going forward."
+  },
+  "post1578_received_controls": {
+    "zhu_yi_1616": {
+      "source_ids": [
+        "EXT-NATIONAL-PRECIOUS-ZHUYI-WANLI44-1616",
+        "EXT-SHIDIAN-ZHUYI-CADAL02059063-59-41-LADDER"
+      ],
+      "work": "《朱翼》十二卷",
+      "author": "江旭奇",
+      "edition_year": 1616,
+      "edition_control": "第四批国家珍贵古籍名录体系著录：明万历四十四年（1616）刻本；衡阳市图书馆藏",
+      "text_surface": "识典古籍 CADAL02059063 source-linked OCR/transcription",
+      "observed_mechanical_scope": "59/41-cap stepped day/night table family; transcription used only as mechanical/locator evidence",
+      "direct_target_glyph_authority": false,
+      "pre1578_witness": false,
+      "direct_ancestor_of_sanming_1578": false
+    },
+    "leijing_tuyi_1624": {
+      "source_id": "EXT-LEIJING-TUYI-TIANQI4-1624-59-41-LADDER",
+      "work": "《類經圖翼》卷一《四季日躔宿度晝夜長短刻數》",
+      "author": "張介賓",
+      "edition_year": 1624,
+      "edition_control": "天啟四年序 / 1624 edition-family bibliographic controls",
+      "received_table": {
+        "冬至": "41/59",
+        "小寒後六日": "42/58",
+        "大寒後四日": "43/57",
+        "大寒後十三日": "44/56",
+        "立春後六日": "45/55",
+        "立春後十三日": "46/54",
+        "雨水後六日": "47/53",
+        "雨水後十三日": "48/52",
+        "驚蟄後六日": "49/51",
+        "夏至": "59/41"
+      },
+      "direct_target_glyph_authority": false,
+      "pre1578_witness": false,
+      "direct_ancestor_of_sanming_1578": false
+    }
+  },
+  "mechanical_adjudication": {
+    "post1578_clean_ladder_family_registered": true,
+    "nanjing_datong_continuous_substrate_compatibility": "STRENGTHENED",
+    "exact_whole_ke_rule_identified": false,
+    "simple_same_step_fraction_discard_proved": false,
+    "simple_nearest_integer_proved": false,
+    "sanming_yueling_exact_fingerprint_explained": false,
+    "key_scope_note": "The corrected C-II-N integer crossings strengthen a continuous-value-to-whole-ke bridge. But the C-II-N summer extremum remains below exact 59.0 ke while received tables display 59/41, so no single global floor/truncation rule is authorized; a stage- or endpoint-specific selection/recomposition layer remains open."
+  },
+  "transmission_impact": {
+    "nodes_added": [
+      "TEXT-WORK-ZHUYI-JIANGXUQI-1616",
+      "TEXT-WORK-LEIJING-TUYI-ZHANGJIEBIN-1624",
+      "TABLE-FAMILY-POST1578-NANJING-59-41-STEPPED"
+    ],
+    "edges_supported": [
+      "TG-E0052",
+      "TG-E0053",
+      "TG-E0054"
+    ],
+    "explicit_non_edges_added": [
+      "ZHUYI_1616_DIRECT_ANCESTOR_OF_SANMING_1578=DISPROVED_BY_CHRONOLOGY",
+      "LEIJING_TUYI_1624_DIRECT_ANCESTOR_OF_SANMING_1578=DISPROVED_BY_CHRONOLOGY"
+    ],
+    "hypothesis_updated": "TG-H0001",
+    "textual_vote_increment_for_pre1578_parent": 0,
+    "numeric_vote_increment_for_pre1578_parent": 0
+  },
+  "product_adjudication": {
+    "matrix_count_change": false,
+    "new_runtime_candidate": false,
+    "runtime_winner_selected": false,
+    "candidate_collapsed": false,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_authorized": false,
+    "deterministic_fusion_chart_product_r1": "CLOSED"
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 12,
+    "repaired_provenance_metadata_defect_count": 12,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Search securely pre-1578 Chinese physical/received witnesses for the coherent 59/41 stepped ladder, especially the Lichun/Yushui +6/+13 transition pattern, without treating the 1616/1624 attestations as ancestors.",
+    "Continue exact C-II-N physical re-collation around earlier 42-46 whole-ke crossings and the summer-cap endpoint to test whether one historical selection rule can explain both interior integer crossings and the 59-ke cap.",
+    "Keep the exact Sanming/Yueling Dahan 十三後 and Yushui 後四日 branch separate until a pre-1578 carrier or explicit editorial/reduction rule explains it.",
+    "Continue the lawful NLC call-14202 reproduction route from Batch 12DM in parallel; no external request is submitted by this batch."
+  ]
+}

@@ -1,0 +1,87 @@
+{
+  "schema": "MING-DATONG-YEHUOBIAN-12PZ-NCL02260-CONTINUATION-V1-CONTENTS-COLLATION-R1",
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-10-09",
+  "batch": "12PZ_IN_PROGRESS",
+  "status": "DIRECT_PHYSICAL_IMAGE_POSITIVE_CONTINUATION_VOLUME1_TOC_AND_VOLUME1_BODY_BEGINNING",
+  "source": {
+    "institution": "Taiwan National Central Library",
+    "catalog": "204.26 02260",
+    "old_witness": "萬曆野獲編 舊鈔本 原二十卷及補遺續編",
+    "surrogate_pdf": "NCL-02260_1_萬曆野獲編.pdf",
+    "source_sha256": "5b91b5cad4a9d7573271ffd275085b046339cdfab80341b60a6156706e80e191",
+    "pdf_pages": 1000
+  },
+  "acquisition": {
+    "workflow": ".github/workflows/render-yehuobian-ncl02260-continuation-v1-12pz.yml",
+    "exact_workflow_run": 37882376128,
+    "exact_head": "29336641b7b1d7efd42c0a459b82dd98c8ce1d42",
+    "conclusion": "success",
+    "artifact_id": 11594447455,
+    "artifact_name": "ncl02260-continuation-v1-title-12pz",
+    "artifact_zip_sha256": "0a3f0ddaa56c67f4c48be6af1f117fdfd2c885319944723a12d0bcd3100fdf14",
+    "dpi": 200,
+    "ocr_used": false,
+    "source_sha256_check": "PASS",
+    "pdf_total_pages_check": "PASS_1000",
+    "image_sha256_manifest_check": "PASS_3_OF_3"
+  },
+  "physical_boundaries": [
+    {
+      "pdf1_page_1based": 649,
+      "rendered_sha256": "740a8481a4cac0670f5eaa71181b9013d784cb54fa8ffa40b15170357f9828d5",
+      "status": "DIRECT_IMAGE_VISUAL_READ",
+      "classification": "PRECEDING_SECTION_END_OR_TRANSITION; NOT_VOLUME_1_TOC",
+      "warning": "Not used as a continuation volume title or historical folio marker."
+    },
+    {
+      "pdf1_page_1based": 651,
+      "rendered_sha256": "ff0f84b5de6c1cbbbe66a8efe1b50d1c431fa51f4abe9d518b795342ac5b01dd",
+      "status": "DIRECT_IMAGE_VISUAL_READ",
+      "heading": "萬曆野獲續編卷第一目",
+      "classification": "CONTINUATION_VOLUME_1_TOC_DIRECT_POSITIVE",
+      "layout": "Left page carries visible volume 1 contents; right page continues earlier prose."
+    },
+    {
+      "pdf1_page_1based": 652,
+      "rendered_sha256": "6c7be87ea9d20fea69b8c1f66fe356018760e2e9b99e3a9977c3229df4063c04",
+      "status": "DIRECT_IMAGE_VISUAL_READ",
+      "heading": "萬曆野獲續編卷第一",
+      "classification": "CONTINUATION_VOLUME_1_TEXT_BEGINNING_AND_TOC_CONTINUATION",
+      "layout": "Right physical page finishes several contents entries; left physical page starts volume 1 narrative after author credit. PDF page number is not manuscript folio."
+    }
+  ],
+  "corrected_crosswalk": {
+    "pdf1_p651": "萬曆野獲續編卷第一目",
+    "pdf1_p682": "萬曆野獲續編卷第二目",
+    "pdf1_p714": "萬曆野獲續編卷第三目",
+    "p682_previous_project_misread": "萬曆野獲續編卷第一目",
+    "p682_misread_status": "REVISED_FORWARD_ONLY_IN_VOLUME_STRUCTURE_LEDGER",
+    "source_sha256_same": true
+  },
+  "bounded_title_search": {
+    "p651_volume1_contents_visually_read": true,
+    "p652_toc_continuation_visually_read": true,
+    "gaizao_louke_literal_heading_seen_on_p651_p652": false,
+    "not_an_exhaustive_work_search": true,
+    "main_original_volume1_contents_not_fully_located": true,
+    "numeric_one_two_and_gong_guan_directly_collated": false
+  },
+  "provenance_firewalls": [
+    "A physical 續編卷第一 does not prove equivalence to reorganized categorized 30v 卷第一.",
+    "The absence of a literal heading on only these two source pages does not prove absence of a passage, synonym or other chapter in the manuscript.",
+    "The 30 later classified category title 改造漏刻 cannot be imposed as an old manuscript heading.",
+    "No old printed physical 1827 target page is yet inspected.",
+    "A project source-identification correction does not reopen historical runtime or imply transmission ancestry."
+  ],
+  "decision": {
+    "batch_closed": false,
+    "matrix_changed": false,
+    "state_changed": false,
+    "graph_changed": false,
+    "algorithm_changed": false,
+    "md_g03": "OPEN_BLOCKING_GENERAL_ADAPTER",
+    "hpa_dayun_cal_002": "MISSING_FROM_PRODUCT"
+  },
+  "next": "Find exact 改造漏刻 or mechanics-equivalent passage across original 20v manuscript and 1827 printed copy; record edition-identifiable original folio and full glyphs."
+}

@@ -1,0 +1,124 @@
+name: probe-batch-12jw-nlc-opac-public-search-contract
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12jw-nlc-opac-public-search-contract.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inspect only NLC-homepage-emitted OPAC public routes
+        run: |
+          python - <<'PY'
+          import hashlib, json, re
+          from html.parser import HTMLParser
+          from pathlib import Path
+          from urllib.parse import urljoin, urlparse
+          import requests
+
+          UA={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; NLC OPAC public-contract probe)"}
+          ROUTES=[
+            "http://opac.nlc.cn/",
+            "http://opac.nlc.cn/F/?func=file&file_name=login-session",
+          ]
+
+          def sha(b): return hashlib.sha256(b).hexdigest()
+          def decode(raw):
+              for enc in ("utf-8","utf-8-sig","gb18030","gbk","big5"):
+                  try: return raw.decode(enc),enc
+                  except UnicodeDecodeError: pass
+              return raw.decode("utf-8","replace"),"utf-8-replacement"
+
+          class Scan(HTMLParser):
+              def __init__(self):
+                  super().__init__(); self.forms=[]; self.inputs=[]; self.selects=[]; self.buttons=[]; self.links=[]; self.scripts=[]
+              def handle_starttag(self,tag,attrs):
+                  d=dict(attrs)
+                  if tag=="form": self.forms.append({k:d.get(k) for k in ("action","method","id","name","onsubmit") if d.get(k) is not None})
+                  if tag=="input": self.inputs.append({k:d.get(k) for k in ("name","type","value","id","placeholder","onclick") if d.get(k) is not None})
+                  if tag=="select": self.selects.append({k:d.get(k) for k in ("name","id","onchange") if d.get(k) is not None})
+                  if tag=="button": self.buttons.append({k:d.get(k) for k in ("name","type","value","id","onclick") if d.get(k) is not None})
+                  if tag=="a" and d.get("href"): self.links.append(d.get("href"))
+                  if tag=="script" and d.get("src"): self.scripts.append(d.get("src"))
+
+          out={"routes":[],"adjudication":{},"security":{}}
+          for url in ROUTES:
+              item={"url":url}
+              try:
+                  r=requests.get(url,headers=UA,timeout=35,allow_redirects=True)
+                  raw=r.content; txt,enc=decode(raw)
+                  scan=Scan()
+                  try: scan.feed(txt)
+                  except Exception: pass
+                  contexts=[]
+                  needles=("find","search","scan","request","func=","file_name","查找","检索","题名","关键词")
+                  for n in needles:
+                      for m in re.finditer(re.escape(n),txt,re.I):
+                          s=max(0,m.start()-320); e=min(len(txt),m.end()+1000)
+                          piece=re.sub(r"\s+"," ",txt[s:e])[:1400]
+                          if piece not in contexts: contexts.append(piece)
+                          if len(contexts)>=40: break
+                      if len(contexts)>=40: break
+                  item.update({
+                    "http_status":r.status_code,
+                    "final_url":r.url,
+                    "bytes":len(raw),
+                    "sha256":sha(raw),
+                    "decode_used":enc,
+                    "content_type":r.headers.get("Content-Type"),
+                    "forms":scan.forms,
+                    "inputs":scan.inputs[:120],
+                    "selects":scan.selects[:80],
+                    "buttons":scan.buttons[:80],
+                    "source_emitted_links":[urljoin(r.url,x) for x in scan.links[:120]],
+                    "source_emitted_scripts":[urljoin(r.url,x) for x in scan.scripts[:60]],
+                    "contexts":contexts,
+                    "search_tokens":{
+                      "find_code_present":("func=find" in txt.lower() or "find_code" in txt.lower() or "find-request" in txt.lower()),
+                      "search_word_present":("search" in txt.lower() or "检索" in txt),
+                      "title_word_present":("题名" in txt or "title" in txt.lower()),
+                      "request_word_present":("request" in txt.lower())
+                    }
+                  })
+              except Exception as e:
+                  item["error_class"]=type(e).__name__; item["error"]=str(e)[:400]
+              out["routes"].append(item)
+
+          # Contract is considered observed only from source-emitted markup/context; this probe never sends catalog terms.
+          combined=json.dumps(out["routes"],ensure_ascii=False)
+          out["adjudication"]={
+            "root_route_reached":out["routes"][0].get("http_status")==200,
+            "login_session_route_reached":out["routes"][1].get("http_status")==200,
+            "public_search_form_or_contract_observed":(
+              bool(out["routes"][1].get("forms")) or
+              ("func=find" in combined.lower()) or
+              ("find-request" in combined.lower())
+            ),
+            "target_title_query_submitted":False,
+            "target_person_query_submitted":False,
+            "target_date_query_submitted":False,
+            "form_submitted":False,
+            "direct_1951_08_18_page_reviewed":False
+          }
+          out["security"]={
+            "login_used":False,"reader_account_used":False,"registration_used":False,
+            "target_query_submitted":False,"form_submitted":False,"private_endpoint_guessed":False,
+            "captcha_bypass_used":False,"tls_verification_disabled":False,"state_changing_request_used":False
+          }
+          Path("batch-12jw-nlc-opac-public-search-contract.json").write_text(
+            json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12jw-nlc-opac-public-search-contract
+          path: batch-12jw-nlc-opac-public-search-contract.json

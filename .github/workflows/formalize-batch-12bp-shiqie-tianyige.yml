@@ -1,0 +1,327 @@
+name: formalize-batch-12bp-shiqie-tianyige
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/formalize-batch-12bp-shiqie-tianyige.yml
+
+permissions:
+  contents: write
+
+jobs:
+  formalize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Atomically formalize Batch 12BP
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from textwrap import dedent
+
+          BATCH_ID = "BATCH-12-ZIWEI-SHIQIE-TIANYIGE-HISTORICAL-HOLDING-LINEAGE-BP"
+          BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-SHIQIE-TIANYIGE-HISTORICAL-HOLDING-LINEAGE-BP.md"
+          RESEARCH_ARTIFACT = "docs/research/ZIWEI-SHIQIE-TIANYIGE-HISTORICAL-HOLDING-LINEAGE-R1.json"
+
+          SRC_JQ = "EXT-TIANYIGE-SHUMU-SHIQIE-JIAQING"
+          SRC_GX = "EXT-TIANYIGE-JIANCUN-SHIQIE-GUANGXU"
+          SRC_ZJ = "EXT-ZHEJIANG-CAIJI-SHIQIE-QING"
+          SRC_NLC = "EXT-NLC-TIANYIGE-CATALOG-HISTORY"
+
+          URL_JQ = "https://www.shidianguji.com/book/NA05256/chapter/1kyb3net1ge1v"
+          URL_GX = "https://www.shidianguji.com/book/NGJ892002318084315185/chapter/1lul9utbqbn6u"
+          URL_ZJ = "https://ctext.org/wiki.pl?chapter=317234&if=en&remap=gb"
+          URL_NLC = "https://www.nlc.cn/pcab/ztzl/gjpcml/page5/201810/t20181026_173280.htm"
+
+          # Update continuity verifier in the same transaction before running it.
+          verifier_path = Path("scripts/verify-project-continuity-state-r1.py")
+          verifier = verifier_path.read_text(encoding="utf-8")
+          prev_id = "BATCH-12-ZIWEI-SUNZI-HUIZHENG-KANGXI-TIMEKEEPING-PHYSICAL-COLLATION-BO"
+          if BATCH_ID not in verifier:
+              needle = f'    "{prev_id}",\n]'
+              replacement = f'    "{prev_id}",\n    "{BATCH_ID}",\n]'
+              if needle not in verifier:
+                  raise SystemExit("cannot locate BO supplemental batch tail in continuity verifier")
+              verifier = verifier.replace(needle, replacement, 1)
+          old_latest = 'LATEST_BATCH_DOC = "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-SUNZI-HUIZHENG-KANGXI-TIMEKEEPING-PHYSICAL-COLLATION-BO.md"'
+          new_latest = f'LATEST_BATCH_DOC = "{BATCH_DOC}"'
+          if new_latest not in verifier:
+              if old_latest not in verifier:
+                  raise SystemExit("cannot locate BO latest-batch doc in continuity verifier")
+              verifier = verifier.replace(old_latest, new_latest, 1)
+          verifier_path.write_text(verifier, encoding="utf-8")
+
+          batch_doc = dedent(f'''\
+          # Fusion Chart Historical Provenance Audit R1 — Batch 12BP
+
+          ## 《筮篋理數日抄》天一閣歷史藏本線：嘉慶實際編目、光緒見存與現代公開存取邊界
+
+          Status: **INDEPENDENT CHINESE HISTORICAL HOLDING LINEAGE CONFIRMED / JIAQING TIANYIGE SHELF-INVENTORY CATALOG LISTS 20 JUAN / GUANGXU JIANCUN CATALOG STILL LISTS 20 JUAN AND ATTRIBUTES MING KE PEI / QING ZHEJIANG COLLECTION CATALOG CORROBORATES KE PEI + CONTENT PROFILE / NOT PROOF OF SAME EDITION AS NAJ 1565 COPY / NOT PROOF OF CURRENT SURVIVAL OR TARGET-LEAF ACCESS / AUTHOR-ATTRIBUTION TENSION PRESERVED / TARGET 上四亥 GLYPH STILL UNOBSERVED / HPA-ZDATE-006 STILL MISSING_FROM_PRODUCT / HAI VOTE +0 / NO RUNTIME WINNER / NO CANDIDATE COLLAPSE / NO ALGORITHM REOPEN**
+
+          ## 1. Scope
+
+          Batches 12BH–12BO closed the current Japanese-copy and homologous-timekeeping evidence boundaries around the Shidian token `上四亥`. The exact Jiajing-44 National Archives volume-three target leaf remains unread.
+
+          Batch 12BP asks a different provenance question: did an independently documented Chinese historical holding of the same title exist, and can that route presently yield a physical target leaf?
+
+          ## 2. Jiaqing Tianyige shelf-inventory evidence
+
+          The received 《天一閣書目》 lists `筮箧理数日钞二十卷` among the Tianyige holdings.
+
+          The catalog preface is operationally important: Ruan Yuan states that in Jiaqing 8–9 he ordered Fan-family attendants to enter the pavilion and copy the holdings by book cabinet (`登閣分廚寫編`). This supports classifying the title entry as a historical holding/shelf-inventory record rather than a generic bibliography copied from elsewhere.
+
+          Evidence URL: `{URL_JQ}`.
+
+          ## 3. Guangxu-era continued holding record
+
+          The later 《天一閣見存書目》 still records:
+
+          `筮箧理数日钞二十卷，明柯佩编。`
+
+          The National Library of China catalog-history page independently identifies Ruan Yuan's 《天一閣書目》 and Xue Fucheng's 《天一閣見存書目》 as representative Tianyige collection catalogs, and notes the 1995 《新編天一閣書目》 as the first openly published post-1949 catalog.
+
+          Evidence URLs: `{URL_GX}` and `{URL_NLC}`.
+
+          This establishes continuity of the **historical cataloged title** into the late Qing. It does not by itself establish present-day survival.
+
+          ## 4. Zhejiang collection-catalog corroboration
+
+          《浙江採集遺書總錄》 records the title as `筮箧理数日抄二十卷刋本`, attributes it to `明柯佩輯`, and gives a brief content profile beginning with book-formula/Qimen and Later-Heaven Hongfan Eight-Trigram/Five-Phase material.
+
+          Evidence URL: `{URL_ZJ}`.
+
+          This is useful bibliographic corroboration. It is not a target-leaf glyph witness.
+
+          ## 5. Attribution and edition boundary
+
+          The National Archives/Shidian physical-copy transcription layer identifies the Japanese set with `一壺天俱道人校編` and related title-page/editorial wording. The Tianyige/collection catalogs instead attribute the work to `明柯佩編/輯`.
+
+          Batch 12BP does **not** identify these names as the same person, pseudonyms, or equivalent responsibility statements. It records an attribution tension requiring separate bibliography/philology.
+
+          Likewise, matching title and twenty-juan extent do not prove that the Tianyige historical holding is the same impression, same textual recension, or same physical copy as the 1565 National Archives set.
+
+          ## 6. Present access boundary
+
+          Reviewed current public indexed surfaces did not expose a modern Tianyige shelfmark, a current item record bound to this title, or a directly readable Tianyige facsimile/target leaf.
+
+          Therefore the defensible state is:
+
+          ```text
+          historical Tianyige holding/title lineage     CONFIRMED
+          late-Qing Tianyige catalog continuation       CONFIRMED
+          present-day survival of that exact copy       NOT ADJUDICATED
+          current Tianyige shelfmark                    NOT RESOLVED
+          current public facsimile                      NOT RESOLVED
+          textual identity with NAJ 1565 copy           NOT ESTABLISHED
+          exact target glyph                            NOT OBSERVED
+          ```
+
+          A negative result on reviewed public indexes is not a lost-copy claim.
+
+          ## 7. Effect on HPA-ZDATE-006
+
+          - `HPA-ZDATE-006 = MISSING_FROM_PRODUCT`
+          - new physical Hai-glyph witness: `0`
+          - independent historical holding-lineage increment: `+1`
+          - independent edition witness increment: `0`
+          - exact Shiqie target glyph observed: `false`
+          - runtime winner: `false`
+          - candidate collapse: `false`
+          - algorithm reopen: `false`
+
+          Counts remain `198 rows / 166 audited / 10 MISSING_FROM_PRODUCT / 14 cumulative missing candidate families`; provenance defects remain `11/11`; chart algorithm defect/reopen/collapse remain `0/0/0`.
+
+          ## 8. Durable evidence and next gate
+
+          Research record: `{RESEARCH_ARTIFACT}`.
+
+          Next admissible work is to resolve a **present surviving item route** for the Tianyige historical title (current catalog/shelfmark/facsimile), or another independently bound Shiqie copy. Only a directly readable physical target leaf can adjudicate the exact `上四亥` glyph. Do not infer edition identity from title/juan count and do not infer author identity from `柯佩` versus `一壺天俱道人`.
+          ''')
+          Path(BATCH_DOC).write_text(batch_doc, encoding="utf-8")
+
+          research = {
+              "schema": "ZIWEI-SHIQIE-TIANYIGE-HISTORICAL-HOLDING-LINEAGE-R1",
+              "batch_id": BATCH_ID,
+              "question": "Does an independently documented Chinese historical holding lineage of 筮篋理數日抄 exist, and does it currently expose a readable target leaf capable of adjudicating the 上四亥 glyph?",
+              "evidence": {
+                  "jiaqing_tianyige_catalog": {
+                      "source_id": SRC_JQ,
+                      "entry": "筮箧理数日钞二十卷",
+                      "catalog_process_anchor": "嘉庆八九年间命范氏役人登阁分厨写编",
+                      "classification": "HISTORICAL_PHYSICAL_HOLDING_SHELF_INVENTORY_RECORD",
+                      "url": URL_JQ
+                  },
+                  "guangxu_tianyige_jiancun": {
+                      "source_id": SRC_GX,
+                      "entry": "筮箧理数日钞二十卷，明柯佩编",
+                      "classification": "LATE_QING_CONTINUED_HISTORICAL_HOLDING_CATALOG_RECORD",
+                      "url": URL_GX
+                  },
+                  "zhejiang_collection_catalog": {
+                      "source_id": SRC_ZJ,
+                      "entry": "筮箧理数日抄二十卷刋本；右明柯佩辑",
+                      "classification": "QING_BIBLIOGRAPHIC_CORROBORATION_AND_CONTENT_PROFILE",
+                      "url": URL_ZJ
+                  },
+                  "modern_catalog_history": {
+                      "source_id": SRC_NLC,
+                      "classification": "OFFICIAL_HISTORY_OF_TIANYIGE_CATALOG_LINEAGE",
+                      "url": URL_NLC
+                  }
+              },
+              "attribution_tension": {
+                  "naj_shidian_copy": "一壺天俱道人校編；三水六曲外史删訂；月潭雲柯漁樵録梓",
+                  "tianyige_late_qing_and_zhejiang_catalogs": "明柯佩編/輯",
+                  "identity_adjudicated": False,
+                  "edition_identity_adjudicated": False,
+                  "policy": "PRESERVE_ATTRIBUTION_TENSION; DO_NOT COLLAPSE NAMES OR EDITIONS WITHOUT DIRECT EVIDENCE"
+              },
+              "present_access": {
+                  "current_tianyige_shelfmark_resolved": False,
+                  "current_survival_adjudicated": False,
+                  "public_facsimile_resolved": False,
+                  "target_leaf_observed": False,
+                  "negative_scope": "REVIEWED_PUBLIC_INDEXED_SURFACES_ONLY; NOT A LOST-COPY CLAIM"
+              },
+              "effect": {
+                  "hpa_zdate_006_status": "MISSING_FROM_PRODUCT",
+                  "historical_holding_lineage_increment": 1,
+                  "independent_edition_witness_increment": 0,
+                  "hai_glyph_witness_increment": 0,
+                  "runtime_winner_selected": False,
+                  "candidate_collapsed": False,
+                  "algorithm_reopen_authorized": False,
+                  "matrix_counts_changed": False
+              }
+          }
+          Path(RESEARCH_ARTIFACT).write_text(json.dumps(research, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+          registry_path = Path("docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json")
+          registry = json.loads(registry_path.read_text(encoding="utf-8"))
+          additions = [
+              {
+                  "source_id": SRC_JQ,
+                  "title": "《天一閣書目》所錄《筮箧理数日钞二十卷》",
+                  "historical_period": "清嘉慶編目層",
+                  "provider": "識典古籍公開轉錄；阮元序文提供編目過程",
+                  "url": URL_JQ,
+                  "source_role": "HISTORICAL_TIANYIGE_SHELF_INVENTORY_HOLDING_RECORD",
+                  "quality_notes": "Entry is valuable because the catalog preface describes cabinet-by-cabinet Tianyige inventory work in Jiaqing 8–9. It confirms historical holding lineage, not present survival, edition identity, or target glyphs."
+              },
+              {
+                  "source_id": SRC_GX,
+                  "title": "《天一閣見存書目》所錄《筮箧理数日钞二十卷》",
+                  "historical_period": "清光緒重編目層",
+                  "provider": "識典古籍公開轉錄",
+                  "url": URL_GX,
+                  "source_role": "LATE_QING_TIANYIGE_CONTINUED_HOLDING_CATALOG_RECORD",
+                  "quality_notes": "Records 筮箧理数日钞二十卷，明柯佩编. Preserve this attribution separately from the NAJ/Shidian 一壺天俱道人 responsibility statement. No author-identity or edition-identity collapse is authorized."
+              },
+              {
+                  "source_id": SRC_ZJ,
+                  "title": "《浙江採集遺書總錄》筮箧理数日抄條",
+                  "historical_period": "清",
+                  "provider": "Chinese Text Project OCR/transcription layer",
+                  "url": URL_ZJ,
+                  "source_role": "QING_BIBLIOGRAPHIC_CORROBORATION_OF_SHIQIE_TITLE_AUTHOR_ATTRIBUTION_AND_CONTENT_PROFILE",
+                  "quality_notes": "Records 二十卷刋本 and 明柯佩輯 with a short content description. Treat as bibliography/content-profile evidence, not physical target-glyph authority; CText warns its text was OCR-created and should be image-checked for glyph-critical claims."
+              },
+              {
+                  "source_id": SRC_NLC,
+                  "title": "國家圖書館：天一閣歷代書目整理史",
+                  "historical_period": "MODERN_OFFICIAL_CATALOG_HISTORY",
+                  "provider": "中國國家圖書館／全國古籍普查登記目錄",
+                  "url": URL_NLC,
+                  "source_role": "OFFICIAL_MODERN_HISTORY_OF_TIANYIGE_CATALOG_LINEAGE",
+                  "quality_notes": "Confirms Ruan Yuan-hosted 天一閣書目, Xue Fucheng-hosted 天一閣見存書目, and the 1995 新編天一閣書目 as milestones. It does not itself establish the present status of this specific title."
+              }
+          ]
+          existing = {s.get("source_id") for s in registry["sources"]}
+          for item in additions:
+              if item["source_id"] not in existing:
+                  registry["sources"].append(item)
+          registry["access_date"] = "2026-09-14"
+          registry_path.write_text(json.dumps(registry, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+          matrix_path = Path("docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json")
+          matrix = json.loads(matrix_path.read_text(encoding="utf-8"))
+          row = next(r for r in matrix["rows"] if r.get("rule_id") == "HPA-ZDATE-006")
+          row["batch_12bp_shiqie_tianyige_historical_holding_lineage"] = {
+              "source_ids": [SRC_JQ, SRC_GX, SRC_ZJ, SRC_NLC],
+              "historical_holding": "Tianyige cataloged 筮箧理数日钞二十卷 in the Jiaqing shelf-inventory catalog and the title remains listed in the late-Qing Jiancun catalog",
+              "late_qing_attribution": "明柯佩编/輯",
+              "naj_shidian_attribution_tension": "一壺天俱道人校編 versus 柯佩编/輯; identity unresolved",
+              "mechanical_scope": "PROVENANCE/HOLDING-LINEAGE ONLY; NO TARGET-LEAF GLYPH; NO HAI-BRANCH MECHANICAL VOTE; NO EDITION IDENTITY WITH NAJ 1565 COPY",
+              "current_tianyige_shelfmark_resolved": False,
+              "present_survival_adjudicated": False,
+              "target_glyph_observed": False,
+              "hai_glyph_witness_increment": 0,
+              "independent_historical_holding_lineage_increment": 1,
+              "independent_edition_witness_increment": 0,
+              "candidate_status_effect": "NONE; HPA-ZDATE-006 REMAINS MISSING_FROM_PRODUCT",
+              "runtime_winner_selected": False,
+              "algorithm_reopen_authorized": False,
+              "research_artifact": RESEARCH_ARTIFACT
+          }
+          matrix_path.write_text(json.dumps(matrix, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+          matrix_md_path = Path("docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.md")
+          matrix_md = matrix_md_path.read_text(encoding="utf-8")
+          marker = "## Progress through Batch 12BP"
+          if marker not in matrix_md:
+              matrix_md += dedent('''\
+
+              ## Progress through Batch 12BP
+
+              - Historical Tianyige catalogs independently record `筮箧理数日钞二十卷`; the Jiaqing catalog preface describes an actual cabinet-by-cabinet pavilion inventory, and the late-Qing `見存` catalog still lists the title.
+              - The late-Qing Tianyige and Zhejiang collection catalogs attribute the work to `明柯佩編/輯`; the NAJ/Shidian copy carries `一壺天俱道人` responsibility wording. The identity/role relationship is unresolved and is not collapsed.
+              - This is a historical holding-lineage advance only. Present survival, current shelfmark, textual identity with the NAJ 1565 copy, and the exact `上四亥` target glyph remain unresolved.
+              - HPA-ZDATE-006 remains `MISSING_FROM_PRODUCT`; Hai vote, candidate, runtime and algorithm invariants are unchanged.
+              ''')
+              matrix_md_path.write_text(matrix_md, encoding="utf-8")
+
+          state_path = Path("docs/PROJECT-CURRENT-STATE-R1.json")
+          state = json.loads(state_path.read_text(encoding="utf-8"))
+          state["schema_version"] = "1.75.0"
+          audit = state["historical_audit"]
+          if BATCH_ID not in audit["completed_batches"]:
+              audit["completed_batches"].append(BATCH_ID)
+          audit["latest_batch_doc"] = BATCH_DOC
+          additions_focus = [
+              "Batch 12BP establishes an independent Chinese historical holding lineage for 《筮箧理数日钞》: the Jiaqing Tianyige shelf-inventory catalog lists twenty juan, and the late-Qing Jiancun catalog continues to list the title. This is holding provenance, not proof of the same edition as the NAJ 1565 copy or proof of current survival.",
+              "Batch 12BP preserves an authorship/responsibility tension: Tianyige/Zhejiang catalogs say 明柯佩编/輯 while the NAJ/Shidian physical-copy transcription layer carries 一壺天俱道人校編. Do not identify the names or editorial roles without separate evidence.",
+              "Batch 12BP changes no HPA-ZDATE-006 mechanics: the exact Shiqie target leaf remains unread, Hai vote increment is 0, and current priorities are a surviving Tianyige item/shelfmark/facsimile route, another independently bound Shiqie copy, or the Fullbook cloudy/rain current-time acquisition chain."
+          ]
+          focus = audit["current_focus"]
+          for item in additions_focus:
+              if item not in focus:
+                  focus.append(item)
+          state["updated_at"] = "2026-09-14"
+          state_path.write_text(json.dumps(state, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+          PY
+
+          python scripts/verify-project-continuity-state-r1.py
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            scripts/verify-project-continuity-state-r1.py \
+            docs/PROJECT-CURRENT-STATE-R1.json \
+            docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json \
+            docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.md \
+            docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json \
+            docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-SHIQIE-TIANYIGE-HISTORICAL-HOLDING-LINEAGE-BP.md \
+            docs/research/ZIWEI-SHIQIE-TIANYIGE-HISTORICAL-HOLDING-LINEAGE-R1.json
+          if git diff --cached --quiet; then
+            echo "Batch 12BP already formalized"
+            exit 0
+          fi
+          git commit -m "formalize Batch 12BP Shiqie Tianyige holding lineage"
+          git push origin HEAD:agent/fusion-chart-core-r1-20260822

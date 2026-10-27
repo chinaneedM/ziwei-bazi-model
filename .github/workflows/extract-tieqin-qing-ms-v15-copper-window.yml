@@ -1,0 +1,70 @@
+name: extract-tieqin-qing-ms-v15-copper-window
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/extract-tieqin-qing-ms-v15-copper-window.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Export volume 15 Copper/Zhunzhai provenance window
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/tieqin-qing-ms-v15-copper-window'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT/pages"
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils >/dev/null
+          python -m pip install --quiet pillow
+
+          URL='https://upload.wikimedia.org/wikipedia/commons/1/1c/Tianyige-330000-1705-0004561_%E9%90%B5%E7%90%B4%E9%8A%85%E5%8A%8D%E6%A8%93%E8%97%8F%E6%9B%B8%E7%9B%AE%E9%8C%84_%E6%B8%85%E7%9E%BF%E9%8F%9E%E7%B7%A8_%E6%B8%85%E6%8A%84%E6%9C%AC.pdf'
+          curl -fL --retry 4 --retry-delay 2 -A 'Tianwen-Provenance-Audit/1.0' "$URL" -o "$ROOT/source.pdf"
+          sha256sum "$ROOT/source.pdf" | tee "$ROOT/source-sha256.txt"
+          pdfinfo "$ROOT/source.pdf" | tee "$ROOT/pdfinfo.txt"
+          pdftoppm -f 383 -l 389 -png -r 400 "$ROOT/source.pdf" "$ROOT/pages/page" >/dev/null 2>&1
+
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image,ImageDraw
+          import hashlib,json,re
+          root=Path('audit/tieqin-qing-ms-v15-copper-window')
+          pages=sorted((root/'pages').glob('page-*.png'),key=lambda p:int(re.search(r'-(\d+)\.png$',p.name).group(1)))
+          manifest=[]; thumbs=[]
+          for p in pages:
+              n=int(re.search(r'-(\d+)\.png$',p.name).group(1))
+              im=Image.open(p).convert('RGB')
+              manifest.append({'pdf_page':n,'sha256':hashlib.sha256(p.read_bytes()).hexdigest(),'width':im.width,'height':im.height,'file':str(p.relative_to(root))})
+              tw=900; t=im.resize((tw,max(1,int(im.height*tw/im.width))))
+              c=Image.new('RGB',(tw,t.height+44),'white'); c.paste(t,(0,44))
+              ImageDraw.Draw(c).text((10,12),f'PDF p{n}',fill='black'); thumbs.append(c)
+          cw=max(x.width for x in thumbs); ch=max(x.height for x in thumbs)
+          sheet=Image.new('RGB',(cw,ch*len(thumbs)),'white')
+          for i,t in enumerate(thumbs): sheet.paste(t,(0,i*ch))
+          sheet.save(root/'contact-p383-p389.jpg',quality=97)
+          report={'schema':'TIEQIN-QING-MS-V15-COPPER-WINDOW-R1',
+                  'source_file':'Tianyige-330000-1705-0004561 鐵琴銅劍樓藏書目錄 清瞿鏞編 清抄本.pdf',
+                  'source_pdf_sha256':hashlib.sha256((root/'source.pdf').read_bytes()).hexdigest(),
+                  'window':'PDF p383-p389',
+                  'purpose':'DIRECT_PHYSICAL_CONTROL_OF_COPPER_CLEPSYDRA_AND_ADJACENT_ZHUNZHAI_PROVENANCE_ENTRY',
+                  'authority':'DIRECT_400DPI_PAGE_IMAGES_NO_OCR_FINAL_AUTHORITY','manifest':manifest}
+          (root/'report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          PY
+          rm "$ROOT/source.pdf"
+
+      - name: Upload Copper/Zhunzhai window
+        uses: actions/upload-artifact@v4
+        with:
+          name: tieqin-qing-ms-v15-copper-window-r1
+          path: audit/tieqin-qing-ms-v15-copper-window
+          if-no-files-found: error
+          retention-days: 30

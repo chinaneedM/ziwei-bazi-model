@@ -1,0 +1,158 @@
+name: research-ndl-naikaku-1971-target-entry
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-ndl-naikaku-1971-target-entry.yml
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Probe documented NDL full-text and public search routes
+        shell: python
+        run: |
+          import hashlib
+          import json
+          import urllib.parse
+          import urllib.request
+          from pathlib import Path
+
+          OUT = Path("probe")
+          OUT.mkdir()
+          PID = "12282052"
+          TARGET_TERMS = [
+              "紫微斗數", "紫微斗数", "紫微", "15856", "一五八五六", "子六十", "子060", "陳希夷"
+          ]
+          UA = "Mozilla/5.0 provenance-research documented-public-route probe"
+
+          def fetch(url, limit=8_000_000):
+              req = urllib.request.Request(url, headers={
+                  "User-Agent": UA,
+                  "Accept": "application/json,text/html,*/*;q=0.8",
+                  "Accept-Language": "ja,en;q=0.8",
+              })
+              try:
+                  with urllib.request.urlopen(req, timeout=30) as resp:
+                      data = resp.read(limit)
+                      return {
+                          "ok": True,
+                          "status": getattr(resp, "status", None),
+                          "final_url": resp.geturl(),
+                          "content_type": resp.headers.get("content-type"),
+                          "bytes": len(data),
+                          "sha256": hashlib.sha256(data).hexdigest(),
+                          "data": data,
+                      }
+              except Exception as exc:
+                  return {"ok": False, "error": repr(exc), "bytes": 0, "data": b""}
+
+          result = {
+              "schema": "NDL-NAIKAKU-1971-TARGET-ENTRY-PUBLIC-ROUTE-PROBE-R1",
+              "pid": PID,
+              "target_terms": TARGET_TERMS,
+              "authentication_attempted": False,
+              "transmission_entitlement_attempted": False,
+              "copy_request_attempted": False,
+              "access_control_bypass_attempted": False,
+              "routes": [],
+          }
+
+          # Official NDL Lab documented Page API. The API documentation states this
+          # corpus is separately scoped; failures/non-hits are route evidence only.
+          for term in TARGET_TERMS:
+              url = "https://lab.ndl.go.jp/dl/api/page/search?" + urllib.parse.urlencode({
+                  "f-book": PID,
+                  "q-contents": term,
+                  "size": 100,
+                  "from": 0,
+                  "searchfield": "contentonly",
+              })
+              row = fetch(url)
+              data = row.pop("data")
+              rec = {"route": "ndl_lab_page_search", "term": term, "url": url, **row}
+              if data:
+                  text = data.decode("utf-8", "replace")
+                  rec["response_prefix"] = text[:2000]
+                  try:
+                      payload = json.loads(text)
+                      rec["json"] = payload
+                  except Exception:
+                      rec["json_parse"] = False
+              result["routes"].append(rec)
+
+          # Full-text JSON endpoint is a documented NDL Lab route; attempt only the
+          # public unauthenticated endpoint and record its boundary.
+          url = f"https://lab.ndl.go.jp/dl/api/book/fulltext-json/{PID}"
+          row = fetch(url)
+          data = row.pop("data")
+          rec = {"route": "ndl_lab_fulltext_json", "url": url, **row}
+          if data:
+              rec["response_prefix"] = data.decode("utf-8", "replace")[:2000]
+          result["routes"].append(rec)
+
+          # Current NDL Digital Collections public search UI supports full-text
+          # searching even for many restricted-view objects. Query normal public
+          # search only; do not authenticate or bypass any viewer restriction.
+          for term in TARGET_TERMS:
+              params = {
+                  "fullText": "true",
+                  "includeVolumeNum": "true",
+                  "pageNum": "0",
+                  "pageSize": "100",
+                  "sortKey": "SCORE",
+                  "displayMode": "list",
+                  "keyword": term,
+                  "accessRestrictions": "inlibrary",
+              }
+              url = "https://dl.ndl.go.jp/search/searchResult?" + urllib.parse.urlencode(params)
+              row = fetch(url)
+              data = row.pop("data")
+              rec = {"route": "ndl_digital_public_fulltext_search", "term": term, "url": url, **row}
+              if data:
+                  text = data.decode("utf-8", "replace")
+                  rec["pid_present"] = PID in text
+                  rec["term_present"] = term in text
+                  rec["response_prefix"] = text[:2000]
+              result["routes"].append(rec)
+
+          # Public item/manifest metadata controls for the exact PID.
+          for route, url in [
+              ("ndl_digital_item_api", f"https://dl.ndl.go.jp/api/item/search/info:ndljp/pid/{PID}"),
+              ("ndl_digital_iiif_manifest", f"https://dl.ndl.go.jp/api/iiif/{PID}/manifest.json"),
+          ]:
+              row = fetch(url)
+              data = row.pop("data")
+              rec = {"route": route, "url": url, **row}
+              if data:
+                  rec["response_prefix"] = data.decode("utf-8", "replace")[:4000]
+              result["routes"].append(rec)
+
+          result["adjudication"] = {
+              "scope": "UNAUTHENTICATED_DOCUMENTED_OR_NORMAL_PUBLIC_ROUTES_ONLY",
+              "lab_api_nonhit_or_failure_is_not_whole_catalog_negative": True,
+              "public_search_nonhit_is_not_target_entry_absence_proof": True,
+              "crosswalk_closed_only_if_target_entry_or_explicit_first_party_mapping_is_returned": True,
+              "algorithm_effect": "NONE_UNLESS_EVIDENCE_REQUIRES_SEPARATE_GOVERNANCE",
+          }
+
+          (OUT / "ndl-naikaku-1971-target-entry-probe.json").write_text(
+              json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8"
+          )
+          print(json.dumps(result, ensure_ascii=False, indent=2))
+
+      - name: Upload NDL target-entry probe evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ndl-naikaku-1971-target-entry-probe
+          path: probe/
+          if-no-files-found: warn
+          retention-days: 14

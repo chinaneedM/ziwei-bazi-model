@@ -1,0 +1,78 @@
+name: probe-yehuobian-nlc-old20-source-pages-12qd
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-yehuobian-nlc-old20-source-pages-12qd.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  nlc-old20-source-pages:
+    runs-on: ubuntu-latest
+    timeout-minutes: 16
+    steps:
+      - name: Set up no-OCR PDF source renderer
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils
+          python -m pip install -q pillow
+      - name: Fetch source-emitted NLC tenth fascicle and render all page images
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p nlc-old20-12qd/pages nlc-old20-12qd/contact
+          python - <<'PY'
+          import hashlib,json,pathlib,subprocess,urllib.parse,os
+          from PIL import Image,ImageDraw
+          root=pathlib.Path("nlc-old20-12qd")
+          name="NLC892-411999003250-383067 萬曆野獲編 □□卷 第10冊.pdf"
+          url="https://commons.wikimedia.org/wiki/Special:Redirect/file/"+urllib.parse.quote(name)
+          pdf=root/"nlc10.pdf"
+          c=subprocess.run(["curl","-L","--fail","--retry","3","--retry-all-errors","--retry-delay","3",
+               "--connect-timeout","25","--max-time","360","-A","Tianwen-Original-Page-Collation-R1/1.0",
+               url,"-o",str(pdf)],capture_output=True,text=True,timeout=385)
+          if c.returncode: raise RuntimeError(f"source fetch failed code {c.returncode}: {c.stderr[-230:]}")
+          assert pdf.read_bytes()[:4]==b"%PDF"
+          info=subprocess.check_output(["pdfinfo",str(pdf)],text=True)
+          pages=int(next(x.split(":",1)[1] for x in info.splitlines() if x.startswith("Pages:")))
+          assert pages==145,(pages,"source changed")
+          d=hashlib.sha256(pdf.read_bytes()).hexdigest()
+          result={"schema":"MING-DATONG-YEHUOBIAN-12QD-NLC411999003250-OLD20-PHYSICAL-PAGE-ATLAS",
+                  "source_name":name,"url":url,"source_sha256":d,"pdf_page_count":pages,
+                  "source_scope":"NLC-manuscript-volume18to20-bibliographic-only",
+                  "method":"NLC Commons public source PDF; rasterization 85dpi; no OCR or text inference; no claim all glyphs manually reviewed",
+                  "pages":[],"contacts":[],"full_manual_review":False,"target_heading":"UNRESOLVED"}
+          group=[]
+          for i in range(1,pages+1):
+            p=root/"pages"/f"nlc-old20-p{i:03}.jpg"
+            cmd=["pdftoppm","-f",str(i),"-l",str(i),"-r","85","-jpeg","-jpegopt","quality=72","-singlefile",str(pdf),str(p.with_suffix(""))]
+            subprocess.run(cmd,check=True,capture_output=True,timeout=45)
+            raw=p.read_bytes()
+            result["pages"].append({"pdf_page":i,"sha256":hashlib.sha256(raw).hexdigest(),"bytes":len(raw)})
+            im=Image.open(p).convert("RGB");im.thumbnail((580,500))
+            group.append((i,im.copy()))
+            if len(group)==8 or i==pages:
+              sheet=Image.new("RGB",(4*630,2*560),"white")
+              draw=ImageDraw.Draw(sheet)
+              for n,(number,image) in enumerate(group):
+                x=(n%4)*630;y=(n//4)*560
+                draw.text((x+14,y+8),f"NLC 411999003250 FASCICLE-10 PDF-p{number:03}",fill="black")
+                sheet.paste(image,(x+15,y+36))
+              file=root/"contact"/f"nlc10-sheet-{len(result['contacts'])+1:02}.jpg"
+              sheet.save(file,quality=83)
+              result["contacts"].append({"name":file.name,"pdf_pages":[group[0][0],group[-1][0]],
+                                         "sha256":hashlib.sha256(file.read_bytes()).hexdigest()})
+              group=[]
+          (root/"page-atlas.json").write_text(json.dumps(result,ensure_ascii=False,indent=2)+"\n",encoding="utf8")
+          pdf.unlink()
+          print("SOURCE_SHA256",d,"PAGES",pages,"CONTACTS",len(result["contacts"]))
+          PY
+      - name: Upload source-image atlas
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: nlc411999003250-old20-fascicle10-12qd
+          path: nlc-old20-12qd/
+          retention-days: 30
+          if-no-files-found: warn

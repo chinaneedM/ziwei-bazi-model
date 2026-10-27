@@ -1,0 +1,97 @@
+name: probe-batch-12ic-r3-ia-exact-title-object
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - '.github/workflows/probe-batch-12ic-r3-ia-exact-title-object.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  statuses: write
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - name: Resolve exact-title Internet Archive object
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/batch-12ic-r3-ia-exact-title'
+          rm -rf "$ROOT"; mkdir -p "$ROOT"
+          python - <<'PY'
+          from pathlib import Path
+          from urllib.parse import urlencode,quote
+          from urllib.request import Request,urlopen
+          import json,re,time
+
+          root=Path('audit/batch-12ic-r3-ia-exact-title')
+          ua='Tianwen-Provenance-Audit/1.0'
+          q='"国图藏元刻十行本《附释音春秋左传注疏》"'
+          url='https://archive.org/advancedsearch.php?'+urlencode({
+              'q':q,'fl[]':['identifier','title','creator','date','year','description','subject','mediatype'],
+              'rows':50,'page':1,'output':'json'
+          },doseq=True)
+          with urlopen(Request(url,headers={'User-Agent':ua,'Accept':'application/json'}),timeout=40) as r:
+              b=r.read()
+          (root/'search.json').write_bytes(b)
+          o=json.loads(b)
+          docs=o.get('response',{}).get('docs',[])
+          expanded=[]
+          for d in docs:
+              ident=d.get('identifier')
+              row={'search_doc':d}
+              if ident:
+                  murl='https://archive.org/metadata/'+quote(ident,safe='')
+                  try:
+                      with urlopen(Request(murl,headers={'User-Agent':ua,'Accept':'application/json'}),timeout=40) as r:
+                          mb=r.read()
+                      mo=json.loads(mb)
+                      md=mo.get('metadata') or {}
+                      files=mo.get('files') or []
+                      row['metadata']={k:md.get(k) for k in ('identifier','title','creator','date','year','description','subject','mediatype','collection','access-restricted-item','language','scanner')}
+                      row['files']=[
+                          {k:f.get(k) for k in ('name','format','size','source','md5','sha1')}
+                          for f in files
+                          if re.search(r'\.(pdf|djvu|txt|xml|epub|gz)$',f.get('name',''),re.I)
+                          or any(t in str(f.get('format','')).lower() for t in ('text','pdf','djvu','epub'))
+                      ][:200]
+                  except Exception as e:
+                      row['metadata_error']=repr(e)
+              expanded.append(row)
+              time.sleep(.3)
+          summary={
+              'query':q,
+              'numFound':o.get('response',{}).get('numFound'),
+              'returned':len(docs),
+              'identifiers':[d.get('identifier') for d in docs],
+              'expanded':expanded,
+              'fulltext_retrieved':False,
+              'exact_article_identity_proved':False,
+              'negative_absence_inference_authorized':False
+          }
+          (root/'summary.json').write_text(json.dumps(summary,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print(json.dumps(summary,ensure_ascii=False,indent=2)[:180000])
+          PY
+          find "$ROOT" -type f -size +0c -print0 | xargs -0 -r sha256sum | sort -V > "$ROOT/files.sha256"
+          printf '%s\n' 'ROLE=exact-title public object adjudication' 'NO_RESTRICTED_FILE_BYPASS=true' 'NEGATIVE_ABSENCE_INFERENCE_AUTHORIZED=false' > "$ROOT/manifest.txt"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12ic-r3-ia-exact-title-object
+          path: audit/batch-12ic-r3-ia-exact-title/
+          if-no-files-found: error
+          retention-days: 30
+      - name: Publish status
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.repos.createCommitStatus({
+              owner:context.repo.owner,repo:context.repo.repo,sha:context.sha,
+              state:'success',context:'tianwen/batch-12ic-r3-probe',
+              description:'IA exact-title object adjudication complete'
+            })

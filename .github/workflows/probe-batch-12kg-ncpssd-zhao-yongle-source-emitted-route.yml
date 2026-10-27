@@ -1,0 +1,127 @@
+name: probe-batch-12kg-ncpssd-zhao-yongle-source-emitted-route
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12kg-ncpssd-zhao-yongle-source-emitted-route.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Follow only the 12KF source-emitted NCPSsd route anonymously
+        run: |
+          python - <<'PY'
+          import hashlib, html, json, re
+          from pathlib import Path
+          from urllib.parse import urljoin, urlparse
+          import requests
+
+          URL="http://www.ncpssd.org/Cooperation/CooperationUser.aspx?UrlReferrer=http%3A%2F%2Fwww.ncpssd.org%2FLiterature%2Farticleinfo.aspx%3Fid%3DMTAwMjQ2MjkwMw%3D%3D%26type%3Dam91cm5hbEFydGljbGU%3D%26datatype%3Dam91cm5hbEFydGljbGU%3D%26typename%3D5Lit5paH5pyf5YiK5paH56ug"
+          UA={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; source-emitted NCPSsd route calibration)"}
+          TOKENS=["永樂大典展覽的意義","永乐大典展览的意义","趙萬里","赵万里","文物参考资料","文物參考資料","文物","1951","221","233","全文","PDF","下载","摘要","登录","登陆"]
+
+          def sha(b): return hashlib.sha256(b).hexdigest()
+          def decode(raw):
+              for enc in ("utf-8","utf-8-sig","gb18030","gbk","big5"):
+                  try:return raw.decode(enc),enc
+                  except UnicodeDecodeError:pass
+              return raw.decode("utf-8","replace"),"utf-8-replacement"
+          def visible_text(txt):
+              return re.sub(r"\s+"," ",html.unescape(re.sub(r"<[^>]+>"," ",txt))).strip()
+
+          s=requests.Session(); s.headers.update(UA)
+          r=s.get(URL,timeout=45,allow_redirects=True)
+          raw=r.content; txt,enc=decode(raw); vis=visible_text(txt)
+
+          history=[]
+          for h in r.history:
+              history.append({
+                  "status_code":h.status_code,
+                  "url":h.url,
+                  "location":h.headers.get("Location"),
+                  "content_type":h.headers.get("Content-Type")
+              })
+
+          contexts={}
+          for tok in TOKENS:
+              arr=[]; pos=0
+              while True:
+                  i=vis.find(tok,pos)
+                  if i<0: break
+                  arr.append(vis[max(0,i-450):min(len(vis),i+1200)])
+                  pos=i+len(tok)
+                  if len(arr)>=8: break
+              if arr: contexts[tok]=arr
+
+          forms=[]
+          for m in re.finditer(r"<form\b[^>]*>",txt,re.I):
+              forms.append(html.unescape(m.group(0))[:3000])
+
+          emitted=[]
+          for m in re.finditer(r"https?://[^\"'< >\s]+",txt):
+              u=html.unescape(m.group(0))
+              if u not in emitted: emitted.append(u)
+
+          pdf_like=[u for u in emitted if re.search(r"\.pdf(?:$|[?#])|pdf|download|fulltext|全文",u,re.I)]
+          article_like=[u for u in emitted if re.search(r"article|literature|journal|detail",u,re.I)]
+
+          out={
+            "source_contract":{
+              "parent_batch":"12KF",
+              "source_emitted_uri":URL,
+              "route_guessed":False,
+              "provider_identifier_guessed":False
+            },
+            "response":{
+              "status_code":r.status_code,
+              "final_url":r.url,
+              "final_host":urlparse(r.url).hostname,
+              "redirect_count":len(r.history),
+              "redirect_chain":history,
+              "content_type":r.headers.get("Content-Type"),
+              "bytes":len(raw),
+              "sha256":sha(raw),
+              "decode_used":enc
+            },
+            "token_contexts":contexts,
+            "forms_not_submitted":forms[:30],
+            "source_emitted_urls_not_followed":emitted[:120],
+            "pdf_or_fulltext_like_urls_not_followed":pdf_like[:60],
+            "article_like_urls_not_followed":article_like[:60],
+            "adjudication":{
+              "exact_source_emitted_uri_followed":True,
+              "only_server_redirects_followed":True,
+              "page_links_followed":False,
+              "form_submitted":False,
+              "login_used":False,
+              "download_or_pdf_followed":False,
+              "direct_1951_article_pages_reviewed":False
+            },
+            "security":{
+              "anonymous_get_only":True,
+              "reader_account_used":False,
+              "registration_used":False,
+              "post_request_used":False,
+              "state_changing_request_used":False,
+              "private_endpoint_guessed":False,
+              "provider_identifier_guessed":False,
+              "captcha_bypass_used":False,
+              "tls_verification_disabled":False
+            }
+          }
+          Path("batch-12kg-ncpssd-zhao-yongle-source-emitted-route.json").write_text(
+              json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12kg-ncpssd-zhao-yongle-source-emitted-route
+          path: batch-12kg-ncpssd-zhao-yongle-source-emitted-route.json

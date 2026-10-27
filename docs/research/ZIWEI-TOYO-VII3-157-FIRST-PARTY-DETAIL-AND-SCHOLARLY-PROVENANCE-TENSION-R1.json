@@ -1,0 +1,135 @@
+{
+  "schema": "ZIWEI-TOYO-VII3-157-FIRST-PARTY-DETAIL-AND-SCHOLARLY-PROVENANCE-TENSION-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-TOYO-VII3-157-FIRST-PARTY-DETAIL-AND-SCHOLARLY-PROVENANCE-TENSION-R",
+  "hpa_rule_id": "HPA-ZDATE-006",
+  "status": "TOYO_FIRST_PARTY_DUAL_BIBLIOGRAPHIC_DETAIL_RECORDS_BOUND_CURRENT_ACCESS_POLICY_WEB_VERIFIED_RUNNER_SNAPSHOT_UNAVAILABLE_SCHOLARLY_JINLING_YIXUAN_AND_1942_PROVENANCE_TENSION_PRESERVED_NO_TARGET_PAGE_NO_TEXTUAL_VOTE",
+  "controlling_research_capture": {
+    "head_sha": "7d9c9eb3587cde36fe799779faccd11df2b0fff7",
+    "workflow_run_id": 34220050125,
+    "artifact_id": 10053423338,
+    "artifact_zip_sha256": "d107855bedcd579f89c2468f83aff047febe6cd94cd7d4ec6d06d27405d828c7",
+    "artifact_size_bytes": 1912117,
+    "workflow": ".github/workflows/research-toyo-vii3-157-detail-route.yml",
+    "ocr_used": false
+  },
+  "toyo_bunko_first_party": {
+    "provider": "東洋文庫",
+    "search_url": "https://www.toyo-bunko.org/open/KansekiQueryResult10.php?ORDERBY1=&UNIT=200&andor=&iPage=375&iTotal=80868&navizonestart=38&searchtype=&sw1=",
+    "detail_endpoint": "https://www.toyo-bunko.org/open/show_detail_open_kanseki.php",
+    "request_mark": "VII-3-157",
+    "detail_records": [
+      {
+        "targetid": "502596",
+        "method": "POST",
+        "title": "新刊希夷陳先生紫微斗數全集",
+        "responsibility": "宋陳搏撰　白玉蟾增",
+        "publication_form": "寫本",
+        "extent": "1册",
+        "http_status": 200,
+        "response_bytes": 1931,
+        "detail_sha256": "f459ab7e651eec283d8c3b00be633ba36037ba13dc0f7d94c30ad5d17198d960",
+        "five_xiong_shen_observed": false,
+        "hai_glyph_observed": false,
+        "jinling_yixuan_observed": false,
+        "acquisition_1942_observed": false
+      },
+      {
+        "targetid": "471894",
+        "method": "POST",
+        "title": "新刊希夷陳先生紫微斗數全集不分卷",
+        "responsibility": "宋陳摶撰　宋白玉蟾增",
+        "publication_form": "鈔本",
+        "extent": "1册",
+        "http_status": 200,
+        "response_bytes": 2006,
+        "detail_sha256": "b6a3e768d779fd0a5895b8936da9326ca8c4475513c5b78301ab1776193ae655",
+        "five_xiong_shen_observed": false,
+        "hai_glyph_observed": false,
+        "jinling_yixuan_observed": false,
+        "acquisition_1942_observed": false
+      }
+    ],
+    "dual_record_physical_multiplicity": "UNRESOLVED_DO_NOT_COUNT_AS_TWO_PHYSICAL_OR_TEXTUAL_WITNESSES",
+    "generic_rare_book_notice_present": true,
+    "item_specific_rare_book_marker_observed": false,
+    "rare_marker_parser_false_positive_boundary": "contains_rare_marker=true arises from the generic notice; the actual request-number field is only VII-3-157 and does not display 貴 or 貴重書",
+    "target_page_status": "PENDING_DIRECT_FIVE_XIONG_SHEN_PAGE",
+    "independent_target_text_vote_added": 0,
+    "independent_hai_glyph_vote_added": 0
+  },
+  "kostma_cross_catalog_bridge": {
+    "uci": "RIKS+CRMA+KSM-WZ.0000.0000-20140423.TOYO_1646",
+    "call_number": "Ⅶ-3-157",
+    "title": "新刊希夷陳先生紫微斗數全集",
+    "relation_to_toyo_targetid_502596": "STRONGLY_SUGGESTED_BY_EXACT_TITLE_AND_CALLMARK_BUT_NOT_EXPLICIT_CROSS_ID_BOUND",
+    "physical_object_identity_authorized": false
+  },
+  "current_access_policy": {
+    "source_authority": "FIRST_PARTY_TOYO_BUNKO_WEB_PAGES",
+    "current_override_notice_url": "https://toyo-bunko.or.jp/information/2388/",
+    "current_override_notice_date": "2025-11-28",
+    "current_override_interpretation": "CURRENT_ALL_READING_RESERVATION_REQUIRED_DURING_FACILITY_RENOVATION",
+    "reservation_form_url": "https://toyo-bunko.or.jp/library/guidelines/reservation/",
+    "rare_book_scope_url": "https://toyo-bunko.or.jp/library/guidelines/kichousho/",
+    "suspended_materials_url": "https://toyo-bunko.or.jp/library/guidelines/prohibition/",
+    "web_verification_status": "FIRST_PARTY_WEB_VERIFIED_IN_RESEARCH_SESSION",
+    "github_runner_snapshot_status": "UNAVAILABLE_NO_HTTP_RESPONSE_FOR_DOT_OR_JP_POLICY_PAGES_IN_CONTROLLING_RUN",
+    "machine_snapshot_claim_authorized": false,
+    "item_specific_rare_book_status": "NOT_ESTABLISHED_AS_RARE_BY_CURRENT_DETAIL_RECORDS",
+    "external_reservation_or_copy_request_submitted": false,
+    "external_action_requires_user_authorization_and_required_contact_details": true,
+    "fulfillment_guaranteed": false,
+    "suspension_list_item_status": "NOT_MACHINE_ADJUDICATED_IN_BATCH_12R"
+  },
+  "ncku_scholarly_genealogy": {
+    "source_id": "EXT-NCKU-CHEN-2021-ZIWEI-EDITION-GENEALOGY",
+    "provider": "成大中文學報 / 國立成功大學",
+    "article": "陳昭吟〈道經中署名羅洪先之著作考辨〉",
+    "publication": "成大中文學報第75期, 2021-12",
+    "pdf_url": "https://chinese.ncku.edu.tw/var/file/142/1142/img/4253/7502.pdf",
+    "pdf_http_status": 200,
+    "pdf_bytes": 2105566,
+    "pdf_sha256": "17d0089c3328253230cb2f110ac40527abe41fbb97183483215a5e633e5b2e2e",
+    "pdf_page_count": 42,
+    "ocr_used": false,
+    "direct_visual_review_location": "printed page 60 / PDF page 28",
+    "table_toyo_row": {
+      "title": "新刊希夷陳先生紫微斗數全集",
+      "imprint_or_genealogy_statement": "金陵益軒唐謙梓",
+      "acquisition_statement": "昭和17年（民國31年，1942）6月收入東洋文庫"
+    },
+    "text_layer_control": {
+      "jinling_yixuan_hits_pdf_pages_1_based": [
+        28,
+        29,
+        38
+      ],
+      "exact_title_and_jinling_yixuan_same_text_layer_hit_pdf_page_1_based": 38
+    },
+    "source_authority": "MODERN_SCHOLARLY_EDITION_GENEALOGY_NOT_TARGET_TEXT_OR_GLYPH_AUTHORITY",
+    "relation_adjudication": "SCHOLARLY_ATTRIBUTION_UNRESOLVED_AS_PHYSICAL_PRINT_VS_MANUSCRIPT_EXEMPLAR_OR_COPIED_IMPRINT_STATEMENT",
+    "acquisition_adjudication": "SECONDARY_SCHOLARLY_PROVENANCE_NOT_PRESENT_CURRENT_TOYO_DETAIL_HTML",
+    "direct_target_text_vote_added": 0,
+    "independent_hai_glyph_vote_added": 0
+  },
+  "epistemic_boundaries": {
+    "two_toyo_targetids_as_two_independent_physical_witnesses": "FORBIDDEN_UNTIL_PHYSICAL_OBJECT_MULTIPLICITY_IS_BOUND",
+    "generic_rare_notice_as_item_specific_rare_status": "FORBIDDEN",
+    "ncku_jinling_yixuan_statement_as_proof_current_toyo_object_is_original_print": "FORBIDDEN",
+    "ncku_scholarship_as_target_glyph_authority": "FORBIDDEN",
+    "failed_runner_policy_snapshot_as_policy_absence": "FORBIDDEN",
+    "call_number_alone_as_unique_object_identifier": "FORBIDDEN"
+  },
+  "adjudication": {
+    "hpa_zdate_006": "MISSING_FROM_PRODUCT",
+    "direct_independent_hai_glyph_witness_count_added": 0,
+    "new_chart_rule_candidate_authorized": false,
+    "candidate_selection_authorized": false,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_count": 0,
+    "algorithm_effect": "NONE",
+    "next_gate": "DIRECT_FIVE_XIONG_SHEN_TARGET_PAGE_FROM_TOYO_VII_3_157_VIA_PUBLIC_MEDIA_REPOSITORY_OR_AUTHORIZED_READING_REPRODUCTION_OR_ANOTHER_INDEPENDENT_WITNESS_WITH_PAGE_LEVEL_PROVENANCE"
+  }
+}

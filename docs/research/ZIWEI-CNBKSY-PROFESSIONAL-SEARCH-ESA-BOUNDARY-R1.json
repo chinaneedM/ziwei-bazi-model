@@ -1,0 +1,116 @@
+{
+  "schema": "ZIWEI-CNBKSY-PROFESSIONAL-SEARCH-ESA-BOUNDARY-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-CNBKSY-PROFESSIONAL-SEARCH-ESA-BOUNDARY-MA",
+  "prior_batch_id": "BATCH-12-ZIWEI-CNBKSY-PROFESSIONAL-CODE-SCRIPT-CONTRACT-LZ",
+  "question": "What does a single anonymous no-query GET of the first-party source-emitted 专业检索 route /search/special return, and does it expose a usable static search application surface without bypassing ESA?",
+  "answer": "The route exists and is source-confirmed, but the anonymous raw-HTTP page request returns ESA HTTP 412 rather than the professional-search application. The 2418-byte challenge surface contains zero forms, no _csrf meta, one external ESA script, three inline scripts and zero visible text. No query, form submission or challenge bypass is used.",
+  "controlling_probe": {
+    "workflow": ".github/workflows/probe-batch-12ma-cnbksy-professional-search-surface.yml",
+    "exact_head": "8597c768c127144534a346d39c218e94461df69c",
+    "workflow_run_id": 37021666728,
+    "workflow_job_id": 110886009080,
+    "artifact_id": 11233786634,
+    "artifact_digest": "sha256:8d6ea085f1cd72896b9892fd3fa67bdc80e496c7f59cd529f81822c0533845bd"
+  },
+  "source_route_binding": {
+    "seed_url": "https://www.cnbksy.com/portal/newsCategoryBrowse/newsContent?id=202",
+    "seed_status": 200,
+    "seed_bytes": 41233,
+    "seed_sha256": "b4d0ae3b92caa58f1874829cd46d299187d472d37644e25e3b5ff85f2cfc9d58",
+    "label": "专业检索",
+    "href": "/search/special",
+    "absolute_href": "https://www.cnbksy.com/search/special",
+    "source_closed": true
+  },
+  "response": {
+    "url": "https://www.cnbksy.com/search/special",
+    "method": "GET",
+    "query_parameters_submitted": false,
+    "http_status": 412,
+    "content_type": "text/html; charset=utf-8",
+    "server_header": "ESA",
+    "location": null,
+    "bytes": 2418,
+    "sha256": "3a3fb4f8f92ef234e97b025b2643dc792e7a48902be30fd3a8c2894ac980b3e0"
+  },
+  "static_surface": {
+    "form_count": 0,
+    "forms": [],
+    "csrf_meta_present": false,
+    "external_script_count": 1,
+    "external_scripts": [
+      "/oYqhkoXXrsR7/FRfMdL7TavJA.cfd114a.js"
+    ],
+    "inline_script_count": 3,
+    "visible_text_length": 0,
+    "token_counts": {
+      "专业检索": 0,
+      "Solr": 0,
+      "ALL": 0,
+      "TI": 0,
+      "JTI": 0,
+      "PTI": 0,
+      "ADTI": 0,
+      "检索": 0,
+      "验证码": 0,
+      "登录": 0,
+      "访问受限": 0
+    }
+  },
+  "adjudication": {
+    "professional_search_route_existence_source_confirmed": true,
+    "anonymous_raw_http_application_surface_retrieved": false,
+    "access_boundary": "ESA_HTTP_412_BROWSER_PRECONDITION",
+    "search_absence_inference_authorized": false,
+    "target_absence_inference_authorized": false,
+    "form_submitted": false,
+    "application_endpoint_invoked_beyond_page_get": false,
+    "target_term_submitted": false,
+    "target_query_submitted": false,
+    "login_used": false,
+    "registration_used": false,
+    "esa_challenge_bypass_authorized": false,
+    "esa_challenge_bypass_used": false
+  },
+  "security": {
+    "anonymous_session_only": true,
+    "credential_value_recorded": false,
+    "private_endpoint_guessed": false,
+    "captcha_bypass_used": false,
+    "tls_verification_disabled": false
+  },
+  "transmission_impact": {
+    "status": "NONE_ACCESS_BOUNDARY_ONLY",
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": []
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Use only the independently source-emitted 高级检索=/search/advance route.",
+    "Perform one anonymous GET with no query parameters and redirects disabled; inventory only status/headers/body digest and static form/script surface.",
+    "Do not submit any search term/query and do not bypass ESA/browser preconditions.",
+    "If /search/advance closes at the same ESA boundary as /search and /search/special, stop the CNBKSY raw-HTTP text-search branch and return to alternative lawful page-level recovery routes for the 1951-08-18 Shanghai Wenhui target."
+  ],
+  "updated_at": "2026-10-02"
+}

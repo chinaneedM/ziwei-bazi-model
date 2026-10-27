@@ -1,0 +1,97 @@
+name: probe-batch-12ic-r5-guoxue-jikan11-metadata-conflict
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - '.github/workflows/probe-batch-12ic-r5-guoxue-jikan11-metadata-conflict.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  statuses: write
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - name: Capture official and public retail metadata surfaces
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/batch-12ic-r5-metadata-conflict'
+          rm -rf "$ROOT"; mkdir -p "$ROOT/raw"
+
+          python - <<'PY'
+          from pathlib import Path
+          from urllib.request import Request,urlopen
+          import json,re,time
+
+          root=Path('audit/batch-12ic-r5-metadata-conflict')
+          ua='Tianwen-Provenance-Audit/1.0'
+          targets=[
+            ('nopss','https://www.nopss.gov.cn/n1/2019/1118/c400941-31461052.html'),
+            ('kongfz','https://shop.kongfz.com/4639/type_2/'),
+            ('sanmin','https://www.sanmin.com.tw/product/index/007234993'),
+          ]
+          rows=[]
+          needles={
+            'nopss':['国图藏元刻十行本','国学季刊','第十一期','2018年9月','张丽娟'],
+            'kongfz':['国学季刊 第十一期','国图藏元刻十行本','9787209115018','2018-12'],
+            'sanmin':['國學季刊','第十二期','9787209115018','2019/05/01'],
+          }
+          for key,url in targets:
+            req=Request(url,headers={'User-Agent':ua,'Accept':'text/html,application/xhtml+xml,*/*'})
+            try:
+              with urlopen(req,timeout=40) as r:
+                b=r.read()
+                final=r.geturl()
+                ct=r.headers.get('content-type','')
+              (root/'raw'/f'{key}.html').write_bytes(b)
+              txt=b.decode('utf-8','replace')
+              hits={n:(n in txt) for n in needles[key]}
+              rows.append({'key':key,'url':url,'final_url':final,'ok':True,'bytes':len(b),'content_type':ct,'needle_hits':hits})
+            except Exception as e:
+              rows.append({'key':key,'url':url,'ok':False,'error':repr(e),'needle_hits':{n:False for n in needles[key]}})
+            time.sleep(.5)
+
+          summary={
+            'rows':rows,
+            'official_nopss_is_primary_bibliographic_control':True,
+            'commercial_metadata_may_override_official_report':False,
+            'tested_isbn':'9787209115018',
+            'isbn_to_issue11_binding_authorized':False,
+            'publication_month_conflict_resolved':False,
+            'fulltext_retrieved':False,
+            'negative_absence_inference_authorized':False
+          }
+          (root/'summary.json').write_text(json.dumps(summary,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print(json.dumps(summary,ensure_ascii=False,indent=2))
+          PY
+
+          find "$ROOT" -type f -size +0c -print0 | xargs -0 -r sha256sum | sort -V > "$ROOT/files.sha256"
+          printf '%s\n' \
+            'ROLE=bibliographic metadata conflict capture' \
+            'OFFICIAL_SOURCE_PRIORITY=NOPSS_PROJECT_REPORT_FOR_ARTICLE_CITATION' \
+            'COMMERCIAL_METADATA_OVERRIDE_AUTHORIZED=false' \
+            'FULLTEXT_RETRIEVED=false' > "$ROOT/manifest.txt"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12ic-r5-guoxue-jikan11-metadata-conflict
+          path: audit/batch-12ic-r5-metadata-conflict/
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Publish status
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.repos.createCommitStatus({
+              owner:context.repo.owner,repo:context.repo.repo,sha:context.sha,
+              state:'success',context:'tianwen/batch-12ic-r5-probe',
+              description:'Guoxue Jikan 11 metadata-conflict capture complete'
+            })

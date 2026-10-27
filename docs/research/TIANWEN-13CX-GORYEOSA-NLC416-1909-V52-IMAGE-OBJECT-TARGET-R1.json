@@ -1,0 +1,109 @@
+{
+  "schema": "TIANWEN-13CX-GORYEOSA-NLC416-1909-V52-IMAGE-OBJECT-TARGET-R1",
+  "date": "2026-10-22",
+  "issue_id": "TW-OPEN-0005",
+  "prior_research": "docs/research/TIANWEN-13CW-NCL-NEIGHBOR-AND-CNTS-CATALOG-GAP-FIREWALL-R1.json",
+  "publication_and_digital_surrogate": {
+    "source_page": "https://commons.wikimedia.org/wiki/File:NLC416-13jh005095-74760_%E9%AB%98%E9%BA%97%E5%8F%B2.pdf",
+    "original_file_link": "https://upload.wikimedia.org/wikipedia/commons/6/63/NLC416-13jh005095-74760_%E9%AB%98%E9%BA%97%E5%8F%B2.pdf",
+    "file_display": "NLC416-13jh005095-74760 高麗史.pdf",
+    "institution_described": "National Library of China",
+    "record_class": "COMMONS_MIRROR_METADATA_NOT_DIRECT_NLC_FIRSTPARTY_ITEM_DETAIL",
+    "printed_publication_year": 1909,
+    "published_by": "市島謙吉",
+    "work": "高麗史",
+    "printed_content_paginated": 746,
+    "digital_pdf_pages": 755,
+    "reported_file_size_mib": 36.63,
+    "content_page_offset_from_pdf": "UNBOUND_NO_SUBTRACT_9_RULE",
+    "source_bytes_downloaded_in_this_batch": false,
+    "digital_pdf_sha256": "UNBOUND",
+    "source_folio_and_target_day16_glyph": "NOT_VISUALLY_COLLATED",
+    "source_table_heading_original_page": "UNBOUND"
+  },
+  "positive_concrete_volume_locator": {
+    "index_scope": "COMMONS_MIRROR_DESCRIPTIVE_TABLE_OF_CONTENTS",
+    "textual_boundary": "志三十九卷",
+    "item_order": 6,
+    "work_juan": 52,
+    "genre": "志",
+    "genre_juan": 6,
+    "title": "曆三",
+    "adjacent_entries": [
+      {
+        "ordinal": 5,
+        "work_juan": 51,
+        "title": "曆二"
+      },
+      {
+        "ordinal": 7,
+        "work_juan": 53,
+        "title": "五行一"
+      }
+    ],
+    "index_printed_not_target_image": true,
+    "v52_located_at_volume_manifest_level": true,
+    "v52_exact_pdf_page": null
+  },
+  "nearby_series_edition_controls": [
+    {
+      "file": "NLC416-13jh005066-59246 高麗史.pdf",
+      "url": "https://commons.wikimedia.org/wiki/File:NLC416-13jh005066-59246_%E9%AB%98%E9%BA%97%E5%8F%B2.pdf",
+      "catalog_start_juan": 88,
+      "title": "后妃一",
+      "status": "SEPARATE_LATER_LETTERS_VOLUME_NOT_TARGET_V52"
+    },
+    {
+      "file": "NLC416-13jh005095-74760 高麗史.pdf",
+      "url": "https://commons.wikimedia.org/wiki/File:NLC416-13jh005095-74760_%E9%AB%98%E9%BA%97%E5%8F%B2.pdf",
+      "catalog_start_juan": 47,
+      "title": "天文一",
+      "status": "POSITIVE_TARGET_V52_TABLE_OF_CONTENTS_ONLY"
+    }
+  ],
+  "cross_source_firewall": {
+    "earlier_ndl_1909_volume": "NDL PID 991069 volume 2 previous 13CO metadata",
+    "ndl_and_nlc_same_printing_batch": "UNDETERMINED",
+    "ndl_and_nlc_same_physical_copy": "NOT_PROVEN",
+    "nlc1909_new_independent_early_original": false,
+    "krdb_official_received_d16": "5.1362",
+    "prior_waseda_naj_direct_historical_original_d16": "5.1362",
+    "derived_math_candidate_only": "5.2362",
+    "ncl_taiwan_208_03130_original_folio": "UNBOUND",
+    "ncl_taiwan_1905_hand": "UNBOUND",
+    "do_not_infer_d16_from_table_of_contents": true,
+    "do_not_compute_print_pdf_page_offset_from_counts": true
+  },
+  "next_gates": [
+    "Fetch 36.63 MiB Commons NLC416 target volume with URL and SHA-256; inspect actual printed front matter, page-index folios and D16 target table manually at native pixels.",
+    "Bind actual printed page and digital page separately, never assume fixed offset 755-746=9 without leaf-by-leaf calibration.",
+    "Compare v52 D16 table original image with early NAJ/Waseda original and official KRDB received transcript, while marking 1909 as later editorial/printed lineage not an independent early copy.",
+    "Continue Taiwanese NCL208/03130 first-party catalog/digital object/old-versus-1905 physical text stratification as separate P0 gate."
+  ],
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "1909 市島謙吉 edition metadata can locate the target volume but cannot establish a third ancient textual witness to D16.",
+      "Two digital 1909 volume locators NDL991069 and NLC416-13jh005095 do not prove independent print states or physical-copy identity.",
+      "A nine-page difference between Commons PDF page count and print extent is not an offset of the specific D16 table."
+    ],
+    "unresolved_lineage_questions": [
+      "1909 NLC public mirror physical item and folio-level D16 glyph",
+      "1909 NDL/NLC impression and copy relationship",
+      "NCL208/03130 original genre 志6 and Qing/1905 hand"
+    ]
+  },
+  "counts": {
+    "matrix_rows": 222,
+    "audited_rows": 222,
+    "registered_sources": 754,
+    "graph_nodes": 252,
+    "graph_edges": 238,
+    "unresolved_risks": 11,
+    "new_early_physical_witnesses": 0,
+    "algorithm_reopens": 0,
+    "deterministic_product": "CLOSED"
+  }
+}

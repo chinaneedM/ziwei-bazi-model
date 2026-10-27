@@ -1,0 +1,196 @@
+{
+  "schema": "ZIWEI-KYUDB-DATONGLIZHU-GK02426-PARTIAL-FINGERPRINT-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-KYUDB-DATONGLIZHU-GK02426-PARTIAL-FINGERPRINT-ED",
+  "prior_batch_id": "BATCH-12-ZIWEI-NCL06627-DATONGLIZHU-THRESHOLD-FINGERPRINT-EC",
+  "question": "Does the Kyujanggak GK02426_00 / 奎2426-v.1-4 Gwan-sang-gam wood-movable-type Datonglizhu recension preserve the same threshold architecture and the exact Sanming 1578 Dahan/Yushui change-day fingerprint, and can its chronology be securely closed before 1578?",
+  "answer": "SHARED_DATONGLIZHU_THRESHOLD_AND_WHOLEKE_ARCHITECTURE_CONFIRMED; DAHAN_DAY13_TO_44_56_CONVERGENCE_CONFIRMED; RAINWATER_FINGERPRINT_DIVERGES; EXACT_SANMING_TABLE_IDENTITY_DISPROVED; CATALOG_IMPRESSION_YEAR_UNRESOLVED; ZERO_EXACT_SANMING_PARENT_VOTE",
+  "workflow_evidence": {
+    "head_commit_sha": "7cddde07067409b840e777ab757f709e3fd9a6a0",
+    "workflow_run_id": 35513697961,
+    "artifact_id": 10606122789,
+    "artifact_name": "kyudb-datonglizhu-gk02426-fingerprint-r1",
+    "artifact_digest": "sha256:1bd3da37f801446ad3c60ef3eb1d058708d50b5f71aef39bc564255f26486db8",
+    "probe_schema_version": "1.3.0",
+    "text_layer_nonempty_page_count": 0,
+    "text_layer_negative_authority": false,
+    "ocr_used_for_final_glyph_numeric_date_or_lineage_claims": false
+  },
+  "physical_source": {
+    "provider": "Kyujanggak Institute for Korean Studies, Seoul National University",
+    "book_cd": "GK02426_00",
+    "call_number": "奎2426-v.1-4",
+    "title": "大統曆註",
+    "author_editor": "[編者未詳]",
+    "catalog_edition": "觀象監木活字",
+    "catalog_impression_year": "[刊年未詳]",
+    "catalog_extent": "12卷 4冊",
+    "catalog_structure": "卷1正月 ... 卷12十二月",
+    "first_party_catalog_role": "Direct current Kyujanggak catalog identity and image route for the reviewed physical object.",
+    "physical_copy_date": "UNRESOLVED_KYUDB_CATALOG_KANEN_MISHO",
+    "secure_pre1578_physical_witness": false,
+    "prior_secondary_chronology_control": {
+      "source": "docs/research/KOREA-DATONGLIZHU-1434-PHYSICAL-LOCATOR-R1.json",
+      "signal": "KOSTMA / Encyclopedia of Korean Culture describe a Kim Bin postface written in 1434 at the end of a 12-juan 4-book Datonglizhu object.",
+      "firewall": "The prior catalog/encyclopedia note explicitly says the postface concerns type rather than Datong-calendar content. Batch 12ED also did not directly recover that postface from the current Kyujanggak viewer, so it does not date every calendrical passage or securely date the reviewed print before 1578."
+    }
+  },
+  "direct_physical_collation": {
+    "adjudication_method": "Direct visual inspection of source-bound Kyujanggak facsimile images from the exact workflow artifact. The pageText layer returned zero nonempty pages and therefore has no negative authority.",
+    "volume1_page_002a": {
+      "page_sha256": "b66c814cbb541565bd53103ec7e2db00926b4c0cc961f4244c43cfb21e237d07",
+      "direct_sequence": [
+        "大統曆註卷第一",
+        "立春正月節",
+        "冬至餘三十四刻四十五分已上為退",
+        "雨水正月中",
+        "後六日 晝四十七刻 夜五十三刻"
+      ],
+      "safe_reading": "The reviewed Korean recension directly preserves the same term-specific 冬至餘…已上為退 architecture seen in NCL-06627, while its Rainwater-side 47/53 state is explicitly attached to 後六日."
+    },
+    "volume4_page_050b": {
+      "page_sha256": "16a756be8f87a70f1dd5d696dfcbff3c3ccaf42b33e5dd33e7e9116f15c111ad",
+      "direct_sequence": [
+        "大統曆註卷第十二"
+      ],
+      "safe_reading": "Direct volume-12 opening control."
+    },
+    "volume4_page_051a": {
+      "page_sha256": "c903772c986b40b8ea9b5a61226cf62b9bf995294326bcbb0fb23b7bb60e009d",
+      "direct_sequence": [
+        "大寒十二月中"
+      ],
+      "safe_reading": "Directly binds the following 051b day/night transition neighborhood to the Dahan / twelfth-month block."
+    },
+    "volume4_page_051b": {
+      "page_sha256": "16d138415c6792b17dce14cd1095f2d725f239c96bb35efcf95aad2ff1c4fda4",
+      "direct_sequence": [
+        "後十三日 晝四十四刻 夜五十六刻",
+        "冬至餘五十六刻三十分已上為退"
+      ],
+      "safe_reading": "The Dahan block directly preserves a day-13 transition to 44/56, while also preserving the same winter-solstice-remainder threshold architecture."
+    },
+    "volume4_page_074b": {
+      "page_sha256": "4b9b3965453bd0722ccd872c4a34f73db1d456ed46a6410c40254d6eac592734",
+      "direct_sequence": [
+        "大統曆註卷第十二終"
+      ],
+      "safe_reading": "The current Kyujanggak image sequence directly reaches the end of juan 12 here."
+    },
+    "terminal_viewer_control": {
+      "attempted_pages": [
+        "075a",
+        "075b",
+        "076a",
+        "076b",
+        "077a",
+        "077b",
+        "078a",
+        "078b",
+        "079a",
+        "079b",
+        "080a",
+        "080b"
+      ],
+      "substantive_physical_images_recovered": false,
+      "direct_1434_postface_recovered_in_current_viewer": false,
+      "implication": "The secondary 1434-postface signal remains a chronology lead only; this batch does not bind that postface directly to the currently reviewed terminal image sequence."
+    }
+  },
+  "comparison_with_ncl06627": {
+    "controlling_batch": "BATCH-12-ZIWEI-NCL06627-DATONGLIZHU-THRESHOLD-FINGERPRINT-EC",
+    "shared_architecture": [
+      "Same work title 大統曆註",
+      "Monthly solar-term layout",
+      "冬至餘…已上為退 threshold clauses",
+      "Day/night whole-ke schedule"
+    ],
+    "decisive_recension_differences": [
+      {
+        "locus": "立春 threshold",
+        "kyudb_gk02426": "冬至餘三十四刻四十五分已上為退",
+        "ncl06627": "冬至餘三十四刻四十分已上為退",
+        "result": "MISMATCH"
+      },
+      {
+        "locus": "Dahan 44/56 timing",
+        "kyudb_gk02426": "後十三日 -> 44/56",
+        "ncl06627": "後十四日 -> 44/56",
+        "result": "MISMATCH"
+      }
+    ],
+    "unchanged_text_state_identity": "DISPROVED",
+    "shared_common_ancestor_or_recensional_family": "SUPPORTED_AS_CANDIDATE_NOT_DIRECT_COPY_DIRECTION"
+  },
+  "comparison_with_sanming_1578": {
+    "controlling_source": "NCL-06589-1 三命通會 明萬曆六年（1578）刊本",
+    "controlling_batch": "BATCH-12-ZIWEI-SANMING-1578-SEASONAL-TABLE-DIRECT-PHYSICAL-COLLATION-CP",
+    "dahan": {
+      "sanming_target": "43/57 -> literal 十三後日 -> 44/56",
+      "kyudb_gk02426": "Dahan block directly reaches 後十三日 -> 44/56",
+      "result": "PARTIAL_HIGH_INFORMATION_CONVERGENCE_AT_DAY13_TO_44_56",
+      "exact_literal_and_full_state_sequence_match": false
+    },
+    "rainwater": {
+      "sanming_target": "雨水 47/53 -> 後四日 -> 48/52",
+      "kyudb_gk02426": "雨水正月中 -> 後六日 47/53",
+      "result": "MISMATCH_AT_ANCHOR_AND_CHANGE_DAY_TIMING"
+    },
+    "exact_unchanged_table_identity": "DISPROVED",
+    "exact_parentage": "UNRESOLVED"
+  },
+  "chronology_adjudication": {
+    "first_party_catalog_impression_year": "UNRESOLVED",
+    "first_party_catalog_edition": "觀象監木活字",
+    "secondary_1434_postface_signal": true,
+    "postface_directly_recovered_in_current_workflow": false,
+    "postface_content_dates_calendar_rules": false,
+    "secure_pre1578_text_state": false,
+    "direct_sanming_parent_vote_increment": 0
+  },
+  "adjudication": {
+    "shared_datonglizhu_threshold_architecture": "CLOSED_FOR_REVIEWED_KYUDB_OBJECT",
+    "dahan_day13_to_44_56_convergence": true,
+    "rainwater_exact_sanming_fingerprint_match": false,
+    "exact_sanming_yueling_fingerprint_match": false,
+    "direct_unchanged_table_identity_with_sanming_1578": "DISPROVED",
+    "direct_unchanged_text_state_identity_with_ncl06627": "DISPROVED",
+    "threshold_is_proved_operator_for_wholeke_schedule": false,
+    "secure_pre1578_binding_witness": false,
+    "direct_sanming_parent_vote_increment": 0,
+    "matrix_count_change": false,
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false
+  },
+  "transmission_impact": {
+    "nodes_added": [
+      "PHYSICAL-COPY-KYUDB-DATONGLIZHU-GK02426-GWANSANGGAM-WOODTYPE",
+      "RULE-FAMILY-KYUDB-DATONGLIZHU-TERM-THRESHOLD-WHOLEKE-SCHEDULE"
+    ],
+    "edges_added": [
+      "TG-E0093",
+      "TG-E0094"
+    ],
+    "explicit_non_edges_added": [
+      "RULE-FAMILY-KYUDB-DATONGLIZHU-TERM-THRESHOLD-WHOLEKE-SCHEDULE DIRECT_UNCHANGED_TABLE_IDENTITY_WITH TABLE-SANMING-1578-DAYNIGHT-KE = DISPROVED",
+      "RULE-FAMILY-KYUDB-DATONGLIZHU-TERM-THRESHOLD-WHOLEKE-SCHEDULE DIRECT_UNCHANGED_TABLE_IDENTITY_WITH RULE-FAMILY-DATONGLIZHU-TERM-THRESHOLD-WHOLEKE-SCHEDULE = DISPROVED"
+    ],
+    "interpretation": "The Korean recension materially strengthens a branching Datonglizhu transmission model: it shares the threshold/whole-ke architecture, independently converges on day13->44/56 at Dahan, but keeps a divergent Rainwater timing and differs from NCL-06627 at both threshold and Dahan timing."
+  },
+  "project_consequence": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "missing_from_product_rows": 10,
+    "provenance_defects_repaired": "12/12",
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0,
+    "deterministic_product_status": "CLOSED"
+  },
+  "next_gate": [
+    "Resolve the printing/copy chronology of Kyujanggak GK02426_00 using a direct postface/image/bibliographic binding rather than transferring the 1434 date from a secondary summary.",
+    "Search another securely pre-1578 Datonglizhu/Tongshu witness for the combined target: Rainwater 47/53 at the term anchor plus 後四日 48/52 and Dahan day13 -> 44/56.",
+    "Continue searching for the explicit operator that maps 冬至餘 threshold state to the whole-ke schedule; co-location remains insufficient."
+  ]
+}

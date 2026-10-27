@@ -1,0 +1,56 @@
+{
+  "schema": "BAZI-STRUCTURAL-SUPPORT-EVIDENCE-CLASS-PROJECTION-REPLAY-R1",
+  "batch_id": "BATCH-12-BAZI-STRUCTURAL-SUPPORT-EVIDENCE-CLASS-PROJECTION-AUDIT-MQ",
+  "verification_model": "RELEASED_FIXTURE_TARGETS_PLUS_UPSTREAM_AFFINITY_EXPOSURE_REPLAY",
+  "fixture_target_count": 4,
+  "fixture_targets": [
+    "pre_dayun",
+    "flow_month_before",
+    "flow_month_exact",
+    "repeated_occurrence"
+  ],
+  "evidence_class_count": 2,
+  "evidence_classes": [
+    "EXACT_HIDDEN_STEM_MATCH",
+    "SAME_ELEMENT_HIDDEN_SUPPORT"
+  ],
+  "seasonal_role_count": 2,
+  "seasonal_roles": [
+    "NATAL_MONTH_COMMAND",
+    "ACTIVE_FLOW_SOLAR_MONTH"
+  ],
+  "supported_participant_layer_count": 4,
+  "supported_participant_layers": [
+    "NATAL",
+    "DAYUN",
+    "ANNUAL",
+    "MONTHLY"
+  ],
+  "excluded_temporal_layer_count": 3,
+  "excluded_temporal_layers": [
+    "XIAOYUN",
+    "DAILY",
+    "HOURLY"
+  ],
+  "upstream_rule_count": 6,
+  "upstream_rule_ids": [
+    "HPA-BAZI-002",
+    "HPA-BAZI-004",
+    "HPA-BAZI-013",
+    "HPA-BAFF-002",
+    "HPA-BAZI-FLOW-003",
+    "HPA-BAZI-FLOW-006"
+  ],
+  "exact_requires_upstream_exposure_links": true,
+  "same_element_subtracts_exact_identity": true,
+  "same_element_invents_exposure_links": false,
+  "seasonal_scoped_candidate_sets_merged": false,
+  "natal_month_command_rewritten_by_target_month": false,
+  "root_verdict_emitted": false,
+  "strength_weight_grade_score_emitted": false,
+  "rank_or_winner_emitted": false,
+  "pre_dayun_fabricated_dayun_evidence": false,
+  "repeated_occurrences_collapsed": false,
+  "chart_algorithm_changed": false,
+  "execution_status": "ASSERTED_BY_NEW_TESTS_EXACT_HEAD_CI_PENDING_AT_COMMIT_CREATION"
+}

@@ -1,0 +1,116 @@
+name: probe-yonezawa-shilin-1492-physical-route
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-yonezawa-shilin-1492-physical-route.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Resolve official Yonezawa AA060 image routes
+        shell: python
+        run: |
+          import hashlib
+          import html
+          import json
+          import pathlib
+          import re
+          import urllib.parse
+          import urllib.request
+
+          root=pathlib.Path("audit/yonezawa-shilin-1492-route")
+          root.mkdir(parents=True,exist_ok=True)
+          base="https://www.library.yonezawa.yamagata.jp/dg/AA060.html"
+          headers={"User-Agent":"Mozilla/5.0 Tianwen-Provenance-Audit/1.0"}
+          req=urllib.request.Request(base,headers=headers)
+          with urllib.request.urlopen(req,timeout=45) as r:
+              body=r.read()
+              final=r.geturl()
+              ctype=r.headers.get("content-type")
+          (root/"AA060.html").write_bytes(body)
+          raw=body.decode("utf-8",errors="replace")
+
+          attrs=[]
+          for m in re.finditer(r'''(?:href|src|action)\s*=\s*["']([^"']+)["']''',raw,re.I):
+              u=urllib.parse.urljoin(final,html.unescape(m.group(1)))
+              attrs.append(u)
+          # Also retain JS string literals containing likely media/viewer routes.
+          literals=[]
+          for m in re.finditer(r'''["']([^"']*(?:AA060|\.jpe?g|\.png|\.gif|\.pdf|img|image|viewer|view)[^"']*)["']''',raw,re.I):
+              literals.append(html.unescape(m.group(1)))
+          attrs=list(dict.fromkeys(attrs))
+          literals=list(dict.fromkeys(literals))
+
+          fetched=[]
+          for u in attrs:
+              if not (u.startswith("http://") or u.startswith("https://")):
+                  continue
+              if not any(x in u.lower() for x in ["aa060","img","image","viewer","view","dg/","jpg","jpeg","png","gif","pdf","js"]):
+                  continue
+              rec={"url":u}
+              try:
+                  rr=urllib.request.urlopen(urllib.request.Request(u,headers=headers),timeout=30)
+                  data=rr.read()
+                  rec.update({
+                      "status":rr.status,
+                      "final_url":rr.geturl(),
+                      "content_type":rr.headers.get("content-type"),
+                      "bytes":len(data),
+                      "sha256":hashlib.sha256(data).hexdigest()
+                  })
+                  c=(rr.headers.get("content-type") or "").lower()
+                  if ("text" in c or "javascript" in c or "json" in c) and len(data)<3000000:
+                      name=f"linked-{len(fetched):03d}.txt"
+                      (root/name).write_bytes(data)
+                      rec["saved_as"]=name
+                      rec["text_head"]=data.decode("utf-8",errors="replace")[:12000]
+              except Exception as e:
+                  rec["error"]=repr(e)
+              fetched.append(rec)
+
+          report={
+              "schema":"YONEZAWA-SHILIN-1492-PHYSICAL-ROUTE-PROBE-R1",
+              "catalog_url":base,
+              "catalog_final_url":final,
+              "catalog_content_type":ctype,
+              "catalog_bytes":len(body),
+              "catalog_sha256":hashlib.sha256(body).hexdigest(),
+              "catalog_identity":{
+                  "call_number":"米沢善本60",
+                  "management_number":"AA060001",
+                  "publisher":"詹氏進徳精舎刊本",
+                  "publication_year":"弘治5年（1492）刊",
+                  "extent":"12巻・12冊 / 375丁"
+              },
+              "html_absolute_routes":attrs,
+              "javascript_or_media_literals":literals,
+              "linked_route_fetches":fetched,
+              "decision_question":"Resolve the first-party page-image/viewer route for the securely dated 1492 Shilin Guangji physical copy, then locate the 前集曆候 clepsydra/arrow pages.",
+              "content_boundary":"Catalog dating is first-party. No transcribed mechanism wording or numeric table is promoted until source-bound physical page images are directly reviewed; OCR is not final authority."
+          }
+          (root/"report.json").write_text(json.dumps(report,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+          print(json.dumps({
+              "catalog":report["catalog_identity"],
+              "route_count":len(attrs),
+              "interesting_literals":literals[:120],
+              "linked_fetches":fetched
+          },ensure_ascii=False,indent=2))
+
+      - name: Upload Yonezawa route probe
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: yonezawa-shilin-1492-route
+          path: audit/yonezawa-shilin-1492-route
+          if-no-files-found: error
+          retention-days: 30

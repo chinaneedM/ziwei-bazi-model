@@ -1,0 +1,44 @@
+{
+  "schema": "ZIWEI-BODY-GANZHI-PROJECTION-EXECUTED-REPLAY-R1",
+  "executed_at": "2026-10-04T13:57:06.479290+00:00",
+  "execution": "LOCAL_PYTHON_NATAL_GENERATOR_AND_ACTUAL_JAVASCRIPT_NODE",
+  "base_head": "f62ee9637f7ed4cac68a6824139ae04d3b5c1345",
+  "ordinary_case_count": 1440,
+  "ordinary_cases_identical_before_after": true,
+  "ordinary_cases_equal_released_identity_join": true,
+  "row_order": "REVERSED_RELEASED_ADDRESS_ATTRIBUTES",
+  "year_stem_coverage": 10,
+  "lunar_month_coverage": 12,
+  "hour_branch_coverage": 12,
+  "normal_expected_values_sha256": "fbaabe52435ebdd9ffbe26f83a9ee26bdf0d7e3710082548bd064e5cb19bbe6a",
+  "abnormal_controls": [
+    {
+      "name": "duplicate_with_empty_stem",
+      "before": {
+        "value": "丙寅"
+      },
+      "after": {
+        "value": "-"
+      }
+    },
+    {
+      "name": "non_array_attributes",
+      "before": {
+        "error": "TypeError"
+      },
+      "after": {
+        "value": "-"
+      }
+    },
+    {
+      "name": "out_of_range_address",
+      "before": {
+        "value": "丙寅"
+      },
+      "after": {
+        "value": "-"
+      }
+    }
+  ],
+  "chart_algorithm_changed": false
+}

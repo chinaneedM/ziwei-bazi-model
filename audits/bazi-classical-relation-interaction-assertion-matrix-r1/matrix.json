@@ -1,0 +1,2102 @@
+{
+  "audit_id": "BAZI-CLASSICAL-RELATION-INTERACTION-ASSERTION-MATRIX-R1",
+  "authority": {
+    "canonical_source_bytes": 3354845,
+    "canonical_source_is_sole_authority": true,
+    "canonical_source_path": "sources/canonical/S14_八字合冲刑害墓库与结构变化库.txt",
+    "canonical_source_sha256": "b225e64fcf7238b27a634e653a6904403d518335aeca59372b32e02f4a560407",
+    "derived_access_is_read_only_lossless_view": true,
+    "prediction_source_selection_allowed": false,
+    "source_access_index_path": "sources/derived-access/S14/index.json",
+    "source_access_index_sha256": "279b0ac42768233bcf5c4620e5dc78f3c96525280bd4bbbedfec5dffa4c32056",
+    "source_id": "S14"
+  },
+  "closed_vocabularies": {
+    "actor_reference_kinds": [
+      "RELATION_PATTERN_ACTOR",
+      "PARTICIPANT_OR_CONTEXT_ACTOR",
+      "UNRESOLVED_ACTOR"
+    ],
+    "alternative_path_signals": [
+      "NONE",
+      "PRESERVE_ALL_COMPATIBLE_EXACT_INSTANCE_PATHS"
+    ],
+    "assertion_classes": [
+      "RESOLUTION_ASSERTION",
+      "REVERSAL_OR_REAPPEARANCE_ASSERTION",
+      "RESOLUTION_FAILURE_ASSERTION",
+      "ATTENUATION_ASSERTION",
+      "PARTICIPANT_ALLOCATION_ASSERTION",
+      "PARTICIPANT_MEDIATED_RELEASE_ASSERTION"
+    ],
+    "multiplicity_signals": [
+      "NONE",
+      "EXPLICIT_SOURCE_MULTIPLICITY_AND_UNRESOLVED_ALLOCATION"
+    ],
+    "neutral_runtime_primitives": [
+      "EXACT_RAW_RELATION_OCCURRENCE_IDENTITY",
+      "EXACT_PARTICIPANT_INSTANCE_IDENTITY",
+      "RELATION_INCIDENCE_DEGREE",
+      "RELATION_PAIR_TOPOLOGY",
+      "EXACT_TEMPORAL_LAYER_FRAME",
+      "RELATION_TRANSITION_SET_CHANGE"
+    ],
+    "source_assertion_roles": [
+      "CONTEXTUAL_QUESTION",
+      "GENERAL_SOURCE_ASSERTION",
+      "EXEMPLIFYING_SOURCE_ASSERTION",
+      "SUMMARY_SOURCE_ASSERTION"
+    ],
+    "target_reference_kinds": [
+      "SOURCE_NAMED_RELATION_OR_EFFECT_TARGET",
+      "UNRESOLVED_TARGET"
+    ],
+    "unresolved_semantic_requirements": [
+      "CLASSICAL_RESOLUTION_SEMANTICS",
+      "CLASSICAL_REVERSAL_OR_REAPPEARANCE_SEMANTICS",
+      "CLASSICAL_RESOLUTION_FAILURE_SEMANTICS",
+      "CLASSICAL_ATTENUATION_GRADE",
+      "CLASSICAL_PARTICIPANT_ALLOCATION",
+      "CLASSICAL_PARTICIPANT_MEDIATED_RELEASE_SEMANTICS",
+      "CLASSICAL_INTERACTION_CHAIN_RESOLUTION",
+      "SOURCE_PATTERN_TO_EXACT_INSTANCE_BINDING",
+      "COMPATIBLE_EXACT_INSTANCE_PATH_ENUMERATION"
+    ]
+  },
+  "determinism": {
+    "artifact_semantics_sha256": "6d9f4cdc4b44b1b6a78f892690ededea9be1e40f436638d8f5f54b6d3e9cb906",
+    "closed_registry_sha256": "7ce621afae4ffe7cac2bac6753b2701a288bd17408f623e2911f27d100aaf93b",
+    "record_hash_chain_sha256": "f32c55a88e8699268ba04fadc0e6f07e26ef79caafe9c75a51f87fd1460d4672",
+    "records_semantics_sha256": "57d85458c8d06e215256c3d07dd3de485474a1e4344022eb8070ca2f68443c86",
+    "source_inventory_sha256": "8c427d901c79e2a6b099668e22d7c7400865aa9bf3a2e5e84c83dbba9bf49014"
+  },
+  "mandatory_source_universe": {
+    "qtbj_explicit_release_source_occurrence_ids": [
+      "QTBJ-CL-05347",
+      "QTBJ-CL-05370"
+    ],
+    "shen_block_counts": {
+      "ZPZQ-B-09-003": 11,
+      "ZPZQ-B-09-005": 2,
+      "ZPZQ-B-09-007": 4,
+      "ZPZQ-B-09-009": 5
+    },
+    "shen_chapter_id": "ZPZQ-CH-09",
+    "shen_chapter_title": "论刑冲会合解法",
+    "shen_source_occurrence_ids": [
+      "ZPZQ-CL-09-003-001",
+      "ZPZQ-CL-09-003-002",
+      "ZPZQ-CL-09-003-003",
+      "ZPZQ-CL-09-003-004",
+      "ZPZQ-CL-09-003-005",
+      "ZPZQ-CL-09-003-006",
+      "ZPZQ-CL-09-003-007",
+      "ZPZQ-CL-09-003-008",
+      "ZPZQ-CL-09-003-009",
+      "ZPZQ-CL-09-003-010",
+      "ZPZQ-CL-09-003-011",
+      "ZPZQ-CL-09-005-001",
+      "ZPZQ-CL-09-005-002",
+      "ZPZQ-CL-09-007-001",
+      "ZPZQ-CL-09-007-002",
+      "ZPZQ-CL-09-007-003",
+      "ZPZQ-CL-09-007-004",
+      "ZPZQ-CL-09-009-001",
+      "ZPZQ-CL-09-009-002",
+      "ZPZQ-CL-09-009-003",
+      "ZPZQ-CL-09-009-004",
+      "ZPZQ-CL-09-009-005"
+    ]
+  },
+  "method": {
+    "algorithm_id": "S14_EXACT_SOURCE_ID_INTERACTION_ASSERTION_NORMALIZATION_R1",
+    "algorithm_version": "1.0.0",
+    "keyword_to_runtime_ontology_compilation_used": false,
+    "multi_assertion_representation": "PRIMARY_PLUS_SORTED_SECONDARY",
+    "qtbj_extension_review": "QTBJ_SOURCE_CLAUSE_ID_PLUS_EXACT_LEXEME_JIEHE_ONLY",
+    "record_order": "MANDATORY_SOURCE_UNIVERSE_ORDER",
+    "source_row_selection": "AUTHORITATIVE_CLAUSE_ROW_WITH_EXACT_SOURCE_TEXT",
+    "source_selection": "CLOSED_EXACT_SOURCE_OCCURRENCE_ID_UNIVERSE"
+  },
+  "neutral_runtime_dependency_registry": {
+    "EXACT_PARTICIPANT_INSTANCE_IDENTITY": {
+      "contract_refs": [
+        "src/fortune_training/bazi_chart/models.py:RelationCandidate.participant_instance_ids",
+        "src/fortune_training/bazi_structural/models.py:DynamicRelationOccurrence.participant_instance_ids"
+      ],
+      "semantic_boundary": "Exact participant identities permit future path enumeration but do not select an actor, target, allocation, or winner."
+    },
+    "EXACT_RAW_RELATION_OCCURRENCE_IDENTITY": {
+      "contract_refs": [
+        "src/fortune_training/bazi_chart/models.py:RelationCandidate.relation_id",
+        "src/fortune_training/bazi_structural/models.py:DynamicRelationOccurrence.relation_id"
+      ],
+      "semantic_boundary": "An immutable released raw relation identity is neutral evidence; its presence is not a Classical operative-effect verdict."
+    },
+    "EXACT_TEMPORAL_LAYER_FRAME": {
+      "contract_refs": [
+        "src/fortune_training/bazi_relation_incidence/models.py:RelationOccurrenceReference.participant_layers",
+        "src/fortune_training/bazi_relation_incidence/models.py:IncidenceParticipantReference.source_frame_id"
+      ],
+      "semantic_boundary": "A typed layer or frame is source-binding evidence and does not activate or suppress a relation."
+    },
+    "RELATION_INCIDENCE_DEGREE": {
+      "contract_refs": [
+        "src/fortune_training/bazi_relation_incidence/models.py:ParticipantRelationIncidenceFact.relation_count"
+      ],
+      "semantic_boundary": "Incidence degree preserves multiplicity only; it is not competition, dominance, or allocation."
+    },
+    "RELATION_PAIR_TOPOLOGY": {
+      "contract_refs": [
+        "src/fortune_training/bazi_relation_incidence/models.py:RelationPairTopologyFact.topology_kind",
+        "src/fortune_training/bazi_relation_incidence/models.py:RelationPairTopologyFact.shared_participant_instance_ids"
+      ],
+      "semantic_boundary": "SHARED_PARTICIPANT and DISJOINT are exact topology only; neither implies competition or a winner."
+    },
+    "RELATION_TRANSITION_SET_CHANGE": {
+      "contract_refs": [
+        "src/fortune_training/bazi_relation_transition/models.py:RawRelationTransitionFact.transition_state"
+      ],
+      "semantic_boundary": "PERSISTING, ENTERED, and EXITED replay raw set change only; EXITED is not Classical resolution."
+    }
+  },
+  "records": [
+    {
+      "access_segment_id": "S14-0023",
+      "access_segment_path": "sources/derived-access/S14/segment-0023.txt",
+      "access_segment_sha256": "64f4e35d88c0a358b8c2bf2a44adbb92e417fe5df384d98f8b830142305fc399",
+      "actor_reference_kind": "RELATION_PATTERN_ACTOR",
+      "canonical_byte_end_exclusive": 1497414,
+      "canonical_byte_start": 1496251,
+      "canonical_line": 4591,
+      "canonical_source_path": "sources/canonical/S14_八字合冲刑害墓库与结构变化库.txt",
+      "canonical_source_sha256": "b225e64fcf7238b27a634e653a6904403d518335aeca59372b32e02f4a560407",
+      "exact_source_text": "八字支中,刑冲俱非美事,而三合六合,可以解之。",
+      "interaction_assertion_id": "BCRIA-R1-ZPZQ-CL-09-003-001",
+      "multiplicity_and_alternative_path": {
+        "allocation_lexemes": [],
+        "alternative_path_signal": "NONE",
+        "exact_instance_selection": "NOT_APPLICABLE",
+        "signal": "NONE",
+        "source_named_multiplicity": []
+      },
+      "neutral_runtime_dependency_map": [
+        {
+          "binding_status": "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY",
+          "primitive": "EXACT_PARTICIPANT_INSTANCE_IDENTITY",
+          "semantic_boundary": "Exact participant identities permit future path enumeration but do not select an actor, target, allocation, or winner."
+        },
+        {
+          "binding_status": "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY",
+          "primitive": "EXACT_RAW_RELATION_OCCURRENCE_IDENTITY",
+          "semantic_boundary": "An immutable released raw relation identity is neutral evidence; its presence is not a Classical operative-effect verdict."
+        },
+        {
+          "binding_status": "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY",
+          "primitive": "RELATION_PAIR_TOPOLOGY",
+          "semantic_boundary": "SHARED_PARTICIPANT and DISJOINT are exact topology only; neither implies competition or a winner."
+        }
+      ],
+      "parent_source_block_id": "ZPZQ-B-09-003",
+      "parent_source_segment_id": null,
+      "primary_assertion_class": "RESOLUTION_ASSERTION",
+      "record_sha256": "40b72c5469b3bb366839610334a464535e911fca56c2eaa7db202cf89adef481",
+      "runtime_semantic_boundary": {
+        "classical_operability_verdict": "NOT_EMITTED",
+        "exact_winner_selection": "NOT_EMITTED",
+        "raw_relation_mutation_allowed": false,
+        "relation_presence_verdict": "NOT_EMITTED"
+      },
+      "secondary_assertion_classes": [],
+      "segment_local_line": 55,
+      "source_assertion_fragments": [
+        "刑冲",
+        "三合六合",
+        "可以解之"
+      ],
+      "source_assertion_role": "GENERAL_SOURCE_ASSERTION",
+      "source_chapter_id": "ZPZQ-CH-09",
+      "source_chapter_title": "论刑冲会合解法",
+      "source_id": "S14",
+      "source_layer": "SHEN_CLASSICAL_SOURCE",
+      "source_named_participant_patterns": [],
+      "source_named_relation_or_effect_patterns": [
+        "刑冲",
+        "三合六合",
+        "可以解之"
+      ],
+      "source_occurrence_id": "ZPZQ-CL-09-003-001",
+      "source_record_format": "JSONL_SOURCE_CLAUSE",
+      "source_record_role": "SOURCE_RULE_CANDIDATE",
+      "source_record_sha256": "2787bcda05265c34f08d5479b1d28b99a6ef47610c4d2ebc65be6864548e041c",
+      "source_text_sha256": "5f1ba335e70252f7e4d1773f312ebf168fd67774bdaf7413320f29ec9726f604",
+      "target_reference_kind": "SOURCE_NAMED_RELATION_OR_EFFECT_TARGET",
+      "unresolved_semantic_requirements": [
+        "CLASSICAL_RESOLUTION_SEMANTICS",
+        "SOURCE_PATTERN_TO_EXACT_INSTANCE_BINDING"
+      ]
+    },
+    {
+      "access_segment_id": "S14-0023",
+      "access_segment_path": "sources/derived-access/S14/segment-0023.txt",
+      "access_segment_sha256": "64f4e35d88c0a358b8c2bf2a44adbb92e417fe5df384d98f8b830142305fc399",
+      "actor_reference_kind": "RELATION_PATTERN_ACTOR",
+      "canonical_byte_end_exclusive": 1498619,
+      "canonical_byte_start": 1497414,
+      "canonical_line": 4592,
+      "canonical_source_path": "sources/canonical/S14_八字合冲刑害墓库与结构变化库.txt",
+      "canonical_source_sha256": "b225e64fcf7238b27a634e653a6904403d518335aeca59372b32e02f4a560407",
+      "exact_source_text": "假如甲生酉月 ,逢卯则冲,而或支中有戌,则卯与戌合而不冲；",
+      "interaction_assertion_id": "BCRIA-R1-ZPZQ-CL-09-003-002",
+      "multiplicity_and_alternative_path": {
+        "allocation_lexemes": [],
+        "alternative_path_signal": "NONE",
+        "exact_instance_selection": "NOT_APPLICABLE",
+        "signal": "NONE",
+        "source_named_multiplicity": []
+      },
+      "neutral_runtime_dependency_map": [
+        {
+          "binding_status": "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY",
+          "primitive": "EXACT_PARTICIPANT_INSTANCE_IDENTITY",
+          "semantic_boundary": "Exact participant identities permit future path enumeration but do not select an actor, target, allocation, or winner."
+        },
+        {
+          "binding_status": "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY",
+          "primitive": "EXACT_RAW_RELATION_OCCURRENCE_IDENTITY",
+          "semantic_boundary": "An immutable released raw relation identity is neutral evidence; its presence is not a Classical operative-effect verdict."
+        },
+        {
+          "binding_status": "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY",
+          "primitive": "EXACT_TEMPORAL_LAYER_FRAME",
+          "semantic_boundary": "A typed layer or frame is source-binding evidence and does not activate or suppress a relation."
+        },
+        {
+          "binding_status": "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY",
+          "primitive": "RELATION_PAIR_TOPOLOGY",
+          "semantic_boundary": "SHARED_PARTICIPANT and DISJOINT are exact topology only; neither implies competition or a winner."
+        }
+      ],
+      "parent_source_block_id": "ZPZQ-B-09-003",
+      "parent_source_segment_id": null,
+      "primary_assertion_class": "RESOLUTION_ASSERTION",
+      "record_sha256": "7bb392a7e29e22cfbe6fa070ca48ebe66422e704d4ce6cf336b1fa1c58c2fa9a",
+      "runtime_semantic_boundary": {
+        "classical_operability_verdict": "NOT_EMITTED",
+        "exact_winner_selection": "NOT_EMITTED",
+        "raw_relation_mutation_allowed": false,
+        "relation_presence_verdict": "NOT_EMITTED"
+      },
+      "secondary_assertion_classes": [],
+      "segment_local_line": 56,
+      "source_assertion_fragments": [
+        "卯则冲",
+        "卯与戌合而不冲"
+      ],
+      "source_assertion_role": "EXEMPLIFYING_SOURCE_ASSERTION",
+      "source_chapter_id": "ZPZQ-CH-09",
+      "source_chapter_title": "论刑冲会合解法",
+      "source_id": "S14",
+      "source_layer": "SHEN_CLASSICAL_SOURCE",
+      "source_named_participant_patterns": [
+        "卯",
+        "戌",
+        "甲",
+        "酉"
+      ],
+      "source_named_relation_or_effect_patterns": [
+        "卯则冲",
+        "卯与戌合而不冲"
+      ],
+      "source_occurrence_id": "ZPZQ-CL-09-003-002",
+      "source_record_format": "JSONL_SOURCE_CLAUSE",
+      "source_record_role": "SOURCE_RULE_CANDIDATE",
+      "source_record_sha256": "c5d848f4cabfbaa1ac7a1627994bc6c45ff963bb30a78aff816dc52d47e2c118",
+      "source_text_sha256": "d2e20a6091b3b88f309d6ad22f67e848d81abbbcc77fbd8f7355b6cac7412594",
+      "target_reference_kind": "SOURCE_NAMED_RELATION_OR_EFFECT_TARGET",
+      "unresolved_semantic_requirements": [
+        "CLASSICAL_RESOLUTION_SEMANTICS",
+        "SOURCE_PATTERN_TO_EXACT_INSTANCE_BINDING"
+      ]
+    },
+    {
+      "access_segment_id": "S14-0023",
+      "access_segment_path": "sources/derived-access/S14/segment-0023.txt",
+      "access_segment_sha256": "64f4e35d88c0a358b8c2bf2a44adbb92e417fe5df384d98f8b830142305fc399",
+      "actor_reference_kind": "RELATION_PATTERN_ACTOR",
+      "canonical_byte_end_exclusive": 1499753,
+      "canonical_byte_start": 1498619,
+      "canonical_line": 4593,
+      "canonical_source_path": "sources/canonical/S14_八字合冲刑害墓库与结构变化库.txt",
+      "canonical_source_sha256": "b225e64fcf7238b27a634e653a6904403d518335aeca59372b32e02f4a560407",
+      "exact_source_text": "有辰,则酉与辰合而不冲；",
+      "interaction_assertion_id": "BCRIA-R1-ZPZQ-CL-09-003-003",
+      "multiplicity_and_alternative_path": {
+        "allocation_lexemes": [],
+        "alternative_path_signal": "NONE",
+        "exact_instance_selection": "NOT_APPLICABLE",
+        "signal": "NONE",
+        "source_named_multiplicity": []
+      },
+      "neutral_runtime_dependency_map": [
+        {
+          "binding_status": "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY",
+          "primitive": "EXACT_PARTICIPANT_INSTANCE_IDENTITY",
+          "semantic_boundary": "Exact participant identities permit future path enumeration but do not select an actor, target, allocation, or winner."
+        },
+        {
+          "binding_status": "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY",
+          "primitive": "EXACT_RAW_RELATION_OCCURRENCE_IDENTITY",
+          "semantic_boundary": "An immutable released raw relation identity is neutral evidence; its presence is not a Classical operative-effect verdict."
+        },
+        {
+          "binding_status": "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY",
+          "primitive": "RELATION_PAIR_TOPOLOGY",
+          "semantic_boundary": "SHARED_PARTICIPANT and DISJOINT are exact topology only; neither implies competition or a winner."
+        }
+      ],
+      "parent_source_block_id": "ZPZQ-B-09-003",
+      "parent_source_segment_id": null,
+      "primary_assertion_class": "RESOLUTION_ASSERTION",
+      "record_sha256": "eb4322c62b4eab99e132025ae0aeb6704ee5b51a89025b7375d8d9e59b1c7121",
+      "runtime_semantic_boundary": {
+        "classical_operability_verdict": "NOT_EMITTED",
+        "exact_winner_selection": "NOT_EMITTED",
+        "raw_relation_mutation_allowed": false,
+        "relation_presence_verdict": "NOT_EMITTED"
+      },
+      "secondary_assertion_classes": [],
+      "segment_local_line": 57,
+      "source_assertion_fragments": [
+        "酉与辰合而不冲"
+      ],
+      "source_assertion_role": "EXEMPLIFYING_SOURCE_ASSERTION",
+      "source_chapter_id": "ZPZQ-CH-09",
+      "source_chapter_title": "论刑冲会合解法",
+      "source_id": "S14",
+      "source_layer": "SHEN_CLASSICAL_SOURCE",
+      "source_named_participant_patterns": [
+        "辰",
+        "酉"
+      ],
+      "source_named_relation_or_effect_patterns": [
+        "酉与辰合而不冲"
+      ],
+      "source_occurrence_id": "ZPZQ-CL-09-003-003",
+      "source_record_format": "JSONL_SOURCE_CLAUSE",
+      "source_record_role": "SOURCE_RULE_CANDIDATE",
+      "source_record_sha256": "1c1fd00074b4719479facf4357a22470a7b8df6601cacfa2fd98ec5b63de6d1d",
+      "source_text_sha256": "dbbbd4ff19b5b4ffebaf6286658809a963c720d5883057217e1eba1e14b81c19",
+      "target_reference_kind": "SOURCE_NAMED_RELATION_OR_EFFECT_TARGET",
+      "unresolved_semantic_requirements": [
+        "CLASSICAL_RESOLUTION_SEMANTICS",
+        "SOURCE_PATTERN_TO_EXACT_INSTANCE_BINDING"
+      ]
+    },
+    {
+      "access_segment_id": "S14-0024",
+      "access_segment_path": "sources/derived-access/S14/segment-0024.txt",
+      "access_segment_sha256": "0446ec391395cf5a52cc6ea8ef35ca262b5561cf555c30f9009778924ced5da4",
+      "actor_reference_kind": "RELATION_PATTERN_ACTOR",
+      "canonical_byte_end_exclusive": 1500896,
+      "canonical_byte_start": 1499753,
+      "canonical_line": 4594,
+      "canonical_source_path": "sources/canonical/S14_八字合冲刑害墓库与结构变化库.txt",
+      "canonical_source_sha256": "b225e64fcf7238b27a634e653a6904403d518335aeca59372b32e02f4a560407",
+      "exact_source_text": "有亥与未,则卯与亥未会而不冲；",
+      "interaction_assertion_id": "BCRIA-R1-ZPZQ-CL-09-003-004",
+      "multiplicity_and_alternative_path": {
+        "allocation_lexemes": [],
+        "alternative_path_signal": "NONE",
+        "exact_instance_selection": "NOT_APPLICABLE",
+        "signal": "NONE",
+        "source_named_multiplicity": []
+      },
+      "neutral_runtime_dependency_map": [
+        {
+          "binding_status": "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY",
+          "primitive": "EXACT_PARTICIPANT_INSTANCE_IDENTITY",
+          "semantic_boundary": "Exact participant identities permit future path enumeration but do not select an actor, target, allocation, or winner."
+        },
+        {
+          "binding_status": "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY",
+          "primitive": "EXACT_RAW_RELATION_OCCURRENCE_IDENTITY",
+          "semantic_boundary": "An immutable released raw relation identity is neutral evidence; its presence is not a Classical operative-effect verdict."
+        },
+        {
+          "binding_status": "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY",
+          "primitive": "RELATION_PAIR_TOPOLOGY",
+          "semantic_boundary": "SHARED_PARTICIPANT and DISJOINT are exact topology only; neither implies competition or a winner."
+        }
+      ],
+      "parent_source_block_id": "ZPZQ-B-09-003",
+      "parent_source_segment_id": null,
+      "primary_assertion_class": "RESOLUTION_ASSERTION",
+      "record_sha256": "754b91e7ee149aa05d770c7dc92670b41e91c2b49d5e4326ffd0959e9da816d6",
+      "runtime_semantic_boundary": {
+        "classical_operability_verdict": "NOT_EMITTED",
+        "exact_winner_selection": "NOT_EMITTED",
+        "raw_relation_mutation_allowed": false,
+        "relation_presence_verdict": "NOT_EMITTED"
+      },
+      "secondary_assertion_classes": [],
+      "segment_local_line": 1,
+      "source_assertion_fragments": [
+        "卯与亥未会而不冲"
+      ],
+      "source_assertion_role": "EXEMPLIFYING_SOURCE_ASSERTION",
+      "source_chapter_id": "ZPZQ-CH-09",
+      "source_chapter_title": "论刑冲会合解法",
+      "source_id": "S14",
+      "source_layer": "SHEN_CLASSICAL_SOURCE",
+      "source_named_participant_patterns": [
+        "亥",
+        "卯",
+        "未"
+      ],
+      "source_named_relation_or_effect_patterns": [
+        "卯与亥未会而不冲"
+      ],
+      "source_occurrence_id": "ZPZQ-CL-09-003-004",
+      "source_record_format": "JSONL_SOURCE_CLAUSE",
+      "source_record_role": "SOURCE_RULE_CANDIDATE",
+      "source_record_sha256": "d3fa5a81a4e4405ee7d1629a5228057ea0f43ecda8b06ec155db23752cd50a5f",
+      "source_text_sha256": "7570043d584f73312244a8f6a4e32173c2cbf070e18ac9835227a5f69fcee652",
+      "target_reference_kind": "SOURCE_NAMED_RELATION_OR_EFFECT_TARGET",
+      "unresolved_semantic_requirements": [
+        "CLASSICAL_RESOLUTION_SEMANTICS",
+        "SOURCE_PATTERN_TO_EXACT_INSTANCE_BINDING"
+      ]
+    },
+    {
+      "access_segment_id": "S14-0024",
+      "access_segment_path": "sources/derived-access/S14/segment-0024.txt",
+      "access_segment_sha256": "0446ec391395cf5a52cc6ea8ef35ca262b5561cf555c30f9009778924ced5da4",
+      "actor_reference_kind": "RELATION_PATTERN_ACTOR",
+      "canonical_byte_end_exclusive": 1502039,
+      "canonical_byte_start": 1500896,
+      "canonical_line": 4595,
+      "canonical_source_path": "sources/canonical/S14_八字合冲刑害墓库与结构变化库.txt",
+      "canonical_source_sha256": "b225e64fcf7238b27a634e653a6904403d518335aeca59372b32e02f4a560407",
+      "exact_source_text": "有巳与丑,则酉与巳丑会而不冲。",
+      "interaction_assertion_id": "BCRIA-R1-ZPZQ-CL-09-003-005",
+      "multiplicity_and_alternative_path": {
+        "allocation_lexemes": [],
+        "alternative_path_signal": "NONE",
+        "exact_instance_selection": "NOT_APPLICABLE",
+        "signal": "NONE",
+        "source_named_multiplicity": []
+      },
+      "neutral_runtime_dependency_map": [
+        {
+          "binding_status": "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY",
+          "primitive": "EXACT_PARTICIPANT_INSTANCE_IDENTITY",
+          "semantic_boundary": "Exact participant identities permit future path enumeration but do not select an actor, target, allocation, or winner."
+        },
+        {
+          "binding_status": "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY",
+          "primitive": "EXACT_RAW_RELATION_OCCURRENCE_IDENTITY",
+          "semantic_boundary": "An immutable released raw relation identity is neutral evidence; its presence is not a Classical operative-effect verdict."
+        },
+        {
+          "binding_status": "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY",
+          "primitive": "RELATION_PAIR_TOPOLOGY",
+          "semantic_boundary": "SHARED_PARTICIPANT and DISJOINT are exact topology only; neither implies competition or a winner."
+        }
+      ],
+      "parent_source_block_id": "ZPZQ-B-09-003",
+      "parent_source_segment_id": null,
+      "primary_assertion_class": "RESOLUTION_ASSERTION",
+      "record_sha256": "f724adac49d603d9550db0013af9fe0e37542b5804e927df568964b8cb5a0530",
+      "runtime_semantic_boundary": {
+        "classical_operability_verdict": "NOT_EMITTED",
+        "exact_winner_selection": "NOT_EMITTED",
+        "raw_relation_mutation_allowed": false,
+        "relation_presence_verdict": "NOT_EMITTED"
+      },
+      "secondary_assertion_classes": [],
+      "segment_local_line": 2,
+      "source_assertion_fragments": [
+        "酉与巳丑会而不冲"
+      ],
+      "source_assertion_role": "EXEMPLIFYING_SOURCE_ASSERTION",
+      "source_chapter_id": "ZPZQ-CH-09",
+      "source_chapter_title": "论刑冲会合解法",
+      "source_id": "S14",
+      "source_layer": "SHEN_CLASSICAL_SOURCE",
+      "source_named_participant_patterns": [
+        "丑",
+        "巳",
+        "酉"
+      ],
+      "source_named_relation_or_effect_patterns": [
+        "酉与巳丑会而不冲"
+      ],
+      "source_occurrence_id": "ZPZQ-CL-09-003-005",
+      "source_record_format": "JSONL_SOURCE_CLAUSE",
+      "source_record_role": "SOURCE_RULE_CANDIDATE",
+      "source_record_sha256": "1a48b8ed979b37d3ea13ebfd4b67d8d1a47908e7a42f2f8a8ee2012b6354df6d",
+      "source_text_sha256": "a5670602eaa2f5288cd373e6e8684d5c9bd1050d622d76703280c5df757c3007",
+      "target_reference_kind": "SOURCE_NAMED_RELATION_OR_EFFECT_TARGET",
+      "unresolved_semantic_requirements": [
+        "CLASSICAL_RESOLUTION_SEMANTICS",
+        "SOURCE_PATTERN_TO_EXACT_INSTANCE_BINDING"
+      ]
+    },
+    {
+      "access_segment_id": "S14-0024",
+      "access_segment_path": "sources/derived-access/S14/segment-0024.txt",
+      "access_segment_sha256": "0446ec391395cf5a52cc6ea8ef35ca262b5561cf555c30f9009778924ced5da4",
+      "actor_reference_kind": "RELATION_PATTERN_ACTOR",
+      "canonical_byte_end_exclusive": 1503156,
+      "canonical_byte_start": 1502039,
+      "canonical_line": 4596,
+      "canonical_source_path": "sources/canonical/S14_八字合冲刑害墓库与结构变化库.txt",
+      "canonical_source_sha256": "b225e64fcf7238b27a634e653a6904403d518335aeca59372b32e02f4a560407",
+      "exact_source_text": "是会合可以解冲也。",
+      "interaction_assertion_id": "BCRIA-R1-ZPZQ-CL-09-003-006",
+      "multiplicity_and_alternative_path": {
+        "allocation_lexemes": [],
+        "alternative_path_signal": "NONE",
+        "exact_instance_selection": "NOT_APPLICABLE",
+        "signal": "NONE",
+        "source_named_multiplicity": []
+      },
+      "neutral_runtime_dependency_map": [
+        {
+          "binding_status": "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY",
+          "primitive": "EXACT_PARTICIPANT_INSTANCE_IDENTITY",
+          "semantic_boundary": "Exact participant identities permit future path enumeration but do not select an actor, target, allocation, or winner."
+        },
+        {
+          "binding_status": "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY",
+          "primitive": "EXACT_RAW_RELATION_OCCURRENCE_IDENTITY",
+          "semantic_boundary": "An immutable released raw relation identity is neutral evidence; its presence is not a Classical operative-effect verdict."
+        },
+        {
+          "binding_status": "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY",
+          "primitive": "RELATION_PAIR_TOPOLOGY",
+          "semantic_boundary": "SHARED_PARTICIPANT and DISJOINT are exact topology only; neither implies competition or a winner."
+        }
+      ],
+      "parent_source_block_id": "ZPZQ-B-09-003",
+      "parent_source_segment_id": null,
+      "primary_assertion_class": "RESOLUTION_ASSERTION",
+      "record_sha256": "51df4061afdb2371c14be30b4341d3be0107c13034acfd9f039fa5af3b22d73f",
+      "runtime_semantic_boundary": {
+        "classical_operability_verdict": "NOT_EMITTED",
+        "exact_winner_selection": "NOT_EMITTED",
+        "raw_relation_mutation_allowed": false,
+        "relation_presence_verdict": "NOT_EMITTED"
+      },
+      "secondary_assertion_classes": [],
+      "segment_local_line": 3,
+      "source_assertion_fragments": [
+        "会合可以解冲"
+      ],
+      "source_assertion_role": "SUMMARY_SOURCE_ASSERTION",
+      "source_chapter_id": "ZPZQ-CH-09",
+      "source_chapter_title": "论刑冲会合解法",
+      "source_id": "S14",
+      "source_layer": "SHEN_CLASSICAL_SOURCE",
+      "source_named_participant_patterns": [],
+      "source_named_relation_or_effect_patterns": [
+        "会合可以解冲"
+      ],
+      "source_occurrence_id": "ZPZQ-CL-09-003-006",
+      "source_record_format": "JSONL_SOURCE_CLAUSE",
+      "source_record_role": "SOURCE_RULE_CANDIDATE",
+      "source_record_sha256": "1b0cf50975027c9b725a49f554c44fa2a1d21b639a2a35bb57081ad267975ecd",
+      "source_text_sha256": "a6ae7d73a1304991dd8a9fa185320623c97c70c5696c26f85416b8fa9ad20150",
+      "target_reference_kind": "SOURCE_NAMED_RELATION_OR_EFFECT_TARGET",
+      "unresolved_semantic_requirements": [
+        "CLASSICAL_RESOLUTION_SEMANTICS",
+        "SOURCE_PATTERN_TO_EXACT_INSTANCE_BINDING"
+      ]
+    },
+    {
+      "access_segment_id": "S14-0024",
+      "access_segment_path": "sources/derived-access/S14/segment-0024.txt",
+      "access_segment_sha256": "0446ec391395cf5a52cc6ea8ef35ca262b5561cf555c30f9009778924ced5da4",
+      "actor_reference_kind": "RELATION_PATTERN_ACTOR",
+      "canonical_byte_end_exclusive": 1504362,
+      "canonical_byte_start": 1503156,
+      "canonical_line": 4597,
+      "canonical_source_path": "sources/canonical/S14_八字合冲刑害墓库与结构变化库.txt",
+      "canonical_source_sha256": "b225e64fcf7238b27a634e653a6904403d518335aeca59372b32e02f4a560407",
+      "exact_source_text": "又如丙生子月 ,逢卯则刑,而或支中有戌,则与戌合而不刑；",
+      "interaction_assertion_id": "BCRIA-R1-ZPZQ-CL-09-003-007",
+      "multiplicity_and_alternative_path": {
+        "allocation_lexemes": [],
+        "alternative_path_signal": "NONE",
+        "exact_instance_selection": "NOT_APPLICABLE",
+        "signal": "NONE",
+        "source_named_multiplicity": []
+      },
+      "neutral_runtime_dependency_map": [
+        {
+          "binding_status": "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY",
+          "primitive": "EXACT_PARTICIPANT_INSTANCE_IDENTITY",
+          "semantic_boundary": "Exact participant identities permit future path enumeration but do not select an actor, target, allocation, or winner."
+        },
+        {
+          "binding_status": "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY",
+          "primitive": "EXACT_RAW_RELATION_OCCURRENCE_IDENTITY",
+          "semantic_boundary": "An immutable released raw relation identity is neutral evidence; its presence is not a Classical operative-effect verdict."
+        },
+        {
+          "binding_status": "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY",
+          "primitive": "EXACT_TEMPORAL_LAYER_FRAME",
+          "semantic_boundary": "A typed layer or frame is source-binding evidence and does not activate or suppress a relation."
+        },
+        {
+          "binding_status": "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY",
+          "primitive": "RELATION_PAIR_TOPOLOGY",
+          "semantic_boundary": "SHARED_PARTICIPANT and DISJOINT are exact topology only; neither implies competition or a winner."
+        }
+      ],
+      "parent_source_block_id": "ZPZQ-B-09-003",
+      "parent_source_segment_id": null,
+      "primary_assertion_class": "RESOLUTION_ASSERTION",
+      "record_sha256": "5490f65cf8e454d6667cf67ac018e1cbf86740df90dfda7b24fb28338456763f",
+      "runtime_semantic_boundary": {
+        "classical_operability_verdict": "NOT_EMITTED",
+        "exact_winner_selection": "NOT_EMITTED",
+        "raw_relation_mutation_allowed": false,
+        "relation_presence_verdict": "NOT_EMITTED"
+      },
+      "secondary_assertion_classes": [],
+      "segment_local_line": 4,
+      "source_assertion_fragments": [
+        "逢卯则刑",
+        "与戌合而不刑"
+      ],
+      "source_assertion_role": "EXEMPLIFYING_SOURCE_ASSERTION",
+      "source_chapter_id": "ZPZQ-CH-09",
+      "source_chapter_title": "论刑冲会合解法",
+      "source_id": "S14",
+      "source_layer": "SHEN_CLASSICAL_SOURCE",
+      "source_named_participant_patterns": [
+        "丙",
+        "卯",
+        "子",
+        "戌"
+      ],
+      "source_named_relation_or_effect_patterns": [
+        "逢卯则刑",
+        "与戌合而不刑"
+      ],
+      "source_occurrence_id": "ZPZQ-CL-09-003-007",
+      "source_record_format": "JSONL_SOURCE_CLAUSE",
+      "source_record_role": "SOURCE_RULE_CANDIDATE",
+      "source_record_sha256": "ba8b9979f489822aa2544ecfd264c476d0db4879d1e43ba3e3f10242c4d28873",
+      "source_text_sha256": "b9f6d38896c01c1dec3808ad742decfc6d61daa1606936d7c625f68c6ef2070a",
+      "target_reference_kind": "SOURCE_NAMED_RELATION_OR_EFFECT_TARGET",
+      "unresolved_semantic_requirements": [
+        "CLASSICAL_RESOLUTION_SEMANTICS",
+        "SOURCE_PATTERN_TO_EXACT_INSTANCE_BINDING"
+      ]
+    },
+    {
+      "access_segment_id": "S14-0024",
+      "access_segment_path": "sources/derived-access/S14/segment-0024.txt",
+      "access_segment_sha256": "0446ec391395cf5a52cc6ea8ef35ca262b5561cf555c30f9009778924ced5da4",
+      "actor_reference_kind": "RELATION_PATTERN_ACTOR",
+      "canonical_byte_end_exclusive": 1505512,
+      "canonical_byte_start": 1504362,
+      "canonical_line": 4598,
+      "canonical_source_path": "sources/canonical/S14_八字合冲刑害墓库与结构变化库.txt",
+      "canonical_source_sha256": "b225e64fcf7238b27a634e653a6904403d518335aeca59372b32e02f4a560407",
+      "exact_source_text": "有丑,则子与丑合而不刑；",
+      "interaction_assertion_id": "BCRIA-R1-ZPZQ-CL-09-003-008",
+      "multiplicity_and_alternative_path": {
+        "allocation_lexemes": [],
+        "alternative_path_signal": "NONE",
+        "exact_instance_selection": "NOT_APPLICABLE",
+        "signal": "NONE",
+        "source_named_multiplicity": []
+      },
+      "neutral_runtime_dependency_map": [
+        {
+          "binding_status": "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY",
+          "primitive": "EXACT_PARTICIPANT_INSTANCE_IDENTITY",
+          "semantic_boundary": "Exact participant identities permit future path enumeration but do not select an actor, target, allocation, or winner."
+        },
+        {
+          "binding_status": "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY",
+          "primitive": "EXACT_RAW_RELATION_OCCURRENCE_IDENTITY",
+          "semantic_boundary": "An immutable released raw relation identity is neutral evidence; its presence is not a Classical operative-effect verdict."
+        },
+        {
+          "binding_status": "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY",
+          "primitive": "RELATION_PAIR_TOPOLOGY",
+          "semantic_boundary": "SHARED_PARTICIPANT and DISJOINT are exact topology only; neither implies competition or a winner."
+        }
+      ],
+      "parent_source_block_id": "ZPZQ-B-09-003",
+      "parent_source_segment_id": null,
+      "primary_assertion_class": "RESOLUTION_ASSERTION",
+      "record_sha256": "7267e32a2b565d3efba136b5061eb6177f08865f75a4b3e7ed8b4b225c8b518d",
+      "runtime_semantic_boundary": {
+        "classical_operability_verdict": "NOT_EMITTED",
+        "exact_winner_selection": "NOT_EMITTED",
+        "raw_relation_mutation_allowed": false,
+        "relation_presence_verdict": "NOT_EMITTED"
+      },
+      "secondary_assertion_classes": [],
+      "segment_local_line": 5,
+      "source_assertion_fragments": [
+        "子与丑合而不刑"
+      ],
+      "source_assertion_role": "EXEMPLIFYING_SOURCE_ASSERTION",
+      "source_chapter_id": "ZPZQ-CH-09",
+      "source_chapter_title": "论刑冲会合解法",
+      "source_id": "S14",
+      "source_layer": "SHEN_CLASSICAL_SOURCE",
+      "source_named_participant_patterns": [
+        "丑",
+        "子"
+      ],
+      "source_named_relation_or_effect_patterns": [
+        "子与丑合而不刑"
+      ],
+      "source_occurrence_id": "ZPZQ-CL-09-003-008",
+      "source_record_format": "JSONL_SOURCE_CLAUSE",
+      "source_record_role": "SOURCE_RULE_CANDIDATE",
+      "source_record_sha256": "69647797e785f9ccaadae905d5c172f5c8924fc31111875d3edb72cd7fec651d",
+      "source_text_sha256": "94b72c3a7b81d682dfb6f582aff10e4a8a08dde7e27f9b42a120c938ce8c2eb5",
+      "target_reference_kind": "SOURCE_NAMED_RELATION_OR_EFFECT_TARGET",
+      "unresolved_semantic_requirements": [
+        "CLASSICAL_RESOLUTION_SEMANTICS",
+        "SOURCE_PATTERN_TO_EXACT_INSTANCE_BINDING"
+      ]
+    },
+    {
+      "access_segment_id": "S14-0024",
+      "access_segment_path": "sources/derived-access/S14/segment-0024.txt",
+      "access_segment_sha256": "0446ec391395cf5a52cc6ea8ef35ca262b5561cf555c30f9009778924ced5da4",
+      "actor_reference_kind": "RELATION_PATTERN_ACTOR",
+      "canonical_byte_end_exclusive": 1506655,
+      "canonical_byte_start": 1505512,
+      "canonical_line": 4599,
+      "canonical_source_path": "sources/canonical/S14_八字合冲刑害墓库与结构变化库.txt",
+      "canonical_source_sha256": "b225e64fcf7238b27a634e653a6904403d518335aeca59372b32e02f4a560407",
+      "exact_source_text": "有亥与未,则卯与亥未会而不刑；",
+      "interaction_assertion_id": "BCRIA-R1-ZPZQ-CL-09-003-009",
+      "multiplicity_and_alternative_path": {
+        "allocation_lexemes": [],
+        "alternative_path_signal": "NONE",
+        "exact_instance_selection": "NOT_APPLICABLE",
+        "signal": "NONE",
+        "source_named_multiplicity": []
+      },
+      "neutral_runtime_dependency_map": [
+        {
+          "binding_status": "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY",
+          "primitive": "EXACT_PARTICIPANT_INSTANCE_IDENTITY",
+          "semantic_boundary": "Exact participant identities permit future path enumeration but do not select an actor, target, allocation, or winner."
+        },
+        {
+          "binding_status": "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY",
+          "primitive": "EXACT_RAW_RELATION_OCCURRENCE_IDENTITY",
+          "semantic_boundary": "An immutable released raw relation identity is neutral evidence; its presence is not a Classical operative-effect verdict."
+        },
+        {
+          "binding_status": "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY",
+          "primitive": "RELATION_PAIR_TOPOLOGY",
+          "semantic_boundary": "SHARED_PARTICIPANT and DISJOINT are exact topology only; neither implies competition or a winner."
+        }
+      ],
+      "parent_source_block_id": "ZPZQ-B-09-003",
+      "parent_source_segment_id": null,
+      "primary_assertion_class": "RESOLUTION_ASSERTION",
+      "record_sha256": "ef83a1f1f3fbd38959715796cb6adf0c193b0e38761b0a9839ea776c2efb6214",
+      "runtime_semantic_boundary": {
+        "classical_operability_verdict": "NOT_EMITTED",
+        "exact_winner_selection": "NOT_EMITTED",
+        "raw_relation_mutation_allowed": false,
+        "relation_presence_verdict": "NOT_EMITTED"
+      },
+      "secondary_assertion_classes": [],
+      "segment_local_line": 6,
+      "source_assertion_fragments": [
+        "卯与亥未会而不刑"
+      ],
+      "source_assertion_role": "EXEMPLIFYING_SOURCE_ASSERTION",
+      "source_chapter_id": "ZPZQ-CH-09",
+      "source_chapter_title": "论刑冲会合解法",
+      "source_id": "S14",
+      "source_layer": "SHEN_CLASSICAL_SOURCE",
+      "source_named_participant_patterns": [
+        "亥",
+        "卯",
+        "未"
+      ],
+      "source_named_relation_or_effect_patterns": [
+        "卯与亥未会而不刑"
+      ],
+      "source_occurrence_id": "ZPZQ-CL-09-003-009",
+      "source_record_format": "JSONL_SOURCE_CLAUSE",
+      "source_record_role": "SOURCE_RULE_CANDIDATE",
+      "source_record_sha256": "150aafabe464842802300670f5e61e54d26bc48185c6593e9ebab73b89f5bb95",
+      "source_text_sha256": "db68f97cf9418bcd939ef2137c363c925201ed83ed66bfa060482b2a0698ca09",
+      "target_reference_kind": "SOURCE_NAMED_RELATION_OR_EFFECT_TARGET",
+      "unresolved_semantic_requirements": [
+        "CLASSICAL_RESOLUTION_SEMANTICS",
+        "SOURCE_PATTERN_TO_EXACT_INSTANCE_BINDING"
+      ]
+    },
+    {
+      "access_segment_id": "S14-0024",
+      "access_segment_path": "sources/derived-access/S14/segment-0024.txt",
+      "access_segment_sha256": "0446ec391395cf5a52cc6ea8ef35ca262b5561cf555c30f9009778924ced5da4",
+      "actor_reference_kind": "RELATION_PATTERN_ACTOR",
+      "canonical_byte_end_exclusive": 1507814,
+      "canonical_byte_start": 1506655,
+      "canonical_line": 4600,
+      "canonical_source_path": "sources/canonical/S14_八字合冲刑害墓库与结构变化库.txt",
+      "canonical_source_sha256": "b225e64fcf7238b27a634e653a6904403d518335aeca59372b32e02f4a560407",
+      "exact_source_text": "有申与辰,则子与申辰会而不刑。",
+      "interaction_assertion_id": "BCRIA-R1-ZPZQ-CL-09-003-010",
+      "multiplicity_and_alternative_path": {
+        "allocation_lexemes": [],
+        "alternative_path_signal": "NONE",
+        "exact_instance_selection": "NOT_APPLICABLE",
+        "signal": "NONE",
+        "source_named_multiplicity": []
+      },
+      "neutral_runtime_dependency_map": [
+        {
+          "binding_status": "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY",
+          "primitive": "EXACT_PARTICIPANT_INSTANCE_IDENTITY",
+          "semantic_boundary": "Exact participant identities permit future path enumeration but do not select an actor, target, allocation, or winner."
+        },
+        {
+          "binding_status": "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY",
+          "primitive": "EXACT_RAW_RELATION_OCCURRENCE_IDENTITY",
+          "semantic_boundary": "An immutable released raw relation identity is neutral evidence; its presence is not a Classical operative-effect verdict."
+        },
+        {
+          "binding_status": "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY",
+          "primitive": "RELATION_PAIR_TOPOLOGY",
+          "semantic_boundary": "SHARED_PARTICIPANT and DISJOINT are exact topology only; neither implies competition or a winner."
+        }
+      ],
+      "parent_source_block_id": "ZPZQ-B-09-003",
+      "parent_source_segment_id": null,
+      "primary_assertion_class": "RESOLUTION_ASSERTION",
+      "record_sha256": "a1bf154b0c3ad492dccc8662ee59c0e73a25fd1f5891703a35398003c1b625e7",
+      "runtime_semantic_boundary": {
+        "classical_operability_verdict": "NOT_EMITTED",
+        "exact_winner_selection": "NOT_EMITTED",
+        "raw_relation_mutation_allowed": false,
+        "relation_presence_verdict": "NOT_EMITTED"
+      },
+      "secondary_assertion_classes": [],
+      "segment_local_line": 7,
+      "source_assertion_fragments": [
+        "子与申辰会而不刑"
+      ],
+      "source_assertion_role": "EXEMPLIFYING_SOURCE_ASSERTION",
+      "source_chapter_id": "ZPZQ-CH-09",
+      "source_chapter_title": "论刑冲会合解法",
+      "source_id": "S14",
+      "source_layer": "SHEN_CLASSICAL_SOURCE",
+      "source_named_participant_patterns": [
+        "子",
+        "申",
+        "辰"
+      ],
+      "source_named_relation_or_effect_patterns": [
+        "子与申辰会而不刑"
+      ],
+      "source_occurrence_id": "ZPZQ-CL-09-003-010",
+      "source_record_format": "JSONL_SOURCE_CLAUSE",
+      "source_record_role": "SOURCE_RULE_CANDIDATE",
+      "source_record_sha256": "4618c85db00872d0e88de17971d6422e489698eb4acc1cab0b7a048cb66be981",
+      "source_text_sha256": "c2b11ee372dfe47ce95190f17bc5b4c9b3095400b8f991b7c117dabdec941406",
+      "target_reference_kind": "SOURCE_NAMED_RELATION_OR_EFFECT_TARGET",
+      "unresolved_semantic_requirements": [
+        "CLASSICAL_RESOLUTION_SEMANTICS",
+        "SOURCE_PATTERN_TO_EXACT_INSTANCE_BINDING"
+      ]
+    },
+    {
+      "access_segment_id": "S14-0024",
+      "access_segment_path": "sources/derived-access/S14/segment-0024.txt",
+      "access_segment_sha256": "0446ec391395cf5a52cc6ea8ef35ca262b5561cf555c30f9009778924ced5da4",
+      "actor_reference_kind": "RELATION_PATTERN_ACTOR",
+      "canonical_byte_end_exclusive": 1508931,
+      "canonical_byte_start": 1507814,
+      "canonical_line": 4601,
+      "canonical_source_path": "sources/canonical/S14_八字合冲刑害墓库与结构变化库.txt",
+      "canonical_source_sha256": "b225e64fcf7238b27a634e653a6904403d518335aeca59372b32e02f4a560407",
+      "exact_source_text": "是会合可以解刑也。",
+      "interaction_assertion_id": "BCRIA-R1-ZPZQ-CL-09-003-011",
+      "multiplicity_and_alternative_path": {
+        "allocation_lexemes": [],
+        "alternative_path_signal": "NONE",
+        "exact_instance_selection": "NOT_APPLICABLE",
+        "signal": "NONE",
+        "source_named_multiplicity": []
+      },
+      "neutral_runtime_dependency_map": [
+        {
+          "binding_status": "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY",
+          "primitive": "EXACT_PARTICIPANT_INSTANCE_IDENTITY",
+          "semantic_boundary": "Exact participant identities permit future path enumeration but do not select an actor, target, allocation, or winner."
+        },
+        {
+          "binding_status": "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY",
+          "primitive": "EXACT_RAW_RELATION_OCCURRENCE_IDENTITY",
+          "semantic_boundary": "An immutable released raw relation identity is neutral evidence; its presence is not a Classical operative-effect verdict."
+        },
+        {
+          "binding_status": "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY",
+          "primitive": "RELATION_PAIR_TOPOLOGY",
+          "semantic_boundary": "SHARED_PARTICIPANT and DISJOINT are exact topology only; neither implies competition or a winner."
+        }
+      ],
+      "parent_source_block_id": "ZPZQ-B-09-003",
+      "parent_source_segment_id": null,
+      "primary_assertion_class": "RESOLUTION_ASSERTION",
+      "record_sha256": "c4b83e2f9628207143bae5629524b4f04dacf62ce7c5a4962ed318532996f318",
+      "runtime_semantic_boundary": {
+        "classical_operability_verdict": "NOT_EMITTED",
+        "exact_winner_selection": "NOT_EMITTED",
+        "raw_relation_mutation_allowed": false,
+        "relation_presence_verdict": "NOT_EMITTED"
+      },
+      "secondary_assertion_classes": [],
+      "segment_local_line": 8,
+      "source_assertion_fragments": [
+        "会合可以解刑"
+      ],
+      "source_assertion_role": "SUMMARY_SOURCE_ASSERTION",
+      "source_chapter_id": "ZPZQ-CH-09",
+      "source_chapter_title": "论刑冲会合解法",
+      "source_id": "S14",
+      "source_layer": "SHEN_CLASSICAL_SOURCE",
+      "source_named_participant_patterns": [],
+      "source_named_relation_or_effect_patterns": [
+        "会合可以解刑"
+      ],
+      "source_occurrence_id": "ZPZQ-CL-09-003-011",
+      "source_record_format": "JSONL_SOURCE_CLAUSE",
+      "source_record_role": "SOURCE_RULE_CANDIDATE",
+      "source_record_sha256": "032a30a3a1a737f1d396814942944062a120a908a82ff88550ade3f4d49eec68",
+      "source_text_sha256": "30ae521e0fc68062e7a1ea6e39e6afb2c5a48e5ac798489c51b81aec561ceef4",
+      "target_reference_kind": "SOURCE_NAMED_RELATION_OR_EFFECT_TARGET",
+      "unresolved_semantic_requirements": [
+        "CLASSICAL_RESOLUTION_SEMANTICS",
+        "SOURCE_PATTERN_TO_EXACT_INSTANCE_BINDING"
+      ]
+    },
+    {
+      "access_segment_id": "S14-0024",
+      "access_segment_path": "sources/derived-access/S14/segment-0024.txt",
+      "access_segment_sha256": "0446ec391395cf5a52cc6ea8ef35ca262b5561cf555c30f9009778924ced5da4",
+      "actor_reference_kind": "UNRESOLVED_ACTOR",
+      "canonical_byte_end_exclusive": 1523696,
+      "canonical_byte_start": 1522558,
+      "canonical_line": 4614,
+      "canonical_source_path": "sources/canonical/S14_八字合冲刑害墓库与结构变化库.txt",
+      "canonical_source_sha256": "b225e64fcf7238b27a634e653a6904403d518335aeca59372b32e02f4a560407",
+      "exact_source_text": "又有因解而反得刑冲者,何也？",
+      "interaction_assertion_id": "BCRIA-R1-ZPZQ-CL-09-005-001",
+      "multiplicity_and_alternative_path": {
+        "allocation_lexemes": [],
+        "alternative_path_signal": "NONE",
+        "exact_instance_selection": "NOT_APPLICABLE",
+        "signal": "NONE",
+        "source_named_multiplicity": []
+      },
+      "neutral_runtime_dependency_map": [
+        {
+          "binding_status": "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY",
+          "primitive": "EXACT_PARTICIPANT_INSTANCE_IDENTITY",
+          "semantic_boundary": "Exact participant identities permit future path enumeration but do not select an actor, target, allocation, or winner."
+        },
+        {
+          "binding_status": "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY",
+          "primitive": "EXACT_RAW_RELATION_OCCURRENCE_IDENTITY",
+          "semantic_boundary": "An immutable released raw relation identity is neutral evidence; its presence is not a Classical operative-effect verdict."
+        }
+      ],
+      "parent_source_block_id": "ZPZQ-B-09-005",
+      "parent_source_segment_id": null,
+      "primary_assertion_class": "REVERSAL_OR_REAPPEARANCE_ASSERTION",
+      "record_sha256": "89cb5a18c3c4be18dc5e4fbda391481783e1ef6ec8e2993f5929884767d3b36c",
+      "runtime_semantic_boundary": {
+        "classical_operability_verdict": "NOT_EMITTED",
+        "exact_winner_selection": "NOT_EMITTED",
+        "raw_relation_mutation_allowed": false,
+        "relation_presence_verdict": "NOT_EMITTED"
+      },
+      "secondary_assertion_classes": [],
+      "segment_local_line": 21,
+      "source_assertion_fragments": [
+        "因解而反得刑冲"
+      ],
+      "source_assertion_role": "CONTEXTUAL_QUESTION",
+      "source_chapter_id": "ZPZQ-CH-09",
+      "source_chapter_title": "论刑冲会合解法",
+      "source_id": "S14",
+      "source_layer": "SHEN_CLASSICAL_SOURCE",
+      "source_named_participant_patterns": [],
+      "source_named_relation_or_effect_patterns": [
+        "因解而反得刑冲"
+      ],
+      "source_occurrence_id": "ZPZQ-CL-09-005-001",
+      "source_record_format": "JSONL_SOURCE_CLAUSE",
+      "source_record_role": "SOURCE_RULE_CANDIDATE",
+      "source_record_sha256": "1186c65541851df78b17880ada73c08e872313536dec6978e7d1f20d4ae73695",
+      "source_text_sha256": "a47b7b1b8c63fe72b9dc9401915376a5c822f583be846e10c2ada0840af7f27d",
+      "target_reference_kind": "UNRESOLVED_TARGET",
+      "unresolved_semantic_requirements": [
+        "CLASSICAL_REVERSAL_OR_REAPPEARANCE_SEMANTICS"
+      ]
+    },
+    {
+      "access_segment_id": "S14-0024",
+      "access_segment_path": "sources/derived-access/S14/segment-0024.txt",
+      "access_segment_sha256": "0446ec391395cf5a52cc6ea8ef35ca262b5561cf555c30f9009778924ced5da4",
+      "actor_reference_kind": "RELATION_PATTERN_ACTOR",
+      "canonical_byte_end_exclusive": 1524998,
+      "canonical_byte_start": 1523696,
+      "canonical_line": 4615,
+      "canonical_source_path": "sources/canonical/S14_八字合冲刑害墓库与结构变化库.txt",
+      "canonical_source_sha256": "b225e64fcf7238b27a634e653a6904403d518335aeca59372b32e02f4a560407",
+      "exact_source_text": "假如甲生子月 ,支逢二卯相并,二卯不刑一子,而支又逢戌,戌与卯合,本为解刑,而合去其一,则一合而一刑,是因解而反得刑冲也。",
+      "interaction_assertion_id": "BCRIA-R1-ZPZQ-CL-09-005-002",
+      "multiplicity_and_alternative_path": {
+        "allocation_lexemes": [
+          "合去其一",
+          "一合而一刑"
+        ],
+        "alternative_path_signal": "PRESERVE_ALL_COMPATIBLE_EXACT_INSTANCE_PATHS",
+        "exact_instance_selection": "NOT_SELECTED",
+        "signal": "EXPLICIT_SOURCE_MULTIPLICITY_AND_UNRESOLVED_ALLOCATION",
+        "source_named_multiplicity": [
+          {
+            "count": 2,
+            "participant_lexeme": "卯"
+          }
+        ]
+      },
+      "neutral_runtime_dependency_map": [
+        {
+          "binding_status": "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY",
+          "primitive": "EXACT_PARTICIPANT_INSTANCE_IDENTITY",
+          "semantic_boundary": "Exact participant identities permit future path enumeration but do not select an actor, target, allocation, or winner."
+        },
+        {
+          "binding_status": "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY",
+          "primitive": "EXACT_RAW_RELATION_OCCURRENCE_IDENTITY",
+          "semantic_boundary": "An immutable released raw relation identity is neutral evidence; its presence is not a Classical operative-effect verdict."
+        },
+        {
+          "binding_status": "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY",
+          "primitive": "EXACT_TEMPORAL_LAYER_FRAME",
+          "semantic_boundary": "A typed layer or frame is source-binding evidence and does not activate or suppress a relation."
+        },
+        {
+          "binding_status": "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY",
+          "primitive": "RELATION_INCIDENCE_DEGREE",
+          "semantic_boundary": "Incidence degree preserves multiplicity only; it is not competition, dominance, or allocation."
+        },
+        {
+          "binding_status": "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY",
+          "primitive": "RELATION_PAIR_TOPOLOGY",
+          "semantic_boundary": "SHARED_PARTICIPANT and DISJOINT are exact topology only; neither implies competition or a winner."
+        }
+      ],
+      "parent_source_block_id": "ZPZQ-B-09-005",
+      "parent_source_segment_id": null,
+      "primary_assertion_class": "REVERSAL_OR_REAPPEARANCE_ASSERTION",
+      "record_sha256": "30ec24b22e5fcf2a66fe73bef6841517ad0e01a7d5bfcee8a73692617ece82df",
+      "runtime_semantic_boundary": {
+        "classical_operability_verdict": "NOT_EMITTED",
+        "exact_winner_selection": "NOT_EMITTED",
+        "raw_relation_mutation_allowed": false,
+        "relation_presence_verdict": "NOT_EMITTED"
+      },
+      "secondary_assertion_classes": [
+        "PARTICIPANT_ALLOCATION_ASSERTION",
+        "RESOLUTION_ASSERTION"
+      ],
+      "segment_local_line": 22,
+      "source_assertion_fragments": [
+        "二卯相并",
+        "二卯不刑一子",
+        "戌与卯合",
+        "本为解刑",
+        "合去其一",
+        "一合而一刑",
+        "因解而反得刑冲"
+      ],
+      "source_assertion_role": "EXEMPLIFYING_SOURCE_ASSERTION",
+      "source_chapter_id": "ZPZQ-CH-09",
+      "source_chapter_title": "论刑冲会合解法",
+      "source_id": "S14",
+      "source_layer": "SHEN_CLASSICAL_SOURCE",
+      "source_named_participant_patterns": [
+        "卯",
+        "子",
+        "戌",
+        "甲"
+      ],
+      "source_named_relation_or_effect_patterns": [
+        "二卯相并",
+        "二卯不刑一子",
+        "戌与卯合",
+        "本为解刑",
+        "合去其一",
+        "一合而一刑",
+        "因解而反得刑冲"
+      ],
+      "source_occurrence_id": "ZPZQ-CL-09-005-002",
+      "source_record_format": "JSONL_SOURCE_CLAUSE",
+      "source_record_role": "SOURCE_RULE_CANDIDATE",
+      "source_record_sha256": "46a6347715d668820ded9fac1c0028b392bfdcd9331e65475bba6722271a6801",
+      "source_text_sha256": "edc4cdde1d0e97c8057faf970f01ecf07e7ba398fdc098fdea13bd4dd12acc69",
+      "target_reference_kind": "SOURCE_NAMED_RELATION_OR_EFFECT_TARGET",
+      "unresolved_semantic_requirements": [
+        "CLASSICAL_PARTICIPANT_ALLOCATION",
+        "CLASSICAL_RESOLUTION_SEMANTICS",
+        "CLASSICAL_REVERSAL_OR_REAPPEARANCE_SEMANTICS",
+        "COMPATIBLE_EXACT_INSTANCE_PATH_ENUMERATION",
+        "SOURCE_PATTERN_TO_EXACT_INSTANCE_BINDING"
+      ]
+    },
+    {
+      "access_segment_id": "S14-0024",
+      "access_segment_path": "sources/derived-access/S14/segment-0024.txt",
+      "access_segment_sha256": "0446ec391395cf5a52cc6ea8ef35ca262b5561cf555c30f9009778924ced5da4",
+      "actor_reference_kind": "RELATION_PATTERN_ACTOR",
+      "canonical_byte_end_exclusive": 1536441,
+      "canonical_byte_start": 1535298,
+      "canonical_line": 4625,
+      "canonical_source_path": "sources/canonical/S14_八字合冲刑害墓库与结构变化库.txt",
+      "canonical_source_sha256": "b225e64fcf7238b27a634e653a6904403d518335aeca59372b32e02f4a560407",
+      "exact_source_text": "又有刑冲而会合不能解者,何也？",
+      "interaction_assertion_id": "BCRIA-R1-ZPZQ-CL-09-007-001",
+      "multiplicity_and_alternative_path": {
+        "allocation_lexemes": [],
+        "alternative_path_signal": "NONE",
+        "exact_instance_selection": "NOT_APPLICABLE",
+        "signal": "NONE",
+        "source_named_multiplicity": []
+      },
+      "neutral_runtime_dependency_map": [
+        {
+          "binding_status": "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY",
+          "primitive": "EXACT_PARTICIPANT_INSTANCE_IDENTITY",
+          "semantic_boundary": "Exact participant identities permit future path enumeration but do not select an actor, target, allocation, or winner."
+        },
+        {
+          "binding_status": "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY",
+          "primitive": "EXACT_RAW_RELATION_OCCURRENCE_IDENTITY",
+          "semantic_boundary": "An immutable released raw relation identity is neutral evidence; its presence is not a Classical operative-effect verdict."
+        },
+        {
+          "binding_status": "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY",
+          "primitive": "RELATION_PAIR_TOPOLOGY",
+          "semantic_boundary": "SHARED_PARTICIPANT and DISJOINT are exact topology only; neither implies competition or a winner."
+        }
+      ],
+      "parent_source_block_id": "ZPZQ-B-09-007",
+      "parent_source_segment_id": null,
+      "primary_assertion_class": "RESOLUTION_FAILURE_ASSERTION",
+      "record_sha256": "23f5f7bce27a7ea60d347217b8d5e3fc5045a24d8cfe17e004dc2ad72b78cc21",
+      "runtime_semantic_boundary": {
+        "classical_operability_verdict": "NOT_EMITTED",
+        "exact_winner_selection": "NOT_EMITTED",
+        "raw_relation_mutation_allowed": false,
+        "relation_presence_verdict": "NOT_EMITTED"
+      },
+      "secondary_assertion_classes": [],
+      "segment_local_line": 32,
+      "source_assertion_fragments": [
+        "刑冲而会合不能解"
+      ],
+      "source_assertion_role": "CONTEXTUAL_QUESTION",
+      "source_chapter_id": "ZPZQ-CH-09",
+      "source_chapter_title": "论刑冲会合解法",
+      "source_id": "S14",
+      "source_layer": "SHEN_CLASSICAL_SOURCE",
+      "source_named_participant_patterns": [],
+      "source_named_relation_or_effect_patterns": [
+        "刑冲而会合不能解"
+      ],
+      "source_occurrence_id": "ZPZQ-CL-09-007-001",
+      "source_record_format": "JSONL_SOURCE_CLAUSE",
+      "source_record_role": "SOURCE_RULE_CANDIDATE",
+      "source_record_sha256": "dda887e81592834ddfe1a050f1c032c380fb8034812aea383054cef0e6b7200c",
+      "source_text_sha256": "530490961217d54dac6e60ba85a63081da6eef4b996511a80b95876af7aa6d16",
+      "target_reference_kind": "SOURCE_NAMED_RELATION_OR_EFFECT_TARGET",
+      "unresolved_semantic_requirements": [
+        "CLASSICAL_INTERACTION_CHAIN_RESOLUTION",
+        "CLASSICAL_RESOLUTION_FAILURE_SEMANTICS",
+        "SOURCE_PATTERN_TO_EXACT_INSTANCE_BINDING"
+      ]
+    },
+    {
+      "access_segment_id": "S14-0024",
+      "access_segment_path": "sources/derived-access/S14/segment-0024.txt",
+      "access_segment_sha256": "0446ec391395cf5a52cc6ea8ef35ca262b5561cf555c30f9009778924ced5da4",
+      "actor_reference_kind": "RELATION_PATTERN_ACTOR",
+      "canonical_byte_end_exclusive": 1537671,
+      "canonical_byte_start": 1536441,
+      "canonical_line": 4626,
+      "canonical_source_path": "sources/canonical/S14_八字合冲刑害墓库与结构变化库.txt",
+      "canonical_source_sha256": "b225e64fcf7238b27a634e653a6904403d518335aeca59372b32e02f4a560407",
+      "exact_source_text": "假如子年午月 , 日坐丑位,丑与子合,可以解冲,而时逢巳酉,则丑与巳酉会,而子复冲午；",
+      "interaction_assertion_id": "BCRIA-R1-ZPZQ-CL-09-007-002",
+      "multiplicity_and_alternative_path": {
+        "allocation_lexemes": [],
+        "alternative_path_signal": "NONE",
+        "exact_instance_selection": "NOT_APPLICABLE",
+        "signal": "NONE",
+        "source_named_multiplicity": []
+      },
+      "neutral_runtime_dependency_map": [
+        {
+          "binding_status": "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY",
+          "primitive": "EXACT_PARTICIPANT_INSTANCE_IDENTITY",
+          "semantic_boundary": "Exact participant identities permit future path enumeration but do not select an actor, target, allocation, or winner."
+        },
+        {
+          "binding_status": "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY",
+          "primitive": "EXACT_RAW_RELATION_OCCURRENCE_IDENTITY",
+          "semantic_boundary": "An immutable released raw relation identity is neutral evidence; its presence is not a Classical operative-effect verdict."
+        },
+        {
+          "binding_status": "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY",
+          "primitive": "EXACT_TEMPORAL_LAYER_FRAME",
+          "semantic_boundary": "A typed layer or frame is source-binding evidence and does not activate or suppress a relation."
+        },
+        {
+          "binding_status": "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY",
+          "primitive": "RELATION_PAIR_TOPOLOGY",
+          "semantic_boundary": "SHARED_PARTICIPANT and DISJOINT are exact topology only; neither implies competition or a winner."
+        }
+      ],
+      "parent_source_block_id": "ZPZQ-B-09-007",
+      "parent_source_segment_id": null,
+      "primary_assertion_class": "RESOLUTION_FAILURE_ASSERTION",
+      "record_sha256": "959b1438899e6fa9714225b88e6dfd4ed319ffcd92fff281b9d60e7af2ee685d",
+      "runtime_semantic_boundary": {
+        "classical_operability_verdict": "NOT_EMITTED",
+        "exact_winner_selection": "NOT_EMITTED",
+        "raw_relation_mutation_allowed": false,
+        "relation_presence_verdict": "NOT_EMITTED"
+      },
+      "secondary_assertion_classes": [
+        "RESOLUTION_ASSERTION",
+        "REVERSAL_OR_REAPPEARANCE_ASSERTION"
+      ],
+      "segment_local_line": 33,
+      "source_assertion_fragments": [
+        "丑与子合",
+        "可以解冲",
+        "丑与巳酉会",
+        "子复冲午"
+      ],
+      "source_assertion_role": "EXEMPLIFYING_SOURCE_ASSERTION",
+      "source_chapter_id": "ZPZQ-CH-09",
+      "source_chapter_title": "论刑冲会合解法",
+      "source_id": "S14",
+      "source_layer": "SHEN_CLASSICAL_SOURCE",
+      "source_named_participant_patterns": [
+        "丑",
+        "午",
+        "子",
+        "巳",
+        "酉"
+      ],
+      "source_named_relation_or_effect_patterns": [
+        "丑与子合",
+        "可以解冲",
+        "丑与巳酉会",
+        "子复冲午"
+      ],
+      "source_occurrence_id": "ZPZQ-CL-09-007-002",
+      "source_record_format": "JSONL_SOURCE_CLAUSE",
+      "source_record_role": "SOURCE_RULE_CANDIDATE",
+      "source_record_sha256": "5c1c56d2867305029a5f150875a7dfc87bee31424233b6dff8c3fe59237aaaec",
+      "source_text_sha256": "5015427b00920fb6915f7d96ee886e48bd916d13d73079ff7ecf75316dd3ae83",
+      "target_reference_kind": "SOURCE_NAMED_RELATION_OR_EFFECT_TARGET",
+      "unresolved_semantic_requirements": [
+        "CLASSICAL_INTERACTION_CHAIN_RESOLUTION",
+        "CLASSICAL_RESOLUTION_FAILURE_SEMANTICS",
+        "CLASSICAL_REVERSAL_OR_REAPPEARANCE_SEMANTICS",
+        "SOURCE_PATTERN_TO_EXACT_INSTANCE_BINDING"
+      ]
+    },
+    {
+      "access_segment_id": "S14-0024",
+      "access_segment_path": "sources/derived-access/S14/segment-0024.txt",
+      "access_segment_sha256": "0446ec391395cf5a52cc6ea8ef35ca262b5561cf555c30f9009778924ced5da4",
+      "actor_reference_kind": "RELATION_PATTERN_ACTOR",
+      "canonical_byte_end_exclusive": 1538900,
+      "canonical_byte_start": 1537671,
+      "canonical_line": 4627,
+      "canonical_source_path": "sources/canonical/S14_八字合冲刑害墓库与结构变化库.txt",
+      "canonical_source_sha256": "b225e64fcf7238b27a634e653a6904403d518335aeca59372b32e02f4a560407",
+      "exact_source_text": "子年卯月 , 日坐戌位,戌与卯合,可以解刑,而或时逢寅午,则戌与寅午会,而卯复刑子。",
+      "interaction_assertion_id": "BCRIA-R1-ZPZQ-CL-09-007-003",
+      "multiplicity_and_alternative_path": {
+        "allocation_lexemes": [],
+        "alternative_path_signal": "NONE",
+        "exact_instance_selection": "NOT_APPLICABLE",
+        "signal": "NONE",
+        "source_named_multiplicity": []
+      },
+      "neutral_runtime_dependency_map": [
+        {
+          "binding_status": "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY",
+          "primitive": "EXACT_PARTICIPANT_INSTANCE_IDENTITY",
+          "semantic_boundary": "Exact participant identities permit future path enumeration but do not select an actor, target, allocation, or winner."
+        },
+        {
+          "binding_status": "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY",
+          "primitive": "EXACT_RAW_RELATION_OCCURRENCE_IDENTITY",
+          "semantic_boundary": "An immutable released raw relation identity is neutral evidence; its presence is not a Classical operative-effect verdict."
+        },
+        {
+          "binding_status": "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY",
+          "primitive": "EXACT_TEMPORAL_LAYER_FRAME",
+          "semantic_boundary": "A typed layer or frame is source-binding evidence and does not activate or suppress a relation."
+        },
+        {
+          "binding_status": "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY",
+          "primitive": "RELATION_PAIR_TOPOLOGY",
+          "semantic_boundary": "SHARED_PARTICIPANT and DISJOINT are exact topology only; neither implies competition or a winner."
+        }
+      ],
+      "parent_source_block_id": "ZPZQ-B-09-007",
+      "parent_source_segment_id": null,
+      "primary_assertion_class": "RESOLUTION_FAILURE_ASSERTION",
+      "record_sha256": "23606e5d103294736ba207317537b77154a85cf4fa396a65e34a226aea2c9616",
+      "runtime_semantic_boundary": {
+        "classical_operability_verdict": "NOT_EMITTED",
+        "exact_winner_selection": "NOT_EMITTED",
+        "raw_relation_mutation_allowed": false,
+        "relation_presence_verdict": "NOT_EMITTED"
+      },
+      "secondary_assertion_classes": [
+        "RESOLUTION_ASSERTION",
+        "REVERSAL_OR_REAPPEARANCE_ASSERTION"
+      ],
+      "segment_local_line": 34,
+      "source_assertion_fragments": [
+        "戌与卯合",
+        "可以解刑",
+        "戌与寅午会",
+        "卯复刑子"
+      ],
+      "source_assertion_role": "EXEMPLIFYING_SOURCE_ASSERTION",
+      "source_chapter_id": "ZPZQ-CH-09",
+      "source_chapter_title": "论刑冲会合解法",
+      "source_id": "S14",
+      "source_layer": "SHEN_CLASSICAL_SOURCE",
+      "source_named_participant_patterns": [
+        "午",
+        "卯",
+        "子",
+        "寅",
+        "戌"
+      ],
+      "source_named_relation_or_effect_patterns": [
+        "戌与卯合",
+        "可以解刑",
+        "戌与寅午会",
+        "卯复刑子"
+      ],
+      "source_occurrence_id": "ZPZQ-CL-09-007-003",
+      "source_record_format": "JSONL_SOURCE_CLAUSE",
+      "source_record_role": "SOURCE_RULE_CANDIDATE",
+      "source_record_sha256": "b6cefdebbe1d90db7824d804991a4062fbcb3106b9c04f11556ddef5a8cc6689",
+      "source_text_sha256": "e9b038bd13db4f46023d3a124c8a33c7bd1f71356b8a9bf29d2eb49374f67a1c",
+      "target_reference_kind": "SOURCE_NAMED_RELATION_OR_EFFECT_TARGET",
+      "unresolved_semantic_requirements": [
+        "CLASSICAL_INTERACTION_CHAIN_RESOLUTION",
+        "CLASSICAL_RESOLUTION_FAILURE_SEMANTICS",
+        "CLASSICAL_REVERSAL_OR_REAPPEARANCE_SEMANTICS",
+        "SOURCE_PATTERN_TO_EXACT_INSTANCE_BINDING"
+      ]
+    },
+    {
+      "access_segment_id": "S14-0024",
+      "access_segment_path": "sources/derived-access/S14/segment-0024.txt",
+      "access_segment_sha256": "0446ec391395cf5a52cc6ea8ef35ca262b5561cf555c30f9009778924ced5da4",
+      "actor_reference_kind": "RELATION_PATTERN_ACTOR",
+      "canonical_byte_end_exclusive": 1540033,
+      "canonical_byte_start": 1538900,
+      "canonical_line": 4628,
+      "canonical_source_path": "sources/canonical/S14_八字合冲刑害墓库与结构变化库.txt",
+      "canonical_source_sha256": "b225e64fcf7238b27a634e653a6904403d518335aeca59372b32e02f4a560407",
+      "exact_source_text": "是会合而不能解刑冲也。",
+      "interaction_assertion_id": "BCRIA-R1-ZPZQ-CL-09-007-004",
+      "multiplicity_and_alternative_path": {
+        "allocation_lexemes": [],
+        "alternative_path_signal": "NONE",
+        "exact_instance_selection": "NOT_APPLICABLE",
+        "signal": "NONE",
+        "source_named_multiplicity": []
+      },
+      "neutral_runtime_dependency_map": [
+        {
+          "binding_status": "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY",
+          "primitive": "EXACT_PARTICIPANT_INSTANCE_IDENTITY",
+          "semantic_boundary": "Exact participant identities permit future path enumeration but do not select an actor, target, allocation, or winner."
+        },
+        {
+          "binding_status": "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY",
+          "primitive": "EXACT_RAW_RELATION_OCCURRENCE_IDENTITY",
+          "semantic_boundary": "An immutable released raw relation identity is neutral evidence; its presence is not a Classical operative-effect verdict."
+        },
+        {
+          "binding_status": "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY",
+          "primitive": "RELATION_PAIR_TOPOLOGY",
+          "semantic_boundary": "SHARED_PARTICIPANT and DISJOINT are exact topology only; neither implies competition or a winner."
+        }
+      ],
+      "parent_source_block_id": "ZPZQ-B-09-007",
+      "parent_source_segment_id": null,
+      "primary_assertion_class": "RESOLUTION_FAILURE_ASSERTION",
+      "record_sha256": "20902a02a639da8ccdf579aab8e45eb2af4bc1b48a88a9e728c476e886e621cf",
+      "runtime_semantic_boundary": {
+        "classical_operability_verdict": "NOT_EMITTED",
+        "exact_winner_selection": "NOT_EMITTED",
+        "raw_relation_mutation_allowed": false,
+        "relation_presence_verdict": "NOT_EMITTED"
+      },
+      "secondary_assertion_classes": [],
+      "segment_local_line": 35,
+      "source_assertion_fragments": [
+        "会合而不能解刑冲"
+      ],
+      "source_assertion_role": "SUMMARY_SOURCE_ASSERTION",
+      "source_chapter_id": "ZPZQ-CH-09",
+      "source_chapter_title": "论刑冲会合解法",
+      "source_id": "S14",
+      "source_layer": "SHEN_CLASSICAL_SOURCE",
+      "source_named_participant_patterns": [],
+      "source_named_relation_or_effect_patterns": [
+        "会合而不能解刑冲"
+      ],
+      "source_occurrence_id": "ZPZQ-CL-09-007-004",
+      "source_record_format": "JSONL_SOURCE_CLAUSE",
+      "source_record_role": "SOURCE_RULE_CANDIDATE",
+      "source_record_sha256": "21e3e36a73864e29f15f94f68c67e31e4aab7fec1ecd9cd14c3ac70ddf63529f",
+      "source_text_sha256": "619ab6f5031652cfd906cddbe8d4917029304b7de22a5e575d1898065439b1db",
+      "target_reference_kind": "SOURCE_NAMED_RELATION_OR_EFFECT_TARGET",
+      "unresolved_semantic_requirements": [
+        "CLASSICAL_INTERACTION_CHAIN_RESOLUTION",
+        "CLASSICAL_RESOLUTION_FAILURE_SEMANTICS",
+        "SOURCE_PATTERN_TO_EXACT_INSTANCE_BINDING"
+      ]
+    },
+    {
+      "access_segment_id": "S14-0024",
+      "access_segment_path": "sources/derived-access/S14/segment-0024.txt",
+      "access_segment_sha256": "0446ec391395cf5a52cc6ea8ef35ca262b5561cf555c30f9009778924ced5da4",
+      "actor_reference_kind": "RELATION_PATTERN_ACTOR",
+      "canonical_byte_end_exclusive": 1549233,
+      "canonical_byte_start": 1548104,
+      "canonical_line": 4636,
+      "canonical_source_path": "sources/canonical/S14_八字合冲刑害墓库与结构变化库.txt",
+      "canonical_source_sha256": "b225e64fcf7238b27a634e653a6904403d518335aeca59372b32e02f4a560407",
+      "exact_source_text": "更有刑冲而可以解刑者,何也？",
+      "interaction_assertion_id": "BCRIA-R1-ZPZQ-CL-09-009-001",
+      "multiplicity_and_alternative_path": {
+        "allocation_lexemes": [],
+        "alternative_path_signal": "NONE",
+        "exact_instance_selection": "NOT_APPLICABLE",
+        "signal": "NONE",
+        "source_named_multiplicity": []
+      },
+      "neutral_runtime_dependency_map": [
+        {
+          "binding_status": "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY",
+          "primitive": "EXACT_PARTICIPANT_INSTANCE_IDENTITY",
+          "semantic_boundary": "Exact participant identities permit future path enumeration but do not select an actor, target, allocation, or winner."
+        },
+        {
+          "binding_status": "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY",
+          "primitive": "EXACT_RAW_RELATION_OCCURRENCE_IDENTITY",
+          "semantic_boundary": "An immutable released raw relation identity is neutral evidence; its presence is not a Classical operative-effect verdict."
+        },
+        {
+          "binding_status": "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY",
+          "primitive": "RELATION_PAIR_TOPOLOGY",
+          "semantic_boundary": "SHARED_PARTICIPANT and DISJOINT are exact topology only; neither implies competition or a winner."
+        }
+      ],
+      "parent_source_block_id": "ZPZQ-B-09-009",
+      "parent_source_segment_id": null,
+      "primary_assertion_class": "RESOLUTION_ASSERTION",
+      "record_sha256": "b458660970de6764f357a607af9833c03048a4823ec251315dafa38b129752cc",
+      "runtime_semantic_boundary": {
+        "classical_operability_verdict": "NOT_EMITTED",
+        "exact_winner_selection": "NOT_EMITTED",
+        "raw_relation_mutation_allowed": false,
+        "relation_presence_verdict": "NOT_EMITTED"
+      },
+      "secondary_assertion_classes": [],
+      "segment_local_line": 43,
+      "source_assertion_fragments": [
+        "刑冲而可以解刑"
+      ],
+      "source_assertion_role": "CONTEXTUAL_QUESTION",
+      "source_chapter_id": "ZPZQ-CH-09",
+      "source_chapter_title": "论刑冲会合解法",
+      "source_id": "S14",
+      "source_layer": "SHEN_CLASSICAL_SOURCE",
+      "source_named_participant_patterns": [],
+      "source_named_relation_or_effect_patterns": [
+        "刑冲而可以解刑"
+      ],
+      "source_occurrence_id": "ZPZQ-CL-09-009-001",
+      "source_record_format": "JSONL_SOURCE_CLAUSE",
+      "source_record_role": "SOURCE_RULE_CANDIDATE",
+      "source_record_sha256": "daf30a32915bc861ba735b5573d809a4ad78f7616e44a8ad00ccd0f4a733a1ab",
+      "source_text_sha256": "fdf001fee3c984834372319725d4d05c51670ce999b0401a9b01dda0f1139e8d",
+      "target_reference_kind": "SOURCE_NAMED_RELATION_OR_EFFECT_TARGET",
+      "unresolved_semantic_requirements": [
+        "CLASSICAL_RESOLUTION_SEMANTICS",
+        "SOURCE_PATTERN_TO_EXACT_INSTANCE_BINDING"
+      ]
+    },
+    {
+      "access_segment_id": "S14-0024",
+      "access_segment_path": "sources/derived-access/S14/segment-0024.txt",
+      "access_segment_sha256": "0446ec391395cf5a52cc6ea8ef35ca262b5561cf555c30f9009778924ced5da4",
+      "actor_reference_kind": "RELATION_PATTERN_ACTOR",
+      "canonical_byte_end_exclusive": 1550480,
+      "canonical_byte_start": 1549233,
+      "canonical_line": 4637,
+      "canonical_source_path": "sources/canonical/S14_八字合冲刑害墓库与结构变化库.txt",
+      "canonical_source_sha256": "b225e64fcf7238b27a634e653a6904403d518335aeca59372b32e02f4a560407",
+      "exact_source_text": "盖四柱之中,刑冲俱不为美,而刑冲用神,尤为破格,不如以另位之刑冲,解月令之刑冲矣。",
+      "interaction_assertion_id": "BCRIA-R1-ZPZQ-CL-09-009-002",
+      "multiplicity_and_alternative_path": {
+        "allocation_lexemes": [],
+        "alternative_path_signal": "NONE",
+        "exact_instance_selection": "NOT_APPLICABLE",
+        "signal": "NONE",
+        "source_named_multiplicity": []
+      },
+      "neutral_runtime_dependency_map": [
+        {
+          "binding_status": "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY",
+          "primitive": "EXACT_PARTICIPANT_INSTANCE_IDENTITY",
+          "semantic_boundary": "Exact participant identities permit future path enumeration but do not select an actor, target, allocation, or winner."
+        },
+        {
+          "binding_status": "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY",
+          "primitive": "EXACT_RAW_RELATION_OCCURRENCE_IDENTITY",
+          "semantic_boundary": "An immutable released raw relation identity is neutral evidence; its presence is not a Classical operative-effect verdict."
+        },
+        {
+          "binding_status": "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY",
+          "primitive": "EXACT_TEMPORAL_LAYER_FRAME",
+          "semantic_boundary": "A typed layer or frame is source-binding evidence and does not activate or suppress a relation."
+        },
+        {
+          "binding_status": "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY",
+          "primitive": "RELATION_PAIR_TOPOLOGY",
+          "semantic_boundary": "SHARED_PARTICIPANT and DISJOINT are exact topology only; neither implies competition or a winner."
+        }
+      ],
+      "parent_source_block_id": "ZPZQ-B-09-009",
+      "parent_source_segment_id": null,
+      "primary_assertion_class": "RESOLUTION_ASSERTION",
+      "record_sha256": "adc6adf4bb0ae44f48f83b3ab406d279593a892f29049581c9be1572bc472c01",
+      "runtime_semantic_boundary": {
+        "classical_operability_verdict": "NOT_EMITTED",
+        "exact_winner_selection": "NOT_EMITTED",
+        "raw_relation_mutation_allowed": false,
+        "relation_presence_verdict": "NOT_EMITTED"
+      },
+      "secondary_assertion_classes": [],
+      "segment_local_line": 44,
+      "source_assertion_fragments": [
+        "以另位之刑冲",
+        "解月令之刑冲"
+      ],
+      "source_assertion_role": "GENERAL_SOURCE_ASSERTION",
+      "source_chapter_id": "ZPZQ-CH-09",
+      "source_chapter_title": "论刑冲会合解法",
+      "source_id": "S14",
+      "source_layer": "SHEN_CLASSICAL_SOURCE",
+      "source_named_participant_patterns": [],
+      "source_named_relation_or_effect_patterns": [
+        "以另位之刑冲",
+        "解月令之刑冲"
+      ],
+      "source_occurrence_id": "ZPZQ-CL-09-009-002",
+      "source_record_format": "JSONL_SOURCE_CLAUSE",
+      "source_record_role": "SOURCE_RULE_CANDIDATE",
+      "source_record_sha256": "f84e242a1d2cac8fd168292a5d0f5ea56c76bef8917f992de4298de599d78954",
+      "source_text_sha256": "5d71063b5b8ade5a4501a7a6c16dcd373c2fbe54bef8a1f3c121700699b7938f",
+      "target_reference_kind": "SOURCE_NAMED_RELATION_OR_EFFECT_TARGET",
+      "unresolved_semantic_requirements": [
+        "CLASSICAL_RESOLUTION_SEMANTICS",
+        "SOURCE_PATTERN_TO_EXACT_INSTANCE_BINDING"
+      ]
+    },
+    {
+      "access_segment_id": "S14-0024",
+      "access_segment_path": "sources/derived-access/S14/segment-0024.txt",
+      "access_segment_sha256": "0446ec391395cf5a52cc6ea8ef35ca262b5561cf555c30f9009778924ced5da4",
+      "actor_reference_kind": "RELATION_PATTERN_ACTOR",
+      "canonical_byte_end_exclusive": 1551699,
+      "canonical_byte_start": 1550480,
+      "canonical_line": 4638,
+      "canonical_source_path": "sources/canonical/S14_八字合冲刑害墓库与结构变化库.txt",
+      "canonical_source_sha256": "b225e64fcf7238b27a634e653a6904403d518335aeca59372b32e02f4a560407",
+      "exact_source_text": "假如丙生子月 ,卯以刑子,而支又逢酉,则又与酉冲不刑月令之官。",
+      "interaction_assertion_id": "BCRIA-R1-ZPZQ-CL-09-009-003",
+      "multiplicity_and_alternative_path": {
+        "allocation_lexemes": [],
+        "alternative_path_signal": "NONE",
+        "exact_instance_selection": "NOT_APPLICABLE",
+        "signal": "NONE",
+        "source_named_multiplicity": []
+      },
+      "neutral_runtime_dependency_map": [
+        {
+          "binding_status": "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY",
+          "primitive": "EXACT_PARTICIPANT_INSTANCE_IDENTITY",
+          "semantic_boundary": "Exact participant identities permit future path enumeration but do not select an actor, target, allocation, or winner."
+        },
+        {
+          "binding_status": "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY",
+          "primitive": "EXACT_RAW_RELATION_OCCURRENCE_IDENTITY",
+          "semantic_boundary": "An immutable released raw relation identity is neutral evidence; its presence is not a Classical operative-effect verdict."
+        },
+        {
+          "binding_status": "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY",
+          "primitive": "EXACT_TEMPORAL_LAYER_FRAME",
+          "semantic_boundary": "A typed layer or frame is source-binding evidence and does not activate or suppress a relation."
+        },
+        {
+          "binding_status": "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY",
+          "primitive": "RELATION_PAIR_TOPOLOGY",
+          "semantic_boundary": "SHARED_PARTICIPANT and DISJOINT are exact topology only; neither implies competition or a winner."
+        }
+      ],
+      "parent_source_block_id": "ZPZQ-B-09-009",
+      "parent_source_segment_id": null,
+      "primary_assertion_class": "RESOLUTION_ASSERTION",
+      "record_sha256": "d8fb83fb8cf257d892bcb4f305e7046c99f87487460c3f1ceaf2cf9df429053e",
+      "runtime_semantic_boundary": {
+        "classical_operability_verdict": "NOT_EMITTED",
+        "exact_winner_selection": "NOT_EMITTED",
+        "raw_relation_mutation_allowed": false,
+        "relation_presence_verdict": "NOT_EMITTED"
+      },
+      "secondary_assertion_classes": [],
+      "segment_local_line": 45,
+      "source_assertion_fragments": [
+        "卯以刑子",
+        "与酉冲不刑月令之官"
+      ],
+      "source_assertion_role": "EXEMPLIFYING_SOURCE_ASSERTION",
+      "source_chapter_id": "ZPZQ-CH-09",
+      "source_chapter_title": "论刑冲会合解法",
+      "source_id": "S14",
+      "source_layer": "SHEN_CLASSICAL_SOURCE",
+      "source_named_participant_patterns": [
+        "丙",
+        "卯",
+        "子",
+        "酉"
+      ],
+      "source_named_relation_or_effect_patterns": [
+        "卯以刑子",
+        "与酉冲不刑月令之官"
+      ],
+      "source_occurrence_id": "ZPZQ-CL-09-009-003",
+      "source_record_format": "JSONL_SOURCE_CLAUSE",
+      "source_record_role": "SOURCE_RULE_CANDIDATE",
+      "source_record_sha256": "3f5599930e866f9087429795b4a7728f57b44875694506a72a5f7b778fffc6e7",
+      "source_text_sha256": "7ac76589528d8b963f78a5357d8bcd089a6c4fb26e5816db0cc3f4c5ba30e7bc",
+      "target_reference_kind": "SOURCE_NAMED_RELATION_OR_EFFECT_TARGET",
+      "unresolved_semantic_requirements": [
+        "CLASSICAL_RESOLUTION_SEMANTICS",
+        "SOURCE_PATTERN_TO_EXACT_INSTANCE_BINDING"
+      ]
+    },
+    {
+      "access_segment_id": "S14-0024",
+      "access_segment_path": "sources/derived-access/S14/segment-0024.txt",
+      "access_segment_sha256": "0446ec391395cf5a52cc6ea8ef35ca262b5561cf555c30f9009778924ced5da4",
+      "actor_reference_kind": "RELATION_PATTERN_ACTOR",
+      "canonical_byte_end_exclusive": 1552990,
+      "canonical_byte_start": 1551699,
+      "canonical_line": 4639,
+      "canonical_source_path": "sources/canonical/S14_八字合冲刑害墓库与结构变化库.txt",
+      "canonical_source_sha256": "b225e64fcf7238b27a634e653a6904403d518335aeca59372b32e02f4a560407",
+      "exact_source_text": "甲生酉月 ,卯日冲之,而时逢子立,则卯与子刑,而月令官星,冲之无力,虽于别宫刑冲,六亲不无刑克,而月官犹在,其格不破。",
+      "interaction_assertion_id": "BCRIA-R1-ZPZQ-CL-09-009-004",
+      "multiplicity_and_alternative_path": {
+        "allocation_lexemes": [],
+        "alternative_path_signal": "NONE",
+        "exact_instance_selection": "NOT_APPLICABLE",
+        "signal": "NONE",
+        "source_named_multiplicity": []
+      },
+      "neutral_runtime_dependency_map": [
+        {
+          "binding_status": "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY",
+          "primitive": "EXACT_PARTICIPANT_INSTANCE_IDENTITY",
+          "semantic_boundary": "Exact participant identities permit future path enumeration but do not select an actor, target, allocation, or winner."
+        },
+        {
+          "binding_status": "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY",
+          "primitive": "EXACT_RAW_RELATION_OCCURRENCE_IDENTITY",
+          "semantic_boundary": "An immutable released raw relation identity is neutral evidence; its presence is not a Classical operative-effect verdict."
+        },
+        {
+          "binding_status": "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY",
+          "primitive": "EXACT_TEMPORAL_LAYER_FRAME",
+          "semantic_boundary": "A typed layer or frame is source-binding evidence and does not activate or suppress a relation."
+        },
+        {
+          "binding_status": "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY",
+          "primitive": "RELATION_PAIR_TOPOLOGY",
+          "semantic_boundary": "SHARED_PARTICIPANT and DISJOINT are exact topology only; neither implies competition or a winner."
+        }
+      ],
+      "parent_source_block_id": "ZPZQ-B-09-009",
+      "parent_source_segment_id": null,
+      "primary_assertion_class": "ATTENUATION_ASSERTION",
+      "record_sha256": "00e04401952174510e84025dc1cc2421d5793a43e8d35fddbbfa00aa4d575dfa",
+      "runtime_semantic_boundary": {
+        "classical_operability_verdict": "NOT_EMITTED",
+        "exact_winner_selection": "NOT_EMITTED",
+        "raw_relation_mutation_allowed": false,
+        "relation_presence_verdict": "NOT_EMITTED"
+      },
+      "secondary_assertion_classes": [],
+      "segment_local_line": 46,
+      "source_assertion_fragments": [
+        "卯日冲之",
+        "卯与子刑",
+        "冲之无力",
+        "月官犹在"
+      ],
+      "source_assertion_role": "EXEMPLIFYING_SOURCE_ASSERTION",
+      "source_chapter_id": "ZPZQ-CH-09",
+      "source_chapter_title": "论刑冲会合解法",
+      "source_id": "S14",
+      "source_layer": "SHEN_CLASSICAL_SOURCE",
+      "source_named_participant_patterns": [
+        "卯",
+        "子",
+        "甲",
+        "酉"
+      ],
+      "source_named_relation_or_effect_patterns": [
+        "卯日冲之",
+        "卯与子刑",
+        "冲之无力",
+        "月官犹在"
+      ],
+      "source_occurrence_id": "ZPZQ-CL-09-009-004",
+      "source_record_format": "JSONL_SOURCE_CLAUSE",
+      "source_record_role": "SOURCE_RULE_CANDIDATE",
+      "source_record_sha256": "7d87ec1b50473bc8019dc1513754b0da8feb82cf831f4e0be84ad9f4cc9f2a0d",
+      "source_text_sha256": "26271de8acc12a38d6f054262232428643292bd39f089564badcf5ce55362096",
+      "target_reference_kind": "SOURCE_NAMED_RELATION_OR_EFFECT_TARGET",
+      "unresolved_semantic_requirements": [
+        "CLASSICAL_ATTENUATION_GRADE",
+        "SOURCE_PATTERN_TO_EXACT_INSTANCE_BINDING"
+      ]
+    },
+    {
+      "access_segment_id": "S14-0024",
+      "access_segment_path": "sources/derived-access/S14/segment-0024.txt",
+      "access_segment_sha256": "0446ec391395cf5a52cc6ea8ef35ca262b5561cf555c30f9009778924ced5da4",
+      "actor_reference_kind": "RELATION_PATTERN_ACTOR",
+      "canonical_byte_end_exclusive": 1554115,
+      "canonical_byte_start": 1552990,
+      "canonical_line": 4640,
+      "canonical_source_path": "sources/canonical/S14_八字合冲刑害墓库与结构变化库.txt",
+      "canonical_source_sha256": "b225e64fcf7238b27a634e653a6904403d518335aeca59372b32e02f4a560407",
+      "exact_source_text": "是所谓以刑冲而解刑冲也。",
+      "interaction_assertion_id": "BCRIA-R1-ZPZQ-CL-09-009-005",
+      "multiplicity_and_alternative_path": {
+        "allocation_lexemes": [],
+        "alternative_path_signal": "NONE",
+        "exact_instance_selection": "NOT_APPLICABLE",
+        "signal": "NONE",
+        "source_named_multiplicity": []
+      },
+      "neutral_runtime_dependency_map": [
+        {
+          "binding_status": "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY",
+          "primitive": "EXACT_PARTICIPANT_INSTANCE_IDENTITY",
+          "semantic_boundary": "Exact participant identities permit future path enumeration but do not select an actor, target, allocation, or winner."
+        },
+        {
+          "binding_status": "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY",
+          "primitive": "EXACT_RAW_RELATION_OCCURRENCE_IDENTITY",
+          "semantic_boundary": "An immutable released raw relation identity is neutral evidence; its presence is not a Classical operative-effect verdict."
+        },
+        {
+          "binding_status": "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY",
+          "primitive": "RELATION_PAIR_TOPOLOGY",
+          "semantic_boundary": "SHARED_PARTICIPANT and DISJOINT are exact topology only; neither implies competition or a winner."
+        }
+      ],
+      "parent_source_block_id": "ZPZQ-B-09-009",
+      "parent_source_segment_id": null,
+      "primary_assertion_class": "RESOLUTION_ASSERTION",
+      "record_sha256": "e5a6dcc61f1486868e4cc21c3d9605d7a69c4bfdb9790726df02bacbb056dd38",
+      "runtime_semantic_boundary": {
+        "classical_operability_verdict": "NOT_EMITTED",
+        "exact_winner_selection": "NOT_EMITTED",
+        "raw_relation_mutation_allowed": false,
+        "relation_presence_verdict": "NOT_EMITTED"
+      },
+      "secondary_assertion_classes": [],
+      "segment_local_line": 47,
+      "source_assertion_fragments": [
+        "以刑冲而解刑冲"
+      ],
+      "source_assertion_role": "SUMMARY_SOURCE_ASSERTION",
+      "source_chapter_id": "ZPZQ-CH-09",
+      "source_chapter_title": "论刑冲会合解法",
+      "source_id": "S14",
+      "source_layer": "SHEN_CLASSICAL_SOURCE",
+      "source_named_participant_patterns": [],
+      "source_named_relation_or_effect_patterns": [
+        "以刑冲而解刑冲"
+      ],
+      "source_occurrence_id": "ZPZQ-CL-09-009-005",
+      "source_record_format": "JSONL_SOURCE_CLAUSE",
+      "source_record_role": "SOURCE_RULE_CANDIDATE",
+      "source_record_sha256": "6eab0b400851dcd1634acc94af14e467bd5990a85213a03539ccc8c42a6ce53c",
+      "source_text_sha256": "c63a76eae280e6ad9a133af81c75a6e7e09ff75e60bee8c273c81eac2e1e0179",
+      "target_reference_kind": "SOURCE_NAMED_RELATION_OR_EFFECT_TARGET",
+      "unresolved_semantic_requirements": [
+        "CLASSICAL_RESOLUTION_SEMANTICS",
+        "SOURCE_PATTERN_TO_EXACT_INSTANCE_BINDING"
+      ]
+    },
+    {
+      "access_segment_id": "S14-0043",
+      "access_segment_path": "sources/derived-access/S14/segment-0043.txt",
+      "access_segment_sha256": "e3bd1385a923e4670f8d8083d62bc234a23ed07bf2e9093ed6be93d7ebaa5404",
+      "actor_reference_kind": "PARTICIPANT_OR_CONTEXT_ACTOR",
+      "canonical_byte_end_exclusive": 2797138,
+      "canonical_byte_start": 2796843,
+      "canonical_line": 8072,
+      "canonical_source_path": "sources/canonical/S14_八字合冲刑害墓库与结构变化库.txt",
+      "canonical_source_sha256": "b225e64fcf7238b27a634e653a6904403d518335aeca59372b32e02f4a560407",
+      "exact_source_text": "或支坐亥子之乡，支又见申，癸水通源，可以破丙解合，即非玉堂，亦必高增禄位。",
+      "interaction_assertion_id": "BCRIA-R1-QTBJ-CL-05347",
+      "multiplicity_and_alternative_path": {
+        "allocation_lexemes": [],
+        "alternative_path_signal": "NONE",
+        "exact_instance_selection": "NOT_APPLICABLE",
+        "signal": "NONE",
+        "source_named_multiplicity": []
+      },
+      "neutral_runtime_dependency_map": [
+        {
+          "binding_status": "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY",
+          "primitive": "EXACT_PARTICIPANT_INSTANCE_IDENTITY",
+          "semantic_boundary": "Exact participant identities permit future path enumeration but do not select an actor, target, allocation, or winner."
+        },
+        {
+          "binding_status": "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY",
+          "primitive": "EXACT_RAW_RELATION_OCCURRENCE_IDENTITY",
+          "semantic_boundary": "An immutable released raw relation identity is neutral evidence; its presence is not a Classical operative-effect verdict."
+        }
+      ],
+      "parent_source_block_id": null,
+      "parent_source_segment_id": "QTBJ-SEG-02238",
+      "primary_assertion_class": "PARTICIPANT_MEDIATED_RELEASE_ASSERTION",
+      "record_sha256": "0fefba0f7cd252f5ebb9b7c069484eba92c170729868a4d63aef48c2624a2394",
+      "runtime_semantic_boundary": {
+        "classical_operability_verdict": "NOT_EMITTED",
+        "exact_winner_selection": "NOT_EMITTED",
+        "raw_relation_mutation_allowed": false,
+        "relation_presence_verdict": "NOT_EMITTED"
+      },
+      "secondary_assertion_classes": [],
+      "segment_local_line": 199,
+      "source_assertion_fragments": [
+        "癸水通源",
+        "破丙解合"
+      ],
+      "source_assertion_role": "GENERAL_SOURCE_ASSERTION",
+      "source_chapter_id": null,
+      "source_chapter_title": null,
+      "source_id": "S14",
+      "source_layer": "QTBJ_CORE_SOURCE",
+      "source_named_participant_patterns": [
+        "丙",
+        "亥",
+        "子",
+        "申",
+        "癸"
+      ],
+      "source_named_relation_or_effect_patterns": [
+        "癸水通源",
+        "破丙解合"
+      ],
+      "source_occurrence_id": "QTBJ-CL-05347",
+      "source_record_format": "QTBJ_SOURCE_CLAUSE_TSV",
+      "source_record_role": "SOURCE_CANDIDATE",
+      "source_record_sha256": "766fb3e67e27e9243d2f85a2ffb2f699be7744f2bc1b6914c3eb5de47de22c3f",
+      "source_text_sha256": "c48560a2cfb14cd4ae9b5d460233c3644a71032533864df788e6c38e01ac4b4c",
+      "target_reference_kind": "SOURCE_NAMED_RELATION_OR_EFFECT_TARGET",
+      "unresolved_semantic_requirements": [
+        "CLASSICAL_PARTICIPANT_MEDIATED_RELEASE_SEMANTICS",
+        "SOURCE_PATTERN_TO_EXACT_INSTANCE_BINDING"
+      ]
+    },
+    {
+      "access_segment_id": "S14-0043",
+      "access_segment_path": "sources/derived-access/S14/segment-0043.txt",
+      "access_segment_sha256": "e3bd1385a923e4670f8d8083d62bc234a23ed07bf2e9093ed6be93d7ebaa5404",
+      "actor_reference_kind": "PARTICIPANT_OR_CONTEXT_ACTOR",
+      "canonical_byte_end_exclusive": 2799356,
+      "canonical_byte_start": 2799046,
+      "canonical_line": 8079,
+      "canonical_source_path": "sources/canonical/S14_八字合冲刑害墓库与结构变化库.txt",
+      "canonical_source_sha256": "b225e64fcf7238b27a634e653a6904403d518335aeca59372b32e02f4a560407",
+      "exact_source_text": "丙火出干，喜有癸水破丙解合，支坐亥子丑地，癸水有力，亥中有甲破戊，唯其非化气，故戊土不为破格也。",
+      "interaction_assertion_id": "BCRIA-R1-QTBJ-CL-05370",
+      "multiplicity_and_alternative_path": {
+        "allocation_lexemes": [],
+        "alternative_path_signal": "NONE",
+        "exact_instance_selection": "NOT_APPLICABLE",
+        "signal": "NONE",
+        "source_named_multiplicity": []
+      },
+      "neutral_runtime_dependency_map": [
+        {
+          "binding_status": "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY",
+          "primitive": "EXACT_PARTICIPANT_INSTANCE_IDENTITY",
+          "semantic_boundary": "Exact participant identities permit future path enumeration but do not select an actor, target, allocation, or winner."
+        },
+        {
+          "binding_status": "AVAILABLE_AS_NEUTRAL_EVIDENCE_ONLY",
+          "primitive": "EXACT_RAW_RELATION_OCCURRENCE_IDENTITY",
+          "semantic_boundary": "An immutable released raw relation identity is neutral evidence; its presence is not a Classical operative-effect verdict."
+        }
+      ],
+      "parent_source_block_id": null,
+      "parent_source_segment_id": "QTBJ-SEG-02247",
+      "primary_assertion_class": "PARTICIPANT_MEDIATED_RELEASE_ASSERTION",
+      "record_sha256": "60be2cdeea660351450ad9fdca9c508eccd129b5f810f5dec7cd6f1ad1f8b03e",
+      "runtime_semantic_boundary": {
+        "classical_operability_verdict": "NOT_EMITTED",
+        "exact_winner_selection": "NOT_EMITTED",
+        "raw_relation_mutation_allowed": false,
+        "relation_presence_verdict": "NOT_EMITTED"
+      },
+      "secondary_assertion_classes": [],
+      "segment_local_line": 206,
+      "source_assertion_fragments": [
+        "癸水破丙解合",
+        "癸水有力"
+      ],
+      "source_assertion_role": "GENERAL_SOURCE_ASSERTION",
+      "source_chapter_id": null,
+      "source_chapter_title": null,
+      "source_id": "S14",
+      "source_layer": "XU_COMMENTARY_SOURCE",
+      "source_named_participant_patterns": [
+        "丑",
+        "丙",
+        "亥",
+        "子",
+        "戊",
+        "甲",
+        "癸"
+      ],
+      "source_named_relation_or_effect_patterns": [
+        "癸水破丙解合",
+        "癸水有力"
+      ],
+      "source_occurrence_id": "QTBJ-CL-05370",
+      "source_record_format": "QTBJ_SOURCE_CLAUSE_TSV",
+      "source_record_role": "SOURCE_CANDIDATE",
+      "source_record_sha256": "37d8b08349815d3234754ebf659b8da72f6bf3a0f188349b3ddc75a689279c66",
+      "source_text_sha256": "202f6bf1a57d0811813a2d76d2a576debb6cb46bcdae3e4a753044db1dbb10fa",
+      "target_reference_kind": "SOURCE_NAMED_RELATION_OR_EFFECT_TARGET",
+      "unresolved_semantic_requirements": [
+        "CLASSICAL_PARTICIPANT_MEDIATED_RELEASE_SEMANTICS",
+        "SOURCE_PATTERN_TO_EXACT_INSTANCE_BINDING"
+      ]
+    }
+  ],
+  "schema": "BAZI-CLASSICAL-RELATION-INTERACTION-ASSERTION-MATRIX-R1",
+  "scope": {
+    "activation_suppression_or_cancellation_runtime_released": false,
+    "artifact_role": "STATIC_SOURCE_INTERACTION_ASSERTION_EVIDENCE_ONLY",
+    "chart_specific_runtime_verdicts_released": false,
+    "classical_operability_evaluator_released": false,
+    "five_combination_outcome_semantics_released": false,
+    "global_relation_precedence_released": false,
+    "graph_or_fixpoint_resolver_released": false,
+    "hidden_combination_or_hidden_stem_relation_ontology_released": false,
+    "participant_auto_allocation_released": false,
+    "raw_relation_mutation_released": false,
+    "three_meeting_or_six_break_runtime_tables_released": false,
+    "winner_selection_released": false
+  },
+  "summary": {
+    "actor_reference_kind_counts": {
+      "PARTICIPANT_OR_CONTEXT_ACTOR": 2,
+      "RELATION_PATTERN_ACTOR": 21,
+      "UNRESOLVED_ACTOR": 1
+    },
+    "assertion_class_occurrence_counts": {
+      "ATTENUATION_ASSERTION": 1,
+      "PARTICIPANT_ALLOCATION_ASSERTION": 1,
+      "PARTICIPANT_MEDIATED_RELEASE_ASSERTION": 2,
+      "RESOLUTION_ASSERTION": 18,
+      "RESOLUTION_FAILURE_ASSERTION": 4,
+      "REVERSAL_OR_REAPPEARANCE_ASSERTION": 4
+    },
+    "explicit_multiplicity_record_count": 1,
+    "qtbj_exact_lexeme_review_source_occurrence_ids": [
+      "QTBJ-CL-05347",
+      "QTBJ-CL-05370"
+    ],
+    "qtbj_explicit_release_record_count": 2,
+    "record_count": 24,
+    "shen_block_counts": {
+      "ZPZQ-B-09-003": 11,
+      "ZPZQ-B-09-005": 2,
+      "ZPZQ-B-09-007": 4,
+      "ZPZQ-B-09-009": 5
+    },
+    "shen_record_count": 22,
+    "source_assertion_role_counts": {
+      "CONTEXTUAL_QUESTION": 3,
+      "EXEMPLIFYING_SOURCE_ASSERTION": 13,
+      "GENERAL_SOURCE_ASSERTION": 4,
+      "SUMMARY_SOURCE_ASSERTION": 4
+    },
+    "source_layer_counts": {
+      "QTBJ_CORE_SOURCE": 1,
+      "SHEN_CLASSICAL_SOURCE": 22,
+      "XU_COMMENTARY_SOURCE": 1
+    },
+    "target_reference_kind_counts": {
+      "SOURCE_NAMED_RELATION_OR_EFFECT_TARGET": 23,
+      "UNRESOLVED_TARGET": 1
+    }
+  }
+}

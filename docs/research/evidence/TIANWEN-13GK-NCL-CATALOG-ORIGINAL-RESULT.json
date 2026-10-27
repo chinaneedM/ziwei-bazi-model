@@ -1,0 +1,58 @@
+{
+  "schema": "TIANWEN-13GI-NCL-OFFICIAL-CSV-PROBE-RESULT-R1",
+  "url": "https://rbook.ncl.edu.tw/NCLSearch/rbook.csv",
+  "status": "CSV_RETRIEVED_PARSED_REPORT_ONLY",
+  "status_detail": "Exact matches require original row, column, SHA and firstparty detail follow-up; absence here is not historic nonexistence.",
+  "http_status": 200,
+  "source_bytes_sha256": "d33512f060122a3ade8cdadd0c2195c3f1996983d83c3c0599e01e8a9c4a9c24",
+  "source_size": 1937091,
+  "decoding": "cp950",
+  "headers": [
+    "正題名",
+    "書號",
+    "索書號",
+    "作者",
+    "版本"
+  ],
+  "rows_checked": 28913,
+  "candidate_rows": [
+    {
+      "csv_row_1based": 3541,
+      "bibliographic_fields": {
+        "正題名": "高麗史",
+        "書號": "03130",
+        "索書號": "208 03130",
+        "作者": "鄭麟趾",
+        "版本": "清初葉舊鈔光緒間(1644-1735)錢塘丁氏補鈔本"
+      },
+      "exact_book_number_column": true
+    }
+  ],
+  "exact_book_number_rows": [
+    {
+      "csv_row_1based": 3541,
+      "bibliographic_fields": {
+        "正題名": "高麗史",
+        "書號": "03130",
+        "索書號": "208 03130",
+        "作者": "鄭麟趾",
+        "版本": "清初葉舊鈔光緒間(1644-1735)錢塘丁氏補鈔本"
+      },
+      "exact_book_number_column": true
+    }
+  ],
+  "negative_absence_certified": false,
+  "item_folio_or_glyph_certified": false,
+  "core_column_indices": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "book_number_columns": [
+    1,
+    2
+  ],
+  "source_archive_file": "tianwen-13gi-source.csv"
+}

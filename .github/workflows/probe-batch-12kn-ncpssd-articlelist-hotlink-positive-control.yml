@@ -1,0 +1,146 @@
+name: probe-batch-12kn-ncpssd-articlelist-hotlink-positive-control
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12kn-ncpssd-articlelist-hotlink-positive-control.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Replay only the exact source-emitted red-chamber-dream articlelist hot link
+        run: |
+          python - <<'PY'
+          import base64, hashlib, html, json, re
+          from pathlib import Path
+          from urllib.parse import unquote, urljoin
+          import requests
+
+          HOME="https://www.ncpssd.cn/"
+          UA={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; NCPSsd source-emitted hot-link positive control)"}
+
+          def sha(b):
+              return hashlib.sha256(b).hexdigest()
+
+          def decode_text(raw):
+              for enc in ("utf-8","utf-8-sig","gb18030","gbk","big5"):
+                  try:
+                      return raw.decode(enc),enc
+                  except UnicodeDecodeError:
+                      pass
+              return raw.decode("utf-8","replace"),"utf-8-replacement"
+
+          def raw_params(url):
+              out={}
+              for part in url.split("?",1)[1].split("&"):
+                  if "=" in part:
+                      k,v=part.split("=",1)
+                      out.setdefault(unquote(k),[]).append(unquote(v))
+              return out
+
+          def b64d(v):
+              return base64.b64decode(v + "="*((4-len(v)%4)%4)).decode("utf-8")
+
+          s=requests.Session()
+          s.headers.update(UA)
+          h=s.get(HOME,timeout=45,allow_redirects=True)
+          hraw=h.content
+          htxt,henc=decode_text(hraw)
+
+          chosen=None
+          for m in re.finditer(r"""(['"])(/Literature/articlelist\?[^'"]+)\1""",htxt):
+              route=html.unescape(m.group(2))
+              vals=raw_params(route)
+              if "searchname" not in vals:
+                  continue
+              try:
+                  decoded=b64d(vals["searchname"][0])
+              except Exception:
+                  continue
+              if decoded == '题名/关键词="红楼梦"':
+                  chosen=route
+                  break
+
+          if chosen is None:
+              raise SystemExit("source-emitted positive-control hot link not found")
+
+          target=urljoin(h.url,chosen)
+          r=s.get(target,timeout=45,allow_redirects=True)
+          raw=r.content
+          txt,enc=decode_text(raw)
+          visible=re.sub(r"\s+"," ",html.unescape(re.sub(r"<[^>]+>"," ",txt))).strip()
+
+          links=[]
+          for m in re.finditer(r"""href=['"]([^'"]+)['"]""",txt,re.I):
+              href=html.unescape(m.group(1))
+              if re.search(r"articleinfo",href,re.I):
+                  links.append(href)
+                  if len(links)>=30:
+                      break
+
+          out={
+              "source_contract":{
+                  "parent_batch":"12KM",
+                  "home_url":HOME,
+                  "positive_control_term":"红楼梦",
+                  "route_selected_only_if_exactly_source_emitted":True,
+                  "generated_route_used":False
+              },
+              "home_response":{
+                  "http_status":h.status_code,
+                  "final_url":h.url,
+                  "bytes":len(hraw),
+                  "sha256":sha(hraw),
+                  "decode_used":henc
+              },
+              "selected_source_emitted_route":chosen,
+              "result_response":{
+                  "http_status":r.status_code,
+                  "final_url":r.url,
+                  "bytes":len(raw),
+                  "sha256":sha(raw),
+                  "decode_used":enc
+              },
+              "visible_markers":{
+                  "term_visible":"红楼梦" in visible,
+                  "search_result_marker":("检索结果" in visible or "搜索结果" in visible),
+                  "title_keyword_marker":"题名/关键词" in visible
+              },
+              "article_detail_links_not_followed":links,
+              "adjudication":{
+                  "source_emitted_positive_control_route_followed":True,
+                  "positive_control_term_visible":"红楼梦" in visible,
+                  "article_detail_link_count_observed":len(links),
+                  "downstream_item_followed":False,
+                  "login_used":False,
+                  "target_zhao_query_submitted":False
+              },
+              "security":{
+                  "anonymous_get_only":True,
+                  "reader_account_used":False,
+                  "registration_used":False,
+                  "post_request_used":False,
+                  "state_changing_request_used":False,
+                  "private_endpoint_guessed":False,
+                  "search_endpoint_guessed":False,
+                  "search_parameter_guessed":False,
+                  "captcha_bypass_used":False,
+                  "tls_verification_disabled":False
+              }
+          }
+          Path("batch-12kn-ncpssd-articlelist-hotlink-positive-control.json").write_text(
+              json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12kn-ncpssd-articlelist-hotlink-positive-control
+          path: batch-12kn-ncpssd-articlelist-hotlink-positive-control.json

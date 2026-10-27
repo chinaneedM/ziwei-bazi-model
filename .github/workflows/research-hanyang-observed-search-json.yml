@@ -1,0 +1,136 @@
+name: research-hanyang-observed-search-json
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-hanyang-observed-search-json.yml
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Replay only the exact public search request observed from Hanyang UI
+        shell: python
+        run: |
+          import hashlib
+          import json
+          import urllib.parse
+          import urllib.request
+          from pathlib import Path
+
+          OUT = Path("probe")
+          OUT.mkdir()
+          BASE = "https://lib.hanyang.ac.kr/pyxis-api/1/collections/15/search"
+          PARAMS = [
+              ("all", "k|a|新刻合倂十八飛星策天紫微斗數全集"),
+              ("facet", "false"),
+              ("fuzzy", "false"),
+              ("max", "4"),
+              ("offset", "0"),
+              ("isForPyxis3", "true"),
+          ]
+          URL = BASE + "?" + urllib.parse.urlencode(PARAMS)
+          req = urllib.request.Request(URL, headers={
+              "User-Agent": "Mozilla/5.0 research-only exact public UI request replay",
+              "Accept": "application/json,text/plain,*/*;q=0.8",
+              "Referer": "https://lib.hanyang.ac.kr/search/i-discovery",
+              "Accept-Language": "ko,zh;q=0.8,en;q=0.7",
+          })
+          try:
+              with urllib.request.urlopen(req, timeout=45) as resp:
+                  raw = resp.read(8_000_001)
+                  if len(raw) > 8_000_000:
+                      raise RuntimeError("response exceeded guard")
+                  transport = {
+                      "ok": True,
+                      "status": getattr(resp, "status", None),
+                      "final_url": resp.geturl(),
+                      "content_type": resp.headers.get("content-type"),
+                      "bytes": len(raw),
+                      "sha256": hashlib.sha256(raw).hexdigest(),
+                  }
+          except Exception as exc:
+              raw = b""
+              transport = {"ok": False, "error": repr(exc)}
+
+          payload = None
+          parse_error = None
+          if raw:
+              (OUT / "observed-search-response.json").write_bytes(raw)
+              try:
+                  payload = json.loads(raw.decode("utf-8"))
+              except Exception as exc:
+                  parse_error = repr(exc)
+
+          # Extract recursively only fields actually present in the public response.
+          interesting = []
+          keys_of_interest = {
+              "id", "biblioId", "biblio_id", "itemId", "item_id", "title", "author",
+              "publisher", "publishYear", "publicationYear", "callNo", "callNumber",
+              "location", "branch", "url", "link", "href", "collectionId", "type",
+          }
+          def walk(obj, path="$", depth=0):
+              if depth > 14:
+                  return
+              if isinstance(obj, dict):
+                  row = {}
+                  for k, v in obj.items():
+                      if k in keys_of_interest and isinstance(v, (str, int, float, bool, type(None))):
+                          row[k] = v
+                  text = json.dumps(obj, ensure_ascii=False)[:20000]
+                  if row or any(marker in text for marker in ("卷4", "v.4", "明經閣", "1870", "紫微斗數")):
+                      interesting.append({"path": path, "fields": row, "excerpt": text[:5000]})
+                  for k, v in obj.items():
+                      walk(v, f"{path}.{k}", depth + 1)
+              elif isinstance(obj, list):
+                  for i, v in enumerate(obj):
+                      walk(v, f"{path}[{i}]", depth + 1)
+
+          if payload is not None:
+              walk(payload)
+
+          result = {
+              "schema": "ZIWEI-HANYANG-OBSERVED-SEARCH-JSON-R1",
+              "request_provenance": {
+                  "source_workflow_run_id": 34177957476,
+                  "source_artifact_id": 10037915482,
+                  "source_event": "PUBLIC_UI_NATURALLY_EMITTED_REQUEST",
+                  "method": "GET",
+                  "base_url": BASE,
+                  "params_exactly_replayed": PARAMS,
+              },
+              "authentication_attempted": False,
+              "hidden_endpoint_guessing_attempted": False,
+              "parameter_expansion_attempted": False,
+              "transport": transport,
+              "parse_error": parse_error,
+              "top_level_type": type(payload).__name__ if payload is not None else None,
+              "top_level_keys": sorted(payload.keys()) if isinstance(payload, dict) else None,
+              "interesting_response_objects": interesting[:300],
+              "adjudication": {
+                  "official_hanyang_record_binding": "REVIEW_RETURNED_PUBLIC_JSON_FIELDS",
+                  "detail_route_followup": "ONLY_IF_RESPONSE_ITSELF_EXPOSES_IDENTIFIER_OR_LINK",
+                  "target_page_effect": "NONE_UNTIL_PUBLIC_DIGITAL_OBJECT_LINK_IS_EXPLICITLY_BOUND",
+                  "algorithm_effect": "NONE",
+              },
+          }
+          (OUT / "hanyang-observed-search-json.json").write_text(
+              json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8"
+          )
+          print(json.dumps(result, ensure_ascii=False, indent=2))
+
+      - name: Upload observed-response evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ziwei-hanyang-observed-search-json
+          path: probe/
+          if-no-files-found: warn
+          retention-days: 14

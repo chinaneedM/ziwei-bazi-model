@@ -1,0 +1,80 @@
+name: verify-batch-12iy-exact-head
+# Exact-head gate: promote only the Chapter-9 transaction facts directly exposed by page-numbered snippets.
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/verify-batch-12iy-exact-head.yml
+      - docs/research/ZIWEI-JI-SHUYING-2009-TIEQIN-DIRECT-TRANSACTION-CHRONOLOGY-R1.json
+      - docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JI-SHUYING-2009-TIEQIN-DIRECT-TRANSACTION-CHRONOLOGY-IY.md
+      - docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json
+      - docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.md
+      - docs/PROJECT-CURRENT-STATE-R1.json
+      - scripts/verify-project-continuity-state-r1.py
+      - .github/workflows/probe-batch-12iy-ji15-tieqin-direct-chronology.yml
+      - .github/workflows/probe-batch-12iy-ji15-google-books-transaction-chronology.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  statuses: write
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Publish pending IY status
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.repos.createCommitStatus({
+              owner: context.repo.owner, repo: context.repo.repo, sha: context.sha,
+              state: 'pending', context: 'tianwen/batch-12iy-exact-head',
+              description: 'Batch 12IY direct chronology verification running'
+            })
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: Verify Batch 12IY exact head
+        run: |
+          set -euo pipefail
+          python scripts/verify-tianwen-transmission-genealogy-r1.py
+          python scripts/verify-project-continuity-state-r1.py
+          python scripts/verify-fusion-chart-historical-provenance-audit-r1.py
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          e=json.loads(Path('docs/research/ZIWEI-JI-SHUYING-2009-TIEQIN-DIRECT-TRANSACTION-CHRONOLOGY-R1.json').read_text(encoding='utf-8'))
+          assert e['batch_id']=='BATCH-12-ZIWEI-JI-SHUYING-2009-TIEQIN-DIRECT-TRANSACTION-CHRONOLOGY-IY'
+          d=e['direct_chapter9_controls']
+          assert d['p140']['first_batch_sold_titles']==304 and d['p140']['first_batch_donated_titles']==52
+          assert d['p143']['second_batch_sold_titles']==123 and d['p143']['ding_fubao_intermediary_six_books'] is True
+          assert d['p155']['third_batch_exists'] is True and d['p155']['third_batch_transaction_character']=='PURCHASED_BOOKS'
+          u=e['unresolved_or_not_promoted']
+          assert u['third_batch_donation_97']['status']=='SECONDARY_RECOUNTING_NOT_PROMOTED'
+          assert u['third_batch_sale_300_plus']['status']=='SECONDARY_RECOUNTING_NOT_PROMOTED'
+          assert e['target_volume_firewall']['target_specific_purchase_route_selected'] is False
+          assert e['project_consequence']['product_change'] is False
+          PY
+      - name: Publish success IY status
+        if: success()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.repos.createCommitStatus({
+              owner: context.repo.owner, repo: context.repo.repo, sha: context.sha,
+              state: 'success', context: 'tianwen/batch-12iy-exact-head',
+              description: 'Batch 12IY exact-head verification passed'
+            })
+      - name: Publish failure IY status
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.repos.createCommitStatus({
+              owner: context.repo.owner, repo: context.repo.repo, sha: context.sha,
+              state: 'failure', context: 'tianwen/batch-12iy-exact-head',
+              description: 'Batch 12IY exact-head verification failed'
+            })

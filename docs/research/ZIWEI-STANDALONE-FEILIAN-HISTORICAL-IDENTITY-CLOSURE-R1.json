@@ -1,0 +1,160 @@
+{
+  "schema": "ZIWEI-STANDALONE-FEILIAN-HISTORICAL-IDENTITY-CLOSURE-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-STANDALONE-FEILIAN-HISTORICAL-IDENTITY-CLOSURE-NY",
+  "prior_batch_id": "BATCH-12-ZIWEI-JIANGQIAN-TEMPORAL-SOURCE-SCOPE-EVIDENCE-CLOSURE-NX",
+  "batch_classification": "POST_AUDIT_EVIDENCE_CLOSURE_NOT_SUPPLEMENTAL_RULE_AUDIT",
+  "target_rule_ids": [
+    "HPA-ZMINOR-020"
+  ],
+  "target_status_before": "SOURCE_INSUFFICIENT",
+  "target_status_after": "HISTORICALLY_SUPPORTED",
+  "adjudication": "STANDALONE_YEAR_BRANCH_FEILIAN_GEOMETRY_IS_PREMODERN_HISTORICALLY_ATTESTED; ZIWEI_ADOPTION_PATH_REMAINS_UNRESOLVED; BOSHI_RING_FEILIAN_IS_A_SEPARATE_MECHANICAL_IDENTITY",
+  "runtime_rule": {
+    "entity_id": "STAR.FEILIAN",
+    "display_name": "蜚廉",
+    "input": "ziwei_birth_year_branch",
+    "source_ref": "S01:ZZZA-PR-033",
+    "table": {
+      "子": "申",
+      "丑": "酉",
+      "寅": "戌",
+      "卯": "巳",
+      "辰": "午",
+      "巳": "未",
+      "午": "寅",
+      "未": "卯",
+      "申": "辰",
+      "酉": "亥",
+      "戌": "子",
+      "亥": "丑"
+    },
+    "runtime_path": "src/fortune_training/ziwei_chart/minor_stars.py",
+    "algorithm_changed": false
+  },
+  "historical_geometry_closure": {
+    "exact_match_count": 12,
+    "exact_match_total": 12,
+    "table": {
+      "子": "申",
+      "丑": "酉",
+      "寅": "戌",
+      "卯": "巳",
+      "辰": "午",
+      "巳": "未",
+      "午": "寅",
+      "未": "卯",
+      "申": "辰",
+      "酉": "亥",
+      "戌": "子",
+      "亥": "丑"
+    },
+    "coordinate_reopen_required": false,
+    "scope": "PLACEMENT_GEOMETRY_AND_YEAR_BRANCH_BASIS_ONLY"
+  },
+  "historical_witnesses": [
+    {
+      "source_id": "EXT-SHIDIAN-LISHIMINGYUAN-FEILIAN",
+      "work": "《历事明原》",
+      "attribution": "[元]曹震圭",
+      "date_scope": "Scholarship cited by the reviewed public research surface places composition in 1264-1282; the directly reviewed rule text is a modern digital transcription, not a physical Yuan copy.",
+      "passage_scope": "飞廉亦名大杀；《神枢经》释义后引《广圣历》逐支列飞廉年位。",
+      "rule_result": "子申、丑酉、寅戌、卯巳、辰午、巳未、午寅、未卯、申辰、酉亥、戌子、亥丑",
+      "role": "EARLY_CURRENTLY_LOCATED_PREMODERN_TEXTUAL_LINE_FOR_THE_SAME_YEAR_BRANCH_GEOMETRY",
+      "direct_physical_copy_reviewed": false
+    },
+    {
+      "source_id": "EXT-CTEXT-XINGLI-KAOYUAN-FEILIAN",
+      "work": "《御定星历考原》卷二",
+      "date_scope": "康熙五十二年（1713）御定",
+      "passage_scope": "飞廉条引《神枢经》《广圣历》，逐支列出飞廉年位。",
+      "rule_result": "12_OF_12_EXACT_MATCH_TO_RUNTIME",
+      "role": "CLEAN_QING_RECEIVED_WITNESS_FOR_EXACT_GEOMETRY",
+      "direct_physical_copy_reviewed": false
+    },
+    {
+      "source_id": "EXT-WIKISOURCE-XIEJI-BIANFANG-FEILIAN",
+      "work": "《钦定协纪辨方书》卷三",
+      "date_scope": "乾隆四年奉敕修订，序称越三年成编；reviewed surface is Siku received transcription.",
+      "passage_scope": "重录同一飞廉年支表，并用三合生旺墓次序解释其逆历机制；另明确岁名飞廉、月名大煞。",
+      "rule_result": "12_OF_12_EXACT_MATCH_PLUS_MECHANICAL_GLOSS",
+      "role": "QING_OFFICIAL_MECHANICAL_AND_TERMINOLOGY_SCOPE_WITNESS",
+      "direct_physical_copy_reviewed": false
+    }
+  ],
+  "earlier_citation_boundary": {
+    "cited_work": "《广圣历》",
+    "bibliography_source_id": "EXT-WIKISOURCE-SONGSHI-GUANGSHENGLI-BIBLIOGRAPHY",
+    "bibliography_finding": "《宋史》卷207《艺文志》著录苗锐《新删定广圣历》二卷。",
+    "lishimingyuan_explicitly_cites_guangshengli_for_feilian_table": true,
+    "xingli_kaoyuan_explicitly_cites_guangshengli_for_feilian_table": true,
+    "exact_identity_between_cited_guangshengli_recension_and_songshi_bibliographic_item": "UNRESOLVED",
+    "surviving_direct_guangshengli_rule_text_reviewed": false,
+    "ancestry_claim": "CITATION_LINE_EXISTS; EXACT_RECENSION_AND_DIRECT_TEXTUAL_ANCESTRY_NOT_CLOSED"
+  },
+  "identity_firewall": {
+    "standalone_identity": "STAR.FEILIAN",
+    "standalone_basis": "BIRTH_YEAR_BRANCH_FIXED_TABLE",
+    "boshi_identity": "RING.BOSHI12.FEILIAN",
+    "boshi_basis": "LUCUN_ANCHOR_PLUS_RING_ORDINAL_6; because +/-6 mod 12 is identical, its coordinate is the opposite palace from Lucun independent of traversal direction",
+    "same_object": false,
+    "same_algorithm": false,
+    "same_input_dimension": false,
+    "same_name_or_variant_glyph_does_not_merge_identity": true,
+    "coordinate_collision_count_in_60_jiazi": 4,
+    "coordinate_collision_cases": [
+      {
+        "ganzhi": "甲子",
+        "coordinate": "申"
+      },
+      {
+        "ganzhi": "乙丑",
+        "coordinate": "酉"
+      },
+      {
+        "ganzhi": "庚午",
+        "coordinate": "寅"
+      },
+      {
+        "ganzhi": "辛未",
+        "coordinate": "卯"
+      }
+    ],
+    "coordinate_collision_implies_identity": false
+  },
+  "status_adjudication": {
+    "historically_supported_scope": "The standalone year-branch placement geometry and its identity as a year deity/shensha rule are directly attested in premodern received textual tradition.",
+    "not_closed_scope": [
+      "When and through which textual/school route this calendrical/year-deity Feilian table entered Ziwei Doushu practice.",
+      "Exact surviving text/recension of the cited Guangshengli table.",
+      "Any claim that standalone Feilian and Boshi-ring Feilian are historically one object."
+    ],
+    "algorithm_reopen_authorized": false,
+    "production_default_changed": false,
+    "candidate_created": false
+  },
+  "accounting": {
+    "rows": 220,
+    "audited_rows": 220,
+    "current_missing_from_product": 10,
+    "provenance_defects_confirmed_before": 40,
+    "provenance_defects_confirmed_after": 40,
+    "provenance_defects_repaired_before": 40,
+    "provenance_defects_repaired_after": 40,
+    "source_insufficient_before": 11,
+    "source_insufficient_after": 10,
+    "historically_supported_before": 94,
+    "historically_supported_after": 95,
+    "chart_algorithm_defects": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0
+  },
+  "transmission_impact": {
+    "status": "GRAPH_UPDATE_REQUIRED",
+    "reason": "A premodern cross-domain transmission chain for the standalone Feilian year-branch rule is now materially evidenced. Graph must represent the calendrical/year-deity rule family and explicitly preserve non-identity with the Ziwei Boshi-ring Feilian."
+  },
+  "next_gate": [
+    "12NZ: audit HPA-ZMINOR-023 month Jieshen/Yuejie provenance and keep year-based 解神/年解 distinct.",
+    "Continue seeking a directly reviewable Guangshengli recension or earlier source for the Feilian year-branch table; do not reopen HPA-ZMINOR-020 coordinates."
+  ]
+}

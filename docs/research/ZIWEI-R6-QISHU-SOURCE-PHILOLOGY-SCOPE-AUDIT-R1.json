@@ -1,0 +1,165 @@
+{
+  "schema": "ZIWEI-R6-QISHU-SOURCE-PHILOLOGY-SCOPE-AUDIT-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-R6-QISHU-SOURCE-PHILOLOGY-SCOPE-AUDIT-MX",
+  "prior_batch_id": "BATCH-12-ZIWEI-R4-SOURCE-PHILOLOGY-SCOPE-AUDIT-MW",
+  "parent_rule_id": "HPA-STRUCT-006",
+  "parent_status": "MODERN_COMPATIBILITY_ONLY",
+  "new_child_rows": [
+    "HPA-STRUCT-015",
+    "HPA-STRUCT-016"
+  ],
+  "coordinate_status": "SUPPORTED_BUT_SCHOOL_SPECIFIC",
+  "semantic_closure_status": "MODERN_COMPATIBILITY_ONLY",
+  "algorithm_reopen_authorized": false,
+  "witnesses": [
+    {
+      "source_id": "EXT-DADE-ZIWEI-JINGCHENG-QISHU-RECEIVED",
+      "url": "https://fliphtml5.com/juaif/sazf/%E5%A4%A7%E5%BE%B7%E5%B1%B1%E4%BA%BA-%E7%B4%AB%E5%BE%AE%E6%96%97%E6%95%B0%E7%B2%BE%E6%88%90%28%E4%B8%8A%E4%B8%8B%E7%BC%96%29%E5%85%A8%E6%9C%AC%28%E4%B8%8B%E7%BC%96%E5%9C%A8283%E9%A1%B5%29/366/",
+      "locator": "public page 366 / 第十四章四化论断法详释 / 第九节河洛四化分析论断的基本方法 / 一、气数位分析论断法",
+      "evidence_class": "MODERN_HELUO_RECEIVED_TEXT",
+      "short_quote": "从本宫为1数起，逆数到第9宫，称为本宫的“气数位”",
+      "glyph_authority": false,
+      "claim": "Defines the mechanical inverse-ninth qishu coordinate and gives Life→Career and Wealth→Life examples; categorical interpretive claims are not imported."
+    },
+    {
+      "source_id": "EXT-GOOGLEBOOKS-DADE-ZIWEI-JINGCHENG-BIBLIO",
+      "url": "https://books.google.com/books/about/%E7%B4%AB%E5%BE%AE%E6%96%97%E6%95%B0%E7%B2%BE%E6%88%90.html?id=sANIEQAAQBAJ",
+      "evidence_class": "MODERN_BIBLIOGRAPHIC_AND_AUTHOR_PREFACE_CONTEXT",
+      "claim": "Binds author/publisher and the author's statement that the compilation was based on 1998 Yulin teaching materials. This does not date the qishu rule itself or establish premodern ancestry."
+    },
+    {
+      "source_id": "EXT-HELUO-TONGBU-QISHU-RECEIVED",
+      "url": "https://m.ziweifu.com/jingdianguji/jindai/1448.html",
+      "evidence_class": "MODERN_HELUO_RECEIVED_CORROBORATION",
+      "short_quote": "命宫为一，逆数疾厄为六，称为一六共宗。再逆数官禄为九，是谓气数位",
+      "glyph_authority": false,
+      "claim": "Corroborates the one-nine/qishu terminology in a modern Heluo synchronised-judgment context; page attribution to 司徒阳 is not treated as first-party invention or lineage proof."
+    }
+  ],
+  "internal_source_anchors": {
+    "normalized_section": "sources/canonical-runtime/S04/segment-0001.txt §十四、气数位",
+    "normalized_definition": "气数位是当前主题宫在其主题太极中的官禄位，只表示现实承接，不是成功宫、失败宫、评分宫或终点宫。",
+    "source_root_atoms": [
+      "HL-A-0008: 命宫逆数九位为官禄宫，河洛法称气数位",
+      "HL-A-0019: 任一论事本宫的官禄宫成为该宫气数位",
+      "HL-A-0021: 财帛宫为本宫时命宫为其气数位",
+      "HL-A-0035: 十二宫皆可为本宫，各宫逆数第九位为官禄宫/气数位"
+    ],
+    "epistemic_scope": "S04 is project research corpus and source normalization, not self-authenticating historical authority."
+  },
+  "philology": {
+    "local_reference_palace": "本宫 is a rotating local reference frame, not permanently natal LIFE.",
+    "relative_career_role": "官禄宫 in the qishu rule is the relative CAREER role of the chosen origin palace; for natal LIFE this happens to be literal natal CAREER.",
+    "inclusive_counting": "本宫为1 means ordinal 9 moves eight functional-palace steps from the origin.",
+    "coordinate_bridge": "Functional palace order is counterclockwise while physical Address indices increase clockwise. Eight counterclockwise steps equal four clockwise steps modulo 12: -8 mod 12 = +4.",
+    "runtime_identity": "relative_ordinal=9, relative_role_designation_id=CAREER, clockwise_offset=4.",
+    "terminology_scope": "气数位 is supported here as modern Heluo/Four-Transformation school terminology, not a universal Ziwei label and not yet a premodern historical fact.",
+    "interpretation_authorized": false
+  },
+  "semantic_firewall": {
+    "project_fixed_support_meanings_are_verbatim_historical_text": false,
+    "reviewed_modern_witness_is_more_categorical": true,
+    "reviewed_modern_witness_categories": [
+      "成败",
+      "气运消长",
+      "生气/无生气",
+      "吉凶"
+    ],
+    "r6_neutralization": "S04/R6 keeps only coordinate identity plus neutral fixed_support_meaning and explicitly forbids one-signal success/failure/event endpoint conversion.",
+    "forbidden_shortcuts": [
+      "气数位见禄=成功",
+      "气数位见权=落实",
+      "气数位见科=手续完成",
+      "气数位见忌=失败",
+      "气数位见煞=事故或手术",
+      "气数位受冲=离婚或破产",
+      "气数位受动=终点年",
+      "气数位为财帛宫=发财",
+      "气数位为父母宫=文件完成"
+    ]
+  },
+  "historical_scope": {
+    "modern_school_exact_coordinate_definition_supported": true,
+    "premodern_qishu_attestation_closed": false,
+    "earliest_qishu_definition_closed": false,
+    "exact_physical_edition_bound": false,
+    "work_material_ancestry_note": "Google Books public description reports that 大德山人 says the compilation used 1998 Yulin teaching materials as a basis; this is not the rule's formation date.",
+    "physical_copy_date": "NO_NEW_PHYSICAL_COPY_REVIEWED",
+    "digital_surrogate_date": "PUBLIC_SURFACES_RETRIEVED_2026-10-05; retrieval/upload date is not edition or digitization date",
+    "direct_lineage_closed": false
+  },
+  "engineering_scope": {
+    "rule_id": "HPA-STRUCT-016",
+    "status": "MODERN_COMPATIBILITY_ONLY",
+    "facts": "Twelve mapping IDs/neutral fixed meanings, NATAL-only scope, R2 fact/computation hash lineage, integrity checks and fail-closed one-signal result semantics are modern software contracts.",
+    "source_scope_separation": "External modern Heluo witnesses support the coordinate identity but not S04's neutral fixed-support wording or software hash/time-layer contract."
+  },
+  "accounting": {
+    "rows_before": 214,
+    "rows_after": 216,
+    "audited_rows_before": 195,
+    "audited_rows_after": 198,
+    "current_missing_from_product_rows": 10,
+    "provenance_defects_confirmed": 18,
+    "provenance_defects_repaired": 18,
+    "chart_algorithm_defects": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0,
+    "new_provenance_defect": false,
+    "scope_revision_reason": "Unaudited inventory label is decomposed before formal audit closure; old row snapshot retained. No chart-coordinate mismatch found."
+  },
+  "frozen_files": [
+    {
+      "path": "src/fortune_training/ziwei_structural/r6/profile.py",
+      "blob_sha": "18b92260c36145634cce2d8de7b45bf795fe448b"
+    },
+    {
+      "path": "src/fortune_training/ziwei_structural/r6/projection.py",
+      "blob_sha": "748165e0f389e1e01dd1ff1fe4ee38c8dbb7456a"
+    },
+    {
+      "path": "src/fortune_training/ziwei_structural/r6/engine.py",
+      "blob_sha": "9b4e83d3da4f37bed76326344595281d0e41e53d"
+    },
+    {
+      "path": "src/fortune_training/ziwei_structural/r6/models.py",
+      "blob_sha": "c7154550b11752dd5cd9f43c04c5bfdc30c34d1a"
+    },
+    {
+      "path": "src/fortune_training/ziwei_structural/r6/integrity.py",
+      "blob_sha": "b016eccc193ac25316e763f8467fd00d89a861b0"
+    },
+    {
+      "path": "sources/canonical-runtime/S04/segment-0001.txt",
+      "blob_sha": "8401f1d190e3ee4b87aab86f82216972bea7dde8"
+    },
+    {
+      "path": "sources/canonical-runtime/S04/segment-0003.txt",
+      "blob_sha": "69da3547b26d3b98b9bcf96dd8e5f3f2cc1e6fc6"
+    },
+    {
+      "path": "sources/canonical/S04_十二宫主题太极与气数位库.txt",
+      "blob_sha": "044743e21651505a1c454ad037671a0d4b6ae2c6"
+    },
+    {
+      "path": "docs/ZIWEI-STRUCTURAL-RUNTIME-V2-R6-QISHU.md",
+      "blob_sha": "e897aba0d8be8bc2dcce4c1447c3e1b41dabbbcd"
+    }
+  ],
+  "replay_evidence": "docs/research/evidence/batch-12mx/r6-qishu-geometry-replay.json",
+  "replay_scope": "Independent 12 LIFE physical rotations × 12 named origin palaces = 144 qishu coordinate records; the project_qishu_positions compiler is checked against a hard-coded named-palace oracle. Existing end-to-end R2/R6 tests retain calendar-chain coverage.",
+  "transmission_impact": {
+    "status": "NONE",
+    "reason": "Modern received school witnesses and bibliographic context do not prove a new physical witness, earliest date, inventor, or direct teacher/text transmission edge."
+  },
+  "next_gate": [
+    "12MY: audit HPA-STRUCT-007 R7 一六共宗. Separate the relative-six coordinate identity from Heluo interpretive doctrine, bind modern/earlier witnesses where possible, and replay all named-palace rotations without importing qishu semantics.",
+    "Preserve R4 earliest-definition/impression gaps, 12MV ring-source gaps, and R6 premodern-origin/exact-edition gaps."
+  ],
+  "verification": {
+    "new_tests": 5,
+    "expected_replay_records": 144,
+    "exact_head_ci_policy": "After publishing the forward-only commit, inspect all exact-HEAD push workflows; repair only new forward failures without rewriting historical snapshots."
+  }
+}

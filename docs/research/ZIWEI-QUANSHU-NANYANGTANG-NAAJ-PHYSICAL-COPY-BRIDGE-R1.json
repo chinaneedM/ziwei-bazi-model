@@ -1,0 +1,110 @@
+{
+  "schema": "ZIWEI-QUANSHU-NANYANGTANG-NAAJ-PHYSICAL-COPY-BRIDGE-R1",
+  "schema_version": "1.0.0",
+  "status": "SAME_PHYSICAL_COPY_AND_DIGITIZATION_LINEAGE_HIGHLY_SUPPORTED_NOT_FILE_HASH_CLOSED",
+  "purpose": "Prevent double-counting the Batch 12A Nanyangtang mirror and Batch 12H Japan National Archives route as independent physical late-Zi witnesses unless a future source proves distinct copies.",
+  "hpa_rule_id": "HPA-ZDATE-006",
+  "batch_12a_mirror": {
+    "source_id": "EXT-ZIWEI-QUANSHU-NANYANGTANG-SCAN",
+    "provider": "vr-d public indexed PDF mirror",
+    "source_url": "https://vr-d.com/pdf-file/%E7%B4%AB%E5%BE%AE%E6%96%97%E6%95%B0%2F%E7%B4%AB%E5%BE%AE%E6%96%97%E6%95%B0%E5%85%A8%E4%B9%A6_%E4%B8%83%E5%8D%B7_%E6%98%8E%E4%BB%A3%E5%8D%97%E9%98%B3%E5%A0%82%E5%88%8A%E6%9C%AC.pdf",
+    "acquisition_workflow_run_id": 34116332295,
+    "acquisition_artifact_id": 10016416872,
+    "pdf_bytes": 36203879,
+    "pdf_sha256": "32ca49bb3a02454067e6deddb97921779837a10e59e946c12d2f6d14f33509e7",
+    "pdf_page_count": 527,
+    "visible_title_page_controls": {
+      "title": "紫微斗數全書",
+      "author_attribution": "陳希夷先生著",
+      "imprint": "南陽堂較梓",
+      "right_edge_measurement_scale_visible": true,
+      "japanese_collection_or_catalog_label_visible_on_opening_leaf": true
+    },
+    "direct_late_zi_target": {
+      "volume": "卷五",
+      "pdf_page_1_based": 320,
+      "heading": "論人生時要審的確",
+      "surface": "如子時有十刻上五刻屬昨夜亥時下五刻屬今日子時",
+      "reading_method": "DIRECT_HUMAN_VISUAL_COLLATION_NO_OCR"
+    }
+  },
+  "batch_12a_embedded_naaj_route_probe": {
+    "artifact_file": "summary.json inside workflow artifact 10016416872",
+    "schema": "NAAJ-ZIWEI-QUANSHU-FACSIMILE-ROUTE-PROBE-R1",
+    "official_provider": "National Archives of Japan Digital Archive",
+    "title": "新鋟希夷陳先生紫微斗数全書",
+    "call_number": "子０６０－０００１",
+    "parent_file_id": "1078787",
+    "known_volume1_item_id": "4468520",
+    "old_collection": "紅葉山文庫",
+    "publication": "刊本:明",
+    "volume_count": 2,
+    "official_bytes_directly_retrieved_in_batch_12a": false,
+    "official_route_result": "HTTP_403_ON_REVIEWED_GITHUB_RUNNER_ROUTES",
+    "identifier_guessing_attempted": false
+  },
+  "batch_12h_official_archive_route": {
+    "source_id": "EXT-NAJ-ZWDSQS-MING-1078787",
+    "provider": "National Archives of Japan Digital Archive",
+    "title": "新鋟希夷陳先生紫微斗数全書",
+    "call_number": "子０６０－０００１",
+    "parent_file_id": "1078787",
+    "known_volume1_item_id": "4468520",
+    "former_owner": "紅葉山文庫",
+    "bibliographic_label": "刊本:明:::",
+    "quantity": "2冊",
+    "access_class": "公開",
+    "formal_facsimile_catalog_source_id": "EXT-SDU-ZIHAI-NAIKAKU-ZWDSQS-FACSIMILE",
+    "formal_facsimile_catalog_description": "《新鋟希夷陳先生紫微斗數全書》七卷，（宋）陳摶撰，（明）潘希尹補。據内閣文庫藏明刊本影印。"
+  },
+  "public_facsimile_route_control": {
+    "provider": "书格 / Shuge",
+    "url": "https://www.shuge.org/ebook/zi-wei-dou-shu-quan-shu/",
+    "page_description_controls": {
+      "work": "新锓希夷陈先生紫微斗数全书七卷",
+      "edition": "明代南阳堂（或葆和堂）刊本",
+      "collection_source": "日本内阁文库藏本",
+      "opening_imprint_family": "書林葆和堂葉梓行、南陽堂較梓",
+      "black_and_white_pdf_approx_size": "34.5M",
+      "color_pdf_approx_size": "813M",
+      "volume_bookmarks_present": true,
+      "volume_5_lists_target_section": "論人生時要審的確"
+    },
+    "direct_file_hash_closed_against_batch_12a_pdf": false,
+    "reason": "The reviewed public page supplies source/edition/file-route metadata, but the Shuge binary itself has not been acquired and hashed in this audit step."
+  },
+  "genealogical_bridge": {
+    "strong_identity_controls": [
+      "BATCH_12A_ARTIFACT_ALREADY_CONTAINS_NAAJ_ROUTE_PROBE_FOR_EXACT_CALL_NUMBER_AND_OBJECT_IDS",
+      "SAME_TITLE_AND_SEVEN_JUAN_SCOPE",
+      "SAME_NANYANGTANG_IMPRINT_FAMILY",
+      "SAME_JAPAN_CABINET_LIBRARY_OR_RED_LEAF_MOUNTAIN_COLLECTION_ROUTE",
+      "PUBLIC_FACSIMILE_PAGE_EXPLICITLY_IDENTIFIES_JAPAN_CABINET_LIBRARY_AS_COLLECTION_SOURCE",
+      "OPENING_LEAF_LAYOUT_IN_BATCH_12A_MIRROR_IS_CONSISTENT_WITH_PUBLIC_JAPAN-COPY_FACSIMILE_SURFACES"
+    ],
+    "remaining_unclosed_control": "OFFICIAL_NAAJ_JP2_OR_SHUGE_BINARY_HASH_NOT_DIRECTLY_COMPARED_TO_BATCH_12A_PDF",
+    "physical_copy_identity": "HIGHLY_SUPPORTED_SAME_NAAJ_CABINET_LIBRARY_COPY",
+    "digitization_lineage": "HIGHLY_SUPPORTED_DERIVED_FROM_SAME_JAPAN_CABINET_LIBRARY_SCAN_FAMILY",
+    "file_level_identity": "UNRESOLVED_UNTIL_BINARY_OR_OFFICIAL_PAGE_HASH_BRIDGE",
+    "independent_witness_count_effect": "DO_NOT_COUNT_BATCH_12H_JAPAN_ROUTE_AS_AN_INDEPENDENT_SECOND_PHYSICAL_HAI_GLYPH_WITNESS_RELATIVE_TO_BATCH_12A",
+    "future_upgrade_gate": "Obtain an official NAAJ JP2/content object or the Shuge source binary and compare page-level image/hash/crop controls against the Batch 12A mirror."
+  },
+  "epistemic_boundaries": {
+    "same_title_as_same_copy": "FORBIDDEN_IN_ISOLATION",
+    "same_imprint_as_same_copy": "FORBIDDEN_IN_ISOLATION",
+    "public_mirror_as_official_file_hash": "FORBIDDEN",
+    "duplicate_scan_lineage_as_independent_cross_edition_witness": "FORBIDDEN",
+    "visual_layout_similarity_as_file_hash_identity": "FORBIDDEN",
+    "target_hai_glyph_cross_edition_stability_from_this_bridge": "NOT_ESTABLISHED"
+  },
+  "adjudication": {
+    "hpa_zdate_006": "MISSING_FROM_PRODUCT",
+    "direct_hai_glyph_witness_count_added": 0,
+    "hai_glyph_stability_across_independent_physical_editions": "UNRESOLVED_PENDING_DIRECT_INDEPENDENT_PHYSICAL_TARGET_PAGES",
+    "runtime_time_standard_binding": "UNRESOLVED",
+    "candidate_selection_authorized": false,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_count": 0
+  }
+}

@@ -1,0 +1,384 @@
+{
+  "$id": "https://github.com/chinaneedM/ziwei-bazi-model/schemas/bazi-chart-bound-classical-interaction-projection-foundation-r1.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "audit_id": {
+      "const": "BAZI-CHART-BOUND-CLASSICAL-INTERACTION-PROJECTION-FOUNDATION-R1"
+    },
+    "authority": {
+      "additionalProperties": false,
+      "properties": {
+        "assertion_matrix_artifact_semantics_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "assertion_matrix_file_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "assertion_matrix_path": {
+          "type": "string"
+        },
+        "assertion_matrix_record_hash_chain_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "bindability_plan_path": {
+          "type": "string"
+        },
+        "bindability_plan_semantics_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "source_graph_artifact_semantics_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "source_graph_file_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "source_graph_path": {
+          "type": "string"
+        },
+        "source_graph_record_hash_chain_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "upstream_contract_file_sha256": {
+          "additionalProperties": {
+            "pattern": "^[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "minProperties": 1,
+          "type": "object"
+        }
+      },
+      "required": [
+        "source_graph_path",
+        "source_graph_file_sha256",
+        "source_graph_artifact_semantics_sha256",
+        "source_graph_record_hash_chain_sha256",
+        "assertion_matrix_path",
+        "assertion_matrix_file_sha256",
+        "assertion_matrix_artifact_semantics_sha256",
+        "assertion_matrix_record_hash_chain_sha256",
+        "bindability_plan_path",
+        "bindability_plan_semantics_sha256",
+        "upstream_contract_file_sha256"
+      ],
+      "type": "object"
+    },
+    "determinism": {
+      "additionalProperties": false,
+      "properties": {
+        "source_scope_specifications_semantics_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "source_scope_specifications_semantics_sha256"
+      ],
+      "type": "object"
+    },
+    "projection_profile": {
+      "additionalProperties": false,
+      "properties": {
+        "algorithm_id": {
+          "const": "BAZI-CHART-BOUND-SOURCE-INTERACTION-CLAIM-PROJECTION-R1"
+        },
+        "algorithm_version": {
+          "const": "1.0.0"
+        },
+        "bindability_plan_semantics_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "claim_projection_rule_set_id": {
+          "const": "BAZI-CHART-BOUND-SOURCE-INTERACTION-CLAIM-BUNDLE-PROJECTION-R1"
+        },
+        "claim_projection_rule_set_version": {
+          "const": "1.0.0"
+        },
+        "graph_artifact_semantics_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "graph_record_hash_chain_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "matrix_artifact_semantics_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "matrix_record_hash_chain_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "observation_rule_set_id": {
+          "const": "BAZI-BINDING-SCOPED-NEUTRAL-OBSERVATION-R1"
+        },
+        "observation_rule_set_version": {
+          "const": "1.0.0"
+        },
+        "profile_id": {
+          "const": "BAZI-CHART-BOUND-CLASSICAL-INTERACTION-PROJECTION-FOUNDATION-R1"
+        },
+        "profile_version": {
+          "const": "1.0.0"
+        },
+        "scope_rule_set_id": {
+          "const": "BAZI-CLASSICAL-INTERACTION-SOURCE-SCOPE-SPECIFICATION-R1"
+        },
+        "scope_rule_set_version": {
+          "const": "1.0.0"
+        }
+      },
+      "required": [
+        "profile_id",
+        "profile_version",
+        "algorithm_id",
+        "algorithm_version",
+        "scope_rule_set_id",
+        "scope_rule_set_version",
+        "observation_rule_set_id",
+        "observation_rule_set_version",
+        "claim_projection_rule_set_id",
+        "claim_projection_rule_set_version",
+        "graph_artifact_semantics_sha256",
+        "graph_record_hash_chain_sha256",
+        "matrix_artifact_semantics_sha256",
+        "matrix_record_hash_chain_sha256",
+        "bindability_plan_semantics_sha256"
+      ],
+      "type": "object"
+    },
+    "schema": {
+      "const": "BAZI-CLASSICAL-INTERACTION-SOURCE-SCOPE-SPECIFICATION-MATRIX-R1"
+    },
+    "source_scope_specifications": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "context_inheritance_edge_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "uniqueItems": true
+          },
+          "cross_layer_extension_policy": {
+            "anyOf": [
+              {
+                "const": "PRESERVE_AS_UNRESOLVED_EXTENSION"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "graph_record_id": {
+            "type": "string"
+          },
+          "required_runtime_participant_layer": {
+            "anyOf": [
+              {
+                "const": "NATAL"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "runtime_scope_subject": {
+            "anyOf": [
+              {
+                "const": "ALL_BOUND_SOURCE_PARTICIPANTS"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "scope_specification_status": {
+            "enum": [
+              "EXACT_RUNTIME_SOURCE_SCOPE_SPECIFIED",
+              "NO_R1_RUNTIME_SOURCE_SCOPE_SPECIFICATION"
+            ]
+          },
+          "source_chart_domain": {
+            "anyOf": [
+              {
+                "const": "NATAL_FOUR_PILLAR"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "source_occurrence_id": {
+            "type": "string"
+          },
+          "source_scope_evidence_mode": {
+            "anyOf": [
+              {
+                "enum": [
+                  "DIRECT_SOURCE_RECORD_NATAL_CONTEXT",
+                  "SOURCE_CONTEXT_INHERITED_NATAL_CONTEXT"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "source_occurrence_id",
+          "graph_record_id",
+          "scope_specification_status",
+          "source_scope_evidence_mode",
+          "source_chart_domain",
+          "runtime_scope_subject",
+          "required_runtime_participant_layer",
+          "cross_layer_extension_policy",
+          "context_inheritance_edge_ids"
+        ],
+        "type": "object"
+      },
+      "maxItems": 24,
+      "minItems": 24,
+      "type": "array"
+    },
+    "summary": {
+      "additionalProperties": false,
+      "properties": {
+        "projected_claim_class_counts": {
+          "additionalProperties": false,
+          "properties": {
+            "SOURCE_ASSERTED_ATTENUATION": {
+              "const": 1
+            },
+            "SOURCE_ASSERTED_PARTICIPANT_ALLOCATION": {
+              "const": 1
+            },
+            "SOURCE_ASSERTED_RESOLUTION": {
+              "const": 12
+            },
+            "SOURCE_ASSERTED_RESOLUTION_FAILURE": {
+              "const": 2
+            },
+            "SOURCE_ASSERTED_REVERSAL_OR_REAPPEARANCE": {
+              "const": 3
+            }
+          },
+          "required": [
+            "SOURCE_ASSERTED_RESOLUTION",
+            "SOURCE_ASSERTED_RESOLUTION_FAILURE",
+            "SOURCE_ASSERTED_REVERSAL_OR_REAPPEARANCE",
+            "SOURCE_ASSERTED_PARTICIPANT_ALLOCATION",
+            "SOURCE_ASSERTED_ATTENUATION"
+          ],
+          "type": "object"
+        },
+        "projected_claim_template_count": {
+          "const": 19
+        },
+        "relation_transition_observation_usage_count": {
+          "const": 0
+        },
+        "scope_class_counts": {
+          "additionalProperties": false,
+          "properties": {
+            "EXACT_RUNTIME_SOURCE_SCOPE_SPECIFIED": {
+              "const": 13
+            },
+            "NO_R1_RUNTIME_SOURCE_SCOPE_SPECIFICATION": {
+              "const": 11
+            }
+          },
+          "required": [
+            "EXACT_RUNTIME_SOURCE_SCOPE_SPECIFIED",
+            "NO_R1_RUNTIME_SOURCE_SCOPE_SPECIFICATION"
+          ],
+          "type": "object"
+        },
+        "scope_class_source_occurrence_ids": {
+          "additionalProperties": false,
+          "properties": {
+            "EXACT_RUNTIME_SOURCE_SCOPE_SPECIFIED": {
+              "items": {
+                "type": "string"
+              },
+              "maxItems": 13,
+              "minItems": 13,
+              "type": "array",
+              "uniqueItems": true
+            },
+            "NO_R1_RUNTIME_SOURCE_SCOPE_SPECIFICATION": {
+              "items": {
+                "type": "string"
+              },
+              "maxItems": 11,
+              "minItems": 11,
+              "type": "array",
+              "uniqueItems": true
+            }
+          },
+          "required": [
+            "EXACT_RUNTIME_SOURCE_SCOPE_SPECIFIED",
+            "NO_R1_RUNTIME_SOURCE_SCOPE_SPECIFICATION"
+          ],
+          "type": "object"
+        },
+        "source_record_count": {
+          "const": 24
+        },
+        "upstream_bindability_class_counts": {
+          "additionalProperties": false,
+          "properties": {
+            "FULL_EXACT_BINDING_ENUMERATION": {
+              "const": 11
+            },
+            "NOT_R1_EXACT_BINDABLE": {
+              "const": 11
+            },
+            "PARTIAL_EXACT_BINDING_ENUMERATION": {
+              "const": 2
+            }
+          },
+          "required": [
+            "FULL_EXACT_BINDING_ENUMERATION",
+            "PARTIAL_EXACT_BINDING_ENUMERATION",
+            "NOT_R1_EXACT_BINDABLE"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "source_record_count",
+        "scope_class_counts",
+        "scope_class_source_occurrence_ids",
+        "upstream_bindability_class_counts",
+        "projected_claim_template_count",
+        "projected_claim_class_counts",
+        "relation_transition_observation_usage_count"
+      ],
+      "type": "object"
+    }
+  },
+  "required": [
+    "schema",
+    "audit_id",
+    "authority",
+    "projection_profile",
+    "source_scope_specifications",
+    "summary",
+    "determinism"
+  ],
+  "title": "Bazi Chart-Bound Classical Interaction Projection Foundation R1 Source Scope Artifact",
+  "type": "object"
+}

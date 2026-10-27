@@ -1,0 +1,151 @@
+name: research-ziwei-fullbook-ming-qing-timekeeping-context-as-r2
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-ziwei-fullbook-ming-qing-timekeeping-context-as-r2.yml
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install PDF tooling
+        run: python -m pip install --disable-pip-version-check pymupdf pillow
+      - name: Correct Harvard volume target and render decisive pages
+        shell: python
+        run: |
+          import hashlib, io, json, re, urllib.parse, urllib.request
+          from pathlib import Path
+          import fitz
+          from PIL import Image, ImageDraw
+
+          out=Path("batch12as-r2"); out.mkdir(exist_ok=True)
+
+          def get(url,name,timeout=120):
+              req=urllib.request.Request(url,headers={"User-Agent":"Mozilla/5.0"})
+              try:
+                  with urllib.request.urlopen(req,timeout=timeout) as r:
+                      data=r.read(); status=r.status; final=r.geturl(); ctype=r.headers.get("Content-Type")
+              except Exception as e:
+                  return {"url":url,"error":repr(e)}
+              (out/name).write_bytes(data)
+              return {"url":url,"final_url":final,"http_status":status,"content_type":ctype,
+                      "bytes":len(data),"sha256":hashlib.sha256(data).hexdigest()}
+
+          def commons_search(q,label):
+              url=("https://commons.wikimedia.org/w/api.php?action=query&format=json&list=search&srnamespace=6"
+                   "&srlimit=50&srsearch="+urllib.parse.quote(q))
+              rec=get(url,label+"-search.json")
+              titles=[]
+              if rec.get("http_status")==200:
+                  obj=json.loads((out/(label+"-search.json")).read_text("utf-8"))
+                  titles=[x.get("title") for x in obj.get("query",{}).get("search",[])]
+              return rec,titles
+
+          def commons_file(title,label):
+              url=("https://commons.wikimedia.org/w/api.php?action=query&format=json&prop=imageinfo"
+                   "&iiprop=url%7Csize%7Csha1&titles="+urllib.parse.quote(title))
+              rec=get(url,label+"-api.json")
+              if rec.get("http_status")!=200: return rec,None
+              obj=json.loads((out/(label+"-api.json")).read_text("utf-8"))
+              page=next(iter(obj.get("query",{}).get("pages",{}).values()),{})
+              info=(page.get("imageinfo") or [None])[0]
+              return rec,info
+
+          receipt={
+              "scope":"BATCH12AS_R2_CORRECT_HARVARD_VOLUME_AND_BIND_WUAN_DIRECT_PAGES",
+              "parent_run":34355663757,
+              "authentication_attempted":False,
+              "ocr_generated_by_probe":False,
+              "source_targeting_correction":{
+                  "r1_harvard_title":"Harvard drs 428499121 圖書編 v.22.pdf",
+                  "r1_targeting_status":"WRONG_PHYSICAL_VOLUME_FOR_THE_TIMEKEEPING_TARGET; RETAIN_AS_PROBE_HISTORY_ONLY",
+                  "r2_requested_title_suffix":"圖書編 v.28.pdf"
+              },
+              "sources":{},
+              "rendered":{},
+              "adjudication":{
+                  "fullbook_authorial_inheritance_claimed":False,
+                  "runtime_standard_selected":False,
+                  "algorithm_reopen_authorized":False
+              }
+          }
+
+          srec,titles=commons_search('intitle:"圖書編 v.28.pdf"',"tushubian28")
+          receipt["sources"]["tushubian28_search"]={"request":srec,"titles":titles}
+          ht=next((t for t in titles if "Harvard" in t and "圖書編" in t and "v.28.pdf" in t),None)
+          receipt["sources"]["tushubian28_selected_title"]=ht
+          if ht:
+              arec,info=commons_file(ht,"tushubian28")
+              receipt["sources"]["tushubian28_commons"]={"api_request":arec,"imageinfo":info}
+              if info and info.get("url"):
+                  receipt["sources"]["tushubian28_pdf"]=get(info["url"],"tushubian-v28.pdf",180)
+
+          # Re-fetch the same direct Wuan PDF used in R1 so decisive pages are emitted separately.
+          wuan_url="https://upload.wikimedia.org/wikipedia/commons/4/4c/SSID-12633543_%E5%8B%BF%E5%BA%B5%E6%AD%B7%E7%AE%97%E6%9B%B8%E7%9B%AE.pdf"
+          receipt["sources"]["wuan_pdf"]=get(wuan_url,"wuan.pdf",120)
+
+          def render_page(doc,p1,label,scale=3.0):
+              page=doc[p1-1]
+              pix=page.get_pixmap(matrix=fitz.Matrix(scale,scale),alpha=False)
+              fn=f"{label}-p{p1}.png"
+              pix.save(str(out/fn))
+              return {"page_1_based":p1,"filename":fn,
+                      "sha256":hashlib.sha256((out/fn).read_bytes()).hexdigest(),
+                      "width":pix.width,"height":pix.height}
+
+          def contact_sheets(doc,label,cols=2,rows=3):
+              thumbs=[]
+              for j,page in enumerate(doc):
+                  pix=page.get_pixmap(matrix=fitz.Matrix(0.5,0.5),alpha=False)
+                  im=Image.open(io.BytesIO(pix.tobytes("jpeg"))).convert("RGB")
+                  canvas=Image.new("RGB",(im.width,im.height+28),"white")
+                  canvas.paste(im,(0,28))
+                  ImageDraw.Draw(canvas).text((5,5),f"PDF p{j+1}",fill="black")
+                  thumbs.append(canvas)
+              outrows=[]
+              per=cols*rows
+              for k in range(0,len(thumbs),per):
+                  batch=thumbs[k:k+per]
+                  w=max(x.width for x in batch); h=max(x.height for x in batch)
+                  sheet=Image.new("RGB",(cols*w,rows*h),"white")
+                  for idx,im in enumerate(batch):
+                      sheet.paste(im,((idx%cols)*w,(idx//cols)*h))
+                  fn=f"{label}-contact-{k//per+1}.jpg"
+                  sheet.save(out/fn,quality=90)
+                  outrows.append({"pages":[k+1,k+len(batch)],"filename":fn,
+                                  "sha256":hashlib.sha256((out/fn).read_bytes()).hexdigest()})
+              return outrows
+
+          wp=out/"wuan.pdf"
+          if wp.exists():
+              doc=fitz.open(str(wp))
+              receipt["rendered"]["wuan"]={
+                  "page_count":len(doc),
+                  "decisive_pages":[render_page(doc,30,"wuan"),render_page(doc,31,"wuan")]
+              }
+
+          tp=out/"tushubian-v28.pdf"
+          if tp.exists():
+              doc=fitz.open(str(tp))
+              receipt["rendered"]["tushubian28"]={
+                  "page_count":len(doc),
+                  "text_layer_nonempty_pages":sum(1 for p in doc if (p.get_text("text") or "").strip()),
+                  "contact_sheets":contact_sheets(doc,"tushubian28")
+              }
+
+          (out/"receipt.json").write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+"\n","utf-8")
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ziwei-fullbook-ming-qing-timekeeping-context-as-r2
+          path: batch12as-r2
+          retention-days: 90

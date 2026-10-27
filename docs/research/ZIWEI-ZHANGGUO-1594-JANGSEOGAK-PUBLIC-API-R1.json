@@ -1,0 +1,75 @@
+{
+  "schema": "ZIWEI-ZHANGGUO-1594-JANGSEOGAK-PUBLIC-API-R1",
+  "batch": "BATCH-12AW",
+  "captured_at_utc": "2026-09-11T05:30:38.814180+00:00",
+  "provider": "Academy of Korean Studies Digital Jangseogak",
+  "directory_record": {
+    "data_id": "LIB_169178",
+    "url": "https://jsg.aks.ac.kr/dir/view?dataId=LIB_169178",
+    "catalog_claim": "中國木板本 / 萬曆22(1594) / 10卷10冊",
+    "directory_call_numbers": [
+      "PC9A-20",
+      "C9A-20"
+    ],
+    "mf_number": "MF16/1453-1454",
+    "http_status": 200,
+    "content_type": "text/html;charset=UTF-8",
+    "sha256": "e0e4efdbd9f3297947a3ee32162b4fba454c0fb4e8cf8d00801b8f52f6e2ac31"
+  },
+  "documented_search_api": "https://jsg.aks.ac.kr/jsgimg/api/search",
+  "queries": [
+    {
+      "label": "title_exact",
+      "qCond": "tit",
+      "q": "新編評註通玄先生張果星宗大全",
+      "url": "https://jsg.aks.ac.kr/jsgimg/api/search?qCond=tit&q=%E6%96%B0%E7%B7%A8%E8%A9%95%E8%A8%BB%E9%80%9A%E7%8E%84%E5%85%88%E7%94%9F%E5%BC%B5%E6%9E%9C%E6%98%9F%E5%AE%97%E5%A4%A7%E5%85%A8&startIndex=0&pageUnit=100",
+      "http_status": 200,
+      "content_type": "application/json",
+      "sha256": "c71c88a4888eda7a32f9edde34e5fadc52005291b68b3e237b0360e84a4b309c",
+      "totalCount": 0,
+      "result_count": 0,
+      "results": []
+    },
+    {
+      "label": "title_short",
+      "qCond": "tit",
+      "q": "張果星宗",
+      "url": "https://jsg.aks.ac.kr/jsgimg/api/search?qCond=tit&q=%E5%BC%B5%E6%9E%9C%E6%98%9F%E5%AE%97&startIndex=0&pageUnit=100",
+      "http_status": 200,
+      "content_type": "application/json",
+      "sha256": "f30ac3c4674d98e34d76fc61625c1326d8db2ca3c4847d8db5bd9af742e5b6f2",
+      "totalCount": 0,
+      "result_count": 0,
+      "results": []
+    },
+    {
+      "label": "call_C9A_20",
+      "qCond": "bookId",
+      "q": "C9A-20",
+      "url": "https://jsg.aks.ac.kr/jsgimg/api/search?qCond=bookId&q=C9A-20&startIndex=0&pageUnit=100",
+      "http_status": 200,
+      "content_type": "application/json",
+      "sha256": "1e6c6b71c12b30d236ac85f89c1152dd50d9fb209054237c4e10c9d6eaf86dbe",
+      "totalCount": 0,
+      "result_count": 0,
+      "results": []
+    },
+    {
+      "label": "call_PC9A_20",
+      "qCond": "bookId",
+      "q": "PC9A-20",
+      "url": "https://jsg.aks.ac.kr/jsgimg/api/search?qCond=bookId&q=PC9A-20&startIndex=0&pageUnit=100",
+      "http_status": 200,
+      "content_type": "application/json",
+      "sha256": "20a17d0ec22c853eeaefdd02de87e1b0f05de227d060e008756f7b4d1bf83e3f",
+      "totalCount": 0,
+      "result_count": 0,
+      "results": []
+    }
+  ],
+  "interpretation_guardrails": [
+    "API search results are access-route evidence, not target-glyph authority.",
+    "A zero result does not prove the physical object lacks images.",
+    "A catalog record does not by itself establish the night-Zi target wording."
+  ]
+}

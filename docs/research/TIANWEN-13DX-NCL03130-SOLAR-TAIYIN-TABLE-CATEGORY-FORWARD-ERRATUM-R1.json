@@ -1,0 +1,157 @@
+{
+  "schema": "TIANWEN-13DX-NCL03130-SOLAR-TAIYIN-CATEGORY-ERRATUM-R1",
+  "date": "2026-10-23",
+  "issue_id": "TW-OPEN-0005",
+  "correction_type": "FORWARD_ONLY_SOURCE_TABLE_IDENTITY_ERRATUM",
+  "previous_batches_retained_immutable": [
+    "13DT",
+    "13DU",
+    "13DV",
+    "13DW"
+  ],
+  "source_object": {
+    "digital_surrogate": "NCL-03130_09_高麗史.pdf",
+    "provider": "WIKIMEDIA_COMMONS_MIRROR_NOT_NCL_FIRSTPARTY_ITEM_AUTHENTICATION",
+    "source_sha256": "3c2a5621fb3f4eabc593020bcde12a38f6ecdae2842940dec12d5a3a56afd32e",
+    "source_bytes": 50735589,
+    "page_count": 189,
+    "physical_copy_identity": "UNBOUND",
+    "qing_versus_1905_supplement_hand": "UNBOUND",
+    "ocr_used": false
+  },
+  "acquired_original_evidence": [
+    {
+      "page": 81,
+      "source_png_sha256": "92d45bc726e35087173d25ff5ea75885f6a1c8757890d57f3a1d71936ce7dcbe",
+      "observed": "SOLAR_PRECEDING_LAST_ROWS_81_TO_91",
+      "reading_scope": "upper ordinal headings 81 through 91; exact table-title binding independent of this section still controlled by p82 boundary"
+    },
+    {
+      "page": 82,
+      "source_png_sha256": "4b8efc11d9ce84e9025f8115533cafb4a6a33e2653e33f548b1d85c9487c6ed7",
+      "observed": "SOURCE_ORIGINAL_READS_太陰限數遲疾度_AND_限數_IN_LOWER_TRANSITION",
+      "reading_scope": "exact visible main table rubric 太陰限數遲疾度, after preceding solar limit summary, with 初限 and multi-field column names"
+    },
+    {
+      "page": 83,
+      "source_png_sha256": "713d7dddf8f26030eaca40b3552f598acdc580cfbf291da059461a6d7bec83c0",
+      "observed": "TAIYIN_LIMIT_SEQUENCE_RESTART_1_TO_8",
+      "reading_scope": "no 1909 solar printed day-index equivalence"
+    },
+    {
+      "page": 84,
+      "source_png_sha256": "abfabdaba9c64c845b0f8e4fba078de3e36a93cedfa8ff2da09a98619753917a",
+      "observed": "TAIYIN_LIMIT_9_TO_15"
+    },
+    {
+      "page": 85,
+      "source_png_sha256": "09512931027d1677e34af8fc5244493f936837d39f6047d1ced87e7a7bcef8c7",
+      "observed": "TAIYIN_LIMIT_16_TO_22"
+    },
+    {
+      "page": 86,
+      "source_png_sha256": "9107be92e0381fb596ffec33f2e7fbcffda2adc0f17bca4da303ffec6032693c",
+      "observed": "TAIYIN_LIMIT_23_TO_30"
+    },
+    {
+      "page": 87,
+      "source_png_sha256": "efdd635b305c05b0340bdc17d5e5cb90882c367e324de422df84ec3b33c30710",
+      "observed": "TAIYIN_LIMIT_31_TO_37"
+    },
+    {
+      "page": 88,
+      "source_png_sha256": "071baa8520fcbcf78bd85cff3065e77943c53ae1ec01cba0c49dbd74077e01db",
+      "observed": "TAIYIN_LIMIT_38_TO_44"
+    },
+    {
+      "page": 89,
+      "source_png_sha256": "410ea3c121c7d63e5df9c97c501a5da3a571b2b76244e2a59bfe0f767de66261",
+      "observed": "TAIYIN_LIMIT_45_TO_52"
+    },
+    {
+      "page": 90,
+      "source_png_sha256": "c9bdb2601d2b453d2e5474b144a638cc7bce955eb92b11baae63f816c038e4f7",
+      "observed": "TAIYIN_LIMIT_53_TO_59"
+    }
+  ],
+  "p86_source_native_limit28": {
+    "source_pdf_page": 86,
+    "table_title": "太陰限數遲疾度",
+    "ordinal_type": "TAIYIN_LIMIT_NUMBER",
+    "printed_ordinal": "二十八",
+    "field_name": "遲疾曆日率",
+    "source_original_literal": "二日二九六二",
+    "source_value": "2.2962",
+    "source_roi": {
+      "parent_batch": "13DU",
+      "artifact_id": 12492512318,
+      "parent_source_page": 86,
+      "png_sha256": "5428823bed7f7b25fce08fae873583cdd3ae01b4717ac5a396cb81da86f30167",
+      "rgb_sha256": "4aa02c6a50b2cc9a6e9259396b9a2af1f5989fb3561adf2638f3f5194c44f2a1",
+      "bbox": [
+        291,
+        145,
+        427,
+        857
+      ]
+    },
+    "original_column_note": "Dayrate vertical glyphs are in the already SHA-bound original crop; do not reuse as a solar row or alternate stemmatic vote."
+  },
+  "received_text_comparator": {
+    "work": "高麗史 卷五十二 / 授時曆立成 / 太陰限數遲疾度",
+    "url": "https://zh.wikisource.org/zh-hant/高麗史/卷五十二",
+    "evidence_class": "MODERN_RECEIVED_TRANSCRIPTION_NOT_AN_ADDITIONAL_PHYSICAL_COPY",
+    "row_limit_28": "二十八",
+    "dayrate": "二日二九六二",
+    "limit_27_dayrate": "二日二一四二",
+    "limit_29_dayrate": "二日三七八二",
+    "other_columns_replay": "NOT_COLLATE_ORIGINAL_IN_THIS_BATCH"
+  },
+  "adjudication": {
+    "p86_prior_solar_D28_target": "REJECTED_AS_WRONG_TABLE",
+    "p86_correct_object": "TAIYIN_LIMIT_28",
+    "previous_13dt_13du_13dv_13dw_labeled_summer": "FORWARD_ONLY_SCOPE_CORRECTION_NOT_DELETE_OR_REWRITE",
+    "solar_summer_xingdu_D28_in_NCL": "NOT_FOUND_YET_IN_CORRECT_TABLE",
+    "solar_D28_numeric": "UNREAD",
+    "solar_D28_0_994549_physical_vote": "NOT_ADMITTED_FROM_P86",
+    "arithmetic_0_964549_physical_vote": "NOT_ATTESTED",
+    "physical_copy_lineage": "UNRESOLVED",
+    "new_source_registry_entries": 0,
+    "new_genealogy_nodes": 0,
+    "new_genealogy_edges": 0,
+    "algorithm_reopen_count": 0,
+    "research_issues_closed": 0,
+    "chart": "CLOSED"
+  },
+  "next_page_search": {
+    "requested_pages": [
+      73,
+      74,
+      75,
+      76,
+      77,
+      78,
+      79,
+      80
+    ],
+    "script": "scripts/acquire-ncl03130-correct-solar-leaves-13dy.py",
+    "workflow": ".github/workflows/acquire-ncl03130-correct-solar-leaves-13dy.yml",
+    "expected_pdf_sha256": "3c2a5621fb3f4eabc593020bcde12a38f6ecdae2842940dec12d5a3a56afd32e",
+    "reason": "Source p81 directly starts solar predecessor ordinals 81–91 and p82 ends at 92–93; retreat into p73–p80 to locate solar table D28 from actual printed headings, not page-offset arithmetic.",
+    "p76_is_confirmed_solar_D28": false,
+    "source_original_target_xingdu": "PENDING_DIRECT_CORRECT_TABLE_PAGE",
+    "no_ocr": true
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "13DU's p86 day-labelled original columns belong to the Taiyin limit table, so using them to support any solar Xiazhi XingDu D28 or to count an independent solar witness is invalid."
+    ],
+    "unresolved_lineage_questions": [
+      "Where is the true solar Xiazhi D28 field in this same digital surrogate and does its original glyph match any other holding?",
+      "Which copy and writing stratum does the Taiwan NCL digital mirror physically represent?"
+    ]
+  }
+}

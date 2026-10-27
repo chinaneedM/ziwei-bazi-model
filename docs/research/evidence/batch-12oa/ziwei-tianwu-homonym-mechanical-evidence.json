@@ -1,0 +1,110 @@
+{
+  "schema": "ZIWEI-TIANWU-HOMONYM-MECHANICAL-EVIDENCE-R1",
+  "schema_version": "1.0.0",
+  "parent_head": "0a71c479255416445b044300c4bec6fbda7a60e7",
+  "target_rule_id": "HPA-ZMINOR-024",
+  "runtime_controls": {
+    "runtime_path": "src/fortune_training/ziwei_chart/minor_stars.py",
+    "s01_path": "sources/canonical/S01_统一输入排盘与坐标冻结库.txt",
+    "runtime_table": {
+      "1": "巳",
+      "2": "申",
+      "3": "寅",
+      "4": "亥",
+      "5": "巳",
+      "6": "申",
+      "7": "寅",
+      "8": "亥",
+      "9": "巳",
+      "10": "申",
+      "11": "寅",
+      "12": "亥"
+    },
+    "month_values_checked": 12,
+    "runtime_behavior_changed": false
+  },
+  "historical_controls": {
+    "lishimingyuan_received_text_contains_tianwu_month_deity_definition": true,
+    "lishimingyuan_attributes_definition_to_zongyaoli": true,
+    "lishimingyuan_attributes_rule_to_lili": true,
+    "xingli_kaoyuan_preserves_tianwu_rule": true,
+    "xingli_kaoyuan_nearby_fude_examples_disambiguate_qian_er_chen_as_plus_two_branches": true,
+    "xieji_bianfang_preserves_tianwu_under_calendrical_jianchu_man_context": true,
+    "exact_zongyaoli_bibliographic_identity_closed": false,
+    "exact_lili_bibliographic_identity_closed": false,
+    "direct_cited_source_rule_text_reviewed": false
+  },
+  "mechanical_replay": {
+    "month_build_branches": {
+      "1": "寅",
+      "2": "卯",
+      "3": "辰",
+      "4": "巳",
+      "5": "午",
+      "6": "未",
+      "7": "申",
+      "8": "酉",
+      "9": "戌",
+      "10": "亥",
+      "11": "子",
+      "12": "丑"
+    },
+    "classical_derived_table": {
+      "1": "辰",
+      "2": "巳",
+      "3": "午",
+      "4": "未",
+      "5": "申",
+      "6": "酉",
+      "7": "戌",
+      "8": "亥",
+      "9": "子",
+      "10": "丑",
+      "11": "寅",
+      "12": "卯"
+    },
+    "runtime_table": {
+      "1": "巳",
+      "2": "申",
+      "3": "寅",
+      "4": "亥",
+      "5": "巳",
+      "6": "申",
+      "7": "寅",
+      "8": "亥",
+      "9": "巳",
+      "10": "申",
+      "11": "寅",
+      "12": "亥"
+    },
+    "exact_match_count": 2,
+    "exact_mismatch_count": 10,
+    "matching_months": [
+      8,
+      11
+    ],
+    "mismatching_months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      9,
+      10,
+      12
+    ],
+    "same_mechanical_rule": false
+  },
+  "adjudication": {
+    "row_status_before": "SOURCE_INSUFFICIENT",
+    "row_status_after": "SOURCE_INSUFFICIENT",
+    "premodern_homonym_is_valid_historical_evidence_for_its_own_calendar_domain": true,
+    "premodern_homonym_is_valid_provenance_for_current_ziwei_table": false,
+    "runtime_behavior_changed": false,
+    "algorithm_reopen": false,
+    "candidate_selection_changed": false,
+    "provenance_defect_count_changed": false
+  }
+}

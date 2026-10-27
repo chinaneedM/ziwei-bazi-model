@@ -1,0 +1,139 @@
+{
+  "schema": "ZIWEI-KYUDB-GK02538-INRYEOKJA-BODY-SCALE-COMPATIBILITY-AND-CASTING-FIREWALL-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-KYUDB-GK02538-INRYEOKJA-BODY-SCALE-COMPATIBILITY-AND-CASTING-FIREWALL-EI",
+  "prior_batch_id": "BATCH-12-ZIWEI-KYUDB-GK02538-DATED-INRYEOKJA-PHYSICAL-COMPARATOR-AND-SUBTYPE-FIREWALL-EH",
+  "question": "Does official 印曆字 type-body dimension evidence plus GK02538/dated-calendar bibliographic frame metadata materially narrow GK02538's subtype, casting generation, or exact impression date?",
+  "answer": "OFFICIAL_INRYEOKJA_MEDIUM_TYPE_HEIGHT_1_2CM_IS_NOMINALLY_SCALE_COMPATIBLE_WITH_GK02538_25_3CM_OVER_21_CHARACTER_SLOTS; COMPATIBILITY_IS_FRAME_SLOT_LEVEL_NOT_DIRECT_GLYPH_BODY_MEASUREMENT; 1604_CALENDAR_HAS_VARIABLE_LINE_CHARACTER_COUNT_AND_MIXED_SIZE_CLASSES; NO_CASTING_GENERATION_OR_EXACT_IMPRESSION_IDENTITY_CLOSED",
+  "controlling_sources": {
+    "official_inryeokja_type_body": {
+      "source_id": "EXT-HERITAGE-INRYEOKJA-TYPE-BODY-DIMENSION-CONTROL",
+      "url": "https://www.heritage.go.kr/heri/html/HtmlPage.do?pg=%2Fhwalja%2Fhwalja01_01.jsp",
+      "provider": "Korea Heritage Service / 국가유산청 국가유산포털",
+      "category": "인력자(印曆字) / 관상감(서운관) 철활자",
+      "historical_scope": "16세기",
+      "material": "무쇠",
+      "medium_type_cm": [
+        1.2,
+        0.8
+      ],
+      "small_type_cm": [
+        0.5,
+        0.4
+      ],
+      "imprint_scope": "大統曆·각종 역서 등",
+      "exact_casting_date_closed": false,
+      "pre_imjin_use_status": "HISTORICAL_INFERENCE_NOT_COPY_SPECIFIC_IMPRINT"
+    },
+    "gk02538_catalog": {
+      "source_id": "EXT-KYUDB-DATONGLIZHU-GK02538-GWANSANGGAM-TYPE-POSTFACE-FINGERPRINT",
+      "edition": "觀象監活字",
+      "impression_year": "刊年未詳",
+      "half_leaf_frame_cm": [
+        25.3,
+        17.5
+      ],
+      "lines_per_half_leaf": 9,
+      "body_characters_per_line": 21,
+      "annotations": "注雙行",
+      "overall_leaf_cm": [
+        34.7,
+        22.5
+      ]
+    },
+    "ryu_gabjin_1604_catalog": {
+      "source_id": "EXT-HERITAGE-RYU-1594-1606-DAETONGLYOK-DATED-SERIES",
+      "year": 1604,
+      "half_frame_cm": [
+        28.5,
+        16.2
+      ],
+      "line_character_count": "行字數不定",
+      "annotations": "註雙行",
+      "page_structure": "ANNUAL_CALENDAR_WITH_MIXED_TYPE_SIZES_AND_MANUSCRIPT_ANNOTATIONS"
+    }
+  },
+  "nominal_scale_replay": {
+    "formula": "25.3 cm / 21 body-character slots",
+    "gk02538_nominal_vertical_slot_pitch_cm": 1.204761905,
+    "official_medium_inryeokja_height_cm": 1.2,
+    "absolute_difference_cm": 0.004761905,
+    "relative_difference_pct": 0.396825,
+    "scale_compatibility": "SUPPORTED_AT_NOMINAL_VERTICAL_SLOT_LEVEL",
+    "exact_type_body_measurement": false,
+    "same_matrix_or_casting_identity_proven": false,
+    "explanatory_note": "Bibliographic frame height divided by nominal body-character count is a slot/pitch proxy. It is not a caliper measurement of a printed glyph or metal sort, and frame margins/printing distortion remain possible."
+  },
+  "direct_image_controls": {
+    "prior_artifact_run_id": 35551350656,
+    "prior_artifact_id": 10618158169,
+    "prior_artifact_digest": "sha256:684d87c4c28c1ac89e4670e255dbee4f5c80657de42588e9f65081adeedbeeac",
+    "gk02538_page_sha256": "8458f8a0fd58f23f91139d7d489077472fd7fddb449d9635f6f29df5e2a9b461",
+    "ryu_1604_image_sha256": "05a59824cfb8a836e2c86168f1610417f115a372f50af4c0f6613b8cde864a3b",
+    "gyeongjin_1580_head_sha256": "34dcbde6f5b79629df507498e1c22baa09db8f6ac74368b80f3819d82e61de2e",
+    "current_visual_use": "DIRECT_LAYOUT_AND_SIZE_CLASS_FIREWALL_ONLY",
+    "shared_glyph_candidates_visible": [
+      "大",
+      "正",
+      "月",
+      "日",
+      "立",
+      "春",
+      "雨",
+      "水"
+    ],
+    "shared_glyph_form_identity_vote_increment": 0,
+    "reason_no_form_identity_vote": "The annual-calendar controls mix large/medium/small and chained type, have variable line-character counts, perspective/photographic distortion and manuscript annotations. Current metadata do not bind candidate occurrences to the same nominal type-size class across objects."
+  },
+  "chronology_adjudication": {
+    "official_type_category_scale_control_closed": true,
+    "gk02538_medium_inryeokja_scale_compatibility_supported": true,
+    "gk02538_specific_type_subtype_identified": false,
+    "gk02538_casting_generation_identified": false,
+    "gk02538_exact_impression_year_adjudicated": false,
+    "secure_pre1578_gk02538_physical_impression_witness": false,
+    "type_scale_compatibility_may_date_copy": false
+  },
+  "transmission_impact": {
+    "nodes_strengthened": [
+      "PHYSICAL-COPY-KYUDB-DATONGLIZHU-GK02538-GWANSANGGAM-MOVABLETYPE"
+    ],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "NOMINAL_MEDIUM_TYPE_SCALE_COMPATIBILITY -> SAME_CASTING_GENERATION",
+      "NOMINAL_MEDIUM_TYPE_SCALE_COMPATIBILITY -> EXACT_IMPRESSION_DATE"
+    ],
+    "unresolved_lineage_questions": [
+      "Can size-class-bound shared glyphs be recovered from dated pre/post-Imjin 印曆字 exemplars at sufficient resolution to compare type-form details?",
+      "Can an authoritative type study bind GK02538 itself to Daetongryokja or another specific Gwansanggam subtype?",
+      "Which securely pre-1578 witness carries the exact Sanming/Yueling Rainwater 後四日 + Dahan 十三後日 fingerprint?"
+    ],
+    "interpretation": "12EI closes a physical-scale compatibility layer but deliberately does not promote scale compatibility into type-form/casting identity, copy dating, or Sanming parentage."
+  },
+  "adjudication": {
+    "exact_surviving_copy_impression_date": "UNRESOLVED",
+    "direct_sanming_parent_vote_increment": 0,
+    "threshold_to_wholeke_operator_closed": false,
+    "matrix_count_change": false,
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false
+  },
+  "project_consequence": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "missing_from_product_rows": 10,
+    "provenance_defects_repaired": "12/12",
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0,
+    "deterministic_product_status": "CLOSED"
+  },
+  "next_gate": [
+    "Acquire size-class-bound high-resolution shared-glyph controls from dated 16th-century 印曆字 impressions and compare type-form details after source/scale normalization.",
+    "Recover Kim Sang-Ho 1987 or another authoritative typographic study far enough to test object-specific subtype criteria against GK02538.",
+    "Continue exact pre-1578 Sanming/Yueling combined fingerprint and threshold-operator searches."
+  ],
+  "updated_at": "2026-09-22"
+}

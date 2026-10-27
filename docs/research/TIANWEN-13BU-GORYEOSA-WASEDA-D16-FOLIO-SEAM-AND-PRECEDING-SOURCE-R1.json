@@ -1,0 +1,122 @@
+{
+  "schema": "TIANWEN-13BU-WASEDA-D16-SOURCE-FOLIO-SEAM-AND-PRIOR-PAGES-RETRIEVAL-R1",
+  "date": "2026-10-21",
+  "issue_id": "TW-OPEN-0005",
+  "evidence_grade": "DIRECT_SHA_BOUND_SOURCE_IMAGE_GEOMETRY_NO_NEW_NUMERIC_GLYPH_DECISION",
+  "source": {
+    "holding": "WASEDA-RI06-02809-BOOK33",
+    "url": "https://archive.wul.waseda.ac.jp/kosho/ri06/ri06_02809/ri06_02809_0033/ri06_02809_0033.pdf",
+    "pdf_sha256": "28ebfeb34191f45715bc449d27da61fe04fb05eb45e84dd00cf569699f46225f",
+    "known_pdf_page_1based": 23,
+    "known_image_xref": 70,
+    "known_embedded_jpeg_sha256": "388f3d5dd9e9861f8ce90c304b154edaeaee98614bb12cd3468f957dcde6fc66",
+    "image_dimensions": [
+      2592,
+      1728
+    ],
+    "same_old_artifact_id": 12340588249
+  },
+  "prior_p23_original_rgb_guard_rois": [
+    {
+      "key": "D16_TERMINAL_RULE_AND_LONG",
+      "bbox": [
+        1360,
+        330,
+        1464,
+        1470
+      ],
+      "rgb_sha256": "7f3a509a962408fd1192d6b475b7880e8c1cb06365d40b258c0f79eeb50f5245",
+      "role": "BOUNDED_ORIGINAL_RIGHT_FOLIO_LEFTMOST_DAY16_RULE_AND_LONG_CONTEXT"
+    },
+    {
+      "key": "D16_LONG_SHORT_WIDE",
+      "bbox": [
+        1404,
+        675,
+        1520,
+        1430
+      ],
+      "rgb_sha256": "bddcbc0d93f0a9893ae6d45be4c47618b578d357580b7672308b2f1ba282ee68",
+      "role": "CONTEXT_NOT_AN_ISOLATED_CUMULATIVE_FIELD"
+    },
+    {
+      "key": "PHYSICAL_FOLIO_GUTTER",
+      "bbox": [
+        1170,
+        330,
+        1390,
+        1490
+      ],
+      "rgb_sha256": "ce994ed0071a440f72439ec62591e25ea143b0de829d0c502fd3c987e03563e4",
+      "role": "SOURCE_FOLIO_GUTTER_AND_SPACING"
+    },
+    {
+      "key": "D17_SIDE_OUTER_NUMERIC_CANDIDATE",
+      "bbox": [
+        1102,
+        680,
+        1164,
+        1420
+      ],
+      "rgb_sha256": "34e91aab7aeee92d90513343f0d31383814cbcd5654d5fddb9d7a722f5e9c210",
+      "role": "PREVIOUS_CUMULATIVE_CANDIDATE_NOT_REBOUND_TO_DAY16"
+    },
+    {
+      "key": "LEFT_FOLIO_D17_CONTEXT",
+      "bbox": [
+        965,
+        345,
+        1170,
+        1450
+      ],
+      "rgb_sha256": "f4ce4be0e4a45955684663870905d9cc00072ad8acacf4d77e12433b94c8a9de",
+      "role": "DAY17_CONTEXT_FOR_TABLE_READING_NOT_NEW_DAY16_FACT"
+    }
+  ],
+  "bounded_neighbor_pdf_pages_1based": [
+    20,
+    21,
+    22
+  ],
+  "original_neighbor_page_image_readings": "NOT_YET_OBTAINED_OR_VISUALLY_REVIEWED",
+  "neighbor_source_jpeg_sha256": "PENDING_SOURCE_RUN",
+  "workflow": ".github/workflows/probe-goryeosa-waseda-folio-seam-13bu.yml",
+  "script": "scripts/probe-goryeosa-waseda-folio-seam-13bu.py",
+  "local_original_observation": {
+    "day16_heading": "十六日",
+    "day16_long": "429.6073",
+    "day16_short": "5.1362",
+    "printed_folio_seam_near_day16": true,
+    "neighbor_on_left_folio": "D17_COLUMN_NUMBERS_NEAR_OUTER_EDGE",
+    "d16_same_heading_isolated_cumulative": "UNBOUND",
+    "d17_side_outer_numeric_candidate_value": "NOT_ADJUDICATED",
+    "d16_archetype_one_vs_two": "UNRESOLVED",
+    "whole_table_index_rule": "UNPROVEN",
+    "same_copy_numerical_arithmetic_proven_for_d16": "NOT_NEWLY_ASSERTED"
+  },
+  "source_dependencies": {
+    "prior_d16_source_original": "docs/research/TIANWEN-13BS-GORYEOSA-WASEDA-D16-NAJ-D18-D19-SOURCE-NATIVE-GLYPH-COLLATION-R1.json",
+    "prior_naj_field_geometry": "docs/research/TIANWEN-13BT-GORYEOSA-NAJ-C18-D18-D19-DIRECT-CUMULATIVE-AND-PRINTED-HEADING-GEOMETRY-R1.json",
+    "prior_bq_field_day_grade": "docs/research/TIANWEN-13BQ-GORYEOSA-NUMERIC-PARALLELS-HEADING-GRADE-AND-LEGACY-ATTRIBUTION-R1.json"
+  },
+  "scope": {
+    "new_physical_witnesses": 0,
+    "new_source_registry_entries": 0,
+    "independent_stemmatic_votes": 0,
+    "new_matrix_rows": 0,
+    "new_genealogy_nodes": 0,
+    "new_genealogy_edges": 0,
+    "algorithm_reopens": 0,
+    "research_risks_open_or_blocked": 11,
+    "chart_r1": "CLOSED"
+  },
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproven": [
+      "One source open-spread geometric neighborhood alone cannot establish same-day cumulative, historical table convention, or common exemplar stemma."
+    ]
+  },
+  "next_action": "Acquire Waseda preceding original PDF pages20-22 as SHA-locked native embedded image receipts, visually identify original table field header/start and any first/last transition, then determine whether D16 accumulation is separately headed; no inferred value may be promoted."
+}

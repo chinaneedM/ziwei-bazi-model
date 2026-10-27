@@ -1,0 +1,234 @@
+{
+  "schema": "ZIWEI-WENWU1951-CADAL-PUBLIC-SEARCH-REDIRECT-BOUNDARY-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-WENWU1951-CADAL-PUBLIC-SEARCH-REDIRECT-BOUNDARY-MF",
+  "prior_batch_id": "BATCH-12-ZIWEI-WENJI-P197-DUXIU-SSLIBRARY-PREQUERY-AUTH-BOUNDARY-ME",
+  "question": "Does CADAL expose the target 1951 original issue/article through its first-party public search form, including a fresh homepage GET and queries within one anonymous session?",
+  "answer": "The homepage publicly emits a POST search form, but each of the three documented target queries returns HTTP 302 to /index/home with an empty body, both initially and after homepage/form reconfirmation in the same session. This is a search-redirect access boundary in the controlling runner, not a zero-result search and not proof of authentication requirements or corpus absence.",
+  "target": {
+    "periodical": "文物参考资料",
+    "year": 1951,
+    "volume": 2,
+    "issue": 9,
+    "article": "永乐大典展览的意义——一九五一年八月北京图书馆举办",
+    "printed_pages": "221–233",
+    "direct_pages_reviewed": false
+  },
+  "probes": [
+    {
+      "role": "public_contract",
+      "exact_head": "f94396b6abc66bb3f4a94e6b46802685d2ecae77",
+      "exact_tree": "449899de741490af95e865afbae6e1c2992a6d92",
+      "workflow_run_id": 37175585343,
+      "workflow_job_id": 111357402786,
+      "artifact_id": 11292709922,
+      "artifact_digest": "sha256:a75f9f50d457cd029d516671385b6f7ce242e82c11bcf1e4db71e6e2c7ff3f71",
+      "home_response": {
+        "url": "https://cadal.edu.cn/index/home",
+        "fetch_error": null,
+        "status": 200,
+        "location": null,
+        "content_type": "text/html;charset=UTF-8",
+        "server": null,
+        "bytes": 322516,
+        "sha256": "230ab4e5f55d348448cf629c601317fd3263d416e88c3a1fb67042eeddd58608"
+      },
+      "search_form": {
+        "method": "POST",
+        "action": "/cadalinfo/search",
+        "absolute_action": "https://cadal.edu.cn/cadalinfo/search",
+        "id": "search_sub",
+        "class": null,
+        "fields": [
+          {
+            "name": "searchContent",
+            "type": "text",
+            "placeholder": "请输入搜索内容",
+            "id": "searchContent"
+          },
+          {
+            "name": "searchType",
+            "type": "hidden",
+            "value": "sw",
+            "id": "searchType"
+          },
+          {
+            "name": "oneOrSecond",
+            "type": "hidden",
+            "value": "first",
+            "id": "oneOrSecond"
+          },
+          {
+            "type": "button",
+            "value": " "
+          }
+        ]
+      }
+    },
+    {
+      "role": "initial_target",
+      "exact_head": "dab634bf8c1e1c1678bbb58fcb698c215d308de6",
+      "exact_tree": "9999f448246c398789fedfb4d389ecd180909c0c",
+      "workflow_run_id": 37175671876,
+      "workflow_job_id": 111357662181,
+      "artifact_id": 11293356523,
+      "artifact_digest": "sha256:b349e4818dd91066e6a742b6a8a6adc46be50016e7167d3b177388527d78a1f1",
+      "query_records": [
+        {
+          "label": "target_serial",
+          "request": {
+            "label": "target_serial",
+            "searchContent": "文物参考资料",
+            "searchType": "sw",
+            "oneOrSecond": "first"
+          },
+          "fetch_error": null,
+          "status": 302,
+          "location": "/index/home",
+          "content_type": null,
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "label": "target_article_traditional",
+          "request": {
+            "label": "target_article_traditional",
+            "searchContent": "永樂大典展覽的意義",
+            "searchType": "sw",
+            "oneOrSecond": "first"
+          },
+          "fetch_error": null,
+          "status": 302,
+          "location": "/index/home",
+          "content_type": null,
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "label": "target_article_simplified",
+          "request": {
+            "label": "target_article_simplified",
+            "searchContent": "永乐大典展览的意义",
+            "searchType": "sw",
+            "oneOrSecond": "first"
+          },
+          "fetch_error": null,
+          "status": 302,
+          "location": "/index/home",
+          "content_type": null,
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ],
+      "homepage_get_before_post": false
+    },
+    {
+      "role": "same_session",
+      "exact_head": "5e24fbde1b0dca32b5027602caeb485823bf9eda",
+      "exact_tree": "e2ed2a577b0f7d850016af4a9dded634408e55df",
+      "workflow_run_id": 37175777604,
+      "workflow_job_id": 111357960349,
+      "artifact_id": 11293252198,
+      "artifact_digest": "sha256:b67ff21326676916eac800607163a4bf80be1dd809693ff5c9cc3bd0c0ba725a",
+      "home_response": {
+        "status": 200,
+        "bytes": 322516,
+        "sha256": "230ab4e5f55d348448cf629c601317fd3263d416e88c3a1fb67042eeddd58608",
+        "search_form_contract_reconfirmed": true,
+        "session_cookie_names": [
+          "ycyintang.session.id"
+        ]
+      },
+      "query_records": [
+        {
+          "label": "target_serial",
+          "term": "文物参考资料",
+          "status": 302,
+          "location": "/index/home",
+          "content_type": null,
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "label": "target_article_traditional",
+          "term": "永樂大典展覽的意義",
+          "status": 302,
+          "location": "/index/home",
+          "content_type": null,
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "label": "target_article_simplified",
+          "term": "永乐大典展览的意义",
+          "status": 302,
+          "location": "/index/home",
+          "content_type": null,
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ],
+      "same_anonymous_session": true,
+      "artifact_zip_digest_locally_verified": true,
+      "artifact_json_matches_job_log": true,
+      "artifact_member_sha256": "a7f6c8e018996b8d90c90ba723a696df52b0152407646ef7916d2930884fa8c6"
+    }
+  ],
+  "adjudication": {
+    "public_search_form_source_closed": true,
+    "same_session_redirect_reconfirmed": true,
+    "branch_status": "STOPPED_PENDING_MATERIALLY_NEW_FIRST_PARTY_ACCESS_MECHANISM",
+    "redirect_reason": "UNRESOLVED",
+    "authentication_requirement_proved": false,
+    "zero_result_search_observed": false,
+    "target_presence_or_absence_adjudicated": false,
+    "target_object_bound": false,
+    "direct_1951_pages_reviewed": false,
+    "wenji_p197_direct_page_claimed_reviewed": false,
+    "primary_text_upgrade_authorized": false,
+    "evidence_vote_increment": 0
+  },
+  "security": {
+    "only_homepage_emitted_search_contract_used": true,
+    "login_attempted": false,
+    "credential_used": false,
+    "cookie_values_recorded": false,
+    "captcha_bypass_used": false,
+    "private_endpoint_guessed": false,
+    "result_anchor_followed": false,
+    "reader_or_download_route_followed": false,
+    "payment_action_used": false
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "transmission_impact": {
+    "status": "NONE_ACCESS_BOUNDARY_ONLY",
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": []
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "12MG: seek a materially new first-party serial-object or functioning public digital-catalog route for direct 1951 vol.2 no.9 pp.221–233. HathiTrust remains access-unresolved; do not convert transport failures into absence.",
+    "Before any provider query, deduplicate against existing 12IT open-repository controls and 12IN CNKI boundary. Require a newly source-emitted identifier or access mechanism; do not repeat CADAL POST/term variants on the same redirect surface.",
+    "Keep direct 2011 Wenji vol.1 p.197 and Shanghai Wenhui 1951-08-18 unresolved in parallel. A reproduction request, payment or authenticated service action requires the existing explicit authorization gate."
+  ],
+  "updated_at": "2026-10-04"
+}

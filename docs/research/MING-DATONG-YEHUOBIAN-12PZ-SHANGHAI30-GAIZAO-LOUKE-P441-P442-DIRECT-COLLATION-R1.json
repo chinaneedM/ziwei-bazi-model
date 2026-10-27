@@ -1,0 +1,116 @@
+{
+  "schema": "MING-DATONG-YEHUOBIAN-12PZ-SHANGHAI30-GAIZAO-LOUKE-P441-P442-DIRECT-COLLATION-R1",
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-10-10",
+  "batch": "12PZ_IN_PROGRESS",
+  "status": "DIRECT_PHYSICAL_IMAGE_TARGET_HEADING_AND_FOUR_GLYPH_FIELDS_VERIFIED_IN_ONE_UNDATED_EDITION_SURROGATE",
+  "witness": {
+    "work": "萬曆野獲編",
+    "recension_scope": "REORGANIZED_CATEGORIZED_30_VOLUME_SYSTEM",
+    "title": "改造漏刻",
+    "source_provider": "Wikimedia Commons",
+    "library_attribution": "Shanghai Library-labelled digital surrogate (file-level only)",
+    "url": "https://commons.wikimedia.org/wiki/File:Shanghai_%E8%90%AC%E6%9B%86%E9%87%8E%E7%8D%B2%E7%B7%A8%E4%B8%89%E5%8D%81%E5%8D%B7_part_2.pdf",
+    "source_pdf_sha256": "7ea8fe57f5baebd8f2841771d87ec5e3ed34c271e0fe89596a28d2521c9165a6",
+    "source_pdf_pages": 550,
+    "source_original_impression_date": "UNVERIFIED",
+    "source_edition_colophon": "NOT_INSPECTED",
+    "source_physical_copy_identity": "UNVERIFIED",
+    "source_1827_fulishanfang_equivalence": "NOT_PROVEN",
+    "pdf_page_position": "1_BASED_DIGITAL_SURROGATE_NOT_ORIGINAL_LEAF"
+  },
+  "acquisition": {
+    "workflow": ".github/workflows/render-yehuobian-shanghai30-v20-lexical-target-12pz.yml",
+    "trigger_commit": "462ac59bec060a089b8496ad6b20ccb92581a823",
+    "run_id": 38020294656,
+    "run_conclusion": "success",
+    "artifact_id": 11657781788,
+    "artifact_name": "shanghai30-v20-lexical-target-p441-448-12pz",
+    "artifact_digest_sha256": "28ab439700afa2a2f7da342d57b7b440318362f43efc37a2814bfe08e8d1f5ba",
+    "image_resolution_dpi": 200,
+    "ocr_used": false,
+    "images_downloaded_verified": 8,
+    "images_expected": 8,
+    "image_sha256_manifest_status": "PASS_8_OF_8",
+    "pdf_source_sha256_verified_by_runner": true
+  },
+  "physical_pages": [
+    {
+      "pdf_page": 441,
+      "image_sha256": "5f8bb349c0fb4b583132d063740aa6e25d2e40a5f75ca92b79218d23ab6d6cbf",
+      "status": "DIRECT_SOURCE_IMAGE_VISUAL_COLLATION",
+      "visible_heading": "改造漏刻",
+      "location": "RIGHT_FACING_IMAGE_TITLE; TEXT_CONTINUES_ON_LEFT_FACING_IMAGE",
+      "positive_glyphs": [
+        "北京冬至日出辰初一刻",
+        "北京夏至日入戌初一刻",
+        "今宮禁及官府漏箭皆南京舊式不可用",
+        "時禁中宮漏循用新製不待言"
+      ],
+      "transcription_punctuation": "EDITORIAL_SEGMENTATION_ONLY_NOT_PART_OF_SOURCE"
+    },
+    {
+      "pdf_page": 442,
+      "image_sha256": "811e7ed109d6fc886228116aa337cc873a05e5cd6090c75755100ce1b9019222",
+      "status": "DIRECT_SOURCE_IMAGE_VISUAL_COLLATION",
+      "result": "TARGET_PARAGRAPH_CONTINUES_ON_RIGHT_IMAGE_BEFORE_NEXT_SECTION",
+      "next_section_heading": "釐正曆法",
+      "negative_scope": "Not used to identify different 1827 copy or ancient clock instrument"
+    }
+  ],
+  "field_collation": [
+    {
+      "field": "BEIJING_WINTER_SUNRISE",
+      "source_text": "辰初一刻",
+      "status": "SOURCE_COPY_POSITIVE_PHYSICAL_GLYPH",
+      "competing_received_electronic_reading": "辰初二刻",
+      "competing_physical_copy_already_verified": false,
+      "relationship_to_1447_shilu": "Consistent wording with previously separately physically collated 1447 record; cannot count as independent 1447 clock measurement."
+    },
+    {
+      "field": "BEIJING_SUMMER_SUNSET",
+      "source_text": "戌初一刻",
+      "status": "SOURCE_COPY_POSITIVE_PHYSICAL_GLYPH",
+      "competing_received_electronic_reading": "戌初二刻",
+      "competing_physical_copy_already_verified": false
+    },
+    {
+      "field": "PALACE_CENSORIAL_CLOCK_NOUN",
+      "source_text": "今宮禁及官府漏箭",
+      "status": "SOURCE_COPY_POSITIVE_PHYSICAL_GLYPH",
+      "competing_received_electronic_reading": "今官禁及官府漏箭",
+      "competing_physical_copy_already_verified": false
+    },
+    {
+      "field": "PALACE_CLOCK_ADOPTION",
+      "source_text": "時禁中宮漏循用新製不待言",
+      "status": "SOURCE_COPY_POSITIVE_PHYSICAL_GLYPH",
+      "competing_received_electronic_reading": "禁中官漏循用新制",
+      "competing_physical_copy_already_verified": false
+    }
+  ],
+  "adjudication": {
+    "original_20v_specific_target_heading_and_page": "UNRESOLVED",
+    "physical_1827_printed_target": "UNRESOLVED",
+    "shanghai_source_target_heading": "DIRECTLY_VERIFIED_P441",
+    "four_glyph_fields": "COPY_SCOPED_VERIFIED_NOT_UNIVERSAL_RECENSION_WINNER",
+    "digital_received_variants_still_need_other_physical_copy_witnesses": true,
+    "source_scope_not_same_as_direct_1447_rebuild_completion": true,
+    "source_scope_not_evidence_of_actual_1450_observer_or_clocks": true,
+    "same_text_not_proof_of_direct_copying": true,
+    "edition_impression_and_physical_copy_dates_not_proven": true,
+    "transmission_graph_new_edge": false,
+    "underlying_matrix_modified": false,
+    "current_project_state_modified": false,
+    "algorithm_reopened": false,
+    "batch_closed": false,
+    "md_g03": "OPEN_BLOCKING_GENERAL_ADAPTER",
+    "hpa_dayun_cal_002": "MISSING_FROM_PRODUCT",
+    "chart_r1": "CLOSED"
+  },
+  "next": [
+    "Obtain an independently edition/physical-copy-identified 1827 30v 改造漏刻 folio and compare the four glyph fields, not just electronic transcriptions.",
+    "Locate the exact 改造漏刻 or related clock passage on original old20v NCL02260 manuscript and record folio + digital PDF page independently.",
+    "Do not infer 1447 rebuild completion or 1450 lunar eclipse absolute-time adapter from the source copy's retrospective language."
+  ]
+}

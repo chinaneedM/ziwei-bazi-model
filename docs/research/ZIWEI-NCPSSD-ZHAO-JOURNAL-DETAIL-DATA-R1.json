@@ -1,0 +1,132 @@
+{
+  "schema": "ZIWEI-NCPSSD-ZHAO-JOURNAL-DETAIL-DATA-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-NCPSSD-ZHAO-JOURNAL-DETAIL-DATA-KY",
+  "prior_batch_id": "BATCH-12-ZIWEI-NCPSSD-SECURE-SHELL-HIDDEN-CONTRACT-KX",
+  "question": "What bibliographic metadata does the exact source-closed NCPSsd journal-detail endpoint return anonymously for Zhao Wanli's 1951 Yongle Dadian exhibition article, without following any full-text/read/download route?",
+  "answer": "The exact anonymous read-only POST to /articleinfoHandler/getjournalarticletable returns HTTP 200 application/json with code=200/result=true and a 101-key detail object. First-party fields directly identify lngid 1002462903, title 永樂大典展覽的意義——一九五一年八月北京圖書舘舉辦, author 趙萬里, carrier 文物 / Cultural Relics, year 1951, issue 9, pagecount 13, class K87, ISSN 0511-4772 and gch 97337X. The object also emits qkEncryptedUrl and an old nssd.org pdfurl metadata value, but KY does not follow either. Emitted full-text metadata is not treated as public full-text access.",
+  "controlling_probe": {
+    "workflow": ".github/workflows/probe-batch-12ky-ncpssd-zhao-journal-detail-data.yml",
+    "exact_head": "baca4c413b44ad4dfda2041b3ea3a1847d7f5d8e",
+    "workflow_run_id": 36868341358,
+    "workflow_job_id": 110389410761,
+    "artifact_id": 11166270400,
+    "artifact_name": "batch-12ky-ncpssd-zhao-journal-detail-data",
+    "artifact_digest": "sha256:3ce20951eee1ba6acec548fe854c0a2873d72fcfc76e66ab2005ff5e98bdbb67"
+  },
+  "request_contract": {
+    "endpoint": "/articleinfoHandler/getjournalarticletable",
+    "method": "POST",
+    "content_type": "application/json; charset=utf-8",
+    "body": {
+      "lngid": "1002462903",
+      "type": "中文期刊文章",
+      "pageType": 1
+    },
+    "body_bytes": 63,
+    "body_sha256": "f4df69322f5465c01fadf7da1b0ba01819d016984ba49c3191e99b879fe20bec"
+  },
+  "response": {
+    "http_status": 200,
+    "content_type": "application/json",
+    "location": null,
+    "bytes": 2426,
+    "sha256": "90f093e92044908b8e16a0dc8147f408e875565a9bc82ccbddebc38c5a666243",
+    "json_parsed": true,
+    "top_level_code": 200,
+    "top_level_result": true
+  },
+  "bibliographic_detail": {
+    "lngid": "1002462903",
+    "titlec": "永樂大典展覽的意義——一九五一年八月北京圖書舘舉辦",
+    "titlee": "",
+    "showwriter": "趙萬里",
+    "authore": null,
+    "showorgan": "",
+    "showorgane": null,
+    "mediac": "文物",
+    "mediae": "Cultural Relics",
+    "years": 1951,
+    "num": "9",
+    "month": null,
+    "pagecount": 13,
+    "clazz": "K87",
+    "gch": "97337X",
+    "issn": "0511-4772",
+    "doi": null,
+    "synUpdateType": null,
+    "replaceId": null,
+    "pdfsize": 334977
+  },
+  "emitted_navigation_or_fulltext_metadata": {
+    "qkEncryptedUrl_present": true,
+    "pdfurl_present": true,
+    "pdfurl": "http://www.nssd.org/articles/article_down.aspx?id=1002462903",
+    "pdfurl_followed": false,
+    "qkEncryptedUrl_followed": false,
+    "public_fulltext_access_inferred": false
+  },
+  "detail_object": {
+    "all_key_count": 101
+  },
+  "evidence_firewall": {
+    "carrier_label": "文物",
+    "carrier_label_not_silently_normalized_to": "文物参考资料",
+    "emitted_pdf_metadata_is_not_public_fulltext_access": true,
+    "no_read_download_login_collection_or_user_route_followed": true,
+    "begin_end_pages_not_yet_recovered_due_to_KY_field_case_selection": true
+  },
+  "adjudication": {
+    "detail_request_executed": true,
+    "http_ok": true,
+    "json_ok": true,
+    "detail_object_observed": true,
+    "first_party_bibliographic_detail_closed": true,
+    "read_or_download_url_followed": false,
+    "login_used": false
+  },
+  "security": {
+    "anonymous_read_only_detail_post": true,
+    "reader_account_used": false,
+    "registration_used": false,
+    "read_download_endpoint_used": false,
+    "state_changing_endpoint_used": false,
+    "collection_user_endpoint_used": false,
+    "private_endpoint_guessed": false,
+    "captcha_bypass_used": false,
+    "tls_verification_disabled": false
+  },
+  "transmission_impact": {
+    "status": "NONE_BIBLIOGRAPHIC_METADATA_ONLY",
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": [],
+    "reason": "The batch strengthens a modern first-party bibliographic witness for a known 1951 article but does not establish a new historical transmission relation."
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Replay only the same already-closed journal-detail POST and inventory lower-case detail fields that KY did not select, especially beginpage/endpage/pagenum/publishdate/source/remarkc/keywordc.",
+    "Do not issue any request to pdfurl, qkEncryptedUrl, read, download, login, collect or user endpoints.",
+    "Use any recovered page range and carrier metadata only as scoped bibliographic evidence; do not collapse the existing 文物 versus 文物参考资料 tension without an explicit source crosswalk."
+  ],
+  "updated_at": "2026-10-01"
+}

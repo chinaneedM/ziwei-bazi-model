@@ -1,0 +1,106 @@
+{
+  "schema": "ZIWEI-ZHANGGUO-FUDAN-JIANGSU-1594-PUBLIC-CATALOG-PROBE-R1",
+  "batch_intent": "BATCH-12BB-DISCOVERY-PROBE",
+  "question": "Can first-party Fudan or Jiangsu/Nanjing public ancient-book catalog surfaces bind another 1594 Zhangguo holding or expose a normal public search contract?",
+  "target_title": "新編評註通玄先生張果星宗大全",
+  "probe_policy": {
+    "source_emitted_resources_only": true,
+    "hidden_id_guessing": false,
+    "authentication_attempted": false,
+    "captcha_bypass_attempted": false,
+    "negative_catalog_claim_authorized_from_route_failure": false,
+    "glyph_authority": false
+  },
+  "sites": [
+    {
+      "site_id": "FUDAN_GUJI",
+      "institution": "复旦大学图书馆",
+      "authority_scope": "FIRST_PARTY_ANCIENT_BOOK_CATALOG_FRONTEND",
+      "root_attempts": [
+        {
+          "url": "https://guji.fudan.edu.cn/",
+          "status": 200,
+          "final_url": "https://guji.fudan.edu.cn/",
+          "content_type": "text/html",
+          "content_length_header": "2030",
+          "bytes_captured": 2030,
+          "sha256_captured": "2ce0aa6dfa71f6695fc71ec85528698463a8346a0d046dff8e589077c3c1c82e",
+          "truncated_at_bytes": null
+        }
+      ],
+      "source_emitted_scripts": [
+        "https://guji.fudan.edu.cn/assets/index-DkZo_2Ya.js"
+      ],
+      "script_fetches": [
+        {
+          "url": "https://guji.fudan.edu.cn/assets/index-DkZo_2Ya.js",
+          "status": 200,
+          "final_url": "https://guji.fudan.edu.cn/assets/index-DkZo_2Ya.js",
+          "content_type": "application/javascript",
+          "content_length_header": "122263",
+          "bytes_captured": 122263,
+          "sha256_captured": "a9da744ccd4ed5cb7369fac4e662042fd9dfcb8444006bc31fe9819f7af5cae9",
+          "truncated_at_bytes": null,
+          "source_emitted_by_root": true
+        }
+      ],
+      "target_term_hits": [],
+      "source_emitted_api_contract_clues": [
+        {
+          "script": "https://guji.fudan.edu.cn/assets/index-DkZo_2Ya.js",
+          "literal": "/guji/gujisearch/mingGuji"
+        },
+        {
+          "script": "https://guji.fudan.edu.cn/assets/index-DkZo_2Ya.js",
+          "literal": "/guji/gujisearch/qingGuji"
+        },
+        {
+          "script": "https://guji.fudan.edu.cn/assets/index-DkZo_2Ya.js",
+          "literal": "/guji/gujisearch/sikuGuji"
+        },
+        {
+          "script": "https://guji.fudan.edu.cn/assets/index-DkZo_2Ya.js",
+          "literal": ")),__vite__mapDeps([0,1]),import.meta.url)}]},{path:`/book/:type(${Bu})`,name:"
+        },
+        {
+          "script": "https://guji.fudan.edu.cn/assets/index-DkZo_2Ya.js",
+          "literal": ")),__vite__mapDeps([2,3,4,5]),import.meta.url)},{path:`/book/:type(${Bu})/search`,name:"
+        }
+      ],
+      "target_term_hit_count": 0,
+      "api_contract_clue_count": 5
+    },
+    {
+      "site_id": "JIANGSU_GUJI_PLATFORM",
+      "institution": "南京图书馆 / 江苏古籍数字资源集群",
+      "authority_scope": "PUBLIC_ANCIENT_BOOK_PLATFORM_FRONTEND",
+      "root_attempts": [
+        {
+          "url": "https://zggj.jslib.org.cn/",
+          "error_type": "ConnectTimeout",
+          "error": "ConnectTimeout(MaxRetryError(\"HTTPSConnectionPool(host='zggj.jslib.org.cn', port=443): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<HTTPSConnection(host='zggj.jslib.org.cn', port=443) at 0x7fb3fa40b080>, 'Connection to zggj.jslib.org.cn timed out. (connect timeout=25)'))\"))"
+        },
+        {
+          "url": "http://zggj.jslib.org.cn/",
+          "error_type": "ConnectTimeout",
+          "error": "ConnectTimeout(MaxRetryError(\"HTTPConnectionPool(host='zggj.jslib.org.cn', port=80): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<HTTPConnection(host='zggj.jslib.org.cn', port=80) at 0x7fb3fa40ad20>, 'Connection to zggj.jslib.org.cn timed out. (connect timeout=25)'))\"))"
+        }
+      ],
+      "source_emitted_scripts": [],
+      "script_fetches": [],
+      "target_term_hits": [],
+      "source_emitted_api_contract_clues": [],
+      "target_term_hit_count": 0,
+      "api_contract_clue_count": 0
+    }
+  ],
+  "adjudication": {
+    "direct_exact_title_hit_observed": false,
+    "first_party_item_record_bound": false,
+    "target_leaf_obtained": false,
+    "independent_1594_physical_witness_increment": 0,
+    "independent_target_text_witness_increment": 0,
+    "independent_hai_glyph_witness_increment": 0,
+    "next_step": "Inspect only source-emitted public search-contract clues. A later probe may invoke an endpoint only after its method/parameters are recoverable from the public frontend itself."
+  }
+}

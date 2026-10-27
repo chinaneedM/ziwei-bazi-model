@@ -1,0 +1,422 @@
+from __future__ import annotations
+
+from dataclasses import dataclass
+from datetime import datetime, timedelta
+from pathlib import Path
+from typing import Any
+
+from fortune_training.calendar_foundation import BirthInput, TimeCalendarFoundation
+from fortune_training.calendar_foundation.models import json_value
+
+from .auxiliary import (
+    AuxiliaryContext,
+    AuxiliaryGenerationError,
+    QS_CORE_AUX_RULE_SET_ID,
+    QSCoreAuxiliaryGenerator,
+    WENMO_DEFAULT_CORE_AUX_RULE_SET_ID,
+    WenmoDefaultCoreAuxiliaryGenerator,
+)
+from .derived_auxiliary import DERIVED_AUXILIARY_ALGORITHM_VERSION, DerivedAuxiliaryGenerationError, DerivedAuxiliaryGenerator
+from .dignity import (
+    DIGNITY_ALGORITHM_VERSION,
+    DignityGenerationError,
+    OPERATIONAL_DIGNITY_RULE_SET_ID,
+    OPERATIONAL_MAIN_STAR_DIGNITY_RULE_SET_ID,
+    OperationalMainStarDignityGenerator,
+    OperationalZiweiDignityGenerator,
+)
+from .dignity_r3 import (
+    OPERATIONAL_FULL_DIGNITY_RULE_SET_ID,
+    OperationalFullZiweiDignityGenerator,
+)
+from .dignity_r4 import (
+    OPERATIONAL_R4_DIGNITY_RULE_SET_ID,
+    OperationalZiweiDignityR4Generator,
+)
+from .integrity import HashBundle, IntegrityReport, natal_hash_bundle, validate_natal_chart
+from .main_stars import MainStarGenerator
+from .minor_stars import (
+    MINOR_STAR_ALGORITHM_VERSION,
+    MinorStarContext,
+    MinorStarGenerationError,
+    WENMO_DEFAULT_MINOR_RULE_SET_ID,
+    WENMO_DEFAULT_MINOR_RULE_SET_VERSION,
+    WenmoDefaultMinorStarGenerator,
+)
+from .minor_stars_r4 import (
+    WENMO_DEFAULT_MINOR_R4_RULE_SET_VERSION,
+    WenmoDefaultMinorStarR4Generator,
+)
+from .models import NatalChartState, Sex
+from .natal import NatalStructureGenerator, NatalStructureInput
+from .profile import ResolvedZiweiCalculationProfile
+from .rings import (
+    RING_ALGORITHM_VERSION,
+    RingGenerationError,
+    WENMO_DEFAULT_RING_RULE_SET_ID,
+    WenmoDefaultRingGenerator,
+)
+from .roles import (
+    QS_ROLE_RULE_SET_ID,
+    QSRoleGenerator,
+    RoleGenerationError,
+    WENMO_DEFAULT_ROLE_RULE_SET_ID,
+    WenmoDefaultRoleGenerator,
+)
+from .transformations import (
+    S08_TRANSFORMATION_RULE_SET_ID,
+    TRANSFORMATION_ALGORITHM_VERSION,
+    TransformationGenerationError,
+    TransformationGenerator,
+)
+
+
+@dataclass(frozen=True)
+class ZiweiChartRequest:
+    birth: BirthInput
+    sex: Sex
+    profile: ResolvedZiweiCalculationProfile
+
+
+@dataclass(frozen=True)
+class ZiweiChartCandidate:
+    """One deduplicated typed natal candidate plus the data needed downstream."""
+
+    ziwei_birth_year: int
+    sex: Sex
+    branch_indices: tuple[int, ...]
+    chart: NatalChartState
+    integrity: IntegrityReport
+    hashes: HashBundle
+
+    def temporal_context(self):
+        """Build the public typed Temporal context without private engine calls."""
+
+        from .temporal import TemporalNatalContext
+
+        return TemporalNatalContext.from_natal_chart(self.ziwei_birth_year, self.sex, self.chart)
+
+
+@dataclass(frozen=True)
+class ZiweiTypedResolution:
+    """Typed counterpart of the stable JSON resolution envelope."""
+
+    schema: str
+    status: str
+    calculation_profile: ResolvedZiweiCalculationProfile
+    time_calendar: dict[str, Any]
+    candidates: tuple[ZiweiChartCandidate, ...]
+    integrity_reports: tuple[IntegrityReport, ...]
+    events: tuple[str, ...]
+    diagnostics: tuple[str, ...]
+
+
+class ZiweiChartFoundation:
+    schema = "ZIWEI-CHART-FOUNDATION-RESULT-V1"
+    typed_schema = "ZIWEI-CHART-TYPED-RESOLUTION-V1"
+
+    def __init__(self, time_calendar: TimeCalendarFoundation) -> None:
+        self.time_calendar = time_calendar
+        self.natal = NatalStructureGenerator()
+        self.main_stars = MainStarGenerator()
+        self.qs_core_aux = QSCoreAuxiliaryGenerator()
+        self.wenmo_core_aux = WenmoDefaultCoreAuxiliaryGenerator()
+        self.derived_aux = DerivedAuxiliaryGenerator()
+        self.wenmo_minor = WenmoDefaultMinorStarGenerator()
+        self.wenmo_minor_r4 = WenmoDefaultMinorStarR4Generator()
+        self.operational_main_dignity = OperationalMainStarDignityGenerator()
+        self.operational_dignity = OperationalZiweiDignityGenerator()
+        self.operational_full_dignity = OperationalFullZiweiDignityGenerator()
+        self.operational_r4_dignity = OperationalZiweiDignityR4Generator()
+        self.transformations = TransformationGenerator()
+        self.wenmo_rings = WenmoDefaultRingGenerator()
+        self.qs_roles = QSRoleGenerator()
+        self.wenmo_roles = WenmoDefaultRoleGenerator()
+
+    @classmethod
+    def from_repository(cls, repository_root: Path) -> "ZiweiChartFoundation":
+        return cls(TimeCalendarFoundation.from_repository(repository_root))
+
+    def _auxiliary_generator(self, rule_set_id: str):
+        if rule_set_id == QS_CORE_AUX_RULE_SET_ID:
+            return self.qs_core_aux
+        if rule_set_id == WENMO_DEFAULT_CORE_AUX_RULE_SET_ID:
+            return self.wenmo_core_aux
+        raise ValueError(f"unsupported auxiliary rule set: {rule_set_id}")
+
+    def _minor_generator(self, rule_set_id: str, rule_set_version: str):
+        if rule_set_id == WENMO_DEFAULT_MINOR_RULE_SET_ID:
+            if rule_set_version == WENMO_DEFAULT_MINOR_RULE_SET_VERSION:
+                return self.wenmo_minor
+            if rule_set_version == WENMO_DEFAULT_MINOR_R4_RULE_SET_VERSION:
+                return self.wenmo_minor_r4
+        raise ValueError(f"unsupported minor-star rule set/version: {rule_set_id}:{rule_set_version}")
+
+    def _dignity_generator(self, rule_set_id: str):
+        if rule_set_id == OPERATIONAL_MAIN_STAR_DIGNITY_RULE_SET_ID:
+            return self.operational_main_dignity
+        if rule_set_id == OPERATIONAL_DIGNITY_RULE_SET_ID:
+            return self.operational_dignity
+        if rule_set_id == OPERATIONAL_FULL_DIGNITY_RULE_SET_ID:
+            return self.operational_full_dignity
+        if rule_set_id == OPERATIONAL_R4_DIGNITY_RULE_SET_ID:
+            return self.operational_r4_dignity
+        raise ValueError(f"unsupported dignity rule set: {rule_set_id}")
+
+    def _transformation_generator(self, rule_set_id: str):
+        if rule_set_id == S08_TRANSFORMATION_RULE_SET_ID:
+            return self.transformations
+        raise ValueError(f"unsupported transformation rule set: {rule_set_id}")
+
+    def _ring_generator(self, rule_set_id: str):
+        if rule_set_id == WENMO_DEFAULT_RING_RULE_SET_ID:
+            return self.wenmo_rings
+        raise ValueError(f"unsupported ring rule set: {rule_set_id}")
+
+    def _role_generator(self, rule_set_id: str):
+        if rule_set_id == QS_ROLE_RULE_SET_ID:
+            return self.qs_roles
+        if rule_set_id == WENMO_DEFAULT_ROLE_RULE_SET_ID:
+            return self.wenmo_roles
+        raise ValueError(f"unsupported role rule set: {rule_set_id}")
+
+    def _chart_lunar_coordinate(self, branch: dict[str, Any], profile: ResolvedZiweiCalculationProfile) -> dict[str, Any]:
+        raw = branch["ziwei_calendar"]["effective_ziwei_lunar_date"]
+        if profile.ziwei_day_boundary_policy == "MIDNIGHT":
+            return raw
+        local_solar = datetime.fromisoformat(branch["solar_time"]["local_apparent_solar_datetime"])
+        if profile.ziwei_day_boundary_policy == "ZI_START_23" and local_solar.hour == 23:
+            return json_value(self.time_calendar.calendar.from_gregorian_date(local_solar.date() + timedelta(days=1)))
+        return raw
+
+    def _generate_chart(self, branch: dict[str, Any], request: ZiweiChartRequest) -> NatalChartState:
+        lunar = self._chart_lunar_coordinate(branch, request.profile)
+        local_solar = datetime.fromisoformat(branch["solar_time"]["local_apparent_solar_datetime"])
+        structure = self.natal.generate(
+            NatalStructureInput(
+                lunar_year=lunar["year"],
+                lunar_month=lunar["month"],
+                lunar_day=lunar["day"],
+                is_leap_month=lunar["is_leap_month"],
+                lunar_month_length_days=lunar["month_length_days"],
+                local_apparent_solar_datetime=local_solar,
+                life_body_leap_month_policy=request.profile.time_calendar_policies.ziwei_life_body_leap_month_policy,
+            )
+        )
+        placements = list(self.main_stars.generate(structure.lunar_birth_day, structure.bureau.number))
+        annotations = ()
+        transformations = ()
+        role_bindings = ()
+        rings = ()
+        algorithm_versions = {
+            "natal_structure": request.profile.natal_structure_algorithm_version,
+            "main_stars": request.profile.main_star_algorithm_version,
+        }
+
+        if request.profile.auxiliary_rule_set_id is not None:
+            placements.extend(
+                self._auxiliary_generator(request.profile.auxiliary_rule_set_id).generate(
+                    AuxiliaryContext(
+                        ziwei_birth_year_stem=structure.ziwei_birth_year_stem,
+                        ziwei_birth_year_branch=structure.ziwei_birth_year_branch,
+                        raw_lunar_month=structure.raw_lunar_month,
+                        is_leap_month=bool(lunar["is_leap_month"]),
+                        birth_hour_branch=structure.birth_hour_branch,
+                        lunar_day=structure.lunar_birth_day,
+                        lunar_month_length_days=lunar["month_length_days"],
+                    )
+                )
+            )
+            placements.extend(self.derived_aux.generate(placements, structure.lunar_birth_day))
+            algorithm_versions["core_auxiliary"] = request.profile.auxiliary_algorithm_version or ""
+            algorithm_versions["derived_auxiliary"] = DERIVED_AUXILIARY_ALGORITHM_VERSION
+
+        if request.profile.minor_rule_set_id is not None:
+            placements.extend(
+                self._minor_generator(
+                    request.profile.minor_rule_set_id,
+                    request.profile.minor_rule_set_version or "",
+                ).generate(
+                    MinorStarContext(
+                        ziwei_birth_year_stem=structure.ziwei_birth_year_stem,
+                        ziwei_birth_year_branch=structure.ziwei_birth_year_branch,
+                        raw_lunar_month=structure.raw_lunar_month,
+                        is_leap_month=bool(lunar["is_leap_month"]),
+                        lunar_day=structure.lunar_birth_day,
+                        birth_hour_branch=structure.birth_hour_branch,
+                        life_address=structure.life_address,
+                        body_address=structure.body_address,
+                    )
+                )
+            )
+            algorithm_versions["minor_stars"] = request.profile.minor_algorithm_version or MINOR_STAR_ALGORITHM_VERSION
+
+        if request.profile.dignity_rule_set_id is not None:
+            annotations = self._dignity_generator(request.profile.dignity_rule_set_id).generate(placements)
+            algorithm_versions["dignity"] = request.profile.dignity_algorithm_version or DIGNITY_ALGORITHM_VERSION
+
+        if request.profile.transformation_rule_set_id is not None:
+            transformations = self._transformation_generator(request.profile.transformation_rule_set_id).activate(
+                structure.ziwei_birth_year_stem,
+                placements,
+                source_layer="NATAL_BIRTH_YEAR",
+                context_id="NATAL",
+            )
+            algorithm_versions["transformations"] = request.profile.transformation_algorithm_version or TRANSFORMATION_ALGORITHM_VERSION
+
+        if request.profile.ring_rule_set_id is not None:
+            lucun_rows = [row for row in placements if row.entity_id == "STAR.LUCUN"]
+            if len(lucun_rows) > 1:
+                raise RingGenerationError("BOSHI_RING_DUPLICATE_LUCUN_PLACEMENT")
+            lucun_address = lucun_rows[0].address if lucun_rows else None
+            rings = self._ring_generator(request.profile.ring_rule_set_id).generate(
+                structure.bureau.element,
+                structure.ziwei_birth_year_stem,
+                structure.ziwei_birth_year_branch,
+                request.sex,
+                lucun_address,
+            )
+            algorithm_versions["rings"] = request.profile.ring_algorithm_version or RING_ALGORITHM_VERSION
+
+        if request.profile.role_rule_set_id is not None:
+            role_bindings = self._role_generator(request.profile.role_rule_set_id).generate(
+                structure.life_address.branch,
+                structure.ziwei_birth_year_branch,
+            )
+            algorithm_versions["roles"] = request.profile.role_algorithm_version or ""
+
+        return NatalChartState(
+            structure=structure,
+            placements=tuple(placements),
+            profile_id=request.profile.profile_id,
+            profile_version=request.profile.profile_version,
+            annotations=tuple(annotations),
+            transformations=tuple(transformations),
+            role_bindings=tuple(role_bindings),
+            rings=tuple(rings),
+            algorithm_versions=algorithm_versions,
+        )
+
+    @staticmethod
+    def _failed_typed_result(
+        profile: ResolvedZiweiCalculationProfile,
+        time_result: dict[str, Any],
+        diagnostics,
+        *,
+        integrity_reports=(),
+    ) -> ZiweiTypedResolution:
+        return ZiweiTypedResolution(
+            schema=ZiweiChartFoundation.typed_schema,
+            status="FAILED",
+            calculation_profile=profile,
+            time_calendar=time_result,
+            candidates=(),
+            integrity_reports=tuple(integrity_reports),
+            events=(),
+            diagnostics=tuple(diagnostics),
+        )
+
+    def resolve_typed(self, request: ZiweiChartRequest) -> ZiweiTypedResolution:
+        """Resolve chart candidates while preserving typed state for downstream runtime layers."""
+
+        profile = request.profile.validate(self.time_calendar.policy_registry)
+        time_result = self.time_calendar.resolve(request.birth, profile.time_calendar_policies)
+        if not time_result["branches"]:
+            return self._failed_typed_result(profile, time_result, ["TIME_CALENDAR_UNRESOLVED"])
+
+        unique: dict[str, dict[str, Any]] = {}
+        try:
+            for branch_index, branch in enumerate(time_result["branches"]):
+                lunar = self._chart_lunar_coordinate(branch, profile)
+                typed_chart = self._generate_chart(branch, request)
+                integrity = validate_natal_chart(typed_chart)
+                if integrity.status != "PASS":
+                    return self._failed_typed_result(
+                        profile,
+                        time_result,
+                        [f"INTEGRITY:{row.code}:{row.path}" for row in integrity.diagnostics],
+                        integrity_reports=(integrity,),
+                    )
+                hashes = natal_hash_bundle(typed_chart, profile)
+                key = hashes.fact_hash
+                if key not in unique:
+                    unique[key] = {
+                        "ziwei_birth_year": int(lunar["year"]),
+                        "chart": typed_chart,
+                        "integrity": integrity,
+                        "hashes": hashes,
+                        "branch_indices": [],
+                    }
+                else:
+                    if unique[key]["hashes"].computation_hash != hashes.computation_hash:
+                        return self._failed_typed_result(
+                            profile,
+                            time_result,
+                            ["INTEGRITY:SAME_FACT_DIFFERENT_COMPUTATION_LINEAGE"],
+                        )
+                    if unique[key]["ziwei_birth_year"] != int(lunar["year"]):
+                        return self._failed_typed_result(
+                            profile,
+                            time_result,
+                            ["INTEGRITY:SAME_FACT_DIFFERENT_ZIWEI_BIRTH_YEAR"],
+                        )
+                unique[key]["branch_indices"].append(branch_index)
+        except (
+            AuxiliaryGenerationError,
+            DerivedAuxiliaryGenerationError,
+            MinorStarGenerationError,
+            DignityGenerationError,
+            TransformationGenerationError,
+            RingGenerationError,
+            RoleGenerationError,
+        ) as exc:
+            return self._failed_typed_result(profile, time_result, [exc.diagnostic_code])
+
+        candidates = tuple(
+            ZiweiChartCandidate(
+                ziwei_birth_year=row["ziwei_birth_year"],
+                sex=request.sex,
+                branch_indices=tuple(row["branch_indices"]),
+                chart=row["chart"],
+                integrity=row["integrity"],
+                hashes=row["hashes"],
+            )
+            for row in unique.values()
+        )
+        if len(candidates) > 1:
+            status = "MULTI_CANDIDATE"
+            events = ("TIME_UNCERTAINTY_CHANGED_ZIWEI_CHART",)
+        elif time_result["status"] == "RESOLVED":
+            status = "RESOLVED"
+            events = ()
+        else:
+            status = "RESOLVED_SINGLE_CHART_WITH_TIME_UNCERTAINTY"
+            events = ("TIME_UNCERTAINTY_DID_NOT_CHANGE_ZIWEI_CHART",)
+
+        return ZiweiTypedResolution(
+            schema=self.typed_schema,
+            status=status,
+            calculation_profile=profile,
+            time_calendar=time_result,
+            candidates=candidates,
+            integrity_reports=tuple(row.integrity for row in candidates),
+            events=events,
+            diagnostics=(),
+        )
+
+    def resolve(self, request: ZiweiChartRequest) -> dict[str, Any]:
+        """Resolve the stable machine-readable JSON envelope."""
+
+        typed = self.resolve_typed(request)
+        return {
+            "schema": self.schema,
+            "status": typed.status,
+            "calculation_profile": json_value(typed.calculation_profile),
+            "time_calendar": typed.time_calendar,
+            "charts": [json_value(row.chart) for row in typed.candidates],
+            "chart_branch_indices": [list(row.branch_indices) for row in typed.candidates],
+            "integrity_reports": [json_value(row) for row in typed.integrity_reports],
+            "hashes": [json_value(row.hashes) for row in typed.candidates],
+            "events": list(typed.events),
+            "diagnostics": list(typed.diagnostics),
+        }

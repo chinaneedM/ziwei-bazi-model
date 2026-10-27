@@ -1,0 +1,113 @@
+{
+  "schema": "MING-DATONG-YEHUOBIAN-12PZ-NLC-TAIWAN-OLD20-V20-DIRECT-COMPARE-R1",
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-10-10",
+  "batch": "12PZ_IN_PROGRESS",
+  "status": "TWO_OLD20_COPY_SPECIFIC_V20_TEXT_STRUCTURES_DIRECTLY_COLLATED_NO_STEMMA",
+  "china_nlc": {
+    "holding": "National Library of China 411999003250 fascicle 10",
+    "pdf_pages": 145,
+    "pdf_sha256": "8e746faaadcd961c7983981d419862d97fdc2a1f3ec33ecb02046e9e79a6376c",
+    "digital_source": "NLC892-411999003250-383067_萬曆野獲編_第10冊.pdf",
+    "artifact_id": 11662045134,
+    "runner_run_id": 38029093566,
+    "images_verified_locally_10_of_10": true,
+    "no_ocr": true,
+    "p137": {
+      "side": "LEFT",
+      "heading": "萬曆肆拾伍丁巳卷二十",
+      "marginal_byline": "野獲編",
+      "following": "春正月",
+      "image_sha256": "b6a67b0495556eb9cd57d011b0622717c9b72fd11b966fb5571e105a6a00339a"
+    },
+    "p139": {
+      "visible_snippet": "奏進七政曆數",
+      "image_sha256": "106e42e4c17b1b710143747c43d53d3771e4068b33456887b663d14827d96221"
+    },
+    "p140": {
+      "visible_snippet": "氣朔轉交",
+      "image_sha256": "24434758cef2861c5cda7da29f250921d7546f18dd94f12c74ab68c693917956"
+    },
+    "p145": {
+      "side": "RIGHT",
+      "colophon": "萬曆野獲編二十卷紀事畢",
+      "image_sha256": "104b04d3106e8b0f0de6c73de26bdf94844dcb569f13047beb3db32239875826"
+    },
+    "bounded_review": {
+      "pdf_pages_1based": [
+        136,
+        137,
+        138,
+        139,
+        140,
+        141,
+        142,
+        143,
+        144,
+        145
+      ],
+      "exact_gaizao_louke_heading_identified": false,
+      "negative_scope": "P136_TO_P145_ONLY_NOT_THE_WHOLE_BOOK",
+      "full_corpus_presence_absence": "NOT_ADJUDICATED"
+    }
+  },
+  "taiwan_ncl02260": {
+    "holding": "Taiwan National Central Library 204.26 02260",
+    "pdf_source": "NCL-02260_1_萬曆野獲編.pdf",
+    "pdf_sha256": "5b91b5cad4a9d7573271ffd275085b046339cdfab80341b60a6156706e80e191",
+    "physical_volume20_contents_page": 592,
+    "manual_toc_heading": "萬曆野獲編卷第二十目",
+    "manual_toc_example_titles": [
+      "聖母並尊",
+      "武臣好文",
+      "文士論兵"
+    ],
+    "p592_jpeg_sha256": "f173d98c6ee32aba342ade6b377094f333871345c357284fc4f27a2d819942a2",
+    "source_artifact_id": 11594845832,
+    "p592_jpeg_hash_locally_rechecked": true,
+    "gaizao_louke_heading_on_this_one_toc_page": false,
+    "full_volume_body_reviewed_this_increment": false
+  },
+  "comparison": {
+    "different_volume20_structure": true,
+    "china": "WANLI_FORTY_FIVE_DINGSI_CHRONICLE",
+    "taiwan": "TOPIC_GROUPED_CONTENTS",
+    "physical_copy_count_delta": 0,
+    "independent_old20_target_glyph_count_delta": 0,
+    "original_20v_passage_location": "UNRESOLVED",
+    "direct_copying_relation": "NOT_PROVEN",
+    "inoue_A_B_edition_identity": "NOT_ESTABLISHED",
+    "book_composition_date_not_copy_date": true,
+    "matching_volume_number_not_equivalent_passage": true
+  },
+  "previous_ledger_correction": {
+    "file": "docs/research/MING-DATONG-YEHUOBIAN-12PZ-OLD20-VOLUME-HEADING-CROSSWALK-R1.json",
+    "old_heading": "萬曆野獲編卷二十",
+    "corrected_heading": "萬曆肆拾伍丁巳卷二十",
+    "status": "PROJECT_TRANSCRIPTION_SCOPE_CORRECTION_NOT_A_METADATA_DEFECT"
+  },
+  "chronology_firewall": "The internal 1617 year label cannot be used as the physical copy date or to determine 1447 repaired clock or 1450 observed time.",
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_not_supported": [
+      "No direct copying direction between NLC and NCL02260",
+      "No A/B manuscript-type identification from shared numerical volume label"
+    ],
+    "unresolved_lineage_questions": [
+      "Target heading to folio in each old20 copy",
+      "Direct 1827 printed target reading"
+    ]
+  },
+  "gates": {
+    "batch_closed": false,
+    "matrix_changed": false,
+    "current_state_changed": false,
+    "genealogy_graph_changed": false,
+    "algorithm_changed": false,
+    "md_g03": "OPEN_BLOCKING_GENERAL_ADAPTER",
+    "hpa_dayun_cal_002": "MISSING_FROM_PRODUCT",
+    "deterministic_product": "CLOSED"
+  }
+}

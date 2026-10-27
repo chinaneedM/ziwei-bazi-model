@@ -1,0 +1,93 @@
+{
+  "schema": "ZIWEI-ZHANGGUO-TOHOKU-NACSIS-FUDAN-ACCESS-DEDUP-R1",
+  "batch_id": "BATCH-12-ZIWEI-ZHANGGUO-TOHOKU-NACSIS-FUDAN-ACCESS-DEDUP-BC",
+  "question": "Does the NACSIS/CiNii Wanli-22 Tohoku record add an independent 1594 witness beyond Batch 12AW, and what first-party access route currently exists for the Fudan Ming-Wanli holding from Batch 12BB?",
+  "tohoku_nacsis_control": {
+    "provider": "CiNii Books / NACSIS-CAT",
+    "url": "https://ci.nii.ac.jp/ncid/BD05367609",
+    "ncid": "BD05367609",
+    "title": "新編評註通玄先生張果星宗大全",
+    "responsibility": "陸位輯校",
+    "publication": "周氏文光, 萬暦22 [1594]",
+    "physical_extent": "5冊",
+    "size": "24.4×15.4cm",
+    "holding_count": 1,
+    "holding_institution": "東北大学 附属図書館本館",
+    "volume_registration_numbers": {
+      "巻之1-2": "01793921822",
+      "巻之3-4": "01793921831",
+      "巻之5-6": "01793921849",
+      "巻之7-8": "01793921857",
+      "巻之9-10": "01793921865"
+    },
+    "edition_notes": [
+      "序末に萬暦癸巳",
+      "封面に萬暦閼逢敦牂(甲午)",
+      "封面に周氏文光新梓",
+      "和漢古書につき記述対象資料毎に書誌データ作成"
+    ],
+    "relationship_to_batch_12aw": {
+      "aw_provider": "National Institute of Japanese Literature / Tohoku University Library",
+      "aw_bid": "100238879",
+      "same_title": true,
+      "same_wanli_22_1594_date": true,
+      "same_holding_institution_family": true,
+      "explicit_bid_to_registration_number_crosswalk_observed": false,
+      "physical_object_identity_status": "HIGH_CONFIDENCE_SAME_INSTITUTIONAL_EDITION_LINEAGE_NOT_FORMALLY_CLOSED_TO_EXACT_ACCESSION_OBJECT",
+      "duplicate_vote_forbidden": true,
+      "independent_exact_1594_material_witness_increment": 0,
+      "independent_target_text_witness_increment": 0,
+      "independent_hai_glyph_witness_increment": 0
+    },
+    "registration_number_count": 5
+  },
+  "fudan_access_control": {
+    "target_call_number": "rb2314",
+    "target_resource_book_no": "FDU01001127121",
+    "target_catalogue_id": "34053686",
+    "target_barcode": "AB0613271-80",
+    "first_party_ancient_book_service_url": "https://library.fudan.edu.cn/gj1/list.htm",
+    "first_party_department_url": "https://library.fudan.edu.cn/e7/db/c42796a518107/page.htm",
+    "first_party_document_delivery_url": "https://library.fudan.edu.cn/a9/64/c42780a698724/page.htm",
+    "rare_book_appointment_required": true,
+    "appointment_lead_time": "one working day",
+    "appointment_target_fields": [
+      "书名",
+      "索书号",
+      "函册数"
+    ],
+    "reading_mode": "closed-stack / in-library reading",
+    "outside_reader_first_visit_requires_identity_and_introduction_letter": true,
+    "special_document_reproduction_policy": "古籍、缩微胶卷等特殊文献酌情提供；exact target eligibility and fee require provider-side confirmation",
+    "public_target_image_or_fulltext_obtained": false,
+    "target_specific_reproduction_request_submitted": false,
+    "external_action_authorized": false,
+    "target_leaf_obtained": false,
+    "independent_target_text_witness_increment": 0,
+    "independent_hai_glyph_witness_increment": 0
+  },
+  "chongqing_locator_control": {
+    "secondary_locator_claim": "A secondary Chinese rare-book union-catalog transcription describes a Chongqing Library holding of the target title as a Wanli-22 / 1594 printed copy, six volumes.",
+    "secondary_locator_promoted_to_first_party_item_fact": false,
+    "first_party_general_ancient_collection_url": "https://www.cqlib.cn/web/column/col5003502.html",
+    "first_party_general_collection_scope": "重庆图书馆自述馆藏古籍2.3万余种约30万册、善本3千余种约5万册",
+    "first_party_exact_target_item_record_obtained": false,
+    "public_target_opac_route_resolved": false,
+    "target_leaf_obtained": false,
+    "independent_exact_1594_material_witness_increment": 0,
+    "independent_target_text_witness_increment": 0,
+    "independent_hai_glyph_witness_increment": 0,
+    "no_holding_inference_authorized": true
+  },
+  "project_consequence": {
+    "audit_row": "HPA-ZDATE-006",
+    "audit_status": "MISSING_FROM_PRODUCT",
+    "matrix_row_count_change": false,
+    "identified_missing_candidate_family_count_change": false,
+    "provenance_defect_count_change": false,
+    "new_candidate_family": false,
+    "runtime_winner_selected": false,
+    "candidate_collapsed": false,
+    "algorithm_reopen": false
+  }
+}

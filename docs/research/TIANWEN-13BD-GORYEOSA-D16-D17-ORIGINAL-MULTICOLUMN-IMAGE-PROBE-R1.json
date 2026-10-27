@@ -1,0 +1,47 @@
+{
+  "schema": "TIANWEN-13BD-D16-D17-FIRSTPARTY-ORIGINAL-COLUMN-CAPTURE-STAGED-R1",
+  "date": "2026-10-20",
+  "research_issue_id": "TW-OPEN-0005",
+  "stage": "QUEUED_NOT_YET_REVIEWED",
+  "objective": "Capture verified native-source pixels for same-folio historical NAJ and Waseda day16/17 long and cumulative column visual collation; do not prefill readings.",
+  "sources": [
+    {
+      "id": "NAJ-282-0006-PHYSICAL51",
+      "manifest": "https://www.digital.archives.go.jp/api/iiif/4898853/manifest.json",
+      "manifest_sha256": "3f38f52860bd06ca7f4b89cec65a32b8529fcb547ac098548120e8071fe370a1",
+      "provider_canvas_1based": 17,
+      "existing_JPEG_sha256": "8362e8a2b8ddf5f36408d4450a81ebad2d9548b32f49dbe37e01493592b7c3e9",
+      "expected_dimensions": [
+        3000,
+        2215
+      ]
+    },
+    {
+      "id": "WASEDA-RI06-02809-BOOK33",
+      "pdf": "https://archive.wul.waseda.ac.jp/kosho/ri06/ri06_02809/ri06_02809_0033/ri06_02809_0033.pdf",
+      "pdf_sha256": "28ebfeb34191f45715bc449d27da61fe04fb05eb45e84dd00cf569699f46225f",
+      "original_pdf_page_1based": 23,
+      "embedded_JPEG_xref": 70,
+      "embedded_JPEG_sha256": "388f3d5dd9e9861f8ce90c304b154edaeaee98614bb12cd3468f957dcde6fc66",
+      "expected_dimensions": [
+        2592,
+        1728
+      ]
+    }
+  ],
+  "capture_script": "scripts/probe-goryeosa-original-columns-13bd.py",
+  "workflow": ".github/workflows/probe-goryeosa-original-columns-13bd.yml",
+  "expected_image_bytes_source_bound": true,
+  "automatic_OCR": false,
+  "original_long_column_native_glyphs": "UNREAD_PENDING_SOURCE_CAPTURE_AND_VISUAL_REVIEW",
+  "original_cumulative_column_native_glyphs": "UNREAD_PENDING_SOURCE_CAPTURE_AND_VISUAL_REVIEW",
+  "source_grade_upgrade_before_manual_original_page_review": false,
+  "independent_numeric_votes_added": 0,
+  "transmission_graph_edges_added": 0,
+  "algorithm_reopens": 0,
+  "source_registry_count": 754,
+  "matrix_rows": 222,
+  "open_research_risks": 11,
+  "chart_product": "CLOSED",
+  "next_action": "Read exact-head workflow capture artifact and visually review native images, separately record ROI/SHA and day-column identity before judging historical arithmetic."
+}

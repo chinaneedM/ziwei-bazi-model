@@ -1,0 +1,122 @@
+{
+  "schema": "ZIWEI-NCL-UNION-TONGHU-RARECATX0514818-BOUNDARY-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-NCL-UNION-TONGHU-RARECATX0514818-BOUNDARY-FE",
+  "prior_batch_id": "BATCH-12-ZIWEI-NLC1823-TIEQIN-SEAL-PROVENANCE-CONTROL-FD",
+  "question": "Does the National Central Library Chinese Rare Books Union Catalog registration rarecatx0514818 supply a unique physical shelfmark/acquisition identifier for the current China-NLC Copper/Zhunzhai object, or only a bibliographic-record identity?",
+  "answer": "IT CLOSES A PUBLIC UNION-CATALOG RECORD IDENTITY, NOT A UNIQUE PHYSICAL SHELFMARK. THE OFFICIAL NCL DETAIL SURFACE FOR 銅壺漏箭制度 DIRECTLY EXPOSES VERSION 抄本, NOTE 清黃丕烈跋, REGISTRATION rarecatx0514818, SOURCE 國家圖書館中文古籍聯合目錄, AND CURRENT HOLDER 中國國家圖書館. THE EXPOSED DETAIL SURFACE DOES NOT PROVIDE A 索書號/CALL NUMBER, ACQUISITION/DONATION NUMBER, TIEQIN SHELFMARK, 1823 DATE, COMPOSITE ZHUNZHAI BINDING, OR COLLECTION-SEAL FIELD. THEREFORE rarecatx0514818 IS PRESERVED AS THE PUBLIC UNION-CATALOG REGISTRATION/RECORD IDENTIFIER AND MUST NOT BE PROMOTED TO A UNIQUE PHYSICAL-COPY IDENTIFIER. IT STRONGLY CONVERGES WITH THE CURRENT NLC HUANG-PILIE COPPER COPY FAMILY, BUT DOES NOT FORMALLY CLOSE THE SPECIFIC PHYSICAL OBJECT CROSSWALK.",
+  "source_binding": {
+    "source_id": "EXT-NCL-TW-UNION-TONGHU-RARECATX0514818",
+    "provider": "National Central Library, Taiwan — 古籍與特藏文獻資源",
+    "title": "《銅壺漏箭制度》中文古籍聯合目錄詳目",
+    "url": "https://rbook.ncl.edu.tw/NCLSearch/Search/SearchDetail?HasImage=&SourceID=1&item=2c3abbff6bd248fc9a809c7f39aec9d9fDE5MjQ1Mw2.H1W5TClojySuJKTwtqMCIxVSfwMiXo1YND_g4K9EBOU_&page=2964",
+    "observed_fields": {
+      "title": "銅壺漏箭制度",
+      "version": "抄本",
+      "note": "清黃丕烈跋",
+      "registration_number": "rarecatx0514818",
+      "source": "國家圖書館中文古籍聯合目錄",
+      "current_holder": "中國國家圖書館",
+      "current_holder_country": "中國"
+    },
+    "observed_at": "2026-09-24",
+    "public_surface_scope": "OFFICIAL_NCL_PUBLIC_DETAIL_SURFACE",
+    "javascript_required_for_full_site_functionality": true
+  },
+  "identifier_adjudication": {
+    "rarecatx0514818_role": "PUBLIC_UNION_CATALOG_REGISTRATION_OR_RECORD_IDENTIFIER",
+    "unique_physical_call_number_proved": false,
+    "china_nlc_shelfmark_proved": false,
+    "acquisition_number_proved": false,
+    "donation_or_transfer_number_proved": false,
+    "tieqin_era_shelfmark_proved": false,
+    "unique_physical_object_crosswalk_proved": false,
+    "reason": "The public detail labels the value 登錄號 and exposes no separate physical call-number/shelfmark field on the reviewed surface. Database registration identity must not be silently reclassified as a physical-book identifier."
+  },
+  "target_comparison": {
+    "current_nlc_1823_object": "NLC-held Qing Daoguang-3 Huang Shiliju Copper/Zhunzhai composite manuscript reproduced in Xuxiu1031",
+    "convergent_features": [
+      "title 銅壺漏箭制度",
+      "manuscript/copy class",
+      "Huang Pilie paratext association",
+      "current holder China NLC"
+    ],
+    "fields_missing_from_union_public_surface": [
+      "道光三年/1823",
+      "黃氏士禮居",
+      "準齋心製几漏圖式合裝",
+      "士禮居藏/黃印丕烈/蕘圃 seals",
+      "鐵琴銅劍樓 seal",
+      "unique physical shelfmark"
+    ],
+    "record_level_binding": "HIGH_CONFIDENCE_SAME_NLC_HUANG_COPY_FAMILY",
+    "exact_physical_copy_identity_from_this_record_alone": "NOT_PROVED",
+    "changes_batch12fd_unique_object_status": false
+  },
+  "zhunzhai_union_record_search": {
+    "exact_title_record_located_on_current_web_search_horizon": false,
+    "absence_claim_authorized": false,
+    "note": "Failure to locate an indexed exact-title result is an access/search-horizon statement only; it does not prove the union catalog lacks a Zhunzhai record."
+  },
+  "copy_layer_firewall": {
+    "reviewed_1823_object_exact_role_as_原書舊鈔_or_錄副": "UNRESOLVED",
+    "exact_identity_with_airijinglu1827_吳門黃氏藏舊抄本": "NOT_PROVED",
+    "exact_identity_with_specific_tieqin_catalogued_composite_object": "VERY_STRONGLY_SUPPORTED_NOT_FORMALLY_UNIQUE_OBJECT_CLOSED",
+    "rarecatx_registration_closes_any_of_these": false
+  },
+  "chronology_and_rule_firewall": {
+    "union_catalog_record_does_not_date_work_composition": true,
+    "physical_song_copy_proved": false,
+    "secure_pre1578_exact_25arrow_physical_witness": false,
+    "exact_yuan_1281_person_identity": "POSSIBLE_NOT_PROVED",
+    "exact_sanming_yueling_dahan_yushui_fingerprint_closed": false,
+    "exact_nanjing_59_endpoint_binding_closed": false,
+    "direct_sanming_parent_vote_increment": 0
+  },
+  "adjudication": {
+    "catalog_record_identity_closed": true,
+    "physical_shelfmark_boundary_closed_as_not_exposed_on_reviewed_public_surface": true,
+    "matrix_count_change": false,
+    "provenance_defect_count_change": false,
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "deterministic_fusion_chart_product_r1": "CLOSED"
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 13,
+    "repaired_provenance_metadata_defect_count": 13,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "transmission_impact": {
+    "nodes_added": [
+      "CATALOG-NCL-UNION-TONGHU-RARECATX0514818"
+    ],
+    "nodes_strengthened": [
+      "PHYSICAL-COPY-NLC-ZHUNZHAI-JILOU-DAOGUANG3-HUANG-SHILIJU-MS"
+    ],
+    "edges_supported": [
+      "TG-E0108"
+    ],
+    "same_object_edge_authorized": false,
+    "direct_copy_edges_authorized": [],
+    "unresolved_lineage_questions": [
+      "Can China NLC expose a physical call number or old-registration/acquisition number for the Copper manuscript?",
+      "Can the Zhunzhai companion record be located and cross-bound to the Copper registration?",
+      "Can a Tieqin-era shelfmark/donation/acquisition crosswalk uniquely connect the current object to the catalogued composite copy?",
+      "Which surviving Huang layer is 原書舊鈔 and which is 錄副?"
+    ]
+  },
+  "next_gate": [
+    "Search China NLC OPAC/rare-book catalog and archival descriptions for a physical shelfmark, old registration number or acquisition/donation field tied to 銅壺漏箭制度.",
+    "Locate any official union-catalog record for 準齋心製几漏圖式 and test whether it shares an object-level identifier with rarecatx0514818.",
+    "Keep database record IDs distinct from physical-copy identifiers.",
+    "Continue the pre-1578 Zhunzhai rule and independent Sanming/Nanjing-59 lines in parallel."
+  ],
+  "updated_at": "2026-09-24"
+}

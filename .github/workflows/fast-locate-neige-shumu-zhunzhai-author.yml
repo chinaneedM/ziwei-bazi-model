@@ -1,0 +1,70 @@
+name: fast-locate-neige-shumu-zhunzhai-author
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/fast-locate-neige-shumu-zhunzhai-author.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  locate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Render compact Neige Shumu contact sheets
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/neige-shumu-fast-locator'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT/pages" "$ROOT/contacts"
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils >/dev/null
+          python -m pip install --quiet pillow
+          URL='https://commons.wikimedia.org/wiki/Special:Redirect/file/NLC892-1083-204836%20%E5%85%A7%E9%96%A3%E6%9B%B8%E7%9B%AE.pdf'
+          curl -fL --retry 4 --retry-delay 2 -A 'Tianwen-Provenance-Audit/1.0' "$URL" -o "$ROOT/source.pdf"
+          sha256sum "$ROOT/source.pdf" | tee "$ROOT/source-sha256.txt"
+          pdfinfo "$ROOT/source.pdf" | tee "$ROOT/pdfinfo.txt"
+          pdftoppm -jpeg -r 100 "$ROOT/source.pdf" "$ROOT/pages/page" >/dev/null 2>&1
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image, ImageDraw
+          import json
+          root=Path('audit/neige-shumu-fast-locator')
+          pages=sorted(root.joinpath('pages').glob('page-*.jpg'))
+          cols=5; per=20
+          contacts=[]
+          for start in range(0,len(pages),per):
+              chunk=pages[start:start+per]; thumbs=[]
+              for j,p in enumerate(chunk,start+1):
+                  im=Image.open(p).convert('RGB'); tw=330
+                  im=im.resize((tw,max(1,int(im.height*tw/im.width))))
+                  c=Image.new('RGB',(tw,im.height+28),'white'); c.paste(im,(0,28))
+                  ImageDraw.Draw(c).text((6,5),f'PDF p{j}',fill='black'); thumbs.append(c)
+              cw=max(t.width for t in thumbs); ch=max(t.height for t in thumbs)
+              rows=(len(thumbs)+cols-1)//cols
+              sheet=Image.new('RGB',(cols*cw,rows*ch),'white')
+              for k,t in enumerate(thumbs): sheet.paste(t,((k%cols)*cw,(k//cols)*ch))
+              out=root/'contacts'/f'contact-{start+1:03d}-{start+len(chunk):03d}.jpg'
+              sheet.save(out,quality=92); contacts.append(out.name)
+          root.joinpath('README.txt').write_text(
+              'Source: NLC892-1083-204836 內閣書目.pdf.\n'
+              'Visual locator only. Target claim: 準齋几漏新式一冊 / 孫逢吉著 / 莫詳時代.\n'
+              'No OCR content-negative authority. Contact sheets must be human-reviewed.\n',
+              encoding='utf-8')
+          root.joinpath('index.json').write_text(json.dumps({'pages':len(pages),'contacts':contacts},ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print(json.dumps({'pages':len(pages),'contacts':len(contacts)},ensure_ascii=False))
+          PY
+          rm -rf "$ROOT/pages" "$ROOT/source.pdf"
+      - name: Upload compact Neige locator
+        uses: actions/upload-artifact@v4
+        with:
+          name: neige-shumu-fast-locator-r1
+          path: audit/neige-shumu-fast-locator
+          if-no-files-found: error
+          retention-days: 30

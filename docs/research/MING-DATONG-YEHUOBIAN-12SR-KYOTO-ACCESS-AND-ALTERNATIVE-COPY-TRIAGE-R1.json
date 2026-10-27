@@ -1,0 +1,114 @@
+{
+  "schema": "MING-DATONG-YEHUOBIAN-12SR-KYOTO-ACCESS-AND-ALTERNATIVE-COPY-TRIAGE-R1",
+  "schema_version": "1.0.0",
+  "date": "2026-10-12",
+  "parent_batch": "12QE_OPEN",
+  "research_type": "SUPPLEMENTAL_LIBRARY_ACCESS_AND_COPY_TRIAGE_NOT_FORMAL_MATRIX_BATCH",
+  "question": "Can the Kyoto two-item original-folio acquisition route be institutionally directed without inventing an access entitlement, and which cataloged 1827 alternatives should be deferred or retained?",
+  "kyoto": {
+    "official_directories": [
+      "https://www.kulib.kyoto-u.ac.jp/newdb/12109",
+      "https://www.kulib.kyoto-u.ac.jp/newdb?typeid=7"
+    ],
+    "official_contact": "letlib@mail2.adm.kyoto-u.ac.jp",
+    "contact_binding": "Library-wide institutional contact on official library directory; suffix .kyoto-u.ac.jp governed by official directory note. NOT an item-specific acceptance or personal contact.",
+    "official_visitor_policy": {
+      "external_users_prior_contact": true,
+      "unaffiliated_visitors_holding_inquiry_form_before_visit": true,
+      "rare_book_reading_advance_application_and_department_permission": true,
+      "chinese_stitched_or_fragile_books_may_not_be_eligible_for_normal_photocopy": true,
+      "internal_ill_policy_not_an_external_reproduction_guarantee": true,
+      "remote_image_delivery_for_these_items": "UNCONFIRMED",
+      "fee_for_these_items": "UNCONFIRMED",
+      "right_to_republish_target_images": "NOT_GRANTED"
+    },
+    "target_physical_items": [
+      {
+        "ncid": "BB18578034",
+        "item": "188987L",
+        "callmark": "B||VIb||9-1",
+        "volume": "19-20",
+        "impression_year_claim": "1827_PREFACE_ONLY_NO_PHYSICAL_IMPRESSION_YEAR"
+      },
+      {
+        "ncid": "BB05477307",
+        "item": "200023037620",
+        "callmark": "BVIb||Y||2",
+        "volume": "19-20",
+        "impression_year_claim": "CATALOG_1827_EDITED_IMPRESSION_UNCHECKED"
+      }
+    ],
+    "next_step": "Obtain user approval and sender identity before dispatch; ask library for correct rare-book holding-inquiry procedure, target leaf locator, copy-specific permitted image/microfilm route and possible fees. No request has been sent."
+  },
+  "alternative_holdings": [
+    {
+      "institution": "University of Tokyo IOC, Yuran Sodou collection",
+      "ncid": "BC08398372",
+      "copy_item": "6411758714",
+      "exact_catalog_volume": "卷19-20",
+      "official_catalog": "https://ci.nii.ac.jp/ncid/BC08398372",
+      "condition": "Catalog explicitly reports severe insect damage, missing leaves after vol19 leaf30, and unavailable for use due to deterioration. Scope of missing leaves DOES NOT establish absence of vol20 target text.",
+      "disposition": "DEPRIORITIZE_UNTIL_HOLDER_CONFIRMS_REPAIR_DIGITIZATION_OR_ACCESS",
+      "target_page_observed": false
+    },
+    {
+      "institution": "Hokkaido University Library",
+      "ncid": "BB10385966",
+      "copy_item": "0181427762",
+      "callmark": "史6-2/YA/2",
+      "exact_catalog_volume": "卷19-20",
+      "official_catalog": "https://ci.nii.ac.jp/ncid/BB10385966",
+      "disposition": "RESERVE_AS_CATALOG_ONLY_FALLBACK_1827_COPY_WITHOUT_ITEM_BOUND_TARGET_IMAGE",
+      "target_page_observed": false,
+      "physical_impression_year": "CATALOG_1827_NOT_ITEM_SPECIFIC_TARGET_GLYPH"
+    }
+  ],
+  "access_not_glyph_guard": {
+    "newly_observed_physical_target_leaf_count": 0,
+    "independent_target_glyph_votes_added": 0,
+    "no_article_absence_inferred": true,
+    "bibliographic_distinct_holdings_not_independent_textual_stemma": true,
+    "no_direct_cadal_or_shlib_physical_copy_equivalence": true,
+    "no_access_approval_inferred": true,
+    "previous_12sp_packet_remains_historical_unsent_snapshot": true,
+    "permissions_before_submission_and_publication": true
+  },
+  "source_urls": [
+    "https://www.kulib.kyoto-u.ac.jp/newdb/12109",
+    "https://www.kulib.kyoto-u.ac.jp/newdb?typeid=7",
+    "https://ci.nii.ac.jp/ncid/BC08398372",
+    "https://ci.nii.ac.jp/ncid/BB10385966"
+  ],
+  "external_actions": {
+    "emails_sent": 0,
+    "requests_submitted": 0,
+    "fees_paid": 0,
+    "target_images_received": 0
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Cataloged additional holdings are not direct passage witnesses and do not authorize textual-copy lineage."
+    ],
+    "unresolved_lineage_questions": [
+      "Does the approved target folio exist in each identified physical copy, and how do the four registered reading loci vary across copies?"
+    ]
+  },
+  "invariants": {
+    "matrix_rows": 222,
+    "matrix_audited": 222,
+    "repaired_metadata_defects": 45,
+    "source_registry_root": 647,
+    "source_registry_extensions": 11,
+    "source_registry_total": 658,
+    "graph_nodes": 248,
+    "graph_edges": 235,
+    "formal_batch_delta": 0,
+    "source_registry_delta": 0,
+    "graph_delta": 0,
+    "algorithm_reopens": 0,
+    "product_r1": "CLOSED"
+  }
+}

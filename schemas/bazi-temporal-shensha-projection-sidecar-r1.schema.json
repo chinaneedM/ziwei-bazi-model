@@ -1,0 +1,149 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/chinaneedM/ziwei-bazi-model/schemas/bazi-temporal-shensha-projection-sidecar-r1.schema.json",
+  "title": "BaZi Temporal ShenSha Projection Sidecar R1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema", "status", "base_application_bundle_hash", "base_application_source_fact_hash",
+    "bazi_target_flow_bundle_hash", "bazi_target_flow_source_fact_hash",
+    "projection_profile_id", "projection_profile_version", "candidates", "diagnostics",
+    "fact_hash", "computation_hash", "bundle_hash", "integrity"
+  ],
+  "properties": {
+    "schema": {"const": "BAZI-TEMPORAL-SHENSHA-PROJECTION-SIDECAR-R1"},
+    "status": {"enum": ["RESOLVED", "MULTI_CANDIDATE"]},
+    "base_application_bundle_hash": {"$ref": "#/$defs/hash"},
+    "base_application_source_fact_hash": {"$ref": "#/$defs/hash"},
+    "bazi_target_flow_bundle_hash": {"$ref": "#/$defs/hash"},
+    "bazi_target_flow_source_fact_hash": {"$ref": "#/$defs/hash"},
+    "projection_profile_id": {"const": "BAZI-TEMPORAL-SHENSHA-PROJECTION-SIDECAR-R1"},
+    "projection_profile_version": {"const": "1.0.0"},
+    "candidates": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/candidate"}},
+    "diagnostics": {"type": "array", "maxItems": 0},
+    "fact_hash": {"$ref": "#/$defs/hash"},
+    "computation_hash": {"$ref": "#/$defs/hash"},
+    "bundle_hash": {"$ref": "#/$defs/hash"},
+    "integrity": {"$ref": "#/$defs/integrity"}
+  },
+  "$defs": {
+    "hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "match": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_candidate_id", "shensha_id", "display_name", "anchor_basis", "anchor_value",
+        "target_kind", "target_values", "matched_value", "source_match_scope",
+        "source_selection_status", "source_qualification_status", "temporal_applicability_status", "source_refs"
+      ],
+      "properties": {
+        "source_candidate_id": {"type": "string", "minLength": 1},
+        "shensha_id": {"type": "string", "minLength": 1},
+        "display_name": {"type": "string", "minLength": 1},
+        "anchor_basis": {"type": "string", "minLength": 1},
+        "anchor_value": {"type": "string"},
+        "target_kind": {"enum": ["STEM", "BRANCH", "GANZHI"]},
+        "target_values": {"type": "array", "items": {"type": "string"}},
+        "matched_value": {"type": "string", "minLength": 1},
+        "source_match_scope": {"enum": ["ALL_PILLARS", "ONLY_DAY"]},
+        "source_selection_status": {"type": "string", "minLength": 1},
+        "source_qualification_status": {"type": "string", "minLength": 1},
+        "temporal_applicability_status": {"const": "NOT_CLASSICALLY_ARBITRATED"},
+        "source_refs": {"type": "array", "minItems": 1, "items": {"type": "string"}}
+      }
+    },
+    "slot": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "frame_id", "ganzhi", "evaluated_candidate_count", "matches"],
+      "properties": {
+        "status": {"type": "string", "minLength": 1},
+        "frame_id": {"type": ["string", "null"]},
+        "ganzhi": {"type": ["string", "null"]},
+        "evaluated_candidate_count": {"type": "integer", "minimum": 0},
+        "matches": {"type": "array", "items": {"$ref": "#/$defs/match"}}
+      }
+    },
+    "xiaoyunSlot": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["profile_id", "direction", "status", "frame_id", "ganzhi", "evaluated_candidate_count", "matches"],
+      "properties": {
+        "profile_id": {"type": "string", "minLength": 1},
+        "direction": {"type": "string", "minLength": 1},
+        "status": {"type": "string", "minLength": 1},
+        "frame_id": {"type": ["string", "null"]},
+        "ganzhi": {"type": ["string", "null"]},
+        "evaluated_candidate_count": {"type": "integer", "minimum": 0},
+        "matches": {"type": "array", "items": {"$ref": "#/$defs/match"}}
+      }
+    },
+    "projection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "profile_id", "profile_version", "source_shensha_profile_id", "source_shensha_profile_version",
+        "source_shensha_candidate_set_id", "source_candidate_catalog_hash", "eligible_source_candidates",
+        "excluded_source_candidates", "dayun", "xiaoyun_candidates", "annual", "monthly", "daily", "hourly",
+        "projection_policy", "selection_semantics", "semantic_scope", "source_refs", "fact_hash", "computation_hash"
+      ],
+      "properties": {
+        "profile_id": {"const": "BAZI-TEMPORAL-SHENSHA-TARGET-PROJECTION-R1"},
+        "profile_version": {"const": "1.0.0"},
+        "source_shensha_profile_id": {"type": "string", "minLength": 1},
+        "source_shensha_profile_version": {"type": "string", "minLength": 1},
+        "source_shensha_candidate_set_id": {"type": "string", "minLength": 1},
+        "source_candidate_catalog_hash": {"$ref": "#/$defs/hash"},
+        "eligible_source_candidates": {"type": "array", "items": {"type": "object"}},
+        "excluded_source_candidates": {"type": "array", "items": {"type": "object"}},
+        "dayun": {"$ref": "#/$defs/slot"},
+        "xiaoyun_candidates": {"type": "array", "items": {"$ref": "#/$defs/xiaoyunSlot"}},
+        "annual": {"$ref": "#/$defs/slot"},
+        "monthly": {"$ref": "#/$defs/slot"},
+        "daily": {"$ref": "#/$defs/slot"},
+        "hourly": {"$ref": "#/$defs/slot"},
+        "projection_policy": {"const": "ENGINEERING_TARGET_MATCH_NOT_CLASSICAL_TEMPORAL_APPLICABILITY"},
+        "selection_semantics": {"const": "SOURCE_CANDIDATES_PRESERVED_NO_WINNER"},
+        "semantic_scope": {"const": "TARGET_IDENTITY_MATCH_ONLY_NO_AUSPICIOUSNESS_OR_TEMPORAL_RULE_ADJUDICATION"},
+        "source_refs": {"type": "array", "items": {"type": "string"}},
+        "fact_hash": {"$ref": "#/$defs/hash"},
+        "computation_hash": {"$ref": "#/$defs/hash"}
+      }
+    },
+    "candidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "candidate_id", "source_bazi_target_flow_candidate_id", "source_bazi_target_flow_candidate_index",
+        "source_flow_candidate_index", "source_target_coordinate_candidate_index", "target_coordinate_candidate_id",
+        "source_application_candidate_ids", "source_application_view_hashes", "source_shensha_hash", "projection",
+        "fact_hash", "computation_hash"
+      ],
+      "properties": {
+        "candidate_id": {"type": "string", "pattern": "^BAZI-TEMPORAL-SHENSHA-SIDECAR-CANDIDATE:[0-9a-f]{64}$"},
+        "source_bazi_target_flow_candidate_id": {"type": "string", "pattern": "^BAZI-APPLICATION-FLOW-CANDIDATE:[0-9a-f]{64}$"},
+        "source_bazi_target_flow_candidate_index": {"type": "integer", "minimum": 0},
+        "source_flow_candidate_index": {"type": "integer", "minimum": 0},
+        "source_target_coordinate_candidate_index": {"type": "integer", "minimum": 0},
+        "target_coordinate_candidate_id": {"type": "string", "pattern": "^BAZI-TARGET-TEMPORAL-CANDIDATE:[0-9a-f]{64}$"},
+        "source_application_candidate_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "pattern": "^BAZI-APPLICATION-CANDIDATE:[0-9a-f]{64}$"}},
+        "source_application_view_hashes": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/hash"}},
+        "source_shensha_hash": {"$ref": "#/$defs/hash"},
+        "projection": {"$ref": "#/$defs/projection"},
+        "fact_hash": {"$ref": "#/$defs/hash"},
+        "computation_hash": {"$ref": "#/$defs/hash"}
+      }
+    },
+    "integrity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "diagnostics", "algorithm_id", "algorithm_version"],
+      "properties": {
+        "status": {"const": "PASS"},
+        "diagnostics": {"type": "array", "maxItems": 0},
+        "algorithm_id": {"const": "BAZI-TEMPORAL-SHENSHA-SIDECAR-INTEGRITY-R1"},
+        "algorithm_version": {"const": "1.0.0"}
+      }
+    }
+  }
+}

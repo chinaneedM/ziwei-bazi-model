@@ -1,0 +1,140 @@
+{
+  "schema": "ZIWEI-R2-RELATIVE-PALACE-FRAME-AUDIT-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-R2-RELATIVE-PALACE-FRAME-AUDIT-NB",
+  "prior_batch_id": "BATCH-12-ZIWEI-R1-NEUTRAL-Z12-TOPOLOGY-AUDIT-NA",
+  "rule_id": "HPA-STRUCT-002",
+  "audit_status": "MODERN_COMPATIBILITY_ONLY",
+  "algorithm_reopen_authorized": false,
+  "upstream_historical_anchor": {
+    "rule_id": "HPA-ZIWEI-003",
+    "status": "HISTORICALLY_SUPPORTED",
+    "source_scope": "Received Fullbook twelve-palace designation order and reverse placement were audited in Batch 06.",
+    "distinction": "R2 reuses the frozen designation order but the 144-row relative-frame matrix is a modern software abstraction, not itself a classical text claim."
+  },
+  "upstream_modern_anchor": {
+    "rule_id": "HPA-STRUCT-001",
+    "status": "MODERN_COMPATIBILITY_ONLY",
+    "source_scope": "R1 neutral Z12 ordered-address topology audited in Batch 12NA."
+  },
+  "mechanics": {
+    "canonical_designation_order": [
+      "LIFE",
+      "SIBLINGS",
+      "SPOUSE",
+      "CHILDREN",
+      "WEALTH",
+      "HEALTH",
+      "TRAVEL",
+      "SERVANTS_FRIENDS",
+      "CAREER",
+      "PROPERTY",
+      "FORTUNE",
+      "PARENTS"
+    ],
+    "formula": {
+      "target_designation_index": "(origin_index + role_offset) mod 12",
+      "relative_ordinal": "role_offset + 1",
+      "clockwise_offset": "(-role_offset) mod 12"
+    },
+    "target_address_authority": "Upstream V1 natal designation binding; R2 does not invent a target address.",
+    "topology_gate": "Every projected source/target address edge must exist in the supplied R1 neutral topology."
+  },
+  "historical_scope": {
+    "palace_designation_order_is_historically_audited_upstream": true,
+    "r2_144_fact_matrix_claimed_as_classical": false,
+    "relative_frame_hash_schema_integrity_claimed_as_classical": false,
+    "named_downstream_structural_terms_claimed_by_r2": false
+  },
+  "semantic_firewall": {
+    "named_traditional_semantics_enabled": false,
+    "semantic_rule_set_id": null,
+    "semantic_rule_set_version": null,
+    "forbidden_promotions": [
+      "三方",
+      "三方四正",
+      "对宫",
+      "气数位",
+      "一六共宗",
+      "邻宫",
+      "夹宫",
+      "借星",
+      "吉凶",
+      "评分",
+      "事件",
+      "终点"
+    ],
+    "policy": "Ordinal/offset identities remain geometry only until a separately audited downstream source-scoped rule binds a traditional name or interpretation."
+  },
+  "provenance_repair": {
+    "defect_id": "PROV-DEFECT-020",
+    "defect": "CURRENT_AUDIT_MATRIX_MD_PROVENANCE_DEFECT_COUNT_STALE_AFTER_12MZ",
+    "observed": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.md current overview said 18 confirmed provenance defects while machine Matrix/State were already authoritative at 19/19 after PROV-DEFECT-019.",
+    "repair": "Forward-only current-overview correction to 20/20 together with authoritative Matrix/State count increment; historical batch snapshots remain unchanged.",
+    "chart_algorithm_effect": false,
+    "candidate_effect": false
+  },
+  "replay_evidence": "docs/research/evidence/batch-12nb/r2-relative-palace-frame-replay.json",
+  "replay_scope": "12 possible LIFE physical rotations × 12 origins × 12 relative ordinals = 1728 records. This exhausts rotational covariance of the frozen designation order and physical offset formula.",
+  "accounting": {
+    "rows_before": 220,
+    "rows_after": 220,
+    "audited_rows_before": 205,
+    "audited_rows_after": 206,
+    "current_missing_from_product_rows": 10,
+    "provenance_defects_confirmed_before": 19,
+    "provenance_defects_confirmed_after": 20,
+    "provenance_defects_repaired_before": 19,
+    "provenance_defects_repaired_after": 20,
+    "chart_algorithm_defects": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0,
+    "new_provenance_defect": true
+  },
+  "frozen_files": [
+    {
+      "path": "src/fortune_training/ziwei_structural/r2/profile.py",
+      "blob_sha": "1beff14b1446233a8760a89712eb7bb1e3e8a9ff"
+    },
+    {
+      "path": "src/fortune_training/ziwei_structural/r2/frame.py",
+      "blob_sha": "82dcf41adc81c14a25115b3a99d84ead614e5b2c"
+    },
+    {
+      "path": "src/fortune_training/ziwei_structural/r2/engine.py",
+      "blob_sha": "e78d8a88e5ba3c2d2417614570eacf08b54ca4be"
+    },
+    {
+      "path": "src/fortune_training/ziwei_structural/r2/models.py",
+      "blob_sha": "20d7d7089b0b76fdb3d21617059efda15f66085a"
+    },
+    {
+      "path": "src/fortune_training/ziwei_structural/r2/integrity.py",
+      "blob_sha": "4f96b0e710f6b0baef8d58b5ca1138e306c3131a"
+    },
+    {
+      "path": "docs/ZIWEI-STRUCTURAL-RUNTIME-V2-R2.md",
+      "blob_sha": "7cd2491a3cbe3150aac0f3d0a63166acd1a3bc7e"
+    },
+    {
+      "path": "schemas/ziwei-relative-palace-frame-v2-r2.schema.json",
+      "blob_sha": "e48dcdb413c286db19e8da39613410c84863afac"
+    },
+    {
+      "path": "src/fortune_training/ziwei_chart/registries.py",
+      "blob_sha": "1c724de9fbb888275f258bfddda244ed3c027ee4"
+    },
+    {
+      "path": "src/fortune_training/ziwei_structural/topology.py",
+      "blob_sha": "398eab7d309ab942b33e3df7b9fa1d0c8c0640b6"
+    }
+  ],
+  "transmission_impact": {
+    "status": "NONE",
+    "reason": "R2 is a modern coordinate abstraction over already-audited upstream facts. It adds no historical author, edition, teacher or textual transmission edge."
+  },
+  "next_gate": [
+    "12NC: audit HPA-TIME-001 Civil timezone/TZDB instant resolution, documenting modern-standard authority, historical-China timezone applicability and reproducibility without recasting modern TZDB behavior as classical doctrine.",
+    "Structural R1-R8 current Matrix rows are all audited after 12NB."
+  ]
+}

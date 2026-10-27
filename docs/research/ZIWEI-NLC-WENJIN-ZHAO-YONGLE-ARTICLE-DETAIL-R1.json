@@ -1,0 +1,151 @@
+{
+  "schema": "ZIWEI-NLC-WENJIN-ZHAO-YONGLE-ARTICLE-DETAIL-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-NLC-WENJIN-ZHAO-YONGLE-ARTICLE-DETAIL-KF",
+  "prior_batch_id": "BATCH-12-ZIWEI-NLC-WENJIN-ZHAO-YONGLE-ARTICLE-TITLE-SEARCH-KE",
+  "question": "What does the anonymous first-party NLC Wenjin detail record establish for Zhao Wanli's 1951 《永樂大典展覽的意義——一九五一年八月北京圖書舘舉辦》, and does it emit a concrete fulltext route without requiring guessed identifiers or login?",
+  "answer": "The source-emitted Wenjin detail record is anonymously reachable and closes the complete article title, author 趙萬里, document type 期刊论文, journal/source label 文物, 1951 no.9, pp.221-233, 13 pages, Chinese language, K87 classification, keywords, and a Chinese abstract. It names two source databases: 国家哲学社会科学文献中心中文期刊论文 and 维普中文科技期刊数据库. The detail page directly emits a concrete NCPSsd CooperationUser URI that wraps an articleinfo target, while directLink is empty. Wenjin itself still marks the user as not logged in and states that online reading cannot be used before login. Therefore KF closes an article-level metadata and source-emitted external-route bridge, but not the direct 1951 page text. The current carrier-label tension remains: this record emits 文物, while the separate NLC scholarly review emits 文物参考资料 for the same year/issue/pages; no silent title normalization is authorized.",
+  "controlling_probe": {
+    "workflow": ".github/workflows/probe-batch-12kf-nlc-wenjin-zhao-yongle-article-detail.yml",
+    "exact_head": "97883e2c6ce58b3a5bcbbfbbd6dcea3a403646ad",
+    "workflow_run_id": 36855851382,
+    "workflow_job_id": 110348023825,
+    "artifact_id": 11159156947,
+    "artifact_name": "batch-12kf-nlc-wenjin-zhao-yongle-article-detail",
+    "artifact_digest": "sha256:c1f0e4ef6f7a5c7a9a7805be79e265447a0b8251e788e6e49d301d92bfdf02d4"
+  },
+  "source_record": {
+    "parent_batch": "12KE",
+    "docId": "149819805017800696",
+    "dataSource": "sky,wpqk",
+    "query": "永樂大典展覽的意義",
+    "source_emitted_http_detail_url": "http://find.nlc.cn/search/showDocDetails?docId=149819805017800696&dataSource=sky%2Cwpqk&query=%E6%B0%B8%E6%A8%82%E5%A4%A7%E5%85%B8%E5%B1%95%E8%A6%BD%E7%9A%84%E6%84%8F%E7%BE%A9"
+  },
+  "detail_response": {
+    "http_status": 200,
+    "bytes": 30605,
+    "sha256": "3ba53f14f4c21b2c6ba5ae6a1cf4be106e645c3da61d4d3ae4a3a4c068473d23",
+    "decode_used": "utf-8"
+  },
+  "bibliographic_fields": {
+    "full_title": "永樂大典展覽的意義——一九五一年八月北京圖書舘舉辦",
+    "author": "趙萬里",
+    "document_type": "期刊论文",
+    "classification": "中图分类 K87",
+    "journal_name": "文物",
+    "source_statement": "文物,1951年第9期221-233,共13页",
+    "volume": "0",
+    "issue": "9",
+    "publication_year": 1951,
+    "pages": "221-233",
+    "page_count": 13,
+    "language": "Chinese 汉语",
+    "abstract_present": true,
+    "keywords": [
+      "翰林院",
+      "北京",
+      "二二六",
+      "重要性",
+      "文康",
+      "收藏家",
+      "家文化",
+      "博物院",
+      "九五",
+      "古典文化"
+    ],
+    "source_databases": [
+      "国家哲学社会科学文献中心中文期刊论文",
+      "维普中文科技期刊数据库"
+    ]
+  },
+  "reading_variables": {
+    "uri": "http://www.ncpssd.org/Cooperation/CooperationUser.aspx?UrlReferrer=http%3A%2F%2Fwww.ncpssd.org%2FLiterature%2Farticleinfo.aspx%3Fid%3DMTAwMjQ2MjkwMw%3D%3D%26type%3Dam91cm5hbEFydGljbGU%3D%26datatype%3Dam91cm5hbEFydGljbGU%3D%26typename%3D5Lit5paH5pyf5YiK5paH56ug",
+    "directLink": "",
+    "isVpnLink": "false",
+    "vpnUrlPrefix": "https://vpn2.nlc.cn/prx/000/http/",
+    "isUserLogin": false,
+    "isInnerIP": "false",
+    "isTsingHuaTongFang": "false",
+    "isSamlLink": "false",
+    "login_required_marker": "未登录情况下不能使用在线阅读功能，请您先登录!",
+    "source_emitted_external_uri_present": true,
+    "source_emitted_external_uri_followed_in_kf": false
+  },
+  "carrier_label_tension": {
+    "wenjin_detail_label": "文物",
+    "nlc_review_label": "文物参考资料",
+    "shared_year": 1951,
+    "shared_issue": 9,
+    "shared_pages": "221-233",
+    "labels_silently_equated": false,
+    "relation_status": "UNRESOLVED_PENDING_PROVIDER_OR_BIBLIOGRAPHIC_CROSSWALK"
+  },
+  "adjudication": {
+    "anonymous_first_party_detail_recovered": true,
+    "complete_article_metadata_recovered": true,
+    "abstract_metadata_recovered": true,
+    "concrete_source_emitted_ncpssd_uri_recovered": true,
+    "external_uri_followed": false,
+    "directLink_emitted": false,
+    "wenjin_online_reading_login_boundary": true,
+    "direct_1951_article_page_reviewed": false,
+    "direct_wenwu_1951_no9_pp221_233": "NOT_REVIEWED",
+    "direct_wenhui_1951_08_18": "NOT_REVIEWED",
+    "direct_2011_p197": "NOT_REVIEWED"
+  },
+  "evidence_firewall": {
+    "database_abstract_is_not_primary_1951_page": true,
+    "source_emitted_external_uri_is_not_yet_direct_fulltext": true,
+    "available_fulltext_label_does_not_equal_anonymous_fulltext": true,
+    "carrier_labels_require_explicit_crosswalk": true,
+    "empty_directLink_does_not_negate_external_uri": true
+  },
+  "security": {
+    "anonymous_get_only": true,
+    "login_used": false,
+    "reader_account_used": false,
+    "registration_used": false,
+    "post_request_used": false,
+    "external_fulltext_url_followed": false,
+    "private_endpoint_guessed": false,
+    "record_identifier_guessed": false,
+    "data_source_guessed": false,
+    "captcha_bypass_used": false,
+    "tls_verification_disabled": false,
+    "state_changing_request_used": false
+  },
+  "transmission_impact": {
+    "status": "NONE_ARTICLE_DISCOVERY_AND_ACCESS_ROUTE_ONLY",
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": [],
+    "reason": "The batch strengthens current article-level discovery and exposes an external source route, but does not recover the primary 1951 pages or prove a carrier-to-carrier transmission relation."
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Follow exactly the NLC source-emitted NCPSsd CooperationUser URI by anonymous GET, allowing only server redirects, and record whether it resolves to public article metadata/fulltext, a login/auth boundary, or an error.",
+    "Do not decode and separately request hidden/derived provider identifiers unless they are reached by the source-emitted redirect chain or re-emitted by the public response.",
+    "Preserve 文物 vs 文物参考资料 as an unresolved carrier-label crosswalk until provider or independent bibliographic evidence explicitly closes it.",
+    "Continue direct Shanghai 文汇报 1951-08-18 and 2011 赵万里文集 vol.1 p.197 discovery in parallel."
+  ],
+  "updated_at": "2026-10-01"
+}

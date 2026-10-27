@@ -1,0 +1,141 @@
+name: probe-batch-12hm-nlc-zuozhuan-microfilm-links
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - '.github/workflows/probe-batch-12hm-nlc-zuozhuan-microfilm-links.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - name: Resolve Zuozhuan microfilm original-record links
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/batch-12hm-nlc-zuozhuan-microfilm-links'
+          rm -rf "$ROOT"; mkdir -p "$ROOT/detail" "$ROOT/read"
+          UA='Tianwen-Provenance-Audit/1.0'
+          cat > "$ROOT/targets.tsv" <<'EOF'
+          UCS01003624709	003416361	1985-exact-a
+          UCS01003601976	003026493	1985-exact-b
+          UCS01003575842	002294112	1994-xie
+          UCS01003668228	003611474	1991-sun
+          UCS01003578052	002487948	2003-xie
+          EOF
+          : > "$ROOT/status.tsv"
+          while IFS=$'\t' read -r uid sys label; do
+            ok=0
+            for attempt in 1 2 3; do
+              out="$ROOT/detail/$uid-attempt-$attempt.json"
+              set +e
+              code=$(curl -L -sS --connect-timeout 6 --max-time 20 -A "$UA" \
+                -H 'Accept: application/json, text/javascript, */*; q=0.01' \
+                -H 'X-Requested-With: XMLHttpRequest' \
+                -H "Referer: https://meta.nlc.cn/v2/detail/$uid" \
+                -X POST -o "$out" -w '%{http_code}' \
+                "https://meta.nlc.cn/api/v1/item/$uid/1/999")
+              rc=$?
+              set -e
+              size=0; [ -f "$out" ] && size=$(wc -c < "$out")
+              printf '%s\t%s\t%s\tattempt=%s\trc=%s\thttp=%s\tbytes=%s\n' "$uid" "$sys" "$label" "$attempt" "$rc" "$code" "$size" >> "$ROOT/status.tsv"
+              if [ "$rc" -eq 0 ] && [ "$code" = "200" ] && [ "$size" -gt 100 ]; then
+                cp "$out" "$ROOT/detail/$uid.json"; ok=1; break
+              fi
+              sleep 1
+            done
+          done < "$ROOT/targets.tsv"
+
+          python - <<'PY'
+          from pathlib import Path
+          import json,re
+          root=Path('audit/batch-12hm-nlc-zuozhuan-microfilm-links')
+          out=[]; links=[]
+          for p in sorted((root/'detail').glob('UCS*.json')):
+              uid=p.stem
+              try: obj=json.loads(p.read_text('utf-8'))
+              except Exception as e:
+                  out.append(f'### {uid}\nPARSE_ERROR {e!r}'); continue
+              r=obj.get('result') or {}; b=r.get('biblio') or {}; es=r.get('esBook') or {}
+              out.append('### '+uid)
+              out.append('ES '+json.dumps({k:es.get(k) for k in ('SYS','UID','WDT','YEA','PUB','PAG','TIT','AUT','holdings')},ensure_ascii=False,separators=(',',':')))
+              fields={k:v for k,v in b.items() if k.startswith(('455','905','316','317','035','049','001','200','205','210','215','300','305','307','310','320','327','701','702','801','852','910'))}
+              out.append('FIELDS '+json.dumps(fields,ensure_ascii=False,separators=(',',':')))
+              raw=json.dumps(b,ensure_ascii=False,separators=(',',':'))
+              nums=sorted(set(re.findall(r'001(\d{9,15})',raw)))
+              out.append('EMBEDDED_001_NUMBERS '+json.dumps(nums,ensure_ascii=False))
+              for n in nums:
+                  links.append((uid,n))
+              for term in ('铁琴','鐵琴','铜剑','銅劍','瞿','元刻明修','元刻元印','宋刻','刘叔刚','劉叔剛','善本'):
+                  if term in raw:
+                      out.append('TOKEN '+term)
+          (root/'detail-summary.txt').write_text('\n'.join(out)+'\n',encoding='utf-8')
+          seen=[]
+          for pair in links:
+              if pair not in seen: seen.append(pair)
+          (root/'linked-ids.tsv').write_text('\n'.join(f'{u}\t{n}' for u,n in seen)+'\n',encoding='utf-8')
+          print((root/'detail-summary.txt').read_text('utf-8'))
+          print('LINKS',seen)
+          PY
+
+          if [ -s "$ROOT/linked-ids.tsv" ]; then
+            while IFS=$'\t' read -r uid fid; do
+              [ -z "$fid" ] && continue
+              out="$ROOT/read/$uid-$fid.html"
+              set +e
+              code=$(curl -L -sS --connect-timeout 6 --max-time 20 -A "$UA" \
+                -o "$out" -w '%{http_code}' \
+                "https://read.nlc.cn/allSearch/searchDetail?indexName=data_892&fid=$fid")
+              rc=$?
+              set -e
+              printf 'READ\t%s\t%s\trc=%s\thttp=%s\tbytes=%s\n' "$uid" "$fid" "$rc" "$code" "$(wc -c < "$out" 2>/dev/null || echo 0)" >> "$ROOT/status.tsv"
+            done < "$ROOT/linked-ids.tsv"
+          fi
+
+          python - <<'PY'
+          from pathlib import Path
+          import re,json
+          root=Path('audit/batch-12hm-nlc-zuozhuan-microfilm-links')
+          out=[]
+          for p in sorted((root/'read').glob('*.html')):
+              t=p.read_text('utf-8',errors='replace')
+              out.append('### '+p.name)
+              for pat in [
+                r'<title[^>]*>(.*?)</title>',
+                r'OpenObjectBook\?aid=([^&"\']+)&bid=([^&"\']+)',
+                r'(?:identifier|fid)[^0-9]{0,30}([0-9]{9,15})',
+                r'(?:附释音|附釋音)[^<]{0,30}(?:春秋左传|春秋左傳)[^<]{0,30}'
+              ]:
+                  vals=[]
+                  for m in re.finditer(pat,t,re.I|re.S):
+                      vals.append(m.groups() if len(m.groups())>1 else m.group(1))
+                  if vals: out.append(pat+' => '+json.dumps(vals[:20],ensure_ascii=False))
+              for term in ['铁琴','鐵琴','元刻元印','元刻明修','刘叔刚','劉叔剛']:
+                  if term in t: out.append('TOKEN '+term)
+          root.joinpath('read-summary.txt').write_text('\n'.join(out)+'\n',encoding='utf-8')
+          print('===== READ SUMMARY =====')
+          print(root.joinpath('read-summary.txt').read_text('utf-8'))
+          PY
+
+          find "$ROOT" -type f -size +0c -print0 | xargs -0 -r sha256sum | sort -V > "$ROOT/files.sha256"
+          printf '%s\n' \
+            'SOURCE=National Library of China current meta item API + read.nlc.cn data_892 routes' \
+            'PURPOSE=resolve 455 embedded-original identifiers for five current Zuozhuan microfilm records and test whether any binds Zhang Lijuan Tieqin-Yuan witness' \
+            'IDENTIFIER_FIREWALL=microfilm SYS/UID != 455 embedded original identifier != data_892 fid != 905b registration != rare-book 905s call number' \
+            'NO_NUMERIC_GUESSING=true' \
+            'OCR_USED=false' > "$ROOT/manifest.txt"
+          cat "$ROOT/status.tsv"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12hm-nlc-zuozhuan-microfilm-links
+          path: audit/batch-12hm-nlc-zuozhuan-microfilm-links/
+          if-no-files-found: error
+          retention-days: 30

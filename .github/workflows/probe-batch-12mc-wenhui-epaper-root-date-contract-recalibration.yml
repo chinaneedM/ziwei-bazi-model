@@ -1,0 +1,126 @@
+name: probe-batch-12mc-wenhui-epaper-root-date-contract-recalibration
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12mc-wenhui-epaper-root-date-contract-recalibration.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Recalibrate only official Wenhui e-paper root and source-emitted date navigation
+        run: |
+          python - <<'PY'
+          import hashlib, html, json, re
+          from pathlib import Path
+          from urllib.parse import urljoin, urlparse
+          import requests
+
+          root="https://dzb.whb.cn/"
+          UA="Mozilla/5.0 (Tianwen provenance audit; Wenhui official e-paper root recalibration)"
+          out={
+              "source_contract":{
+                  "parent_batch":"12MB",
+                  "revisits_batch":"12JO",
+                  "official_root":root,
+                  "method":"GET",
+                  "allow_redirects":False,
+                  "historical_target_date":"1951-08-18",
+                  "historical_target_path_guessed":False,
+                  "historical_target_request_submitted":False,
+                  "source_emitted_dated_link_followed":False
+              },
+              "response":None,
+              "static_surface":None,
+              "adjudication":{
+                  "root_reached":False,
+                  "source_emitted_date_contract_observed":False,
+                  "historical_target_request_submitted":False,
+                  "login_used":False,
+                  "registration_used":False
+              },
+              "security":{
+                  "anonymous_get_only":True,
+                  "private_endpoint_guessed":False,
+                  "captcha_bypass_used":False,
+                  "tls_verification_disabled":False
+              }
+          }
+
+          try:
+              r=requests.get(root,headers={"User-Agent":UA},timeout=45,allow_redirects=False)
+              raw=r.content
+              txt=raw.decode("utf-8","replace")
+              out["response"]={
+                  "status":r.status_code,
+                  "content_type":r.headers.get("content-type"),
+                  "server":r.headers.get("server"),
+                  "location":r.headers.get("location"),
+                  "bytes":len(raw),
+                  "sha256":hashlib.sha256(raw).hexdigest()
+              }
+              out["adjudication"]["root_reached"]=True
+
+              links=[]
+              for m in re.finditer(r'''(?is)<a\b[^>]*?\bhref\s*=\s*["']([^"']+)["'][^>]*>(.*?)</a>''',txt):
+                  href=html.unescape(m.group(1)).strip()
+                  label=html.unescape(re.sub(r"<[^>]+>"," ",m.group(2)))
+                  label=re.sub(r"\s+"," ",label).strip()
+                  absu=urljoin(root,href)
+                  if urlparse(absu).netloc.lower() in ("dzb.whb.cn","www.dzb.whb.cn"):
+                      links.append({"label":label[:300],"href":href,"absolute_href":absu})
+
+              date_pat=re.compile(r'/(20\d{2}|19\d{2})-(0[1-9]|1[0-2])-([0-2]\d|3[01])(?:/|$)')
+              dated=[]
+              for x in links:
+                  m=date_pat.search(x["absolute_href"])
+                  if m:
+                      dated.append({**x,"date":"-".join(m.groups())})
+
+              scripts=[]
+              for src in re.findall(r'''(?is)<script\b[^>]*?\bsrc\s*=\s*["']([^"']+)["'][^>]*>''',txt):
+                  absu=urljoin(root,html.unescape(src).strip())
+                  if urlparse(absu).netloc.lower() in ("dzb.whb.cn","www.dzb.whb.cn"):
+                      scripts.append(absu)
+
+              visible=re.sub(r"(?is)<script\b.*?</script>"," ",txt)
+              visible=re.sub(r"(?is)<style\b.*?</style>"," ",visible)
+              visible=html.unescape(re.sub(r"<[^>]+>"," ",visible))
+              visible=re.sub(r"\s+"," ",visible).strip()
+
+              tokens=["日期选择","版面导航","上一期","下一期","往期","电子报","文汇报"]
+              out["static_surface"]={
+                  "same_host_link_count":len(links),
+                  "dated_link_count":len(dated),
+                  "dated_links":dated[:200],
+                  "same_host_script_count":len(set(scripts)),
+                  "same_host_scripts":sorted(set(scripts))[:200],
+                  "visible_text_length":len(visible),
+                  "visible_text_preview":visible[:4000],
+                  "token_counts":{t:visible.count(t) for t in tokens}
+              }
+              out["adjudication"]["source_emitted_date_contract_observed"]=bool(dated)
+
+          except Exception as e:
+              out["response"]={
+                  "fetch_error_class":type(e).__name__,
+                  "fetch_error_message":str(e)[:1000]
+              }
+
+          Path("batch-12mc-wenhui-epaper-root-date-contract-recalibration.json").write_text(
+              json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8"
+          )
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12mc-wenhui-epaper-root-date-contract-recalibration
+          path: batch-12mc-wenhui-epaper-root-date-contract-recalibration.json

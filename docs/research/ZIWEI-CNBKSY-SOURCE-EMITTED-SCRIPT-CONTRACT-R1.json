@@ -1,0 +1,150 @@
+{
+  "schema": "ZIWEI-CNBKSY-SOURCE-EMITTED-SCRIPT-CONTRACT-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-CNBKSY-SOURCE-EMITTED-SCRIPT-CONTRACT-LH",
+  "prior_batch_id": "BATCH-12-ZIWEI-CNBKSY-412-AND-PUBLIC-ACTIVITY-CONTRACT-LG",
+  "question": "Do the six script URLs source-emitted by the anonymously retrievable CNBKSY public activity page expose a public newspaper-search contract without executing any discovered route?",
+  "answer": "No CNBKSY business-search route literal is observed. All six script URLs return HTTP 200, but the query/find/search tokens in jQuery, Bootstrap and PDF.js are third-party library semantics; the ESA dynamic script exposes no configured search signal, and CNBKSY common.js exposes logout plus generic AJAX/Array.indexOf semantics without a public newspaper-search route. No discovered route is followed and no target query is submitted.",
+  "controlling_probe": {
+    "workflow": ".github/workflows/probe-batch-12lh-cnbksy-source-emitted-script-contract.yml",
+    "exact_head": "0ca02033ec670e021f212b69d0e452c217ea2c81",
+    "workflow_run_id": 36879836981,
+    "workflow_job_id": 110428492239,
+    "artifact_id": 11170592063,
+    "artifact_digest": "sha256:2f30de9a909488452724ba671e03b8b8033497fac9c393bfe3b9999a8f2431bb"
+  },
+  "source_contract": {
+    "parent_batch": "12LG",
+    "script_url_count": 6,
+    "source": "six script src URLs emitted by the anonymous public activity page",
+    "discovered_route_followed": false,
+    "target_query_submitted": false,
+    "login_or_registration_used": false
+  },
+  "scripts": [
+    {
+      "role": "ESA_DYNAMIC_PRECONDITION_SCRIPT",
+      "url": "https://www.cnbksy.com/oYqhkoXXrsR7/5dO9sIMv7zgf.cfd114a.js",
+      "status": 200,
+      "content_type": "text/javascript; charset=UTF-8",
+      "server": "ESA",
+      "bytes": 175000,
+      "sha256": "8e0c8b90cf48b23923943c8a765ca0ca62ea575357cdaaef41f70ef6d1fa3637",
+      "search_related_route_literals": [],
+      "adjudication": "NO_CONFIGURED_BUSINESS_SEARCH_SIGNAL"
+    },
+    {
+      "role": "THIRD_PARTY_JQUERY_3_1_1",
+      "url": "https://www.cnbksy.com/public/plugin/jquery/jquery-3.1.1.js",
+      "status": 200,
+      "content_type": "application/javascript",
+      "server": "ESA",
+      "bytes": 277414,
+      "sha256": "9048fea17ebe181d7510d6ec8d4763231cb5b54634f7eac26f39c7876d38aa28",
+      "search_related_route_literals": [],
+      "adjudication": "THIRD_PARTY_LIBRARY_TOKENS_NOT_BUSINESS_SEARCH_EVIDENCE"
+    },
+    {
+      "role": "THIRD_PARTY_JQUERY_1_11_1",
+      "url": "https://www.cnbksy.com/public/common/js/jquery1.1.js",
+      "status": 200,
+      "content_type": "application/javascript",
+      "server": "ESA",
+      "bytes": 95790,
+      "sha256": "91222f96f34735ebc88df208017e54d4329b9202e3e52367fb8b149698a1a5ef",
+      "search_related_route_literals": [],
+      "adjudication": "THIRD_PARTY_LIBRARY_TOKENS_NOT_BUSINESS_SEARCH_EVIDENCE"
+    },
+    {
+      "role": "THIRD_PARTY_BOOTSTRAP",
+      "url": "https://www.cnbksy.com/public/plugin/bootstrap/dist/js/bootstrap.min.js",
+      "status": 200,
+      "content_type": "application/javascript",
+      "server": "ESA",
+      "bytes": 37051,
+      "sha256": "36460e494e4c628443afded40b2743b5ede9a4a76fb4f7b9ef2345cc7e59fd64",
+      "search_related_route_literals": [],
+      "adjudication": "THIRD_PARTY_LIBRARY_TOKENS_NOT_BUSINESS_SEARCH_EVIDENCE"
+    },
+    {
+      "role": "THIRD_PARTY_PDFJS",
+      "url": "https://www.cnbksy.com/public/plugin/pdfjs/pdf.js",
+      "status": 200,
+      "content_type": "application/javascript",
+      "server": "ESA",
+      "bytes": 421183,
+      "sha256": "deb1fd798c4750e32f06a3171c1f678ae50670313598ef648d2d57ccaffd18ea",
+      "search_related_route_literals": [],
+      "adjudication": "THIRD_PARTY_LIBRARY_TOKENS_NOT_BUSINESS_SEARCH_EVIDENCE"
+    },
+    {
+      "role": "CNBKSY_COMMON_JS",
+      "url": "https://www.cnbksy.com/public/common/js/common.js?version=V20241206",
+      "status": 200,
+      "content_type": "application/javascript",
+      "server": "ESA",
+      "bytes": 4273,
+      "sha256": "3d7d6379e4b86c54612aab7b98887ea2ba0b372a4ecf871fb66fe0b8c012a78d",
+      "function_names": [
+        "logout"
+      ],
+      "search_related_route_literals": [],
+      "search_related_keyword_counts": {
+        "search": 2,
+        "ajax": 3
+      },
+      "adjudication": "NO_PUBLIC_NEWSPAPER_SEARCH_CONTRACT_OBSERVED"
+    }
+  ],
+  "adjudication": {
+    "script_inventory_completed": true,
+    "all_source_emitted_scripts_http_200": true,
+    "search_related_route_literal_count": 0,
+    "third_party_library_keyword_noise_excluded": true,
+    "public_newspaper_search_contract_closed": false,
+    "discovered_route_followed": false,
+    "target_query_submitted": false,
+    "login_used": false,
+    "registration_used": false
+  },
+  "security": {
+    "anonymous_get_only": true,
+    "post_request_used": false,
+    "target_query_submitted": false,
+    "private_endpoint_guessed": false,
+    "captcha_bypass_used": false,
+    "tls_verification_disabled": false
+  },
+  "transmission_impact": {
+    "status": "NONE_ACCESS_BOUNDARY_ONLY",
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": []
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Return to the already-anonymous HTTP-200 activity HTML and inventory inline scripts, forms/actions, field names, onclick handlers and route literals only.",
+    "Do not execute any discovered route and do not execute /login or /signUp.",
+    "Do not submit the Zhao/Wenhui target query until a public search contract is source-closed."
+  ],
+  "updated_at": "2026-10-01"
+}

@@ -1,0 +1,76 @@
+{
+  "schema": "ZIWEI-SIZIJING-DANXI-YUEJIAN-YUEYUN-SEMANTICS-R1",
+  "batch_id": "BATCH-12-ZIWEI-SIZIJING-DANXI-YUEJIAN-YUEYUN-SEMANTICS-BX",
+  "prior_batch_id": "BATCH-12-ZIWEI-MING-INSTITUTIONAL-INCLEMENT-TIMEKEEPING-CHAIN-BW",
+  "physical_readings": {
+    "yongle": {
+      "source_id": "EXT-TIME-YONGLE-DADIAN-18764-QIANDINGSHU-SIZIJING",
+      "reading": "旦夕將月建長短而推言萬無一失矣",
+      "glyph_authority": "DIRECT_NO_OCR_PHYSICAL_COLLATION_FROM_BATCH_12BV"
+    },
+    "yimen_1597": {
+      "source_id": "EXT-NLC-YIMEN-GUANGDU-1597-SIZIJING",
+      "reading": "旦夕時刻且將月運長短定推言之萬無一失矣",
+      "glyph_authority": "DIRECT_NO_OCR_PHYSICAL_COLLATION"
+    },
+    "variant": "月建~月運 PLUS SYNTAX DIFFERENCE",
+    "variant_is_ocr_noise": false
+  },
+  "semantic_controls": [
+    {
+      "source_id": "EXT-WIKISOURCE-SUI-SHU-V19-LOUKE-SEASONAL-LENGTH",
+      "url": "https://zh.wikisource.org/wiki/%E9%9A%8B%E6%9B%B8/%E5%8D%B719",
+      "core": [
+        "漏刻皆隨氣增損",
+        "冬夏二至之間晝夜長短凡差二十刻",
+        "每差一刻為一箭",
+        "晝有朝禺中晡夕",
+        "昏旦有星中"
+      ],
+      "role": "PREMING_TECHNICAL_CONTROL_FOR_SEASONALLY_VARIABLE_DAY_NIGHT_LEAK_CLOCK_LENGTH"
+    },
+    {
+      "source_id": "EXT-WIKISOURCE-QUNSHU-KAOSUO-V56-YUEJIAN-LOUKE",
+      "url": "https://zh.wikisource.org/wiki/%E7%BE%A3%E6%9B%B8%E8%80%83%E7%B4%A2_(%E5%9B%9B%E5%BA%AB%E5%85%A8%E6%9B%B8%E6%9C%AC)/%E5%8D%B756",
+      "core": [
+        "漏之箭晝夜共百刻冬夏之間有長短焉",
+        "斗建寅",
+        "斗建午",
+        "漸北則春分而箭加長",
+        "漸南則秋分而箭加短",
+        "四十八箭以候二十四氣"
+      ],
+      "role": "SONG_TECHNICAL_BRIDGE_FROM_DOUJIAN_SEASONAL_POSITION_TO_LEAK_ARROW_LENGTH"
+    },
+    {
+      "source_id": "EXT-WIKISOURCE-FANGYAN-V12-YUEYUN-ASTRONOMICAL-SEMANTICS",
+      "url": "https://zh.wikisource.org/wiki/%E6%96%B9%E8%A8%80/%E5%8D%B7%E5%8D%81%E4%BA%8C",
+      "core": "日運為躔月運為逡",
+      "role": "CLASSICAL_LEXICAL_CONTROL_SHOWING_YUEYUN_CAN_MEAN_LUNAR_MOTION"
+    },
+    {
+      "source_id": "EXT-WIKISOURCE-HAITAO-LUN-YUEYUN-SHUOWANG",
+      "url": "https://zh.wikisource.org/wiki/%E5%85%A8%E5%94%90%E6%96%87/%E5%8D%B70440",
+      "core": "天運晦明日運寒暑月運朔望",
+      "role": "TANG_USAGE_CONTROL_FOR_ASTRONOMICAL_YUEYUN"
+    }
+  ],
+  "adjudication": {
+    "yongle_yuejian_seasonal_timekeeping_semantic_fit": "STRONG",
+    "yimen_yueyun_modern_monthly_fortune_normalization_authorized": false,
+    "yimen_yueyun_classical_astronomical_semantics_possible": true,
+    "yuejian_yueyun_exact_operational_equivalence_proved": false,
+    "recension_variant_real": true,
+    "stemmatic_winner_selected": false,
+    "exact_numeric_birth_time_recovery_algorithm_proved": false,
+    "source_specific_table_or_formula_located": false
+  },
+  "effect": {
+    "hpa_zdate_006_status": "MISSING_FROM_PRODUCT",
+    "hai_branch_mechanical_vote_increment": 0,
+    "runtime_winner_selected": false,
+    "candidate_collapsed": false,
+    "algorithm_reopen_authorized": false,
+    "matrix_counts_changed": false
+  }
+}

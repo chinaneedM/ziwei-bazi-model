@@ -1,0 +1,18 @@
+{
+  "schema": "BATCH-12AU-EXACT-HEAD-CI-GATE-R1",
+  "schema_version": "1.0.0",
+  "purpose": "Trigger the ordinary push CI against a user-authored branch HEAD that already contains the complete Batch 12AU durable-state synchronization produced by GitHub Actions.",
+  "batch": "BATCH-12-ZIWEI-SANCAI-1697-NIGHT-ZI-HAI-CONTROVERSY-AU",
+  "durable_state_parent_sha": "638b9fd23f6557f8cacaafb015da661a827ccc65",
+  "durable_state_parent_tree": "0bda01238e8126a5b462f4d832bb5abbb948de5f",
+  "reason": "A commit created inside a workflow with GITHUB_TOKEN does not recursively trigger normal push workflows. This evidence-only commit changes no chart algorithm, historical audit count, runtime candidate, candidate selection or source conclusion.",
+  "expected_ci_workflow": ".github/workflows/ci.yml",
+  "expected_ci_name": "clean-training-system",
+  "invariants": {
+    "deterministic_fusion_chart_product_r1": "CLOSED",
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0,
+    "ziwei_self_inward_transformation_direction": "NOT_YET_FORMALIZED"
+  }
+}

@@ -1,0 +1,282 @@
+{
+  "schema": "BAZI-STEM-FIVE-COMBINATION-IDENTITY-AUDIT-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-BAZI-STEM-FIVE-COMBINATION-IDENTITY-AUDIT-MM",
+  "prior_batch_id": "BATCH-12-BAZI-TEMPORAL-TEN-GOD-PROJECTION-AUDIT-ML",
+  "question": "Do the released five stem-pair identities and neutral Workbench presentation match a directly readable historical table without implying successful transformation?",
+  "answer": "YES_WITHIN_RECEIVED_PAIR_IDENTITY_SCOPE_NO_ALGORITHM_REOPEN",
+  "execution": {
+    "base_head": "633cb0fbfe045408fabd3906169cd232c012a667",
+    "base_tree": "500c2e415bd885853075e72f8b86055ca324a289",
+    "observed_date": "2026-10-04",
+    "environment": "LOCAL_WORK_MODE_PYTHON",
+    "github_runner_replay_claimed": false
+  },
+  "prior_row": {
+    "rule_id": "HPA-BAZI-014",
+    "system": "BAZI",
+    "module": "八字派生字段",
+    "rule_or_field": "Stem five-combination identity",
+    "current_implementation": "Released neutral stem-combination facts.",
+    "current_profile": "BAZI structural presentation",
+    "primary_source": "S14 canonical routes",
+    "source_quote": "PENDING_VERBATIM_EXTRACTION",
+    "source_quote_location": "docs/BAZI-STEM-FIVE-COMBINATION-PRESENTATION-R1.md",
+    "historical_period": "PENDING_BIBLIOGRAPHIC_DATING",
+    "later_witnesses": "PENDING_LATER_WITNESS_AUDIT",
+    "school_attribution": "PENDING_SCHOOL_ATTRIBUTION_AUDIT",
+    "competing_methods": [
+      "combination-transformation success rules"
+    ],
+    "current_implementation_match": "PENDING_RULE_BY_RULE_REPLAY",
+    "confidence": "INVENTORY_CONFIDENCE_HIGH",
+    "audit_status": "IMPLEMENTATION_REVIEW_REQUIRED",
+    "proposed_action": "Keep identity separate from 化成/成局 judgments; audit source table.",
+    "algorithm_reopen_authorized": false
+  },
+  "upstream_rule_snapshot": {
+    "rule_id": "HPA-BAZI-005",
+    "system": "BAZI",
+    "module": "八字派生字段",
+    "rule_or_field": "Raw stem/branch relations",
+    "current_implementation": "BAZI-RAW-RELATION-CLASSICAL-CORE-R1 emits the released raw core; BAZI-HISTORICAL-RELATION-CANDIDATES-R1 separately emits all currently source-closed excluded historical candidate families.",
+    "current_profile": "BAZI-FOUNDATION-V1-R1 + BAZI-HISTORICAL-RELATION-CANDIDATES-R1 / PRESERVED_NOT_SELECTED",
+    "primary_source": "S14 frozen YHZP chapters 4/7/8/9/10/11 + EXT-CTEXT-YHZP-RECEIVED; corroboration EXT-CTEXT-SANMING-V2-RELATIONS and EXT-CTEXT-XINGLI-KAOYUAN-RELATIONS",
+    "source_quote": "Current included core relations replay five stem combinations, six harmonies, six clashes, 相穿, four standard three-combination bureaus and directed/self punishments. S14 YHZP chapter 8 additionally preserves 辰戌丑未土局, which current runtime does not emit.",
+    "source_quote_location": "sources/canonical-runtime/S14/segment-0001.txt lines 1876–1964; segment-0002.txt opening source atoms; src/fortune_training/bazi_chart/relations.py",
+    "historical_period": "RECEIVED_ZIPING_RELATION_CORE_WITH_ONE_SOURCE_CLOSED_UNEMITTED_FOUR_EARTH_BUREAU",
+    "later_witnesses": "《三命通会》 corroborates relation geometry and independently uses 辰戌丑未土局; 《星历考原》 corroborates five-combination/six-harmony/four-trine geometry.",
+    "school_attribution": "RAW_RELATION_OCCURRENCE_FACTS_ONLY",
+    "competing_methods": [
+      "four-earth bureau 辰戌丑未土局",
+      "four directional triads / 方 (modern label 三会)",
+      "break family: early four-break witness vs later six-break convention",
+      "modern half-trine / arched-trine distinctions",
+      "same-pillar 座下自化 / later 干支暗合"
+    ],
+    "current_implementation_match": "CURRENT_RAW_CORE_REMAINS_SOURCE_SUPPORTED; FOUR_EARTH_BUREAU, DIRECTIONAL_TRIADS, EARLY_FOUR_BREAK, AND_SAME_PILLAR_STEM_HIDDEN_COMBINATION_ARE_NOW_AVAILABLE_IN_AN_UNSELECTED_SOURCE_SCOPED_SIDECAR; LATER_SIX_BREAK_AND_MODERN_PARTIAL_TRINE_REMAIN_SEPARATE_UNCLOSED_OR_COMPATIBILITY_FAMILIES",
+    "confidence": "HIGH",
+    "audit_status": "DISPUTED_MULTIPLE_CANDIDATES",
+    "proposed_action": "Keep core and historical sidecar separate. Continue research on later six-break and modern partial-trine genealogies without changing production defaults.",
+    "algorithm_reopen_authorized": false,
+    "audit_batch": "BATCH-10-BAZI-EXCLUDED-RELATION-FAMILIES-B",
+    "candidate_productization_batch": "BATCH-10-BAZI-HISTORICAL-RELATION-CANDIDATES-C"
+  },
+  "physical_source": {
+    "source_id": "EXT-NTL-9900014379-YHZP-TEN-GOD-TABLE",
+    "title": "《淵海子平子平真詮》v.1 — 五陽/五陰通變表與日干己身錨點",
+    "provider": "National Taiwan Library holding / Taiwan eBook NCL catalog; Commons mechanical surrogate",
+    "url": "https://taiwanebook.ncl.edu.tw/zh-tw/book/NTL-9900014379",
+    "surrogate_url": "https://upload.wikimedia.org/wikipedia/commons/f/fa/NTL-9900014379_%E6%B7%B5%E6%B5%B7%E5%AD%90%E5%B9%B3%E5%AD%90%E5%B9%B3%E7%9C%9F%E8%A9%AE_v.1.pdf",
+    "access_date": "2026-10-04",
+    "source_role": "DIRECT_PHYSICAL_RECEIVED_WITNESS_FOR_TEN_GOD_IDENTITY_ONLY",
+    "catalog_binding": {
+      "book_id": "NTL-9900014379",
+      "registration_number": "31111003618756",
+      "catalog_author": "秦慎安 校勘",
+      "catalog_publisher": "文明",
+      "catalog_publication_year": 1926,
+      "catalog_place": "不詳",
+      "observed_cover_imprint_pdf_p2": "上海文明書局印行",
+      "page_count": 207
+    },
+    "pdf_sha256": "664bccd1ea4706c609df8ea6cd69a4565db97dc277e876fc22eb125ea41dcc9f",
+    "pdf_byte_count": 90837030,
+    "direct_table_pages_1_based": [
+      23
+    ],
+    "reading_method": "DIRECT_VISUAL_NO_OCR",
+    "date_scope": "1926 is catalog-assigned publication year. Work/rule origin and exact physical-copy/impression date are not proved. 2017 PDF metadata and 2022 Commons upload are surrogate metadata only.",
+    "quality_notes": "Direct table reading corroborates the inherited relation mapping; semantic aliases are contextual identity bridges only. No textual-stemma independence, earliest-rule or modern temporal-layer doctrine claim. No interpretive/gender/omen text enters runtime. PDF p61 / printed44 directly reads 夫生日為主者 in 詳解定真論. PDF p64 is in a 擇日之法 context and is only a day-self vocabulary corroboration, not independent proof of natal-versus-target anchoring.",
+    "printed_page": "三",
+    "heading": "天干相合",
+    "reuse_of_existing_physical_object": true,
+    "new_physical_object_increment": 0
+  },
+  "direct_collation": {
+    "reading_method": "DIRECT_VISUAL_NO_OCR",
+    "pairs": [
+      {
+        "members": [
+          "甲",
+          "己"
+        ],
+        "source_wording": "甲與己合",
+        "semantic_id": "STEM.COMBINATION.JIA_JI"
+      },
+      {
+        "members": [
+          "乙",
+          "庚"
+        ],
+        "source_wording": "乙與庚合",
+        "semantic_id": "STEM.COMBINATION.YI_GENG"
+      },
+      {
+        "members": [
+          "丙",
+          "辛"
+        ],
+        "source_wording": "丙與辛合",
+        "semantic_id": "STEM.COMBINATION.BING_XIN"
+      },
+      {
+        "members": [
+          "丁",
+          "壬"
+        ],
+        "source_wording": "丁與壬合",
+        "semantic_id": "STEM.COMBINATION.DING_REN"
+      },
+      {
+        "members": [
+          "戊",
+          "癸"
+        ],
+        "source_wording": "戊與癸合",
+        "semantic_id": "STEM.COMBINATION.WU_GUI"
+      }
+    ],
+    "nominal_transformation_element_audited": false,
+    "classical_modern_software_api_claimed": false,
+    "kinship_omen_strength_semantics_imported": false,
+    "wuxing_dayi_scope": "第八論合 干合 explicitly lists all five pairs, in a different order: 甲己、丙辛、戊癸、乙庚、壬丁. Pair orientation is normalized only for symmetric identity. Later selected-day 五合/五離 in that section is a separate calendrical concept.",
+    "xingli_scope": "卷一 五合 heading table lists the same five pairs. Its explanatory digital text writes 第六為巳/甲與巳合 while the head table reads 己 and the sentence explicitly counts ten stems. Preserve bytes; do not promote the branch glyph into a competing stem rule, silently correct it, or infer physical printing/transmission cause.",
+    "digital_revision_ids": {
+      "xingli-kaoyuan-v1.html": 781228,
+      "wuxing-dayi-v2.html": 7915687
+    }
+  },
+  "searchable_horizon": {
+    "inherited_audit": "Batch 10A raw relation decomposition / HPA-BAZI-005 snapshot retained",
+    "actively_rechecked_families": [
+      "NTL received YHZP physical pair table",
+      "received 五行大義 干合 primary passage",
+      "received 四庫全書本 星厯考原 五合 primary passage"
+    ],
+    "ctext_xingli_route": "403 during this session; first-party public received-text mirror obtained instead",
+    "independent_stemma_claimed": false,
+    "earliest_attestation_closed": false,
+    "limits": "Work title attribution/composition period is not used as observed copy date. Newly surfaced 五行大義 physical-copy routes may support future date/edition/genealogy work, but are not needed to claim this bounded received pair table; no all-surviving-sources claim."
+  },
+  "evidence_objects": {
+    "docs/research/evidence/batch-12mm/identity-replay.json": {
+      "byte_count": 798,
+      "sha256": "57c56fdcef48bebca94714c2a696bb2debb2c3b2c6bbde43217b9ef301896f4f"
+    },
+    "docs/research/evidence/batch-12mm/ntl-p023.jpg": {
+      "byte_count": 305909,
+      "sha256": "cb25868701331dff74c544a1c93e43039e7a3253ecce4c8a9087f641cdd82020"
+    },
+    "docs/research/evidence/batch-12mm/wuxing-dayi-v2.html": {
+      "byte_count": 112339,
+      "sha256": "7d81d6ba225e38e4ff6000ef7b3092259e4ea583ad668a49cb981e14344dac4a"
+    },
+    "docs/research/evidence/batch-12mm/xingli-kaoyuan-v1.html": {
+      "byte_count": 116607,
+      "sha256": "e6dcad6cb7ed923a11923ee214fa355258c3a6c097b359f99d4befe7dba2c20a"
+    },
+    "tests/fixtures/bazi-stem-five-combination-physical-oracle-r1.json": {
+      "byte_count": 851,
+      "sha256": "b64447b71f192e15cfc954dfb01ba38766cf957a9c0aa3dcf5b2bda81dd0adc8"
+    },
+    "src/fortune_training/bazi_chart/relations.py": {
+      "byte_count": 8631,
+      "sha256": "304b1a726c3c29a2bc67b3be62341ec02e45b56883149a853538250e64e9761f",
+      "unchanged_from_base": true
+    },
+    "src/fortune_training/combined_chart_application/bazi_stem_relation_local_app.py": {
+      "byte_count": 9013,
+      "sha256": "3adab1edf636256b875ad2766e8b0b098b8b9bc0dbe34e6ec82ca386725b4c3b",
+      "unchanged_from_base": true
+    },
+    "src/fortune_training/combined_chart_application/bazi_stem_relation_assets.py": {
+      "byte_count": 8584,
+      "sha256": "201adde72cee676405a19b4a422f13c104075c8bd5e163985c215af97c1b9c8e",
+      "unchanged_from_base": true
+    },
+    "src/fortune_training/bazi_facts.py": {
+      "byte_count": 13518,
+      "sha256": "e889a5bd3463c12ec924df34a8196ff903c8d0a3cdfc412dc60a753c4c45a077",
+      "unchanged_from_base": true
+    },
+    "sources/canonical-runtime/S14/segment-0001.txt": {
+      "byte_count": 524132,
+      "sha256": "09af63de0b2aeda54e9d32594043c1cb2eab57758ce6b4abd142c7666e091271",
+      "unchanged_from_base": true
+    }
+  },
+  "row_adjudication": {
+    "rule_id": "HPA-BAZI-014",
+    "audit_status": "HISTORICALLY_SUPPORTED",
+    "historical_scope": "RECEIVED_PAIR_IDENTITY_MODERN_NEUTRAL_PRESENTATION_ONLY",
+    "algorithm_reopen_authorized": false
+  },
+  "executed_tests": [
+    {
+      "pattern": "test_bazi_stem_five_combination_identity_audit_r1.py",
+      "test_count": 5,
+      "status": "PASS",
+      "skipped": 0
+    },
+    {
+      "pattern": "test_fortunechart_bazi_stem_relation_presentation_r1.py",
+      "test_count": 7,
+      "status": "PASS",
+      "skipped": 0
+    },
+    {
+      "pattern": "test_fusion_chart_field_parity_bazi_relations_visible_r1.py",
+      "test_count": 5,
+      "status": "PASS",
+      "skipped": 0
+    },
+    {
+      "pattern": "test_bazi_chart_foundation.py",
+      "test_count": 10,
+      "status": "PASS",
+      "skipped": 0
+    }
+  ],
+  "base_ci_verification": {
+    "head": "633cb0fbfe045408fabd3906169cd232c012a667",
+    "workflow_run_id": 37210221613,
+    "job_id": 111459713025,
+    "status": "SUCCESS",
+    "full_unittest_count": 1846,
+    "full_unittest_elapsed_seconds": 582.103,
+    "total_action_runs": 118,
+    "successful_action_runs": 118,
+    "scope": "Previous Batch 12ML exact HEAD; not a claim about this uncommitted Batch 12MM."
+  },
+  "accounting": {
+    "row_count": 198,
+    "audited_rows_before": 168,
+    "audited_rows_after": 169,
+    "missing_from_product": 10,
+    "external_sources_before": 502,
+    "external_sources_after": 503,
+    "new_physical_object_increment": 0,
+    "provenance_defects_confirmed": 17,
+    "provenance_defects_repaired": 17,
+    "chart_algorithm_defects": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0
+  },
+  "transmission_impact": {
+    "status": "NONE",
+    "reason": "Received pair identities are corroborated; no earliest-copy, direct-copying, independent-stemma or ancestry edge is adjudicated. Existing graph is unchanged. Wuxing work-title/date attribution is not converted into a new dated genealogy claim."
+  },
+  "next_gate": [
+    "12MN: decompose HPA-BAZI-FLOW-004 Target-layer NaYin/XunKong/Twelve Growth into three inherited identity projections. Replay audited natal primitives HPA-BAZI-006/007/008 on legal target Ganzhi and the true natal day master where required; preserve disputed school/profile candidates and do not infer classical seven-layer software doctrine."
+  ],
+  "additional_verification": {
+    "matrix_and_previous_ci_accounting_regression_tests": 70,
+    "status": "PASS",
+    "continuity_gate": "PASS_392_BATCHES_198_ROWS_169_AUDITED",
+    "historical_gate": "PASS_40_RULE_BATCHES_198_ROWS_169_AUDITED",
+    "product_gate": "PASS_CLOSED",
+    "credential_gate": "PASS_NO_PERSISTENCE",
+    "diff_check": "PASS_EXCLUDING_BYTE_PRESERVED_UPSTREAM_HTML_WHITESPACE"
+  }
+}

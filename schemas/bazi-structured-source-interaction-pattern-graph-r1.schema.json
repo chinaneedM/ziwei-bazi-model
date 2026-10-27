@@ -1,0 +1,243 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/chinaneedM/ziwei-bazi-model/schemas/bazi-structured-source-interaction-pattern-graph-r1.schema.json",
+  "title": "Bazi Structured Source Interaction Pattern Graph R1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema", "audit_id", "graph_profile", "authority", "scope", "method",
+    "closed_vocabularies", "graph_records", "participant_pattern_nodes",
+    "position_pattern_constraints", "relation_pattern_nodes", "interaction_claim_edges",
+    "context_inheritance_edges", "interaction_chain_patterns", "multiplicity_constraints",
+    "summary", "determinism"
+  ],
+  "properties": {
+    "schema": {"const": "BAZI-STRUCTURED-SOURCE-INTERACTION-PATTERN-GRAPH-R1"},
+    "audit_id": {"const": "BAZI-STRUCTURED-SOURCE-INTERACTION-PATTERN-GRAPH-R1"},
+    "graph_profile": {"$ref": "#/$defs/graphProfile"},
+    "authority": {"$ref": "#/$defs/authority"},
+    "scope": {"$ref": "#/$defs/scope"},
+    "method": {"$ref": "#/$defs/method"},
+    "closed_vocabularies": {"$ref": "#/$defs/closedVocabularies"},
+    "graph_records": {"type": "array", "minItems": 24, "maxItems": 24, "items": {"$ref": "#/$defs/graphRecord"}},
+    "participant_pattern_nodes": {"type": "array", "items": {"$ref": "#/$defs/participantNode"}},
+    "position_pattern_constraints": {"type": "array", "items": {"$ref": "#/$defs/positionConstraint"}},
+    "relation_pattern_nodes": {"type": "array", "items": {"$ref": "#/$defs/relationNode"}},
+    "interaction_claim_edges": {"type": "array", "items": {"$ref": "#/$defs/claimEdge"}},
+    "context_inheritance_edges": {"type": "array", "items": {"$ref": "#/$defs/inheritanceEdge"}},
+    "interaction_chain_patterns": {"type": "array", "items": {"$ref": "#/$defs/chainPattern"}},
+    "multiplicity_constraints": {"type": "array", "items": {"$ref": "#/$defs/multiplicityConstraint"}},
+    "summary": {"$ref": "#/$defs/summary"},
+    "determinism": {"$ref": "#/$defs/determinism"}
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "id": {"type": "string", "pattern": "^BSSIPG-R1-[A-Z]+-.+$"},
+    "stringArray": {"type": "array", "items": {"type": "string"}},
+    "nullableString": {"type": ["string", "null"]},
+    "countMap": {"type": "object", "additionalProperties": {"type": "integer", "minimum": 0}},
+    "graphStatus": {"enum": ["CONCRETE_SOURCE_PATTERN_GRAPH", "ABSTRACT_SOURCE_PATTERN_GRAPH", "CONTEXTUAL_UNRESOLVED_GRAPH", "PARTICIPANT_MEDIATED_SOURCE_GRAPH"]},
+    "participantKind": {"enum": ["BRANCH_LITERAL_PATTERN", "STEM_LITERAL_PATTERN", "DAY_MASTER_STEM_PATTERN", "SOURCE_CONTEXT_PARTICIPANT_PATTERN", "UNRESOLVED_PARTICIPANT_PATTERN"]},
+    "positionEvidenceMode": {"enum": ["DIRECT_SOURCE_TEXT", "SOURCE_CONTEXT_INHERITED", "SOURCE_POSITION_CONTEXT_UNRESOLVED"]},
+    "sourceEvidenceMode": {"enum": ["DIRECT_SOURCE_TEXT", "SOURCE_CONTEXT_INHERITED", "SOURCE_POSITION_CONTEXT_UNRESOLVED", "DIRECT_CLAIM_WITH_INHERITED_CONTEXT"]},
+    "relationResolutionStatus": {"enum": ["EXACT_RELEASED_RELATION_PATTERN", "SOURCE_RELATION_FAMILY_PATTERN_ONLY", "SOURCE_LEXEME_RELATION_TARGET_ONLY", "UNRESOLVED_RELATION_PATTERN"]},
+    "releasedRelationFamily": {"enum": ["STEM_COMBINATION", "BRANCH_SIX_HARMONY", "BRANCH_CLASH", "BRANCH_CHUAN", "BRANCH_PUNISHMENT", "BRANCH_TRINE", null]},
+    "claimEdgeClass": {"enum": ["SOURCE_ASSERTED_RESOLUTION", "SOURCE_ASSERTED_REVERSAL_OR_REAPPEARANCE", "SOURCE_ASSERTED_RESOLUTION_FAILURE", "SOURCE_ASSERTED_ATTENUATION", "SOURCE_ASSERTED_PARTICIPANT_ALLOCATION", "SOURCE_ASSERTED_PARTICIPANT_MEDIATED_RELEASE"]},
+    "provenance": {
+      "type": "object", "additionalProperties": false,
+      "required": ["interaction_assertion_id", "source_occurrence_id", "matrix_record_sha256", "source_text_sha256", "parent_source_block_id", "source_evidence_mode"],
+      "properties": {
+        "interaction_assertion_id": {"type": "string", "pattern": "^BCRIA-R1-"},
+        "source_occurrence_id": {"type": "string", "minLength": 1},
+        "matrix_record_sha256": {"$ref": "#/$defs/sha256"},
+        "source_text_sha256": {"$ref": "#/$defs/sha256"},
+        "parent_source_block_id": {"$ref": "#/$defs/nullableString"},
+        "source_evidence_mode": {"$ref": "#/$defs/sourceEvidenceMode"}
+      }
+    },
+    "graphProfile": {
+      "type": "object", "additionalProperties": false,
+      "required": ["profile_id", "profile_version", "contract_role"],
+      "properties": {
+        "profile_id": {"const": "BAZI-STRUCTURED-SOURCE-INTERACTION-PATTERN-GRAPH-R1"},
+        "profile_version": {"const": "1.0.0"},
+        "contract_role": {"const": "STATIC_SOURCE_LEVEL_INTERACTION_PATTERN_GRAPH_ONLY"}
+      }
+    },
+    "authority": {
+      "type": "object", "additionalProperties": false,
+      "required": ["matrix_path", "matrix_file_sha256", "matrix_artifact_semantics_sha256", "matrix_record_hash_chain_sha256", "matrix_source_record_count", "canonical_source_path", "canonical_source_sha256", "upstream_contract_file_sha256"],
+      "properties": {
+        "matrix_path": {"const": "audits/bazi-classical-relation-interaction-assertion-matrix-r1/matrix.json"},
+        "matrix_file_sha256": {"$ref": "#/$defs/sha256"},
+        "matrix_artifact_semantics_sha256": {"$ref": "#/$defs/sha256"},
+        "matrix_record_hash_chain_sha256": {"$ref": "#/$defs/sha256"},
+        "matrix_source_record_count": {"const": 24},
+        "canonical_source_path": {"type": "string", "minLength": 1},
+        "canonical_source_sha256": {"$ref": "#/$defs/sha256"},
+        "upstream_contract_file_sha256": {"type": "object", "minProperties": 6, "additionalProperties": {"$ref": "#/$defs/sha256"}}
+      }
+    },
+    "scope": {
+      "type": "object", "additionalProperties": false,
+      "required": ["chart_specific_exact_binding_candidates_released", "chart_matching_released", "condition_observation_verdicts_released", "classical_operability_evaluator_released", "graph_or_fixpoint_resolver_released", "global_relation_precedence_released", "winner_or_loser_selection_released", "participant_auto_allocation_released", "activation_suppression_or_release_runtime_released", "raw_relation_mutation_released", "five_combination_final_outcome_released"],
+      "properties": {
+        "chart_specific_exact_binding_candidates_released": {"const": false},
+        "chart_matching_released": {"const": false},
+        "condition_observation_verdicts_released": {"const": false},
+        "classical_operability_evaluator_released": {"const": false},
+        "graph_or_fixpoint_resolver_released": {"const": false},
+        "global_relation_precedence_released": {"const": false},
+        "winner_or_loser_selection_released": {"const": false},
+        "participant_auto_allocation_released": {"const": false},
+        "activation_suppression_or_release_runtime_released": {"const": false},
+        "raw_relation_mutation_released": {"const": false},
+        "five_combination_final_outcome_released": {"const": false}
+      }
+    },
+    "method": {
+      "type": "object", "additionalProperties": false,
+      "required": ["algorithm_id", "algorithm_version", "matrix_coverage", "source_context_inheritance", "source_position_compilation", "generic_keyword_runtime_mapping", "chart_instance_binding", "record_order"],
+      "properties": {
+        "algorithm_id": {"const": "BSSIPG_EXACT_MATRIX_TO_STATIC_SOURCE_GRAPH_R1"},
+        "algorithm_version": {"const": "1.0.0"},
+        "matrix_coverage": {"const": "EXACTLY_ONCE_CLOSED_UPSTREAM_RECORD_UNIVERSE"},
+        "source_context_inheritance": {"const": "REGRESSION_LOCKED_SAME_BLOCK_EXAMPLE_CHAIN_ONLY"},
+        "source_position_compilation": {"const": "DIRECT_OR_EXPLICITLY_INHERITED_ONLY"},
+        "generic_keyword_runtime_mapping": {"const": "PROHIBITED"},
+        "chart_instance_binding": {"const": "NOT_PERFORMED"},
+        "record_order": {"const": "UPSTREAM_MATRIX_RECORD_ORDER"}
+      }
+    },
+    "closedVocabularies": {
+      "type": "object", "additionalProperties": false,
+      "required": ["graph_statuses", "participant_kinds", "position_evidence_modes", "position_statuses", "relation_resolution_statuses", "released_relation_families", "claim_edge_classes", "claim_evidence_modes", "natal_pillars"],
+      "properties": {
+        "graph_statuses": {"type": "array", "prefixItems": [{"const": "CONCRETE_SOURCE_PATTERN_GRAPH"}, {"const": "ABSTRACT_SOURCE_PATTERN_GRAPH"}, {"const": "CONTEXTUAL_UNRESOLVED_GRAPH"}, {"const": "PARTICIPANT_MEDIATED_SOURCE_GRAPH"}], "items": false},
+        "participant_kinds": {"type": "array", "minItems": 5, "maxItems": 5, "items": {"$ref": "#/$defs/participantKind"}},
+        "position_evidence_modes": {"type": "array", "minItems": 3, "maxItems": 3, "items": {"$ref": "#/$defs/positionEvidenceMode"}},
+        "position_statuses": {"type": "array", "minItems": 3, "maxItems": 3, "items": {"enum": ["EXACT_SYMBOLIC_PARTICIPANT_PILLAR_CONSTRAINT", "SOURCE_PILLAR_CONTEXT_ONLY", "UNRESOLVED_SOURCE_TIME_CONTEXT"]}},
+        "relation_resolution_statuses": {"type": "array", "minItems": 4, "maxItems": 4, "items": {"$ref": "#/$defs/relationResolutionStatus"}},
+        "released_relation_families": {"type": "array", "minItems": 6, "maxItems": 6, "items": {"enum": ["STEM_COMBINATION", "BRANCH_SIX_HARMONY", "BRANCH_CLASH", "BRANCH_CHUAN", "BRANCH_PUNISHMENT", "BRANCH_TRINE"]}},
+        "claim_edge_classes": {"type": "array", "minItems": 6, "maxItems": 6, "items": {"$ref": "#/$defs/claimEdgeClass"}},
+        "claim_evidence_modes": {"type": "array", "prefixItems": [{"const": "DIRECT_SOURCE_TEXT"}, {"const": "DIRECT_CLAIM_WITH_INHERITED_CONTEXT"}], "items": false},
+        "natal_pillars": {"type": "array", "prefixItems": [{"const": "YEAR"}, {"const": "MONTH"}, {"const": "DAY"}, {"const": "HOUR"}], "items": false}
+      }
+    },
+    "graphRecord": {
+      "type": "object", "additionalProperties": false,
+      "required": ["graph_record_id", "interaction_assertion_id", "source_occurrence_id", "matrix_record_sha256", "source_text_sha256", "source_record_sha256", "parent_source_block_id", "parent_source_segment_id", "source_chapter_id", "source_layer", "source_assertion_role", "primary_assertion_class", "secondary_assertion_classes", "exact_source_text", "exact_source_fragments", "graph_status", "participant_pattern_node_ids", "relation_pattern_node_ids", "position_constraint_ids", "interaction_claim_edge_ids", "context_inheritance_edge_ids", "chain_pattern_ids", "multiplicity_constraint_ids", "unresolved_graph_requirements", "graph_bundle_semantics_sha256", "graph_record_sha256"],
+      "properties": {
+        "graph_record_id": {"$ref": "#/$defs/id"},
+        "interaction_assertion_id": {"type": "string", "pattern": "^BCRIA-R1-"},
+        "source_occurrence_id": {"type": "string", "minLength": 1},
+        "matrix_record_sha256": {"$ref": "#/$defs/sha256"},
+        "source_text_sha256": {"$ref": "#/$defs/sha256"},
+        "source_record_sha256": {"$ref": "#/$defs/sha256"},
+        "parent_source_block_id": {"$ref": "#/$defs/nullableString"},
+        "parent_source_segment_id": {"$ref": "#/$defs/nullableString"},
+        "source_chapter_id": {"$ref": "#/$defs/nullableString"},
+        "source_layer": {"type": "string", "minLength": 1},
+        "source_assertion_role": {"enum": ["CONTEXTUAL_QUESTION", "GENERAL_SOURCE_ASSERTION", "EXEMPLIFYING_SOURCE_ASSERTION", "SUMMARY_SOURCE_ASSERTION"]},
+        "primary_assertion_class": {"type": "string", "minLength": 1},
+        "secondary_assertion_classes": {"$ref": "#/$defs/stringArray"},
+        "exact_source_text": {"type": "string", "minLength": 1},
+        "exact_source_fragments": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+        "graph_status": {"$ref": "#/$defs/graphStatus"},
+        "participant_pattern_node_ids": {"$ref": "#/$defs/stringArray"},
+        "relation_pattern_node_ids": {"$ref": "#/$defs/stringArray"},
+        "position_constraint_ids": {"$ref": "#/$defs/stringArray"},
+        "interaction_claim_edge_ids": {"$ref": "#/$defs/stringArray"},
+        "context_inheritance_edge_ids": {"$ref": "#/$defs/stringArray"},
+        "chain_pattern_ids": {"$ref": "#/$defs/stringArray"},
+        "multiplicity_constraint_ids": {"$ref": "#/$defs/stringArray"},
+        "unresolved_graph_requirements": {"$ref": "#/$defs/stringArray"},
+        "graph_bundle_semantics_sha256": {"$ref": "#/$defs/sha256"},
+        "graph_record_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "participantNode": {
+      "type": "object", "additionalProperties": false,
+      "required": ["participant_pattern_node_id", "graph_record_id", "source_occurrence_id", "source_lexeme", "participant_kind", "literal_value", "source_role", "multiplicity_group_id", "symbolic_slot_index", "exchangeability_status", "source_evidence_mode", "provenance", "semantic_sha256"],
+      "properties": {
+        "participant_pattern_node_id": {"$ref": "#/$defs/id"}, "graph_record_id": {"$ref": "#/$defs/id"}, "source_occurrence_id": {"type": "string"},
+        "source_lexeme": {"type": "string", "minLength": 1}, "participant_kind": {"$ref": "#/$defs/participantKind"}, "literal_value": {"$ref": "#/$defs/nullableString"}, "source_role": {"type": "string", "minLength": 1},
+        "multiplicity_group_id": {"$ref": "#/$defs/nullableString"}, "symbolic_slot_index": {"type": ["integer", "null"], "minimum": 1},
+        "exchangeability_status": {"enum": ["EXCHANGEABLE_SOURCE_EQUIVALENT", "NOT_APPLICABLE"]}, "source_evidence_mode": {"enum": ["DIRECT_SOURCE_TEXT", "SOURCE_CONTEXT_INHERITED"]},
+        "provenance": {"$ref": "#/$defs/provenance"}, "semantic_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "positionConstraint": {
+      "type": "object", "additionalProperties": false,
+      "required": ["position_constraint_id", "graph_record_id", "source_occurrence_id", "participant_pattern_node_ids", "natal_pillar", "source_fragment", "evidence_mode", "constraint_status", "unresolved_requirements", "provenance", "semantic_sha256"],
+      "properties": {
+        "position_constraint_id": {"$ref": "#/$defs/id"}, "graph_record_id": {"$ref": "#/$defs/id"}, "source_occurrence_id": {"type": "string"}, "participant_pattern_node_ids": {"$ref": "#/$defs/stringArray"},
+        "natal_pillar": {"enum": ["YEAR", "MONTH", "DAY", "HOUR", null]}, "source_fragment": {"type": "string", "minLength": 1}, "evidence_mode": {"$ref": "#/$defs/positionEvidenceMode"},
+        "constraint_status": {"enum": ["EXACT_SYMBOLIC_PARTICIPANT_PILLAR_CONSTRAINT", "SOURCE_PILLAR_CONTEXT_ONLY", "UNRESOLVED_SOURCE_TIME_CONTEXT"]}, "unresolved_requirements": {"$ref": "#/$defs/stringArray"},
+        "provenance": {"$ref": "#/$defs/provenance"}, "semantic_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "relationNode": {
+      "type": "object", "additionalProperties": false,
+      "required": ["relation_pattern_node_id", "graph_record_id", "source_occurrence_id", "source_fragment", "symbolic_ordered_participant_node_ids", "compatible_symbolic_participant_paths", "source_arity", "source_orientation", "pattern_resolution_status", "released_neutral_relation_family", "released_neutral_semantic_relation_id", "unresolved_relation_marker", "source_evidence_mode", "provenance", "semantic_sha256"],
+      "properties": {
+        "relation_pattern_node_id": {"$ref": "#/$defs/id"}, "graph_record_id": {"$ref": "#/$defs/id"}, "source_occurrence_id": {"type": "string"}, "source_fragment": {"type": "string", "minLength": 1},
+        "symbolic_ordered_participant_node_ids": {"$ref": "#/$defs/stringArray"}, "compatible_symbolic_participant_paths": {"type": "array", "items": {"$ref": "#/$defs/stringArray"}},
+        "source_arity": {"type": ["integer", "null"], "minimum": 1}, "source_orientation": {"enum": ["SYMMETRIC", "DIRECTED", "SELF", "GROUP", "UNRESOLVED"]}, "pattern_resolution_status": {"$ref": "#/$defs/relationResolutionStatus"},
+        "released_neutral_relation_family": {"$ref": "#/$defs/releasedRelationFamily"}, "released_neutral_semantic_relation_id": {"$ref": "#/$defs/nullableString"}, "unresolved_relation_marker": {"$ref": "#/$defs/nullableString"},
+        "source_evidence_mode": {"enum": ["DIRECT_SOURCE_TEXT", "SOURCE_CONTEXT_INHERITED"]}, "provenance": {"$ref": "#/$defs/provenance"}, "semantic_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "claimEdge": {
+      "type": "object", "additionalProperties": false,
+      "required": ["interaction_claim_edge_id", "graph_record_id", "source_occurrence_id", "edge_class", "source_assertion_class", "actor_reference_kind", "actor_relation_pattern_node_ids", "actor_participant_pattern_node_ids", "context_participant_pattern_node_ids", "target_reference_kind", "target_relation_pattern_node_ids", "target_participant_pattern_node_ids", "exact_source_fragments", "source_evidence_mode", "unresolved_requirements", "raw_relation_mutation_emitted", "provenance", "semantic_sha256"],
+      "properties": {
+        "interaction_claim_edge_id": {"$ref": "#/$defs/id"}, "graph_record_id": {"$ref": "#/$defs/id"}, "source_occurrence_id": {"type": "string"}, "edge_class": {"$ref": "#/$defs/claimEdgeClass"}, "source_assertion_class": {"type": "string", "minLength": 1},
+        "actor_reference_kind": {"enum": ["RELATION_PATTERN_ACTOR", "PARTICIPANT_OR_CONTEXT_ACTOR", "UNRESOLVED_ACTOR"]}, "actor_relation_pattern_node_ids": {"$ref": "#/$defs/stringArray"}, "actor_participant_pattern_node_ids": {"$ref": "#/$defs/stringArray"}, "context_participant_pattern_node_ids": {"$ref": "#/$defs/stringArray"},
+        "target_reference_kind": {"enum": ["SOURCE_NAMED_RELATION_OR_EFFECT_TARGET", "UNRESOLVED_TARGET"]}, "target_relation_pattern_node_ids": {"$ref": "#/$defs/stringArray"}, "target_participant_pattern_node_ids": {"$ref": "#/$defs/stringArray"},
+        "exact_source_fragments": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}}, "source_evidence_mode": {"enum": ["DIRECT_SOURCE_TEXT", "DIRECT_CLAIM_WITH_INHERITED_CONTEXT"]}, "unresolved_requirements": {"$ref": "#/$defs/stringArray"},
+        "raw_relation_mutation_emitted": {"const": false}, "provenance": {"$ref": "#/$defs/provenance"}, "semantic_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "inheritanceEdge": {
+      "type": "object", "additionalProperties": false,
+      "required": ["context_inheritance_edge_id", "inheriting_graph_record_id", "antecedent_graph_record_id", "inheriting_source_occurrence_id", "antecedent_source_occurrence_id", "inherited_participant_pattern_node_ids", "inherited_relation_pattern_node_ids", "inherited_position_constraint_ids", "inheritance_scope", "inheritance_status", "reason", "direct_source_lexeme_claimed", "provenance", "semantic_sha256"],
+      "properties": {
+        "context_inheritance_edge_id": {"$ref": "#/$defs/id"}, "inheriting_graph_record_id": {"$ref": "#/$defs/id"}, "antecedent_graph_record_id": {"$ref": "#/$defs/id"}, "inheriting_source_occurrence_id": {"type": "string"}, "antecedent_source_occurrence_id": {"type": "string"},
+        "inherited_participant_pattern_node_ids": {"$ref": "#/$defs/stringArray"}, "inherited_relation_pattern_node_ids": {"$ref": "#/$defs/stringArray"}, "inherited_position_constraint_ids": {"$ref": "#/$defs/stringArray"},
+        "inheritance_scope": {"const": "REGRESSION_LOCKED_SAME_SOURCE_BLOCK_EXAMPLE_CHAIN"}, "inheritance_status": {"const": "EXPLICIT_SOURCE_CONTEXT_INHERITANCE"}, "reason": {"type": "string", "minLength": 1}, "direct_source_lexeme_claimed": {"const": false},
+        "provenance": {"$ref": "#/$defs/provenance"}, "semantic_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "chainPattern": {
+      "type": "object", "additionalProperties": false,
+      "required": ["chain_pattern_id", "graph_record_id", "source_occurrence_id", "ordered_interaction_claim_edge_ids", "exact_source_sequence_fragments", "sequence_semantics", "runtime_state_transition_emitted", "suppression_or_activation_emitted", "provenance", "semantic_sha256"],
+      "properties": {
+        "chain_pattern_id": {"$ref": "#/$defs/id"}, "graph_record_id": {"$ref": "#/$defs/id"}, "source_occurrence_id": {"type": "string"}, "ordered_interaction_claim_edge_ids": {"type": "array", "minItems": 2, "items": {"type": "string"}}, "exact_source_sequence_fragments": {"type": "array", "minItems": 2, "items": {"type": "string"}},
+        "sequence_semantics": {"const": "SOURCE_NARRATIVE_ORDER_ONLY"}, "runtime_state_transition_emitted": {"const": false}, "suppression_or_activation_emitted": {"const": false}, "provenance": {"$ref": "#/$defs/provenance"}, "semantic_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "multiplicityConstraint": {
+      "type": "object", "additionalProperties": false,
+      "required": ["multiplicity_constraint_id", "graph_record_id", "source_occurrence_id", "source_lexeme", "participant_literal_value", "required_symbolic_cardinality", "exchangeable_symbolic_slot_node_ids", "slot_equivalence", "exact_slot_selection", "alternative_path_requirement", "winner_emitted", "provenance", "semantic_sha256"],
+      "properties": {
+        "multiplicity_constraint_id": {"$ref": "#/$defs/id"}, "graph_record_id": {"$ref": "#/$defs/id"}, "source_occurrence_id": {"const": "ZPZQ-CL-09-005-002"}, "source_lexeme": {"const": "二卯"}, "participant_literal_value": {"const": "卯"}, "required_symbolic_cardinality": {"const": 2},
+        "exchangeable_symbolic_slot_node_ids": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"type": "string"}}, "slot_equivalence": {"const": "EXCHANGEABLE_SOURCE_EQUIVALENT"}, "exact_slot_selection": {"const": "NOT_SELECTED"}, "alternative_path_requirement": {"const": "PRESERVE_ALL_COMPATIBLE_EXACT_INSTANCE_PATHS"}, "winner_emitted": {"const": false},
+        "provenance": {"$ref": "#/$defs/provenance"}, "semantic_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "summary": {
+      "type": "object", "additionalProperties": false,
+      "required": ["matrix_record_count", "graph_record_count", "graph_status_counts", "participant_kind_counts", "relation_resolution_status_counts", "released_relation_family_counts", "position_evidence_mode_counts", "interaction_edge_class_counts", "context_inheritance_count", "context_inheritance_source_occurrence_ids", "multiplicity_constraint_count", "multiplicity_source_occurrence_ids", "chain_pattern_count", "unresolved_graph_source_occurrence_ids", "unresolved_relation_target_source_occurrence_ids"],
+      "properties": {
+        "matrix_record_count": {"const": 24}, "graph_record_count": {"const": 24}, "graph_status_counts": {"$ref": "#/$defs/countMap"}, "participant_kind_counts": {"$ref": "#/$defs/countMap"}, "relation_resolution_status_counts": {"$ref": "#/$defs/countMap"}, "released_relation_family_counts": {"$ref": "#/$defs/countMap"}, "position_evidence_mode_counts": {"$ref": "#/$defs/countMap"}, "interaction_edge_class_counts": {"$ref": "#/$defs/countMap"},
+        "context_inheritance_count": {"type": "integer", "minimum": 0}, "context_inheritance_source_occurrence_ids": {"$ref": "#/$defs/stringArray"}, "multiplicity_constraint_count": {"type": "integer", "minimum": 0}, "multiplicity_source_occurrence_ids": {"$ref": "#/$defs/stringArray"}, "chain_pattern_count": {"type": "integer", "minimum": 0}, "unresolved_graph_source_occurrence_ids": {"$ref": "#/$defs/stringArray"}, "unresolved_relation_target_source_occurrence_ids": {"$ref": "#/$defs/stringArray"}
+      }
+    },
+    "determinism": {
+      "type": "object", "additionalProperties": false,
+      "required": ["source_inventory_sha256", "graph_record_hash_chain_sha256", "node_edge_constraint_semantics_sha256", "closed_registry_sha256", "artifact_semantics_sha256"],
+      "properties": {"source_inventory_sha256": {"$ref": "#/$defs/sha256"}, "graph_record_hash_chain_sha256": {"$ref": "#/$defs/sha256"}, "node_edge_constraint_semantics_sha256": {"$ref": "#/$defs/sha256"}, "closed_registry_sha256": {"$ref": "#/$defs/sha256"}, "artifact_semantics_sha256": {"$ref": "#/$defs/sha256"}}
+    }
+  }
+}

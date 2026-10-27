@@ -1,0 +1,163 @@
+{
+  "schema": "ZIWEI-NLC-WENJIN-ZHAO-YONGLE-ARTICLE-TITLE-SEARCH-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-NLC-WENJIN-ZHAO-YONGLE-ARTICLE-TITLE-SEARCH-KE",
+  "prior_batch_id": "BATCH-12-ZIWEI-NLC-WENJIN-WENHUI-2004-ANONYMOUS-READING-VARIABLES-KD",
+  "question": "Can the first-party NLC Wenjin GET contract directly locate Zhao Wanli's 1951 《永乐大典展览的意义》 article as an item-level record, and what is the scope of any hit?",
+  "answer": "Yes, but only through the traditional-character query on the current index. The simplified exact title returns an explicit Wenjin resultCount=0, while the traditional exact title 《永樂大典展覽的意義》 returns exactly one result. The traditional author+title query returns the same single record. The result page directly identifies it as a 1951 journal article by 趙萬里, source label 文物, 1951 no.9, pp.221-233, 13 pages, with source databases 国家哲学社会科学文献中心中文期刊论文 and 维普中文科技期刊数据库 and a 可提供全文 facet. The result control directly emits docId 149819805017800696 and dataSource 'sky,wpqk'. This is a strong current federated article-level discovery record, not yet the direct 1951 article text. The carrier label 文物 is preserved as emitted and is not silently normalized to the separate NLC-review bibliographic label 文物参考资料 until the item detail or another first-party record closes that title relation.",
+  "controlling_probe": {
+    "workflow": ".github/workflows/probe-batch-12ke-nlc-wenjin-yongle-article-title-search.yml",
+    "exact_head": "3f3de8e7d7c29e4bcf3789686e2c586bb8774c4e",
+    "workflow_run_id": 36855360257,
+    "workflow_job_id": 110346462680,
+    "artifact_id": 11157847229,
+    "artifact_name": "batch-12ke-nlc-wenjin-yongle-article-title-search",
+    "artifact_digest": "sha256:9c68b9933d57cc358d6cfbe413085fbed864118f12f7ccab76b3d4ac09f279a6"
+  },
+  "contract": {
+    "parent_batch": "12JX",
+    "route": "http://find.nlc.cn/search/doSearch",
+    "method": "GET",
+    "user_value_parameters": [
+      "query",
+      "actualQuery"
+    ],
+    "fixed_parameters": {
+      "secQuery": "",
+      "searchType": "2",
+      "docType": "全部",
+      "isGroup": "isGroup",
+      "targetFieldLog": "全部字段",
+      "fromHome": "true"
+    }
+  },
+  "positive_control": {
+    "term": "史记",
+    "result_count": 67000,
+    "http_status": 200,
+    "response_sha256": "417b7caf933e7d28341563b3b872c8157c63ffa3a54fd5d1470bed8220eb0fff"
+  },
+  "target_queries": [
+    {
+      "term": "永乐大典展览的意义",
+      "result_count": 0,
+      "negative_marker": true,
+      "response_sha256": "4544ef0874f06c9db36b45723c7308c2ac2353c2f4f554c3de7e230b337038f9"
+    },
+    {
+      "term": "永樂大典展覽的意義",
+      "result_count": 1,
+      "negative_marker": false,
+      "response_sha256": "615c7d9b6f747c094c61080b92d2ae68343114d3a1ed9a715706cf658ab9d4ce"
+    },
+    {
+      "term": "赵万里 永乐大典展览的意义",
+      "result_count": 0,
+      "negative_marker": true,
+      "response_sha256": "e3b95ac25572398bbf775305454621a5a9cb3471036d59e5b90071169d8dc707"
+    },
+    {
+      "term": "趙萬里 永樂大典展覽的意義",
+      "result_count": 1,
+      "negative_marker": false,
+      "response_sha256": "2e9d6c8b26121cbad6105cdc06be05913a234686f02d99eb75b12b5b6d4a156c"
+    },
+    {
+      "term": "永乐大典展览的意义 一九五一年八月北京图书馆举办",
+      "result_count": 0,
+      "negative_marker": true,
+      "response_sha256": "e32229e1938f3490588872bea2250dcc8d9ce9547cd973a9e7573cb41a00c5bb"
+    }
+  ],
+  "matched_record": {
+    "source_emitted_docId": "149819805017800696",
+    "source_emitted_dataSource": "sky,wpqk",
+    "source_emitted_detail_path": "/search/showDocDetails?",
+    "displayed_title": "永樂大典展覽的意義——一九五一...",
+    "document_type": "期刊论文",
+    "author": "趙萬里",
+    "publication_year": 1951,
+    "source_label": "文物",
+    "issue": "1951年第9期",
+    "pages": "221-233",
+    "page_count": 13,
+    "language": "汉语",
+    "fulltext_facet": "可提供全文",
+    "source_databases": [
+      "国家哲学社会科学文献中心中文期刊论文",
+      "维普中文科技期刊数据库"
+    ]
+  },
+  "philology_and_carrier_firewall": {
+    "simplified_query_zero_does_not_mean_article_absent": true,
+    "traditional_query_hit_proves_current_index_character_sensitivity": true,
+    "emitted_source_label": "文物",
+    "existing_nlc_review_label": "文物参考资料",
+    "labels_silently_equated": false,
+    "relation_status": "PENDING_FIRST_PARTY_ITEM_DETAIL_OR_INDEPENDENT_BIBLIOGRAPHIC_CROSSWALK"
+  },
+  "adjudication": {
+    "item_level_article_record_recovered": true,
+    "source_emitted_record_control_recovered": true,
+    "direct_article_text_recovered": false,
+    "direct_1951_pages_reviewed": false,
+    "wenhui_first_publication_status": "UNRESOLVED",
+    "direct_2011_p197": "NOT_REVIEWED",
+    "next_detail_execution_authorized_by_source_emitted_control": true
+  },
+  "evidence_firewall": {
+    "current_federated_record_is_not_primary_1951_page": true,
+    "available_fulltext_facet_does_not_mean_anonymous_fulltext_access": true,
+    "source_database_labels_do_not_prove_direct_provider_lineage": true,
+    "carrier_title_normalization_requires_explicit_crosswalk": true,
+    "simplified_zero_result_is_index_scope_not_historical_absence": true
+  },
+  "security": {
+    "anonymous_get_only": true,
+    "login_used": false,
+    "reader_account_used": false,
+    "registration_used": false,
+    "post_request_used": false,
+    "record_detail_followed": false,
+    "private_endpoint_guessed": false,
+    "search_parameter_guessed": false,
+    "record_identifier_guessed": false,
+    "captcha_bypass_used": false,
+    "tls_verification_disabled": false,
+    "state_changing_request_used": false
+  },
+  "transmission_impact": {
+    "status": "UNRESOLVED_CARRIER_LABEL_CROSSWALK_ONLY",
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": [],
+    "reason": "The batch adds a current federated discovery record but no direct 1951 text or carrier-to-carrier transmission edge. 文物 vs 文物参考资料 label relation remains to be closed."
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Follow only the source-emitted detail control for docId 149819805017800696 / dataSource sky,wpqk and inspect first-party anonymous metadata/reading variables without login or POST.",
+    "Use the detail record to resolve whether the current database label 文物 is a normalized carrier title for the 1951 文物参考资料 issue or a separate indexing convention; do not assume equivalence.",
+    "If the detail page emits a concrete public fulltext URI, inspect its access contract before following it; if login-gated, preserve the authorization boundary.",
+    "Continue direct Shanghai 文汇报 1951-08-18 and 2011 赵万里文集 vol.1 p.197 discovery in parallel."
+  ],
+  "updated_at": "2026-10-01"
+}

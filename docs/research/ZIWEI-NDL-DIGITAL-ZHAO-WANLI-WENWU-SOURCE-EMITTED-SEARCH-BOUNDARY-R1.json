@@ -1,0 +1,217 @@
+{
+  "schema": "ZIWEI-NDL-DIGITAL-ZHAO-WANLI-WENWU-SOURCE-EMITTED-SEARCH-BOUNDARY-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-NDL-DIGITAL-ZHAO-WANLI-WENWU-SOURCE-EMITTED-SEARCH-BOUNDARY-JH",
+  "prior_batch_id": "BATCH-12-ZIWEI-ZHAO-WANLI-WENJI-V1-NLC-WENJIN-PUBLIC-SEARCH-CONTRACT-BOUNDARY-JG",
+  "question": "Can a first-party NDL Digital Collection search URL, source-emitted by an official NDL Reference Cooperative Database page, lawfully expose a calibrated anonymous result surface or direct digital object for 2011 《赵万里文集》第1卷 p.197 or the 1951 《文物参考资料》第9期 pp.221–233?",
+  "answer": "The official NDL Reference Cooperative Database page is HTTP 200 and directly source-emits an NDL Digital Collection search URL for the positive-control term 蒋介石, including the exact public parameter structure keywordFulltext, keyword, fulltext, materialTypeList and related fields. Replaying that first-party contract with the positive control and seven target variants is transport-successful (HTTP 200), but every query returns the identical 4,298-byte static Digital Collection shell with SHA-256 9464957293e820db57d597624e2797b50402f0c3434d62d6de9d656f7a187b4f, no visible query echo, no result count and no PID. The shell emits no external script src accepted by the bounded same-NDL script follow-up. Therefore the static anonymous response is not a calibrated result surface. No target zero result or absence is authorized; no digital object/page is recovered; direct 2011 p.197 and direct 1951 pp.221–233 remain NOT_REVIEWED.",
+  "official_reference_source": {
+    "provider": "国立国会図書館 レファレンス協同データベース",
+    "url": "https://crd.ndl.go.jp/reference/entry/reference/show?asc=desc&dtltbs=1&fi=2_3+6_0&id=1000137237&ldtl=1&mcmd=25&ndc1=222&ndc_lk=1&page=ref_view&pg=1&st=update",
+    "http_status": 200,
+    "response_bytes": 42107,
+    "response_sha256": "23bb42f1163753c741e89855f28b5822c9af5eb027782593b81f33817277e7fb",
+    "source_emitted_search_url": "https://dl.ndl.go.jp/search/searchResult?viewRestrictedList=0%7C2&keywordFulltext=%E8%92%8B%E4%BB%8B%E7%9F%B3&detailSearchTypeNo=A&fulltext=1&reshowFlg=1&rows=20&keyword=%E8%92%8B%E4%BB%8B%E7%9F%B3&materialTypeList=0%7C1%7C2%7C4%7C5%7C6%7C7%7C8%7C16%7C9%7C19%7C18%7C17%7C20%7CI",
+    "source_emitted_host": "dl.ndl.go.jp",
+    "source_emitted_path": "/search/searchResult",
+    "source_emitted_parameter_names": [
+      "viewRestrictedList",
+      "keywordFulltext",
+      "detailSearchTypeNo",
+      "fulltext",
+      "reshowFlg",
+      "rows",
+      "keyword",
+      "materialTypeList"
+    ],
+    "keyword_keys": [
+      "keywordFulltext",
+      "keyword"
+    ],
+    "endpoint_guessed": false,
+    "parameter_names_guessed": false
+  },
+  "controlling_probe": {
+    "workflow": ".github/workflows/probe-batch-12jh-ndl-digital-source-emitted-search.yml",
+    "exact_head": "fb318d03892d5edb39815ade41988cc508bd2327",
+    "workflow_run_id": 36819382858,
+    "workflow_job_id": 110231432661,
+    "artifact_id": 11142424009,
+    "artifact_name": "batch-12jh-ndl-digital-source-emitted-search",
+    "artifact_digest": "sha256:26e3cd1c25d2a755d753feda03b6faef8c5c49c18f92975b5b4a47504d9bb1bc"
+  },
+  "query_calibration": {
+    "positive_control": "蒋介石",
+    "positive_control_expected_only_as_contract_calibrator": true,
+    "positive_control_http_status": 200,
+    "positive_control_result_surface_calibrated": false,
+    "positive_control_response_bytes": 4298,
+    "positive_control_response_sha256": "9464957293e820db57d597624e2797b50402f0c3434d62d6de9d656f7a187b4f",
+    "positive_control_query_literal_visible": false,
+    "positive_control_result_count_observed": false,
+    "positive_control_pid_observed": false,
+    "all_query_responses_same_sha256": true,
+    "static_shell_visible_prefix": "国立国会図書館デジタルコレクション 国立国会図書館デジタルコレクションは、国立国会図書館で収集・保存しているデジタル資料を検索・閲覧できるサービスです。",
+    "source_emitted_external_script_srcs": [],
+    "source_emitted_script_contracts": [],
+    "static_shell_can_be_interpreted_as_zero_results": false
+  },
+  "target_queries": [
+    {
+      "key": "positive_control",
+      "query": "蒋介石",
+      "http_status": 200,
+      "response_bytes": 4298,
+      "response_sha256": "9464957293e820db57d597624e2797b50402f0c3434d62d6de9d656f7a187b4f",
+      "query_literal_visible": false,
+      "result_count_strings": [],
+      "pid_ids": [],
+      "pid_count": 0
+    },
+    {
+      "key": "serial_simplified",
+      "query": "文物参考资料",
+      "http_status": 200,
+      "response_bytes": 4298,
+      "response_sha256": "9464957293e820db57d597624e2797b50402f0c3434d62d6de9d656f7a187b4f",
+      "query_literal_visible": false,
+      "result_count_strings": [],
+      "pid_ids": [],
+      "pid_count": 0
+    },
+    {
+      "key": "serial_variant",
+      "query": "文物参攷資料",
+      "http_status": 200,
+      "response_bytes": 4298,
+      "response_sha256": "9464957293e820db57d597624e2797b50402f0c3434d62d6de9d656f7a187b4f",
+      "query_literal_visible": false,
+      "result_count_strings": [],
+      "pid_ids": [],
+      "pid_count": 0
+    },
+    {
+      "key": "article_simplified",
+      "query": "永乐大典展览的意义",
+      "http_status": 200,
+      "response_bytes": 4298,
+      "response_sha256": "9464957293e820db57d597624e2797b50402f0c3434d62d6de9d656f7a187b4f",
+      "query_literal_visible": false,
+      "result_count_strings": [],
+      "pid_ids": [],
+      "pid_count": 0
+    },
+    {
+      "key": "article_traditional",
+      "query": "永樂大典展覽的意義",
+      "http_status": 200,
+      "response_bytes": 4298,
+      "response_sha256": "9464957293e820db57d597624e2797b50402f0c3434d62d6de9d656f7a187b4f",
+      "query_literal_visible": false,
+      "result_count_strings": [],
+      "pid_ids": [],
+      "pid_count": 0
+    },
+    {
+      "key": "wenji_simplified",
+      "query": "赵万里文集",
+      "http_status": 200,
+      "response_bytes": 4298,
+      "response_sha256": "9464957293e820db57d597624e2797b50402f0c3434d62d6de9d656f7a187b4f",
+      "query_literal_visible": false,
+      "result_count_strings": [],
+      "pid_ids": [],
+      "pid_count": 0
+    },
+    {
+      "key": "wenji_traditional",
+      "query": "趙萬里文集",
+      "http_status": 200,
+      "response_bytes": 4298,
+      "response_sha256": "9464957293e820db57d597624e2797b50402f0c3434d62d6de9d656f7a187b4f",
+      "query_literal_visible": false,
+      "result_count_strings": [],
+      "pid_ids": [],
+      "pid_count": 0
+    },
+    {
+      "key": "isbn",
+      "query": "9787501346653",
+      "http_status": 200,
+      "response_bytes": 4298,
+      "response_sha256": "9464957293e820db57d597624e2797b50402f0c3434d62d6de9d656f7a187b4f",
+      "query_literal_visible": false,
+      "result_count_strings": [],
+      "pid_ids": [],
+      "pid_count": 0
+    }
+  ],
+  "adjudication": {
+    "ndl_digital_first_party_search_url_identity": "CLOSED",
+    "ndl_digital_source_emitted_parameter_contract": "CLOSED",
+    "anonymous_static_search_result_surface": "UNCALIBRATED_STATIC_SPA_SHELL",
+    "target_queries_executed": true,
+    "target_zero_results_established": false,
+    "target_absence_established": false,
+    "target_pid_recovered": false,
+    "target_digital_object_recovered": false,
+    "direct_2011_p197": "NOT_REVIEWED",
+    "direct_1951_zhao_pp221_233": "NOT_REVIEWED",
+    "global_nonexistence_claim_authorized": false
+  },
+  "evidence_firewall": {
+    "source_emitted_search_url_is_not_a_result_surface": true,
+    "http_200_static_shell_is_not_zero_result": true,
+    "identical_positive_control_and_target_shells_destroy_zero_result_authority": true,
+    "no_pid_means_no_source_emitted_object_to_follow": true,
+    "no_source_emitted_script_src_means_no_script_route_followed": true,
+    "internal_api_guessing_forbidden": true,
+    "bibliographic_or_search_hit_if_later_recovered_would_not_equal_direct_page_text": true,
+    "direct_1951_text_if_later_recovered_would_not_equal_direct_2011_p197": true
+  },
+  "security": {
+    "login_used": false,
+    "account_action_used": false,
+    "payment_used": false,
+    "captcha_bypass_used": false,
+    "private_endpoint_guessed": false,
+    "search_endpoint_guessed": false,
+    "search_parameter_guessed": false,
+    "source_emitted_contract_only": true,
+    "tls_verification_disabled": false
+  },
+  "transmission_impact": {
+    "status": "NONE",
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": [],
+    "reason": "Modern first-party discovery/search execution boundary only; no historical text or digital surrogate object recovered."
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Continue new lawful direct page-level discovery for 2011 《赵万里文集》第1卷 p.197; do not guess NDL Digital internal APIs from the static shell.",
+    "Continue provenance-bound direct-page recovery of 1951 《文物参考资料》第9期 pp.221–233 through a new public digital object or explicitly authorized copy route.",
+    "Continue direct 1997 Beijing Library history compilation pp.446–449 in parallel.",
+    "Revisit this NDL Digital route only if its public static response begins emitting a calibrated result payload, PID, or source-emitted data/script contract."
+  ],
+  "updated_at": "2026-10-01"
+}

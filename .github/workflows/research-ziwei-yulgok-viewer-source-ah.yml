@@ -1,0 +1,114 @@
+name: research-ziwei-yulgok-viewer-source-ah
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-ziwei-yulgok-viewer-source-ah.yml
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Capture exact source-emitted Yulgok viewer implementation
+        shell: python
+        run: |
+          import hashlib, html, json, re, urllib.parse, urllib.request
+          from pathlib import Path
+
+          OUT=Path("probe"); OUT.mkdir()
+          base="https://db.yulgok.or.kr"
+          detail=base+"/poss/view?cate=clsType&dataId=B005_01_B00320_001"
+          viewer=base+"/viewer/view?dataId=B005_01_B00320_001"
+          ua="Mozilla/5.0 provenance-research yulgok-viewer-source"
+
+          def fetch(url, referer=None, limit=8000000):
+              h={"User-Agent":ua,"Accept":"text/html,application/javascript,*/*;q=0.8","Accept-Language":"ko,en;q=0.7,zh;q=0.6"}
+              if referer: h["Referer"]=referer
+              try:
+                  with urllib.request.urlopen(urllib.request.Request(url,headers=h),timeout=40) as r:
+                      d=r.read(limit)
+                      return {"ok":True,"status":r.status,"final_url":r.geturl(),"content_type":r.headers.get("content-type"),"bytes":len(d),"sha256":hashlib.sha256(d).hexdigest(),"data":d}
+              except Exception as e:
+                  return {"ok":False,"error":repr(e),"bytes":0,"data":b""}
+
+          row=fetch(viewer,referer=detail); raw=row.pop("data")
+          txt=raw.decode("utf-8","replace") if raw else ""
+          (OUT/"viewer.html").write_text(txt,encoding="utf-8")
+
+          script_urls=[]
+          for m in re.finditer(r'''<script[^>]+src=["']([^"']+)["']''',txt,re.I):
+              u=urllib.parse.urljoin(row.get("final_url") or viewer,html.unescape(m.group(1)))
+              if u.startswith(base) and u not in script_urls: script_urls.append(u)
+
+          scripts=[]
+          contexts=[]
+          needles=("B005_01_B00320_001","data/image","imageList","imgList","pageList","viewIMok","viewer","ajax","totalPage","pageCnt","dataId","treeAjax")
+          for i,u in enumerate(script_urls[:40],1):
+              x=fetch(u,referer=viewer,limit=5000000); d=x.pop("data")
+              rec={"url":u,**x,"hits":[]}
+              if d:
+                  st=d.decode("utf-8","replace")
+                  (OUT/f"script-{i:02d}.js").write_text(st,encoding="utf-8")
+                  for needle in needles:
+                      start=0
+                      while True:
+                          k=st.find(needle,start)
+                          if k<0: break
+                          hit=st[max(0,k-1000):min(len(st),k+2600)]
+                          rec["hits"].append({"needle":needle,"text":hit})
+                          start=k+len(needle)
+              scripts.append(rec)
+
+          for needle in needles:
+              start=0
+              while True:
+                  k=txt.find(needle,start)
+                  if k<0: break
+                  contexts.append({"needle":needle,"text":txt[max(0,k-1800):min(len(txt),k+4200)]})
+                  start=k+len(needle)
+
+          # Capture exact form/action/data attributes emitted by the viewer HTML.
+          emitted=[]
+          for pat in [
+              r'''(?:href|src|action|data-url|data-src|onclick)\s*=\s*["']([^"']+)["']''',
+              r'''url\s*:\s*["']([^"']+)["']'''
+          ]:
+              for m in re.finditer(pat,txt,re.I):
+                  v=html.unescape(m.group(1)).replace("\\/","/").strip()
+                  if "javascript:" in v.lower(): continue
+                  u=urllib.parse.urljoin(row.get("final_url") or viewer,v)
+                  if u.startswith(("http://","https://")) and u not in emitted: emitted.append(u)
+
+          result={
+              "schema":"ZIWEI-YULGOK-VIEWER-SOURCE-AH-R1",
+              "access_date":"2026-09-09",
+              "viewer":{**row,"url":viewer},
+              "viewer_html_contexts":contexts,
+              "source_emitted_urls":emitted,
+              "source_emitted_script_urls":script_urls,
+              "scripts":scripts,
+              "authentication_attempted":False,
+              "identifier_guessing_attempted":False,
+              "access_control_bypass_attempted":False,
+              "adjudication":{"source_emitted_viewer":True,"viewer_call_contract":"PENDING_SOURCE_REVIEW","page_manifest_status":"PENDING_SOURCE_REVIEW","target_leaf_status":"PENDING_DIRECT_NO_OCR_REVIEW","algorithm_effect":"NONE"}
+          }
+          (OUT/"ziwei-yulgok-viewer-source-ah.json").write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps({
+              "viewer":{"ok":row.get("ok"),"status":row.get("status"),"bytes":row.get("bytes"),"sha256":row.get("sha256")},
+              "html_hit_count":len(contexts),
+              "scripts":[{"url":x["url"],"ok":x.get("ok"),"bytes":x.get("bytes"),"hit_count":len(x["hits"])} for x in scripts if x["hits"]],
+              "emitted_urls":[u for u in emitted if any(s in u for s in ("viewer","image","treeAjax","B00320"))][:120],
+              "adjudication":result["adjudication"]
+          },ensure_ascii=False,indent=2))
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ziwei-yulgok-viewer-source-ah
+          path: probe/
+          retention-days: 14

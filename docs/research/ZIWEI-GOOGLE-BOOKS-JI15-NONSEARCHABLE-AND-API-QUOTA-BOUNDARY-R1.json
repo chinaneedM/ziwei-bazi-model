@@ -1,0 +1,153 @@
+{
+  "schema": "ZIWEI-GOOGLE-BOOKS-JI15-NONSEARCHABLE-AND-API-QUOTA-BOUNDARY-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-GOOGLE-BOOKS-JI15-NONSEARCHABLE-AND-API-QUOTA-BOUNDARY-IL",
+  "prior_batch_id": "BATCH-12-ZIWEI-WENWU-CANKAO-1951-WWCK195109-SCAN-PACKAGE-LOCATOR-BOUNDARY-IK",
+  "question": "Can Google Books public anonymous interfaces currently provide reliable in-book negative evidence or a fresh volume lookup for the Ji Shuying 2009 target and Zhao Wanli 2011 target?",
+  "answer": "No. The Google Books Volumes API returned explicit HTTP 429 RESOURCE_EXHAUSTED responses with defaultPerDayPerProject quota limit value 0 for both Ji and Zhao ISBN/title queries in the exact probe environment, so API non-retrieval cannot be normalized to 'no volume'. Separately, the known Ji Google Books volume route bAnzzgEACAAJ returned HTTP 200 SearchWithinVolume2 JSON for fourteen high-information terms, but every response explicitly reported searchable=false together with number_of_results=0. Therefore those zero counts have no negative-textual evidentiary value. No direct Chapter 9 page/text, Zhao 2011 p.197, or 1951 original page was recovered.",
+  "exact_probe": {
+    "commit_sha": "3b0d1500eba51be44a76a27098bc43dd0e6eb3d0",
+    "workflow": "probe-batch-12il-google-books-public-index",
+    "workflow_run_id": 36701117083,
+    "job_id": 109840523830,
+    "workflow_conclusion": "success",
+    "access_mode": "ANONYMOUS_PUBLIC_HTTP_NO_LOGIN_NO_PURCHASE_NO_BYPASS",
+    "probe_date": "2026-09-30"
+  },
+  "volume_api_boundary": {
+    "endpoint_family": "https://www.googleapis.com/books/v1/volumes",
+    "queries": [
+      {
+        "label": "JI_ISBN",
+        "query": "isbn:9787501340637",
+        "http_status": 429,
+        "classification": "RESOURCE_EXHAUSTED_QUOTA_LIMIT_ZERO"
+      },
+      {
+        "label": "JI_TITLE",
+        "query": "intitle:冀淑英古籍善本十五讲",
+        "http_status": 429,
+        "classification": "RESOURCE_EXHAUSTED_QUOTA_LIMIT_ZERO"
+      },
+      {
+        "label": "ZHAO_ISBN",
+        "query": "isbn:9787501346653",
+        "http_status": 429,
+        "classification": "RESOURCE_EXHAUSTED_QUOTA_LIMIT_ZERO"
+      },
+      {
+        "label": "ZHAO_TITLE",
+        "query": "intitle:赵万里文集 第一卷",
+        "http_status": 429,
+        "classification": "RESOURCE_EXHAUSTED_QUOTA_LIMIT_ZERO"
+      }
+    ],
+    "error_reason": "RATE_LIMIT_EXCEEDED",
+    "quota_metric": "books.googleapis.com/default",
+    "quota_limit": "defaultPerDayPerProject",
+    "quota_unit": "1/d/{project}",
+    "quota_limit_value": "0",
+    "api_zero_result_claim_authorized": false,
+    "api_no_volume_claim_authorized": false
+  },
+  "known_ji_volume_search_boundary": {
+    "source_id": "EXT-GBOOKS-JI15-BANZZGEACAAJ-PUBLIC-INDEX-BOUNDARY",
+    "google_books_volume_id": "bAnzzgEACAAJ",
+    "endpoint_family": "https://books.google.com/books?jscmd=SearchWithinVolume2&q=<term>&vid=bAnzzgEACAAJ",
+    "tested_term_count": 14,
+    "tested_terms": [
+      "铁琴铜剑楼",
+      "收购入藏",
+      "瞿凤起",
+      "吴梅",
+      "涵芬楼",
+      "周叔弢",
+      "三百零四",
+      "五十二种",
+      "单就图书而论",
+      "瞿济苍",
+      "丁惠康",
+      "东家杂记",
+      "六十二种",
+      "太平乐府"
+    ],
+    "all_http_status_200": true,
+    "all_number_of_results_zero": true,
+    "all_searchable_false": true,
+    "response_sha256_by_term": {
+      "铁琴铜剑楼": "fd471257f5a7b99e108172e0e2ac2b4941a04b550abc7107cd6b538910f4e617",
+      "收购入藏": "9bfefae7d4f4ed58d03ad2b4d3e3f1021f96198e21d0413f4aa917762ecfcc71",
+      "瞿凤起": "64b9640aea8e6e0c5e4b5287181f8b35e27980f2a59cc6b0e2bfb3cd65241d93",
+      "吴梅": "08eda9011c37102c3d9051263a9a741524eed812845a40aaa69d169246a94016",
+      "涵芬楼": "cc1fbeddcc61eacb44fb59959b58d9c7e89d495d191acc4b8fcb51a561aa79f6",
+      "周叔弢": "0619a17adfde98e6ba9f652f44c076b844f50eadf1ecff2ee7a1da50f54862f9",
+      "三百零四": "349ecf986c699b182db4757927fa88fd0c3c88143d4b577221b8c13469b96a90",
+      "五十二种": "01bc7f14b422f828bc5deaf95d58137beccbc08169041b71016ebcd5b965df8d",
+      "单就图书而论": "18489d46ede05ffd8d2b9dc2360d0b6a5121e3535bcf07ad4a24579399ecad55",
+      "瞿济苍": "332843bbb500b304237600ea4e56124ecfcad4c6204902fb3b66452e0309cbb4",
+      "丁惠康": "8d786a752fcae5f772f2010f670d9f568264c81a6fd08f9d4c5f9b47d22fd991",
+      "东家杂记": "1bfd2fcfb9265e00b0d18a97618ba4030a204267012ba96ca655eb833bcb49ec",
+      "六十二种": "02061a9243f79a2f6986a40f7f4dba8c0da95d0a7991cd788adfa79db1ea584c",
+      "太平乐府": "0c6e6b7619b089b4e5f06b1f98f7680b31a79c31807981ee087987e4b24541bb"
+    },
+    "negative_textual_inference_authorized": false,
+    "direct_page_id_increment": 0,
+    "direct_snippet_increment": 0,
+    "direct_text_increment": 0
+  },
+  "interpretation_firewall": {
+    "http_429_is_not_no_volume": true,
+    "quota_limit_zero_is_environment_access_boundary": true,
+    "number_of_results_zero_with_searchable_false_is_not_term_absence": true,
+    "nonsearchable_public_index_is_not_fulltext_negative_evidence": true,
+    "no_cross_volume_zhao_search_claim_without_resolved_volume_id": true,
+    "no_page_or_snippet_content_inferred": true
+  },
+  "adjudication": {
+    "google_books_volume_api_current_route": "RATE_LIMITED_QUOTA_ZERO_UNRESOLVED",
+    "ji_known_volume_in_book_search_route": "CLOSED_NONSEARCHABLE_PUBLIC_INDEX",
+    "ji_chapter_9_direct_text": "NOT_REVIEWED",
+    "ji_chapter_9_exact_page_range": "UNRESOLVED",
+    "zhao_2011_p197_direct_text": "NOT_REVIEWED",
+    "zhao_google_books_exact_volume_id": "UNRESOLVED_IN_THIS_BATCH",
+    "wenwu_1951_pp221_233_direct_text": "NOT_REVIEWED",
+    "target_3482_3483_transaction_increment": 0,
+    "exact_fid070_donation_batch": "UNRESOLVED",
+    "exact_fid070_donation_date": "UNRESOLVED",
+    "exact_3368_to_3288_causal_mechanism": "UNRESOLVED"
+  },
+  "transmission_impact": {
+    "status": "NONE",
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": [],
+    "reason": "Public access/index behavior only; no direct historical text or lineage relation."
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Do not repeat SearchWithinVolume2 zero-result queries on bAnzzgEACAAJ while searchable=false remains the route state.",
+    "Recover a lawful direct Chapter-9 page/text or a page-numbered contents source through other public/institutional routes.",
+    "Resolve a Zhao 2011 Google Books/public-preview volume identifier only through a non-rate-limited route before any in-book search claim.",
+    "Continue lawful direct-object discovery for wwck195109.pdf / 1951 pp.221-233; hash and bind any recovered object before text use."
+  ],
+  "updated_at": "2026-09-30"
+}

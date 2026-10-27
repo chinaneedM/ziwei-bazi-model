@@ -1,0 +1,95 @@
+{
+  "schema": "ZIWEI-YUEDE-TIANDE-TEMPORAL-SCOPE-CLOSURE-R1",
+  "version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-YUEDE-TIANDE-TEMPORAL-SCOPE-CLOSURE-OE",
+  "date": "2026-10-06",
+  "question": "Separate natal YueDe/TianDe geometry from received-Fullbook annual YueDe/TianDe scope without collapsing same-name facts or changing production defaults.",
+  "direct_text_controls": [
+    {
+      "source_id": "EXT-ZIWEI-QUANSHU-RECEIVED",
+      "source_ref": "S01:ZZQS-A-1943",
+      "text": "天德星从酉上起子，顺数至流年太岁上是也。",
+      "adjudication": "ANNUAL_TIANDE_EXPLICIT"
+    },
+    {
+      "source_id": "EXT-ZIWEI-QUANSHU-RECEIVED",
+      "source_ref": "S01:ZZQS-A-1944",
+      "text": "月德星从子上起子，顺数至流年太岁上是也。",
+      "adjudication": "ANNUAL_YUEDE_EXPLICIT"
+    },
+    {
+      "source_id": "EXT-ZIWEI-QUANSHU-RECEIVED",
+      "source_ref": "S01:ZZQS-A-1945",
+      "text": "解神从戌上起子，逆数至当生年太岁上是也。",
+      "adjudication": "NATAL_YEAR_JIESHEN_EXPLICIT_SAME_LOCAL_PASSAGE_CONTRAST"
+    },
+    {
+      "source_id": "EXT-CTEXT-SHENFENG-TONGKAO",
+      "text": "欲求天德顺从酉，月德要依巳顺逢。",
+      "adjudication": "PREMODERN_CROSS_DOMAIN_YOU_START_TIANDE_AND_SI_START_YUEDE_GEOMETRY_WITNESS_NOT_ZIWEI_NATAL_ADOPTION_PROOF"
+    }
+  ],
+  "philology": {
+    "controlling_contrast": "同一 received-Fullbook 局部段落把天德、月德明确系于流年太岁，而把解神明确系于当生年太岁；因此不能把三者统一解释为出生年输入。",
+    "same_name_rule": "同名不等于同时层；本命 STAR.YUEDE/STAR.TIANDE 与流年候选 STAR.YUEDE/STAR.TIANDE 必须按 source_layer 分离。",
+    "shenfeng_scope": "《神峰通考》可证明巳起月德/酉起天德的前现代几何传统，但不能单独证明紫微本命采纳史。",
+    "jielan_boundary": "Reviewed public surfaces did not yield a reliably edition-bound 1581 Jielan passage for these exact TianDe/YueDe formulas. A public page labelled as Jielan internally reproduces Fullbook/Nanyangtang framing and is excluded from early-print attestation."
+  },
+  "runtime_before_12oe": {
+    "natal_yuede": "STAR.YUEDE = birth-year branch + 5; Zi-year starts Si.",
+    "natal_tiande": "STAR.TIANDE = birth-year branch + 9; Zi-year starts You.",
+    "natal_nianjie": "STAR.NIANJIE = Xu start, reverse by birth-year branch.",
+    "annual_yuede_candidate": "RECEIVED-FULLBOOK-ANNUAL-YUEDE-ZI-START-R1 already materialized as unselected ANNUAL candidate during the concurrent pre-12OE code sequence.",
+    "annual_tiande_candidate": "ABSENT_AT_12OE_REANCHOR"
+  },
+  "runtime_after_12oe": {
+    "annual_yuede_candidate": {
+      "method_id": "RECEIVED-FULLBOOK-ANNUAL-YUEDE-ZI-START-R1",
+      "source_layer": "ANNUAL",
+      "basis": "TARGET_YEAR_BRANCH",
+      "mechanic": "Zi start; target branch equals annual TaiSui branch.",
+      "selection_status": "SOURCE_SCOPED_CANDIDATE_PRESERVED_NO_SELECTION"
+    },
+    "annual_tiande_candidate": {
+      "method_id": "RECEIVED-FULLBOOK-ANNUAL-TIANDE-YOU-START-R1",
+      "source_layer": "ANNUAL",
+      "basis": "TARGET_YEAR_BRANCH",
+      "mechanic": "You start assigned to Zi, advance one palace with annual branch.",
+      "selection_status": "SOURCE_SCOPED_CANDIDATE_PRESERVED_NO_SELECTION"
+    },
+    "natal_defaults_changed": false,
+    "candidate_winner_selected": false,
+    "chart_algorithm_reopened": false
+  },
+  "matrix_adjudication": {
+    "HPA-ZMINOR-006": "Narrow to natal/year-based JieShen (modern display NianJie) only; remove TianDe from the row because its cited Fullbook line is annual.",
+    "HPA-ZMINOR-022": "Reclassify natal YueDe from DISPUTED_MULTIPLE_CANDIDATES to SOURCE_INSUFFICIENT. The received-Fullbook Zi-start method is annual, not a natal competitor. Shenfeng is cross-domain geometry evidence, not Ziwei natal adoption closure.",
+    "HPA-ZMINOR-027": "New SOURCE_INSUFFICIENT natal TianDe row. You-start geometry is premodern, but Ziwei natal adoption is not closed by the annual Fullbook passage.",
+    "HPA-ZTEMP-007": "New HISTORICALLY_SUPPORTED source-scoped annual TianDe/YueDe candidate row; both methods are preserved without selection."
+  },
+  "provenance_repair": {
+    "defect_id": "PROV-DEFECT-041",
+    "defect": "HPA-ZMINOR-006 previously used a received-Fullbook flow-year TianDe sentence to support a natal birth-year TianDe implementation by bundling TianDe with natal JieShen.",
+    "repair": "Split TianDe out of HPA-ZMINOR-006, retain JieShen/NianJie there, create HPA-ZMINOR-027 for natal TianDe provenance, and represent the Fullbook annual TianDe/YueDe pair in HPA-ZTEMP-007.",
+    "forward_only": true,
+    "runtime_natal_values_changed": false
+  },
+  "outcome": {
+    "historical_status_changes": {
+      "HPA-ZMINOR-022": "DISPUTED_MULTIPLE_CANDIDATES -> SOURCE_INSUFFICIENT"
+    },
+    "new_rows": [
+      "HPA-ZMINOR-027",
+      "HPA-ZTEMP-007"
+    ],
+    "matrix_row_count_after": 222,
+    "audited_row_count_after": 222,
+    "confirmed_provenance_metadata_defect_count_after": 41,
+    "repaired_provenance_metadata_defect_count_after": 41,
+    "historical_candidate_extension_count_after": 8,
+    "current_missing_from_product_row_count_after": 10,
+    "algorithm_reopen_count_after": 0,
+    "candidate_collapse_count_after": 0
+  },
+  "next": "12OF — HPA-ZMINOR-008 TianShou Body/Life basis source and candidate closure."
+}

@@ -1,0 +1,240 @@
+name: research-ziwei-tohoku-hirayama-v78-ax-r1
+
+on:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - '.github/workflows/research-ziwei-tohoku-hirayama-v78-ax-r1.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  acquire-and-locate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Install locator dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y tesseract-ocr tesseract-ocr-chi-tra
+          python -m pip install --quiet pillow requests
+      - name: Fetch Tohoku Hirayama Zhangguo volume 7-8 and locate target leaf
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import hashlib, json, subprocess, time
+          from pathlib import Path
+          import requests
+          from PIL import Image
+
+          record_id = '10020000001144'
+          manifest_url = f'https://touda.tohoku.ac.jp/collection/iiif/metadata/{record_id}/manifest.json'
+          out = Path('tmp_ax_v78')
+          imgdir = out / 'images'
+          txtdir = out / 'ocr'
+          imgdir.mkdir(parents=True, exist_ok=True)
+          txtdir.mkdir(parents=True, exist_ok=True)
+
+          s = requests.Session()
+          s.headers.update({
+              'User-Agent': 'ziwei-bazi-model historical provenance research/1.0',
+              'Accept': 'application/json,image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8',
+          })
+
+          def get_with_retry(url, *, attempts=5, timeout=60):
+              errors = []
+              for attempt in range(1, attempts + 1):
+                  try:
+                      rr = s.get(url, timeout=timeout)
+                      if rr.status_code == 200:
+                          return rr, errors
+                      errors.append(f'attempt={attempt}:http={rr.status_code}')
+                  except requests.RequestException as exc:
+                      errors.append(f'attempt={attempt}:{type(exc).__name__}:{exc}')
+                  if attempt < attempts:
+                      time.sleep(min(2 ** (attempt - 1), 8))
+              return None, errors
+
+          r, manifest_errors = get_with_retry(manifest_url, attempts=5, timeout=60)
+          if r is None:
+              raise SystemExit('manifest acquisition failed: ' + ' | '.join(manifest_errors))
+          raw = r.content
+          manifest = r.json()
+          (out / 'manifest.json').write_bytes(raw)
+
+          services = []
+          labels = []
+          if manifest.get('sequences'):
+              canvases = manifest['sequences'][0].get('canvases', [])
+              for c in canvases:
+                  labels.append(str(c.get('label', '')))
+                  service = c.get('images', [{}])[0].get('resource', {}).get('service', {})
+                  sid = service.get('@id') or service.get('id')
+                  if not sid:
+                      rid = c.get('images', [{}])[0].get('resource', {}).get('@id')
+                      if rid and '/full/' in rid:
+                          sid = rid.split('/full/')[0]
+                  services.append(sid)
+          else:
+              for c in manifest.get('items', []):
+                  labels.append(str(c.get('label', '')))
+                  sid = None
+                  try:
+                      body = c['items'][0]['items'][0]['body']
+                      svc = (body.get('service') or [{}])[0]
+                      sid = svc.get('id') or svc.get('@id')
+                  except Exception:
+                      pass
+                  services.append(sid)
+
+          needles = [
+              '人命','生時','不定','子為亥','亥為子','譙樓','更鼓','七政','夜子',
+              '上四刻','下四刻','今日日辰','明日日辰','論女命','女命','夫星',
+              '十二宮','守拱照','坐度不同','星辰轉動'
+          ]
+          rows = []
+          for i, sid in enumerate(services, start=1):
+              label = labels[i-1] if i-1 < len(labels) else ''
+              if not sid:
+                  rows.append({'page': i, 'label': label, 'service_id': None, 'error': 'NO_SERVICE'})
+                  continue
+              image_url = sid.rstrip('/') + '/full/1200,/0/default.jpg'
+              ip = imgdir / f'{i:03d}.jpg'
+              rr, request_errors = get_with_retry(image_url, attempts=5, timeout=60)
+              if rr is None:
+                  rows.append({
+                      'page': i, 'label': label, 'service_id': sid, 'image_url': image_url,
+                      'error': 'IMAGE_FETCH_FAILED_AFTER_RETRIES', 'request_errors': request_errors,
+                  })
+                  time.sleep(0.2)
+                  continue
+              ip.write_bytes(rr.content)
+              sha = hashlib.sha256(rr.content).hexdigest()
+              variants = []
+              for psm in ('6', '11'):
+                  try:
+                      proc = subprocess.run(
+                          ['tesseract', str(ip), 'stdout', '-l', 'chi_tra', '--psm', psm],
+                          capture_output=True, text=True, timeout=90,
+                      )
+                      text = proc.stdout.replace(' ', '')
+                  except Exception as exc:
+                      text = f'[OCR_ERROR:{type(exc).__name__}:{exc}]'
+                  variants.append(text)
+              merged = '\n'.join(variants)
+              (txtdir / f'{i:03d}.txt').write_text(merged, encoding='utf-8')
+              hits = [n for n in needles if n in merged]
+              rows.append({
+                  'page': i,
+                  'label': label,
+                  'service_id': sid,
+                  'image_url': image_url,
+                  'image_sha256': sha,
+                  'ocr_hit_terms': hits,
+                  'ocr_score': len(hits),
+                  'ocr_excerpt': merged[:1800],
+                  **({'request_retry_history': request_errors} if request_errors else {}),
+              })
+              time.sleep(0.2)
+
+          ranked = sorted(
+              [x for x in rows if x.get('image_sha256')],
+              key=lambda x: (x.get('ocr_score', 0), -x['page']),
+              reverse=True,
+          )
+          positive = [x for x in ranked if x.get('ocr_score', 0) > 0]
+          candidates = positive[:16]
+
+          # In addition to OCR-positive leaves, anchor around any leaf that OCR associates
+          # with 論女命/女命 because the 1594 physical target immediately precedes 論女命.
+          anchor_pages = set()
+          for x in positive:
+              hits = set(x.get('ocr_hit_terms', []))
+              if hits.intersection({'論女命', '女命', '夫星'}):
+                  anchor_pages.add(x['page'])
+          for x in candidates[:10]:
+              anchor_pages.add(x['page'])
+
+          selected = []
+          for p in sorted(anchor_pages):
+              for q in range(max(1, p-3), min(len(services), p+3) + 1):
+                  if q not in selected and (imgdir / f'{q:03d}.jpg').exists():
+                      selected.append(q)
+          selected = selected[:36]
+
+          evidence_dir = Path('docs/research/evidence')
+          evidence_dir.mkdir(parents=True, exist_ok=True)
+          pdf_path = evidence_dir / 'ZIWEI-TOHOKU-HIRAYAMA-MA591-V7-8-CANDIDATES-R1.pdf'
+          pdf_images = [Image.open(imgdir / f'{q:03d}.jpg').convert('RGB') for q in selected]
+          if pdf_images:
+              pdf_images[0].save(pdf_path, save_all=True, append_images=pdf_images[1:])
+
+          report = {
+              'schema': 'ZIWEI-TOHOKU-HIRAYAMA-MA591-V7-8-LOCATOR-R1',
+              'status': 'OCR_LOCATOR_ONLY_PENDING_DIRECT_VISUAL_COLLATION',
+              'route_correction': {
+                  'prior_record_id': '10020000001143',
+                  'prior_volume': '卷之5-6',
+                  'corrected_record_id': record_id,
+                  'corrected_volume': '卷之7-8',
+                  'reason': 'AW target passage is transmitted in 張果星宗八 context immediately before 論女命; volume 5-6 locator was a wrong-volume acquisition route, not textual negative evidence.'
+              },
+              'source': {
+                  'record_id': record_id,
+                  'record_url': f'https://touda.tohoku.ac.jp/collection/database/library/{record_id}',
+                  'manifest_url': manifest_url,
+                  'manifest_sha256': hashlib.sha256(raw).hexdigest(),
+                  'collection': 'Tohoku University Main Library / Hirayama Collection',
+                  'call_number': 'MA/591',
+                  'volume': '卷之7-8',
+                  'catalog_date_label': '光緒7序',
+                  'declared_image_count': len(services),
+              },
+              'method': {
+                  'ocr_role': 'LOCATOR_ONLY_NOT_GLYPH_AUTHORITY',
+                  'ocr_engine': 'tesseract chi_tra psm6+psm11',
+                  'image_width_request': 1200,
+                  'direct_visual_review_required': True,
+                  'semantic_anchor': '1594 target immediately precedes 論女命',
+              },
+              'acquisition_summary': {
+                  'declared_pages': len(services),
+                  'downloaded_pages': sum(1 for x in rows if x.get('image_sha256')),
+                  'failed_pages': sum(1 for x in rows if x.get('error')),
+                  'failed_page_numbers': [x['page'] for x in rows if x.get('error')],
+              },
+              'candidate_pages': candidates,
+              'semantic_anchor_pages': sorted(anchor_pages),
+              'pdf_selected_source_pages': selected,
+              'pdf_path': str(pdf_path) if pdf_images else None,
+              'all_pages_summary': [{k:v for k,v in x.items() if k != 'ocr_excerpt'} for x in rows],
+          }
+          report_path = Path('docs/research/ZIWEI-TOHOKU-HIRAYAMA-MA591-V7-8-LOCATOR-R1.json')
+          report_path.write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+          print(json.dumps({
+              'page_count': len(services),
+              'positive': [(x['page'], x.get('ocr_score'), x.get('ocr_hit_terms')) for x in positive[:20]],
+              'anchors': sorted(anchor_pages),
+              'selected': selected,
+          }, ensure_ascii=False))
+          PY
+      - name: Commit corrected volume locator evidence
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/research/ZIWEI-TOHOKU-HIRAYAMA-MA591-V7-8-LOCATOR-R1.json
+          if [ -f docs/research/evidence/ZIWEI-TOHOKU-HIRAYAMA-MA591-V7-8-CANDIDATES-R1.pdf ]; then
+            git add docs/research/evidence/ZIWEI-TOHOKU-HIRAYAMA-MA591-V7-8-CANDIDATES-R1.pdf
+          fi
+          if git diff --cached --quiet; then
+            echo 'No corrected locator evidence changes'
+            exit 0
+          fi
+          git commit -m 'capture Tohoku Hirayama Zhangguo v7-8 locator evidence'
+          git push origin HEAD:agent/fusion-chart-core-r1-20260822

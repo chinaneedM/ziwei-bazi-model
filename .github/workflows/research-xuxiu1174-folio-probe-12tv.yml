@@ -1,0 +1,97 @@
+name: research-xuxiu1174-folio-probe-12tv
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/research-xuxiu1174-folio-probe-12tv.yml
+      - docs/research/XUXIU-1174-PAGE-PROBE-R1.json
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  inspect-source:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install image/PDF tools
+        run: python -m pip install --quiet pymupdf pillow requests
+      - name: Download and identify exact PDF; render image atlas without OCR
+        shell: bash
+        run: |
+          python - <<'PY'
+          import base64,hashlib,io,json,sys
+          from pathlib import Path
+          from urllib.parse import quote
+          import requests,fitz
+          from PIL import Image,ImageDraw
+          c=json.loads(Path('docs/research/XUXIU-1174-PAGE-PROBE-R1.json').read_text(encoding='utf8'))
+          assert c['scope']=='ANONYMOUS_PUBLIC_SOURCE_READ_ONLY' and c['target_volume']==1174
+          filename='續修四庫全書第1174冊.pdf'
+          md5=hashlib.md5(filename.encode('utf8')).hexdigest()
+          urls=[
+            'https://upload.wikimedia.org/wikipedia/commons/'+md5[0]+'/'+md5[:2]+'/'+quote(filename),
+            'https://commons.wikimedia.org/wiki/Special:Redirect/file/'+quote(filename)
+          ]
+          file=Path('/tmp/xuxiu1174.pdf')
+          ok=False
+          for n,url in enumerate(urls):
+            try:
+              print('ROUTE_ATTEMPT',n,url,flush=True)
+              resp=requests.get(url,stream=True,timeout=(20,180),headers={'User-Agent':'Tianwen-Source-Collation/1.0 (public academic inspection)'})
+              print('HTTP_RESULT',resp.status_code,'FINAL_URL',resp.url,flush=True)
+              resp.raise_for_status()
+              digest=hashlib.sha1(); size=0
+              with file.open('wb') as out:
+                for chunk in resp.iter_content(1024*1024):
+                  if not chunk: continue
+                  size+=len(chunk)
+                  if size>80000000: raise ValueError('OVER_80MB_GUARD')
+                  digest.update(chunk);out.write(chunk)
+              print('SOURCE_ID_BYTES',size,'SOURCE_ID_SHA1',digest.hexdigest(),flush=True)
+              if digest.hexdigest()!=c['expected_sha1_from_existing_12ST_12SU']: raise ValueError('SOURCE_SHA1_MISMATCH')
+              ok=True;break
+            except Exception as e: print('DOWNLOAD_FAILURE',n,str(e)[:400],flush=True)
+          if not ok: sys.exit('SOURCE_PDF_NOT_ACQUIRED')
+          print('SOURCE_SHA256',hashlib.sha256(file.read_bytes()).hexdigest(),flush=True)
+          doc=fitz.open(str(file)); print('SOURCE_PDF_PAGE_COUNT',len(doc),flush=True)
+          if len(doc)!=c['expected_pdf_pages_from_existing_12ST_12SU']: sys.exit('PAGE_COUNT_MISMATCH')
+          pages=c['pdf_pages_1based']
+          regions=c.get('probe_regions')
+          assert 1<=len(pages)<=32 and all(type(p)==int and 1<=p<=len(doc) for p in pages)
+          if regions:
+            assert len(regions)==len(pages)
+            for z in regions:
+              assert len(z)==4 and all(type(v) in (int,float) and 0<=v<=1 for v in z)
+              assert 0<=z[0]<z[2]<=1 and 0<=z[1]<z[3]<=1
+          else: assert len(pages)==len(set(pages))
+          w,h,cols=(900,1340,2) if c.get('detailed_view',False) else (360,515,4)
+          sheet=Image.new('RGB',(w*cols,h*((len(pages)+cols-1)//cols)),'white')
+          draw=ImageDraw.Draw(sheet)
+          for i,p in enumerate(pages):
+            page=doc[p-1]
+            mode=c.get('probe_mode','full_page')
+            assert mode in ('full_page','upper_left_margin','upper_right_half','lower_right_half')
+            clip=page.rect
+            if mode=='upper_left_margin': clip=fitz.Rect(page.rect.width*.01,0,page.rect.width*.38,page.rect.height*.51)
+            if mode=='upper_right_half': clip=fitz.Rect(page.rect.width*.43,0,page.rect.width*.99,page.rect.height*.51)
+            if mode=='lower_right_half': clip=fitz.Rect(page.rect.width*.43,page.rect.height*.49,page.rect.width*.99,page.rect.height*.99)
+            if regions:
+              region=regions[i]
+              clip=fitz.Rect(page.rect.width*region[0],page.rect.height*region[1],page.rect.width*region[2],page.rect.height*region[3])
+            scale=(.62 if mode=='full_page' else .9) if c.get('detailed_view',False) else (.22 if mode=='full_page' else .55)
+            scale=c.get('zoom_scale',scale)
+            assert .15<=scale<=4.8
+            pix=page.get_pixmap(matrix=fitz.Matrix(scale,scale),clip=clip,alpha=False)
+            print('CROP_PIXEL_SHA256',p,list(regions[i]) if regions else None,hashlib.sha256(pix.samples).hexdigest(),flush=True)
+            im=Image.frombytes('RGB',(pix.width,pix.height),pix.samples)
+            im.thumbnail((w-12,h-35))
+            x=(i%cols)*w+6+(w-12-im.width)//2;y=(i//cols)*h+27
+            sheet.paste(im,(x,y))
+            draw.text(((i%cols)*w+10,(i//cols)*h+5),f'PDF {p} / print {p-3}',fill='black')
+          buf=io.BytesIO();sheet.save(buf,format='JPEG',quality=68,optimize=True)
+          print('ATLAS_SHA256',hashlib.sha256(buf.getvalue()).hexdigest(),'BYTES',len(buf.getvalue()),flush=True)
+          print('ATLAS_B64_BEGIN',flush=True)
+          print(base64.b64encode(buf.getvalue()).decode(),flush=True)
+          print('ATLAS_B64_END',flush=True)
+          PY

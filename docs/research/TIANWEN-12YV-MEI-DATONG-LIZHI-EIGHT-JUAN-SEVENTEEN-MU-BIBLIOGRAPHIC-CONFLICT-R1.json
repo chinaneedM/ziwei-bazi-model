@@ -1,0 +1,93 @@
+{
+  "schema": "TIANWEN-12YV-MEI-DATONG-LIZHI-BIBLIOGRAPHIC-JUAN-MU-CONFLICT-R1",
+  "date": "2026-10-17",
+  "grade": "RECEIVED_BIBLIOGRAPHIC_TEXT_AND_LATER_SECONDARY_COMPILATION_UNVERIFIED_ORIGINAL_CATALOG_GLYPHS",
+  "investigation": "Is Mei Wending DaTongLiZhi's 8 juan, 17 mu, and received 17-juan label an actual separate historical edition or a catalog enumeration/transcription conflict?",
+  "controls": [
+    {
+      "source": "QING_SIKU_ZONGMU_RETRIEVED_CTEXT",
+      "url": "https://ctext.org/wiki.pl?chapter=810234&if=gb",
+      "carrier": "MODERN_DIGITAL_RECEIVED_TRANSCRIPTION_OF_QING_BIBLIOGRAPHY",
+      "quoted_scope": "大統歷志八卷、附錄一卷；兩淮鹽政採進本",
+      "independence": "NOT_DIRECT_PHYSICAL_CATALOG_FOLIO"
+    },
+    {
+      "source": "QING_SIKU_JIANMING_RETRIEVED_TEXT",
+      "url": "https://www.xuoda.com/hj/jmml/36.htm",
+      "carrier": "MODERN_RECEIVED_TRANSCRIPTION_OF_QING_SHORT_CATALOG",
+      "quoted_scope": "大統曆志八卷，附錄一卷；分三綱十七目",
+      "independence": "NOT_DIRECT_PHYSICAL_CATALOG_FOLIO"
+    },
+    {
+      "source": "QING_SIKU_ZONGMU_WIKISOURCE_RECENSION",
+      "url": "https://zh.wikisource.org/wiki/欽定四庫全書總目_(四庫全書本)/子部/卷106",
+      "carrier": "TRANSCRIBED_DIGITAL_PAGE_ASSOCIATED_WITH_SIKU_WENYUANGE_SCAN_NOT_YET_NATIVE_GLYPH_COLLATION",
+      "quoted_scope": "大統書志十七卷；其書舊不分卷今以所立十七目一目定爲一卷",
+      "independence": "SAME_WORK_BIBLIOGRAPHIC_RECENSION_NOT_INDEPENDENT_PHYSICAL_VOTE"
+    },
+    {
+      "source": "LATER_SIBU_ZONGLU_TIANWEN_BIAN_EXTRACT",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/e/ec/SSID-11568313_四部總錄天文編.pdf",
+      "carrier": "LATER_BIBLIOGRAPHIC_COMPILATION_SEARCH_EXTRACTION_NOT_PAGE_VERIFIED",
+      "quoted_scope": "大統歷志十七卷；據十七目與一目一卷批評八卷題法",
+      "independence": "SECONDARY_RECEPTION_NOT_QING_ORIGINAL"
+    },
+    {
+      "source": "PRIOR_12YU_SAME_DIGITAL_MEI_INTERNAL_TITLE",
+      "url": "https://github.com/chinaneedM/ziwei-bazi-model/blob/agent/fusion-chart-core-r1-20260822/docs/research/TIANWEN-12YU-MEI-CADAL06054965-VOLUME-PARATEXT-EDITION-SELF-LABEL-R1.json",
+      "carrier": "SAME_HASH_BOUND_NATIVE_MEI_DIGITIZED_BOOK",
+      "quoted_scope": "digital p2 大統歷志卷三四，p3 卷三，p126 卷四",
+      "independence": "ALREADY_COUNTED_SOURCE_NO_NEW_WITNESS"
+    }
+  ],
+  "philology": {
+    "independent_terms": [
+      "卷/JUAN",
+      "目/MU",
+      "冊/FASCICLE",
+      "digitized_pages"
+    ],
+    "three_parts_mu_counts": [
+      7,
+      4,
+      6
+    ],
+    "mu_total": 17,
+    "mu_total_is_not_automatically_historical_juan_count": true,
+    "modern_excerpt_optical_errors_possible": true,
+    "distinguish_siku_work_from_particular_scanned_copy": true
+  },
+  "comparison_result": {
+    "eight_juan_with_one_appendix": "FOUND_IN_TWO_RECEIVED_BIBLIOGRAPHIC_SURFACES",
+    "seventeen_juan_label": "FOUND_IN_SEPARATE_RECEIVED_SIKU_TRANSCRIPTION_AND_LATER_BIBLIOGRAPHIC_COMPILATION",
+    "same_original_physical_catalog_folio_disagreement": "UNADJUDICATED",
+    "seventeen_juan_historical_edition_or_repagination": "UNPROVEN",
+    "treat_siku_catalogue_double_rendering_as_two_independent_qing_originals": false
+  },
+  "next_examinations": [
+    "Fetch and bind original high-resolution catalog folio from a named holding for the full title and count glyphs; distinguish the original Siku compilation and later received transcription.",
+    "Verify Ding Fubao/Zhou Yunqing compilation physical pagination, quote and edition in 1956/1984 witnesses, not search extracted text alone.",
+    "Check whether all Mei original fascicle volume headings and ending labels imply 8-juan physical recension; do not equate 17 headings with independently printed 17-juan copy.",
+    "Resume G893 original 001a 少/微 unit and Ming 1569 day16 header/column controls; this bibliographic dispute does not supply them."
+  ],
+  "evidence_impact": {
+    "new_numeric_original_page_loci": 0,
+    "new_distinct_historical_physical_witnesses": 0,
+    "new_genealogy_nodes": 0,
+    "new_genealogy_edges": 0,
+    "new_source_registry_entries": 0,
+    "g893_original_principal": "5/6",
+    "g893_cross_witness_final": "0/6",
+    "open_research_issues": 11,
+    "product": "CLOSED",
+    "algorithm_reopens": 0,
+    "closure_for_juan_conflict": "OPEN_SOURCE_ORIGINAL_COLLATION_REQUIRED"
+  },
+  "scope_firewall": [
+    "17 mu arithmetic is not proof of any printed 17-juan edition",
+    "Qing bibliography copied or rendered at two sites is not independent original voting",
+    "Modern edited quotation does not prove Qing version chronology",
+    "Bibliographic volume-label conflict is not G893 mechanical rule support",
+    "No 17-vs-8 catalogue decision without physical original leaves and page-level bindings"
+  ]
+}

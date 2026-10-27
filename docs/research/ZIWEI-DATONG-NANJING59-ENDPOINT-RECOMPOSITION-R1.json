@@ -1,0 +1,169 @@
+{
+  "schema": "ZIWEI-DATONG-NANJING59-ENDPOINT-RECOMPOSITION-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-DATONG-NANJING59-ENDPOINT-RECOMPOSITION-DQ",
+  "prior_batch_id": "BATCH-12-ZIWEI-DATONG-CIIN-49-58-CROSSING-AND-QICE-OFFSET-REPLAY-DP",
+  "question": "Can the 12DP summer-endpoint gap be narrowed without inventing a universal modern rounding rule, by testing the constant fractional-threshold class and then separating the directly attested pre-1578 Nanjing 59-ke endpoint from the C-II-N interior integer-threshold layer?",
+  "answer": "YES_AT_COMPOSITE_MECHANISM_LEVEL; NO_FOR_AN_EXPLICIT_PRE1578_TEXT_BINDING_BOTH_LAYERS_OR_THE_EXACT_SANMING_YUELING_CHANGE_DAY_RULE",
+  "evidence_reused": {
+    "cii_n_interior": {
+      "research_artifact": "docs/research/ZIWEI-DATONG-CIIN-49-58-CROSSING-AND-QICE-OFFSET-REPLAY-R1.json",
+      "source_id": "EXT-NCL-DATONG-RICHU-NCL06267",
+      "direct_no_ocr_integer_threshold_range": "42..58",
+      "consecutive_threshold_count": 17,
+      "last_lower_control": {
+        "accumulated_day": 160,
+        "full_daylight_ke": 57.9862
+      },
+      "first_58_crossing": {
+        "accumulated_day": 161,
+        "full_daylight_ke": 58.0424
+      },
+      "summer_endpoint": {
+        "accumulated_day": 182,
+        "half_day_fen": 2931.66,
+        "full_daylight_ke": 58.6332
+      }
+    },
+    "nanjing_official_endpoint": {
+      "research_artifact": "docs/research/ZIWEI-YINGZONG-SHILU-1447-NANJING-59-41-PHYSICAL-COLLATION-R1.json",
+      "date": "1447 / 正統十二年十一月甲寅",
+      "direct_nanjing_summer_day_ke": 59,
+      "direct_nanjing_winter_night_ke": 59,
+      "complementary_41_printed_in_1447_memorial": false,
+      "complementary_41_status": "DERIVED_ONLY_UNDER_THE_INDEPENDENTLY_ESTABLISHED_100_KE_DAY_NIGHT_TOTAL",
+      "institutional_phrase_scope": "宮禁及官府漏箭 are explicitly described as Nanjing old style in the reviewed official record"
+    },
+    "ming_restoration_policy": {
+      "research_artifact": "docs/research/ZIWEI-YINGZONG-SHILU-1449-DATONG-OLD-STYLE-RESTORATION-R1.json",
+      "date": "1449 / 正統十四年十二月",
+      "direct_policy_result": "Future calendar production ordered to follow the Hongwu/Yongle old style.",
+      "prints_59_41_in_that_passage": false
+    },
+    "sanming_target": {
+      "research_artifact": "docs/research/ZIWEI-SANMING-1578-SEASONAL-TABLE-DIRECT-PHYSICAL-COLLATION-R1.json",
+      "exact_physical_date": 1578,
+      "direct_summer_solstice_pair": "59/41",
+      "direct_change_day_fingerprint": [
+        "大寒 43/57 -> 十三後日 44/56",
+        "雨水 47/53 -> 後四日 48/52"
+      ]
+    },
+    "later_explanatory_control": {
+      "source_id": "EXT-XINGYUNLU-GUJIN-LVLIKAO-V47-NANJING-59-41",
+      "date_scope": "POST1578_LATE_MING_RECEIVED_EXPLANATORY_CONTROL",
+      "role": "Explains early-Ming Datong day/night calibration as changed to Nanjing clepsydra, with 59/41 versus Yandu Shoushi 62/38.",
+      "direct_ancestor_vote_increment": 0
+    }
+  },
+  "constant_fractional_threshold_test": {
+    "tested_rule_class": "Q_t(x)=floor(x)+1 when fractional_part(x)>=t, otherwise floor(x), with one constant t used globally",
+    "structural_target_scope": "The clean stepped Nanjing-family replay used in 12DP; this is a mechanical model-class test, not a claim that a pre-1578 text states Q_t.",
+    "interior_latest_lower_control": {
+      "accumulated_day": 160,
+      "input_ke": 57.9862,
+      "required_output_before_first_58_crossing": 57,
+      "constraint_on_t": "t > 0.9862"
+    },
+    "endpoint_control": {
+      "accumulated_day": 182,
+      "input_ke": 58.6332,
+      "required_received_endpoint": 59,
+      "constraint_on_t": "t <= 0.6332"
+    },
+    "threshold_lower_bound": 0.9862,
+    "threshold_upper_bound": 0.6332,
+    "constant_threshold_intersection_empty": true,
+    "adjudication": "SINGLE_GLOBAL_CONSTANT_FRACTIONAL_ROUND_UP_THRESHOLD_DISPROVED_FOR_MAPPING_THE_CII_N_INTERIOR_REPLAY_AND_59_ENDPOINT_SIMULTANEOUSLY",
+    "common_special_cases": {
+      "floor": {
+        "effective_behavior": "never round a positive fraction upward",
+        "interior_representative_fit": true,
+        "summer_endpoint_output": 58,
+        "summer_endpoint_fit": false
+      },
+      "nearest_integer": {
+        "threshold": 0.5,
+        "day160_output": 58,
+        "interior_latest_lower_fit": false,
+        "summer_endpoint_output": 59,
+        "summer_endpoint_fit": true
+      },
+      "ceiling": {
+        "day160_output": 58,
+        "day161_output": 59,
+        "interior_crossing_fit": false,
+        "summer_endpoint_output": 59,
+        "summer_endpoint_fit": true
+      }
+    },
+    "firewall": "This disproves only the single constant fractional-threshold mapping class. It does not prove which historical endpoint anchoring, cap, table lookup, term-specific rule, or editorial recomposition was used."
+  },
+  "composite_mechanism_candidate": {
+    "node_id": "RULE-FAMILY-NANJING-CII-INTEGER-THRESHOLD-PLUS-59-ENDPOINT-ANCHOR",
+    "interior_component": "Direct C-II-N integer crossings 42..58",
+    "endpoint_component": "Direct 1447 official Nanjing solstitial 59-ke standard, with 41 only as hundred-ke complement in that memorial",
+    "policy_context": "1449 restoration to Hongwu/Yongle old style",
+    "later_explanatory_context": "Post-1578 Xing Yunlu received explanation associates early-Ming Datong with Nanjing clepsydra 59/41; chronology forbids ancestry promotion.",
+    "clean_42_59_value_architecture_mechanically_covered": true,
+    "exact_pre1578_text_binding_both_layers_found": false,
+    "exact_pre1578_combined_algorithm_found": false,
+    "exact_sanming_yueling_change_day_fingerprint_explained": false,
+    "direct_copy_parent_identified": false,
+    "interpretation": "The 59 endpoint is better modeled as an independently attested regional/institutional endpoint layer than forced through the same fractional reduction used to describe C-II-N interior crossings. This removes the endpoint contradiction at mechanism level without pretending that the exact historical recomposition instruction has been found."
+  },
+  "transmission_impact": {
+    "nodes_added": [
+      "RULE-FAMILY-NANJING-CII-INTEGER-THRESHOLD-PLUS-59-ENDPOINT-ANCHOR"
+    ],
+    "edges_added": [
+      "TG-E0057",
+      "TG-E0058",
+      "TG-E0059"
+    ],
+    "direct_pre1578_sanming_parent_vote_increment": 0,
+    "textual_vote_increment_for_exact_combined_rule": 0,
+    "numeric_vote_increment_for_exact_sanming_change_day_parent": 0,
+    "direct_ancestry_to_sanming_status": "UNRESOLVED",
+    "narrowed_missing_link": "Find a pre-1578 Chinese source that explicitly binds the Nanjing/Datong daily whole-ke selection layer to the 59-ke solstitial standard and, ideally, preserves the Sanming/Yueling 大寒十三後 / 雨水後四日 fingerprint."
+  },
+  "adjudication": {
+    "pre1578_nanjing_59_endpoint_component_closed": true,
+    "cii_n_42_58_interior_threshold_component_closed": true,
+    "single_global_constant_fractional_threshold_mapping_closed_as_negative": true,
+    "composite_endpoint_recomposition_mechanism_candidate_created": true,
+    "exact_pre1578_combined_rule_closed": false,
+    "exact_sanming_yueling_change_day_parent_closed": false,
+    "new_runtime_candidate_created": false,
+    "runtime_winner_selected": false,
+    "upper_zi_to_hai_mechanical_vote_increment": 0,
+    "candidate_collapsed": false,
+    "algorithm_reopen_authorized": false
+  },
+  "product_adjudication": {
+    "matrix_rule_id": "HPA-ZDATE-006",
+    "status_before": "MISSING_FROM_PRODUCT",
+    "status_after": "MISSING_FROM_PRODUCT",
+    "matrix_count_change": false,
+    "deterministic_fusion_chart_product_r1": "CLOSED",
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "identified_missing_candidate_families": 14,
+    "confirmed_provenance_metadata_defect_count": 12,
+    "repaired_provenance_metadata_defect_count": 12,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Search pre-1578 Chinese Nanjing/Datong calendars, Tongshu/almanacs, clepsydra/change-arrow manuals or official calendar texts for an explicit rule binding the interior whole-ke thresholds to the 59-ke endpoint.",
+    "Prioritize witnesses that also reproduce the high-information Sanming/Yueling 大寒十三後 and 雨水後四日 transition fingerprint.",
+    "Continue independent Chinese physical-carrier search for C-II-N / 晨昏立成.",
+    "Keep NLC call 14202 reproduction route parallel behind the identity/payment/authorization firewall; do not submit an external request without user action."
+  ]
+}

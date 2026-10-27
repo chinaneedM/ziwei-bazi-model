@@ -1,0 +1,113 @@
+{
+  "schema": "ZIWEI-CAI-CHENGPU-2026-TIEQIN-1950-1954-FOUR-TRANSFER-699-AGGREGATE-SCOPE-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-CAI-CHENGPU-2026-TIEQIN-1950-1954-FOUR-TRANSFER-699-AGGREGATE-SCOPE-HB",
+  "prior_batch_id": "BATCH-12-ZIWEI-NLC-WANGCHONGMIN-TIEQIN-20-DONATION-190-PURCHASE-INSTITUTIONAL-RETROSPECTIVE-SCOPE-HA",
+  "question": "What evidentiary role should the 2026 Cai Chengpu / Study Times aggregate statement of 52 titles in January 1950 plus four donation/transfer events totaling 699 titles from March 1950 through April 1954 play relative to the project's existing 20/190, 304/123/300+ and mixed-transfer counts?",
+  "answer": "It is a useful modern specialist aggregate-scope control, not an itemized transaction ledger. The original Study Times publication by Cai Chengpu states that in January 1950 the Qu family donated 52 Tieqin Tongjian Lou titles to the Central People's Government, and that from March 1950 through April 1954 there were four further occasions on which the family donated/transferred a total of 699 rare-book titles to the state. The wording does not subdivide the 699 into donation versus priced transfer, does not identify the four event dates or per-event counts, and does not reconcile with the 20/190 count cluster in the 2023 NLC retrospective or the 304/123/300+ figures reported through later summaries of Ji Shuying. Therefore 699 is an aggregate horizon across four events, not a replacement for event-level ledgers; '转让' must not be normalized to '收购' or '出售' without direct records.",
+  "source_control": {
+    "source_id": "EXT-STUDYTIMES-CAI-2026-TIEQIN-1950-1954-699-AGGREGATE",
+    "provider": "学习时报 / 中共中央党校（国家行政学院）报刊社",
+    "author": "蔡成普",
+    "title": "五代书香传文脉，薪火相继守典籍——常熟铁琴铜剑楼的传承与守护",
+    "publication_date": "2026-04-20",
+    "original_url": "https://paper.studytimes.cn/cntheory/2026-04/20/content_9956406.html",
+    "mirror_url": "https://www.studytimes.cn/wscy/202604/t20260419_87234.html",
+    "republication_control": "https://www.chinawriter.com.cn/n1/2026/0420/c442005-40704851.html",
+    "original_studytimes_page_directly_reviewed": true,
+    "historical_period_of_events": "1950-01 through 1954-04",
+    "source_class": "MODERN_SPECIALIST_SYNTHESIS_NOT_CONTEMPORANEOUS_LEDGER"
+  },
+  "aggregate_statement": {
+    "january_1950_donation_title_count": 52,
+    "later_window_start": "1950-03",
+    "later_window_end": "1954-04",
+    "later_event_count": 4,
+    "later_aggregate_title_count": 699,
+    "later_transaction_wording": "捐献、转让",
+    "later_aggregate_has_per_event_breakdown": false,
+    "exact_four_event_dates": "UNRESOLVED",
+    "per_event_counts": "UNRESOLVED",
+    "donation_vs_transfer_subtotals": "UNRESOLVED",
+    "transfer_means_purchase_or_sale": "NOT_PROVED"
+  },
+  "count_scope_firewall": {
+    "nlc_2023_20_title_count": "SEPARATE_RETROSPECTIVE_COUNT_NOT_RECONCILED",
+    "nlc_2023_190_purchased_title_count": "SEPARATE_RETROSPECTIVE_COUNT_NOT_RECONCILED",
+    "fp_secondary_1950_01_purchase_304": "SEPARATE_EVENT_LEVEL_RECOUNTING_NOT_RECONCILED",
+    "fp_secondary_1950_03_purchase_123": "SEPARATE_EVENT_LEVEL_RECOUNTING_NOT_RECONCILED",
+    "fp_secondary_1953_purchase_300_plus": "SEPARATE_EVENT_LEVEL_RECOUNTING_NOT_RECONCILED",
+    "arithmetic_decomposition_of_699_authorized": false,
+    "sum_or_difference_reconciliation_authorized": false,
+    "reason": "THE_2026_SOURCE_SUPPLIES_ONLY_AN_AGGREGATE_FOUR_EVENT_HORIZON_AND_DOES_NOT_DISCLOSE_THE_UNDERLYING_EVENT_LEDGER_OR_TRANSACTION_SUBTYPES"
+  },
+  "chronology_control": {
+    "january_1950_52_donation": "CLOSED_AT_2026_SPECIALIST_SYNTHESIS_LEVEL",
+    "march_1950_to_april_1954_four_event_window": "CLOSED_AT_2026_SPECIALIST_SYNTHESIS_LEVEL",
+    "four_event_aggregate_699": "CLOSED_AT_2026_SPECIALIST_SYNTHESIS_LEVEL",
+    "contemporaneous_record_directly_reviewed": false,
+    "direct_accession_ledger_directly_reviewed": false,
+    "direct_payment_or_price_record_directly_reviewed": false
+  },
+  "target_volume_firewall": {
+    "target_titles": [
+      "铜壶漏箭制度",
+      "准斋心制几漏图式"
+    ],
+    "historical_catalog_numbers": [
+      3482,
+      3483
+    ],
+    "current_catalog_number_candidates": [
+      "03482",
+      "03483"
+    ],
+    "target_named_in_source": false,
+    "target_numbers_named_in_source": false,
+    "huang_shiliju_1823_one_volume_fingerprint_named": false,
+    "target_in_january_1950_52": "UNRESOLVED",
+    "target_in_later_699": "UNRESOLVED",
+    "target_specific_purchase_route_selected": false,
+    "target_specific_donation_route_selected": false,
+    "target_specific_other_transfer_route_selected": false,
+    "target_exact_acquisition_date": "UNRESOLVED",
+    "final_nlc_acquisition_transfer_path": "UNRESOLVED"
+  },
+  "adjudication": {
+    "modern_aggregate_scope_control_increment": 1,
+    "contemporaneous_ledger_increment": 0,
+    "target_item_transaction_increment": 0,
+    "mixed_transfer_program_status": "REMAINS_CLOSED_AT_COLLECTION_LEVEL",
+    "acquisition_edge_authorized": false
+  },
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_added": [],
+    "direct_copy_edge_authorized": false,
+    "same_object_edge_authorized": false,
+    "acquisition_edge_authorized": false
+  },
+  "chronology_and_rule_firewall": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_count_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 14,
+    "repaired_provenance_metadata_defect_count": 14,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Recover the underlying direct records for the four March-1950-to-April-1954 events and determine their exact dates, per-event counts and donation/paid-transfer vocabulary.",
+    "Do not decompose 699 or reconcile it arithmetically with 20/190, 304, 123 or 300+ until those underlying scopes are directly closed.",
+    "Search event-level records for 铜壶漏箭制度, 准斋心制几漏图式, 3482/3483, 03482/03483 or the 1823 Huang/Shiliju one-volume fingerprint.",
+    "Continue direct 1997 pp.446—449, Ji Shuying chapter 9, 2004 p.335/final 編后記 and 2010 supplement discovery in parallel."
+  ],
+  "updated_at": "2026-09-27"
+}

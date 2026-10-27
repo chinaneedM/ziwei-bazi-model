@@ -1,0 +1,105 @@
+{
+  "schema": "ZIWEI-SHIQIE-JNA-FASCICLE3-PAGE-ORDER-AND-ACCESS-BOUNDARY-R1",
+  "batch_id": "BATCH-12-ZIWEI-SHIQIE-JNA-FASCICLE3-PAGE-ORDER-AND-ACCESS-BOUNDARY-BK",
+  "question": "Can the public Shidian volume-three transcription be deterministically aligned to the exact National Archives of Japan fascicle-three physical canvas so that the isolated 上四亥 token can be adjudicated from a first-party image without guessing or bypassing access controls?",
+  "japan_search_reference": {
+    "root_item_id": "najda-XlZliJwgFlrJCdDQsawqSkOJUKP9hAZXTdEQ",
+    "fascicle3_item_id": "najda-XlZliJwgFlrJCdDQsawqSkOJUKP9hAZXTdEQ_0003",
+    "documented_public_item_api_run_id": 34762934050,
+    "artifact_id": 10319273767,
+    "artifact_digest": "sha256:a3c2e3b3f30455f4de316a9b4381ee5a65062e88eb5922357affb67243805b69",
+    "role": "EXACT PUBLIC RECORD RESOLUTION; ITEM IDS WERE RETURNED BY JAPAN SEARCH AND NOT DERIVED OR ENUMERATED"
+  },
+  "official_national_archives_fascicle3": {
+    "item_url": "https://www.digital.archives.go.jp/item/4756821",
+    "manifest_url": "https://www.digital.archives.go.jp/api/iiif/4756821/manifest.json",
+    "manifest_http_status": 200,
+    "manifest_content_type": "application/json",
+    "manifest_body_len": 63365,
+    "manifest_sha256": "e9b2af8117d8f45922cd8e8656ef0ab7165e727db5c81c59b3d805ab135ba48e",
+    "label": "筮篋理数日抄３",
+    "reference_code": "子０６０－０００２-0003",
+    "canvas_count": 69,
+    "attribution": "National Archives of JAPAN",
+    "manifest_run_id": 34763008839,
+    "manifest_artifact_id": 10319722109,
+    "manifest_artifact_digest": "sha256:a689024e38ce78b1d0bdb9751d430acf4541567f72845bcfdeafb627bbc3559a",
+    "authority_scope": "FIRST-PARTY CATALOG/DIGITAL-OBJECT STRUCTURE AND CANVAS ORDER; NOT A TARGET-GLYPH READING UNTIL THE TARGET CANVAS IS DIRECTLY IDENTIFIED AND READ"
+  },
+  "shidian_public_ssr": {
+    "url": "https://www.shidianguji.com/zh/book/NA06425/chapter/1m44zy4jwa4ab",
+    "http_status": 200,
+    "body_len": 651684,
+    "html_sha256": "a9c7b52d9d3180e103e8808ca6e6bfe79ebdce90c9d3fbbee08c79200e61f3ff",
+    "chapter_id": "1m44zy4jwa4ab",
+    "chapter_label": "卷三",
+    "start_page_num": 353,
+    "end_page_num": 408,
+    "inclusive_transcription_page_count": 56,
+    "pagepass_unique_count": 56,
+    "parsed_paragraph_count": 316,
+    "start_end_unique_page_count": 54,
+    "target_paragraph_id": "7649191097545588762",
+    "target_page_id": "7640563520069697576",
+    "target_visible_page_ordinal_1_based": 4,
+    "target_transcription": "巳上是上四亥。",
+    "nearby_mechanical_rule": "上四刻屬本日管，下四刻屬第二日管",
+    "page_order_run_id": 34763494286,
+    "page_order_artifact_id": 10319518306,
+    "page_order_artifact_digest": "sha256:e0d50950e22af0f2b3fbf5047fb018a2a3349492ee899b46616791a74265df87",
+    "authority_scope": "PUBLIC TRANSCRIPTION/LOCATOR LAYER ONLY; NOT PHYSICAL GLYPH AUTHORITY"
+  },
+  "alignment_adjudication": {
+    "shidian_transcription_pages": 56,
+    "official_jna_canvases": 69,
+    "count_difference": 13,
+    "counts_match": false,
+    "ordinal_mapping_authorized": false,
+    "target_mapped_to_official_canvas": false,
+    "reason": "The public transcription defines a complete 56-page volume-three span (353–408 inclusive), while the exact official fascicle-three manifest contains 69 canvases. The 13-canvas representation gap prevents a page-4-to-canvas-4 or fixed-offset inference without an independent alignment control."
+  },
+  "official_image_access_tests": {
+    "page1_literal_resource_status": 403,
+    "page1_service_info_status": 403,
+    "page1_standard_iiif_transform_status": 403,
+    "contract_probe_run_id": 34763132512,
+    "contract_probe_artifact_id": 10319198130,
+    "contract_probe_artifact_digest": "sha256:a429cee15f76c35cc461113f2c965292f2d76cd6f6db4820eaab3f5159ef7c48",
+    "note": "All URLs were literal manifest resources or standard IIIF Image API transformations of the manifest-declared service ID; no object-id guessing was used."
+  },
+  "ordinary_browser_access_test": {
+    "item_navigation_status": 403,
+    "item_final_url": "https://www.digital.archives.go.jp/item/4756821",
+    "page_title": "ERROR: The request could not be satisfied",
+    "literal_viewer_candidates": [],
+    "successful_image_response_count": 0,
+    "browser_probe_run_id": 34765354700,
+    "browser_probe_artifact_id": 10320310873,
+    "browser_probe_artifact_digest": "sha256:05d2c739204706ef09b0d591671608f1e87eded95abd21efec53f22b7e4c5ca2",
+    "note": "Normal headless Chromium navigation from the exact public item URL remained blocked in the GitHub runner. No cookie/token injection, hidden endpoint, or bypass technique was attempted."
+  },
+  "japan_search_target_text_probe": {
+    "queries": [
+      "論子時隔界",
+      "上四亥",
+      "選時寶鏡局",
+      "日百刻配十二時"
+    ],
+    "exact_target_text_hits": 0,
+    "run_id": 34763331089,
+    "artifact_id": 10319842374,
+    "artifact_digest": "sha256:97c3f6f1595e592e6d844c2129d150f711368f34f92baf10d323c5ed291fb36e",
+    "authority_scope": "NEGATIVE CONTROL FOR PAGE-LEVEL PUBLIC SEARCH ONLY; NOT EVIDENCE THAT THE PHYSICAL TEXT IS ABSENT"
+  },
+  "rule_adjudication": {
+    "hpa_zdate_006_status": "MISSING_FROM_PRODUCT",
+    "exact_shiqie_target_glyph_observed": false,
+    "hai_glyph_witness_increment": 0,
+    "upper_night_zi_to_hai_branch_directly_attested": false,
+    "runtime_winner_selected": false,
+    "candidate_collapsed": false,
+    "algorithm_reopen": false,
+    "next_gate": "Obtain a directly readable physical volume-three target leaf from the National Archives copy through an ordinary public route outside the blocked runner, or obtain an independent early physical witness explicitly mapping upper/night Zi to the Hai earthly branch."
+  },
+  "access_policy": "PUBLIC JAPAN SEARCH API + EXACT FIRST-PARTY JNA MANIFEST + PUBLIC SHIDIAN SSR + ORDINARY FIRST-PARTY BROWSER NAVIGATION ONLY; NO LOGIN; NO COOKIE/TOKEN INJECTION; NO PRIVATE API; NO OBJECT-ID/CANVAS-ID GUESSING; NO ADJACENT-ID ENUMERATION; NO ACCESS BYPASS; NO ORDINAL PAGE MAPPING WHEN COUNTS DO NOT CLOSE"
+}

@@ -1,0 +1,41 @@
+name: probe-yehuobian-12wt-tokyo-kanseki-source-form
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-yehuobian-12wt-tokyo-kanseki-source-form.yml
+      - scripts/probe-yehuobian-12wt-tokyo-kanseki-source-form.py
+      - tests/test_yehuobian_12wt_tokyo_kanseki_source_form.py
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Two official metadata pages, no invented source images
+        run: python -m unittest discover -s tests -p 'test_yehuobian_12wt_tokyo_kanseki_source_form.py' -v
+  capture:
+    needs: verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Save official Tokyo full Chinese classics catalog HTML and form receipt
+        run: python scripts/probe-yehuobian-12wt-tokyo-kanseki-source-form.py --output-dir 12wt-kanseki-source-form-output
+      - name: Archive source HTML and access boundary
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tokyo-kanseki-12wt-exact-public-catalog-form
+          path: 12wt-kanseki-source-form-output/
+          retention-days: 30
+          if-no-files-found: warn

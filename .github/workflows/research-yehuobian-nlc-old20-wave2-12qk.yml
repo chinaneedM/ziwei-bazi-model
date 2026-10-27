@@ -1,0 +1,37 @@
+name: research-yehuobian-nlc-old20-wave2-12qk
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - docs/research/MING-DATONG-YEHUOBIAN-12QK-NLC-OLD20-FASC4-9-ATLAS-STAGING-R1.json
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  source-atlas:
+    strategy:
+      fail-fast: false
+      matrix:
+        fascicle: [4, 5, 6, 7, 8, 9]
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install no-OCR page tools
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils
+          python -m pip install --disable-pip-version-check Pillow
+      - name: Capture one file-identified NLC old20 digital fascicle
+        run: python scripts/probe-yehuobian-nlc-old20-fascicles-wave1-12qi.py --fascicle ${{ matrix.fascicle }}
+      - name: Preserve source-page hashes and reproductions
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: nlc-old20-wave2-fascicle-${{ matrix.fascicle }}-12qk
+          path: artifacts/yehuobian-nlc-old20-wave1-12qi/fascicle-${{ matrix.fascicle }}/
+          retention-days: 14
+          if-no-files-found: warn

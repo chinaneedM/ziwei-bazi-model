@@ -1,0 +1,147 @@
+{
+  "contains_case_answer_mapping": false,
+  "content": {
+    "learning_type": "REASONING_STRATEGY",
+    "rules": [
+      {
+        "applicability": "选项按教育程度形成有序阶梯，盘面同时出现多条学习、科名、制度适应或专业训练链，但缺少直接毕业文件，且较高层级与中间层级发生竞争时。",
+        "capability_ceiling": "无现实授证节点时，只能给出题内相对层级优先及其缺口，不能把该层级写成已经核实的学历事实。",
+        "counterexamples": "若只有聪明、表达、贵人或制度接触，而求学阶段出现明确中断且没有恢复、完成或后续专业训练承接，则不得因能力强而上调层级；若高低层级都只有同一组科名信号，也应保持较低置信度而非选择最高档。",
+        "decision_procedure": "先把所有选项按层级排序；分别建立学习能力、入学许可、求学阶段、持续或中断、恢复、正式完成、后续专业资格七列；共享能力信号归零，只比较相邻层级的新增必要节点；再用紫微与八字各自检查阶段承接，最后区分题内相对首选与现实核实状态。",
+        "limits": "不得由星曜数量、四化强度、十神旺衰或职业地位直接推出学位。上调相邻层级至少需要三条不同父链，其中必须包含教育专属结构、相应求学阶段承接，以及完成或专业资格方向；一般表达能力与社会地位不得重复计数。",
+        "reasoning_skill_tags": [
+          "TOPIC_PALACE_ROUTING",
+          "NATAL_STRUCTURE",
+          "STATIC_DYNAMIC_LAYERING",
+          "BAZI_STRUCTURE_THEN_TRIGGER",
+          "TIME_LAYER_ACTIVATION",
+          "EVENT_ENDPOINT_CLOSURE",
+          "REALITY_SCALE_MAPPING",
+          "OPTION_GRANULARITY",
+          "EVIDENCE_WEIGHTING",
+          "COUNTEREVIDENCE_REVERSAL",
+          "ZIWEI_BAZI_ARBITRATION",
+          "UNCERTAINTY_CALIBRATION"
+        ],
+        "rule_id": "RULE-EDUCATION-RELATIVE-TIER-ANCHOR",
+        "source_basis": "S02区分相对排序与教育正式终点，S03约束双轨独立增益，S04与S08路由教育、科名及忌阻结构，S10与S15检查求学阶段和承接，S11至S13及S16限定八字学习与资格映射，S17闭合入学—持续—完成—资格链，S18执行有序层级比较与反转。",
+        "source_routes": [
+          "S02",
+          "S03",
+          "S04",
+          "S08",
+          "S10",
+          "S11",
+          "S12",
+          "S13",
+          "S15",
+          "S16",
+          "S17",
+          "S18"
+        ],
+        "statement": "有序学历层级题必须分开现实事实的证明门槛与强制选项的相对排序。缺少院校或证书文本会限制公开事实表达，却不能自动把首选下调；相邻层级应依据教育专属结构、求学阶段承接、持续完成能力和后续专业资格分别比较，而不是把一般聪明或吉曜数量换算成学历。",
+        "stop_conditions": "若相邻高层级没有教育专属新增节点，或所谓新增证据只是同一科名、表达或职业信号的重复转述，停止上调并降低置信度。",
+        "topic_tags": [
+          "CAREER_EDUCATION"
+        ],
+        "trigger_conditions": "临时第一名主要因为缺少文凭文件而采取保守中间层级，但相邻较高层级在教育专属结构、阶段连续性和专业资格方向上拥有独立新增证据，且较低层级与这些证据明显不相称。"
+      },
+      {
+        "applicability": "候选在从未完成制度婚姻、当前已婚、婚后解除及多次制度婚姻之间排他竞争，且指定阶段有强烈夫妻轴、配偶星、冲合或化忌激活时。",
+        "capability_ceiling": "前置婚姻完成未知时，最高只能输出关系活跃、婚事受阻或状态转换候选，不能确认已经解除或累计婚姻次数。",
+        "counterexamples": "若早期阶段已有配偶人物、制度建立、共同家庭或公开身份的独立完成链，后续阶段又出现解除动作、分居承接和法律状态变化，则强冲与忌可以用于判断解除方向，不应退回未完成基线。",
+        "decision_procedure": "为每个候选依次填写配偶人物、关系建立、制度完成、共同生活、冲突或分离、解除动作、当前状态七列；先审前置节点，再分配动态信号；所有候选共享的关系激活归零，缺少前置婚姻完成的解除和多次婚姻候选先降级，最后做最强竞争反转。",
+        "limits": "本规则不把缺少结婚信号当作现实未婚证明，也不否认隐蔽或资料缺失的法律状态；它只控制命理证据的序列负担。登记、共同家庭、解除程序和当前状态仍需分别闭合。",
+        "reasoning_skill_tags": [
+          "SUBJECT_ENTITY_ROUTING",
+          "TOPIC_PALACE_ROUTING",
+          "NATAL_STRUCTURE",
+          "STATIC_DYNAMIC_LAYERING",
+          "PALACE_TRANSFORMATION_CHAIN",
+          "BAZI_STRUCTURE_THEN_TRIGGER",
+          "TIME_LAYER_ACTIVATION",
+          "EVENT_ENDPOINT_CLOSURE",
+          "OPTION_GRANULARITY",
+          "COMPOSITE_OPTION_ATOMIZATION",
+          "EVIDENCE_WEIGHTING",
+          "COUNTEREVIDENCE_REVERSAL",
+          "ZIWEI_BAZI_ARBITRATION",
+          "CAUSAL_ACTOR_DIRECTION",
+          "RELATIONSHIP_SEQUENCE",
+          "UNCERTAINTY_CALIBRATION"
+        ],
+        "rule_id": "RULE-RELATIONSHIP-LEGAL-SEQUENCE-PRECONDITION",
+        "source_basis": "S02区分恋爱、登记、分居和法律解除，S03约束双轨不能共同补造终点，S04与S09重立夫妻太极，S08与S10只提供动态方向，S11及S14至S16限制配偶星和冲合解释，S17闭合建立—持续—解除序列，S18执行先决节点与复合选项比较。",
+        "source_routes": [
+          "S02",
+          "S03",
+          "S04",
+          "S08",
+          "S09",
+          "S10",
+          "S11",
+          "S14",
+          "S15",
+          "S16",
+          "S17",
+          "S18"
+        ],
+        "statement": "婚姻法律状态必须遵守先决序列：解除关系以前必须先有已完成的制度婚姻，多次婚姻必须重复完成建立与解除节点。夫妻主题激活、强冲、争执、分离倾向或换运只能决定关系活动和转换强度，不能替代前置婚姻完成；前置节点未闭合时，冲突信号优先解释为恋爱波折、婚事未成或关系协商。",
+        "stop_conditions": "若无法证明任何候选的制度完成或解除节点，停止在未核实关系状态层，不以夫妻大限、日支冲动或单一化忌补齐法律序列。",
+        "topic_tags": [
+          "MARRIAGE_RELATIONSHIP",
+          "MAJOR_YEAR_EVENT"
+        ],
+        "trigger_conditions": "临时第一名依赖指定阶段的强冲、化忌或关系转换来支持解除状态，但尚未为更早阶段建立制度婚姻完成链，而竞争项只要求关系未完成或未制度化。"
+      },
+      {
+        "applicability": "候选分别强调健谈、表达流畅、轻度言语阻滞、社交退缩、表现欲或伤人效果，且盘面同时出现语言输出结构与语言功能受阻信号时。",
+        "capability_ceiling": "缺少现实观察或医学评估时，只能给出题内语言画像的相对优先，不能作言语障碍诊断、频率判断或永久性结论。",
+        "counterexamples": "若只有稳定的语言输出、组织表达和说服能力，而语言或口部功能轴没有任何独立阻滞，纯流畅表达候选可优先；若只有阻滞而无表达欲，则不能选择同时要求健谈的复合画像。",
+        "decision_procedure": "建立表达欲、输出量、组织能力、流畅度、发音或口部阻滞、攻击性、社会反馈七列；共享的健谈或输出证据归零；语言阻滞必须通过功能位置和条件组复核，攻击性必须由行为效果链复核；再比较各候选独有原子的覆盖与反证，不用总体吉凶平均。",
+        "limits": "一般文书失误、口舌是非或单一忌星不能直接诊断言语障碍；阻滞信号必须落在语言、口部、发音或相关健康功能链，并与主体一致。八字食伤只能复核输出倾向，不能独立定位生理性言语问题。",
+        "reasoning_skill_tags": [
+          "TOPIC_PALACE_ROUTING",
+          "NATAL_STRUCTURE",
+          "PALACE_TRANSFORMATION_CHAIN",
+          "BAZI_STRUCTURE_THEN_TRIGGER",
+          "EVENT_ENDPOINT_CLOSURE",
+          "OPTION_GRANULARITY",
+          "COMPOSITE_OPTION_ATOMIZATION",
+          "EVIDENCE_WEIGHTING",
+          "COUNTEREVIDENCE_REVERSAL",
+          "ZIWEI_BAZI_ARBITRATION",
+          "UNCERTAINTY_CALIBRATION"
+        ],
+        "rule_id": "RULE-SPEECH-OUTPUT-FLUENCY-EFFECT-SEPARATION",
+        "source_basis": "S02禁止把口才直接扩展为其他行为并限定健康表达，S03要求两轨独立，S04路由命身、官禄与功能太极，S05与S07提供星曜语言及口部条件，S08处理语言曜化忌与正负性质并存，S11至S13及S16限制食伤映射，S17闭合功能—表现—社会效果，S18执行复合区别原子比较。",
+        "source_routes": [
+          "S02",
+          "S03",
+          "S04",
+          "S05",
+          "S07",
+          "S08",
+          "S11",
+          "S12",
+          "S13",
+          "S16",
+          "S17",
+          "S18"
+        ],
+        "statement": "语言画像必须拆分表达欲、输出量、组织与说服能力、口齿流畅度、攻击性及社会效果。强表达或高输出只能证明愿意说、经常说或依赖语言发挥，不能自动证明口齿完全流畅；语言功能上的阻滞也不自动等于沉默或表达能力低，两类性质可以并存。",
+        "stop_conditions": "若阻滞证据只来自一般文书、口舌或负面评价，且没有语言功能定位，停止在表达瑕疵或争议层，不升级为言语障碍；若输出证据不足，也不得补造健谈属性。",
+        "topic_tags": [
+          "PERSONALITY_APPEARANCE",
+          "OTHER"
+        ],
+        "trigger_conditions": "临时第一名把表达欲或输出量直接当成流畅度证明，而竞争项同时包含输出倾向与较轻的语言功能阻滞，且两者分别有独立证据。"
+      }
+    ]
+  },
+  "created_at": "2026-07-23T12:29:36Z",
+  "modifies_canonical_source_files": false,
+  "release_id": "MODEL-LEARNING-010",
+  "schema": "MODEL-LEARNING-PATCH-V2",
+  "validation_status": "CANDIDATE_RULES"
+}

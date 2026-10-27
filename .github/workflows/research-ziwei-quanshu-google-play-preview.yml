@@ -1,0 +1,217 @@
+name: research-ziwei-quanshu-google-play-preview
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-ziwei-quanshu-google-play-preview.yml
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Probe public Google Play/Books sample surfaces
+        shell: python
+        run: |
+          import hashlib
+          import json
+          import re
+          import urllib.parse
+          import urllib.request
+          from pathlib import Path
+
+          OUT = Path("probe")
+          OUT.mkdir()
+          UA = "Mozilla/5.0 research-only public book-preview probe"
+          VOLUME_ID = "aIRbDgAAQBAJ"
+          PLAY_URL = (
+              "https://play.google.com/store/books/details/"
+              "%E9%A1%8C_%E5%AE%8B_%E9%99%B3%E5%B8%8C%E5%A4%B7%E6%92%B0_"
+              "%E6%98%8E_%E6%BD%98%E5%B8%8C%E5%B0%B9%E8%A3%9C%E8%BC%AF_"
+              "%E7%B4%AB%E5%BE%AE%E6%96%97%E6%95%B8%E5%85%A8%E6%9B%B8_"
+              "%E6%98%8E%E6%9C%AA%E6%B8%85%E5%88%9D%E6%9C%A8%E5%88%BB%E7%9C%9F%E6%9C%AC_"
+              "%E5%8E%9F_%E5%BD%A9_%E8%89%B2%E6%9C%AC"
+              "?id=aIRbDgAAQBAJ&hl=zh-TW"
+          )
+          API_URL = f"https://www.googleapis.com/books/v1/volumes/{VOLUME_ID}"
+          QUERIES = [
+              "論人生時要審的確",
+              "论人生时要审的确",
+              "上五刻",
+              "下五刻",
+              "亥時",
+              "亥时",
+              "子時有十刻",
+              "子时有十刻",
+              "子時乃一日之始",
+              "子时乃一日之始",
+          ]
+
+          def fetch(url, max_bytes=10_000_000):
+              req = urllib.request.Request(
+                  url,
+                  headers={
+                      "User-Agent": UA,
+                      "Accept": "application/json,text/html,*/*;q=0.8",
+                      "Accept-Language": "zh-TW,zh;q=0.9,en;q=0.7",
+                  },
+              )
+              try:
+                  with urllib.request.urlopen(req, timeout=45) as resp:
+                      data = resp.read(max_bytes + 1)
+                      if len(data) > max_bytes:
+                          raise RuntimeError("response exceeded guard")
+                      return {
+                          "ok": True,
+                          "status": getattr(resp, "status", None),
+                          "final_url": resp.geturl(),
+                          "content_type": resp.headers.get("content-type"),
+                          "data": data,
+                      }
+              except Exception as exc:
+                  return {"ok": False, "error": repr(exc), "data": b""}
+
+          def meta(row):
+              data = row.get("data", b"")
+              return {
+                  k: v for k, v in row.items() if k != "data"
+              } | {
+                  "bytes": len(data),
+                  "sha256": hashlib.sha256(data).hexdigest() if data else None,
+              }
+
+          result = {
+              "schema": "ZIWEI-QUANSHU-GOOGLE-PLAY-PUBLIC-PREVIEW-PROBE-R1",
+              "volume_id": VOLUME_ID,
+              "isbn": "9789888266944",
+              "target_section": "論人生時要審的確",
+              "target_reading": "上五刻屬昨夜亥時下五刻屬今日子時",
+              "ocr_used": False,
+              "authentication_or_paywall_bypass_attempted": False,
+              "preview_only": True,
+              "play_page": {},
+              "books_api": {},
+              "search_within_volume": [],
+          }
+
+          play = fetch(PLAY_URL)
+          result["play_page"] = meta(play)
+          if play.get("data"):
+              (OUT / "google-play-volume.html").write_bytes(play["data"])
+              text = play["data"].decode("utf-8", "replace")
+              result["play_page"]["volume_id_present"] = VOLUME_ID in text
+              result["play_page"]["free_sample_marker_present"] = any(
+                  marker in text
+                  for marker in ("Free sample", "免費試閱", "免费试读", "試閱")
+              )
+              result["play_page"]["declared_page_count_266_present"] = (
+                  "266" in text and ("Pages" in text or "頁" in text or "页" in text)
+              )
+
+          api = fetch(API_URL)
+          result["books_api"] = meta(api)
+          if api.get("data"):
+              (OUT / "google-books-volume-api.json").write_bytes(api["data"])
+              try:
+                  payload = json.loads(api["data"].decode("utf-8"))
+                  access = payload.get("accessInfo", {})
+                  info = payload.get("volumeInfo", {})
+                  result["books_api"]["parsed"] = {
+                      "id": payload.get("id"),
+                      "title": info.get("title"),
+                      "pageCount": info.get("pageCount"),
+                      "industryIdentifiers": info.get("industryIdentifiers"),
+                      "viewability": access.get("viewability"),
+                      "embeddable": access.get("embeddable"),
+                      "publicDomain": access.get("publicDomain"),
+                      "textToSpeechPermission": access.get("textToSpeechPermission"),
+                      "webReaderLink": access.get("webReaderLink"),
+                      "accessViewStatus": access.get("accessViewStatus"),
+                      "quoteSharingAllowed": access.get("quoteSharingAllowed"),
+                  }
+              except Exception as exc:
+                  result["books_api"]["parse_error"] = repr(exc)
+
+          endpoint_templates = [
+              "https://books.google.com/books?jscmd=SearchWithinVolume2&q={q}&vid={vid}",
+              "https://books.google.com/books?id={vid}&jscmd=SearchWithinVolume2&q={q}",
+              "https://books.google.com/books?vid={vid}&jscmd=SearchWithinVolume2&q={q}",
+          ]
+          for query in QUERIES:
+              encoded = urllib.parse.quote(query)
+              attempts = []
+              for template in endpoint_templates:
+                  url = template.format(q=encoded, vid=VOLUME_ID)
+                  row = fetch(url, max_bytes=3_000_000)
+                  item = meta(row)
+                  item["url"] = url
+                  data = row.get("data", b"")
+                  if data:
+                      raw = data.decode("utf-8", "replace")
+                      item["response_excerpt"] = raw[:1500]
+                      item["query_literal_present"] = query in raw
+                      try:
+                          payload = json.loads(raw)
+                          item["json_type"] = type(payload).__name__
+                          if isinstance(payload, dict):
+                              item["json_keys"] = sorted(payload.keys())
+                              for key in (
+                                  "number_of_results",
+                                  "search_results",
+                                  "page_id",
+                                  "page_number",
+                                  "snippet_text",
+                              ):
+                                  if key in payload:
+                                      item[key] = payload[key]
+                      except Exception:
+                          pass
+                  attempts.append(item)
+              result["search_within_volume"].append({
+                  "query": query,
+                  "attempts": attempts,
+              })
+
+          result["adjudication"] = {
+              "google_play_volume_identity": "BOUND_TO_aIRbDgAAQBAJ",
+              "free_sample_publicly_advertised":
+                  bool(result["play_page"].get("free_sample_marker_present")),
+              "target_query_visibility":
+                  "DETERMINE_FROM_SEARCH_WITHIN_RESULTS_ONLY",
+              "target_page_directly_observed": False,
+              "candidate_effect": "NONE_UNTIL_PUBLIC_PREVIEW_RETURNS_DIRECT_TARGET_PAGE",
+              "algorithm_effect": "NONE",
+          }
+
+          (OUT / "google-play-preview-probe.json").write_text(
+              json.dumps(result, ensure_ascii=False, indent=2),
+              encoding="utf-8",
+          )
+          print(json.dumps({
+              "play": result["play_page"],
+              "api": result["books_api"].get("parsed", result["books_api"]),
+              "search": [
+                  {
+                      "query": row["query"],
+                      "statuses": [a.get("status") for a in row["attempts"]],
+                      "bytes": [a.get("bytes") for a in row["attempts"]],
+                      "json_keys": [a.get("json_keys") for a in row["attempts"]],
+                  }
+                  for row in result["search_within_volume"]
+              ],
+          }, ensure_ascii=False, indent=2))
+
+      - name: Upload Google Play preview evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ziwei-quanshu-google-play-preview
+          path: probe/
+          if-no-files-found: warn
+          retention-days: 14

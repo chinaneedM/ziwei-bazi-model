@@ -1,0 +1,106 @@
+{
+  "schema": "TIANWEN-12TF-NCL02260-ZHOU-SEAL-AND-COPY-SEPARATION",
+  "date": "2026-10-12",
+  "scope": "EVIDENCE_SOURCED_CATALOG_LEVEL_IDENTIFICATION_CROSSWALK_NO_DIRECT_FOLIO_CLAIM",
+  "upstream_12te": "docs/research/MING-DATONG-YEHUOBIAN-12TE-MING-PRINT-MISATTRIBUTION-SECONDARY-SCHOLARSHIP-R1.json",
+  "scholar_source": {
+    "source_id": "EXT-PKU-CHINESE-CLASSICS-CULTURE-DU2019-YEHUOBIAN-MING-PRINT-QUESTION",
+    "url": "https://ccj.pku.edu.cn/Article/info?aid=235967606",
+    "claim_role": "2019 author's hypothesis: late-Qing called-Ming-print Li Ciming reference may be Zhou Xingyi's Taiwan manuscript; source text not directly inspected"
+  },
+  "target_copy_catalog_proxy": {
+    "source_id": "EXT-WIKIMEDIA-NCL02260-YEHUOBIAN-OLD20V-OLD-MANUSCRIPT-1",
+    "physical_holding": "Taiwan National Central Library",
+    "shelfmark": "204.26 02260",
+    "category": "舊鈔本",
+    "volumes": "二十卷, 補遺一卷, 續編十二卷",
+    "physical_fascicles": 16,
+    "layout_lines": 9,
+    "layout_chars_per_line": 21,
+    "metadata_record_url": "https://commons.wikimedia.org/wiki/File:NCL-02260_1_%E8%90%AC%E6%9B%86%E9%87%8E%E7%8D%B2%E7%B7%A8.pdf",
+    "catalog_transcribed_marks": [
+      "周印/星詒",
+      "祥符周/氏瑞瓜/堂圖書"
+    ],
+    "catalog_preface_sexagenary_wording": "萬曆三十四年丙午仲冬日自題於甕汲軒",
+    "source_type": "MIRRORED_CATALOG_METADATA_NOT_DIRECT_SEAL_IMAGE_INSPECTION",
+    "digital_surrogate_parts": [
+      {
+        "file": "NCL-02260 1 萬曆野獲編.pdf",
+        "pages": 1000
+      },
+      {
+        "file": "NCL-02260 2 萬曆野獲編.pdf",
+        "pages": 35
+      }
+    ],
+    "do_not_count_pdf_parts_as_independent_manuscript_copies": true,
+    "catalog_reported_prior_owner_name": "周星詒"
+  },
+  "distinct_copy_control": {
+    "source_id": "EXT-TAIWAN-NCL02261-YEHUOBIAN-20-VOLUME-GREEN-GRID-MANUSCRIPT",
+    "physical_holding": "Taiwan National Central Library",
+    "shelfmark": "204.26 02261",
+    "category": "綠格鈔本",
+    "volumes": "二十卷",
+    "physical_fascicles": 6,
+    "layout_lines": 11,
+    "layout_chars_per_line": 21,
+    "first_party_url": "https://rbook.ncl.edu.tw/NCLSearch/Search/SearchDetail?HasImage=&SourceID=1&item=8309070387b74580b62eace95f539ec8fDUyMDAx0.YwN8suWf1WSOdjfsUz6WsqPWjZhoFsmXFoxW6nD_QX8_&page=&sourceWhereString=&whereString=",
+    "catalog_preface_sexagenary_wording": "萬曆三十四年丙辰仲冬日自題於甕汲軒",
+    "do_not_reclassify_as_ncl02260": true,
+    "catalog_error_vs_physical_variant": "NOT_ADJUDICATED_NO_DIRECT_02261_PREFACE_GLYPH"
+  },
+  "adjudication": {
+    "zhou_seal_mentioned_in_existing_catalog_proxy": true,
+    "scholarly_hypothesis_has_shelfmark_candidate": true,
+    "zhouxingyi_copy_owned_by_li_ciming_proven": false,
+    "li_ciming_read_exact_ncl02260_physical_copy_proven": false,
+    "seal_original_physical_glyph_directly_seen": false,
+    "manuscript_copy_impression_or_copying_date_proven": false,
+    "shen_1619_exact_manuscript_text_directly_collated": false,
+    "original_kaizao_louke_passage_present_in_ncl02260_proven": false,
+    "catalog_prefix_date_is_manuscript_copy_date": false,
+    "ncl02260_and_ncl02261_identical_physical_copy": false,
+    "catalog_preface_sexagenary_variants_resolved": false,
+    "new_direct_original_1827_votes": 0,
+    "new_direct_1869_revised_print_votes": 0,
+    "cadal_xuxiu_photo_lineage_resolved": false
+  },
+  "registry_reuse": {
+    "source_root": 647,
+    "source_extension": 14,
+    "source_union": 661,
+    "no_new_source": true,
+    "existing_source_ids": [
+      "EXT-WIKIMEDIA-NCL02260-YEHUOBIAN-OLD20V-OLD-MANUSCRIPT-1",
+      "EXT-TAIWAN-NCL02261-YEHUOBIAN-20-VOLUME-GREEN-GRID-MANUSCRIPT"
+    ]
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "2019 scholarly Zhou hypothesis plus 02260 catalog-reported seals does not prove Li Ciming directly handled exactly NCL02260",
+      "Different NCL 02260/02261 catalogue IDs and layouts disprove conflation solely from matching 20-juan title",
+      "02260 preface 丙午 and 02261 catalog 丙辰 are metadata differences; no proven leaf-level error or copying edge"
+    ],
+    "unresolved_lineage_questions": [
+      "Verify 02260 seal impressions on original source images and any explicit prior-ownership chain",
+      "Locate original 02260 〈改造漏刻〉 target if present, without importing later 30-juan chapter numbers",
+      "Obtain independent 1827 original and 1869 repaired physical target leaves with item and folio ID"
+    ]
+  },
+  "invariants": {
+    "product_r1": "CLOSED",
+    "algorithm_reopen_count": 0,
+    "graph_nodes": 248,
+    "graph_edges": 235,
+    "formal_batches": 487,
+    "matrix_rows": 222,
+    "audited_rows": 222,
+    "metadata_repaired": 45,
+    "external_sources": 661
+  }
+}

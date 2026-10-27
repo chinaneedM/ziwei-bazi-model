@@ -1,0 +1,206 @@
+{
+  "schema": "ZIWEI-NLC-ZUOZHUAN-FID412004000070-MICROFILM-OLD-CATALOG-CROSSWALK-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID412004000070-MICROFILM-OLD-CATALOG-CROSSWALK-HM",
+  "prior_batch_id": "BATCH-12-ZIWEI-NLC-ZUOZHUAN-412004000069-NPM-SPLIT-SONG-COPY-PHYSICAL-DISTINCTNESS-HL",
+  "question": "Can the NLC-linked digital object FID 412004000070 be durably crosswalked to the 1985 NLC microfilm old-catalog description of a 32-book Yuan copy repaired in Ming, and does that prove identity with Zhang Lijuan's Tieqin-old-collection Yuan-impression witness?",
+  "answer": "The digital/microfilm/old-catalog crosswalk is closed, but exact Tieqin physical identity remains strongly compatible rather than proved. Two independent 1985 NLC microfilm records for 《附释音春秋左传注疏》 directly embed 455$1 original-record control 001412004000070 and describe the original as a 32-book rare printed copy, Yuan [1271-1368], repaired in Ming [1368-1644]. The work/master-style record is SYS 003416361 / UID UCS01003624709 and carries microfilm registration/login number 905$b 00O003551; the distribution-copy record is SYS 003026493 / UID UCS01003601976. A Wikimedia Commons library-backup index with National Library of China attribution independently exposes FID 412004000070 as exactly 32 PDF books covering juan 1 through 60. This closes FID 412004000070 as the digitized original referenced by the 1985 NLC microfilm old-catalog layer. Zhang Lijuan's official NOPSS project report says the NLC Tieqin Tongjian Lou old-collection ten-line copy was formerly cataloged as '元刻明修本' and was re-adjudicated by physical examination as '元刻元印十行本'. The wording and object profile are therefore strongly compatible with the FID-070 object, but the reviewed evidence still lacks an explicit Tieqin ownership/provenance note, modern NLC shelfmark/905s, accession crosswalk, or unique seal/defect fingerprint tying FID 070 to Zhang's physical copy. Same-object identity is therefore not promoted beyond STRONGLY_COMPATIBLE_NOT_PROVED.",
+  "controlling_probes": {
+    "current_microfilm_link_probe": {
+      "workflow_run_id": 36306742308,
+      "artifact_id": 10927501723,
+      "artifact_zip_sha256": "7d4e53ec9359d6575e0c8bbe41b01c7a0f068949b4dbb208bdcadf8ca941954b",
+      "ocr_used": false
+    },
+    "fid070_crosscheck_probe": {
+      "workflow_run_id": 36307000456,
+      "artifact_id": 10927901472,
+      "artifact_zip_sha256": "336bc804383c2ed400ffd16616e6411f127b6b549ab55c25040ae1117c08daf6",
+      "ocr_used": false
+    }
+  },
+  "nlc_microfilm_old_catalog_crosswalk": {
+    "original_embedded_control_id": "412004000070",
+    "original_link_field": "455$1 embedded 001",
+    "work_record": {
+      "sys": "003416361",
+      "uid": "UCS01003624709",
+      "year": "1985",
+      "material_type": "缩微品",
+      "publisher": "全国图书馆文献缩微中心",
+      "extent": "3盘卷片(76米1520拍)",
+      "field_905a": "全国图书馆文献缩微中心",
+      "field_905b": "00O003551",
+      "field_905q": "swkf",
+      "field_455a": [
+        "附释音春秋左传注疏",
+        "刻本",
+        "32册"
+      ],
+      "field_455b": [
+        "善本",
+        "重修"
+      ],
+      "field_455d": [
+        "元[1271-1368]",
+        "明[1368-1644]重修",
+        "28cm"
+      ],
+      "field_4551": [
+        "001412004000070",
+        "2001^",
+        "205^^",
+        "210^^",
+        "215^^"
+      ],
+      "source_holding": "国家图书馆"
+    },
+    "distribution_copy_record": {
+      "sys": "003026493",
+      "uid": "UCS01003601976",
+      "year": "1985",
+      "material_type": "缩微品",
+      "edition_statement": "发行拷贝片",
+      "extent": "3盘卷片",
+      "field_455a": [
+        "附释音春秋左传注疏",
+        "刻本",
+        "32册"
+      ],
+      "field_455b": [
+        "善本",
+        "重修"
+      ],
+      "field_455d": [
+        "元[1271-1368]",
+        "明[1368-1644]重修",
+        "28cm"
+      ],
+      "field_4551": [
+        "001412004000070",
+        "2001",
+        "205",
+        "210",
+        "215"
+      ],
+      "source_holding": "国家图书馆"
+    },
+    "both_records_bind_same_original_control": true,
+    "old_catalog_profile_closed": true
+  },
+  "fid070_public_backup_control": {
+    "source_provider": "Wikimedia Commons Library backup project with National Library of China credit",
+    "index_url": "https://commons.wikimedia.org/wiki/Commons:Library_back_up_project/file_list/NLC/%E6%95%B8%E5%AD%97%E5%8F%A4%E7%B1%8D/15",
+    "fid": "412004000070",
+    "title": "附釋音春秋左傳註疏",
+    "author_display": "〔晉〕杜預注",
+    "file_count": 32,
+    "first_file": "NLC892-412004000070-117576 附釋音春秋左傳註疏 第1冊.pdf",
+    "first_file_contents": [
+      "卷首",
+      "卷第一",
+      "卷第二"
+    ],
+    "last_file": "NLC892-412004000070-118003 附釋音春秋左傳註疏 第32冊.pdf",
+    "last_file_contents": [
+      "卷第五十九",
+      "卷第六十"
+    ],
+    "covers_juan_1_through_60": true,
+    "nlc_credit_exposed_by_commons_imageinfo": true,
+    "direct_nlc_read_route_current_probe_status": "TIMEOUT_IN_GITHUB_RUNNER",
+    "current_meta_any_search_for_fid": "NO_MATCHING_RESULT",
+    "negative_inference_from_meta_search_authorized": false
+  },
+  "zhang_tieqin_yuan_control": {
+    "source_id": "EXT-NOPSS-ZHANG-LIJUAN-NLC-TIEQIN-YUAN-ZUOZHUAN",
+    "holder": "中国国家图书馆",
+    "tieqin_tongjian_lou_old_collection": true,
+    "prior_catalog_classification": "元刻明修本",
+    "revised_physical_adjudication": "元刻元印十行本",
+    "no_ming_repair_traces_reported": true,
+    "exact_modern_nlc_sys": "UNRESOLVED",
+    "exact_modern_nlc_uid": "UNRESOLVED",
+    "exact_modern_nlc_905s_or_shelfmark": "UNRESOLVED",
+    "exact_digital_fid": "UNRESOLVED"
+  },
+  "identity_adjudication": {
+    "fid070_equals_1985_microfilm_original_control": "CLOSED",
+    "fid070_book_count_matches_1985_original_description": true,
+    "fid070_full_juan_extent_matches_title_60_juan": true,
+    "fid070_equals_zhang_tieqin_yuan_copy": "STRONGLY_COMPATIBLE_NOT_PROVED",
+    "compatibility_dimensions": [
+      "same NLC holding institution",
+      "same work/title family and sixty-juan extent",
+      "1985 original is a 32-book rare copy",
+      "1985 old-catalog date/repair profile is Yuan + Ming repair",
+      "Zhang explicitly says the Tieqin copy was formerly cataloged 元刻明修本",
+      "Zhang later physically re-adjudicated that copy as 元刻元印十行本"
+    ],
+    "missing_object_level_bridges": [
+      "explicit Tieqin provenance/ownership note on FID 412004000070",
+      "modern NLC SYS/UID/905s or shelfmark crosswalk for Zhang's copy",
+      "accession/donor record binding the object",
+      "direct ownership seal or unique defect/page fingerprint"
+    ],
+    "same_object_edge_authorized": false,
+    "exact_tieqin_identity_promoted": false
+  },
+  "relation_to_hj": {
+    "hj_named_member": "宋刻《春秋左传注疏》",
+    "fid069_song_split_copy_remains_distinct_from_fid070": true,
+    "hj_named_song_member_equals_fid070": "UNRESOLVED",
+    "reason": "FID 070 belongs to the Yuan/Ming-repair old-catalog profile and is not licensed as Zhao Wanli's 1951 Song-printed donated member without a contemporaneous acquisition bridge."
+  },
+  "target_volume_firewall": {
+    "target_titles": [
+      "铜壶漏箭制度",
+      "准斋心制几漏图式"
+    ],
+    "historical_catalog_numbers": [
+      3482,
+      3483
+    ],
+    "current_catalog_number_candidates": [
+      "03482",
+      "03483"
+    ],
+    "target_named_in_hm_sources": false,
+    "target_transaction_route_changed": false,
+    "target_specific_purchase_route_selected": false,
+    "target_specific_donation_route_selected": false,
+    "target_specific_ding_intermediary_selected": false
+  },
+  "transmission_impact": {
+    "scope": "OBJECT_LEVEL_PROVENANCE_COMPARATOR_OUTSIDE_CURRENT_ZIWEI_TEXTUAL_TRANSMISSION_GRAPH",
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "fid070_microfilm_original_crosswalk_closed": true,
+    "tieqin_same_object_edge_authorized": false,
+    "acquisition_edge_authorized": false
+  },
+  "chronology_and_rule_firewall": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_count_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 14,
+    "repaired_provenance_metadata_defect_count": 14,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Recover an explicit Tieqin provenance/ownership seal or catalog note from FID 412004000070 or a direct NLC shelfmark crosswalk before promoting FID 070 to Zhang Lijuan's exact physical copy.",
+    "Resolve the modern NLC SYS/UID/905s or shelfmark for Zhang's Tieqin Yuan-impression witness; current meta ANY search by FID 412004000070 returning no match is only an index boundary.",
+    "Directly review Zhang Lijuan's 2018/2023 full article pages if lawfully accessible for object identifiers and physical-copy fingerprints.",
+    "Keep Zhao Wanli's 1951 Song-printed donated member and target 3482/3483 acquisition path unresolved."
+  ],
+  "updated_at": "2026-09-27"
+}

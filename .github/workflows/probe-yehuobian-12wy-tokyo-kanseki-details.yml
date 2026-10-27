@@ -1,0 +1,41 @@
+name: probe-yehuobian-12wy-tokyo-kanseki-details
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-yehuobian-12wy-tokyo-kanseki-details.yml
+      - scripts/probe-yehuobian-12wy-tokyo-kanseki-seven-catalog-details.py
+      - tests/test_yehuobian_12wy_tokyo_kanseki_catalog_details.py
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify seven provider source-linked actual records only
+        run: python -m unittest discover -s tests -p 'test_yehuobian_12wy_tokyo_kanseki_catalog_details.py' -v
+  capture:
+    needs: verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Retrieve seven exact issued catalog detail items, not printed originals
+        run: python scripts/probe-yehuobian-12wy-tokyo-kanseki-seven-catalog-details.py --output-dir 12wy-tokyo-seven-detail-output
+      - name: Preserve provider detail HTML and bounded receipt
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tokyo-kanseki-12wy-seven-source-catalog-details
+          path: 12wy-tokyo-seven-detail-output/
+          retention-days: 30
+          if-no-files-found: warn

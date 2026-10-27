@@ -1,0 +1,109 @@
+{
+  "schema": "ZIWEI-SIZIJING-INDEPENDENT-MING-PRINT-TRANSMISSION-R1",
+  "batch_id": "BATCH-12-ZIWEI-SIZIJING-INDEPENDENT-MING-PRINT-TRANSMISSION-BR",
+  "question": "Does 四字經 survive as an independently printed Ming transmission outside Yongle Dadian, and is the long inclement-birth-time passage part of the same text family?",
+  "prior_bridge": "docs/research/ZIWEI-YONGLE-DADIAN-18764-INCLEMENT-BIRTH-TIME-EARLY-TEXTUAL-BRIDGE-R1.json",
+  "taiwan_ncl_single_title": {
+    "source_ids": [
+      "EXT-TW-NCL-SIZIJING-15275-0058-MING-WANLI",
+      "EXT-COMMONS-NCL-15275-0058-SIZIJING-SCAN"
+    ],
+    "title": "四字經",
+    "responsibility_statement": "(唐)德行禪師撰",
+    "responsibility_statement_authenticated_as_tang_date": false,
+    "edition_cataloged": "明萬曆間(1573-1620)金陵荊山書林刊本",
+    "extent": "一卷",
+    "book_number": "15275-0058",
+    "public_scan_pages": 21,
+    "physical_holding": "TAIWAN_NATIONAL_CENTRAL_LIBRARY",
+    "urls": [
+      "https://catalog.digitalarchives.tw/item/00/08/6f/c0.html",
+      "https://commons.wikimedia.org/wiki/File:NCL-15275-0058_%E5%9B%9B%E5%AD%97%E7%B6%93.pdf"
+    ]
+  },
+  "nlc_yimen_guangdu": {
+    "source_ids": [
+      "EXT-NLC-YIMEN-GUANGDU-1597-SIZIJING",
+      "EXT-WIKISOURCE-YIMEN-GUANGDU-26-1597"
+    ],
+    "container": "夷門廣牘",
+    "print_date": 1597,
+    "publisher": "荊山書林",
+    "internal_contents_include": [
+      "相法十六篇",
+      "四字經",
+      "土牛經",
+      "天文占驗"
+    ],
+    "wikisource_scan_file": "明刻本夷門廣牘26.djvu",
+    "wikisource_scan_pages": 108,
+    "physical_holding_source": "NATIONAL_LIBRARY_OF_CHINA",
+    "urls": [
+      "https://commons.wikimedia.org/wiki/File:NLC892-411999013864-69586_%E5%A4%B7%E9%96%80%E5%BB%A3%E7%89%98%E4%B8%80%E7%99%BE%E2%97%8B%E5%85%AD%E7%A8%AE_%E7%AC%AC10%E5%86%8A.pdf",
+      "https://zh.wikisource.org/wiki/Index:%E6%98%8E%E5%88%BB%E6%9C%AC%E5%A4%B7%E9%96%80%E5%BB%A3%E7%89%9826.djvu"
+    ]
+  },
+  "ctext_yimen_ocr": {
+    "source_id": "EXT-CTEXT-YIMEN-GUANGDU-SIZIJING-OCR",
+    "base_declared": "《夷門廣牘》本《相法十六篇 四字經 土牛經 天文占驗》",
+    "ocr_declared_automatic": true,
+    "unit_heading_ocr": "唐明皇論",
+    "structural_anchor_sequence": [
+      "人生天地間/造化皆由命數",
+      "八字超群/五行衰絕",
+      "草木四季榮枯",
+      "日月晝夜盈虧",
+      "雪風雲雨/禽獸舟航",
+      "同時共數/富貴壽夭",
+      "亥子丑寅四時難分",
+      "古人云/天陰雨落難定/便是神仙也有差",
+      "旦夕時刻/月運長短"
+    ],
+    "text_family_classification": "SAME_SIZIJING_TRANSMISSION_FAMILY_AT_LONG_SEQUENCE_STRUCTURAL_LEVEL",
+    "exact_glyph_authority": false,
+    "url": "https://ctext.org/wiki.pl?chapter=871842&if=en"
+  },
+  "yongle_vs_yimen_variant_firewall": {
+    "yongle_unit_heading": "四字經序",
+    "yimen_ocr_unit_heading": "唐明皇論",
+    "apparent_variants_unadjudicated": [
+      [
+        "古經云",
+        "古人云"
+      ],
+      [
+        "天陰雨露時難定",
+        "天陰雨落難定"
+      ],
+      [
+        "子丑寅亥",
+        "亥子丑寅"
+      ]
+    ],
+    "policy": "DO_NOT_TREAT_AUTOMATIC_OCR_AS_PHYSICAL_GLYPH_AUTHORITY; PRESERVE HEADING AND GLYPH VARIANTS UNTIL DIRECT COLLATION"
+  },
+  "edition_identity": {
+    "taiwan_single_title_vs_nlc_yimen_same_impression_proved": false,
+    "taiwan_single_title_disbound_from_yimen_proved": false,
+    "independent_physical_holding_routes": 2,
+    "independent_edition_vote_increment": 0
+  },
+  "downstream_received_control": {
+    "source_id": "EXT-NDL-SIZIJING-YIMEN-FACSIMILE-NOTE",
+    "note": "四字經據夷門廣牘本影印",
+    "independent_early_witness_increment": 0,
+    "url": "https://ndlsearch.ndl.go.jp/books/R100000136-I1970023484950143408"
+  },
+  "effect": {
+    "hpa_zdate_006_status": "MISSING_FROM_PRODUCT",
+    "independent_ming_print_sizijing_transmission_confirmed": true,
+    "securely_dated_yimen_print_year": 1597,
+    "direct_ming_print_target_glyph_witness_increment": 0,
+    "hai_glyph_witness_increment": 0,
+    "fullbook_inclement_current_time_acquisition_mechanism_closed": false,
+    "runtime_winner_selected": false,
+    "candidate_collapsed": false,
+    "algorithm_reopen_authorized": false,
+    "matrix_counts_changed": false
+  }
+}

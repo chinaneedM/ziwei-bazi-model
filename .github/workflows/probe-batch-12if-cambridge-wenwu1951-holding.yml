@@ -1,0 +1,95 @@
+name: probe-batch-12if-cambridge-wenwu1951-holding
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - '.github/workflows/probe-batch-12if-cambridge-wenwu1951-holding.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  statuses: write
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - name: Capture Cambridge first-party periodical holding
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/batch-12if-cambridge-wenwu1951'
+          rm -rf "$ROOT"; mkdir -p "$ROOT"
+          python - <<'PY'
+          from pathlib import Path
+          from urllib.request import Request,urlopen
+          import re,html,json
+
+          root=Path('audit/batch-12if-cambridge-wenwu1951')
+          url='https://www.lib.cam.ac.uk/collections/departments/chinese-collections/chinese-collections-physical-format/chinese-periodicals'
+          req=Request(url,headers={'User-Agent':'Mozilla/5.0 Tianwen-Provenance-Audit/1.0','Accept':'text/html,*/*'})
+          with urlopen(req,timeout=40) as r:
+              b=r.read(); final=r.geturl(); ct=r.headers.get('content-type','')
+          (root/'cambridge.html').write_bytes(b)
+          t=b.decode('utf-8','replace')
+          plain=re.sub(r'<script\b[^>]*>.*?</script>',' ',t,flags=re.S|re.I)
+          plain=re.sub(r'<style\b[^>]*>.*?</style>',' ',plain,flags=re.S|re.I)
+          plain=html.unescape(re.sub(r'<[^>]+>',' ',plain))
+          plain=re.sub(r'\s+',' ',plain)
+
+          marker='文物参考资料'
+          positions=[m.start() for m in re.finditer(marker,plain)]
+          snippets=[plain[max(0,p-120):p+700] for p in positions]
+          joined='\n'.join(snippets)
+          summary={
+              'provider':'Cambridge University Library',
+              'url':url,'final_url':final,'content_type':ct,'bytes':len(b),
+              'marker_count':len(positions),
+              'snippets':snippets,
+              'target_title_seen':marker in joined,
+              'cambridge_ul_call_number_seen':'FB.252:14' in joined,
+              'held_range_volume2_i_xii_seen':('卷2i-xii' in joined or '卷2i–xii' in joined or '卷2 i-xii' in joined),
+              'year_range_1950_58_seen':'1950-58' in joined,
+              'nri_secondary_holding_seen':'NRI' in joined,
+              'target_year':1951,'target_volume':2,'target_issue':9,
+              'target_issue_contained_in_explicit_volume2_i_xii':True,
+              'direct_target_pages_reviewed':False,
+              'digital_surrogate_recovered':False,
+              'copy_request_sent':False
+          }
+          assert summary['target_title_seen']
+          assert summary['cambridge_ul_call_number_seen']
+          assert summary['held_range_volume2_i_xii_seen']
+          (root/'summary.json').write_text(json.dumps(summary,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print(json.dumps(summary,ensure_ascii=False,indent=2))
+          PY
+          sha256sum "$ROOT/cambridge.html" "$ROOT/summary.json" > "$ROOT/files.sha256"
+          printf '%s\n' \
+            'ROLE=FIRST_PARTY_INDEPENDENT_PHYSICAL_HOLDING_ROUTE' \
+            'TARGET=文物参考资料 1951 卷2第9期 pp221-233' \
+            'DIRECT_TARGET_PAGE_REVIEW=false' \
+            > "$ROOT/manifest.txt"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12if-cambridge-wenwu1951-holding
+          path: audit/batch-12if-cambridge-wenwu1951/
+          if-no-files-found: error
+          retention-days: 30
+      - name: Publish status
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs=require('fs'); let ok=false
+            try {
+              const s=JSON.parse(fs.readFileSync('audit/batch-12if-cambridge-wenwu1951/summary.json','utf8'))
+              ok=s.target_title_seen && s.cambridge_ul_call_number_seen && s.held_range_volume2_i_xii_seen
+            } catch(e) {}
+            await github.rest.repos.createCommitStatus({
+              owner:context.repo.owner,repo:context.repo.repo,sha:context.sha,
+              state:ok?'success':'failure',context:'tianwen/batch-12if-probe',
+              description:ok?'Cambridge 1951 issue holding route closed':'Cambridge holding probe failed'
+            })

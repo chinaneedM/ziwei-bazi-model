@@ -1,0 +1,305 @@
+name: audit-ncl-ming-datong-annual-pre1578
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/audit-ncl-ming-datong-annual-pre1578.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install physical-collation tools
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq \
+            poppler-utils \
+            tesseract-ocr \
+            tesseract-ocr-chi-tra \
+            tesseract-ocr-chi-tra-vert
+          python -m pip install --quiet pillow
+
+      - name: Acquire four securely pre-1578 Ming annual calendars
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/ncl-ming-datong-annual-pre1578'
+          mkdir -p "$ROOT"
+
+          fetch_source() {
+            local sid="$1" title="$2" year="$3" expected_pages="$4" filename="$5"
+            local dir="$ROOT/$sid"
+            mkdir -p "$dir/locator" "$dir/ocr-vert" "$dir/ocr-horz" "$dir/physical" "$dir/contact"
+            local encoded
+            encoded="$(python - "$filename" <<'PY'
+          import sys, urllib.parse
+          print(urllib.parse.quote(sys.argv[1], safe=''))
+          PY
+          )"
+            local url="https://commons.wikimedia.org/wiki/Special:Redirect/file/$encoded"
+            local pdf="$dir/$sid.pdf"
+            curl -fL --retry 5 --retry-delay 3 -A 'Mozilla/5.0 Tianwen-Provenance-Audit/1.0' "$url" -o "$pdf"
+            file "$pdf"
+            sha256sum "$pdf" | tee "$dir/sha256.txt"
+            pdfinfo "$pdf" | tee "$dir/pdfinfo.txt"
+            python - "$sid" "$title" "$year" "$expected_pages" "$filename" "$url" "$pdf" "$dir" <<'PY'
+          from pathlib import Path
+          import hashlib, json, re, sys
+
+          sid, title, year, expected_pages, filename, url, pdf_s, dir_s = sys.argv[1:]
+          pdf = Path(pdf_s)
+          d = Path(dir_s)
+          info = (d / 'pdfinfo.txt').read_text(encoding='utf-8', errors='replace')
+          m = re.search(r'^Pages:\s*(\d+)\s*$', info, flags=re.M)
+          if not m:
+              raise SystemExit(f'{sid}: pdfinfo did not expose page count')
+          pages = int(m.group(1))
+          if pages != int(expected_pages):
+              raise SystemExit(f'{sid}: page-count identity check failed: got {pages}, expected {expected_pages}')
+          manifest = {
+              'schema_version': '1.0.0',
+              'source_id': sid,
+              'title': title,
+              'calendar_year_ce': int(year),
+              'pre_1578_by_dated_title': int(year) < 1578,
+              'repository': 'National Central Library (scan distributed through Wikimedia Commons)',
+              'edition_metadata': '明欽天監刊本',
+              'commons_filename': filename,
+              'acquisition_url': url,
+              'pdf_sha256': hashlib.sha256(pdf.read_bytes()).hexdigest(),
+              'pdf_bytes': pdf.stat().st_size,
+              'pdf_page_count': pages,
+              'expected_page_count': int(expected_pages),
+              'physical_identity_check': 'PASS',
+              'ocr_used_for_final_glyph_claims': False,
+          }
+          (d / 'manifest.json').write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+          print(json.dumps(manifest, ensure_ascii=False))
+          PY
+          }
+
+          fetch_source 'NCL-06283' '大明永樂十五年大統曆' '1417' '18' 'NCL-06283 大明永樂十五年大統曆.pdf'
+          fetch_source 'NCL-06284' '大明景泰三年歲次壬申大統曆' '1452' '49' 'NCL-06284 大明景泰三年歲次壬申大統曆.pdf'
+          fetch_source 'NCL-06289' '大明正德元年大統曆' '1506' '29' 'NCL-06289 大明正德元年大統曆.pdf'
+          fetch_source 'NCL-06302' '大明嘉靖二十二年歲次癸卯大統曆' '1543' '24' 'NCL-06302 大明嘉靖二十二年歲次癸卯大統曆.pdf'
+
+      - name: OCR all pages for localization only
+        shell: bash
+        env:
+          OMP_THREAD_LIMIT: '1'
+        run: |
+          set -euo pipefail
+          ROOT='audit/ncl-ming-datong-annual-pre1578'
+          for dir in "$ROOT"/NCL-*; do
+            sid="$(basename "$dir")"
+            pdf="$dir/$sid.pdf"
+            pdftoppm -jpeg -gray -r 110 -jpegopt quality=70 "$pdf" "$dir/locator/page" >/dev/null
+            find "$dir/locator" -name 'page-*.jpg' -print0 \
+              | xargs -0 -n1 -P6 bash -c '
+                  img="$0"
+                  dir="$(dirname "$(dirname "$img")")"
+                  base="$(basename "${img%.jpg}")"
+                  timeout 20s tesseract "$img" "$dir/ocr-vert/$base" -l chi_tra_vert --psm 5 2>/dev/null || true
+                  timeout 20s tesseract "$img" "$dir/ocr-horz/$base" -l chi_tra --psm 6 2>/dev/null || true
+                '
+          done
+
+      - name: Render every physical page and build contact sheets
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/ncl-ming-datong-annual-pre1578'
+          for dir in "$ROOT"/NCL-*; do
+            sid="$(basename "$dir")"
+            pdf="$dir/$sid.pdf"
+            pdftoppm -png -r 200 "$pdf" "$dir/physical/page" >/dev/null
+          done
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image, ImageDraw
+          import re
+
+          root = Path('audit/ncl-ming-datong-annual-pre1578')
+          for d in sorted(root.glob('NCL-*')):
+              images = sorted((d / 'physical').glob('page-*.png'), key=lambda p: int(re.search(r'(\d+)$', p.stem).group(1)))
+              cols, rows = 4, 4
+              cell_w, cell_h = 620, 520
+              for start in range(0, len(images), cols * rows):
+                  chunk = images[start:start + cols * rows]
+                  sheet = Image.new('RGB', (cols * cell_w, rows * cell_h), 'white')
+                  draw = ImageDraw.Draw(sheet)
+                  for idx, p in enumerate(chunk):
+                      im = Image.open(p).convert('RGB')
+                      im.thumbnail((cell_w - 20, cell_h - 44))
+                      x0 = (idx % cols) * cell_w
+                      y0 = (idx // cols) * cell_h
+                      x = x0 + (cell_w - im.width) // 2
+                      y = y0 + 32
+                      sheet.paste(im, (x, y))
+                      page = int(re.search(r'(\d+)$', p.stem).group(1))
+                      draw.text((x0 + 10, y0 + 8), f'{d.name} PDF p.{page}', fill='black')
+                  out = d / 'contact' / f'physical-{start + 1:04d}-{start + len(chunk):04d}.jpg'
+                  sheet.save(out, quality=90)
+          PY
+
+      - name: Build reproducible cross-source locator report
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image
+          import hashlib, json, re
+
+          root = Path('audit/ncl-ming-datong-annual-pre1578')
+          anchors = [
+              '春分', '夏至', '秋分', '冬至', '芒種', '小暑', '大暑', '立秋',
+              '日出', '日入', '晝', '夜', '晨', '昏', '刻',
+              '五十九', '四十一', '五十八', '四十二', '五十七', '四十三', '五十六', '四十四',
+          ]
+          weight = {
+              '春分': 15, '夏至': 20, '秋分': 15, '冬至': 20, '芒種': 12, '小暑': 12, '大暑': 12, '立秋': 12,
+              '日出': 8, '日入': 8, '晝': 4, '夜': 4, '晨': 3, '昏': 3, '刻': 2,
+              '五十九': 12, '四十一': 12, '五十八': 10, '四十二': 10, '五十七': 10, '四十三': 10, '五十六': 10, '四十四': 10,
+          }
+          sources = []
+          for d in sorted(root.glob('NCL-*')):
+              manifest = json.loads((d / 'manifest.json').read_text(encoding='utf-8'))
+              pages = []
+              for mode in ('ocr-vert', 'ocr-horz'):
+                  for txt in (d / mode).glob('page-*.txt'):
+                      m = re.search(r'(\d+)$', txt.stem)
+                      if not m:
+                          continue
+                      page = int(m.group(1))
+                      raw = txt.read_text(encoding='utf-8', errors='replace')
+                      compact = re.sub(r'\s+', '', raw)
+                      hits = [a for a in anchors if a in compact]
+                      if not hits:
+                          continue
+                      snippets = []
+                      for a in hits:
+                          pos = compact.find(a)
+                          snippets.append(compact[max(0, pos - 32):pos + len(a) + 64])
+                      pages.append({
+                          'page_1_based': page,
+                          'ocr_mode': mode,
+                          'score': sum(weight[a] for a in hits),
+                          'hits': hits,
+                          'ocr_snippets_locator_only': snippets[:12],
+                      })
+              pages.sort(key=lambda x: (-x['score'], x['page_1_based'], x['ocr_mode']))
+
+              physical = []
+              for p in sorted((d / 'physical').glob('page-*.png'), key=lambda p: int(re.search(r'(\d+)$', p.stem).group(1))):
+                  page = int(re.search(r'(\d+)$', p.stem).group(1))
+                  im = Image.open(p)
+                  physical.append({
+                      'page_1_based': page,
+                      'file': f'{d.name}/physical/{p.name}',
+                      'sha256': hashlib.sha256(p.read_bytes()).hexdigest(),
+                      'width': im.width,
+                      'height': im.height,
+                      'render_dpi': 200,
+                  })
+
+              strong = []
+              by_page = {}
+              for row in pages:
+                  agg = by_page.setdefault(row['page_1_based'], {'hits': set(), 'score': 0, 'modes': set()})
+                  agg['hits'].update(row['hits'])
+                  agg['score'] = max(agg['score'], row['score'])
+                  agg['modes'].add(row['ocr_mode'])
+              for page, agg in sorted(by_page.items()):
+                  seasonal = {'春分','夏至','秋分','冬至','芒種','小暑','大暑','立秋'} & agg['hits']
+                  time_terms = {'日出','日入','晝','夜','晨','昏','刻'} & agg['hits']
+                  values = {'五十九','四十一','五十八','四十二','五十七','四十三','五十六','四十四'} & agg['hits']
+                  if (seasonal and (time_terms or values)) or (values and time_terms):
+                      strong.append({
+                          'page_1_based': page,
+                          'hits': sorted(agg['hits']),
+                          'ocr_modes': sorted(agg['modes']),
+                          'score': agg['score'],
+                      })
+
+              sources.append({
+                  **manifest,
+                  'locator_method': 'all-page 110dpi grayscale OCR in chi_tra_vert/psm5 plus chi_tra/psm6; locator only',
+                  'ocr_used_for_final_glyph_claims': False,
+                  'all_pages_rendered_for_physical_adjudication': True,
+                  'physical_render_dpi': 200,
+                  'physical_page_count': len(physical),
+                  'ocr_hit_records': len(pages),
+                  'strong_locator_pages': strong,
+                  'top_ocr_candidates': pages[:120],
+                  'physical_pages': physical,
+              })
+
+          report = {
+              'schema_version': '1.0.0',
+              'research_gate': 'Batch 12CQ next gate: securely pre-1578 大統曆 annual-calendar physical witnesses versus the 1578 三命通會 day/night fingerprint',
+              'source_class': 'securely dated Ming annual-calendar physical witnesses',
+              'source_role': 'official annual calendar / ephemeris witness; not assumed to be the direct parent of the 1578 table',
+              'anchors': anchors,
+              'adjudication_rule': 'OCR is location signal only. Exact glyphs, table values, layout, and transmission claims require direct inspection of the 200dpi rendered physical pages identified by source, page number, and SHA-256.',
+              'ocr_used_for_final_glyph_claims': False,
+              'sources': sources,
+          }
+          out = Path('docs/research/NCL-MING-DATONG-ANNUAL-PRE1578-PAGE-LOCATOR-R1.json')
+          out.parent.mkdir(parents=True, exist_ok=True)
+          out.write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+          print(json.dumps({
+              s['source_id']: {
+                  'year': s['calendar_year_ce'],
+                  'sha256': s['pdf_sha256'],
+                  'pages': s['pdf_page_count'],
+                  'ocr_hit_records': s['ocr_hit_records'],
+                  'strong_locator_pages': s['strong_locator_pages'],
+              } for s in sources
+          }, ensure_ascii=False, indent=2))
+          PY
+
+      - name: Persist reproducible locator report
+        shell: bash
+        run: |
+          set -euo pipefail
+          REPORT='docs/research/NCL-MING-DATONG-ANNUAL-PRE1578-PAGE-LOCATOR-R1.json'
+          git add "$REPORT"
+          if git diff --cached --quiet; then
+            echo 'locator report unchanged'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'record pre-1578 Ming Datong annual locator'
+          git pull --rebase origin "$GITHUB_REF_NAME"
+          git push origin "HEAD:$GITHUB_REF_NAME"
+
+      - name: Trim OCR intermediates
+        if: always()
+        shell: bash
+        run: |
+          rm -rf audit/ncl-ming-datong-annual-pre1578/NCL-*/locator \
+                 audit/ncl-ming-datong-annual-pre1578/NCL-*/ocr-vert \
+                 audit/ncl-ming-datong-annual-pre1578/NCL-*/ocr-horz
+
+      - name: Upload physical-collation artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ncl-ming-datong-annual-pre1578-physical
+          path: audit/ncl-ming-datong-annual-pre1578
+          if-no-files-found: error
+          retention-days: 30

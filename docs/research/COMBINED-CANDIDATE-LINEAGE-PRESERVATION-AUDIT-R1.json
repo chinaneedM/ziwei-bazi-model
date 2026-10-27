@@ -1,0 +1,75 @@
+{
+  "schema": "COMBINED-CANDIDATE-LINEAGE-PRESERVATION-AUDIT-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-COMBINED-CANDIDATE-LINEAGE-PRESERVATION-AUDIT-NL",
+  "prior_batch_id": "BATCH-12-COMBINED-INDEPENDENT-DATE-CALENDAR-POLICY-PRESERVATION-AUDIT-NK",
+  "rule_id": "HPA-COMB-003",
+  "audit_status": "MODERN_COMPATIBILITY_ONLY",
+  "algorithm_reopen_authorized": false,
+  "lineage_contract": {
+    "source_time_branch_index_is_primary_join_coordinate": true,
+    "shared_time_realization_hash_bound": true,
+    "ziwei_natal_fact_hash_bound": true,
+    "bazi_candidate_ids_bound": true,
+    "lineage_hash_bound_to_shared_time_computation_hash": true,
+    "winner_selection": false,
+    "ranking": false,
+    "scoring": false
+  },
+  "multi_candidate_adjudication": {
+    "dst_fold_two_ziwei_fact_hashes_preserved": true,
+    "mixed_uncertainty_five_shared_time_branches_preserved": true,
+    "branch_to_fact_hash_mapping_replayed_exactly": true,
+    "forged_well_formed_fact_hash_rejected_by_full_replay": true,
+    "ui_candidate_selection_is_presentation_only": true
+  },
+  "identity_dedup_scope": {
+    "bazi_candidate_ids_are_sorted_set_per_branch": true,
+    "semantic_candidate_collapse_authorized": false,
+    "interpretation": "Identity-level duplicate candidate IDs are normalized within one branch; distinct candidate IDs or distinct branch mappings are preserved."
+  },
+  "provenance_repairs": [
+    {
+      "defect_id": "PROV-DEFECT-031",
+      "defect": "HPA_COMB_003_SOURCE_LOCATION_CROSSED_WITH_PROFILE_RULE_ALGORITHM_LINEAGE_DOCUMENT",
+      "repair": "Replace the profile-lineage document as the primary location with the actual candidate-lineage implementation/contract and multi-candidate replay tests.",
+      "chart_algorithm_effect": false,
+      "candidate_effect": false,
+      "hash_algorithm_effect": false
+    }
+  ],
+  "unchanged_mechanics": [
+    "shared time realizations",
+    "source_time_branch_index",
+    "Ziwei natal fact hashes",
+    "Bazi candidate IDs",
+    "candidate lineage statuses",
+    "lineage hash",
+    "combined manifest hash",
+    "full replay validation"
+  ],
+  "evidence": "docs/research/evidence/batch-12nl/combined-candidate-lineage-preservation.json",
+  "accounting": {
+    "rows_before": 220,
+    "rows_after": 220,
+    "audited_rows_before": 215,
+    "audited_rows_after": 216,
+    "current_missing_from_product_rows": 10,
+    "provenance_defects_confirmed_before": 30,
+    "provenance_defects_confirmed_after": 31,
+    "provenance_defects_repaired_before": 30,
+    "provenance_defects_repaired_after": 31,
+    "chart_algorithm_defects": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0,
+    "new_provenance_defects": 1
+  },
+  "transmission_impact": {
+    "status": "NONE",
+    "reason": "Candidate lineage is modern deterministic software provenance; it creates no historical text/school/person transmission edge."
+  },
+  "next_gate": [
+    "12NM: audit HPA-COMB-005 Shared target to Ziwei projection.",
+    "Keep target-time projection mechanics separate from historical Ziwei doctrinal authority."
+  ]
+}

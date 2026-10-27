@@ -1,0 +1,216 @@
+name: probe-batch-12ia-nlc-bookno3368-current-disposition
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - '.github/workflows/probe-batch-12ia-nlc-bookno3368-current-disposition.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  statuses: write
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Publish pending IA probe status
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.repos.createCommitStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              sha: context.sha,
+              state: 'pending',
+              context: 'tianwen/batch-12ia-probe',
+              description: 'NLC current 3368/03368 disposition probe running'
+            })
+
+      - uses: actions/checkout@v4
+
+      - name: Probe current NLC for historical 3368 / zero-padded 03368
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/batch-12ia-nlc-bookno3368-current-disposition'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT/raw" "$ROOT/detail"
+          UA='Tianwen-Provenance-Audit/1.0'
+
+          cat > "$ROOT/queries.tsv" <<'EOF'
+          any-3368	3368	ANY	false
+          any-03368	03368	ANY	false
+          any-sbyl03368	SBYL:03368	ANY	false
+          any-nlcsbyl03368	NLC:SBYL:03368	ANY	false
+          any-title-3368	附釋音春秋左傳註疏 3368	ANY	false
+          any-title-03368	附釋音春秋左傳註疏 03368	ANY	false
+          EOF
+
+          : > "$ROOT/status.tsv"
+          while IFS=$'\t' read -r key q way exact; do
+            body=$(Q="$q" WAY="$way" EXACT="$exact" python - <<'PY'
+          import json,os
+          q=os.environ['Q']; way=os.environ['WAY']; exact=os.environ['EXACT'].lower()=='true'
+          print(json.dumps({
+            "q":q,
+            "searchWay":way,
+            "page_num":"1",
+            "query":q if way=="ANY" else way+"="+q,
+            "sort":[{"_score":"DESC"}],
+            "size":200,
+            "facetVal":[],
+            "exactMatch":exact
+          },ensure_ascii=False,separators=(',',':')))
+          PY
+            )
+            ok=0
+            for attempt in 1 2 3; do
+              out="$ROOT/raw/$key-attempt-$attempt.json"
+              set +e
+              code=$(curl -L -sS --connect-timeout 7 --max-time 40 --retry 1 --retry-delay 2 --retry-all-errors                 -A "$UA"                 -H 'Accept: application/json, text/javascript, */*; q=0.01'                 -H 'X-Requested-With: XMLHttpRequest'                 -H 'Referer: https://meta.nlc.cn/v2/search'                 -H 'Content-Type: application/x-www-form-urlencoded; charset=UTF-8'                 --data-binary "$body" -o "$out" -w '%{http_code}'                 'https://meta.nlc.cn/v2/doSearch?hight=false')
+              rc=$?
+              set -e
+              bytes=0; [ -f "$out" ] && bytes=$(wc -c < "$out")
+              printf '%s\tattempt=%s\trc=%s\thttp=%s\tbytes=%s\tq=%s\n' "$key" "$attempt" "$rc" "$code" "$bytes" "$q" >> "$ROOT/status.tsv"
+              if [ "$rc" -eq 0 ] && [ "$code" = "200" ] && [ "$bytes" -gt 20 ]; then
+                cp "$out" "$ROOT/raw/$key.json"
+                ok=1
+                break
+              fi
+              sleep 1
+            done
+            [ "$ok" -eq 1 ] || printf '%s\tFINAL=NO_SUCCESSFUL_HTTP_200\n' "$key" >> "$ROOT/status.tsv"
+          done < "$ROOT/queries.tsv"
+
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          root=Path('audit/batch-12ia-nlc-bookno3368-current-disposition')
+          out=[]; cand={}
+          title_terms=('附釋音春秋左傳註疏','附释音春秋左传注疏','春秋左傳註疏','春秋左传注疏')
+          num_terms=('3368','03368','SBYL')
+          for p in sorted((root/'raw').glob('*.json')):
+              if '-attempt-' in p.name:
+                  continue
+              out.append('### '+p.name)
+              try:o=json.loads(p.read_text('utf-8'))
+              except Exception as e:
+                  out.append('PARSE_ERROR '+repr(e)); continue
+              out.append('status='+repr(o.get('status'))+' total='+repr(o.get('total'))+' message='+repr(o.get('message')))
+              for i,row in enumerate(o.get('result') or [],1):
+                  s=row.get('_source') or {}
+                  tit=s.get('TIT') or []
+                  if isinstance(tit,str): tit=[tit]
+                  title=' | '.join(map(str,tit))
+                  blob=json.dumps(s,ensure_ascii=False,separators=(',',':'))
+                  hit_title=any(t in title for t in title_terms)
+                  hit_num=any(t in blob for t in num_terms)
+                  if hit_title or hit_num or i<=10:
+                      out.append(('TARGET ' if hit_title else 'NUM_HIT ' if hit_num else 'TOP ')+str(i)+' '+json.dumps(row,ensure_ascii=False,separators=(',',':')))
+                  if hit_title or hit_num:
+                      uid=str(s.get('UID') or row.get('_id') or '')
+                      if uid: cand[uid]=row
+          (root/'search-summary.txt').write_text('\n'.join(out)+'\n',encoding='utf-8')
+          (root/'candidates.json').write_text(json.dumps(cand,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          (root/'uids.txt').write_text('\n'.join(cand)+'\n',encoding='utf-8')
+          print('===== STATUS =====')
+          print((root/'status.tsv').read_text('utf-8'))
+          print('===== SEARCH =====')
+          print((root/'search-summary.txt').read_text('utf-8')[:180000])
+          print('CANDIDATE_UIDS',list(cand))
+          PY
+
+          : > "$ROOT/detail-status.tsv"
+          while IFS= read -r uid; do
+            [ -z "$uid" ] && continue
+            ok=0
+            for attempt in 1 2 3; do
+              out="$ROOT/detail/$uid-attempt-$attempt.json"
+              set +e
+              code=$(curl -L -sS --connect-timeout 7 --max-time 35 --retry 1 --retry-delay 2 --retry-all-errors                 -A "$UA"                 -H 'Accept: application/json, text/javascript, */*; q=0.01'                 -H 'X-Requested-With: XMLHttpRequest'                 -H "Referer: https://meta.nlc.cn/v2/detail/$uid"                 -X POST -o "$out" -w '%{http_code}'                 "https://meta.nlc.cn/api/v1/item/$uid/1/999")
+              rc=$?
+              set -e
+              bytes=0; [ -f "$out" ] && bytes=$(wc -c < "$out")
+              printf '%s\tattempt=%s\trc=%s\thttp=%s\tbytes=%s\n' "$uid" "$attempt" "$rc" "$code" "$bytes" >> "$ROOT/detail-status.tsv"
+              if [ "$rc" -eq 0 ] && [ "$code" = "200" ] && [ "$bytes" -gt 100 ]; then
+                cp "$out" "$ROOT/detail/$uid.json"
+                ok=1
+                break
+              fi
+              sleep 1
+            done
+            [ "$ok" -eq 1 ] || printf '%s\tFINAL=NO_SUCCESSFUL_DETAIL\n' "$uid" >> "$ROOT/detail-status.tsv"
+          done < "$ROOT/uids.txt"
+
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          root=Path('audit/batch-12ia-nlc-bookno3368-current-disposition')
+          keys=('001','035a','049b','049c','200a','200b','200f','205a','210a','210c','210d','215a',
+                '300a','305a','307a','316a','3165','317a','318a','321a','423a','4231','455a','4551',
+                '610a','690a','701a','702a','711a','712a','801a','801b','801c','852a',
+                '905a','905b','905q','905s','910n','910l')
+          out=[]
+          for p in sorted((root/'detail').glob('UCS*.json')):
+              if '-attempt-' in p.name:
+                  continue
+              out.append('### '+p.name)
+              try:o=json.loads(p.read_text('utf-8'))
+              except Exception as e:
+                  out.append('PARSE_ERROR '+repr(e)); continue
+              r=o.get('result') or {}; b=r.get('biblio') or {}; e=r.get('esBook') or {}
+              out.append('ES '+json.dumps({k:e.get(k) for k in ('SYS','UID','WDT','YEA','PUB','PAG','TIT','AUT','holdings')},ensure_ascii=False,separators=(',',':')))
+              out.append('BIB '+json.dumps({k:b.get(k) for k in keys if k in b},ensure_ascii=False,separators=(',',':')))
+              out.append('HOLD '+json.dumps(r.get('holding'),ensure_ascii=False,separators=(',',':')))
+              raw=json.dumps(r,ensure_ascii=False)
+              out.append('FLAGS '+json.dumps({t:(t in raw) for t in ['3368','03368','3288','03288','附釋音春秋左傳註疏','附释音春秋左传注疏','铁琴','鐵琴','瞿']},ensure_ascii=False))
+          (root/'detail-summary.txt').write_text('\n'.join(out)+'\n',encoding='utf-8')
+          print('===== DETAIL STATUS =====')
+          print((root/'detail-status.tsv').read_text('utf-8'))
+          print('===== DETAILS =====')
+          print((root/'detail-summary.txt').read_text('utf-8')[:180000])
+          PY
+
+          find "$ROOT" -type f -size +0c -print0 | xargs -0 -r sha256sum | sort -V > "$ROOT/files.sha256"
+          printf '%s\n'             'SOURCE=National Library of China current meta.nlc.cn search/detail APIs'             'PURPOSE=determine current disposition of historical target number 3368 and zero-padded 03368 after FID070 is directly closed at current 905s 03288'             'NO_AUTH_BYPASS=true'             'NO_OCR=true'             'NEGATIVE_POLICY=timeouts/no-results are route-index observations only and not absence evidence'             'CAUSAL_FIREWALL=current 03368 assignment cannot by itself prove why 1959 target 3368 changed to 1987 3288' > "$ROOT/manifest.txt"
+
+      - name: Upload IA probe evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: batch-12ia-nlc-bookno3368-current-disposition
+          path: audit/batch-12ia-nlc-bookno3368-current-disposition/
+          if-no-files-found: warn
+          retention-days: 30
+
+      - name: Publish IA probe completion status
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs')
+            const p='audit/batch-12ia-nlc-bookno3368-current-disposition/search-summary.txt'
+            let description='3368/03368 current NLC probe complete; inspect artifact'
+            if (fs.existsSync(p)) {
+              const s=fs.readFileSync(p,'utf8')
+              if (s.includes('"905s":["03368"]') || s.includes('"905s":"03368"')) {
+                description='current NLC search exposes 905s=03368 candidate; detail review required'
+              } else if (s.includes('03368')) {
+                description='03368 appears in current search material; inspect exact field binding'
+              } else {
+                description='no directly parsed 03368 field in returned search summary; no absence inference'
+              }
+            }
+            await github.rest.repos.createCommitStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              sha: context.sha,
+              state:'success',
+              context:'tianwen/batch-12ia-probe',
+              description:description.slice(0,140)
+            })
+
+# probe refresh: IA-3368

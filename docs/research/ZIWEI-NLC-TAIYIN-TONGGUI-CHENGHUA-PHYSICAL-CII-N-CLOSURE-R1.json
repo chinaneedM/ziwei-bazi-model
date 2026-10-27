@@ -1,0 +1,176 @@
+{
+  "schema": "ZIWEI-NLC-TAIYIN-TONGGUI-CHENGHUA-PHYSICAL-CII-N-CLOSURE-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-NLC-TAIYIN-TONGGUI-CHENGHUA-PHYSICAL-CII-N-CLOSURE-DR",
+  "prior_batch_id": "BATCH-12-ZIWEI-DATONG-NANJING59-ENDPOINT-RECOMPOSITION-DQ",
+  "question": "Can a securely identified Chinese pre-1578 physical witness directly preserve the same Nanjing/Datong C-II-N daily morning/evening numerical table already closed in the 15th-century Joseon Taiyin Tonggui, without collapsing surviving-copy identity or claiming the still-missing whole-ke reduction rule?",
+  "answer": "YES_FOR_A_CHINESE_PRE1578_PHYSICAL_CII_N_CARRIER; NO_FOR_SURVIVING_COPY_DIRECT_ANCESTRY, THE_INTEGER_REDUCTION_RULE, OR THE EXACT_SANMING_YUELING_CHANGE_DAY_PARENT.",
+  "source_identity": {
+    "source_id": "EXT-NLC-TAIYIN-TONGGUI-CHENGHUA-411999012050-PHYSICAL",
+    "title": "太陰通軌",
+    "nlc_object_id": "411999012050",
+    "commons_listing_attribution": "題抱拙子編",
+    "modern_critical_bibliographic_control": {
+      "source_id": "EXT-IHNS-MING-DATONG-COMPILATION-2019",
+      "attribution": "元統《太陰通軌》",
+      "copy_description": "國家圖書館藏明成化抄本；《大統曆法通軌》之一卷",
+      "authority_scope": "MODERN_CRITICAL_BIBLIOGRAPHIC_COPY_DATE_AND_WORK_IDENTITY_CONTROL; NOT A SUBSTITUTE FOR DIRECT PAGE GLYPH READING"
+    },
+    "pre1578_physical_copy": true,
+    "physical_copy_date_scope": "MING_CHENGHUA_1465_1487_PER_MODERN_CRITICAL_BIBLIOGRAPHIC_CONTROL",
+    "exact_copy_date_from_visible_colophon_in_this_batch": false
+  },
+  "acquisition": {
+    "workflow_run_id": 35431281149,
+    "artifact_id": 10580972630,
+    "artifact_name": "nlc-taiyin-tonggui-commons-physical",
+    "artifact_digest": "sha256:cc225798a0ea4dba8163423b94b0e0c891d3b5a1052faaaa1e836d571e5ae964",
+    "public_surrogate_route": "Wikimedia Commons NLC Library back up project",
+    "volumes": [
+      {
+        "volume": 1,
+        "filename": "NLC892-411999012050-103144 太陰通軌 第1冊.pdf",
+        "pages": 46,
+        "bytes": 13655453,
+        "sha256": "5459e8f27ca1eb158d34daa3a8dc96ac150234f80f3b3309362979dd39ff6762"
+      },
+      {
+        "volume": 2,
+        "filename": "NLC892-411999012050-103188 太陰通軌 第2冊.pdf",
+        "pages": 41,
+        "bytes": 12157193,
+        "sha256": "7d47432648f4dc20075166872811bbb15bd80473284b57426339f071989f7c8c"
+      }
+    ],
+    "text_layer_target_hits": 0,
+    "text_layer_authority_for_final_glyph_or_numeric_claims": false,
+    "ocr_used_for_final_glyph_or_numeric_claims": false
+  },
+  "direct_physical_collation": {
+    "volume_2_page_15": {
+      "artifact_render_sha256": "5fe45f2483dd7f5a4e92506845cec74bd72901dae3f62e59de24fd1ef7b4016b",
+      "direct_heading": "冬夏二至日出晨昏分立成鈐",
+      "heading_variant_control": {
+        "kyujanggak_heading": "冬夏二至日晨昏分立成鈐",
+        "nlc_has_additional_chu_glyph_after_ri": true,
+        "wording_difference_preserved_not_normalized": true
+      },
+      "winter_solstice_initial_day": {
+        "morning_fen": 2681.7,
+        "dusk_fen": 7318.3,
+        "sum": 10000
+      },
+      "reading_authority": "DIRECT_VISUAL_NO_OCR"
+    },
+    "volume_2_page_23": {
+      "artifact_render_sha256": "17b9dda2a347f3075c834b451417b0adc852313ce168d4f68ae98e6d78ac4f80",
+      "accumulated_day_178": {
+        "morning_fen": 1819.66,
+        "dusk_fen": 8180.34,
+        "sum": 10000,
+        "table_notation": "HIGH_ORDER_DIGITS_RESOLVED_FROM_THE_MANUSCRIPT_ROW_COMMON_PREFIX_WITH_DAY178_COLUMN_SUFFIXES"
+      },
+      "reading_authority": "DIRECT_VISUAL_COMMON_PREFIX_RECONSTRUCTION_NO_OCR"
+    },
+    "structure": "Accumulated-day winter/summer-solstice morning/evening table carried across volume 2; direct physical page headings and numeric columns are preserved."
+  },
+  "cross_recension_numeric_control": {
+    "kyujanggak_source_id": "EXT-KYUDB-TAIYIN-TONGGUI-GK12436-CHENHUN-TABLE",
+    "kyujanggak_identifier": "GK12436_00 / 奎貴12436",
+    "day0": {
+      "nlc_morning_fen": 2681.7,
+      "nlc_dusk_fen": 7318.3,
+      "kyujanggak_morning_fen": 2681.7,
+      "kyujanggak_dusk_fen": 7318.3,
+      "exact_pair_match": true
+    },
+    "day178": {
+      "nlc_morning_fen": 1819.66,
+      "nlc_dusk_fen": 8180.34,
+      "kyujanggak_morning_fen": 1819.66,
+      "kyujanggak_dusk_fen": 8180.34,
+      "exact_pair_match": true
+    },
+    "result": "HIGH_CONFIDENCE_SAME_NUMERICAL_TABLE_FAMILY_ACROSS_CHINESE_AND_JOSEON_PRE1578_PHYSICAL_WITNESSES",
+    "direct_copy_direction_proved": false
+  },
+  "mechanical_replay": {
+    "registered_formula_scope": "Same Batch 12CV Tonggui control: sunrise = morning + 250 fen; half-daylight = 5000 - sunrise.",
+    "day0": {
+      "morning_fen": 2681.7,
+      "sunrise_fen": 2931.7,
+      "half_day_fen": 2068.3,
+      "ncl_cii_n_exact_match": true
+    },
+    "day178": {
+      "morning_fen": 1819.66,
+      "sunrise_fen": 2069.66,
+      "half_day_fen": 2930.34,
+      "ncl_cii_n_exact_match": true
+    },
+    "result": "DIRECT_CHINESE_PHYSICAL_WITNESS_REPLAYS_THE_CII_N_NUMERICAL_SUBSTRATE"
+  },
+  "chronology_firewall": {
+    "kyujanggak_surviving_copy_date_scope": "SEJONG_1418_1450_PROVIDER_CATALOG_RANGE",
+    "nlc_surviving_copy_date_scope": "CHENGHUA_1465_1487_PER_MODERN_CRITICAL_BIBLIOGRAPHIC_CONTROL",
+    "nlc_surviving_copy_can_be_direct_ancestor_of_kyujanggak_surviving_copy": false,
+    "adjudication": "DISPROVED_BY_SURVIVING_COPY_CHRONOLOGY",
+    "earlier_common_chinese_source_or_table_tradition": "SUPPORTED_AS_A_LINEAGE_HYPOTHESIS_BUT_EXACT_EXEMPLAR_UNRESOLVED",
+    "reverse_direct_copy_direction_proved": false
+  },
+  "adjudication": {
+    "chinese_pre1578_physical_carrier_for_cii_n": "CLOSED",
+    "same_numeric_table_family_with_kyujanggak": "HIGH_CONFIDENCE",
+    "surviving_nlc_chenghua_copy_direct_ancestor_of_kyujanggak": false,
+    "direct_chinese_exemplar_used_for_kyujanggak_identified": false,
+    "direct_parent_of_sanming_1578": false,
+    "exact_pre1578_whole_ke_reduction_selection_rule_found": false,
+    "exact_pre1578_binding_to_nanjing_59_endpoint_found": false,
+    "exact_sanming_yueling_change_day_fingerprint_explained": false,
+    "new_runtime_candidate_created": false,
+    "runtime_winner_selected": false,
+    "candidate_collapsed": false,
+    "algorithm_reopen_authorized": false
+  },
+  "transmission_impact": {
+    "nodes_added": [
+      "PHYSICAL-COPY-NLC-TAIYIN-TONGGUI-CHENGHUA-411999012050",
+      "PASSAGE-NLC-TAIYIN-TONGGUI-CHENHUN-LICHENG"
+    ],
+    "edges_added": [
+      "TG-E0060",
+      "TG-E0061"
+    ],
+    "explicit_non_edge_added": "NLC Chenghua surviving copy DIRECT_ANCESTOR_OF Kyujanggak Sejong-era surviving copy = DISPROVED by chronology",
+    "node_strengthened": "TABLE-NANJING-DATONG-DAILY-CII-N-1380S",
+    "chinese_physical_carrier_gap_closed": true,
+    "exact_sanming_parent_vote_increment": 0,
+    "exact_quantization_rule_vote_increment": 0
+  },
+  "product_adjudication": {
+    "matrix_rule_id": "HPA-ZDATE-006",
+    "status_before": "MISSING_FROM_PRODUCT",
+    "status_after": "MISSING_FROM_PRODUCT",
+    "matrix_count_change": false,
+    "deterministic_fusion_chart_product_r1": "CLOSED",
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "identified_missing_candidate_families": 14,
+    "confirmed_provenance_metadata_defect_count": 12,
+    "repaired_provenance_metadata_defect_count": 12,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Inspect the NLC Chenghua Taiyin Tonggui and related Chinese Datong/Tonggui witnesses for an explicit whole-ke reduction, arrow-selection, binning or endpoint-binding instruction downstream of the continuous morning/evening table.",
+    "Search pre-1578 Chinese witnesses for the exact Sanming/Yueling 大寒十三後 / 雨水後四日 change-day fingerprint.",
+    "Locate and physically collate the separately reported NLC three-juan manuscript 大統曆法通軌 without assuming identity from title alone.",
+    "Keep NLC call 14202 Tongshu Leiju reproduction route parallel behind the external-action authorization firewall."
+  ]
+}

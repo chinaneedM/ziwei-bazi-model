@@ -1,0 +1,134 @@
+{
+  "schema": "ZIWEI-BEITU1959-TONGHU-ZHUNZHAI-CATALOG-NUMBER-AND-QUDONATION-BOUNDARY-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-BEITU1959-TONGHU-ZHUNZHAI-CATALOG-NUMBER-AND-QUDONATION-BOUNDARY-FG",
+  "prior_batch_id": "BATCH-12-ZIWEI-NLC-OPAC-ZHUNZHAI-MICROFILM-SOURCE-CROSSBINDING-FF",
+  "question": "Can the 1959 Beijing Library rare-book catalog classify OPAC 原文献03482/03483 at the historical catalog-number layer and directly test whether the target Copper/Zhunzhai entries were marked 瞿捐, without overclaiming the final acquisition route or a current physical shelfmark?",
+  "answer": "YES. DIRECT 400-DPI COLLATION OF 1959 BEITU VOLUME 4 PDF PAGE 60 PRINTS 銅壺漏箭制度一卷 AS NUMBER 3482 AND 準齋心製几漏圖式一卷 AS NUMBER 3483, WITH 清道光三年黃氏士禮居抄本 AND MUTUAL 合一冊 NOTES. THIS CLOSES THE CROSSWALK OPAC 原文献03482↔1959 3482 AND OPAC 原文献03483↔1959 3483 AT THE HISTORICAL BIBLIOGRAPHIC/CATALOG-NUMBER LEVEL. A SEPARATE SOURCE-BOUND 400-DPI CONTROL IN THE SAME 1959 CATALOG, VOLUME 7 PAGE 19, DIRECTLY PRINTS 瞿捐 ON A 金華黃先生文集 ENTRY, PROVING THAT THE CATALOG DOES USE THAT EXPLICIT DONATION NOTATION. THE 3482/3483 TARGET ENTRIES DO NOT PRINT 瞿捐. THEREFORE QU DONATION IS NOT ATTESTED FOR THE TARGET BY THIS CATALOG, BUT HISTORICAL DONATION IS NOT ABSOLUTELY DISPROVED AND THE FINAL ACQUISITION/TRANSFER PATH REMAINS UNRESOLVED. 3482/3483 ARE NOT PROMOTED TO A CURRENT NLC BARCODE/PRESENT SHELFMARK.",
+  "target_catalog_source": {
+    "source_id": "EXT-BEITU-1959-V4-TONGHU-ZHUNZHAI-3482-3483",
+    "provider": "北京圖書館 / 中華書局; public scan via Wikimedia Commons",
+    "edition": "《北京圖書館善本書目》第4冊, 1959, SSID-12335510",
+    "workflow_run_id": 36013592896,
+    "workflow_artifact_id": 10813571631,
+    "workflow_artifact_digest": "sha256:769638c723dc1bacbb2b385b1669fc1cbc103866b2eff800184b346ddf05386f",
+    "source_pdf_sha256": "f762a4d2f0f1c96e5f8543f6b572988b0a0e17125f491522a1f2a035d4145ddb",
+    "pdf_page": 60,
+    "render_sha256": "722fce53457f722df9d2d7184646e2bf53427f56fa23ed518818d9ffdf2756c1",
+    "ocr_used_for_final_glyph_claims": false,
+    "direct_entries": {
+      "tonghu": {
+        "title": "銅壺漏箭制度一卷",
+        "edition_provenance": "清道光三年黃氏士禮居抄本",
+        "binding_note": "與準齋心製几漏圖式合一冊",
+        "printed_number_arabic": "3482",
+        "printed_number_chinese": "三四八二",
+        "qu_donation_mark_present": false
+      },
+      "zhunzhai": {
+        "title": "準齋心製几漏圖式一卷",
+        "author": "宋孫逢古撰",
+        "edition_provenance": "清道光三年黃氏士禮居抄本",
+        "paratext_note": "黃丕烈跋",
+        "binding_note": "與銅壺漏箭制度合一冊",
+        "printed_number_arabic": "3483",
+        "printed_number_chinese": "三四八三",
+        "qu_donation_mark_present": false
+      }
+    }
+  },
+  "qu_donation_control_source": {
+    "source_id": "EXT-BEITU-1959-V7-QUDONATION-MARK-CONTROL",
+    "provider": "北京圖書館 / 中華書局; public scan via Wikimedia Commons",
+    "edition": "《北京圖書館善本書目》第7冊, 1959, SSID-12335513",
+    "locator_workflow_run_id": 36015371114,
+    "locator_artifact_id": 10814068175,
+    "locator_artifact_digest": "sha256:a4a86d66174d8bf5c258cf658c44d2c2ae9698771a4f8b1bfa21719c376385ca",
+    "direct_workflow_run_id": 36015952183,
+    "direct_artifact_id": 10814199731,
+    "direct_artifact_digest": "sha256:009f045ff614e835990bd84fd5c91f93a314249d8e155ab32118ab2068e07b02",
+    "source_pdf_sha256": "04a9b1e1a2aa0d3928a6facf499b76464607b26f506afc58a7b8f5325f335e0c",
+    "pdf_page": 19,
+    "render_sha256": "05b64be88917364c2528ac01f85edd02a098db0b0be34d7f233ca468cabe2467",
+    "ocr_used_for_final_glyph_claims": false,
+    "direct_control": {
+      "title": "金華黃先生文集四十三卷",
+      "author": "元黃溍撰",
+      "edition": "元刻明修本",
+      "extent": "一冊",
+      "acquisition_provenance_mark": "瞿捐",
+      "qu_donation_mark_directly_printed": true
+    }
+  },
+  "identifier_adjudication": {
+    "opac_original_document_03482_to_beitu1959_3482": "CLOSED_AT_HISTORICAL_BIBLIOGRAPHIC_CATALOG_NUMBER_LEVEL",
+    "opac_original_document_03483_to_beitu1959_3483": "CLOSED_AT_HISTORICAL_BIBLIOGRAPHIC_CATALOG_NUMBER_LEVEL",
+    "leading_zero_interpretation": "OPAC_FORMATTING_ON_THE_SAME_HISTORICAL_NUMBER_PAIR",
+    "number_class": "HISTORICAL_BEIJING_LIBRARY_CATALOG_OR_BOOK_NUMBER_LAYER_REUSED_BY_OPAC_AS_ORIGINAL_DOCUMENT_NUMBER",
+    "current_nlc_physical_shelfmark_proved": false,
+    "current_nlc_item_barcode_proved": false,
+    "acquisition_or_donation_number_proved": false,
+    "source_control_001411999008601_exact_subtype": "UNRESOLVED",
+    "separate_photo_00O003570_exact_subtype": "UNRESOLVED",
+    "rarecatx0514818_to_3482_exact_cross_system_equivalence_proved": false
+  },
+  "acquisition_provenance_adjudication": {
+    "same_1959_catalog_uses_explicit_qu_donation_mark": true,
+    "target_3482_qu_donation_mark_present": false,
+    "target_3483_qu_donation_mark_present": false,
+    "target_qu_donation_attested_by_1959_catalog": false,
+    "historical_qu_donation_route_absolutely_disproved": false,
+    "sale_or_purchase_route_selected": false,
+    "final_nlc_acquisition_transfer_path": "UNRESOLVED",
+    "secondary_control": "Wang Xiaohu 2014 reports not locating the two works in the separate 瞿氏藏书捐赠北京图书馆书目 and leaves the acquisition route open; secondary corroboration only.",
+    "negative_evidence_scope": "ENTRY_LEVEL_1959_CATALOG_NOTATION_ONLY"
+  },
+  "object_binding_adjudication": {
+    "beitu1959_exact_1823_huang_shiliju_signature_closed": true,
+    "beitu1959_copper_zhunzhai_one_volume_binding_closed": true,
+    "nlc_opac_03482_03483_to_beitu1959_3482_3483_bridge_closed": true,
+    "current_nlc_huang_composite_family_binding": "VERY_HIGH_CONFIDENCE",
+    "exact_specific_tieqin_catalogued_object_identity": "VERY_STRONGLY_SUPPORTED_NOT_FORMALLY_UNIQUE_OBJECT_CLOSED",
+    "huang_原書舊鈔_vs_錄副_role": "UNRESOLVED",
+    "same_object_edge_authorized": false
+  },
+  "chronology_and_rule_firewall": {
+    "catalog_record_does_not_date_work_composition": true,
+    "secure_pre1578_exact_25arrow_physical_witness": false,
+    "exact_yuan_1281_person_identity": "POSSIBLE_NOT_PROVED",
+    "exact_sanming_yueling_dahan_yushui_fingerprint_closed": false,
+    "exact_nanjing_59_endpoint_binding_closed": false,
+    "direct_sanming_parent_vote_increment": 0
+  },
+  "transmission_impact": {
+    "nodes_added": [
+      "CATALOG-BEITU-1959-TONGHU-ZHUNZHAI-3482-3483"
+    ],
+    "nodes_strengthened": [
+      "PHYSICAL-COPY-NLC-ZHUNZHAI-JILOU-DAOGUANG3-HUANG-SHILIJU-MS",
+      "CATALOG-NLC-OPAC-ZHUNZHAI-MICROFILM-002597934"
+    ],
+    "edges_supported": [
+      "TG-E0110"
+    ],
+    "same_object_edge_authorized": false,
+    "direct_copy_edges_authorized": []
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 13,
+    "repaired_provenance_metadata_defect_count": 13,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Reacquire original NLC OPAC doc 001775083/item page and capture any explicitly labelled current call number, barcode or item identifier.",
+    "Resolve 001411999008601 and 00O003570 from first-party field labels.",
+    "Continue acquisition/transfer research in Qu-family donation lists, sale/transfer records, accession registers and NLC archival descriptions without selecting a route from absence alone.",
+    "Keep the pre-1578 Zhunzhai rule line and independent Sanming/Yueling Dahan-Rainwater + Nanjing-59 lines active."
+  ],
+  "updated_at": "2026-09-24"
+}

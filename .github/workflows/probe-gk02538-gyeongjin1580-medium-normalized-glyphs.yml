@@ -1,0 +1,242 @@
+name: probe-gk02538-gyeongjin1580-medium-normalized-glyphs
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-gk02538-gyeongjin1580-medium-normalized-glyphs.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install image tooling
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --quiet pillow
+
+      - name: Build source-bound medium-class normalized shared-glyph corpus
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/gk02538-gyeongjin1580-medium-normalized-glyphs'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT/source" "$ROOT/crops" "$ROOT/normalized"
+
+          python - <<'PY'
+          from pathlib import Path
+          from urllib.request import Request,urlopen
+          from urllib.parse import urlencode
+          from PIL import Image,ImageDraw
+          import hashlib,json,time,statistics
+
+          root=Path('audit/gk02538-gyeongjin1580-medium-normalized-glyphs')
+          UA='Mozilla/5.0 Tianwen-Provenance-Audit/1.0'
+
+          expected={
+            'gyeongjin1580-tail':'306b8f03949850c0cedd9575263208ccbd9dc8e6465165b13406ef1918788590',
+            'gk02538-0001-002a':'8458f8a0fd58f23f91139d7d489077472fd7fddb449d9635f6f29df5e2a9b461',
+          }
+
+          def get(url,referer=None):
+              headers={'User-Agent':UA,'Accept':'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8'}
+              if referer:
+                  headers['Referer']=referer
+              req=Request(url,headers=headers)
+              last=None
+              for n in range(4):
+                  try:
+                      with urlopen(req,timeout=35) as r:
+                          return r.read(),r.headers.get('content-type'),getattr(r,'status',200)
+                  except Exception as e:
+                      last=e
+                      time.sleep(.5*(n+1))
+              raise last
+
+          source_rows=[]
+
+          gy_url='https://minio.nculture.org/amsweb-opt/multimedia_assets/94/72995/69248/c/%EA%B2%BD%EC%A7%84%EB%85%84-%EB%8C%80%ED%86%B5%EB%A0%A5-%EA%B6%8C%EB%A7%90_%EB%AC%B8%ED%99%94%EC%9E%AC%EC%B2%AD_%EC%A0%9C1%EC%9C%A0%ED%98%95-full-size.jpg'
+          b,ctype,status=get(gy_url,'https://www.nculture.org/')
+          gy=root/'source'/'gyeongjin1580-tail.jpg'
+          gy.write_bytes(b)
+          gy_sha=hashlib.sha256(b).hexdigest()
+          if gy_sha != expected['gyeongjin1580-tail']:
+              raise SystemExit(f'Gyeongjin source hash drift: {gy_sha}')
+          with Image.open(gy) as im:
+              source_rows.append({'key':'gyeongjin1580-tail','sha256':gy_sha,'width':im.width,'height':im.height,'content_type':ctype,'status':status,'url':gy_url})
+
+          book='GK02538_00'; item='CSP'; vol='0001'; page='002a'
+          fn=f'{book}_IL_{vol}_{page}.jpg'
+          server_path=f'/data01/stream/{item}/IMG/{book}/{book}_{vol}/{fn}'
+          gk_url='https://kyudb.snu.ac.kr/ImageServlet.do?'+urlencode({'imgFileNm':fn,'path':server_path})
+          b,ctype,status=get(gk_url,'https://kyudb.snu.ac.kr/pf01/rendererImg.do')
+          gk=root/'source'/'gk02538-0001-002a.jpg'
+          gk.write_bytes(b)
+          gk_sha=hashlib.sha256(b).hexdigest()
+          if gk_sha != expected['gk02538-0001-002a']:
+              raise SystemExit(f'GK02538 source hash drift: {gk_sha}')
+          with Image.open(gk) as im:
+              source_rows.append({'key':'gk02538-0001-002a','sha256':gk_sha,'width':im.width,'height':im.height,'content_type':ctype,'status':status,'url':gk_url})
+
+          # Fixed manual source-pixel locators. 正/月 are inherited unchanged
+          # from the 12EK source-bound corpus; 大 is the new third shared glyph.
+          crops=[
+            {'key':'gyeongjin1580-zheng','source':'gyeongjin1580-tail','glyph':'正','box':[698,565,754,625],'role':'medium heading column'},
+            {'key':'gyeongjin1580-yue','source':'gyeongjin1580-tail','glyph':'月','box':[698,620,754,680],'role':'medium heading column'},
+            {'key':'gyeongjin1580-da','source':'gyeongjin1580-tail','glyph':'大','box':[698,675,754,735],'role':'same medium heading column as 正/月'},
+            {'key':'gk02538-zheng','source':'gk02538-0001-002a','glyph':'正','box':[900,315,961,375],'role':'medium-compatible 正/月 column'},
+            {'key':'gk02538-yue','source':'gk02538-0001-002a','glyph':'月','box':[900,370,961,431],'role':'medium-compatible 正/月 column'},
+            {'key':'gk02538-da','source':'gk02538-0001-002a','glyph':'大','box':[1020,310,1080,370],'role':'大統曆註 title column; visually same body class as page heading type'},
+          ]
+          source_map={'gyeongjin1580-tail':gy,'gk02538-0001-002a':gk}
+          crop_rows=[]
+          for c in crops:
+              with Image.open(source_map[c['source']]).convert('RGB') as im:
+                  box=tuple(c['box'])
+                  if not (0 <= box[0] < box[2] <= im.width and 0 <= box[1] < box[3] <= im.height):
+                      raise SystemExit(f'crop out of bounds: {c}')
+                  cr=im.crop(box)
+                  out=root/'crops'/f"{c['key']}.png"
+                  cr.save(out)
+                  crop_rows.append({
+                    **c,
+                    'source_sha256':expected[c['source']],
+                    'crop_width':cr.width,
+                    'crop_height':cr.height,
+                    'crop_png_sha256':hashlib.sha256(out.read_bytes()).hexdigest(),
+                    'file':str(out.relative_to(root)),
+                    'center_y':(box[1]+box[3])/2.0,
+                  })
+
+          by_key={x['key']:x for x in crop_rows}
+          gy_pitch=statistics.median([
+              by_key['gyeongjin1580-yue']['center_y']-by_key['gyeongjin1580-zheng']['center_y'],
+              by_key['gyeongjin1580-da']['center_y']-by_key['gyeongjin1580-yue']['center_y'],
+          ])
+          gk_pitch=by_key['gk02538-yue']['center_y']-by_key['gk02538-zheng']['center_y']
+          if abs(gy_pitch-55.0) > 0.01:
+              raise SystemExit(f'unexpected Gyeongjin pitch {gy_pitch}')
+          if abs(gk_pitch-55.5) > 0.01:
+              raise SystemExit(f'unexpected GK02538 pitch {gk_pitch}')
+
+          # Nominal physical normalization only:
+          # 1.2 cm medium Inryeokja vertical body class -> 240 px target pitch.
+          # This uses the 12EL institutional size-class bridge. It is not a
+          # caliper measurement of the photographed glyph body.
+          medium_height_cm=1.2
+          target_pitch_px=240.0
+          target_px_per_cm=target_pitch_px/medium_height_cm
+          scale={
+            'gyeongjin1580':target_pitch_px/gy_pitch,
+            'gk02538':target_pitch_px/gk_pitch,
+          }
+          canvas_size=(360,320)
+          normalized_rows=[]
+          for c in crop_rows:
+              family='gyeongjin1580' if c['key'].startswith('gyeongjin1580-') else 'gk02538'
+              im=Image.open(root/c['file']).convert('RGB')
+              factor=scale[family]
+              nw=max(1,round(im.width*factor))
+              nh=max(1,round(im.height*factor))
+              norm=im.resize((nw,nh),Image.Resampling.LANCZOS)
+              canvas=Image.new('RGB',canvas_size,'white')
+              x=(canvas_size[0]-nw)//2
+              y=(canvas_size[1]-nh)//2
+              canvas.paste(norm,(x,y))
+              out=root/'normalized'/f"{c['key']}.png"
+              canvas.save(out)
+              normalized_rows.append({
+                'key':c['key'],
+                'glyph':c['glyph'],
+                'source_family':family,
+                'source_pitch_px':gy_pitch if family=='gyeongjin1580' else gk_pitch,
+                'nominal_medium_height_cm':medium_height_cm,
+                'target_px_per_cm':target_px_per_cm,
+                'isotropic_scale_factor':factor,
+                'resized_width':nw,
+                'resized_height':nh,
+                'canvas_width':canvas_size[0],
+                'canvas_height':canvas_size[1],
+                'normalized_png_sha256':hashlib.sha256(out.read_bytes()).hexdigest(),
+                'file':str(out.relative_to(root)),
+              })
+
+          # Paired three-glyph sheet. No automatic similarity score is emitted.
+          pair_rows=[]
+          panels=[]
+          norm_by_key={x['key']:x for x in normalized_rows}
+          for glyph,gyk,gkk in [
+              ('正','gyeongjin1580-zheng','gk02538-zheng'),
+              ('月','gyeongjin1580-yue','gk02538-yue'),
+              ('大','gyeongjin1580-da','gk02538-da'),
+          ]:
+              li=Image.open(root/norm_by_key[gyk]['file']).convert('RGB')
+              ri=Image.open(root/norm_by_key[gkk]['file']).convert('RGB')
+              panel=Image.new('RGB',(canvas_size[0]*2+30,canvas_size[1]+45),'white')
+              panel.paste(li,(0,0)); panel.paste(ri,(canvas_size[0]+30,0))
+              d=ImageDraw.Draw(panel)
+              d.text((6,canvas_size[1]+8),f'1580 {glyph} / nominal medium scale',fill='black')
+              d.text((canvas_size[0]+36,canvas_size[1]+8),f'GK02538 {glyph} / nominal medium scale',fill='black')
+              panels.append(panel)
+              pair_rows.append({'glyph':glyph,'left':gyk,'right':gkk})
+          sheet=Image.new('RGB',(max(p.width for p in panels),sum(p.height for p in panels)),'white')
+          y=0
+          for p in panels:
+              sheet.paste(p,(0,y)); y+=p.height
+          sheet.save(root/'medium-normalized-three-glyph-pairs.png')
+
+          report={
+            'schema':'GK02538-GYEONGJIN1580-MEDIUM-NORMALIZED-GLYPH-PROBE-R1',
+            'schema_version':'1.0.0',
+            'purpose':'Create a source-hash-bound three-glyph corpus normalized by nominal medium-class vertical pitch for direct human typographic review.',
+            'source_objects':source_rows,
+            'fixed_crops':crop_rows,
+            'manual_glyphs':['正','月','大'],
+            'scale_anchor':{
+              'institutional_medium_inryeokja_height_cm':medium_height_cm,
+              'gyeongjin1580_observed_heading_pitch_px':gy_pitch,
+              'gk02538_observed_zheng_yue_pitch_px':gk_pitch,
+              'target_pitch_px':target_pitch_px,
+              'target_px_per_cm':target_px_per_cm,
+              'gyeongjin1580_scale_factor':scale['gyeongjin1580'],
+              'gk02538_scale_factor':scale['gk02538'],
+              'normalization_scope':'NOMINAL_VERTICAL_PITCH_NORMALIZATION_NOT_DIRECT_CALIPER_MEASUREMENT',
+            },
+            'normalized_outputs':normalized_rows,
+            'pair_rows':pair_rows,
+            'pair_sheet':'medium-normalized-three-glyph-pairs.png',
+            'ocr_used':False,
+            'automatic_glyph_matching':False,
+            'automatic_similarity_scoring':False,
+            'automatic_type_family_or_casting_classification':False,
+            'form_identity_adjudicated_by_probe':False,
+            'casting_generation_identity_adjudicated_by_probe':False,
+            'exact_impression_date_adjudicated_by_probe':False,
+            'firewall':[
+              'Nominal medium-class normalization is not a direct physical caliper measurement.',
+              'Visual convergence after normalization does not prove the same type sort or casting generation.',
+              'Visual divergence after normalization does not by itself prove a different casting generation.',
+              'Source photography, perspective, inking, wear, paper deformation and scan processing remain uncontrolled.',
+              'Any subtype or casting-generation conclusion requires human review plus authoritative typographic criteria.'
+            ],
+          }
+          (root/'report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print(json.dumps(report,ensure_ascii=False,indent=2))
+          PY
+
+      - name: Upload nominal medium-normalized glyph corpus
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: gk02538-gyeongjin1580-medium-normalized-glyphs-r1
+          path: audit/gk02538-gyeongjin1580-medium-normalized-glyphs
+          if-no-files-found: error
+          retention-days: 30

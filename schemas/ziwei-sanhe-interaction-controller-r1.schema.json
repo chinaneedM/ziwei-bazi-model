@@ -1,0 +1,137 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/chinaneedM/ziwei-bazi-model/schemas/ziwei-sanhe-interaction-controller-r1.schema.json",
+  "title": "Ziwei Sanhe Interaction Controller R1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema", "status", "interaction_mode", "source_application_bundle_hash",
+    "source_application_resolution_status", "selected_daxian_frame_id",
+    "selected_annual_year", "selected_minor_limit_age",
+    "selected_origin_designation_id", "selected_origin_address", "relative_roles",
+    "sanfang_sizheng_frame", "r2_fact_hash", "r2_computation_hash",
+    "r3_fact_hash", "r3_computation_hash", "r4_fact_hash", "r4_computation_hash",
+    "r5_fact_hash", "r5_computation_hash", "source_fact_hash", "view_hash",
+    "bundle_hash", "integrity"
+  ],
+  "properties": {
+    "schema": {"const": "ZIWEI-SANHE-INTERACTION-RESOLUTION-R1"},
+    "status": {"const": "RESOLVED"},
+    "interaction_mode": {"const": "SANHE"},
+    "source_application_bundle_hash": {"$ref": "#/$defs/hash"},
+    "source_application_resolution_status": {
+      "enum": ["RESOLVED", "RESOLVED_SINGLE_CHART_WITH_TIME_UNCERTAINTY"]
+    },
+    "selected_daxian_frame_id": {"type": ["string", "null"], "minLength": 1},
+    "selected_annual_year": {"type": ["integer", "null"], "minimum": 1},
+    "selected_minor_limit_age": {"type": ["integer", "null"], "minimum": 1},
+    "selected_origin_designation_id": {"type": "string", "minLength": 1},
+    "selected_origin_address": {"$ref": "#/$defs/address"},
+    "relative_roles": {
+      "type": "array",
+      "minItems": 12,
+      "maxItems": 12,
+      "items": {"$ref": "#/$defs/relativeRole"}
+    },
+    "sanfang_sizheng_frame": {"$ref": "#/$defs/resolvedFrame"},
+    "r2_fact_hash": {"$ref": "#/$defs/hash"},
+    "r2_computation_hash": {"$ref": "#/$defs/hash"},
+    "r3_fact_hash": {"$ref": "#/$defs/hash"},
+    "r3_computation_hash": {"$ref": "#/$defs/hash"},
+    "r4_fact_hash": {"$ref": "#/$defs/hash"},
+    "r4_computation_hash": {"$ref": "#/$defs/hash"},
+    "r5_fact_hash": {"$ref": "#/$defs/hash"},
+    "r5_computation_hash": {"$ref": "#/$defs/hash"},
+    "source_fact_hash": {"$ref": "#/$defs/hash"},
+    "view_hash": {"$ref": "#/$defs/hash"},
+    "bundle_hash": {"$ref": "#/$defs/hash"},
+    "integrity": {"$ref": "#/$defs/integrity"}
+  },
+  "$defs": {
+    "hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "address": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["index", "branch"],
+      "properties": {
+        "index": {"type": "integer", "minimum": 0, "maximum": 11},
+        "branch": {"type": "string", "minLength": 1}
+      }
+    },
+    "relativeRole": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "origin_designation_id", "origin_address", "relative_ordinal",
+        "relative_role_designation_id", "target_designation_id", "target_address",
+        "clockwise_offset"
+      ],
+      "properties": {
+        "origin_designation_id": {"type": "string", "minLength": 1},
+        "origin_address": {"$ref": "#/$defs/address"},
+        "relative_ordinal": {"type": "integer", "minimum": 1, "maximum": 12},
+        "relative_role_designation_id": {"type": "string", "minLength": 1},
+        "target_designation_id": {"type": "string", "minLength": 1},
+        "target_address": {"$ref": "#/$defs/address"},
+        "clockwise_offset": {"type": "integer", "minimum": 0, "maximum": 11}
+      }
+    },
+    "member": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "semantic_role", "member_offset", "target_designation_id",
+        "target_raw_address", "closure_status", "borrowed_from_raw_address",
+        "physical_source_address", "structure_physical_key", "r3_member_key"
+      ],
+      "properties": {
+        "semantic_role": {
+          "enum": ["SELF", "TRINE_PLUS_4", "OPPOSITION", "TRINE_PLUS_8"]
+        },
+        "member_offset": {"enum": [0, 4, 6, 8]},
+        "target_designation_id": {"type": "string", "minLength": 1},
+        "target_raw_address": {"$ref": "#/$defs/address"},
+        "closure_status": {"type": "string", "minLength": 1},
+        "borrowed_from_raw_address": {
+          "anyOf": [{"$ref": "#/$defs/address"}, {"type": "null"}]
+        },
+        "physical_source_address": {
+          "anyOf": [{"$ref": "#/$defs/address"}, {"type": "null"}]
+        },
+        "structure_physical_key": {"type": "string", "minLength": 1},
+        "r3_member_key": {"type": "string", "minLength": 1}
+      }
+    },
+    "resolvedFrame": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "origin_designation_id", "origin_address", "trine_group_key",
+        "opposition_axis_key", "members"
+      ],
+      "properties": {
+        "origin_designation_id": {"type": "string", "minLength": 1},
+        "origin_address": {"$ref": "#/$defs/address"},
+        "trine_group_key": {"type": "string", "minLength": 1},
+        "opposition_axis_key": {"type": "string", "minLength": 1},
+        "members": {
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 4,
+          "items": {"$ref": "#/$defs/member"}
+        }
+      }
+    },
+    "integrity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "diagnostics", "algorithm_id", "algorithm_version"],
+      "properties": {
+        "status": {"const": "PASS"},
+        "diagnostics": {"type": "array", "maxItems": 0},
+        "algorithm_id": {"const": "ZIWEI-SANHE-INTERACTION-INTEGRITY-R1"},
+        "algorithm_version": {"const": "1.0.0"}
+      }
+    }
+  }
+}

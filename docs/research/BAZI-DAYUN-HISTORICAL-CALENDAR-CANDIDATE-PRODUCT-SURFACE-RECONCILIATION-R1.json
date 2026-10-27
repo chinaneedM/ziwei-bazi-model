@@ -1,0 +1,122 @@
+{
+  "schema": "BAZI-DAYUN-HISTORICAL-CALENDAR-CANDIDATE-PRODUCT-SURFACE-RECONCILIATION-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-POST-AUDIT-DAYUN-HISTORICAL-CALENDAR-CANDIDATE-PRODUCT-SURFACE-RECONCILIATION-NU",
+  "prior_batch_id": "BATCH-12-POST-AUDIT-NANYANGTANG-LATE-ZI-NATAL-CANDIDATE-PRODUCT-SURFACE-RECONCILIATION-NT",
+  "batch_classification": "POST_AUDIT_RECONCILIATION_NOT_SUPPLEMENTAL_RULE_AUDIT",
+  "target_rule_ids": [
+    "HPA-DAYUN-CAL-002",
+    "HPA-DAYUN-CAL-003",
+    "HPA-DAYUN-CAL-004"
+  ],
+  "reconciliation_result": "THREE_MISSING_FROM_PRODUCT_STATUSES_CONFIRMED_ONE_PROVENANCE_DEFECT_REPAIRED",
+  "algorithm_reopen_authorized": false,
+  "historical_calendar_contract": {
+    "contract_id": "HISTORICAL-CHINESE-CALENDAR-ADAPTER-CONTRACT-R1",
+    "implementation_status": "CONTRACT_ONLY_NO_CERTIFIED_CALENDAR_ARITHMETIC",
+    "selection_status": "PRESERVED_NOT_SELECTED",
+    "registered_regimes": [
+      "MING-DATONG-CALENDAR-CONTEXT-R1",
+      "QING-SHIXIAN-1645-CALENDAR-CONTEXT-R1"
+    ],
+    "qianli_republican_regime_registered": false,
+    "operations": [
+      "MAP_CIVIL_DATE_TO_HISTORICAL_LUNISOLAR",
+      "REALIZE_DAYUN_HANDOVER",
+      "ADD_CALENDAR_YEARS"
+    ],
+    "fail_closed_status": "UNRESOLVED_NO_CERTIFIED_HISTORICAL_CALENDAR_ADAPTER",
+    "modern_calendar_fallback_forbidden": true,
+    "implicit_gregorian_anniversary_for_classical_candidates_forbidden": true
+  },
+  "live_bazi_temporal_runtime": {
+    "engine_imports_historical_calendar": false,
+    "supported_profile_ids": [
+      "BAZI-TEMPORAL-V1-CONTINUOUS-R1",
+      "BAZI-TEMPORAL-WENZHEN-CHINA-COMPATIBILITY-R1"
+    ],
+    "historical_temporal_profile_exists": false,
+    "continuous_calendar_realization": "MODERN_CONTINUOUS_RATIO_120X",
+    "wenzhen_calendar_realization": "CALENDAR_MONTH_DISPLACEMENT_THEN_DAY_HOUR_R1",
+    "continuous_dayun_boundary": "PROLEPTIC_GREGORIAN_10Y_UTC_ANNIVERSARY",
+    "wenzhen_dayun_boundary": "PROLEPTIC_GREGORIAN_10Y_CHINA_STANDARD_ANNIVERSARY",
+    "historical_dayun_boundary_branch_exists": false
+  },
+  "product_surface": {
+    "local_bazi_temporal_options": [
+      "BAZI-TEMPORAL-V1-CONTINUOUS-R1",
+      "BAZI-TEMPORAL-WENZHEN-CHINA-COMPATIBILITY-R1"
+    ],
+    "historical_dayun_temporal_option": false,
+    "ming_datong_temporal_option": false,
+    "qianli_temporal_option": false,
+    "production_default_changed": false
+  },
+  "per_rule": {
+    "HPA-DAYUN-CAL-002": {
+      "status_before": "MISSING_FROM_PRODUCT",
+      "status_after": "MISSING_FROM_PRODUCT",
+      "partial_existing_capability": "MING_DATONG_REGIME_DESCRIPTOR_PLUS_FAIL_CLOSED_CONTRACT",
+      "remaining_gap": "CERTIFIED_MING_ARITHMETIC_ADAPTER_PLUS_BAZI_TEMPORAL_RUNTIME_PROFILE_AND_PRODUCT_SELECTION"
+    },
+    "HPA-DAYUN-CAL-003": {
+      "status_before": "MISSING_FROM_PRODUCT",
+      "status_after": "MISSING_FROM_PRODUCT",
+      "partial_existing_capability": "GENERIC_CONTRACT_OPERATION_VOCABULARY_ONLY",
+      "remaining_gap": "SOURCE_CLOSED_QIANLI_CALENDAR_COORDINATE_PLUS_EXPLICIT_REPUBLICAN_REGIME_DESCRIPTOR_PLUS_RUNTIME_PROFILE",
+      "provenance_defect": "PROV-DEFECT-039"
+    },
+    "HPA-DAYUN-CAL-004": {
+      "status_before": "MISSING_FROM_PRODUCT",
+      "status_after": "MISSING_FROM_PRODUCT",
+      "partial_existing_capability": "ADD_CALENDAR_YEARS_CONTRACT_OPERATION_PLUS_GREGORIAN_SUBSTITUTION_PROHIBITION",
+      "remaining_gap": "SAME_REGIME_CERTIFIED_RECURRENCE_ARITHMETIC_PLUS_HISTORICAL_RUNTIME_BRANCH_AND_PRODUCT_PROFILE"
+    }
+  },
+  "provenance_repairs": [
+    {
+      "defect_id": "PROV-DEFECT-039",
+      "rule_id": "HPA-DAYUN-CAL-003",
+      "type": "OVERSTATED_REGISTERED_QIANLI_REGIME_PRESERVATION",
+      "repaired": true,
+      "chart_algorithm_effect": false,
+      "candidate_selection_effect": false
+    }
+  ],
+  "accounting": {
+    "rows": 220,
+    "audited_rows": 220,
+    "missing_from_product_before": 10,
+    "missing_from_product_after": 10,
+    "reconciled_missing_product_rows_after": 10,
+    "provenance_defects_confirmed_before": 38,
+    "provenance_defects_confirmed_after": 39,
+    "provenance_defects_repaired_before": 38,
+    "provenance_defects_repaired_after": 39,
+    "chart_algorithm_defects": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0
+  },
+  "unresolved_status_inventory_after": {
+    "disputed_multiple_candidates": 30,
+    "source_insufficient": 11,
+    "not_yet_formalized": 1,
+    "missing_from_product": 10,
+    "missing_from_product_all_post_audit_reconciled": true
+  },
+  "matrix_membership": {
+    "historical_completed_batch": true,
+    "supplemental_rule_audit_batch": false,
+    "target_rows_keep_original_audit_batches": true,
+    "reconciliation_batch": "BATCH-12-POST-AUDIT-DAYUN-HISTORICAL-CALENDAR-CANDIDATE-PRODUCT-SURFACE-RECONCILIATION-NU"
+  },
+  "evidence": "docs/research/evidence/batch-12nu/bazi-dayun-historical-calendar-candidate-product-surface-reconciliation.json",
+  "transmission_impact": {
+    "status": "NONE",
+    "reason": "No new historical witness or lineage relation is introduced; this is a software/product-boundary reconciliation and provenance-description repair."
+  },
+  "next_gate": [
+    "12NV: rank remaining DISPUTED_MULTIPLE_CANDIDATES / SOURCE_INSUFFICIENT / NOT_YET_FORMALIZED rows by evidence risk, source accessibility and algorithm impact.",
+    "Continue highest-value historical evidence closure without turning dispute or insufficiency into an implicit winner."
+  ]
+}

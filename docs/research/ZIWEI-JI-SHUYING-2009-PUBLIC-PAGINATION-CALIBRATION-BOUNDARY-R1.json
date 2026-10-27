@@ -1,0 +1,123 @@
+{
+  "schema": "ZIWEI-JI-SHUYING-2009-PUBLIC-PAGINATION-CALIBRATION-BOUNDARY-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-JI-SHUYING-2009-PUBLIC-PAGINATION-CALIBRATION-BOUNDARY-IJ",
+  "prior_batch_id": "BATCH-12-ZIWEI-ZJLIB-TIEQIN-2024-OFFICIAL-PDF-TOKEN-ROUTE-ACCESS-BOUNDARY-II",
+  "question": "Can independent public citations calibrate the exact 2009 edition pagination enough to improve Chapter 9 acquisition without inventing start/end pages?",
+  "answer": "A multi-point pagination scale is now closed, but the exact Chapter 9 range is not. NLC cites Chapter 3 pp.39-50; a secondary locator cites a Chapter-8 Yang Shoujing item at pp.125-126; a KCI academic PDF directly cites Chapter 12 p.190; and a Shimane University repository PDF directly cites Chapter 15 p.223. These anchors must not be interpolated into an exact Chapter-9 range.",
+  "exact_edition": {
+    "title": "冀淑英古籍善本十五讲",
+    "author": "冀淑英",
+    "illustrator": "李文洁",
+    "publisher": "国家图书馆出版社",
+    "publication_date": "2009-07",
+    "isbn": "9787501340637",
+    "extent_pages": 241,
+    "existing_registry_source_id": "EXT-NDL-JI-SHUYING-GUJI-SHANBEN-15LECTURES-2009",
+    "chapter_9_title": "铁琴铜剑楼藏书的收购入藏",
+    "chapter_9_identity_closed": true,
+    "chapter_9_direct_pages_reviewed": false
+  },
+  "pagination_anchors": [
+    {
+      "chapter": 3,
+      "cited_pages": "39-50",
+      "source_id": "EXT-NLC-CAI-LI-2024-QU-TIEQIN-BEITU-PP446-449-CITATION-BRIDGE",
+      "provider": "国家图书馆 / 中国古籍保护网",
+      "url": "https://www.nlc.cn/pcab/zx/xw/20240701_2640245.shtml",
+      "evidence_class": "FIRST_PARTY_INSTITUTIONAL_SCHOLARLY_REFERENCE_LIST",
+      "direct_2009_book_page_review": false
+    },
+    {
+      "chapter": 8,
+      "cited_pages": "125-126",
+      "source_id": "EXT-KKNEWS-JI15-CH8-P125-126-LOCATOR",
+      "provider": "每日头条",
+      "url": "https://kknews.cc/zh-sg/culture/3y692bo.html",
+      "evidence_class": "PUBLIC_SECONDARY_PAGE_LOCATOR_ONLY",
+      "direct_2009_book_page_review": false
+    },
+    {
+      "chapter": 12,
+      "cited_pages": "190",
+      "source_id": "EXT-KCI-QIAN-2012-JI15-CH12-P190",
+      "provider": "대한한의학원전학회 / KCI",
+      "url": "https://journal.kci.go.kr/jkmc/archive/articlePdf?artiId=ART001712121",
+      "evidence_class": "DIRECT_ACADEMIC_PDF_REFERENCE",
+      "direct_source_pdf_reviewed": true,
+      "direct_2009_book_page_review": false
+    },
+    {
+      "chapter": 15,
+      "cited_pages": "223",
+      "source_id": "EXT-SHIMANE-TOSAKI-JI15-CH15-P223",
+      "provider": "岛根大学机构学术成果库",
+      "url": "https://ir.lib.shimane-u.ac.jp/28673/files/7444",
+      "evidence_class": "DIRECT_INSTITUTIONAL_REPOSITORY_PDF_REFERENCE",
+      "direct_source_pdf_reviewed": true,
+      "direct_2009_book_page_review": false
+    }
+  ],
+  "calibration_adjudication": {
+    "exact_chapter_9_start_page": "UNRESOLVED",
+    "exact_chapter_9_end_page": "UNRESOLVED",
+    "exact_chapter_9_page_range": "UNRESOLVED",
+    "adjacent_pagination_anchors_closed": true,
+    "interpolation_to_exact_chapter_9_range_authorized": false,
+    "chapter_8_locator_is_secondary_only": true,
+    "direct_chapter_9_text_increment": 0,
+    "direct_chapter_9_page_image_increment": 0,
+    "target_3482_3483_transaction_increment": 0
+  },
+  "access_consequence": {
+    "tokyo_metropolitan_exact_holding_route_remains_closed": true,
+    "tokyo_call_number": "C/022.3/6011/2009",
+    "tokyo_material_code": "4001029913",
+    "reference_service_still_needed_for_exact_chapter_9_page_range": true,
+    "remote_copy_request_submitted": false,
+    "library_account_action_taken": false,
+    "identity_transmitted": false,
+    "fee_incurred": false
+  },
+  "inference_firewall": {
+    "do_not_interpolate_chapter_9_start_from_chapter_8_page_anchor": true,
+    "do_not_interpolate_chapter_9_end_from_chapter_12_page_anchor": true,
+    "secondary_summary_is_not_direct_book_text": true,
+    "citation_page_is_not_direct_page_review": true,
+    "collection_level_transfer_history_does_not_bind_catalog_3482_3483": true
+  },
+  "transmission_impact": {
+    "status": "NONE",
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": [],
+    "reason": "Pagination/access calibration only; no new textual, object-identity, or lineage relation."
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Recover an exact Chapter-9 start/end-page citation, page-numbered contents, or lawful direct scan/text.",
+    "Prefer an authoritative Chapter 10 or 11 start-page anchor if available; do not interpolate.",
+    "If public routes remain closed, use the already-located Tokyo Metropolitan reference/copy route only after explicit authorization for account/request/identity/fee actions.",
+    "Do not assign catalog nos. 3482/3483 to a Qu transfer batch without item-level evidence."
+  ],
+  "updated_at": "2026-09-30"
+}

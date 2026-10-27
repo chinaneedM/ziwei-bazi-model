@@ -1,0 +1,115 @@
+{
+  "schema": "ZIWEI-SHILIJU1823-ZHUNZHAI-HUANG-PILIE-OLD-COPY-RECOPY-FIREWALL-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-SHILIJU1823-ZHUNZHAI-HUANG-PILIE-OLD-COPY-RECOPY-FIREWALL-FA",
+  "prior_batch_id": "BATCH-12-ZIWEI-AIRIJINGLU1827-ZHUNZHAI-FENGGU-FIRST-EDITION-RECENSION-CONTROL-EZ",
+  "question": "Does Huang Pilie's 1823 paratext directly distinguish an older Zhunzhai/Tonghu source manuscript from a circulation recopy, and what does that imply for identifying the 1827 Airijinglu 'Huang old manuscript' with the currently reviewed 1823 Shiliju object?",
+  "answer": "YES, THE 1823 SOURCE-BOUND P76 PARATEXT EXPLICITLY DISTINGUISHES 原書舊鈔 FROM 錄副. HUANG ALSO JUDGES 原書舊鈔當是影宋, BUT THIS IS A QING BIBLIOGRAPHIC JUDGMENT, NOT PHYSICAL DATING OF THE REVIEWED 1823 OBJECT OR A PRE-1578 WITNESS. THEREFORE THE 1827 AIRIJINGLU 從吳門黃氏藏舊抄本影寫 ROUTE CANNOT BE IDENTIFIED BY DEFAULT WITH THE CURRENTLY REVIEWED 1823 SHILIJU PHYSICAL OBJECT. HUANG-FAMILY PROVENANCE CONVERGENCE IS STRONG; EXACT SURVIVING-OBJECT IDENTITY REMAINS OPEN.",
+  "source_binding": {
+    "source_id": "EXT-XUXIU1031-ZHUNZHAI-TONGHU-CLEPSYDRA-QING-MSS-PHYSICAL",
+    "source_title": "《續修四庫全書》第1031冊所收《準齋心製几漏圖式》《銅壺漏箭制度》清道光三年黃氏士禮居抄本",
+    "source_pdf_sha256": "07348e40ec26ca38efe9c9736a69c403c61f9b07a2c89a847fc68d00ce6d8c25",
+    "physical_copy_date": "QING_DAOGUANG_3_1823",
+    "target_pdf_page": 76,
+    "target_page_sha256": "64aad110e3cba4984cb784e9f97c99044fbc25e39a06744000a7a606ba73ffeb",
+    "workflow_run_id": 35438178430,
+    "workflow_artifact_id": 10583226243,
+    "workflow_artifact_digest": "sha256:771155d081d669f1d1020213e2edc17d56d81594e625c267ce68b4f191cac6ce",
+    "ocr_used_for_final_glyph_claims": false,
+    "received_tiba_locator_control": {
+      "identifier": "NLC892-001926727-315344",
+      "source_sha256": "43a14ffebd70640cde5700ac0ffecd3a23bfe222e51d0d300a5e8dc721dda82c",
+      "workflow_run_id": 35964719021,
+      "workflow_artifact_id": 10793847186,
+      "workflow_artifact_digest": "sha256:56bcaeef97c3cfc131acd989213f639ed831e52d54bf1a6219d7305df28aeb35",
+      "direct_control": "PDF p7 is a contents/index surface containing the paired title; OCR is locator-only and contributes no decisive glyph vote in this batch."
+    }
+  },
+  "direct_physical_reading": {
+    "p76": [
+      "此銅壺漏箭制度準齋心製几漏圖式共二種見諸文淵閣書目",
+      "此本敘次先後互易從其古本之流傳也",
+      "原書舊鈔當是影宋",
+      "余恐流傳未廣錄副以便傳觀或互相鈔錄",
+      "道光癸未仲冬月蕘夫書"
+    ],
+    "date_adjudication": "DAOGUANG_GUIWEI_1823",
+    "old_source_copy_term": "原書舊鈔",
+    "recopy_term": "錄副",
+    "old_source_and_recopy_explicitly_distinct": true,
+    "adjudication": "HUANG_1823_OLD_SOURCE_VS_CIRCULATION_RECOPY_LAYERING_DIRECTLY_CLOSED"
+  },
+  "yingsong_firewall": {
+    "phrase": "原書舊鈔當是影宋",
+    "evidence_role": "QING_HUANG_PILIE_BIBLIOGRAPHIC_TEXTUAL_JUDGMENT",
+    "reviewed_1823_object_proved_song_physical_copy": false,
+    "surviving_song_physical_object_proved": false,
+    "secure_pre1578_exact_25arrow_physical_witness": false
+  },
+  "physical_identity_firewall": {
+    "airijinglu_1827_statement": "從吳門黃氏藏舊抄本影寫",
+    "reviewed_object": "NLC-held Qing Daoguang-3 / 1823 Huang-family Shiliju manuscript as reproduced in Xuxiu1031",
+    "source_tradition_has_multiple_copy_layers": true,
+    "exact_identity_airijinglu_huang_old_copy_equals_reviewed_1823_object": "NOT_PROVED",
+    "reviewed_1823_object_exact_role_as_原書舊鈔_or_錄副": "UNRESOLVED",
+    "direct_copy_edge_to_airijinglu_1827_authorized": false,
+    "safe_conclusion": "HUANG_FAMILY_PROVENANCE_CONVERGENCE_STRONG; EXACT_SURVIVING_OBJECT_IDENTITY_OPEN; ONE-OBJECT COLLAPSE FORBIDDEN"
+  },
+  "author_identity_firewall": {
+    "direct_ming_1602": "孫逢吉",
+    "direct_ming_1605": "孫逢吉",
+    "direct_airijinglu_1827": "孫逢古",
+    "exact_identity_with_yuan_1281_yanling_sun_fengji": "POSSIBLE_NOT_PROVED",
+    "original_author_name_proved": false,
+    "force_normalization_authorized": false
+  },
+  "sanming_firewall": {
+    "exact_sanming_yueling_dahan_yushui_fingerprint_closed": false,
+    "exact_nanjing_59_endpoint_binding_closed": false,
+    "direct_sanming_parent_vote_increment": 0
+  },
+  "adjudication": {
+    "matrix_count_change": false,
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "deterministic_fusion_chart_product_r1": "CLOSED"
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 12,
+    "repaired_provenance_metadata_defect_count": 12,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "transmission_impact": {
+    "nodes_added": [
+      "PASSAGE-SHILIJU1823-ZHUNZHAI-HUANG-PILIE-OLD-COPY-RECOPY"
+    ],
+    "nodes_strengthened": [
+      "PHYSICAL-COPY-NLC-ZHUNZHAI-JILOU-DAOGUANG3-HUANG-SHILIJU-MS",
+      "RULE-FAMILY-ZHUNZHAI-25ARROW-JIEHOU-SELECTION-38-62"
+    ],
+    "edges_supported": [
+      "TG-E0105"
+    ],
+    "direct_copy_edges_authorized": [],
+    "remaining_lineage_questions": [
+      "Which physical object is Huang's 原書舊鈔 and which is the 錄副?",
+      "Which of those layers did Zhang Jinwu use for the 1827 Airijinglu description?",
+      "Which intermediate recension first contains the 1887 body phrase 由此逢吉以心法創茲小壺?",
+      "Can a Yuan primary witness directly pair the Yanling Sun Fengji with the Zhunzhai title?",
+      "Can a securely pre-1578 physical witness close the exact 25-arrow operating prose?"
+    ]
+  },
+  "next_gate": [
+    "Separate Huang's 原書舊鈔 and 錄副 by physical/call-number/paratext evidence.",
+    "Search intermediate pre-1887 Airijinglu recensions for the 由此逢吉 body phrase.",
+    "Continue Yuan person-title and securely pre-1578 exact 25-arrow prose searches.",
+    "Keep Sanming/Yueling Dahan-Rainwater and Nanjing-59 searches active."
+  ],
+  "updated_at": "2026-09-24"
+}

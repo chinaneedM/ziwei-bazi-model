@@ -1,0 +1,45 @@
+{
+  "schema": "ZIWEI-EXTERNAL-TEMPORAL-COMPATIBILITY-FIXTURE-V1",
+  "fixture_id": "WENMO-CHARTDIFF-006-TEMPORAL",
+  "authority": "EXTERNAL_COMPATIBILITY_ORACLE_NOT_CANONICAL_AUTHORITY",
+  "source_case": "WENMO-CHARTDIFF-006",
+  "birth_year": 2001,
+  "birth_year_ganzhi": "辛巳",
+  "sex": "MALE",
+  "bureau": ["金", 4],
+  "life_branch": "午",
+  "expected_daxian_direction": "REVERSE",
+  "expected_daxian": [
+    {"index":1,"age":[4,13],"years":[2004,2013],"active_ganzhi":"甲午"},
+    {"index":2,"age":[14,23],"years":[2014,2023],"active_ganzhi":"癸巳"},
+    {"index":3,"age":[24,33],"years":[2024,2033],"active_ganzhi":"壬辰"},
+    {"index":4,"age":[34,43],"years":[2034,2043],"active_ganzhi":"辛卯"},
+    {"index":5,"age":[44,53],"years":[2044,2053],"active_ganzhi":"庚寅"},
+    {"index":6,"age":[54,63],"years":[2054,2063],"active_ganzhi":"辛丑"},
+    {"index":7,"age":[64,73],"years":[2064,2073],"active_ganzhi":"庚子"},
+    {"index":8,"age":[74,83],"years":[2074,2083],"active_ganzhi":"己亥"},
+    {"index":9,"age":[84,93],"years":[2084,2093],"active_ganzhi":"戊戌"},
+    {"index":10,"age":[94,103],"years":[2094,2103],"active_ganzhi":"丁酉"},
+    {"index":11,"age":[104,113],"years":[2104,2113],"active_ganzhi":"丙申"},
+    {"index":12,"age":[114,123],"years":[2114,2123],"active_ganzhi":"乙未"}
+  ],
+  "expected_annual_samples": [
+    {"year":2001,"age":1,"year_ganzhi":"辛巳","active_palace_ganzhi":"癸巳","parent_daxian":null},
+    {"year":2004,"age":4,"year_ganzhi":"甲申","active_palace_ganzhi":"丙申","parent_daxian":"DAXIAN:index=1"},
+    {"year":2013,"age":13,"year_ganzhi":"癸巳","active_palace_ganzhi":"癸巳","parent_daxian":"DAXIAN:index=1"},
+    {"year":2014,"age":14,"year_ganzhi":"甲午","active_palace_ganzhi":"甲午","parent_daxian":"DAXIAN:index=2"},
+    {"year":2022,"age":22,"year_ganzhi":"壬寅","active_palace_ganzhi":"庚寅","parent_daxian":"DAXIAN:index=2"},
+    {"year":2024,"age":24,"year_ganzhi":"甲辰","active_palace_ganzhi":"壬辰","parent_daxian":"DAXIAN:index=3"},
+    {"year":2032,"age":32,"year_ganzhi":"壬子","active_palace_ganzhi":"庚子","parent_daxian":"DAXIAN:index=3"}
+  ],
+  "expected_minor_age_1_to_12": {
+    "1":"未","2":"申","3":"酉","4":"戌","5":"亥","6":"子",
+    "7":"丑","8":"寅","9":"卯","10":"辰","11":"巳","12":"午"
+  },
+  "semantic_notes": [
+    "Daxian transformation stem is the active natal palace stem.",
+    "Annual transformation stem is the annual heavenly stem, not the natal stem of the annual Life address.",
+    "Annual Life address is the annual TaiSui branch; natal physical star coordinates remain unchanged.",
+    "Minor Limit is an auxiliary moving address and does not replace Annual TaiSui."
+  ]
+}

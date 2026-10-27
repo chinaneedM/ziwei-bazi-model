@@ -1,0 +1,84 @@
+{
+  "schema": "MING-DATONG-YEHUOBIAN-12PZ-NCL02260-MAIN-V1-CONTENTS-COLLATION-R1",
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-10-09",
+  "batch": "12PZ_IN_PROGRESS",
+  "status": "DIRECT_20_VOLUME_MAIN_V1_CONTENTS_AND_BODY_BOUND_WITH_SOURCE_DIGEST",
+  "source": {
+    "library": "Taiwan National Central Library",
+    "catalog": "204.26 02260",
+    "surrogate": "NCL-02260_1_萬曆野獲編.pdf",
+    "pdf_sha256": "5b91b5cad4a9d7573271ffd275085b046339cdfab80341b60a6156706e80e191",
+    "pdf_page_count": 1000
+  },
+  "acquisition": {
+    "workflow": ".github/workflows/render-yehuobian-ncl02260-original-v1-12pz.yml",
+    "commit_sha": "29072d080a127d8cf7869df5a3e1662f88ee52d3",
+    "workflow_run": 37882767000,
+    "run_conclusion": "success",
+    "artifact_id": 11594763918,
+    "artifact_name": "ncl02260-main-v1-title-12pz",
+    "artifact_zip_sha256": "9c8188c4d26b3a9164a4b28a58c31a4f6709d6c05b6e6e7c1526ea292443ab68",
+    "render_dpi": 200,
+    "ocr_used": false,
+    "manifest_sha256_check": "PASS_3_OF_3",
+    "source_digest_check": "PASS",
+    "source_page_count_check": "PASS_1000"
+  },
+  "physical_visual_collation": [
+    {
+      "pdf1_page_1based": 3,
+      "sha256": "aa818602ab4ec3a4acc16e5d05e4d4a29704f989cefb32aa98889e8c22c20db6",
+      "status": "DIRECT_IMAGE_MANUAL_READ",
+      "heading": "萬曆野獲編卷第一目",
+      "layout": "Left page contents title and first group; right page preceding handwritten prose."
+    },
+    {
+      "pdf1_page_1based": 4,
+      "sha256": "11984203baa9ba4afad6dbed8279b3a3fb2a0c51d5d5520df479e8fdb9d2413f",
+      "status": "DIRECT_IMAGE_MANUAL_READ",
+      "heading": "ORIGINAL_MAIN_V1_CONTENTS_CONTINUE",
+      "layout": "Right page contains remaining contents entries; other side is unprinted/blank surrogate image."
+    },
+    {
+      "pdf1_page_1based": 5,
+      "sha256": "eb92f1564f2a7e2f2ce1d073628f1b7ae78a0100a569887d03ea180ec5594066",
+      "status": "DIRECT_IMAGE_MANUAL_READ",
+      "heading": "萬曆野獲編卷第一",
+      "layout": "Main volume one opening prose and author line shown at right side of text leaf."
+    }
+  ],
+  "crosswalk": {
+    "original_main_v1_pdf1_page": 3,
+    "original_main_v2_pdf1_page": 36,
+    "original_main_v20_pdf1_page": 592,
+    "supplement_pdf1_page": 623,
+    "continuation_v1_pdf1_page": 651,
+    "continuation_v2_pdf1_page": 682
+  },
+  "interpretive_limits": [
+    "Main volume 1 p3-p4 and continuation volume 1 p651-p652 headings lists were inspected; missing literal target heading on those specific leaves does not disprove target text in other manuscript parts.",
+    "Even locating source manuscript's 20 original TOC title pages is not proof that every chapter heading was exhaustively listed or every manuscript folio read.",
+    "Do not equate categorized 30v volume20 with original 20v volume20; title identity is not article identity.",
+    "Received digital 30v 改造漏刻 is an access/search lead, not independently collated from this physical original20v.",
+    "Do not infer source ancestry or Ming timekeeping implementation from foliation-only evidence."
+  ],
+  "target": {
+    "gaizao_louke_literal_on_main_v1_toc_p3_p4": false,
+    "gaizao_louke_original_article_to_leaf": "UNRESOLVED",
+    "number_one_two_old20v": "UNRESOLVED",
+    "gong_guan_old20v": "UNRESOLVED",
+    "printed_1827_target_glyph": "UNRESOLVED",
+    "whole_witness_article_absence": "NOT_ESTABLISHED"
+  },
+  "project_effect": {
+    "historical_matrix_unchanged": true,
+    "current_state_unchanged": true,
+    "genealogy_graph_unchanged": true,
+    "algorithm_unchanged": true,
+    "md_g03": "OPEN_BLOCKING_GENERAL_ADAPTER",
+    "hpa_dayun_cal_002": "MISSING_FROM_PRODUCT",
+    "batch_closed": false
+  },
+  "next": "Search source original20v article body via page-level navigation independent of later 30v title; separately obtain an edition/copy-identified 1827 printed target leaf for cross-witness collation."
+}

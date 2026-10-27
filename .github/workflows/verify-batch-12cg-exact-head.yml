@@ -1,0 +1,42 @@
+name: verify-batch-12cg-exact-head
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/verify-batch-12cg-exact-head.yml
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify Batch 12CG continuity state
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/verify-project-continuity-state-r1.py
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          state = json.loads(Path('docs/PROJECT-CURRENT-STATE-R1.json').read_text(encoding='utf-8'))
+          batch = 'BATCH-12-ZIWEI-DATONG-RICHU-DAILY-TABLE-SANMING-MULTIPOINT-REPLAY-CG'
+          expected_doc = 'docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-DATONG-RICHU-DAILY-TABLE-SANMING-MULTIPOINT-REPLAY-CG.md'
+          h = state['historical_audit']
+          assert batch in h['completed_batches']
+          assert h['latest_batch_doc'] == expected_doc
+          assert state['invariants']['deterministic_fusion_chart_product_r1'] == 'CLOSED'
+          assert state['invariants']['confirmed_chart_algorithm_defect_count'] == 0
+          assert state['invariants']['algorithm_reopen_count'] == 0
+          assert state['invariants']['candidate_collapse_count'] == 0
+          evidence = json.loads(Path('docs/research/ZIWEI-DATONG-RICHU-DAILY-TABLE-SANMING-MULTIPOINT-REPLAY-R1.json').read_text(encoding='utf-8'))
+          assert evidence['adjudication']['mechanical_bridge_closed_one_layer'] is True
+          assert evidence['adjudication']['exact_pre1578_sanming_table_parent_closed'] is False
+          assert evidence['adjudication']['upper_zi_to_hai_mechanical_vote_increment'] == 0
+          assert evidence['adjudication']['algorithm_reopen_authorized'] is False
+          print('BATCH_12CG_EXACT_HEAD_GATE=PASS')
+          PY

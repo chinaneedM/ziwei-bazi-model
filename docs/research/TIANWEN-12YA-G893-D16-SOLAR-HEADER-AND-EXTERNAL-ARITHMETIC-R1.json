@@ -1,0 +1,173 @@
+{
+  "schema": "TIANWEN-12YA-G893-D16-SOLAR-PRINTED-COLUMNS-AND-EXTERNAL-ARITHMETIC-CONTROL-R1",
+  "date": "2026-10-16",
+  "source_id": "EXT-KYUJANGGAK-SHOUSHI-LICHENG-G893",
+  "provider_copy": "Kyujanggak 奎貴893, GK00893_00, single physical original",
+  "catalog_year_boundary": "1418-1450 UNRESOLVED EXACT YEAR",
+  "archive": {
+    "workflow_run": 35324088110,
+    "artifact_id": 10538746764,
+    "byte_count": 33525981,
+    "zip_sha256": "ee9ecf1de3bb6abe5678e0f8ec8383ef985051e77d091ee40840756e57081107",
+    "zip_crc_pass": true,
+    "source_jpegs_sha256_replayed": 204,
+    "original_images_committed": 0
+  },
+  "direct_original_page_evidence": [
+    {
+      "page_id": "001a",
+      "role": "SOLAR_WINTER_SOURCE_PRINTED_HEADER",
+      "jpeg_sha256": "8b07513ca8aad42ae167a93f22c39f14850c8cd1c345db9ce98c1e0e769226a5"
+    },
+    {
+      "page_id": "002a",
+      "role": "SAME_TABLE_PRECEDING_DAY13_LAYOUT",
+      "jpeg_sha256": "31d0452e9350e32ff73549f49d894ab26f6e588654926d45b3a603ae4da9a914"
+    },
+    {
+      "page_id": "002b",
+      "role": "SAME_TABLE_NEIGHBOR_D15_D16_D17",
+      "jpeg_sha256": "f9812e8c6a357eb6cd1117bb2af58d816e01030d5b93f34e7094bddb766b2b55"
+    }
+  ],
+  "original_rgb_roi": {
+    "pixel_width": 1150,
+    "pixel_height": 2000,
+    "method": "Image.open(BytesIO(exact provider JPG)).convert('RGB').crop((x1,y1,x2,y2)).tobytes() SHA256",
+    "cropping_right_and_bottom_exclusive": true,
+    "ocr_used": false,
+    "regions": [
+      {
+        "page_id": "001a",
+        "role": "SOLAR_WINTER_ACTIVE_PRINTED_COLUMN_LABELS",
+        "rect_px": [
+          545,
+          455,
+          810,
+          1230
+        ],
+        "sha256": "79587768ac45f0a989de16eb0738357f2b6da18ab31985e452c3f3cbe231ff4e"
+      },
+      {
+        "page_id": "002b",
+        "role": "DAY15_SINGLE_PRINT_PAIR",
+        "rect_px": [
+          745,
+          460,
+          950,
+          1675
+        ],
+        "sha256": "1889dd7bf7643d7c908c70964921c78b973a7771e7f0a90000a91752f06e40d0"
+      },
+      {
+        "page_id": "002b",
+        "role": "DAY16_SINGLE_PRINT_PAIR",
+        "rect_px": [
+          560,
+          460,
+          780,
+          1675
+        ],
+        "sha256": "1a0e93cbac318563e799e79259280deb94bc06ad69aa364151511655c6a3d353"
+      },
+      {
+        "page_id": "002b",
+        "role": "DAY17_SINGLE_PRINT_PAIR",
+        "rect_px": [
+          390,
+          460,
+          595,
+          1675
+        ],
+        "sha256": "f474bc7b8fcfccb220dd4654379ce2eb0ca5da642f524a322950a526b8abf2b0"
+      },
+      {
+        "page_id": "002b",
+        "role": "D15_D16_D17_BOUNDARY_UNBROKEN",
+        "rect_px": [
+          375,
+          205,
+          950,
+          1680
+        ],
+        "sha256": "234af60ba561fb3df28e51cdefe64e9716c0cb11b0e32786206c97ef4bb77777"
+      },
+      {
+        "page_id": "002a",
+        "role": "D13_SAME_SERIES_CONTINUITY",
+        "rect_px": [
+          100,
+          220,
+          320,
+          1620
+        ],
+        "sha256": "7cc4bdc662f59b3e72e4fb478e03e685450ed7807bc7f91f91363a81b917b38d"
+      }
+    ]
+  },
+  "visual_interpretation": {
+    "direct_original_day_headings": [
+      "十五日",
+      "十六日",
+      "十七日"
+    ],
+    "original_header_terms_directly_visible": [
+      "積日",
+      "盈縮加分",
+      "盈縮積",
+      "日差加一秒八十六少"
+    ],
+    "positive_source_observation": "D16 and D15/D17 are printed in the same bounded solar table with distinct paired long numeric vertical lanes beneath the solar header family. Header's 日差加一秒八十六少 is an instruction/metadata phrase and must not be automatically promoted to a third independent per-day difference numerical column.",
+    "boundary": "Scope is original header 001a and D15-D17 on 002b with 002a continuity; not proof of absence elsewhere in entire book.",
+    "candidate_full_d16_original_target_literal": null,
+    "explicit_source_to_other_edition_second_column_mapping": "UNPROVEN",
+    "original_d16_numeric_variant_result": null,
+    "complete_original_source_literal_targets_awarded_by_this_batch": 0,
+    "negative_evidence_whole_manuscript": false
+  },
+  "external_edition_arithmetic": {
+    "source": "docs/research/MING-DATONG-1569-CROSS-EDITION-VARIANT-LEDGER-R1.json",
+    "input_strings": {
+      "day15": "5.2176",
+      "day17": "5.2548",
+      "constant_day_increment": "0.0186",
+      "ming1569_day16": "5.2362",
+      "goryeosa_received_day16": "5.1362"
+    },
+    "precision": "EXACT_DECIMAL_4_PLACES_NO_FLOAT",
+    "derived_strings": {
+      "day15_plus_increment": "5.2362",
+      "day17_minus_increment": "5.2362",
+      "symmetric_neighbor_midpoint": "5.2362",
+      "ming1569_residual": "0.0000",
+      "goryeosa_received_residual": "-0.1000",
+      "goryeosa_d16_minus_day15": "-0.0814",
+      "day17_minus_goryeosa_d16": "0.1186"
+    },
+    "status": "EXTERNAL_LEDGER_INTERNAL_SEQUENCE_CONSISTENCY_ONLY_NOT_G893_SOURCE_NUMBER",
+    "does_not_identify_transmission_cause": true,
+    "does_not_overwrite_received_original_5_1362": true
+  },
+  "historical_edition_comparability": {
+    "g894_1444_existing_status": "FIELD_STRUCTURALLY_NOT_DIRECTLY_COMPARABLE",
+    "ogawa_1673_existing_status": "FIELD_STRUCTURALLY_NOT_DIRECTLY_COMPARABLE",
+    "g893_current_status": "PRINTED_SOURCE_HEADERS_AND_TWO_DAY_PAIR_LANES_BOUNDED_POSITIVE; SAME_FIELD_MAPPING_WITH_1569_DIFFERENCE_UNPROVEN",
+    "not_a_negative_exhaustive_proof": true,
+    "older_variant_ledger_not_modified": true
+  },
+  "safeguards": {
+    "source_full_fields_before": 5,
+    "source_full_fields_after": 5,
+    "unresolved_control_id": "VAR-NUM-SOLAR-WINTER-D16-DIFFERENCE",
+    "all_six_cross_edition_mechanical_variant_final_decisions": 0,
+    "open_research_issues": 11,
+    "new_independent_physical_witnesses": 0,
+    "new_external_source_records": 0,
+    "new_genealogy_nodes": 0,
+    "new_genealogy_edges": 0,
+    "algorithm_reopens": 0,
+    "source_original_text_auto_ocr_authorized": false,
+    "old_12xy_and_12xz_evidence_not_rewritten": true
+  },
+  "next": "Original-header-to-per-day-lane formal column reconstruction via printed arithmetic and independently traced 1569 second-column semantics; keep D16 as unclosed until positive same-unit/source-column proof or evidence-scoped structurally different field adjudication; then same-copy L35/L159 symmetry."
+}

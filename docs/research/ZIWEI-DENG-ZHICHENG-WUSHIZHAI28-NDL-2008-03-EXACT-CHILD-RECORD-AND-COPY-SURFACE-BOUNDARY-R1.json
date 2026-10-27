@@ -1,0 +1,184 @@
+{
+  "schema": "ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-NDL-2008-03-EXACT-CHILD-RECORD-AND-COPY-SURFACE-BOUNDARY-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-NDL-2008-03-EXACT-CHILD-RECORD-AND-COPY-SURFACE-BOUNDARY-GF",
+  "prior_batch_id": "BATCH-12-ZIWEI-DENG-ZHICHENG-WUSHIZHAI28-JAPAN-PHYSICAL-SERIAL-HOLDINGS-AND-COPY-ACTION-BOUNDARY-GE",
+  "question": "Can the exact National Diet Library child record for 中國典籍與文化 2008(3), the issue containing 《五石斋文史札记（二十八）》 pp.121-129, be resolved from source-emitted finite parent-list pagination without guessing identifiers, and does that child page itself close target-specific copying eligibility or primary-text access?",
+  "answer": "Yes for exact issue-child identity; no for target-specific copy eligibility or article text. A finite four-page traversal of the NDL parent serial's source-emitted child list (offsets 0/20/40/60) returned the exact label 中國典籍與文化 2008(3) (通号 66) 2008 and source-emitted href /books/R100000002-Ia0000052718-i25264793, bracketed by 2008(2) 通号65 / i25264749 and 2008(4) 通号67 / i25264816. Direct anonymous retrieval of the exact child URL returned HTTP 200 and a static title matching 2008(3) (通号 66), with NDL call number Z21-AC41 and bibliographic ID a0000052718. The child page exposes only generic access-help links such as 資料のコピーを入手する and generic application infrastructure in the reviewed static HTML; no target-specific remote-copy eligibility, article-location eligibility, exact material-label ID, pp.121-129 images, or primary article body was directly source-emitted. No login, request, fee, purchase or identifier guessing occurred.",
+  "parent_list_discovery": {
+    "provider": "国立国会図書館 / NDL Search",
+    "parent_url": "https://ndlsearch.ndl.go.jp/books/R100000002-Ia0000052718",
+    "parent_ndl_bib_id": "a0000052718",
+    "call_number": "Z21-AC41",
+    "pagination_contract": "SOURCE_EMITTED_PARENT_CHILD_LIST_FINITE_OFFSETS_0_20_40_60_SIZE_20_PUBLISHED_DESC",
+    "requested_offsets": [
+      0,
+      20,
+      40,
+      60
+    ],
+    "identifier_guessing_performed": false,
+    "target_match": {
+      "label": "中國典籍與文化 2008(3) (通号 66) 2008",
+      "href": "/books/R100000002-Ia0000052718-i25264793",
+      "child_suffix": "i25264793",
+      "list_offset": 40,
+      "total_issue_number": 66,
+      "year": 2008,
+      "issue": 3
+    },
+    "adjacent_controls": [
+      {
+        "label": "中國典籍與文化 2008(2) (通号 65) 2008",
+        "href": "/books/R100000002-Ia0000052718-i25264749",
+        "total_issue_number": 65
+      },
+      {
+        "label": "中國典籍與文化 2008(4) (通号 67) 2008",
+        "href": "/books/R100000002-Ia0000052718-i25264816",
+        "total_issue_number": 67
+      }
+    ],
+    "exact_target_child_record_status": "CLOSED_SOURCE_EMITTED_FIRST_PARTY"
+  },
+  "exact_child_record_control": {
+    "source_id": "EXT-NDL-ZHONGGUO-DIANJI-YU-WENHUA-2008-03-I25264793",
+    "url": "https://ndlsearch.ndl.go.jp/books/R100000002-Ia0000052718-i25264793",
+    "status": 200,
+    "content_type": "text/html;charset=utf-8",
+    "response_sha256": "b8678d1bab127f7ee45ef5851aa8d16fc2a03cc1d5a606e18baad9abc8823e29",
+    "response_bytes": 201873,
+    "html_title": "中國典籍與文化 2008(3) (通号 66) 2008 | NDLサーチ | 国立国会図書館",
+    "displayed_title": "中國典籍與文化",
+    "displayed_issue": "2008(3) (通号 66) 2008",
+    "call_number": "Z21-AC41",
+    "ndl_bib_id": "a0000052718",
+    "cinii_ncid": "AA1225301X",
+    "exact_issue_child_record_resolved": true,
+    "exact_material_label_id": "UNRESOLVED",
+    "target_article_pages_121_129_directly_reviewed": false,
+    "target_article_body_directly_reviewed": false
+  },
+  "child_access_surface_control": {
+    "generic_access_help_links_source_emitted": [
+      {
+        "label": "インターネットで資料を読む",
+        "href": "/help/about#net"
+      },
+      {
+        "label": "資料のコピーを入手する",
+        "href": "/help/about#copy"
+      },
+      {
+        "label": "図書館で資料を読む",
+        "href": "/help/about#read"
+      }
+    ],
+    "static_term_counts": {
+      "資料のコピーを入手する": 1,
+      "申込": 1,
+      "Z21-AC41": 3,
+      "通号 66": 10,
+      "2008(3)": 10,
+      "遠隔複写": 0,
+      "複写": 0,
+      "記事掲載箇所調査": 0,
+      "東京本館": 0,
+      "関西館": 0,
+      "ログイン": 0
+    },
+    "generic_copy_help_present": true,
+    "target_specific_remote_copy_eligibility_source_emitted": false,
+    "target_specific_article_location_investigation_eligibility_source_emitted": false,
+    "target_specific_request_button_or_cart_state_source_emitted": false,
+    "exact_material_or_holding_item_id_resolved": false,
+    "account_login_performed": false,
+    "request_submitted": false,
+    "fee_incurred": false
+  },
+  "research_runs": [
+    {
+      "run_id": 36098091941,
+      "role": "FINITE_SOURCE_EMITTED_PARENT_CHILD_LIST_PAGINATION_AND_EXACT_TARGET_CHILD_HREF_DISCOVERY",
+      "head_sha": "0fa6b30c0ffcbc2d5973d4542dad3c59020536f4",
+      "artifact_id": 10848132184,
+      "artifact_name": "ndl-zhongguodianji-2008-03-child-probe",
+      "artifact_digest": "sha256:c465ebb006a438494500e7159e4b42df8f637b37a60bfbf849e4e15a71b75b3c"
+    },
+    {
+      "run_id": 36098197610,
+      "role": "DIRECT_ANONYMOUS_FETCH_OF_SOURCE_EMITTED_TARGET_CHILD_AND_STATIC_ACCESS_SURFACE_INSPECTION",
+      "head_sha": "6c5882538e14301ac2929b921e75bb3b74c85fdd",
+      "artifact_id": 10847874779,
+      "artifact_name": "ndl-zhongguodianji-2008-03-child-probe",
+      "artifact_digest": "sha256:ed9258baf860bc6aa669bd69dc8072942d05b8e321f780c910a92a0d07e1d8a8"
+    }
+  ],
+  "access_and_authority_firewall": {
+    "source_emitted_child_href_does_not_equal_article_page_review": true,
+    "exact_issue_child_record_does_not_equal_exact_article_page": true,
+    "generic_copy_help_link_does_not_equal_target_specific_remote_copy_eligibility": true,
+    "generic_application_state_does_not_equal_requestable_item_state": true,
+    "call_number_and_bib_id_do_not_equal_material_label_or_copy_item_id": true,
+    "issue_identity_does_not_equal_primary_article_text": true,
+    "no_identifier_guessing": true,
+    "no_login_performed": true,
+    "no_remote_copy_request_submitted": true,
+    "no_article_location_investigation_submitted": true,
+    "no_ill_request_submitted": true,
+    "no_fee_or_purchase_incurred": true,
+    "no_date_to_page_interpolation": true,
+    "journal_pagination_does_not_map_to_2007_facsimile_pagination_without_direct_crosswalk": true
+  },
+  "target_status_after_batch": {
+    "target_issue_child_record": "CLOSED_NDL_I25264793",
+    "target_issue_label": "中國典籍與文化 2008(3) (通号 66) 2008",
+    "target_article_identity": "PKU_AID_286663046_PP121_129",
+    "target_article_page_range": "121-129",
+    "target_1950_01_29_presence_in_article": "NOT_DIRECTLY_COLLATED",
+    "target_1950_01_29_exact_journal_page": "UNRESOLVED",
+    "target_1950_01_29_primary_journal_text": "NOT_REVIEWED",
+    "target_specific_ndl_remote_copy_eligibility": "UNRESOLVED",
+    "exact_ndl_material_label_or_item_id": "UNRESOLVED",
+    "target_1950_01_29_exact_facsimile_page": "UNRESOLVED",
+    "target_1950_01_29_facsimile_text": "NOT_REVIEWED",
+    "target_1950_01_29_handwriting_directly_collated": false,
+    "target_3482_3483_batch_membership": "UNRESOLVED",
+    "target_specific_purchase_route_selected": false,
+    "target_specific_donation_route_selected": false
+  },
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_added": [],
+    "supported_edges": [],
+    "revised_edges": [],
+    "rejected_edges": [],
+    "remaining_lineage_questions": [],
+    "acquisition_edge_authorized": false,
+    "same_object_edge_authorized": false
+  },
+  "chronology_and_rule_firewall": {
+    "direct_sanming_parent_vote_increment": 0,
+    "pre1578_zhunzhai_rule_witness_increment": 0,
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 14,
+    "repaired_provenance_metadata_defect_count": 14,
+    "confirmed_chart_algorithm_defect_count": 0
+  },
+  "next_gate": [
+    "Inspect only source-emitted structured state/endpoints from exact NDL child i25264793 to determine whether an exact material label or target-specific request/copy eligibility is publicly exposed; do not guess identifiers or submit requests.",
+    "Continue public exact-page citation/fulltext discovery for 《五石斋文史札记（二十八）》 pp.121-129 and locate 1950-01-29 without interpolation.",
+    "Continue the 2007 facsimile volume-5 page/leaf route and directly collate handwriting if obtained.",
+    "If public routes do not close the target page, treat NDL remote-copy/article-location investigation as a user-account/external-action boundary requiring explicit authorization before submission.",
+    "Continue FV Jan-6, NLC [23]/[24], Ji Shuying chapter 9 and Gao Xizeng annotated-catalog routes in parallel."
+  ],
+  "updated_at": "2026-09-25"
+}

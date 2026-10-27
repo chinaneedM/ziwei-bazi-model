@@ -1,0 +1,128 @@
+name: probe-batch-12iv-zhao-wenji-institutional-catalog-html
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12iv-zhao-wenji-institutional-catalog-html.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Probe exact-identifier public catalog and preview surfaces
+        run: |
+          python - <<'PY'
+          import hashlib, html, json, re, time
+          from pathlib import Path
+          import requests
+
+          ISBN="9787501346653"
+          OCLC="775628715"
+          LCCN="2011426732"
+          TARGET_TITLE=("赵万里文集","趙萬里文集","Zhao Wanli wen ji")
+          TARGET_TERMS=("197","瞿济苍","瞿濟蒼","凤起","鳳起","旭初","永乐大典","永樂大典","六十二种","六十二種")
+          ROUTES={
+            "google_books_vid":f"https://books.google.com/books?vid=ISBN{ISBN}",
+            "google_books_search":f"https://books.google.com/books?q=isbn%3A{ISBN}",
+            "hathitrust_isbn":f"https://catalog.hathitrust.org/Search/Home?lookfor={ISBN}&type=all&inst=",
+            "worldcat_isbn":f"https://search.worldcat.org/search?q=bn%3A{ISBN}",
+            "worldcat_oclc":f"https://search.worldcat.org/title/{OCLC}",
+            "loc_lccn":f"https://www.loc.gov/books/?fo=json&q={LCCN}&c=20",
+            "loc_isbn":f"https://www.loc.gov/books/?fo=json&q={ISBN}&c=20",
+            "stanford_isbn":f"https://searchworks.stanford.edu/?q={ISBN}&search_field=search",
+            "princeton_isbn":f"https://catalog.princeton.edu/catalog?search_field=all_fields&q={ISBN}",
+          }
+          UA="Mozilla/5.0 (Tianwen provenance audit; anonymous exact-identifier public catalog probe)"
+          MAX_BYTES=2*1024*1024
+
+          def visible_text(raw):
+              raw=re.sub(r'<script\b.*?</script>',' ',raw,flags=re.I|re.S)
+              raw=re.sub(r'<style\b.*?</style>',' ',raw,flags=re.I|re.S)
+              raw=re.sub(r'<[^>]+>',' ',raw)
+              return re.sub(r'\s+',' ',html.unescape(raw)).strip()
+
+          def contexts(text, term, radius=180, limit=4):
+              out=[]; p=0
+              while len(out)<limit:
+                  i=text.find(term,p)
+                  if i<0: break
+                  out.append(text[max(0,i-radius):min(len(text),i+len(term)+radius)])
+                  p=i+len(term)
+              return out
+
+          s=requests.Session()
+          s.headers.update({"User-Agent":UA,"Accept-Language":"zh-CN,zh;q=0.9,en;q=0.7,ja;q=0.5"})
+          out={
+            "target":{"isbn":ISBN,"oclc":OCLC,"lccn":LCCN,"page":"2011 《赵万里文集》第1卷 p.197"},
+            "routes":{},
+            "security":{"login_used":False,"account_action_used":False,"copy_request_used":False,
+                        "payment_used":False,"captcha_bypass_used":False,"tls_verification_disabled":False}
+          }
+          for key,url in ROUTES.items():
+              row={"url":url}
+              try:
+                  r=s.get(url,timeout=45,allow_redirects=True,stream=True)
+                  data=bytearray(); truncated=False
+                  for chunk in r.iter_content(65536):
+                      if not chunk: continue
+                      if len(data)+len(chunk)>MAX_BYTES:
+                          take=MAX_BYTES-len(data)
+                          if take>0: data.extend(chunk[:take])
+                          truncated=True; break
+                      data.extend(chunk)
+                  b=bytes(data)
+                  ctype=r.headers.get("Content-Type","")
+                  text=""
+                  if "json" in ctype.lower():
+                      try:
+                          obj=json.loads(b.decode(r.encoding or "utf-8","replace"))
+                          text=json.dumps(obj,ensure_ascii=False)
+                          row["json_top_keys"]=list(obj)[:30] if isinstance(obj,dict) else []
+                          if key.startswith("loc_") and isinstance(obj,dict):
+                              row["loc_pagination"]=obj.get("pagination")
+                              row["loc_results"]=[
+                                {"id":x.get("id"),"title":x.get("title"),"date":x.get("date"),
+                                 "item":x.get("item"),"resources":x.get("resources")}
+                                for x in (obj.get("results") or [])[:8] if isinstance(x,dict)
+                              ]
+                      except Exception:
+                          text=b.decode(r.encoding or "utf-8","replace")
+                  else:
+                      raw=b.decode(r.encoding or "utf-8","replace")
+                      text=visible_text(raw)
+                  normalized=text.replace("-","").replace(" ","")
+                  row.update({
+                    "status":r.status_code,"final_url":r.url,"redirect_count":len(r.history),
+                    "content_type":ctype,"bytes_read":len(b),"truncated_at_2mib":truncated,
+                    "body_sha256":hashlib.sha256(b).hexdigest(),
+                    "target_title_present":any(t in text for t in TARGET_TITLE),
+                    "isbn_present":ISBN in normalized,
+                    "oclc_present":OCLC in normalized,
+                    "lccn_present":LCCN in normalized,
+                    "p197_literal_present":bool(re.search(r'(?<!\d)197(?!\d)',text)),
+                    "target_term_flags":{t:(t in text) for t in TARGET_TERMS},
+                    "digital_preview_markers":{t:(t.lower() in text.lower()) for t in
+                       ("preview","full view","read online","digital","pdf","ebook","online access","digitized","全文","电子书","電子書")},
+                    "selected_contexts":{t:contexts(text,t) for t in (ISBN,OCLC,LCCN,"197","preview","read online","全文","电子书") if t in text},
+                    "raw_body_saved":False,"raw_body_logged":False
+                  })
+              except Exception as e:
+                  row["error"]=f"{type(e).__name__}: {e}"
+              out["routes"][key]=row
+              time.sleep(0.4)
+
+          Path("zhao-wenji-institutional-catalog-html.json").write_text(
+              json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12iv-zhao-wenji-institutional-catalog-html
+          path: zhao-wenji-institutional-catalog-html.json

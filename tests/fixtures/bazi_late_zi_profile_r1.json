@@ -1,0 +1,22 @@
+{
+  "schema": "BAZI-LATE-ZI-PROFILE-FIXTURE-R1",
+  "birth": {
+    "reported_local_datetime": "2008-11-03T22:50:00",
+    "birth_place": "Shanghai",
+    "latitude": 31.2304,
+    "longitude": 121.4737,
+    "timezone_id": "Asia/Shanghai"
+  },
+  "expected": {
+    "BAZI-FOUNDATION-V1-R1": {
+      "day_boundary_policy": "MIDNIGHT",
+      "late_zi_hour_stem_policy": "CLASSICAL_CONTINUOUS",
+      "pillars": ["戊子", "壬戌", "丁未", "壬子"]
+    },
+    "BAZI-FOUNDATION-ZI-START-23-R1": {
+      "day_boundary_policy": "ZI_START_23",
+      "late_zi_hour_stem_policy": "ZI_START_ROLLOVER",
+      "pillars": ["戊子", "壬戌", "戊申", "壬子"]
+    }
+  }
+}

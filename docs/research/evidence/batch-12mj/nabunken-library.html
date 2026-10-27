@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<script src="/js/viewport.js"></script>
+<meta name="format-detection" content="telephone=no">
+<title>奈良文化財研究所ホームページ</title>
+<meta name="author" content="独立行政法人国立文化財機構奈良文化財研究所">
+
+
+    
+    <meta name="keywords" content="奈良文化財研究所,発掘調査報告書,修理報告書,文化財,平城宮跡" />
+    
+    
+    <meta name="description" content="図書資料室library/図書資料室奈良文化財研究所の図書資料室では、遺跡の発掘調査報告書、歴史的建造物の修理報告書等をはじめとした文化財関係を中心に、約30万冊の図書と、約5千タイトルの雑誌を所蔵しています。所外の方も奈文研の調査研究に支障のない範囲で、資料をご利用いただけます。" />
+    
+
+<meta name="copyright" content="copyright(c)奈良文化財研究所 All Right Reserved.">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.7.1/css/lightbox.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.7.1/js/lightbox.min.js" type="text/javascript"></script>
+
+
+<script src="/js/jquery.option.js"></script>
+<script src="/js/jquery.matchHeight.js"></script>
+
+<!--slide a-->
+<link rel="stylesheet" href="/slick/slick-theme.css">
+<link rel="stylesheet" href="/slick/slick.css">
+<link rel="stylesheet" href="/styles.css" />
+</head>
+
+<body>
+<div id="wrapper">
+<header id="header">
+
+<strong class="logo"><a href="/"><img src="/images/logo_site.svg" alt="奈良文化財研究所"/></a></strong>
+    <div id="header_in">
+            <ul class="sub_nav">
+            <li><a href="/info/contact.html">お問い合わせ</a></li>
+                <li><a href="/info/access.html">アクセス</a></li>
+                <li><a href="/info/howto.html">よくある質問</a></li>
+                <li><a href="/japanese/goannai.html">採用情報</a></li>
+                <li><a href="/japanese/announcement.html">調達等情報</a></li>
+            </ul>
+            <div class="language">
+                <ol>
+                <li><a href="/">日本語</a></li>
+                <li><a href="/english/">English</a></li>
+                <li><a href="/scn/">简体中文</a></li>
+                <li><a href="/tcn/">繁體中文</a></li>
+                <li><a href="/korean/">한국어</a></li>
+                </ol>
+            </div>
+            <div class="search">
+                <form method="get" action="https://www.nabunken.go.jp/mt/mt-search.cgi">
+            <input type="text" id="search" name="search" value="" class="search_text" />
+            <input type="hidden" name="IncludeBlogs" value="46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,65,66,67,68,69,70,71" />
+            <input type="hidden" name="limit" value="20" />
+            <input type="submit" accesskey="4" value="" class="search_btn" />
+</form>
+            </div>
+            <a href="https://www.facebook.com/nabunken" class="fb" target="_blank" rel="noopener"><img src="/images/icon_fb.png" alt="facebook"/></a>
+        
+    </div><!--//#header_in-->
+    <nav id="global-nav">
+        <div id="nav-content">
+            <div class="nav_in">
+            <ul class="category">
+                <li class="accordion"><span><a href="/japanese">研究所概要</a></span>
+                    <ul class="sub">
+                        <li><a href="/japanese">所長挨拶</a></li>
+                        <li><a href="/japanese/concept.html">研究所の概要</a></li>
+                        <li><a href="/japanese/history.html">沿革</a></li>
+                        <li><a href="/org/index.html">組織・体制</a></li>
+                        <li><a href="/org/staff-top.html">職員一覧</a></li>
+                    </ul>
+                </li>
+                <li><a href="/news/press/">プレスリリース</a></li>
+                <li class="accordion"><span><a href="/usage/application.html">画像と施設の利用</a></span>
+                    <ul class="sub">
+                    <li><a href="/usage/application.html">画像と施設の利用</a></li>
+                    <li><a href="/usage/library.html">図書資料室の利用</a></li>
+                    <li><a href="/heijo/museum/" target="_blank" rel="noopener">平城宮跡資料館</a><!-- 平城宮跡（第一次大極殿）ほか --></li>
+                    <li><a href="/fujiwara/">藤原宮跡資料室</a></li>
+                    <li><a href="/asuka/" target="_blank" rel="noopener">飛鳥資料館</a></li>
+                    <li><a href="/shijin/" target="_blank" rel="noopener">文化庁キトラ古墳壁画保存管理施設</a></li>
+                    </ul>
+                </li>
+            <li class="accordion"><span><a href="/research">調査・研究</a></span>
+                    <ul class="sub">
+                    <li><a href="/research">調査・研究</a></li>
+                    <li><a href="/research/international.html">国際学術交流</a></li>
+                    <li><a href="/research/kaken/kaken2024.html">外部資金等による研究</a></li>
+                    <li><a href="/research/school.html">大学院教育</a></li>
+                    </ul>
+                </li>
+                <li class="accordion"><span><a href="/fukyu/">イベント・研修</a></span>
+                    <ul class="sub">
+                    <li class="sp"><a href="/fukyu/lecture.html">イベント・研修</a></li>
+                    <li><a href="/fukyu/event2026.html">催し物</a></li>
+                    <li><a href="/fukyu/lecture.html">公開講演会等</a></li>
+                    <li><a href="/fukyu/account.html">現地説明会</a></li>
+                    <li><a href="/fukyu/kensyu.html">文化財担当者研修</a></li>
+                    <li><a href="/fukyu/symposium.html">研究集会</a></li>
+                    </ul>
+                </li>
+                <li class="accordion"><span><a href="/publication/">データベース・刊行物</a></span>
+                    <ul class="sub">
+                    <li><a href="/publication/">データベース・刊行物</a></li>
+                    <li><a href="/publication/goods.html">刊行物・グッズの購入方法</a></li>
+                    <li><a href="/usage/library.html">閲覧（複写）による入手方法</a></li>
+                    <li><a href="/publication/kiyo.html">紀要・年報</a></li>
+                    <li><a href="/publication/hakkutsu-houkoku.html">発掘調査報告</a></li>                  
+                    <li><a href="/publication/gaiyo.html">概要</a></li>
+                    <li><a href="/publication/gakuho.html">学報</a></li>
+                    <li><a href="/publication/shiryo.html">史料</a></li>
+                    <li><a href="/publication/ronso.html">奈文研論叢</a></li>
+                    <li><a href="/publication/mokkan-gaihou.html">発掘調査出土木簡概報</a></li>
+                    <li><a href="/publication/hakkutsu-gaihou.html">発掘調査概報</a></li>
+                    <li><a href="/publication/kshiryo.html">基準資料</a></li>
+                    <li><a href="/publication/hokoku.html">研究報告</a></li>
+                    <!-- <li><a href="/research/kaken/kaken2021.html">科学研究費補助金等報告書</a></li> -->
+                    <li><a href="/publication/zuroku.html">飛鳥資料館図録</a></li>
+                    <li><a href="/publication/catalogue.html">飛鳥資料館カタログ</a></li>
+                    <li><a href="/publication/research-catalogue.html">飛鳥資料館研究図録</a></li>
+                    <li><a href="/publication/nabunkennews.html">奈文研ニュース</a></li>
+                    <li><a href="/publication/maibunnews.html">埋蔵文化財ニュース</a></li>
+                    <li><a href="/publication/angkor-newsletter.html">西トップ遺跡ニュース</a></li>
+                    <li><a href="/publication/others.html">各種刊行物</a></li>
+                    <li><a href="/publication/moriosamu.html">森蘊 旧蔵資料</a></li>
+                    <li><a href="/nabunkenblog/">なぶんけんブログ</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="sub_nav">
+                <li><a href="/info/contact.html">お問い合わせ</a></li>
+                <li><a href="/info/access.html">アクセス</a></li>
+                <li><a href="/info/howto.html">よくある質問</a></li>
+                <li><a href="/japanese/goannai.html">採用情報</a></li>
+                <li><a href="/japanese/announcement.html">調達等情報</a></li>
+            </ul>
+            <div class="language">
+                <ol>
+                <li><a href="/">日本語</a></li>
+                <li><a href="/english/">English</a></li>
+                <li><a href="/scn/">简体中文</a></li>
+                <li><a href="/tcn/">繁體中文</a></li>
+                <li><a href="/korean/">한국어</a></li>
+                </ol>
+            </div>
+            <div class="search">
+                <form method="get" action="https://www.nabunken.go.jp/mt/mt-search.cgi">
+            <input type="text" id="search" name="search" value="" class="search_text" />
+            <input type="hidden" name="IncludeBlogs" value="46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,65,66,67,68,69,70,71" />
+            <input type="hidden" name="limit" value="20" />
+            <input type="submit" accesskey="4" value="" class="search_btn" />
+</form>
+                <a href="https://www.facebook.com/nabunken" class="fb" target="_blank" rel="noopener"><img src="/images/icon_fb.png" alt="facebook"/></a>
+            </div>
+            </div>
+        </div>
+    </nav>
+<script src="/js/nav.js"></script>
+</header>
+<div id="breadcrumbs">
+<div id="breadcrumbs-inner">
+                    <p id="breadcrumbs-content">
+                    
+                        <a href="https://www.nabunken.go.jp/">奈良文化財研究所</a> &gt; 
+                    
+                        <a href="https://www.nabunken.go.jp/usage/">画像と施設の利用</a>
+
+                        &gt; 
+    
+                        <a href="https://www.nabunken.go.jp/usage/library.html" class="current">図書資料室</a>
+    
+
+                    </p>
+                </div>
+            </div>
+
+<div id="page_container" class="library page_layout">
+<div id="page_tit_box">
+<div class="in"><h1 class="page_tit">図書資料室</h1></div>
+</div><!--//page_tit_box--->
+
+<div id="page_wrap">
+<p>
+	<img alt="図書資料室" border="0" height="150" src="https://www.nabunken.go.jp/images/library.jpg" width="650"  /></p><br />
+
+<p>平素は図書資料室をご利用いただきましてありがとうございます。<br /><br />
+
+<p>
+	奈良文化財研究所の図書資料室では、遺跡の発掘調査報告書、歴史的建造物の修理報告書等をはじめとした文化財関係を中心に、約36万冊以上の図書と、約5千タイトル以上の雑誌を所蔵しています。<br />
+	所外の方も奈文研の調査研究に支障のない範囲で、資料をご利用いただけます。</p>
+
+<h3>
+	図書資料室の利用について</h3>
+
+<p>書庫は閉架式です。(直接書庫にはお入りいただけません)<br />
+図書資料室のご利用は<span style="color: red;">完全予約制</span>とさせていただいております。</p>
+<br />
+
+<p>※藤原・飛鳥の図書資料は取り寄せが必要になりますので、2週間前までのご予約をお願いいたします。<br />
+<span style="color:red;">※3月17日(火)～飛鳥の資料はご利用いただけません。<br />
+</span>
+※閲覧場所は平城地区（奈良市）の図書資料室です。藤原・飛鳥の施設にお越しいただいても閲覧いただけませんのでご注意ください。<br />
+※資料によってはご利用いただけない場合がございます。あらかじめご了承ください。<br />
+※図書資料の利用に関するお問い合わせは、平城地区（奈良市）の図書資料室で承ります。ページ下部の「お問い合わせ」までご連絡ください。</p>
+
+<h6>
+	閲覧方法</h6>
+
+<p>所蔵館別（<a href="https://www.nabunken.go.jp/usage/docs/account_h.xlsx">平城</a>・<a href="https://www.nabunken.go.jp/usage/docs/account_f.xlsx">藤原</a>・<a href="https://www.nabunken.go.jp/usage/docs/account_a.xlsx">飛鳥</a>）の資料請求票に閲覧希望資料をご記入のうえ、<a href="https://req.qubo.jp/nabunken/form/WqIZoSze" target="_blank"><u>事前に予約フォームに添付してお送りください。</u></a></p>
+<br />
+
+<p style="text-align:center;">
+<a href="https://www.nabunken.go.jp/usage/docs/account_all.xlsx" target="new"><img alt="資料請求票EXCEL" border="0" src="https://www.nabunken.go.jp/images/library_banner3.gif"/></a>
+
+<a href="https://www.nabunken.go.jp/usage/docs/account.pdf" target="new"><img alt="資料請求票PDF" border="0"  src="https://www.nabunken.go.jp/images/library_banner4.gif"/></a></p>
+<br />
+
+<p>■資料の検索はこちら>><a href="http://opac.nabunken.go.jp" target="_blank" ><font size="3" color="blue">所蔵図書データベース</font></a> <br />
+※貸出中の図書はご利用頂けませんので、ご了承ください。<br />
+※資料は閲覧のみで貸出は行っておりません。<br />
+※図書資料室利用状況カレンダーで空席をご確認のうえ、ご予約ください。<br />
+※予約フォームの受付は、月曜日から金曜日（9時～16時）で承ります。※祝日、年末年始（12月28日から1月4日）、奈良文化財研究所が定める休業日を除く。<br />
+<span style="color: red;">※予約フォーム以外（Fax、Email等）でのご予約および、当日のご予約は受け付けておりません。<br />
+※予約完了メールの受信をもって予約完了といたします。<br />
+※当日来室ではご利用いただけません。</span></p>
+<br />
+
+<p style="text-align:center;">
+<a href="https://www.nabunken.go.jp/fukyu/calender.html" target="_blank"><img alt="図書資料室利用状況カレンダー" border="0"  src="https://www.nabunken.go.jp/images/library_banner2.gif"/></a>
+
+<a href="https://req.qubo.jp/nabunken/form/WqIZoSze" target="_blank"><img alt="図書資料室予約フォーム" border="0"  src="https://www.nabunken.go.jp/images/library_banner1.gif"/></a></p>
+
+<h6>
+	利用時間</h6>
+
+<p>     月曜日・水曜日・金曜日　※祝日、年末年始（12月28日から1月4日）、奈良文化財研究所が定める休業日を除く。<br />
+	10時から12時、13時から15時<br />
+	12時から13時までは一旦ご退室をお願いします。</p>
+
+<p>業務の都合によりご利用になれない時間帯があります。くわしくは利用状況カレンダーをご確認ください。</p>
+
+<h6>
+	複写</h6>
+<p>
+	閲覧室備え付けのコイン式複写機(1,000円札利用可)をご利用ください。<span style="color: red;">※閲覧室内に両替機はございません。</span></p>
+<br />
+
+<p>※新千円札、新500円玉は使用できません。<br /><br />
+・資料の撮影はご遠慮ください。<br /><br />
+・複写は著作権の範囲内でお願いいたします。<br />
+　図書は一冊の半分まで(複数の著者からなる論文等で構成される図書は各々の論文の半分まで)<br />
+　雑誌は最新号を除き一論文全部</p>
+<br />
+
+<p>１．来館者の方へのコピー機利用の際のお願い<br />
+順番を待っている方がいる場合、約50枚を１回の利用上限といたします。<br /><br />
+２．複写料金<br />
+　白黒　 30円（両面60円）<br />
+　カラー 100円（両面200円）</p>
+<br />
+
+<h3>
+	遠隔地からの利用について</h3>
+<h6>
+	貸出</h6>
+<p>
+	※貸出は行っておりません。</p>
+<h6>
+	複写</h6>
+<p>
+料金は以下のようになります。<br />
+白黒：1枚60円＋送料<br />
+カラー：1枚200円＋送料<br />
+※個人の方からの複写に関するお問い合わせは受け付けておりません。複写をご希望の場合は、所属機関の図書館または最寄りの公共図書館へお問い合わせください。<br /><br />
+・NACSIS-ILLシステム参加館（料金相殺サービス参加館）の方<br />
+　奈文研OPACで所蔵を確認のうえ、NACSIS-ILLシステムからお申し込みください。<br /><br />
+・公共図書館等、料金相殺サービス不参加館の方<br />
+　国内での所蔵が当研究所のみの場合に限り、受付いたします。事前に所蔵状況をご確認のうえ、お問い合わせフォームよりお申し込みください。
+<br />
+
+<h3>
+	図書の検索</h3>
+<p>
+	<a href="http://opac.nabunken.go.jp"><img alt="所蔵図書データベース" border="0" height="70" src="https://www.nabunken.go.jp/images/tosyo_bar_new.jpg" width="330" /></a></p>
+
+<p>OPAC検索をご利用ください。</p>
+
+<h6>
+	検索方法</h6>
+<p>
+	■ クイックサーチ<br />
+簡単に図書館で所蔵している図書や雑誌などの資料を検索するための検索語入力フィールドです。<br />
+・単語と単語の間を「 」（スペース）で区切ることにより、AND検索が可能です。<br />
+・単語と単語の間を「|」（パイプ）で区切ることにより、OR検索が可能です。<br />
+・単語の最後に「*」（アスタリスク）を付けることにより、前方一致検索が可能です。<br />
+</p>
+
+<p>■ 詳細検索<br />
+・予め検索用として設定された単語を対象に検索します。(例：「どくとるマンボウ航海記」→「どくとる」「マンボウ」「航海記」等)<br />
+・ひらがなとカタカナ、大文字と小文字は区別せずに検索ができます。<br />
+・AND検索を行う場合は単語をスペースで区切ります。OR検索を行う場合は単語を「｜」で区切ります。<br />
+・検索語を「（スペース）-（マイナス）」で区切ることにより、NOT検索を行うことが可能です。</p>
+
+<p>■ ブラウズ検索<br />
+・シリーズ名及び書名・著者名・件名のブラウズ検索ができます。<br />
+・ブラウズ対象をチェックし、検索語を入力して「ブラウズ検索」をクリックしてください。<br />
+・ブラウズ結果を選択し、「検索GO」をクリックすると選択した情報に該当する資料の一覧が表示されます。</p>
+
+<p>■ ジャーナルAtoZ<br />
+・奈文研で講読している雑誌について、雑誌タイトルのイニシャル（頭文字）で検索できます。<br />
+・冠詞なども含めて検索対象となります。（例「The Japan times」の場合、「T」で検索が実行されます。）</p>
+
+<p>■ 横断検索<br />
+・奈良県内の公共図書館、大学図書館、専門図書館の蔵書を横断して検索することができます。<br />
+・各図書館のご利用は、それぞれの図書館の利用規約にしたがってください。<br />
+<p>■ 履歴表示<br />
+・検索履歴が使用できます。<br />
+<p>■ 詳細は<a href="http://opac.nabunken.go.jp/html/hnop200_001_01ja.html" target="new">ヘルプ</a> (OPACマニュアル)を参照ください。<br /><br />
+蔵書検索の結果、利用したい資料がありましたら資料請求票にご記入のうえ、係員にお渡しください。</p>
+<br />
+
+<h3>
+	教育委員会、研究機関、埋蔵文化財センター等のご担当者様へ</h3>
+<p>
+	新たに刊行された資料がございましたら、ご恵贈賜りたく存じます。</p>
+<br />
+
+<h3>
+	個人でご寄贈をお考えの方へ</h3>
+<p>
+	収蔵スペースの不足などの理由により、すべての資料の受入が困難な状況です。ご寄贈の際は、必ず事前にご相談ください。事前にご相談等なくご提出された資料は、取扱い等をすべて当研究所に一任したものとして扱わせていただきます。</p>
+<br />
+
+<h3>
+	お問い合わせ</h3>
+<p>
+	〒630-8577 奈良市二条町2-9-1<br />
+	奈良文化財研究所 研究支援推進部 総務課 文化財情報係<br />
+	<a href="https://req.qubo.jp/nabunken/form/ioIWTiXJ">こちらのフォームよりお問い合わせください。</a></p>
+<br />
+
+<h3>
+	所外図書検索サイト</h3>
+<p>
+	<a href="https://ndlopac.ndl.go.jp/F/K4KQEBEL37LF872TV9FP5M6PN4GYY75YNJ4CMK61S8GVYXPJKS-00685?&pds_handle=">国立国会図書館 NDL-OPAC</a><br />
+	<br />
+	<a href="http://webcatplus.nii.ac.jp/"><img alt="webcat" border="0" height="37" src="../images/banner124x37.gif" width="124" /></a></p>
+	
+
+<!--<section class="contact_box">
+<h2 class="tit01" id="orglink01">奈良文化財研究所 研究支援推進部 連携推進課 文化財情報係</h2>
+連絡先：TEL 0742-30-6754<br />
+FAX 0742-30-6857<br /><br />
+<a href="https://req.qubo.jp/nabunken/form/ioIWTiXJ" target="_blank" rel="noopener">図書資料室に関するお問い合わせ</a>
+</section>-->
+
+
+</div><!--//page_wrap--->
+</div><!--//page_container--->
+</div><!-- //wrapper -->
+<div id="page-top" class="page-top" style="display: block;">
+<p><a id="move-page-top" class="move-page-top"><img src="/images/arrow_top.png" alt="上に戻る"/></a></p></div>  
+<script src="/js/gotop.js"></script>
+<footer>
+    <ul class="bnr">
+        <li><a href="https://www.nabunken.go.jp/" target="_blank" rel="noopener"><img src="/images/link_bnr01.jpg" alt="独立行政法人国立文化財機構｜奈良文化財研究所"/></a></li>
+        <li><a href="https://www.nabunken.go.jp/heijo/museum/" target="_blank" rel="noopener"><img src="/images/link_bnr02.jpg" alt="平城宮跡資料館"/></a></li>
+        <li><a href="https://www.nabunken.go.jp/fujiwara/" target="_blank" rel="noopener"><img src="/images/link_bnr03.jpg" alt="藤原宮跡資料室"/></a></li>
+        <li><a href="https://www.nabunken.go.jp/asuka/index.html" target="_blank" rel="noopener"><img src="/images/link_bnr04.jpg" alt="飛鳥資料館"/></a></li>
+   
+    </ul>
+    <nav class="footer_nav">
+        <ul>
+            <li><a href="https://www.nich.go.jp" target="_blank" rel="noopener">独立行政法人国立文化財機構</a></li>
+            <li><a href="https://www.tnm.jp/" target="_blank" rel="noopener">東京国立博物館</a></li>
+            <li><a href="https://www.kyohaku.go.jp/jp/" target="_blank" rel="noopener">京都国立博物館</a></li>
+            <li><a href="https://www.narahaku.go.jp/" target="_blank" rel="noopener">奈良国立博物館</a></li>
+            <li><a href="https://www.kyuhaku.jp/" target="_blank" rel="noopener">九州国立博物館</a></li>
+            <li><a href="https://shozokan.nich.go.jp/" target="_blank" rel="noopener">皇居三の丸尚蔵館</a></li>
+            <li><a href="https://www.tobunken.go.jp/index_j.html" target="_blank" rel="noopener">東京文化財研究所</a></li>
+            <li><a href="https://www.irci.jp/jp/" target="_blank" rel="noopener">アジア太平洋無形文化遺産研究センター</a></li>
+            <li><a href="https://cpcp.nich.go.jp/" target="_blank" rel="noopener">文化財活用センター</a></li>
+            <li><a href="https://ch-drm.nich.go.jp/facility/nabunken/" target="_blank" rel="noopener">文化財防災センター</a></li>
+        </ul>
+    </nav>
+<!--    <strong class="logo"><a href="/"><img src="/images/logo_site_white.svg" alt="奈良文化財研究所"/></a></strong>-->
+    <ul class="footer_link">
+        <li><a href="/info/law.html">このサイトについて</a></li>
+        <li><a href="/info/link.html">リンク</a></li>
+        <li><a href="/info/sitemap.html">サイトマップ</a></li>
+    </ul>
+    <a href="https://www.facebook.com/nabunken" class="fb" target="_blank" rel="noopener"><img src="/images/icon_fb_white.png" alt="facebook"/></a>
+    <span class="copy">Copyright&copy; Nara National Research Institute for Cultural Properties, All Rights Reserved.</span>
+</footer>
+
+<!--
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-41634407-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+-->
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-T251478T8F"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+ 
+  gtag('config', 'G-T251478T8F');
+</script>
+
+</body>
+</html>

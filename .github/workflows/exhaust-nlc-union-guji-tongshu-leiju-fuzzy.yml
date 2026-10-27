@@ -1,0 +1,160 @@
+name: exhaust-nlc-union-guji-tongshu-leiju-fuzzy
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/exhaust-nlc-union-guji-tongshu-leiju-fuzzy.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  query:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Exhaust all fuzzy union-bibliography result pages
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/nlc-union-guji-tongshu-leiju-fuzzy-exhaust'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT/pages"
+          UA='Tianwen-Provenance-Audit/1.0'
+          ENDPOINT='http://read.nlc.cn/advanceSearch/gujiSearch/data'
+          SEARCH_JSON='[{"fldName":"title","content":"通書類聚","match":"like"}]'
+
+          curl -L -sS --connect-timeout 8 --max-time 30 -A "$UA" \
+            -X POST \
+            --data-urlencode 'index=0019,' \
+            --data-urlencode "searchJson=$SEARCH_JSON" \
+            --data-urlencode 'pageNo=1' \
+            "$ENDPOINT" -o "$ROOT/pages/page-001.json"
+
+          TOTAL=$(python - <<'PY'
+          import json
+          d=json.load(open('audit/nlc-union-guji-tongshu-leiju-fuzzy-exhaust/pages/page-001.json',encoding='utf-8'))
+          print(int(d.get('total') or 0))
+          PY
+          )
+          PER=$(python - <<'PY'
+          import json
+          d=json.load(open('audit/nlc-union-guji-tongshu-leiju-fuzzy-exhaust/pages/page-001.json',encoding='utf-8'))
+          print(max(1,len(d.get('rows') or [])))
+          PY
+          )
+          PAGES=$(( (TOTAL + PER - 1) / PER ))
+          printf 'TOTAL=%s\nPER_PAGE=%s\nPAGES=%s\n' "$TOTAL" "$PER" "$PAGES" | tee "$ROOT/counts.txt"
+          test "$PAGES" -le 100
+
+          : > "$ROOT/status.tsv"
+          printf '1\t0\t%s\n' "$(wc -c < "$ROOT/pages/page-001.json")" >> "$ROOT/status.tsv"
+          if [ "$PAGES" -gt 1 ]; then
+            for p in $(seq 2 "$PAGES"); do
+              out=$(printf "$ROOT/pages/page-%03d.json" "$p")
+              set +e
+              timeout 35s curl -L -sS --connect-timeout 8 --max-time 25 -A "$UA" \
+                -X POST \
+                --data-urlencode 'index=0019,' \
+                --data-urlencode "searchJson=$SEARCH_JSON" \
+                --data-urlencode "pageNo=$p" \
+                "$ENDPOINT" -o "$out"
+              rc=$?
+              set -e
+              size=0; [ -f "$out" ] && size=$(wc -c < "$out")
+              printf '%s\t%s\t%s\n' "$p" "$rc" "$size" >> "$ROOT/status.tsv"
+              sleep 0.12
+            done
+          fi
+
+          python - <<'PY'
+          import html,json,re
+          from pathlib import Path
+          root=Path('audit/nlc-union-guji-tongshu-leiju-fuzzy-exhaust')
+          rows=[]
+          page_meta=[]
+          for p in sorted((root/'pages').glob('page-*.json')):
+              try: d=json.loads(p.read_text('utf-8'))
+              except Exception as e:
+                  page_meta.append({'page':p.name,'parse_error':str(e)}); continue
+              rs=d.get('rows') or []
+              page_meta.append({'page':p.name,'total':d.get('total'),'row_count':len(rs)})
+              for r in rs:
+                  x=dict(r)
+                  x['_page']=p.name
+                  rows.append(x)
+          # Deduplicate by stable identifier/index.
+          dedup={}
+          for r in rows:
+              key=(str(r.get('identifier','')),str(r.get('index_name','')),str(r.get('id','')))
+              dedup.setdefault(key,r)
+          rows=list(dedup.values())
+
+          def clean(v):
+              if not isinstance(v,str): return ''
+              v=html.unescape(v)
+              v=v.replace('###@@@',' ').replace('!@#',' ').replace('#@!',' ')
+              v=re.sub(r'<[^>]+>','',v)
+              return ' '.join(v.split())
+          candidates=[]
+          for r in rows:
+              title=clean(r.get('title',''))
+              author=clean(r.get('author',''))
+              pub=clean(r.get('publish_unit',''))
+              year=clean(r.get('publish_time',''))
+              desc=clean(r.get('description',''))
+              corpus=' | '.join([title,author,pub,year,desc])
+              reasons=[]
+              if any(x in title for x in ['通書類聚','通书类聚']): reasons.append('CONTIGUOUS_TITLE_PHRASE')
+              if '通書' in title and '類聚' in title: reasons.append('TITLE_HAS_BOTH_TOKENS')
+              if '通书' in title and '类聚' in title: reasons.append('TITLE_HAS_BOTH_TOKENS_SIMPLIFIED')
+              if any(x in corpus for x in ['尅擇','尅择','抉擇','抉择','克擇','克择']): reasons.append('KEZE_JUEZE_TERM')
+              if '姚奎' in corpus: reasons.append('YAO_KUI')
+              if '王以寧' in corpus or '王以宁' in corpus: reasons.append('WANG_YINING')
+              if '芝城' in corpus: reasons.append('ZHICHENG')
+              if '1551' in corpus or '嘉靖 30' in corpus or '嘉靖30' in corpus or '嘉靖三十' in corpus: reasons.append('JIAJING30_1551')
+              if reasons:
+                  candidates.append({
+                    'reasons':reasons,
+                    'identifier':r.get('identifier'),
+                    'id':r.get('id'),
+                    'index_name':r.get('index_name'),
+                    'l_id':r.get('l_id'),
+                    'title':title,'author':author,'publish_unit':pub,'publish_time':year,
+                    'description':desc,'cover':r.get('cover'),'filepath':r.get('filepath'),
+                    'page':r.get('_page')
+                  })
+          (root/'page-meta.json').write_text(json.dumps(page_meta,ensure_ascii=False,indent=2),encoding='utf-8')
+          (root/'all-records.json').write_text(json.dumps(rows,ensure_ascii=False,indent=2),encoding='utf-8')
+          (root/'candidates.json').write_text(json.dumps(candidates,ensure_ascii=False,indent=2),encoding='utf-8')
+          with (root/'candidates.tsv').open('w',encoding='utf-8') as f:
+              f.write('REASONS\tIDENTIFIER\tTITLE\tAUTHOR\tPUBLISH_UNIT\tPUBLISH_TIME\tPAGE\n')
+              for x in candidates:
+                  vals=[';'.join(x['reasons']),str(x.get('identifier') or ''),x['title'],x['author'],x['publish_unit'],x['publish_time'],str(x.get('page') or '')]
+                  f.write('\t'.join(v.replace('\t',' ') for v in vals)+'\n')
+          print('ALL_ROWS',len(rows))
+          print('CANDIDATES',len(candidates))
+          PY
+
+          sha256sum "$ROOT"/pages/*.json | sort -V > "$ROOT/pages.sha256"
+          printf '%s\n' \
+            'SOURCE=中國國家圖書館 中華古籍聯合書目 resource index 0019' \
+            'QUERY=title LIKE 通書類聚' \
+            'METHOD=exhaustive pagination of every page reported by the source, followed by local full-record filtering' \
+            'PURPOSE=find target or variant records hidden by tokenized fuzzy ranking and discover independent copies/recensions' \
+            'NEGATIVE_POLICY=exhaustive result filtering narrows only this indexed fuzzy-query result set; it does not prove no uncatalogued/private/historical copy exists' \
+            'OCR_USED=false' \
+            > "$ROOT/manifest.txt"
+
+      - name: Upload exhaustive union-bibliography evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: nlc-union-guji-tongshu-leiju-fuzzy-exhaust
+          path: audit/nlc-union-guji-tongshu-leiju-fuzzy-exhaust/
+          if-no-files-found: error
+          compression-level: 6
+          retention-days: 30

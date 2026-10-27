@@ -1,0 +1,130 @@
+{
+  "schema": "TIANWEN-12UD-XUXIU1174-FORWARD-ONLY-CROSSLEAF-CORRECTION",
+  "date": "2026-10-12",
+  "status": "SUPPLEMENTAL_DIRECT_GLYPH_REVIEW_NO_FORMAL_BATCH_INCREMENT",
+  "predecessor": "docs/research/MING-DATONG-YEHUOBIAN-12UC-XUXIU1174-DIRECT-THREE-LOCI-AND-SEAM-GATE-R1.json",
+  "source_registry_id": "EXT-XUXIU-SIKU-1174-COMMONS-FACSIMILE-METADATA-12ST",
+  "facsimile_identity": {
+    "work": "《萬曆野獲編》卷二十〈改造漏刻〉",
+    "volume": "《續修四庫全書》1174",
+    "edition_catalog_scope": "清道光七年姚氏刻同治八年補修本",
+    "modern_facsimile_year": 2002,
+    "pdf_sha256": "bee08d95d6b141a978f4d7fb068b97b74cf8ee25b46c6273110b2891a0faf953",
+    "pdf_sha1": "fc6a98b070c11372c557e22bb05cdc9859541715",
+    "source_size_bytes": 68649578,
+    "pdf_pages": 810,
+    "original_1827_first_impression_physically_verified": false,
+    "actual_original_exemplar_identity": null
+  },
+  "trigger": {
+    "run_id": 38227343674,
+    "run_url": "https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/38227343674",
+    "job_id": 114737983750,
+    "source_sha256_reverified": true,
+    "source_pdf_page_1based_lower": 506,
+    "source_pdf_page_1based_upper": 507,
+    "printed_volume_pages": [
+      503,
+      504
+    ],
+    "method": "MANUAL_VISUAL_ON_PIXEL_HASHED_HIGH_ZOOM_SOURCE_CROPS_NO_OCR",
+    "crop_pixel_sha256": [
+      {
+        "pdf_page": 506,
+        "normalized_rect": [
+          0,
+          0.47,
+          0.48,
+          0.99
+        ],
+        "pixel_sha256": "97a59450d4674b93e045f8fe3011a92c751e975ad92f6a66841ea47c43d543ba"
+      },
+      {
+        "pdf_page": 507,
+        "normalized_rect": [
+          0.51,
+          0,
+          1,
+          0.52
+        ],
+        "pixel_sha256": "0252dff49d0b07de83c6c7d495166be8ca82aab4e9edb6125f80bfc36479a505"
+      }
+    ],
+    "contact_sheet_jpeg_sha256": "c229b9f5e496fced338e55b9db947addf13bbcea9a55950387b1152b5dfed5ec",
+    "reading_tail_on_pdf506": "舊式不可用上令內官監改造是時禁中宮漏循用新",
+    "reading_head_on_pdf507": "製不待言而次年春造己巳歷樣",
+    "predecessor_error": "12UC mistakenly treated 宮漏 as a P506/P507 unresolved seam; in source-image crop 宮漏 appears as legible contiguous characters wholly on PDF506, with 新→製 as actual page seam."
+  },
+  "four_loci": [
+    {
+      "key": "PRECINCT_TERM",
+      "reading": "宮禁",
+      "pdf_page": 506,
+      "visible": true,
+      "preserved_from": "12UC"
+    },
+    {
+      "key": "CLOCK_TERM",
+      "reading": "宮漏",
+      "pdf_page": 506,
+      "visible": true,
+      "newly_resolved_by": "12UD_DIRECT_CROP"
+    },
+    {
+      "key": "BEIJING_WINTER_SUNRISE",
+      "reading": "辰初二刻",
+      "pdf_page": 506,
+      "visible": true,
+      "preserved_from": "12UC",
+      "shanghai_12qc_reading": "辰初一刻",
+      "difference": "ONE_VS_TWO_KE"
+    },
+    {
+      "key": "BEIJING_SUMMER_SUNSET",
+      "reading": "戌初一刻",
+      "pdf_page": 506,
+      "visible": true,
+      "preserved_from": "12UC",
+      "shanghai_12qc_reading": "戌初一刻",
+      "difference": "NONE"
+    }
+  ],
+  "correction_contract": {
+    "old_12uc_json_unchanged": true,
+    "new_conclusion": "FOUR_OF_FOUR_TEXTUAL_LOCI_DIRECTLY_VERIFIED_WITHIN_ONE_MODERN_FACSIMILE",
+    "ancient_unrepaired_1827_original_witness_vote": 0,
+    "date_of_printing_lineage_proven": false,
+    "different_digital_mirrors_still_one_witness": true,
+    "calendar_or_runtime_rule_inference_authorized": false,
+    "product_algorithm_change": false
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "12UC seam gap classification corrected; text-bearing 宮漏 is physically visible in its source scan.",
+      "No lineage edge to an independently authenticated unaltered 1827 original copy can be asserted.",
+      "Distinct 12QC vs 12UD sunrise reading not an independently dated proof of a specific repair stage."
+    ],
+    "unresolved_lineage_questions": [
+      "What original 1827 first-impression exemplar, if any, reads 辰初一刻 or 辰初二刻?",
+      "Whether the 1869 repaired blocks include replacement of the winter-sunrise numeral.",
+      "What is the physical 1827/1869 original copy and original folio represented by the 2002 source?"
+    ]
+  },
+  "invariants": {
+    "source_registry_total": 678,
+    "source_registry_added": 0,
+    "historical_matrix_rows": 222,
+    "audited_rows": 222,
+    "provenance_metadata_repairs": 45,
+    "transmission_nodes": 250,
+    "transmission_edges": 237,
+    "formal_completed_batches": 487,
+    "latest_formal_batch": "12QD",
+    "confirmed_chart_algorithm_defects": 0,
+    "algorithm_reopens": 0,
+    "product_r1": "CLOSED"
+  }
+}

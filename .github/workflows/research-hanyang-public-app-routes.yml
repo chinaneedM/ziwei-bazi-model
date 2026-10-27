@@ -1,0 +1,126 @@
+name: research-hanyang-public-app-routes
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-hanyang-public-app-routes.yml
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Parse only explicitly referenced Hanyang public app bundle routes
+        shell: python
+        run: |
+          import hashlib
+          import json
+          import re
+          import urllib.parse
+          import urllib.request
+          from pathlib import Path
+
+          OUT = Path("probe")
+          OUT.mkdir()
+          UA = "Mozilla/5.0 research-only public application route probe"
+          HOME = "https://lib.hanyang.ac.kr/"
+          BUNDLE = "https://lib.hanyang.ac.kr/main-YAY7ZLDC.js"
+
+          def fetch(url, max_bytes=25_000_000):
+              req = urllib.request.Request(url, headers={
+                  "User-Agent": UA,
+                  "Accept": "text/javascript,application/javascript,text/plain,*/*;q=0.8",
+                  "Accept-Language": "ko,zh;q=0.8,en;q=0.7",
+              })
+              try:
+                  with urllib.request.urlopen(req, timeout=60) as resp:
+                      data = resp.read(max_bytes + 1)
+                      if len(data) > max_bytes:
+                          raise RuntimeError("response exceeded guard")
+                      return {
+                          "ok": True,
+                          "status": getattr(resp, "status", None),
+                          "final_url": resp.geturl(),
+                          "content_type": resp.headers.get("content-type"),
+                          "data": data,
+                      }
+              except Exception as exc:
+                  return {"ok": False, "url": url, "error": repr(exc), "data": b""}
+
+          row = fetch(BUNDLE)
+          data = row.get("data", b"")
+          text = data.decode("utf-8", "replace") if data else ""
+          if data:
+              (OUT / "main.js").write_bytes(data)
+
+          string_literals = []
+          # Extract short quoted strings only; this is static inspection of a public bundle,
+          # not endpoint guessing or brute-force enumeration.
+          for m in re.finditer(r'''["']([^"'\\]{1,500})["']''', text):
+              s = m.group(1)
+              low = s.lower()
+              if any(k in low for k in (
+                  "search", "query", "catalog", "record", "bibli", "holding", "book",
+                  "item", "keyword", "api", "solr", "opac", "discovery", "resource",
+                  "자료", "검색", "소장", "도서", "고서"
+              )):
+                  string_literals.append(s)
+          string_literals = list(dict.fromkeys(string_literals))[:1500]
+
+          absolute_urls = []
+          for m in re.finditer(r'https?://[^"\'<>\\\s]{3,1000}', text):
+              u = m.group(0).rstrip("),;]")
+              if any(k in u.lower() for k in ("search", "api", "catalog", "record", "book", "item", "resource")):
+                  absolute_urls.append(u)
+          absolute_urls = list(dict.fromkeys(absolute_urls))[:500]
+
+          path_literals = []
+          for s in string_literals:
+              if s.startswith("/") and len(s) < 500:
+                  path_literals.append(s)
+          path_literals = list(dict.fromkeys(path_literals))[:1000]
+
+          result = {
+              "schema": "ZIWEI-HANYANG-PUBLIC-APP-ROUTES-R1",
+              "target_title": "新刻合倂十八飛星策天紫微斗數全集",
+              "bundle": {
+                  "url": BUNDLE,
+                  "ok": row.get("ok"),
+                  "status": row.get("status"),
+                  "final_url": row.get("final_url"),
+                  "content_type": row.get("content_type"),
+                  "bytes": len(data),
+                  "sha256": hashlib.sha256(data).hexdigest() if data else None,
+              },
+              "static_public_bundle_only": True,
+              "authentication_attempted": False,
+              "hidden_endpoint_guessing_attempted": False,
+              "search_submission_attempted": False,
+              "relevant_string_literals": string_literals,
+              "relevant_absolute_urls": absolute_urls,
+              "relevant_path_literals": path_literals,
+              "adjudication": {
+                  "next_action": "USE_ONLY_EXPLICIT_ROUTE_LITERALS_IF_THEY_DISCLOSE_A_PUBLIC_SEARCH_SURFACE",
+                  "title_record_status": "UNRESOLVED",
+                  "algorithm_effect": "NONE",
+              },
+          }
+          (OUT / "hanyang-public-app-routes.json").write_text(
+              json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8"
+          )
+          print(json.dumps(result, ensure_ascii=False, indent=2))
+
+      - name: Upload Hanyang public route evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ziwei-hanyang-public-app-routes
+          path: probe/
+          if-no-files-found: warn
+          retention-days: 14

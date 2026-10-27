@@ -1,0 +1,165 @@
+{
+  "schema": "TIANWEN-13CC-NAJ-ORIGINAL-D17-D18-CANVAS-SEAM-AND-LOCAL-NUMERIC-COUNTEREXAMPLE-R1",
+  "date": "2026-10-21",
+  "issue_id": "TW-OPEN-0005",
+  "evidence_grade": "DIRECT_MANUAL_SOURCE_NATIVE_RGB_TIGHT_ROI_SHA_NO_OCR_EXISTING_FIRSTPARTY_SOURCE_OBJECTS",
+  "source": {
+    "holding": "NAJ-282-0006-PHYSICAL51",
+    "provider_item": "https://www.digital.archives.go.jp/item/en/4898853",
+    "manifest_sha256": "3f38f52860bd06ca7f4b89cec65a32b8529fcb547ac098548120e8071fe370a1",
+    "canvas17": {
+      "canvas_1based": 17,
+      "original_jpeg_sha256": "8362e8a2b8ddf5f36408d4450a81ebad2d9548b32f49dbe37e01493592b7c3e9",
+      "archive_zip_sha256": "2b8fb5d5141d12b26949e1f4253806d31f3e548af9e04ac40e667093dc6c0f59",
+      "artifact_id": 12263559032,
+      "run_id": 39421117170,
+      "filename": "NAJ-original-canvas17.jpg"
+    },
+    "canvas18": {
+      "canvas_1based": 18,
+      "original_jpeg_sha256": "88cecf62c8cd0dd623199eb06e3044efbe61771c1ffe058b8e7a87cc2f8f88cc",
+      "archive_zip_sha256": "f39ac9b4dd815133ea2cad55088ff33963783e22d960b19c03729230b80eaced",
+      "artifact_id": 12340553228,
+      "run_id": 39588454662,
+      "filename": "original-source.jpg"
+    },
+    "native_image_dimensions": [
+      3000,
+      2215
+    ],
+    "two_canvases_same_holding": true,
+    "digital_image_count": 2,
+    "physical_witness_count": 1
+  },
+  "original_rois": [
+    {
+      "key": "NAJ_C17_D17_ORIGINAL_HEADER",
+      "canvas": 17,
+      "bbox": [
+        410,
+        500,
+        515,
+        825
+      ],
+      "rgb_sha256": "4c6bad9be3e636e3e1a2ea53b387b6d1fd03dc8d1beb31ea15d4742107083d33",
+      "reading": "十七日",
+      "grade": "INDIVIDUAL_ORIGINAL_DAY_HEADING"
+    },
+    {
+      "key": "NAJ_C17_NUMERAL_7570_TIGHT",
+      "canvas": 17,
+      "bbox": [
+        565,
+        920,
+        609,
+        1790
+      ],
+      "rgb_sha256": "c116eeca76b57ce002bde5761ae4cc77380bf1b472a056a9ea4a58a163571e2a",
+      "reading": "七千五百七十〇六六二四",
+      "decimal": "7570.6624",
+      "grade": "SINGLE_NATIVE_NUMERIC_LANE_ADJACENT_TO_D17_LAYOUT_NOT_GLOBAL_C_FIELD_WITNESS"
+    },
+    {
+      "key": "NAJ_C17_LAYOUT_CONTEXT",
+      "canvas": 17,
+      "bbox": [
+        390,
+        460,
+        720,
+        1820
+      ],
+      "rgb_sha256": "ec5cc6759c1093f300da59574577e113c6b04a58a4749c6918f8a4f71ad7aa49",
+      "grade": "HEADING_NUMERAL_PAGE_GEOMETRY_WIDE_CONTEXT"
+    },
+    {
+      "key": "NAJ_C18_D18_ORIGINAL_HEADER",
+      "canvas": 18,
+      "bbox": [
+        2350,
+        520,
+        2465,
+        815
+      ],
+      "rgb_sha256": "09a8f78fe2446bad31a689db2e339cc1a508de357c125bd39c92dd9e249cc257",
+      "reading": "十八日",
+      "grade": "REUSED_13BS_13BT_DIRECT_ORIGINAL_DAY_HEADING"
+    },
+    {
+      "key": "NAJ_C18_C8000_TIGHT",
+      "canvas": 18,
+      "bbox": [
+        2490,
+        827,
+        2552,
+        1760
+      ],
+      "rgb_sha256": "433e8d3aab7170282c8bb94dd6e42acc7e1aa6cdb1d09738bd485e7a107ca20b",
+      "reading": "八千〇〇〇二六九七",
+      "decimal": "8000.2697",
+      "grade": "REUSED_13BT_INDEPENDENT_ORIGINAL_DAY_HEADING_AND_C_NUMERIC_COLUMN"
+    }
+  ],
+  "firstparty_comparison": {
+    "canvas17_last_visible_day_header": "十七日",
+    "canvas18_next_visible_day_header": "十八日",
+    "sequential_day_header_across_digital_canvas_images": true,
+    "canvas17_adjoining_numeric_candidate": "7570.6624",
+    "canvas18_bound_D18_cumulative": "8000.2697",
+    "local_delta": "429.6073",
+    "historical_source_same_copy_original_day16_long": "429.6073",
+    "historical_source_same_copy_original_day17_long": "424.3711",
+    "ten_thousandths_int": {
+      "num_17_candidate": 75706624,
+      "num_18_bound": 80002697,
+      "delta": 4296073,
+      "long_D16": 4296073,
+      "long_D17": 4243711
+    },
+    "delta_matches_D16_long": true,
+    "delta_matches_D17_long": false,
+    "naive_hypothesis": "If 7570.6624 is uncritically treated as printed D17 C and 8000.2697 as D18 C, then C18-C17 equals L16 and not L17. This makes a same-day recurrence attribution to L17 unsupported; source exact printed field identity still requires explicit section-header and edition review.",
+    "naive_day17_long_difference_mismatch": "5.2362",
+    "original_D17_same_day_cumulative_field_fully_adjudicated": false,
+    "independent_original_printed_D16_cumulative_value": "UNBOUND",
+    "proves_whole_table_day_shift": false,
+    "proves_cross_holding_direct_copying": false,
+    "G893_Ming1569_shared_units": "UNPROVEN"
+  },
+  "prior_evidence": [
+    "docs/research/TIANWEN-13BE-GORYEOSA-D16-ORIGINAL-LONG-LANE-DUAL-COPY-COLLATION-R1.json",
+    "docs/research/TIANWEN-13BT-GORYEOSA-NAJ-C18-D18-D19-DIRECT-CUMULATIVE-AND-PRINTED-HEADING-GEOMETRY-R1.json",
+    "docs/research/TIANWEN-13CB-WASEDA-D16-D17-ORIGINAL-FOLIO-SEAM-ARITHMETIC-BOUNDARY-R1.json"
+  ],
+  "source_boundary": {
+    "two_original_jpeg_sources_reused": true,
+    "new_source_provider_items": 0,
+    "new_original_copy_witnesses": 0,
+    "new_direct_rgb_roi_bindings": 3,
+    "reused_exact_13BT_rois": 2,
+    "same_numeric_triplet_in_two_holdings_is_not_two_new_impression_votes": true,
+    "NAJ_WASEDA_copy_stemma": "UNRESOLVED",
+    "original_day16_ancestral_one_two": "UNRESOLVED",
+    "no_global_historical_calendar_formula": true
+  },
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproven": [
+      "NAJ source canvas17/18 sequential heading and locally matching number pair prove neither a whole-table off-by-one convention nor NAJ/Waseda direct ancestor.",
+      "Two digital canvases represent one physical NAJ source and do not multiply witness votes."
+    ]
+  },
+  "scope_firewall": {
+    "new_physical_witnesses": 0,
+    "new_registry_entries": 0,
+    "new_matrix_rows": 0,
+    "new_genealogy_nodes": 0,
+    "new_genealogy_edges": 0,
+    "new_independent_stemmatic_votes": 0,
+    "algorithm_reopens": 0,
+    "open_or_blocked_issues": 11,
+    "product": "CLOSED"
+  },
+  "next_action": "Align the NAJ original first-title/field header with its D15-D19 sequential numeral columns and Waseda physical folio seam; independently prove or reject day-specific NAJ/Waseda 盈縮積 target-field mappings before using full-table arithmetic or G893 少/微 and Ming1569 units."
+}

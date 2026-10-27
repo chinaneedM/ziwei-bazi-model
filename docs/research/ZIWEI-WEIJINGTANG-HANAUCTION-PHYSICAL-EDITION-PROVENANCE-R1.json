@@ -1,0 +1,107 @@
+{
+  "schema": "ZIWEI-WEIJINGTANG-HANAUCTION-PHYSICAL-EDITION-PROVENANCE-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-WEIJINGTANG-HANAUCTION-PHYSICAL-EDITION-PROVENANCE-P",
+  "status": "SECONDARY_COMMERCIAL_AUCTION_PHYSICAL_EDITION_LOCATOR_BOUND_TARGET_PAGE_PENDING_NO_TEXTUAL_VOTE",
+  "hpa_rule_id": "HPA-ZDATE-006",
+  "purpose": "Bind the public Hanauction 229th-auction lot 134 as a reproducible secondary commercial physical-edition locator for a seller-described Qing woodblock 味經堂藏板 six-volume/six-book set, while keeping all catalog, print-date, textual-stemma, target-page and glyph claims fail-closed.",
+  "public_listing": {
+    "workflow_run_id": 34214086632,
+    "artifact_id": 10051026199,
+    "artifact_zip_sha256": "dcb2935c2d8ec63be385b71468577ed737d41149266c330ad30a6d9373f017df",
+    "source_url": "https://www.hanauction.com/htm/off_auction.htm?category=0001&id=260&page=3&pagesize=20&sortq=b2&viewtype=list",
+    "http_status": 200,
+    "auction_round": 229,
+    "auction_id": 260,
+    "visible_lot_number": 134,
+    "auction_date": "2026-04-04",
+    "stable_object_id": "102923",
+    "visible_listing_text": "134 청판목판본 역학서 味經堂藏板 [신간합병십팔비성자미두수전집(新刻合倂十八飛星紫微斗數全集)] 6卷 6冊 완질(函) 100,000 원 542 2026/04/04",
+    "title": "新刻合倂十八飛星紫微斗數全集",
+    "auction_description_scope": {
+      "material_edition_claim": "청판목판본",
+      "imprint_claim": "味經堂藏板",
+      "extent_claim": "6卷 6冊 완질(函)",
+      "authority": "SELLER_OR_AUCTION_HOUSE_DESCRIPTION_NOT_LIBRARY_CATALOG_OR_TARGET_TEXT"
+    },
+    "exact_dom_binding": {
+      "stable_href_identity_fields": {
+        "id": "102923",
+        "off_id": "260",
+        "page": "3"
+      },
+      "ac_num_observed_final_run": "117",
+      "ac_num_observed_prior_successful_run": "120",
+      "ac_num_is_stable_bibliographic_identity": false,
+      "ac_num_adjudication": "DYNAMIC_PRESENTATION_PARAMETER_EXCLUDED_FROM_STABLE_OBJECT_IDENTITY",
+      "smallest_target_text_node": {
+        "tag": "td",
+        "depth_from_anchor": 1
+      },
+      "enclosing_item_row": {
+        "tag": "tr",
+        "depth_from_anchor": 2
+      },
+      "target_row_bound": true
+    }
+  },
+  "rendered_thumbnail": {
+    "url": "https://www.hanauction.com/shopimage/102923S.JPG",
+    "source_origin": "EXACT_IMAGE_SRC_RENDERED_INSIDE_BOUND_LOT_134_ROW",
+    "width_px": 114,
+    "height_px": 66,
+    "bytes": 7832,
+    "sha256": "59973f47a016dc114c967506673b3e053681a6d4a3824ecb8385f7b450fd1385",
+    "content_type": "image/jpeg",
+    "artifact_file": "listing-target-00.jpg",
+    "direct_visual_review_without_ocr": "LOW_RESOLUTION_PHYSICAL_MULTI_VOLUME_SET_IMAGE_CONSISTENT_WITH_LISTING_BUT_INSUFFICIENT_FOR_TARGET_TEXT_OR_GLYPH",
+    "target_heading_observed": false,
+    "target_page_observed": false,
+    "target_hai_glyph_observed": false
+  },
+  "detail_route_control": {
+    "earlier_search_engine_detail_parameter": "ac_num=297",
+    "deprecated_as_canonical_identity": true,
+    "reason": "PUBLIC_LISTING_DOM_IS_STRONGER_AND_AC_NUM_CHANGED_ACROSS_REPRODUCIBLE_RUNS",
+    "closed_auction_browser_alert": "마감된 경매입니다.",
+    "alert_meaning": "AUCTION_ENDED",
+    "post_alert_detail_body_exposed": false,
+    "authentication_attempted": false,
+    "captcha_bypass_attempted": false,
+    "hidden_image_filename_enumeration_attempted": false,
+    "route_guessing_attempted": false
+  },
+  "provenance_adjudication": {
+    "source_authority": "SECONDARY_COMMERCIAL_AUCTION_PHYSICAL_EDITION_LOCATOR_NOT_TARGET_TEXT_AUTHORITY",
+    "physical_edition_locator_status": "BOUND",
+    "weijingtang_imprint_status": "AUCTION_DESCRIPTION_BOUND_NOT_INSTITUTIONAL_CATALOG_VERIFIED",
+    "qing_edition_status": "AUCTION_DESCRIPTION_BOUND_NOT_INDEPENDENTLY_DATED",
+    "exact_print_year_resolved": false,
+    "institutional_holding_bound": false,
+    "textual_stemma_independence_established": false,
+    "independent_target_text_witness_added": false,
+    "independent_hai_glyph_witness_added": false,
+    "edition_family_value": "HIGH_VALUE_LOCATOR_FOR_DIRECT_PHYSICAL_COLLATION_NOT_A_RUNTIME_CANDIDATE"
+  },
+  "epistemic_boundaries": {
+    "commercial_listing_as_library_catalog_authority": "FORBIDDEN",
+    "commercial_listing_qing_label_as_exact_print_date": "FORBIDDEN",
+    "weijingtang_label_as_textual_stemma_independence_proof": "FORBIDDEN",
+    "low_resolution_thumbnail_as_target_text_or_glyph_authority": "FORBIDDEN",
+    "unstable_ac_num_as_stable_bibliographic_id": "FORBIDDEN",
+    "detail_route_search_engine_parameter_over_public_listing_dom": "FORBIDDEN",
+    "physical_edition_locator_as_chart_rule_candidate_without_target_page": "FORBIDDEN"
+  },
+  "adjudication": {
+    "hpa_zdate_006": "MISSING_FROM_PRODUCT",
+    "weijingtang_target_page": "PENDING_DIRECT_PAGE",
+    "direct_independent_hai_glyph_witness_count_added": 0,
+    "new_chart_rule_candidate_authorized": false,
+    "candidate_selection_authorized": false,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_count": 0,
+    "algorithm_effect": "NONE",
+    "next_gate": "DIRECT_FIVE_XIONG_SHEN_PAGE_FROM_WEIJINGTANG_PHYSICAL_SET_OR_AN_INSTITUTIONALLY_BOUND_EQUIVALENT_COPY_WITH_EDITION_LEVEL_COLLATION"
+  }
+}

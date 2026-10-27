@@ -1,0 +1,53 @@
+{
+  "schema": "MING-DATONG-YEHUOBIAN-12QG-NLC-OLD20-V20-HEADING-FORWARD-CORRECTION-R1",
+  "date": "2026-10-10",
+  "status": "SOURCE_PAGE_DIRECT_REVIEW_CORRECTION_APPLIED_FORWARD_ONLY",
+  "corrected_file": "docs/research/MING-DATONG-YEHUOBIAN-12QE-NLC-OLD20-V20-NINE-PAGE-BOUNDED-REVIEW-R1.json",
+  "earlier_correct_control": "docs/research/MING-DATONG-YEHUOBIAN-12PZ-OLD20-VOLUME-HEADING-CROSSWALK-R1.json",
+  "pre_existing_correct_source_reference": "docs/research/MING-DATONG-YEHUOBIAN-12PZ-NLC-TAIWAN-OLD20-V20-DIRECT-COMPARE-R1.json",
+  "source_identity": {
+    "copy_key": "CHINA-NLC-411999003250-FASCICLE10",
+    "source_pdf_sha256": "8e746faaadcd961c7983981d419862d97fdc2a1f3ec33ecb02046e9e79a6376c",
+    "source_pdf_page": 137,
+    "original_page_sha256_from_12pz_browser_review": "b6a67b0495556eb9cd57d011b0622717c9b72fd11b966fb5571e105a6a00339a",
+    "derived_fullpage_jpeg_sha256_from_12qe_review": "18881b8c7a57aaf612026b38a387c73d664e481a42063ba221517908e29ad130"
+  },
+  "previous_12qe_recorded_heading": "萬曆野獲編卷二十",
+  "corrected_literal_heading": "萬曆肆拾伍丁巳卷二十",
+  "provenance_level_title_or_bibliographic_normalization": "萬曆野獲編·卷二十",
+  "actual_lineage": {
+    "volume_start_date_text": "萬曆肆拾伍丁巳",
+    "same_line_margin_text": "野獲編",
+    "copy_end_page": 145,
+    "copy_end_exact": "萬曆野獲編二十卷紀事畢",
+    "not_same_literal_as_start": true
+  },
+  "adjudication": "12QE previously conflated a normalized work title and a dated chronological opening heading. Physical page137 heading literally reads 萬曆肆拾伍丁巳卷二十; 野獲編 appears as adjacent vertical byline, not a continuous heading; p145 end colophon is distinct. Correct field and prose with forward-only revision, do not rewrite historical page or claim version lineage.",
+  "source_scope_limits": [
+    "Only a text-identity repair to existing one-copy NLC 411999003250 source; no new independent physical witness.",
+    "Nine directly visually checked page range137-145 remains unchanged.",
+    "No negative claim about other original 20 volumes, complete work or other source copies.",
+    "No numeric table or clock-regime profile may be changed from heading semantics."
+  ],
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "A normalized bibliographic volume label is not a literal original heading and cannot be used as a shared-stemma fingerprint."
+    ],
+    "unresolved_lineage_questions": [
+      "Locate the actual old20 改造漏刻 passage by physical page in another original copy or original volume.",
+      "Secure separately copy-bound 1827 original print target page for controlled comparison."
+    ]
+  },
+  "invariants": {
+    "matrix_rows": 222,
+    "audited_rows": 222,
+    "repaired_metadata_defects": 45,
+    "new_independent_witnesses": 0,
+    "algorithm_reopen": 0,
+    "product": "CLOSED",
+    "batch_12qe_closed": false
+  }
+}

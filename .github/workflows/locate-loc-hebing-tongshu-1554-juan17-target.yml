@@ -1,0 +1,102 @@
+name: locate-loc-hebing-tongshu-1554-juan17-target
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/locate-loc-hebing-tongshu-1554-juan17-target.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  locate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install image tools
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq imagemagick
+
+      - name: Download all Juan-17 LOC pages at locator resolution
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/loc-hebing-tongshu-1554-juan17-target-locator'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT/pages" "$ROOT/contact"
+
+          curl -L --fail --retry 3 -A 'Tianwen-Provenance-Audit/1.0'             'https://www.loc.gov/item/2012402919/?fo=json'             -o "$ROOT/item.json"
+
+          python - <<'PY'
+          import json, pathlib, subprocess
+          root=pathlib.Path('audit/loc-hebing-tongshu-1554-juan17-target-locator')
+          obj=json.loads((root/'item.json').read_text(encoding='utf-8'))
+          resources=obj.get('resources',[])
+          target=next((r for r in resources if r.get('caption')=='Juan 17'), None)
+          if not target:
+              raise SystemExit('Juan 17 resource group not found')
+          files=target.get('files',[])
+          if len(files)!=61:
+              raise SystemExit(f'expected 61 Juan-17 resources, got {len(files)}')
+          manifest=[]
+          for idx,variants in enumerate(files,1):
+              jpgs=[v for v in variants if v.get('mimetype')=='image/jpeg']
+              # Prefer 25% for human structural review; fall back to next available jpeg.
+              chosen=next((v for v in jpgs if '/pct:25/' in v.get('url','')), None)
+              if chosen is None:
+                  chosen=next((v for v in jpgs if '/pct:12.5/' in v.get('url','')), None)
+              if chosen is None and jpgs:
+                  chosen=jpgs[0]
+              if chosen is None:
+                  raise SystemExit(f'no jpeg variant for resource {idx}')
+              url=chosen['url']
+              out=root/'pages'/f'page-{idx:03d}.jpg'
+              subprocess.run([
+                  'curl','-L','--fail','--retry','3','--retry-delay','1',
+                  '-A','Tianwen-Provenance-Audit/1.0',url,'-o',str(out)
+              ],check=True)
+              full=next((v.get('url') for v in jpgs if '/pct:100/' in v.get('url','')),None)
+              info=next((v.get('info') for v in variants if v.get('info')),None)
+              jp2=next((v.get('url') for v in variants if v.get('mimetype')=='image/jp2'),None)
+              manifest.append({
+                  'index':idx,
+                  'locator_url':url,
+                  'full_jpeg_url':full,
+                  'iiif_info':info,
+                  'jp2_url':jp2
+              })
+          (root/'page-routes.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          PY
+
+          mapfile -t pages < <(find "$ROOT/pages" -name 'page-*.jpg' | sort -V)
+          test "${#pages[@]}" -eq 61
+          sha256sum "${pages[@]}" | sort -V > "$ROOT/pages.sha256"
+
+          for offset in 0 15 30 45 60; do
+            start=$((offset+1))
+            [ "$start" -gt 61 ] && break
+            end=$((offset+15)); [ "$end" -gt 61 ] && end=61
+            chunk=("${pages[@]:offset:15}")
+            montage "${chunk[@]}" -thumbnail 300x440 -tile 5x -geometry +5+5               "$ROOT/contact/contact-$(printf '%03d' "$start")-$(printf '%03d' "$end").jpg"
+          done
+          sha256sum "$ROOT/contact"/*.jpg | sort -V > "$ROOT/contact.sha256"
+
+          printf '%s\n'             'LOC_ITEM=2012402919'             'RESOURCE_GROUP=Juan 17 / 1A017'             'RESOURCE_COUNT=61'             'CATALOG_DATE=明嘉靖33年[1554]'             'TARGET=選時寶鏡局 / 銅壺晝夜百刻圖式依臺司刊本官府定時'             'TARGET_FINGERPRINTS=大寒十三後; 雨水後四日; day/night-ke numerical table'             'METHOD=complete 61-image human structural locator; no OCR as glyph authority'             'FULL_RESOLUTION_ROUTES=saved in page-routes.json for decisive follow-up only'             > "$ROOT/manifest.txt"
+
+          rm "$ROOT/item.json"
+
+      - name: Upload Juan-17 locator
+        uses: actions/upload-artifact@v4
+        with:
+          name: loc-hebing-tongshu-1554-juan17-target-locator
+          path: audit/loc-hebing-tongshu-1554-juan17-target-locator/
+          if-no-files-found: error
+          compression-level: 6
+          retention-days: 30

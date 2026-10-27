@@ -1,0 +1,96 @@
+{
+  "schema": "ZIWEI-JI-SHUYING-WENJI-2004-CHEN-HONGYAN-EDITORIAL-RESPONSIBILITY-BOUNDARY-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-JI-SHUYING-WENJI-2004-CHEN-HONGYAN-EDITORIAL-RESPONSIBILITY-BOUNDARY-GW",
+  "prior_batch_id": "BATCH-12-ZIWEI-JI-SHUYING-BAICHUAN-P335-CROSS-PUBLICATION-CITATION-BRIDGE-GV",
+  "question": "Can the editorial responsibility for the 2004 《芸香阁丛书——冀淑英文集》 be tied to a named editor without inferring the authorship of the final 《編后記》, the secondary-reported 《编者注》, or the 2010 《〈冀淑英文集〉补遣》?",
+  "answer": "Yes, at the volume/project editorial-responsibility layer. A 2009 China News report of Chen Hongyan's National Library of China lecture identifies her biography as having edited/compiled 《芸香阁丛书——冀淑英文集》. A National Library of China / China Ancient Books Preservation Network article independently describes the post-2000 Yunxiangge collected-works project and explicitly places Chen Hongyan among the National Library/publisher participants who handled the project with the families of the scholars represented in the series. Together these close Chen Hongyan's editorial responsibility for the Wenji/Yunxiangge project. They do not expose the colophon or signature of the final 《編后記》, do not prove that 《編后記》 is the same object as the secondary-reported 《编者注》, and do not identify the author of the 2010 supplement article.",
+  "public_bio_control": {
+    "source_id": "EXT-CHINANEWS-CHEN-HONGYAN-2009-JI-WENJI-EDITOR-BIO",
+    "provider": "中国新闻网",
+    "publication_date": "2009-09-17",
+    "title": "《永乐大典》六百年——陈红彦老师在国家图书馆的演讲",
+    "url": "https://www.chinanews.com/cul/news/2009/09-17/1870805.shtml",
+    "event_location": "国家图书馆",
+    "speaker": "陈红彦",
+    "explicit_bio_wording_scope": "编有《芸香阁丛书——冀淑英文集》",
+    "ji_wenji_editorial_responsibility_directly_named": true,
+    "final_bianhouji_authorship_named": false,
+    "supplement_2010_authorship_named": false
+  },
+  "nlc_project_context": {
+    "source_id": "EXT-NLC-PCAB-YUNXIANGGE-PROJECT-CONTEXT-2017",
+    "provider": "国家图书馆 / 中国古籍保护网",
+    "url": "https://www.nlc.cn/pcab/zy/pxjz/20170815_154448.shtml",
+    "project_time_scope": "2000年以后",
+    "series": "芸香阁丛书",
+    "participating_institutions_or_roles": [
+      "北京图书馆/国家图书馆相关人员",
+      "上海图书馆",
+      "南京图书馆",
+      "国图出版社"
+    ],
+    "named_participants_in_relevant_project_passage": [
+      "张志清",
+      "陈红彦",
+      "郭又陵",
+      "程有庆"
+    ],
+    "project_family_coordination_example": "赵万里先生文集 / 赵深先生家属",
+    "role": "FIRST_PARTY_NLC_PROJECT_CONTEXT_FOR_YUNXIANGGE_EDITORIAL_ORGANIZATION",
+    "specific_ji_wenji_editor_credit_literal_on_this_page": false
+  },
+  "adjudication": {
+    "chen_hongyan_editorial_responsibility_for_yunxiangge_ji_wenji": "CLOSED_AT_EXPLICIT_PUBLIC_BIO_PLUS_FIRST_PARTY_NLC_PROJECT_CONTEXT",
+    "exact_imprint_credit_line_directly_reviewed": false,
+    "final_bianhouji_exists": "CLOSED_AT_TOC_LABEL_LAYER_FROM_12GS",
+    "final_bianhouji_author": "UNRESOLVED",
+    "final_bianhouji_text": "NOT_REVIEWED",
+    "secondary_reported_bianzhezhu_author": "UNRESOLVED",
+    "final_bianhouji_equals_secondary_reported_bianzhezhu": "NOT_PROVED",
+    "supplement_2010_author": "UNRESOLVED",
+    "chen_hongyan_authored_2010_supplement": "NOT_PROVED",
+    "direct_2004_article74_text": "NOT_REVIEWED",
+    "baichuan_exact_page_range": "UNRESOLVED",
+    "page335_anchor_status": "HIGH_CONFIDENCE_CROSS_PUBLICATION_CITATION_BRIDGE_FROM_12GV"
+  },
+  "inference_firewall": {
+    "volume_editor_does_not_equal_endmatter_author_without_signature": true,
+    "series_project_participant_does_not_equal_each_component_author": true,
+    "volume_editor_does_not_equal_2010_supplement_author": true,
+    "editor_identity_does_not_close_2004_to_2009_textual_genealogy": true,
+    "editor_identity_does_not_select_target_3482_3483_transfer_route": true
+  },
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_added": [],
+    "direct_copy_edge_authorized": false,
+    "same_object_edge_authorized": false,
+    "acquisition_edge_authorized": false
+  },
+  "chronology_and_rule_firewall": {
+    "direct_sanming_parent_vote_increment": 0,
+    "pre1578_zhunzhai_rule_witness_increment": 0,
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_count_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 14,
+    "repaired_provenance_metadata_defect_count": 14,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Search specifically for a photographed/scanned title page, copyright page, colophon or final 《編后記》 page of the 2004 volume to recover the exact credit line and endmatter signature.",
+    "Use Chen Hongyan only as an editorial-responsibility search key; do not assign the final 《編后記》, the reported 《编者注》 or the 2010 supplement to her without a direct byline/signature.",
+    "Continue direct p.335/neighbouring-page recovery and scholarly page anchors for 《百川归海，蔚为大观》.",
+    "Continue 2010 supplement author/page/body recovery and direct 1997 pp.446—449 archival collation in parallel."
+  ],
+  "updated_at": "2026-09-25"
+}

@@ -1,0 +1,117 @@
+{
+  "schema": "TIANWEN-13AM-UTOKYO-GORYEOSA-WORK52-FIRSTPARTY-INQUIRY-AND-ACCESS-MODE-SPLIT-R1",
+  "date": "2026-10-20",
+  "issue_id": "TW-OPEN-0005",
+  "upstream": "docs/research/TIANWEN-13AL-UTOKYO-GORYEOSA-W52-ILL-REMOTE-COPY-ACCESS-ROUTE-R1.json",
+  "exact_targets": [
+    {
+      "title": "高麗史",
+      "work_volume": "卷五十二",
+      "material": "朝鮮刊本",
+      "ncid": "BC15973641",
+      "call_number": "G23:194",
+      "registration": "0008542011",
+      "original_folio_acquired": false,
+      "numeric_image": null
+    },
+    {
+      "title": "高麗史",
+      "work_volume": "卷五十二",
+      "material": "朝鮮鈔本",
+      "ncid": "BC15670118",
+      "call_number": "G23:12",
+      "registration": "0008535809",
+      "original_folio_acquired": false,
+      "numeric_image": null
+    }
+  ],
+  "provider_route": {
+    "official_inquiry_form": "https://www.lib.u-tokyo.ac.jp/ja/library/general/inquiry/inquiryform",
+    "original_reference": "https://www.lib.u-tokyo.ac.jp/ja/library/general/user-guide/outside/gakugai",
+    "firstparty_classification": "For classic works not identifiable in OPAC, use library inquiry form before arrival; CiNii union record is not the firstparty item-level OPAC shelf/access confirmation",
+    "form_required_fields": [
+      "status",
+      "email",
+      "confirm_email",
+      "inquiry_category",
+      "message",
+      "human_Captcha"
+    ],
+    "automated_submission": false,
+    "actual_submission": false,
+    "library_reply": false,
+    "next_steps_order": [
+      "FIRSTPARTY_INQUIRY_BY_AUTHORIZED_HUMAN",
+      "ITEM_SPECIFIC_AVAILABILITY_AND_SHELF_CLASS_REPLY",
+      "DIGITAL_OR_MICRO_SURROGATE_CHECK",
+      "REQUEST_ORIGINAL_OR_APPROVED_REPRODUCTION",
+      "HASH_BOUND_FOLIO_COLLATION"
+    ],
+    "rare_class_policy_url": "https://www.lib.u-tokyo.ac.jp/ja/library/general/user-guide/materials/rare",
+    "rare_principal_prefixes": [
+      "A00",
+      "A05",
+      "A100",
+      "A150"
+    ],
+    "G23_prefix_alone_proves_rare": false,
+    "rare_onsite_application_if_classified": "ADVANCE_APPLICATION_3_BUSINESS_DAYS_AND_SOURCE_PRESERVATION_CONTROL",
+    "rare_user_photography_if_approved": "MINIMUM_NECESSARY_PHOTOS_WITH_STAFF_ATTENDANCE_AND_MAXIMUM_10_CUTS_BEFORE_CONTRACTOR_ROUTE",
+    "micro_service_url": "https://www.lib.u-tokyo.ac.jp/ja/library/general/user-guide/materials/micro",
+    "micro_original_copy_available": "NOT_VERIFIED_FOR_BOTH_EXACT_ITEMS",
+    "micro_use_requires_advance_booking": true,
+    "micro_can_export_USB": false,
+    "micro_copy_output": "PRINT_ON_SITE_SUBJECT_TO_COPY_PERMISSION",
+    "substitution_vs_physical_item": "IF_AVAILABLE_MICRO_IS_A_SURROGATE_OF_SPECIFIED_HOLDING_NOT_AN_INDEPENDENT_PHYSICAL_VOTE"
+  },
+  "actual_questionnaire": [
+    "Confirm that both listed work volume52 physical-copy registrations exist and their current holding/reading status separately",
+    "If neither appears in the UTokyo OPAC, provide first-party item access classification or cataloger interpretation of G23 call numbers",
+    "Check item-bound digitized original, microfilm or manuscript image surrogate; provide manifest/reel/shelf ID before directing a copy order",
+    "If digital substitute exists, locate original solar table under 授時曆立成 太陽冬至前後二象盈初縮末限, days 15-18 (including day16)",
+    "State permissions and institutional ILL/onsite procedures for each physical item and whether archival book condition requires staff photography",
+    "If originals are permissible, indicate whether book cover/title leaves, original table folio, any substitute/colophon leaves may be imaged and whether publication reuse requires further permission"
+  ],
+  "acquisition_evidence_contract": {
+    "essential": [
+      "original_holding_provider",
+      "physical_item_registration",
+      "actual_work_volume",
+      "book_or_mf_surrogate_identity",
+      "original_folio_label",
+      "native_image_bytes_sha256",
+      "table_heading",
+      "day15_to_day18_short_numeric_row",
+      "at_least_same_page_long_lane_if_present",
+      "edition_impression_physical_copy_date_distinguished",
+      "transcription_and_direct_image_review"
+    ],
+    "no_numeric_vote_before_folio": true,
+    "no_source_abstract_as_glyph": true,
+    "no_same_print_from_form_factor": true,
+    "negative_OPAC_response_is_not_negative_holding": true
+  },
+  "boundaries": {
+    "contact_form_is_not_completed_request": true,
+    "library_captcha_is_human_only": true,
+    "oldbook_rare_status_of_G23_items": "UNKNOWN",
+    "actual_microfilm": "UNKNOWN",
+    "D16_in_print_and_manuscript_original": "UNREAD",
+    "direct_historical_numeric_votes_added": 0,
+    "source_page_images_added": 0,
+    "issue_status": "OPEN",
+    "graph_delta": {
+      "nodes": 0,
+      "edges": 0
+    },
+    "product": "CLOSED",
+    "algorithms_reopened": 0
+  },
+  "counts": {
+    "registered_new_provider_service_sources": 2,
+    "root": 647,
+    "extensions": 105,
+    "total": 752,
+    "omissions_open": 11
+  }
+}

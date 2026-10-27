@@ -1,0 +1,107 @@
+{
+  "schema": "MING-QINTIANJIAN-ALMANAC-CLOCK-CAPITAL-BINDING-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-BAZI-MING-DATONG-QINTIANJIAN-ALMANAC-CLOCK-CAPITAL-BINDING-PL",
+  "date": "2026-10-06",
+  "status": "INSTITUTIONAL_TIMEKEEPING_ALMANAC_COLOCATION_CLOSED_CAPITAL_QISHUO_CLOCK_BINDING_UNRESOLVED",
+  "question": "Does Ming Qintianjian institutional control of official clocks, eclipse-time reporting and Datong almanac production prove that published qishuo/conjunction clock labels inherited the current capital's local clock or longitude?",
+  "wanli_daming_huidian_institutional_control": {
+    "source_id": "EXT-CTEXT-WANLI-DAMING-HUIDIAN-V223-TIMEKEEPING",
+    "direct_scope": [
+      "正統六年: 譙樓定時刻/漏刻職能由順天府改屬欽天監",
+      "欽天監推算日月交食，先期備開分秒時刻，救護時本監官專報時候",
+      "欽天監歲造大統歷，中央進樣後送南京及各布政司照樣刊印",
+      "正統十一年: 圭表壺漏俱如南京舊制",
+      "嘉靖七年: 立四丈木表測晷以定氣朔"
+    ],
+    "adjudication": "OFFICIAL_TIMEKEEPING_ECLIPSE_TIMING_AND_ALMANAC_PRODUCTION_ARE_INSTITUTIONALLY_COLOCATED_UNDER_QINTIANJIAN",
+    "same_bureau_proves_single_numeric_time_coordinate": false,
+    "qishuo_small_remainder_explicitly_bound_to_qiaolou_clepsydra": false,
+    "beijing_or_nanjing_longitude_explicitly_named_for_qishuo": false,
+    "note": "俱如南京舊制 binds instrument/timekeeping institutional continuity at the reviewed clause; it is not promoted to a qishuo meridian statement."
+  },
+  "ming_shi_capital_counterexample": {
+    "source_id": "EXT-CTEXT-MINGSHI-V31-YINGTIAN-SHUNTIAN-DAYNIGHT-STANDARD",
+    "received_text_summary": "After the Yongle move to Shuntian, Yingtian winter/summer day-night timings remained in use; Zhengtong 14 briefly adopted Shuntian values, then the Jingtai-era decision restored the Hongwu/Yongle convention rather than treating the current capital as automatic universal authority.",
+    "module_scope": "DAYLIGHT_SUNRISE_SUNSET_DAY_NIGHT_KE",
+    "qishuo_direct_scope": false,
+    "result": "CURRENT_CAPITAL_LOCATION_IS_NOT_AN_AUTOMATIC_INHERITANCE_RULE_FOR_ALL_CALENDAR_TIME_MODULES",
+    "inference_limit": "This counterexample rejects an automatic capital shortcut; it does not positively identify the qishuo reference."
+  },
+  "preexisting_1518_calibration_control": {
+    "source_id": "EXT-NCL-WUZONG-SHILU-V18-1518-ZHUYU-CALIBRATION",
+    "result": "DIRECT_PHYSICAL_SURROGATE_ALREADY_SHOWS_A_PROPOSED_MULTI_SOURCE_LOCAL_CALIBRATION_PROGRAM_WITH_SEPARATE_OBSERVATORY_CLEPSYDRA_AND_PROVINCIAL_GNOMON_COMPONENTS",
+    "adopted_as_official_standard": false,
+    "qishuo_absolute_clock_binding_proved": false,
+    "relevance": "Supports module/process separation and warns against collapsing institutional co-location into one geographic clock standard."
+  },
+  "surviving_official_almanac_control": {
+    "source_id": "EXT-YTLIU-MING-DATONG-CONJUNCTION-D1-D2",
+    "conjunction_time_rows": 56,
+    "d1_internal_bin_matches": 56,
+    "geographic_identifiability_from_same_coordinate_bins": false,
+    "relevance": "Published conjunction-time labels are real official-almanac controls, but their agreement with D1 validates the shared historical coordinate rather than its absolute meridian."
+  },
+  "adjudication": {
+    "qintianjian_official_clock_service": "CLOSED_RECEIVED_INSTITUTIONAL_TEXT",
+    "qintianjian_eclipse_time_prediction_and_reporting": "CLOSED_RECEIVED_INSTITUTIONAL_TEXT",
+    "qintianjian_datong_almanac_production_and_distribution": "CLOSED_RECEIVED_INSTITUTIONAL_TEXT",
+    "qintianjian_gnomon_qishuo_calibration_connection": "ATTESTED_AS_INSTITUTIONAL_CLAUSE",
+    "same_bureau_clock_service_equals_qishuo_numeric_coordinate": "NOT_ATTESTED",
+    "qiaolou_clepsydra_equals_published_qishuo_time_labels": "NOT_ATTESTED",
+    "current_capital_automatically_defines_all_calendar_time_modules": "REJECTED_BY_DAYLIGHT_MODULE_COUNTEREXAMPLE",
+    "qishuo_identity_with_beijing_local_apparent_solar_time": "UNRESOLVED",
+    "qishuo_identity_with_beijing_local_mean_solar_time": "UNRESOLVED",
+    "qishuo_identity_with_nanjing_local_apparent_solar_time": "UNRESOLVED",
+    "qishuo_identity_with_nanjing_local_mean_solar_time": "UNRESOLVED",
+    "qishuo_identity_with_official_clepsydra_standard": "UNRESOLVED",
+    "qishuo_geographic_reference": "UNRESOLVED",
+    "md_g03_status_after_batch": "OPEN_BLOCKING_GENERAL_ADAPTER",
+    "modern_ephemeris_meridian_fit_authorized": false,
+    "runtime_authorized": false,
+    "hpa_dayun_cal_002_status": "MISSING_FROM_PRODUCT",
+    "closed_subquestion": "INSTITUTIONAL_COLOCATION_DOES_NOT_SUPPLY_AN_AUTOMATIC_CAPITAL_OR_CLEPSYDRA_BINDING_FOR_QISHUO"
+  },
+  "inference_firewalls": [
+    "SAME_QINTIANJIAN_BUREAU != SAME_NUMERIC_TIME_COORDINATE_FOR_ALL_MODULES",
+    "QIAOLOU_CLEPSYDRA_SERVICE != DIRECT_QISHUO_SMALL_REMAINDER_CLOCK_IDENTITY",
+    "CURRENT_CAPITAL != AUTOMATIC_QISHUO_MERIDIAN",
+    "NANJING_OLD_CLEPSYDRA_FORM != QISHUO_NANJING_LONGITUDE",
+    "GNOMON_USED_TO_DETERMINE_QI_SHUO != PROOF_PUBLISHED_QISHUO_LABELS_ARE_LOCAL_APPARENT_SOLAR_TIME",
+    "DAYLIGHT_MODULE_CAPITAL_COUNTEREXAMPLE != POSITIVE_QISHUO_REFERENCE_SELECTION"
+  ],
+  "transmission_impact": {
+    "graph_nodes_added": [
+      "INSTITUTION-MING-QINTIANJIAN-OFFICIAL-TIME-ALMANAC",
+      "PASSAGE-DAMING-HUIDIAN-V223-QINTIANJIAN-CLOCK-ECLIPSE-ALMANAC",
+      "PASSAGE-MINGSHI-V31-YINGTIAN-SHUNTIAN-DAYNIGHT-STANDARD",
+      "TERM-CONCEPT-CAPITAL-AUTO-INHERITANCE-NOT-UNIVERSAL"
+    ],
+    "graph_edges_added": [
+      "TG-E0191",
+      "TG-E0192",
+      "TG-E0193",
+      "TG-E0194"
+    ],
+    "impact": "Adds the institution/time-service layer and a received counterexample against automatic capital inheritance without creating a qishuo geography edge."
+  },
+  "route_disposition": {
+    "repeat_capital_equals_meridian_shortcut": "FORBIDDEN",
+    "repeat_same_bureau_equals_same_clock_coordinate_shortcut": "FORBIDDEN",
+    "next_batch": "12PM",
+    "next_focus": "Audit Ming observational-verification records behind 嘉靖七年『測晷以定氣朔』 and related Qintianjian procedures for an explicit bridge from local instrument/clock observations to the numerical 定朔/合朔 remainder; keep 氣 calibration and 朔 timing semantically separate unless the source joins them."
+  },
+  "accounting": {
+    "matrix_rows": 222,
+    "audited_rows": 222,
+    "current_missing_from_product_rows": 4,
+    "provenance_defects_confirmed": 45,
+    "provenance_defects_repaired": 45,
+    "historical_candidate_extensions": 14,
+    "historical_candidate_registries": 5,
+    "historical_candidate_runtime_resolvers": 5,
+    "chart_algorithm_defects": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0
+  }
+}

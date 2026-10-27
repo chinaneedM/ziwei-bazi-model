@@ -1,0 +1,143 @@
+{
+  "schema": "ZIWEI-NLC-ZUOZHUAN-412004000069-NPM-SPLIT-SONG-COPY-PHYSICAL-DISTINCTNESS-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-NLC-ZUOZHUAN-412004000069-NPM-SPLIT-SONG-COPY-PHYSICAL-DISTINCTNESS-HL",
+  "prior_batch_id": "BATCH-12-ZIWEI-NLC-ZUOZHUAN-412004000069-TIEQIN-YUAN-IDENTITY-BIFURCATION-FIREWALL-HK",
+  "question": "Can NLC digital fid 412004000069 now be separated at physical-copy level from Zhang Lijuan's NLC-held Tieqin Tongjian Lou Yuan-engraved/Yuan-impression ten-line Zuozhuan witness, and can the fid be identified more precisely?",
+  "answer": "Yes for physical-copy separation, but not yet for the 1951 acquisition identity. The National Palace Museum's official 2025 'Two Hundred Song Editions' exhibition identifies its copy 故善001224-001238 as the Song Jian'an Liu Shugang ten-line edition with Yuan repairs/supplements and states that the same fascicle/copy is now divided equally between the National Palace Museum and the National Library of China. An institutional digital-archives record sourced to the NPM rare-books system records the NPM half as fifteen books and explicitly missing juan 1-29. Independently, NLC digital fid 412004000069 is publicly backed up with NLC source attribution as a fifteen-book Liu Shugang Song ten-line object whose last observed book contains juan 28-29. The extent, edition identity, holder complement, and 15+15 split converge: fid 412004000069 is therefore closed at high confidence as the NLC first-half partner of the NPM split Song Liu Shugang copy. Zhang Lijuan's separately researched NLC Tieqin old-collection witness is a Yuan-engraved/Yuan-impression ten-line copy and remains a distinct physical witness. This resolves the HK physical-distinctness question, while the exact modern NLC shelfmark/accession crosswalk for either NLC object and the identity of Zhao Wanli's 1951 donated 'Song-printed Chunqiu Zuozhuan Zhushu' member remain unresolved.",
+  "nlc_fid_control": {
+    "source_id": "EXT-NLC-DIGITAL-ZUOZHUAN-412004000069-COMMONS-BACKUP",
+    "nlc_fid": "412004000069",
+    "holder": "中国国家图书馆",
+    "displayed_edition": "刘叔刚 宋[960-1279]",
+    "displayed_format": "十行十六至十七字小字双行二十三字细黑口左右双边双鱼尾",
+    "public_backup_book_count_display": 15,
+    "observed_first_book": [
+      "卷首",
+      "卷第一",
+      "卷第二"
+    ],
+    "observed_last_book": [
+      "卷第二十八",
+      "卷第二十九"
+    ],
+    "observed_run_terminates_at_juan_29": true,
+    "exact_modern_nlc_shelfmark": "UNRESOLVED",
+    "direct_nlc_detail_page_recovered_in_current_route": false
+  },
+  "npm_official_split_copy_control": {
+    "source_id": "EXT-NPM-TWOHUNDRED-ZUOZHUAN-SONG-LIU-SPLIT-HALF",
+    "provider": "國立故宮博物院",
+    "exhibition": "皕宋──故宮宋版圖書觀止",
+    "url": "https://theme.npm.edu.tw/exh114/TwoHundredTreasures/ch/page-8.html",
+    "title": "附釋音春秋左傳註疏",
+    "unified_id": "故善001224-001238",
+    "version_display": "宋建安劉叔剛刊元修配補元刊明印十行本",
+    "explicit_split_statement": "今由本院與中國國圖各存其半",
+    "former_collection_statement": "曾為清道光帝皇子時期藏書",
+    "split_between_npm_and_nlc": true,
+    "first_party_official_exhibition_page_reviewed": true
+  },
+  "npm_institutional_metadata_control": {
+    "source_id": "EXT-NPM-DIGITALARCHIVES-ZUOZHUAN-GUSHAN001224-001238",
+    "provider": "數位典藏與數位學習聯合目錄；來源欄指向國立故宮博物院古籍輿圖檢索系統",
+    "url": "https://catalog.digitalarchives.tw/item/00/12/60/56.html",
+    "unified_id": "故善001224-001238",
+    "shelf_arrangement_number": "59",
+    "version_display": "宋建安劉叔剛一經堂刊配補元刊明修十行本",
+    "preservation_status": "缺卷一－二十九。",
+    "npm_missing_range_normalized": "卷一－二十九",
+    "npm_total_books": 15,
+    "source_system": "國立故宮博物院古籍輿圖檢索系統",
+    "inferred_npm_held_range": "卷三十－六十（依缺卷一至二十九；各冊卷次分配未在本批逐叶重建）",
+    "complementary_nlc_range_inference": "卷一－二十九",
+    "inference_basis": "NPM first-party statement that NPM and NLC each preserve half + NPM institutional metadata stating this NPM object lacks juan 1-29"
+  },
+  "nlc_tieqin_yuan_control": {
+    "source_id": "EXT-NOPSS-ZHANG-LIJUAN-NLC-TIEQIN-YUAN-ZUOZHUAN",
+    "provider": "全国哲学社会科学工作办公室",
+    "url": "https://www.nopss.gov.cn/n1/2019/1118/c400941-31461052.html",
+    "nlc_holding": true,
+    "tieqin_tongjian_lou_old_collection": true,
+    "prior_catalog_classification": "元刻明修本",
+    "revised_physical_adjudication": "元刻元印十行本",
+    "exact_modern_nlc_shelfmark": "UNRESOLVED",
+    "exact_nlc_digital_fid": "UNRESOLVED"
+  },
+  "cross_object_adjudication": {
+    "fid_412004000069_matches_nlc_half_of_split_song_copy": "HIGH_CONFIDENCE_CLOSED_AT_CROSS_INSTITUTIONAL_EXTENT_AND_DIGITAL_METADATA_LEVEL",
+    "matching_dimensions": [
+      "same Liu Shugang Song ten-line edition family",
+      "NPM official statement that NPM and NLC each hold half",
+      "NPM half explicitly lacks juan 1-29 and totals 15 books",
+      "NLC fid backup totals 15 books and its last observed book ends at juan 29"
+    ],
+    "exact_modern_nlc_shelfmark_for_fid": "UNRESOLVED",
+    "exact_modern_nlc_shelfmark_for_tieqin_yuan_copy": "UNRESOLVED",
+    "physical_distinctness_from_zhang_tieqin_yuan_copy": "RESOLVED_DISTINCT",
+    "fid_412004000069_equals_zhang_tieqin_yuan_copy": "RESOLVED_FALSE",
+    "same_physical_object_collapse_authorized": false,
+    "hk_unresolved_physical_distinctness_forward_revised": true,
+    "hk_historical_record_mutated": false
+  },
+  "relation_to_hj": {
+    "hj_named_member": "宋刻《春秋左传注疏》",
+    "hj_count_group": 62,
+    "fid_is_a_concrete_song_print_nlc_object": true,
+    "hj_named_song_member_equals_fid_412004000069": "UNRESOLVED",
+    "hj_named_song_member_equals_tieqin_yuan_copy": "UNRESOLVED",
+    "reason_not_to_bind_hj_yet": "The 1951 quotation lacks an accession/shelfmark/provenance bridge, and the historical Tieqin catalog itself uses layered Song-carving/Yuan-impression language. Physical distinction between the two NLC witnesses does not by itself identify which object Zhao Wanli meant in 1951.",
+    "accession_or_donation_bridge_required": true
+  },
+  "target_volume_firewall": {
+    "target_titles": [
+      "铜壶漏箭制度",
+      "准斋心制几漏图式"
+    ],
+    "historical_catalog_numbers": [
+      3482,
+      3483
+    ],
+    "current_catalog_number_candidates": [
+      "03482",
+      "03483"
+    ],
+    "target_named_in_hl_sources": false,
+    "target_numbers_named_in_hl_sources": false,
+    "target_transaction_route_changed": false,
+    "target_specific_purchase_route_selected": false,
+    "target_specific_donation_route_selected": false,
+    "target_specific_ding_intermediary_selected": false
+  },
+  "transmission_impact": {
+    "scope": "OBJECT_LEVEL_ACQUISITION_COMPARATOR_OUTSIDE_CURRENT_ZIWEI_TEXTUAL_TRANSMISSION_GRAPH",
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "same_object_edge_rejected_between_fid_and_tieqin_yuan_copy": true,
+    "acquisition_edge_authorized": false
+  },
+  "chronology_and_rule_firewall": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_count_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 14,
+    "repaired_provenance_metadata_defect_count": 14,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Resolve the exact modern NLC shelfmark/accession/digital identifier for Zhang Lijuan's Tieqin old-collection Yuan-engraved/Yuan-impression ten-line copy on its now-separate object track.",
+    "Recover an accession, donor, shelfmark, ownership-seal or contemporaneous catalog bridge that binds Zhao Wanli's 1951 donated Song-printed member to fid 412004000069 or another NLC physical object.",
+    "Directly collate Zhao Wanli 1951 pp.221-233 / 2011 p.197, Liu Bo 2018 pp.309-310, and Beijing Library history 1997 pp.446-449 when lawfully accessible.",
+    "Do not infer target 3482/3483 acquisition mode from this comparator."
+  ],
+  "updated_at": "2026-09-27"
+}

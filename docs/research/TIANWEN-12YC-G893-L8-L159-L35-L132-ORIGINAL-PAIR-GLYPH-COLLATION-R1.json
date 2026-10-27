@@ -1,0 +1,239 @@
+{
+  "schema": "TIANWEN-12YC-G893-SAME-ORIGINAL-LOSSGAIN-FOUR-ROW-GLYPH-EQUALITY-R1",
+  "date": "2026-10-16",
+  "source_id": "EXT-KYUJANGGAK-SHOUSHI-LICHENG-G893",
+  "physical_copy": "Kyujanggak 奎貴893 / GK00893_00 one source and one physical copy",
+  "archive": {
+    "workflow_run_id": 35324088110,
+    "artifact_id": 10538746764,
+    "byte_count": 33525981,
+    "zip_sha256": "ee9ecf1de3bb6abe5678e0f8ec8383ef985051e77d091ee40840756e57081107",
+    "zip_crc_verified": true,
+    "original_jpeg_count": 204,
+    "original_jpeg_sha256_replay_pass": 204,
+    "original_jpeg_dimensions": [
+      1150,
+      2000
+    ],
+    "images_committed": 0
+  },
+  "original_page_evidence": [
+    {
+      "page_id": "018b",
+      "role": "SOURCE_CHIJI_HEADER",
+      "jpeg_sha256": "4decd1801d832ba5b471b047dd84cca487245038622a589b48552a0fb43ab83a"
+    },
+    {
+      "page_id": "019b",
+      "role": "SOURCE_L8_ROW",
+      "jpeg_sha256": "05d6a658664475540333965079363e476c58f708819636f5137558b05a35bcda"
+    },
+    {
+      "page_id": "023b",
+      "role": "SOURCE_L35_ROW",
+      "jpeg_sha256": "f5f732a4db9636ab563af47a5c8332e1f00eed1e587cc138d150da53f557d94f"
+    },
+    {
+      "page_id": "036b",
+      "role": "SOURCE_L132_ROW",
+      "jpeg_sha256": "8acb0c32bcdd0be8827bc2851f089bf5d73a2378c3b7ffcfa80eeaf725d1dd84"
+    },
+    {
+      "page_id": "040a",
+      "role": "SOURCE_L159_ROW",
+      "jpeg_sha256": "ba5cb6bcc8ec21ce59b6a33c402cd6ee661f1466239649eaa8c661d80c63143a"
+    }
+  ],
+  "original_rgb_roi": {
+    "hashing": "sha256(Pillow Image.open(BytesIO(original_JPG)).convert('RGB').crop((left,top,right,bottom)).tobytes()); right/bottom exclusive",
+    "ocr": false,
+    "regions": [
+      {
+        "page_id": "018b",
+        "role": "ORIGINAL_CHIJI_LOSSGAIN_HEADER",
+        "rect_px": [
+          760,
+          460,
+          930,
+          1050
+        ],
+        "sha256": "143639e6dc2fed98c61a9d4f3197276869d58e8f50e339b7529be309b93d3cf5"
+      },
+      {
+        "page_id": "019b",
+        "role": "L8_COMPLETE_ORIGINAL_LOSSGAIN_COLUMN",
+        "rect_px": [
+          338,
+          555,
+          445,
+          1710
+        ],
+        "sha256": "2189fbc2c721cbb1c27019050c8cfeda7314175bdfed173629dddd72707c7596"
+      },
+      {
+        "page_id": "023b",
+        "role": "L35_COMPLETE_ORIGINAL_LOSSGAIN_COLUMN",
+        "rect_px": [
+          965,
+          555,
+          1088,
+          1710
+        ],
+        "sha256": "88fd0c52b7f45ac0f1d995cdc249bf540c192994cc1fe26cfa1cbdc2ee40bfad"
+      },
+      {
+        "page_id": "036b",
+        "role": "L132_COMPLETE_ORIGINAL_LOSSGAIN_COLUMN",
+        "rect_px": [
+          515,
+          555,
+          620,
+          1710
+        ],
+        "sha256": "6af672e0132d9bffde4f6f7c5e62f29fc5cee6de87d99566349e3543e499dbbe"
+      },
+      {
+        "page_id": "040a",
+        "role": "L159_COMPLETE_ORIGINAL_LOSSGAIN_COLUMN",
+        "rect_px": [
+          134,
+          555,
+          255,
+          1710
+        ],
+        "sha256": "4835b3d4bb9919f4c3d9e40c828487b1682f14ac6dec690109c5650ef1c475ac"
+      },
+      {
+        "page_id": "019b",
+        "role": "L8_DAY_HEADING",
+        "rect_px": [
+          312,
+          190,
+          475,
+          565
+        ],
+        "sha256": "dbccc60b064dd6a82d687d4fd00a6a666ae4a7015341b7a1b3c107434384319b"
+      },
+      {
+        "page_id": "023b",
+        "role": "L35_DAY_HEADING",
+        "rect_px": [
+          970,
+          190,
+          1120,
+          565
+        ],
+        "sha256": "f4db9d6d1c312253dff9b90f70475170801f0fdabf667130f1fb5a203dda1792"
+      },
+      {
+        "page_id": "036b",
+        "role": "L132_DAY_HEADING",
+        "rect_px": [
+          515,
+          190,
+          650,
+          565
+        ],
+        "sha256": "92ecc60db8c8d070c4d9b5b337e70a0ef2d0d12e98080e5b1a2575e68e68b55c"
+      },
+      {
+        "page_id": "040a",
+        "role": "L159_DAY_HEADING",
+        "rect_px": [
+          140,
+          190,
+          260,
+          565
+        ],
+        "sha256": "fc823fb481e5edf844c63704dae979183a96943e5c4ee5623596e205dcaedc6c"
+      }
+    ]
+  },
+  "direct_original_collation": {
+    "source_header": {
+      "page_id": "018b",
+      "literal": "遲疾損益分"
+    },
+    "rows": [
+      {
+        "limit": 8,
+        "page_id": "019b",
+        "day_heading": "八",
+        "polarity": "益",
+        "numeric_glyphs": "一十〇分五六一七七五",
+        "complete_field": "益一十〇分五六一七七五",
+        "earlier_source": "12XU"
+      },
+      {
+        "limit": 35,
+        "page_id": "023b",
+        "day_heading": "三十五",
+        "polarity": "益",
+        "numeric_glyphs": "七分八八六〇七五",
+        "complete_field": "益七分八八六〇七五",
+        "earlier_source": "12YB_POLARITY_ONLY"
+      },
+      {
+        "limit": 132,
+        "page_id": "036b",
+        "day_heading": "一百三十二",
+        "polarity": "損",
+        "numeric_glyphs": "七分八八六〇七五",
+        "complete_field": "損七分八八六〇七五",
+        "earlier_source": "12XU"
+      },
+      {
+        "limit": 159,
+        "page_id": "040a",
+        "day_heading": "一百五十九",
+        "polarity": "損",
+        "numeric_glyphs": "一十〇分五六一七七五",
+        "complete_field": "損一十〇分五六一七七五",
+        "earlier_source": "12YB_POLARITY_ONLY"
+      }
+    ],
+    "same_copy_textual_pairs": [
+      {
+        "limits": [
+          8,
+          159
+        ],
+        "sum_of_limit_numbers": 167,
+        "positive_glyph": "益一十〇分五六一七七五",
+        "negative_glyph": "損一十〇分五六一七七五",
+        "identical_numeric_glyph_string": "一十〇分五六一七七五"
+      },
+      {
+        "limits": [
+          35,
+          132
+        ],
+        "sum_of_limit_numbers": 167,
+        "positive_glyph": "益七分八八六〇七五",
+        "negative_glyph": "損七分八八六〇七五",
+        "identical_numeric_glyph_string": "七分八八六〇七五"
+      }
+    ],
+    "evidence_grade": "DIRECT_ORIGINAL_SOURCE_GLYPH_PAIR_EQUALITY_AND_OPPOSITE_POLARITY",
+    "normalized_numeric_values": null,
+    "mechanical_equal_absolute_magnitude_rule": null,
+    "complete_limit_table_global_symmetry_rule": null,
+    "negative_inference_about_other_limits": false
+  },
+  "controls": {
+    "earlier_12xu_source_originals_preserved": true,
+    "earlier_12yb_polarity_grade_preserved": true,
+    "supplementary_full_glyph_rows_new": 2,
+    "previous_l8_l132_full_fields_independently_rechecked": 2,
+    "primary_six_target_original_full_field_count_remains": 5,
+    "primary_solar_d16_field_identity": "UNRESOLVED",
+    "primary_six_cross_witness_numeric_mechanical_adjudications": 0,
+    "new_independent_physical_witnesses": 0,
+    "new_external_source_registry_records": 0,
+    "new_genealogy_nodes": 0,
+    "new_genealogy_edges": 0,
+    "chart_algorithm_reopen_count": 0,
+    "mathematical_replay_of_general_symmetry": false
+  },
+  "next": "Use printed 018b positional column and adjacent rows to reconstruct loss/gain numeric units and complete mathematical recurrence for all 167 limits before choosing a global symmetric algorithm. Independently read G893 solar 001a/002b exact D16 original per-day printed column and determine comparability with Ming1569 second difference; no imported G893 value."
+}

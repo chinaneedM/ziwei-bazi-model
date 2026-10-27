@@ -1,0 +1,87 @@
+{
+  "schema": "GENERALIZATION-TRAINING-POLICY-R2",
+  "training_unit": "FIRST_BLIND_CASE_WITH_SPACED_REPLAY",
+  "round_limit": null,
+  "pass_rule": {
+    "fewer_than_5_questions": "ALL_CORRECT",
+    "5_or_more_questions": "CEILING_80_PERCENT"
+  },
+  "case_attempt_policy": "ONE_FIRST_BLIND_THEN_SPACED_DIAGNOSTIC_REPLAY",
+  "required_consecutive_independent_passes": 3,
+  "independent_pass_requires_distinct_first_blind_case": true,
+  "failed_first_blind_resets_independent_passes": true,
+  "first_blind_case_advances_after_round_closure": true,
+  "failed_round_requires_general_learning_before_advance": true,
+  "same_case_replay_counts_as_independent_evidence": false,
+  "same_case_replay_counts_toward_stage_gate": false,
+  "minimum_new_cases_between_replays": 5,
+  "replay_purpose": "DIAGNOSTIC_REMEDIATION_ONLY",
+  "prediction_must_be_frozen_before_scoring": true,
+  "failed_round_updates_model_layer_only": true,
+  "canonical_sources_mutable_during_training": false,
+  "answer_plaintext_allowed_in_repository": false,
+  "performance_reporting": "SEPARATE_FIRST_BLIND_FROM_REPLAY_BY_CASE_TOPIC_AND_REASONING_SKILL",
+  "dataset_partition_policy": {
+    "manifest": "case-bank/manifest.json",
+    "development": "case-bank/partitions/development.json",
+    "stage_validation": "case-bank/partitions/stage-validation.json",
+    "final_holdout": "case-bank/partitions/final-holdout.json",
+    "same_identity_across_partitions_allowed": false,
+    "blocked_input_can_enter_partition": false,
+    "validation_can_create_rule": false,
+    "final_holdout_can_create_rule": false,
+    "historical_revealed_cases_count_as_future_validation": false,
+    "source_exposed_cases_count_as_first_blind": false
+  },
+  "rule_validation": {
+    "minimum_supporting_applications": 3,
+    "minimum_distinct_future_cases": 3,
+    "minimum_support_ratio": 0.8,
+    "unrelated_questions_count_as_evidence": false,
+    "same_origin_case_counts_as_validation": false,
+    "topic_specific_rule_requires_matching_topic": true,
+    "sensitive_or_rare_rule_requires_minimum_distinct_cases": 5,
+    "singletons_remain_unvalidated": true
+  },
+  "composite_option_policy": {
+    "atomize_before_prediction": true,
+    "required_atoms_partitioned_as_independent_support_direct_refutation_or_unknown": true,
+    "top1_unclosed_required_atom_requires_overall_confidence_below_weakest_component": true,
+    "severe_irreversible_or_high_precision_independent_evidence_fail_closed_preserved": true,
+    "record_atom_level_failure_after_reveal": true,
+    "whole_option_score_remains_top1_only": true
+  },
+  "unscored_question_policy": {
+    "allowed_only_when_no_valid_option": true,
+    "prediction_still_required": true,
+    "excluded_from_pass_threshold": true,
+    "excluded_from_learning_metrics": true,
+    "aggregate_counts_required": true
+  },
+  "maintenance_policy": {
+    "short_interval_first_blind_questions": 25,
+    "medium_interval_first_blind_questions": 100,
+    "recent_window_first_blind_questions": 25,
+    "anomaly_cooldown_first_blind_questions": 10,
+    "maintenance_does_not_count_as_training_evidence": true,
+    "canonical_sources_mutable_during_maintenance": false,
+    "max_applied_rules_per_question": 6,
+    "max_applied_rules_scope": "MODEL_LEARNING_RULES_ONLY_NOT_CANONICAL_EVIDENCE",
+    "canonical_evidence_count_quota": null,
+    "evidence_retrieval_stop_condition": "NO_REMAINING_VALID_EVIDENCE_LIKELY_TO_CHANGE_THE_RANKING",
+    "reasoning_degradation_recent_rounds": 5,
+    "low_sample_threshold_questions": 30,
+    "low_sample_action": "REPORT_INSUFFICIENT_SAMPLE_WITHOUT_REORDERING_REWEIGHTING_OR_AUTOMATIC_MODEL_CHANGE",
+    "challenged_rules_are_counterevidence_only": true,
+    "anomaly_triggers": {
+      "consecutive_low_first_blind_cases": 2,
+      "maximum_correct_for_low_five_question_case": 2,
+      "accuracy_drop_percentage_points": 15,
+      "minimum_recent_top2_coverage": 0.6,
+      "maximum_confidence_accuracy_gap": 0.15,
+      "operational_failures_in_recent_five_rounds": 2,
+      "active_rule_limit": 40,
+      "same_replay_no_improvement_limit": 2
+    }
+  }
+}

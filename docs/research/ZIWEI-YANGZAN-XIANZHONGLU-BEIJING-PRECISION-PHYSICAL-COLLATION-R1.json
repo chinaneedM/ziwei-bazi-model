@@ -1,0 +1,116 @@
+{
+  "schema": "ZIWEI-YANGZAN-XIANZHONGLU-BEIJING-PRECISION-PHYSICAL-COLLATION-R1",
+  "batch_id": "BATCH-12-ZIWEI-YANGZAN-XIANZHONGLU-BEIJING-PRECISION-CQ",
+  "source_binding": {
+    "source_id": "EXT-SHIDIAN-YANGZAN-XIANZHONGLU-MING-MS",
+    "book_id": "NGJ89241199901864074070",
+    "title": "閑中錄前集",
+    "author": "楊瓚",
+    "responsibility": "撰",
+    "provider_dynasty": "明",
+    "provider_edition": "明抄本",
+    "image_source": "國家圖書館",
+    "library": "國家圖書館",
+    "classification": ["子部", "天文算法类", "推步之属"],
+    "chapter_id": "1lmbc0ddu2g4r",
+    "chapter_title": "閑中錄前集正文",
+    "chapter_page_range": [6, 123],
+    "volume_id": "7581115603948142646",
+    "public_url": "https://www.shidianguji.com/book/NGJ89241199901864074070/chapter/1lmbc0ddu2g4r",
+    "date_firewall": {
+      "work_composition_date": "UNRESOLVED_IN_THIS_BATCH",
+      "edition_impression_date": null,
+      "physical_copy_date": "MING_MANUSCRIPT_PER_PROVIDER_METADATA; EXACT_COPY_DATE_UNRESOLVED",
+      "digital_surrogate_date": "MODERN_SHIDIAN_SURROGATE_OF_NATIONAL_LIBRARY_OF_CHINA_IMAGES",
+      "secure_pre1578_physical_copy_claim_authorized": false
+    }
+  },
+  "acquisition_gate": {
+    "workflow": ".github/workflows/audit-yangzan-xianzhonglu-shidian-route.yml",
+    "r7_commit": "df34d24bc7d8d90b7cd5c35c8317f764aa1a5f59",
+    "workflow_run_id": 35088687110,
+    "artifact_id": 10442714003,
+    "artifact_digest": "sha256:d09d3327fc14d5453f9819e292b8ea610271015bcadf7d407d37a4c15ed75289",
+    "browser_sdk_route": "real page -> byted_psdk.getPtokenStatus -> POST /api/ancientlib/read/book/pages/v3/ -> byted_psdk.decrypt",
+    "attempts": [
+      {"attempt": 1, "errorCode": 40001, "ptoken_present": true, "ptoken_length": 43, "page_count": 0},
+      {"attempt": 2, "errorCode": 0, "ptoken_present": true, "ptoken_length": 43, "page_count": 37}
+    ],
+    "required_physical_page_count": 4,
+    "physical_gate_passed": true,
+    "machine_text_role": "LOCATOR_ONLY",
+    "ocr_glyph_authority": false
+  },
+  "physical_pages": [
+    {"page_num": 115, "page_id": "7575481384166735924", "bytes": 2090880, "sha256": "b1dad12caa26bed26acb3c25455431b5fd6ce30ee891992cab08bd7968820193", "content_type": "image/png", "http_status": 200},
+    {"page_num": 116, "page_id": "7575481384166752308", "bytes": 2187078, "sha256": "fffe74fa40f80e3c98935d6463f880a3e0205f10f5fbb121f94d8770cd4118e5", "content_type": "image/png", "http_status": 200},
+    {"page_num": 117, "page_id": "7575481384166768692", "bytes": 2117052, "sha256": "1c39cdbf44e284ce53c5517e04794e3a17c286b27d730d7085452536c772683d", "content_type": "image/png", "http_status": 200},
+    {"page_num": 118, "page_id": "7575481384166785076", "bytes": 2514643, "sha256": "7c2a6989270d39837ab65656c8aeaf65a7ec816d3e0fd9c365fb53b7a9371611", "content_type": "image/png", "http_status": 200}
+  ],
+  "direct_visual_collation": {
+    "page_115": [
+      "heading: 步中星",
+      "北京北極出地四十度",
+      "the text scopes the following values to measured Beijing conditions and discusses north/south differences in polar altitude and sunrise timing",
+      "内外差并晝夜差俱係新儀測定每日所差的數",
+      "晝夜總差五百九十二分〇四秒"
+    ],
+    "page_116": [
+      "冬至晝夏至夜三千八百一十五分九十二秒",
+      "夏至晝冬至夜六千一百八十四分〇八秒",
+      "昏明分二百五十分",
+      "the manuscript explains sunset-to-dusk and dawn-to-sunrise as about two and a half ke each"
+    ],
+    "page_117": [
+      "daily internal/external degree values are obtained by cumulative subtraction/addition of the corresponding differences",
+      "冬晝夏夜半周一千九百〇七分九十六秒",
+      "夏晝冬夜半周三千〇九十二分〇四秒",
+      "the day/night difference is cumulatively added or subtracted to obtain successive daily values"
+    ],
+    "page_118": "new heading 超神接氣論; treated as the physical boundary showing that the 步中星 numerical passage has ended"
+  },
+  "mechanical_replay": {
+    "center_fen": 5000,
+    "daynight_total_difference_fen": 592.04,
+    "winter_day_summer_night_fen": "5000 - 2*592.04 = 3815.92",
+    "summer_day_winter_night_fen": "5000 + 2*592.04 = 6184.08",
+    "half_values_fen": ["3815.92/2 = 1907.96", "6184.08/2 = 3092.04"],
+    "under_10000_fen_equals_100_ke": {"short_extreme_ke": 38.1592, "long_extreme_ke": 61.8408},
+    "sanming_1578_target_extreme_ke": {"night": 41, "day": 59},
+    "exact_numeric_identity_with_sanming_1578": false
+  },
+  "adjudication": {
+    "YANGZAN_BEIJING_PRECISION_LAYER": "DIRECT_PHYSICAL_ATTESTATION",
+    "YANGZAN_DIRECT_SANMING_59_41_PARENT": "DISPROVED_BY_DIRECT_NUMERIC_ANCHOR_MISMATCH",
+    "PRE1578_EXACT_PARENT": "UNRESOLVED",
+    "PRE1578_SAME_CHANGE_DAY_FINGERPRINT": "UNRESOLVED",
+    "EXACT_HISTORICAL_QUANTIZATION_RULE": "UNRESOLVED",
+    "secure_pre1578_physical_copy_status": "NOT_ESTABLISHED",
+    "direct_copy_from_or_to_other_work": "NOT_INFERRED"
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [
+      "PHYSICAL-COPY-YANGZAN-XIANZHONGLU-SHIDIAN-MING-MS",
+      "RULE-YANGZAN-BEIJING-PRECISION-DAYNIGHT"
+    ],
+    "supported_edges": [
+      "PHYSICAL-COPY-YANGZAN-XIANZHONGLU-SHIDIAN-MING-MS ATTESTS RULE-YANGZAN-BEIJING-PRECISION-DAYNIGHT"
+    ],
+    "rejected_shortcuts": [
+      "RULE-YANGZAN-BEIJING-PRECISION-DAYNIGHT is not a direct numeric parent of TABLE-SANMING-1578-DAYNIGHT-KE; solstitial anchors differ"
+    ],
+    "remaining_questions": [
+      "securely pre-1578 witness combining Nanjing 59/41 with Sanming-like intermediate anchors",
+      "same change-day fingerprint",
+      "exact historical quantization/selection rule"
+    ]
+  },
+  "product_adjudication": {
+    "HPA-ZDATE-006": "MISSING_FROM_PRODUCT",
+    "runtime_change": "NONE",
+    "algorithm_reopen": "NONE",
+    "candidate_collapse": "NONE",
+    "confirmed_chart_algorithm_defect_count": 0,
+    "deterministic_fusion_chart_product_r1": "CLOSED"
+  }
+}

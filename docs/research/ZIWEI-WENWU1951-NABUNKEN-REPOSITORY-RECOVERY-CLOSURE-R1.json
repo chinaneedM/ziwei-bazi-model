@@ -1,0 +1,187 @@
+{
+  "schema": "ZIWEI-WENWU1951-NABUNKEN-REPOSITORY-RECOVERY-CLOSURE-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-WENWU1951-NABUNKEN-REPOSITORY-RECOVERY-CLOSURE-MJ",
+  "prior_batch_id": "BATCH-12-ZIWEI-WENWU1951-GOOGLE-AGGREGATE-YEAR-BOUNDARY-MI",
+  "question": "After deduplicating exact Japanese issue holdings, does a materially new Nabunken public repository route expose the original 1951 v2 no.9 pp.221–233?",
+  "answer": "The newly checked Nabunken public DSpace form works: positive control reports 1183 records; serial-title variants return five modern institutional research items, all individually identified and excluded as the 1951 issue; article-title variants return an explicit no-record result. No target page object is recovered. Existing Japanese holdings and mediated copy routes are deduplicated, and the current anonymous recovery branch is paused as access-unresolved, not global source absence.",
+  "execution": {
+    "observed_date": "2026-10-04",
+    "repository_base_head": "1d8f6016a4a83756e20d81b0b7b1bdac0b7218b7",
+    "repository_base_tree": "f8b7efe16b1d24d87537e491957fbc67bafa1e7a",
+    "environment": "LOCAL_WORK_MODE_NETWORK_URllib_PUBLIC_GET",
+    "github_runner_probe_claimed": false
+  },
+  "evidence_objects": {
+    "nabunken-article.html": {
+      "evidence_file": "docs/research/evidence/batch-12mj/nabunken-article.html",
+      "byte_count": 31274,
+      "sha256": "9156180b007303e310707965d90119e8f12153f378240333ea7e4c0b7d37aae3"
+    },
+    "nabunken-control.html": {
+      "evidence_file": "docs/research/evidence/batch-12mj/nabunken-control.html",
+      "byte_count": 39801,
+      "sha256": "b729ca29a59d0e17fd4bb67612a4cdac1f9ef5f3f67793f2f9dbe676c5cf743e"
+    },
+    "nabunken-help.html": {
+      "evidence_file": "docs/research/evidence/batch-12mj/nabunken-help.html",
+      "byte_count": 43339,
+      "sha256": "4c4a110f4f678f027d21b481bc55dc429ef1fad08676877ed38cb4f8048ed3d0"
+    },
+    "nabunken-item-1863.html": {
+      "evidence_file": "docs/research/evidence/batch-12mj/nabunken-item-1863.html",
+      "byte_count": 14791,
+      "sha256": "9bcd68265e5621be42491b75d03818b8319f7bd32c4e049e85fde6e1810bc175"
+    },
+    "nabunken-item-731.html": {
+      "evidence_file": "docs/research/evidence/batch-12mj/nabunken-item-731.html",
+      "byte_count": 17047,
+      "sha256": "bc816689832244c78f9cad4c297e4c8c5cda5d4b5b5b3804f048f54b7fec9aef"
+    },
+    "nabunken-item-7539.html": {
+      "evidence_file": "docs/research/evidence/batch-12mj/nabunken-item-7539.html",
+      "byte_count": 15625,
+      "sha256": "685e5d07ef23e1ab4879734ca2e4c28a32b7bdc61747b86624bdc3558990bb5f"
+    },
+    "nabunken-item-7719.html": {
+      "evidence_file": "docs/research/evidence/batch-12mj/nabunken-item-7719.html",
+      "byte_count": 14753,
+      "sha256": "b77538a04c93698178ea721bb361c290665fe298bf9e2478945b05d275ffd6f8"
+    },
+    "nabunken-item-7827.html": {
+      "evidence_file": "docs/research/evidence/batch-12mj/nabunken-item-7827.html",
+      "byte_count": 15435,
+      "sha256": "0fdbea5729462ce357f12325c661b3c09d02399ab5301cf0a1e28bd0a6df15b5"
+    },
+    "nabunken-library.html": {
+      "evidence_file": "docs/research/evidence/batch-12mj/nabunken-library.html",
+      "byte_count": 25489,
+      "sha256": "c9d7cbe607cff66949dfd6a4d4a7d718696a8322e99c42889a07db58757c656c"
+    },
+    "nabunken-root.html": {
+      "evidence_file": "docs/research/evidence/batch-12mj/nabunken-root.html",
+      "byte_count": 22034,
+      "sha256": "7c4de6ac6cb30d994cee4d1c336ca11d699cfd3bf194a5b9a4feb996f289c4f5"
+    },
+    "nabunken-serial.html": {
+      "evidence_file": "docs/research/evidence/batch-12mj/nabunken-serial.html",
+      "byte_count": 34728,
+      "sha256": "53380b5a882c108134f3d636bfca05d427aed2a58f73cb4ff0244b5ad6f9da89"
+    },
+    "observations.json": {
+      "evidence_file": "docs/research/evidence/batch-12mj/observations.json",
+      "byte_count": 19803,
+      "sha256": "f63918e69736c53552e7168b0bd8ccd6d5e03f8fb93b6f13017364859a72d4d2"
+    }
+  },
+  "deduplicated_prior_batches": {
+    "12HH": "Original v2n9 numbering and Japanese physical holdings; no repeated OPAC queries.",
+    "12HI": "NDL 1951 second-half paper bundle and Ryukoku 1986 facsimile.",
+    "12IS": "NDL digital-provider controls.",
+    "12IT": "IA/Open Library/Wikimedia discovery surfaces.",
+    "12JB": "Nabunken SB00333452 / TS00027259 / Document10024273 / 202.505||3||1951-9C exact item and mediated paid copying.",
+    "12MF": "CADAL same-session redirect boundary.",
+    "12MG_12MH_12MI": "HathiTrust/UCD copy correspondence, undated aggregates, Google locator and challenge boundaries."
+  },
+  "public_contract": {
+    "root_url": "https://repository.nabunken.go.jp/dspace/",
+    "help_url": "https://repository.nabunken.go.jp/dspace/help/ja/index.html",
+    "method": "GET",
+    "source_emitted_action": "/dspace/simple-search",
+    "parameters": [
+      "query",
+      "submit"
+    ],
+    "uppercase_OR_documented_in_help": true,
+    "search_index_scope": "Metadata and, only if enabled, full text; not proof that every held serial is digitized/indexed."
+  },
+  "repository_result": {
+    "positive_control_total": 1183,
+    "serial_query_total": 5,
+    "serial_result_handles": [
+      "11177/1863",
+      "11177/731",
+      "11177/7539",
+      "11177/7719",
+      "11177/7827"
+    ],
+    "serial_items_individually_reviewed": 5,
+    "serial_item_publication_years": [
+      2004,
+      2005,
+      2011,
+      2006,
+      2020
+    ],
+    "article_query_total": 0,
+    "target_serial_issue_record_recovered": false,
+    "target_page_object_recovered": false,
+    "pdf_links_inventory_only": true,
+    "pdf_download_count": 0,
+    "unrelated_fulltext_not_reviewed": true
+  },
+  "branch_disposition": {
+    "status": "PAUSED_ACCESS_UNRESOLVED_PENDING_MATERIALLY_NEW_ROUTE",
+    "scope": "Current anonymous original-issue recovery across the documented/deduplicated routes; not an exhaustive worldwide absence verdict.",
+    "reopen_conditions": [
+      "new first-party exact issue/page digital object",
+      "materially new documented public access mechanism",
+      "separately authorized institutional recovery"
+    ],
+    "primary_targets": {
+      "1951_vol2_no9_pp221_233": "NOT_REVIEWED",
+      "2011_wenji_vol1_p197": "NOT_REVIEWED",
+      "wenhui_1951_08_18": "NOT_REVIEWED"
+    }
+  },
+  "adjudication": {
+    "evidence_vote_increment": 0,
+    "direct_original_text_reviewed": false,
+    "remaining_four_ding_titles_resolved": false,
+    "original_vs_reprint_text_identity_proved": false,
+    "global_absence_claim_authorized": false,
+    "historical_rule_upgrade_authorized": false
+  },
+  "security": {
+    "login_used": false,
+    "copy_request_sent": false,
+    "identity_transmitted": false,
+    "payment_used": false,
+    "rights_bypass_used": false,
+    "private_endpoint_guessed": false,
+    "closed_challenge_routes_repeated": false
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "transmission_impact": {
+    "status": "NONE",
+    "reason": "Public search/access closure only; no acquisition, rule-text or direct-copy relation established.",
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": []
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "12MK: audit HPA-ZIWEI-013 Body-palace Ganzhi visibility as a read-only identity projection. Trace body_address to audited HPA-ZIWEI-002 and address_attributes.stem to audited HPA-ZIWEI-004; replay the existing model/UI regressions and malformed/non-unique identity fallback before adjudicating the row.",
+    "The current anonymous Wenwu1951 recovery branch is PAUSED_ACCESS_UNRESOLVED_PENDING_MATERIALLY_NEW_ROUTE. Reopen only for a newly published first-party exact issue/page object, a materially new documented access mechanism, or separately authorized institutional recovery; do not repeat closed provider queries or challenges.",
+    "Preserve direct 1951 pp.221–233, 2011 Wenji vol.1 p.197 and Shanghai Wenhui 1951-08-18 as NOT_REVIEWED. Ding-six remaining-four-title and original/reprint identity questions remain unresolved; no acquisition or textual lineage edge is authorized."
+  ],
+  "updated_at": "2026-10-04"
+}

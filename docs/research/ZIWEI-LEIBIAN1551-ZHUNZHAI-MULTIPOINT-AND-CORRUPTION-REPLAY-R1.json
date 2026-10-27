@@ -1,0 +1,104 @@
+{
+  "schema": "ZIWEI-LEIBIAN1551-ZHUNZHAI-MULTIPOINT-AND-CORRUPTION-REPLAY-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-LEIBIAN1551-ZHUNZHAI-MULTIPOINT-AND-CORRUPTION-REPLAY-ET",
+  "prior_batch_id": "BATCH-12-ZIWEI-LEIBIAN1551-SHOUSHI-SELF-ASCRIPTION-ZHUNZHAI-BRIDGE-ES",
+  "question": "How far can the 1823 Zhunzhai arrow schedule be directly replayed against the source-bound 1551 Shoushi-ascribed Leibian fine table, and can physical anomalies in the 1551 table be distinguished from genuine rule differences?",
+  "answer": "PARTIAL_MULTIPOINT_REPLAY_CLOSED. THREE DISTRIBUTED DATE/VALUE ANCHORS MATCH DIRECTLY (38/62 WINTER START, 45/55 RAINWATER SPRING RANGE, 62/38 SUMMER TERMINAL). TWO SEQUENCE-BREAKING 1551 PHYSICAL READINGS ARE LOCALIZED; ZHUNZHAI ARROWS 8/9 PROVIDE CLEAN PARALLEL BOUNDARIES THAT STRONGLY SUPPORT TRANSMISSION ERROR AT 霜降前十→前一 AND AT THE 雨水前八→後六 START LOCUS. FULL_25_ARROW_REPLAY, DIRECT_COPY_DIRECTION, EXACT_YUAN_EXEMPLAR, PRE1578_ZHUNZHAI_PROSE, AND SANMING_PARENTAGE REMAIN OPEN.",
+  "source_bindings": {
+    "leibian_1551": {
+      "source_id": "EXT-NLC-LEIBIAN-LIFA-TONGSHU-JIAJING30-1551",
+      "page": 20,
+      "page_sha256": "ac71e579493ff892476c1534aabd3b53cb26d64f185d6bb12a837476ba3f6fa9",
+      "highres_run_id": 35359354362,
+      "highres_artifact_id": 10554051966,
+      "ocr_used_for_final_glyph_claims": false
+    },
+    "zhunzhai_1823": {
+      "source_id": "EXT-XUXIU1031-ZHUNZHAI-TONGHU-CLEPSYDRA-QING-MSS-PHYSICAL",
+      "highres_run_id": 35438178430,
+      "highres_artifact_id": 10583226243,
+      "pages": {
+        "72": "39f1e8d6605fc6926a67299a085edd8700d6b3c3cd98061033853f8bb2b42014",
+        "73": "1984fab868257d433464ef4ef4bf219c876b8b4872d882e5e55ca949266eb526",
+        "76": "64aad110e3cba4984cb784e9f97c99044fbc25e39a06744000a7a606ba73ffeb"
+      },
+      "ocr_used_for_final_glyph_claims": false
+    }
+  },
+  "exact_anchor_replay": [
+    {
+      "state": "38/62",
+      "leibian": "冬至節日連小寒後四日同",
+      "zhunzhai": "自冬至用至小寒後四日",
+      "adjudication": "EXACT_DATE_RANGE_AND_VALUE_MATCH"
+    },
+    {
+      "state": "45/55",
+      "leibian": "雨水節日至後五日同",
+      "zhunzhai": "自雨水日用至雨水後五日",
+      "adjudication": "EXACT_SPRING_DATE_RANGE_AND_VALUE_MATCH"
+    },
+    {
+      "state": "62/38",
+      "leibian": "夏至節日連小暑後六日同",
+      "zhunzhai": "自夏至日用至小暑後六日",
+      "adjudication": "EXACT_DATE_RANGE_AND_VALUE_MATCH"
+    }
+  ],
+  "corruption_controls": [
+    {
+      "state": "45/55",
+      "physical_1551": "霜降前十日至後四日同",
+      "zhunzhai_clean_parallel": "自霜降前一日用至霜降後四日",
+      "scholarship_control": "Wang 2014 independently emends 前十日 -> 前一日",
+      "adjudication": "TRANSMISSION_ERROR_STRONGLY_SUPPORTED_AT 十→一 LOCUS"
+    },
+    {
+      "state": "46/54",
+      "physical_1551": "雨水前八日至後十日同",
+      "zhunzhai_clean_parallel": "自雨水後六日用至驚蟄前五日",
+      "scholarship_control": "Wang 2014 independently emends 前八日 -> 後六日",
+      "adjudication": "START_BOUNDARY TRANSMISSION_ERROR STRONGLY_SUPPORTED; TERMINAL PHRASE IS NOT CLAIMED AS LITERAL IDENTITY WITHOUT TERM-LENGTH NORMALIZATION"
+    }
+  ],
+  "transmission_adjudication": {
+    "shared_shoushi_fine_table_source_family": "STRONGLY_SUPPORTED",
+    "edge_id": "TG-E0097",
+    "relation": "SHARED_COMMON_ANCESTOR_CANDIDATE",
+    "edge_status": "PROBABLE",
+    "edge_confidence": "MEDIUM_HIGH",
+    "direct_copy_direction_proved": false,
+    "exact_common_exemplar_identified": false,
+    "full_25arrow_sequence_replay_closed": false,
+    "exact_pre1578_zhunzhai_rule_text_attested": false
+  },
+  "sanming_firewall": {
+    "exact_sanming_yueling_dahan_yushui_fingerprint_closed": false,
+    "exact_nanjing_59_endpoint_binding_closed": false,
+    "direct_sanming_parent_vote_increment": 0
+  },
+  "adjudication": {
+    "matrix_count_change": false,
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "deterministic_fusion_chart_product_r1": "CLOSED"
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 12,
+    "repaired_provenance_metadata_defect_count": 12,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Continue direct replay for additional unambiguous 1551/Zhunzhai rows, but do not force unreadable or calendar-normalization-dependent rows into exact identity.",
+    "Search for a securely pre-1578 physical witness of the exact Zhunzhai 25-arrow/winter-forward/summer-reverse/日曆節候 prose.",
+    "Continue primary author/title linkage for Yuan Yanling Sun Fengji.",
+    "Keep the independent exact Sanming/Yueling Dahan/Rainwater and Nanjing-59 searches active."
+  ]
+}

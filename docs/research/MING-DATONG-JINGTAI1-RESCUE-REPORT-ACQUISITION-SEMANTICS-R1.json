@@ -1,0 +1,135 @@
+{
+  "schema": "MING-DATONG-JINGTAI1-RESCUE-REPORT-ACQUISITION-SEMANTICS-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-RESCUE-REPORT-ACQUISITION-SEMANTICS-PU",
+  "date": "2026-10-07",
+  "status": "PREDICTION_VS_LIVE_CEHOU_SEPARATION_SOURCE_CLOSED_REPORT_NOT_DIRECT_OBSERVATION_FIREWALL_STRENGTHENED_JINGTAI1_CORRECTED_TIME_ACQUISITION_STILL_UNRESOLVED",
+  "question": "After 12PT source-bound the rescue trigger to initial eclipse onset, does the Qintianjian act of reporting that trigger identify direct visual observation or a particular physical clock, and what does that imply for the 1450 卯正三刻 corrected time?",
+  "inherited_12pt_result": {
+    "rescue_operational_start": "INITIAL_ECLIPSE_ONSET",
+    "jingtai1_rescue_failure_operational_bridge": "SOURCE_SUPPORTED_HIGH_CONFIDENCE",
+    "bare_dangzai_lexical_phase_identity": "UNRESOLVED",
+    "absolute_anchor_status": "NOT_YET_ADMISSIBLE"
+  },
+  "evidence_controls": [
+    {
+      "source_id": "EXT-CTEXT-WANLI-DAMING-HUIDIAN-V103-HONGWU-ECLIPSE-WEATHER-WAIVER",
+      "work": "(萬曆)《大明會典》卷103所傳洪武六年／二十六年交食救護條",
+      "received_points": [
+        "洪武二十六年定日食救護儀：至期欽天監官報日初食",
+        "月食儀同前",
+        "洪武六年奏定：若遇雨雪雲翳，則免行禮"
+      ],
+      "result": "EARLY_MING_RECEIVED_RITUAL_MAKES_VISIBILITY_WEATHER_OPERATIONALLY_RELEVANT_TO_RITUAL_EXECUTION_BUT_DOES_NOT_STATE_HOW_THE_QINTIANJIAN_REPORT_TIME_WAS_ACQUIRED",
+      "chronology_firewall": "WANLI_HUIDIAN_IS_A_LATER_RECEIVED_COMPILATION_TRANSMITTING_DATED_HONGWU_REGULATIONS_NOT_A_SURVIVING_HONGWU_PHYSICAL_WITNESS"
+    },
+    {
+      "source_id": "EXT-SHIDIAN-MINGSHILU-XIANZONG-V4-TIANSHUN8-ECLIPSE-CHUKUI-CONTROL",
+      "work": "《明憲宗純皇帝實錄》卷4天順八年（1464）日食爭議",
+      "received_points": [
+        "欽天監監正谷濱等先奏酉正二刻初虧",
+        "天文生賈信另奏酉初初刻初虧",
+        "上命臨時測候",
+        "至是果不見食"
+      ],
+      "result": "NEAR_CONTEMPORARY_MING_SHILU_EXPLICITLY_SEPARATES_PRE_EVENT_CALCULATED_REPORTED_PHASE_TIMES_FROM_A_SEPARATELY_ORDERED_LIVE_CEHOU_PROCEDURE"
+    },
+    {
+      "source_id": "EXT-CTEXT-WANLI-DAMING-HUIDIAN-V223-TIMEKEEPING",
+      "work": "(萬曆)《大明會典》卷223欽天監交食條",
+      "inherited_12po_points": [
+        "先期備開分秒時刻并起復方位具奏",
+        "救護時本監官專報時候",
+        "陰雨不見食仍候復完時報各官"
+      ],
+      "result": "LATER_MING_INSTITUTIONAL_CONTROL_PROVES_REPORTING_CAN_FOLLOW_A_PRECOMPUTED_SCHEDULE_AND_IS_NOT_INTRINSICALLY_VISUAL"
+    },
+    {
+      "source_id": "EXT-CTEXT-ZHENGDE-MING-HUIDIAN-V176-TIMEKEEPING",
+      "work": "(正德)《明會典》卷176欽天監",
+      "received_points": [
+        "天文占候／觀象與漏刻科並存",
+        "五官挈壺正、漏刻博士構成制度化計時職",
+        "觀象臺天文生專視／占候另有制度職掌"
+      ],
+      "result": "INSTITUTIONAL_COEXISTENCE_OF_OBSERVATION_AND_TIMEKEEPING_FUNCTIONS_DOES_NOT_IDENTIFY_WHICH_FUNCTION_PRODUCED_THE_1450_CORRECTED_TIME"
+    },
+    {
+      "source_id": "EXT-NLC-WIKIMEDIA-YINGZONG-SHILU-V19-P10-JINGTAI1-ECLIPSE-PHYSICAL",
+      "work": "《明英宗睿皇帝實錄》卷187物理頁景泰元年月食",
+      "physical_points": [
+        "月食當在卯正三刻",
+        "欽天監官以為辰初初刻",
+        "致失救護",
+        "劾監正許惇等推測不明"
+      ],
+      "result": "THE_QINTIANJIAN_CHENCHU_LABEL_IS_EXPLICITLY_THE_FAILED_PREDICTIVE_DETERMINATION; THE_SOURCE_DOES_NOT_SAY_WHO_OR_WHAT_ACQUIRED_THE_CORRECTED_MAOZHENG_VALUE"
+    }
+  ],
+  "semantic_adjudication": {
+    "qintianjian_report_is_speech_act_not_acquisition_method": true,
+    "reported_initial_eclipse_time_requires_independent_acquisition_binding": true,
+    "forecast_and_live_cehou_are_separate_operations_by_1464": "CLOSED_SOURCE_SCOPED",
+    "direct_visual_observation_inferred_from_bao_chushi": "FORBIDDEN",
+    "clepsydra_reading_inferred_from_qintianjian_report": "FORBIDDEN",
+    "hongwu_weather_waiver_proves_direct_observation": "NO",
+    "hongwu_weather_waiver_scope": "RITUAL_EXECUTION_VISIBILITY_CONDITION_ONLY",
+    "jingtai1_wrong_qintianjian_time_role": "FAILED_FORECAST_OR_PREDICTIVE_DETERMINATION",
+    "jingtai1_corrected_maozheng_time_acquisition": "UNRESOLVED",
+    "jingtai1_corrected_time_observer": "UNRESOLVED",
+    "jingtai1_corrected_time_clock_or_instrument": "UNRESOLVED",
+    "jingtai1_corrected_time_solar_standard": "UNRESOLVED",
+    "jingtai1_corrected_time_locality": "UNRESOLVED"
+  },
+  "adjudication": {
+    "early_mid_ming_prediction_vs_live_observation_separation": "CLOSED_SOURCE_SCOPED",
+    "rescue_report_not_intrinsically_direct_observation": "CLOSED_SOURCE_SCOPED",
+    "jingtai1_prediction_value_provenance": "QINTIANJIAN_FAILED_PREDICTIVE_DETERMINATION",
+    "jingtai1_actual_time_measurement_chain": "UNRESOLVED",
+    "jingtai1_absolute_anchor_status": "NOT_YET_ADMISSIBLE",
+    "qishuo_geographic_reference": "UNRESOLVED",
+    "md_g03_status_after_batch": "OPEN_BLOCKING_GENERAL_ADAPTER",
+    "runtime_authorized": false,
+    "modern_ephemeris_meridian_fit_authorized": false,
+    "hpa_dayun_cal_002_status": "MISSING_FROM_PRODUCT"
+  },
+  "inference_firewalls": [
+    "報日初食 != DIRECT_VISUAL_DETECTION_BY_LEXICAL_DEFINITION",
+    "雨雪雲翳免行禮 != REPORT_TIME_WAS_OBTAINED_BY_VISUAL_OBSERVATION",
+    "臨時測候_IS_EXPLICITLY_SEPARATE_FROM_PRE_EVENT_PREDICTED_INITIAL_CONTACT_TIMES_IN_1464",
+    "QINTIANJIAN_HAS_LEAK_CLOCK_STAFF != 1450_卯正三刻_WAS_READ_FROM_A_QINTIANJIAN_CLEPSYDRA",
+    "1450_辰初初刻_FAILED_PREDICTION != 1450_卯正三刻_CORRECTED_TIME_ACQUISITION_METHOD",
+    "LATER_MING_FORECAST_REPORTING_PROTOCOL != AUTOMATIC_BACK_PROJECTION_OF_EVERY_DETAIL_TO_1450"
+  ],
+  "transmission_impact": {
+    "graph_nodes_added": [
+      "PASSAGE-DAMING-HUIDIAN-V103-HONGWU-ECLIPSE-WEATHER-WAIVER",
+      "TERM-CONCEPT-MIDMING-ECLIPSE-FORECAST-VS-LIVE-CEHOU-SEPARATION",
+      "TERM-CONCEPT-JINGTAI1-CORRECTED-TIME-ACQUISITION-STILL-UNBOUND"
+    ],
+    "graph_edges_added": [
+      "TG-E0218",
+      "TG-E0219",
+      "TG-E0220"
+    ],
+    "impact": "Strengthens the rescue-reporting inference firewall with a near-contemporary 1464 control that explicitly separates predicted phase times from live cehou, while preserving the 1450 corrected-time acquisition gap."
+  },
+  "route_disposition": {
+    "next_batch": "12PV",
+    "next_focus": "Trace how the corrected Jingtai-1 卯正三刻 value entered the court record: search immediate censorial/judicial residue, Qintianjian observation reports, adjacent Shilu material, Xu Dun/許惇 records and early-Ming post-event correction conventions for an observer, clock, instrument or locality binding.",
+    "use_jingtai1_as_absolute_anchor_now": "FORBIDDEN"
+  },
+  "accounting": {
+    "matrix_rows": 222,
+    "audited_rows": 222,
+    "current_missing_from_product_rows": 4,
+    "provenance_defects_confirmed": 45,
+    "provenance_defects_repaired": 45,
+    "historical_candidate_extensions": 14,
+    "historical_candidate_registries": 5,
+    "historical_candidate_runtime_resolvers": 5,
+    "chart_algorithm_defects": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0
+  }
+}

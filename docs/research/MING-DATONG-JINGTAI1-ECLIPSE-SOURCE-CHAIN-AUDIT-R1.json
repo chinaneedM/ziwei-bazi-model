@@ -1,0 +1,144 @@
+{
+  "schema": "MING-DATONG-JINGTAI1-ECLIPSE-SOURCE-CHAIN-AUDIT-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-ECLIPSE-SOURCE-CHAIN-AUDIT-PP",
+  "date": "2026-10-07",
+  "status": "DERIVATIVE_SOURCE_CHAIN_NEGATIVE_CLOSED_NO_NEW_PHASE_OBSERVER_CLOCK_FIELDS_RECOVERED",
+  "question": "Do later historiographic and institutional compilations descending from or parallel to the Jingtai-1 eclipse record add a source-specific phase label, observer, clock instrument, or locality for 卯正三刻?",
+  "controlling_event_source": {
+    "source_id": "EXT-CTEXT-MINGSHILU-YINGZONG-V187-JINGTAI1-ECLIPSE-CLOCK-ERROR",
+    "status": "PRIMARY_CONTROLLING_ANNAL_TRANSCRIPTION",
+    "semantic_payload": [
+      "景泰元年正月辛卯",
+      "月食當在卯正三刻",
+      "欽天監官以為辰初初刻",
+      "致失救護",
+      "六科十三道劾監正許惇等推測不明"
+    ],
+    "missing_fields": [
+      "初虧/食甚/復圓 phase label",
+      "named observer",
+      "clock instrument",
+      "actual-time acquisition method",
+      "explicit event-time locality",
+      "apparent/mean solar identity"
+    ]
+  },
+  "derivative_chain": [
+    {
+      "source_id": "EXT-SHIDIAN-QIANAN-NIMINGSHIGAO-V5-JINGTAI1-ECLIPSE-DERIVATIVE",
+      "work": "《潛菴先生擬明史稿》卷五",
+      "disposition": "LATER_EARLY_QING_HISTORIOGRAPHIC_DERIVATIVE",
+      "material_result": "Repeats 卯正三刻 / 欽天監誤推辰初初刻 / 失救護 / 法司論徒; adds no target-specific phase, observer or clock-acquisition field.",
+      "independent_event_observation": false
+    },
+    {
+      "source_id": "EXT-SHIDIAN-WANGHONGXU-MINGSHIGAO-V7-JINGTAI1-ECLIPSE-DERIVATIVE",
+      "work": "王鴻緒《明史稿》志第七",
+      "disposition": "LATER_QING_HISTORIOGRAPHIC_DERIVATIVE",
+      "material_result": "Repeats the event in the calendar-history narrative and adds no target-specific phase, observer or clock-acquisition field.",
+      "independent_event_observation": false
+    },
+    {
+      "source_id": "EXT-CTEXT-MINGSHI-V31-YINGTIAN-SHUNTIAN-DAYNIGHT-STANDARD",
+      "work": "《明史》卷三十一",
+      "disposition": "QING_COMPILED_RECEIVED_DYNASTIC_HISTORY",
+      "material_result": "Repeats 卯正三刻 / 辰初初刻 / 失救護 with no phase/instrument provenance.",
+      "independent_event_observation": false
+    },
+    {
+      "source_id": "EXT-CTEXT-MINGHUIYAO-V27-JINGTAI1-ECLIPSE-DERIVATIVE",
+      "work": "《明會要》卷二十七",
+      "disposition": "LATER_COMPILATION",
+      "material_result": "Repeats the same event chain with no new phase, observer, instrument or locality field.",
+      "independent_event_observation": false
+    },
+    {
+      "source_id": "EXT-WIKISOURCE-XUWENXIANTONGKAO-V212-JINGTAI1-ECLIPSE-DERIVATIVE",
+      "work": "《欽定續文獻通考》卷二百十二",
+      "disposition": "LATER_QING_OFFICIAL_COMPILATION",
+      "material_result": "Explicitly labels the item 景帝實錄 and repeats the event in abridged form; no new phase/clock provenance.",
+      "independent_event_observation": false,
+      "transmission_note": "Some later renderings abbreviate 辰初初刻 to 辰初刻; this is transmission/abridgment evidence, not a new observed value."
+    }
+  ],
+  "public_search_horizon": {
+    "query_families": [
+      "景泰元年正月辛卯 + 初虧",
+      "景泰元年正月辛卯 + 食甚",
+      "景泰元年正月辛卯 + 復圓",
+      "景泰元年正月辛卯 + 壺漏",
+      "景泰元年正月辛卯 + 觀象臺/觀測",
+      "許惇 + 月食 + 初虧/救護/法司"
+    ],
+    "new_target_specific_phase_source_recovered": false,
+    "new_target_specific_observer_source_recovered": false,
+    "new_target_specific_clock_source_recovered": false,
+    "scope": "PUBLIC_DIGITAL_SEARCH_HORIZON_ONLY",
+    "firewall": "SEARCH_ABSENCE != HISTORICAL_NONEXISTENCE"
+  },
+  "next_physical_route": {
+    "source_id": "EXT-COMMONS-ZJLIB-GUOQUE-V25-JINGTAI1-PHYSICAL-ROUTE",
+    "work": "談遷《國榷》",
+    "target": "卷二十九 庚午景泰元年正月",
+    "public_route": "ZJLib physical PDF volume 25 indexed on Wikimedia Commons",
+    "reason": "The public file inventory explicitly places Jingtai-1 first month in volume 25, creating a page-level route independent of repeating generic derivative-text searches.",
+    "target_page_collated_in_this_batch": false
+  },
+  "adjudication": {
+    "later_derivative_chain_adds_phase_label": "NO",
+    "later_derivative_chain_adds_observer": "NO",
+    "later_derivative_chain_adds_clock_instrument": "NO",
+    "later_derivative_chain_adds_explicit_event_locality": "NO",
+    "derivative_repetition_counts_as_independent_witnesses": false,
+    "generic_text_search_route": "PARKED_UNLESS_MATERIALLY_NEW_WITNESS",
+    "historical_nonexistence_claim_authorized": false,
+    "jingtai1_phase_identity": "UNRESOLVED",
+    "jingtai1_actual_time_measurement_chain": "UNRESOLVED",
+    "jingtai1_absolute_anchor_status": "NOT_YET_ADMISSIBLE",
+    "qishuo_geographic_reference": "UNRESOLVED",
+    "md_g03_status_after_batch": "OPEN_BLOCKING_GENERAL_ADAPTER",
+    "modern_ephemeris_meridian_fit_authorized": false,
+    "runtime_authorized": false,
+    "hpa_dayun_cal_002_status": "MISSING_FROM_PRODUCT",
+    "closed_subquestion": "REVIEWED_DERIVATIVE_CHAIN_DOES_NOT_SUPPLY_THE_MISSING_1450_PHASE_OBSERVER_CLOCK_FIELDS"
+  },
+  "inference_firewalls": [
+    "REPEATED_WORDING != INDEPENDENT_OBSERVATION",
+    "LATER_COMPILATION_ADDITION_ABSENT != HISTORICAL_NONEXISTENCE",
+    "辰初刻_ABRIDGMENT != NEW_CLOCK_VALUE",
+    "MINGHUIYAO_OR_MINGSHIGAO_REPETITION != SOURCE_UPGRADE_OVER_MING_SHILU",
+    "GENERIC_WEB_SEARCH_ABSENCE != EXHAUSTIVE_ARCHIVE_NEGATIVE"
+  ],
+  "transmission_impact": {
+    "graph_nodes_added": [
+      "PASSAGE-QIANAN-NIMINGSHIGAO-V5-JINGTAI1-ECLIPSE-DERIVATIVE",
+      "PASSAGE-XUWENXIANTONGKAO-V212-JINGTAI1-ECLIPSE-DERIVATIVE",
+      "TERM-CONCEPT-JINGTAI1-DERIVATIVE-REPETITION-NOT-INDEPENDENT-PHASE-CLOCK-EVIDENCE"
+    ],
+    "graph_edges_added": [
+      "TG-E0204",
+      "TG-E0205",
+      "TG-E0206"
+    ],
+    "impact": "Models derivative repetition and prevents later compilations from multiplying evidentiary weight or manufacturing missing phase/clock provenance."
+  },
+  "route_disposition": {
+    "repeat_generic_derivative_text_search": "PARKED_UNLESS_NEW_WITNESS",
+    "next_batch": "12PQ",
+    "next_focus": "Direct physical/page-level collation of ZJLib/Wikimedia Commons 國榷 volume 25, 卷二十九 景泰元年正月, to determine whether Tan Qian preserves any additional wording for the target eclipse/impeachment event."
+  },
+  "accounting": {
+    "matrix_rows": 222,
+    "audited_rows": 222,
+    "current_missing_from_product_rows": 4,
+    "provenance_defects_confirmed": 45,
+    "provenance_defects_repaired": 45,
+    "historical_candidate_extensions": 14,
+    "historical_candidate_registries": 5,
+    "historical_candidate_runtime_resolvers": 5,
+    "chart_algorithm_defects": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0
+  }
+}

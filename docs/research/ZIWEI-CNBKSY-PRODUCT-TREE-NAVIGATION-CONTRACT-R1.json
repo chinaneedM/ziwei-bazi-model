@@ -1,0 +1,121 @@
+{
+  "schema": "ZIWEI-CNBKSY-PRODUCT-TREE-NAVIGATION-CONTRACT-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-CNBKSY-PRODUCT-TREE-NAVIGATION-CONTRACT-LO",
+  "prior_batch_id": "BATCH-12-ZIWEI-CNBKSY-APPLICATION-SEARCH-ROUTE-INVENTORY-LN",
+  "question": "Does the source-emitted productTree.js expose a fixed resource/search data route or product identifier mapping that should be closed before following the already source-emitted ordinary-search navigation?",
+  "answer": "No fixed search data endpoint is exposed. productTree.js is a generic loader whose initProductTree(url,...) and initProductTreeUnselect(url,...) call bksy.get(url,null,...); the caller supplies the URL. The only fixed route literal is /product/detail/ + treeNode.id for PREPARE leaf nodes. The repaired run successfully retrieves the script, while the source-closed navigation page itself returns HTTP 302 and yields no page-level tree initialization context. Therefore the product-tree branch does not close a search dataset endpoint. The next direct surface is the first-party /search link labeled 普通检索 already captured by Batch 12LJ.",
+  "probe_history": {
+    "superseded": {
+      "workflow_run_id": 36886976335,
+      "workflow_job_id": 110452667879,
+      "result": "FAIL_BEFORE_EVIDENCE_OUTPUT",
+      "reason": "volatile seed page did not re-emit 信息动态 navigation",
+      "negative_source_inference_authorized": false
+    },
+    "controlling": {
+      "workflow": ".github/workflows/probe-batch-12lo-cnbksy-product-tree-navigation-contract.yml",
+      "exact_head": "827d83970f61851e72b4dfc927b786cd6ccd3b1c",
+      "workflow_run_id": 36887246786,
+      "workflow_job_id": 110453592855,
+      "artifact_id": 11174663900,
+      "artifact_digest": "sha256:dbb3f4f6a8c6b89cc78c146fc7029663365a50a4652acaa0ba134fc1c7544481"
+    }
+  },
+  "source_contract": {
+    "navigation_url": "https://www.cnbksy.com/portal/newsCategoryBrowse",
+    "navigation_source_binding": "SOURCE_CLOSED_BY_12LJ",
+    "product_tree_script_url": "https://www.cnbksy.com/public/portal/js/productTree.js?version=V20241206",
+    "product_tree_source_binding": "SOURCE_CLOSED_BY_12LL",
+    "navigation_route_followed": false,
+    "target_query_submitted": false
+  },
+  "responses": {
+    "navigation": {
+      "http_status": 302,
+      "content_type": "text/html",
+      "bytes": 138,
+      "sha256": "753e0dd54f28c4f7009b9c0b18a68aed175416bd8b7d134858264586eaac56f0"
+    },
+    "product_tree": {
+      "http_status": 200,
+      "content_type": "application/javascript",
+      "bytes": 3913,
+      "sha256": "9ff4fd3fbe01987a483576c1bfc36920ed18ee0f1584db7c6dcd17181e56ce0c"
+    }
+  },
+  "product_tree_contract": {
+    "loaders": [
+      {
+        "signature": "initProductTree(url, id, checkedcallback, finishedCallback)",
+        "transport": "bksy.get(url, null, callback)"
+      },
+      {
+        "signature": "initProductTreeUnselect(url, id, checkedcallback, finishedCallback)",
+        "transport": "bksy.get(url, null, callback)"
+      }
+    ],
+    "fixed_route_literals": [
+      "/product/detail/"
+    ],
+    "fixed_route_behavior": "PREPARE leaf click -> window.open('/product/detail/' + treeNode.id)",
+    "caller_supplied_tree_data_url": true,
+    "fixed_product_or_resource_tree_data_endpoint_observed": false,
+    "page_inline_initialization_context_observed": false
+  },
+  "next_source_closed_route": {
+    "origin": "Batch 12LJ complete seed_links inventory",
+    "href": "/search",
+    "label": "普通检索",
+    "classification": "FIRST_PARTY_SOURCE_EMITTED_SEARCH_NAVIGATION"
+  },
+  "adjudication": {
+    "product_tree_static_contract_inventoried": true,
+    "fixed_search_dataset_endpoint_observed": false,
+    "product_tree_data_url_remains_caller_supplied": true,
+    "navigation_route_followed": false,
+    "target_query_submitted": false,
+    "login_used": false,
+    "registration_used": false
+  },
+  "security": {
+    "source_closed_gets_only": true,
+    "application_navigation_post_used": false,
+    "private_endpoint_guessed": false,
+    "captcha_bypass_used": false,
+    "tls_verification_disabled": false
+  },
+  "transmission_impact": {
+    "status": "NONE_ACCESS_BOUNDARY_ONLY",
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": []
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Use the exact first-party href=/search label=普通检索 route already captured in Batch 12LJ complete seed-links inventory.",
+    "GET https://www.cnbksy.com/search anonymously with no query string and no target term.",
+    "Inventory response status/redirect, forms/actions/methods/field names/types, CSRF presence without value, buttons, scripts, inline route literals and visible navigation.",
+    "Do not submit any search form or target query."
+  ],
+  "updated_at": "2026-10-01"
+}

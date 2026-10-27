@@ -1,0 +1,139 @@
+{
+  "schema": "ZIWEI-SANMING-TONGHUI-1578-TIMEKEEPING-PHYSICAL-COLLATION-R1",
+  "schema_version": "1.0.0",
+  "audit_batch": "BATCH-12-ZIWEI-SANMING-TONGHUI-1578-TIMEKEEPING-PHYSICAL-COLLATION-AT",
+  "access_date": "2026-09-11",
+  "question": "Can the 1578 physical edition of 三命通會 directly establish the generic half-Zi previous/current-day split and timekeeping context, and does it close the Fullbook upper-half-Zi Hai-reclassification or cloudy/rain current-time acquisition chain?",
+  "source": {
+    "title": "三命通會",
+    "author": "萬民英",
+    "historical_period": "明",
+    "edition": "萬曆六年（1578）刻本；National Central Library scan object",
+    "provider": "National Central Library scan via Wikimedia Commons",
+    "commons_file_title": "File:NCL-06589 1 三命通會.pdf",
+    "commons_source_sha1": "c222bc54815d8e5cef15338c03b9fc11d540f41a",
+    "commons_source_size": 101956385,
+    "pdf_sha256": "3de5c45efb1919965afae00a3c97121054aaabd0f38f9fd5ab8f0a28bb8e36dd",
+    "pdf_page_count": 1000
+  },
+  "locator_correction": {
+    "status": "CORRECTED_FORWARD_ONLY",
+    "error": "R1/R2 treated the Commons filename suffix in NCL-06589 2 as if it identified 卷二. The suffix identifies the second scan-file segment of the bibliographic object, not juan number.",
+    "effect": "R1/R2 p34-p44 review is a locator miss only and authorizes no content-negative conclusion about 卷二 or 論時刻.",
+    "corrected_main_file": "File:NCL-06589 1 三命通會.pdf",
+    "r3_physical_mapping": "Direct contact review places the second physical book approximately at PDF p101-p188; target sections are inside this bounded object.",
+    "content_negative_from_wrong_locator_authorized": false
+  },
+  "workflow_evidence": {
+    "wrong_locator_r1": {
+      "run": 34544127031,
+      "artifact": 10178374158,
+      "artifact_digest": "sha256:9cb08047fbe368465284ba88f03c2169a41354047d499d76fc734b3df757a69e"
+    },
+    "wrong_locator_r2": {
+      "run": 34544308980,
+      "artifact": 10178440876,
+      "artifact_digest": "sha256:e0ca8f75d8347465996851791a145f5b55038bee584e6aca3b99886765ba38cc"
+    },
+    "corrected_main_file_r3": {
+      "run": 34544892575,
+      "artifact": 10178643326,
+      "artifact_digest": "sha256:f988ca9612b73129dba1786c21370d3244fba1143a26eaebbe59fc5104a8e4e7"
+    },
+    "juan2_readable_r4": {
+      "run": 34545147295,
+      "artifact": 10178733130,
+      "artifact_digest": "sha256:572cb4798f8b929c0d440cfb7e022f821d7ddb0fceb89fa5a67cf5462d4d4363"
+    },
+    "target_glyph_lock_r5": {
+      "run": 34545625767,
+      "artifact": 10178894706,
+      "artifact_digest": "sha256:c4bf633e6a0f5e6c6ac1e4a79fe0e30ece4b597f779dc8bf747b7633d67c623f"
+    }
+  },
+  "target_page_hashes_r5": {
+    "132": "e664ec52aecc62b0ce292ca983c8930b77f904a6d8b4be2d38d8bf829d03ab11",
+    "133": "937f36bd7238f89b82ec788e621f42631087b0de011923f845c38912ff59656d",
+    "136": "edc04e619928615b97bf798360834ca9b952629a26907c2ce329ebeec7f2b90f",
+    "137": "418fc7bac1654a4ab4baafba6f8fe865e373d49d25521fd7470e7db8f26f7eeb"
+  },
+  "direct_physical_collation": [
+    {
+      "pdf_page": 132,
+      "section": "論日刻",
+      "observed": [
+        "夫日一晝一夜十二時當均分於一日",
+        "故上智設銅壺貯水漏下壺箭",
+        "一日之中有百刻之候"
+      ],
+      "mechanical_value": "Directly binds the exact 1578 physical witness to clepsydra water timekeeping and hundred-ke day/night division."
+    },
+    {
+      "pdf_page": 133,
+      "section": "論時刻",
+      "observed": [
+        "大晝夜十二時均分百刻一時有八大刻二小刻",
+        "若子時則上半時在夜半前為昨日",
+        "下半時在夜半後屬今日"
+      ],
+      "recension_note": "The 1578 physical scan is asymmetric at this locus: 為昨日 / 屬今日. Do not normalize 為 to 屬. The 1613 圖書編 Batch 12AS witness reads 屬昨日 / 屬今日.",
+      "mechanical_value": "Directly establishes upper-half Zi before midnight as previous-day attribution and lower-half Zi after midnight as current-day attribution."
+    },
+    {
+      "pdf_pages": [136, 137],
+      "section": "論曰",
+      "observed": [
+        "看命之法以時為低昂時有八刻初正之氣不同",
+        "況夜半不分其日頓差子亥中間厥時難定",
+        "除初初正四刻餘六刻之間或陰晴倏忽寒煖迥別",
+        "人之生時果得其當也耶余姑就授時曆分之要在智者密察而詳問之庶無悞矣"
+      ],
+      "mechanical_value": "Directly links mantic birth-time accuracy to midnight/day separation, Zi-Hai boundary difficulty, sub-hour ke, weather/temperature variability, Shoushi-calendar calculation, close examination and detailed inquiry."
+    }
+  ],
+  "philological_adjudication": {
+    "generic_half_zi_previous_current_day_orientation": "DIRECTLY_ATTESTED_IN_1578_PHYSICAL_WITNESS",
+    "upper_half_zi_reclassified_to_hai_branch": "NOT_ATTESTED_BY_THIS_PASSAGE",
+    "cloudy_rain_current_time_specific_instrument_input": "NOT_CLOSED",
+    "clepsydra_is_timekeeping_instrument_in_same_1578_book": "DIRECTLY_ATTESTED",
+    "weather_variability_is_explicit_in_birth_time_caution": "DIRECTLY_ATTESTED",
+    "specific_sentence_use_clepsydra_or_compass_when_cloudy_rain": "NOT_ATTESTED",
+    "textual_independence_from_1613_tushubian": "UNRESOLVED",
+    "borrowing_direction_between_1578_sanming_and_1613_tushubian": "UNRESOLVED",
+    "chronology_alone_authorizes_genealogy": false,
+    "recension_glyph_normalization_authorized": false
+  },
+  "comparison_to_batch_12as": {
+    "shared_mechanics": "Both physical witnesses place upper-half Zi before midnight on the previous day and lower-half Zi after midnight on the current day.",
+    "glyph_difference": "1578 三命通會 physical witness: 為昨日 / 屬今日; 1613 圖書編 physical witness: 屬昨日 / 屬今日.",
+    "genealogy_conclusion": "NONE",
+    "independent_vote_counting_authorized": false
+  },
+  "impact_on_hpa_zdate_006": {
+    "status_before": "MISSING_FROM_PRODUCT",
+    "status_after": "MISSING_FROM_PRODUCT",
+    "reason": "The evidence strengthens generic midnight date attribution and birth-time/timekeeping context, but does not establish the Fullbook-specific upper-five-ke -> previous-night Hai branch rewrite and does not close the cloudy/rain current-time acquisition input chain."
+  },
+  "project_state_effect": {
+    "row_count": 198,
+    "audited_row_count": 166,
+    "missing_from_product": 10,
+    "identified_missing_candidates": 14,
+    "confirmed_provenance_defects": 11,
+    "repaired_provenance_defects": 11,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "guards": {
+    "ocr_used_for_glyph_claims": false,
+    "wrong_locator_negative_inference": false,
+    "fullbook_hai_reclassification_equivalence_assumed": false,
+    "fullbook_inclement_time_chain_closed": false,
+    "runtime_standard_selected": false,
+    "candidate_selected": false,
+    "candidate_collapsed": false,
+    "algorithm_reopen_authorized": false,
+    "prediction_ai_interpretation_touched": false
+  }
+}

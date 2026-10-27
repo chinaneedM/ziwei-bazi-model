@@ -1,0 +1,120 @@
+{
+  "schema": "ZIWEI-QUANSHU-WENGUANG-GOOGLE-INDEX-PREVIEW-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-QUANSHU-WENGUANG-INDEX-PREVIEW-D",
+  "status": "COMBINED_WENGUANG_FACSIMILE_PUBLIC_INDEX_SUPPORTS_HAI_READING_TARGET_GLYPH_NOT_PUBLICLY_DISPLAYED",
+  "distribution_volume": {
+    "source_id": "EXT-GOOGLE-PLAY-ZWDSQS-WENGUANG-2017",
+    "volume_id": "aIRbDgAAQBAJ",
+    "isbn": "9789888266944",
+    "declared_page_count": 266,
+    "play_page_http_status": 200,
+    "play_page_sha256": "0e93e42dfd421a2edfb7881b117dc19530e31d4f980f7007e9b6f6541cb8c5f3",
+    "free_sample_marker_present": true,
+    "publisher_base_identity": "HEART_ONE_2017_COMBINED_DUNHUATANG_PLUS_JISHUTANG_WENGUANGTANG_FACSIMILE",
+    "base_copy_identity_for_target_page": "UNRESOLVED"
+  },
+  "public_search_index": {
+    "workflow_run_id": 34121750009,
+    "artifact_id": 10018452113,
+    "artifact_name": "ziwei-quanshu-google-play-preview",
+    "probe_sha256": "a1eaaed29995c82eb46c2b2a3c7f506545b38ac80794f699d8b7af8a8735f098",
+    "target_heading_query": {
+      "query": "論人生時要審的確",
+      "target_page_id": "PT165",
+      "result_count": 2,
+      "control_page_ids": [
+        "PT16",
+        "PT165"
+      ]
+    },
+    "target_phrase_controls": [
+      {
+        "query": "上五刻",
+        "reviewed_run_result": "PT165_RETURNED_IN_ALL_THREE_RUN_34121750009_ENDPOINT_VARIANTS"
+      },
+      {
+        "query": "下五刻",
+        "reviewed_run_result": "PT165_RETURNED"
+      },
+      {
+        "query": "亥時",
+        "reviewed_run_result": "PT165_AMONG_FOUR_RESULTS"
+      }
+    ],
+    "target_index_reading": "如子時有十刻上五刻属昨夜亥時下五刻属今日子時",
+    "target_index_reading_authority": "SEARCH_INDEX_TEXT_ONLY_NOT_PHYSICAL_GLYPH_AUTHORITY",
+    "s01_claimed_sentence_query": "子時乃一日之始",
+    "s01_claimed_sentence_result_count_in_reviewed_runs": 0,
+    "negative_textual_claim_authorized": false,
+    "reason_negative_claim_forbidden": "SEARCH_INDEX_RESULT_INSTABILITY_OBSERVED; SECOND VIEWER RUN RETURNED ZERO_FOR_上五刻_WHILE_下五刻_AND_亥時_STILL_RESOLVED_PT165"
+  },
+  "embedded_viewer_control": {
+    "workflow_run_id": 34123161798,
+    "artifact_id": 10019011766,
+    "artifact_name": "ziwei-quanshu-google-viewer-pt165",
+    "probe_sha256": "e05f50ed6ba924523d15d565e9c8c0730731c924cefcd1d64ed1f81cf5920eda",
+    "screenshot_sha256": "8663286c36fcedeb4a47ddcb6d9f700e78b2070812ce2e4cf28eeb196e3361c8",
+    "official_api": "Google Books Embedded Viewer API",
+    "viewer_loaded": true,
+    "initial_page_id": "PT14",
+    "go_to_pt165_returned": true,
+    "after_page_id": "PT166",
+    "target_page_directly_observed": false,
+    "screenshot_visual_review": "UNAVAILABLE_PREVIEW_PLACEHOLDERS_VISIBLE_NO_ANCIENT_PAGE_GLYPHS",
+    "pt165_network_click_control": {
+      "jscmd": "click3",
+      "http_status": 200
+    },
+    "glyph_authority": "NONE_FROM_THIS_VIEWER_RUN"
+  },
+  "xinyi_public_sample_control": {
+    "source_id": "EXT-XINYI-ZWDSQS-WENGUANG-PUBLIC-SAMPLES-2021",
+    "workflow_run_id": 34121401508,
+    "artifact_id": 10018315848,
+    "artifact_name": "ziwei-quanshu-physical-copy-locators",
+    "probe_sha256": "9b31a81245082e78c2cc3b59c0bce5619ca460f4b603945bc6051d57fb82a393",
+    "product_page_sha256": "28646ac3534e949a9e548056387843bc3a68e75b5b3c02a3b69ffd3f2e8186b0",
+    "public_sample_image_count": 7,
+    "sample_sha256": [
+      "3cb7b781ec255c9f54a19cf59f1293c6ac94d58ded379a36f8480ed07a657117",
+      "d5fb4857f1b912951fb2a7df338826f2826725c28ee1d5aaa3cdc9143ab1f67c",
+      "7c67aec7e5e67a7dc8179c7cb960d4e15c398ceb016f577a49f369c4ff83a164",
+      "bcf3f5a4eb5dd8da2cdfda04cdcad524e9b0bee45c3f96cccac1475d0d44bfd2",
+      "8bb2875dd2fbbfbd9268cf23ae300a25245a6a89a96093a0cdbaac1d400c54a0",
+      "557b233bb30b17746a57d808dea32ba7f16cb3b3a0bf317221828bcefea65829",
+      "f84e6d914171df1c32c46b7183f35fdc0e1d4a3198ecf0a49a3d99b19a1c3a60"
+    ],
+    "visual_review_method": "DIRECT_HUMAN_VISUAL_REVIEW_NO_OCR",
+    "target_page_observed": false,
+    "target_heading_observed": false
+  },
+  "physical_copy_access_boundaries": {
+    "kongfz_dunhuatang_54804686": "HTTP_302_TO_LOGIN_NO_AUTHENTICATION_ATTEMPTED",
+    "kongfz_fullbook_70370885": "HTTP_302_TO_LOGIN_NO_AUTHENTICATION_ATTEMPTED",
+    "artron_lot_0064192036": "PUBLIC_HTML_200_ONE_PUBLIC_IMAGE_METADATA_ONLY_NO_TARGET_PAGE_BINDING"
+  },
+  "adjudication": {
+    "combined_facsimile_index_text_support": "CORROBORATES_NANYANGTANG_HAI_READING_AT_INDEX_TEXT_LEVEL",
+    "direct_physical_glyph_support_from_wenguang_base_copy": "NOT_OBTAINED",
+    "pt165_base_copy_identity": "UNRESOLVED_DUNHUATANG_VS_JISHUTANG",
+    "hai_glyph_stability_across_physical_editions": "UNRESOLVED_PENDING_DIRECT_PHYSICAL_TARGET_PAGES",
+    "s01_exact_sentence_cross_edition_status": "UNRESOLVED_ZERO_SEARCH_RESULTS_NOT_NEGATIVE_PROOF",
+    "runtime_time_standard_binding": "UNRESOLVED",
+    "hpa_zdate_006_status": "MISSING_FROM_PRODUCT",
+    "candidate_selection_authorized": false,
+    "algorithm_reopen_authorized": false,
+    "matrix_count_effect": "NONE"
+  },
+  "scope_firewalls": [
+    "GOOGLE_SEARCH_INDEX_TEXT_IS_NOT_GLYPH_AUTHORITY",
+    "COMBINED_FACSIMILE_INDEX_DOES_NOT_IDENTIFY_DUNHUATANG_OR_JISHUTANG_BASE_FOR_PT165",
+    "ZERO_SEARCH_RESULT_IS_NOT_NEGATIVE_TEXTUAL_PROOF",
+    "VIEWER_GOTO_TRUE_DOES_NOT_EQUAL_PAGE_GLYPH_DISPLAY",
+    "PUBLIC_SAMPLE_IMAGES_WITHOUT_TARGET_PAGE_HAVE_NO_HAI_GLYPH_EFFECT",
+    "LOGIN_REDIRECTS_ARE_NOT_BYPASSED",
+    "NO_SOURCE_COUNT_VOTING",
+    "NO_DEFAULT_WINNER_SELECTION",
+    "NO_ALGORITHM_REOPEN"
+  ]
+}

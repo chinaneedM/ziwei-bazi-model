@@ -1,0 +1,119 @@
+{
+  "schema": "ZIWEI-JIUTANGSHU-JIAJING17-GUILOU-HALFUP-ROUNDING-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-JIUTANGSHU-JIAJING17-GUILOU-HALFUP-ROUNDING-EA",
+  "status": "PRE1578_PHYSICAL_BASE100_HALFUP_RULE_DIRECTLY_EXTENDED_TO_GUILOU; ENDPOINT_COMPATIBLE_ONLY; GLOBAL_CII_N_REDUCTION_IDENTITY_DISPROVED; EXACT_SANMING_PARENT_UNRESOLVED",
+  "workflow_evidence": {
+    "head_commit_sha": "ef5254972901e3f1e485a4bccd6b3bc6ee6c8319",
+    "workflow_run_id": 35451542592,
+    "artifact_id": 10587006903,
+    "artifact_name": "jiutangshu-jiajing17-guizhou-rounding",
+    "artifact_digest": "sha256:33f879bcf4e1c7365caed7e4a9e6a8216fd0377fbda215940548a0b5283759e6",
+    "probe_schema_version": "1.0.3",
+    "ocr_used_for_final_glyph_numeric_or_lineage_claims": false
+  },
+  "physical_source": {
+    "work": "舊唐書",
+    "target_juan": "卷三十四 志第十四 歷三",
+    "edition": "明嘉靖十七年（1538）聞人詮吳郡刊本",
+    "ncl_call_number": "201.242 01535",
+    "fascicle": "NCL-01535 06",
+    "public_surrogate": "Wikimedia Commons / National Central Library scan",
+    "pdf_sha256": "c08bb69617c00205f07f3c65cfdbfbcab45ba73d061cd5393947d421d8153df3",
+    "pdf_pages": 154,
+    "target_pdf_page_1_based": 17,
+    "target_page_sha256": "93ace6d015b0b3cc55545652dce917f38b901c0060abf2ea80749f474ec15ec5",
+    "chronology_control": "The surviving reviewed carrier is a catalogued Jiajing-17/1538 print. The much earlier work/composition history of Jiutangshu is kept separate and is not used to backdate this physical witness."
+  },
+  "direct_physical_collation": {
+    "page_17": {
+      "authority": "DIRECT_VISUAL_REVIEW_NO_OCR_FINAL_AUTHORITY",
+      "direct_sequence": [
+        "用百為母",
+        "半已上從一",
+        "已下棄之",
+        "下求軌漏",
+        "餘分不滿准此"
+      ],
+      "normalized_mechanical_reading": "For the specified remainder calculation, use 100 as denominator; a half or more advances one, below half is discarded; the following guilou calculation says a non-full remainder follows the same rule.",
+      "local_context_control": "The same physical page proceeds into 推二十四氣定日, fixing the target inside the calendrical procedure rather than an unrelated marginal table."
+    },
+    "locator_correction": {
+      "final_fascicle": "06",
+      "final_page": 17,
+      "reason": "Direct boundary review superseded the exploratory move to fascicle 05. The 05→06 boundary continues the preceding lunar/phase procedure; the target wording is physically present on 06 p17.",
+      "forward_only": true
+    }
+  },
+  "mechanical_replay": {
+    "rule_model": "half-up at 0.5 on a base-100 remainder: Q(x)=floor(x)+1 when fractional_part(x)>=0.5, otherwise floor(x)",
+    "cii_n_interior_control": {
+      "accumulated_day": 160,
+      "input_ke": 57.9862,
+      "expected_clean_step_state_before_first_58_crossing": 57,
+      "half_up_output": 58,
+      "result": "INCOMPATIBLE_WITH_GLOBAL_CII_N_INTERIOR_MAPPING"
+    },
+    "cii_n_first_58_crossing_control": {
+      "accumulated_day": 161,
+      "input_ke": 58.0424,
+      "clean_step_output": 58,
+      "half_up_output": 58,
+      "result": "VALUE_COMPATIBLE_AT_THIS_SINGLE_POINT_BUT_DOES_NOT_REPAIR_EARLY_PROMOTION_AT_DAY160"
+    },
+    "nanjing_summer_endpoint_control": {
+      "accumulated_day": 182,
+      "input_ke": 58.6332,
+      "direct_official_nanjing_endpoint": 59,
+      "half_up_output": 59,
+      "result": "COMPATIBLE_AT_ENDPOINT_ONLY"
+    },
+    "liu_zhuo_fractional_endpoint_control": {
+      "input_ke": 59.86,
+      "half_up_output": 60,
+      "target_nanjing_endpoint": 59,
+      "result": "DOES_NOT_EXPLAIN_59_86_TO_WHOLE_59"
+    },
+    "conclusion": "The Jiutangshu rule is a genuine pre-1578 historical fractional-to-integer reduction mechanism and directly mentions guilou, but it cannot be promoted to one universal reduction rule for the C-II-N interior ladder plus Nanjing 59 endpoint. It remains a source-scoped component candidate, especially for endpoint-style reduction classes."
+  },
+  "adjudication": {
+    "pre1578_physical_base100_halfup_rule": "CLOSED",
+    "direct_extension_to_guilou": "CLOSED",
+    "global_cii_n_42_58_reduction_identity": "DISPROVED_BY_REPLAY",
+    "nanjing59_endpoint_compatibility": "COMPATIBLE_AT_ENDPOINT_ONLY",
+    "liu_zhuo_59_86_to_nanjing59_explanation": "NOT_SUPPORTED_BY_THIS_RULE",
+    "exact_sanming_yueling_change_day_fingerprint_explained": false,
+    "direct_sanming_parent_vote_increment": 0,
+    "exact_pre1578_binding_to_nanjing_datong": false,
+    "matrix_count_change": false,
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false
+  },
+  "transmission_impact": {
+    "nodes_added": [
+      "PHYSICAL-COPY-JIUTANGSHU-NCL01535-JIAJING17-1538",
+      "RULE-FAMILY-JIUTANGSHU-GUILOU-BASE100-HALFUP"
+    ],
+    "edges_added": [
+      "TG-E0087",
+      "TG-E0088"
+    ],
+    "lineage_scope": "Secure 1538 physical attestation of a base-100 half-up/discard-below-half rule explicitly extended to guilou. Structural synthesis component only; no direct Sanming ancestry or universal C-II-N mapping."
+  },
+  "project_consequence": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "missing_from_product_rows": 10,
+    "provenance_defects_repaired": "12/12",
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0,
+    "deterministic_product_status": "CLOSED"
+  },
+  "next_gate": [
+    "Search pre-1578 Chinese Nanjing/Datong, Tongshu/almanac, clepsydra/change-arrow, or official-calendar sources for a state-dependent binding that preserves the C-II-N interior threshold sequence while producing the official Nanjing 59-ke endpoint.",
+    "Prioritize a source that also reproduces the Sanming/Yueling 大寒十三後 / 雨水後四日 fingerprint rather than only a generic rounding rule.",
+    "Treat the Jiutangshu half-up rule as a historically real mechanism class, not as proof that the 1578 Sanming table used it globally."
+  ]
+}

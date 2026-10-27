@@ -1,0 +1,59 @@
+{
+  "schema": "COMBINED-CANDIDATE-LINEAGE-PRESERVATION-EVIDENCE-R1",
+  "schema_version": "1.0.0",
+  "parent_head": "37454a5cb9337738881ae448b52589f5c8f17562",
+  "implementation": {
+    "fusion_time_path": "src/fortune_training/combined_chart_application/fusion_time.py",
+    "fusion_time_blob_sha": "028dedce23dba891737e35c8190cfd1661d0d1fd",
+    "shared_time_contract_path": "docs/ZIWEI-BAZI-SHARED-TIME-CREDENTIAL-R1.md",
+    "shared_time_contract_blob_sha": "c8d348e8c36d26916546d888d43d78268c579336",
+    "prior_matrix_source_location": "docs/COMBINED-RESOLVED-PROFILE-LINEAGE-R1.md",
+    "prior_matrix_source_location_blob_sha": "0f08f024446eaa6252f7ba8bc6efbcdfeb457b96"
+  },
+  "lineage_contract": {
+    "schema": "ZIWEI-BAZI-SHARED-TIME-LINEAGE-V1",
+    "branch_coordinate": "source_time_branch_index",
+    "binds_shared_time_realization_hash": true,
+    "binds_ziwei_natal_fact_hash": true,
+    "binds_bazi_candidate_ids": true,
+    "binds_shared_time_computation_hash": true,
+    "lineage_hash_over_full_branch_table": true,
+    "winner_selection": false,
+    "ranking": false,
+    "score": false
+  },
+  "runtime_behavior": {
+    "bazi_candidate_ids_grouped_by_source_time_branch_index": true,
+    "duplicate_candidate_ids_only_identity_deduped": true,
+    "ziwei_fact_hash_conflict_fails_closed": true,
+    "missing_or_extra_lineage_branch_fails_closed": true,
+    "realization_hash_mismatch_fails_closed": true,
+    "bazi_candidate_lineage_mismatch_fails_closed": true
+  },
+  "multi_candidate_oracles": {
+    "dst_fold_ziwei_test": "tests/test_combined_dst_fold_ziwei_candidate_lineage_r1.py",
+    "dst_fold_ziwei_test_blob_sha": "a798e73365f1d3c00228ad42b62f6a1cf5f832b0",
+    "mixed_uncertainty_test": "tests/test_combined_dst_fold_mixed_uncertainty_r1.py",
+    "mixed_uncertainty_test_blob_sha": "b2bd56aa4f3e4951d9d9804f45c86fbca3c8486f",
+    "full_replay_test": "tests/test_combined_application_full_replay_r1.py",
+    "full_replay_test_blob_sha": "1b37d0b109d2f1687c167b20bb97ad5953ca5fed",
+    "five_shared_time_branches_preserved": true,
+    "two_distinct_ziwei_fact_hashes_preserved": true,
+    "forged_well_formed_ziwei_fact_hash_rejected_by_full_replay": true
+  },
+  "provenance_repair": {
+    "defect_id": "PROV-DEFECT-031",
+    "before": "HPA-COMB-003 source_quote_location pointed to COMBINED-RESOLVED-PROFILE-LINEAGE-R1.md",
+    "after": "Bind HPA-COMB-003 to fusion_time.py candidate-lineage implementation plus ZIWEI-BAZI-SHARED-TIME-CREDENTIAL-R1.md and focused multi-candidate/full-replay tests.",
+    "reason": "The prior document is primarily the profile/rule/algorithm lineage surface and is a better fit for HPA-COMB-007 than the candidate-branch lineage mechanic.",
+    "runtime_behavior_changed": false
+  },
+  "adjudication": {
+    "status": "MODERN_COMPATIBILITY_ONLY",
+    "candidate_collapse_found": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_change_authorized": false,
+    "historical_doctrine_claim_authorized": false,
+    "transmission_edge_created": false
+  }
+}

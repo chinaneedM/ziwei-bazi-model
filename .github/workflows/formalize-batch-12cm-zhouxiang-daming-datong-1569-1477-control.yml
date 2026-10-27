@@ -1,0 +1,45 @@
+name: formalize-batch-12cm-zhouxiang-daming-datong-1569-1477-control
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/formalize-batch-12cm-zhouxiang-daming-datong-1569-1477-control.yml
+      - scripts/formalize-batch-12cm-zhouxiang-daming-datong-1569-1477-control.py
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  formalize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Formalize and validate Batch 12CM
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/formalize-batch-12cm-zhouxiang-daming-datong-1569-1477-control.py
+          python scripts/verify-tianwen-transmission-genealogy-r1.py
+          python scripts/verify-project-continuity-state-r1.py
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            scripts/verify-project-continuity-state-r1.py \
+            docs/PROJECT-CURRENT-STATE-R1.json \
+            docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json \
+            docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.md \
+            docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json \
+            docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json \
+            docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-ZHOUXIANG-DAMING-DATONG-1569-1477-COMPUTATION-REPRINT-CONTROL-CM.md \
+            docs/research/ZIWEI-ZHOUXIANG-DAMING-DATONG-1569-1477-PHYSICAL-COLLATION-R1.json
+          if git diff --cached --quiet; then
+            echo "No formalization changes required"
+            exit 0
+          fi
+          git commit -m "formalize Batch 12CM Zhou Xiang Datong control"
+          git push origin HEAD:agent/fusion-chart-core-r1-20260822

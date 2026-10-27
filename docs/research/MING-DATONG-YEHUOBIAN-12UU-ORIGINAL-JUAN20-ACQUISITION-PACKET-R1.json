@@ -1,0 +1,412 @@
+{
+  "schema": "TIANWEN-12UU-SOURCE-BOUND-JUAN20-ACQUISITION-PACKET-R1",
+  "schema_version": "1.0.0",
+  "date": "2026-10-12",
+  "scope": "Consolidate only prior public bibliographic originals into an 8-item evidence-intake-ready acquisition packet; no contact or reproduction request submitted.",
+  "controlling_records": [
+    "docs/research/MING-DATONG-YEHUOBIAN-12UK-ORIGINAL-LEAF-INTAKE-QUEUE-R1.json",
+    "docs/research/MING-DATONG-YEHUOBIAN-12UN-ADDITIONAL-1827-PHYSICAL-COPY-BACKLOG-R1.json",
+    "docs/research/MING-DATONG-YEHUOBIAN-12UT-TOKYO-YURAN-DAMAGED-COPY-GATE-R1.json",
+    "docs/research/MING-DATONG-YEHUOBIAN-12UF-SOURCE-READING-CONTROL-AND-IMPRESSION-GATES-R1.json"
+  ],
+  "historical_question": "Are four target glyph loci of thematic 卷20 改造漏刻 identical in independently witnessed unrepaired 1827 and 1869 revised impressions?",
+  "required_four_loci": [
+    "GONGJIN",
+    "CLOCK_NOUN",
+    "BEIJING_WINTER_SUNRISE",
+    "BEIJING_SUMMER_SUNSET"
+  ],
+  "original_copy_candidates": [
+    {
+      "queue_id": "KYOTO_1827_EASTASIAN_200023037620",
+      "priority": 1,
+      "institution_group": "KYOTO",
+      "source_catalog_url": "https://ci.nii.ac.jp/ncid/BB05477307",
+      "source_issued_item_identifier": "BVIb||Y||2 200023037620",
+      "prior_stage": "CATALOG_ONLY",
+      "date_class": "CATALOGUED_1827_IMPRESSION_UNVERIFIED",
+      "original_target_scope": "卷19-20; original 卷20 〈改造漏刻〉",
+      "print_paratext_to_verify": "道光丁亥春鐫 錢唐姚氏鑒藏; verify actual leaf and seal 今西龍",
+      "request_batch": "KYOTO_EAST_ASIAN_HISTORY_V20",
+      "user_contact_or_institutional_action_already_authorized": false,
+      "item_specific_copy_permission_obtained": false,
+      "fee_quote_obtained": false,
+      "query_sent": false,
+      "available_public_original_image_confirmed": false,
+      "original_target_folio": null,
+      "source_issued_original_image_url": null,
+      "source_binary_sha256": null,
+      "page_sha256": null,
+      "confirmed_original_1827_first_print": false,
+      "confirmed_1869_repair_plate": false,
+      "confirmed_independent_physical_text_vote": false,
+      "four_locus_readings": {
+        "GONGJIN": null,
+        "CLOCK_NOUN": null,
+        "BEIJING_WINTER_SUNRISE": null,
+        "BEIJING_SUMMER_SUNSET": null
+      },
+      "required_capture": [
+        "source-issued repository item ID and holding binding",
+        "original 卷20 title/folio sequence and 改造漏刻 target both-page images where possible",
+        "bookplate/colophon/preface/imprint sufficient to distinguish work-date, edition-date and physical copy",
+        "original file SHA-256, exact page/image SHA-256 and source-emitted URLs",
+        "all four locus crops and transcription only after manual image review",
+        "cross-copy plate-line patterns and correction marks, not mere same 10×21 or 10×23 typography"
+      ],
+      "disposition": "AWAIT_EXACT_ITEM_IMAGE_OR_INSTITUTION_CONFIRMATION_NO_REQUEST_YET"
+    },
+    {
+      "queue_id": "KYOTO_1827_188987L",
+      "priority": 2,
+      "institution_group": "KYOTO",
+      "source_catalog_url": "https://ci.nii.ac.jp/ncid/BB18578034",
+      "source_issued_item_identifier": "B||VIb||9-1 188987L",
+      "prior_stage": "CATALOG_ONLY",
+      "date_class": "CATALOGUED_1827_IMPRESSION_UNVERIFIED",
+      "original_target_scope": "卷19-20; original 卷20 〈改造漏刻〉",
+      "print_paratext_to_verify": "First separate 卷首/卷1 item 188987 for 1827 preface and 12UL conflicting 康熙30[1700] catalog detail",
+      "request_batch": "KYOTO_CHINESE_PHILOLOGY_V20",
+      "user_contact_or_institutional_action_already_authorized": false,
+      "item_specific_copy_permission_obtained": false,
+      "fee_quote_obtained": false,
+      "query_sent": false,
+      "available_public_original_image_confirmed": false,
+      "original_target_folio": null,
+      "source_issued_original_image_url": null,
+      "source_binary_sha256": null,
+      "page_sha256": null,
+      "confirmed_original_1827_first_print": false,
+      "confirmed_1869_repair_plate": false,
+      "confirmed_independent_physical_text_vote": false,
+      "four_locus_readings": {
+        "GONGJIN": null,
+        "CLOCK_NOUN": null,
+        "BEIJING_WINTER_SUNRISE": null,
+        "BEIJING_SUMMER_SUNSET": null
+      },
+      "required_capture": [
+        "source-issued repository item ID and holding binding",
+        "original 卷20 title/folio sequence and 改造漏刻 target both-page images where possible",
+        "bookplate/colophon/preface/imprint sufficient to distinguish work-date, edition-date and physical copy",
+        "original file SHA-256, exact page/image SHA-256 and source-emitted URLs",
+        "all four locus crops and transcription only after manual image review",
+        "cross-copy plate-line patterns and correction marks, not mere same 10×21 or 10×23 typography"
+      ],
+      "disposition": "AWAIT_EXACT_ITEM_IMAGE_OR_INSTITUTION_CONFIRMATION_NO_REQUEST_YET"
+    },
+    {
+      "queue_id": "TOKYO_1827_OKI_6403767830",
+      "priority": 3,
+      "institution_group": "TOKYO_IOC",
+      "source_catalog_url": "https://ci.nii.ac.jp/ncid/BC0492354X",
+      "source_issued_item_identifier": "大木;子部:雜家類:16-20 6403767830",
+      "prior_stage": "CATALOG_ONLY",
+      "date_class": "CATALOGUED_1827_IMPRESSION_UNVERIFIED",
+      "original_target_scope": "individually catalogued 卷20; 〈改造漏刻〉",
+      "print_paratext_to_verify": "Confirm target-leaf physical condition; global insect damage does not prove this leaf lost",
+      "request_batch": "TOKYO_OKI_V20",
+      "user_contact_or_institutional_action_already_authorized": false,
+      "item_specific_copy_permission_obtained": false,
+      "fee_quote_obtained": false,
+      "query_sent": false,
+      "available_public_original_image_confirmed": false,
+      "original_target_folio": null,
+      "source_issued_original_image_url": null,
+      "source_binary_sha256": null,
+      "page_sha256": null,
+      "confirmed_original_1827_first_print": false,
+      "confirmed_1869_repair_plate": false,
+      "confirmed_independent_physical_text_vote": false,
+      "four_locus_readings": {
+        "GONGJIN": null,
+        "CLOCK_NOUN": null,
+        "BEIJING_WINTER_SUNRISE": null,
+        "BEIJING_SUMMER_SUNSET": null
+      },
+      "required_capture": [
+        "source-issued repository item ID and holding binding",
+        "original 卷20 title/folio sequence and 改造漏刻 target both-page images where possible",
+        "bookplate/colophon/preface/imprint sufficient to distinguish work-date, edition-date and physical copy",
+        "original file SHA-256, exact page/image SHA-256 and source-emitted URLs",
+        "all four locus crops and transcription only after manual image review",
+        "cross-copy plate-line patterns and correction marks, not mere same 10×21 or 10×23 typography"
+      ],
+      "disposition": "AWAIT_EXACT_ITEM_IMAGE_OR_INSTITUTION_CONFIRMATION_NO_REQUEST_YET"
+    },
+    {
+      "queue_id": "TOKYO_1869_6403148395",
+      "priority": 4,
+      "institution_group": "TOKYO_IOC",
+      "source_catalog_url": "https://ci.nii.ac.jp/ncid/BB23196128",
+      "source_issued_item_identifier": "倉石文庫:20128:11 6403148395",
+      "prior_stage": "CATALOG_ONLY",
+      "date_class": "CATALOGUED_1869_REVISED_IMPRESSION_UNVERIFIED",
+      "original_target_scope": "卷19-20; 卷20 〈改造漏刻〉",
+      "print_paratext_to_verify": "同治八年己巳春月重校刋補 alongside inherited 道光七年序; determine target leaf repair/plate identity",
+      "request_batch": "TOKYO_KURAISHI_V20",
+      "user_contact_or_institutional_action_already_authorized": false,
+      "item_specific_copy_permission_obtained": false,
+      "fee_quote_obtained": false,
+      "query_sent": false,
+      "available_public_original_image_confirmed": false,
+      "original_target_folio": null,
+      "source_issued_original_image_url": null,
+      "source_binary_sha256": null,
+      "page_sha256": null,
+      "confirmed_original_1827_first_print": false,
+      "confirmed_1869_repair_plate": false,
+      "confirmed_independent_physical_text_vote": false,
+      "four_locus_readings": {
+        "GONGJIN": null,
+        "CLOCK_NOUN": null,
+        "BEIJING_WINTER_SUNRISE": null,
+        "BEIJING_SUMMER_SUNSET": null
+      },
+      "required_capture": [
+        "source-issued repository item ID and holding binding",
+        "original 卷20 title/folio sequence and 改造漏刻 target both-page images where possible",
+        "bookplate/colophon/preface/imprint sufficient to distinguish work-date, edition-date and physical copy",
+        "original file SHA-256, exact page/image SHA-256 and source-emitted URLs",
+        "all four locus crops and transcription only after manual image review",
+        "cross-copy plate-line patterns and correction marks, not mere same 10×21 or 10×23 typography"
+      ],
+      "disposition": "AWAIT_EXACT_ITEM_IMAGE_OR_INSTITUTION_CONFIRMATION_NO_REQUEST_YET"
+    },
+    {
+      "queue_id": "HOKKAIDO_1827_0181427762",
+      "priority": 5,
+      "institution_group": "HOKKAIDO",
+      "source_catalog_url": "https://ci.nii.ac.jp/ncid/BB10385966",
+      "source_issued_item_identifier": "史6-2/YA/2 0181427762",
+      "prior_stage": "CATALOG_ONLY",
+      "date_class": "CATALOGUED_1827_IMPRESSION_UNVERIFIED",
+      "original_target_scope": "卷19-20; 卷20 〈改造漏刻〉",
+      "print_paratext_to_verify": "Confirm original physical impression despite older 1827-preface attestation",
+      "request_batch": "HOKKAIDO_V20",
+      "user_contact_or_institutional_action_already_authorized": false,
+      "item_specific_copy_permission_obtained": false,
+      "fee_quote_obtained": false,
+      "query_sent": false,
+      "available_public_original_image_confirmed": false,
+      "original_target_folio": null,
+      "source_issued_original_image_url": null,
+      "source_binary_sha256": null,
+      "page_sha256": null,
+      "confirmed_original_1827_first_print": false,
+      "confirmed_1869_repair_plate": false,
+      "confirmed_independent_physical_text_vote": false,
+      "four_locus_readings": {
+        "GONGJIN": null,
+        "CLOCK_NOUN": null,
+        "BEIJING_WINTER_SUNRISE": null,
+        "BEIJING_SUMMER_SUNSET": null
+      },
+      "required_capture": [
+        "source-issued repository item ID and holding binding",
+        "original 卷20 title/folio sequence and 改造漏刻 target both-page images where possible",
+        "bookplate/colophon/preface/imprint sufficient to distinguish work-date, edition-date and physical copy",
+        "original file SHA-256, exact page/image SHA-256 and source-emitted URLs",
+        "all four locus crops and transcription only after manual image review",
+        "cross-copy plate-line patterns and correction marks, not mere same 10×21 or 10×23 typography"
+      ],
+      "disposition": "AWAIT_EXACT_ITEM_IMAGE_OR_INSTITUTION_CONFIRMATION_NO_REQUEST_YET"
+    },
+    {
+      "queue_id": "TSUKUBA_V20_10076865665",
+      "priority": 6,
+      "institution_group": "TSUKUBA",
+      "source_catalog_url": "https://ci.nii.ac.jp/ncid/BA62912433",
+      "source_issued_item_identifier": "ル380-17 / 10076865665",
+      "prior_stage": "CATALOG_ONLY",
+      "date_class": "PRINT_YEAR_UNBOUND_10X23_DIFFERENT_SETTING",
+      "original_target_scope": "vol20 catalogue; exact 〈改造漏刻〉 original leaf pending",
+      "print_paratext_to_verify": "10行23字 vs 1827 10行21字 forbids automatic same-table/same-plate inference",
+      "request_batch": "TSUKUBA_V20",
+      "user_contact_or_institutional_action_already_authorized": false,
+      "item_specific_copy_permission_obtained": false,
+      "fee_quote_obtained": false,
+      "query_sent": false,
+      "available_public_original_image_confirmed": false,
+      "original_target_folio": null,
+      "source_issued_original_image_url": null,
+      "source_binary_sha256": null,
+      "page_sha256": null,
+      "confirmed_original_1827_first_print": false,
+      "confirmed_1869_repair_plate": false,
+      "confirmed_independent_physical_text_vote": false,
+      "four_locus_readings": {
+        "GONGJIN": null,
+        "CLOCK_NOUN": null,
+        "BEIJING_WINTER_SUNRISE": null,
+        "BEIJING_SUMMER_SUNSET": null
+      },
+      "required_capture": [
+        "source-issued repository item ID and holding binding",
+        "original 卷20 title/folio sequence and 改造漏刻 target both-page images where possible",
+        "bookplate/colophon/preface/imprint sufficient to distinguish work-date, edition-date and physical copy",
+        "original file SHA-256, exact page/image SHA-256 and source-emitted URLs",
+        "all four locus crops and transcription only after manual image review",
+        "cross-copy plate-line patterns and correction marks, not mere same 10×21 or 10×23 typography"
+      ],
+      "disposition": "AWAIT_EXACT_ITEM_IMAGE_OR_INSTITUTION_CONFIRMATION_NO_REQUEST_YET"
+    },
+    {
+      "queue_id": "NDL_18465",
+      "priority": 7,
+      "institution_group": "NDL",
+      "source_catalog_url": "https://ndlsearch.ndl.go.jp/books/R100000002-I000007607208",
+      "source_issued_item_identifier": "184-65 / BibID 000007607208",
+      "prior_stage": "CATALOG_ONLY",
+      "date_class": "KANGXI39_PREFACE_PRINT_IMPRESSION_UNVERIFIED",
+      "original_target_scope": "catalogue 184-65 16冊合8冊; original 卷20 〈改造漏刻〉 yet unlocalized",
+      "print_paratext_to_verify": "康煕39序活字印 is catalogue scope, not individually image-proven dated target leaf",
+      "request_batch": "NDL_18465",
+      "user_contact_or_institutional_action_already_authorized": false,
+      "item_specific_copy_permission_obtained": false,
+      "fee_quote_obtained": false,
+      "query_sent": false,
+      "available_public_original_image_confirmed": false,
+      "original_target_folio": null,
+      "source_issued_original_image_url": null,
+      "source_binary_sha256": null,
+      "page_sha256": null,
+      "confirmed_original_1827_first_print": false,
+      "confirmed_1869_repair_plate": false,
+      "confirmed_independent_physical_text_vote": false,
+      "four_locus_readings": {
+        "GONGJIN": null,
+        "CLOCK_NOUN": null,
+        "BEIJING_WINTER_SUNRISE": null,
+        "BEIJING_SUMMER_SUNSET": null
+      },
+      "required_capture": [
+        "source-issued repository item ID and holding binding",
+        "original 卷20 title/folio sequence and 改造漏刻 target both-page images where possible",
+        "bookplate/colophon/preface/imprint sufficient to distinguish work-date, edition-date and physical copy",
+        "original file SHA-256, exact page/image SHA-256 and source-emitted URLs",
+        "all four locus crops and transcription only after manual image review",
+        "cross-copy plate-line patterns and correction marks, not mere same 10×21 or 10×23 typography"
+      ],
+      "disposition": "AWAIT_EXACT_ITEM_IMAGE_OR_INSTITUTION_CONFIRMATION_NO_REQUEST_YET"
+    },
+    {
+      "queue_id": "NAJ_3080212",
+      "priority": 8,
+      "institution_group": "NAJ",
+      "source_catalog_url": "https://www.archives.go.jp/news/pdf/20230718.pdf",
+      "source_issued_item_identifier": "内閣文庫 308-0212",
+      "prior_stage": "DIGITIZATION_PLAN_ONLY",
+      "date_class": "DIGITIZATION_PLAN_ONLY_AND_V20_UNBOUND",
+      "original_target_scope": "308-0212 collection level; title/卷20 original leaf identity not proven",
+      "print_paratext_to_verify": "2023 plan alone does not prove digitization completed or printed impression",
+      "request_batch": "NAJ_3080212",
+      "user_contact_or_institutional_action_already_authorized": false,
+      "item_specific_copy_permission_obtained": false,
+      "fee_quote_obtained": false,
+      "query_sent": false,
+      "available_public_original_image_confirmed": false,
+      "original_target_folio": null,
+      "source_issued_original_image_url": null,
+      "source_binary_sha256": null,
+      "page_sha256": null,
+      "confirmed_original_1827_first_print": false,
+      "confirmed_1869_repair_plate": false,
+      "confirmed_independent_physical_text_vote": false,
+      "four_locus_readings": {
+        "GONGJIN": null,
+        "CLOCK_NOUN": null,
+        "BEIJING_WINTER_SUNRISE": null,
+        "BEIJING_SUMMER_SUNSET": null
+      },
+      "required_capture": [
+        "source-issued repository item ID and holding binding",
+        "original 卷20 title/folio sequence and 改造漏刻 target both-page images where possible",
+        "bookplate/colophon/preface/imprint sufficient to distinguish work-date, edition-date and physical copy",
+        "original file SHA-256, exact page/image SHA-256 and source-emitted URLs",
+        "all four locus crops and transcription only after manual image review",
+        "cross-copy plate-line patterns and correction marks, not mere same 10×21 or 10×23 typography"
+      ],
+      "disposition": "AWAIT_EXACT_ITEM_IMAGE_OR_INSTITUTION_CONFIRMATION_NO_REQUEST_YET"
+    }
+  ],
+  "source_groups": [
+    {
+      "institution": "KYOTO",
+      "candidate_count": 2,
+      "baseline": "two distinct Kyoto holdings, not proof of independent plates",
+      "first_party_permission_or_scan_link": "NOT_VERIFIED_FOR_EITHER_ITEM"
+    },
+    {
+      "institution": "TOKYO_IOC",
+      "candidate_count": 2,
+      "baseline": "Oki 1827 individual vol20 and Kuraishi 1869 bound19-20; damaged Yuran 1827 separate and non-actionable",
+      "first_party_permission_or_scan_link": "NOT_VERIFIED_FOR_EITHER_ITEM"
+    },
+    {
+      "institution": "HOKKAIDO",
+      "candidate_count": 1,
+      "baseline": "1827 catalogue-bound vol19-20",
+      "first_party_permission_or_scan_link": "NOT_VERIFIED_FOR_ITEM"
+    },
+    {
+      "institution": "TSUKUBA",
+      "candidate_count": 1,
+      "baseline": "10×23 physical-format branch; date unbound",
+      "first_party_permission_or_scan_link": "NOT_VERIFIED_FOR_ITEM"
+    },
+    {
+      "institution": "NDL",
+      "candidate_count": 1,
+      "baseline": "catalogued 康煕39序; target print state not dated",
+      "first_party_permission_or_scan_link": "NOT_VERIFIED_FOR_ITEM"
+    },
+    {
+      "institution": "NAJ",
+      "candidate_count": 1,
+      "baseline": "2023 digitization plan only, original juan20 not bound",
+      "first_party_permission_or_scan_link": "NOT_VERIFIED_FOR_ITEM"
+    }
+  ],
+  "exclusion_control": {
+    "damaged_copy_source": "https://ci.nii.ac.jp/ncid/BC08398372",
+    "damaged_copy_item": "夕嵐草堂:S2024:3 6411758714",
+    "counted_in_eight_actionable_candidates": false,
+    "irreparable_or_deleted_volume20_proven": false,
+    "inherited_old20_manuscript_counts_as_1827_edition": false,
+    "preface_1827_proves_1827_print_state": false,
+    "received_text_or_OCR_is_original_leaf": false,
+    "source_catalogue_is_copyright_copy_permission": false,
+    "external_requests_submitted": false,
+    "fees_paid": false
+  },
+  "null_evidence_accounting": {
+    "original_physical_1827_image_pages": 0,
+    "original_physical_1869_image_pages": 0,
+    "new_original_glyph_votes": 0,
+    "new_external_source_registry_items": 0,
+    "formal_batches_advanced": 0,
+    "source_registry_total": 687,
+    "matrix_rows": 222,
+    "audited_rows": 222,
+    "metadata_repairs": 45,
+    "transmission_graph_nodes": 250,
+    "transmission_graph_edges": 237,
+    "algorithm_reopens": 0
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Same 1827 title/imprint does not entail same photographed physical copy.",
+      "1869 重校刊補 catalogue and inherited 1827 序 do not establish actual 1827 first impression glyphs.",
+      "Catalogs, service eligibility and digitization plans do not prove historical target readings."
+    ],
+    "unresolved_lineage_questions": [
+      "Find source-emitted images for each exact item and bind page/file digests.",
+      "Verify independent original 1827 and 1869 physical leaves and distinguish corrected plate states.",
+      "Determine if differing wording is genuine print variant versus modern transcription or digital-derivative repetition."
+    ]
+  }
+}

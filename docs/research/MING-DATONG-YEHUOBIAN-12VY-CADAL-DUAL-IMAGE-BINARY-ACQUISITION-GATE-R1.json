@@ -1,0 +1,105 @@
+{
+  "schema": "TIANWEN-12VY-CADAL-DUAL-SURROGATE-ACQUISITION-GATE-R1",
+  "date": "2026-10-14",
+  "status": "PUBLIC_TWO_FILE_SOURCE_FETCH_SCHEDULED_NO_BINARY_OR_FOLIO_ATTESTATION_UNTIL_RUN",
+  "source_pages": [
+    "https://commons.wikimedia.org/wiki/File:CADAL02096915_野獲編（十六）.djvu",
+    "https://commons.wikimedia.org/wiki/File:CADAL02112262_野獲編（十六）.djvu"
+  ],
+  "sources": [
+    {
+      "id": "CADAL02096915",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/0/0f/CADAL02096915_%E9%87%8E%E7%8D%B2%E7%B7%A8%EF%BC%88%E5%8D%81%E5%85%AD%EF%BC%89.djvu",
+      "bytes": 3495009,
+      "sha1": "69d9b157cc060b5cd760c953fedcd5eae282d8e9",
+      "pages": [
+        65,
+        66,
+        120,
+        121,
+        122
+      ],
+      "expected_pages": 135,
+      "existing_sha256": "262edac806b90c984d5f0c4fce1bc150a974ebd574d847738a08a00cad39640d",
+      "physical_copy_identity": "UNBOUND",
+      "impression_year": "UNBOUND",
+      "independent_ancient_witness": false,
+      "digital_files_same_bytes": "UNKNOWN_UNTIL_DOWNLOAD",
+      "page_loci_verified": false
+    },
+    {
+      "id": "CADAL02112262",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/CADAL02112262_%E9%87%8E%E7%8D%B2%E7%B7%A8%EF%BC%88%E5%8D%81%E5%85%AD%EF%BC%89.djvu",
+      "bytes": 3413348,
+      "sha1": "837c8df07b562d4a94950efc1a5b96b8a11b7447",
+      "pages": [
+        64,
+        65,
+        66,
+        115,
+        116,
+        117,
+        118,
+        119,
+        120,
+        121,
+        122,
+        123
+      ],
+      "expected_pages": 133,
+      "existing_sha256": null,
+      "physical_copy_identity": "UNBOUND",
+      "impression_year": "UNBOUND",
+      "independent_ancient_witness": false,
+      "digital_files_same_bytes": "UNKNOWN_UNTIL_DOWNLOAD",
+      "page_loci_verified": false
+    }
+  ],
+  "bounded_acquisition": {
+    "script": "scripts/probe-yehuobian-cadal-v16-dual-images-12vy.py",
+    "workflow": ".github/workflows/probe-yehuobian-12vy-cadal-v16-dual-originals.yml",
+    "public_commons_only": true,
+    "download_max_bytes_per_file": 8000000,
+    "mandatory_published_size_and_sha1_verification": true,
+    "render_mode": "DJVULIBRE_PPM_TO_JPEG_NO_OCR",
+    "source_files_to_artifact": true,
+    "exact_page_images_to_artifact": true,
+    "skip_earlier_digital_source_as_new_witness": true,
+    "manual_target_image_review_required": true,
+    "original_1827_or_1869_print_impression_proven": false,
+    "artifact_available_before_run": false
+  },
+  "prior_control": {
+    "source_registry_id": "EXT-CADAL02096915-YEHUOBIAN-FASC16-ORIGINAL-V20-GAIZAO-LOUKE-12QE",
+    "prior_direct_image_research": "docs/research/MING-DATONG-YEHUOBIAN-12QE-CADAL02096915-V20-DIRECT-TARGET-GLYPH-R1.json",
+    "prior_target_p121": "卷二十《改造漏刻》",
+    "second_file_is_not_assumed_an_independent_historical_copy": true
+  },
+  "accounting": {
+    "source_root": 647,
+    "extension_sources": 54,
+    "source_union": 701,
+    "new_external_source_rows": 0,
+    "ancient_original_glyph_votes": 0,
+    "confirmed_1827_1869_new_original_pages": 0,
+    "matrix_rows": 222,
+    "audited_rows": 222,
+    "provenance_repairs": 45,
+    "genealogy_nodes": 252,
+    "genealogy_edges": 238,
+    "formal_batches": 487,
+    "algorithm_reopens": 0,
+    "product": "CLOSED"
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "The two Wikimedia Commons CADAL files have different published file sizes/page counts, but this does not prove independent historic physical copies or 1827 vs 1869 print state."
+    ],
+    "unresolved_lineage_questions": [
+      "Whether CADAL02112262 target pages differ materially from previously inspected CADAL02096915 and whether any original physical-copy identifiers can be recovered."
+    ]
+  }
+}

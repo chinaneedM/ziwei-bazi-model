@@ -1,0 +1,193 @@
+{
+  "schema": "ZIWEI-BEITU1987-ZUOZHUAN-BOOKNO3388-FID070-CATALOG-CROSSWALK-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-BEITU1987-ZUOZHUAN-BOOKNO3388-FID070-CATALOG-CROSSWALK-HN",
+  "prior_batch_id": "BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID412004000070-MICROFILM-OLD-CATALOG-CROSSWALK-HM",
+  "question": "Does the 1987 《北京图书馆古籍善本书目·经部》 directly bind a historical book number to the same 32-book Yuan/Ming-repair 《附释音春秋左传注疏》 profile linked in HM to NLC FID 412004000070, and can that number be treated as a current NLC 905s/shelfmark or as direct proof of Zhang Lijuan's Tieqin copy?",
+  "answer": "The 1987 catalog directly binds BOOK NUMBER 3388 to the exact entry 《附釋音春秋左傳註疏》六十卷, 元刻明修本, 三十二冊, with the ten-line/seventeen-main-character format. The catalog's own 编例 fifth rule, item 7 states that each title has a 书号 printed below it, and separately states that a leading zero marks holdings that were already in the library before 1937. Manual visual review of the source scan (OCR not used) checks the continuous catalog group across printed pages 91-93 / PDF pages 103-105 and identifies only one entry with this exact Yuan/Ming-repair + 32-book profile; on printed page 92 / PDF page 104 its physically aligned book number is 三三八八 = 3388. HM's two 1985 NLC microfilm records independently describe the FID-412004000070 original as the same title, Yuan + Ming repair, rare book, 32 books, and the public NLC-backed FID070 digital object has exactly 32 books covering juan 1-60. Therefore FID070 -> 1987 BOOK NUMBER 3388 is closed at HIGH_CONFIDENCE_CATALOG_PROFILE_AND_CONTIGUOUS_GROUP_LEVEL, not by a shared machine identifier. Current meta.nlc.cn searches for 3388, 03388 and SBYL:03388 do not resolve the target, and the 1987 catalog explicitly gives leading zero an independent historical-collection meaning; therefore automatic zero-padding 3388 -> 03388 is forbidden and current SYS/UID/905s remain unresolved. Zhang Lijuan's official report still does not print 3388, so FID070 == Zhang's Tieqin-old-collection Yuan-impression physical copy remains STRONGLY_COMPATIBLE_NOT_PROVED and no same-object edge is authorized.",
+  "controlling_probes": {
+    "beitu1987_visual_bind": {
+      "workflow_run_id": 36309374568,
+      "artifact_id": 10928625832,
+      "artifact_zip_sha256": "af7d8e6769c22b50caf30ed8ff263ca6371a8637bc7d9f36427845f37b778762",
+      "source_pdf_sha256": "9cb2ab3ff5d00fda316a9f0430096ca2a5e68fcd53609a878c0ed9d08a26d3ab",
+      "source_pdf_pages": 210,
+      "rendered_page_sha256": {
+        "pdf_page_9": "6a53ed59d695cb5b089ab5083aba60c217f8e1af21e3fe2c43e682fe96a9f5c6",
+        "pdf_page_10": "5c9cde7428bd5abe406e863137df346b86de182fd96649bf470c3da643276b3c",
+        "pdf_page_103": "621692e2ebb98819221ccc7833226cb44f50f2debbc90280e98e849a3d5ae652",
+        "pdf_page_104": "04c1c3a8a33aaa3b401db2fd6ddcc77455a94098f01cc178a284ea8b2f42b6ce",
+        "pdf_page_105": "a03a4d4cbb06caa482cc35514626aa728c1f8f48d0ef4cf4297f506c2d81c10f"
+      },
+      "ocr_used": false,
+      "collation_method": "MANUAL_VISUAL_COLLATION_OF_HASH_BOUND_RENDERED_SCAN"
+    },
+    "current_nlc_book_number_probe": {
+      "workflow_run_id": 36308947738,
+      "artifact_id": 10928431008,
+      "artifact_zip_sha256": "4b6611283d81f36e6b3f291bc0a90bd5bb6c6ee098206d1bdadb59ea799560f4",
+      "ocr_used": false
+    }
+  },
+  "beitu1987_catalog_control": {
+    "title": "北京图书馆古籍善本书目·经部",
+    "institution": "北京图书馆",
+    "publication_year": 1987,
+    "public_scan_url": "https://upload.wikimedia.org/wikipedia/commons/8/8d/SSID-10354752_%E5%8C%97%E4%BA%AC%E5%9C%96%E6%9B%B8%E9%A4%A8%E5%8F%A4%E7%B1%8D%E5%96%84%E6%9C%AC%E6%9B%B8%E7%9B%AE_%E7%B6%93%E9%83%A8.pdf",
+    "source_pdf_sha256": "9cb2ab3ff5d00fda316a9f0430096ca2a5e68fcd53609a878c0ed9d08a26d3ab",
+    "catalog_semantics": {
+      "visual_source_pdf_pages": [
+        9,
+        10
+      ],
+      "rule_location": "编例第五条第⑦项",
+      "direct_statement": "书号：各书名下方，均注明书号。书号前加零字头的，系一九三七年以前之本馆旧藏。",
+      "number_under_title_semantic": "书号",
+      "leading_zero_has_historical_collection_semantics": true,
+      "generic_zero_padding_authorized": false
+    },
+    "target_entry": {
+      "visual_source_pdf_page": 104,
+      "printed_page": 92,
+      "title": "附釋音春秋左傳註疏六十卷",
+      "authors": [
+        "晉杜預注",
+        "唐孔穎達疏",
+        "唐陸德明釋文"
+      ],
+      "version": "元刻明修本",
+      "extent": "三十二冊",
+      "format_observed": [
+        "十行十七字",
+        "小字雙行二十三字"
+      ],
+      "book_number_chinese": "三三八八",
+      "book_number_arabic": "3388",
+      "number_physically_aligned_below_exact_entry": true
+    },
+    "contiguous_group_check": {
+      "pdf_pages": [
+        103,
+        104,
+        105
+      ],
+      "printed_pages": [
+        91,
+        92,
+        93
+      ],
+      "group_is_continuous_across_pages": true,
+      "only_exact_yuan_ming_repair_32_book_target_in_reviewed_group": true,
+      "ocr_used": false
+    }
+  },
+  "fid070_crosswalk": {
+    "fid": "412004000070",
+    "prior_hm_status": "FID070_EQUALS_1985_MICROFILM_ORIGINAL_CONTROL_CLOSED",
+    "hm_original_profile": {
+      "title": "附释音春秋左传注疏",
+      "total_juan": 60,
+      "original_material": [
+        "刻本",
+        "善本",
+        "重修"
+      ],
+      "original_date_profile": [
+        "元[1271-1368]",
+        "明[1368-1644]重修"
+      ],
+      "original_extent": "32册"
+    },
+    "public_digital_extent_books": 32,
+    "public_digital_extent_juan": "卷首/卷1 through 卷60",
+    "beitu1987_book_number": "3388",
+    "binding_status": "HIGH_CONFIDENCE_CLOSED_AT_CATALOG_PROFILE_AND_CONTIGUOUS_GROUP_LEVEL",
+    "direct_shared_identifier_between_1985_record_and_1987_entry": false,
+    "same_title_version_extent_convergence": true
+  },
+  "current_nlc_identifier_boundary": {
+    "any_search_3388": "NO_MATCHING_RESULT",
+    "any_search_03388": "NO_MATCHING_RESULT",
+    "any_search_sbyl_03388": "NO_MATCHING_RESULT",
+    "any_search_nlc_sbyl_03388": "SERVER_ERROR",
+    "title_plus_3388_result": "FALSE_POSITIVE_MODERN_KNITTING_BOOK",
+    "title_plus_03388": "NO_MATCHING_RESULT",
+    "traditional_title_exact_loose_and_short_queries": "TIMEOUT_IN_PROBE",
+    "current_sys": "UNRESOLVED",
+    "current_uid": "UNRESOLVED",
+    "current_905s": "UNRESOLVED",
+    "current_shelfmark": "UNRESOLVED",
+    "historical_book_number_3388_equals_current_905s": "NOT_PROVED",
+    "zero_padding_3388_to_03388": "FORBIDDEN_WITHOUT_DIRECT_CURRENT_RECORD",
+    "negative_absence_inference_authorized": false
+  },
+  "tieqin_identity_firewall": {
+    "nopss_source_id": "EXT-NOPSS-ZHANG-LIJUAN-NLC-TIEQIN-YUAN-ZUOZHUAN",
+    "zhang_prior_catalog_classification": "元刻明修本",
+    "zhang_revised_physical_adjudication": "元刻元印十行本",
+    "zhang_report_prints_book_number_3388": false,
+    "historical_3388_is_candidate_for_zhang_copy": "HIGH_CONFIDENCE_CANDIDATE_NOT_DIRECTLY_CITED_BY_ZHANG",
+    "fid070_equals_zhang_tieqin_copy": "STRONGLY_COMPATIBLE_NOT_PROVED",
+    "same_object_edge_authorized": false,
+    "exact_tieqin_identity_promoted": false,
+    "still_required": [
+      "Zhang 2018 full article or equivalent direct source explicitly printing 3388/current shelfmark",
+      "Tieqin provenance/seal directly visible on FID070",
+      "current NLC SYS/UID/905s crosswalk",
+      "unique physical defect/page fingerprint bound across sources"
+    ]
+  },
+  "relation_to_hj": {
+    "hj_named_member": "宋刻《春秋左传注疏》",
+    "fid069_song_split_copy_remains_distinct_from_fid070": true,
+    "hj_named_song_member_equals_fid070": "UNRESOLVED",
+    "historical_book_number_3388_does_not_change_hj_mapping": true
+  },
+  "target_volume_firewall": {
+    "target_titles": [
+      "铜壶漏箭制度",
+      "准斋心制几漏图式"
+    ],
+    "historical_catalog_numbers": [
+      3482,
+      3483
+    ],
+    "target_named_in_hn_sources": false,
+    "target_transaction_route_changed": false,
+    "target_specific_purchase_route_selected": false,
+    "target_specific_donation_route_selected": false,
+    "target_specific_ding_intermediary_selected": false
+  },
+  "transmission_impact": {
+    "scope": "OBJECT_LEVEL_PROVENANCE_COMPARATOR_OUTSIDE_CURRENT_ZIWEI_TEXTUAL_TRANSMISSION_GRAPH",
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "fid070_to_historical_book_number_3388_crosswalk_strengthened": true,
+    "tieqin_same_object_edge_authorized": false,
+    "acquisition_edge_authorized": false
+  },
+  "chronology_and_rule_firewall": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_count_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 14,
+    "repaired_provenance_metadata_defect_count": 14,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Recover Zhang Lijuan's 2018 article full text or another direct NLC/Tieqin source that explicitly prints historical book number 3388 or its current successor identifier.",
+    "Probe NLC rare-book-specific interfaces/legacy catalog crosswalks for book number 3388 without zero-padding; do not treat 03388 as a formatting synonym because the 1987 catalog assigns semantic meaning to a leading zero.",
+    "Inspect FID070 opening/closing/provenance leaves for Tieqin/Huang-family ownership seals or unique annotations using direct visual evidence, not OCR-derived identity.",
+    "Keep Zhao Wanli's 1951 Song member and target 3482/3483 acquisition paths separately unresolved."
+  ],
+  "updated_at": "2026-09-27"
+}

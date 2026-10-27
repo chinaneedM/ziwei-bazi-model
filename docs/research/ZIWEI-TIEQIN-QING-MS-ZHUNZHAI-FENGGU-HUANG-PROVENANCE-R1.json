@@ -1,0 +1,123 @@
+{
+  "schema": "ZIWEI-TIEQIN-QING-MS-ZHUNZHAI-FENGGU-HUANG-PROVENANCE-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-TIEQIN-QING-MS-ZHUNZHAI-FENGGU-HUANG-PROVENANCE-EY",
+  "prior_batch_id": "BATCH-12-ZIWEI-AIRIJINGLU1887-ZHUNZHAI-AUTHOR-VARIANT-AND-25ARROW-REPLAY-EX",
+  "question": "Does the Tianyi Pavilion Qing manuscript of 《鐵琴銅劍樓藏書目錄》 directly attest 孫逢古 for the Zhunzhai entry and explicitly connect that copy description to the Huang-family/Raoweng transmission route?",
+  "answer": "YES AT THE QING BIBLIOGRAPHIC-MANUSCRIPT LAYER. SOURCE-BOUND 300DPI REVIEW OF PDF P387 DIRECTLY READS 準齋心製几漏圖式一卷 / 影鈔本 / 宋孫逢古撰并序 AND SUMMARIZES 逢古創為小壺分二十五箭...曾著錄文淵閣書目...與銅壺漏箭制度合裝. PDF P388 CONTINUES 一冊 / 郡中黃氏舊藏 / 蕘翁有跋. THIS CONFIRMS THAT 孫逢古 ENTERED A QING BIBLIOGRAPHIC TRANSMISSION TRADITION AND THAT THE TIEQIN DESCRIPTION EXPLICITLY POINTS TO THE HUANG/RAOWENG ROUTE. IT DOES NOT DATE THE MANUSCRIPT EXACTLY, DOES NOT PROVE THE 1823 NLC MANUSCRIPT IS THE SAME PHYSICAL SOURCE, DOES NOT OVERRIDE THE EARLIER 1602/1605 孫逢吉 WITNESSES, AND DOES NOT CLOSE YUAN PERSON IDENTITY, PRE-1578 RULE PROSE, OR SANMING PARENTAGE.",
+  "source_binding": {
+    "source_id": "EXT-TIANYIGE-TIEQIN-QING-MS-0004561-ZHUNZHAI-FENGGU-HUANG-PROVENANCE",
+    "title": "《鐵琴銅劍樓藏書目錄》卷十五",
+    "author": "清 瞿鏞編",
+    "provider": "Tianyi Pavilion Museum scan via Wikimedia Commons",
+    "identifier": "330000-1705-0004561 / 善2088",
+    "edition": "清抄本；exact copy year unresolved",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Tianyige-330000-1705-0004561_%E9%90%B5%E7%90%B4%E9%8A%85%E5%8A%8D%E6%A8%93%E8%97%8F%E6%9B%B8%E7%9B%AE%E9%8C%84_%E6%B8%85%E7%9E%BF%E9%8F%9E%E7%B7%A8_%E6%B8%85%E6%8A%84%E6%9C%AC.pdf",
+    "source_pdf_sha256": "29d6774b33087ee8140d7141ca85bd60d25d1872bc636a33da35be9b75dbfc6f",
+    "source_pdf_pages": 582,
+    "pdf_page_387_sha256": "984fe54f6a2ffd660594eac4fbb656b835921f6fd61ca700a201f7fe8ae156cb",
+    "pdf_page_388_sha256": "8b150e774ad68e06bc81e53e3f8608b977f686055c479faa30b6d1ba2cb376b6",
+    "render_dimensions": [
+      3096,
+      2768
+    ],
+    "target_window_workflow_run_id": 35952843891,
+    "target_window_artifact_id": 10789681401,
+    "target_window_artifact_digest": "sha256:6ab81cb019c423fd9842198e41b937ac1a104f83161b2ed5107c3cf1e42d544a",
+    "extraction_commit": "c924f4b38a71154196befbf221a6e378c94f18f9",
+    "ocr_used_for_final_glyph_claims": false
+  },
+  "direct_physical_reading": {
+    "p387": [
+      "準齋心製几漏圖式一卷",
+      "影鈔本",
+      "宋孫逢古撰并序",
+      "逢古創為小壺分二十五箭按時而用以正晷刻可置坐隅故曰几漏因繪箭式而刻之",
+      "曾著錄文淵閣書目",
+      "是本與銅壺漏箭制度合裝"
+    ],
+    "p388_continuation": [
+      "一冊",
+      "郡中黃氏舊藏",
+      "蕘翁有跋"
+    ],
+    "adjudication": "QING_TIEQIN_BIBLIOGRAPHIC_FENGGU_AND_HUANG_RAOWENG_PROVENANCE_CONTROL_CLOSED"
+  },
+  "author_variant_adjudication": {
+    "direct_ming_1602": "孫逢吉",
+    "direct_ming_1605": "孫逢吉",
+    "direct_airijinglu_1887_header": "孫逢古",
+    "direct_airijinglu_1887_same_entry_body": "逢吉",
+    "direct_tieqin_qing_ms": "孫逢古",
+    "qing_bibliographic_fenggu_tradition": "CONFIRMED_IN_AT_LEAST_TWO_LATE_QING_BIBLIOGRAPHIC_SURFACES",
+    "adjudication": "FENGGU_AS_LATE_QING_BIBLIOGRAPHIC_OR_RECENSIONAL_VARIANT_CORRUPTION_STRONGLY_SUPPORTED; ORIGINAL_MUTATION_POINT_UNRESOLVED",
+    "force_normalize_孫逢古_to_孫逢吉": false
+  },
+  "huang_provenance_firewall": {
+    "direct_tieqin_statements": [
+      "郡中黃氏舊藏",
+      "蕘翁有跋"
+    ],
+    "airijinglu_1887_statement": "從吳門黃氏藏舊抄本影寫",
+    "reviewed_nlc_1823_manuscript_route": "清道光三年黃氏士禮居抄本",
+    "exact_physical_identity_across_routes": "NOT_PROVED",
+    "safe_conclusion": "HUANG_FAMILY/RAOWENG_TRANSMISSION_ROUTE_STRONGLY_CONVERGENT_AT_BIBLIOGRAPHIC_LEVEL; EXACT_COPY_IDENTITY_OPEN"
+  },
+  "chronology_and_identity_firewall": {
+    "tianyige_catalog_date_scope": "QING_MANUSCRIPT_EXACT_COPY_YEAR_UNRESOLVED",
+    "tieqin_final_print_year_reference": 1898,
+    "manuscript_treated_as_1898_print": false,
+    "exact_identity_with_yuan_1281_yanling_sun_fengji": "POSSIBLE_NOT_PROVED",
+    "pre1578_exact_25arrow_rule_text_attested": false,
+    "work_composition_date_proved": false
+  },
+  "sanming_firewall": {
+    "exact_sanming_yueling_dahan_yushui_fingerprint_closed": false,
+    "exact_nanjing_59_endpoint_binding_closed": false,
+    "direct_sanming_parent_vote_increment": 0
+  },
+  "adjudication": {
+    "matrix_count_change": false,
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "deterministic_fusion_chart_product_r1": "CLOSED"
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 12,
+    "repaired_provenance_metadata_defect_count": 12,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "transmission_impact": {
+    "nodes_added": [
+      "PHYSICAL-COPY-TIANYIGE-TIEQIN-QING-MS-0004561",
+      "PASSAGE-TIEQIN-QING-MS-ZHUNZHAI-FENGGU-HUANG-PROVENANCE"
+    ],
+    "nodes_strengthened": [
+      "RULE-FAMILY-ZHUNZHAI-25ARROW-JIEHOU-SELECTION-38-62"
+    ],
+    "edges_supported": [
+      "TG-E0103"
+    ],
+    "edges_revised": [],
+    "edges_rejected": [],
+    "remaining_lineage_questions": [
+      "Can the exact copy date of Tianyi 0004561 be independently closed?",
+      "Can an 1827 first-edition 《愛日精廬藏書志》 physical witness directly show whether 孫逢古 was already present by that date?",
+      "Can the Huang/Raoweng copy route be bound to the exact NLC 1823 Shiliju manuscript rather than only to a family-level provenance route?",
+      "Can a Yuan primary witness directly pair the Yanling Sun Fengji with the Zhunzhai title?"
+    ]
+  },
+  "next_gate": [
+    "Directly collate a source-bound 1827 first-edition 《愛日精廬藏書志》 target page to date the 孫逢古 bibliographic variant if possible.",
+    "Trace 黃氏舊藏 / 蕘翁有跋 against Huang Pilie paratext and the NLC 1823 manuscript.",
+    "Continue Yuan person-title bridge and securely pre-1578 exact 25-arrow prose searches.",
+    "Keep Sanming/Yueling Dahan-Rainwater and Nanjing-59 searches active."
+  ],
+  "updated_at": "2026-09-24"
+}

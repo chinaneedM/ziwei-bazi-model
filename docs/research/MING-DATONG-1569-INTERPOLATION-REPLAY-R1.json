@@ -1,0 +1,193 @@
+{
+  "schema": "MING-DATONG-1569-INTERPOLATION-REPLAY-R1",
+  "schema_version": "1.14.0",
+  "status": "RESEARCH_ONLY_FORMULA_SEMANTICS_PRIMARY_TABLE_PRECISION_MAP_CLOSED_DYNAMIC_PRECISION_GENERALIZATION_OPEN",
+  "runtime_selection_authorized": false,
+  "general_calendar_arithmetic_certified": false,
+  "authority_scope": "PRIMARY_1569_FORMULA_PAGES_PLUS_MING_AUTHORIAL_WORKED_DATONG_REPLAY",
+  "source_ids": [
+    "EXT-KOTENMON-DAMING-DATONG-1569",
+    "EXT-WIKISOURCE-GUJIN-LULIKAO-V49-DATONG"
+  ],
+  "source_radices": {
+    "day_source_units_per_day": "10000",
+    "day_source_subunit_radix": "100",
+    "note": "The printed limit-row day-rate lineage and the within-limit interpolation denominator are deliberately separate. The Ming worked example's limit 116 row is compatible with 116 × 820.08 -> printed 95129 source units, while its interpolated loss is reproduced only with divisor 820. Decimal normalization is a machine representation of source place value, not a modern timezone/day model.",
+    "lunar_table_day_rate_increment_source_units": "820.08",
+    "lunar_interpolation_denominator_source_units": "820"
+  },
+  "primary_formula_pages": {
+    "solar_yingsuo_limit_and_interpolation": {
+      "pdf_page_index_zero_based": 13,
+      "method_labels": [
+        "推盈縮曆初末限分法",
+        "推盈縮差度分法"
+      ],
+      "normalized_mechanics": [
+        "Classify 盈/縮 into initial or terminal limit using the printed threshold and half-year complement rule.",
+        "Use the whole-day row in the solar table, multiply the residual day fraction by that row's 盈縮加分, normalize by the 10000-unit day radix, and add the row's accumulated 盈縮 degree."
+      ]
+    },
+    "lunar_chiji_history_and_row_interpolation": {
+      "pdf_page_index_zero_based": 24,
+      "method_label": "推遲疾差度分法",
+      "normalized_mechanics": [
+        "Locate the corresponding 太陰立成 limit row by its 遲疾日率.",
+        "Subtract the row day-rate from the target 遲疾曆; if the nominal row exceeds the target, step back one limit before subtraction.",
+        "Multiply the residual by the row 損益分 and divide by 820.",
+        "Apply the interpolated quantity to the row 遲疾度: 益 adds, 損 subtracts."
+      ]
+    },
+    "d1_conjunction_correction": {
+      "pdf_page_index_zero_based": 32,
+      "method_label": "推加減差分法",
+      "normalized_mechanics": [
+        "Combine 盈縮差 and 遲疾差 by same-name addition or different-name subtraction.",
+        "Multiply the residual difference by 820.",
+        "Divide directly by the same-limit lunar 遲行度 or 疾行度."
+      ],
+      "received_d2_subtraction_of_820_used": false
+    },
+    "lunar_chiji_xingdu_table": {
+      "pdf_page_index_zero_based_start": 33,
+      "pdf_page_index_zero_based_end": 40,
+      "table_label": "太陰遲疾行度立成",
+      "role": "D1_DIVISOR_TABLE",
+      "full_numeric_transcription_complete": true
+    }
+  },
+  "solar_limit_thresholds": {
+    "ying_initial_shuo_terminal": {
+      "days": 88,
+      "source_fraction": "9092.25"
+    },
+    "shuo_initial_ying_terminal": {
+      "days": 93,
+      "source_fraction": "7120.25"
+    },
+    "certainty": "HIGH_PRIMARY_FACSIMILE"
+  },
+  "lunar_interpolation_semantics": {
+    "row_selection": "GREATEST_PRINTED_CHIJI_DAY_RATE_NOT_EXCEEDING_TARGET; STEP_BACK_ONE_LIMIT_IF_NOMINAL_ROW_IS_TOO_LARGE",
+    "residual_formula": "target_chiji_history_source_units - selected_row_day_rate_source_units",
+    "within_limit_formula": "residual_source_units * row_loss_gain / 820",
+    "sign_rule": {
+      "益": "ADD_TO_ROW_ACCUMULATED_CHIJI_DEGREE",
+      "損": "SUBTRACT_FROM_ROW_ACCUMULATED_CHIJI_DEGREE"
+    },
+    "full_table_transcription_complete": false
+  },
+  "ming_worked_d1_replay": {
+    "scope": "萬曆二十四年丙申歲閏八月朔日食曆〈大統〉",
+    "chiji_history": {
+      "days": 9,
+      "source_fraction": "5334.58",
+      "normalized_days": "9.533458"
+    },
+    "selected_limit": 116,
+    "selected_row_day_rate": {
+      "days": 9,
+      "source_fraction": "5129",
+      "normalized_days": "9.5129"
+    },
+    "residual_source_units": "205.58",
+    "selected_row_loss_gain_source_fen": "5.629675",
+    "selected_row_accumulated_chiji_degree": "4.5604",
+    "raw_within_limit_loss_source_fen": "1.411400715243902439024390243902439024390",
+    "raw_within_limit_loss_degree": "0.0141140071524390243902439024390243902439",
+    "printed_chiji_difference_degree": "4.546285",
+    "observed_degree_precision_policy": "TRUNCATE_TOWARD_ZERO_TO_6_DECIMAL_DEGREE_PLACES_IN_THIS_WORKED_EXAMPLE",
+    "yingsuo_difference_degree": "2.400413",
+    "combined_difference_degree": "2.145872",
+    "d1_multiplier": "820",
+    "corresponding_chi_xingdu_degree": "1.1526",
+    "raw_add_correction_source_units": "1526.648481693562380704494187055353114697",
+    "printed_add_correction_source_units": "1526.64",
+    "observed_add_correction_precision_policy": "TRUNCATE_TOWARD_ZERO_TO_2_DECIMAL_SOURCE_UNITS_IN_THIS_WORKED_EXAMPLE",
+    "mean_conjunction_source_units": "13512.58",
+    "true_conjunction_source_units": "15039.22",
+    "day_carry_count": 1,
+    "true_conjunction_small_remainder_source_units": "5039.22",
+    "replay_status": "EXACT_AT_PRINTED_SOURCE_PRECISION",
+    "selected_row_day_rate_derivation_control": {
+      "limit": 116,
+      "nominal_increment_source_units": "820.08",
+      "raw_product_source_units": "95129.28",
+      "printed_row_total_source_units": "95129",
+      "printed_row_days": 9,
+      "printed_row_source_fraction": "5129",
+      "inference_scope": "CROSS_CHECK_OF_PRINTED_DAY_RATE_ROW_NOT_A_LICENSE_TO_REGENERATE_THE_FULL_TABLE_WITHOUT_COLLATION"
+    }
+  },
+  "epistemic_firewalls": {
+    "worked_example_truncation_as_universal_precision_rule": "FORBIDDEN",
+    "full_1569_table_transcription_claim": "PRIMARY_ROW_COLLATION_CLOSED_IN_DEDICATED_LEDGERS; DO_NOT_CLAIM_TRANSCRIPTION_FROM_RECONSTRUCTION_ALONE",
+    "modern_decimal_as_historical_notation": "FORBIDDEN",
+    "qishuo_geographic_reference_inference": "FORBIDDEN",
+    "table_day_rate_increment_as_interpolation_denominator": "FORBIDDEN",
+    "korean_jiaoshi_tuibufa_as_1569_ming_production_authority": "FORBIDDEN",
+    "generic_recurrence_across_83_84_without_transition_rule": "FORBIDDEN",
+    "full_numeric_reconstruction_as_full_primary_transcription": "FORBIDDEN",
+    "cross_witness_row_124_anomaly_as_runtime_formula_defect": "FORBIDDEN",
+    "solar_terminal_support_row_as_initial_limit_input": "FORBIDDEN",
+    "solar_formula_value_as_direct_primary_glyph_reading": "FORBIDDEN",
+    "lunar_shortcut_formula_value_as_direct_primary_glyph_reading": "FORBIDDEN",
+    "xingdu_shortcut_formula_value_as_direct_primary_glyph_reading": "FORBIDDEN",
+    "table_generation_precision_map_as_dynamic_interpolation_precision": "FORBIDDEN",
+    "shoushi_worked_precision_as_datong_production_precision": "FORBIDDEN"
+  },
+  "remaining_gates": [
+    "COMPLETE_1569_CROSS_EDITION_VARIANT_LEDGER_IMAGE_LEVEL_ADJUDICATION",
+    "GENERALIZE_DYNAMIC_INTERPOLATION_AND_D1_CONJUNCTION_PRECISION_BEYOND_1596_WORKED_EXAMPLE",
+    "QISHUO_GEOGRAPHIC_REFERENCE"
+  ],
+  "lunar_day_rate_column_artifact": "docs/research/MING-DATONG-1569-CHIJI-DAY-RATE-COLUMN-R1.json",
+  "formula_progress": {
+    "lunar_day_rate_column": "FULL_168_ROWS_MACHINE_DERIVED_AND_168_OF_168_NONBLANK_PRIMARY_DAY_RATE_ROWS_MATCH",
+    "loss_gain_column": "FULL_168_LIMIT_NUMERIC_RECONSTRUCTION_AND_169_ROW_PRIMARY_GLYPH_COLLATION_COMPLETE",
+    "accumulated_chiji_degree_column": "FULL_168_LIMIT_NUMERIC_RECONSTRUCTION_AND_169_ROW_PRIMARY_GLYPH_COLLATION_COMPLETE_WITH_TERMINAL_BLANK_PRESERVED",
+    "chi_ji_xingdu_divisor_column": "FULL_168_LIMIT_NUMERIC_RECONSTRUCTION_AND_169_ROW_PRIMARY_GLYPH_COLLATION_COMPLETE_WITH_82_85_CENTRAL_OVERRIDES_AND_TERMINAL_BLANK_PRESERVED",
+    "central_83_84_transition": "PRIMARY_1569_CHIJI_AND_D1_DIVISOR_TABLES_COLLATED",
+    "solar_yingsuo_interpolation": "BOTH_TABLE_FAMILIES_FULL_NUMERIC_RECONSTRUCTION_AND_PRIMARY_ROW_BY_ROW_GLYPH_COLLATION_COMPLETE",
+    "source_derived_d1_replay_to_1578_oracle": "COMPLETE_12_MONTHS_PLUS_NEXT_YEAR_ANCHOR_DAY_LEVEL_MATCH_13_OF_13",
+    "solar_yingsuo_table_schema": "PRIMARY_COLUMNS_CLOSE_AS_JIRI_XIAOXIFEN_YINGSUO_JIAFEN_YINGSUO_JIDU",
+    "solar_message_column": "FULL_NUMERIC_RECONSTRUCTION_FROM_ADJACENT_ADDS_AND_PRIMARY_GLYPH_COLLATION_COMPLETE_181_OF_181_NONBLANK_MESSAGE_CELLS",
+    "solar_primary_row_collation": "185_OF_185_ROWS_DIRECT_PRIMARY_GLYPH_COLLATION_COMPLETE; ZERO_NUMERIC_VARIANTS; ZERO_GLYPH_AMBIGUOUS",
+    "lunar_chiji_table_schema": "PRIMARY_COLUMNS_CLOSE_AS_LIMIT_DAY_RATE_SUNYI_JIEFA_SUNYI_FEN_CHIJI_DU",
+    "lunar_loss_gain_shortcut_column": "FULL_NUMERIC_RECONSTRUCTION_AND_PRIMARY_GLYPH_COLLATION_COMPLETE_168_OF_168",
+    "lunar_chiji_primary_row_collation": "169_OF_169_ROWS_DIRECT_PRIMARY_GLYPH_COLLATION_COMPLETE; ZERO_NUMERIC_VARIANTS; ZERO_GLYPH_AMBIGUOUS",
+    "lunar_xingdu_table_schema": "PRIMARY_COLUMNS_CLOSE_AS_LIMIT_JI_XINGDU_JI_JIEFA_CHI_XINGDU_CHI_JIEFA",
+    "lunar_xingdu_shortcut_columns": "BOTH_SHORTCUT_COLUMNS_FULL_NUMERIC_RECONSTRUCTION_AND_PRIMARY_GLYPH_COLLATION_COMPLETE_336_OF_336",
+    "lunar_xingdu_primary_row_collation": "169_OF_169_ROWS_DIRECT_PRIMARY_GLYPH_COLLATION_COMPLETE; ZERO_NUMERIC_VARIANTS; ZERO_GLYPH_AMBIGUOUS",
+    "cross_edition_variant_ledger": "ACTIVE_WITH_5_NUMERIC_VARIANT_CONTROLS_AND_1_PHILOLOGICAL_NORMALIZATION_BRIDGE; DIRECT_IMAGE_CAUSE_ADJUDICATION_PENDING",
+    "fixed_point_table_generation_precision": "CLOSED_STAGE_SCOPED_MAP; NO_SINGLE_GLOBAL_ROUNDING_RULE"
+  },
+  "cross_regional_algorithm_controls": [
+    {
+      "control_id": "JOSEON-JIAOSHI-TUIBUFA-1458",
+      "source_id": "EXT-KYUJANGGAK-JIAOSHI-TUIBUFA-1458",
+      "date": 1458,
+      "lineage": "JOSEON_SEJONG_DERIVED_FROM_SHOUSHI_DATONG_MATERIALS_BUT_REFORMULATED",
+      "preface_scope": [
+        "HANYANG_LOCATION_SPECIFIC_SUNRISE_SUNSET_RECALCULATION",
+        "SEVERAL_METHODS_REFORMULATED_TO_DIRECT_CALCULATION_WITHOUT_LICHENG"
+      ],
+      "chiji_interpolation_denominator_source_units": "820.08",
+      "dingxian_line_speed_subtraction_source_units": "8.2008",
+      "algorithm_family_disposition": "PARALLEL_CROSS_REGIONAL_DERIVATION_NOT_1569_MING_PRODUCTION_RULE",
+      "use_as_1569_table_authority": false,
+      "use_as_transmission_history_control": true,
+      "inference_firewall": "DO_NOT_BACKPORT_JOSEON_DIRECT_CALCULATION_CONSTANTS_OR_D2_STYLE_DINGXIAN_PATH_INTO_ZHOU_XIANG_1569_D1"
+    }
+  ],
+  "central_transition_artifact": "docs/research/MING-DATONG-1569-CHIJI-CENTRAL-TRANSITION-R1.json",
+  "full_chiji_numeric_reconstruction_artifact": "docs/research/MING-DATONG-1569-CHIJI-FULL-NUMERIC-RECONSTRUCTION-R1.json",
+  "full_yingsuo_numeric_reconstruction_artifact": "docs/research/MING-DATONG-1569-YINGSUO-FULL-NUMERIC-RECONSTRUCTION-R1.json",
+  "target_1578_d1_replay_artifact": "docs/research/MING-DATONG-1578-D1-SOURCE-REPLAY-R1.json",
+  "solar_primary_collation_ledger": "docs/research/MING-DATONG-1569-SOLAR-PRIMARY-COLLATION-LEDGER-R1.json",
+  "lunar_chiji_primary_collation_ledger": "docs/research/MING-DATONG-1569-LUNAR-CHIJI-PRIMARY-COLLATION-LEDGER-R1.json",
+  "lunar_xingdu_primary_collation_ledger": "docs/research/MING-DATONG-1569-LUNAR-XINGDU-PRIMARY-COLLATION-LEDGER-R1.json",
+  "cross_edition_variant_ledger": "docs/research/MING-DATONG-1569-CROSS-EDITION-VARIANT-LEDGER-R1.json",
+  "fixed_point_precision_audit_artifact": "docs/research/MING-DATONG-1569-FIXED-POINT-PRECISION-AUDIT-R1.json",
+  "fixed_point_precision_audit_status": "TABLE_GENERATION_PRECISION_MAP_CLOSED_DYNAMIC_INTERPOLATION_GENERALIZATION_OPEN"
+}

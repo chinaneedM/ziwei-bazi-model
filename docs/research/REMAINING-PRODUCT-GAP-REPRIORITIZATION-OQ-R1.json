@@ -1,0 +1,73 @@
+{
+  "schema": "REMAINING-PRODUCT-GAP-REPRIORITIZATION-OQ-R1",
+  "version": "1.0.0",
+  "batch_id": "BATCH-12-REMAINING-PRODUCT-GAP-REPRIORITIZATION-OQ",
+  "date": "2026-10-06",
+  "prior_batch_id": "BATCH-12-ZIWEI-ZHONGZHOU-LEAP-MONTH-DAILY-GEOMETRY-CLOSURE-OP",
+  "remaining_missing_from_product_count": 4,
+  "closure_since_ol": [
+    {
+      "rule_id": "HPA-ZIWEI-018",
+      "closed_by": "BATCH-12-ZIWEI-JIELAN-DIGNITY-CANDIDATE-PRODUCTIZATION-OO",
+      "current_status": "HISTORICALLY_SUPPORTED"
+    },
+    {
+      "rule_id": "HPA-ZT-015",
+      "closed_by": "BATCH-12-ZIWEI-ZHONGZHOU-LEAP-MONTH-DAILY-GEOMETRY-CLOSURE-OP",
+      "current_status": "SUPPORTED_BUT_SCHOOL_SPECIFIC"
+    }
+  ],
+  "ranking_basis": [
+    "source and philological closure of the unresolved mechanic",
+    "deterministic implementation readiness under the existing fail-closed architecture",
+    "dependency depth on unresolved calendar/time-coordinate engines",
+    "ability to preserve ambiguity without selecting a historical winner",
+    "avoidance of already exhausted acquisition routes and duplicate research"
+  ],
+  "ranked_queue": [
+    {
+      "rank": 1,
+      "rule_id": "HPA-DAYUN-CAL-003",
+      "field": "Later calendar-age years plus remainder-days Jiaoyun method",
+      "readiness": "MEDIUM_LOW_BUT_NARROWEST_SOURCE_BOUND_CALENDAR_GAP",
+      "reason": "The Qianli worked method is explicit and the generic HISTORICAL-CHINESE-CALENDAR-ADAPTER-CONTRACT-R1 already has the required architecture. The remaining blocker is comparatively narrow: establish the exact Republican/Qianli calendar coordinate, invalid-date policy, remainder-day addition semantics and recurrence relation before registering a regime descriptor.",
+      "next_gate": "12OR"
+    },
+    {
+      "rank": 2,
+      "rule_id": "HPA-ZDATE-006",
+      "field": "Nanyangtang Fullbook ten-ke Zi/Hai split natal birth-hour candidate",
+      "readiness": "LOW_FOR_RUNTIME_DESPITE_STRONG_DIRECT_RULE_GLYPHS",
+      "reason": "Direct Nanyangtang and Guangyi Fullbook evidence is strong and the upper/lower timekeeping orientation is closed, but runtime time-standard binding and the Fullbook-line inclement current-time procedure remain unresolved. Reviewed Google/public-preview routes are exhausted and must not be repeated."
+    },
+    {
+      "rank": 3,
+      "rule_id": "HPA-DAYUN-CAL-002",
+      "field": "Classical lunisolar first Jiaoyun calendarization with small/leap-month correction",
+      "readiness": "LOW_FOR_GENERAL_EXECUTABLE_ADAPTER",
+      "reason": "Ming Datong evidence is extensive and several subrules are closed, but a general executable adapter still depends on qishuo geography, invalid-date/month-length arithmetic, multi-year leap behavior and general precision certification."
+    },
+    {
+      "rank": 4,
+      "rule_id": "HPA-DAYUN-CAL-004",
+      "field": "Ten-year Dayun exchange recurrence from first handover",
+      "readiness": "DEPENDENT_ON_FIRST_HANDOVER_ADAPTER",
+      "reason": "The ten-year recurrence concept is strong, but historical calendar realization must inherit the exact regime used for the first handover. It cannot close independently before at least one source-scoped first-handover adapter is certified."
+    }
+  ],
+  "selected_next": {
+    "rule_id": "HPA-DAYUN-CAL-003",
+    "batch": "12OR",
+    "objective": "Audit the Qianli/Republican Jiaoyun worked examples for exact calendar-coordinate, invalid-date, remainder-day-addition and recurrence semantics. Register no Republican/Qianli regime descriptor and expose no runtime candidate until those source semantics close."
+  },
+  "invariants": {
+    "matrix_status_changed": false,
+    "runtime_changed": false,
+    "production_default_changed": false,
+    "candidate_selection_changed": false,
+    "provenance_defect_increment": 0,
+    "algorithm_reopen": false,
+    "current_missing_from_product_count": 4,
+    "deterministic_fusion_chart_product_r1": "CLOSED"
+  }
+}

@@ -1,0 +1,102 @@
+{
+  "schema": "ZIWEI-TUSHUBIAN-1613-TIMEKEEPING-RECENSION-MAPPING-R1",
+  "status": "DIRECT_HARVARD_PHYSICAL_SCAN_COLLATED_NO_RUNTIME_BINDING",
+  "research_batch": "BATCH-12-ZIWEI-TUSHUBIAN-1613-TIMEKEEPING-RECENSION-MAPPING-AS",
+  "question": "Locate the relevant Zhang Huang Tushu Bian timekeeping material without assuming that a juan number is stable across digital recensions, and test whether it supplies the missing Fullbook cloudy/rain current-time acquisition mechanism.",
+  "source": {
+    "source_id": "EXT-TUSHUBIAN-HARVARD-1613-V32",
+    "work": "圖書編",
+    "compiler": "章潢",
+    "edition_scope": "Harvard-Yenching scanned Ming Wanli 41 (1613) Tu Jingyuan et al. blockprint lineage; exact volume object bound by Commons file identity",
+    "provider_route": "Wikimedia Commons Harvard-Yenching library-backup object",
+    "commons_file_title": "File:Harvard drs 428499316 圖書編 v.32.pdf",
+    "pdf_sha256": "44512e7ca354ff94a87c7c5c84ddea61ba46812371707c2c4ecaf2a2d47f83ba",
+    "page_count": 69,
+    "ocr_used_for_glyph_claims": false
+  },
+  "recension_mapping": {
+    "harvard_v32_pdf_page_3": {
+      "physical_heading": "圖書編卷之二十二",
+      "section_heading": "時令總敘",
+      "manual_visual_review": true
+    },
+    "harvard_v38": {
+      "commons_file_title": "File:Harvard drs 428499428 圖書編 v.38.pdf",
+      "pdf_sha256": "5bc02aef7421ea9f6be18fd5ab0e8a9289507b117e3e881ac488d50f5c84d886",
+      "physical_internal_juan": 28,
+      "juan28_span_pdf_pages": [3, 33],
+      "pdf_page_34_transitions_to_internal_juan": 29,
+      "timekeeping_target_volume": false
+    },
+    "received_text_controls": [
+      {
+        "provider": "Wikisource / Siku received text",
+        "mapping": "卷022 begins 時令總敘"
+      },
+      {
+        "provider": "Shidian Guji digital text",
+        "mapping": "a differently numbered digital recension presents substantially the same 時令/刻漏 material under 卷二十八"
+      }
+    ],
+    "adjudication": "CONTENT_IDENTITY_MAY_BE_BRIDGED_BY_TEXTUAL_COLLATION; JUAN_NUMBER_MUST_NOT_BE_BRIDGED_ACROSS_RECENSIONS_WITHOUT EDITION-SPECIFIC MAPPING"
+  },
+  "direct_physical_collation": [
+    {
+      "pdf_page": 37,
+      "observed": ["古漏圖", "今漏圖"],
+      "role": "physical diagrams of historical/current clepsydra arrangements"
+    },
+    {
+      "pdf_page": 38,
+      "observed_verbatim": "若子時則上半時在夜半前屬昨日下半時在夜半後屬今日亦猶冬至得十一月中氣一陽來復為天道之初耳",
+      "mechanical_reading": "generic civil/timekeeping orientation places upper-half Zi before midnight in the previous day and lower-half Zi after midnight in the current day",
+      "fullbook_hai_branch_reclassification_equivalence": false
+    },
+    {
+      "pdf_page": 39,
+      "heading": "刻漏總論",
+      "observed_verbatim": "於是先王刻箭沃漏以揆之故隋志曰黃帝創觀漏水制器取則以分晝夜",
+      "mechanical_reading": "clepsydra is explicitly treated as an instrument for partitioning/measuring day and night"
+    },
+    {
+      "pdf_page": 41,
+      "observed_verbatim": "使挈壺氏專掌時刻與儀象互相參考以合天星行度為正所以驗天數與天運為不差則寒暑之氣候自正也",
+      "mechanical_reading": "clock readings are cross-checked against astronomical instruments/celestial motion rather than constituting an independent absolute astronomical standard"
+    },
+    {
+      "pdf_page": 42,
+      "observed_verbatim": "且世人止知十二時耳孰知一晝一夜而太陽之所臨有二十四時乎",
+      "mechanical_reading": "the chapter explicitly distinguishes finer solar/time structure beyond the ordinary twelve double-hours"
+    }
+  ],
+  "workflow_evidence": {
+    "r10_v38_boundary_run": 34542834591,
+    "r10_v38_artifact": 10177906841,
+    "r10_artifact_digest": "sha256:47e581a0406c66a4361e8d91fe25123d896179fce7817cb7a04dec337c0e5714",
+    "r11_v32_locator_run": 34543115889,
+    "r11_v32_artifact": 10178011062,
+    "r11_artifact_digest": "sha256:75fa4744df5f476218d6fd6f1645dfd6bc31d11d84346602f4334f285c829da8",
+    "r12_timekeeping_pages_run": 34543260640,
+    "r12_timekeeping_artifact": 10178062853,
+    "r12_artifact_digest": "sha256:1f30fd73e7958748f3c2b4740b62cace6a33e7f43059016b2772558a5f91ba77"
+  },
+  "philological_adjudication": {
+    "direct_harvard_reading": "屬昨日 / 屬今日",
+    "relationship_to_fullbook": "The Tushu Bian passage supports a generic midnight previous-day/current-day split inside Zi, but does not say that the upper half is Hai branch. It therefore must not be normalized into the Fullbook 上五刻屬昨夜亥時 rule.",
+    "relationship_to_shidian": "Shidian is useful as a navigation/transcription control but is not glyph authority for the Harvard object; punctuation/OCR and recension numbering are not imported into the physical reading."
+  },
+  "fullbook_inclement_time_gate": {
+    "explicit_yinyu_clause_observed_in_target_tushubian_pages": false,
+    "explicit_luojing_as_current_time_clock_observed": false,
+    "explicit_fullbook_source_specific_cloudy_rain_acquisition_mechanism_observed": false,
+    "result": "EARLY_MING_TIMEKEEPING_BRIDGE_STRENGTHENED_BUT_FULLBOOK_OPERATIONAL_BINDING_REMAINS_OPEN"
+  },
+  "product_effect": {
+    "HPA-ZDATE-006": "MISSING_FROM_PRODUCT",
+    "runtime_standard_selected": false,
+    "candidate_selected": false,
+    "candidate_collapsed": false,
+    "chart_algorithm_defect": false,
+    "algorithm_reopen_authorized": false
+  }
+}

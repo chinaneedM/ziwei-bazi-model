@@ -1,0 +1,89 @@
+{
+  "schema": "ZIWEI-ZHONGZHOU-LEAP-MONTH-DAILY-GEOMETRY-CLOSURE-R1",
+  "version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-ZHONGZHOU-LEAP-MONTH-DAILY-GEOMETRY-CLOSURE-OP",
+  "date": "2026-10-06",
+  "target_rows": [
+    "HPA-ZT-015",
+    "HPA-ZTEMP-006"
+  ],
+  "source_scope": {
+    "school": "MODERN_ZHONGZHOU",
+    "primary_registered_source": "EXT-WANGTINGZHI-ZHONGZHOU-CHUJI",
+    "bibliographic_witness": "EXT-XINGQIAO-WANGTINGZHI-ZHONGZHOU-CHUJI",
+    "internal_collation_refs": [
+      "S10:ZZTERM-P-0280",
+      "S10:ZZTERM-P-0281",
+      "S10:ZZTERM-P-0282",
+      "S10:ZZTERM-P-0283",
+      "S10:ZZTERM-P-0287"
+    ],
+    "public_text_url": "https://pdfcoffee.com/-3994-pdf-free.html",
+    "bibliographic_url": "https://www.ncc.com.tw/books/goods.php?id=4718",
+    "historical_backdating_authorized": false,
+    "universal_school_winner_authorized": false
+  },
+  "philological_adjudication": {
+    "flow_day_continues_forward": "Forward counting/day-ordinal continuity does not cancel the explicit lower-half basis switch.",
+    "leap_day_one": "The worked example continues the preceding regular-month sequence into leap day 1; the result depends on whether that month had 29 or 30 days.",
+    "lower_half": "From leap day 16 the following regular month's monthly palace is the basis.",
+    "general_rule_control": "The monthly palace is the day-1 basis and counting proceeds to the requested day; day 16 is not relabelled day 1.",
+    "scope_firewall": "Natal leap-month doctrines are not automatically equivalent to flow-month/day temporal geometry."
+  },
+  "mechanical_resolution": {
+    "previous_regular_month_day_count_domain": [
+      29,
+      30
+    ],
+    "first_half": {
+      "day_one": "advance(previous_regular_month_active_branch, previous_regular_month_day_count)",
+      "day_d_1_to_15": "advance(leap_day_one_active_branch, d - 1)"
+    },
+    "second_half": {
+      "basis": "following_regular_month_active_branch as ordinary day-1 basis",
+      "day_d_16_to_end": "advance(following_regular_month_active_branch, d - 1)"
+    },
+    "half_split_basis_switch": true,
+    "half_split_reset": false,
+    "direction": "FORWARD",
+    "s10_worked_example": {
+      "previous_regular_month_active_branch": "酉",
+      "previous_regular_month_day_count": 30,
+      "leap_day_one_active_branch": "卯",
+      "following_regular_month_active_branch": "戌",
+      "mechanical_leap_day_16_active_branch": "丑",
+      "note": "Day-16 branch is mechanically derived from the general day-count rule plus the explicit lower-half basis switch; the passage directly names the basis, not this derived branch."
+    }
+  },
+  "productization": {
+    "method_id": "ZHONGZHOU-LEAP-MONTH-HALF-SPLIT-R1",
+    "api": "ZIWEI-TEMPORAL-HISTORICAL-CANDIDATE-API-R1@1.2.0",
+    "registry": "ZIWEI-TEMPORAL-HISTORICAL-CANDIDATE-REGISTRY-R1@1.1.0",
+    "runtime": "ZIWEI-TEMPORAL-HISTORICAL-CANDIDATE-RUNTIME-R1@1.1.0",
+    "selection_status": "PRESERVED_NOT_SELECTED",
+    "ordinary_monthly_projection_status": "LEAP_MONTH_UNRESOLVED_NO_FRAME",
+    "ordinary_daily_projection_status": "PARENT_LEAP_MONTH_UNRESOLVED_NO_FRAME",
+    "browser_math_forbidden": true,
+    "production_default_changed": false,
+    "candidate_family_added": false
+  },
+  "matrix_outcome": {
+    "HPA-ZT-015": "MISSING_FROM_PRODUCT -> SUPPORTED_BUT_SCHOOL_SPECIFIC",
+    "HPA-ZTEMP-006": "SUPPORTED_BUT_SCHOOL_SPECIFIC (scope updated; status unchanged)",
+    "current_missing_from_product_row_count": 4,
+    "supported_but_school_specific_count": 25,
+    "historical_candidate_extension_count": 14
+  },
+  "provenance_repair": {
+    "defect_id": "PROV-DEFECT-044",
+    "type": "HPA_ZT_015_STALE_DAY_ORIGIN_AND_SCOPE_DESCRIPTION_AFTER_DIRECT_ZHONGZHOU_WORKED_EXAMPLE_COLLATION",
+    "status": "REPAIRED_FORWARD_ONLY"
+  },
+  "transmission_impact": "NONE",
+  "invariants": {
+    "deterministic_fusion_chart_product_r1": "CLOSED",
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  }
+}

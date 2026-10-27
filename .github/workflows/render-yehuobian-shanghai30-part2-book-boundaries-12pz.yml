@@ -1,0 +1,49 @@
+name: render-yehuobian-shanghai30-part2-book-boundaries-12pz
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/render-yehuobian-shanghai30-part2-book-boundaries-12pz.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  inspect-book-boundaries:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install PDF renderer
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils
+      - name: Acquire Shanghai digital surrogate, preserve unverified edition
+        run: |
+          set -euo pipefail
+          mkdir -p 12pz-sh-bound/source 12pz-sh-bound/pages
+          root='https://commons.wikimedia.org/wiki/Special:Redirect/file'
+          curl -L --fail --retry 5 --retry-all-errors --retry-delay 3 --max-time 1200 -A 'Tianwen-Historical-Provenance-R1/1.0' "$root/Shanghai_%E8%90%AC%E6%9B%86%E9%87%8E%E7%8D%B2%E7%B7%A8%E4%B8%89%E5%8D%81%E5%8D%B7_part_2.pdf" -o 12pz-sh-bound/source/part2.pdf
+          echo '7ea8fe57f5baebd8f2841771d87ec5e3ed34c271e0fe89596a28d2521c9165a6  12pz-sh-bound/source/part2.pdf' | sha256sum -c -
+          pdfinfo 12pz-sh-bound/source/part2.pdf > 12pz-sh-bound/pdfinfo.txt
+          test "$(awk '/^Pages:/ {print $2}' 12pz-sh-bound/pdfinfo.txt)" = 550
+      - name: Render suspected book-section boundaries for manual reading, without OCR
+        run: |
+          set -euo pipefail
+          pages=(1 4 198 200 369 370 537 538 550)
+          for p in "${pages[@]}"; do
+            pdftoppm -f "$p" -l "$p" -r 175 -jpeg -jpegopt quality=91 -singlefile 12pz-sh-bound/source/part2.pdf "12pz-sh-bound/pages/$(printf 'part2-p%04d' "$p")"
+          done
+          test "$(find 12pz-sh-bound/pages -maxdepth 1 -name '*.jpg' | wc -l)" = 9
+          (cd 12pz-sh-bound && sha256sum pages/*.jpg > images-sha256.txt)
+          printf 'SOURCE_SHA256=7ea8fe57f5baebd8f2841771d87ec5e3ed34c271e0fe89596a28d2521c9165a6\nPDF_PAGES=550\nSELECTED_PAGES=1,4,198,200,369,370,537,538,550\nEDITION_1827=NOT_VERIFIED\nOCR=false\nNO_TARGET_GLYPH_CLAIM=true\n' > 12pz-sh-bound/manifest.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: shanghai-yehuobian-part2-book-boundaries-12pz
+          path: |
+            12pz-sh-bound/pages/
+            12pz-sh-bound/images-sha256.txt
+            12pz-sh-bound/pdfinfo.txt
+            12pz-sh-bound/manifest.txt
+          if-no-files-found: error
+          retention-days: 30

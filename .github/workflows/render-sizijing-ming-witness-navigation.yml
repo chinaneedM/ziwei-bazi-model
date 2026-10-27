@@ -1,0 +1,79 @@
+name: render-sizijing-ming-witness-navigation
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/render-sizijing-ming-witness-navigation.yml
+
+permissions:
+  contents: read
+
+jobs:
+  render-navigation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install render dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils
+          python -m pip install --quiet pillow
+      - name: Download public-domain facsimiles
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p research-nav
+          curl -L --fail --retry 3 \
+            'https://commons.wikimedia.org/wiki/Special:Redirect/file/NCL-15275-0058_%E5%9B%9B%E5%AD%97%E7%B6%93.pdf' \
+            -o research-nav/tw-ncl-sizijing.pdf
+          curl -L --fail --retry 3 \
+            'https://commons.wikimedia.org/wiki/Special:Redirect/file/NLC892-411999013864-69586_%E5%A4%B7%E9%96%80%E5%BB%A3%E7%89%98%E4%B8%80%E7%99%BE%E2%97%8B%E5%85%AD%E7%A8%AE_%E7%AC%AC10%E5%86%8A.pdf' \
+            -o research-nav/nlc-yimen-vol10.pdf
+          sha256sum research-nav/*.pdf | tee research-nav/sha256.txt
+          pdfinfo research-nav/tw-ncl-sizijing.pdf > research-nav/tw-ncl-pdfinfo.txt
+          pdfinfo research-nav/nlc-yimen-vol10.pdf > research-nav/nlc-yimen-pdfinfo.txt
+      - name: Render navigation thumbnails without OCR
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p research-nav/tw research-nav/yimen
+          pdftoppm -jpeg -r 55 research-nav/tw-ncl-sizijing.pdf research-nav/tw/page >/dev/null 2>&1
+          pdftoppm -jpeg -r 36 research-nav/nlc-yimen-vol10.pdf research-nav/yimen/page >/dev/null 2>&1
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image, ImageOps, ImageDraw
+          import math
+
+          def sheets(folder, prefix, chunks, cols):
+              files = sorted(Path(folder).glob('page-*.jpg'))
+              for a,b in chunks:
+                  subset = files[a-1:b]
+                  ims=[]
+                  for idx,p in enumerate(subset, start=a):
+                      im=Image.open(p).convert('RGB')
+                      im.thumbnail((180,260))
+                      canvas=Image.new('RGB',(200,300),'white')
+                      x=(200-im.width)//2
+                      canvas.paste(im,(x,20))
+                      d=ImageDraw.Draw(canvas)
+                      d.text((8,280),f'PDF p{idx}',fill='black')
+                      ims.append(canvas)
+                  rows=math.ceil(len(ims)/cols)
+                  out=Image.new('RGB',(cols*200,rows*300),'white')
+                  for i,im in enumerate(ims):
+                      out.paste(im,((i%cols)*200,(i//cols)*300))
+                  out.save(f'research-nav/{prefix}-{a:03d}-{b:03d}.jpg',quality=88)
+
+          sheets('research-nav/tw','tw-contact',[(1,21)],5)
+          sheets('research-nav/yimen','yimen-contact',[(1,60),(61,120),(121,186)],10)
+          PY
+      - name: Upload navigation evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: sizijing-ming-witness-navigation
+          path: |
+            research-nav/*.jpg
+            research-nav/*.txt
+          retention-days: 30

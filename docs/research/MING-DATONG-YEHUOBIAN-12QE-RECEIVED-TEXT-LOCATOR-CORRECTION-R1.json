@@ -1,0 +1,90 @@
+{
+  "schema": "MING-DATONG-YEHUOBIAN-12QE-RECEIVED-TEXT-LOCATOR-CORRECTION-R1",
+  "date": "2026-10-10",
+  "status": "FORWARD_ONLY_CORRECTION_TO_OPEN_12QE_CHECKPOINT_NOT_BATCH_CLOSURE",
+  "supersedes_claims_in": "docs/research/MING-DATONG-YEHUOBIAN-12QE-YUAN-MING-KE-RECEPTION-CROSSWALK-R1.json",
+  "corrections": [
+    {
+      "target_source": "EXT-SHIDIAN-WANGHONGXU-MINGSHIGAO-TIANWEN1-PENGDEQING-1447-12QE",
+      "prior_claim": "This URL directly supports Wang Hongxu Ming Shi Gao 彭德清 and 一刻/一刻",
+      "recheck": "URL opens Ming Shi Gao 卷二十/天文一 but returned webpage lacks 彭德清 and 漏箭 in directly searchable page",
+      "adjudication": "LOCATOR_NOT_VERIFIED_FOR_TARGET; QUARANTINE_ONE_KE_CLAIM_AT_THIS_URL; NO_WHOLE_WORK_NEGATIVE_SEARCH",
+      "url": "https://www.shidianguji.com/book/NA03560/chapter/1m8gn2ryp26us"
+    },
+    {
+      "target_source": "EXT-CTEXT-YUANSHI-V52-SHOUSHI-BEIJING-SOLSTICE-KE-12QE",
+      "prior_claim": "CText page 6270786 cited as inspected Yuan Shi v52 target",
+      "recheck": "Current direct page retrieval fails 403; cannot attest that URL's target text in this session",
+      "adjudication": "ACCESS_BOUNDARY_UNVERIFIED; INDEPENDENTLY_RECHECK_THE_YUAN_TWO_KE_PROFILE_AT_WIKISOURCE",
+      "url": "https://ctext.org/wiki.pl?chapter=6270786&if=gb"
+    },
+    {
+      "target_source": "EXT-CTEXT-WANLI-YEHUOBIAN-V20-GAIZAO-LOUKE-RETROSPECTIVE",
+      "prior_claim": "12QD earlier received text reads winter 二 and summer 二",
+      "recheck": "Direct CText chapter 418967 fetch this session fails HTTP403",
+      "adjudication": "RETAIN_12QD_QUOTED_TRANSCRIPTION_AS_PRIOR_SCOPE_NOT_FRESHLY_VERIFIED; NO_GENERALIZATION_TO_OTHER_WEBSITES",
+      "url": "https://ctext.org/wiki.pl?chapter=418967&if=en"
+    }
+  ],
+  "new_direct_online_received_text": [
+    {
+      "work": "萬曆野獲編",
+      "chapter": "卷20 改造漏刻",
+      "url": "https://zh.wikisource.org/wiki/萬曆野獲編/卷20",
+      "location": "曆法/改造漏刻",
+      "winter_sunrise": "辰初二刻",
+      "summer_sunset": "戌初一刻",
+      "palace_words": [
+        "宮禁",
+        "宮漏"
+      ],
+      "physical_glyph_authority": false,
+      "source_edition": "UNBOUND_RECEIVED_TRANSCRIPTION",
+      "identity_to_ctext_physical_copy": "UNPROVEN"
+    },
+    {
+      "work": "元史",
+      "chapter": "四庫全書本/卷052 晝夜刻",
+      "url": "https://zh.wikisource.org/wiki/元史_(四庫全書本)/卷052",
+      "winter_sunrise": "辰初二刻",
+      "summer_sunset": "戌初二刻",
+      "physical_glyph_authority": false,
+      "source_edition": "LATER_SIKU_RECEIVED_TEXT",
+      "identity_to_ming_1447_record": "DIFFERENT_TECHNICAL_CONTEXT"
+    },
+    {
+      "work": "萬曆野獲編",
+      "edition": "中华书局1959 reprint (NLC511 3-volume file set)",
+      "url": "https://commons.wikimedia.org/wiki/File:NLC511-023031404016561-25336_萬曆野獲編_上冊.pdf",
+      "category_url": "https://commons.wikimedia.org/wiki/Category:萬曆野獲編",
+      "file_role": "LATER_PRINT_FACSIMILE_CATALOG_CONTROL_NOT_1827_PHYSICAL_TARGET_GLYPH",
+      "publication_date": "1959",
+      "target_page_reviewed": false
+    }
+  ],
+  "unresolved": [
+    "Obtain original 20-volume text target folio",
+    "Obtain 1827 Fuli Shan Fang printed target image",
+    "Recover CText base-copy identity and page",
+    "Find actual Wang Hongxu one-ke original target page or withdraw historic attribution"
+  ],
+  "counts": {
+    "root_registry": 647,
+    "extension_registry": 5,
+    "combined_registry": 652,
+    "matrix_rows": 222,
+    "audited_rows": 222,
+    "confirmed_algorithm_defects": 0
+  },
+  "transmission_impact": {
+    "status": "NO_NEW_CONFIRMED_LINEAGE_EDGE",
+    "rejected_shortcuts": [
+      "Wikisource 2/1 cannot automatically be treated as CText 2/2",
+      "Wang Hongxu page title does not demonstrate exact Peng Deqing quotation",
+      "1959 Chung Hwa 3-volume metadata does not identify 1827 scanned original",
+      "Yuan 2/2 does not prove Ming 1447 transmission"
+    ]
+  },
+  "product_status": "CLOSED",
+  "batch_status": "12QE_OPEN"
+}

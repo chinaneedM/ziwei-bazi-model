@@ -1,0 +1,123 @@
+{
+  "schema": "JOSEON-1444-CHILJEONGSAN-EARLY-TABLE-WITNESS-ROUTES-R1",
+  "schema_version": "1.0.0",
+  "status": "G894_1444_PRINT_AND_SEJONG_SILLOK_TABLE_ROUTES_BOUND_TARGET_GLYPHS_PENDING",
+  "purpose": "Add independent early-Joseon Shoushi/Datong-derived table witnesses to the cross-edition transmission audit without conflating them with Kyujanggak G893.",
+  "witnesses": {
+    "kyujanggak_g894": {
+      "source_id": "EXT-KYUJANGGAK-CHILJEONGSAN-NAEPYEON-G894-1444",
+      "title": "七政算內篇",
+      "catalog_identifier": "奎貴894-v.1-3",
+      "authors": "李純之、金淡受命編",
+      "edition": "甲寅字",
+      "publication_year": 1444,
+      "provider_catalog_status": "DIRECT",
+      "original_images_advertised": true,
+      "original_text_advertised": true,
+      "observed_catalog_image_surface_book_cd": "GK00894_00",
+      "relationship_to_g893": "SEPARATE_WORK_AND_SEPARATE_CATALOG_OBJECT; ADJACENT_PRECIOUS_BOOK_CALL_NUMBER_DOES_NOT_PROVE_SHARED_IMPRESSION_OR_COPY_GENEALOGY",
+      "target_glyph_authority": "PENDING_EXACT_PAGE_BINDING"
+    },
+    "sejong_sillok_v156": {
+      "source_id": "EXT-NIKH-SEJONG-SILLOK-V156-CHILJEONGSAN-TABLES",
+      "role": "OFFICIAL_VERITABLE_RECORDS_TRANSMISSION_WITH_PUBLIC_TAEBAEKSAN_ORIGINAL_IMAGE_SERVICE",
+      "relationship_to_g894": "TRANSMITS_CHILJEONGSAN_TABLE_CONTENT_BUT_IS_NOT_ASSUMED_TO_BE_PIXEL_OR_GLYPH_IDENTICAL_TO_THE_1444_G894_PRINT",
+      "relationship_to_g893": "SEPARATE_TEXTUAL_AND_PHYSICAL_TRANSMISSION_LAYER_NOT_G893",
+      "solar": {
+        "article_id": "wda_50016011",
+        "title": "太陽冬至前後二象盈初縮末限",
+        "taebaeksan_location": "60冊 156卷 6張 A面",
+        "national_history_reprint_location": "6冊 3面",
+        "embedded_image_segments": 2,
+        "target_d16_status": "PENDING_DIRECT_TABLE_GLYPH_READING"
+      },
+      "lunar": {
+        "article_id": "wda_50016016",
+        "title": "太陰限數遲疾度",
+        "taebaeksan_location": "60冊 156卷 13張 A面",
+        "national_history_reprint_location": "6冊 7面",
+        "embedded_image_segments": 4,
+        "l8_status": "PENDING_DIRECT_TABLE_GLYPH_READING",
+        "l101_status": "PENDING_DIRECT_TABLE_GLYPH_READING_AND_POSITIONAL_ADJUDICATION",
+        "l114_status": "PENDING_DIRECT_TABLE_GLYPH_READING",
+        "l124_status": "PENDING_DIRECT_TABLE_GLYPH_READING_AND_FIELD_IDENTITY",
+        "l132_status": "PENDING_DIRECT_TABLE_GLYPH_READING"
+      },
+      "original_image_infrastructure": {
+        "viewer_pattern_evidence_source": "PUBLIC_TECHNICAL_DOCUMENTATION_OF_SILLOK_VIEWER",
+        "known_pattern": "/popup/viewer.do?type=view&id=<article_image_id>",
+        "image_proxy_pattern": "/viewer/imageProxy.do?filePath=/s_img/SILLOK/<image-id>.jpg",
+        "current_project_exact_target_image_ids": "NOT_YET_EXTRACTED",
+        "inference_from_pattern_to_target_glyph": "FORBIDDEN"
+      }
+    }
+  },
+  "compilation_history": {
+    "naepyeon_completed": 1442,
+    "naepyeon_published": 1444,
+    "official_history_source_id": "EXT-NIKH-CHILJEONGSAN-HISTORY-1444",
+    "provider_g894_publication_year": 1444,
+    "distinction": "COMPOSITION_PUBLICATION_DATE_IS_NOT_THE_DATE_OF_EVERY_LATER_SILLOK_PHYSICAL_COPY"
+  },
+  "target_controls": [
+    {
+      "control_id": "VAR-NUM-SOLAR-WINTER-D16-DIFFERENCE",
+      "g894_status": "PENDING_EXACT_TARGET_FOLIO",
+      "sillok_status": "TABLE_ARTICLE_AND_PHYSICAL_LOCATION_BOUND_TARGET_GLYPH_PENDING",
+      "g893_effect": "NONE"
+    },
+    {
+      "control_id": "VAR-NUM-LUNAR-L8-LOSSGAIN",
+      "g894_status": "PENDING_EXACT_TARGET_FOLIO",
+      "sillok_status": "TABLE_ARTICLE_AND_PHYSICAL_LOCATION_BOUND_TARGET_GLYPH_PENDING",
+      "g893_effect": "NONE"
+    },
+    {
+      "control_id": "NORM-LUNAR-L101-CHIJI-DEGREE-POSITIONAL-GROUPING",
+      "g894_status": "PENDING_EXACT_TARGET_FOLIO_AND_POSITIONAL_READING",
+      "sillok_status": "TABLE_ARTICLE_AND_PHYSICAL_LOCATION_BOUND_TARGET_GLYPH_PENDING",
+      "g893_effect": "NONE"
+    },
+    {
+      "control_id": "VAR-NUM-LUNAR-L114-DAYRATE",
+      "g894_status": "PENDING_EXACT_TARGET_FOLIO",
+      "sillok_status": "TABLE_ARTICLE_AND_PHYSICAL_LOCATION_BOUND_TARGET_GLYPH_PENDING",
+      "g893_effect": "NONE"
+    },
+    {
+      "control_id": "VAR-NUM-LUNAR-L124-JI-XINGDU",
+      "g894_status": "PENDING_EXACT_TARGET_FOLIO_AND_FIELD_IDENTITY",
+      "sillok_status": "TABLE_ARTICLE_AND_PHYSICAL_LOCATION_BOUND_TARGET_GLYPH_AND_FIELD_IDENTITY_PENDING",
+      "g893_effect": "NONE"
+    },
+    {
+      "control_id": "VAR-NUM-LUNAR-L132-LOSSGAIN",
+      "g894_status": "PENDING_EXACT_TARGET_FOLIO",
+      "sillok_status": "TABLE_ARTICLE_AND_PHYSICAL_LOCATION_BOUND_TARGET_GLYPH_PENDING",
+      "g893_effect": "NONE"
+    }
+  ],
+  "epistemic_boundaries": {
+    "g894_as_g893": "FORBIDDEN",
+    "adjacent_call_number_as_shared_copy_genealogy": "FORBIDDEN",
+    "sejong_sillok_table_as_1444_g894_same_glyph_surface": "FORBIDDEN",
+    "article_embedded_image_as_read_numeric_value": "FORBIDDEN",
+    "viewer_url_pattern_as_target_image_binding": "FORBIDDEN",
+    "composition_year_as_surviving_sillok_copy_date": "FORBIDDEN",
+    "value_prepopulation_from_ming_goryeosa_ogawa": "FORBIDDEN",
+    "source_count_as_variant_adjudication": "FORBIDDEN",
+    "algorithm_or_runtime_selection_effect": "NONE"
+  },
+  "significance": [
+    "Adds a provider-dated 1444 Joseon official computational print witness (G894) to the transmission graph.",
+    "Adds official Sejong Sillok article-level and Taebaeksan leaf-level localization for the same solar and lunar table families.",
+    "Creates a non-G893 route to test whether the disputed Goryeosa/Ming surfaces persisted or changed in mid-15th-century Joseon computation.",
+    "Does not reduce any of the six G893 target statuses from pending."
+  ],
+  "next_work": [
+    "Extract or directly render the Sillok original-image viewer identifiers for wda_50016011 and wda_50016016, then read target cells without OCR.",
+    "Bind Kyujanggak G894 exact solar and lunar table folios through its original-image service.",
+    "Compare G894, Sejong Sillok, G893 and Goryeosa only after each exact target cell is independently read.",
+    "Preserve G893 as the required independent Shoushi-licheng physical witness; do not substitute G894 or Sillok for it."
+  ]
+}

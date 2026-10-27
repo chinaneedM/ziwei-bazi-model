@@ -1,0 +1,175 @@
+{
+  "schema": "ZIWEI-ZJLIB-TIEQIN-2024-OFFICIAL-PDF-TOKEN-ROUTE-ACCESS-BOUNDARY-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-ZJLIB-TIEQIN-2024-OFFICIAL-PDF-TOKEN-ROUTE-ACCESS-BOUNDARY-II",
+  "prior_batch_id": "BATCH-12-ZIWEI-NDL-DIRECT-PAGE-REMOTE-COPY-POLICY-BOUNDARY-IH",
+  "question": "Can the Zhejiang Library official 2024 article 《郑振铎与铁琴铜剑楼藏书捐献》 be lawfully materialized as direct PDF bytes through the public article site's own current download contract, and if not, what exact access boundary is demonstrated without invoking purchase/payment flows?",
+  "answer": "The first-party article/index surface and current front-end download contract are directly observed, including status=1 preflight responses and tokenized PDF, PDF_CN and PDF_Mobile route families. However, exact browser-form-equivalent POST requests to all three source-emitted route families return the same 3,241-byte HTML server 404 wrapper rather than PDF bytes. This closes the tested public route at a current access/materialization boundary only. It does not prove that no PDF exists, does not review the article full text, and adds no target-specific evidence for FID070, its Qu donation batch/date, or the 3368→3288 mechanism.",
+  "official_public_article": {
+    "source_id": "EXT-ZJLIB-TIEQIN-DONATION-2024-ARTICLE1783",
+    "provider": "浙江图书馆《图书馆研究与工作》编辑部",
+    "title": "郑振铎与铁琴铜剑楼藏书捐献",
+    "authors": [
+      "蔡成普",
+      "李静"
+    ],
+    "journal": "图书馆研究与工作",
+    "year": 2024,
+    "issue": 7,
+    "printed_start_page": 46,
+    "publication_date": "2024-07-10",
+    "article_id": 1783,
+    "official_article_url": "https://bjb.zjlib.cn/CN/Y2024/V0/I7/46",
+    "official_lexeme_url": "https://bjb.zjlib.cn/CN/lexeme/showArticleByLexeme.do?articleID=1783",
+    "official_issue_url": "https://bjb.zjlib.cn/CN/Y2024/V0/I7",
+    "public_surface_pdf_display": "PDF(549 KB)",
+    "public_surface_pdf_advertised": true,
+    "direct_pdf_bytes_recovered": false
+  },
+  "official_frontend_contract": {
+    "download_script_url": "https://bjb.zjlib.cn/develop/static/common/js/download_cn.js",
+    "helper_script_url": "https://bjb.zjlib.cn/develop/static/common/js/common_cn.js",
+    "preflight_endpoint": "https://bjb.zjlib.cn/CN/article/showArticleFile.do",
+    "preflight_attach_types": [
+      "PDF",
+      "PDF_CN",
+      "PDF_Mobile"
+    ],
+    "preflight_status_by_attach_type": {
+      "PDF": 1,
+      "PDF_CN": 1,
+      "PDF_Mobile": 1
+    },
+    "token_route_families": {
+      "PDF": "/CN/PDF/1783?token=<ephemeral>",
+      "PDF_CN": "/CN/PDF_CN/1783?token=<ephemeral>",
+      "PDF_Mobile": "/CN/PDF_Mobile/1783?token=<ephemeral>"
+    },
+    "download_pdf_target": "_self",
+    "mag_request_default_method": "POST",
+    "mag_request_pdf_hidden_form_data": false,
+    "ephemeral_tokens_persisted": false,
+    "shopping_or_payment_endpoint_invoked": false
+  },
+  "exact_head_probe": {
+    "commit_sha": "0907f5508cee8d41825db6fa5c9c926ff3314e27",
+    "tree_sha": "3d01cf0f7f7ef8c19f3272fc20eebde2739ea811",
+    "workflow_run_id": 36683181763,
+    "job_id": 109782990476,
+    "artifact_id": 11082164368,
+    "artifact_digest": "sha256:854e88d6cd0a1225f5995d6fcd811165cfca9c50d86964614cc28c4dadb1d796",
+    "artifact_size_bytes": 19056,
+    "ocr_used": false,
+    "route_results": [
+      {
+        "attach_type": "PDF",
+        "route_family": "/CN/PDF/1783",
+        "request_semantics": "OFFICIAL_MAG_REQUEST_DEFAULT_POST_EMPTY_FORM_DATA",
+        "http_transport_status": 200,
+        "content_type": "text/html;charset=UTF-8",
+        "bytes": 3241,
+        "sha256": "9c47ea7957afef955da0248c47be6a49c274287abcbe061a7710d7bcbb9ca999",
+        "magic_hex": "0d0a3c21444f4354",
+        "content_class": "SERVER_HTTP404_WRAPPER_HTML",
+        "body_title": "HTTP404 无法找到页面",
+        "pdf_magic": false
+      },
+      {
+        "attach_type": "PDF_CN",
+        "route_family": "/CN/PDF_CN/1783",
+        "request_semantics": "OFFICIAL_MAG_REQUEST_DEFAULT_POST_EMPTY_FORM_DATA",
+        "http_transport_status": 200,
+        "content_type": "text/html;charset=UTF-8",
+        "bytes": 3241,
+        "sha256": "9c47ea7957afef955da0248c47be6a49c274287abcbe061a7710d7bcbb9ca999",
+        "magic_hex": "0d0a3c21444f4354",
+        "content_class": "SERVER_HTTP404_WRAPPER_HTML",
+        "body_title": "HTTP404 无法找到页面",
+        "pdf_magic": false
+      },
+      {
+        "attach_type": "PDF_Mobile",
+        "route_family": "/CN/PDF_Mobile/1783",
+        "request_semantics": "OFFICIAL_MAG_REQUEST_DEFAULT_POST_EMPTY_FORM_DATA",
+        "http_transport_status": 200,
+        "content_type": "text/html;charset=UTF-8",
+        "bytes": 3241,
+        "sha256": "9c47ea7957afef955da0248c47be6a49c274287abcbe061a7710d7bcbb9ca999",
+        "magic_hex": "0d0a3c21444f4354",
+        "content_class": "SERVER_HTTP404_WRAPPER_HTML",
+        "body_title": "HTTP404 无法找到页面",
+        "pdf_magic": false
+      }
+    ],
+    "all_three_exact_route_families_same_404_body_hash": true,
+    "selected_pdf": null
+  },
+  "access_boundary": {
+    "official_article_surface_reviewed": true,
+    "official_download_frontend_contract_reviewed": true,
+    "public_token_route_preflight_closed": true,
+    "exact_source_emitted_route_families_tested": [
+      "PDF",
+      "PDF_CN",
+      "PDF_Mobile"
+    ],
+    "public_direct_pdf_recovered": false,
+    "direct_article_fulltext_reviewed": false,
+    "direct_article_page_text_increment": 0,
+    "server_response_boundary": "HTTP_200_TRANSPORT_WITH_SERVER_HTTP404_WRAPPER_HTML",
+    "absence_of_pdf_globally_asserted": false,
+    "account_login_executed": false,
+    "shopping_or_payment_endpoint_invoked": false,
+    "payment_executed": false,
+    "boundary_status": "OFFICIAL_PUBLIC_DOWNLOAD_CONTRACT_OBSERVED_CURRENT_TOKEN_ROUTES_DO_NOT_MATERIALIZE_PDF"
+  },
+  "object_identity_firewall": {
+    "official_article_scope": "COLLECTION_LEVEL_QU_DONATION_HISTORY_AND_SOURCE_LEADS",
+    "quoted_1951_member": "宋刻《春秋左传注疏》",
+    "fid070_physical_research_adjudication": "元刻元印十行本",
+    "exact_identity_with_fid070": "UNRESOLVED",
+    "same_object_collapse_authorized": false,
+    "exact_fid070_donation_batch": "UNRESOLVED",
+    "exact_fid070_donation_date": "UNRESOLVED",
+    "exact_3368_to_3288_causal_mechanism": "UNRESOLVED"
+  },
+  "adjudication": {
+    "zjlib_2024_article_first_party_metadata": "CLOSED",
+    "zjlib_current_public_download_contract": "CLOSED",
+    "zjlib_current_public_pdf_materialization": "CLOSED_NO_PDF_BYTES_OBSERVED_ON_TESTED_SOURCE_EMITTED_TOKEN_ROUTES",
+    "direct_2024_article_fulltext": "NOT_REVIEWED",
+    "direct_2011_page197": "NOT_REVIEWED",
+    "direct_1951_original_article": "NOT_REVIEWED",
+    "direct_ji_shuying_chapter9": "NOT_REVIEWED",
+    "chart_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false
+  },
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": [],
+    "direct_copy_edge_authorized": false,
+    "same_object_edge_authorized": false,
+    "acquisition_edge_authorized": false,
+    "reason": "The batch closes a public access route only and supplies no new object-identity or transmission relation."
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Return priority to lawful direct-page recovery of 2011 《赵万里文集》第1卷 p.197 or 1951 《文物参考资料》第9期 pp.221–233 rather than repeating the now-closed Zhejiang public token-route family.",
+    "Continue authoritative direct page-range/full-text discovery for 冀淑英《冀淑英古籍善本十五讲》第九讲《铁琴铜剑楼藏书的收购入藏》.",
+    "Keep FID070 exact Qu donation batch/date and 3368→3288 causal mechanism unresolved until target-specific documentary evidence appears.",
+    "If public direct-page routes remain closed, NDL registered paid remote-copy remains the explicit-authorization-gated fallback; do not log in, submit, transmit identity or pay without user authorization."
+  ],
+  "updated_at": "2026-09-30"
+}

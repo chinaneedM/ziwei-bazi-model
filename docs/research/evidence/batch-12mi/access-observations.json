@@ -1,0 +1,78 @@
+{
+  "google-volume": {
+    "url": "https://books.google.de/books?cad=2&hl=de&id=-RGcXtePnoQC&source=gbs_book_other_versions_r",
+    "started_at": "2026-10-04T09:18:13Z",
+    "execution": "LOCAL_WORK_MODE_NETWORK",
+    "status": 429,
+    "final_url": "https://www.google.com/sorry/index?continue=https://books.google.de/books%3Fcad%3D2%26hl%3Dde%26id%3D-RGcXtePnoQC%26source%3Dgbs_book_other_versions_r&hl=de&q=EhAqE5UAAeQITwAAAAABjQFRGNyziNYGIi7oF8dOFyljNgrzfOOdiKc5cqBDuXSYIh3BD1qb_KdSWy3Ph3EzVN6tQhzJWhcVMgJyUloBQw",
+    "content_type": "text/html",
+    "bytes": 3627,
+    "sha256": "c1156d4f411bb250f754422e03a18266b4e31662c272cd8ad467436cf46a38c6",
+    "boundary": "CAPTCHA_REDIRECT",
+    "raw_body_stored_in_repository": false
+  },
+  "google-api": {
+    "url": "https://www.googleapis.com/books/v1/volumes/-RGcXtePnoQC",
+    "started_at": "2026-10-04T09:21:04.106924+00:00",
+    "execution": "LOCAL_WORK_MODE_NETWORK",
+    "status": 429,
+    "final_url": "https://www.googleapis.com/books/v1/volumes/-RGcXtePnoQC",
+    "content_type": "application/json; charset=UTF-8",
+    "bytes": 1306,
+    "sha256": "0acce297db508a309986c5bba994091015dc6c9b76dcb661d9712647fb0e75ce",
+    "boundary": "RESOURCE_EXHAUSTED_QUOTA",
+    "raw_body_stored_in_repository": false
+  },
+  "hathitrust-online-oclc": {
+    "url": "https://catalog.hathitrust.org/api/volumes/brief/oclc/647437409.json",
+    "started_at": "2026-10-04T09:02:43Z",
+    "role": "READ_ONLY_12MI_PRELIMINARY_NOT_COMMITTED_12MH_EVIDENCE",
+    "status": 403,
+    "bytes": 239,
+    "sha256": "ab768623070128ccef048c88def86155dbe776c3d8db423cc8fa89432673d8a8",
+    "error": "Expecting value: line 1 column 1 (char 0)",
+    "execution": "LOCAL_WORK_MODE_NETWORK",
+    "collected_before_12MH_commit": true,
+    "first_committed_batch": "BATCH-12-ZIWEI-WENWU1951-GOOGLE-AGGREGATE-YEAR-BOUNDARY-MI",
+    "raw_body_stored_in_repository": false
+  },
+  "hathitrust-positive-control": {
+    "url": "https://catalog.hathitrust.org/api/volumes/brief/oclc/424023.json",
+    "execution": "LOCAL_WORK_MODE_NETWORK",
+    "observed_date": "2026-10-04",
+    "exact_timestamp_preserved": false,
+    "collected_before_12MH_commit": true,
+    "first_committed_batch": "BATCH-12-ZIWEI-WENWU1951-GOOGLE-AGGREGATE-YEAR-BOUNDARY-MI",
+    "status": 403,
+    "bytes": 239,
+    "sha256": "ab768623070128ccef048c88def86155dbe776c3d8db423cc8fa89432673d8a8",
+    "boundary": "SAME_403_AS_TARGET",
+    "raw_body_stored_in_repository": false
+  },
+  "google-endnote": {
+    "url": "https://books.google.de/books/download/%E6%96%87%E7%89%A9%E5%8F%82%E8%80%83%E8%B3%87%E6%96%99.enw?hl=de&id=-RGcXtePnoQC&output=enw",
+    "execution": "LOCAL_WORK_MODE_NETWORK",
+    "observed_date": "2026-10-04",
+    "exact_timestamp_preserved": false,
+    "collected_before_12MH_commit": true,
+    "first_committed_batch": "BATCH-12-ZIWEI-WENWU1951-GOOGLE-AGGREGATE-YEAR-BOUNDARY-MI",
+    "status": 429,
+    "bytes": 3731,
+    "sha256": "0847cea60bfbcf7f37f642cc70e512009b7f155a04298bb5f925e98032a476eb",
+    "boundary": "CAPTCHA",
+    "raw_body_stored_in_repository": false
+  },
+  "nla-catalogue": {
+    "url": "https://catalogue.nla.gov.au/catalog/1841982",
+    "execution": "LOCAL_WORK_MODE_NETWORK",
+    "observed_date": "2026-10-04",
+    "exact_timestamp_preserved": false,
+    "collected_before_12MH_commit": true,
+    "first_committed_batch": "BATCH-12-ZIWEI-WENWU1951-GOOGLE-AGGREGATE-YEAR-BOUNDARY-MI",
+    "status": 200,
+    "bytes": 7438,
+    "sha256": "4679b0b32ac7c6eb3bdc24ac9bf66a11fa8d6a561bf230342437bfcdd794ab33",
+    "boundary": "ANUBIS_CHALLENGE_NOT_CATALOGUE",
+    "raw_body_stored_in_repository": false
+  }
+}

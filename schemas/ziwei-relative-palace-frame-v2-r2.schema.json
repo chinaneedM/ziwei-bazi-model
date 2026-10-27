@@ -1,0 +1,126 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/chinaneedM/ziwei-bazi-model/schemas/ziwei-relative-palace-frame-v2-r2.schema.json",
+  "title": "Ziwei Structural Runtime V2-R2 Relative Palace Frame State",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "upstream_structural_fact_hash",
+    "upstream_structural_computation_hash",
+    "profile",
+    "frame_facts",
+    "integrity",
+    "hashes",
+    "schema"
+  ],
+  "properties": {
+    "upstream_structural_fact_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "upstream_structural_computation_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "profile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "profile_id",
+        "profile_version",
+        "natal_profile_id",
+        "natal_profile_version",
+        "structural_r1_profile_id",
+        "structural_r1_profile_version",
+        "relative_frame_algorithm_id",
+        "relative_frame_algorithm_version",
+        "semantic_rule_set_id",
+        "semantic_rule_set_version"
+      ],
+      "properties": {
+        "profile_id": {"const": "ZIWEI-STRUCTURAL-RUNTIME-V2-R2"},
+        "profile_version": {"const": "1.0.0"},
+        "natal_profile_id": {"const": "ZIWEI-CHART-ENGINE-V1"},
+        "natal_profile_version": {"const": "1.0.0"},
+        "structural_r1_profile_id": {"const": "ZIWEI-STRUCTURAL-RUNTIME-V2-R1"},
+        "structural_r1_profile_version": {"const": "1.0.0"},
+        "relative_frame_algorithm_id": {"const": "ZIWEI-RELATIVE-PALACE-FRAME"},
+        "relative_frame_algorithm_version": {"const": "1.0.0"},
+        "semantic_rule_set_id": {"type": ["string", "null"]},
+        "semantic_rule_set_version": {"type": ["string", "null"]}
+      }
+    },
+    "frame_facts": {
+      "type": "array",
+      "minItems": 144,
+      "maxItems": 144,
+      "items": {"$ref": "#/$defs/relativePalaceRoleFact"}
+    },
+    "integrity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "diagnostics", "algorithm_id", "algorithm_version"],
+      "properties": {
+        "status": {"enum": ["PASS", "FAIL"]},
+        "diagnostics": {"type": "array", "items": {"$ref": "#/$defs/integrityDiagnostic"}},
+        "algorithm_id": {"const": "ZIWEI-RELATIVE-PALACE-FRAME-INTEGRITY-HASH-V2-R2"},
+        "algorithm_version": {"const": "1.0.0"}
+      }
+    },
+    "hashes": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["fact_hash", "computation_hash", "algorithm_id", "algorithm_version"],
+      "properties": {
+        "fact_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "computation_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "algorithm_id": {"const": "ZIWEI-RELATIVE-PALACE-FRAME-INTEGRITY-HASH-V2-R2"},
+        "algorithm_version": {"const": "1.0.0"}
+      }
+    },
+    "schema": {"const": "ZIWEI-RELATIVE-PALACE-FRAME-STATE-V2-R2"}
+  },
+  "$defs": {
+    "designationId": {
+      "enum": [
+        "LIFE", "SIBLINGS", "SPOUSE", "CHILDREN", "WEALTH", "HEALTH",
+        "TRAVEL", "SERVANTS_FRIENDS", "CAREER", "PROPERTY", "FORTUNE", "PARENTS"
+      ]
+    },
+    "address": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["index", "branch"],
+      "properties": {
+        "index": {"type": "integer", "minimum": 0, "maximum": 11},
+        "branch": {"enum": ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"]}
+      }
+    },
+    "relativePalaceRoleFact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "origin_designation_id",
+        "origin_address",
+        "relative_ordinal",
+        "relative_role_designation_id",
+        "target_designation_id",
+        "target_address",
+        "clockwise_offset"
+      ],
+      "properties": {
+        "origin_designation_id": {"$ref": "#/$defs/designationId"},
+        "origin_address": {"$ref": "#/$defs/address"},
+        "relative_ordinal": {"type": "integer", "minimum": 1, "maximum": 12},
+        "relative_role_designation_id": {"$ref": "#/$defs/designationId"},
+        "target_designation_id": {"$ref": "#/$defs/designationId"},
+        "target_address": {"$ref": "#/$defs/address"},
+        "clockwise_offset": {"type": "integer", "minimum": 0, "maximum": 11}
+      }
+    },
+    "integrityDiagnostic": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["code", "path", "detail"],
+      "properties": {
+        "code": {"type": "string", "minLength": 1},
+        "path": {"type": "string", "minLength": 1},
+        "detail": {"type": "string", "minLength": 1}
+      }
+    }
+  }
+}

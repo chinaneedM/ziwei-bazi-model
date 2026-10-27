@@ -1,0 +1,112 @@
+{
+  "schema": "TIME-MODERN-CHINESE-CALENDAR-CONSTRUCTION-AUDIT-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-TIME-MODERN-CHINESE-CALENDAR-CONSTRUCTION-AUDIT-NE",
+  "prior_batch_id": "BATCH-12-TIME-AMBIGUOUS-CIVIL-FOLD-GAP-HANDLING-AUDIT-ND",
+  "rule_id": "HPA-TIME-004",
+  "audit_status": "MODERN_COMPATIBILITY_ONLY",
+  "algorithm_reopen_authorized": false,
+  "rule_structure": {
+    "standard_reference": "GB/T 33661-2017",
+    "standard_status": "CURRENT",
+    "standard_time": "BEIJING_STANDARD_TIME_FIXED_UTC_PLUS_08",
+    "new_moon_day_is_month_day_1": true,
+    "winter_solstice_month_number": 11,
+    "leap_rule": "FIRST_MONTH_WITHOUT_PRINCIPAL_TERM_WHEN_13_MONTHS_BETWEEN_MONTH_11S",
+    "implementation_rule_structure_match": true
+  },
+  "numerical_conformance_boundary": {
+    "standard_requires_iers_model_scope": true,
+    "standard_event_time_precision_seconds": 1,
+    "repository_engine": "Astronomy Engine",
+    "upstream_accuracy_contract": "APPROX_PLUS_MINUS_1_ARCMINUTE_POSITIONAL_TARGET",
+    "strict_gbt_model_conformance_certified": false,
+    "strict_gbt_one_second_event_timing_certified": false
+  },
+  "support_range_boundary": {
+    "repository_supported_years": [
+      1901,
+      2100
+    ],
+    "hko_published_conversion_table_years": [
+      1901,
+      2100
+    ],
+    "interpretation": "OPERATIONAL_SUPPORT_AND_OFFICIAL_ORACLE_HORIZON_NOT_EXHAUSTIVE_FULL_RANGE_VALIDATION",
+    "hko_forecast_new_moon_near_midnight_dates": [
+      "2057-09-28",
+      "2089-09-04",
+      "2097-08-07"
+    ],
+    "hko_warns_relevant_date_may_differ_by_one_day": true
+  },
+  "historical_firewall": {
+    "modern_adapter_is_historical_dynastic_authority": false,
+    "historical_calendar_contract": "docs/HISTORICAL-CHINESE-CALENDAR-ADAPTER-CONTRACT-R1.md",
+    "ming_qing_back_projection_forbidden": true
+  },
+  "provenance_repairs": [
+    {
+      "defect_id": "PROV-DEFECT-024",
+      "defect": "MODERN_CHINESE_CALENDAR_1901_2100_SUPPORT_RANGE_MISLABELED_AS_VALIDATED_RANGE",
+      "repair": "Relabel 1901-2100 as operational support aligned to HKO's published conversion-table horizon; selected HKO oracles do not constitute exhaustive full-range validation.",
+      "chart_algorithm_effect": false,
+      "candidate_effect": false
+    },
+    {
+      "defect_id": "PROV-DEFECT-025",
+      "defect": "GBT33661_RULE_COMPATIBILITY_MISLABELED_AS_STRICT_NUMERICAL_CONFORMANCE",
+      "repair": "Expose rule-structure compatibility separately from strict numerical certification; record that IERS-model and 1-second event-time conformance are not certified for the Astronomy Engine realization.",
+      "chart_algorithm_effect": false,
+      "candidate_effect": false
+    }
+  ],
+  "runtime_provenance_addition": {
+    "calendar_class_metadata": [
+      "standard_reference",
+      "standard_conformance",
+      "support_range_basis",
+      "hko_forecast_new_moon_boundary_uncertainty_dates"
+    ],
+    "audit_trace_metadata": [
+      "standard_reference",
+      "standard_conformance",
+      "support_range",
+      "support_range_basis"
+    ],
+    "lunar_date_algorithm_version_already_emitted": true
+  },
+  "unchanged_mechanics": [
+    "new-moon search",
+    "fixed UTC+08 date conversion",
+    "winter-solstice month selection",
+    "principal-term containment by Chinese-calendar day",
+    "leap-month selection",
+    "month numbering",
+    "lunar day calculation"
+  ],
+  "evidence": "docs/research/evidence/batch-12ne/modern-chinese-calendar-authority-boundary.json",
+  "accounting": {
+    "rows_before": 220,
+    "rows_after": 220,
+    "audited_rows_before": 208,
+    "audited_rows_after": 209,
+    "current_missing_from_product_rows": 10,
+    "provenance_defects_confirmed_before": 23,
+    "provenance_defects_confirmed_after": 25,
+    "provenance_defects_repaired_before": 23,
+    "provenance_defects_repaired_after": 25,
+    "chart_algorithm_defects": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0,
+    "new_provenance_defects": 2
+  },
+  "transmission_impact": {
+    "status": "NONE",
+    "reason": "Modern national-calendar standard/runtime provenance adds no historical Ziwei/Bazi transmission edge."
+  },
+  "next_gate": [
+    "12NF: audit HPA-TIME-011 Approximate birth-time candidate sampling as operational uncertainty policy.",
+    "Keep sampling mechanics separate from classical doctrine and verify coverage/reproducibility bounds."
+  ]
+}

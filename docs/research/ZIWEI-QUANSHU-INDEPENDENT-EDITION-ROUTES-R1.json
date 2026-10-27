@@ -1,0 +1,123 @@
+{
+  "schema": "ZIWEI-QUANSHU-INDEPENDENT-EDITION-ROUTES-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-QUANSHU-INDEPENDENT-EDITION-ROUTES-C",
+  "status": "INDEPENDENT_FULLBOOK_EDITION_ROUTES_BOUND_NO_INDEPENDENT_TARGET_PAGE_OBSERVED",
+  "research_workflow": {
+    "workflow": ".github/workflows/research-ziwei-quanshu-edition-routes.yml",
+    "workflow_run_id": 34120317222,
+    "artifact_id": 10017909080,
+    "artifact_name": "ziwei-quanshu-independent-edition-routes",
+    "ocr_used": false,
+    "authentication_or_paywall_bypass_attempted": false,
+    "identifier_bruteforce_attempted": false
+  },
+  "heart_one_wenguangtang_facsimile": {
+    "source_id": "EXT-XINYITANG-ZWDSQS-WENGUANG-FACSIMILE-2017",
+    "isbn": "9789888266944",
+    "official_url": "https://publish.sunyata.hk/product/973.html",
+    "official_probe": {
+      "http_status": 200,
+      "bytes": 112992,
+      "sha256": "a38c86b18471cbb500b10e536c762887b7727356d073be5875ca7e10d9c8ef8d"
+    },
+    "publisher_described_base_copies": [
+      {
+        "name": "敦化堂刊本",
+        "block_family": "文光堂木刻板",
+        "period": "清刷明末清初",
+        "relative_note": "PUBLISHER_SAYS_SOMEWHAT_EARLIER_THAN_JISHUTANG"
+      },
+      {
+        "name": "繼述堂刊本",
+        "block_family": "文光堂木刻板",
+        "period": "清刷明末清初",
+        "relative_note": "PUBLISHER_SAYS_RED_BLACK_COLLATION_MARKS_PRESENT"
+      }
+    ],
+    "target_page_exposed": false,
+    "evidence_class": "PUBLISHER_BIBLIOGRAPHIC_FACSIMILE_BASE_IDENTITY_NOT_TARGET_GLYPH"
+  },
+  "corroborating_public_routes": {
+    "buybook": {
+      "http_status": 200,
+      "bytes": 53133,
+      "sha256": "c66963ec1f43f90f609bb7250165759771721198c1162dea74e49697c10470cd",
+      "matched": "DUNHUATANG_JISHUTANG_WENGUANGTANG_ISBN"
+    },
+    "xingqiao": {
+      "http_status": 200,
+      "bytes": 45544,
+      "sha256": "3e6510aec36e08a78c6a3cff9b6a4edb24a1dee8d2df72edadbaa066353d84e1",
+      "matched": "DUNHUATANG_JISHUTANG_WENGUANGTANG_ISBN"
+    }
+  },
+  "wenchengtang_route": {
+    "source_id": "EXT-XINYITANG-ZWDSQS-WENCHENGTANG-COLLATION",
+    "official_url": "https://publish.sunyata.hk/product/972.html",
+    "official_probe": {
+      "http_status": 200,
+      "bytes": 111720,
+      "sha256": "4b424d017441c52a231361aa6d1e42c11aea0aa12f67168797b45a1d3c4a85b8"
+    },
+    "publisher_description": "虛白廬藏清中期文誠堂刊本《紫微斗數全書》 used as a collation base for the Jielan point-collated edition",
+    "relation_to_wenguangtang_family": "SEPARATE_QING_FULLBOOK_EDITION_ROUTE",
+    "target_page_exposed": false
+  },
+  "wenshengtang_secondary_locator": {
+    "source_id": "EXT-SKYLIGHT-ZWDSQS-WENSHENG-JISHU-COMPARISON-2017",
+    "url": "https://superskylightfy.blogspot.com/2017/04/blog-post.html",
+    "probe": {
+      "http_status": 200,
+      "bytes": 115613,
+      "sha256": "c50d7368dd4364709b2122b0d5387da358baa82452718dc4844d39bcb1412d5a"
+    },
+    "reported_observation": "文盛堂与繼述堂字體/排式/缺字情况相似，作者推测可能同版或相关印本；敦化堂字體不同",
+    "authority": "SECONDARY_UNVERIFIED_LOCATOR_ONLY",
+    "target_page_exposed": false
+  },
+  "public_preview_controls": {
+    "books_product_route": {
+      "status": "HTTP_403_FORBIDDEN",
+      "target_page_observed": false
+    },
+    "books_preview_image_urls": {
+      "attempted_count": 13,
+      "http_403_count": 13,
+      "saved_image_count": 0,
+      "target_page_observed": false
+    },
+    "google_books_api": {
+      "isbn_query": "HTTP_429_TOO_MANY_REQUESTS",
+      "title_query": "HTTP_429_TOO_MANY_REQUESTS",
+      "target_page_observed": false
+    }
+  },
+  "adjudication": {
+    "independent_edition_route_map": "CLOSED_FOR_CURRENT_PUBLIC_SEARCH_HORIZON",
+    "independent_physical_target_page_status": "NO_INDEPENDENT_TARGET_PAGE_OBSERVED",
+    "hai_glyph_stability_across_physical_editions": "UNRESOLVED_PENDING_DIRECT_PHYSICAL_TARGET_PAGES",
+    "s01_exact_sentence_cross_edition_status": "UNRESOLVED_PENDING_DIRECT_PHYSICAL_TARGET_PAGES",
+    "hpa_zdate_006_status": "MISSING_FROM_PRODUCT",
+    "runtime_time_standard_binding": "UNRESOLVED",
+    "candidate_selection_authorized": false,
+    "algorithm_reopen_authorized": false,
+    "matrix_count_effect": "NONE"
+  },
+  "next_acquisition_priorities": [
+    "DIRECT_TARGET_PAGE_FROM_DUNHUATANG_BASE_OR_A_FACSIMILE_PAGE_UNAMBIGUOUSLY_BOUND_TO_IT",
+    "DIRECT_TARGET_PAGE_FROM_JISHUTANG_BASE_OR_A_FACSIMILE_PAGE_UNAMBIGUOUSLY_BOUND_TO_IT",
+    "DIRECT_TARGET_PAGE_FROM_QING_MID_WENCHENGTANG_FULLBOOK",
+    "ONLY_AFTER_DIRECT_PAGES_COMPARE_HAI_ZI_AND_S01_CLAIMED_SENTENCE_ACROSS_EDITIONS"
+  ],
+  "scope_firewalls": [
+    "PUBLISHER_EDITION_DESCRIPTION_IS_NOT_TARGET_GLYPH_AUTHORITY",
+    "RETAILER_REPETITION_IS_NOT_INDEPENDENT_TEXTUAL_WITNESS",
+    "SECONDARY_WENSHENGTANG_COMPARISON_IS_NOT_PHYSICAL_PAGE_COLLATION",
+    "HTTP_403_OR_429_IS_ACCESS_EVIDENCE_ONLY",
+    "NO_SOURCE_COUNT_VOTING",
+    "NO_HAI_GLYPH_STABILITY_INFERENCE_WITHOUT_DIRECT_PHYSICAL_TARGET_PAGES",
+    "NO_DEFAULT_WINNER_SELECTION",
+    "NO_ALGORITHM_REOPEN"
+  ]
+}

@@ -1,0 +1,250 @@
+{
+  "schema": "MING-DATONG-QISHUO-GEOGRAPHIC-CRITICAL-CASES-R1",
+  "schema_version": "1.0.0",
+  "status": "RESEARCH_ONLY_DIAGNOSTIC_NOT_RUNTIME",
+  "runtime_selection_authorized": false,
+  "geographic_reference_closed": false,
+  "authority_statement": "Reign-record month-start dates are official-historiography corroboration, not substitutes for a surviving same-year Qintianjian almanac. A known 1462 conflict proves that Ming Shilu can disagree with the physical Datong almanac.",
+  "geographic_firewall": {
+    "ming_datong_qishuo_geographic_reference": "UNRESOLVED",
+    "do_not_assume_d1_raw_coordinate_is_beijing": true,
+    "do_not_assume_d1_raw_coordinate_is_nanjing": true,
+    "no_modern_timezone_substitution": true,
+    "no_single_longitude_shift_adjudication_without_physical_almanac": true
+  },
+  "modern_comparison_coordinates": {
+    "source": "Mihn, Lee & Ahn 2014, Research in Astronomy and Astrophysics 14(4):485-496",
+    "beijing_longitude_east_deg": 116.4166666667,
+    "nanjing_longitude_east_deg": 118.8833333333,
+    "longitude_delta_deg_nanjing_minus_beijing": 2.4666666666,
+    "local_apparent_solar_time_delta_minutes": 9.8666666664,
+    "scope": "MODERN_DIAGNOSTIC_CONVERSION_ONLY_NOT_HISTORICAL_AUTHORITY"
+  },
+  "cases": [
+    {
+      "case_id": "MING-1370-M02",
+      "reign_year": "洪武三年",
+      "month": 2,
+      "d1_value": 57.0024,
+      "d1_ganzhi": "辛酉",
+      "d1_minutes_after_zi_zheng": 3.456,
+      "later_table_ganzhi": "庚申",
+      "ming_shilu_ganzhi": "辛酉",
+      "surviving_same_year_almanac_ganzhi": null,
+      "evidence_result": "MING_SHILU_SUPPORTS_D1_DAY_BUT_NO_PHYSICAL_ALMANAC_CERTIFICATION",
+      "source_urls": [
+        "https://zh.wikisource.org/wiki/大明太祖高皇帝實錄/卷049",
+        "https://ytliu0.github.io/ChineseCalendar/MingCalendar_chinese.html"
+      ]
+    },
+    {
+      "case_id": "MING-1462-M11",
+      "reign_year": "天順六年",
+      "month": 11,
+      "d1_value": 27.8143,
+      "d1_ganzhi": "辛卯",
+      "later_table_ganzhi": "壬辰",
+      "ming_shilu_ganzhi": "壬辰",
+      "surviving_same_year_almanac_ganzhi": "辛卯",
+      "evidence_result": "PHYSICAL_ALMANAC_AND_D1_OVERRIDE_REIGN_RECORD_AND_LATER_TABLES",
+      "source_urls": [
+        "https://ctext.org/wiki.pl?chapter=327683&if=gb",
+        "https://ytliu0.github.io/ChineseCalendar/MingCalendar_chinese.html"
+      ]
+    },
+    {
+      "case_id": "MING-1495-M07",
+      "reign_year": "弘治八年",
+      "month": 7,
+      "d1_value": 18.1775,
+      "d1_ganzhi": "壬午",
+      "d1_minutes_after_zi_zheng": 255.6,
+      "later_table_ganzhi": "辛巳",
+      "ming_shilu_ganzhi": "辛巳",
+      "surviving_same_year_almanac_ganzhi": null,
+      "evidence_result": "REIGN_RECORD_CONFLICTS_WITH_D1_FAR_FROM_DAY_BOUNDARY; SIMPLE_BEIJING_NANJING_LONGITUDE_SHIFT_CANNOT_EXPLAIN",
+      "source_urls": [
+        "https://ctext.org/wiki.pl?chapter=277695&if=en",
+        "https://ytliu0.github.io/ChineseCalendar/MingCalendar_chinese.html"
+      ]
+    },
+    {
+      "case_id": "MING-1497-M10",
+      "reign_year": "弘治十年",
+      "month": 10,
+      "d1_value": 4.9997,
+      "d1_ganzhi": "戊辰",
+      "d1_minutes_before_next_zi_zheng": 0.432,
+      "later_table_ganzhi": "己巳",
+      "ming_shilu_ganzhi": "己巳",
+      "surviving_same_year_almanac_ganzhi": null,
+      "evidence_result": "REIGN_RECORD_MATCHES_LATER_TABLES; EASTWARD_SHIFT_GREATER_THAN_0.432_MINUTES_WOULD_FLIP_D1_DAY, BUT THIS DOES_NOT_IDENTIFY_THE_HISTORICAL_MERIDIAN",
+      "source_urls": [
+        "https://ctext.org/wiki.pl?chapter=577819&if=en",
+        "https://ytliu0.github.io/ChineseCalendar/MingCalendar_chinese.html"
+      ]
+    },
+    {
+      "case_id": "MING-1581-M10",
+      "reign_year": "萬曆九年",
+      "month": 10,
+      "d1_value": 27.9349,
+      "d1_ganzhi": "辛卯",
+      "later_table_ganzhi": "壬辰",
+      "ming_shilu_ganzhi": "辛卯",
+      "surviving_same_year_almanac_ganzhi": "辛卯",
+      "evidence_result": "REIGN_RECORD_PHYSICAL_ALMANAC_AND_D1_CONVERGE; LATER_TABLES_WRONG",
+      "source_urls": [
+        "https://www.shidianguji.com/zh/book/LS0026/chapter/1k6q5cxjqsbnt",
+        "https://ytliu0.github.io/ChineseCalendar/MingCalendar_chinese.html"
+      ]
+    }
+  ],
+  "adjudication": {
+    "reign_record_as_same_year_almanac_substitute": "FORBIDDEN",
+    "source_count_voting": "FORBIDDEN",
+    "known_common_error_signal": "The 1462 case shows that Ming Shilu plus multiple later tables can share the wrong day against a surviving official almanac.",
+    "geographic_conclusion": "UNRESOLVED",
+    "next_required_evidence": [
+      "physical or page-level same-year Datong almanac for 1370, 1378, 1495 or 1497",
+      "source-faithful D1 replay from 1569 tables including interpolation/carry semantics",
+      "explicit primary text defining the qishuo geographic/meridian reference",
+      "comparison against modern conjunction times only as a diagnostic layer"
+    ],
+    "reform_memorial_as_qishuo_meridian_proof": "FORBIDDEN",
+    "nanjing_sunrise_parameter_as_qishuo_meridian_proof": "FORBIDDEN",
+    "hongzhi_10_almanac_issuance_without_physical_copy": "ISSUANCE_ONLY_NOT_VALUE_CERTIFICATION",
+    "collection_catalog_absence_as_global_nonexistence": "FORBIDDEN",
+    "search_result_absence_as_historical_nonexistence": "FORBIDDEN",
+    "hongzhi_8_eclipse_failure_as_cause_of_month_7_qishuo_conflict": "FORBIDDEN_WITHOUT_DIRECT_MECHANICAL_EVIDENCE",
+    "joseon_gift_as_surviving_hongzhi_10_copy": "UNRESOLVED_NOT_CERTIFIED",
+    "hongzhi_period_survival_as_hongzhi_8_or_10_target_certification": "FORBIDDEN"
+  },
+  "historical_operational_context": [
+    {
+      "context_id": "MING-1496-ISSUE-HONGZHI-10-ALMANAC",
+      "date": "弘治九年十一月甲辰朔",
+      "source": "《明孝宗敬皇帝實錄》卷一百十九",
+      "record": "欽天監進弘治十年大統曆；上御奉天殿受之，給賜文武群臣，頒行天下",
+      "implication": "TARGET_HONGZHI_10_DATONG_ALMANAC_WAS_OFFICIALLY_ISSUED_AND_DISTRIBUTED",
+      "physical_copy_located": false,
+      "inference_scope": "ISSUANCE_CERTIFICATION_NOT_MONTH_START_VALUE_CERTIFICATION"
+    },
+    {
+      "context_id": "MING-1497-ZHUSHENG-REFORM-MEMORIAL",
+      "date": "弘治十年十二月丁亥",
+      "source": "《明孝宗敬皇帝實錄》卷一百三十二",
+      "official": "南京欽天監主簿諸升",
+      "observed_problem": "曆法有差月食不驗",
+      "requested_action": "選通曉天文曆理之人改定曆法",
+      "ministry_response_mentions": [
+        "推步測候",
+        "頒朔授時",
+        "歲差"
+      ],
+      "emperor_disposition": "曆法事重不必輕易更改",
+      "inference_scope": "CONTEMPORARY_REFORM_AND_ECLIPSE_FAILURE_CONTEXT_NOT_DIRECT_QISHUO_MERIDIAN_EVIDENCE",
+      "do_not_attribute_1497_m10_mismatch_to_memorial_without_direct_link": true
+    },
+    {
+      "context_id": "MING-1521-ZHUYU-MIXED-GEOGRAPHY-MEMORIAL",
+      "date": "正德十六年六月壬辰",
+      "source": "《明世宗肅皇帝實錄》卷三",
+      "official": "欽天監漏刻博士朱裕",
+      "direct_claims": [
+        "雖以大統為名實授時之曆",
+        "曆歲既久積數漸差",
+        "推算連年日月交食分杪已有不合時刻遂至爽忒",
+        "推算曆數用南京日出分杪似相矛盾",
+        "將內外晷影新舊曆書錯綜參驗",
+        "庶幾合朔得真交食不謬"
+      ],
+      "implication": "MING_OFFICIAL_RECOGNIZED_INHERITED_SYSTEM_AND_LOCATION_PARAMETER_INCONSISTENCY",
+      "nanjing_sunrise_parameter_use_supported": true,
+      "qishuo_meridian_explicitly_defined": false,
+      "inference_scope": "STRONG_SUPPORT_FOR_MODULE_SPECIFIC_MIXED_GEOGRAPHY_NOT_QISHUO_MERIDIAN_CLOSURE"
+    },
+    {
+      "context_id": "MING-1494-ISSUE-HONGZHI-8-ALMANAC",
+      "date": "弘治七年十一月丙戌朔",
+      "source": "《明孝宗敬皇帝實錄》卷九十四",
+      "record": "欽天監進弘治八年大統曆；上御奉天殿受之，給賜文武群臣，頒行天下",
+      "implication": "TARGET_HONGZHI_8_DATONG_ALMANAC_WAS_OFFICIALLY_ISSUED_AND_DISTRIBUTED",
+      "physical_copy_located": false,
+      "inference_scope": "ISSUANCE_CERTIFICATION_NOT_MONTH_START_VALUE_CERTIFICATION",
+      "source_url": "https://www.shidianguji.com/zh/book/LS0026/chapter/1k6to1t6kqpl6"
+    },
+    {
+      "context_id": "MING-1495-H8-LUNAR-ECLIPSE-NON-EVENT",
+      "date": "弘治八年八月十六日望",
+      "source": "《萬曆野獲編》卷二十九",
+      "witness_period": "LATER_MING",
+      "record": "弘治八年八月十六日望當月食不應",
+      "implication": "LATER_MING_WITNESS_TO_A_CALENDAR_ECLIPSE_PREDICTION_FAILURE_IN_THE_SAME_YEAR",
+      "causal_link_to_hongzhi_8_month_7_qishuo_conflict": "FORBIDDEN_WITHOUT_DIRECT_MECHANICAL_EVIDENCE",
+      "qishuo_meridian_evidence": false,
+      "source_url": "https://ctext.org/wiki.pl?chapter=130949&if=gb&remap=gb"
+    },
+    {
+      "context_id": "COLLECTION-NLC-2007-MING-DATONG-FACSIMILES",
+      "source": "國家圖書館出版社《國家圖書館藏明代大統曆日彙編》",
+      "publication_year": 2007,
+      "collection_size_kinds": 99,
+      "collection_size_fascicles": 105,
+      "earliest_year": 1446,
+      "latest_year": 1641,
+      "published_toc_transition_before_target": "1484 成化二十年",
+      "published_toc_transition_after_target": "1508 正德三年",
+      "hongzhi_8_present": false,
+      "hongzhi_10_present": false,
+      "negative_evidence_scope": "THIS_COLLECTION_ONLY",
+      "global_nonexistence_inference": "FORBIDDEN",
+      "source_url": "https://www.nlcpress.com/productview.aspx?id=4027"
+    },
+    {
+      "context_id": "COLLECTION-KYUJANGGAK-MING-PRINTED-DATONG",
+      "source": "서울대학교 규장각한국학연구원 calendar-holdings feature",
+      "identified_ming_printed_datong": "大明崇禎十年大統曆",
+      "identified_year": 1637,
+      "shelfmark": "奎中 5567",
+      "institutional_description": "규장각한국학연구원에 소장되어 있는 유일한 明나라 印本 大統曆書",
+      "hongzhi_8_present_in_identified_ming_printed_holding": false,
+      "hongzhi_10_present_in_identified_ming_printed_holding": false,
+      "negative_evidence_scope": "KYUJANGGAK_INSTITUTIONAL_HOLDING_DESCRIPTION_ONLY",
+      "korea_wide_nonexistence_inference": "FORBIDDEN",
+      "source_url": "https://kyudb.snu.ac.kr/brd/viewBrd.do?book_cate=HEJ32&focus=d3sd33&listChk=tree&menuId=10246&mid=HEJ&postSeq=20220&siteCd=DBSP"
+    },
+    {
+      "context_id": "MING-1497-JOSEON-DATONG-GIFT",
+      "date": "弘治十年十二月二十二日",
+      "source": "《明孝宗敬皇帝實錄》卷一百三十二 / Korean Ming-Qing Shilu interface",
+      "record": "己丑賜朝鮮國大統曆一百本",
+      "implication": "OFFICIAL_MING_TO_JOSEON_DATONG_TRANSMISSION_CHANNEL_CONFIRMED",
+      "specific_gift_copy_identity_with_hongzhi_10_target": "UNRESOLVED",
+      "survival_of_gifted_copies": "UNRESOLVED",
+      "inference_scope": "TRANSMISSION_LEAD_NOT_PHYSICAL_COPY_CERTIFICATION",
+      "source_url": "https://sillok.history.go.kr/mc/id/msilok_007_1320_0010_0010_0210_0010"
+    },
+    {
+      "context_id": "MING-1504-H17-SURVIVING-DATONG-ALMANAC",
+      "reign_year": "弘治十七年",
+      "gregorian_year": 1504,
+      "title": "大明弘治十七年歲次甲子大統曆",
+      "catalogued_compilers": "韓昂等",
+      "edition": "明弘治十七年（1504）欽天監刻本",
+      "holding_institution": "北京市文物局",
+      "national_precious_ancient_books_register": "第二批國家珍貴古籍名錄 04638",
+      "institutional_holding_confirmation": "北京市文物局圖書資料中心古籍藏品簡介明確列有明刻《大明弘治十七年大統曆》",
+      "physical_survival_supported": true,
+      "same_reign_as_targets": true,
+      "hongzhi_8_target_copy_certified": false,
+      "hongzhi_10_target_copy_certified": false,
+      "implication": "HONGZHI_PERIOD_QINTIANJIAN_DATONG_ALMANAC_SURVIVAL_CONFIRMED_OUTSIDE_NLC_2007_COLLECTION",
+      "inference_scope": "POSITIVE_REIGN_PERIOD_SURVIVAL_CONTROL_NOT_TARGET_YEAR_CERTIFICATION",
+      "source_urls": [
+        "https://guji.library.hb.cn/gywm/gjzggjml/202401/P020240123412781272352.pdf",
+        "https://www.bjgujibaohu.com/gjbh/default/detail?id=316"
+      ]
+    }
+  ]
+}

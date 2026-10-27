@@ -1,0 +1,177 @@
+name: research-quark-snu-v4-hover-download
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-quark-snu-v4-hover-download.yml
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Hover exact public target row and click download only if visibly exposed
+        shell: bash
+        run: |
+          set -e
+          python -m pip install --quiet selenium
+          python - <<'PY'
+          import hashlib, json, time
+          from pathlib import Path
+          from selenium import webdriver
+          from selenium.common.exceptions import TimeoutException
+          from selenium.webdriver.chrome.options import Options
+          from selenium.webdriver.common.by import By
+          from selenium.webdriver.common.action_chains import ActionChains
+
+          OUT=Path("probe"); DL=OUT/"downloads"; DL.mkdir(parents=True)
+          SHARE="https://pan.quark.cn/s/3b7b731e41f2"
+          FOLDER="紫微斗数"
+          TARGET="【飛星策天紫微斗數全集】一簑古523.5-J562b-v.1-6 陳博(宋) 著 羊城[同治9年(1870)]明經閣 木版本（4）.pdf"
+          result={
+            "schema":"QUARK-SNU-MINGJINGGE-V4-PUBLIC-HOVER-DOWNLOAD-R1",
+            "share_url":SHARE,
+            "target_filename":TARGET,
+            "authentication_attempted":False,
+            "save_to_cloud_attempted":False,
+            "api_endpoint_guessing_attempted":False,
+            "access_control_bypass_attempted":False,
+            "hidden_element_forced_click_attempted":False,
+            "normal_visible_download_click_attempted":False,
+            "downloaded_files":[],
+          }
+
+          def close_modals(d):
+              for _ in range(5):
+                  vs=[e for e in d.find_elements(By.CSS_SELECTOR,"button.ant-modal-close[aria-label='Close']") if e.is_displayed()]
+                  if not vs: return
+                  vs[0].click(); time.sleep(.6)
+
+          opts=Options()
+          for a in ("--headless=new","--no-sandbox","--disable-dev-shm-usage","--disable-gpu","--disable-background-networking","--disable-component-update","--disable-default-apps","--disable-sync","--no-first-run","--window-size=1600,1800"):
+              opts.add_argument(a)
+          opts.add_experimental_option("prefs",{
+            "download.default_directory":str(DL.resolve()),
+            "download.prompt_for_download":False,
+            "download.directory_upgrade":True,
+          })
+          opts.page_load_strategy="eager"
+          d=webdriver.Chrome(options=opts); d.set_page_load_timeout(20)
+          try:
+              try:
+                  d.execute_cdp_cmd("Browser.setDownloadBehavior",{"behavior":"allow","downloadPath":str(DL.resolve())})
+              except Exception: pass
+              try: d.get(SHARE)
+              except TimeoutException: pass
+              time.sleep(9); close_modals(d)
+              fs=[e for e in d.find_elements(By.CSS_SELECTOR,".filename-text") if (e.get_attribute("title") or e.text or "").strip()==FOLDER and e.is_displayed()]
+              if not fs: raise RuntimeError("folder not visible")
+              fs[0].click(); time.sleep(7); close_modals(d)
+
+              ss=[]
+              for e in d.find_elements(By.CSS_SELECTOR,".ant-table-body"):
+                  sh=d.execute_script("return arguments[0].scrollHeight",e); ch=d.execute_script("return arguments[0].clientHeight",e)
+                  if sh and ch and sh>ch+20: ss.append((sh-ch,e))
+              if not ss: raise RuntimeError("file list scroller missing")
+              sc=max(ss,key=lambda x:x[0])[1]
+
+              target=None
+              for step in range(13):
+                  mx=d.execute_script("return Math.max(0,arguments[0].scrollHeight-arguments[0].clientHeight)",sc)
+                  d.execute_script("arguments[0].scrollTop=Math.round(arguments[1]*arguments[2]/12); arguments[0].dispatchEvent(new Event('scroll',{bubbles:true}));",sc,mx,step)
+                  time.sleep(.8)
+                  es=[e for e in d.find_elements(By.CSS_SELECTOR,".filename-text") if (e.get_attribute("title") or e.text or "").strip()==TARGET and e.is_displayed()]
+                  if es: target=es[0]; break
+              result["target_visible"]=target is not None
+              if target is None: raise RuntimeError("target not mounted")
+
+              row=target.find_element(By.XPATH,"ancestor::tr[1]")
+              filename_wrap=target.find_element(By.XPATH,"ancestor::div[contains(@class,'filename')][1]")
+              d.execute_script("arguments[0].scrollIntoView({block:'center'});",filename_wrap)
+              ActionChains(d).move_to_element(filename_wrap).pause(2).perform()
+              time.sleep(1)
+
+              downs=row.find_elements(By.CSS_SELECTOR,".hover-oper-item.hoitem-down[title='下载']")
+              result["row_download_element_count"]=len(downs)
+              result["row_download_is_displayed"]=[e.is_displayed() for e in downs]
+              result["row_download_computed"]=[]
+              for e in downs:
+                  result["row_download_computed"].append(d.execute_script("""
+                    const e=arguments[0], s=getComputedStyle(e), r=e.getBoundingClientRect();
+                    return {display:s.display,visibility:s.visibility,opacity:s.opacity,
+                      pointerEvents:s.pointerEvents,width:r.width,height:r.height,left:r.left,top:r.top};
+                  """,e))
+              result["hover_oper_computed"]=d.execute_script("""
+                const e=arguments[0].querySelector('.hover-oper');
+                if(!e) return null; const s=getComputedStyle(e),r=e.getBoundingClientRect();
+                return {display:s.display,visibility:s.visibility,opacity:s.opacity,pointerEvents:s.pointerEvents,
+                  width:r.width,height:r.height,left:r.left,top:r.top};
+              """,row)
+              try: d.save_screenshot(str(OUT/"hover-target.png"))
+              except Exception: pass
+
+              visible=[e for e in downs if e.is_displayed()]
+              result["visible_download_count_after_hover"]=len(visible)
+              if visible:
+                  result["normal_visible_download_click_attempted"]=True
+                  visible[0].click()
+                  result["normal_visible_download_click_succeeded"]=True
+                  for _ in range(90):
+                      files=[p for p in DL.iterdir() if p.is_file()]
+                      if files and not any(p.suffix.lower()==".crdownload" for p in files):
+                          time.sleep(3); break
+                      time.sleep(1)
+              else:
+                  result["normal_visible_download_click_succeeded"]=False
+
+              body=""
+              try: body=d.find_element(By.TAG_NAME,"body").text or ""
+              except Exception: pass
+              result["post_action_terms"]=[x for x in ("登录","扫码","打开客户端","客户端","下载","保存到网盘") if x in body]
+              result["visible_modal_texts"]=[]
+              for m in d.find_elements(By.CSS_SELECTOR,".ant-modal"):
+                  try:
+                      if m.is_displayed(): result["visible_modal_texts"].append(m.text[:4000])
+                  except Exception: pass
+              try: d.save_screenshot(str(OUT/"after-hover-action.png"))
+              except Exception: pass
+
+              for p in sorted(DL.iterdir()):
+                  if p.is_file():
+                      data=p.read_bytes()
+                      result["downloaded_files"].append({
+                        "name":p.name,"bytes":len(data),"sha256":hashlib.sha256(data).hexdigest(),
+                        "pdf_magic":data.startswith(b"%PDF"),"prefix_hex":data[:16].hex(),
+                        "partial_suffix":p.suffix.lower() in (".crdownload",".tmp")
+                      })
+          except Exception as exc:
+              result["error"]=repr(exc)
+          finally:
+              try: d.quit()
+              except Exception: pass
+
+          result["adjudication"]={
+            "anonymous_complete_pdf_obtained":any(x.get("pdf_magic") and not x.get("partial_suffix") for x in result["downloaded_files"]),
+            "hidden_element_forced_click_attempted":False,
+            "same_snu_physical_digitization_lineage":True,
+            "independent_physical_witness_increment":0,
+            "algorithm_effect":"NONE",
+          }
+          (OUT/"quark-snu-v4-hover-download.json").write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(result,ensure_ascii=False,indent=2))
+          PY
+
+      - name: Upload hover-download evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: quark-snu-v4-hover-download
+          path: probe/
+          if-no-files-found: warn
+          retention-days: 14

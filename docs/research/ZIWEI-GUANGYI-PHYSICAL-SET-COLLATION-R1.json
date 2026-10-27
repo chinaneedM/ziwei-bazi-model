@@ -1,0 +1,142 @@
+{
+  "schema": "ZIWEI-GUANGYI-PHYSICAL-SET-COLLATION-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-GUANGYI-PHYSICAL-SET-COLLATION-J",
+  "status": "GUANGYI_PUBLIC_PHYSICAL_SET_PHOTO_IDENTITY_CLOSED_EXACT_CATALOG_ITEM_BRIDGE_AND_TARGET_PAGE_UNRESOLVED",
+  "hpa_rule_id": "HPA-ZDATE-006",
+  "purpose": "Upgrade the Batch 12F Republican Shanghai Guangyi catalog route with directly reviewed public photographs of a four-volume/four-book physical set, while preserving title-surface variation, stemmatic dependence, and target-page uncertainty.",
+  "research_workflow": {
+    "commit_sha": "98a4cf5d2e40adf63c4f6f8b67f21e9fc9432d58",
+    "workflow": "research-ziwei-guangyi-physical-set",
+    "workflow_run_id": 34140027356,
+    "job_id": 101799700213,
+    "artifact_id": 10025522997,
+    "artifact_zip_sha256": "35be2589ac50228eab9a03a77401ad283fb40be1981d4f4bddeab9bd42c06485",
+    "workflow_conclusion": "success",
+    "public_only": true,
+    "ocr_used": false,
+    "authentication_or_paywall_bypass_attempted": false,
+    "identifier_guessing_attempted": false
+  },
+  "yetnal_public_physical_set": {
+    "provider": "옛날물건 / Yetnal antiquarian marketplace",
+    "item_url": "https://www.yetnal.co.kr/shop/item.php?it_id=1142493235",
+    "item_id": "1142493235",
+    "item_http_status": 200,
+    "item_bytes": 49867,
+    "item_sha256": "6c14918192b2797ee6eda131970d02567888465dec5723894d011149f4185dd2",
+    "seller_metadata": {
+      "title_surface": "校正紫薇斗數全書",
+      "extent_surface": "4권4책완질",
+      "edition_surface": "상해판",
+      "size_surface": "20.5*13.5센치",
+      "exact_publication_year": "UNRESOLVED",
+      "printing_method": "UNRESOLVED_ON_THIS_SELLER_SURFACE"
+    },
+    "image_objects": [
+      {
+        "file": "yetnal-01.jpg",
+        "url": "https://www.yetnal.co.kr/data/item/1142493235/kkk011.jpg",
+        "http_status": 200,
+        "bytes": 162128,
+        "sha256": "ac7a361e71897ed184977c90ae11c01b4573c3258cb204ada387542c3462dbce"
+      },
+      {
+        "file": "yetnal-02.jpg",
+        "url": "https://www.yetnal.co.kr/data/item/1142493235/kkk012.jpg",
+        "http_status": 200,
+        "bytes": 139335,
+        "sha256": "390a64fae97a520f37cc54176d538216ab7d81dad325a1c212efcf661334e504"
+      },
+      {
+        "file": "yetnal-03.jpg",
+        "url": "https://www.yetnal.co.kr/data/item/1142493235/kkk013.jpg",
+        "http_status": 200,
+        "bytes": 134087,
+        "sha256": "cc65baecd92f9e24d49171cc4366812da01a6cf39ef89446d9c73e1fad87febf"
+      },
+      {
+        "file": "yetnal-04.jpg",
+        "url": "https://www.yetnal.co.kr/data/item/1142493235/kkk014.jpg",
+        "http_status": 200,
+        "bytes": 147089,
+        "sha256": "79c06af4a783ad613c9e4ef28b48d5f12129b0f85bd81f376f0d1a04100aa2a9"
+      }
+    ],
+    "direct_visual_review_no_ocr": {
+      "completed": true,
+      "image_1": "COVER_TITLE_SLIP_DIRECTLY_SHOWS_校正紫薇斗數全書_AND_上海廣益書局印行",
+      "image_2": "FOUR_PHYSICAL_BOOKS_VISIBLE_AS_A_SET; ONE_TITLE_SLIP_VISIBLE; NO_TARGET_SECTION",
+      "image_3": "INNER_TITLE_PAGE_DIRECTLY_SHOWS_陳希夷先生著 / 紫薇斗數全書 / 上海廣益書局印行",
+      "image_4": "OPEN_TEXT_SPREAD_VISIBLE; TARGET_HEADING_論人生時要審的確_AND_TARGET_TEN_KE_PASSAGE_NOT_OBSERVED",
+      "target_section_observed": false,
+      "target_hai_glyph_observed": false
+    }
+  },
+  "batch_12f_dalian_catalog_bridge": {
+    "artifact": "docs/research/ZIWEI-QUANSHU-WENCHENGTANG-DALIAN-COLLATION-ROUTES-R1.json",
+    "official_provider": "大连图书馆",
+    "official_catalog_title": "(新鐫希夷陳先生)紫微鬥數全書",
+    "official_catalog_juan": "四卷",
+    "official_catalog_edition": "石印本",
+    "official_catalog_publication_statement": "廣益書局 民國",
+    "official_catalog_physical_form": "四冊一函",
+    "yetnal_to_dalian_relationship": "HIGH_CONFIDENCE_SAME_SHANGHAI_GUANGYI_WORK_PUBLICATION_FAMILY_BUT_EXACT_PRINTING_OR_CATALOG_ITEM_IDENTITY_UNRESOLVED",
+    "exact_bridge_status": "UNRESOLVED_PENDING_COLOPHON_DATE_OR_OTHER_PRINTING_SPECIFIC_CONTROL",
+    "reason": "The physical photos and official catalog agree on Shanghai Guangyi, four-juan/four-book form at the work-family level, but the photographed surface uses 紫薇 while the catalog normalizes 紫微 and the seller surface does not expose an exact publication year or lithograph statement."
+  },
+  "title_philology": {
+    "photographed_title_surface": [
+      "校正紫薇斗數全書",
+      "紫薇斗數全書"
+    ],
+    "normalized_catalog_or_scholarly_surface": "紫微斗數全書",
+    "adjudication": "PRESERVE_薇_MICROGRAPHIC_TITLE_SURFACE_AND_微_NORMALIZED_BIBLIOGRAPHIC_SURFACE_SEPARATELY_UNTIL_EXACT_ITEM_BRIDGE_IS_CLOSED",
+    "silent_normalization_authorized": false,
+    "rule_identity_effect": "NONE"
+  },
+  "ncku_genealogy_control": {
+    "source_id": "EXT-NCKU-CHEN-2021-ZIWEI-EDITION-GENEALOGY",
+    "article": "陳昭吟〈道經中署名羅洪先之著作考辨〉",
+    "direct_pdf_sha256": "17d0089c3328253230cb2f110ac40527abe41fbb97183483215a5e633e5b2e2e",
+    "relevant_printed_page": 61,
+    "searchable_text_adjudication": "The study identifies the Shanghai Guangyi Fullbook as a late-Qing/early-Republic publisher edition printed from a Ronghetang base and groups Ronghetang/Nanyangtang within the same Jianyang publishing-origin family.",
+    "source_role": "MODERN_SCHOLARLY_STEMMATIC_CONTROL_NOT_TARGET_GLYPH_AUTHORITY",
+    "guangyi_as_fully_independent_textual_stemma_branch": false,
+    "future_target_page_value": "USEFUL_AS_LATER_PHYSICAL_TRANSMISSION_COLLATION_BUT_NOT_EQUAL_TO_AN_INDEPENDENT_STEMMATIC_BRANCH"
+  },
+  "hanauction_access_control": {
+    "public_url": "https://www.hanauction.com/htm/off_auction_read.htm?ac_num=236&id=102035&off_id=258&page=4",
+    "workflow_http_status": 200,
+    "response_bytes": 1646,
+    "response_sha256": "9d89f2156453076b5878b51e42747ed599bb87687302049350fbae046178b0f8",
+    "target_identity_terms_present": false,
+    "adjudication": "SHORT_PUBLIC_RESPONSE_DID_NOT_BIND_THE_TARGET_ITEM_IN_THIS_RUN_SO_IT_IS_NOT_USED_AS_EVIDENCE"
+  },
+  "epistemic_boundaries": {
+    "vendor_metadata_as_exact_publication_date": "FORBIDDEN",
+    "seller_photo_as_official_library_catalog_item_identity": "FORBIDDEN",
+    "same_publisher_and_extent_as_exact_same_printing": "FORBIDDEN",
+    "photographed_title_variant_silently_normalized": "FORBIDDEN",
+    "guangyi_ronghetang_derivative_as_fully_independent_stemma_vote": "FORBIDDEN",
+    "non_target_open_page_as_late_zi_glyph_authority": "FORBIDDEN",
+    "physical_set_identity_as_target_passage_presence": "FORBIDDEN"
+  },
+  "adjudication": {
+    "hpa_zdate_006": "MISSING_FROM_PRODUCT",
+    "guangyi_physical_set_identity": "CLOSED_AT_PUBLIC_PHOTO_AND_IMPRINT_LEVEL",
+    "exact_dalian_catalog_item_bridge": "UNRESOLVED",
+    "guangyi_target_late_zi_page": "NOT_OBSERVED",
+    "direct_independent_hai_glyph_witness_count_added": 0,
+    "hai_glyph_stability_across_physical_editions": "UNRESOLVED_PENDING_DIRECT_TARGET_PAGES",
+    "stemmatic_independence_from_nanyangtang": "NOT_CLAIMED_RONGHETANG_NANYANGTANG_SAME_PUBLISHING_ORIGIN_FAMILY_PER_NCKU",
+    "runtime_time_standard_binding": "UNRESOLVED",
+    "new_candidate_authorized": false,
+    "candidate_selection_authorized": false,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_count": 0,
+    "algorithm_effect": "NONE",
+    "next_gate": "OBTAIN_AND_DIRECTLY_REVIEW_GUANGYI_TARGET_SECTION_PAGE_OR_PRIOR_STEMMATICALLY_MORE_INDEPENDENT_WENGUANGTANG_JINGLUNTANG_WENCHENGTANG_LIANYUANGE_TARGET_PAGE"
+  }
+}

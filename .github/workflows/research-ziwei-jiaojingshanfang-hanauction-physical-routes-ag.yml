@@ -1,0 +1,339 @@
+name: research-ziwei-jiaojingshanfang-hanauction-physical-routes-ag
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-ziwei-jiaojingshanfang-hanauction-physical-routes-ag.yml
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Install browser probe dependencies
+        run: python -m pip install --disable-pip-version-check selenium requests
+
+      - name: Probe exact public Hanauction Jiaojingshanfang lots
+        shell: python
+        run: |
+          import hashlib
+          import json
+          import time
+          from pathlib import Path
+          from urllib.parse import urljoin, urlparse, parse_qs
+          import requests
+          from selenium import webdriver
+          from selenium.webdriver.chrome.options import Options
+          from selenium.webdriver.common.by import By
+          from selenium.common.exceptions import NoAlertPresentException
+
+          OUT = Path("probe")
+          OUT.mkdir()
+          UA = "Mozilla/5.0 (compatible; provenance-research/1.0)"
+
+          LOTS = [
+              {
+                  "key": "auction-227-lot-127",
+                  "auction_round": 227,
+                  "auction_id": 258,
+                  "lot_number": 127,
+                  "stable_object_id": "101926",
+                  "auction_date": "2026-02-07",
+                  "listing_url": "https://www.hanauction.com/htm/off_auction.htm?id=258&page=21&pagesize=20&sortq=w1&viewtype=list",
+                  "detail_url": "https://www.hanauction.com/htm/off_auction_read.htm?id=101926&off_id=258&page=5",
+              },
+              {
+                  "key": "auction-65-lot-173",
+                  "auction_round": 65,
+                  "auction_id": 83,
+                  "lot_number": 173,
+                  "stable_object_id": "27427",
+                  "auction_date": "2012-07-07",
+                  "listing_url": "https://www.hanauction.com/htm/off_auction.htm?id=83&pagesize=20&sortq=a2&viewtype=list",
+                  "detail_url": "https://www.hanauction.com/htm/off_auction_read.htm?id=27427&off_id=83&page=9",
+              },
+          ]
+
+          result = {
+              "schema": "ZIWEI-JIAOJINGSHANFANG-HANAUCTION-PHYSICAL-ROUTES-AG-R1",
+              "target_work": "改良紫微斗數全書",
+              "target_imprint": "上海校經山房",
+              "target_heading": "論人生時要審的確",
+              "authentication_attempted": False,
+              "captcha_bypass_attempted": False,
+              "identifier_bruteforce_attempted": False,
+              "hidden_image_filename_guessing_attempted": False,
+              "lots": [],
+          }
+
+          def digest(data):
+              return hashlib.sha256(data).hexdigest() if data else None
+
+          def save_response(name, r):
+              suffix = ".html"
+              ct = (r.headers.get("content-type") or "").lower()
+              if ct.startswith("image/jpeg"):
+                  suffix = ".jpg"
+              elif ct.startswith("image/png"):
+                  suffix = ".png"
+              p = OUT / (name + suffix)
+              p.write_bytes(r.content)
+              return p.name
+
+          opts = Options()
+          opts.add_argument("--headless=new")
+          opts.add_argument("--no-sandbox")
+          opts.add_argument("--disable-dev-shm-usage")
+          opts.add_argument("--disable-gpu")
+          opts.add_argument("--window-size=1800,3200")
+          opts.add_argument("--lang=ko-KR")
+
+          for spec in LOTS:
+              row = {"spec": spec}
+              session = requests.Session()
+              session.headers.update({"User-Agent": UA})
+
+              for route_name in ("listing_url", "detail_url"):
+                  url = spec[route_name]
+                  try:
+                      r = session.get(url, timeout=35, allow_redirects=True)
+                      row[route_name.replace("_url", "_http")] = {
+                          "status": r.status_code,
+                          "final_url": r.url,
+                          "content_type": r.headers.get("content-type"),
+                          "bytes": len(r.content),
+                          "sha256": digest(r.content),
+                          "saved_file": save_response(spec["key"] + "-" + route_name.replace("_url", ""), r),
+                      }
+                  except Exception as exc:
+                      row[route_name.replace("_url", "_http")] = {"error": type(exc).__name__ + ": " + str(exc)}
+
+              d = webdriver.Chrome(options=opts)
+              try:
+                  d.set_page_load_timeout(90)
+                  d.get(spec["listing_url"])
+                  time.sleep(7)
+                  row["listing_browser"] = {
+                      "final_url": d.current_url,
+                      "title": d.title,
+                  }
+                  body = d.find_element(By.TAG_NAME, "body").text
+                  row["listing_browser"]["anti_bot_visible"] = any(
+                      term.lower() in body.lower()
+                      for term in ("자동등록방지", "Please prove that you are human", "captcha", "recaptcha")
+                  )
+                  target_terms = (
+                      "改良 紫微斗數全書",
+                      "改良紫微斗數全書",
+                      "上海校經山房",
+                      str(spec["lot_number"]),
+                  )
+                  row["listing_browser"]["target_lines"] = [
+                      line for line in body.splitlines()
+                      if any(t.lower() in line.lower() for t in target_terms)
+                  ][:50]
+
+                  exact_anchors = []
+                  for a in d.find_elements(By.CSS_SELECTOR, f'a[href*="id={spec["stable_object_id"]}"]'):
+                      try:
+                          exact_anchors.append({
+                              "text": " ".join((a.text or "").split()),
+                              "href": a.get_attribute("href") or "",
+                          })
+                      except Exception:
+                          pass
+                  row["listing_browser"]["exact_object_anchors"] = exact_anchors
+
+                  candidates = []
+                  for a in d.find_elements(By.CSS_SELECTOR, f'a[href*="id={spec["stable_object_id"]}"]'):
+                      try:
+                          el = a
+                          for depth in range(1, 9):
+                              el = el.find_element(By.XPATH, "..")
+                              txt = " ".join((el.text or "").split())
+                              if not any(k in txt for k in ("校經山房", "개량 자미두수전서", "改良 紫微斗數全書", "改良紫微斗數全書")):
+                                  continue
+                              if len(txt) > 1800:
+                                  continue
+                              imgs = []
+                              for im in el.find_elements(By.CSS_SELECTOR, "img"):
+                                  src = im.get_attribute("currentSrc") or im.get_attribute("src") or ""
+                                  if src:
+                                      imgs.append({
+                                          "src": urljoin(d.current_url, src),
+                                          "alt": im.get_attribute("alt") or "",
+                                          "width": im.get_attribute("naturalWidth"),
+                                          "height": im.get_attribute("naturalHeight"),
+                                      })
+                              links = []
+                              for x in el.find_elements(By.CSS_SELECTOR, "a[href]"):
+                                  links.append({
+                                      "text": " ".join((x.text or "").split())[:500],
+                                      "href": x.get_attribute("href") or "",
+                                  })
+                              candidates.append({
+                                  "depth": depth,
+                                  "tag": el.tag_name,
+                                  "text": txt,
+                                  "images": imgs,
+                                  "links": links,
+                              })
+                      except Exception:
+                          pass
+                  candidates.sort(key=lambda x: (len(x["text"]), x["depth"]))
+                  row["listing_browser"]["target_nodes"] = candidates[:4]
+
+                  rendered = []
+                  seen = set()
+                  for node in candidates[:4]:
+                      for im in node["images"]:
+                          src = im["src"]
+                          if src in seen:
+                              continue
+                          seen.add(src)
+                          try:
+                              rr = session.get(src, headers={"Referer": d.current_url}, timeout=25)
+                              ct = rr.headers.get("content-type") or ""
+                              if rr.status_code == 200 and ct.startswith("image/") and len(rr.content) > 500:
+                                  ext = { "image/jpeg": ".jpg", "image/png": ".png", "image/gif": ".gif", "image/webp": ".webp" }.get(ct.split(";")[0], ".bin")
+                                  p = OUT / f'{spec["key"]}-listing-{len(rendered):02d}{ext}'
+                                  p.write_bytes(rr.content)
+                                  rendered.append({
+                                      "src": src,
+                                      "file": p.name,
+                                      "bytes": len(rr.content),
+                                      "sha256": digest(rr.content),
+                                      "content_type": ct,
+                                      "width": im.get("width"),
+                                      "height": im.get("height"),
+                                  })
+                          except Exception as exc:
+                              rendered.append({"src": src, "error": type(exc).__name__ + ": " + str(exc)})
+                  row["listing_browser"]["downloaded_source_emitted_images"] = rendered
+                  d.save_screenshot(str(OUT / f'{spec["key"]}-listing.png'))
+                  (OUT / f'{spec["key"]}-listing-browser.html').write_text(d.page_source, encoding="utf-8")
+
+                  d.get(spec["detail_url"])
+                  time.sleep(7)
+                  alert_text = None
+                  try:
+                      alert = d.switch_to.alert
+                      alert_text = alert.text
+                      alert.accept()
+                      time.sleep(2)
+                  except NoAlertPresentException:
+                      pass
+                  detail_body = d.find_element(By.TAG_NAME, "body").text
+                  detail = {
+                      "final_url": d.current_url,
+                      "title": d.title,
+                      "alert_text": alert_text,
+                      "anti_bot_visible": any(
+                          term.lower() in detail_body.lower()
+                          for term in ("자동등록방지", "Please prove that you are human", "captcha", "recaptcha")
+                      ),
+                      "target_terms_visible": [
+                          t for t in ("上海校經山房", "改良", "紫微斗數全書", "4卷", "4冊", "石印", "13.7", "20.5")
+                          if t.lower() in detail_body.lower()
+                      ],
+                      "body_excerpt": detail_body[:30000],
+                  }
+                  imgs = []
+                  for im in d.find_elements(By.CSS_SELECTOR, "img"):
+                      try:
+                          src = im.get_attribute("currentSrc") or im.get_attribute("src") or ""
+                          if not src:
+                              continue
+                          imgs.append({
+                              "src": urljoin(d.current_url, src),
+                              "alt": im.get_attribute("alt") or "",
+                              "width": im.get_attribute("naturalWidth"),
+                              "height": im.get_attribute("naturalHeight"),
+                              "displayed": im.is_displayed(),
+                          })
+                      except Exception:
+                          pass
+                  dedup = []
+                  seen = set()
+                  for x in imgs:
+                      if x["src"] not in seen:
+                          seen.add(x["src"])
+                          dedup.append(x)
+                  detail["image_elements"] = dedup[:250]
+
+                  downloaded = []
+                  if not detail["anti_bot_visible"]:
+                      for x in dedup:
+                          w = int(x.get("width") or 0)
+                          h = int(x.get("height") or 0)
+                          if max(w, h) < 180:
+                              continue
+                          try:
+                              rr = session.get(x["src"], headers={"Referer": d.current_url}, timeout=25)
+                              ct = rr.headers.get("content-type") or ""
+                              if rr.status_code == 200 and ct.startswith("image/") and len(rr.content) > 1000:
+                                  ext = { "image/jpeg": ".jpg", "image/png": ".png", "image/gif": ".gif", "image/webp": ".webp" }.get(ct.split(";")[0], ".bin")
+                                  p = OUT / f'{spec["key"]}-detail-{len(downloaded):02d}{ext}'
+                                  p.write_bytes(rr.content)
+                                  downloaded.append({
+                                      "src": x["src"],
+                                      "file": p.name,
+                                      "bytes": len(rr.content),
+                                      "sha256": digest(rr.content),
+                                      "content_type": ct,
+                                      "width": w,
+                                      "height": h,
+                                  })
+                          except Exception as exc:
+                              downloaded.append({"src": x["src"], "error": type(exc).__name__ + ": " + str(exc)})
+                  detail["downloaded_source_emitted_images"] = downloaded
+                  row["detail_browser"] = detail
+                  d.save_screenshot(str(OUT / f'{spec["key"]}-detail.png'))
+                  (OUT / f'{spec["key"]}-detail-browser.html').write_text(d.page_source, encoding="utf-8")
+              finally:
+                  d.quit()
+
+              row["adjudication"] = {
+                  "physical_jiaojingshanfang_route": "BOUND_IF_PUBLIC_ROW_OR_DETAIL_TERMS_VISIBLE",
+                  "target_heading_page": "PENDING_DIRECT_VISUAL_REVIEW_OF_SOURCE_EMITTED_IMAGES",
+                  "independent_target_text_vote_added": 0,
+                  "independent_hai_glyph_vote_added": 0,
+                  "algorithm_effect": "NONE",
+              }
+              result["lots"].append(row)
+
+          (OUT / "jiaojingshanfang-hanauction-routes.json").write_text(
+              json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8"
+          )
+          print(json.dumps({
+              "lots": [
+                  {
+                      "key": x["spec"]["key"],
+                      "listing_http": x.get("listing_http"),
+                      "detail_http": x.get("detail_http"),
+                      "listing_target_lines": x.get("listing_browser", {}).get("target_lines"),
+                      "listing_exact_object_anchors": x.get("listing_browser", {}).get("exact_object_anchors"),
+                      "listing_images": x.get("listing_browser", {}).get("downloaded_source_emitted_images"),
+                      "detail_alert": x.get("detail_browser", {}).get("alert_text"),
+                      "detail_anti_bot": x.get("detail_browser", {}).get("anti_bot_visible"),
+                      "detail_terms": x.get("detail_browser", {}).get("target_terms_visible"),
+                      "detail_images": x.get("detail_browser", {}).get("downloaded_source_emitted_images"),
+                  }
+                  for x in result["lots"]
+              ]
+          }, ensure_ascii=False, indent=2))
+
+      - name: Upload Jiaojingshanfang route evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ziwei-jiaojingshanfang-hanauction-physical-routes-ag
+          path: probe/
+          if-no-files-found: warn
+          retention-days: 14

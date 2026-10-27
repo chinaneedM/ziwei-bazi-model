@@ -1,0 +1,100 @@
+{
+  "schema": "ZIWEI-JI-SHUYING-WENJI-2004-PUBLIC-FULL-TOC-ARTICLE74-EDITORIAL-ENDMATTER-BOUNDARY-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-JI-SHUYING-WENJI-2004-PUBLIC-FULL-TOC-ARTICLE74-EDITORIAL-ENDMATTER-BOUNDARY-GS",
+  "prior_batch_id": "BATCH-12-ZIWEI-JI-SHUYING-WENJI-PP383-385-CHEN-QINGHUA-PURCHASE-CONTEXT-FALSE-LEAD-FIREWALL-GR",
+  "question": "Can a public full table-of-contents surface for the 2004 《冀淑英文集》 narrow the location of 《百川归海，蔚为大观》 and expose the volume's editorial end matter without pretending that the article pages or editor note have been directly reviewed?",
+  "answer": "Yes, but only at the structural locator layer. The public 書虫精品 / 芸香閣叢書 catalog page displays the complete contents sequence for 《冀淑英文集》 and places the target as item 74, immediately after item 73 and immediately before item 75 《中国古代目录学简述》; it then lists three appendix letters and a final 《編后記》. This materially narrows the target to the closing main-text block of the volume. The surface supplies no article start/end pages and no text of item 74 or the final editor postscript. Its mojibake title display is normalized only by the already-closed institutional bibliographic identity from Batch 12GP. Therefore the exact page range, direct article text, 2004 editor-note wording and any identity between the displayed 《編后記》 and the secondary-reported 《编者注》 remain unresolved.",
+  "public_full_toc_control": {
+    "source_id": "EXT-FRELAX-SHUCHONG-JI-SHUYING-WENJI-2004-FULL-TOC",
+    "url": "https://www.frelax.com/scdb/mulu/2/JSYW115652c1.html",
+    "provider": "書虫精品 / 芸香閣叢書",
+    "source_layer": "PUBLIC_RETAIL_CATALOG_FULL_TOC_SURFACE_NOT_DIRECT_BOOK_PAGE_AUTHORITY",
+    "displayed_bibliographic_metadata": {
+      "author_display": "冀淑英 著",
+      "publisher_display": "北京図書館",
+      "publication_display": "2004年9月",
+      "physical_display": "p456/32開/精装",
+      "isbn_display": "ISBN7-5013-2461-1"
+    },
+    "complete_toc_sequence_exposed": true,
+    "target_entry": {
+      "ordinal": 74,
+      "raw_display": "百川歸海 蔚爲大�V",
+      "normalized_title": "百川归海，蔚为大观",
+      "normalization_basis": "Batch 12GP already closed the exact title from NLC-hosted and Taiwan NCL institutional publications; the retail surface itself contains mojibake in the final glyph."
+    },
+    "immediate_predecessor": {
+      "ordinal": 73,
+      "raw_display": "宋元明清版本�｢展概况",
+      "normalized_for_locator_only": "宋元明清版本发展概况"
+    },
+    "immediate_successor": {
+      "ordinal": 75,
+      "raw_display": "中国古代目録学簡述",
+      "normalized_for_locator_only": "中国古代目录学简述"
+    },
+    "appendix_entries_displayed": 3,
+    "final_endmatter_display": "編后記",
+    "target_article_page_numbers_exposed": false,
+    "target_article_body_exposed": false,
+    "final_endmatter_page_numbers_exposed": false,
+    "final_endmatter_body_exposed": false
+  },
+  "adjudication": {
+    "baichuan_toc_ordinal": "CLOSED_AT_PUBLIC_FULL_TOC_LAYER_AS_ITEM_74",
+    "baichuan_structural_position": "CLOSING_MAIN_TEXT_BLOCK_IMMEDIATELY_BEFORE_ITEM_75_AND_APPENDICES",
+    "baichuan_exact_page_range": "UNRESOLVED",
+    "direct_2004_article_text": "NOT_REVIEWED",
+    "final_editor_postscript_presence": "CLOSED_AT_TOC_LABEL_LAYER",
+    "direct_final_editor_postscript_text": "NOT_REVIEWED",
+    "direct_2004_editor_note": "NOT_REVIEWED",
+    "displayed_bianhouji_equals_secondary_reported_bianzhezhu": "NOT_PROVED",
+    "retail_p456_as_canonical_pagination": "NOT_AUTHORIZED",
+    "direct_2009_postscript": "NOT_REVIEWED",
+    "derivation_status": "SECONDARY_REPORTED_NOT_DIRECTLY_CLOSED",
+    "target_specific_purchase_route_selected": false,
+    "target_specific_donation_route_selected": false,
+    "final_nlc_acquisition_transfer_path": "UNRESOLVED"
+  },
+  "inference_firewall": {
+    "full_toc_does_not_equal_direct_article_pages": true,
+    "ordinal_position_does_not_authorize_page_interpolation": true,
+    "mojibake_normalization_requires_independent_title_control": true,
+    "final_bianhouji_label_does_not_prove_secondary_reported_bianzhezhu_identity": true,
+    "retail_physical_page_display_does_not_override_institutional_pagination_without_collation": true,
+    "collection_level_tieqin_material_does_not_assign_target_3482_3483_transaction": true
+  },
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_added": [],
+    "direct_copy_edge_authorized": false,
+    "same_object_edge_authorized": false,
+    "acquisition_edge_authorized": false
+  },
+  "chronology_and_rule_firewall": {
+    "direct_sanming_parent_vote_increment": 0,
+    "pre1578_zhunzhai_rule_witness_increment": 0,
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_count_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 14,
+    "repaired_provenance_metadata_defect_count": 14,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Lawfully inspect the physical/digitized 2004 《冀淑英文集》 around TOC item 74 and recover the exact start/end pages plus the complete 《百川归海，蔚为大观》 text.",
+    "Directly inspect the final 《編后記》 and determine whether it contains, quotes or corresponds to the secondary-reported 《编者注》; do not equate the labels in advance.",
+    "Directly inspect the 2009 《冀淑英古籍善本十五讲》 postscript and then collate the 2004 item 74 Tieqin subsection against 2009 chapter 9.",
+    "Continue direct 《北京图书馆馆史资料汇编（二）：1949—1966》 pp.446—449 collation and direct 2010 《〈冀淑英文集〉补遣》 recovery in parallel."
+  ],
+  "updated_at": "2026-09-25"
+}

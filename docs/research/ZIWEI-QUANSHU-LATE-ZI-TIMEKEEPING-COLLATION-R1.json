@@ -1,0 +1,100 @@
+{
+  "schema": "ZIWEI-QUANSHU-LATE-ZI-TIMEKEEPING-COLLATION-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-LATE-ZI-TIMEKEEPING-B",
+  "status": "GENERIC_ZI_UPPER_LOWER_HALF_TIMEKEEPING_ORIENTATION_CLOSED_RUNTIME_BINDING_STILL_OPEN",
+  "ziwei_doctrinal_witness": {
+    "source_id": "EXT-ZIWEI-QUANSHU-NANYANGTANG-SCAN",
+    "direct_collation_artifact": "docs/research/ZIWEI-QUANSHU-NANYANGTANG-LATE-ZI-DIRECT-COLLATION-R1.json",
+    "direct_page_1_based": 320,
+    "wording": "如子時有十刻上五刻屬昨夜亥時下五刻屬今日子時",
+    "role": "ONLY_SOURCE_LAYER_IN_THIS_BATCH_ALLOWED_TO_DEFINE_THE_ZIWEI_CANDIDATE"
+  },
+  "timekeeping_witnesses": [
+    {
+      "source_id": "EXT-CTEXT-SMTHE-SIKU-V2",
+      "title": "《三命通会》卷二《论时刻》",
+      "role": "MING_GENERIC_TIMEKEEPING_AND_UPPER_LOWER_HALF_ORIENTATION_ONLY",
+      "observations": [
+        "一时有八大刻二小刻",
+        "上半时四大刻加一小刻，下半时四大刻加一小刻",
+        "若子时则上半时在夜半前属昨日，下半时在夜半后属今日"
+      ],
+      "doctrinal_import_to_ziwei": "FORBIDDEN"
+    },
+    {
+      "source_id": "EXT-CTEXT-RIZHILU-BAIKE",
+      "title": "顾炎武《日知录·百刻》",
+      "role": "LATER_TIMEKEEPING_EXEGESIS_ONLY",
+      "observations": [
+        "一日十二时计百刻",
+        "历家每时所谓十刻包含大刻与小刻",
+        "十个名目不能解释为十个等长百刻单位"
+      ],
+      "doctrinal_import_to_ziwei": "FORBIDDEN"
+    },
+    {
+      "source_id": "EXT-NAOJ-KOYOMI-TEIJI-SHICHEN",
+      "title": "国立天文台暦計算室《定時法と不定時法》",
+      "role": "MODERN_SCHOLARLY_COORDINATE_TRANSLATION_ONLY",
+      "observations": [
+        "fixed-hour one day = 100 ke",
+        "one shichen = two modern hours",
+        "Zi shichen corresponds approximately to 23:00–01:00",
+        "Zi-zheng is the middle of Zi and corresponds to midnight"
+      ],
+      "doctrinal_import_to_ziwei": "FORBIDDEN"
+    }
+  ],
+  "received_text_controls": [
+    {
+      "source_id": "EXT-SHIDIAN-ZWDSQS-LATE-ZI",
+      "reading": "上五刻属昨夜亥时、下五刻属今日子时",
+      "relation_to_facsimile": "AGREES_AT_CRITICAL_UPPER_FIVE_LOWER_FIVE_WORDING",
+      "authority": "TRANSCRIPTION_CORROBORATION_NOT_GLYPH_AUTHORITY"
+    },
+    {
+      "source_id": "EXT-WIKISOURCE-ZWDSQS-V3-LATE-ZI",
+      "reading": "上午刻属昨夜亥时、下午刻属今日子时",
+      "relation_to_facsimile": "DIFFERS_FROM_DIRECT_FACSIMILE_AT 五/午 GLYPH",
+      "authority": "TRANSCRIPTION_VARIANT_OR_ERROR_CONTROL_NOT_GLYPH_AUTHORITY",
+      "volume_numbering_note": "Wikisource places the section in 卷三 whereas the seven-juan Nanyangtang scan places it in 卷五; do not assume identical edition structure."
+    }
+  ],
+  "adjudication": {
+    "ten_ke_equal_duration_interpretation": "REJECTED",
+    "ten_ke_structure": "EIGHT_LARGE_PLUS_TWO_SMALL_KE_WITH_FIVE_NAMED_POSITIONS_PER_HALF",
+    "upper_half_orientation": "BEFORE_MIDNIGHT_PREVIOUS_DAY",
+    "lower_half_orientation": "AFTER_MIDNIGHT_CURRENT_DAY",
+    "generic_fixed_shichen_modern_translation": {
+      "zi_shichen": "APPROX_23:00-01:00",
+      "zi_zheng": "APPROX_00:00_MIDNIGHT",
+      "upper_half": "APPROX_23:00-24:00",
+      "lower_half": "APPROX_00:00-01:00",
+      "status": "COORDINATE_TRANSLATION_ONLY_NOT_ZIWEI_RUNTIME_TIME_STANDARD"
+    },
+    "source_text_branch_effect": "FULLBOOK_DIRECTLY_LABELS_UPPER_FIVE_AS_PREVIOUS_NIGHT_HAI_AND_LOWER_FIVE_AS_CURRENT_DAY_ZI",
+    "generic_orientation_status": "CLOSED_AT_FIXED_SHICHEN_TIMEKEEPING_LEVEL",
+    "runtime_time_standard_binding": "UNRESOLVED",
+    "unresolved_runtime_time_standard_candidates": [
+      "CIVIL_STANDARD_TIME",
+      "LOCAL_MEAN_SOLAR_TIME",
+      "LOCAL_APPARENT_SOLAR_TIME",
+      "OTHER_SOURCE_SCOPED_HISTORICAL_CLOCK_REALIZATION"
+    ],
+    "hai_vs_zi_textual_lineage": "UNRESOLVED_PENDING_ADDITIONAL_PHYSICAL_FULLBOOK_EDITIONS",
+    "candidate_method_id": "NANYANGTANG-FULLBOOK-ZI-TEN-KE-HAI-SPLIT-R1",
+    "product_status": "MISSING_FROM_PRODUCT",
+    "runtime_selection_authorized": false,
+    "algorithm_reopen_authorized": false
+  },
+  "scope_firewalls": [
+    "SANMING_TIMEKEEPING_SEMANTICS_ARE_NOT_ZIWEI_DOCTRINE",
+    "NAOJ_MODERN_COORDINATE_TRANSLATION_IS_NOT_HISTORICAL_ZIWEI_AUTHORITY",
+    "UPPER_LOWER_HALF_ORIENTATION_DOES_NOT_SELECT_CIVIL_MEAN_OR_APPARENT_SOLAR_RUNTIME_CLOCK",
+    "TEN_KE_MUST_NOT_BE_MODELED_AS_TEN_EQUAL_DURATION_SLICES",
+    "WIKISOURCE_GLYPH_DIFFERENCE_MUST_NOT_OVERRIDE_DIRECT_FACSIMILE",
+    "NO_DEFAULT_WINNER_SELECTION",
+    "NO_ALGORITHM_REOPEN"
+  ]
+}

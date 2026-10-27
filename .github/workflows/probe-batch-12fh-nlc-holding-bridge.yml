@@ -1,0 +1,105 @@
+name: probe-batch-12fh-nlc-holding-bridge
+
+on:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - '.github/workflows/probe-batch-12fh-nlc-holding-bridge.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Probe current NLC holdingUrl bridge
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/batch-12fh-nlc-holding-bridge'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT/raw"
+          UA='Tianwen-Provenance-Audit/1.0'
+
+          python - <<'PY'
+          from pathlib import Path
+          from urllib.parse import quote
+          root=Path('audit/batch-12fh-nlc-holding-bridge')
+          docs=[
+              ('target-original','001775083'),
+              ('target-microfilm','002597934'),
+              ('positive-control','003145713'),
+          ]
+          rows=[]
+          for key,doc in docs:
+              legacy=f'http://opac.nlc.cn/F?func=item-global&doc_library=NLC01&doc_number={doc}'
+              sso='http://sso1.nlc.cn:9080/nlclogin/ssologin-url-find.jsp?url='+quote(legacy,safe='')
+              bridge_http='http://meta.nlc.cn/tc-nlcdata/holdingUrl?returnUrl='+quote(sso,safe='')
+              bridge_https='https://meta.nlc.cn/tc-nlcdata/holdingUrl?returnUrl='+quote(sso,safe='')
+              rows.append((key,doc,legacy,sso,bridge_http,bridge_https))
+          root.joinpath('targets.tsv').write_text(
+              ''.join('\t'.join(r)+'\n' for r in rows),encoding='utf-8')
+          PY
+
+          : > "$ROOT/status.tsv"
+          while IFS=$'\t' read -r key doc legacy sso bridge_http bridge_https; do
+            for mode in bridge-http bridge-https sso-direct legacy-direct; do
+              case "$mode" in
+                bridge-http) url="$bridge_http" ;;
+                bridge-https) url="$bridge_https" ;;
+                sso-direct) url="$sso" ;;
+                legacy-direct) url="$legacy" ;;
+              esac
+              safe="${key}-${mode}"
+              out="$ROOT/raw/${safe}.html"
+              hdr="$ROOT/raw/${safe}.headers"
+              trace="$ROOT/raw/${safe}.trace.txt"
+              set +e
+              code=$(curl -L -sS --connect-timeout 8 --max-time 45 --max-redirs 10 \
+                -A "$UA" -D "$hdr" -o "$out" \
+                -w '%{http_code}\t%{url_effective}\t%{num_redirects}\t%{remote_ip}' "$url" 2>"$trace")
+              rc=$?
+              set -e
+              size=0; [ -f "$out" ] && size=$(wc -c < "$out")
+              printf '%s\t%s\t%s\trc=%s\t%s\tbytes=%s\n' "$key" "$doc" "$mode" "$rc" "$code" "$size" >> "$ROOT/status.tsv"
+            done
+          done < "$ROOT/targets.tsv"
+
+          grep -RniE '准斋|準齋|几漏|漏箭|黄丕烈|黃丕烈|士礼居|士禮居|001775083|001411999008601|03482|03483|00O003570|索书号|索書號|条码|條碼|馆藏|館藏|南区善本|南區善本|doc_number|call|barcode|shelf|没有找到|沒有找到|服务器|服務器|错误|錯誤' "$ROOT/raw" > "$ROOT/target-hits.txt" || true
+
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          root=Path('audit/batch-12fh-nlc-holding-bridge')
+          out=[]
+          for p in sorted((root/'raw').glob('*.headers')):
+              out.append('### '+p.name)
+              txt=p.read_text('utf-8',errors='replace')
+              for line in txt.splitlines():
+                  if re.match(r'(?i)^(HTTP/|location:|set-cookie:|content-type:|server:|x-|via:)',line):
+                      out.append(line)
+          root.joinpath('redirect-summary.txt').write_text('\n'.join(out)+'\n',encoding='utf-8')
+          PY
+
+          find "$ROOT" -type f -size +0c -print0 | xargs -0 -r sha256sum | sort -V > "$ROOT/all-files.sha256"
+          printf '%s\n' \
+            'SOURCE=National Library of China current meta.nlc.cn holdingUrl bridge disclosed by /v2/doSearch holdings payload' \
+            'TARGET=legacy OPAC original doc 001775083; microfilm 002597934; positive control 003145713' \
+            'PURPOSE=test whether current holdings bridge can resolve the original record or expose a current item/call-number route' \
+            'IDENTIFIER_FIREWALL=bridge success != current physical call number unless an explicit field labels it' \
+            'NEGATIVE_POLICY=timeout/error/not-found is access-path evidence only' \
+            'OCR_USED=false' > "$ROOT/manifest.txt"
+
+      - name: Upload bridge evidence probe
+        uses: actions/upload-artifact@v4
+        with:
+          name: batch-12fh-nlc-holding-bridge-probe
+          path: audit/batch-12fh-nlc-holding-bridge/
+          if-no-files-found: error
+          retention-days: 30

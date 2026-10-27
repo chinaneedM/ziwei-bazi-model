@@ -1,0 +1,169 @@
+{
+  "schema": "ZIWEI-NLC-CURRENT-TONGHU-COMPOSITE-HOLDINGS-LOCATOR-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-NLC-CURRENT-TONGHU-COMPOSITE-HOLDINGS-LOCATOR-FI",
+  "prior_batch_id": "BATCH-12-ZIWEI-NLC-CURRENT-SYS-ITEM-HOLDINGS-LOCATOR-FH",
+  "question": "Can the current National Library of China metadata/item APIs close the separately catalogued Tonghu original record and NLC:SBYL:03482 local holdings locator, thereby closing the current 03482/03483 companion pair while preserving barcode/acquisition and separate-photo identifier boundaries?",
+  "answer": "YES. CURRENT NLC META CLOSES THE 1823 HUANG SHILIJU TONGHU ORIGINAL AS SYS 001775082 / UID UCS01003828992 AND THE ITEM API DIRECTLY EMITS 905a=NLC, 905q=SBYL, 905s=03482 AND 3165=NLC:SBYL:03482. TOGETHER WITH BATCH 12FH ZHUNZHAI SYS 001775083 / UID UCS01003828993 / NLC:SBYL:03483, THE CURRENT 03482+03483 LOCAL-HOLDINGS PAIR IS CLOSED AT THE CATALOG/LOCAL-CALL-NUMBER LAYER. TONGHU MICROFILM RECORDS SYMMETRICALLY STATE THAT ZHUNZHAI WAS SEPARATELY PHOTOGRAPHED AT 00O003571 AND EMIT RAW 455$1 001411999008600, PARSED AS EMBEDDED 001 + LINKED RECORD CONTROL 411999008600. 00O003570/71 ARE TITLE-SPECIFIC SEPARATE-PHOTO REFERENCES BUT ARE NOT PROMOTED TO CURRENT SYS, BARCODE OR CALL NUMBER. FINAL QU-FAMILY ACQUISITION ROUTE REMAINS UNRESOLVED.",
+  "controlling_probe": {
+    "workflow_run_id": 36021477176,
+    "workflow_artifact_id": 10817116307,
+    "workflow_artifact_digest": "sha256:a46e8a86b8ba020cbbaeaa179dd9ed64410b2ea77e820dd2620ec2ee4b147774",
+    "method": "CURRENT_META_BROWSER_NATIVE_TITLE_SEARCH_PLUS_ITEM_DETAIL_API",
+    "ocr_used": false
+  },
+  "original_tonghu_record": {
+    "sys": "001775082",
+    "uid": "UCS01003828992",
+    "current_record_control_001": "003828992",
+    "material_type": "善本",
+    "title_primary": "銅壺漏箭制度",
+    "title_companion_in_current_record": "准齋心製几漏圖式",
+    "year": "1823",
+    "publisher_or_copying_source": "黃氏士禮居",
+    "extent": "1冊",
+    "current_holder": "国家图书馆",
+    "current_meta_sys_identity_closed": true,
+    "current_uid_identity_closed": true,
+    "barcode_exposed": false,
+    "historical_authorship_reopen_authorized": false
+  },
+  "local_holdings_locator": {
+    "field_905a": "NLC",
+    "field_905q": "SBYL",
+    "field_905s": "03482",
+    "composite_3165": "NLC:SBYL:03482",
+    "field_852a": "A100000NLC",
+    "sublibrary_semantics": "SBYL=善本阅览室",
+    "field_905s_semantics": "LOCAL_CALL_NUMBER_COMPONENT",
+    "adjudicated_locator": "NLC:SBYL:03482",
+    "current_local_holdings_locator_closed": true,
+    "public_barcode_proved": false
+  },
+  "current_composite_locator_pair": {
+    "tonghu": {
+      "sys": "001775082",
+      "uid": "UCS01003828992",
+      "local_holdings_locator": "NLC:SBYL:03482",
+      "local_call_number_component": "03482"
+    },
+    "zhunzhai": {
+      "sys": "001775083",
+      "uid": "UCS01003828993",
+      "local_holdings_locator": "NLC:SBYL:03483",
+      "local_call_number_component": "03483"
+    },
+    "pair_closed": true,
+    "legacy_opac_one_volume_statement": "原文献03482铜壶漏箭制度、03483准斋心制几漏图式为一册",
+    "beitu_1959_historical_pair": {
+      "tonghu": "3482",
+      "zhunzhai": "3483"
+    },
+    "semantic_layer_collapse_forbidden": true
+  },
+  "tonghu_microfilm_controls": {
+    "records": [
+      {
+        "sys": "002597933",
+        "uid": "UCS01003581457",
+        "year": "1985",
+        "material_type": "缩微品"
+      },
+      {
+        "sys": "002146415",
+        "uid": "UCS01003553255",
+        "year": "1985",
+        "material_type": "缩微品"
+      }
+    ],
+    "direct_original_source_note": "原文献03482铜壶漏箭制度、03483准斋心制几漏图式为一册，准斋心制几漏图式另拍在00O003571",
+    "raw_455_embedded_payload": "001411999008600",
+    "embedded_tag": "001",
+    "linked_original_record_control_id": "411999008600",
+    "linked_payload_classification": "455_REPRODUCTION_OF_EMBEDDED_001_RECORD_IDENTIFIER"
+  },
+  "symmetric_microfilm_pair": {
+    "tonghu_microfilm": {
+      "linked_record_control_id": "411999008600",
+      "companion_separate_photo_reference": "00O003571",
+      "companion_title": "准斋心制几漏图式"
+    },
+    "zhunzhai_microfilm": {
+      "linked_record_control_id": "411999008601",
+      "companion_separate_photo_reference": "00O003570",
+      "companion_title": "铜壶漏箭制度"
+    },
+    "symmetry_closed": true,
+    "separate_photo_reference_referents_closed": true,
+    "separate_photo_reference_identifier_class": "SEPARATE_PHOTOGRAPH_REFERENCE_ONLY",
+    "separate_photo_reference_to_current_sys_crosswalk_proved": false,
+    "barcode_or_call_number_semantics_proved": false
+  },
+  "sys_neighborhood_control": {
+    "workflow_run_id": 36021672675,
+    "workflow_artifact_id": 10816842828,
+    "workflow_artifact_digest": "sha256:6556ffd58367b3ff4ebcddd439b6caeb832a216ee98a837683ca5d94662432ae",
+    "range": "001775076..001775090",
+    "target_001775082_request_status": "TIMEOUT_IN_THIS_BOUNDED_PASS",
+    "target_001775083_request_status": "TIMEOUT_IN_THIS_BOUNDED_PASS",
+    "negative_authority": false,
+    "note": "The bounded neighborhood run is supplemental only; controlling target identity comes from the successful title search and item API."
+  },
+  "identifier_firewall": {
+    "historical_1959_3482_is_current_sys": false,
+    "legacy_opac_03482_is_current_sys": false,
+    "current_sys_001775082_is_barcode": false,
+    "current_905s_03482_is_barcode": false,
+    "current_905s_03482_semantics": "LOCAL_CALL_NUMBER_COMPONENT",
+    "separate_photo_00O003570_is_current_sys": false,
+    "separate_photo_00O003571_is_current_sys": false
+  },
+  "acquisition_provenance_adjudication": {
+    "final_nlc_acquisition_transfer_path": "UNRESOLVED",
+    "sale_route_selected": false,
+    "donation_route_selected": false,
+    "historical_same_object_collapse_authorized": false,
+    "huang_multi_copy_firewall": "原書舊鈔 / 錄副 remains unresolved"
+  },
+  "chronology_and_rule_firewall": {
+    "current_catalog_author_string_used_to_redate_work": false,
+    "secure_pre1578_exact_25arrow_physical_witness": false,
+    "exact_yuan_1281_person_identity": "POSSIBLE_NOT_PROVED",
+    "exact_sanming_yueling_dahan_yushui_fingerprint_closed": false,
+    "exact_nanjing_59_endpoint_binding_closed": false,
+    "direct_sanming_parent_vote_increment": 0,
+    "algorithm_reopen_authorized": false
+  },
+  "transmission_impact": {
+    "nodes_added": [
+      "CATALOG-NLC-CURRENT-TONGHU-SYS001775082-UIDUCS01003828992"
+    ],
+    "nodes_strengthened": [
+      "PHYSICAL-COPY-NLC-ZHUNZHAI-JILOU-DAOGUANG3-HUANG-SHILIJU-MS",
+      "CATALOG-NLC-CURRENT-ZHUNZHAI-SYS001775083-UIDUCS01003828993",
+      "CATALOG-NLC-OPAC-ZHUNZHAI-MICROFILM-002597934"
+    ],
+    "edges_supported": [
+      "TG-E0112"
+    ],
+    "same_object_edge_authorized": false,
+    "direct_copy_edges_authorized": []
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 13,
+    "repaired_provenance_metadata_defect_count": 13,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Map 00O003570 and 00O003571 to any first-party current microfilm/photo-service identifiers without inferring from sequence alone.",
+    "Test 411999008600 and 411999008601 through first-party linked-record routes; timeout/nonreturn from current SYS search has no negative physical-record authority.",
+    "Continue target-specific Qu-family sale/donation/transfer/accession research.",
+    "Keep the pre-1578 Zhunzhai rule line and independent Sanming/Yueling Dahan-Rainwater + Nanjing-59 lines active."
+  ],
+  "updated_at": "2026-09-24"
+}

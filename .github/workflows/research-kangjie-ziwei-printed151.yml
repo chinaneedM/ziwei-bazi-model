@@ -1,0 +1,118 @@
+name: research-kangjie-ziwei-printed151
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-kangjie-ziwei-printed151.yml
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Ensure PDF tools
+        run: |
+          if ! command -v pdftoppm >/dev/null 2>&1; then
+            sudo apt-get update
+            sudo apt-get install -y poppler-utils
+          fi
+
+      - name: Render finite page-offset controls around printed 127 and 151
+        shell: python
+        run: |
+          import hashlib
+          import json
+          import subprocess
+          import urllib.request
+          from pathlib import Path
+
+          OUT=Path("probe")
+          OUT.mkdir()
+          PDF=OUT/"source.pdf"
+          URL="https://vr-d.com/pdf-file/%E7%B4%AB%E5%BE%AE%E6%96%97%E6%95%B0%2F%E5%BA%B7%E8%8A%82%E8%AF%B4%E6%98%93_%E7%B4%AB%E5%BE%AE%E6%96%97%E6%95%B0.pdf"
+          req=urllib.request.Request(URL,headers={
+              "User-Agent":"Mozilla/5.0 research-only finite page-offset probe",
+              "Accept":"application/pdf,*/*;q=0.8",
+          })
+          with urllib.request.urlopen(req,timeout=90) as resp:
+              data=resp.read(30_000_001)
+              if len(data)>30_000_000:
+                  raise RuntimeError("PDF exceeded guard")
+              PDF.write_bytes(data)
+              transport={
+                  "status":getattr(resp,"status",None),
+                  "bytes":len(data),
+                  "sha256":hashlib.sha256(data).hexdigest(),
+                  "pdf_magic":data.startswith(b"%PDF"),
+              }
+
+          # Direct visual review of PDF pp.11-12 in the previous probe showed:
+          # modern typeset table of contents, volume-three start printed p127,
+          # target essay printed p151. If printed p1 begins at PDF p13,
+          # offset is +12; these finite controls verify that hypothesis visually.
+          pages=[138,139,140,161,162,163,164,165]
+          rendered=[]
+          for p in pages:
+              prefix=OUT/f"render-p{p:04d}"
+              subprocess.run([
+                  "pdftoppm","-f",str(p),"-l",str(p),"-r","220","-png","-singlefile",
+                  str(PDF),str(prefix)
+              ],check=True,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
+              fn=prefix.with_suffix(".png")
+              b=fn.read_bytes()
+              rendered.append({
+                  "pdf_page_1_based":p,
+                  "file":fn.name,
+                  "bytes":len(b),
+                  "sha256":hashlib.sha256(b).hexdigest(),
+              })
+
+          result={
+              "schema":"ZIWEI-KANGJIE-PRINTED151-PAGE-OFFSET-R1",
+              "source_url":URL,
+              "transport":transport,
+              "source_identity_from_prior_direct_visual_review":
+                  "MODERN_TYPESET_XUELIN_PRESS_KANGJIE_SHUOYI_QUANSHU_ZIWEI_DOUSHU_CHEN_MING_DIANKAO",
+              "prior_toc_direct_visual_controls":{
+                  "volume_three_start_printed_page":127,
+                  "target_heading":"论人生日时要审的确",
+                  "target_printed_page":151,
+              },
+              "offset_hypothesis":{
+                  "printed_page_1_expected_pdf_page":13,
+                  "expected_offset":12,
+                  "volume_three_start_expected_pdf_page":139,
+                  "target_expected_pdf_page":163,
+              },
+              "rendered_pages":rendered,
+              "ocr_used":False,
+              "page_enumeration_attempted":False,
+              "finite_page_set_only":pages,
+              "adjudication":{
+                  "offset_status":"REQUIRES_DIRECT_VISUAL_REVIEW_OF_PAGE_NUMBERS_AND_HEADINGS",
+                  "target_text_status":"REQUIRES_DIRECT_VISUAL_REVIEW_NO_OCR",
+                  "historical_authority_ceiling":"MODERN_TYPESET_RECEIVED_TEXT_WITNESS_NOT_PHYSICAL_OLD_EDITION_GLYPH",
+                  "hpa_zdate_006_effect":"NONE_UNTIL_REVIEW_AND_IN_ANY_CASE_NOT_AN_INDEPENDENT_PHYSICAL_GLYPH_WITNESS",
+                  "algorithm_effect":"NONE"
+              }
+          }
+          (OUT/"kangjie-printed151-offset.json").write_text(
+              json.dumps(result,ensure_ascii=False,indent=2),encoding="utf-8"
+          )
+          PDF.unlink()
+          print(json.dumps(result,ensure_ascii=False,indent=2))
+
+      - name: Upload finite printed-page controls
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ziwei-kangjie-printed151
+          path: probe/
+          if-no-files-found: warn
+          retention-days: 14

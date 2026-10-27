@@ -1,0 +1,35 @@
+name: probe-yehuobian-12we-sbb1827-source-ppn-manifest-mets
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-yehuobian-12we-sbb1827-source-ppn-manifest-mets.yml
+      - scripts/probe-yehuobian-sbb1827-metadata-12we.py
+      - tests/test_yehuobian_sbb1827_metadata_12we.py
+      - docs/research/MING-DATONG-YEHUOBIAN-12WE-*
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify-and-probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Fail-closed project and source scope smoke
+        run: |
+          python scripts/verify-project-continuity-state-r1.py
+          python -m unittest discover -s tests -p 'test_yehuobian_sbb1827_metadata_12we.py' -v
+          python -m unittest discover -s tests -p 'test_yehuobian_cadal_parallel_source_12vz.py' -v
+      - name: Bounded first-party source metadata access
+        run: python scripts/probe-yehuobian-sbb1827-metadata-12we.py --output-dir sbb-1827-12we
+      - name: Preserve raw first-party metadata or honest boundary
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sbb-1827-source-metadata-12we
+          path: sbb-1827-12we/
+          if-no-files-found: warn

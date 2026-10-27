@@ -1,0 +1,75 @@
+{
+  "schema": "KYUJANGGAK-G893-COPY-DATING-CONFLICT-R1",
+  "schema_version": "1.0.0",
+  "status": "EXACT_COPY_PRINT_YEAR_UNRESOLVED_SECONDARY_1434_1444_CONFLICT",
+  "source_id": "EXT-KYUJANGGAK-SHOUSHI-LICHENG-G893",
+  "catalog_identifier": "奎貴893",
+  "book_cd": "GK00893_00",
+  "object_title": "《授時曆立成》",
+  "institutional_copy_metadata": {
+    "provider": "서울대학교 규장각한국학연구원",
+    "url": "https://kyudb.snu.ac.kr/book/view.do?book_cd=GK00893_00",
+    "edition": "甲寅字",
+    "publication_date_surface": "15世紀 前半(世宗 年間:1418-1450)",
+    "exact_year_stated": false,
+    "authority_role": "CONTROLLING_COPY_LEVEL_CATALOG_RANGE_UNTIL_COPY_SPECIFIC_PRIMARY_EVIDENCE_CLOSES_EXACT_YEAR"
+  },
+  "specific_year_claims": [
+    {
+      "claim_year": 1434,
+      "source_id": "EXT-KOSTMA-GAPJA-SHOUSHI-LICHENG-1434",
+      "source_class": "MODERN_BIBLIOGRAPHIC_PRINT_HISTORY_DATABASE",
+      "claim_scope": "授時曆立成 listed in the 1434 first-cast 甲寅字 printing tradition",
+      "copy_specific_exact_year_authority": false
+    },
+    {
+      "claim_year": 1434,
+      "source_id": "EXT-LI-LIANG-LICHENG-TABLES-2018",
+      "source_class": "PEER_REVIEWED_MODERN_SECONDARY_SCHOLARSHIP",
+      "claim_scope": "the existing Kyujanggak copy is described as reprinted in 1434",
+      "url": "https://dds.sciengine.com/cfs/files/pdfs/view/2096-4226/D9ED8D22B1044E2EBFE3917E17EF42DD.pdf",
+      "copy_specific_exact_year_authority": false
+    },
+    {
+      "claim_year": 1444,
+      "source_id": "EXT-LI-LIANG-SUNRISE-SUNSET-TABLES-2021",
+      "source_class": "PEER_REVIEWED_BOOK_CHAPTER_BIBLIOGRAPHIC_ENTRY",
+      "title": "Tables of Sunrise and Sunset in Yuan and Ming China (1271–1644) and their Adoption in Korea",
+      "author": "Li Liang",
+      "doi": "10.1484/M.PALS-EB.5.127700",
+      "url": "https://publikationen.badw.de/de/048385459/048385459%5BCC%20BY-NC-ND%5D.pdf",
+      "claim_scope": "bibliography identifies Shoushili licheng, Gyujanggak collection no. 893, as printed in 1444",
+      "copy_specific_exact_year_authority": false
+    }
+  ],
+  "conflict_adjudication": {
+    "institutional_catalog_range_contains_1434": true,
+    "institutional_catalog_range_contains_1444": true,
+    "1434_secondary_claim_count": 2,
+    "1444_secondary_claim_count": 1,
+    "exact_year_selected": null,
+    "reason": "The institutional catalog does not state an exact year, while modern sources disagree between 1434 and 1444. Source counting cannot convert secondary disagreement into copy-specific primary evidence.",
+    "possible_kang_bo_1444_confusion": "HYPOTHESIS_ONLY_NOT_ADJUDICATED",
+    "next_primary_evidence_needed": [
+      "COPY_SPECIFIC_COLOPHON_OR_INSTITUTIONAL_EXACT_YEAR_STATEMENT",
+      "DIRECT_1998_LEE_JING_FULL_TEXT_AND_ITS_BIBLIOGRAPHIC_BASIS",
+      "OTHER_COPY_SPECIFIC_KOREAN_CATALOG_OR_PRINTING_RECORD"
+    ]
+  },
+  "related_separate_work_control": {
+    "title": "《授時曆捷法立成》",
+    "author": "姜保",
+    "relationship_to_g893": "SEPARATE_DERIVED_KOREAN_WORK_NOT_G893",
+    "aks_entry_reports_1444_gapja_reprint": true,
+    "use_to_explain_g893_1444_claim": "FORBIDDEN_WITHOUT_DIRECT_SOURCE_LINKAGE"
+  },
+  "epistemic_boundaries": {
+    "gapja_type_history_as_exact_surviving_copy_year": "FORBIDDEN",
+    "secondary_1434_majority_as_exact_copy_year": "FORBIDDEN",
+    "single_secondary_1444_bibliography_as_exact_copy_year": "FORBIDDEN",
+    "kang_bo_1444_as_explanation_of_g893_1444_without_source_linkage": "FORBIDDEN",
+    "date_conflict_as_target_folio_or_glyph_evidence": "FORBIDDEN",
+    "algorithm_or_runtime_selection_effect": "NONE"
+  },
+  "target_control_effect": "NONE_ALL_SIX_G893_TARGETS_REMAIN_PENDING_DIRECT_IMAGE"
+}

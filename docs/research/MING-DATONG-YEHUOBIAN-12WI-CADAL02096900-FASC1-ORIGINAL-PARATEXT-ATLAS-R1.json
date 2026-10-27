@@ -1,0 +1,67 @@
+{
+  "schema": "TIANWEN-12WI-CADAL02096900-FIRST-FASCICLE-SOURCE-PARATEXT-ACQUISITION-R1",
+  "date": "2026-10-15",
+  "status": "ORIGINAL_SOURCE_CAPTURE_JOB_QUEUED_NOT_YET_IMAGE_REVIEWED",
+  "discovery": {
+    "community_index": "https://commons.wikimedia.org/wiki/User:PacmanD/CADAL_duplicate_uploads/full/10",
+    "digital_collection": "Wikimedia Commons and CADAL",
+    "file_title": "File:CADAL02096900 野獲編（一）.djvu",
+    "expected_original_source_bytes": 2833699,
+    "cadal_digital_id": "02096900",
+    "related_target_digital_id": "02096915",
+    "same_book_title_or_series_does_not_establish_same_physical_original_copy": true,
+    "series_contiguous_fascicles_not_original_printing_vote": true
+  },
+  "purpose": "Capture issued Commons original 02096900 first fascicle paratext pages, inspect visual title/front/back matter for possible edition/imprint evidence, do not assume this fascicle shares unique original paper exemplar with 02096915 thematic original volume20.",
+  "acquisition": {
+    "mechanism": "Commons action=query imageinfo title exact -> provider original file URL, size and SHA1 verified -> DjVu page count -> selected original pages JPEG with SHA256 -> contact sheets for human visual review",
+    "fetch_file_size_limit_bytes": 8000000,
+    "original_expected_size_verified_in_listing_only": true,
+    "source_sha256": null,
+    "source_actual_page_count": null,
+    "source_image_pages": [],
+    "target_passage_image_pages": [],
+    "same_paper_copy_with_CADAL02096915_verified": false,
+    "physical_1827_original_impression_verified": false,
+    "physical_1869_revised_impression_verified": false,
+    "attempt_status": "NOT_RUN_YET",
+    "source_issued_sha1_and_sha256_to_be_recorded_on_actual_run": true,
+    "max_front_pages": 44,
+    "back_pages": 4,
+    "non_ocr_manual_image_review_required": true
+  },
+  "control_gates": {
+    "no_historical_print_votes": 0,
+    "no_glyph_collation_from_routine_photo_capture": true,
+    "separate_copy_identity_from_edition_year": true,
+    "separate_fascicle_series_identity_from_same_physical_shelfmark": true,
+    "no_algorithm_reopen": true,
+    "no_fabricated_1827_vs_1869_original_leaf": true,
+    "provenance_independent_between_source_file_and_target_paper_copy": true,
+    "no_unauthorized_reproduction_or_external_outreach": true
+  },
+  "accounting": {
+    "matrix": 222,
+    "audited": 222,
+    "metadata_repairs": 45,
+    "source_total": 704,
+    "genealogy_nodes": 252,
+    "genealogy_edges": 238,
+    "formal_batches": 487,
+    "algorithm_reopens": 0,
+    "product": "CLOSED"
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Numerically adjacent CADAL fascicles are not guaranteed to originate from the same original physical paper copy or impression."
+    ],
+    "unresolved_lineage_questions": [
+      "Which first-fascicle paratext leaves state 1827 and/or 1869?",
+      "Does source scan include shelfmark/title leaf linking actual physical papers across volume1 and volume20?",
+      "Are there item-specific 1827/1869 paper image specimens for four-locus collation?"
+    ]
+  }
+}

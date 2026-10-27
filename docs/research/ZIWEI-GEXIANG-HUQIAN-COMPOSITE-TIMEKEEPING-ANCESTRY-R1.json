@@ -1,0 +1,117 @@
+{
+  "schema": "ZIWEI-GEXIANG-HUQIAN-COMPOSITE-TIMEKEEPING-ANCESTRY-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-GEXIANG-HUQIAN-COMPOSITE-TIMEKEEPING-ANCESTRY-CD",
+  "prior_batch_id": "BATCH-12-ZIWEI-DATONG-1569-VOL6-DIRECT-SCOPE-AND-TABLE-FINGERPRINT-CC",
+  "question": "Do the received Yuan Gexiang Xinshu prose and the Song-work Huqianjing leak-arrow sequence jointly explain the structural ancestry of Sanming Tonghui's timekeeping passage and seasonal numeric table without falsely collapsing them into one exact source?",
+  "gexiang_physical_witness": {
+    "source_id": "EXT-WIKIMEDIA-GEXIANG-XINSHU-CADAL06054852",
+    "workflow_run_id": 34863878875,
+    "artifact_id": 10356238369,
+    "artifact_digest": "sha256:1b6f1c2f665b97794022a02e75cc85eb5cfb72501dfb8063acc2fc11464a7dbe",
+    "source_djvu_sha256": "e6199e9a7e9381adec1d9b4f418a2fd6321add6bf72f6fb28add6ab379b8dbd4",
+    "converted_pdf_sha256": "9a8e15384a3d2898f2fc28747c6dd847dad587190fe67a2ac5b019edfb042bbb",
+    "page_sha256": {
+      "78": "55fa822b1b809f519d79df36701191c95d2c9873fcd52a7035d33501bdb2e1ba",
+      "79": "f8baf1814afe70728f537a7bea865e5d8a5589cbd8e8ebb9992e9df6988d24ca",
+      "80": "3c74fc0d59ff735ec089ccda777784f05900d3c1e19d97abc9b4f9f68904409b"
+    },
+    "render_trigger_commit": "2d3331304524bfe5b8fc2797bedb05894c1cf788",
+    "exact_head_ci_run": 34863878945,
+    "page_count": 202,
+    "ocr_used_for_glyph_claims": false,
+    "edition_scope_firewall": "Yuan-authored work in a later received facsimile; not a surviving Yuan physical print."
+  },
+  "gexiang_direct_collation": {
+    "page_78_heading": "時分百刻",
+    "page_78_79_readings": [
+      "晝夜十二時均分為百刻",
+      "一時有八大刻二小刻",
+      "子時之上一半在夜半前屬昨日",
+      "下一半在夜半後屬今日"
+    ],
+    "page_79_continuation": "今夜以及他夜皆然；並論古曆二小刻與今曆籌策及子午卯酉九刻俗說之非",
+    "page_79_80_heading": "晝夜短長",
+    "page_79_80_mechanics": "春秋約六七日增減晝夜一刻；二至前後增減一刻相去二十餘日；未出/既入之昏明五刻不直接作太陽在地平線以上的晝長。"
+  },
+  "sanming_textual_comparison": {
+    "source_id": "EXT-SANMING-NCL-1578-MAIN",
+    "physical_reference": "Batch 12AT, NCL 1578 PDF p133",
+    "shared_structure": [
+      "晝夜十二時 / 百刻",
+      "每時八大刻二小刻",
+      "總大刻九十六 / 小刻二十四 / 六小刻準一大刻",
+      "上半時初初至初四 / 下半時正初至正四",
+      "子時上半夜半前 previous-day orientation / 下半夜半後 current-day orientation",
+      "古曆二小刻開頭與俗說子午卯酉九刻之辨"
+    ],
+    "important_recension_variant": "Gexiang received facsimile has 屬昨日; 1578 Sanming physical witness has 為昨日 while retaining 屬今日.",
+    "near_verbatim_textual_antecedent_supported": true,
+    "direct_copying_direction_proved": false,
+    "common_earlier_source_excluded": false
+  },
+  "huqian_physical_sequence": {
+    "source_id": "EXT-TIANYIGE-HUQIANJING-MING-CHUANJIAN",
+    "workflow_run_id": 34832306143,
+    "artifact_id": 10342711240,
+    "artifact_digest": "sha256:87bd11223e5fdbfe1ec79b2bc4e2a7577fbe459559e0386287c96f3074f2f27d",
+    "page_sha256": {
+      "74": "a86cade9b99ed1b5cc943370e4b66e914d7968bc08943225bb99530fb15721ab",
+      "75": "cc7546f4d93b85fb0327e30cead9c994ae017d81dc2f1dd1b86e994babb3cf83",
+      "76": "2136201c372c0f8ea51dce46c1babcfc135758a98c775afa52c09c39fc8d5534"
+    },
+    "ocr_used_for_glyph_claims": false,
+    "mechanical_family": "one-day hundred-ke seasonal leak-arrow ladder",
+    "extrema": "winter 40/60; summer 60/40",
+    "shared_pairs_with_sanming_examples": [
+      "小寒 42/58",
+      "立春 45/55",
+      "雨水 47/53",
+      "雨水後段 48/52",
+      "49/51",
+      "51/49",
+      "53/47",
+      "55/45",
+      "56/44",
+      "58/42",
+      "59/41"
+    ],
+    "exact_anchor_equivalence": false,
+    "summer_solstice_difference": "Huqianjing reaches 60/40 at summer-solstice arrow; Sanming displays 59/41 at 夏至.",
+    "interpretation": "Sanming belongs to the same stepwise numeric family, but its solar-term/date anchoring and solstitial cap are adapted rather than copied as an exact table."
+  },
+  "composite_ancestry_model": {
+    "prose_layer": "Gexiang-like hundred-ke / half-Zi textual lineage",
+    "numeric_layer": "older leak-arrow 40<->60 one-ke-step seasonal ladder represented by Huqianjing",
+    "adaptation_layer": "Ming calendrical/locality/astronomical anchoring producing Sanming's displayed term-specific values including 59/41",
+    "model_status": "MATERIALLY_STRENGTHENED_NOT_STEMMATICALLY_CLOSED",
+    "why_not_closed": [
+      "the Gexiang physical object is a later received witness of a Yuan work, not a Yuan print",
+      "Huqianjing and Sanming do not share identical change dates/term anchors",
+      "the pre-1578 Ming/Nanjing direct source for the 59/41 cap is still not locked"
+    ]
+  },
+  "adjudication": {
+    "sanming_hundred_ke_prose_has_earlier_received_textual_antecedent": true,
+    "sanming_numeric_table_belongs_to_older_stepwise_leak_arrow_family": true,
+    "sanming_exact_table_equals_huqianjing": false,
+    "direct_gexiang_to_sanming_copying_proved": false,
+    "direct_huqianjing_to_sanming_copying_proved": false,
+    "exact_sanming_table_provenance_closed": false,
+    "new_runtime_candidate_created": false,
+    "runtime_winner_selected": false,
+    "upper_zi_to_hai_mechanical_vote_increment": 0,
+    "candidate_collapsed": false,
+    "algorithm_reopen_authorized": false
+  },
+  "impact_on_hpa_zdate_006": {
+    "status_before": "MISSING_FROM_PRODUCT",
+    "status_after": "MISSING_FROM_PRODUCT",
+    "reason": "This batch materially clarifies the textual and numeric ancestry of the generic hundred-ke/half-Zi framework, but still does not supply the Fullbook-specific upper-five-ke -> previous-night Hai branch reassignment.",
+    "remaining_blockers": [
+      "lock a pre-1578 Ming/Nanjing or equivalent direct witness for the 59/41 seasonal cap and its term anchoring",
+      "determine whether Sanming's seasonal table is generated from a locality-specific official table or an adapted leak-arrow tradition",
+      "independently close the Fullbook upper-five-ke -> previous-night Hai branch mechanism"
+    ]
+  }
+}

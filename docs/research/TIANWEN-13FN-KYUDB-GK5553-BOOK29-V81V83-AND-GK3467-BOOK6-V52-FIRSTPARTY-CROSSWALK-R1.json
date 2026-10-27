@@ -1,0 +1,162 @@
+{
+  "schema": "TIANWEN-13FN-KYUDB-GK5553-BOOK29-V81V83-AND-GK3467-BOOK6-V52-FIRSTPARTY-CROSSWALK-R1",
+  "date": "2026-10-24",
+  "issue_id": "TW-OPEN-0005",
+  "status": "FIRSTPARTY_INSTITUTIONAL_TABLE_BOOK_TO_WORK_JUAN_CROSSWALK_NO_ORIGINAL_FOLIO",
+  "first_party_source": {
+    "institution": "Seoul National University Kyujanggak",
+    "url": "https://kyudb.snu.ac.kr/brd/viewBrd.do?book_cate=HEJ23&focus=d11sd114&listChk=tree&menuId=10022&mid=HEJ&postSeq=10775&siteCd=DBSP",
+    "table_heading": "[표 1] 규장각 소장 『고려사』",
+    "source_role": "FIRSTPARTY_INSTITUTIONAL_HOLDING_BIBLIOGRAPHY_NOT_ORIGINAL_FOLIO",
+    "scope": "GK5553_GK3467_DISTINCT_BOOK_HOLDINGS",
+    "same_institution_as_13FM_catalogs": true,
+    "verified_2026_10_24": true
+  },
+  "gk5553": {
+    "shelfmark": "奎貴5553",
+    "current_item": "GK05553_00",
+    "item_catalog": "https://kyudb.snu.ac.kr/book/view.do?book_cd=GK05553_00",
+    "total": "139卷 卷首 合46冊",
+    "medium": "乙亥字本 WITH SOME manuscript replacements",
+    "repaired_book_to_work_juan": [
+      {
+        "book": 8,
+        "juan": [
+          19,
+          20,
+          21
+        ],
+        "medium": "필사본"
+      },
+      {
+        "book": 26,
+        "juan": [
+          73,
+          74
+        ],
+        "medium": "필사본"
+      },
+      {
+        "book": 29,
+        "juan": [
+          81,
+          82,
+          83
+        ],
+        "medium": "필사본"
+      }
+    ],
+    "catalog_supported_book29_work_juan": [
+      81,
+      82,
+      83
+    ],
+    "item_catalog_heritage_exclusion_books": [
+      8,
+      26,
+      29
+    ],
+    "microfilm_group_for_book29": "M/F74-102-17-4",
+    "microfilm_group_book_ordinals": [
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31
+    ],
+    "book29_original_photo_seen": false,
+    "work_juan52_to_physical_book": null,
+    "exact_juan52_physical_leaf": null,
+    "NIKH_viewer1056_to_this_physical_copy": null
+  },
+  "gk3467": {
+    "shelfmark": "奎3467",
+    "total": "30冊 (partial)",
+    "mixed_material": "木板本 일부 乙亥字本",
+    "direct_institutional_book_ordinal_for_work_juan52": 6,
+    "work_juan": 52,
+    "ju52_source_media": "TABLE_STATES_PARTIAL_EULHAE_TYPE_WITHOUT_DIRECT_FOLIO_READING",
+    "physical_juan52_original_leaf": null,
+    "original_leaf_photo_seen": false,
+    "cannot_identify_NIKH_GK5553_image_as_GK3467_leaf": true,
+    "separate_physical_copy_from_GK5553": true
+  },
+  "scholarly_disagreement": {
+    "source": "Wei Zhijiang; Chen Zhuo 2020 Journal of Historiography as web-republished",
+    "republication": "https://www.haijiaoshi.com/archives/11423",
+    "secondary_book_ordinal": 28,
+    "secondary_work_juan": [
+      81,
+      82,
+      83
+    ],
+    "secondary_media": "木板补写本",
+    "new_official_same_volume_juan_book_ordinal": 29,
+    "new_official_medium": "필사본",
+    "journal_pdf_access_indexed_but_direct_target_page_not_collated": true,
+    "journal_pdf_page_image_attested": false,
+    "cannot_assign_cause_to_author_vs_republication_vs_catalog": null,
+    "catalog_scope_preference": "OFFICIAL_GK5553_BOOK29_WITH_WORK_JUAN81_83"
+  },
+  "third_derivative": {
+    "blog_reported_ordinals": [
+      8,
+      12,
+      26
+    ],
+    "official_heritage_primary_page_verified": false,
+    "identity_to_GK5553_copy_not_verified": true,
+    "not_independent_ancient_physical_witness": true
+  },
+  "forward_only_revision": {
+    "prior_batch": "13FL",
+    "prior_claim": "secondary 卷81-83 cannot establish GK5553 book29 mapping in absence of first-party mapping",
+    "new_fact": "official SNU holdings introduction separately and explicitly assigns GK5553 book29 to juan81-83",
+    "upgrade": "GK5553_BOOK29_JUAN81_83_FIRSTPARTY_BIBLIOGRAPHIC_BINDING",
+    "not_a_determination_of_modern_journal_typo": true,
+    "preserve_prior_13FL_13FM_documents": true
+  },
+  "historical_firewall": {
+    "NLC_D5": "四分〇一七二",
+    "NIKH_D5": "四分五一七二",
+    "numeric_D5_winner": null,
+    "NLC_D9_gutter": null,
+    "work_juan52_GK5553_physical_book": null,
+    "work_juan52_GK3467_physical_book": 6,
+    "source_original_GK3467_juan52_page": null,
+    "G893_six_numerical_originals": "OPEN",
+    "D1_D2_D3_D4_D5_D6_D30_numeric_units": null,
+    "fourfen_to_chudu_bridge": "UNPROVEN",
+    "older_13EI_claim": "RETRACTED",
+    "algorithm_reopen": 0
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [],
+    "unresolved_lineage_questions": [
+      "GK5553卷52原册原叶未绑定; GK3467第6册卷52不证明NIKH照片来源"
+    ]
+  },
+  "impact": {
+    "source_registry_delta": 0,
+    "source_registry_root": 647,
+    "source_registry_extensions": 114,
+    "source_registry_total": 761,
+    "independent_physical_originals_added": 0,
+    "original_page_glyphs_added": 0,
+    "matrix_total": 222,
+    "matrix_audited": 222,
+    "genealogy_nodes": 252,
+    "genealogy_edges": 238,
+    "risk_count": 11,
+    "risk_closures": 0,
+    "product": "CLOSED",
+    "algorithm_reopens": 0,
+    "chart_candidate_collapses": 0
+  },
+  "next_action": "Acquire exact SNU GK3467 book6 juan52 target leaf separately from GK5553 juan52 book/leaf; for official GK5553 book29 juan81-83, M/F74-102-17-4 is a book29 group, not an image yet. Check 2020 journal original page and official copy images before assigning fault. No D5 or D9 glyph winner."
+}

@@ -1,0 +1,74 @@
+{
+  "schema": "ZIWEI-YUGANGZHAI-1602-NIGHT-ZI-PHYSICAL-COLLATION-R1",
+  "batch_id": "BATCH-12-ZIWEI-YUGANGZHAI-1602-NIGHT-ZI-PHYSICAL-COLLATION-BG",
+  "question": "Does an independent near-contemporary Ming witness physically attest night-Zi pre/post-midnight date attribution, and does it explicitly supply the still-missing upper/night-Zi-to-Hai branch reassignment bridge?",
+  "source": {
+    "title": "鬱岡齋筆麈",
+    "author": "王肯堂",
+    "historical_period": "明",
+    "edition_identity": "明萬曆三十年（1602）王懋錕刻本（public bibliographic/facsimile metadata corroboration）",
+    "scan_provider": "Wikimedia Commons",
+    "commons_file": "CADAL02038286 鬱岡齋筆麈（三）.djvu",
+    "commons_url": "https://commons.wikimedia.org/wiki/Special:Redirect/file/CADAL02038286%20%E9%AC%B1%E5%B2%A1%E9%BD%8B%E7%AD%86%E9%BA%88%EF%BC%88%E4%B8%89%EF%BC%89.djvu",
+    "scan_sha256": "c4ffdcf04c4a49e6e7d3e4d7f93a25f6740096ac9f27f1db0ccc08cdb6a6de08",
+    "scan_page_count": 169,
+    "target_scan_pages_1_based": [
+      87,
+      88
+    ],
+    "shidian_locator": {
+      "book_id": "CADAL02038284",
+      "chapter_id": "1l7mkadqnliiy",
+      "url": "https://www.shidianguji.com/zh/book/CADAL02038284/chapter/1l7mkadqnliiy",
+      "public_html_status": 200,
+      "public_html_body_len": 1284506,
+      "public_html_sha256": "01a0a3e8ea517569b174b4338cb0412607e434e0b93a14984173384f2c889a7a",
+      "role": "LOCATOR_AND_TRANSCRIPTION_CORROBORATION_NOT_FINAL_GLYPH_AUTHORITY"
+    }
+  },
+  "physical_collation": {
+    "method": "DIRECT_VISUAL_COLLATION_OF_RENDERED_PUBLIC_DOMAIN_DJVU_PAGES; NO_OCR_USED_FOR_FINAL_GLYPH_JUDGMENT",
+    "page_87_lines": [
+      "夜子時",
+      "曆家以子之前四刻屬今日爲夜子時而以子",
+      "之後四刻屬明日今人生子以夜半者皆作明"
+    ],
+    "page_88_lines": [
+      "日推筭萬一以初爲正則四柱已差兩柱矣禍",
+      "福豈不舛乎要之如西域法分二十四時而後",
+      "無兩日共一時犬牙參錯之弊也"
+    ],
+    "normalized_reading": "曆家以子之前四刻屬今日，爲夜子時；而以子之後四刻屬明日。今人生子以夜半者皆作明日推筭，萬一以初爲正，則四柱已差兩柱矣，禍福豈不舛乎？要之如西域法分二十四時，而後無兩日共一時犬牙參錯之弊也。",
+    "secure_semantics": [
+      "子之前四刻屬今日",
+      "子之前四刻被明稱爲夜子時",
+      "子之後四刻屬明日",
+      "作者明確警告把夜半子生一概作明日推算可令四柱差兩柱",
+      "作者提出分二十四時以避免兩日共一時的犬牙參錯"
+    ],
+    "explicit_hai_branch_reassignment_present": false
+  },
+  "workflow_evidence": {
+    "physical_probe_run_id": 34756513240,
+    "physical_probe_job_id": 103721687957,
+    "physical_probe_artifact_id": 10316898759,
+    "physical_probe_artifact_zip_sha256": "f98d7602c73f3c44ac9f65d06da6efc3bcf9bd27d613418b91156270d3aee7a4",
+    "rendered_page_band": [
+      70,
+      96
+    ]
+  },
+  "rule_adjudication": {
+    "independent_ming_night_zi_date_semantics_witness": true,
+    "near_contemporary_to_1594_zhangguo": true,
+    "date_attribution_bridge_strengthened": true,
+    "upper_night_zi_to_hai_branch_explicitly_attested": false,
+    "hai_glyph_witness_increment": 0,
+    "hpa_zdate_006_status": "MISSING_FROM_PRODUCT",
+    "runtime_winner_selected": false,
+    "candidate_collapsed": false,
+    "algorithm_reopen": false,
+    "required_missing_bridge": "upper/night Zi -> Hai branch"
+  },
+  "access_policy": "PUBLIC_SHIDIAN_HTML_AS_LOCATOR; PUBLIC_DOMAIN_WIKIMEDIA_COMMONS_DJVU_FOR_PHYSICAL_COLLATION; NO LOGIN; NO PRIVATE API GUESSING; NO ACCESS BYPASS; NO OCR AS FINAL GLYPH AUTHORITY"
+}

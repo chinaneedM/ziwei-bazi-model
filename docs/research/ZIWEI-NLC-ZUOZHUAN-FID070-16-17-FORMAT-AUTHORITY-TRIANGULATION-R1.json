@@ -1,0 +1,140 @@
+{
+  "schema": "ZIWEI-NLC-ZUOZHUAN-FID070-16-17-FORMAT-AUTHORITY-TRIANGULATION-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID070-16-17-FORMAT-AUTHORITY-TRIANGULATION-HU",
+  "status": "HISTORICAL_17_CHAR_DOUBLE_ATTESTATION_VS_CURRENT_16_CHAR_METADATA_TENSION_ESCALATED_NOT_ADJUDICATED_AS_DEFECT",
+  "prior_batch_id": "BATCH-12-ZIWEI-BEITU1959-1987-BOOKNO-3368-3288-RECOMPILATION-BOUNDARY-HT",
+  "question": "How should the exact-copy format-description tension be handled when the Tieqin historical catalog and the 1987 Beijing Library catalog describe the target as 10 lines × 17 main characters with 23-character double-line commentary, while the current NLC record says 10 lines × 16 main characters with 23-character double-line commentary?",
+  "object_identity_control": {
+    "fid": "412004000070",
+    "current_uid": "UCS01003868188",
+    "current_sys": "002838237",
+    "current_905s": "03288",
+    "identity_status_from_batch_12hp": "HIGH_CONFIDENCE_CLOSED_AT_MULTILAYER_HISTORICAL_CATALOG_DONOR_PROVENANCE_AND_FORMAT_LEVEL",
+    "identity_reopen_authorized": false
+  },
+  "historical_tieqin_catalog_control": {
+    "source_id": "EXT-TIEQIN-CATALOG-ZUOZHUAN-60-BAISONG-FINGERPRINT-SHIDIAN",
+    "source_layer": "QING_HISTORICAL_CATALOG_PUBLIC_TRANSCRIPTION",
+    "title_entry": "附释音春秋左传注疏六十卷",
+    "old_provenance": "旧藏黄氏百宋一廛",
+    "lines_per_half_leaf": 10,
+    "main_chars_per_line": 17,
+    "commentary_double_line_chars": 23,
+    "version_reasoning": "南宋时刻本；其为元时印本无疑",
+    "exact_target_format_text": "每半叶十行，行十七字。注疏皆双行，行廿三字。",
+    "direct_physical_catalog_leaf_recollated_in_this_batch": false,
+    "role": "HISTORICAL_OBJECT_DESCRIPTION_CONTROL_NOT_SOLE_GLYPH_AUTHORITY"
+  },
+  "beitu1987_direct_catalog_control": {
+    "source_id": "EXT-BEITU-1987-GUJISHANBEN-JINGBU-ZUOZHUAN-BOOKNO3288-CORRECTED",
+    "source_pdf_sha256": "9cb2ab3ff5d00fda316a9f0430096ca2a5e68fcd53609a878c0ed9d08a26d3ab",
+    "source_pdf_page": 104,
+    "rendered_page_sha256": "04c1c3a8a33aaa3b401db2fd6ddcc77455a94098f01cc178a284ea8b2f42b6ce",
+    "book_number": "3288",
+    "target_version": "元刻明修本",
+    "extent": "三十二冊",
+    "format": [
+      "十行十七字",
+      "小字雙行二十三字"
+    ],
+    "main_chars_per_line": 17,
+    "commentary_double_line_chars": 23,
+    "direct_catalog_visual_control": true,
+    "ocr_used": false
+  },
+  "current_nlc_control": {
+    "source_id": "EXT-NLC-META-ZUOZHUAN-UCS01003868188-CURRENT-SEARCH-20260927",
+    "detail_route": "https://meta.nlc.cn/v2/detail/UCS01003868188",
+    "uid": "UCS01003868188",
+    "sys": "002838237",
+    "local_locator": "NLC:SBYL:03288",
+    "fid": "412004000070",
+    "extent": "32冊",
+    "format_note": "10行16字，小字雙行23字，白口，左右雙邊。",
+    "lines_per_half_leaf": 10,
+    "main_chars_per_line": 16,
+    "commentary_double_line_chars": 23,
+    "provenance": "Batch 12HS direct NLC detail payload; workflow run 36319489516 / job 108620434290 / artifact 10932075967",
+    "current_metadata_value_is_directly_observed": true
+  },
+  "zhang_lijuan_physical_research_control": {
+    "source_id": "EXT-NOPSS-ZHANG-LIJUAN-NLC-TIEQIN-YUAN-ZUOZHUAN",
+    "holder": "中国国家图书馆",
+    "tieqin_old_collection": true,
+    "prior_catalog_classification": "元刻明修本",
+    "revised_physical_adjudication": "元刻元印十行本",
+    "no_ming_repair_trace_reported": true,
+    "article_title": "国图藏元刻十行本《附释音春秋左传注疏》",
+    "article_publication": "《国学季刊》第十一期，山东人民出版社，2018年9月",
+    "full_article_retrieved": false,
+    "exact_article_format_count_exposed_in_reviewed_official_summary": false,
+    "role": "OFFICIAL_PHYSICAL_RESEARCH_CONTROL_AGAINST_EXPLAINING_16_VS_17_BY_MING_REPAIR"
+  },
+  "format_tension": {
+    "historical_catalog_main_char_counts": [
+      17,
+      17
+    ],
+    "current_nlc_main_char_count": 16,
+    "commentary_counts": [
+      23,
+      23,
+      23
+    ],
+    "line_count": [
+      10,
+      10,
+      10
+    ],
+    "stable_dimensions": [
+      "10 lines per half leaf",
+      "23 characters per commentary line"
+    ],
+    "disputed_dimension": "main text characters per line",
+    "direct_target_leaf_manual_cell_count_completed": false,
+    "clean_representative_full_main_text_lines_counted": false,
+    "zhang_2018_fulltext_checked_for_exact_count": false,
+    "historical_17_evidence_weight": "STRONGER_THAN_SINGLE_CURRENT_16_METADATA_FIELD_BUT_NOT_PHYSICAL_COUNT_CLOSURE",
+    "current_16_metadata_defect_proved": false,
+    "historical_17_exact_physical_count_proved": false
+  },
+  "admissible_explanations_preserved": [
+    "CURRENT_NLC_16_CHAR_METADATA_TRANSCRIPTION_OR_CATALOGING_ERROR",
+    "CATALOGING_CONVENTION_DIFFERENCE_IN_WHAT_COUNTS_AS_A_MAIN_TEXT_CHARACTER_POSITION",
+    "MIXED_OR_IRREGULAR_16_17_MAIN_TEXT_LINE_LENGTHS_WITH_DIFFERENT_SUMMARY_CONVENTIONS",
+    "HISTORICAL_CATALOG_DESCRIPTION_INHERITED_FROM_EDITION_FAMILY_RATHER_THAN_RECOUNTED_ON_EVERY_LEAF",
+    "OTHER_UNRECOVERED_CATALOG_PREPARATION_OR_NORMALIZATION_CHANGE"
+  ],
+  "adjudication": {
+    "controlling_status": "UNRESOLVED_HIGH_PRIORITY_METADATA_TENSION",
+    "evidence_direction": "LEAN_17_PENDING_DIRECT_PHYSICAL_LINE_COUNT_OR_ZHANG_2018_FULLTEXT",
+    "current_16_value_must_not_override_historical_17_sources": true,
+    "historical_17_value_must_not_be_promoted_to_exact_physical_truth_without_direct_count": true,
+    "additional_provenance_defect_increment_authorized": false,
+    "defect_016_created": false,
+    "format_normalization_authorized": false,
+    "object_identity_reopen_authorized": false,
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_count_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 15,
+    "repaired_provenance_metadata_defect_count": 15,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Directly count multiple clean representative main-text lines on the FID070 physical scan, distinguishing printed character cells from punctuation, circles, indents, blanks and double-line commentary; require a reproducible leaf/page locator before adjudicating 16 versus 17.",
+    "Retrieve Zhang Lijuan's 2018 full article and check whether it gives exact line/character count, shelfmark, book number, physical leaf description or an explicit comparison with the old catalog.",
+    "Continue the independent highest-priority search for a target-specific catalog card/correction slip/accession/preparation record bridging 1959 book number 3368 to 1987 book number 3288.",
+    "Continue seeking the exact Qu donation/accession batch and date for FID070 without assigning it from aggregate Qu-family chronology."
+  ],
+  "updated_at": "2026-09-27"
+}

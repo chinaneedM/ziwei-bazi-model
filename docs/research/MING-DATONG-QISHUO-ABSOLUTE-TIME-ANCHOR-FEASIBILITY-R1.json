@@ -1,0 +1,88 @@
+{
+  "schema": "MING-DATONG-QISHUO-ABSOLUTE-TIME-ANCHOR-FEASIBILITY-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-BAZI-MING-DATONG-QISHUO-ABSOLUTE-TIME-ANCHOR-FEASIBILITY-PJ",
+  "date": "2026-10-06",
+  "status": "RESEARCH_ONLY_FEASIBILITY_AUDIT_NO_GEOGRAPHIC_WINNER",
+  "question": "Can an independent modern astronomical absolute-time anchor discriminate Ming Datong qishuo geography, and what uncertainty/semantic layers must be closed before such a comparison is historically admissible?",
+  "modern_ephemeris": {
+    "source_id": "EXT-JPL-DE430-DE431-HISTORICAL-LUNAR-EPHEMERIS",
+    "de431_span_years": [
+      -13200,
+      17191
+    ],
+    "target_1531_1639_covered": true,
+    "historical_lunar_use": "DE431 is explicitly designed as the long integration more suitable for times more than a few centuries in the past than DE430.",
+    "result": "ABSOLUTE_DYNAMICAL_EPHEMERIS_ANCHOR_TECHNICALLY_FEASIBLE"
+  },
+  "earth_rotation": {
+    "source_ids": [
+      "EXT-NASA-DELTAT-HISTORICAL-UNCERTAINTY",
+      "EXT-STEPHENSON-MORRISON-HOHENKERK-2016-DELTAT"
+    ],
+    "delta_t_definition": "TT/TD - UT",
+    "nasa_1300_1600_typical_uncertainty_seconds": 20,
+    "nasa_1500_delta_t_seconds": 200,
+    "nasa_1600_delta_t_seconds": 120,
+    "beijing_nanjing_longitude_signal_seconds": 592,
+    "signal_to_20s_delta_t_uncertainty_ratio": 29.6,
+    "result": "DELTA_T_UNCERTAINTY_IS_NOT_THE_DOMINANT_BEIJING_VS_NANJING_DISCRIMINATION_LIMIT_FOR_1300_1600"
+  },
+  "solar_time_semantics": {
+    "source_id": "EXT-USNO-EQUATION-OF-TIME",
+    "equation_of_time_definition": "apparent solar time - mean solar time",
+    "apparent_vs_mean_difference_can_reach_minutes": 16,
+    "beijing_nanjing_longitude_signal_minutes": 9.8666666664,
+    "key_distinction": "The ~16-minute value is not an ephemeris uncertainty; it is a deterministic coordinate-semantic difference if one compares apparent versus mean solar time.",
+    "historical_datong_qishuo_clock_mapping_to_apparent_solar_time": "UNRESOLVED",
+    "historical_datong_qishuo_clock_mapping_to_mean_solar_time": "UNRESOLVED",
+    "historical_datong_qishuo_clock_mapping_to_clepsydra_or_other_conventional_coordinate": "UNRESOLVED",
+    "result": "TIME_STANDARD_SEMANTICS_CAN_EXCEED_THE_CITY_LONGITUDE_SIGNAL_AND_REMAIN_THE_DOMINANT_HISTORICAL_INTERPRETATION_BLOCKER"
+  },
+  "existing_source_constraint": {
+    "internal_day_boundary": "ZI_ZHENG_CLOSED_SOURCE_SCOPED",
+    "internal_day_units": "10000_SOURCE_UNITS_100_KE",
+    "absolute_geographic_or_solar_time_binding": "NOT_CLOSED",
+    "source": "Batch 11G / Zhou Xiang 1569 推合朔時刻法",
+    "consequence": "ZI_ZHENG labels define the internal clock origin but do not by themselves prove local apparent solar midnight at a named longitude."
+  },
+  "adjudication": {
+    "absolute_ephemeris_anchor_feasible": true,
+    "delta_t_uncertainty_fatal_for_beijing_nanjing_discrimination": false,
+    "historical_clock_standard_semantics_closed": false,
+    "absolute_time_comparison_historically_admissible_for_meridian_selection": false,
+    "dadu_beijing_qishuo_reference": "UNRESOLVED",
+    "nanjing_qishuo_reference": "UNRESOLVED",
+    "md_g03_status_after_batch": "OPEN_BLOCKING_GENERAL_ADAPTER",
+    "runtime_authorized": false,
+    "hpa_dayun_cal_002_status": "MISSING_FROM_PRODUCT",
+    "closed_subquestion": "MODERN_EPHEMERIS_AND_DELTA_T_ACCURACY_ARE_SUFFICIENT_FOR_A_DIAGNOSTIC_EXPERIMENT_IN_THIS_PERIOD_BUT_THE_HISTORICAL_QISHUO_CLOCK_STANDARD_MAPPING_IS_NOT_SOURCE_CLOSED"
+  },
+  "required_before_numeric_meridian_adjudication": [
+    "source-close whether Datong qishuo 子正/刻 is local apparent solar time, local mean solar time, calibrated clepsydra time, or another conventional coordinate",
+    "define the longitude/site to which that historical clock coordinate is attached if source evidence exists",
+    "use a modern dynamical ephemeris such as DE431 for Sun/Moon geometry",
+    "convert dynamical time to UT with an explicit Delta-T model and uncertainty envelope",
+    "apply equation-of-time only if the historically selected clock semantics require apparent solar time",
+    "propagate printed-bin and historical-source uncertainty; prefer near-boundary high-information events"
+  ],
+  "transmission_impact": "NONE_MODERN_DIAGNOSTIC_METHODOLOGY_ONLY",
+  "next_research_priority": {
+    "batch": "12PK",
+    "gate_id": "MD-G03-QISHUO-GEOGRAPHIC-REFERENCE",
+    "focus": "Source-close the absolute time-standard semantics of Datong qishuo 子正/刻: apparent solar, mean solar, clepsydra/conventional, and locality attachment before any ephemeris longitude fit."
+  },
+  "accounting": {
+    "matrix_rows": 222,
+    "audited_rows": 222,
+    "current_missing_from_product_rows": 4,
+    "provenance_defects_confirmed": 45,
+    "provenance_defects_repaired": 45,
+    "historical_candidate_extensions": 14,
+    "historical_candidate_registries": 5,
+    "historical_candidate_runtime_resolvers": 5,
+    "chart_algorithm_defects": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0
+  }
+}

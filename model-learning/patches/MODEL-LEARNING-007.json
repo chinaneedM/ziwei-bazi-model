@@ -1,0 +1,142 @@
+{
+  "contains_case_answer_mapping": false,
+  "content": {
+    "learning_type": "REASONING_STRATEGY",
+    "rules": [
+      {
+        "applicability": "候选把关系、疾病、死亡、职业、资产、金额或多年事件组合在同一句中，且不同候选共享部分背景原子、只在少数高精度原子上分叉时。",
+        "capability_ceiling": "无法闭合全部关键区别原子时，最高释放到被支持的主题或方向，不把一个强主轴扩写为整条现实叙事。",
+        "counterexamples": "候选虽然原子较多，但人物、动作、时间、现实结果和数量均由不同父链同向支持，竞争项反而存在直接反证，此时不适用简化惩罚。",
+        "decision_procedure": "先拆出共享原子和区别原子；对每个区别原子标记直接支持、间接支持、缺证、直接反证及严重度；共享原子归零，独立支持加分，高精度缺证逐项扣分，完成最强竞争反转后再定Top1。",
+        "limits": "无证据负担不是把信息较多的选项机械降权；若各高精度原子均有独立闭合，复合选项可正常胜出。扣分只针对区别原子，不重复惩罚同一物理证据。",
+        "reasoning_skill_tags": [
+          "EVENT_ENDPOINT_CLOSURE",
+          "OPTION_GRANULARITY",
+          "COMPOSITE_OPTION_ATOMIZATION",
+          "EVIDENCE_WEIGHTING",
+          "COUNTEREVIDENCE_REVERSAL",
+          "UNCERTAINTY_CALIBRATION"
+        ],
+        "rule_id": "RULE-COMPOSITE-UNSUPPORTED-ATOM-PENALTY",
+        "source_basis": "S02定义现代语义、量级和高严重度终点，S03限制双轨与同源重复，S04与S08至S10建立紫微主题和动态链，S11至S16限制八字映射，S17要求人物—动作—对象—结果闭合，S18要求全选项成对比较。",
+        "source_routes": [
+          "S02",
+          "S03",
+          "S04",
+          "S08",
+          "S10",
+          "S11",
+          "S14",
+          "S15",
+          "S16",
+          "S17",
+          "S18"
+        ],
+        "statement": "复合选项必须同时计算区别原子的正向支持与无证据负担。候选即使有一个强主轴，只要还包含多个高精度人物、动作、数量、时间或完成终点而缺少独立父链，就应按原子严重度逐项扣分；共享原子不得抵消这些缺口。",
+        "stop_conditions": "若胜负仍依赖两个以上未闭合的高精度原子，停止在低置信度相对选择，并明确能力只到主题层。",
+        "topic_tags": [
+          "PARENTS",
+          "MARRIAGE_RELATIONSHIP",
+          "CAREER_EDUCATION",
+          "WEALTH_FINANCE",
+          "PROPERTY_HOUSING",
+          "HEALTH",
+          "MAJOR_YEAR_EVENT"
+        ],
+        "trigger_conditions": "临时第一名主要依靠一个强主题或叙事连贯性，而其余区别原子没有独立证据；最强竞争项虽然叙事较短，却在关键终点上更闭合。"
+      },
+      {
+        "applicability": "候选在同一年比较不同家庭成员、配偶或子女的疾病、事故、死亡等终点，且各人物轴同时出现吉化与凶动信号时。",
+        "capability_ceiling": "缺少人物专属终点链时，最高释放到该人物轴被激活或处于风险窗口，不宣布精确死亡、病名或事故结果。",
+        "counterexamples": "某人物已由重新立极、疾病或事故接口、指定时间、不可逆动作和现实完成五层独立闭合，竞争人物只有资源性活动，此时可以形成较高排他性。",
+        "decision_procedure": "为每个候选人物独立建立角色许可、静态容量、动态触发、疾病或事故机制、不可逆动作、现实完成六列；吉化和凶动只进入动态权重，不能跨列替代终点；最后做人物间排他比较。",
+        "limits": "明确的吉凶动态仍可调整风险方向和权重；本规则禁止的是二元化终点替代，不是否定四化、旺衰或合冲的作用。",
+        "reasoning_skill_tags": [
+          "SUBJECT_ENTITY_ROUTING",
+          "STATIC_DYNAMIC_LAYERING",
+          "PALACE_TRANSFORMATION_CHAIN",
+          "BAZI_STRUCTURE_THEN_TRIGGER",
+          "TIME_LAYER_ACTIVATION",
+          "EVENT_ENDPOINT_CLOSURE",
+          "DEATH_ENTITY_TIME_CLOSURE",
+          "EVIDENCE_WEIGHTING",
+          "CAUSAL_ACTOR_DIRECTION",
+          "UNCERTAINTY_CALIBRATION"
+        ],
+        "rule_id": "RULE-BENEFIC-MALEFIC-NONBINARY-TERMINAL",
+        "source_basis": "S02区分风险、事件与完成，S03约束双轨裁决，S04与S09规定人物太极，S08与S10区分化象和岁运，S14与S15把合冲旺衰作为中性触发，S16限制亲缘映射，S17闭合动作终点，S18执行人物反转。",
+        "source_routes": [
+          "S02",
+          "S03",
+          "S04",
+          "S08",
+          "S09",
+          "S10",
+          "S11",
+          "S14",
+          "S15",
+          "S16",
+          "S17",
+          "S18"
+        ],
+        "statement": "高严重度人物终点中，禄权科、旺庙、印比或喜用不得直接当作保护证明，煞忌、刑冲、衰弱或忌神也不得直接当作死亡或不可逆完成证明。两类信号都先解释为资源、压力、活动和变化，再独立验证人物、疾病或事故动作与现实终点。",
+        "stop_conditions": "若两个以上人物都只有动态激活而无完成链，停止在风险排序并降低置信度，不以吉凶标签完成二选一。",
+        "topic_tags": [
+          "PARENTS",
+          "MARRIAGE_RELATIONSHIP",
+          "HEALTH",
+          "TRAVEL_ACCIDENT_SAFETY",
+          "MAJOR_YEAR_EVENT"
+        ],
+        "trigger_conditions": "推理用吉化否决某人物的高严重度结局，或用煞忌直接确认另一人物的不可逆终点，而没有分别检查人物许可、动作和现实完成。"
+      },
+      {
+        "applicability": "多个候选共享同一资产或能力方向，仅在数量、金额、等级或阈值上下分叉，或把定性主题与精确数值捆绑时。",
+        "capability_ceiling": "没有独立量级链时，最高释放到有无、偏多偏少、流动性压力或相对等级；精确数量和金额只作为未决区别原子。",
+        "counterexamples": "若数量或等级由多条独立现实终点、连续阶段、资产取得与退出记录、地区时代校准共同约束，则可在预定义区间内相对比较。",
+        "decision_procedure": "先把有无、数量、净值、现金、负债、地区年代六轴分开；只对有独立证据的轴计分；数字轴无校准即标记未知，不能用定性吉凶代填；再比较剩余区别原子并降低置信度。",
+        "limits": "来源库和现实资料若提供经过校准的分层映射，可在声明地区、年代、币值和样本边界后使用；未经校准不得伪造连续数值。",
+        "reasoning_skill_tags": [
+          "REALITY_SCALE_MAPPING",
+          "REGION_ERA_NORMALIZATION",
+          "OPTION_GRANULARITY",
+          "COMPOSITE_OPTION_ATOMIZATION",
+          "EVIDENCE_WEIGHTING",
+          "COUNTEREVIDENCE_REVERSAL",
+          "UNCERTAINTY_CALIBRATION"
+        ],
+        "rule_id": "RULE-QUANTITATIVE-THRESHOLD-NONINFERENCE",
+        "source_basis": "S02负责现代语义和量级校准，S03限制跨轨换算，S04与S08至S10只提供主题及动态，S11至S16限制八字量级映射，S17要求现实资产和结果链，S18要求拆分复合阈值。",
+        "source_routes": [
+          "S02",
+          "S03",
+          "S04",
+          "S08",
+          "S10",
+          "S11",
+          "S12",
+          "S13",
+          "S14",
+          "S15",
+          "S16",
+          "S17",
+          "S18"
+        ],
+        "statement": "房产套数、现金区间、收入规模、学历层级或其他数字阈值不能由星曜数量、吉凶强度、十神旺衰或单一岁运象义换算。定性持有、流动、支出和积累必须与定量数量、金额或等级分开评分。",
+        "stop_conditions": "若所有候选只在无法校准的数字阈值上分叉，停止在强制相对选择，明确数字不可推断，不把该题用于验证定量规则。",
+        "topic_tags": [
+          "FAMILY_ORIGIN",
+          "CAREER_EDUCATION",
+          "WEALTH_FINANCE",
+          "PROPERTY_HOUSING"
+        ],
+        "trigger_conditions": "临时第一名与竞争项的主要差别是数字阈值，而推理证据只支持资产活跃、支出、积累或压力等定性方向。"
+      }
+    ]
+  },
+  "created_at": "2026-07-23T08:47:19Z",
+  "modifies_canonical_source_files": false,
+  "release_id": "MODEL-LEARNING-007",
+  "schema": "MODEL-LEARNING-PATCH-V2",
+  "validation_status": "CANDIDATE_RULES"
+}

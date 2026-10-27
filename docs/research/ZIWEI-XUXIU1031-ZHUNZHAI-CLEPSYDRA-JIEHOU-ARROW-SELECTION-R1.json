@@ -1,0 +1,157 @@
+{
+  "schema": "ZIWEI-XUXIU1031-ZHUNZHAI-CLEPSYDRA-JIEHOU-ARROW-SELECTION-R1",
+  "batch_id": "BATCH-12-ZIWEI-XUXIU1031-ZHUNZHAI-CLEPSYDRA-JIEHOU-ARROW-SELECTION-DV",
+  "status": "DIRECT_RECEIVED_PHYSICAL_MECHANISM_CLOSED_WITH_CHRONOLOGY_AND_NUMERIC_MISMATCH_FIREWALLS",
+  "source": {
+    "title": "《續修四庫全書》第1031冊所收《準齋心製几漏圖式》《銅壺漏箭制度》",
+    "provider": "《續修四庫全書》第1031冊 / Wikimedia Commons public PDF reproduction",
+    "url": "https://commons.wikimedia.org/wiki/File:%E7%BA%8C%E4%BF%AE%E5%9B%9B%E5%BA%AB%E5%85%A8%E6%9B%B8%E7%AC%AC1031%E5%86%8A.pdf",
+    "source_pdf_sha256": "07348e40ec26ca38efe9c9736a69c403c61f9b07a2c89a847fc68d00ce6d8c25",
+    "xuxiu_metadata_scope": {
+      "zhunzhai": "宋孫逢吉撰；影印國家圖書館藏清道光三年黃氏士禮居抄本",
+      "tonghu": "影印國家圖書館藏清道光三年黃氏士禮居抄本",
+      "physical_copy_date": "QING_DAOGUANG_3_1823",
+      "secure_pre1578_physical_copy": false
+    },
+    "huang_pilie_received_paratext_control": {
+      "title": "《士禮居藏書題跋記》所收《銅壺漏箭制度準齋心製几漏圖式》題跋",
+      "url": "https://ctext.org/wiki.pl?chapter=7743960&if=en",
+      "scope": "QING_RECEIVED_TRANSMISSION_CONTROL_ONLY",
+      "note": "Huang Pilie records the two titles and describes the older source copy as likely ying-Song; this is a Qing bibliographic judgment, not proof that the currently reviewed physical copy is pre-1578."
+    }
+  },
+  "workflow_evidence": {
+    "full_volume_locator": {
+      "run_id": 35437953746,
+      "artifact_id": 10583026334,
+      "artifact_digest": "sha256:d4d89355131231b114355940e3c23a9e2cb71eedd07bb5c86be10ae2ab87d23e",
+      "method": "PDF p1-p740 at 60dpi contact sheets; structural localization only",
+      "result": "Target works localized to PDF p70-p89; p90 begins 天文精義賦."
+    },
+    "high_resolution_review": {
+      "run_id": 35438178430,
+      "job_id": 105884323863,
+      "artifact_id": 10583226243,
+      "artifact_digest": "sha256:771155d081d669f1d1020213e2edc17d56d81594e625c267ce68b4f191cac6ce",
+      "range": "PDF p68-p90 at 220dpi",
+      "ocr_used_for_final_glyph_or_mechanism_claims": false
+    }
+  },
+  "direct_image_collation": {
+    "p70": {
+      "sha256": "5c08716faa8a83e37c6ab71ff76b194b6165c64d1f944b0b3fb7ea7af84c75b1",
+      "direct": [
+        "準齋心製几漏圖式 title directly visible"
+      ]
+    },
+    "p71": {
+      "sha256": "19b74ff13076bc80d0518e6c843a7fe95a85c4d97d63ab2d051aacf4167168f2",
+      "direct": [
+        "凡晝夜百刻節序短長",
+        "分界定數二十有五箭",
+        "如冬至後自第一箭順數用之",
+        "夏至後自二十五箭逆數用之",
+        "却依日曆參照節候"
+      ],
+      "mechanism": "calendar/solar-term reference selects one of 25 discrete arrow states, forward from winter solstice and reverse from summer solstice"
+    },
+    "p72": {
+      "sha256": "39f1e8d6605fc6926a67299a085edd8700d6b3c3cd98061033853f8bb2b42014",
+      "direct": [
+        "第一箭",
+        "自冬至用至小寒後四日",
+        "晝三十八刻",
+        "夜六十二刻"
+      ]
+    },
+    "p76": {
+      "sha256": "64aad110e3cba4984cb784e9f97c99044fbc25e39a06744000a7a606ba73ffeb",
+      "direct": [
+        "第二十五箭",
+        "自夏至日用至小暑後六日",
+        "晝六十二刻",
+        "夜三十八刻"
+      ],
+      "boundary_note": "This page also begins the 跋/附錄 layer for 準齋心製几漏圖式."
+    },
+    "p78": {
+      "sha256": "43f91f0d11eb88a014bb1a5fe53bc5ec696df540cfc2318cc9e80ba04e4c1329",
+      "direct": [
+        "銅壺漏箭制度 title directly visible"
+      ]
+    },
+    "p86": {
+      "sha256": "9ffe81b435665c81cc18536fe1efb443f3aa32ddf3082eff820c70942e0a3714",
+      "direct": [
+        "銅壺漏箭制度附錄 seasonal table directly prints 晝六十刻 / 夜四十刻"
+      ],
+      "role": "parallel received numeric control, not proof of identity with the 準齋 25-arrow sequence"
+    },
+    "p90": {
+      "sha256": "aeca198ed94020015537b8245bc490f26918bbcdd7fa1b95a9d178ce11a68847",
+      "direct": [
+        "天文精義賦卷一 begins; clepsydra target block has ended"
+      ]
+    }
+  },
+  "chronology_firewall": {
+    "work_layer": "《準齋心製几漏圖式》 is bibliographically attributed to Song Sun Fengji in Xuxiu metadata.",
+    "reviewed_physical_copy": "NLC-held Qing Daoguang-3 (1823) Huang-family Shiliju manuscript as reproduced in Xuxiu.",
+    "rule": "Song work attribution must not be collapsed into a Song or pre-1578 date for the reviewed physical manuscript.",
+    "exact_pre1578_physical_witness_status": "NOT_PROVED"
+  },
+  "mechanism_comparison": {
+    "zhunzhai_mechanism_class": "CALENDAR_OR_SOLAR_TERM_REFERENCE_TO_DISCRETE_ARROW_STATE_SELECTION",
+    "zhunzhai_arrow_count": 25,
+    "zhunzhai_extrema": {
+      "winter_first_arrow": "38/62",
+      "summer_25th_arrow": "62/38"
+    },
+    "sanming_1578_extrema_control": "59/41 at summer-solstice side in the direct 1578 table",
+    "tonghu_parallel_control": "60/40 appears in the directly reviewed p86 table",
+    "unchanged_direct_table_identity_with_sanming_1578": false,
+    "exact_sanming_dahan_yushui_fingerprint_closed": false,
+    "nanjing_59_endpoint_binding_closed": false,
+    "whole_ke_selection_architecture_strengthened": true
+  },
+  "adjudication": {
+    "public_reproduction_target_scope": "CLOSED",
+    "received_calendar_term_to_discrete_arrow_selection_mechanism": "CLOSED",
+    "exact_pre1578_physical_copy_status": "NOT_PROVED",
+    "unchanged_direct_table_identity_with_sanming_1578": "DISPROVED",
+    "exact_sanming_yueling_dahan_yushui_fingerprint": "UNRESOLVED",
+    "exact_nanjing_59_endpoint_binding": "UNRESOLVED",
+    "direct_sanming_parent_vote_increment": 0,
+    "matrix_count_change": false,
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [
+      "PHYSICAL-COPY-NLC-ZHUNZHAI-JILOU-DAOGUANG3-HUANG-SHILIJU-MS",
+      "RULE-FAMILY-ZHUNZHAI-25ARROW-JIEHOU-SELECTION-38-62"
+    ],
+    "edges_supported": [
+      "TG-E0072",
+      "TG-E0073"
+    ],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "RULE-FAMILY-ZHUNZHAI-25ARROW-JIEHOU-SELECTION-38-62 DIRECT_UNCHANGED_TABLE_IDENTITY_WITH TABLE-SANMING-1578-DAYNIGHT-KE = DISPROVED"
+    ],
+    "unresolved_lineage_questions": [
+      "Find a securely pre-1578 physical/textual carrier that explicitly binds calendar/solar-term state selection to the Nanjing/Datong 59-ke endpoint.",
+      "Find the exact pre-1578 source of the Sanming/Yueling 大寒十三後 / 雨水後四日 transition fingerprint."
+    ]
+  },
+  "project_consequence": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "missing_from_product_rows": 10,
+    "provenance_defects_repaired": "12/12",
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0,
+    "deterministic_product_status": "CLOSED"
+  }
+}

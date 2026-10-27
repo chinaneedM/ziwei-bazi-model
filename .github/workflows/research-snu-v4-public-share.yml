@@ -1,0 +1,234 @@
+name: research-snu-v4-public-share
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-snu-v4-public-share.yml
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Install Selenium
+        run: python -m pip install --disable-pip-version-check selenium
+
+      - name: Navigate only the public Quark share UI to the target file and preview
+        shell: python
+        run: |
+          import json
+          import time
+          import urllib.parse
+          from pathlib import Path
+          from selenium import webdriver
+          from selenium.webdriver.chrome.options import Options
+          from selenium.webdriver.common.action_chains import ActionChains
+          from selenium.webdriver.common.by import By
+
+          OUT=Path("probe"); OUT.mkdir()
+          URL="https://pan.quark.cn/s/3b7b731e41f2"
+          FOLDER="紫微斗数"
+          STEM="523.5-J562b-v.1-6"
+          SUFFIX="木版本（4）.pdf"
+
+          opts=Options()
+          opts.add_argument("--headless=new")
+          opts.add_argument("--no-sandbox")
+          opts.add_argument("--disable-dev-shm-usage")
+          opts.add_argument("--disable-gpu")
+          opts.add_argument("--window-size=1800,2600")
+          opts.add_argument("--lang=zh-CN")
+          opts.set_capability("goog:loggingPrefs",{"performance":"ALL"})
+
+          result={
+            "schema":"ZIWEI-SNU-V4-PUBLIC-SHARE-R2",
+            "source_locator":"XINGHUN_PUBLIC_FREE_RESOURCE_LINK",
+            "share_url":URL,
+            "folder":FOLDER,
+            "target_stem":STEM,
+            "target_suffix":SUFFIX,
+            "authentication_attempted":False,
+            "login_attempted":False,
+            "password_or_share_code_attempted":False,
+            "hidden_api_guessing_attempted":False,
+            "download_click_attempted":False,
+          }
+
+          driver=webdriver.Chrome(options=opts)
+          try:
+            driver.set_page_load_timeout(90)
+            driver.get(URL); time.sleep(10)
+            result["root_url"]=driver.current_url
+            result["root_body"]=driver.find_element(By.TAG_NAME,"body").text[:60000]
+            driver.save_screenshot(str(OUT/"01-root.png"))
+
+            # Close only the public login modal if it auto-opened; no login is attempted.
+            try:
+              closes=[x for x in driver.find_elements(By.CSS_SELECTOR,"button.ant-modal-close") if x.is_displayed()]
+              if closes:
+                closes[0].click()
+                time.sleep(1)
+                result["auto_login_modal_closed"]=True
+              else:
+                result["auto_login_modal_closed"]=False
+            except Exception as exc:
+              result["auto_login_modal_close_error"]=repr(exc)
+
+            # Navigate by the visibly rendered folder label only.
+            folder_matches=[]
+            for el in driver.find_elements(By.XPATH,f"//*[normalize-space(text())='{FOLDER}']"):
+              try:
+                if el.is_displayed(): folder_matches.append(el)
+              except Exception: pass
+            result["visible_folder_label_count"]=len(folder_matches)
+            if folder_matches:
+              label=folder_matches[-1]
+              target=label
+              # The public DOM exposes the filename row's file-click-wrap around this exact label.
+              try:
+                target=label.find_element(By.XPATH,"ancestor::div[contains(@class,'file-click-wrap')][1]")
+                result["folder_interaction_class"]=target.get_attribute("class")
+              except Exception:
+                result["folder_interaction_class"]=label.get_attribute("class")
+              driver.execute_script("arguments[0].scrollIntoView({block:'center'});",target)
+              time.sleep(0.5)
+              try:
+                ActionChains(driver).double_click(target).perform()
+              except Exception:
+                try: target.click()
+                except Exception: driver.execute_script("arguments[0].click();",target)
+              time.sleep(8)
+
+            result["folder_url"]=driver.current_url
+            folder_body=driver.find_element(By.TAG_NAME,"body").text
+            result["folder_body"]=folder_body[:120000]
+            result["stem_visible_in_folder"]=STEM in folder_body
+            result["suffix_visible_in_folder"]=SUFFIX in folder_body
+            driver.save_screenshot(str(OUT/"02-folder.png"))
+            (OUT/"02-folder.html").write_text(driver.page_source,encoding="utf-8")
+
+            # Locate the target only by visible filename text; no ids or API parameters are constructed.
+            candidates=[]
+            for el in driver.find_elements(By.XPATH,"//*[contains(normalize-space(.), '523.5-J562b-v.1-6') and contains(normalize-space(.), '木版本（4）.pdf')]"):
+              try:
+                if not el.is_displayed(): continue
+                txt=" ".join((el.text or "").split())
+                if STEM in txt and SUFFIX in txt:
+                  candidates.append((len(txt),el,txt))
+              except Exception: pass
+            candidates.sort(key=lambda x:x[0])
+            result["visible_target_candidate_count"]=len(candidates)
+            if candidates:
+              _,label,txt=candidates[0]
+              result["target_candidate_text"]=txt[:1000]
+              target=label
+              try:
+                target=label.find_element(By.XPATH,"ancestor::div[contains(@class,'file-click-wrap')][1]")
+                result["target_interaction_class"]=target.get_attribute("class")
+              except Exception:
+                result["target_interaction_class"]=label.get_attribute("class")
+              driver.execute_script("arguments[0].scrollIntoView({block:'center'});",target)
+              time.sleep(0.5)
+              before=driver.current_url
+              # Files may use a single-click preview handler while folders use double-click navigation.
+              try: target.click()
+              except Exception: driver.execute_script("arguments[0].click();",target)
+              time.sleep(6)
+              result["after_single_click_url"]=driver.current_url
+              result["after_single_click_changed"]=driver.current_url != before
+              if driver.current_url == before:
+                # Same exact visible file row; fallback to ordinary double-click, still no download/login action.
+                try: ActionChains(driver).double_click(target).perform()
+                except Exception: driver.execute_script("arguments[0].dispatchEvent(new MouseEvent('dblclick',{bubbles:true}))",target)
+                time.sleep(10)
+
+            result["post_target_url"]=driver.current_url
+            result["post_target_title"]=driver.title
+            post_body=driver.find_element(By.TAG_NAME,"body").text
+            result["post_target_body"]=post_body[:120000]
+            result["preview_language_visible"]=any(k in post_body for k in ("预览","PDF","第","页","放大","缩小"))
+            controls=[]
+            for el in driver.find_elements(By.CSS_SELECTOR,"button,a,[role='button']"):
+              try:
+                if not el.is_displayed(): continue
+                txt=" ".join((el.text or "").split())
+                if txt and any(k in txt for k in ("下载","保存","登录","打开","预览","上一页","下一页","页")):
+                  controls.append({"tag":el.tag_name,"text":txt[:500],"href":el.get_attribute("href")})
+              except Exception: pass
+            seen=set(); dedup=[]
+            for x in controls:
+              k=(x["tag"],x["text"],x["href"])
+              if k not in seen:
+                seen.add(k); dedup.append(x)
+            result["visible_post_target_controls"]=dedup[:400]
+            driver.save_screenshot(str(OUT/"03-target.png"))
+            (OUT/"03-target.html").write_text(driver.page_source,encoding="utf-8")
+
+            net=[]
+            for entry in driver.get_log("performance"):
+              try: msg=json.loads(entry["message"])["message"]
+              except Exception: continue
+              if msg.get("method") not in ("Network.requestWillBeSent","Network.responseReceived"): continue
+              p=msg.get("params",{})
+              if msg["method"]=="Network.requestWillBeSent":
+                req=p.get("request",{}); u=req.get("url",""); method=req.get("method"); status=None
+              else:
+                resp=p.get("response",{}); u=resp.get("url",""); method=None; status=resp.get("status")
+              if not any(h in u for h in ("quark.cn","uc.cn")): continue
+              s=urllib.parse.urlsplit(u)
+              q={}
+              for k,v in urllib.parse.parse_qsl(s.query,keep_blank_values=True):
+                q[k]="__REDACTED__" if any(t in k.lower() for t in ("token","auth","sign","ticket","session","cookie","stoken")) else v[:300]
+              net.append({
+                "event":msg["method"],"method":method,"status":status,
+                "url":urllib.parse.urlunsplit((s.scheme,s.netloc,s.path,"","")),
+                "safe_query":q
+              })
+            result["public_ui_network_observations"]=net[-2500:]
+          finally:
+            driver.quit()
+
+          result["adjudication"]={
+            "share_root_publicly_lists_folder":result.get("visible_folder_label_count",0)>0,
+            "target_file_visible_after_public_folder_navigation":result.get("stem_visible_in_folder") and result.get("suffix_visible_in_folder"),
+            "public_preview_opened":bool(result.get("visible_target_candidate_count",0)>0 and result.get("post_target_url")!=result.get("folder_url")),
+            "direct_public_download_established":False,
+            "same_snu_lineage_independent_vote_added":0,
+            "target_page_status":"PENDING_UNLESS_PUBLIC_PREVIEW_DIRECTLY_SHOWS_TARGET_PAGE",
+            "algorithm_effect":"NONE",
+          }
+          (OUT/"snu-v4-public-share.json").write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps({
+            "root_url":result.get("root_url"),
+            "visible_folder_label_count":result.get("visible_folder_label_count"),
+            "auto_login_modal_closed":result.get("auto_login_modal_closed"),
+            "folder_interaction_class":result.get("folder_interaction_class"),
+            "folder_url":result.get("folder_url"),
+            "stem_visible_in_folder":result.get("stem_visible_in_folder"),
+            "suffix_visible_in_folder":result.get("suffix_visible_in_folder"),
+            "visible_target_candidate_count":result.get("visible_target_candidate_count"),
+            "target_candidate_text":result.get("target_candidate_text"),
+            "target_interaction_class":result.get("target_interaction_class"),
+            "after_single_click_url":result.get("after_single_click_url"),
+            "after_single_click_changed":result.get("after_single_click_changed"),
+            "post_target_url":result.get("post_target_url"),
+            "post_target_title":result.get("post_target_title"),
+            "preview_language_visible":result.get("preview_language_visible"),
+            "visible_post_target_controls":result.get("visible_post_target_controls"),
+            "adjudication":result["adjudication"],
+          },ensure_ascii=False,indent=2))
+
+      - name: Upload public-share evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ziwei-snu-v4-public-share
+          path: probe/
+          if-no-files-found: warn
+          retention-days: 14

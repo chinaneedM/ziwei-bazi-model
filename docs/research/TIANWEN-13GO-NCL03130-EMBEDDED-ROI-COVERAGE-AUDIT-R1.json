@@ -1,0 +1,147 @@
+{
+  "schema": "TIANWEN-13GO-NCL03130-EMBEDDED-ROI-COVERAGE-AUDIT-R1",
+  "date": "2026-10-25",
+  "issue_id": "TW-OPEN-0005",
+  "grade": "REPRODUCIBLE_DIMENSION_RATIO_CROP_COVERAGE_CHECK_NOT_DIRECT_GLYPH_COLLATION",
+  "source": {
+    "pdf_sha256": "3c2a5621fb3f4eabc593020bcde12a38f6ecdae2842940dec12d5a3a56afd32e",
+    "source_pdf_is_same_as_13gn": true,
+    "new_physical_witnesses": 0,
+    "new_original_glyphs": 0
+  },
+  "inputs": {
+    "prior_gn": "docs/research/TIANWEN-13GN-NCL03130-EMBEDDED-IMAGE-GRADE-ERRATUM-R1.json",
+    "prior_gd": "docs/research/TIANWEN-13GD-NLC-P74-P75-D10-D15-BOUNDED-ORIGINAL-LANES-R1.json",
+    "prior_fv": "docs/research/TIANWEN-13FV-NLC-D30-GUTTER-DAY-HEADER-GEOMETRY-R1.json"
+  },
+  "method": "For each previous candidate rectangle use floor(x*embedded_width/render_width) for left and ceil for right, separately floor/ceil in Y. This is a conservative dimension-ratio estimate ONLY, NOT a PDF XObject affine transform or independently registered landmarks. A saved crop that does not enclose the estimated candidate footprint cannot justify full-field coverage; an enclosing crop also cannot prove field identity, glyph completeness or negative absence.",
+  "pixel_registration_verified": false,
+  "cases": [
+    {
+      "target": "D9",
+      "page": 74,
+      "prior_render_union_xyxy": [
+        511,
+        419,
+        535,
+        611
+      ],
+      "ratio_projected_xyxy": [
+        686,
+        562,
+        720,
+        821
+      ],
+      "saved_embedded_review_xyxy": [
+        680,
+        560,
+        735,
+        830
+      ],
+      "saved_roi_contains_projected": true,
+      "proposed_followup_embedded_probe_xyxy": null,
+      "prior_role": "BOUNDED_UNADJUDICATED_DATE9_FIELD_CANDIDATE"
+    },
+    {
+      "target": "D14",
+      "page": 74,
+      "prior_render_union_xyxy": [
+        101,
+        419,
+        127,
+        611
+      ],
+      "ratio_projected_xyxy": [
+        135,
+        562,
+        171,
+        821
+      ],
+      "saved_embedded_review_xyxy": [
+        125,
+        560,
+        160,
+        830
+      ],
+      "saved_roi_contains_projected": false,
+      "proposed_followup_embedded_probe_xyxy": [
+        130,
+        555,
+        180,
+        830
+      ],
+      "prior_role": "BOUNDED_UNADJUDICATED_DATE14_TERMINAL_CANDIDATE"
+    },
+    {
+      "target": "D30",
+      "page": 76,
+      "prior_render_union_xyxy": [
+        551,
+        405,
+        637,
+        790
+      ],
+      "ratio_projected_xyxy": [
+        740,
+        543,
+        857,
+        1061
+      ],
+      "saved_embedded_review_xyxy": [
+        700,
+        560,
+        820,
+        830
+      ],
+      "saved_roi_contains_projected": false,
+      "proposed_followup_embedded_probe_xyxy": [
+        735,
+        535,
+        865,
+        1070
+      ],
+      "prior_role": "UNION_OF_UNADJUDICATED_SEAM_ADJACENT_AND_NEXT_STRIPS_NOT_CERTIFIED_FOURFEN_FIELD"
+    }
+  ],
+  "unresolved": {
+    "NLC_old_D9_complete_literal": null,
+    "NLC_old_D14_complete_literal": null,
+    "NLC_old_D30_complete_literal": null,
+    "NLC_old_D30_field_identity": null,
+    "physical_book": null,
+    "original_folio": null,
+    "copy_layer": null,
+    "historical_fourfen_unit": null
+  },
+  "guardrails": {
+    "D5_opposition": "〇/五_UNRESOLVED",
+    "G893_six": "OPEN",
+    "prior_13EI": "RETRACTED",
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0,
+    "source_registry_added": 0,
+    "genealogy_nodes_added": 0,
+    "genealogy_edges_added": 0
+  },
+  "next_action": "Register embedded-to-PDF affine placement using at least two verifiable source landmarks; acquire only the proposed broader source-image probes and jointly verify day heading, exact 四分 field, terminal digit and gutter. Do not promote ratios to source-certified original coordinates or complete readings. If blocked, authorized first-party higher-resolution/physical folio route.",
+  "transmission_impact": {
+    "edges_supported": [],
+    "edges_revised": [],
+    "unresolved": [
+      "Only one PDF/physical witness; approximate dimensions do not establish same-field transmission or manuscript copy relation."
+    ]
+  },
+  "counts": {
+    "matrix": [
+      222,
+      222
+    ],
+    "external_sources": 761,
+    "graph": [
+      252,
+      238
+    ],
+    "open_or_blocked": 11,
+    "product": "CLOSED"
+  }
+}

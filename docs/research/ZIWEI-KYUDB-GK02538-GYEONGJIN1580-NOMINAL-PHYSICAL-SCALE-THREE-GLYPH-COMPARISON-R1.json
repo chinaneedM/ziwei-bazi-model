@@ -1,0 +1,200 @@
+{
+  "schema": "ZIWEI-KYUDB-GK02538-GYEONGJIN1580-NOMINAL-PHYSICAL-SCALE-THREE-GLYPH-COMPARISON-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-KYUDB-GK02538-GYEONGJIN1580-NOMINAL-PHYSICAL-SCALE-THREE-GLYPH-COMPARISON-EM",
+  "prior_batch_id": "BATCH-12-ZIWEI-KYUDB-GK02538-GYEONGJIN1580-MEDIUM-SIZECLASS-BINDING-EL",
+  "question": "After the 1580/GK02538 shared glyphs are bound to the same nominal medium Inryeokja class, can a reproducible multi-glyph physical-scale-normalized comparison be built without turning visual difference into an unsupported casting-generation claim?",
+  "answer": "YES_SOURCE_HASH_BOUND_正/月/大_THREE_GLYPH_CORPUS_AND_NOMINAL_VERTICAL_PITCH_NORMALIZATION_CLOSED; ALL_THREE_PAIRS_REMAIN_VISIBLY_NON_IDENTICAL_UNDER_THE_NORMALIZED_VIEW; NO_AUTOMATIC_SIMILARITY_OR_TYPE_CLASSIFICATION; FORM_DIVERGENCE_IS_DESCRIPTIVE_NOT_CASTING_DIAGNOSTIC; GK02538_SUBTYPE_CASTING_GENERATION_AND_EXACT_IMPRESSION_YEAR_REMAIN_UNRESOLVED",
+  "workflow_evidence": {
+    "head_commit_sha": "cfc99d04ab23788861031607d667108e344f5d11",
+    "workflow_run_id": 35673107826,
+    "artifact_id": 10671577720,
+    "artifact_name": "gk02538-gyeongjin1580-medium-normalized-glyphs-r1",
+    "artifact_digest": "sha256:f75b65bded16d00d3a80b41bb00174c5d75b8e143c82f19455d997c6fa66a60f",
+    "workflow_status": "SUCCESS",
+    "probe_schema": "GK02538-GYEONGJIN1580-MEDIUM-NORMALIZED-GLYPH-PROBE-R1",
+    "probe_schema_version": "1.0.0",
+    "ocr_used": false,
+    "automatic_glyph_matching": false,
+    "automatic_similarity_scoring": false,
+    "automatic_type_family_or_casting_classification": false
+  },
+  "source_objects": {
+    "gyeongjin1580_tail": {
+      "source_id": "EXT-HERITAGE-GYEONGJIN-1580-INRYEOKJA-PHYSICAL-CONTROL",
+      "dimensions": [
+        1748,
+        2048
+      ],
+      "sha256": "306b8f03949850c0cedd9575263208ccbd9dc8e6465165b13406ef1918788590",
+      "size_class_scope": "MEDIUM_INRYEOKJA_CLASS_SUPPORTED_AT_OBJECT_LAYOUT_LEVEL_BY_12EL"
+    },
+    "gk02538_0001_002a": {
+      "source_id": "EXT-KYUDB-DATONGLIZHU-GK02538-GWANSANGGAM-TYPE-POSTFACE-FINGERPRINT",
+      "dimensions": [
+        1186,
+        2000
+      ],
+      "sha256": "8458f8a0fd58f23f91139d7d489077472fd7fddb449d9635f6f29df5e2a9b461",
+      "size_class_scope": "NOMINAL_MEDIUM_SCALE_COMPATIBILITY_SUPPORTED_BY_12EI"
+    }
+  },
+  "fixed_shared_glyphs": {
+    "manual_set": [
+      "正",
+      "月",
+      "大"
+    ],
+    "gyeongjin1580": {
+      "zheng": {
+        "box": [
+          698,
+          565,
+          754,
+          625
+        ],
+        "crop_png_sha256": "435701fe0d243b869d700471106774a62f6b11cc63f7b2b8a5ed13efcf48cf05"
+      },
+      "yue": {
+        "box": [
+          698,
+          620,
+          754,
+          680
+        ],
+        "crop_png_sha256": "41fab7d68a3d1565a3d74042522cd428ad7b2278a8b88350923264f78a55dc1d"
+      },
+      "da": {
+        "box": [
+          698,
+          675,
+          754,
+          735
+        ],
+        "crop_png_sha256": "bee7598f99a39e1cf8aecda68acde4797006ba7ef3e8051d45c812bca724a54e"
+      }
+    },
+    "gk02538": {
+      "zheng": {
+        "box": [
+          900,
+          315,
+          961,
+          375
+        ],
+        "crop_png_sha256": "1f5833438ca3fefe5b8a12301c46a19a5fec563268d2849bcdd70d86a43442d1"
+      },
+      "yue": {
+        "box": [
+          900,
+          370,
+          961,
+          431
+        ],
+        "crop_png_sha256": "5790ac69eecef028763001e24dc3d604c5890b90ccb6bcf8a0e540f3fac2da8b"
+      },
+      "da": {
+        "box": [
+          1020,
+          310,
+          1080,
+          370
+        ],
+        "crop_png_sha256": "fa1e315a09b4b3b970e67105b3cb98004e6f331484437162e51f403607f893f4"
+      }
+    }
+  },
+  "nominal_physical_scale_normalization": {
+    "institutional_medium_inryeokja_height_cm": 1.2,
+    "gyeongjin1580_observed_heading_pitch_px": 55,
+    "gk02538_observed_zheng_yue_pitch_px": 55.5,
+    "target_pitch_px": 240,
+    "target_px_per_cm": 200,
+    "gyeongjin1580_isotropic_scale_factor": 4.363636363636363,
+    "gk02538_isotropic_scale_factor": 4.324324324324325,
+    "normalization_scope": "NOMINAL_VERTICAL_PITCH_NORMALIZATION_NOT_DIRECT_CALIPER_MEASUREMENT",
+    "source_photo_perspective_fully_rectified": false,
+    "direct_printed_glyph_body_caliper_measurement": false,
+    "three_glyph_normalized_corpus_closed": true,
+    "normalized_png_sha256": {
+      "gyeongjin1580_zheng": "c403a53141cd58f4529585c04d81d92d17a740a0b431481cf033b7bb8a7658d2",
+      "gyeongjin1580_yue": "bf073f5e30caf757a73bd0af55c6b9b6757957010cd7e012f1de091750bd0e88",
+      "gyeongjin1580_da": "7450aaefc0b429f8192ec7a86dfc2a7e5dfa50226ce3c882d5f3b54d1cff8e68",
+      "gk02538_zheng": "82dcaf7f37dedeb473694ba410ddd7987fe0da4b4effefba20253717a91484a9",
+      "gk02538_yue": "702af1833bd667a17e225b31cf6850ef427638406f9076a601bf421ee5b59dc5",
+      "gk02538_da": "c285ff3580b9a3da27d6b1bdb14f5e263fde1950760813463002b457efbfa7b6"
+    }
+  },
+  "direct_visual_adjudication": {
+    "normalized_pairs_reviewed": [
+      "正",
+      "月",
+      "大"
+    ],
+    "all_three_pairs_visibly_non_identical": true,
+    "consistent_form_divergence_observed_across_three_glyphs": true,
+    "exact_same_printing_face_identity_supported": false,
+    "different_casting_generation_proven": false,
+    "gk02538_specific_subtype_identified": false,
+    "current_form_identity_vote_increment": 0,
+    "casting_generation_identity_vote_increment": 0,
+    "explanation": "Nominal pitch normalization removes the small source-scale difference but not photography, perspective, inking, wear, paper deformation, scan processing, or the possibility of different sorts within a recurring type category. The visible three-glyph divergence is therefore recorded descriptively and is not promoted into a casting-generation or subtype verdict."
+  },
+  "specialist_firewall": {
+    "source_id": "EXT-AKS-INRYEOKJA-GWANSANGGAM-TYPE-CATEGORY-CONTROL",
+    "repeated_recasting_and_variant_iron_types_attested": true,
+    "wood_sort_mixing_attested": true,
+    "generic_gwansanggam_type_is_not_unique_casting_generation": true,
+    "kim_sangho_1987_full_object_level_diagnostics_recovered": false,
+    "riss_abstract_four_subtypes_only": true
+  },
+  "chronology_adjudication": {
+    "gk02538_specific_type_subtype_identified": false,
+    "gk02538_casting_generation_identified": false,
+    "gk02538_exact_impression_year_adjudicated": false,
+    "secure_pre1578_gk02538_physical_impression_witness": false,
+    "gyeongjin1580_control_date_status": "1580_USAGE_YEAR_DIRECT; 1579_PRINTING_REMAINS_INFERRED_FROM_ISSUE_CYCLE"
+  },
+  "transmission_impact": {
+    "nodes_strengthened": [
+      "PHYSICAL-COPY-KYUDB-DATONGLIZHU-GK02538-GWANSANGGAM-MOVABLETYPE"
+    ],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "three normalized non-identical glyphs -> different casting generation",
+      "nominal medium-scale normalization -> exact physical type-body identity",
+      "visual divergence -> exact impression date"
+    ],
+    "unresolved_lineage_questions": [
+      "Can direct physical/perspective calibration or additional dated medium-class objects turn the descriptive form divergence into a diagnostic typographic criterion?",
+      "Can Kim Sang-Ho 1987 or equivalent authoritative research provide object-level subtype/casting diagnostics applicable to GK02538?",
+      "Which securely pre-1578 witness carries the exact Sanming/Yueling Rainwater 後四日 + Dahan 十三後日 fingerprint?"
+    ],
+    "interpretation": "12EM closes the reproducible three-glyph nominal scale-normalized corpus while preserving the no-casting-verdict firewall."
+  },
+  "adjudication": {
+    "direct_sanming_parent_vote_increment": 0,
+    "threshold_to_wholeke_operator_closed": false,
+    "matrix_count_change": false,
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false
+  },
+  "project_consequence": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "missing_from_product_rows": 10,
+    "provenance_defects_repaired": "12/12",
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0,
+    "deterministic_product_status": "CLOSED"
+  },
+  "next_gate": [
+    "Recover direct physical/perspective calibration or a second dated medium-class comparator suitable for diagnostic type-form comparison.",
+    "Recover Kim Sang-Ho 1987 full text or equivalent authoritative object-level subtype/casting criteria and test GK02538 against them.",
+    "Continue the independent pre-1578 exact Sanming/Yueling Rainwater+Dahan fingerprint and threshold-operator search."
+  ],
+  "updated_at": "2026-09-22"
+}

@@ -1,0 +1,169 @@
+name: probe-aks-inryeokja-dated-physical-comparators
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-aks-inryeokja-dated-physical-comparators.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install image tooling
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --quiet pillow
+
+      - name: Acquire dated Inryeokja comparators and GK02538 controls
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/aks-inryeokja-dated-physical-comparators'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT/dated" "$ROOT/gk02538" "$ROOT/source"
+
+          python - <<'PY'
+          from pathlib import Path
+          from urllib.request import Request,urlopen
+          from urllib.parse import urlencode
+          from PIL import Image,ImageDraw
+          import hashlib,json,time
+
+          root=Path('audit/aks-inryeokja-dated-physical-comparators')
+          UA='Mozilla/5.0 Tianwen-Provenance-Audit/1.0'
+
+          targets=[
+            {
+              'key':'gyeongjin1580-head',
+              'year_used':1580,
+              'year_printed_status':'SPECIALIST_SOURCES_PLACE_PRINTING_IN_1579; HERITAGE_DETAIL_DESCRIBES_1579_AS_INFERRED_FROM_PRIOR_WINTER_ISSUE',
+              'type_scope':'PRE_IMJIN_GWANSANGGAM_INRYEOKJA_CONTROL',
+              'url':'https://minio.nculture.org/amsweb-opt/multimedia_assets/94/72995/69249/c/%EA%B2%BD%EC%A7%84%EB%85%84-%EB%8C%80%ED%86%B5%EB%A0%A5-%EA%B6%8C%EC%88%98_%EB%AC%B8%ED%99%94%EC%9E%AC%EC%B2%AD_%EC%A0%9C1%EC%9C%A0%ED%98%95-full-size.jpg',
+              'provider':'NCulture mirror; image credit Korea Heritage Administration',
+            },
+            {
+              'key':'gyeongjin1580-tail',
+              'year_used':1580,
+              'year_printed_status':'SPECIALIST_SOURCES_PLACE_PRINTING_IN_1579; HERITAGE_DETAIL_DESCRIBES_1579_AS_INFERRED_FROM_PRIOR_WINTER_ISSUE',
+              'type_scope':'PRE_IMJIN_GWANSANGGAM_INRYEOKJA_CONTROL',
+              'url':'https://minio.nculture.org/amsweb-opt/multimedia_assets/94/72995/69248/c/%EA%B2%BD%EC%A7%84%EB%85%84-%EB%8C%80%ED%86%B5%EB%A0%A5-%EA%B6%8C%EB%A7%90_%EB%AC%B8%ED%99%94%EC%9E%AC%EC%B2%AD_%EC%A0%9C1%EC%9C%A0%ED%98%95-full-size.jpg',
+              'provider':'NCulture mirror; image credit Korea Heritage Administration',
+            },
+            {
+              'key':'ryu-gabjin1604',
+              'year_used':1604,
+              'year_printed_status':'DATED_CALENDAR_YEAR_1604',
+              'type_scope':'POST_IMJIN_GWANSANGGAM_INRYEOKJA_CONTROL',
+              'url':'https://devin.aks.ac.kr/image/505ce0e9-6462-435a-8bbf-55f3815e3617?preset=orig',
+              'provider':'Academy of Korean Studies / Encyclopedia of Korean Culture',
+            },
+          ]
+
+          def get(url,referer=None):
+              headers={'User-Agent':UA,'Accept':'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8'}
+              if referer: headers['Referer']=referer
+              req=Request(url,headers=headers)
+              last=None
+              for n in range(4):
+                  try:
+                      with urlopen(req,timeout=35) as r:
+                          return r.read(),r.headers.get('content-type'),getattr(r,'status',200)
+                  except Exception as e:
+                      last=e; time.sleep(.5*(n+1))
+              raise last
+
+          rows=[]
+          for t in targets:
+              row=dict(t)
+              try:
+                  b,ctype,status=get(t['url'],'https://encykorea.aks.ac.kr/Article/E0046873')
+                  ext='png' if 'png' in (ctype or '') else 'jpg'
+                  out=root/'dated'/f"{t['key']}.{ext}"
+                  out.write_bytes(b)
+                  with Image.open(out) as im:
+                      row.update({
+                        'ok':True,'status':status,'content_type':ctype,'bytes':len(b),
+                        'sha256':hashlib.sha256(b).hexdigest(),'width':im.width,'height':im.height,
+                        'file':str(out.relative_to(root))
+                      })
+              except Exception as e:
+                  row.update({'ok':False,'error':type(e).__name__+': '+str(e)})
+              rows.append(row)
+
+          # Re-acquire exact GK02538 controls already hash-bound by 12EE/12EF.
+          book='GK02538_00'; item='CSP'
+          for vol,p in [('0001','002a'),('0001','002b'),('0004','057a'),('0004','057b')]:
+              fn=f'{book}_IL_{vol}_{p}.jpg'
+              server_path=f'/data01/stream/{item}/IMG/{book}/{book}_{vol}/{fn}'
+              url='https://kyudb.snu.ac.kr/ImageServlet.do?'+urlencode({'imgFileNm':fn,'path':server_path})
+              row={'key':f'gk02538-{vol}-{p}','provider':'Kyujanggak Institute for Korean Studies','url':url}
+              try:
+                  b,ctype,status=get(url,'https://kyudb.snu.ac.kr/pf01/rendererImg.do')
+                  out=root/'gk02538'/f'{vol}-{p}.jpg'
+                  out.write_bytes(b)
+                  with Image.open(out) as im:
+                      row.update({'ok':True,'status':status,'content_type':ctype,'bytes':len(b),
+                                  'sha256':hashlib.sha256(b).hexdigest(),'width':im.width,'height':im.height,
+                                  'file':str(out.relative_to(root))})
+              except Exception as e:
+                  row.update({'ok':False,'error':type(e).__name__+': '+str(e)})
+              rows.append(row)
+
+          # Contact sheets are direct visual aids only, never algorithmic type attribution.
+          valid=[]
+          for row in rows:
+              if not row.get('ok'): continue
+              p=root/row['file']
+              try: valid.append((row,Image.open(p).convert('RGB')))
+              except: pass
+          thumbs=[]
+          for row,im in valid:
+              im.thumbnail((540,760))
+              c=Image.new('RGB',(570,820),'white')
+              c.paste(im,((570-im.width)//2,18))
+              ImageDraw.Draw(c).text((10,785),row['key'],fill='black')
+              thumbs.append(c)
+          cols=3; nr=(len(thumbs)+cols-1)//cols
+          sheet=Image.new('RGB',(cols*570,max(1,nr)*820),'white')
+          for i,im in enumerate(thumbs): sheet.paste(im,((i%cols)*570,(i//cols)*820))
+          sheet.save(root/'contact-all.jpg',quality=93)
+
+          report={
+            'schema':'AKS-INRYEOKJA-DATED-PHYSICAL-COMPARATORS-R1',
+            'schema_version':'1.0.0',
+            'purpose':'Build directly reviewable dated/pre-post-Imjin Gwansanggam/Inryeokja image controls beside exact GK02538 source-bound pages.',
+            'comparators':rows,
+            'gk02538_catalog_control':{
+              'edition':'觀象監活字',
+              'catalog_impression_year':'刊年未詳',
+              'layout':'四周雙邊; 半葉匡郭 25.3×17.5cm; 9行21字; 注雙行; 上下花紋魚尾; 34.7×22.5cm'
+            },
+            'bibliographic_firewall':[
+              'Generic 觀象監活字 is not treated as one unique casting generation.',
+              'Annual-calendar page layout is not assumed to be directly comparable to a 12-juan calendrical commentary layout.',
+              'Visual resemblance alone cannot date GK02538.',
+              'A type-subtype/casting-generation claim requires shared-glyph or specialist bibliographic evidence.'
+            ],
+            'ocr_used_for_final_claims':False
+          }
+          (root/'report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print(json.dumps({'ok':[x for x in rows if x.get('ok')],'failed':[x for x in rows if not x.get('ok')]},ensure_ascii=False,indent=2))
+          PY
+
+      - name: Upload direct dated comparator set
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: aks-inryeokja-dated-physical-comparators-r1
+          path: audit/aks-inryeokja-dated-physical-comparators
+          if-no-files-found: error
+          retention-days: 30

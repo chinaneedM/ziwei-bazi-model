@@ -1,0 +1,109 @@
+name: verify-batch-12fo-exact-head
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/verify-batch-12fo-exact-head.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify Batch 12FO exact head
+        run: |
+          set -euo pipefail
+          python scripts/verify-tianwen-transmission-genealogy-r1.py
+          python scripts/verify-project-continuity-state-r1.py
+          python scripts/verify-fusion-chart-historical-provenance-audit-r1.py
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          bid='BATCH-12-ZIWEI-ZHOU-SHUTAO-DIARY-GAO-ACQUISITION-ROLE-AND-QU-1953-CHRONOLOGY-FO'
+          e=json.loads(Path('docs/research/ZIWEI-ZHOU-SHUTAO-DIARY-GAO-ACQUISITION-ROLE-AND-QU-1953-CHRONOLOGY-R1.json').read_text(encoding='utf-8'))
+          assert e['batch_id']==bid
+
+          d=e['diary_controls']
+          a52=d['entry_1952_08_31']['adjudication']
+          assert a52['gao_present_in_physical_book_collection_or_retrieval_work'] is True
+          assert a52['zhao_wanli_present'] is True
+          assert a52['zhang_heng_present'] is True
+          assert a52['operational_acquisition_handling_role']=='DIRECTLY_ATTESTED_FOR_ZHOU_SHUTAO_DONATION_EVENT'
+          assert a52['proves_gao_handled_qu_family_books'] is False
+          assert a52['proves_gao_annotated_tieqin_catalog_source_basis'] is False
+
+          a53=d['entry_1953_05_29']['adjudication']
+          assert a53['beijing_library_newly_received_rare_books_reviewed'] is True
+          assert a53['qu_family_collection_label_present'] is True
+          assert a53['qu_books_present_among_reviewed_new_receipts_by_date']=='1953-05-29_TERMINUS_ANTE_QUEM'
+          assert a53['target_tonghu_zhunzhai_named'] is False
+          assert a53['target_catalog_3482_3483_bound'] is False
+          assert a53['target_transaction_mode_closed'] is False
+
+          x=e['cross_event_firewall']
+          assert x['gao_role_in_zhou_donation_does_not_prove_gao_role_in_qu_transfer'] is True
+          assert x['qu_new_receipt_chronology_does_not_prove_target_volume_included'] is True
+          assert x['qu_new_receipt_chronology_does_not_select_donation_or_sale'] is True
+          assert x['lin_zhenyue_preface_specific_gao_qu_statement_not_independently_proved_by_combining_these_entries'] is True
+
+          a=e['adjudication']
+          assert a['direct_gao_to_qu_family_transfer_event']=='NOT_PROVED_BY_THESE_DIARY_ENTRIES'
+          assert a['gao_annotated_tieqin_catalog_source_basis']=='UNRESOLVED'
+          assert a['target_tonghu_zhunzhai_presence_in_1953_05_29_viewing']=='NOT_PROVED'
+          assert a['target_3482_3483_transaction_mode']=='UNRESOLVED'
+          assert a['target_exact_acquisition_date']=='UNRESOLVED'
+          assert a['final_nlc_acquisition_transfer_path']=='UNRESOLVED'
+
+          q=e['source_quality_firewall']
+          assert q['contemporaneous_diary_content'] is True
+          assert q['current_project_direct_manuscript_image_review'] is False
+          assert q['published_excerpt_is_family_or_scholarly_mediated'] is True
+          assert q['unpublished_context_may_not_be_inferred'] is True
+
+          state=json.loads(Path('docs/PROJECT-CURRENT-STATE-R1.json').read_text(encoding='utf-8'))
+          assert state['historical_audit']['latest_batch_doc'].endswith('ZIWEI-ZHOU-SHUTAO-DIARY-GAO-ACQUISITION-ROLE-AND-QU-1953-CHRONOLOGY-FO.md')
+          assert bid in state['historical_audit']['completed_batches']
+          assert state['invariants']['deterministic_fusion_chart_product_r1']=='CLOSED'
+          assert state['historical_audit']['row_count']==198
+          assert state['historical_audit']['audited_row_count']==166
+          assert state['historical_audit']['current_missing_from_product_row_count']==10
+          assert state['historical_audit']['confirmed_provenance_metadata_defect_count']==13
+          assert state['historical_audit']['repaired_provenance_metadata_defect_count']==13
+          assert state['invariants']['confirmed_chart_algorithm_defect_count']==0
+          assert state['invariants']['algorithm_reopen_count']==0
+          assert state['invariants']['candidate_collapse_count']==0
+
+          reg=json.loads(Path('docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json').read_text(encoding='utf-8'))
+          ids={x.get('source_id') for x in reg['sources']}
+          assert {
+              'EXT-ZHOU-QIQIAN-2015-ZHOU-SHUTAO-DIARY-FRIENDS-PUBLIC-REPRODUCTION',
+              'EXT-WENHUI-2019-ZHOU-SHUTAO-DIARY-SURVIVAL-PUBLICATION-CONTROL',
+              'EXT-THEPAPER-2016-ZHOU-SHUTAO-LETTERS-DIARY-0831-CUSTODY-CONTROL',
+          }.issubset(ids)
+
+          t=e['transmission_impact']
+          assert t['nodes_added']==[] and t['edges_added']==[]
+          assert t['acquisition_edge_authorized'] is False
+          assert t['same_object_edge_authorized'] is False
+          r=e['chronology_and_rule_firewall']
+          assert r['direct_sanming_parent_vote_increment']==0
+          assert r['pre1578_zhunzhai_rule_witness_increment']==0
+          assert r['runtime_rule_change'] is False
+          assert r['algorithm_reopen_authorized'] is False
+          assert r['candidate_collapse_authorized'] is False
+          assert r['matrix_count_change'] is False
+
+          graph=json.loads(Path('docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json').read_text(encoding='utf-8'))
+          assert not any(x.get('latest_scope_update_batch')==bid for x in graph.get('nodes', []))
+          assert not any(x.get('latest_scope_update_batch')==bid for x in graph.get('edges', []))
+          PY

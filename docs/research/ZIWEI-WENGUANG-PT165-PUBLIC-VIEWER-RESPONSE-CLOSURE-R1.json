@@ -1,0 +1,103 @@
+{
+  "schema": "ZIWEI-WENGUANG-PT165-PUBLIC-VIEWER-RESPONSE-CLOSURE-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-WENGUANG-PT165-PUBLIC-VIEWER-RESPONSE-CLOSURE-AC",
+  "access_date": "2026-09-09",
+  "hpa_rule_id": "HPA-ZDATE-006",
+  "volume": {
+    "volume_id": "aIRbDgAAQBAJ",
+    "isbn": "9789888266944",
+    "identity": "HEART_ONE_2017_COMBINED_DUNHUATANG_PLUS_JISHUTANG_WENGUANGTANG_FACSIMILE",
+    "target_page_id": "PT165",
+    "target_section": "論人生時要審的確",
+    "target_base_copy_identity": "UNRESOLVED_DUNHUATANG_VS_JISHUTANG"
+  },
+  "prior_public_search_index": {
+    "artifact": "docs/research/ZIWEI-QUANSHU-WENGUANG-GOOGLE-INDEX-PREVIEW-R1.json",
+    "target_heading_query_page_id": "PT165",
+    "target_index_reading": "如子時有十刻上五刻属昨夜亥時下五刻属今日子時",
+    "authority": "SEARCH_INDEX_TEXT_ONLY_NOT_PHYSICAL_GLYPH_AUTHORITY",
+    "negative_result_policy": "ZERO_OR_UNSTABLE_SEARCH_RESULTS_DO_NOT_AUTHORIZE_NEGATIVE_TEXTUAL_CLAIMS"
+  },
+  "initial_click3_probe": {
+    "workflow_head_sha": "bae844ac8aaf9ce8eb626af27a54b2b908474ff4",
+    "workflow_run_id": 34310578924,
+    "artifact_id": 10088199538,
+    "artifact_zip_sha256": "84f0e9a76c160e0eb577bfc39e09a2274b76138d2c726461e68a1e68214576a3",
+    "result": "PT164_PT165_PT166_HTTP_200_JSON_PAGE_METADATA_ONLY_ZERO_SOURCE_EMITTED_IMAGE_URLS"
+  },
+  "controlling_public_probe": {
+    "workflow_head_sha": "c97ce1179033f65e7e5c9ad7a7a4ffd48ecbe7b8",
+    "workflow_run_id": 34310657883,
+    "artifact_id": 10088226638,
+    "artifact_zip_sha256": "cdbfaf35561588e6001f7eb6af5b61a4aed83261beba749ee0e6ccc45e5378d2",
+    "viewer_run_response": {
+      "url": "https://books.google.com/books?id=aIRbDgAAQBAJ&jscmd=run",
+      "http_status": 200,
+      "bytes": 0,
+      "content_type": "application/json; charset=UTF-8",
+      "source_emitted_image_url_count": 0
+    },
+    "click3_responses": [
+      {
+        "page_id": "PT164",
+        "http_status": 200,
+        "bytes": 3288,
+        "target_page_record": {
+          "pid": "PT164",
+          "flags": 8,
+          "order": 164
+        },
+        "returned_page_record_count": 209
+      },
+      {
+        "page_id": "PT165",
+        "http_status": 200,
+        "bytes": 3288,
+        "target_page_record": {
+          "pid": "PT165",
+          "flags": 8,
+          "order": 165
+        },
+        "returned_page_record_count": 209
+      },
+      {
+        "page_id": "PT166",
+        "http_status": 200,
+        "bytes": 3288,
+        "target_page_record": {
+          "pid": "PT166",
+          "flags": 8,
+          "order": 166
+        },
+        "returned_page_record_count": 209
+      }
+    ],
+    "source_emitted_image_url_count": 0,
+    "pt165_image_saved": false,
+    "target_glyph_directly_observed": false
+  },
+  "access_firewalls": {
+    "authentication_attempted": false,
+    "purchase_attempted": false,
+    "identifier_guessing_attempted": false,
+    "access_control_bypass_attempted": false,
+    "source_emitted_urls_only": true,
+    "page_record_presence_is_not_image_access": true,
+    "http_200_is_not_glyph_authority": true
+  },
+  "adjudication": {
+    "public_route_status": "CLOSED_AT_CURRENT_UNAUTHENTICATED_VIEWER_RESPONSE_SURFACE_NO_SOURCE_EMITTED_PT165_IMAGE",
+    "search_index_text_status": "PT165_TARGET_READING_REMAINS_CORROBORATED_AT_SEARCH_INDEX_LEVEL_ONLY",
+    "physical_glyph_authority": "NONE_FROM_BATCH_12AC",
+    "pt165_base_copy_identity": "UNRESOLVED_DUNHUATANG_VS_JISHUTANG",
+    "hpa_zdate_006": "MISSING_FROM_PRODUCT",
+    "independent_textual_witness_increment": 0,
+    "independent_hai_glyph_witness_increment": 0,
+    "new_candidate_family": false,
+    "candidate_selection_authorized": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_count_increment": 0,
+    "next_gate": "DIRECT_LATE_ZI_TARGET_PAGE_FROM_A_PHYSICALLY_BOUND_FULLBOOK_COPY_WITH_KNOWN_EDITION_IDENTITY"
+  }
+}

@@ -1,0 +1,143 @@
+{
+  "schema": "ZIWEI-WENWU-CANKAO-NDL-1951-H2-AND-RYUKOKU-1986-FACSIMILE-ACCESS-REDUNDANCY-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-WENWU-CANKAO-NDL-1951-H2-AND-RYUKOKU-1986-FACSIMILE-ACCESS-REDUNDANCY-HI",
+  "prior_batch_id": "BATCH-12-ZIWEI-WENWU-CANKAO-1951-V2N9-ZHAO-WANLI-ORIGINAL-ISSUE-PHYSICAL-HOLDINGS-HH",
+  "question": "Can the original 1951 issue-9 access route be made more redundant by adding an exact NDL second-half original-serial object and an independently cataloged 1986 Wenwu Press facsimile covering the full 1951 volume 2, without pretending either route is already a direct article-text collation?",
+  "answer": "Yes. NDL Search directly exposes the paper serial-volume object 《文物参考资料 2(7)-2(12) 1951》 under call number Z8-AC150; because the target issue is volume 2 issue 9, it is explicitly contained in that held range. The reviewed NDL record is a paper-material record and exposes no item-specific digital surrogate target; clicking the generic 'read on the Internet' access-method label led to NDL help rather than target page images, so no digital availability is inferred. Independently, Ryukoku University Library's first-party OPAC records a Wenwu Press facsimile edition, Beijing [1986], 13 volumes, NCID AN10296217, and its Omiya holding 054/638 covers the entire 1951 volume 2. This creates an original-object route plus a later facsimile backup route. Neither Zhao Wanli pp.221–233 nor the six-title wording has been directly read in either object, and the facsimile's page-for-page fidelity to the specific 1951 issue has not been independently collated.",
+  "target_article_locator": {
+    "author": "赵万里",
+    "title": "永乐大典展览的意义——一九五一年八月北京图书馆举办",
+    "serial": "文物参考资料",
+    "year": 1951,
+    "volume": 2,
+    "issue": 9,
+    "pages": "221–233",
+    "locator_basis": "NLC_BIBLIOGRAPHIC_CONTROL_PLUS_CINII_NUMBERING",
+    "direct_article_text_reviewed": false
+  },
+  "ndl_original_bundle": {
+    "source_id": "EXT-NDL-WENWU-CANKAO-1951-V2-7-12-Z8-AC150",
+    "provider": "国立国会図書館 / NDL Search",
+    "url": "https://ndlsearch.ndl.go.jp/books/R100000002-Ia0000051292-i25241426",
+    "record_title": "文物参考资料 2(7)-2(12) 1951",
+    "serial_bib_id": "a0000051292",
+    "record_suffix": "i25241426",
+    "call_number": "Z8-AC150",
+    "material_form": "紙",
+    "publisher_display": "文物出版社",
+    "publication_year": 1951,
+    "held_range": "2(7)-2(12) 1951",
+    "target_volume": 2,
+    "target_issue": 9,
+    "target_issue_explicitly_contained": true,
+    "original_serial_physical_route_closed": true,
+    "direct_target_pages_reviewed": false,
+    "item_specific_digital_surrogate_exposed_on_reviewed_record": false,
+    "generic_internet_access_label_followed_to_help_page": true,
+    "digital_availability_inference_authorized": false
+  },
+  "ryukoku_facsimile": {
+    "source_id": "EXT-RYUKOKU-WENWU-CANKAO-1986-FACSIMILE-AN10296217",
+    "provider": "龍谷大学図書館",
+    "url": "https://opac.ryukoku.ac.jp/iwjs0005opc/ctlsrh.do?locale=ja&ncid=AN10296217&search_mode=detail&tab_num=0",
+    "title": "文物参攷資料",
+    "edition_statement": "影印本",
+    "publication_place": "北京",
+    "publisher": "文物出版社",
+    "publication_date_display": "[1986]",
+    "physical_extent": "13冊 ; 21-27cm",
+    "ncid": "AN10296217",
+    "local_bib_id": "SB31000107",
+    "holding_library": "龍谷大学 大宮図書館",
+    "call_number": "054/638",
+    "holding_range_display": "1-12;2;1952-1958",
+    "holding_years_display": "1950-1950;1951-1951;1952-1958",
+    "original_numbering_statement": "1期 (1950.1)-12期 (1950.12) ; 2巻1期 (1951.1)-2巻12期 (1951.12) ; 1952年1期 (1952.8)-1958年12期 (1958.12)",
+    "target_1951_volume2_covered": true,
+    "target_issue9_within_covered_volume": true,
+    "facsimile_physical_route_closed": true,
+    "direct_target_pages_reviewed": false,
+    "page_for_page_fidelity_to_1951_original_independently_collated": false
+  },
+  "access_firewall": {
+    "original_issue_direct_page_text_recovered": false,
+    "facsimile_direct_page_text_recovered": false,
+    "digital_scan_bytes_recovered": false,
+    "copy_request_sent": false,
+    "interlibrary_loan_request_sent": false,
+    "library_account_action_taken": false,
+    "identity_transmitted": false,
+    "fee_incurred": false,
+    "ndl_paper_record_does_not_equal_public_digital_surrogate": true,
+    "facsimile_holding_does_not_equal_original_page_collation": true,
+    "facsimile_catalog_identity_does_not_prove_page_for_page_fidelity": true
+  },
+  "relation_to_hh": {
+    "hh_original_exact_issue_routes_remain_closed": true,
+    "new_ndl_original_bundle_route_increment": 1,
+    "new_ryukoku_facsimile_backup_route_increment": 1,
+    "original_1951_article_direct_text_status": "NOT_REVIEWED",
+    "remaining_four_ding_titles": "UNRESOLVED",
+    "hc_hf_six_identity": "STRONGLY_COMPATIBLE_NOT_PROVED"
+  },
+  "target_volume_firewall": {
+    "target_titles": [
+      "铜壶漏箭制度",
+      "准斋心制几漏图式"
+    ],
+    "historical_catalog_numbers": [
+      3482,
+      3483
+    ],
+    "current_catalog_number_candidates": [
+      "03482",
+      "03483"
+    ],
+    "target_named_on_reviewed_catalog_records": false,
+    "target_membership_in_ding_six": "UNRESOLVED",
+    "target_specific_ding_intermediary_selected": false,
+    "target_specific_purchase_route_selected": false,
+    "target_specific_donation_route_selected": false,
+    "target_exact_acquisition_date": "UNRESOLVED",
+    "final_nlc_acquisition_transfer_path": "UNRESOLVED"
+  },
+  "adjudication": {
+    "original_physical_bundle_access_increment": 1,
+    "facsimile_physical_backup_increment": 1,
+    "direct_article_text_increment": 0,
+    "recovered_additional_ding_titles_increment": 0,
+    "target_item_transaction_increment": 0,
+    "acquisition_edge_authorized": false
+  },
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_added": [],
+    "direct_copy_edge_authorized": false,
+    "same_object_edge_authorized": false,
+    "acquisition_edge_authorized": false
+  },
+  "chronology_and_rule_firewall": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_count_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 14,
+    "repaired_provenance_metadata_defect_count": 14,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Directly inspect Zhao Wanli pp.221–233 in an original 1951 issue-9 object or a lawfully accessible facsimile and collate the six-title wording.",
+    "Compare the original/facsimile text against NDL-held 2011 《赵万里文集》第1卷 p.197 before asserting textual identity.",
+    "Recover the remaining four Ding titles and test HC/HF identity only on title-level common evidence.",
+    "Continue direct 2018 《赵万里先生年谱长编》 pp.309–310, 1997 《北京图书馆馆史资料汇编（二）》 pp.446–449, Ji Shuying chapter 9, 2004 p.335/final 《編后記》 and the 2010 supplement route."
+  ],
+  "updated_at": "2026-09-27"
+}

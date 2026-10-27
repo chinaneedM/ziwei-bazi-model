@@ -1,0 +1,149 @@
+{
+  "schema": "ZIWEI-TOKYO-JI-SHUYING-CH9-REMOTE-COPY-ELIGIBILITY-AND-PAGE-RANGE-BOUNDARY-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-TOKYO-JI-SHUYING-CH9-REMOTE-COPY-ELIGIBILITY-AND-PAGE-RANGE-BOUNDARY-FQ",
+  "prior_batch_id": "BATCH-12-ZIWEI-JI-SHUYING-TIEQIN-ACQUISITION-PROGRAM-CHRONOLOGY-AND-DIRECT-TEXT-BOUNDARY-FP",
+  "question": "What is the correct first-party remote-copy eligibility and request-preparation boundary for directly obtaining Ji Shuying chapter 9 from the Tokyo Metropolitan Central Library holding, and can the chapter page range currently be closed from public sources?",
+  "answer": "Tokyo Metropolitan Library first-party rules do not limit all remote copying absolutely to Tokyo residents/workers/students. Those users are the normal eligible group; applicants outside Tokyo may also apply for materials not held by the National Diet Library when the material satisfies the library's other requirements. The exact NDL Search record for this 2009 book displays only the Tokyo Metropolitan Central Library under nationwide holdings and does not display an NDL holding, but final remote-copy eligibility remains subject to Tokyo Metropolitan Library's own determination. The chapter-9 page range has not been closed from reviewed public sources; the library explicitly instructs users to use reference service first when the desired pages are not known.",
+  "first_party_remote_copy_rules": {
+    "overview": {
+      "url": "https://www.library.metro.tokyo.lg.jp/search/photocopy/remote/",
+      "provider": "東京都立図書館",
+      "role": "FIRST_PARTY_REMOTE_COPY_SERVICE_OVERVIEW",
+      "rules": [
+        "Remote copying is available by postal paper copy and PDF transmission.",
+        "Copyright-law scope is generally no more than one half of a work.",
+        "People outside Tokyo may be accepted only for qualifying material not held by the National Diet Library."
+      ]
+    },
+    "postal": {
+      "url": "https://www.library.metro.tokyo.lg.jp/search/photocopy/remote/by_mail/",
+      "web_form_url": "https://www.library.metro.tokyo.lg.jp/search/photocopy/remote/by_mail/form/index.html",
+      "provider": "東京都立図書館",
+      "role": "FIRST_PARTY_POSTAL_REMOTE_COPY_RULES",
+      "request_channels": [
+        "telephone",
+        "letter",
+        "web_form"
+      ],
+      "web_form_normal_group": "東京都在住・在勤・在学の個人",
+      "outside_tokyo_exception": "国立国会図書館で所蔵していない資料の内、要件を満たす資料",
+      "unknown_page_range_instruction": "事前に電話やメールによる調べもの相談（レファレンス）より確定してから申込",
+      "max_books_per_request": 5,
+      "identity_document_required_for_postal": false
+    },
+    "pdf": {
+      "url": "https://www.library.metro.tokyo.lg.jp/search/photocopy/remote/transmission/",
+      "terms_url": "https://www.library.metro.tokyo.lg.jp/search/photocopy/remote/transmission/ToU/index.html",
+      "provider": "東京都立図書館",
+      "role": "FIRST_PARTY_PDF_REMOTE_COPY_RULES",
+      "request_channel": "web_form_only",
+      "normal_group": "東京都在住・在勤・在学の個人",
+      "outside_tokyo_exception": "国立国会図書館で所蔵が確認できない資料の提供を希望する者のうち通常グループに該当しない者",
+      "identity_document_required_each_application": true,
+      "compensation_fee_required": true,
+      "copyright_scope": "原則1著作物全体の2分の1まで",
+      "unknown_page_range_instruction": "複写箇所が未確定の場合はレファレンス等で確定してから申込"
+    }
+  },
+  "exact_book_holding_control": {
+    "ndl_url": "https://ndlsearch.ndl.go.jp/books/R100000001-I13111400053127",
+    "title": "冀淑英古籍善本十五讲",
+    "isbn": "9787501340637",
+    "pages": 241,
+    "ndl_search_visible_holding_section": "全国の図書館の所蔵",
+    "visible_holding_in_exact_record": [
+      "東京都立中央図書館"
+    ],
+    "visible_ndl_holding_in_exact_record": false,
+    "interpretation": "CURRENT_NDL_SEARCH_RECORD_DOES_NOT_DISPLAY_AN_NDL_HOLDING_FOR_THIS_RECORD",
+    "absolute_no_ndl_holding_claim_authorized": false,
+    "tokyo_holding_call_number": "C/022.3/6011/2009",
+    "tokyo_material_code": "4001029913"
+  },
+  "page_range_research": {
+    "target_chapter": "第九讲 铁琴铜剑楼藏书的收购入藏",
+    "public_summary_confirms_chapter_identity": true,
+    "public_summary_url": "https://kknews.cc/zh-my/culture/x2jngr8.html",
+    "reviewed_public_searches_for_page_number": true,
+    "exact_chapter_start_page_closed": false,
+    "exact_chapter_end_page_closed": false,
+    "exact_copy_page_range_closed": false,
+    "inferred_from_total_page_count": false,
+    "inferred_from_neighboring_chapter_order": false,
+    "correct_next_action": "USE_LIBRARY_REFERENCE_SERVICE_TO_DETERMINE_PAGE_RANGE_BEFORE_COPY_REQUEST"
+  },
+  "correction_of_batch_12fp": {
+    "prior_field": "remote_copy_eligibility=東京都在住・在勤・在学の方",
+    "problem": "OVERBROAD_ABSOLUTE_FORMULATION_OMITTED_OUTSIDE_TOKYO_EXCEPTION",
+    "corrected_model": {
+      "normal_eligibility": "TOKYO_RESIDENT_WORKER_STUDENT",
+      "outside_tokyo_possible": true,
+      "outside_tokyo_condition": "NDL_NOT_HELD_AND_OTHER_LIBRARY_REQUIREMENTS_SATISFIED",
+      "final_application_acceptance_prejudged_by_project": false
+    },
+    "historical_or_algorithmic_conclusion_changed": false,
+    "chart_or_product_provenance_defect_counter_increment": 0
+  },
+  "adjudication": {
+    "exact_tokyo_physical_holding": "CLOSED",
+    "remote_copy_service_route": "CLOSED",
+    "normal_tokyo_eligibility_group": "CLOSED",
+    "outside_tokyo_exception_exists": "CLOSED",
+    "this_exact_book_definitively_eligible_for_outside_tokyo_remote_copy": "NOT_PREJUDGED",
+    "current_ndl_search_exact_record_displays_ndl_holding": false,
+    "absolute_ndl_nonholding_claim": "NOT_AUTHORIZED_FROM_DISPLAY_ABSENCE_ALONE",
+    "chapter_9_page_range": "UNRESOLVED",
+    "reference_service_is_correct_page_range_resolution_route": "CLOSED",
+    "chapter_9_copy_obtained_by_project": false,
+    "chapter_9_directly_collated_by_project": false
+  },
+  "user_action_firewall": {
+    "no_paid_copy_request_submitted": true,
+    "no_identity_document_submitted": true,
+    "no_user_eligibility_inferred": true,
+    "no_payment_authorized": true,
+    "no_library_account_or_form_action_taken": true,
+    "reason": "Any real request can involve personal eligibility, identity documentation, fees, and user authorization. Repository research closes only the lawful route and its conditions."
+  },
+  "target_provenance_firewall": {
+    "access_route_closure_does_not_change_target_transaction_route": true,
+    "chapter_page_range_nonclosure_does_not_imply_missing_chapter": true,
+    "target_3482_3483_purchase_selected": false,
+    "target_3482_3483_donation_selected": false,
+    "final_nlc_acquisition_transfer_path": "UNRESOLVED"
+  },
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_added": [],
+    "acquisition_edge_authorized": false,
+    "same_object_edge_authorized": false,
+    "direct_copy_edges_authorized": []
+  },
+  "chronology_and_rule_firewall": {
+    "direct_sanming_parent_vote_increment": 0,
+    "pre1578_zhunzhai_rule_witness_increment": 0,
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_count_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 13,
+    "repaired_provenance_metadata_defect_count": 13,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Determine chapter 9 start/end pages through Tokyo Metropolitan Library reference service or another authoritative table-of-contents/page citation source; do not infer from total book length.",
+    "If a copy request is later desired, first confirm applicant eligibility and library acceptance for this exact item under the outside-Tokyo/NDL-nonholding rule; do not submit personal documents or incur fees without explicit user authorization.",
+    "After lawfully obtaining chapter 9, directly collate all transfer chronology, batch counts, cited accession sources, and any title/catalog-number-level lists.",
+    "Keep the Lin Zhenyue/Gao annotated-catalog source-basis route active in parallel.",
+    "Do not select the target 3482/3483 donation/purchase route before direct or near-direct item-level evidence."
+  ],
+  "updated_at": "2026-09-25"
+}

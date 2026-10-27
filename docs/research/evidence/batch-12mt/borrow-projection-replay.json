@@ -1,0 +1,46 @@
+{
+  "schema": "ZIWEI-R3-BORROW-PROJECTION-REPLAY-EVIDENCE-R1",
+  "batch_id": "BATCH-12-ZIWEI-R3-BORROW-PROJECTION-SCHOOL-MECHANICS-AND-MODERN-CLOSURE-AUDIT-MT",
+  "controls": {
+    "source_mechanics": {
+      "empty_palace_rule": "No fourteen principal stars; auxiliary/assistant/malefic/miscellaneous stars do not block borrow eligibility.",
+      "all_star_opposite_rule": "Borrow from the target's physical opposite and project the complete physical placement set rather than principal stars only.",
+      "member_preborrow_rule": "Resolve each empty member of the neutral {0,4,6,8} set against its own opposite before named Sanfang/Sizheng composition."
+    },
+    "engineering_firewall": {
+      "immutable_projection": true,
+      "recursive_projection": false,
+      "double_empty_status": "BORROW_SOURCE_EMPTY_OR_UNKNOWN",
+      "zero_second_contribution": true,
+      "physical_dedup_key": true,
+      "engineering_details_claimed_as_classical_doctrine": false
+    },
+    "coverage": {
+      "evaluation_origins": 12,
+      "member_offsets": [
+        0,
+        4,
+        6,
+        8
+      ],
+      "expected_member_facts": 48,
+      "principal_star_entity_count": 14,
+      "released_tests": [
+        "tests/test_ziwei_structural_v2_r3.py",
+        "tests/test_ziwei_structural_v2_r3_release.py"
+      ]
+    },
+    "provenance_boundary": {
+      "computation_source_refs": [
+        "S06:ZZTERM_BORROW_CLOSURE",
+        "S06:BORROW_RULE_01-05"
+      ],
+      "per_member_source_root_atom_ids_serialized": false,
+      "fabricated_source_root_mapping_authorized": false
+    }
+  },
+  "runtime_change": false,
+  "schema_or_hash_change": false,
+  "algorithm_reopen": false,
+  "candidate_collapse": false
+}

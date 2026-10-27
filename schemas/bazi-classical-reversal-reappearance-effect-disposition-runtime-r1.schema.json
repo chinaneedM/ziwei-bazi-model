@@ -1,0 +1,180 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/chinaneedM/ziwei-bazi-model/schemas/bazi-classical-reversal-reappearance-effect-disposition-runtime-r1.schema.json",
+  "$defs": {
+    "strings": {"type": "array", "items": {"type": "string"}},
+    "uniqueStrings": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "profile": {"const": {
+      "profile_id": "BAZI-CLASSICAL-CANDIDATE-PRESERVING-REVERSAL-OR-REAPPEARANCE-EFFECT-DISPOSITION-R1",
+      "profile_version": "1.0.0",
+      "algorithm_id": "BAZI-CLASSICAL-CANDIDATE-PRESERVING-REVERSAL-OR-REAPPEARANCE-EFFECT-DISPOSITION-R1",
+      "algorithm_version": "1.0.0",
+      "disposition_kind": "SOURCE_ASSERTED_REVERSAL_OR_REAPPEARANCE_EFFECT_DISPOSITION",
+      "disposition_semantic_scope": "CANDIDATE_LOCAL_SOURCE_ASSERTED_EFFECT_BRANCH_ONLY",
+      "source_asserted_disposition": "SOURCE_ASSERTED_REVERSAL_OR_REAPPEARANCE_OF_TARGET_EFFECT_CHANNEL",
+      "source_assertion_subtype_split": "NOT_RELEASED_SOURCE_CLASS_REMAINS_COMBINED",
+      "raw_relation_action": "NO_MUTATION",
+      "raw_relation_presence_semantics": "UNCHANGED",
+      "handled_semantic_candidate_kind": "SOURCE_GROUNDED_REVERSAL_OR_REAPPEARANCE_CANDIDATE",
+      "handled_mechanism_proposal_kind": "REVERSAL_OR_REAPPEARANCE_MECHANISM_PROPOSAL",
+      "handled_source_claim_edge_class": "SOURCE_ASSERTED_REVERSAL_OR_REAPPEARANCE",
+      "handled_effect_facet": "RELATION_EFFECT_DISPOSITION",
+      "reversal_reappearance_closure_requirement_id": "CLASSICAL_REVERSAL_OR_REAPPEARANCE_SEMANTICS",
+      "expected_upstream_closure_status": "MISSING_PRIMITIVE",
+      "local_closure_result": "AVAILABLE_EXACTLY_AS_CANDIDATE_LOCAL_SOURCE_ASSERTED_REVERSAL_OR_REAPPEARANCE_EFFECT_DISPOSITION",
+      "candidate_global_truth_semantics": "NOT_RELEASED",
+      "global_target_relation_restored_state_semantics": "NOT_RELEASED",
+      "global_target_relation_active_in_force_state_semantics": "NOT_RELEASED",
+      "prior_resolution_execution_semantics": "NOT_RELEASED",
+      "prior_resolution_failure_execution_semantics": "NOT_RELEASED",
+      "interaction_chain_execution_semantics": "NOT_RELEASED",
+      "global_operability_semantics": "NOT_RELEASED",
+      "candidate_applicability_semantics": "NOT_RELEASED_BEYOND_UNIT3_ADMISSION",
+      "execution_readiness_semantics": "NOT_RELEASED",
+      "candidate_selection_semantics": "NOT_RELEASED",
+      "candidate_coexistence_semantics": "NOT_RELEASED",
+      "candidate_exclusivity_semantics": "NOT_RELEASED",
+      "candidate_conflict_semantics": "NOT_RELEASED",
+      "precedence_semantics": "NOT_RELEASED",
+      "priority_semantics": "NOT_RELEASED",
+      "winner_loser_semantics": "NOT_RELEASED",
+      "global_relation_effect_state_semantics": "NOT_RELEASED",
+      "attenuation_grade_semantics": "NOT_RELEASED",
+      "participant_allocation_semantics": "NOT_RELEASED",
+      "participant_path_selection_semantics": "NOT_RELEASED",
+      "inferred_slot_instance_compatibility": "FORBIDDEN",
+      "source_narrative_execution": "FORBIDDEN",
+      "source_narrative_policy": "PROVENANCE_ONLY",
+      "source_unresolved_graph_requirement_policy": "PROVENANCE_ONLY",
+      "graph_mutation_fixpoint_semantics": "NOT_RELEASED",
+      "fragment_selection_semantics": "NOT_RELEASED",
+      "cross_outer_composition": "NOT_RELEASED",
+      "cross_source_composition": "NOT_RELEASED",
+      "cartesian_expansion": "NOT_RELEASED",
+      "final_classical_verdict_semantics": "NOT_RELEASED",
+      "raw_relation_immutability_contract": "IMMUTABLE_EXACT_REFERENCE_ONLY"
+    }},
+    "closureRow": {
+      "type": "object", "additionalProperties": false,
+      "required": ["closure_requirement_id", "runtime_dependency_status", "governance_class", "future_owner", "upstream_support_class", "upstream_support_reference_ids"],
+      "properties": {
+        "closure_requirement_id": {}, "runtime_dependency_status": {}, "governance_class": {}, "future_owner": {}, "upstream_support_class": {}, "upstream_support_reference_ids": {}
+      }
+    },
+    "multiplicityReference": {
+      "type": "object", "additionalProperties": false,
+      "required": ["multiplicity_constraint_id", "exchangeable_symbolic_slot_node_ids", "exact_runtime_instance_ids", "required_symbolic_cardinality", "slot_equivalence", "alternative_path_requirement"],
+      "properties": {
+        "multiplicity_constraint_id": {}, "exchangeable_symbolic_slot_node_ids": {}, "exact_runtime_instance_ids": {}, "required_symbolic_cardinality": {}, "slot_equivalence": {}, "alternative_path_requirement": {}
+      }
+    },
+    "pathCandidate": {
+      "type": "object", "additionalProperties": false,
+      "required": ["path_candidate_id", "path_candidate_kind", "source_semantic_candidate_id", "source_mechanism_proposal_id", "multiplicity_constraint_id", "exchangeable_symbolic_slot_node_ids", "exact_runtime_instance_ids", "required_symbolic_cardinality", "slot_equivalence", "path_candidate_semantics", "slot_assignment_semantics", "path_ordering_semantics", "compatibility_semantics", "selection_semantics"],
+      "properties": {
+        "path_candidate_id": {}, "path_candidate_kind": {}, "source_semantic_candidate_id": {}, "source_mechanism_proposal_id": {}, "multiplicity_constraint_id": {}, "exchangeable_symbolic_slot_node_ids": {}, "exact_runtime_instance_ids": {}, "required_symbolic_cardinality": {}, "slot_equivalence": {}, "path_candidate_semantics": {},
+        "slot_assignment_semantics": {"const": "NOT_RELEASED"}, "path_ordering_semantics": {"const": "NOT_RELEASED"}, "compatibility_semantics": {}, "selection_semantics": {"const": "NOT_RELEASED"}
+      }
+    },
+    "allocationDomainObservation": {
+      "type": "object", "additionalProperties": false,
+      "required": ["allocation_domain_observation_id", "source_semantic_candidate_id", "source_mechanism_proposal_id", "source_occurrence_id", "binding_candidate_id", "graph_record_id", "interaction_assertion_id", "source_claim_edge_id", "target_exact_relation_id", "effect_facet", "multiplicity_constraint_id", "exchangeable_symbolic_slot_node_ids", "exact_runtime_instance_ids", "required_symbolic_cardinality", "slot_equivalence", "alternative_path_requirement", "allocation_domain_classification", "domain_blocker_ids", "path_candidates", "unit5_allocation_closure_rows", "source_unresolved_graph_requirements_provenance", "source_narrative_chain_ids_provenance"],
+      "properties": {
+        "allocation_domain_observation_id": {}, "source_semantic_candidate_id": {}, "source_mechanism_proposal_id": {}, "source_occurrence_id": {}, "binding_candidate_id": {}, "graph_record_id": {}, "interaction_assertion_id": {}, "source_claim_edge_id": {}, "target_exact_relation_id": {}, "effect_facet": {"const": "RELATION_PARTICIPANT_ALLOCATION"}, "multiplicity_constraint_id": {}, "exchangeable_symbolic_slot_node_ids": {}, "exact_runtime_instance_ids": {}, "required_symbolic_cardinality": {}, "slot_equivalence": {}, "alternative_path_requirement": {}, "allocation_domain_classification": {}, "domain_blocker_ids": {},
+        "path_candidates": {"type": "array", "items": {"$ref": "#/$defs/pathCandidate"}},
+        "unit5_allocation_closure_rows": {"type": "array", "items": {"$ref": "#/$defs/closureRow"}},
+        "source_unresolved_graph_requirements_provenance": {}, "source_narrative_chain_ids_provenance": {}
+      }
+    },
+    "sourceFinalCandidate": {
+      "type": "object", "additionalProperties": false,
+      "required": ["final_candidate_id", "source_semantic_candidate_id", "source_mechanism_proposal_id", "source_allocation_elaboration_id", "source_semantic_projection_envelope_id", "source_semantic_projection_fact_hash", "source_semantic_projection_computation_hash", "source_mechanism_closure_envelope_id", "source_mechanism_closure_fact_hash", "source_mechanism_closure_computation_hash", "source_allocation_envelope_id", "source_allocation_fact_hash", "source_allocation_computation_hash", "source_admission_envelope_id", "source_effect_envelope_id", "source_fragment_semantic_projection_id", "source_fragment_governance_projection_id", "source_fragment_allocation_projection_id", "source_fragment_id", "source_fragment_fact_hash", "source_fragment_computation_hash", "binding_candidate_id", "source_occurrence_id", "graph_record_id", "interaction_assertion_id", "source_claim_edge_id", "source_claim_edge_class", "source_assertion_class", "source_evidence_mode", "exact_source_fragments", "source_semantic_profile_id", "source_semantic_partition_id", "target_effect_channel_id", "target_exact_relation_id", "actor_exact_relation_ids", "actor_exact_participant_ids", "context_exact_participant_ids", "effect_facet", "semantic_candidate_kind", "mechanism_proposal_kind", "unresolved_classical_semantic_requirements", "closure_governance_rows", "multiplicity_references", "allocation_domain_observations", "source_narrative_chain_ids_provenance", "source_unresolved_graph_requirements_provenance", "final_candidate_semantics"],
+      "properties": {
+        "final_candidate_id": {}, "source_semantic_candidate_id": {}, "source_mechanism_proposal_id": {}, "source_allocation_elaboration_id": {}, "source_semantic_projection_envelope_id": {}, "source_semantic_projection_fact_hash": {}, "source_semantic_projection_computation_hash": {}, "source_mechanism_closure_envelope_id": {}, "source_mechanism_closure_fact_hash": {}, "source_mechanism_closure_computation_hash": {}, "source_allocation_envelope_id": {}, "source_allocation_fact_hash": {}, "source_allocation_computation_hash": {}, "source_admission_envelope_id": {}, "source_effect_envelope_id": {}, "source_fragment_semantic_projection_id": {}, "source_fragment_governance_projection_id": {}, "source_fragment_allocation_projection_id": {}, "source_fragment_id": {}, "source_fragment_fact_hash": {}, "source_fragment_computation_hash": {}, "binding_candidate_id": {}, "source_occurrence_id": {}, "graph_record_id": {}, "interaction_assertion_id": {}, "source_claim_edge_id": {}, "source_claim_edge_class": {}, "source_assertion_class": {}, "source_evidence_mode": {}, "exact_source_fragments": {}, "source_semantic_profile_id": {}, "source_semantic_partition_id": {}, "target_effect_channel_id": {}, "target_exact_relation_id": {}, "actor_exact_relation_ids": {}, "actor_exact_participant_ids": {}, "context_exact_participant_ids": {}, "effect_facet": {}, "semantic_candidate_kind": {}, "mechanism_proposal_kind": {}, "unresolved_classical_semantic_requirements": {},
+        "closure_governance_rows": {"type": "array", "items": {"$ref": "#/$defs/closureRow"}},
+        "multiplicity_references": {"type": "array", "items": {"$ref": "#/$defs/multiplicityReference"}},
+        "allocation_domain_observations": {"type": "array", "items": {"$ref": "#/$defs/allocationDomainObservation"}},
+        "source_narrative_chain_ids_provenance": {}, "source_unresolved_graph_requirements_provenance": {},
+        "final_candidate_semantics": {"const": "SOURCE_GROUNDED_PRE_RESOLVER_ENVELOPE_ASSEMBLY_ONLY"}
+      }
+    },
+    "localClosureRow": {
+      "type": "object", "additionalProperties": false,
+      "required": ["closure_requirement_id", "upstream_runtime_dependency_status", "unit10_local_closure_result", "semantic_scope"],
+      "properties": {
+        "closure_requirement_id": {"const": "CLASSICAL_REVERSAL_OR_REAPPEARANCE_SEMANTICS"},
+        "upstream_runtime_dependency_status": {"const": "MISSING_PRIMITIVE"},
+        "unit10_local_closure_result": {"const": "AVAILABLE_EXACTLY_AS_CANDIDATE_LOCAL_SOURCE_ASSERTED_REVERSAL_OR_REAPPEARANCE_EFFECT_DISPOSITION"},
+        "semantic_scope": {"const": "CANDIDATE_LOCAL_SOURCE_ASSERTED_EFFECT_BRANCH_ONLY"}
+      }
+    },
+    "disposition": {
+      "type": "object", "additionalProperties": false,
+      "required": ["reversal_reappearance_effect_disposition_id", "source_final_candidate_id", "source_occurrence_id", "graph_record_id", "interaction_assertion_id", "source_claim_edge_id", "source_claim_edge_class", "exact_source_fragments", "target_effect_channel_id", "target_exact_relation_id", "effect_facet", "disposition_kind", "semantic_scope", "source_asserted_disposition", "source_assertion_subtype_split", "raw_relation_action", "raw_relation_presence_semantics", "source_narrative_chain_ids_provenance", "source_unresolved_graph_requirements_provenance"],
+      "properties": {
+        "reversal_reappearance_effect_disposition_id": {}, "source_final_candidate_id": {}, "source_occurrence_id": {}, "graph_record_id": {}, "interaction_assertion_id": {}, "source_claim_edge_id": {},
+        "source_claim_edge_class": {"const": "SOURCE_ASSERTED_REVERSAL_OR_REAPPEARANCE"}, "exact_source_fragments": {}, "target_effect_channel_id": {}, "target_exact_relation_id": {}, "effect_facet": {"const": "RELATION_EFFECT_DISPOSITION"},
+        "disposition_kind": {"const": "SOURCE_ASSERTED_REVERSAL_OR_REAPPEARANCE_EFFECT_DISPOSITION"}, "semantic_scope": {"const": "CANDIDATE_LOCAL_SOURCE_ASSERTED_EFFECT_BRANCH_ONLY"}, "source_asserted_disposition": {"const": "SOURCE_ASSERTED_REVERSAL_OR_REAPPEARANCE_OF_TARGET_EFFECT_CHANNEL"}, "source_assertion_subtype_split": {"const": "NOT_RELEASED_SOURCE_CLASS_REMAINS_COMBINED"}, "raw_relation_action": {"const": "NO_MUTATION"}, "raw_relation_presence_semantics": {"const": "UNCHANGED"}, "source_narrative_chain_ids_provenance": {}, "source_unresolved_graph_requirements_provenance": {}
+      }
+    },
+    "candidateProjection": {
+      "type": "object", "additionalProperties": false,
+      "required": ["candidate_projection_id", "source_final_candidate_id", "source_final_candidate", "projection_status", "reversal_reappearance_closure_rows", "reversal_reappearance_effect_dispositions", "reversal_reappearance_effect_disposition_ids"],
+      "properties": {
+        "candidate_projection_id": {}, "source_final_candidate_id": {}, "source_final_candidate": {"$ref": "#/$defs/sourceFinalCandidate"},
+        "projection_status": {"enum": ["REVERSAL_REAPPEARANCE_EFFECT_DISPOSITION_PROJECTED", "PRESERVED_NON_REVERSAL_REAPPEARANCE_CANDIDATE"]},
+        "reversal_reappearance_closure_rows": {"type": "array", "items": {"$ref": "#/$defs/localClosureRow"}},
+        "reversal_reappearance_effect_dispositions": {"type": "array", "items": {"$ref": "#/$defs/disposition"}},
+        "reversal_reappearance_effect_disposition_ids": {"type": "array", "items": {"type": "string"}}
+      },
+      "allOf": [
+        {"if": {"properties": {"projection_status": {"const": "REVERSAL_REAPPEARANCE_EFFECT_DISPOSITION_PROJECTED"}}, "required": ["projection_status"]}, "then": {"properties": {"reversal_reappearance_closure_rows": {"minItems": 1, "maxItems": 1}, "reversal_reappearance_effect_dispositions": {"minItems": 1, "maxItems": 1}, "reversal_reappearance_effect_disposition_ids": {"minItems": 1, "maxItems": 1}}}},
+        {"if": {"properties": {"projection_status": {"const": "PRESERVED_NON_REVERSAL_REAPPEARANCE_CANDIDATE"}}, "required": ["projection_status"]}, "then": {"properties": {"reversal_reappearance_closure_rows": {"maxItems": 0}, "reversal_reappearance_effect_dispositions": {"maxItems": 0}, "reversal_reappearance_effect_disposition_ids": {"maxItems": 0}}}}
+      ]
+    },
+    "fragmentProjection": {
+      "type": "object", "additionalProperties": false,
+      "required": ["fragment_projection_id", "source_final_fragment_id", "source_fragment_id", "source_occurrence_id", "binding_candidate_id", "source_final_fragment_status", "projection_status", "source_final_candidate_ids", "candidate_projections", "candidate_projection_ids", "reversal_reappearance_effect_disposition_ids"],
+      "properties": {
+        "fragment_projection_id": {}, "source_final_fragment_id": {}, "source_fragment_id": {}, "source_occurrence_id": {}, "binding_candidate_id": {}, "source_final_fragment_status": {},
+        "projection_status": {"enum": ["REVERSAL_REAPPEARANCE_EFFECT_DISPOSITIONS_PROJECTED", "PRESERVED_NO_REVERSAL_REAPPEARANCE_EFFECT_DISPOSITIONS", "PRESERVED_ZERO_CANDIDATES"]},
+        "source_final_candidate_ids": {}, "candidate_projections": {"type": "array", "items": {"$ref": "#/$defs/candidateProjection"}}, "candidate_projection_ids": {}, "reversal_reappearance_effect_disposition_ids": {}
+      }
+    },
+    "sourceRecordSet": {
+      "type": "object", "additionalProperties": false,
+      "required": ["source_record_candidate_set_id", "source_final_candidate_set_id", "source_layer", "source_occurrence_id", "source_final_fragment_ids", "fragment_projection_ids", "candidate_projection_ids", "reversal_reappearance_effect_disposition_ids", "member_selection_semantics", "member_coexistence_semantics", "member_exclusivity_semantics", "member_priority_semantics", "member_conflict_semantics"],
+      "properties": {
+        "source_record_candidate_set_id": {}, "source_final_candidate_set_id": {}, "source_layer": {}, "source_occurrence_id": {}, "source_final_fragment_ids": {}, "fragment_projection_ids": {}, "candidate_projection_ids": {}, "reversal_reappearance_effect_disposition_ids": {},
+        "member_selection_semantics": {"const": "NOT_RELEASED"}, "member_coexistence_semantics": {"const": "NOT_RELEASED"}, "member_exclusivity_semantics": {"const": "NOT_RELEASED"}, "member_priority_semantics": {"const": "NOT_RELEASED"}, "member_conflict_semantics": {"const": "NOT_RELEASED"}
+      }
+    },
+    "effectIndex": {"type": "object", "additionalProperties": false, "required": ["target_exact_relation_id", "effect_facet", "candidate_projection_ids", "reversal_reappearance_effect_disposition_ids", "index_semantics"], "properties": {"target_exact_relation_id": {}, "effect_facet": {"const": "RELATION_EFFECT_DISPOSITION"}, "candidate_projection_ids": {}, "reversal_reappearance_effect_disposition_ids": {}, "index_semantics": {"const": "IDENTITY_ONLY_NO_MERGE_RANK_ARBITRATION_SELECTION_OR_GLOBAL_STATE"}}},
+    "occurrenceIndex": {"type": "object", "additionalProperties": false, "required": ["source_occurrence_id", "candidate_projection_ids", "reversal_reappearance_effect_disposition_ids", "index_semantics"], "properties": {"source_occurrence_id": {}, "candidate_projection_ids": {}, "reversal_reappearance_effect_disposition_ids": {}, "index_semantics": {"const": "IDENTITY_ONLY_NO_MERGE_RANK_ARBITRATION_SELECTION_OR_GLOBAL_STATE"}}},
+    "localClosureIndex": {"type": "object", "additionalProperties": false, "required": ["closure_requirement_id", "unit10_local_closure_result", "candidate_projection_ids", "index_semantics"], "properties": {"closure_requirement_id": {"const": "CLASSICAL_REVERSAL_OR_REAPPEARANCE_SEMANTICS"}, "unit10_local_closure_result": {"const": "AVAILABLE_EXACTLY_AS_CANDIDATE_LOCAL_SOURCE_ASSERTED_REVERSAL_OR_REAPPEARANCE_EFFECT_DISPOSITION"}, "candidate_projection_ids": {}, "index_semantics": {"const": "IDENTITY_ONLY_NO_MERGE_RANK_ARBITRATION_SELECTION_OR_GLOBAL_STATE"}}},
+    "integrity": {"type": "object", "additionalProperties": false, "required": ["status", "diagnostics", "algorithm_id", "algorithm_version"], "properties": {"status": {"const": "PASS"}, "diagnostics": {"type": "array", "maxItems": 0}, "algorithm_id": {"const": "BAZI-CLASSICAL-REVERSAL-REAPPEARANCE-EFFECT-DISPOSITION-INTEGRITY-R1"}, "algorithm_version": {"const": "1.0.0"}}},
+    "hashes": {"type": "object", "additionalProperties": false, "required": ["fact_hash", "computation_hash", "algorithm_id", "algorithm_version"], "properties": {"fact_hash": {"$ref": "#/$defs/hash"}, "computation_hash": {"$ref": "#/$defs/hash"}, "algorithm_id": {"const": "BAZI-CLASSICAL-REVERSAL-REAPPEARANCE-EFFECT-DISPOSITION-HASH-R1"}, "algorithm_version": {"const": "1.0.0"}}},
+    "envelope": {
+      "type": "object", "additionalProperties": false,
+      "required": ["reversal_reappearance_effect_envelope_id", "source_final_effect_envelope_id", "source_final_effect_fact_hash", "source_final_effect_computation_hash", "source_allocation_envelope_id", "source_mechanism_closure_envelope_id", "source_semantic_projection_envelope_id", "source_admission_envelope_id", "source_effect_envelope_id", "lineage_binding_keys", "fragment_projections", "source_record_candidate_sets", "effect_channel_index", "source_occurrence_index", "local_closure_index", "projected_candidate_projection_ids", "projected_reversal_reappearance_effect_disposition_ids", "disposition_semantic_scope", "source_asserted_disposition", "source_assertion_subtype_split", "candidate_global_truth_semantics", "global_target_relation_restored_state_semantics", "global_target_relation_active_in_force_state_semantics", "prior_resolution_execution_semantics", "prior_resolution_failure_execution_semantics", "interaction_chain_execution_semantics", "global_operability_semantics", "candidate_applicability_semantics", "execution_readiness_semantics", "candidate_selection_semantics", "candidate_coexistence_semantics", "candidate_exclusivity_semantics", "candidate_conflict_semantics", "precedence_semantics", "priority_semantics", "winner_loser_semantics", "global_relation_effect_state_semantics", "attenuation_grade_semantics", "participant_allocation_semantics", "participant_path_selection_semantics", "inferred_slot_instance_compatibility", "source_narrative_execution", "graph_mutation_fixpoint_semantics", "fragment_selection_semantics", "cross_outer_composition", "cross_source_composition", "cartesian_expansion", "final_classical_verdict_semantics", "raw_relation_immutability_contract", "algorithm_versions", "integrity", "hashes"],
+      "properties": {
+        "reversal_reappearance_effect_envelope_id": {}, "source_final_effect_envelope_id": {}, "source_final_effect_fact_hash": {"$ref": "#/$defs/hash"}, "source_final_effect_computation_hash": {"$ref": "#/$defs/hash"}, "source_allocation_envelope_id": {}, "source_mechanism_closure_envelope_id": {}, "source_semantic_projection_envelope_id": {}, "source_admission_envelope_id": {}, "source_effect_envelope_id": {}, "lineage_binding_keys": {},
+        "fragment_projections": {"type": "array", "items": {"$ref": "#/$defs/fragmentProjection"}}, "source_record_candidate_sets": {"type": "array", "items": {"$ref": "#/$defs/sourceRecordSet"}}, "effect_channel_index": {"type": "array", "items": {"$ref": "#/$defs/effectIndex"}}, "source_occurrence_index": {"type": "array", "items": {"$ref": "#/$defs/occurrenceIndex"}}, "local_closure_index": {"type": "array", "items": {"$ref": "#/$defs/localClosureIndex"}}, "projected_candidate_projection_ids": {}, "projected_reversal_reappearance_effect_disposition_ids": {},
+        "disposition_semantic_scope": {"const": "CANDIDATE_LOCAL_SOURCE_ASSERTED_EFFECT_BRANCH_ONLY"}, "source_asserted_disposition": {"const": "SOURCE_ASSERTED_REVERSAL_OR_REAPPEARANCE_OF_TARGET_EFFECT_CHANNEL"}, "source_assertion_subtype_split": {"const": "NOT_RELEASED_SOURCE_CLASS_REMAINS_COMBINED"}, "candidate_global_truth_semantics": {"const": "NOT_RELEASED"}, "global_target_relation_restored_state_semantics": {"const": "NOT_RELEASED"}, "global_target_relation_active_in_force_state_semantics": {"const": "NOT_RELEASED"}, "prior_resolution_execution_semantics": {"const": "NOT_RELEASED"}, "prior_resolution_failure_execution_semantics": {"const": "NOT_RELEASED"}, "interaction_chain_execution_semantics": {"const": "NOT_RELEASED"}, "global_operability_semantics": {"const": "NOT_RELEASED"}, "candidate_applicability_semantics": {"const": "NOT_RELEASED_BEYOND_UNIT3_ADMISSION"}, "execution_readiness_semantics": {"const": "NOT_RELEASED"}, "candidate_selection_semantics": {"const": "NOT_RELEASED"}, "candidate_coexistence_semantics": {"const": "NOT_RELEASED"}, "candidate_exclusivity_semantics": {"const": "NOT_RELEASED"}, "candidate_conflict_semantics": {"const": "NOT_RELEASED"}, "precedence_semantics": {"const": "NOT_RELEASED"}, "priority_semantics": {"const": "NOT_RELEASED"}, "winner_loser_semantics": {"const": "NOT_RELEASED"}, "global_relation_effect_state_semantics": {"const": "NOT_RELEASED"}, "attenuation_grade_semantics": {"const": "NOT_RELEASED"}, "participant_allocation_semantics": {"const": "NOT_RELEASED"}, "participant_path_selection_semantics": {"const": "NOT_RELEASED"}, "inferred_slot_instance_compatibility": {"const": "FORBIDDEN"}, "source_narrative_execution": {"const": "FORBIDDEN"}, "graph_mutation_fixpoint_semantics": {"const": "NOT_RELEASED"}, "fragment_selection_semantics": {"const": "NOT_RELEASED"}, "cross_outer_composition": {"const": "NOT_RELEASED"}, "cross_source_composition": {"const": "NOT_RELEASED"}, "cartesian_expansion": {"const": "NOT_RELEASED"}, "final_classical_verdict_semantics": {"const": "NOT_RELEASED"}, "raw_relation_immutability_contract": {"const": "IMMUTABLE_EXACT_REFERENCE_ONLY"},
+        "algorithm_versions": {"type": "object", "additionalProperties": false, "required": ["reversal_reappearance_effect_disposition"], "properties": {"reversal_reappearance_effect_disposition": {"const": "1.0.0"}}}, "integrity": {"$ref": "#/$defs/integrity"}, "hashes": {"$ref": "#/$defs/hashes"}
+      }
+    }
+  },
+  "type": "object", "additionalProperties": false,
+  "required": ["schema", "typed_schema", "status", "reversal_reappearance_effect_profile", "candidates", "events", "diagnostics"],
+  "properties": {
+    "schema": {"const": "BAZI-CLASSICAL-REVERSAL-REAPPEARANCE-EFFECT-DISPOSITION-RESULT-R1"},
+    "typed_schema": {"const": "BAZI-CLASSICAL-REVERSAL-REAPPEARANCE-EFFECT-DISPOSITION-TYPED-RESOLUTION-R1"},
+    "status": {"enum": ["RESOLVED", "MULTI_CANDIDATE"]},
+    "reversal_reappearance_effect_profile": {"$ref": "#/$defs/profile"},
+    "candidates": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/envelope"}},
+    "events": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "diagnostics": {"type": "array", "maxItems": 0, "items": {"type": "string"}}
+  }
+}

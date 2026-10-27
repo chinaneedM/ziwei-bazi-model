@@ -1,0 +1,140 @@
+{
+  "schema": "ZIWEI-GUOXUEJIKAN11-ITEM-LEVEL-ISBN-FORWARD-CORRECTION-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-GUOXUEJIKAN11-ITEM-LEVEL-ISBN-FORWARD-CORRECTION-ID",
+  "prior_batch_id": "BATCH-12-ZIWEI-ZHANG-LIJUAN-GUOXUEJIKAN11-PUBLIC-FULLTEXT-ROUTE-BOUNDARY-IC",
+  "question": "Did Batch 12IC correctly bind the Kongfz issue-11 target record to ISBN 9787209115018 / 2018-12, or was that metadata taken from an adjacent issue-12 record?",
+  "answer": "Batch 12IC made a page-level adjacency error. Direct item-level review shows 《国学季刊》第十一期 is Kongfz item 9902968122 with ISBN 9787209115001, publication time 2018-09, 222 pages and the target Zhang Lijuan article in its contents. The adjacent 《国学季刊》第十二期 is item 9902978870 with ISBN 9787209115018, publication time 2018-12 and 277 pages. The NOPSS official project report independently identifies Zhang Lijuan's target article as appearing in issue 11 in 2018年9月. Therefore PROV-DEFECT-017 repairs the current project metadata forward-only; the Batch 12IC artifact is preserved as historical audit trace and is not silently rewritten.",
+  "provenance_defect_repair": {
+    "provenance_defect_id": "PROV-DEFECT-017",
+    "defect_class": "PROJECT_PROVENANCE_METADATA_WRONG_ADJACENT_RECORD_BINDING",
+    "introduced_in_batch": "BATCH-12-ZIWEI-ZHANG-LIJUAN-GUOXUEJIKAN11-PUBLIC-FULLTEXT-ROUTE-BOUNDARY-IC",
+    "prior_claim": {
+      "issue": "第十一期",
+      "isbn": "9787209115018",
+      "publication_date": "2018-12",
+      "basis": "PAGE_LEVEL_NEEDLE_CO_OCCURRENCE_ACROSS_MULTI_ITEM_LISTING"
+    },
+    "corrected_claim": {
+      "issue": "第十一期",
+      "isbn": "9787209115001",
+      "publication_date": "2018-09",
+      "extent_pages": 222,
+      "basis": "DIRECT_SINGLE_ITEM_PAGE_BINDING"
+    },
+    "displaced_adjacent_record": {
+      "issue": "第十二期",
+      "isbn": "9787209115018",
+      "publication_date": "2018-12",
+      "extent_pages": 277,
+      "basis": "DIRECT_SINGLE_ITEM_PAGE_BINDING"
+    },
+    "repair_status": "REPAIRED_FORWARD_ONLY_DURING_BATCH_12ID",
+    "prior_batch_artifact_rewritten": false
+  },
+  "direct_public_item_controls": {
+    "issue11": {
+      "provider": "孔夫子旧书网",
+      "url": "https://book.kongfz.com/4639/9902968122/",
+      "item_id": "9902968122",
+      "title": "国学季刊 第十一期",
+      "target_article_in_contents": "国图藏元刻十行本《附释音春秋左传注疏》",
+      "editor": "杜泽逊 编",
+      "publisher": "山东人民出版社",
+      "isbn": "9787209115001",
+      "publication_date": "2018-09",
+      "edition": 1,
+      "binding": "平装",
+      "format": "16开",
+      "pages": 222,
+      "word_count_thousand": 290,
+      "evidence_role": "DIRECT_PUBLIC_SINGLE_ITEM_BIBLIOGRAPHIC_BINDING_NOT_PUBLISHER_OR_LIBRARY_AUTHORITY"
+    },
+    "issue12": {
+      "provider": "孔夫子旧书网",
+      "url": "https://book.kongfz.com/4639/9902978870/",
+      "item_id": "9902978870",
+      "title": "国学季刊 第十二期",
+      "editor": "杜泽逊 编",
+      "publisher": "山东人民出版社",
+      "isbn": "9787209115018",
+      "publication_date": "2018-12",
+      "edition": 1,
+      "binding": "平装",
+      "format": "16开",
+      "pages": 277,
+      "word_count_thousand": 300,
+      "evidence_role": "DIRECT_PUBLIC_SINGLE_ITEM_ADJACENT_RECORD_CONTROL_NOT_PUBLISHER_OR_LIBRARY_AUTHORITY"
+    }
+  },
+  "official_article_control": {
+    "provider": "全国哲学社会科学工作办公室",
+    "url": "https://www.nopss.gov.cn/n1/2019/1118/c400941-31461052.html",
+    "article_title": "国图藏元刻十行本《附释音春秋左传注疏》",
+    "author": "张丽娟",
+    "container": "《国学季刊》第十一期",
+    "publisher": "山东人民出版社",
+    "publication_date_claim": "2018年9月",
+    "issue11_month_matches_corrected_kongfz_item": true,
+    "isbn_exposed": false
+  },
+  "sanmin_issue12_control": {
+    "provider": "三民网路书店",
+    "url": "https://www.sanmin.com.tw/product/index/007234993",
+    "issue": "第十二期",
+    "isbn": "9787209115018",
+    "publication_date_claim": "2019-05-01",
+    "adjudication": "ISSUE_NUMBER_AND_ISBN_AGREE_WITH_KONGFZ_ISSUE12; PUBLICATION_DATE_DIFFERS_AND_REMAINS_SECONDARY_METADATA_TENSION"
+  },
+  "adjudication": {
+    "batch12ic_public_fulltext_boundary_preserved": true,
+    "batch12ic_internet_archive_false_positive_adjudication_preserved": true,
+    "batch12ic_openlibrary_negative_search_boundary_preserved": true,
+    "batch12ic_issue11_isbn_binding_superseded": true,
+    "issue11_public_item_isbn": "9787209115001",
+    "issue11_public_item_publication_month": "2018-09",
+    "issue11_public_item_extent_pages": 222,
+    "issue11_item_level_binding_status": "CLOSED_AT_DIRECT_PUBLIC_RETAIL_ITEM_LEVEL",
+    "issue11_institutional_or_publisher_catalog_binding": "UNRESOLVED",
+    "issue11_article_fulltext_retrieved": false,
+    "issue12_public_item_isbn": "9787209115018",
+    "issue12_public_item_publication_month": "2018-12",
+    "issue12_sanmin_date_tension": "UNRESOLVED_SECONDARY_METADATA_DIFFERENCE",
+    "exact_3368_to_3288_causal_mechanism": "UNRESOLVED"
+  },
+  "inference_firewall": {
+    "multi_item_listing_page_cooccurrence_cannot_bind_metadata_to_a_specific_item": true,
+    "direct_item_page_binding_required_for_commercial_record_attribution": true,
+    "commercial_item_page_is_not_equivalent_to_publisher_or_institutional_catalog": true,
+    "corrected_issue11_isbn_does_not_supply_article_fulltext": true,
+    "corrected_issue11_isbn_does_not_prove_nlc_shelfmark_or_book_number": true,
+    "prior_12ic_artifact_preserved_for_audit_history": true
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 1,
+    "transmission_topology_change": false,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Recover a publisher-level or institutional-library record for 《国学季刊》第十一期 to independently bind ISBN 9787209115001, 2018-09 and extent.",
+    "Recover lawful full text or direct page images of Zhang Lijuan's target article.",
+    "Inspect recovered article pages for NLC object-level shelfmark/book-number/catalog-preparation or correction detail relevant to 3368 -> 3288.",
+    "Continue exact Qu donation/accession chronology independently."
+  ],
+  "updated_at": "2026-09-29"
+}

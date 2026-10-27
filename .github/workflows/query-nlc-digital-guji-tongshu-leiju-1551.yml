@@ -1,0 +1,116 @@
+name: query-nlc-digital-guji-tongshu-leiju-1551
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/query-nlc-digital-guji-tongshu-leiju-1551.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  query:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Query NLC Chinese Ancient Books Resource Library
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/nlc-digital-guji-tongshu-leiju-1551'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT/raw" "$ROOT/text"
+          UA='Tianwen-Provenance-Audit/1.0'
+
+          cat > "$ROOT/queries.tsv" <<'EOF'
+          exact	通書類聚尅擇大全
+          broad	通書類聚
+          simp	通书类聚克择大全
+          census	110000-0101-0013797
+          callno	14202
+          EOF
+
+          python - <<'PY'
+          from pathlib import Path
+          from urllib.parse import quote_plus
+          root=Path('audit/nlc-digital-guji-tongshu-leiju-1551')
+          rows=[]
+          for line in (root/'queries.tsv').read_text('utf-8').splitlines():
+              if not line.strip():
+                  continue
+              key,q=line.split('\t',1)
+              for prefix in (
+                  'http://read.nlc.cn/allSearch/searchList',
+                  'http://read.nlc.cn/menhu/allSearch/searchList',
+              ):
+                  url=(prefix+'?searchType=10024&showType=1&pageNo=1&searchWord='+quote_plus(q))
+                  rows.append((key,prefix,url))
+          (root/'query-urls.tsv').write_text(
+              ''.join(f'{k}\t{prefix}\t{url}\n' for k,prefix,url in rows),encoding='utf-8')
+          PY
+
+          : > "$ROOT/query-status.tsv"
+          while IFS=$'\t' read -r key prefix url; do
+            variant=$(printf '%s' "$prefix" | grep -q '/menhu/' && echo menhu || echo legacy)
+            out="$ROOT/raw/$key-$variant.html"
+            hdr="$ROOT/raw/$key-$variant.headers"
+            set +e
+            timeout 35s curl -L -sS               --connect-timeout 8 --max-time 25               -A "$UA" -D "$hdr" "$url" -o "$out"
+            rc=$?
+            set -e
+            size=0
+            [ -f "$out" ] && size=$(wc -c < "$out")
+            printf '%s\t%s\t%s\t%s\n' "$key" "$variant" "$rc" "$size" >> "$ROOT/query-status.tsv"
+          done < "$ROOT/query-urls.tsv"
+
+          python - <<'PY'
+          from html.parser import HTMLParser
+          from pathlib import Path
+          from urllib.parse import urljoin
+          root=Path('audit/nlc-digital-guji-tongshu-leiju-1551')
+          base='http://read.nlc.cn/'
+
+          class P(HTMLParser):
+              def __init__(self):
+                  super().__init__()
+                  self.text=[]
+                  self.links=[]
+              def handle_data(self,data):
+                  s=' '.join(data.split())
+                  if s:
+                      self.text.append(s)
+              def handle_starttag(self,tag,attrs):
+                  d=dict(attrs)
+                  if tag=='a' and d.get('href'):
+                      self.links.append((urljoin(base,d['href']),d.get('title','')))
+          rows=[]
+          for p in sorted((root/'raw').glob('*.html')):
+              parser=P()
+              parser.feed(p.read_text('utf-8',errors='replace'))
+              (root/'text'/f'{p.stem}.txt').write_text('\n'.join(parser.text)+'\n',encoding='utf-8')
+              for href,title in parser.links:
+                  rows.append((p.stem,href,title))
+          (root/'all-links.tsv').write_text(
+              ''.join(f'{src}\t{href}\t{title}\n' for src,href,title in rows),encoding='utf-8')
+          PY
+
+          grep -RniE             '通書類聚|通书类聚|尅擇大全|克择大全|芝城|嘉靖三十|110000-0101-0013797|14202|在線閱讀|在线阅读|詳情|详情|digital|guji|bookId|record|id='             "$ROOT/text" "$ROOT/raw" > "$ROOT/target-hits.txt" || true
+
+          grep -Ei             'detail|view|read|book|guji|record|resource|id=|searchList'             "$ROOT/all-links.tsv" | sort -u > "$ROOT/detail-candidates.tsv" || true
+
+          sha256sum "$ROOT"/raw/*.html | sort -V > "$ROOT/raw.sha256" || true
+
+          printf '%s\n'             'SOURCE=中國國家圖書館 中華古籍資源庫 / 數字古籍'             'SEARCH_TYPE=10024'             'TARGET=通書類聚尅擇大全□□卷 / 明嘉靖三十年（1551）芝城銅活字印本'             'CENSUS_ID=110000-0101-0013797'             'CALL_NUMBER=14202'             'KNOWN_HOLDER=國家圖書館'             'PURPOSE=determine whether the exact physical copy has public full-image access and capture a stable record/read route if present'             'NEGATIVE_RESULT_POLICY=no result only closes this public digital-resource route, not physical holding or undigitized access'             'OCR_USED=false'             > "$ROOT/manifest.txt"
+
+      - name: Upload NLC digital-resource query evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: nlc-digital-guji-tongshu-leiju-1551-query
+          path: audit/nlc-digital-guji-tongshu-leiju-1551/
+          if-no-files-found: error
+          compression-level: 6
+          retention-days: 30

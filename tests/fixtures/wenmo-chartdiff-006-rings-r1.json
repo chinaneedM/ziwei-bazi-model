@@ -1,0 +1,31 @@
+{
+  "schema": "ZIWEI-EXTERNAL-RING-COMPATIBILITY-FIXTURE-V1",
+  "fixture_id": "WENMO-CHARTDIFF-006-RINGS",
+  "authority": "EXTERNAL_COMPATIBILITY_ORACLE_NOT_CANONICAL_AUTHORITY",
+  "source_case": "WENMO-CHARTDIFF-006",
+  "input": "2001-12-15T12:00:00",
+  "sex": "MALE",
+  "expected": {
+    "RING.CHANGSHENG12": {
+      "direction": "REVERSE",
+      "anchor": "巳",
+      "members": {"长生":"巳","沐浴":"辰","冠带":"卯","临官":"寅","帝旺":"丑","衰":"子","病":"亥","死":"戌","墓":"酉","绝":"申","胎":"未","养":"午"}
+    },
+    "RING.TAISUI12": {
+      "direction": "FORWARD",
+      "anchor": "巳",
+      "members": {"岁建":"巳","晦气":"午","丧门":"未","贯索":"申","官符":"酉","小耗":"戌","岁破":"亥","龙德":"子","白虎":"丑","天德":"寅","吊客":"卯","病符":"辰"}
+    },
+    "RING.JIANGQIAN12": {
+      "direction": "FORWARD",
+      "anchor": "酉",
+      "members": {"将星":"酉","攀鞍":"戌","岁驿":"亥","息神":"子","华盖":"丑","劫煞":"寅","灾煞":"卯","天煞":"辰","指背":"巳","咸池":"午","月煞":"未","亡神":"申"}
+    },
+    "RING.BOSHI12": {
+      "direction": "REVERSE",
+      "anchor": "酉",
+      "members": {"博士":"酉","力士":"申","青龙":"未","小耗":"午","将军":"巳","奏书":"辰","飞廉":"卯","喜神":"寅","病符":"丑","大耗":"子","伏兵":"亥","官符":"戌"}
+    }
+  },
+  "identity_note": "Ring members are typed ring-state facts. Same-label physical minor stars remain separate Placement entities."
+}

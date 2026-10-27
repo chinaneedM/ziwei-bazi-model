@@ -1,0 +1,114 @@
+{
+  "schema": "HISTORICAL-CANDIDATE-PRODUCTIZATION-REPRIORITIZATION-OH-R1",
+  "version": "1.0.0",
+  "batch_id": "BATCH-12-UNRESOLVED-CANDIDATE-PRODUCTIZATION-REPRIORITIZATION-OH",
+  "date": "2026-10-06",
+  "inventory": {
+    "disputed_multiple_candidates": 27,
+    "missing_from_product": 10,
+    "source_insufficient": 11,
+    "matrix_rows": 222,
+    "audited_rows": 222
+  },
+  "ranking_policy": [
+    "Prefer source-closed deterministic candidates whose remaining gap is only product/API visibility.",
+    "Prefer one shared implementation that closes multiple Matrix gaps without selecting a winner.",
+    "Defer families whose historical calendar/time semantics are still materially unresolved even when impact is high.",
+    "Do not reimplement already productized sidecars or reopen production defaults."
+  ],
+  "tier_1": {
+    "selection": "JIELAN_1581_SHARED_SOURCE_SCOPED_NATAL_CANDIDATE_PRODUCT_SURFACE",
+    "rows": [
+      "HPA-ZIWEI-015",
+      "HPA-ZIWEI-016",
+      "HPA-ZIWEI-022"
+    ],
+    "parent_context": [
+      "HPA-ZIWEI-007",
+      "HPA-ZIWEI-012"
+    ],
+    "readiness": [
+      "ZIWEI-JIELAN-1581-HISTORICAL-CANDIDATES-R1@1.1.0 registry exists.",
+      "ZIWEI-JIELAN-1581-SOURCE-SCOPED-CANDIDATE-RUNTIME-R1@1.0.0 deterministic resolver exists.",
+      "Focused tests confirm PRESERVED_NOT_SELECTED and fail-closed behavior.",
+      "Batch 12NR confirmed package-root/API/Workbench product gap remains real."
+    ],
+    "expected_closure": "One read-only candidate-profile API/Workbench lineage can expose Kui/Yue, Fire/Bell and Mingzhu source-scoped facts together while preserving production defaults.",
+    "next_batch": "12OI"
+  },
+  "tier_2": [
+    {
+      "rows": [
+        "HPA-ZIWEI-014"
+      ],
+      "reason": "Four-Transformation product gap includes genuinely divergent Fullbook/Zhongzhou table families not yet bound as complete immutable source tables; less implementation-ready than Jielan shared runtime."
+    },
+    {
+      "rows": [
+        "HPA-ZIWEI-018"
+      ],
+      "reason": "Jielan dignity source table still needs source-faithful normalization/cell collation before candidate profile exposure."
+    },
+    {
+      "rows": [
+        "HPA-ZIWEI-025"
+      ],
+      "reason": "TaiSui/Suiqian label variants are important lineage metadata but lower computational impact than role/auxiliary source-scoped candidate visibility."
+    }
+  ],
+  "deferred_high_impact": [
+    {
+      "rows": [
+        "HPA-ZDATE-006",
+        "HPA-ZIWEI-001",
+        "HPA-ZDATE-003",
+        "HPA-TIME-009"
+      ],
+      "reason": "Late-Zi/date boundary remains high impact but already deeply audited and still blocked by historical time-coordinate/source closure; candidate productization must not outrun semantics."
+    },
+    {
+      "rows": [
+        "HPA-DAYUN-CAL-002",
+        "HPA-DAYUN-CAL-003",
+        "HPA-DAYUN-CAL-004"
+      ],
+      "reason": "Historical Dayun calendarization requires certified calendar-regime arithmetic and recurrence semantics; implementation-readiness is lower."
+    },
+    {
+      "rows": [
+        "HPA-ZT-015"
+      ],
+      "reason": "Half-split month assignment is already productized; remaining gap is complete leap-month temporal frame/day-one origin and competing methods."
+    }
+  ],
+  "already_candidateized_lower_marginal_value": [
+    "HPA-TIME-007",
+    "HPA-TIME-008",
+    "HPA-BAZI-005",
+    "HPA-BAZI-010",
+    "HPA-XIAOYUN-001",
+    "HPA-XIAOYUN-002",
+    "HPA-SHENSHA-001",
+    "HPA-SHENSHA-004",
+    "HPA-SHENSHA-005",
+    "HPA-SHENSHA-007",
+    "HPA-SHENSHA-008",
+    "HPA-SHENSHA-009",
+    "HPA-SHENSHA-010",
+    "HPA-SHENSHA-014",
+    "HPA-SHENSHA-015",
+    "HPA-SHENSHA-016",
+    "HPA-SHENSHA-017",
+    "HPA-ZT-011",
+    "HPA-ZT-014",
+    "HPA-BREL-010",
+    "HPA-BCAND-001"
+  ],
+  "outcome": {
+    "matrix_status_changed": false,
+    "production_default_changed": false,
+    "candidate_selection_changed": false,
+    "provenance_defect_increment": 0,
+    "next_batch": "BATCH-12-ZIWEI-JIELAN-SOURCE-SCOPED-NATAL-CANDIDATE-PRODUCTIZATION-OI"
+  }
+}

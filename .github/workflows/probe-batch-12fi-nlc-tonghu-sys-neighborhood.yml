@@ -1,0 +1,132 @@
+name: probe-batch-12fi-nlc-tonghu-sys-neighborhood
+
+on:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - '.github/workflows/probe-batch-12fi-nlc-tonghu-sys-neighborhood.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Probe SYS neighborhood around Zhunzhai original
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/batch-12fi-nlc-tonghu-sys-neighborhood'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT/raw" "$ROOT/detail"
+          UA='Tianwen-Provenance-Audit/1.0'
+          : > "$ROOT/targets.tsv"
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('audit/batch-12fi-nlc-tonghu-sys-neighborhood/targets.tsv')
+          p.write_text(''.join(f'{n:09d}\n' for n in range(1775076,1775091)),encoding='utf-8')
+          PY
+          : > "$ROOT/status.tsv"
+          while IFS= read -r sys; do
+            body=$(SYS="$sys" python - <<'PY'
+          import json,os
+          s=os.environ['SYS']
+          print(json.dumps({
+            "q":s,"searchWay":"SYS","page_num":"1","query":"SYS="+s,
+            "sort":[{"_score":"DESC"}],"size":10,"facetVal":[],"exactMatch":True
+          },ensure_ascii=False,separators=(',',':')))
+          PY
+            )
+            out="$ROOT/raw/$sys.json"
+            set +e
+            code=$(curl -L -sS --connect-timeout 7 --max-time 22 \
+              -A "$UA" -H 'Accept: application/json, text/javascript, */*; q=0.01' \
+              -H 'X-Requested-With: XMLHttpRequest' -H 'Referer: https://meta.nlc.cn/v2/search' \
+              -H 'Content-Type: application/json;charset=UTF-8' \
+              --data-binary "$body" -o "$out" -w '%{http_code}' \
+              'https://meta.nlc.cn/v2/doSearch?hight=false')
+            rc=$?
+            set -e
+            size=0; [ -f "$out" ] && size=$(wc -c < "$out")
+            printf '%s\trc=%s\thttp=%s\tbytes=%s\n' "$sys" "$rc" "$code" "$size" >> "$ROOT/status.tsv"
+          done < "$ROOT/targets.tsv"
+
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          root=Path('audit/batch-12fi-nlc-tonghu-sys-neighborhood')
+          out=[]; candidates={}
+          for p in sorted((root/'raw').glob('*.json')):
+              try: obj=json.loads(p.read_text('utf-8'))
+              except Exception as e:
+                  out.append(p.stem+' PARSE_ERROR '+repr(e)); continue
+              rows=obj.get('result') or []
+              if rows:
+                  for row in rows:
+                      src=row.get('_source') or {}
+                      titles=src.get('TIT') or []
+                      if isinstance(titles,str): titles=[titles]
+                      out.append(p.stem+' '+json.dumps({
+                          'SYS':src.get('SYS'),'UID':src.get('UID'),'TIT':titles,
+                          'WDT':src.get('WDT'),'YEA':src.get('YEA'),'PUB':src.get('PUB'),'PAG':src.get('PAG')
+                      },ensure_ascii=False,separators=(',',':')))
+                      text=' | '.join(map(str,titles))
+                      if '铜壶漏箭' in text or '銅壺漏箭' in text:
+                          uid=src.get('UID') or row.get('_id')
+                          if uid: candidates[str(uid)]=row
+              else:
+                  out.append(p.stem+' status='+repr(obj.get('status'))+' message='+repr(obj.get('message')))
+          root.joinpath('summary.txt').write_text('\n'.join(out)+'\n',encoding='utf-8')
+          root.joinpath('candidate-uids.txt').write_text('\n'.join(candidates)+'\n',encoding='utf-8')
+          root.joinpath('candidates.json').write_text(json.dumps(candidates,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          PY
+
+          : > "$ROOT/detail-status.tsv"
+          while IFS= read -r uid; do
+            [ -z "$uid" ] && continue
+            out="$ROOT/detail/$uid.json"
+            set +e
+            code=$(curl -L -sS --connect-timeout 7 --max-time 30 -A "$UA" \
+              -H 'Accept: application/json, text/javascript, */*; q=0.01' \
+              -H 'X-Requested-With: XMLHttpRequest' -H "Referer: https://meta.nlc.cn/v2/detail/$uid" \
+              -X POST -o "$out" -w '%{http_code}' "https://meta.nlc.cn/api/v1/item/$uid/1/999")
+            rc=$?
+            set -e
+            printf '%s\trc=%s\thttp=%s\tbytes=%s\n' "$uid" "$rc" "$code" "$(wc -c < "$out" 2>/dev/null || echo 0)" >> "$ROOT/detail-status.tsv"
+          done < "$ROOT/candidate-uids.txt"
+
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          root=Path('audit/batch-12fi-nlc-tonghu-sys-neighborhood')
+          out=[]
+          for p in sorted((root/'detail').glob('*.json')):
+              obj=json.loads(p.read_text('utf-8')); res=obj.get('result') or {}; bib=res.get('biblio') or {}; es=res.get('esBook') or {}
+              out.append('### '+p.name)
+              out.append('ESBOOK '+json.dumps({k:es.get(k) for k in ('SYS','UID','WDT','YEA','PUB','PAG','TIT','AUT')},ensure_ascii=False,separators=(',',':')))
+              out.append('BIBLIO '+json.dumps({k:bib.get(k) for k in ('200a','200b','200f','205a','210c','210d','215a','316a','3165','423a','4231','852a','905a','905q','905s','910n','035a','049b','049c','001') if k in bib},ensure_ascii=False,separators=(',',':')))
+          root.joinpath('detail-summary.txt').write_text('\n'.join(out)+'\n',encoding='utf-8')
+          PY
+
+          find "$ROOT" -type f -size +0c -print0 | xargs -0 -r sha256sum | sort -V > "$ROOT/all-files.sha256"
+          printf '%s\n' \
+            'SOURCE=National Library of China current meta.nlc.cn SYS index and item API' \
+            'PURPOSE=bounded SYS-neighborhood search around Zhunzhai SYS 001775083 for the separately catalogued Copper companion' \
+            'RANGE=001775076..001775090 only' \
+            'TARGET_FILTER=title must visibly contain 铜/銅壶漏箭' \
+            'NEGATIVE_POLICY=absence in this bounded SYS neighborhood is not absence from NLC or the current catalog' \
+            'OCR_USED=false' > "$ROOT/manifest.txt"
+
+      - name: Upload SYS-neighborhood evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: batch-12fi-nlc-tonghu-sys-neighborhood-probe
+          path: audit/batch-12fi-nlc-tonghu-sys-neighborhood/
+          if-no-files-found: error
+          retention-days: 30

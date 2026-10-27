@@ -1,0 +1,131 @@
+name: probe-nlc-datong-tonggui-independent-copy
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-nlc-datong-tonggui-independent-copy.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - name: Probe NLC OPAC for independent Datong Tonggui copies
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/nlc-datong-tonggui-independent-copy'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT/raw" "$ROOT/text"
+          UA='Tianwen-Provenance-Audit/1.0'
+          BASE='http://opac.nlc.cn/F/'
+
+          cat > "$ROOT/queries.tsv" <<'EOF'
+          title-trad	WTI	大統曆法通軌
+          title-simp	WTI	大统历法通轨
+          words-trad	WRD	大統曆法通軌
+          words-simp	WRD	大统历法通轨
+          author-yuantong	WAU	元統
+          taiyin-control	WTI	太陰通軌
+          sunrise-control	WTI	大統日出分
+          EOF
+
+          python - <<'PY'
+          from pathlib import Path
+          from urllib.parse import quote_plus
+          root=Path('audit/nlc-datong-tonggui-independent-copy')
+          out=[]
+          for line in (root/'queries.tsv').read_text('utf-8').splitlines():
+              if not line.strip(): continue
+              key,code,q=line.split('\t',2)
+              url='http://opac.nlc.cn/F/?func=find-b&find_code='+code+'&request='+quote_plus(q)+'&local_base=NLC01'
+              out.append((key,code,q,url))
+          (root/'query-urls.tsv').write_text(''.join('\t'.join(x)+'\n' for x in out),encoding='utf-8')
+          PY
+
+          while IFS=$'\t' read -r key code query url; do
+            out="$ROOT/raw/$key.html"
+            set +e
+            timeout 45s curl -L -sS --connect-timeout 10 --max-time 35 -A "$UA" "$url" -o "$out"
+            rc=$?
+            set -e
+            size=0; [ -f "$out" ] && size=$(wc -c < "$out")
+            printf '%s\t%s\t%s\t%s\t%s\n' "$key" "$code" "$rc" "$size" "$query" >> "$ROOT/status.tsv"
+          done < "$ROOT/query-urls.tsv"
+
+          python - <<'PY'
+          from html.parser import HTMLParser
+          from pathlib import Path
+          from urllib.parse import urljoin
+          import re
+          root=Path('audit/nlc-datong-tonggui-independent-copy')
+          base='http://opac.nlc.cn/F/'
+          class P(HTMLParser):
+              def __init__(self):
+                  super().__init__(); self.text=[]; self.links=[]
+              def handle_data(self,d):
+                  s=' '.join(d.split())
+                  if s: self.text.append(s)
+              def handle_starttag(self,tag,attrs):
+                  a=dict(attrs)
+                  if tag=='a' and a.get('href'):
+                      self.links.append((urljoin(base,a['href']),a.get('title','')))
+          docs=set(); links=[]
+          for p in sorted((root/'raw').glob('*.html')):
+              q=P(); q.feed(p.read_text('utf-8',errors='replace'))
+              (root/'text'/f'{p.stem}.txt').write_text('\n'.join(q.text)+'\n',encoding='utf-8')
+              for href,title in q.links:
+                  links.append((p.stem,href,title))
+                  for pat in (r'doc_number=([0-9]{1,12})', r'doc_num=([0-9]{1,12})'):
+                      m=re.search(pat,href)
+                      if m: docs.add(m.group(1))
+          (root/'all-links.tsv').write_text(''.join(f'{s}\t{h}\t{t}\n' for s,h,t in links),encoding='utf-8')
+          (root/'doc-numbers.txt').write_text('\n'.join(sorted(docs))+'\n',encoding='utf-8')
+          PY
+
+          while IFS= read -r doc; do
+            [ -z "$doc" ] && continue
+            for func in direct item-global; do
+              url="$BASE?func=$func&local_base=NLC01&doc_number=$doc"
+              out="$ROOT/raw/doc-$doc-$func.html"
+              set +e
+              timeout 40s curl -L -sS --connect-timeout 10 --max-time 30 -A "$UA" "$url" -o "$out"
+              rc=$?
+              set -e
+              printf 'doc-%s-%s\t%s\t%s\n' "$doc" "$func" "$rc" "$(wc -c < "$out" 2>/dev/null || echo 0)" >> "$ROOT/status.tsv"
+            done
+          done < "$ROOT/doc-numbers.txt"
+
+          python - <<'PY'
+          from html.parser import HTMLParser
+          from pathlib import Path
+          root=Path('audit/nlc-datong-tonggui-independent-copy')
+          class P(HTMLParser):
+              def __init__(self): super().__init__(); self.text=[]
+              def handle_data(self,d):
+                  s=' '.join(d.split())
+                  if s: self.text.append(s)
+          for p in sorted((root/'raw').glob('doc-*.html')):
+              q=P(); q.feed(p.read_text('utf-8',errors='replace'))
+              (root/'text'/f'{p.stem}.txt').write_text('\n'.join(q.text)+'\n',encoding='utf-8')
+          PY
+
+          grep -RniE '大統曆法通軌|大统历法通轨|元統|元统|太陰通軌|大統日出分|抄本|鈔本|明|成化|三卷|四卷|索書號|索书号|善本|館藏|馆藏|縮微|缩微|數字|数字|電子|电子' "$ROOT/text" > "$ROOT/target-hits.txt" || true
+          find "$ROOT/raw" -type f -size +0c -print0 | xargs -0 -r sha256sum | sort -V > "$ROOT/raw.sha256"
+
+          printf '%s\n'             'SOURCE=National Library of China OPAC'             'PRIMARY_TARGET=大統曆法通軌'             'CONTROL_TARGETS=太陰通軌;大統日出分'             'SECONDARY_LOCATOR=李亮《明大統曆法彙編》2019 states NLC separately holds a three-volume manuscript 大統曆法通軌 and a Chenghua manuscript 太陰通軌'             'PURPOSE=bind an independent Chinese physical/copy route for Datong Tonggui and determine catalog/date/access scope without inferring numerical content from metadata'             'OCR_USED=false'             > "$ROOT/manifest.txt"
+
+      - name: Upload evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: nlc-datong-tonggui-independent-copy-probe
+          path: audit/nlc-datong-tonggui-independent-copy/
+          if-no-files-found: error
+          compression-level: 6
+          retention-days: 30

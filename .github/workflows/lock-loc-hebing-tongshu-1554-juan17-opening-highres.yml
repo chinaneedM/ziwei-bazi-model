@@ -1,0 +1,70 @@
+name: lock-loc-hebing-tongshu-1554-juan17-opening-highres
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/lock-loc-hebing-tongshu-1554-juan17-opening-highres.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  lock:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Lock first 12 Juan-17 resources at full IIIF resolution
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/loc-hebing-tongshu-1554-juan17-opening-highres'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT/pages"
+
+          curl -L --fail --retry 3 -A 'Tianwen-Provenance-Audit/1.0'             'https://www.loc.gov/item/2012402919/?fo=json' -o "$ROOT/item.json"
+
+          python - <<'PY'
+          import json, pathlib, subprocess
+          root=pathlib.Path('audit/loc-hebing-tongshu-1554-juan17-opening-highres')
+          obj=json.loads((root/'item.json').read_text(encoding='utf-8'))
+          target=next(r for r in obj['resources'] if r.get('caption')=='Juan 17')
+          files=target['files']
+          if len(files)!=61:
+              raise SystemExit(f'expected 61 resources, got {len(files)}')
+          manifest=[]
+          for idx,variants in enumerate(files[:12],1):
+              jpgs=[v for v in variants if v.get('mimetype')=='image/jpeg']
+              full=next((v for v in jpgs if '/pct:100/' in v.get('url','')),None)
+              if not full:
+                  raise SystemExit(f'no 100pct jpeg for {idx}')
+              url=full['url']
+              out=root/'pages'/f'page-{idx:03d}.jpg'
+              subprocess.run(['curl','-L','--fail','--retry','3','--retry-delay','1',
+                              '-A','Tianwen-Provenance-Audit/1.0',url,'-o',str(out)],check=True)
+              info=next((v.get('info') for v in variants if v.get('info')),None)
+              jp2=next((v.get('url') for v in variants if v.get('mimetype')=='image/jp2'),None)
+              manifest.append({'index':idx,'full_jpeg_url':url,'iiif_info':info,'jp2_url':jp2})
+          (root/'page-routes.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          PY
+
+          mapfile -t pages < <(find "$ROOT/pages" -name 'page-*.jpg' | sort -V)
+          test "${#pages[@]}" -eq 12
+          sha256sum "${pages[@]}" | sort -V > "$ROOT/pages.sha256"
+          file "${pages[@]}" > "$ROOT/file-types.txt"
+
+          printf '%s\n'             'LOC_ITEM=2012402919'             'RESOURCE_GROUP=Juan 17 / 1A017'             'SOURCE_DATE=明嘉靖33年[1554]'             'TARGET=opening 選時寶鏡局 and 銅壺晝夜百刻圖式'             'PAGES=first 12 resource images'             'RESOLUTION=IIIF pct:100'             'OCR_USED_FOR_GLYPH_CLAIMS=false'             > "$ROOT/manifest.txt"
+
+          rm "$ROOT/item.json"
+
+      - name: Upload opening highres evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: loc-hebing-tongshu-1554-juan17-opening-highres
+          path: audit/loc-hebing-tongshu-1554-juan17-opening-highres/
+          if-no-files-found: error
+          compression-level: 6
+          retention-days: 30

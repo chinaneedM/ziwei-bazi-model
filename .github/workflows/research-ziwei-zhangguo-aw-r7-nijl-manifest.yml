@@ -1,0 +1,132 @@
+name: research-ziwei-zhangguo-aw-r7-nijl-manifest
+
+on:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-ziwei-zhangguo-aw-r7-nijl-manifest.yml
+
+permissions:
+  contents: write
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/fusion-chart-core-r1-20260822
+
+      - name: Fetch NIJL BID 100238879 IIIF metadata and canvas map
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p docs/research
+          python - <<'PY'
+          import datetime, hashlib, json, urllib.request
+
+          BID='100238879'
+          manifest_url=f'https://kokusho.nijl.ac.jp/biblio/{BID}/manifest'
+          biblio_url=f'https://kokusho.nijl.ac.jp/biblio/{BID}?ln=ja'
+
+          def get(url):
+              req=urllib.request.Request(url, headers={'User-Agent':'Mozilla/5.0 Batch12AW-R7 research'})
+              with urllib.request.urlopen(req, timeout=120) as r:
+                  body=r.read()
+                  return r.status, r.headers.get('Content-Type',''), body
+
+          out={
+              'schema':'ZIWEI-ZHANGGUO-NIJL-100238879-IIIF-R1',
+              'batch':'BATCH-12AW',
+              'captured_at_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),
+              'provider':'National Institute of Japanese Literature / Union Catalogue Database of Japanese Texts',
+              'bid':BID,
+              'manifest_url':manifest_url,
+              'biblio_url':biblio_url,
+              'evidence_scope':'PUBLIC_IIIF_ROUTE_AND_PHYSICAL_CANVAS_MAP; TARGET_GLYPH_NOT_YET_ADJUDICATED',
+          }
+
+          for key,url in [('manifest',manifest_url),('biblio',biblio_url)]:
+              try:
+                  status,ctype,body=get(url)
+                  out[key+'_fetch']={'http_status':status,'content_type':ctype,'size':len(body),'sha256':hashlib.sha256(body).hexdigest()}
+                  if key=='manifest':
+                      m=json.loads(body.decode('utf-8-sig'))
+                      out['manifest_context']=m.get('@context') or m.get('context')
+                      out['manifest_id']=m.get('@id') or m.get('id')
+                      out['label']=m.get('label')
+                      out['metadata']=m.get('metadata')
+                      out['attribution']=m.get('attribution')
+                      out['license']=m.get('license')
+                      out['logo']=m.get('logo')
+                      canvases=[]
+                      seqs=m.get('sequences') or []
+                      if seqs:
+                          for i,c in enumerate(seqs[0].get('canvases') or [],1):
+                              img=((c.get('images') or [{}])[0].get('resource') or {})
+                              svc=img.get('service') or {}
+                              if isinstance(svc,list): svc=svc[0] if svc else {}
+                              canvases.append({
+                                  'index':i,
+                                  'canvas_id':c.get('@id') or c.get('id'),
+                                  'label':c.get('label'),
+                                  'width':c.get('width'),
+                                  'height':c.get('height'),
+                                  'resource_id':img.get('@id') or img.get('id'),
+                                  'service_id':svc.get('@id') or svc.get('id'),
+                                  'service_profile':svc.get('profile'),
+                              })
+                      else:
+                          for i,c in enumerate(m.get('items') or [],1):
+                              annopages=c.get('items') or []
+                              anns=(annopages[0].get('items') or []) if annopages else []
+                              img=(anns[0].get('body') or {}) if anns else {}
+                              svc=img.get('service') or {}
+                              if isinstance(svc,list): svc=svc[0] if svc else {}
+                              canvases.append({
+                                  'index':i,
+                                  'canvas_id':c.get('id') or c.get('@id'),
+                                  'label':c.get('label'),
+                                  'width':c.get('width'),
+                                  'height':c.get('height'),
+                                  'resource_id':img.get('id') or img.get('@id'),
+                                  'service_id':svc.get('id') or svc.get('@id'),
+                                  'service_profile':svc.get('profile'),
+                              })
+                      out['canvas_count']=len(canvases)
+                      out['canvases']=canvases
+                      out['structures']=m.get('structures')
+                  else:
+                      txt=body.decode('utf-8','replace')
+                      out['biblio_fetch']['contains_title']=('張果星宗' in txt)
+                      out['biblio_fetch']['contains_1594']=('1594' in txt or '萬暦22' in txt or '万暦22' in txt)
+              except Exception as e:
+                  out[key+'_fetch']={'error':repr(e)}
+
+          path='docs/research/ZIWEI-ZHANGGUO-NIJL-100238879-IIIF-R1.json'
+          with open(path,'w',encoding='utf-8') as f:
+              json.dump(out,f,ensure_ascii=False,indent=2)
+              f.write('\n')
+          print(json.dumps({k:v for k,v in out.items() if k!='canvases'},ensure_ascii=False,indent=2))
+          print('canvas_count=',out.get('canvas_count'))
+          if out.get('canvases'):
+              print('first=',out['canvases'][:3])
+              print('middle=',out['canvases'][195:205])
+              print('last=',out['canvases'][-3:])
+          PY
+
+      - name: Commit durable NIJL route evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/research/ZIWEI-ZHANGGUO-NIJL-100238879-IIIF-R1.json
+          if git diff --cached --quiet; then
+            echo 'No evidence change to commit.'
+            exit 0
+          fi
+          git commit -m 'record Batch 12AW NIJL IIIF route evidence'
+          git push origin HEAD:agent/fusion-chart-core-r1-20260822

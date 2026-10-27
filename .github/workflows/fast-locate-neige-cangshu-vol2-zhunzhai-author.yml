@@ -1,0 +1,128 @@
+name: fast-locate-neige-cangshu-vol2-zhunzhai-author
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/fast-locate-neige-cangshu-vol2-zhunzhai-author.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  locate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Render and locate Zhunzhai in correct Neige Cangshu Mulu volume 2
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/neige-cangshu-vol2-zhunzhai-author'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT/pages" "$ROOT/contacts" "$ROOT/candidates"
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils tesseract-ocr tesseract-ocr-chi-tra tesseract-ocr-chi-tra-vert >/dev/null
+          python -m pip install --quiet pillow
+
+          URL='https://commons.wikimedia.org/wiki/Special:Redirect/file/NLC892-1084-204844%20%E5%85%A7%E9%96%A3%E8%97%8F%E6%9B%B8%E7%9B%AE%E9%8C%84%20%E7%AC%AC2%E5%86%8A.pdf'
+          curl -fL --retry 4 --retry-delay 2 -A 'Tianwen-Provenance-Audit/1.0' "$URL" -o "$ROOT/source.pdf"
+          sha256sum "$ROOT/source.pdf" | tee "$ROOT/source-sha256.txt"
+          pdfinfo "$ROOT/source.pdf" | tee "$ROOT/pdfinfo.txt"
+          pdftoppm -jpeg -r 115 "$ROOT/source.pdf" "$ROOT/pages/page" >/dev/null 2>&1
+
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image, ImageDraw, ImageOps, ImageEnhance
+          import subprocess, json, hashlib
+
+          root=Path('audit/neige-cangshu-vol2-zhunzhai-author')
+          pages=sorted(root.joinpath('pages').glob('page-*.jpg'))
+
+          # Received-transcription anchors are locator-only controls.
+          terms=[
+            '準齋','准齋','几漏','幾漏','孫逢吉','孙逢吉','莫詳時代','莫详时代',
+            '皇極經世','皇极经世','七政','天文分野','陰陽氣運','阴阳气运',
+            '技藝部','技艺部','卷之六','卷之七'
+          ]
+          candidates=[]
+
+          for i,p in enumerate(pages,1):
+              im=Image.open(p).convert('L')
+              im=ImageOps.autocontrast(im)
+              im=ImageEnhance.Contrast(im).enhance(1.5)
+              # modest upscale only for locator OCR
+              im=im.resize((im.width*2,im.height*2))
+              tmp=root/f'_ocr-{i:03d}.png'
+              im.save(tmp)
+              texts=[]
+              for lang,psm in [('chi_tra_vert','5'),('chi_tra','6')]:
+                  proc=subprocess.run(
+                    ['tesseract',str(tmp),'stdout','-l',lang,'--psm',psm],
+                    stdout=subprocess.PIPE,stderr=subprocess.DEVNULL,check=False)
+                  texts.append(proc.stdout.decode('utf-8',errors='replace'))
+              tmp.unlink(missing_ok=True)
+              txt='\n'.join(texts)
+              compact=''.join(txt.split())
+              found=[t for t in terms if t in compact]
+              # Fuzzy score for target + two high-information neighbors.
+              score=sum(ch in compact for ch in '準齋几漏孫逢吉皇極經世七政技藝')
+              if found or score>=5:
+                  candidates.append({
+                    'pdf_page':i,
+                    'found_terms':found,
+                    'score':score,
+                    'context':' '.join(txt.split())[:2600],
+                    'page_sha256':hashlib.sha256(p.read_bytes()).hexdigest()
+                  })
+                  (root/'candidates'/f'page-{i:03d}.jpg').write_bytes(p.read_bytes())
+
+          # Contact sheets for human review independent of OCR.
+          cols=5; per=20; contacts=[]
+          for start in range(0,len(pages),per):
+              chunk=pages[start:start+per]; thumbs=[]
+              for j,p in enumerate(chunk,start+1):
+                  im=Image.open(p).convert('RGB'); tw=360
+                  im=im.resize((tw,max(1,int(im.height*tw/im.width))))
+                  c=Image.new('RGB',(tw,im.height+30),'white'); c.paste(im,(0,30))
+                  ImageDraw.Draw(c).text((7,6),f'PDF p{j}',fill='black'); thumbs.append(c)
+              cw=max(t.width for t in thumbs); ch=max(t.height for t in thumbs)
+              rows=(len(thumbs)+cols-1)//cols
+              sheet=Image.new('RGB',(cols*cw,rows*ch),'white')
+              for k,t in enumerate(thumbs): sheet.paste(t,((k%cols)*cw,(k//cols)*ch))
+              out=root/'contacts'/f'contact-{start+1:03d}-{start+len(chunk):03d}.jpg'
+              sheet.save(out,quality=93); contacts.append(out.name)
+
+          report={
+            'schema':'NEIGE-CANGSHU-MULU-VOL2-ZHUNZHAI-LOCATOR-R1',
+            'source_file':'NLC892-1084-204844 內閣藏書目錄 第2冊.pdf',
+            'source_role':'Correct work/object for Sun Nengchuan-Zhang Xuan Neige Cangshu Mulu; prior NLC892-1083 Neige Shumu probe is not a negative-content witness for this target.',
+            'source_pdf_sha256':hashlib.sha256((root/'source.pdf').read_bytes()).hexdigest(),
+            'rendered_page_count':len(pages),
+            'target_claim':'準齋几漏新式一冊 / 孫逢吉著 / 莫詳時代',
+            'received_transcription_neighbor_control':'after 永樂七政 material and before 皇極經世衍數; locator only',
+            'ocr_authority':'LOCATOR_ONLY_NOT_FINAL_GLYPH_AUTHORITY',
+            'candidate_pages':candidates,
+            'contact_sheets':contacts,
+            'negative_claim_authorized':False,
+            'final_adjudication':'PENDING_DIRECT_IMAGE_REVIEW'
+          }
+          (root/'report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          (root/'README.txt').write_text(
+            'Correct target source: NLC892-1084-204844 內閣藏書目錄 第2冊.\n'
+            'Prior NLC892-1083 內閣書目 is a different bibliographic object and supplies no negative authority for this target.\n'
+            'OCR is locator-only; final glyph claims require direct image review.\n',encoding='utf-8')
+          print(json.dumps(report,ensure_ascii=False,indent=2))
+          PY
+
+          rm -rf "$ROOT/pages" "$ROOT/source.pdf"
+
+      - name: Upload correct Neige Cangshu locator
+        uses: actions/upload-artifact@v4
+        with:
+          name: neige-cangshu-vol2-zhunzhai-author-r1
+          path: audit/neige-cangshu-vol2-zhunzhai-author
+          if-no-files-found: error
+          retention-days: 30

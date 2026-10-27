@@ -1,0 +1,114 @@
+{
+  "schema": "ZIWEI-YUELING-TONGKAO-1589-TONGSHU-SOURCE-LABEL-SCOPE-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-YUELING-TONGKAO-1589-TONGSHU-SOURCE-LABEL-SCOPE-DD",
+  "prior_batch_id": "BATCH-12-ZIWEI-GEXIANG-ZHENGDE15-1520-PRE1578-TEXTUAL-WITNESS-DC",
+  "question": "Can the exact 1589 Yueling Tongkao Dahan/Yushui fingerprint material be physically source-labeled to 通書, and if so what does that citation authorize about the unidentified common source?",
+  "answer": "YES_FOR_A_DIRECT_GENERIC_TONGSHU_SOURCE_LABEL_AT_THE_TARGET_BLOCK_BOUNDARY; NO_FOR_EXACT_TONGSHU_TITLE_EDITION_DATE_OR_PRE1578_IDENTITY",
+  "physical_source": {
+    "source_id": "EXT-NCL-YUELING-TONGKAO-1589-WANGDAOZENG",
+    "title": "《月令通攷》",
+    "edition": "明萬曆十七年（1589）王道增臨海刊本",
+    "provider": "National Central Library, Taiwan public scan via Wikimedia Commons",
+    "public_object": "NCL-03165",
+    "source_pdf_sha256": "bc95f32afb2bfe52b69ea4fb249481f6deee49d33b7b51f37f39ae9b383516a4",
+    "pdf_page_count": 979,
+    "ocr_used_for_final_glyph_claims": false
+  },
+  "acquisition": {
+    "workflow_run_id": 35347370998,
+    "artifact_id": 10547561713,
+    "artifact_digest": "sha256:e0144a547791283bccf0e3ea05765565bdaea0701022fc936b5c6d301e0cd702",
+    "render_dpi": 330,
+    "yushui_neighborhood": "PDF p24-p30",
+    "dahan_neighborhood": "PDF p799-p805"
+  },
+  "direct_layout_collation": {
+    "page27_yushui": {
+      "page_sha256": "ec9b5aeb747c6a6a14a80923a1e1f0f4a56c8feb2db0ef303147b0b710638513",
+      "target_readings": [
+        "雨水日日在危九度",
+        "晝四十七刻夜五十三刻",
+        "後四日",
+        "晝四十八刻夜五十二刻"
+      ],
+      "source_label": "通書",
+      "source_label_layout": "small-font vertical source-name immediately at the end/boundary of the target prose block, before the solar-term day/night diagram block",
+      "following_diagram_captions": [
+        "立春正月節日出入并晝夜長短之圖",
+        "雨水正月中日出入并晝夜長短之圖"
+      ],
+      "same_page_source_label_control": "A separate small-font 汲冢周書 label appears after the preceding phenology quotation, confirming the compilation's source-name typographic convention."
+    },
+    "page802_dahan": {
+      "page_sha256": "ab6aeac3f163bd732cf92bc8639daee2a40c95b2671dad69c6653119d29f417e",
+      "target_readings": [
+        "小寒日日在斗十二度",
+        "大寒日日在牛初度",
+        "晝四十三刻夜五十七刻",
+        "十三後晝四十四刻夜五十六刻"
+      ],
+      "source_label": "通書",
+      "source_label_layout": "small-font vertical source-name at the end/boundary of the Dahan target block, immediately before the Xiaohan/Dahan day-night diagram block",
+      "following_diagram_captions": [
+        "小寒十二月節日出入并晝夜長短之圖",
+        "大寒十二月中日出入并晝夜長短之圖"
+      ]
+    },
+    "method": "Direct visual collation of source-bound rendered physical pages; OCR/transcription not used for final glyph or layout adjudication."
+  },
+  "philological_adjudication": {
+    "direct_generic_source_label_bound": true,
+    "label": "通書",
+    "exact_bibliographic_title": "UNRESOLVED",
+    "exact_author_editor": "UNRESOLVED",
+    "exact_edition_impression_date": "UNRESOLVED",
+    "exact_physical_source_copy": "UNRESOLVED",
+    "label_equated_to_leibian_lifa_tongshu_daquan": false,
+    "label_equated_to_sishi_qihou_tongshu_quote": false,
+    "pre1578_source_status": "UNRESOLVED",
+    "safe_claim": "The 1589 compiler physically marks the target day/night material with the generic source label 通書. This materially strengthens a Tongshu-source-family transmission hypothesis but does not identify which Tongshu title, recension, edition, or date supplied it."
+  },
+  "comparison_and_directionality": {
+    "sanming_1578_exact_fingerprint": [
+      "大寒 43/57 -> 十三後 -> 44/56",
+      "雨水 47/53 -> 後四日 -> 48/52"
+    ],
+    "yueling_1589_cited_tongshu_fingerprint": [
+      "大寒 43/57 -> 十三後 -> 44/56",
+      "雨水 47/53 -> 後四日 -> 48/52"
+    ],
+    "yueling_postdates_sanming_by_years": 11,
+    "sanming_to_yueling_copying_proved": false,
+    "pre1578_tongshu_common_source_proved": false,
+    "exact_cited_tongshu_can_be_the_1455_coarse_tongshu_branch": false,
+    "reason_for_last_firewall": "The physically reviewed 1455/coarse Tongshu branch has Xiazhi 60/40 whereas exact Sanming 1578 has 59/41; generic label identity cannot erase that numeric mismatch.",
+    "next_source_search_narrowing": "Prioritize pre-1578 Tongshu/almanac recensions and upstream Tongshu compilation lines that could carry the exact 十三後 / 後四日 fingerprint; do not treat all works labeled 通書 as one table."
+  },
+  "transmission_impact": {
+    "source_family_node": "SOURCE-FAMILY-YUELING-CITED-TONGSHU-DAYNIGHT",
+    "explicit_citation_edge": "TABLE-YUELING-1589-DAYNIGHT-FINGERPRINT EXPLICITLY_CITES SOURCE-FAMILY-YUELING-CITED-TONGSHU-DAYNIGHT",
+    "common_source_hypothesis": "MATERIALLY_STRENGTHENED_BUT_NOT_DATED_PRE1578",
+    "direct_copy_parent_identified": false
+  },
+  "product_adjudication": {
+    "hpa_zdate_006_before": "MISSING_FROM_PRODUCT",
+    "hpa_zdate_006_after": "MISSING_FROM_PRODUCT",
+    "new_runtime_candidate": false,
+    "runtime_winner_selected": false,
+    "candidate_collapsed": false,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_authorized": false,
+    "deterministic_fusion_chart_product_r1": "CLOSED"
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 12,
+    "repaired_provenance_metadata_defect_count": 12,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  }
+}

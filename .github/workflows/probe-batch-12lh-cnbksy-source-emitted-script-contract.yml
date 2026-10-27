@@ -1,0 +1,103 @@
+name: probe-batch-12lh-cnbksy-source-emitted-script-contract
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12lh-cnbksy-source-emitted-script-contract.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inspect only source-emitted CNBKSY scripts without following discovered routes
+        run: |
+          python - <<'PY'
+          import hashlib, json, re
+          from pathlib import Path
+          import requests
+
+          UA={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; CNBKSY source-emitted script contract)"}
+          scripts=[
+              "https://www.cnbksy.com/oYqhkoXXrsR7/5dO9sIMv7zgf.cfd114a.js",
+              "https://www.cnbksy.com/public/plugin/jquery/jquery-3.1.1.js",
+              "https://www.cnbksy.com/public/common/js/jquery1.1.js",
+              "https://www.cnbksy.com/public/plugin/bootstrap/dist/js/bootstrap.min.js",
+              "https://www.cnbksy.com/public/plugin/pdfjs/pdf.js",
+              "https://www.cnbksy.com/public/common/js/common.js?version=V20241206",
+          ]
+
+          rows=[]
+          for url in scripts:
+              try:
+                  r=requests.get(url,headers=UA,timeout=45,allow_redirects=False)
+                  raw=r.content
+                  txt=raw.decode("utf-8","replace")
+                  function_names=sorted(set(re.findall(r"(?i)function\s+([A-Za-z_$][\w$]*)\s*\(",txt)))
+                  route_literals=sorted(set(re.findall(r'''(?i)["']((?:https?://[^"'\s]+|/[A-Za-z0-9_./?=&%{}:$+-]+))["']''',txt)))
+                  route_hits=[x for x in route_literals if re.search(r"search|query|find|index|newspaper|paper|resource|portal|home|login|sign|result|list",x,re.I)]
+                  keyword_hits={}
+                  for token in ["search","query","find","检索","搜索","window.location","location.href","location.replace","ajax","$.get","$.post","XMLHttpRequest","fetch("]:
+                      count=len(re.findall(re.escape(token),txt,re.I))
+                      if count:
+                          keyword_hits[token]=count
+                  snippets=[]
+                  for m in re.finditer(r"(?i).{0,140}(?:search|query|find|检索|搜索|window\.location|location\.href|ajax|\$\.get|\$\.post).{0,220}",txt):
+                      s=re.sub(r"\s+"," ",m.group(0)).strip()
+                      if s and s not in snippets:
+                          snippets.append(s[:500])
+                      if len(snippets)>=25:
+                          break
+                  rows.append({
+                      "url":url,"status":r.status_code,"content_type":r.headers.get("content-type"),
+                      "location":r.headers.get("location"),"server":r.headers.get("server"),
+                      "bytes":len(raw),"sha256":hashlib.sha256(raw).hexdigest(),
+                      "function_names":function_names[:300],
+                      "search_related_route_literals":route_hits[:300],
+                      "search_related_keyword_counts":keyword_hits,
+                      "search_related_snippets":snippets,
+                  })
+              except Exception as e:
+                  rows.append({"url":url,"error":type(e).__name__+": "+str(e)[:500]})
+
+          out={
+              "source_contract":{
+                  "parent_batch":"12LG",
+                  "source":"the six script src URLs emitted by the Batch 12LG anonymous public activity page",
+                  "script_url_count":len(scripts),
+                  "discovered_route_followed":False,
+                  "target_query_submitted":False,
+                  "login_or_registration_used":False,
+              },
+              "scripts":rows,
+              "adjudication":{
+                  "script_inventory_completed":True,
+                  "discovered_route_followed":False,
+                  "target_query_submitted":False,
+                  "login_used":False,
+                  "registration_used":False,
+              },
+              "security":{
+                  "anonymous_get_only":True,
+                  "post_request_used":False,
+                  "target_query_submitted":False,
+                  "private_endpoint_guessed":False,
+                  "captcha_bypass_used":False,
+                  "tls_verification_disabled":False,
+              },
+          }
+          Path("batch-12lh-cnbksy-source-emitted-script-contract.json").write_text(
+              json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8"
+          )
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12lh-cnbksy-source-emitted-script-contract
+          path: batch-12lh-cnbksy-source-emitted-script-contract.json

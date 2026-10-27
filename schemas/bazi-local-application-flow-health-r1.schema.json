@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/chinaneedM/ziwei-bazi-model/schemas/bazi-local-application-flow-health-r1.schema.json",
+  "title": "Bazi Local Application Flow Health R1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema", "status", "application_id", "application_version",
+    "bind_policy", "target_flow_endpoint", "legacy_resolve_endpoint"
+  ],
+  "properties": {
+    "schema": {"const": "BAZI-LOCAL-APP-FLOW-HEALTH-R1"},
+    "status": {"const": "ok"},
+    "application_id": {"const": "BAZI-LOCAL-BROWSER-FLOW-APP-R1"},
+    "application_version": {"const": "1.0.0"},
+    "bind_policy": {"const": "LOOPBACK_ONLY"},
+    "target_flow_endpoint": {"const": "/api/resolve-flow"},
+    "legacy_resolve_endpoint": {"const": "/api/resolve"}
+  }
+}

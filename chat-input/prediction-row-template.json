@@ -1,0 +1,320 @@
+{
+  "adversarial_review": {
+    "annual_signal_overweighting": "<REQUIRED_NON_EMPTY_STRING>",
+    "background_as_endpoint": "<REQUIRED_NON_EMPTY_STRING>",
+    "bazi_posthoc_agreement": "<REQUIRED_NON_EMPTY_STRING>",
+    "duplicate_evidence_stacking": "<REQUIRED_NON_EMPTY_STRING>",
+    "ignored_alternative_explanations": [
+      "<REQUIRED_NON_EMPTY_STRING>"
+    ],
+    "known_rule_execution_omissions": "<REQUIRED_NON_EMPTY_STRING>",
+    "option_wording_inducement": "<REQUIRED_NON_EMPTY_STRING>",
+    "participation_as_action": "<REQUIRED_NON_EMPTY_STRING>",
+    "precision_beyond_capability": "<REQUIRED_NON_EMPTY_STRING>",
+    "reversal_test": {
+      "ranking_after_removal": [
+        "<ALL_OPTION_IDS_IN_FINAL_ORDER>"
+      ],
+      "ranking_before": [
+        "<ALL_OPTION_IDS_IN_FINAL_ORDER>"
+      ],
+      "reason": "<REQUIRED_NON_EMPTY_STRING>",
+      "removed_evidence_ids": [
+        "<EVIDENCE_ID>"
+      ],
+      "top1_survives": "<BOOLEAN_DERIVED_FROM_RANKING_BEFORE_AND_AFTER_REMOVAL>",
+      "top2_best_explanation": "<REQUIRED_NON_EMPTY_STRING>"
+    },
+    "strongest_competitor": "<TOP2_OPTION_ID>",
+    "strongest_reversal_evidence_ids": [
+      "<EVIDENCE_ID>"
+    ],
+    "top1_weakest_required_atom": "<REQUIRED_NON_EMPTY_STRING>",
+    "valence_as_mechanism": "<REQUIRED_NON_EMPTY_STRING>"
+  },
+  "bazi_track_seal": {
+    "alternative_explanations": [
+      "<REQUIRED_NON_EMPTY_STRING>"
+    ],
+    "capability_ceiling": "<REQUIRED_NON_EMPTY_STRING>",
+    "confidence": "<INTEGER_PERCENT_0_TO_100>",
+    "contradicting_evidence_ids": [],
+    "dynamic_relation_scope": {
+      "active_dynamic_object_ids": [],
+      "cross_time_reactivation": {
+        "bounded_object_ids": [],
+        "method": "NOT_APPLICABLE",
+        "source_route": "NOT_APPLICABLE",
+        "status": "NOT_USED"
+      },
+      "historical_anchor_ids": [],
+      "query_scope_id": "<QUESTION_BOUND_SCOPE_ID>"
+    },
+    "endpoint_chain": {
+      "action": "<REQUIRED_NON_EMPTY_STRING>",
+      "endpoint": "<REQUIRED_NON_EMPTY_STRING>",
+      "object": "<REQUIRED_NON_EMPTY_STRING>",
+      "subject": "<REQUIRED_NON_EMPTY_STRING>"
+    },
+    "luck_timing": "<REQUIRED_NON_EMPTY_STRING>",
+    "method_competition": "<REQUIRED_NON_EMPTY_STRING>",
+    "ranking": [
+      "<ALL_OPTION_IDS_IN_FINAL_ORDER>"
+    ],
+    "strength_and_pattern": "<REQUIRED_NON_EMPTY_STRING>",
+    "supporting_evidence_ids": [
+      "<SUPPORTING_EVIDENCE_ID_EXCLUSIVE_FROM_CONTRADICTING_SET>"
+    ],
+    "top1": "<OPTION_ID>",
+    "top2": "<OPTION_ID>",
+    "unresolved_links": []
+  },
+  "branch_analysis": {
+    "branch_rankings": {
+      "<DECLARED_BRANCH_ID>": {
+        "confidence": "<INTEGER_PERCENT_0_TO_100>",
+        "contradicting_evidence_ids": [],
+        "ranking": [
+          "<ALL_OPTION_IDS_IN_FINAL_ORDER>"
+        ],
+        "supporting_evidence_ids": [
+          "<ZIWEI_EVIDENCE_ID_FOR_THIS_BRANCH>",
+          "<BAZI_EVIDENCE_ID_FOR_THIS_BRANCH>"
+        ],
+        "top1": "<OPTION_ID>",
+        "top2": "<OPTION_ID>"
+      }
+    },
+    "consensus_status": "<CONSISTENT_DIVERGENT_UNRESOLVED_OR_RESOLVED_BY_EXTERNAL_FACT>",
+    "selected_branch_id": null,
+    "top1_uncertainty_preserved": false
+  },
+  "confidence_components": {
+    "cross_track_agreement": "<INTEGER_PERCENT_0_TO_100>",
+    "input_confidence": "<INTEGER_PERCENT_0_TO_100>",
+    "mechanism_confidence": "<INTEGER_PERCENT_0_TO_100>",
+    "natal_structure_confidence": "<INTEGER_PERCENT_0_TO_100>",
+    "overall_confidence": "<INTEGER_PERCENT_0_TO_WEAKEST_NON_OVERALL_COMPONENT>",
+    "reality_endpoint_confidence": "<INTEGER_PERCENT_0_TO_100>",
+    "subject_confidence": "<INTEGER_PERCENT_0_TO_100>",
+    "timing_confidence": "<INTEGER_PERCENT_0_TO_100>",
+    "top1_top2_separation": "<INTEGER_PERCENT_0_TO_100>"
+  },
+  "counterfactual_analysis": {
+    "bazi_only_ranking": [
+      "<ALL_OPTION_IDS_IN_FINAL_ORDER>"
+    ],
+    "canonical_only_ranking": [
+      "<ALL_OPTION_IDS_IN_FINAL_ORDER>"
+    ],
+    "decisive_rule_ablations": [
+      {
+        "changes_top1": "<BOOLEAN_DERIVED_FROM_RANKING_WITHOUT_RULE>",
+        "ranking_without_rule": [
+          "<ALL_OPTION_IDS_IN_FINAL_ORDER_WITHOUT_THIS_RULE>"
+        ],
+        "reason": "<REQUIRED_NON_EMPTY_STRING>",
+        "rule_id": "<ONE_ROW_FOR_EACH_DECISIVE_RULE_ID>"
+      }
+    ],
+    "full_model_ranking": [
+      "<ALL_OPTION_IDS_IN_FINAL_ORDER>"
+    ],
+    "fused_ranking": [
+      "<ALL_OPTION_IDS_IN_FINAL_ORDER>"
+    ],
+    "ziwei_only_ranking": [
+      "<ALL_OPTION_IDS_IN_FINAL_ORDER>"
+    ]
+  },
+  "cross_track_arbitration": {
+    "agreement_layers": [],
+    "confidence_reduction_required": true,
+    "conflict_layers": [],
+    "conflict_origin": "<REQUIRED_NON_EMPTY_STRING>",
+    "decision": "<REQUIRED_NON_EMPTY_STRING>",
+    "shared_reality_assumption_risk": "<REQUIRED_NON_EMPTY_STRING>",
+    "stronger_track_for_topic": "UNRESOLVED"
+  },
+  "evidence_ledger": [
+    {
+      "alternative_explanation": "<REQUIRED_NON_EMPTY_STRING>",
+      "applicability_conditions": [
+        "<REQUIRED_NON_EMPTY_STRING>"
+      ],
+      "axis_distance": "<DIRECT_SAME_AXIS_ONE_HOP_OR_MULTI_HOP>",
+      "branch_id": "<DECLARED_BRANCH_ID>",
+      "capability_ceiling": "<REQUIRED_NON_EMPTY_STRING>",
+      "causal_role": "<NONE_EVENT_CAUSE_CONTEXT_OR_CAUSE_BRIDGE>",
+      "chart_fact": "<REQUIRED_NON_EMPTY_STRING>",
+      "conditions_satisfied": [
+        "<REQUIRED_NON_EMPTY_STRING>"
+      ],
+      "contradicts_option_atoms": [],
+      "decision_impact": "<DECISIVE_SUPPORTING_COUNTEREVIDENCE_OR_NEUTRAL>",
+      "evidence_family_id": "<EVIDENCE_FAMILY_ID>",
+      "evidence_id": "<EVIDENCE_ID>",
+      "independence_status": "<INDEPENDENT|SAME_FAMILY|NEUTRAL_BACKGROUND>",
+      "knowledge_point": "<REQUIRED_NON_EMPTY_STRING>",
+      "layer": "<NATAL_PERIOD_YEAR_MONTH_OR_REALITY>",
+      "limitations": "<REQUIRED_NON_EMPTY_STRING>",
+      "reliability": "<HIGH_MEDIUM_LOW_OR_UNKNOWN>",
+      "scope_id": "<DECLARED_TEMPORAL_SCOPE_ID>",
+      "source_route": "<DECLARED_S00_TO_S19>",
+      "supports_option_atoms": [
+        "<OPTION_ID>:<EXACT_ATOM_TEXT>"
+      ],
+      "temporal_role": "<NATAL_STATIC_PERIOD_CONTEXT_ACTIVE_QUERY_OBJECT_HISTORICAL_VALIDATION_ANCHOR_OR_REALITY_ENDPOINT>",
+      "track": "<ZIWEI_OR_BAZI_OR_REALITY>",
+      "transmission_path": []
+    }
+  ],
+  "final_ranking": [
+    "<ALL_OPTION_IDS_IN_FINAL_ORDER>"
+  ],
+  "option_comparison_matrix": {
+    "options": {
+      "<OPTION_ID>": {
+        "bazi_support_evidence_ids": [],
+        "direct_counterevidence_ids": [],
+        "directly_refuted_atoms": [],
+        "distinctive_atom_completion": [],
+        "final_rank": 1,
+        "final_rank_reason": "<REQUIRED_NON_EMPTY_STRING>",
+        "reality_closure": "<REQUIRED_NON_EMPTY_STRING>",
+        "required_atom_completion": [],
+        "severe_atoms_have_independent_evidence": false,
+        "shared_background_zeroed": true,
+        "timing_closure": "<REQUIRED_NON_EMPTY_STRING>",
+        "unknown_atoms": [],
+        "ziwei_support_evidence_ids": []
+      }
+    },
+    "pairwise": [
+      [
+        "<LEFT_OPTION_ID>",
+        "<RIGHT_OPTION_ID>",
+        "<WINNER_OPTION_ID>",
+        "<REQUIRED_NON_EMPTY_STRING>"
+      ]
+    ]
+  },
+  "public_summary": "<REQUIRED_NON_EMPTY_STRING>",
+  "question_id": "<QUESTION_ID>",
+  "question_profile": {
+    "applied_rule_ids": [],
+    "endpoint_tags": [
+      "<TAXONOMY_VALUE>"
+    ],
+    "reasoning_skill_tags": [
+      "<TAXONOMY_VALUE>"
+    ],
+    "source_routes": [
+      "<S00_TO_S19>"
+    ],
+    "subject_tags": [
+      "<TAXONOMY_VALUE>"
+    ],
+    "time_scope_tags": [
+      "<TAXONOMY_VALUE>"
+    ],
+    "topic_tags": [
+      "<TAXONOMY_VALUE>"
+    ]
+  },
+  "question_scope_execution": [
+    "<MODE_STATIC_NATAL_CURRENT_STATUS_RESULT_OR_EVENT_OR_TIME_COMPARISON>",
+    "<TARGET_TIME_NOT_APPLICABLE_OR_RESOLVED>",
+    [
+      "<REQUIRED_LAYERS>"
+    ],
+    [
+      "<ACTUALLY_INSPECTED_LAYERS>"
+    ],
+    [],
+    [],
+    true,
+    true
+  ],
+  "question_semantic_model": {
+    "action_subject": "<REQUIRED_NON_EMPTY_STRING>",
+    "ambiguities": [],
+    "completion_endpoint": "<REQUIRED_NON_EMPTY_STRING>",
+    "event_process": "<REQUIRED_NON_EMPTY_STRING>",
+    "is_composite_narrative": false,
+    "magnitude": "<REQUIRED_NON_EMPTY_STRING>",
+    "option_atoms": {
+      "<OPTION_ID>": {
+        "distinctive_atoms": [
+          "<EXACT_ATOM_TEXT>"
+        ],
+        "required_atoms": [
+          "<EXACT_ATOM_TEXT>"
+        ],
+        "severe_irreversible_or_high_precision_atoms": []
+      }
+    },
+    "reality_object": "<REQUIRED_NON_EMPTY_STRING>",
+    "shared_non_discriminating_atoms": [],
+    "special_atom_refs": [],
+    "subject": "<REQUIRED_NON_EMPTY_STRING>",
+    "target": "<REQUIRED_NON_EMPTY_STRING>",
+    "time_range": "<REQUIRED_NON_EMPTY_STRING>"
+  },
+  "rule_attribution": {
+    "counterevidence_rule_ids": [],
+    "decision_changed": false,
+    "decisive_rule_ids": [],
+    "supporting_rule_ids": []
+  },
+  "top1": "<OPTION_ID>",
+  "top2": "<OPTION_ID>",
+  "upstream_fact_dependencies": {
+    "evidence_dependencies": [
+      [
+        "<EVIDENCE_ID>",
+        "<BRANCH_ID>",
+        [
+          "<UPSTREAM_FACT_ID>"
+        ],
+        "<DEPENDENCY_SHA256>"
+      ]
+    ],
+    "facts": [
+      [
+        "<FACT_ID>",
+        "<BRANCH_ID>",
+        "<FACT_TYPE>",
+        "<SOURCE_OBJECT_ID>",
+        "<VERIFIED_OR_FAILED>"
+      ]
+    ],
+    "invalidated_evidence_ids": [],
+    "ranking_recomputed_after_invalidation": true
+  },
+  "ziwei_track_seal": {
+    "alternative_explanations": [
+      "<REQUIRED_NON_EMPTY_STRING>"
+    ],
+    "capability_ceiling": "<REQUIRED_NON_EMPTY_STRING>",
+    "confidence": "<INTEGER_PERCENT_0_TO_100>",
+    "contradicting_evidence_ids": [],
+    "core_structure": "<REQUIRED_NON_EMPTY_STRING>",
+    "dynamic_trigger": "<REQUIRED_NON_EMPTY_STRING>",
+    "endpoint_chain": {
+      "action": "<REQUIRED_NON_EMPTY_STRING>",
+      "endpoint": "<REQUIRED_NON_EMPTY_STRING>",
+      "object": "<REQUIRED_NON_EMPTY_STRING>",
+      "subject": "<REQUIRED_NON_EMPTY_STRING>"
+    },
+    "ranking": [
+      "<ALL_OPTION_IDS_IN_FINAL_ORDER>"
+    ],
+    "supporting_evidence_ids": [
+      "<SUPPORTING_EVIDENCE_ID_EXCLUSIVE_FROM_CONTRADICTING_SET>"
+    ],
+    "top1": "<OPTION_ID>",
+    "top2": "<OPTION_ID>",
+    "unresolved_links": []
+  }
+}

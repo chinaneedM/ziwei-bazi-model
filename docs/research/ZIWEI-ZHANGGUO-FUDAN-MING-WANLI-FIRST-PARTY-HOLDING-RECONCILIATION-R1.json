@@ -1,0 +1,82 @@
+{
+  "schema": "ZIWEI-ZHANGGUO-FUDAN-MING-WANLI-FIRST-PARTY-HOLDING-RECONCILIATION-R1",
+  "batch_id": "BATCH-12-ZIWEI-ZHANGGUO-FUDAN-MING-WANLI-HOLDING-RECONCILIATION-BB",
+  "question": "Does Fudan first-party catalog evidence establish an independent Ming-Wanli physical holding of the target Zhangguo title, and does it establish the secondary-locator claim of an exact Wanli-22 / 1594 Tang-Qian edition?",
+  "authority_chain": {
+    "ancient_book_portal": "https://guji.fudan.edu.cn/",
+    "portal_source_emitted_label": "綫裝古籍書目",
+    "portal_source_emitted_general_catalog_entry": "https://opac.fudan.edu.cn/#/gjRedirect",
+    "opac_result_route": "/resultGj",
+    "public_api_base": "https://fdulspgw.fudan.edu.cn/urdh",
+    "title_search_contract": "POST /open-api/opac/search/advanced; resourceType=10; field=resource_ztm; matchType=contains",
+    "detail_contract": "GET /open-api/opac/search/smjlh/{resource_smjlh}",
+    "holdings_contract": "GET https://fdulspgw.fudan.edu.cn/alsp/open-api/opac/v2/holdings?catalogueId={resource_smjlh}",
+    "contract_origin": "SOURCE_EMITTED_BY_FUDAN_PUBLIC_FRONTEND"
+  },
+  "target_catalog_record": {
+    "title": "新編評註通玄先生張果星宗大全",
+    "extent": "10卷",
+    "physical_extent": "10冊（1函）",
+    "responsibility": [
+      "(唐)張果撰",
+      "(明)陸位輯"
+    ],
+    "catalog_date": "不详#明萬曆間",
+    "edition_type": "刻本",
+    "rare_book_class": "善本",
+    "binding": "綫裝",
+    "call_number": "rb2314",
+    "resource_book_no": "FDU01001127121",
+    "doc_id": "34053686",
+    "resource_smjlh": "34053686",
+    "catalog_item_identity": "DIRECT_FIRST_PARTY_OPAC_MATCH"
+  },
+  "physical_holding": {
+    "holding_total": 1,
+    "call_number": "rb2314",
+    "barcode": "AB0613271-80",
+    "permanent_library_name": "复旦大学",
+    "permanent_location_name": "光华楼古籍书库",
+    "item_status_name": "在馆",
+    "catalogue_id": "34053686",
+    "binding_status": "DIRECT_FIRST_PARTY_HOLDINGS_API_ITEM"
+  },
+  "edition_adjudication": {
+    "independent_fudan_ming_wanli_material_holding_control_established": true,
+    "exact_wanli_22_or_1594_observed_in_first_party_record": false,
+    "tang_qian_observed_in_first_party_record": false,
+    "secondary_locator_exact_1594_tang_qian_claim_promoted": false,
+    "exact_1594_material_witness_increment": 0,
+    "ming_wanli_material_holding_control_increment": 1,
+    "target_leaf_obtained": false,
+    "independent_target_text_witness_increment": 0,
+    "independent_hai_glyph_witness_increment": 0,
+    "whole_holding_negative_authorized": false,
+    "reason": "Fudan first-party OPAC and holdings bind one physical target-title item dated only 明萬曆間. Neither the item detail nor holdings expose 萬曆二十二/1594 or 唐謙, and no target leaf was obtained."
+  },
+  "jiangsu_public_route_boundary": {
+    "http_and_https_timed_out_from_reviewed_runner": true,
+    "no_holding_inference_authorized": false,
+    "no_digitization_inference_authorized": false,
+    "witness_increment": 0
+  },
+  "project_consequence": {
+    "audit_row": "HPA-ZDATE-006",
+    "audit_status": "MISSING_FROM_PRODUCT",
+    "new_candidate_family": false,
+    "runtime_winner_selected": false,
+    "candidate_collapsed": false,
+    "algorithm_reopen": false,
+    "provenance_defect_count_change": false,
+    "matrix_row_count_change": false
+  },
+  "source_artifacts": [
+    "docs/research/ZIWEI-ZHANGGUO-FUDAN-OPAC-TITLE-QUERY-R1.json",
+    "docs/research/ZIWEI-ZHANGGUO-FUDAN-OPAC-ITEM-DETAIL-R1.json",
+    "docs/research/ZIWEI-ZHANGGUO-FUDAN-OPAC-GUJI-CONTRACT-PROBE-R1.json",
+    "docs/research/ZIWEI-ZHANGGUO-FUDAN-GENERAL-CATALOG-CONTRACT-PROBE-R1.json",
+    "docs/research/ZIWEI-ZHANGGUO-FUDAN-JIANGSU-1594-PUBLIC-CATALOG-PROBE-R1.json",
+    "docs/research/ZIWEI-ZHANGGUO-FUDAN-1594-PUBLIC-SEARCH-CONTRACT-PROBE-R1.json",
+    "docs/research/ZIWEI-ZHANGGUO-FUDAN-OPAC-DETAIL-CONTRACT-PROBE-R1.json"
+  ]
+}

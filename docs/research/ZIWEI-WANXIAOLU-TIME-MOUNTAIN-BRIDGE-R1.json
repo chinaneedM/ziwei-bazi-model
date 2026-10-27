@@ -1,0 +1,119 @@
+{
+  "schema": "ZIWEI-WANXIAOLU-TIME-MOUNTAIN-BRIDGE-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-WANXIAOLU-TIME-MOUNTAIN-BRIDGE-AN",
+  "access_date": "2026-09-09",
+  "status": "MING_SHUSHU_24_MOUNTAIN_TIME_SECTOR_AND_SOLAR_ANCHOR_SEMANTIC_BRIDGE_CONFIRMED_WITH_SOURCE_EMITTED_PHYSICAL_PAGE_MAP_NO_TARGET_GLYPH_AUTHORITY",
+  "controlling_probes": {
+    "ctext_and_kanripo_route": {
+      "workflow_run_id": 34336993490,
+      "artifact_id": 10098112006,
+      "artifact_zip_sha256": "d54e096b1649b6831656fd6ce192234903a9ad7ee3c1d14db632e997abf145d3"
+    },
+    "shidian_router_page_map": {
+      "workflow_run_id": 34339848620,
+      "artifact_id": 10099257417,
+      "artifact_zip_sha256": "aed5ca502e3c41f14f0e4304cf60bf0816d77c54504dcec67d9c35455271466b",
+      "html_sha256": "46e44961d0eccc4126d292f6a492b522a9d8dc6867664950a2edfd99b243f182",
+      "router_json_sha256": "3e42cd6cf8bfca6cd52184754d48ffe871d5fb7110ebd31bb63cd483b763e02c"
+    }
+  },
+  "ctext_source": {
+    "resource_id": "437415",
+    "target_chapter_url": "https://ctext.org/wiki.pl?chapter=835051&if=gb",
+    "library_url": "https://ctext.org/library.pl?if=gb&res=85145",
+    "source_emitted_target_page_url": "https://ctext.org/library.pl?if=gb&file=100720&page=144",
+    "target_page_number_guessed": false,
+    "target_page_html_sha256": "06c26470effe981473b24225047f713a1775f06dfc9e41536bb2186943535957",
+    "target_scan_image_url_exposed_unauthenticated": false,
+    "glyph_authority_claimed": false,
+    "role": "TEXT_NAVIGATION_AND_SOURCE_EMITTED_PHYSICAL_PAGE_LOCATOR_NOT_TARGET_GLYPH_AUTHORITY"
+  },
+  "shidian_source": {
+    "book_id": "NGJ892411999007380140073",
+    "chapter_id": "1lr8vrbiuyale",
+    "url": "https://www.shidianguji.com/zh/book/NGJ892411999007380140073/chapter/1lr8vrbiuyale",
+    "source_metadata": {
+      "book_name": "續道藏",
+      "image_source": "國家圖書館",
+      "library": "國家圖書館",
+      "edition": "內府明萬曆35年刻本",
+      "edition_dynasty": "明",
+      "total_pages": 11570
+    },
+    "target_chapter_source_emitted_start_page_num": 5577,
+    "target_chapter_source_emitted_end_page_num": 5707,
+    "target_source_emitted_global_page_span": [5607, 5611],
+    "source_emitted_page_id_map": {
+      "7577616826524450867": 5607,
+      "7577616826524483635": 5609,
+      "7577616826524516403": 5611
+    },
+    "page_mapping_method": "TARGET_CHAPTER_SOURCE_EMITTED_START_PAGE_NUM_PLUS_SOURCE_EMITTED_ORDERED_PAGE_ID_SEQUENCE",
+    "page_ids_guessed": false,
+    "page_numbers_guessed": false,
+    "direct_target_image_bytes_observed": false,
+    "glyph_authority_claimed": false,
+    "role": "EDITION_SCOPED_STRUCTURED_TRANSCRIPTION_WITH_SOURCE_EMITTED_PHYSICAL_PAGE_MAPPING_NOT_DIRECT_GLYPH_AUTHORITY"
+  },
+  "semantic_collation": {
+    "chapter_heading": "第四十二章論定時",
+    "transcription_warning": "SHIDIAN_AND_CTEXT_TEXT_SURFACES_CONTAIN_OCR_OR_TRANSCRIPTION_VARIANTS; DO_NOT_SILENTLY_NORMALIZE 四十四山 TO 二十四山 WITHOUT DIRECT_GLYPH_REVIEW",
+    "attested_semantic_points": [
+      "The text explicitly coordinates mountain sectors and time sectors: 時與山每每相應.",
+      "The method subdivides the twelve branch-hours by interstitial stem/trigram sectors into a 24-position timing scheme.",
+      "The text requires 逐時逐刻考驗 for determining stellar positions.",
+      "The operational count is anchored from 太陽到處 and advances 一時到一山, with seasonal adjustments around winter/summer solstice.",
+      "The purpose is explicitly 查時刻以考星躔之要法."
+    ],
+    "decisive_transcription_fragments": [
+      "曆書亦分二十四時，時與山每每相應",
+      "凡定時之法，必須逐時逐刻考驗",
+      "每日皆從太陽到處數，卯時起，一時到一山",
+      "此是查時刻以考星躔之要法"
+    ]
+  },
+  "adjudication": {
+    "twenty_four_mountain_ring_can_encode_time_sector_coordinates": true,
+    "actual_time_determination_is_solar_or_astronomical_reference_anchored_in_this_witness": true,
+    "magnetic_needle_is_standalone_clock": false,
+    "luojing_equals_true_solar_time": false,
+    "luojing_equals_local_apparent_solar_runtime": false,
+    "fullbook_cloudy_rainy_time_generation_chain_closed": false,
+    "fullbook_authorial_inheritance_proven": false,
+    "ziwei_doctrinal_authority_claimed": false,
+    "relation_to_batch_12am": "EXPLAINS_HOW_A_24_DIRECTION_PLATE_CAN_CARRY_TIME_SECTORS_BUT_RETAINS_EXTERNAL_SOLAR_ASTRONOMICAL_ANCHOR",
+    "relation_to_fullbook": "NARROWS_THE_PLAUSIBLE_ROLE_OF_LUOJING_AS_DIRECTION_TIME_SECTOR_COORDINATE_AID_NOT_SELF_SUFFICIENT_INCLEMENT_WEATHER_CLOCK"
+  },
+  "hpa_zdate_006_effect": {
+    "audit_status": "MISSING_FROM_PRODUCT",
+    "runtime_time_standard_binding_status": "MING_SHUSHU_24_MOUNTAIN_TIME_SECTOR_MAPPING_CONFIRMED_SOLAR_ASTRONOMICAL_ANCHOR_REMAINS_REQUIRED_FULLBOOK_INCLEMENT_CHAIN_AND_RUNTIME_BINDING_STILL_OPEN",
+    "candidate_selected": false,
+    "candidate_collapsed": false,
+    "algorithm_reopen_authorized": false
+  },
+  "evidence_independence": {
+    "new_fullbook_textual_witness_increment": 0,
+    "new_hai_glyph_witness_increment": 0,
+    "new_ming_shushu_time_sector_semantic_control_increment": 1,
+    "ctext_and_shidian_not_double_counted_as_independent_target_glyph_witnesses": true
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "identified_missing_candidate_families": 14,
+    "confirmed_provenance_metadata_defect_count": 10,
+    "repaired_provenance_metadata_defect_count": 10,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": "Find a Fullbook-line or early Ziwei source that explicitly states the inclement-weather current-time acquisition mechanism; the 24-mountain/time-sector ring alone does not supply that missing clock input.",
+  "safety": {
+    "target_page_or_image_identifier_guessed": false,
+    "authentication_attempted": false,
+    "captcha_bypass_attempted": false,
+    "direct_target_glyph_claim_without_image": false
+  }
+}

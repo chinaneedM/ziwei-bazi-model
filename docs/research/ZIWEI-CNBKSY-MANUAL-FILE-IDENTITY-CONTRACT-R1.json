@@ -1,0 +1,119 @@
+{
+  "schema": "ZIWEI-CNBKSY-MANUAL-FILE-IDENTITY-CONTRACT-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-CNBKSY-MANUAL-FILE-IDENTITY-CONTRACT-LW",
+  "prior_batch_id": "BATCH-12-ZIWEI-CNBKSY-MANUAL-LINK-BINDING-CONTRACT-LV",
+  "question": "What are the actual file-format identities of the two text-bearing old/new platform manual objects, before parsing their contents?",
+  "answer": "Both text-bound manual objects return HTTP 200 and begin with ZIP/OOXML magic. The old-platform anchor's visible `.doc` suffix is not the actual object format: its Content-Disposition names 平台用户手册.docx and its bytes begin PK/ZIP, while OLE CFB magic is absent. The new-platform object likewise identifies as an OOXML .docx via MIME, Content-Disposition and PK/ZIP magic. No manual content is parsed in this batch.",
+  "controlling_probe": {
+    "workflow": ".github/workflows/probe-batch-12lw-cnbksy-manual-file-identity-contract.yml",
+    "exact_head": "03fc4ae73445643e0538edbd25636d25ba8fcd0b",
+    "workflow_run_id": 36893554861,
+    "workflow_job_id": 110474819282,
+    "artifact_id": 11179105119,
+    "artifact_digest": "sha256:67451534e9d85a78965ca70f00cb294992b19166bffcb26356b2a37e60154675"
+  },
+  "source_contract": {
+    "targets": "ONLY_TEXT_BEARING_OLD_AND_NEW_MANUAL_ANCHORS",
+    "method": "GET",
+    "range_header": "bytes=0-8191",
+    "max_body_bytes_read_per_target": 8192,
+    "redirect_followed": false,
+    "full_manual_parsed": false
+  },
+  "results": {
+    "old_platform": {
+      "visible_label": "平台用户手册（老平台）.doc",
+      "url": "https://www.cnbksy.com/common/uploadFile/5efc186123b099148b42c395",
+      "status": 200,
+      "content_type": "null;charset=UTF-8;charset=UTF-8",
+      "content_length": null,
+      "content_range": null,
+      "accept_ranges": null,
+      "content_disposition": "attachment;filename=\"%E5%B9%B3%E5%8F%B0%E7%94%A8%E6%88%B7%E6%89%8B%E5%86%8C.docx\"",
+      "decoded_disposition_filename": "平台用户手册.docx",
+      "location": null,
+      "server": "ESA",
+      "bytes_read": 8192,
+      "prefix_sha256": "c83320fc600ae209df89d0c827155d665f1ad5afa7519b4842fc2b43e8a82276",
+      "magic_hex": "504b03041400060008000000210040be",
+      "ole_cfb_magic": false,
+      "zip_magic": true,
+      "pdf_magic": false,
+      "html_like": false
+    },
+    "new_platform": {
+      "visible_label": "平台用户手册（新平台）.docx",
+      "url": "https://www.cnbksy.com/common/uploadFile/65e9592f7fa00c5f66cdb1f5",
+      "status": 200,
+      "content_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document;charset=UTF-8",
+      "content_length": null,
+      "content_range": null,
+      "accept_ranges": null,
+      "content_disposition": "attachment;filename=\"%E5%B9%B3%E5%8F%B0%E7%94%A8%E6%88%B7%E6%89%8B%E5%86%8C%EF%BC%88%E6%96%B0%E5%B9%B3%E5%8F%B0%EF%BC%89.docx\"",
+      "decoded_disposition_filename": "平台用户手册（新平台）.docx",
+      "location": null,
+      "server": "ESA",
+      "bytes_read": 8192,
+      "prefix_sha256": "d0112260febfc4a485b470d217a7c562a99742774d62c4a5dfccd2718a1cf96a",
+      "magic_hex": "504b03041400060008000000210041d9",
+      "ole_cfb_magic": false,
+      "zip_magic": true,
+      "pdf_magic": false,
+      "html_like": false
+    }
+  },
+  "adjudication": {
+    "old_platform_object_format": "OOXML_ZIP_DOCX",
+    "old_platform_visible_doc_suffix_stale": true,
+    "old_platform_extension_identity_closed": true,
+    "new_platform_object_format": "OOXML_ZIP_DOCX",
+    "new_platform_extension_identity_closed": true,
+    "auxiliary_empty_anchor_checked": false,
+    "icon_upload_checked": false,
+    "redirect_followed": false,
+    "full_manual_parsed": false,
+    "target_term_submitted": false,
+    "target_query_submitted": false
+  },
+  "security": {
+    "anonymous_get_only": true,
+    "credential_value_recorded": false,
+    "private_endpoint_guessed": false,
+    "captcha_bypass_used": false,
+    "tls_verification_disabled": false
+  },
+  "transmission_impact": {
+    "status": "NONE_ACCESS_BOUNDARY_ONLY",
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": []
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Retrieve only the text-bound new-platform manual object already identified as OOXML .docx.",
+    "Compute full-object bytes/SHA-256 and validate ZIP + [Content_Types].xml + word/document.xml.",
+    "Extract document text locally from OOXML XML, recording text digest/length, audited term counts and bounded context windows rather than the full manual in logs.",
+    "Invoke no 全国报刊索引 search endpoint and submit no target query."
+  ],
+  "updated_at": "2026-10-02"
+}

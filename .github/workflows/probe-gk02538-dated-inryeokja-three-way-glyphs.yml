@@ -1,0 +1,241 @@
+name: probe-gk02538-dated-inryeokja-three-way-glyphs
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-gk02538-dated-inryeokja-three-way-glyphs.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install image tooling
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --quiet pillow
+
+      - name: Build dated Inryeokja three-way normalized glyph corpus
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/gk02538-dated-inryeokja-three-way-glyphs'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT/source" "$ROOT/crops" "$ROOT/normalized"
+
+          python - <<'PY'
+          from pathlib import Path
+          from urllib.request import Request,urlopen
+          from urllib.parse import urlencode
+          from PIL import Image,ImageDraw
+          import hashlib,json,time,statistics
+
+          root=Path('audit/gk02538-dated-inryeokja-three-way-glyphs')
+          UA='Mozilla/5.0 Tianwen-Provenance-Audit/1.0'
+          expected={
+            'gyeongjin1580-tail':'306b8f03949850c0cedd9575263208ccbd9dc8e6465165b13406ef1918788590',
+            'ryu-gabjin1604':'05a59824cfb8a836e2c86168f1610417f115a372f50af4c0f6613b8cde864a3b',
+            'gk02538-0001-002a':'8458f8a0fd58f23f91139d7d489077472fd7fddb449d9635f6f29df5e2a9b461',
+          }
+
+          def get(url,referer=None):
+              headers={'User-Agent':UA,'Accept':'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8'}
+              if referer: headers['Referer']=referer
+              req=Request(url,headers=headers)
+              last=None
+              for n in range(4):
+                  try:
+                      with urlopen(req,timeout=35) as r:
+                          return r.read(),r.headers.get('content-type'),getattr(r,'status',200)
+                  except Exception as e:
+                      last=e
+                      time.sleep(.5*(n+1))
+              raise last
+
+          sources=[]
+
+          targets=[
+            ('gyeongjin1580-tail',
+             'https://minio.nculture.org/amsweb-opt/multimedia_assets/94/72995/69248/c/%EA%B2%BD%EC%A7%84%EB%85%84-%EB%8C%80%ED%86%B5%EB%A0%A5-%EA%B6%8C%EB%A7%90_%EB%AC%B8%ED%99%94%EC%9E%AC%EC%B2%AD_%EC%A0%9C1%EC%9C%A0%ED%98%95-full-size.jpg',
+             'https://www.nculture.org/'),
+            ('ryu-gabjin1604',
+             'https://devin.aks.ac.kr/image/505ce0e9-6462-435a-8bbf-55f3815e3617?preset=orig',
+             'https://encykorea.aks.ac.kr/Article/E0046873'),
+          ]
+          source_files={}
+          for key,url,referer in targets:
+              b,ctype,status=get(url,referer)
+              out=root/'source'/f'{key}.jpg'
+              out.write_bytes(b)
+              sha=hashlib.sha256(b).hexdigest()
+              if sha != expected[key]:
+                  raise SystemExit(f'{key} source hash drift: {sha}')
+              with Image.open(out) as im:
+                  sources.append({'key':key,'sha256':sha,'width':im.width,'height':im.height,'content_type':ctype,'status':status,'url':url})
+              source_files[key]=out
+
+          book='GK02538_00'; item='CSP'; vol='0001'; page='002a'
+          fn=f'{book}_IL_{vol}_{page}.jpg'
+          server_path=f'/data01/stream/{item}/IMG/{book}/{book}_{vol}/{fn}'
+          gk_url='https://kyudb.snu.ac.kr/ImageServlet.do?'+urlencode({'imgFileNm':fn,'path':server_path})
+          b,ctype,status=get(gk_url,'https://kyudb.snu.ac.kr/pf01/rendererImg.do')
+          gk=root/'source'/'gk02538-0001-002a.jpg'
+          gk.write_bytes(b)
+          sha=hashlib.sha256(b).hexdigest()
+          if sha != expected['gk02538-0001-002a']:
+              raise SystemExit(f'GK02538 source hash drift: {sha}')
+          with Image.open(gk) as im:
+              sources.append({'key':'gk02538-0001-002a','sha256':sha,'width':im.width,'height':im.height,'content_type':ctype,'status':status,'url':gk_url})
+          source_files['gk02538-0001-002a']=gk
+
+          # Fixed manual source-pixel locators. 1580 and GK coordinates carry
+          # forward from 12EM. 1604 正/月/大 are in one visibly larger monthly
+          # heading column and are source-located here for the first time.
+          crops=[
+            {'key':'gyeongjin1580-zheng','source':'gyeongjin1580-tail','glyph':'正','box':[698,565,754,625],'class_role':'medium heading'},
+            {'key':'gyeongjin1580-yue','source':'gyeongjin1580-tail','glyph':'月','box':[698,620,754,680],'class_role':'medium heading'},
+            {'key':'gyeongjin1580-da','source':'gyeongjin1580-tail','glyph':'大','box':[698,675,754,735],'class_role':'medium heading'},
+            {'key':'ryu1604-zheng','source':'ryu-gabjin1604','glyph':'正','box':[720,205,765,235],'class_role':'visibly larger monthly heading'},
+            {'key':'ryu1604-yue','source':'ryu-gabjin1604','glyph':'月','box':[720,235,765,272],'class_role':'visibly larger monthly heading'},
+            {'key':'ryu1604-da','source':'ryu-gabjin1604','glyph':'大','box':[720,272,765,307],'class_role':'visibly larger monthly heading'},
+            {'key':'gk02538-zheng','source':'gk02538-0001-002a','glyph':'正','box':[900,315,961,375],'class_role':'medium-compatible heading'},
+            {'key':'gk02538-yue','source':'gk02538-0001-002a','glyph':'月','box':[900,370,961,431],'class_role':'medium-compatible heading'},
+            {'key':'gk02538-da','source':'gk02538-0001-002a','glyph':'大','box':[1020,310,1080,370],'class_role':'medium-compatible title'},
+          ]
+          crop_rows=[]
+          for c in crops:
+              with Image.open(source_files[c['source']]).convert('RGB') as im:
+                  box=tuple(c['box'])
+                  if not (0 <= box[0] < box[2] <= im.width and 0 <= box[1] < box[3] <= im.height):
+                      raise SystemExit(f'crop out of bounds: {c}')
+                  cr=im.crop(box)
+                  out=root/'crops'/f"{c['key']}.png"
+                  cr.save(out)
+                  crop_rows.append({
+                    **c,
+                    'source_sha256':expected[c['source']],
+                    'crop_width':cr.width,
+                    'crop_height':cr.height,
+                    'crop_png_sha256':hashlib.sha256(out.read_bytes()).hexdigest(),
+                    'file':str(out.relative_to(root)),
+                    'center_y':(box[1]+box[3])/2.0,
+                  })
+
+          by={x['key']:x for x in crop_rows}
+          pitches={
+            'gyeongjin1580':statistics.median([
+              by['gyeongjin1580-yue']['center_y']-by['gyeongjin1580-zheng']['center_y'],
+              by['gyeongjin1580-da']['center_y']-by['gyeongjin1580-yue']['center_y'],
+            ]),
+            'ryu1604':statistics.median([
+              by['ryu1604-yue']['center_y']-by['ryu1604-zheng']['center_y'],
+              by['ryu1604-da']['center_y']-by['ryu1604-yue']['center_y'],
+            ]),
+            'gk02538':by['gk02538-yue']['center_y']-by['gk02538-zheng']['center_y'],
+          }
+          expected_pitches={'gyeongjin1580':55.0,'ryu1604':34.75,'gk02538':55.5}
+          for k,v in expected_pitches.items():
+              if abs(pitches[k]-v) > 0.01:
+                  raise SystemExit(f'unexpected {k} pitch: {pitches[k]}')
+
+          medium_height_cm=1.2
+          target_pitch_px=240.0
+          scale={k:target_pitch_px/v for k,v in pitches.items()}
+          canvas_size=(360,320)
+          normalized=[]
+          for c in crop_rows:
+              family='gyeongjin1580' if c['key'].startswith('gyeongjin1580-') else ('ryu1604' if c['key'].startswith('ryu1604-') else 'gk02538')
+              im=Image.open(root/c['file']).convert('RGB')
+              factor=scale[family]
+              nw=max(1,round(im.width*factor)); nh=max(1,round(im.height*factor))
+              norm=im.resize((nw,nh),Image.Resampling.LANCZOS)
+              canvas=Image.new('RGB',canvas_size,'white')
+              canvas.paste(norm,((canvas_size[0]-nw)//2,(canvas_size[1]-nh)//2))
+              out=root/'normalized'/f"{c['key']}.png"
+              canvas.save(out)
+              normalized.append({
+                'key':c['key'],'glyph':c['glyph'],'source_family':family,
+                'source_pitch_px':pitches[family],
+                'nominal_medium_height_cm':medium_height_cm,
+                'target_pitch_px':target_pitch_px,
+                'isotropic_scale_factor':factor,
+                'normalized_png_sha256':hashlib.sha256(out.read_bytes()).hexdigest(),
+                'file':str(out.relative_to(root)),
+              })
+
+          norm_by={x['key']:x for x in normalized}
+          panels=[]
+          triads=[]
+          for glyph,suffix in [('正','zheng'),('月','yue'),('大','da')]:
+              keys=[f'gyeongjin1580-{suffix}',f'ryu1604-{suffix}',f'gk02538-{suffix}']
+              ims=[Image.open(root/norm_by[k]['file']).convert('RGB') for k in keys]
+              gap=20
+              panel=Image.new('RGB',(canvas_size[0]*3+gap*2,canvas_size[1]+45),'white')
+              xs=[0,canvas_size[0]+gap,(canvas_size[0]+gap)*2]
+              for x,ii in zip(xs,ims): panel.paste(ii,(x,0))
+              d=ImageDraw.Draw(panel)
+              d.text((6,canvas_size[1]+8),f'1580 {glyph}',fill='black')
+              d.text((xs[1]+6,canvas_size[1]+8),f'1604 {glyph}',fill='black')
+              d.text((xs[2]+6,canvas_size[1]+8),f'GK02538 {glyph}',fill='black')
+              panels.append(panel)
+              triads.append({'glyph':glyph,'keys':keys})
+          sheet=Image.new('RGB',(max(x.width for x in panels),sum(x.height for x in panels)),'white')
+          y=0
+          for panel in panels:
+              sheet.paste(panel,(0,y)); y+=panel.height
+          sheet.save(root/'dated-inryeokja-three-way-normalized.png')
+
+          report={
+            'schema':'GK02538-DATED-INRYEOKJA-THREE-WAY-GLYPH-PROBE-R1',
+            'schema_version':'1.0.0',
+            'purpose':'Create source-hash-bound 正/月/大 controls for 1580 and 1604 dated Inryeokja exemplars plus GK02538, normalized by local nominal medium-class vertical pitch.',
+            'source_objects':sources,
+            'fixed_crops':crop_rows,
+            'manual_glyphs':['正','月','大'],
+            'size_class_scope':{
+              '1580':'MEDIUM_INRYEOKJA_CLASS_SUPPORTED_BY_12EL',
+              '1604':'VISIBLY_LARGER_MONTHLY_HEADING_CLASS_WITHIN_OFFICIAL_IRON_INRYEOKJA_OBJECT; MEDIUM_CLASS_CANDIDATE_FOR_DIRECT_REVIEW',
+              'gk02538':'NOMINAL_MEDIUM_SCALE_COMPATIBILITY_SUPPORTED_BY_12EI',
+            },
+            'normalization':{
+              'institutional_medium_height_cm':medium_height_cm,
+              'source_pitches_px':pitches,
+              'target_pitch_px':target_pitch_px,
+              'scale_factors':scale,
+              'scope':'NOMINAL_VERTICAL_PITCH_NORMALIZATION_NOT_DIRECT_CALIPER_MEASUREMENT_OR_PERSPECTIVE_RECTIFICATION',
+            },
+            'normalized_outputs':normalized,
+            'triads':triads,
+            'sheet':'dated-inryeokja-three-way-normalized.png',
+            'ocr_used':False,
+            'automatic_similarity_scoring':False,
+            'automatic_type_family_or_casting_classification':False,
+            'casting_generation_adjudicated_by_probe':False,
+            'exact_impression_date_adjudicated_by_probe':False,
+            'firewall':[
+              'Dated 1580 and 1604 objects are institutional Inryeokja controls, but recurring recasting means visual difference is not itself a casting-generation identifier.',
+              '1604 target size class requires direct review of the visibly larger heading class before final medium-class adjudication.',
+              'Nominal pitch normalization is not a caliper measurement and does not fully rectify perspective.',
+              'No visual pair or triad is automatically scored or classified.'
+            ],
+          }
+          (root/'report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print(json.dumps(report,ensure_ascii=False,indent=2))
+          PY
+
+      - name: Upload dated Inryeokja three-way glyph corpus
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: gk02538-dated-inryeokja-three-way-glyphs-r1
+          path: audit/gk02538-dated-inryeokja-three-way-glyphs
+          if-no-files-found: error
+          retention-days: 30

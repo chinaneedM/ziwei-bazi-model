@@ -1,0 +1,108 @@
+{
+  "schema": "ZIWEI-ZHANGGUO-SOAS-NCL-MORRISON-1593-1797-PROVENANCE-RECONCILIATION-R1",
+  "batch_id": "BATCH-12-ZIWEI-ZHANGGUO-SOAS-NCL-MORRISON-1593-1797-PROVENANCE-RECONCILIATION-BA",
+  "status": "NCL_ORIGINAL_PUBLICATION_DATE_SEMANTICS_SEPARATED_FROM_MORRISON_1797_PHYSICAL_REPRINT_LINEAGE",
+  "question": "Does the NCL Chinese Rare Books Union Catalog SOAS record dated 1593 prove an extant 1593 SOAS physical impression, or does the Morrison provenance chain identify the relevant surviving object as a later reprint?",
+  "ncl_union_catalog_record": {
+    "source_id": "EXT-ZIWEI-ZHANGGUO-NCL-SOAS-MIRR0000375",
+    "provider": "National Central Library, Taiwan - Chinese Rare Books Union Catalog",
+    "record_url": "https://rbook.ncl.edu.tw/NCLSearch/Search/SearchDetail?HasImage=&SourceID=0&item=4d49327ec5a14df4b31deae023849cfafDk3MTI30.WuivSY2RngP1AoCQSj60_woTSo6UZDy90JPEkgtURzU_&page=81174&sourceWhereString=&whereString=IChOVUxMSUYoRGF0ZV9DcmVhdGVkLCAnICcpIGlzIE5VTEwgYW5kIE5VTExJRihEb2N1bWVudF9ZZWFyLCAnICcpIGlzIE5VTEwgKSA1.uQrV5XxqrHh4fOCXMwOuuzssvPVRwJbumFyT4mFEUCA_",
+    "registration_number": "mirr0000375",
+    "title": "新編評註通玄先生張果星宗大全",
+    "responsibility": "陸位輯校;囗繼美參閱;唐謙鋟梓",
+    "extent": "十卷",
+    "place": "金陵[南京]",
+    "catalog_date": "明萬曆癸巳[1593]",
+    "quantity": "1 v.",
+    "holding_institution": "英國倫敦大學亞非學院圖書館",
+    "critical_date_note": "原刊行年據韋環序",
+    "date_semantics": "ORIGINAL_PUBLICATION_YEAR_INFERRED_FROM_WEI_HUAN_PREFACE_NOT_DIRECT_PHYSICAL_IMPRESSION_DATE",
+    "physical_impression_1593_proven": false,
+    "target_leaf_obtained": false
+  },
+  "morrison_manuscript_catalog": {
+    "source_id": "EXT-ZIWEI-ZHANGGUO-SOAS-MORRISON-RM65",
+    "provider": "Morrison Collection / Andrew C. West edited transcription of SOAS MS 80823",
+    "url": "https://www.babelstone.co.uk/Morrison/Collection/MS80823.html",
+    "catalog_entry_title": "張果老星宗",
+    "morrison_catalog_number": 65,
+    "extent_as_catalogued": "5 vols.",
+    "comment": "Astrological, Taou sect",
+    "catalog_compilation_date": 1824,
+    "function": "EARLY_COLLECTION_INVENTORY_NOT_PRINT_DATE_AUTHORITY"
+  },
+  "rm_number_to_current_callmark_bridge": {
+    "provider": "Morrison Collection - Index of Catalogue Numbers",
+    "url": "https://www.babelstone.co.uk/Morrison/Collection/Numbers.html",
+    "rm_number": 65,
+    "catalog_entry": "《張果老星宗》 (Chang) [65]",
+    "identification": "RM c.41.c.1 [65]",
+    "bridge_status": "DIRECTLY_ATTESTED_ON_CATALOG_NUMBER_INDEX"
+  },
+  "ucl_shelfmark_inventory": {
+    "source_id": "EXT-ZIWEI-ZHANGGUO-SOAS-MORRISON-RM-C41-C1",
+    "provider": "Morrison Collection - nineteenth-century UCL Shelfmark Index",
+    "url": "https://www.babelstone.co.uk/Morrison/Collection/MS58685.html",
+    "ucl_shelfmark": "L.g.9",
+    "inventory_number": 1,
+    "title": "張果星宗命格大全",
+    "date": "1797",
+    "bound_item_count": 1,
+    "current_soas_callmark": "RM c.41.c.1",
+    "physical_lineage_date_status": "1797_REPRINT_INVENTORY_DATE"
+  },
+  "morrison_collection_edition_description": {
+    "provider": "Morrison Collection description based on the 1998 SOAS catalogue",
+    "url": "https://www.babelstone.co.uk/Morrison/Collection/Description.html",
+    "collection_section": "Qing dynasty reprints of Ming editions, made using recarved printing blocks",
+    "title": "新編評註通玄先生張果星宗大全",
+    "edition_description": "1797 reprint of circa 1593 edition",
+    "physical_copy_classification": "QING_DYNASTY_REPRINT_OF_MING_EDITION",
+    "genuine_1593_impression_claimed": false
+  },
+  "soas_collection_context": {
+    "provider": "SOAS Library",
+    "url": "https://www.soas.ac.uk/rare-book-collections",
+    "collection": "Robert Morrison Collection of Chinese Books (RM)",
+    "approximate_extent": "15,000 volumes / 1,000 titles",
+    "general_characterization": "primarily 17th and 18th century woodblock editions; representative of early and mid-Qing publishing",
+    "role": "COLLECTION_LEVEL_CONTEXT_ONLY_NOT_ITEM_DATE_AUTHORITY"
+  },
+  "identity_reconciliation": {
+    "morrison_rm65_to_rm_c41c1": "RESOLVED_BY_DIRECT_CATALOG_NUMBER_INDEX",
+    "rm_c41c1_physical_date": "1797_REPRINT",
+    "ncl_mirr0000375_date_field": "ORIGINAL_PUBLICATION_YEAR_FROM_PREFACE_NOT_PHYSICAL_IMPRESSION_DATE",
+    "ncl_mirr0000375_to_rm_c41c1_exact_object_identity": "HIGH_CONFIDENCE_BUT_NOT_FORMALLY_CLOSED",
+    "reason_exact_identity_not_formally_closed": "The NCL union-catalog record names SOAS and the same work with one-volume extent, while the Morrison chain identifies one bound RM c.41.c.1 object; however the reviewed NCL record does not expose the SOAS callmark RM c.41.c.1 or Morrison RM number 65 as an explicit crosswalk.",
+    "extent_reconciliation": "Morrison MS 80823 describes 5 vols.; the later UCL shelfmark inventory describes the identified RM c.41.c.1 as one bound item, consistent with later rebinding or changed physical organization and no longer a blocking identity contradiction.",
+    "early_physical_witness_count_increment": 0,
+    "later_reprint_physical_lineage_control_increment": 1,
+    "independent_target_text_witness_increment": 0,
+    "independent_hai_glyph_witness_increment": 0
+  },
+  "philological_and_bibliographic_adjudication": {
+    "ncl_1593_may_be_used_as_original_edition_date_locator": true,
+    "ncl_1593_may_be_used_as_extant_soas_impression_date": false,
+    "morrison_rm_c41c1_may_be_called_genuine_1593_physical_copy": false,
+    "morrison_rm_c41c1_classification": "1797_QING_REPRINT_OF_CIRCA_1593_EDITION",
+    "target_glyph_collation_completed": false,
+    "whole_book_text_negative_authorized": false,
+    "double_count_ncl_and_morrison_as_two_physical_witnesses": false,
+    "preventive_scope_adjudication_not_project_provenance_defect_repair": true
+  },
+  "project_consequence": {
+    "rule_id": "HPA-ZDATE-006",
+    "audit_status": "MISSING_FROM_PRODUCT",
+    "new_candidate_family": false,
+    "runtime_winner_selected": false,
+    "candidate_collapsed": false,
+    "algorithm_reopen": false,
+    "matrix_count_change": false,
+    "provenance_defect_count_change": false
+  },
+  "next_gate": [
+    "Seek a direct image or item-level SOAS catalog record for RM c.41.c.1 to bind the 1797 reprint at first-party item level and, if page images become available, collate the target leaf without OCR.",
+    "Continue independent early-copy search; do not use the NCL mirr0000375 1593 field as a physical-witness vote because its own note defines that year as the original publication year inferred from the preface.",
+    "Prefer physical collation of genuinely independent 1593/1594 copies over additional metadata echoes of the same original-edition date."
+  ]
+}

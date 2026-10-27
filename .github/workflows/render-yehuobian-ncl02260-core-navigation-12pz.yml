@@ -1,0 +1,94 @@
+name: render-yehuobian-ncl02260-core-navigation-12pz
+
+# Evidence-acquisition only. No OCR, automatic textual claims, or chart-runtime changes.
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/render-yehuobian-ncl02260-core-navigation-12pz.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  render-original20-navigation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install PDF imaging tools
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils imagemagick
+
+      - name: Retrieve and verify NCL 02260 original manuscript PDF part 1
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p 12pz-core/source 12pz-core/pages 12pz-core/contacts
+          root='https://commons.wikimedia.org/wiki/Special:Redirect/file'
+          curl -L --fail --retry 5 --retry-all-errors --retry-delay 3 --max-time 1100 \
+            -A 'Tianwen-Historical-Provenance-R1/1.0' \
+            "$root/NCL-02260_1_%E8%90%AC%E6%9B%86%E9%87%8E%E7%8D%B2%E7%B7%A8.pdf" \
+            -o 12pz-core/source/ncl-02260-1.pdf
+          printf '%s  %s\n' \
+            '5b91b5cad4a9d7573271ffd275085b046339cdfab80341b60a6156706e80e191' \
+            '12pz-core/source/ncl-02260-1.pdf' | sha256sum -c -
+          pdfinfo 12pz-core/source/ncl-02260-1.pdf > 12pz-core/part1-pdfinfo.txt
+          test "$(awk '/^Pages:/ {print $2}' 12pz-core/part1-pdfinfo.txt)" = 1000
+          sha256sum 12pz-core/source/ncl-02260-1.pdf > 12pz-core/source-sha256.txt
+
+      - name: Render uninspected core PDF pages 1-840 as navigation contacts
+        shell: bash
+        run: |
+          set -euo pipefail
+          # Complete the PDF1 navigation coverage; prior proven artifact covers p841-1000.
+          # PDF page index is 1-based and is NOT an original manuscript folio.
+          pdftoppm -f 1 -l 840 -scale-to 960 -jpeg -jpegopt quality=82 \
+            12pz-core/source/ncl-02260-1.pdf 12pz-core/pages/p >/dev/null 2>&1
+          mapfile -t pages < <(find 12pz-core/pages -maxdepth 1 -name 'p-*.jpg' | sort -V)
+          test "${#pages[@]}" -eq 840
+          for (( offset=0; offset<840; offset+=16 )); do
+            low=$((1+offset))
+            high=$((low+15))
+            (( high <= 840 )) || high=840
+            chunk=("${pages[@]:offset:16}")
+            montage -label '%f' "${chunk[@]}" -thumbnail 390x315 \
+              -tile 4x4 -geometry +5+23 \
+              "12pz-core/contacts/old20-02260-1-p${low}-p${high}.jpg"
+          done
+          test "$(find 12pz-core/contacts -maxdepth 1 -name '*.jpg' | wc -l)" -eq 53
+          sha256sum 12pz-core/contacts/*.jpg | sort -V > 12pz-core/contact-sha256.txt
+          cat > 12pz-core/manifest.txt <<'EOF'
+          OBJECT=Taiwan National Central Library old 20-volume manuscript 204.26 02260, PDF part 1
+          SOURCE_SHA256=5b91b5cad4a9d7573271ffd275085b046339cdfab80341b60a6156706e80e191
+          PDF_PART1_PAGES=1000
+          THIS_ARTIFACT=PDF1_P1_P840;53_CONTACT_SHEETS;16_PAGES_PER_SHEET_EXCEPT_FINAL
+          PREVIOUS_ARTIFACT=RUN_37879659267;ID_11593967535;PDF1_P841_P1000
+          DIGITAL_PDF_PAGE=1_BASED;NOT_HISTORICAL_VOLUME_OR_FOLIO
+          OCR_USED=false
+          TARGET_HEADING=改造漏刻
+          TARGET_LEAF=UNRESOLVED_PENDING_MANUAL_VISUAL_COLLATION
+          TARGET_NUMERIC_AND_GONG_GUAN_GLYPHS=UNRESOLVED_PENDING_TARGET_PAGE_IMAGES
+          ORIGINAL20V_VS_REORGANIZED30V_ORDER=NOT_INTERCHANGEABLE
+          NEGATIVE_WHOLE_BOOK_ABSENCE_CLAIM=FORBIDDEN_WITHOUT_FULL_REVIEW
+          ARTIFACT_DOES_NOT_BY_ITSELF_CREATE_INDEPENDENT_HISTORICAL_WITNESS=true
+          EOF
+
+      - name: Upload navigation contacts and source provenance, not the large PDF
+        uses: actions/upload-artifact@v4
+        with:
+          name: ncl02260-old20-core-navigation-12pz
+          path: |
+            12pz-core/contacts/
+            12pz-core/contact-sha256.txt
+            12pz-core/source-sha256.txt
+            12pz-core/part1-pdfinfo.txt
+            12pz-core/manifest.txt
+          if-no-files-found: error
+          compression-level: 5
+          retention-days: 30

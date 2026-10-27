@@ -1,0 +1,43 @@
+name: research-g894-daynight-target-pages
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/research-g894-daynight-target-pages.yml
+      - scripts/research_kyujanggak_g894_daynight_pages.py
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install transport and image dependencies
+        run: python -m pip install --disable-pip-version-check curl_cffi pillow
+      - name: Fetch provider-bound target leaves without OCR
+        run: |
+          python scripts/research_kyujanggak_g894_daynight_pages.py \
+            --output artifacts/g894-daynight-pages
+          cat > artifacts/g894-daynight-pages/manifest.txt <<'EOF'
+          NO_OCR_USED_FOR_GLYPH_CLAIMS=true
+          SOURCE=Kyujanggak G894 七政算內篇 奎貴894-v.1-3 / 甲寅字 / provider year 1444
+          TARGET=volume 0003 provider pages 039b..044b surrounding 二至後日出入晝夜辰刻
+          PAGE_BINDING=EVERY_IMAGE_PATH_PARSED_FROM_DIRECT_PROVIDER_RENDERER_RESPONSE_FOR_REQUESTED_PAGE_ID
+          FILENAME_SEQUENCE_INFERENCE=FORBIDDEN
+          PURPOSE=DIRECT_PHYSICAL_COLLATION_OF_HANYANG_LOCALIZED_DAILY_SUNRISE_SUNSET_DAY_NIGHT_KE_TABLE
+          EOF
+      - name: Upload direct target-page evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: g894-daynight-target-pages
+          path: artifacts/g894-daynight-pages/
+          if-no-files-found: error
+          retention-days: 30

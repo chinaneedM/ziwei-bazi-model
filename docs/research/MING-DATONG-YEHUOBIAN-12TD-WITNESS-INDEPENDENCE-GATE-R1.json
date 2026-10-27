@@ -1,0 +1,86 @@
+{
+  "schema": "TIANWEN-12TD-WITNESS-INDEPENDENCE-AND-CI-FORWARD-GATE",
+  "date": "2026-10-12",
+  "scope": "QA of existing 12TB image correction; no new primary witness or formal Matrix batch",
+  "controlling_record": "docs/research/MING-DATONG-YEHUOBIAN-12TB-PRINT-IMAGE-MISREAD-CORRECTION-R1.json",
+  "direct_image_four_locus_controls": [
+    {
+      "id": "SHLIB_GJ2312912",
+      "loci": [
+        "宮禁",
+        "宮漏",
+        "辰初一刻",
+        "戌初一刻"
+      ],
+      "independent_orig_1827_1869_vote": false
+    },
+    {
+      "id": "CADAL02096915",
+      "loci": [
+        "宮禁",
+        "官漏",
+        "辰初二刻",
+        "戌初三刻"
+      ],
+      "independent_orig_1827_1869_vote": false
+    },
+    {
+      "id": "XUXIU1174_2002",
+      "loci": [
+        "宮禁",
+        "官漏",
+        "辰初二刻",
+        "戌初三刻"
+      ],
+      "independent_orig_1827_1869_vote": false
+    }
+  ],
+  "photographic_lineage": {
+    "sha_gated_sift_registration_only": true,
+    "cadal_xuxiu_digitized_loci_equal": true,
+    "common_underlying_photo_proven": false,
+    "same_original_physical_copy_proven": false,
+    "same_printing_plate_proven": false,
+    "correlation_does_not_establish_historical_independence": true
+  },
+  "source_authority_gates": {
+    "twelve_ta_three_image_three_ke_inference": "RETRACTED_BY_12TB",
+    "direct_source_image_summer_values": [
+      "戌初一刻",
+      "戌初三刻"
+    ],
+    "modern_CText_received_text_summer_value": "戌初二刻",
+    "unrepaired_1827_direct_votes": 0,
+    "confirmed_1869_original_target_leaf_votes": 0,
+    "no_ocr": true
+  },
+  "ci_change": {
+    "source_count_minimum": 660,
+    "formal_batch_count_minimum": 487,
+    "verify_current_manifest_sums": true,
+    "remove_historical_exact_count_equality": true
+  },
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "unresolved_lineage_questions": [
+      "Are the CADAL and 1174 p506 digital sources descendants of the same original photograph?",
+      "Which identified physical printing states underlie them?",
+      "What are the four loci on source-bound unrepaired 1827 and revised 1869 original leaves?"
+    ]
+  },
+  "invariants": {
+    "matrix_rows": 222,
+    "audited_rows": 222,
+    "metadata_repaired": 45,
+    "source_root": 647,
+    "source_extensions": 13,
+    "source_total": 660,
+    "graph_nodes": 248,
+    "graph_edges": 235,
+    "formal_batches": 487,
+    "algorithm_reopens": 0,
+    "product": "CLOSED"
+  }
+}

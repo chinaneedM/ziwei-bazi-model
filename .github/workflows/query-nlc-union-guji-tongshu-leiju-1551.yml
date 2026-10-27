@@ -1,0 +1,113 @@
+name: query-nlc-union-guji-tongshu-leiju-1551
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/query-nlc-union-guji-tongshu-leiju-1551.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  query:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Query NLC Chinese ancient-books union bibliography
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/nlc-union-guji-tongshu-leiju-1551'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT"
+          UA='Tianwen-Provenance-Audit/1.0'
+          ENDPOINT='http://read.nlc.cn/advanceSearch/gujiSearch/data'
+
+          cat > "$ROOT/queries.tsv" <<'EOF'
+          exact-core	title	must	通書類聚尅擇大全
+          exact-catalog	title	must	通書類聚尅擇大全□□卷
+          exact-alt	title	must	通書類聚抉擇大全
+          exact-simp	title	must	通书类聚克择大全
+          fuzzy-short	title	like	通書類聚
+          author-yaokui	author	like	姚奎
+          author-wangyining	author	like	王以寧
+          pub-zhicheng	publish_unit	like	芝城
+          year-1551	publish_time	like	1551
+          positive-leibian	title	must	類編曆法通書大全
+          EOF
+
+          : > "$ROOT/status.tsv"
+          while IFS=$'\t' read -r key fld match query; do
+            SEARCH_JSON=$(QUERY="$query" FIELD="$fld" MATCH="$match" python - <<'PY'
+          import json,os
+          print(json.dumps([{
+              "fldName":os.environ["FIELD"],
+              "content":os.environ["QUERY"],
+              "match":os.environ["MATCH"]
+          }],ensure_ascii=False,separators=(',',':')))
+          PY
+            )
+            set +e
+            timeout 40s curl -L -sS --connect-timeout 8 --max-time 30 -A "$UA" \
+              -X POST \
+              --data-urlencode 'index=0019,' \
+              --data-urlencode "searchJson=$SEARCH_JSON" \
+              --data-urlencode 'pageNo=1' \
+              "$ENDPOINT" -o "$ROOT/$key.json"
+            rc=$?
+            set -e
+            size=0; [ -f "$ROOT/$key.json" ] && size=$(wc -c < "$ROOT/$key.json")
+            printf '%s\t%s\t%s\t%s\t%s\t%s\n' "$key" "$fld" "$match" "$rc" "$size" "$query" >> "$ROOT/status.tsv"
+          done < "$ROOT/queries.tsv"
+
+          python - <<'PY'
+          import json,re
+          from pathlib import Path
+          root=Path('audit/nlc-union-guji-tongshu-leiju-1551')
+          out=[]
+          targets=[]
+          for p in sorted(root.glob('*.json')):
+              try: d=json.loads(p.read_text('utf-8'))
+              except Exception as e:
+                  out.append(f'{p.name}\tPARSE_ERROR\t{e}'); continue
+              rows=d.get('rows') or []
+              out.append(f'{p.name}\ttotal={d.get("total")}\trows={len(rows)}')
+              for r in rows:
+                  clean={}
+                  for k,v in r.items():
+                      if isinstance(v,str): clean[k]=re.sub('<[^>]+>','',v)
+                      elif k in ('holdings','holding','library','libraries','collection'): clean[k]=v
+                  # Preserve the full row separately because union-catalog holdings may use undocumented keys.
+                  line=p.name+'\t'+json.dumps(r,ensure_ascii=False,separators=(',',':'))
+                  out.append(line)
+                  s=json.dumps(r,ensure_ascii=False)
+                  if any(x in s for x in ['通書類聚','通书类聚','尅擇','抉擇','芝城','姚奎','王以寧','王以宁','14202','411999023866']):
+                      targets.append(line)
+          (root/'parsed-results.txt').write_text('\n'.join(out)+'\n',encoding='utf-8')
+          (root/'target-hits.txt').write_text('\n'.join(targets)+'\n',encoding='utf-8')
+          PY
+
+          sha256sum "$ROOT"/*.json > "$ROOT/json.sha256" || true
+          printf '%s\n' \
+            'SOURCE=中國國家圖書館 中華古籍資源庫高級檢索 / 中華古籍聯合書目 resource' \
+            'ENDPOINT=/advanceSearch/gujiSearch/data' \
+            'RESOURCE_INDEX=0019 (中華古籍聯合書目; source resource mapping from advanced-search page)' \
+            'TARGET=通書類聚尅擇大全 / 1551芝城銅活字 / 姚奎 / 王以寧' \
+            'KNOWN_NLC_PHYSICAL=普查110000-0101-0013797 / call14202 / OPAC doc001790345 / internal411999023866' \
+            'PURPOSE=discover independent copies, variant catalog records, and holding metadata beyond the NLC Digital Ancient Books index' \
+            'NEGATIVE_POLICY=only successful resource queries have search-scope negative authority; union-bibliography nonreturn cannot prove no uncatalogued/private/historical copy exists' \
+            'OCR_USED=false' \
+            > "$ROOT/manifest.txt"
+
+      - name: Upload union-bibliography evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: nlc-union-guji-tongshu-leiju-1551-query
+          path: audit/nlc-union-guji-tongshu-leiju-1551/
+          if-no-files-found: error
+          compression-level: 6
+          retention-days: 30

@@ -1,0 +1,146 @@
+{
+  "schema": "ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-NLC-CURRENT-REPRODUCTION-SERVICE-ROUTE-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-NLC-CURRENT-REPRODUCTION-SERVICE-ROUTE-DM",
+  "prior_batch_id": "BATCH-12-ZIWEI-TONGSHU-LEIJU-JIAJING30-1551-TITLE-COLOPHON-AND-REPRODUCTION-TARGETING-DL",
+  "access_date": "2026-09-19",
+  "question": "After narrowing the target to the end of juan 16 and nearby target-table leaves, what current official NLC routes lawfully support requesting a surrogate/reproduction of call 14202 without falsely claiming that a request has been submitted or accepted?",
+  "answer": "Current NLC first-party service pages expose three complementary lawful routes: (1) the Rare Books & Special Collections Reading Room for closed-stack consultation, with originals generally withheld when microfilm/digital/photocopy surrogates exist; (2) the Document Supply Center, which publicly accepts document requests by online system, email, phone, fax or on-site and offers scanning, photography and microfilm restoration among its services; and (3) the National Microfilming Center's document consultation/supply and digital restoration services for rare and other documents. This batch turns call 14202 into a precise request payload, but does not submit it. Submission/acceptance, identity/card requirements, permissions, pricing and actual deliverability of this rare-book item remain external-service decisions.",
+  "official_service_controls": [
+    {
+      "source_id": "EXT-NLC-CURRENT-RARE-BOOKS-READING-ROOM-20260919",
+      "provider": "国家图书馆",
+      "url": "https://www.nlc.cn/web/dzzn/dsb_kgsj/index.shtml",
+      "page_role": "CURRENT_READING_ROOM_SERVICE_CONTROL",
+      "observed": {
+        "service_name": "善本特藏阅览室",
+        "service_scope": "善本特藏文献闭架阅览与咨询服务",
+        "original_policy": "凡有缩微胶卷、数字资源及影印本的善本特藏文献，原则上不提供原件阅览服务",
+        "location": "总馆南区二层 G220",
+        "service_time": "周二至周日 9:00-17:00",
+        "phone": "010-88545344"
+      },
+      "freshness_note": "Page crawled as current on 2026-09-19; recheck before operational use."
+    },
+    {
+      "source_id": "EXT-NLC-DOCUMENT-SUPPLY-CENTER-CURRENT-ROUTE-20260919",
+      "provider": "国家图书馆文献提供中心",
+      "url": "https://www.nlc.cn/web/dzzn/guotufuwu/20220914_2501475.shtml",
+      "companion_current_overview": "https://www.nlc.cn/web/dzzn/guotufuwu/index.shtml",
+      "page_role": "REMOTE_DOCUMENT_REQUEST_ROUTE_CONTROL",
+      "observed": {
+        "services": [
+          "检索",
+          "静电复印",
+          "胶片还原",
+          "扫描",
+          "拍照",
+          "刻录",
+          "打印",
+          "装订"
+        ],
+        "submission_channels": [
+          "馆际互借与文献传递系统",
+          "E-MAIL",
+          "电话",
+          "传真",
+          "到馆委托"
+        ],
+        "published_response_target": "2个工作日内响应请求",
+        "service_time": "周一至周五 9:00-17:00",
+        "phone": "010-88545533",
+        "fax": "010-68419290",
+        "email": "wxtgzx@nlc.cn"
+      },
+      "authority_boundary": "General document-supply capability is first-party stated; it does not guarantee that protected rare-book call 14202 will be accepted for remote reproduction."
+    },
+    {
+      "source_id": "EXT-NLC-MICROFILM-CENTER-DOCUMENT-SUPPLY-CURRENT-20260919",
+      "provider": "全国图书馆文献缩微复制中心 / 国家图书馆缩微文献部",
+      "url": "https://www.nlc.cn/web/yejiefuwu/newtsgj/newswzx/newswzxfwxm/index.shtml",
+      "contact_url": "https://www.nlc.cn/web/yejiefuwu/newtsgj/newswzx/newswzxlxwm/index.shtml",
+      "current_charter_notice": "https://www.nlc.cn/web/yejiefuwu/newtsgj/newswzx/newswzxwxyx/20260724_2654032.shtml",
+      "page_role": "MICROFILM_AND_DIGITAL_SURROGATE_SERVICE_CONTROL",
+      "observed": {
+        "document_supply_scope": "多年为海内外图书馆、研究机构及普通读者提供缩微、数字及纸本珍贵文献",
+        "digital_restoration_scope": "35mm/16mm胶片数字化还原",
+        "service_phones": [
+          "010-88544567",
+          "010-88544621"
+        ],
+        "center_phones": [
+          "010-88544569",
+          "010-88544122"
+        ],
+        "center_email": "changhh@nlc.cn"
+      },
+      "authority_boundary": "Service capability is current first-party evidence; existence of a microfilm for the target copy remains UNRESOLVED until NLC confirms it."
+    }
+  ],
+  "request_payload": {
+    "target_identity": {
+      "title": "通書類聚尅擇大全",
+      "edition": "明嘉靖三十年（1551）芝城活字印本",
+      "call_number": "14202",
+      "census_number": "110000-0101-0013797",
+      "opac_doc_number": "001790345",
+      "opac_internal_id": "411999023866",
+      "known_surviving_scope": "卷十六至十九"
+    },
+    "first_pass_request": [
+      "卷十六末刊记页，并尽量附前后各1-2叶，以核验卷次、版式与刊记上下文",
+      "卷十六至十九各卷卷首/目录/篇题页，用于定位昼夜百刻、四时节气、日出入、漏刻、铜壶等栏目",
+      "若馆方可定位相关表格：请求包含大寒、雨水、夏至条目的完整页及相邻页"
+    ],
+    "explicit_questions_to_provider": [
+      "该索书号是否已有缩微胶卷、数字资源、影印本或其他可提供复制品？",
+      "若有，请优先提供允许复制/传递的替代介质，而非申请原件。",
+      "若尚无复制品，请告知善本特藏文献的阅览/复制申请流程、所需证件或介绍信、可复制范围与费用。",
+      "能否先由馆员核对卷十六末刊记及目标栏目所在叶码，再据可复制范围办理扫描/拍照/胶片还原？"
+    ],
+    "no_user_identity_or_payment_data_embedded": true
+  },
+  "submission_boundary": {
+    "request_submitted": false,
+    "provider_acceptance_obtained": false,
+    "price_quote_obtained": false,
+    "target_microfilm_confirmed": false,
+    "direct_page_obtained": false,
+    "reason_not_submitted": "External service interaction may require requester identity/card/login, provider approval and/or payment; this research environment has not been authorized to impersonate or bind the user.",
+    "next_external_action": "An authorized requester may submit the request payload through NLC's documented channels. Recheck current service details immediately before submission."
+  },
+  "transmission_impact": {
+    "nodes_added": [],
+    "nodes_strengthened": [
+      "PHYSICAL-COPY-TONGSHU-LEIJU-NLC-JIAJING30-1551-V16-19"
+    ],
+    "edges_added": [],
+    "hypothesis_updated": [
+      "TG-H0001"
+    ],
+    "textual_vote_increment": 0,
+    "numeric_vote_increment": 0,
+    "status": "ACCESS_ROUTE_OPERATIONALIZED_ONLY"
+  },
+  "product_adjudication": {
+    "hpa_zdate_006": "MISSING_FROM_PRODUCT",
+    "algorithm_reopen_authorized": false,
+    "candidate_collapsed": false,
+    "deterministic_fusion_chart_product_r1": "CLOSED"
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 12,
+    "repaired_provenance_metadata_defect_count": 12,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "parallel_next_gate": [
+    "While the external NLC request is pending/not yet submitted, continue exact pre-1578 Tongshu/almanac fingerprint search.",
+    "Continue Chinese Nanjing/Datong 59/41 carrier search.",
+    "Continue exact whole-ke threshold/selection-rule reconstruction."
+  ]
+}

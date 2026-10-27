@@ -1,0 +1,182 @@
+name: probe-batch-12it-open-repositories-wenwu195109
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12it-open-repositories-wenwu195109.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Probe open digital-repository catalogs for exact 1951 issue
+        run: |
+          python - <<'PY'
+          import hashlib, html, json, re
+          from pathlib import Path
+          from urllib.parse import urlencode, quote
+          import requests
+
+          UA={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; open repository catalog discovery)"}
+          TITLE_S="文物参考资料"
+          TITLE_T="文物參考資料"
+          TARGET_FILE="wwck195109.pdf"
+          ARTICLE_S="永乐大典展览的意义"
+          ARTICLE_T="永樂大典展覽的意義"
+
+          routes={
+            "internet_archive_title":{
+              "url":"https://archive.org/advancedsearch.php?"+urlencode({
+                "q":f'(title:"{TITLE_S}" OR title:"{TITLE_T}") AND year:1951',
+                "fl[]":["identifier","title","date","year","mediatype","collection"],
+                "rows":"50","page":"1","output":"json"
+              },doseq=True),
+              "kind":"json"
+            },
+            "internet_archive_filename":{
+              "url":"https://archive.org/advancedsearch.php?"+urlencode({
+                "q":f'"{TARGET_FILE}"',
+                "fl[]":["identifier","title","date","year","mediatype","collection"],
+                "rows":"50","page":"1","output":"json"
+              },doseq=True),
+              "kind":"json"
+            },
+            "internet_archive_article":{
+              "url":"https://archive.org/advancedsearch.php?"+urlencode({
+                "q":f'(title:"{ARTICLE_S}" OR title:"{ARTICLE_T}")',
+                "fl[]":["identifier","title","date","year","mediatype","collection"],
+                "rows":"50","page":"1","output":"json"
+              },doseq=True),
+              "kind":"json"
+            },
+            "openlibrary_title":{
+              "url":"https://openlibrary.org/search.json?"+urlencode({
+                "title":TITLE_S,"first_publish_year":"1951","limit":"50"
+              }),
+              "kind":"json"
+            },
+            "google_books_title":{
+              "url":"https://www.googleapis.com/books/v1/volumes?"+urlencode({
+                "q":f'intitle:"{TITLE_S}"',"maxResults":"40","printType":"all"
+              }),
+              "kind":"json"
+            },
+            "wikimedia_commons_search":{
+              "url":"https://commons.wikimedia.org/w/api.php?"+urlencode({
+                "action":"query","list":"search","srsearch":f'"{TARGET_FILE}" OR "{TITLE_S}"',
+                "srnamespace":"6","srlimit":"50","format":"json","origin":"*"
+              }),
+              "kind":"json"
+            },
+            "wikisource_search":{
+              "url":"https://zh.wikisource.org/w/api.php?"+urlencode({
+                "action":"query","list":"search","srsearch":f'"{ARTICLE_S}" OR "{TITLE_S}"',
+                "srlimit":"50","format":"json","origin":"*"
+              }),
+              "kind":"json"
+            },
+            "hathitrust_catalog":{
+              "url":"https://catalog.hathitrust.org/Search/SearchExport?"+urlencode({
+                "lookfor":TITLE_S,"type":"title","style":"json"
+              }),
+              "kind":"text"
+            }
+          }
+
+          out={}
+          s=requests.Session(); s.headers.update(UA)
+          for key,spec in routes.items():
+              row={"url":spec["url"]}
+              try:
+                  r=s.get(spec["url"],timeout=45,allow_redirects=True)
+                  b=r.content
+                  txt=b.decode(r.encoding or "utf-8","replace")
+                  row.update({
+                    "status":r.status_code,
+                    "final_url":r.url,
+                    "content_type":r.headers.get("Content-Type"),
+                    "bytes":len(b),
+                    "sha256":hashlib.sha256(b).hexdigest(),
+                    "target_file_present":TARGET_FILE.lower() in txt.lower(),
+                    "target_serial_present":TITLE_S in txt or TITLE_T in txt,
+                    "target_article_present":ARTICLE_S in txt or ARTICLE_T in txt,
+                    "raw_body_saved":False,
+                    "raw_body_logged":False,
+                  })
+                  if spec["kind"]=="json":
+                      try:
+                          data=r.json()
+                          row["json_parsed"]=True
+                          if key.startswith("internet_archive"):
+                              resp=data.get("response",{})
+                              row["numFound"]=resp.get("numFound")
+                              row["docs"]=[
+                                {k:d.get(k) for k in ("identifier","title","date","year","mediatype","collection")}
+                                for d in resp.get("docs",[])[:50]
+                              ]
+                          elif key=="openlibrary_title":
+                              row["numFound"]=data.get("numFound")
+                              row["docs"]=[
+                                {k:d.get(k) for k in ("key","title","first_publish_year","edition_key","ia","public_scan_b","has_fulltext")}
+                                for d in data.get("docs",[])[:50]
+                              ]
+                          elif key=="google_books_title":
+                              row["totalItems"]=data.get("totalItems")
+                              row["items"]=[
+                                {
+                                  "id":x.get("id"),
+                                  "title":(x.get("volumeInfo") or {}).get("title"),
+                                  "publishedDate":(x.get("volumeInfo") or {}).get("publishedDate"),
+                                  "industryIdentifiers":(x.get("volumeInfo") or {}).get("industryIdentifiers"),
+                                  "viewability":(x.get("accessInfo") or {}).get("viewability"),
+                                  "publicDomain":(x.get("accessInfo") or {}).get("publicDomain"),
+                                  "webReaderLink":(x.get("accessInfo") or {}).get("webReaderLink"),
+                                } for x in data.get("items",[])[:40]
+                              ]
+                              row["api_error"]=(data.get("error") or {}).get("message")
+                          else:
+                              search=(data.get("query") or {}).get("search",[])
+                              row["search_count"]=len(search)
+                              row["titles"]=[x.get("title") for x in search[:50]]
+                      except Exception as e:
+                          row["json_parsed"]=False
+                          row["json_error"]=f"{type(e).__name__}: {e}"
+                  else:
+                      visible=re.sub(r"\s+"," ",html.unescape(re.sub(r"<[^>]+>"," ",txt))).strip()
+                      row["visible_char_count"]=len(visible)
+                      row["candidate_contexts"]=[]
+                      for term in (TITLE_S,TARGET_FILE,ARTICLE_S):
+                          start=0
+                          while len(row["candidate_contexts"])<12:
+                              i=visible.find(term,start)
+                              if i<0: break
+                              row["candidate_contexts"].append(visible[max(0,i-140):min(len(visible),i+len(term)+180)])
+                              start=i+len(term)
+              except Exception as e:
+                  row["error"]=f"{type(e).__name__}: {e}"
+              out[key]=row
+
+          final={
+            "target":{"serial":TITLE_S,"year":1951,"issue":9,"filename":TARGET_FILE,"article":ARTICLE_S,"pages":"221-233"},
+            "routes":out,
+            "security":{
+              "login_used":False,"account_action_used":False,"copy_request_used":False,
+              "payment_used":False,"captcha_bypass_used":False,"tls_verification_disabled":False,
+              "commercial_download_invoked":False,"fulltext_download_invoked":False
+            }
+          }
+          Path("open-repositories-wenwu195109.json").write_text(
+            json.dumps(final,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(final,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12it-open-repositories-wenwu195109
+          path: open-repositories-wenwu195109.json

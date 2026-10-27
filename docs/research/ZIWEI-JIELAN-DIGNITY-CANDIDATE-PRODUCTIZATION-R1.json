@@ -1,0 +1,70 @@
+{
+  "schema": "ZIWEI-JIELAN-DIGNITY-CANDIDATE-PRODUCTIZATION-R1",
+  "version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-JIELAN-DIGNITY-CANDIDATE-PRODUCTIZATION-OO",
+  "date": "2026-10-06",
+  "target_rule_id": "HPA-ZIWEI-018",
+  "historical_authority": "12OM raw CH70 source-lexeme candidate + 12ON CH69/CH70 cell cross-collation; 12OO adds product visibility only",
+  "product_contract": {
+    "candidate_api_id": "ZIWEI-JIELAN-1581-DIGNITY-HISTORICAL-CANDIDATE-API-R1",
+    "candidate_api_version": "1.0.0",
+    "endpoint": "/api/ziwei-jielan-1581-dignity-candidate",
+    "registry_id": "ZIWEI-JIELAN-1581-DIGNITY-LEXEME-CANDIDATES-R1",
+    "registry_version": "1.0.0",
+    "candidate_id": "JIELAN-1581-DIGNITY-CH70-SOURCE-LEXEME-R1",
+    "runtime_resolver_id": "ZIWEI-JIELAN-1581-DIGNITY-LEXEME-RUNTIME-R1",
+    "runtime_resolver_version": "1.0.0",
+    "cross_collation_id": "ZIWEI-JIELAN-1581-DIGNITY-CH69-CH70-CROSS-COLLATION-R1",
+    "cross_collation_version": "1.0.0",
+    "selection_status": "PRESERVED_NOT_SELECTED",
+    "source_lexeme_row_count": 300,
+    "cross_collation_row_count": 300
+  },
+  "binding": {
+    "exact_combined_manifest_hash_returned": true,
+    "exact_ziwei_bundle_hash_returned": true,
+    "natal_fact_hash_returned": true,
+    "natal_computation_hash_returned": true,
+    "registry_hash_returned": true,
+    "candidate_runtime_hash_returned": true,
+    "cross_collation_hash_returned": true
+  },
+  "browser_boundary": {
+    "renders_backend_rows_only": true,
+    "contains_source_table_constants": false,
+    "contains_cross_collation_formula": false,
+    "contains_production_grade_formula": false,
+    "winner_control_present": false,
+    "production_profile_selector_present": false
+  },
+  "firewalls": {
+    "production_grade_mapping_present": false,
+    "ch69_used_to_fill_ch70": false,
+    "ch70_used_to_overwrite_ch69": false,
+    "production_winner_selected": false,
+    "production_profile_changed": false,
+    "chart_algorithm_reopened": false
+  },
+  "implementation": [
+    "src/fortune_training/combined_chart_application/ziwei_jielan_dignity_historical_candidate_local_app.py",
+    "src/fortune_training/combined_chart_application/ziwei_jielan_dignity_historical_candidate_assets.py",
+    "src/fortune_training/combined_chart_application/workbench_local_app.py",
+    "src/fortune_training/combined_chart_application/local_app.py",
+    "tests/test_ziwei_jielan_dignity_candidate_productization_r1.py"
+  ],
+  "accounting": {
+    "matrix_rows_after": 222,
+    "audited_rows_after": 222,
+    "historically_supported_after": 104,
+    "missing_from_product_after": 5,
+    "historical_candidate_extension_count_after": 14,
+    "candidate_registry_count_after": 5,
+    "candidate_runtime_resolver_count_after": 5,
+    "provenance_defects_after": [
+      43,
+      43
+    ],
+    "algorithm_reopen_count_after": 0
+  },
+  "next": "12OP — HPA-ZT-015 leap-month day-one daily-origin geometry / historical candidate closure."
+}

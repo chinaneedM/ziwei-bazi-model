@@ -1,0 +1,126 @@
+name: probe-batch-12kd-nlc-wenjin-2004-wenhui-reading-vars
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12kd-nlc-wenjin-2004-wenhui-reading-vars.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Read only anonymous source-emitted reading variables
+        run: |
+          python - <<'PY'
+          import hashlib, html, json, re
+          from pathlib import Path
+          import requests
+
+          URL="http://find.nlc.cn/search/showDocDetails?docId=-7686431772105481921&dataSource=ucs01&query=%E6%96%87%E6%B1%87%E6%8A%A5"
+          UA={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; anonymous source-variable inspection)"}
+          VARS=[
+              "uri","directLink","isVpnLink","vpnUrlPrefix","isUserLogin","isInnerIP",
+              "isTsingHuaTongFang","isSamlLink","loginTip","needlogin","docId","dataSourceName",
+              "dataSourceEn","mediaType","isbn","title"
+          ]
+
+          def sha(b): return hashlib.sha256(b).hexdigest()
+          def decode(raw):
+              for enc in ("utf-8","utf-8-sig","gb18030","gbk","big5"):
+                  try: return raw.decode(enc),enc
+                  except UnicodeDecodeError: pass
+              return raw.decode("utf-8","replace"),"utf-8-replacement"
+          def normalize_js_value(v):
+              v=v.strip()
+              if v.endswith(";"): v=v[:-1].rstrip()
+              if v in ("true","false"): return v=="true"
+              if v in ("null","undefined"): return None
+              if (len(v)>=2 and v[0] in ("'",'"') and v[-1]==v[0]):
+                  s=v[1:-1]
+                  s=s.replace("\\'","'").replace('\\"','"').replace("\\\\","\\")
+                  return html.unescape(s)
+              return v[:2000]
+
+          r=requests.get(URL,headers=UA,timeout=45,allow_redirects=True)
+          raw=r.content; txt,enc=decode(raw)
+          assignments={}
+          contexts={}
+          for name in VARS:
+              matches=[]
+              patterns=[
+                  rf"(?:var|let|const)\s+{re.escape(name)}\s*=\s*([^;\n]+)",
+                  rf"(?<![\w$]){re.escape(name)}\s*=\s*([^;\n]+)"
+              ]
+              for pat in patterns:
+                  for m in re.finditer(pat,txt):
+                      val=normalize_js_value(m.group(1))
+                      row={"value":val,"start":m.start(),"raw":m.group(0)[:2200]}
+                      if row not in matches: matches.append(row)
+              assignments[name]=matches[:20]
+              if matches:
+                  m0=matches[0]["start"]; frag=txt[max(0,m0-900):min(len(txt),m0+2600)]
+                  contexts[name]={"sha256":sha(frag.encode("utf-8")),"raw_excerpt":frag}
+
+          # Attribute-level resource controls. Read only; never follow.
+          attrs={}
+          for attr in ("hrefSrc","hrefsrc","readingurl","href"):
+              vals=[]
+              for m in re.finditer(rf"{attr}\s*=\s*[\"']([^\"']*)[\"']",txt,re.I):
+                  v=html.unescape(m.group(1))
+                  if v not in vals: vals.append(v)
+              attrs[attr]=vals[:100]
+
+          target_controls={}
+          for ident in ("getEleAll","loginLink","otherLink"):
+              rows=[]
+              for m in re.finditer(rf"<[^>]+\bid=[\"']{re.escape(ident)}[\"'][^>]*>",txt,re.I):
+                  rows.append(m.group(0)[:4000])
+              target_controls[ident]=rows[:20]
+
+          concrete_uri_values=[]
+          for key in ("uri","directLink","vpnUrlPrefix"):
+              for row in assignments.get(key,[]):
+                  v=row.get("value")
+                  if isinstance(v,str) and v.strip() and v.strip() not in ("''",'""'):
+                      concrete_uri_values.append({"variable":key,"value":v})
+
+          out={
+              "source_item":{"batch":"12KC","detail_url":URL,"doc_library":"NLC01","doc_number":"002860236"},
+              "detail_response":{"http_status":r.status_code,"final_url":r.url,"bytes":len(raw),"sha256":sha(raw),"decode_used":enc},
+              "source_emitted_variable_assignments":assignments,
+              "assignment_contexts":contexts,
+              "attribute_values_not_followed":attrs,
+              "target_controls":target_controls,
+              "adjudication":{
+                  "concrete_uri_like_values_observed":bool(concrete_uri_values),
+                  "concrete_uri_like_values":concrete_uri_values,
+                  "resource_url_followed":False,
+                  "online_reading_executed":False,
+                  "login_executed":False,
+                  "sso_followed":False,
+                  "vpn_used":False,
+                  "document_delivery_submitted":False,
+                  "post_request_used":False
+              },
+              "security":{
+                  "anonymous_get_only":True,"login_used":False,"reader_account_used":False,
+                  "registration_used":False,"post_request_used":False,"state_changing_request_used":False,
+                  "sso_wrapper_followed":False,"inner_opac_url_followed":False,"vpn_used":False,
+                  "private_endpoint_guessed":False,"captcha_bypass_used":False,"tls_verification_disabled":False
+              }
+          }
+          Path("batch-12kd-nlc-wenjin-2004-wenhui-reading-vars.json").write_text(
+              json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12kd-nlc-wenjin-2004-wenhui-reading-vars
+          path: batch-12kd-nlc-wenjin-2004-wenhui-reading-vars.json

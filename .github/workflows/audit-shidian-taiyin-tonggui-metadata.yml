@@ -1,0 +1,139 @@
+name: audit-shidian-taiyin-tonggui-metadata
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/audit-shidian-taiyin-tonggui-metadata.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Resolve Shidian Taiyin Tonggui public metadata
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/shidian-taiyin-tonggui-metadata'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT/responses"
+          BROWSER="$(command -v google-chrome || command -v chromium || command -v chromium-browser || true)"
+          test -n "$BROWSER"
+          npm install --no-save --silent puppeteer-core@24.16.0
+          cat > "$ROOT/probe.mjs" <<'JS'
+          import puppeteer from 'puppeteer-core';
+          import fs from 'node:fs';
+          import crypto from 'node:crypto';
+
+          const root='audit/shidian-taiyin-tonggui-metadata';
+          const bookId='NGJ892411999012050103144';
+          const urls=[
+            `https://www.shidianguji.com/book/${bookId}`,
+            `https://www.shidianguji.com/book/${bookId}/chapter/1lo7897ewdau2`
+          ];
+          const browser=await puppeteer.launch({
+            headless:true,
+            executablePath:process.env.BROWSER,
+            args:['--no-sandbox','--disable-setuid-sandbox']
+          });
+          const page=await browser.newPage();
+          await page.setUserAgent('Mozilla/5.0 Tianwen-Provenance-Audit/1.0');
+
+          const reqs=[], resps=[];
+          page.on('request',r=>{
+            const u=r.url();
+            if(/api\/(ancientlib|book|search)|book\/detail|ancientlib/i.test(u)){
+              reqs.push({method:r.method(),url:u,postData:r.postData()||null});
+            }
+          });
+          page.on('response',async r=>{
+            const u=r.url();
+            if(!/api\/(ancientlib|book|search)|book\/detail|ancientlib/i.test(u)) return;
+            let body=null;
+            try{ body=(await r.text()).slice(0,1000000); }catch{}
+            resps.push({status:r.status(),url:u,body});
+          });
+
+          const pages=[];
+          for(const u of urls){
+            await page.goto(u,{waitUntil:'networkidle2',timeout:90000}).catch(()=>{});
+            await new Promise(r=>setTimeout(r,2500));
+            const snap=await page.evaluate(()=>({
+              href:location.href,
+              title:document.title,
+              meta:[...document.querySelectorAll('meta')].map(m=>({name:m.getAttribute('name'),property:m.getAttribute('property'),content:m.getAttribute('content')})).filter(x=>x.content),
+              body:document.body?.innerText?.slice(0,120000)||'',
+              scripts:[...document.scripts].map(s=>({src:s.src,text:!s.src ? (s.textContent||'').slice(0,300000):''})),
+              locals:Object.fromEntries(Object.keys(localStorage).map(k=>[k,localStorage.getItem(k)?.slice(0,200000)])),
+              sessions:Object.fromEntries(Object.keys(sessionStorage).map(k=>[k,sessionStorage.getItem(k)?.slice(0,200000)])),
+            }));
+            pages.push(snap);
+          }
+
+          // Extract metadata-like JSON objects from captured public API payloads.
+          const parsed=[];
+          for(const x of resps){
+            if(!x.body) continue;
+            try{
+              const j=JSON.parse(x.body);
+              parsed.push({url:x.url,status:x.status,json:j});
+            }catch{}
+          }
+
+          const corpus=JSON.stringify({pages,reqs,resps,parsed});
+          const terms=['清抄本','成化','明抄本','抄本','刻本','寫本','写本','版本','底本','館藏','馆藏','來源','来源','國家圖書館','国家图书馆','首爾','서울','奎章','元統','元统','太陰通軌','太阴通轨'];
+          const hits={};
+          for(const t of terms){
+            const arr=[];
+            let from=0;
+            while(true){
+              const p=corpus.indexOf(t,from);
+              if(p<0) break;
+              arr.push(corpus.slice(Math.max(0,p-700),Math.min(corpus.length,p+1400)));
+              from=p+t.length;
+              if(arr.length>=12) break;
+            }
+            if(arr.length) hits[t]=arr;
+          }
+
+          const report={
+            schema:'SHIDIAN-TAIYIN-TONGGUI-METADATA-PROBE-R1',
+            schema_version:'1.0.0',
+            book_id:bookId,
+            source_urls:urls,
+            page_snapshots:pages.map(x=>({href:x.href,title:x.title,meta:x.meta,body:x.body})),
+            api_requests:reqs,
+            api_json_responses:parsed,
+            metadata_term_contexts:hits,
+            evidence_boundary:'Public Shidian metadata only. Edition/library identity must be stated exactly as exposed by source metadata; book text and images are separate physical/transcription evidence layers.',
+            ocr_used_for_final_glyph_or_numeric_claims:false
+          };
+          fs.writeFileSync(root+'/report.json',JSON.stringify(report,null,2));
+          for(let i=0;i<resps.length;i++){
+            if(resps[i].body) fs.writeFileSync(`${root}/responses/resp-${String(i).padStart(3,'0')}.txt`,resps[i].body);
+          }
+          console.log(JSON.stringify({
+            pages:pages.map(x=>({href:x.href,title:x.title,body_head:x.body.slice(0,1200)})),
+            requests:reqs,
+            parsed_response_urls:parsed.map(x=>x.url),
+            hit_terms:Object.keys(hits)
+          },null,2));
+          await browser.close();
+          JS
+          BROWSER="$BROWSER" node "$ROOT/probe.mjs"
+
+      - name: Upload Shidian metadata probe
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: shidian-taiyin-tonggui-metadata
+          path: audit/shidian-taiyin-tonggui-metadata
+          if-no-files-found: error
+          retention-days: 30

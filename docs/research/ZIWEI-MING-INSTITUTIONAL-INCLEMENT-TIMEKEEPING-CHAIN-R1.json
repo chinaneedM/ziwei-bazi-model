@@ -1,0 +1,68 @@
+{
+  "schema": "ZIWEI-MING-INSTITUTIONAL-INCLEMENT-TIMEKEEPING-CHAIN-R1",
+  "batch_id": "BATCH-12-ZIWEI-MING-INSTITUTIONAL-INCLEMENT-TIMEKEEPING-CHAIN-BW",
+  "prior_batch_id": "BATCH-12-ZIWEI-YONGLE-DADIAN-18764-DIRECT-GLYPH-COLLATION-BV",
+  "prior_fullbook_semantics": "docs/research/ZIWEI-FULLBOOK-LUOJING-TIMEKEEPING-SEMANTICS-R1.json",
+  "question": "What operational infrastructure did Ming institutions use to acquire and disseminate current time when direct celestial observation was unavailable, and does that close the Fullbook luojing wording?",
+  "institutional_controls": [
+    {
+      "source_id": "EXT-CTEXT-ZHENGDE-MING-HUIDIAN-V176-TIMEKEEPING",
+      "title": "(正德)明會典 卷176 欽天監",
+      "url": "https://ctext.org/wiki.pl?chapter=934432&if=gb",
+      "readings": [
+        "定時刻有漏",
+        "換時有牌",
+        "報更有鼓",
+        "警晨昏有鐘鼓",
+        "漏刻博士",
+        "如法調壺換牌"
+      ],
+      "classification": "MING_INSTITUTIONAL_TIME_ACQUISITION_AND_PUBLIC_SIGNAL_CHAIN"
+    },
+    {
+      "source_id": "EXT-CTEXT-WANLI-DAMING-HUIDIAN-V223-TIMEKEEPING",
+      "title": "(萬曆)大明會典 卷223 欽天監",
+      "url": "https://ctext.org/wiki.pl?chapter=242488&if=gb",
+      "readings": [
+        "定時刻有漏",
+        "換時有牌",
+        "報更有鼓",
+        "警晨昏有鐘鼓",
+        "漏刻博士",
+        "如法調壺換牌"
+      ],
+      "classification": "MING_INSTITUTIONAL_CONTINUITY_CONTROL"
+    }
+  ],
+  "technical_control": {
+    "source_id": "EXT-SHIDIAN-XINFA-SUANSHU-V1-DINGSHI-LUOJING",
+    "title": "徐光啟等《新法算書》卷一 定時器具奏疏",
+    "url": "https://www.shidianguji.com/zh/book/SK1525/chapter/1lasu1xyun8dl",
+    "functional_partition": {
+      "day": "日晷以定晝時",
+      "night": "星晷以定夜時",
+      "meridian": "正線羅經以定子午",
+      "dawn_dusk_cloud_rain": "行漏以濟二晷所不及"
+    },
+    "calibration": "clepsydra is calibrated against celestial instruments/time; it is not an uncalibrated absolute clock",
+    "ordinary_compass_alone_clock_equivalence": false
+  },
+  "adjudication": {
+    "ming_institutional_inclement_current_time_mechanism_closed": true,
+    "mechanism": "CELESTIAL_CALIBRATION_PLUS_SUN_OR_STAR_DIAL_WITH_CALIBRATED_RUNNING_CLEPSYDRA_FALLBACK_AND_PUBLIC_TIME_SIGNALS",
+    "fullbook_source_scoped_luojing_operational_mechanism_closed": false,
+    "fullbook_luojing_emended_to_xinglou": false,
+    "fullbook_luojing_emended_to_hulou": false,
+    "direct_fullbook_variant_supporting_emendation_found": false,
+    "technical_context_can_replace_fullbook_wording": false
+  },
+  "effect": {
+    "hpa_zdate_006_status": "MISSING_FROM_PRODUCT",
+    "institutional_context_layer_closed": true,
+    "runtime_time_standard_winner_selected": false,
+    "hai_branch_mechanical_vote_increment": 0,
+    "candidate_collapsed": false,
+    "algorithm_reopen_authorized": false,
+    "matrix_counts_changed": false
+  }
+}

@@ -1,0 +1,136 @@
+{
+  "audit_id": "BAZI-CLASSICAL-CANDIDATE-PRESERVING-RESOLUTION-EFFECT-DISPOSITION-R1",
+  "authority": {
+    "unit7_contract_path": "audits/bazi-classical-final-effect-candidate-envelope-r1/contract.json",
+    "unit7_contract_semantics_sha256": "41cd0acc91e6fa16ee4bca8ac46e96a7eb42cfe453edde5cab75b0c35b766354"
+  },
+  "candidate_projection_contract": {
+    "handled_resolution_candidate_to_disposition": "EXACTLY_ONE_TO_ONE",
+    "non_resolution_candidate_disposition_count": 0,
+    "raw_relation_action": "NO_MUTATION",
+    "raw_relation_presence_semantics": "UNCHANGED",
+    "source_final_candidate": "EXACT_PASS_THROUGH_UNCHANGED",
+    "unit7_candidate_to_unit8_projection": "EXACTLY_ONE_TO_ONE"
+  },
+  "closed_vocabularies": {
+    "candidate_projection_statuses": [
+      "RESOLUTION_EFFECT_DISPOSITION_PROJECTED",
+      "PRESERVED_NON_RESOLUTION_CANDIDATE"
+    ],
+    "fragment_projection_statuses": [
+      "RESOLUTION_EFFECT_DISPOSITIONS_PROJECTED",
+      "PRESERVED_NO_RESOLUTION_EFFECT_DISPOSITIONS",
+      "PRESERVED_ZERO_CANDIDATES"
+    ],
+    "handled_mapping": {
+      "disposition_kind": "SOURCE_ASSERTED_RESOLVED_EFFECT_DISPOSITION",
+      "effect_facet": "RELATION_EFFECT_DISPOSITION",
+      "mechanism_proposal_kind": "RESOLUTION_MECHANISM_PROPOSAL",
+      "semantic_candidate_kind": "SOURCE_GROUNDED_RESOLUTION_CANDIDATE",
+      "source_claim_edge_class": "SOURCE_ASSERTED_RESOLUTION"
+    },
+    "index_semantics": "IDENTITY_ONLY_NO_MERGE_RANK_ARBITRATION_SELECTION_OR_GLOBAL_STATE"
+  },
+  "determinism": {
+    "contract_semantics_sha256": "3b9e8b124ee00679bc14bfeab4c34fd626f85df20cb029a4670c02c3fc8425f6"
+  },
+  "hard_exclusions": [
+    "GENERAL_CLASSICAL_RESOLVER",
+    "CANDIDATE_GLOBAL_TRUTH_SELECTION",
+    "SOURCE_ARBITRATION_OR_TRUTH_SELECTION",
+    "CLASSICAL_OPERABILITY_TRUTH",
+    "EXECUTION_READINESS_INFERENCE",
+    "RESOLUTION_FAILURE_SEMANTICS",
+    "REVERSAL_OR_REAPPEARANCE_SEMANTICS",
+    "SOURCE_NARRATIVE_CHAIN_EXECUTION",
+    "ATTENUATION_GRADE",
+    "PARTICIPANT_ALLOCATION_OR_PATH_SELECTION",
+    "INFERRED_SLOT_INSTANCE_COMPATIBILITY",
+    "COEXISTENCE_OR_EXCLUSIVITY_INFERENCE",
+    "CONTRADICTION_OR_CONFLICT_RESOLUTION",
+    "PRECEDENCE_OR_PRIORITY",
+    "WINNER_OR_LOSER",
+    "GLOBAL_SUPPRESSION_ACTIVATION_RELEASE_CANCELLATION_OVERRIDE_NEGATION",
+    "RAW_RELATION_DELETION_OR_MUTATION",
+    "GRAPH_MUTATION_OR_FIXPOINT",
+    "MONOTONICITY_LATTICE_TERMINATION_SOLVER",
+    "CROSS_SOURCE_COMPOSITION",
+    "CARTESIAN_CANDIDATE_WORLDS",
+    "RESOLVED_GLOBAL_CLASSICAL_EFFECT_DISPOSITION",
+    "FINAL_CLASSICAL_VERDICT",
+    "PREDICTION_SEMANTICS"
+  ],
+  "local_resolution_closure_contract": {
+    "closure_requirement_id": "CLASSICAL_RESOLUTION_SEMANTICS",
+    "expected_upstream_status": "MISSING_PRIMITIVE",
+    "general_resolver_readiness": "NOT_RELEASED",
+    "mutates_unit5_or_unit7": false,
+    "semantic_scope": "CANDIDATE_LOCAL_SOURCE_ASSERTED_EFFECT_BRANCH_ONLY",
+    "unit8_local_closure_result": "AVAILABLE_EXACTLY_AS_CANDIDATE_LOCAL_SOURCE_ASSERTED_EFFECT_DISPOSITION"
+  },
+  "preservation_contract": {
+    "cartesian_expansion": "NOT_RELEASED",
+    "cross_outer_composition": "NOT_RELEASED",
+    "cross_source_composition": "NOT_RELEASED",
+    "same_effect_channel_candidates": "PRESERVE_SEPARATE_UNRANKED",
+    "source_narrative_order": "PROVENANCE_ONLY_NOT_EXECUTED",
+    "source_record_factorization": "PRESERVE_EXACT_LINEAGE",
+    "source_unresolved_graph_requirements": "PROVENANCE_ONLY",
+    "unit7_fragment_to_unit8_fragment": "EXACTLY_ONE_TO_ONE",
+    "unit7_outer_to_unit8_outer": "EXACTLY_ONE_TO_ONE",
+    "unit7_zero_candidate_fragment": "PRESERVE_ZERO_CANDIDATES"
+  },
+  "resolution_effect_profile": {
+    "algorithm_id": "BAZI-CLASSICAL-CANDIDATE-PRESERVING-RESOLUTION-EFFECT-DISPOSITION-R1",
+    "algorithm_version": "1.0.0",
+    "attenuation_grade_semantics": "NOT_RELEASED",
+    "candidate_coexistence_semantics": "NOT_RELEASED",
+    "candidate_conflict_semantics": "NOT_RELEASED",
+    "candidate_exclusivity_semantics": "NOT_RELEASED",
+    "candidate_global_truth_semantics": "NOT_RELEASED",
+    "candidate_selection_semantics": "NOT_RELEASED",
+    "cartesian_expansion": "NOT_RELEASED",
+    "cross_outer_composition": "NOT_RELEASED",
+    "cross_source_composition": "NOT_RELEASED",
+    "disposition_kind": "SOURCE_ASSERTED_RESOLVED_EFFECT_DISPOSITION",
+    "disposition_semantic_scope": "CANDIDATE_LOCAL_SOURCE_ASSERTED_EFFECT_BRANCH_ONLY",
+    "execution_readiness_semantics": "NOT_RELEASED",
+    "expected_upstream_closure_status": "MISSING_PRIMITIVE",
+    "final_classical_verdict_semantics": "NOT_RELEASED",
+    "fragment_selection_semantics": "NOT_RELEASED",
+    "global_operability_semantics": "NOT_RELEASED",
+    "global_relation_effect_state_semantics": "NOT_RELEASED",
+    "graph_mutation_fixpoint_semantics": "NOT_RELEASED",
+    "handled_effect_facet": "RELATION_EFFECT_DISPOSITION",
+    "handled_mechanism_proposal_kind": "RESOLUTION_MECHANISM_PROPOSAL",
+    "handled_semantic_candidate_kind": "SOURCE_GROUNDED_RESOLUTION_CANDIDATE",
+    "handled_source_claim_edge_class": "SOURCE_ASSERTED_RESOLUTION",
+    "inferred_slot_instance_compatibility": "FORBIDDEN",
+    "local_closure_result": "AVAILABLE_EXACTLY_AS_CANDIDATE_LOCAL_SOURCE_ASSERTED_EFFECT_DISPOSITION",
+    "participant_allocation_semantics": "NOT_RELEASED",
+    "participant_path_selection_semantics": "NOT_RELEASED",
+    "precedence_semantics": "NOT_RELEASED",
+    "priority_semantics": "NOT_RELEASED",
+    "profile_id": "BAZI-CLASSICAL-CANDIDATE-PRESERVING-RESOLUTION-EFFECT-DISPOSITION-R1",
+    "profile_version": "1.0.0",
+    "raw_relation_action": "NO_MUTATION",
+    "raw_relation_immutability_contract": "IMMUTABLE_EXACT_REFERENCE_ONLY",
+    "raw_relation_presence_semantics": "UNCHANGED",
+    "resolution_closure_requirement_id": "CLASSICAL_RESOLUTION_SEMANTICS",
+    "resolution_failure_semantics": "NOT_RELEASED",
+    "reversal_reappearance_semantics": "NOT_RELEASED",
+    "source_narrative_execution": "FORBIDDEN",
+    "source_narrative_policy": "PROVENANCE_ONLY",
+    "source_unresolved_graph_requirement_policy": "PROVENANCE_ONLY",
+    "winner_loser_semantics": "NOT_RELEASED"
+  },
+  "schema": "BAZI-CLASSICAL-RESOLUTION-EFFECT-DISPOSITION-CONTRACT-R1",
+  "unreleased_neighbor_primitives": {
+    "CLASSICAL_ATTENUATION_GRADE": "NOT_RELEASED",
+    "CLASSICAL_INTERACTION_CHAIN_RESOLUTION": "NOT_RELEASED",
+    "CLASSICAL_PARTICIPANT_ALLOCATION": "NOT_RELEASED",
+    "CLASSICAL_RESOLUTION_FAILURE_SEMANTICS": "NOT_RELEASED",
+    "CLASSICAL_REVERSAL_OR_REAPPEARANCE_SEMANTICS": "NOT_RELEASED",
+    "COMPATIBLE_EXACT_INSTANCE_PATH_ENUMERATION": "NOT_UPGRADED_BY_UNIT8"
+  }
+}

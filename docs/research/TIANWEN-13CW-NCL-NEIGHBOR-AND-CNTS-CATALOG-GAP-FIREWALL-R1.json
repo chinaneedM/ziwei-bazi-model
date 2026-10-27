@@ -1,0 +1,90 @@
+{
+  "schema": "TIANWEN-13CW-GORYEOSA-THIRD-WITNESS-LOCATOR-FIREWALL-R1",
+  "date": "2026-10-22",
+  "issue_id": "TW-OPEN-0005",
+  "previous_checkpoint": "docs/research/TIANWEN-13CV-GORYEOSA-KRDB-V52-D16-RECEIVED-ERRATUM-R1.json",
+  "first_party_ncl_neighbor_control": {
+    "entry": "https://rbook.ncl.edu.tw/NCLSearch/Search/SearchDetail?HasImage=&SourceID=1&item=333537bcbb354006bb5092f043b4cb65fDUyODgy0.M_Qq2W0IA9UdE1rOcfjBtnF7UUKDHRtB6tRhx8Htw1c_&page=928&sourceWhereString=&whereString=IChOVUxMSUYoQ3JlYXRlcl9OYW1lLCAnICcpIGlzIE5VTEwgYW5kIE5VTExJRihEb2N1bWVudF9Xcml0ZXIsICcgJykgaXMgTlVMTCBhbmQgTlVMTElGKEpvdXJuYWxfV3JpdGVyLCAnICcpIGlzIE5VTEwgKSA1.cHNKVlDaZLqmac_B_QboEZhR4vv4gJ8MEx7vCx6fK8U_",
+    "observed_title": "東國史略",
+    "observed_call_number": "208 03128",
+    "expected_target_call_number": "208 03130",
+    "is_target_item": false,
+    "source_class": "FIRSTPARTY_NEIGHBOR_ITEM_POSITIVE_IDENTITY_CONTROL_NOT_TARGET_PROOF",
+    "exact_target_03130_verified": false,
+    "no_firstparty_absence_inference": true
+  },
+  "commons_korean_category_bounded_listing": {
+    "url": "https://commons.wikimedia.org/wiki/Category:%E9%AB%98%E9%BA%97%E5%8F%B2",
+    "listing_snapshot_first_page_files": 200,
+    "listing_total_claimed_files": 372,
+    "entries_observed": [
+      {
+        "label": "CNTS-00129837049",
+        "genre_volume": "高麗史卷47 / 志1"
+      },
+      {
+        "label": "CNTS-00129837050",
+        "genre_volume": "高麗史卷48 / 志2"
+      },
+      {
+        "label": "CNTS-00129837052",
+        "genre_volume": "高麗史卷53 / 志7"
+      }
+    ],
+    "proposed_missing_intermediate_identifier": "CNTS-00129837051",
+    "proposed_identifier_verified": false,
+    "v52_physical_copy_presence": "UNDETERMINED",
+    "category_first_page_nonappearance_not_absence_proof": true,
+    "a_numeric_gap_is_not_an_item_or_copy_identity": true
+  },
+  "commons_taiwan_mirror_separation": {
+    "category_url": "https://commons.wikimedia.org/wiki/Category:%E9%AB%98%E9%BA%97%E5%8F%B2",
+    "visible_named_mirror_parts": 24,
+    "source_described_physical_fascicles": 40,
+    "mirror_named_file_numbers_are_not_juan_numbers": true,
+    "mirror_part_count_cannot_establish_missing_fascicles": true,
+    "uploader_local_filename_03117_is_not_ncl_03117_physical_identity": true,
+    "p7_ambiguous_red_zhi_range": "UNRESOLVED",
+    "genre_zhi6_1905_hand": "UNBOUND",
+    "direct_target_physical_folio": "NOT_OBTAINED"
+  },
+  "priority_resolution_route": [
+    "Acquire directly source-emitted NCL 208/03130 exact catalog record; do not substitute neighboring 208/03128 or mirror title.",
+    "Bind the physical / digital surrogate folio corresponding to book-wide volume 52, genre 志6 and D16 field before comparing numbers.",
+    "Resolve old Qing versus 1905 replacement-hand assignment independently of red missing-juan register interpretation.",
+    "For Korean independent leads, verify a source-emitted item ID and directly collate target page; never manufacture CNTS numeric gap identifiers."
+  ],
+  "scope": {
+    "third_new_independent_historical_originals": 0,
+    "ncl_physical_vol52_recovered": false,
+    "original_d16_two_holding_literal": "5.1362",
+    "derived_d16_arithmetic_only": "5.2362",
+    "historical_sources_registered_added": 0,
+    "graph_nodes_added": 0,
+    "graph_edges_added": 0,
+    "confirmed_chart_algorithm_defects": 0,
+    "algorithm_reopens": 0,
+    "product": "CLOSED",
+    "matrix_rows": 222,
+    "matrix_audited": 222,
+    "registry_total": 754,
+    "genealogy_nodes": 252,
+    "genealogy_edges": 238,
+    "open_risks": 11
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "A neighboring NCL item 208/03128 is not a first-party identity crosswalk for 208/03130.",
+      "Absent intermediate CNTS upload numbering on one Commons category page cannot prove a missing institutional digital object or no historical v52 copy.",
+      "24 digitized mirror parts do not identify 40 physical fascicles or 137 textual juan."
+    ],
+    "unresolved_lineage_questions": [
+      "NCL 208/03130 first-party catalog item ID and source-bound digital folio of 志6",
+      "NCL physical D16 handwriting stratum old Qing versus 1905 supplement",
+      "A genuinely independent physical third D16 original and its numeric glyph"
+    ]
+  }
+}

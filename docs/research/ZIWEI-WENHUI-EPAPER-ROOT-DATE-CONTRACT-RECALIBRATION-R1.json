@@ -1,0 +1,91 @@
+{
+  "schema": "ZIWEI-WENHUI-EPAPER-ROOT-DATE-CONTRACT-RECALIBRATION-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-WENHUI-EPAPER-ROOT-DATE-CONTRACT-RECALIBRATION-MC",
+  "prior_batch_id": "BATCH-12-ZIWEI-CNBKSY-ADVANCED-SEARCH-ESA-BOUNDARY-MB",
+  "revisits_batch_id": "BATCH-12-ZIWEI-WENHUI-OFFICIAL-EPAPER-PUBLIC-DATE-CONTRACT-BOUNDARY-JO",
+  "question": "Does a fresh exact-head anonymous request to the official Wenhui e-paper root expose any new redirect/static/source-emitted date contract that lawfully authorizes a 1951-08-18 page request?",
+  "answer": "No. The controlling GitHub runner again cannot reach https://dzb.whb.cn/: the connection times out after 45 seconds before any HTTP response or static surface is obtained. This reconfirms the earlier 12JO runner reachability boundary and supplies no new date contract. The 1951-08-18 path remains unrequested and direct primary page remains not reviewed.",
+  "controlling_probe": {
+    "workflow": ".github/workflows/probe-batch-12mc-wenhui-epaper-root-date-contract-recalibration.yml",
+    "exact_head": "a31ae1aee678af027bc9d98c558e48fd586305b2",
+    "workflow_run_id": 37023569701,
+    "workflow_job_id": 110892443388,
+    "artifact_id": 11234345292,
+    "artifact_digest": "sha256:bce74a374b720f064faf87359ec9cf307ee5dfad7797167d1854473d8296bb15"
+  },
+  "source_contract": {
+    "official_root": "https://dzb.whb.cn/",
+    "method": "GET",
+    "allow_redirects": false,
+    "historical_target_date": "1951-08-18",
+    "historical_target_path_guessed": false,
+    "historical_target_request_submitted": false,
+    "source_emitted_dated_link_followed": false
+  },
+  "response": {
+    "http_response_obtained": false,
+    "fetch_error_class": "ConnectTimeout",
+    "connect_timeout_seconds": 45,
+    "static_surface": null
+  },
+  "relation_to_12jo": {
+    "batch_12jo_root_timed_out": true,
+    "batch_12jo_known_modern_control_timed_out": true,
+    "batch_12mc_root_timed_out": true,
+    "materially_new_first_party_date_contract_observed": false,
+    "timeout_is_historical_absence": false,
+    "duplicate_evidence_vote_increment": 0
+  },
+  "adjudication": {
+    "root_reached": false,
+    "source_emitted_date_contract_observed": false,
+    "target_date_request_authorized": false,
+    "historical_target_request_submitted": false,
+    "direct_1951_08_18_page_reviewed": false,
+    "date_or_page_absence_inference_authorized": false,
+    "branch_status": "STOPPED_PENDING_MATERIALLY_NEW_FIRST_PARTY_ACCESS_MECHANISM",
+    "login_used": false,
+    "registration_used": false
+  },
+  "security": {
+    "anonymous_get_only": true,
+    "private_endpoint_guessed": false,
+    "historical_target_path_guessed": false,
+    "captcha_bypass_used": false,
+    "tls_verification_disabled": false
+  },
+  "transmission_impact": {
+    "status": "NONE_ACCESS_BOUNDARY_ONLY",
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected": []
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 0,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 17,
+    "repaired_provenance_metadata_defect_count": 17,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Do not repeat dzb.whb.cn runner probes or construct/request 1951-08-18 until a materially new first-party date/access contract is available.",
+    "Pivot to Zhejiang Library's official 《图书馆研究与工作》 archive page https://bjb.zjlib.cn/CN/archive_by_years.",
+    "Follow only the archive-page source-emitted 2026 No.4 issue link and inventory source-emitted anchors for 肖玲《赵万里与古籍保护》 and PDF/article routes; do not download PDF in 12MD.",
+    "Any later recovered citation to 《赵万里文集》第一卷 p.197 is a modern secondary witness only and cannot replace direct 2011 p.197 or 1951 primary text."
+  ],
+  "updated_at": "2026-10-02"
+}

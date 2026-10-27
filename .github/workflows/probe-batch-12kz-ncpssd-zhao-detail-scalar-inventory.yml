@@ -1,0 +1,114 @@
+name: probe-batch-12kz-ncpssd-zhao-detail-scalar-inventory
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12kz-ncpssd-zhao-detail-scalar-inventory.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inventory only existing scalar bibliographic fields from the closed detail object
+        run: |
+          python - <<'PY'
+          import hashlib, json
+          from pathlib import Path
+          import requests
+
+          BASE="https://www.ncpssd.cn"
+          ENDPOINT="/articleinfoHandler/getjournalarticletable"
+          BODY={"lngid":"1002462903","type":"中文期刊文章","pageType":1}
+          raw_body=json.dumps(BODY,ensure_ascii=False,separators=(",",":")).encode("utf-8")
+          r=requests.post(
+              BASE+ENDPOINT,
+              data=raw_body,
+              headers={
+                  "User-Agent":"Mozilla/5.0 (Tianwen provenance audit; NCPSsd Zhao scalar inventory)",
+                  "Content-Type":"application/json; charset=utf-8",
+                  "X-Requested-With":"XMLHttpRequest",
+                  "Referer":BASE+"/Literature/secure/articleinfo",
+                  "Origin":BASE,
+              },
+              timeout=45,
+              allow_redirects=False
+          )
+          parsed=r.json()
+          data=parsed.get("data") if isinstance(parsed,dict) else None
+          if not isinstance(data,dict):
+              raise SystemExit("detail object missing")
+
+          wanted=[
+              "beginpage","endpage","pagenum","publishdate","publishDateTime","source",
+              "remarkc","remarke","keywordc","keyworde","language","type","typeCode","cnno",
+              "firstwriter","firstorgan","writerAll","organAll","collections","vol","volumn",
+              "writeDate","addtime","processdate","range","subjectnum","specialnum","refercount",
+              "intMark","iscollect","isshield","journalShieldRemark","periodShieldRemark",
+              "fileaddress","linkUrl","coverPic","title","author"
+          ]
+          selected={}
+          for k in wanted:
+              if k in data:
+                  v=data.get(k)
+                  if isinstance(v,str) and len(v)>5000:
+                      v=v[:5000]
+                  selected[k]=v
+
+          urlish={}
+          for k,v in selected.items():
+              if isinstance(v,str) and (v.startswith("http://") or v.startswith("https://") or k in ("fileaddress","linkUrl","coverPic")):
+                  urlish[k]=v
+
+          out={
+              "source_contract":{
+                  "parent_batch":"12KY",
+                  "endpoint":ENDPOINT,
+                  "request_body":BODY,
+                  "same_closed_detail_request_replayed":True,
+                  "new_endpoint_discovered_or_executed":False
+              },
+              "response":{
+                  "http_status":r.status_code,
+                  "bytes":len(r.content),
+                  "sha256":hashlib.sha256(r.content).hexdigest(),
+                  "top_level_code":parsed.get("code"),
+                  "top_level_result":parsed.get("result")
+              },
+              "scalar_inventory":{
+                  "selected_fields":selected,
+                  "selected_field_count":len(selected),
+                  "url_like_values_recorded_only":urlish
+              },
+              "adjudication":{
+                  "target_id_matches":str(data.get("lngid"))=="1002462903",
+                  "new_endpoint_executed":False,
+                  "url_like_value_followed":False,
+                  "read_download_login_collection_user_route_followed":False
+              },
+              "security":{
+                  "anonymous_read_only_detail_post":True,
+                  "reader_account_used":False,
+                  "registration_used":False,
+                  "read_download_endpoint_used":False,
+                  "state_changing_endpoint_used":False,
+                  "collection_user_endpoint_used":False,
+                  "private_endpoint_guessed":False,
+                  "captcha_bypass_used":False,
+                  "tls_verification_disabled":False
+              }
+          }
+          Path("batch-12kz-ncpssd-zhao-detail-scalar-inventory.json").write_text(
+              json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12kz-ncpssd-zhao-detail-scalar-inventory
+          path: batch-12kz-ncpssd-zhao-detail-scalar-inventory.json

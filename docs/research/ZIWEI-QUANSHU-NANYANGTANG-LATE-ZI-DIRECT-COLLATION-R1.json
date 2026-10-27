@@ -1,0 +1,80 @@
+{
+  "schema": "ZIWEI-QUANSHU-NANYANGTANG-LATE-ZI-DIRECT-COLLATION-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-QUANSHU-LATE-ZI-FACSIMILE-A",
+  "status": "DIRECT_NO_OCR_TARGET_SECTION_COLLATION_COMPLETE_NEW_HISTORICAL_CANDIDATE_IDENTIFIED",
+  "source_object": {
+    "source_id": "EXT-ZIWEI-QUANSHU-NANYANGTANG-SCAN",
+    "provider": "vr-d public indexed PDF mirror",
+    "source_url": "https://vr-d.com/pdf-file/%E7%B4%AB%E5%BE%AE%E6%96%97%E6%95%B0%2F%E7%B4%AB%E5%BE%AE%E6%96%97%E6%95%B0%E5%85%A8%E4%B9%A6_%E4%B8%83%E5%8D%B7_%E6%98%8E%E4%BB%A3%E5%8D%97%E9%98%B3%E5%A0%82%E5%88%8A%E6%9C%AC.pdf",
+    "acquisition_workflow_run_id": 34116332295,
+    "acquisition_artifact_id": 10016416872,
+    "acquisition_artifact_name": "naaj-ziwei-quanshu-facsimile-route-3bb163bf59f01bd74050285740b8e01af4597236",
+    "pdf_bytes": 36203879,
+    "pdf_sha256": "32ca49bb3a02454067e6deddb97921779837a10e59e946c12d2f6d14f33509e7",
+    "pdf_page_count": 527,
+    "ocr_used": false,
+    "authentication_or_paywall_bypass_attempted": false,
+    "identifier_bruteforce_attempted": false,
+    "outline": {
+      "volume_5_page_index_zero_based": 312,
+      "volume_6_page_index_zero_based": 382
+    }
+  },
+  "bibliographic_surface": {
+    "title_page_pdf_page_1_based": 2,
+    "visible_title": "紫微斗數全書",
+    "visible_author_attribution": "陳希夷先生著",
+    "visible_imprint": "南陽堂梓",
+    "exact_print_year_status": "UNRESOLVED_FROM_REVIEWED_FACSIMILE_SURFACES",
+    "edition_period_status": "PUBLIC_INDEX_LABELS_MING_NANYANGTANG_NOT_INDEPENDENTLY_DATE_CLOSED"
+  },
+  "direct_collation": {
+    "volume": "卷五",
+    "pdf_page_1_based": 320,
+    "pdf_page_index_zero_based": 319,
+    "heading": "論人生時要審的確",
+    "verbatim_lines": [
+      "如人生子亥二時最難定凖要仔細推詳",
+      "如子時有十刻上五刻屬昨夜亥時下五刻屬今日子時",
+      "如天氣陰雨之際必須羅經以定真確時候若差訛則命不凖矣"
+    ],
+    "adjacent_next_section_pdf_page_1_based": 321,
+    "adjacent_next_heading": "論命先貧後富",
+    "target_section_ends_on_pdf_page_320": true,
+    "s01_claimed_sentence": "子時乃一日之始，當從新日計。",
+    "s01_claimed_sentence_status": "NOT_OBSERVED_ON_DIRECT_TARGET_SECTION_PAGE",
+    "whole_volume_negative_claim_authorized": false,
+    "visual_reading_method": "DIRECT_HUMAN_VISUAL_COLLATION_NO_OCR"
+  },
+  "philological_adjudication": {
+    "source_domain_mechanism": "ZI_TEN_KE_SPLIT_UPPER_FIVE_PREVIOUS_NIGHT_HAI_LOWER_FIVE_CURRENT_DAY_ZI",
+    "simple_day_boundary_equivalence": "NOT_ESTABLISHED_AND_MUST_NOT_BE_ASSUMED",
+    "modern_clock_mapping_status": "NOT_YET_FORMALIZED",
+    "upper_lower_five_ke_to_modern_clock_orientation": "REQUIRES_INDEPENDENT_TIMEKEEPING_COLLATION",
+    "branch_identity_effect": "SOURCE_TEXT_EXPLICITLY_DISTINGUISHES_HAI_VS_ZI",
+    "candidate_method_id": "NANYANGTANG-FULLBOOK-ZI-TEN-KE-HAI-SPLIT-R1",
+    "runtime_capability_status": "MISSING_FROM_PRODUCT",
+    "runtime_selection_authorized": false,
+    "default_algorithm_reopen_authorized": false
+  },
+  "runtime_gap": {
+    "source_file": "src/fortune_training/ziwei_chart/natal.py",
+    "current_rule": "_hour_branch_index maps 23:00..00:59 local apparent solar time uniformly to Zi",
+    "existing_day_boundary_profiles": [
+      "MIDNIGHT",
+      "ZI_START_23"
+    ],
+    "gap": "NO_PROFILE_CAN_EXPRESS_SOURCE_SCOPED_HALF_ZI_TO_HAI_BRANCH_RECLASSIFICATION",
+    "chart_algorithm_defect_declared": false,
+    "reason": "A source-scoped historical candidate is newly identified, but modern clock mapping and cross-edition scope remain unresolved; production default is not reopened."
+  },
+  "scope_firewalls": [
+    "DO_NOT_EQUATE_THE_FACSIMILE_RULE_WITH_S01_CLAIMED_SENTENCE",
+    "DO_NOT_EQUATE_HOUR_BRANCH_RECLASSIFICATION_WITH_SIMPLE_23_00_DATE_ROLLOVER",
+    "DO_NOT_INFER_MODERN_23_00_24_00_MAPPING_FROM_UPPER_LOWER_FIVE_KE_WITHOUT_TIMEKEEPING_COLLATION",
+    "PRESERVE_EXISTING_MIDNIGHT_AND_ZI_START_23_PROFILES_UNCHANGED",
+    "NO_DEFAULT_WINNER_SELECTION",
+    "NO_ALGORITHM_REOPEN"
+  ]
+}

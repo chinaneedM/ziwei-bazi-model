@@ -1,0 +1,76 @@
+name: research-ziwei-zhangguo-1594-volume-map-aw-r2
+
+on:
+  push:
+    paths:
+      - '.github/workflows/research-ziwei-zhangguo-1594-volume-map-aw-r2.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  map-volumes:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install image tooling
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y imagemagick
+      - name: Fetch remaining Tohoku IIIF volumes without OCR
+        run: |
+          set -euo pipefail
+          mkdir -p out
+          python - <<'PY'
+          import json, pathlib, urllib.request, time, hashlib
+          ids={
+            'vol34':'10020000001142',
+            'vol56':'10020000001143',
+            'vol910':'10020000001145',
+          }
+          root=pathlib.Path('out')
+          def get(url):
+            req=urllib.request.Request(url,headers={'User-Agent':'Mozilla/5.0 research-collation'})
+            for a in range(4):
+              try:
+                with urllib.request.urlopen(req,timeout=90) as r: return r.read()
+              except Exception:
+                if a==3: raise
+                time.sleep(2+a)
+          for key,rid in ids.items():
+            d=root/key; d.mkdir(parents=True,exist_ok=True)
+            murl=f'https://touda.tohoku.ac.jp/collection/iiif/metadata/{rid}/manifest.json'
+            raw=get(murl); (d/'manifest.json').write_bytes(raw)
+            m=json.loads(raw)
+            items=m.get('items',[])
+            meta={'record_id':rid,'manifest_id':m.get('id') or m.get('@id'),'label':m.get('label'),'metadata':m.get('metadata'),'canvas_count':len(items)}
+            (d/'manifest-summary.json').write_text(json.dumps(meta,ensure_ascii=False,indent=2),encoding='utf-8')
+            rows=[]
+            for i,c in enumerate(items,1):
+              b=c['items'][0]['items'][0]['body']
+              svc=b.get('service') or []
+              if isinstance(svc,dict): svc=[svc]
+              if svc:
+                sid=svc[0].get('id') or svc[0].get('@id')
+                url=sid.rstrip('/')+'/full/1000,/0/default.jpg'
+              else:
+                url=b.get('id') or b.get('@id')
+              img=get(url)
+              p=d/f'page-{i:04d}.jpg'; p.write_bytes(img)
+              rows.append(f'{i}\t{c.get("id","")}\t{url}')
+            (d/'canvas-map.tsv').write_text('\n'.join(rows)+'\n',encoding='utf-8')
+          with (root/'sha256.txt').open('w') as f:
+            for p in sorted(root.rglob('*')):
+              if p.is_file() and p.name!='sha256.txt':
+                f.write(hashlib.sha256(p.read_bytes()).hexdigest()+'  '+p.as_posix()+'\n')
+          PY
+          for v in vol34 vol56 vol910; do
+            montage out/$v/page-*.jpg -thumbnail '280x400>' -set label '%t' -pointsize 18 -tile 5x -geometry +7+24 out/${v}-contact.jpg
+            cat out/$v/manifest-summary.json
+          done
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ziwei-zhangguo-1594-volume-map-aw-r2
+          path: out/
+          if-no-files-found: error
+          compression-level: 0

@@ -1,0 +1,43 @@
+[build-system]
+requires = ["setuptools>=77.0.3"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "fortune-case-trainer"
+version = "3.0.0"
+description = "Case-by-case, answer-isolated Ziwei and Bazi prediction training"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "Apache-2.0"
+license-files = ["LICENSE", "NOTICE"]
+authors = [{name = "chinaneedM contributors"}]
+dependencies = [
+  "astronomy-engine>=2.1.19,<3",
+  "cryptography>=42,<47",
+  "geonamescache>=3.0.0,<4",
+  "jsonschema>=4.23,<5",
+  "tzdata>=2026.3",
+]
+
+[project.optional-dependencies]
+desktop-build = [
+  "pyinstaller==6.21.0",
+]
+
+[project.urls]
+Repository = "https://github.com/chinaneedM/ziwei-bazi-model"
+Issues = "https://github.com/chinaneedM/ziwei-bazi-model/issues"
+
+[project.scripts]
+fortune-train = "fortune_training.cli:main"
+fortune-training-issue = "fortune_training.issue_relay:main"
+fortune-handoff-preflight = "fortune_training.handoff_preflight_cli:main"
+fortune-ziwei-app = "fortune_training.ziwei_application.local_app:main"
+fortune-bazi-app = "fortune_training.bazi_application.local_app:main"
+fortune-bazi-flow-app = "fortune_training.bazi_application.flow_local_app:main"
+fortune-chart-app = "fortune_training.combined_chart_application.workbench_local_app:main"
+fortune-chart-flow-app = "fortune_training.combined_chart_application.flow_local_app:main"
+fortune-chart-desktop = "fortune_training.desktop_application.launcher:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

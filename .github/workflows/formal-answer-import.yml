@@ -1,0 +1,81 @@
+name: formal-answer-import
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: fortune-formal-answer-import
+  cancel-in-progress: false
+
+jobs:
+  owner-controlled-answer-import:
+    if: >-
+      github.event.issue.user.login == github.repository_owner &&
+      (github.event.issue.title == '[ANSWER IMPORT] BOOTSTRAP' ||
+       github.event.issue.title == '[ANSWER IMPORT] FINALIZE')
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      FORTUNE_ANSWER_KEY: ${{ secrets.FORTUNE_ANSWER_KEY }}
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Reject missing answer key
+        run: test -n "$FORTUNE_ANSWER_KEY"
+
+      - name: Install controller
+        run: python -m pip install -e .
+
+      - name: Bootstrap or finalize
+        env:
+          ISSUE_TITLE: ${{ github.event.issue.title }}
+        run: |
+          if [ "$ISSUE_TITLE" = "[ANSWER IMPORT] BOOTSTRAP" ]; then
+            fortune-train answer-transport-bootstrap > /tmp/formal-answer-result.json
+          else
+            fortune-train answer-transport-finalize > /tmp/formal-answer-result.json
+            fortune-train verify --require-answers
+            python -m unittest discover -s tests -v
+          fi
+
+      - name: Commit encrypted transport or finalized formal state
+        run: |
+          git config user.name "fortune-answer-import[bot]"
+          git config user.email "fortune-answer-import[bot]@users.noreply.github.com"
+          git add -A answer-vault training chat-input
+          git diff --cached --quiet && { echo "No answer-import changes produced"; exit 1; }
+          git commit -m "Process formal answer import #${{ github.event.issue.number }}"
+          git push origin HEAD:main
+
+      - name: Publish sanitized result and close issue
+        run: |
+          {
+            echo '答案导入步骤已完成；未发布答案或密钥。'
+            echo
+            echo '```json'
+            cat /tmp/formal-answer-result.json
+            echo '```'
+          } > /tmp/success-comment.md
+          gh issue comment "${{ github.event.issue.number }}" --repo "${{ github.repository }}" --body-file /tmp/success-comment.md
+          gh issue close "${{ github.event.issue.number }}" --repo "${{ github.repository }}" --reason completed
+
+      - name: Report failure without secrets
+        if: failure()
+        run: >-
+          gh issue comment "${{ github.event.issue.number }}"
+          --repo "${{ github.repository }}"
+          --body "正式答案导入失败，未提交明文答案。请查看不含答案和密钥的运行日志：${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"

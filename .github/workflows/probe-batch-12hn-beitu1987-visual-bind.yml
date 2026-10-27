@@ -1,0 +1,70 @@
+name: probe-batch-12hn-beitu1987-visual-bind
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - '.github/workflows/probe-batch-12hn-beitu1987-visual-bind.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Bind 1987 catalog 编例 and target pages as visual evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/batch-12hn-beitu1987-visual-bind'
+          rm -rf "$ROOT"; mkdir -p "$ROOT/render"
+          URL='https://upload.wikimedia.org/wikipedia/commons/8/8d/SSID-10354752_%E5%8C%97%E4%BA%AC%E5%9C%96%E6%9B%B8%E9%A4%A8%E5%8F%A4%E7%B1%8D%E5%96%84%E6%9C%AC%E6%9B%B8%E7%9B%AE_%E7%B6%93%E9%83%A8.pdf'
+          EXPECTED='9cb2ab3ff5d00fda316a9f0430096ca2a5e68fcd53609a878c0ed9d08a26d3ab'
+          UA='Tianwen-Provenance-Audit/1.0'
+
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils > /dev/null
+          curl -L --fail --retry 3 --retry-delay 2 --connect-timeout 10 --max-time 180 \
+            -A "$UA" -o "$ROOT/beitu1987-jingbu.pdf" "$URL"
+          ACTUAL=$(sha256sum "$ROOT/beitu1987-jingbu.pdf" | awk '{print $1}')
+          test "$ACTUAL" = "$EXPECTED"
+          printf '%s  %s\n' "$ACTUAL" 'beitu1987-jingbu.pdf' > "$ROOT/pdf.sha256"
+          pdfinfo "$ROOT/beitu1987-jingbu.pdf" > "$ROOT/pdfinfo.txt"
+
+          # 编例: PDF pages 9-10. Target group: PDF pages 103-105 = printed pages 91-93.
+          for p in 9 10 103 104 105; do
+            pdftoppm -f "$p" -l "$p" -jpeg -jpegopt quality=92 -r 200 -singlefile \
+              "$ROOT/beitu1987-jingbu.pdf" "$ROOT/render/pdf-page-$p"
+          done
+
+          sha256sum "$ROOT"/render/*.jpg | sort -V > "$ROOT/render.sha256"
+          cat > "$ROOT/manual-collation-contract.txt" <<'EOF'
+          SOURCE=北京图书馆编《北京图书馆古籍善本书目·经部》1987 public scan
+          PDF_SHA256=9cb2ab3ff5d00fda316a9f0430096ca2a5e68fcd53609a878c0ed9d08a26d3ab
+          PDF_PAGE_9=编例 printed page 1
+          PDF_PAGE_10=编例 printed page 2
+          PDF_PAGE_103=catalog printed page 91
+          PDF_PAGE_104=catalog printed page 92
+          PDF_PAGE_105=catalog printed page 93
+          VISUAL_TARGET_PAGE=PDF 104 / printed 92
+          MANUAL_VISUAL_CHECK_REQUIRED=true
+          OCR_USED=false
+          IDENTIFIER_RULE=only a number physically printed beneath the exact title column may be bound to that entry
+          CURRENT_ID_FIREWALL=1987 book number is not automatically a current meta.nlc.cn SYS, UID, 905s, barcode or zero-padded call number
+          EOF
+
+          echo '===== PDF INFO ====='
+          cat "$ROOT/pdfinfo.txt"
+          echo '===== RENDER HASHES ====='
+          cat "$ROOT/render.sha256"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12hn-beitu1987-visual-bind
+          path: audit/batch-12hn-beitu1987-visual-bind/
+          if-no-files-found: error
+          retention-days: 30

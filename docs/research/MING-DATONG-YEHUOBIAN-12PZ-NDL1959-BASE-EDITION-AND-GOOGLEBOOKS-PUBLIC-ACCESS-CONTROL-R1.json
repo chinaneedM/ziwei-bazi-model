@@ -1,0 +1,95 @@
+{
+  "schema": "MING-DATONG-YEHUOBIAN-12PZ-NDL1959-BASE-EDITION-AND-GOOGLEBOOKS-PUBLIC-ACCESS-CONTROL-R1",
+  "schema_version": "1.0.0",
+  "recorded_at": "2026-10-10",
+  "batch": "12PZ_IN_PROGRESS",
+  "witness_1959": {
+    "bibliographic_witness_provider": "National Diet Library NDL Search (first-party)",
+    "url": "https://ndlsearch.ndl.go.jp/books/R100000002-I000001008336",
+    "bibliographic_id": "000001008336",
+    "call_number": "222.0587-Si454b",
+    "title": "万暦野獲編 : 30巻補遺4巻 (元明史料筆記叢刊)",
+    "imprint": "中華書局 1959",
+    "physical_format": "3冊 19cm",
+    "exact_catalog_note": "底本は姚氏扶茘山房刻本",
+    "attestation": "CATALOG_EXPLICIT_BASE_EDITION_ATTRIBUTION",
+    "scope": "The 1959 editorial edition is catalogued as based on the Yao 扶茘山房 printed recension; not an independently discovered pre-Yao textual witness and not proof of any specific physical copy used by the editors.",
+    "edition_family_dependency": "SOURCE_RECORDED_EDITORIAL_BASE_FAMILY",
+    "physical_1827_copy_id": "NOT_BOUND",
+    "target_gaizao_louke_pages": "NOT_DIRECTLY_COLLATED",
+    "target_four_field_glyphs": "NOT_DIRECTLY_COLLATED",
+    "double_count_guard": "Do not count 1959 reading and Yao base family as two independent earlier glyph witnesses without proof of separate source collation/editorial variants."
+  },
+  "google_play_candidate": {
+    "public_store_url": "https://play.google.com/store/books/details/%E9%87%8E%E7%8D%B2%E7%B7%A8?id=WHDSi5eMvswC",
+    "volume_id": "WHDSi5eMvswC",
+    "public_store_display_title": "野獲編: 30巻補遺4巻",
+    "public_store_date_publisher": "Jan 1827 / 姚氏扶荔山房",
+    "public_store_display_page_count": 146,
+    "provider_page_availability_caveat": "This item isn't available in your country (page may be locale-specific)",
+    "does_not_prove": "which original book/volume/fascicle has 146 pages, exact scanned physical copy, target heading, target folio, four glyphs, or 1827 impression authenticity",
+    "source_role": "PUBLIC_MARKETING_AND_DISTRIBUTION_METADATA_ONLY"
+  },
+  "bounded_runner_probe": {
+    "workflow": ".github/workflows/probe-yehuobian-1827-googlebooks-public-metadata-12pz.yml",
+    "trigger_commit_sha": "e87d5a628b714fbc3f3e54d1243b283344ed4d22",
+    "run_id": 38021870603,
+    "run_status": "completed",
+    "run_conclusion": "success",
+    "artifact_id": 11658977336,
+    "artifact_zip_sha256": "f8a6c28522d1df6cd012d593de62a1a837e263e1906eb79b68c2997c37487df7",
+    "runner_stdout_statuses": {
+      "google_books_volume": "HTTP_ERROR",
+      "google_books_exact_public_html": "HTTP_RESPONSE_ONLY_HTML_NOT_PHYSICAL_LEAF",
+      "google_play_volume": "HTTP_RESPONSE_ONLY_HTML_NOT_PHYSICAL_LEAF",
+      "ndl_18465_catalog": "HTTP_RESPONSE_ONLY_HTML_NOT_PHYSICAL_LEAF",
+      "ndl_1959_edition_catalog": "HTTP_RESPONSE_ONLY_HTML_NOT_PHYSICAL_LEAF"
+    },
+    "caveat": "Runner log only prints coarse status labels, not Google API HTTP status code; exact status remains in uploaded artifact and has not been directly independently inspected at authoring.",
+    "public_target_page_images_recovered": 0,
+    "authentication_attempted": false,
+    "ocr_used": false
+  },
+  "adjudication": {
+    "new_physically_collated_target_page_count": 0,
+    "new_physically_verified_target_glyph_count": 0,
+    "strong_bibliographic_base_edition_dependency_count": 1,
+    "demonstrated_physical_copy_to_copy_dependency_count": 0,
+    "ndL_kangxi39_184_65_source_text_is_independent_of_yao": "NOT_TEXTUALLY_ADJUDICATED",
+    "original_twenty_volume_target": "UNRESOLVED",
+    "shanghai_pdf_p441_four_glyphs": "UNCHANGED_COPY_SCOPED_ONLY",
+    "ndL_1959_textual_independence": "NOT_ESTABLISHED; EXPLICIT_YAO_BASE",
+    "google_id_target_glyph_authority": "NONE",
+    "transmission_impact": {
+      "nodes_added_or_strengthened": [
+        "NDL 1959 Zhonghua bibliographic edition as a modern Yao-family-based received edition; passage not inspected"
+      ],
+      "edges_supported": [
+        "1959 Zhonghua edition -> Yao 扶茘山房 printed edition FAMILY via explicit NDL base-edition statement"
+      ],
+      "edges_revised": [],
+      "edges_rejected_or_unproved": [
+        "1959 Zhonghua edition as a separate original 1447 clock or independent early target glyph witness",
+        "WHDSi5eMvswC storefront metadata as direct 1827 target page"
+      ],
+      "unresolved_lineage_questions": [
+        "The exact physical Yao copy used for the 1959 base",
+        "Whether 1959 editors silently emended any of the four glyph fields",
+        "Whether the Google Play object contains actual original 卷20 or only a short separate fascicle"
+      ]
+    },
+    "graph_modified": false,
+    "matrix_modified": false,
+    "project_state_modified": false,
+    "algorithm_reopened": false,
+    "chart_r1": "CLOSED",
+    "md_g03": "OPEN_BLOCKING_GENERAL_ADAPTER",
+    "hpa_dayun_cal_002": "MISSING_FROM_PRODUCT",
+    "batch_closed": false
+  },
+  "next": [
+    "Seek exact publisher editorial preface for 1959 and directly compare its four key fields to a verified 1827 physical page rather than relying on catalog base-edition alone.",
+    "Use public Google volume metadata only if a target-page link/physical copy identity can be established; do not bypass login or regional restrictions.",
+    "Prioritize NDL earlier movable-type and independent identified 1827 卷20 public folios, and NCL02260 old20v target localization."
+  ]
+}

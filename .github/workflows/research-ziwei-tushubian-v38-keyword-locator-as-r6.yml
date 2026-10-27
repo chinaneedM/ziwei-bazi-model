@@ -1,0 +1,122 @@
+name: research-ziwei-tushubian-v38-keyword-locator-as-r6
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/research-ziwei-tushubian-v38-keyword-locator-as-r6.yml
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install PDF tooling
+        run: python -m pip install --disable-pip-version-check pymupdf
+      - name: Locate timekeeping vocabulary in Harvard Tushubian v38 text layer
+        shell: python
+        run: |
+          import hashlib, json, re, urllib.parse, urllib.request
+          from pathlib import Path
+          import fitz
+
+          out = Path('batch12as-r6')
+          out.mkdir(exist_ok=True)
+
+          def get_json(url):
+              req = urllib.request.Request(url, headers={'User-Agent':'Mozilla/5.0'})
+              with urllib.request.urlopen(req, timeout=60) as r:
+                  return json.loads(r.read().decode('utf-8'))
+
+          q = 'intitle:"圖書編 v.38.pdf"'
+          search_url = (
+              'https://commons.wikimedia.org/w/api.php?action=query&format=json&list=search'
+              '&srnamespace=6&srlimit=50&srsearch=' + urllib.parse.quote(q)
+          )
+          obj = get_json(search_url)
+          titles = [x.get('title') for x in obj.get('query',{}).get('search',[])]
+          selected = next((t for t in titles if 'Harvard' in t and '圖書編' in t and 'v.38.pdf' in t), None)
+          if not selected:
+              raise SystemExit('No Harvard 圖書編 v.38.pdf title resolved')
+
+          info_url = (
+              'https://commons.wikimedia.org/w/api.php?action=query&format=json&prop=imageinfo'
+              '&iiprop=url%7Csize%7Csha1&titles=' + urllib.parse.quote(selected)
+          )
+          info_obj = get_json(info_url)
+          page = next(iter(info_obj.get('query',{}).get('pages',{}).values()))
+          info = (page.get('imageinfo') or [None])[0]
+          if not info or not info.get('url'):
+              raise SystemExit('No source-emitted PDF URL')
+
+          pdf_path = out / 'tushubian-v38.pdf'
+          req = urllib.request.Request(info['url'], headers={'User-Agent':'Mozilla/5.0'})
+          with urllib.request.urlopen(req, timeout=180) as r:
+              pdf_path.write_bytes(r.read())
+
+          doc = fitz.open(str(pdf_path))
+          keywords = [
+              '晷', '圭', '表', '日晷', '漏', '刻', '時', '夜', '晝', '子', '亥',
+              '時刻', '十二時', '百刻', '漏刻', '昏', '旦', '更', '點', '点', '正午',
+              '日出', '日入', '日中', '夜半', '冬至', '夏至'
+          ]
+          compiled = [(k, re.compile(re.escape(k))) for k in keywords]
+          hits = []
+          all_pages = []
+          for p1, pg in enumerate(doc, 1):
+              text = (pg.get_text('text') or '').strip()
+              if not text:
+                  continue
+              normalized = re.sub(r'\s+', '', text)
+              page_hits = []
+              for k, rx in compiled:
+                  for m in rx.finditer(normalized):
+                      lo = max(0, m.start()-80)
+                      hi = min(len(normalized), m.end()+120)
+                      page_hits.append({'keyword': k, 'context': normalized[lo:hi]})
+                      if len(page_hits) >= 30:
+                          break
+                  if len(page_hits) >= 30:
+                      break
+              if page_hits:
+                  rec = {'pdf_page_1_based': p1, 'hits': page_hits}
+                  hits.append(rec)
+                  all_pages.append(p1)
+                  print('=== CANDIDATE_PAGE', p1, '===')
+                  for h in page_hits[:12]:
+                      print(h['keyword'], h['context'])
+
+          receipt = {
+              'scope':'BATCH12AS_R6_V38_TIMEKEEPING_KEYWORD_TEXT_LAYER_LOCATOR_ONLY',
+              'selected_title': selected,
+              'imageinfo': info,
+              'pdf_sha256': hashlib.sha256(pdf_path.read_bytes()).hexdigest(),
+              'page_count': len(doc),
+              'keywords': keywords,
+              'candidate_pages': all_pages,
+              'candidate_page_count': len(all_pages),
+              'hits': hits,
+              'evidence_class':'TEXT_LAYER_LOCATOR_ONLY_NOT_GLYPH_AUTHORITY',
+              'manual_visual_review_still_required': True,
+              'philological_adjudication_performed': False,
+              'runtime_standard_selected': False,
+              'algorithm_reopen_authorized': False,
+          }
+          (out/'receipt.json').write_text(json.dumps(receipt, ensure_ascii=False, indent=2)+'\n','utf-8')
+          (out/'candidate-pages.txt').write_text('\n'.join(str(x) for x in all_pages)+'\n','utf-8')
+          print('CANDIDATE_PAGES=', json.dumps(all_pages, ensure_ascii=False))
+          print('CANDIDATE_PAGE_COUNT=', len(all_pages))
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ziwei-tushubian-v38-keyword-locator-as-r6
+          path: |
+            batch12as-r6/receipt.json
+            batch12as-r6/candidate-pages.txt
+          retention-days: 90

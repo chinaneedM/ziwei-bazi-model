@@ -1,0 +1,102 @@
+{
+  "schema": "ZIWEI-LATE-ZI-HISTORICAL-TIME-COORDINATE-NARROWING-R1",
+  "batch_id": "BATCH-12-ZIWEI-LATE-ZI-HISTORICAL-TIME-COORDINATE-NARROWING-AI",
+  "access_date": "2026-09-09",
+  "status": "HISTORICAL_CLOCK_FAMILY_NARROWED_OBSERVATIONAL_SOLAR_STELLAR_BUT_NATAL_RUNTIME_BINDING_STILL_OPEN",
+  "controlling_probe": {
+    "workflow_file": ".github/workflows/research-ziwei-late-zi-time-coordinate-ai.yml",
+    "workflow_run_id": 34322850489,
+    "artifact_id": 10092539912,
+    "artifact_name": "ziwei-late-zi-time-coordinate-ai",
+    "artifact_zip_sha256": "9e3151f558b6425586fc2e2c593f5a01f82529f42f6cbd7e8f3e3973fc6df98f",
+    "probe_commit_sha": "015fbaa8cc542afc0a430c7c9591212615be8037",
+    "receipt_sha256": "74dd091eb043da57bb42707b837189ded493080045fb4c00f13154cd63c89a7d",
+    "authentication_attempted": false,
+    "captcha_bypass_attempted": false
+  },
+  "witnesses": [
+    {
+      "source_id": "EXT-CTEXT-MINGSHI-ASTRONOMY-DINGSHI-SOLAR-STELLAR",
+      "title": "《明史·天文志》定时之法 / 日晷 / 星晷段",
+      "provider": "Chinese Text Project",
+      "url": "https://ctext.org/wiki.pl?chapter=656119&if=gb&remap=gb",
+      "historical_scope": "QING_COMPILED_DYNASTIC_HISTORY_REPORTING_MING_INSTITUTIONAL_TIME_DETERMINATION",
+      "http_status": 200,
+      "response_sha256": "157eac2885f6bd3e6c72899f90539e4dd817cf63099c6e17508a8fc419293c16",
+      "source_findings": [
+        "Clepsydra is calibrated at 正午初刻 and described as supplementary rather than the root of time determination.",
+        "Daytime sundials are described as obtaining 天之正时刻 from the Sun after establishing the true meridian.",
+        "Nighttime star instruments are described as reading 时刻 from near-polar stars.",
+        "Xu Guangqi's method is summarized as taking the Sun and stars as the fundamental reference rather than human-adjusted clocks."
+      ],
+      "authority_boundary": "RECEIVED_INSTITUTIONAL_WITNESS_NOT_ZIWEI_DOCTRINE_AND_NOT_A_DIRECT_NANYANGTANG_EDITION_CLOCK_NOTE"
+    },
+    {
+      "source_id": "EXT-CTEXT-MINGSHI-ASTRONOMY-BEIJING-NANJING-CLOCK",
+      "title": "《明史·历志》晷漏地域差异段",
+      "provider": "Chinese Text Project",
+      "url": "https://ctext.org/wiki.pl?chapter=760533&if=gb&remap=gb",
+      "historical_scope": "QING_COMPILED_DYNASTIC_HISTORY_REPORTING_MING_CALENDAR_CLOCK_GEOGRAPHY",
+      "http_status": 200,
+      "response_sha256": "9c70e872519a96ff0bf034bb53a760538e574c99cbdb331b75457fb1c3405f7f",
+      "source_findings": [
+        "Gnomon/clepsydra standards are explicitly said to vary with north-south geography and polar altitude.",
+        "Dadu and Nanjing clock standards are treated as materially different historical coordinates."
+      ],
+      "authority_boundary": "GEOGRAPHIC_CLOCK_DEPENDENCE_ONLY_NOT_A_NATAL_BIRTHPLACE_BINDING"
+    },
+    {
+      "source_id": "EXT-USNO-EQUATION-OF-TIME",
+      "title": "The Equation of Time",
+      "provider": "U.S. Naval Observatory Astronomical Applications Department",
+      "url": "https://aa.usno.navy.mil/faq/eqtime",
+      "historical_scope": "MODERN_ASTRONOMICAL_TERMINOLOGY_ONLY",
+      "http_status": 200,
+      "response_sha256": "ae81510e2c00f993413f0593c4706836c6635b57a4b2eac7e11b7de85deee768",
+      "source_findings": [
+        "A calibrated sundial reads apparent solar time at its location.",
+        "Apparent solar time is based on the true Sun and local meridian.",
+        "Mean solar time uses a fictitious mean Sun; civil time is a zone system and is not identical to local solar time away from the defining meridian."
+      ],
+      "authority_boundary": "MODERN_COORDINATE_TRANSLATION_NOT_HISTORICAL_ZIWEI_AUTHORITY"
+    }
+  ],
+  "philological_and_coordinate_adjudication": {
+    "historical_term": "时刻 / 正午 / 日晷 / 星晷 / 晷漏",
+    "normalized_mechanical_concept": "LOCAL_OBSERVATIONAL_ASTRONOMICAL_TIME_COORDINATE",
+    "daytime_instrument_family": "SUNDIAL_TRUE_SUN",
+    "nighttime_instrument_family": "STELLAR_TIME_READING_WITH_CLEPSYDRA_AS_SUPPLEMENT",
+    "geographic_dependence": "DIRECTLY_ATTESTED",
+    "modern_civil_standard_time_status": "NOT_SUPPORTED_AS_THE_PREMODERN_SOURCE_CLOCK_BY_REVIEWED_MING_INSTITUTIONAL_WITNESSES",
+    "local_mean_solar_time_status": "NOT_DIRECT_INSTRUMENT_OUTPUT_IN_REVIEWED_MING_DINGSHI_PASSAGES; MODERN_UNIFORMIZED_SOLAR_COORDINATE",
+    "local_apparent_solar_time_status": "STRONGEST_MODERN_TRANSLATION_OF_DAYTIME_SUNDIAL_READOUT_AT_A_LOCATION",
+    "nighttime_equivalence_to_current_local_apparent_solar_engine": "NOT_DIRECTLY_SOURCE_CLOSED",
+    "natal_birthplace_locality_binding": "UNRESOLVED",
+    "exact_fullbook_edition_clock_regime_binding": "UNRESOLVED"
+  },
+  "hpa_zdate_006_effect": {
+    "status": "MISSING_FROM_PRODUCT",
+    "runtime_time_standard_binding": "PARTIALLY_NARROWED_NOT_CLOSED",
+    "civil_vs_mean_vs_apparent_three_way_state": "CIVIL_HISTORICAL_WINNER_NOT_SUPPORTED; MEAN_NOT_DIRECT_INSTRUMENT_OUTPUT; APPARENT_STRONGEST_DAYTIME_TRANSLATION",
+    "remaining_blockers": [
+      "Bind the Fullbook/Nanyangtang ten-ke natal rule to a specific historical clock regime rather than generic Ming institutional timekeeping alone.",
+      "Close whether nighttime star/clepsydra time labels are mechanically equivalent to the current local-apparent-solar runtime coordinate for birth-hour evaluation.",
+      "Close whether the relevant coordinate is evaluated at birthplace/local observation site or another school/institutional reference."
+    ],
+    "candidate_selected": false,
+    "candidate_collapsed": false,
+    "algorithm_reopen_authorized": false,
+    "algorithm_effect": "NONE"
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "identified_missing_candidate_families": 14,
+    "confirmed_provenance_metadata_defect_count": 10,
+    "repaired_provenance_metadata_defect_count": 10,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  }
+}

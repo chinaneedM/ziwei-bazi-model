@@ -1,0 +1,41 @@
+name: probe-yehuobian-12wv-kanseki-advanced-form
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-yehuobian-12wv-kanseki-advanced-form.yml
+      - scripts/probe-yehuobian-12wv-tokyo-kanseki-advanced-form.py
+      - tests/test_yehuobian_12wv_kanseki_advanced_form.py
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify exact source-issued advanced search form boundary
+        run: python -m unittest discover -s tests -p 'test_yehuobian_12wv_kanseki_advanced_form.py' -v
+  capture:
+    needs: verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Capture only original source-issued general catalogue search form HTML
+        run: python scripts/probe-yehuobian-12wv-tokyo-kanseki-advanced-form.py --output-dir 12wv-kanseki-advanced-form
+      - name: Preserve source exact HTML and field values
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tokyo-kanseki-12wv-official-advanced-form
+          path: 12wv-kanseki-advanced-form/
+          retention-days: 30
+          if-no-files-found: warn

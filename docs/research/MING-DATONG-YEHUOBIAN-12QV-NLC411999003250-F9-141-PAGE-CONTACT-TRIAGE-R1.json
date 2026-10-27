@@ -1,0 +1,111 @@
+{
+  "schema": "MING-DATONG-YEHUOBIAN-12QV-NLC411999003250-F9-SOURCE-TRIAGE-R1",
+  "status": "87_UPSTREAM_F8_PLUS_141_F9_EIGHT_UP_PREVIEW_NO_NATIVE_TARGET_COLLATION",
+  "stage": "12QE_OPEN",
+  "date": "2026-10-11",
+  "source": {
+    "holding": "NLC411999003250_ONE_HOLDING",
+    "fascicle": 9,
+    "pages": 141,
+    "volume_candidates": [
+      16,
+      17
+    ],
+    "source_pdf_sha256": "cbfea56ea3e447c6c241fee3dfb319b4886bc77eeddbc9de4bc5f81bf3d72d62",
+    "pdf_binary_rehashed_this_round": false,
+    "workflow_run_id": 38064436808,
+    "artifact_id": 11674711170,
+    "artifact_zip_sha256": "6275b3521155ffcc869f2e6f8d25666650c48ef47d70a1259e17f5b0ed2bc3bd",
+    "status_json_sha256": "171c92906270426228b6d395bbca80dd8ba34d6e4ca21923f0951ebea80f41c9",
+    "source_jpeg_count": 141,
+    "contact_sheet_count": 18,
+    "hash_mismatches": 0,
+    "page_sha_chain": "0b1f1df616301c576f937ffd336a513e6e87a0869d314f425890456e211828d5",
+    "contact_sha_chain": "09fb9e9213ea6549c2d3af208b83738bf408071eb186f8c054a28a0232d06cdf",
+    "hash_chain_encoding": "sha256(lowercase ASCII concatenation of member SHA256 in ascending PDF-page order)",
+    "ocr_used": false
+  },
+  "manual_review": {
+    "all_contact_sheets_visually_opened": 18,
+    "page_start": 1,
+    "page_end": 141,
+    "contact_sheet_starts": [
+      1,
+      9,
+      17,
+      25,
+      33,
+      41,
+      49,
+      57,
+      65,
+      73,
+      81,
+      89,
+      97,
+      105,
+      113,
+      121,
+      129,
+      137
+    ],
+    "grade": "EIGHT_UP_DOWNSAMPLED_PREVIEW",
+    "native_images_opened_for_navigation_only": [
+      1,
+      84,
+      141
+    ],
+    "new_native_target_collations": 0,
+    "positive_target_glyph_attestations": 0,
+    "full_text_collated": false,
+    "absence_on_any_page_proven": false,
+    "absence_in_entire_work_proven": false
+  },
+  "navigation": {
+    "f9_p1_original16_heading": "萬曆肆拾壹年癸丑卷十六",
+    "p1_jpeg_sha256": "148e03c67d5d0782d8de42625edfc2f4de86373803c2d8803f4d25d8d1175edd",
+    "f9_p84_original17_heading": "萬曆肆拾貳年甲寅卷十七",
+    "p84_jpeg_sha256": "2f54a09fe52794e9be5ed1cb9ca232cfdd7f2c9859e27c6ab83ca5b306b45800",
+    "p84_right_leaf_original_volume": 16,
+    "p84_left_leaf_original_volume": 17,
+    "p141_jpeg_sha256": "3eb529038b3e3d294ddb7495b6285846e1c28f21c192c9e3ea705db41917c60d"
+  },
+  "queue_after": {
+    "source_pages": 1030,
+    "body_pages": 1027,
+    "native_screened_source_pages": 29,
+    "preview_only_pages": 318,
+    "not_target_screened_source_pages": 683,
+    "body_not_firstpass_screened": 681,
+    "native_body_target_review_backlog": 999,
+    "full_text_body_collation_backlog": 1027
+  },
+  "caveats": [
+    "ONE physical holding, not 9 digital fascicles as independent witnesses",
+    "Preview images are not original glyph-negative evidence",
+    "Original mixed spread p84 preserves right/left volume identity",
+    "1827 category volume numbering is not equivalent to this chronological manuscript",
+    "No historical rule or algorithm winner"
+  ],
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [
+      "Source-bounded f9 navigation visual preview within existing physical holding"
+    ],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [],
+    "unresolved_lineage_questions": [
+      "Locate original old20 改造漏刻 page",
+      "Independently bind 1827 Fuli Shan Fang original target image"
+    ]
+  },
+  "invariants": {
+    "matrix": "222/222",
+    "metadata_repairs": "45/45",
+    "sources": "647+7=654",
+    "product": "CLOSED",
+    "algorithm_reopens": 0,
+    "md_g03": "OPEN",
+    "hpa_dayun_cal_002": "MISSING_FROM_PRODUCT"
+  }
+}

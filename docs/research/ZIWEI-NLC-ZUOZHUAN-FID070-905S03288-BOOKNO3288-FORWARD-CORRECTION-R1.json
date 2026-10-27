@@ -1,0 +1,247 @@
+{
+  "schema": "ZIWEI-NLC-ZUOZHUAN-FID070-905S03288-BOOKNO3288-FORWARD-CORRECTION-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID070-905S03288-BOOKNO3288-FORWARD-CORRECTION-HS",
+  "status": "CURRENT_NLC_905_LOCAL_LOCATOR_CLOSED_AND_1987_BOOK_NUMBER_FORWARD_CORRECTED_TO_3288",
+  "prior_batch_id": "BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID070-CURRENT-SYS-UID-SEARCH-CROSSWALK-HR",
+  "controlling_current_nlc_probe": {
+    "workflow_path": ".github/workflows/probe-batch-12hs-nlc-fid070-target-detail.yml",
+    "workflow_head_sha": "15ebf1c8769d8a096c673cbbecbd70336ca30d49",
+    "workflow_head_tree": "88062838265b4b6efcffcb23b7a7513cd223e699",
+    "workflow_run_id": 36319489516,
+    "workflow_job_id": 108620434290,
+    "workflow_conclusion": "success",
+    "artifact_id": 10932075967,
+    "artifact_name": "batch-12hs-nlc-fid070-target-detail",
+    "artifact_zip_digest": "sha256:7fffceaac4ab10128ca638bfb79924649056663520c8bef217f332ff3d2b757d",
+    "target_attempt": 1,
+    "target_http_status": 200,
+    "target_response_bytes": 2773,
+    "adjacent_attempt": 1,
+    "adjacent_http_status": 200,
+    "adjacent_response_bytes": 2854,
+    "ocr_used": false
+  },
+  "current_nlc_target_record": {
+    "uid": "UCS01003868188",
+    "sys": "002838237",
+    "control_001": "003868188",
+    "field_035a": [
+      "(A100000NLC)002838237"
+    ],
+    "field_049b": [
+      "UCS01003868188"
+    ],
+    "field_049c": [
+      "002838237"
+    ],
+    "title": "附釋音春秋左傳註疏",
+    "juan": "六十卷",
+    "material_type": "善本",
+    "edition_type": "刻本",
+    "date_statement": "元[1271-1368]",
+    "extent": "32冊",
+    "format_note": "10行16字，小字雙行23字，白口，左右雙邊。",
+    "field_852a": [
+      "A100000NLC"
+    ],
+    "field_905a": [
+      "NLC"
+    ],
+    "field_905q": [
+      "SBYL"
+    ],
+    "field_905s": [
+      "03288"
+    ],
+    "field_910n": [
+      "002838237"
+    ],
+    "field_910l": [
+      "NLC01"
+    ],
+    "holding_name": "国家图书馆",
+    "current_local_holdings_locator_tuple": [
+      "NLC",
+      "SBYL",
+      "03288"
+    ],
+    "normalized_locator_display": "NLC:SBYL:03288",
+    "field_905s_semantics": "LOCAL_CALL_NUMBER_COMPONENT",
+    "current_local_holdings_locator_closed": true,
+    "public_barcode_proved": false,
+    "exact_accession_login_number_proved": false
+  },
+  "current_nlc_adjacent_control": {
+    "uid": "UCS01003868187",
+    "sys": "002838236",
+    "control_001": "003868187",
+    "title": "附釋音春秋左傳註疏",
+    "juan": "六十卷",
+    "publisher_engraver": "劉叔剛",
+    "extent": "15冊",
+    "preservation_note": "存29卷：1～29。",
+    "field_3165": [
+      "NLC:SBYL:08643"
+    ],
+    "field_852a": [
+      "A100000NLC"
+    ],
+    "field_905a": [
+      "NLC"
+    ],
+    "field_905q": [
+      "SBYL"
+    ],
+    "field_905s": [
+      "08643"
+    ],
+    "field_910n": [
+      "002838236"
+    ],
+    "field_910l": [
+      "NLC01"
+    ],
+    "purpose": "SAME_PAGE_NEIGHBOR_CONTROL_FOR_CURRENT_ZERO_PADDED_LOCAL_CALL_NUMBER_FORMAT"
+  },
+  "beitu1987_direct_visual_forward_correction": {
+    "title": "北京图书馆古籍善本书目·经部",
+    "source_pdf_sha256": "9cb2ab3ff5d00fda316a9f0430096ca2a5e68fcd53609a878c0ed9d08a26d3ab",
+    "source_pdf_page": 104,
+    "printed_page": 92,
+    "rendered_page_sha256": "04c1c3a8a33aaa3b401db2fd6ddcc77455a94098f01cc178a284ea8b2f42b6ce",
+    "collation_method": "MANUAL_VISUAL_REINSPECTION_OF_HASH_BOUND_RENDER_NO_OCR",
+    "ocr_used": false,
+    "target": {
+      "title": "附釋音春秋左傳註疏六十卷",
+      "version": "元刻明修本",
+      "extent": "三十二冊",
+      "corrected_book_number_chinese": "三二八八",
+      "corrected_book_number_arabic": "3288",
+      "prior_internal_misreading_chinese": "三三八八",
+      "prior_internal_misreading_arabic": "3388",
+      "second_digit_visual_identity": "二",
+      "correction_confidence": "DIRECT_UNAMBIGUOUS_AT_MAGNIFIED_VISUAL_REINSPECTION"
+    },
+    "adjacent_liu_shugang_control": {
+      "title": "附釋音春秋左傳註疏六十卷",
+      "identifying_scope": "劉叔剛刻本 / 存二十九卷一至二十九 / 十五冊",
+      "historical_book_number_arabic": "8643",
+      "current_905s": "08643",
+      "zero_padding_crosswalk_status": "DIRECT_SAME_RECORD_PROFILE_CONTROL"
+    }
+  },
+  "beitu1959_to_1987_local_sequence_control": {
+    "beitu1959_source_pdf_sha256": "3f7eb1d2ab0057f4524eee2fb3dd3ca08561257302ffed32fe1960188184452f",
+    "beitu1959_pdf_page": 56,
+    "target_1959_number": "3368",
+    "adjacent_shared_title": "春秋左傳註疏六十卷",
+    "adjacent_1959_number": "10010",
+    "beitu1987_pdf_page": 104,
+    "target_1987_corrected_number": "3288",
+    "adjacent_1987_number": "10010",
+    "adjacent_number_stable_across_catalogs": true,
+    "uniform_local_arithmetic_offset_hypothesis": "DISPROVEN",
+    "target_specific_difference_mechanism": "UNRESOLVED",
+    "candidate_explanations_not_selected": [
+      "TARGET_SPECIFIC_CATALOG_REASSIGNMENT",
+      "1959_PRINTING_OR_CATALOG_TRANSCRIPTION_ERROR",
+      "1987_CATALOG_CORRECTION",
+      "OTHER_CATALOG_PREPARATION_CHANGE"
+    ]
+  },
+  "crosswalk_adjudication": {
+    "fid": "412004000070",
+    "beitu1959_printed_number": "3368",
+    "beitu1987_corrected_book_number": "3288",
+    "current_uid": "UCS01003868188",
+    "current_sys": "002838237",
+    "current_905_tuple": [
+      "NLC",
+      "SBYL",
+      "03288"
+    ],
+    "current_905s": "03288",
+    "beitu1987_3288_to_current_03288": "CLOSED_AT_DIRECT_1987_VISUAL_PLUS_CURRENT_905_FIELD_LEVEL",
+    "adjacent_8643_to_08643_control": "CLOSED",
+    "old_3388_value_status": "SUPERSEDED_INTERNAL_MISREADING_DO_NOT_USE",
+    "old_03388_search_hypothesis_status": "REJECTED_BY_DIRECT_TARGET_905S_03288",
+    "exact_1959_3368_to_1987_3288_change_mechanism": "UNRESOLVED",
+    "exact_qu_donation_or_accession_batch_date": "UNRESOLVED",
+    "fid070_equals_tieqin_physical_witness": "REMAINS_HIGH_CONFIDENCE_CLOSED_FROM_BATCH_12HP"
+  },
+  "catalog_description_tension": {
+    "beitu1987_target_format": [
+      "十行十七字",
+      "小字雙行二十三字"
+    ],
+    "current_nlc_target_format": [
+      "10行16字",
+      "小字雙行23字",
+      "白口",
+      "左右雙邊"
+    ],
+    "discrepancy": "MAIN_TEXT_CHARACTERS_PER_LINE_17_VS_16",
+    "adjudication": "UNRESOLVED_CATALOG_DESCRIPTION_VARIANT; DOES_NOT_OVERRIDE_DIRECT_3288_TO_03288_IDENTIFIER_CROSSWALK",
+    "additional_provenance_defect_increment_authorized": false
+  },
+  "provenance_defect_repair": {
+    "provenance_defect_id": "PROV-DEFECT-015",
+    "defect_class": "INTERNAL_DIRECT_VISUAL_TRANSCRIPTION_ERROR_OF_1987_BOOK_NUMBER",
+    "prior_value": "3388",
+    "corrected_value": "3288",
+    "evidence_basis": [
+      "magnified direct visual reinspection of hash-bound 1987 PDF page 104 shows 三二八八",
+      "current target 905s is 03288",
+      "same-page Liu Shugang control historical 8643 maps to current 905s 08643"
+    ],
+    "prior_batch_artifacts_rewritten": false,
+    "forward_only_correction_batch": "BATCH-12-ZIWEI-NLC-ZUOZHUAN-FID070-905S03288-BOOKNO3288-FORWARD-CORRECTION-HS",
+    "defect_found_increment": 1,
+    "defect_repaired_increment": 1,
+    "corrected_current_registry_and_state_authorized": true
+  },
+  "identifier_layer_firewall": {
+    "beitu1959_printed_catalog_number": "3368",
+    "beitu1987_book_number": "3288",
+    "current_local_call_number_component_905s": "03288",
+    "current_sys": "002838237",
+    "current_uid": "UCS01003868188",
+    "digital_fid": "412004000070",
+    "all_layers_distinct": true,
+    "zero_padding_is_now_target_specific_directly_observed_between_3288_and_03288": true,
+    "do_not_generalize_zero_padding_to_unchecked_records": true,
+    "barcode_or_accession_number_not_proved": true
+  },
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_added": [],
+    "topology_change": false
+  },
+  "project_consequence": {
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_row_count_change": false,
+    "matrix_audited_row_count_change": false,
+    "provenance_metadata_defect_count_change": 1,
+    "product_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 15,
+    "repaired_provenance_metadata_defect_count": 15,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "recover direct catalog-preparation, correction, or succession evidence explaining why the same target is 3368 in 1959 and 3288 in 1987/current 905",
+    "resolve the exact Qu donation/accession batch and date for FID070",
+    "continue Zhang Lijuan 2018 full-text retrieval for edition/adjudication detail",
+    "investigate the 1987 17-character versus current 16-character format-description tension without reopening object identity"
+  ],
+  "updated_at": "2026-09-27"
+}

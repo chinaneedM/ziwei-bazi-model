@@ -1,0 +1,147 @@
+name: probe-batch-12jz-nlc-wenjin-opac-wenhui-title-search
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-batch-12jz-nlc-wenjin-opac-wenhui-title-search.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run only NLC-homepage-emitted Wenjin and OPAC GET contracts
+        run: |
+          python - <<'PY'
+          import hashlib, html, json, re
+          from html.parser import HTMLParser
+          from pathlib import Path
+          import requests
+
+          UA={"User-Agent":"Mozilla/5.0 (Tianwen provenance audit; NLC public title-search calibration)"}
+          TERMS=["史记","文汇报60年报纸光盘","文汇报","文匯報","文汇报61年全文数据光盘"]
+
+          def sha(b): return hashlib.sha256(b).hexdigest()
+          def dec(raw):
+              for enc in ("utf-8","utf-8-sig","gb18030","gbk","big5"):
+                  try: return raw.decode(enc),enc
+                  except UnicodeDecodeError: pass
+              return raw.decode("utf-8","replace"),"utf-8-replacement"
+          class Anchors(HTMLParser):
+              def __init__(self):
+                  super().__init__(); self.stack=[]; self.items=[]
+              def handle_starttag(self,tag,attrs):
+                  if tag=="a": self.stack.append({"href":dict(attrs).get("href"),"text":[]})
+              def handle_data(self,data):
+                  if self.stack: self.stack[-1]["text"].append(data)
+              def handle_endtag(self,tag):
+                  if tag=="a" and self.stack:
+                      a=self.stack.pop(); a["text"]=re.sub(r"\s+"," ","".join(a["text"])).strip()
+                      if a["href"] or a["text"]: self.items.append(a)
+
+          def summarize(system,term,r):
+              raw=r.content; txt,enc=dec(raw)
+              visible=re.sub(r"\s+"," ",html.unescape(re.sub(r"<[^>]+>"," ",txt))).strip()
+              ap=Anchors()
+              try: ap.feed(txt)
+              except Exception: pass
+              related=[]
+              for a in ap.items:
+                  blob=(a.get("text") or "")+" "+(a.get("href") or "")
+                  if "文汇报" in blob or "文匯報" in blob or (term=="史记" and "史记" in blob):
+                      related.append(a)
+              count_candidates=[]
+              pats=[
+                r"共\s*([0-9,]+)\s*(?:条|种|项|篇|册)",
+                r"找到[^0-9]{0,30}([0-9,]+)",
+                r"检索结果[^0-9]{0,40}([0-9,]+)",
+                r"records?[^0-9]{0,20}([0-9,]+)",
+              ]
+              for pat in pats:
+                  for m in re.finditer(pat,visible,re.I):
+                      try: count_candidates.append(int(m.group(1).replace(",","")))
+                      except: pass
+              negative_markers=[x for x in ("没有找到","未找到","无检索结果","没有符合","0 条","0条") if x in visible]
+              contexts=[]
+              for token in ([term] if term=="史记" else ["文汇报60年报纸光盘","文汇报61年全文数据光盘","文汇报","文匯報"]):
+                  for m in re.finditer(re.escape(token),visible):
+                      contexts.append(visible[max(0,m.start()-180):m.end()+420])
+                      if len(contexts)>=10: break
+              return {
+                "system":system,"term":term,"http_status":r.status_code,"final_url":r.url,
+                "bytes":len(raw),"sha256":sha(raw),"decode_used":enc,
+                "count_candidates":sorted(set(count_candidates)),
+                "negative_markers":negative_markers,
+                "query_term_visible":term in visible,
+                "related_anchor_count":len(related),
+                "related_anchors":related[:20],
+                "contexts":contexts[:10],
+                "login_marker":bool(re.search(r"登录|登陆|注册",visible))
+              }
+
+          results=[]
+          session=requests.Session(); session.headers.update(UA)
+          for term in TERMS:
+              # JX: data-id 50018 / Wenjin.
+              wparams=[
+                ("query",term),("secQuery",""),("actualQuery",term),("searchType","2"),
+                ("docType","全部"),("isGroup","isGroup"),("targetFieldLog","全部字段"),("fromHome","true")
+              ]
+              row={"system":"wenjin","term":term}
+              try:
+                  r=session.get("http://find.nlc.cn/search/doSearch",params=wparams,timeout=45,allow_redirects=True)
+                  row=summarize("wenjin",term,r)
+              except Exception as e:
+                  row.update({"error_class":type(e).__name__,"error":str(e)[:350]})
+              results.append(row)
+
+              # JX: data-id 50019 / OPAC. Duplicate FIND_BASE is intentional and directly emitted.
+              oparams=[
+                ("request",term),("func","find-m"),("find_code","WRD"),
+                ("FIND_BASE","NLC01"),("FIND_BASE","NLC09")
+              ]
+              row={"system":"opac","term":term}
+              try:
+                  r=session.get("http://opac.nlc.cn/F/",params=oparams,timeout=45,allow_redirects=True)
+                  row=summarize("opac",term,r)
+              except Exception as e:
+                  row.update({"error_class":type(e).__name__,"error":str(e)[:350]})
+              results.append(row)
+
+          out={
+            "contract_source":{
+              "batch":"12JX",
+              "script_url":"https://www.nlc.cn/template_resource/20241/index.main.js?v=1212",
+              "script_sha256":"89714aa2de74ff6f170bb33590b945ff3c41b3377864f0fcd6579fb51bbc575c",
+              "private_endpoint_guessed":False,
+              "search_parameter_guessed":False
+            },
+            "positive_control":"史记",
+            "target_resource_title_terms":["文汇报60年报纸光盘","文汇报","文匯報","文汇报61年全文数据光盘"],
+            "results":results,
+            "adjudication":{
+              "only_source_emitted_get_contracts_used":True,
+              "target_person_query_submitted":False,
+              "target_date_query_submitted":False,
+              "direct_1951_08_18_page_reviewed":False
+            },
+            "security":{
+              "login_used":False,"reader_account_used":False,"registration_used":False,
+              "private_endpoint_guessed":False,"search_parameter_guessed":False,
+              "captcha_bypass_used":False,"tls_verification_disabled":False,"state_changing_request_used":False
+            }
+          }
+          Path("batch-12jz-nlc-wenjin-opac-wenhui-title-search.json").write_text(
+              json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: batch-12jz-nlc-wenjin-opac-wenhui-title-search
+          path: batch-12jz-nlc-wenjin-opac-wenhui-title-search.json

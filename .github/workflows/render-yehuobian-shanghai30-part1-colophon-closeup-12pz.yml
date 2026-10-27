@@ -1,0 +1,100 @@
+name: render-yehuobian-shanghai30-part1-colophon-closeup-12pz
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/render-yehuobian-shanghai30-part1-colophon-closeup-12pz.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  closeup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - name: Install PDF and image handling utilities
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils python3-pil
+      - name: Source SHA256 gate for Shanghai original-part1 550-page PDF
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p 12pz-sh-closeread/source 12pz-sh-closeread/images
+          root='https://commons.wikimedia.org/wiki/Special:Redirect/file'
+          curl -L --fail --retry 5 --retry-all-errors --retry-delay 3 --max-time 1500 \
+            -A 'Tianwen-Historical-Provenance-R1/1.0' \
+            "$root/Shanghai_%E8%90%AC%E6%9B%86%E9%87%8E%E7%8D%B2%E7%B7%A8%E4%B8%89%E5%8D%81%E5%8D%B7_part_1.pdf" \
+            -o 12pz-sh-closeread/source/part1.pdf
+          echo '83f7b3384d1ccdff831bb7e7416c4dac6f6cdcecc6068ff295d4b6c32ea1668a  12pz-sh-closeread/source/part1.pdf' | sha256sum -c -
+          pdfinfo 12pz-sh-closeread/source/part1.pdf > 12pz-sh-closeread/pdfinfo.txt
+          test "$(awk '/^Pages:/ {print $2}' 12pz-sh-closeread/pdfinfo.txt)" = 550
+      - name: Render original p5 and p10 at 300DPI and crop exactly each facing page
+        shell: bash
+        run: |
+          set -euo pipefail
+          for p in 5 10; do
+            pdftoppm -f "$p" -l "$p" -r 300 -jpeg -jpegopt quality=94 \
+              -singlefile 12pz-sh-closeread/source/part1.pdf \
+              "12pz-sh-closeread/images/$(printf 'p%04d-full' "$p")"
+          done
+          python3 - <<'PY'
+          from PIL import Image
+          from pathlib import Path
+          base=Path("12pz-sh-closeread/images")
+          for p in [5,10]:
+              f=base/f"p{p:04d}-full.jpg"
+              im=Image.open(f)
+              w,h=im.size
+              # p5 authorial subscription is on LEFT facing page;
+              # p10 康熙庚辰 / 壬申 colophons on RIGHT facing page.
+              if p==5: crop=im.crop((0,0,int(w*.53),h));tag="left"
+              else: crop=im.crop((int(w*.49),0,w,h));tag="right"
+              crop.save(base/f"p{p:04d}-{tag}-close.jpg",quality=96,optimize=True)
+              print(f"RENDER_PAGE={p} ORIGINAL_SIZE={w}x{h} CLOSEUP_SIZE={crop.size[0]}x{crop.size[1]}")
+          PY
+          (cd 12pz-sh-closeread && sha256sum images/*.jpg > image-sha256.txt)
+          cat > 12pz-sh-closeread/manifest.txt <<'EOF'
+          SOURCE_SHA256=83f7b3384d1ccdff831bb7e7416c4dac6f6cdcecc6068ff295d4b6c32ea1668a
+          SOURCE_DIGITAL_PART=1
+          SOURCE_DIGITAL_PAGES=550
+          PHYSICAL_COPY_SELF_LABEL=抄本
+          REVIEW_PAGES=5,10
+          AUTHORIAL_DATE_1606_NOT_PHYSICAL_COPY_YEAR=true
+          QIAN_FANG_EDITORIAL_1700_NOT_PHYSICAL_COPY_YEAR=true
+          REN_SHEN_CYCLICAL_YEAR_UNRESOLVED=true
+          RENDER_DPI=300
+          OCR_USED=false
+          MANUAL_READ_REQUIRED=true
+          EOF
+      - name: Expose bounded copied-manuscript date text JPEG crop images in logs
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import base64
+          from pathlib import Path
+          base=Path("12pz-sh-closeread/images")
+          for p,side in [(5,"left"),(10,"right")]:
+              f=base/f"p{p:04d}-{side}-close.jpg"
+              s=base64.b64encode(f.read_bytes()).decode("ascii")
+              print(f"TIANWEN_CLOSE_BEGIN page={p} side={side} base64_chars={len(s)}",flush=True)
+              for i in range(0,len(s),4000):
+                  print("TIANWEN_CLOSE_CHUNK "+s[i:i+4000],flush=True)
+              print(f"TIANWEN_CLOSE_END page={p}",flush=True)
+          PY
+      - name: Upload only text-leaf evidence and manifests, not full PDF
+        uses: actions/upload-artifact@v4
+        with:
+          name: shanghai30-part1-p5-p10-300dpi-closeups-12pz
+          path: |
+            12pz-sh-closeread/images/
+            12pz-sh-closeread/image-sha256.txt
+            12pz-sh-closeread/pdfinfo.txt
+            12pz-sh-closeread/manifest.txt
+          retention-days: 30
+          if-no-files-found: error

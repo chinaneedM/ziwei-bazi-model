@@ -1,0 +1,51 @@
+{
+  "schema": "ZIWEI-ZI-WU-SHENZHU-FIRE-BELL-EVIDENCE-CLOSURE-EVIDENCE-R1",
+  "schema_version": "1.0.0",
+  "parent_head": "eb4f4d36b73825af58791a245495ff41f34e416f",
+  "files": {
+    "roles_path": "src/fortune_training/ziwei_chart/roles.py",
+    "roles_before_blob_sha": "28c1624f059a37293bab4ac7ddacd660838ec0c7",
+    "historical_candidates_path": "src/fortune_training/ziwei_chart/historical_candidates.py",
+    "historical_candidates_blob_sha": "1403c6c4dc3bf5fed8c12b1d20b2ffe985fee4ad",
+    "role_tests_path": "tests/test_ziwei_dependent_auxiliary_roles.py",
+    "role_tests_blob_sha": "3723595156d757aca08a01e90552a5203d7f04e4",
+    "wenmo_fixture_path": "tests/fixtures/wenmo-profile-discriminators-r1.json",
+    "wenmo_fixture_blob_sha": "4e0a0ed852207b8ad43f43f130fb028e0f62b7ed",
+    "s01_path": "sources/canonical/S01_统一输入排盘与坐标冻结库.txt",
+    "s01_blob_sha": "c7ddbea86d29abb95e9fb47ff3303a47340e650b"
+  },
+  "observed_controls": {
+    "strict_qs_zi_wu_raises_ambiguity": true,
+    "production_zi_wu_fire": true,
+    "jielan_composite_status": true,
+    "jielan_winner_selected": false,
+    "s01_raw_text_composite": true,
+    "s01_normalized_table_fire": true,
+    "zi_wu_role_dedicated_compat_ref": false,
+    "zi_wu_role_dedicated_wenmo_fixture": false
+  },
+  "public_surface_controls": {
+    "jielan_ch32_composite_confirmed": true,
+    "modern_editorial_common_fire_is_commentary_not_primary": true,
+    "modern_rules_surface_bell_variant_observed": true,
+    "unique_fire_closed": false
+  },
+  "repair": {
+    "defect_id": "PROV-DEFECT-040",
+    "roles_docstring_narrowed": true,
+    "runtime_values_changed": false,
+    "source_refs_changed": false,
+    "rule_set_version_changed": false,
+    "algorithm_version_changed": false,
+    "hashes_expected_to_change": false
+  },
+  "adjudication": {
+    "row_status": "SOURCE_INSUFFICIENT",
+    "matrix_status_changed": false,
+    "runtime_behavior_changed": false,
+    "candidate_selection_changed": false,
+    "production_default_changed": false,
+    "provenance_defect_count_changed": true,
+    "transmission_edge_created": false
+  }
+}

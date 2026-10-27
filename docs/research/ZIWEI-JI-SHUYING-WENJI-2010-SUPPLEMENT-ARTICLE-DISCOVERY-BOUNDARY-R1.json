@@ -1,0 +1,109 @@
+{
+  "schema": "ZIWEI-JI-SHUYING-WENJI-2010-SUPPLEMENT-ARTICLE-DISCOVERY-BOUNDARY-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-ZIWEI-JI-SHUYING-WENJI-2010-SUPPLEMENT-ARTICLE-DISCOVERY-BOUNDARY-GQ",
+  "prior_batch_id": "BATCH-12-ZIWEI-JI-SHUYING-2004-BAICHUAN-ARTICLE-HOLDING-AND-FIFTEEN-LECTURES-SOURCE-GENEALOGY-BOUNDARY-GP",
+  "question": "Does a formal post-2009 published supplement concerning 《冀淑英文集》 exist, and can its content be used to close the 2004→2009 source genealogy before the article itself is directly reviewed?",
+  "answer": "A formal 2010 article titled 《冀淑英文集》补遣 is closed at the published table-of-contents level in 《文津学志》第三辑, ISBN 9787501340859. The volume identity is independently controlled by CiNii Books serial record BA65589403. The article's author, exact page range and body were not publicly recovered in the reviewed surfaces, so its relation to 《百川归海，蔚为大观》, the 2004 editor note, or the 2009 《冀淑英古籍善本十五讲》 remains unresolved. No textual-genealogy edge is authorized.",
+  "sanmin_toc_control": {
+    "source_id": "EXT-SANMIN-WENJIN-XUEZHI-V3-2010-JI-WENJI-SUPPLEMENT-TOC",
+    "url": "https://www.sanmin.com.tw/product/index/001298981",
+    "provider": "三民網路書店",
+    "volume_title": "文津學志 第三輯",
+    "isbn_13": "9787501340859",
+    "responsibility_display": "国家图书馆善本特藏部 编著",
+    "publication_date": "2010/05/25",
+    "page_count": 343,
+    "publisher_display": "北京圖書館出版社",
+    "toc_section": "文献整理与版本研究",
+    "article_title_display": "《冀淑英文集》補遣",
+    "normalized_article_title": "《冀淑英文集》补遣",
+    "article_author_exposed": false,
+    "article_page_range_exposed": false,
+    "article_body_exposed": false,
+    "role": "PUBLIC_BIBLIOGRAPHIC_AND_PUBLISHED_TOC_DISCOVERY_CONTROL_NOT_ARTICLE_TEXT_AUTHORITY"
+  },
+  "cinii_serial_control": {
+    "source_id": "EXT-CINII-WENJIN-XUEZHI-SERIAL-V3-ISBN9787501340859",
+    "url": "https://ci.nii.ac.jp/ncid/BA65589403",
+    "provider": "CiNii Books / NII",
+    "ncid": "BA65589403",
+    "serial_title": "文津学誌",
+    "target_volume_number": 3,
+    "target_isbn_13": "9787501340859",
+    "publisher_note_for_volumes_3_to_12": "国家图书馆出版社",
+    "article_title_exposed_on_reviewed_serial_surface": false,
+    "article_page_range_exposed": false,
+    "role": "INSTITUTIONAL_UNION_CATALOG_SERIAL_AND_ISBN_CONTROL"
+  },
+  "publisher_string_boundary": {
+    "sanmin_literal": "北京圖書館出版社",
+    "cinii_volumes_3_to_12_note": "国家图书馆出版社",
+    "exact_isbn_identity_same": "9787501340859",
+    "silent_normalization_forbidden": true,
+    "publisher_string_discrepancy_affects_article_existence_adjudication": false
+  },
+  "adjudication": {
+    "wenjin_xuezhi_v3_object": "CLOSED_BY_ISBN_AND_SERIAL_CONTROLS",
+    "supplement_article_formal_existence": "CLOSED_AT_PUBLISHED_TOC_LEVEL",
+    "supplement_article_title": "《冀淑英文集》补遣",
+    "supplement_article_author": "UNRESOLVED",
+    "supplement_article_page_range": "UNRESOLVED",
+    "supplement_article_body": "NOT_REVIEWED",
+    "mentions_baichuan": "UNRESOLVED",
+    "mentions_2004_editor_note": "UNRESOLVED",
+    "mentions_2009_fifteen_lectures": "UNRESOLVED",
+    "affects_2009_derivation_adjudication": false,
+    "target_3482_3483_named_in_reviewed_controls": false,
+    "target_specific_purchase_route_selected": false,
+    "target_specific_donation_route_selected": false,
+    "final_nlc_acquisition_transfer_path": "UNRESOLVED"
+  },
+  "relation_to_batch_12gp": {
+    "prior_2004_article_identity_remains_closed": true,
+    "direct_2004_article_text_still_not_reviewed": true,
+    "direct_2004_editor_note_still_not_reviewed": true,
+    "direct_2009_postscript_still_not_reviewed": true,
+    "derivation_status_remains": "SECONDARY_REPORTED_NOT_DIRECTLY_CLOSED",
+    "new_formal_followup_object_added_as_discovery_target": true
+  },
+  "inference_firewall": {
+    "supplement_title_does_not_prove_baichuan_discussion": true,
+    "supplement_title_does_not_prove_editor_note_discussion": true,
+    "supplement_title_does_not_prove_2009_derivation": true,
+    "toc_entry_does_not_equal_article_body": true,
+    "isbn_identity_does_not_supply_article_pages": true
+  },
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_added": [],
+    "direct_copy_edge_authorized": false,
+    "same_object_edge_authorized": false,
+    "acquisition_edge_authorized": false
+  },
+  "chronology_and_rule_firewall": {
+    "direct_sanming_parent_vote_increment": 0,
+    "pre1578_zhunzhai_rule_witness_increment": 0,
+    "runtime_rule_change": false,
+    "algorithm_reopen_authorized": false,
+    "candidate_collapse_authorized": false,
+    "matrix_count_change": false
+  },
+  "accounting": {
+    "matrix_rows": 198,
+    "audited_rows": 166,
+    "current_missing_from_product_rows": 10,
+    "confirmed_provenance_metadata_defect_count": 14,
+    "repaired_provenance_metadata_defect_count": 14,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0
+  },
+  "next_gate": [
+    "Obtain/directly inspect 《文津学志》第三辑《〈冀淑英文集〉补遣》 and recover author, exact page span, full text and footnotes.",
+    "Search direct article text for 百川归海, 蔚为大观, 录音, 讲稿, 授课, 十五讲, 后记, 编者注, 陈红彦, 徐蜀 and 李文洁.",
+    "Directly inspect the 2004 《冀淑英文集》 editor note and 2009 《冀淑英古籍善本十五讲》 postscript before changing the 2004→2009 derivation status.",
+    "Continue direct 《北京图书馆馆史资料汇编（二）：1949—1966》 pp.446—449 acquisition/collation in parallel."
+  ],
+  "updated_at": "2026-09-25"
+}

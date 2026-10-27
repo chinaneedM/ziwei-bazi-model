@@ -1,0 +1,96 @@
+{
+  "schema": "TIANWEN-13CT-NCL03130-DIRECT-RED-REGISTER-GENRE-ZHI6-CROSSWALK-R1",
+  "date": "2026-10-22",
+  "issue_id": "TW-OPEN-0005",
+  "previous_checkpoint": "docs/research/TIANWEN-13CS-NCL03130-SHA-FRONT-IMAGE-R1.json",
+  "primary_image": {
+    "origin": "WIKIMEDIA_COMMONS_PUBLIC_MIRROR_NOT_YET_NCL_FIRSTPARTY_AUTHENTICATED",
+    "source_file_url": "https://commons.wikimedia.org/wiki/File:NCL-03130_01_%E9%AB%98%E9%BA%97%E5%8F%B2.pdf",
+    "workflow_run_id": 39773078687,
+    "artifact_id": 12423406394,
+    "pdf_sha256": "24fb9612634ba085d2546ba6c1f02305aa2a02b9ddfd02f0b645ba0409b5e01e",
+    "pdf_pages": 204,
+    "pdf_page_1based": 7,
+    "png_file": "front-page-007.png",
+    "png_bytes": 1911182,
+    "png_sha256": "baa5ab0199a41af85ee6a5290601d15390a7faf7ea2c247b0cdd8e7867dee456",
+    "png_dimensions_px": [
+      1474,
+      974
+    ],
+    "red_marginalia_bbox_image_px_approx": [
+      905,
+      90,
+      1155,
+      800
+    ],
+    "manual_visual_review": true,
+    "ocr_used": false
+  },
+  "red_marginalia_observation": {
+    "visible_red_text_genre_tokens": [
+      "世家",
+      "志",
+      "傳"
+    ],
+    "visible_shortage_marker": "少",
+    "readable_bounded_fragments": [
+      "世家少…",
+      "志少…",
+      "傳少…"
+    ],
+    "fragment_policy": "MANUAL_PARTIAL_VISUAL_GLYPH_READING_NOT_COMPLETE_WORD_FOR_WORD_TRANSCRIPTION",
+    "specific_juan_numbers_full_list_transcribed": false,
+    "reference_missing_juan_register_possible": true,
+    "autograph_attribution_to_wu_directly_verified": false,
+    "copy_number_mapping_validated": false,
+    "p7_has_missing_juan_register_status": "DIRECT_VISUAL_GENRE_SHORTAGE_LIST_CANDIDATE_NOT_COMPLETE_READ"
+  },
+  "first_party_text_structure_crosswalk": {
+    "institution": "National Institute of Korean History (South Korea), official Goryeosa database",
+    "source_url": "https://db.history.go.kr/goryeo/itemLevelKrList.do?parentId=kr_052_0010_0010_0010&types=o",
+    "title": "高麗史 卷五十二 志卷第六 曆三 授時曆經下",
+    "whole_work_juan": 52,
+    "genre": "志",
+    "genre_juan": 6,
+    "focus_section": "授時曆立成",
+    "type": "FIRSTPARTY_RECEIVED_TEXT_STRUCTURAL_MAP_NOT_EVIDENCE_OF_NCL_P7_PHYSICAL_FOLIO"
+  },
+  "scope_gates": {
+    "original_missing_list_complete_numbers": "UNREAD",
+    "is_genre_zhi_six_missing": "UNRESOLVED",
+    "whether_juan52_qing_old_hand": "UNBOUND",
+    "whether_juan52_1905_supplement": "UNBOUND",
+    "treat_pdf_part01_as_40_physical_book_identity": false,
+    "direct_firstparty_ncl20803130_object": "UNBOUND",
+    "native_juan52_target_folio_obtained": false,
+    "third_independent_d16_historical_votes_added": 0,
+    "printed_original_d16_short_existing_two_copies": "5.1362",
+    "numerical_repair_only": "5.2362",
+    "r1_algorithm_reopen": 0
+  },
+  "next_method": "On the source-verified p7 red-ink region, resolve 志少 list numeral sequences and source manuscript punctuation with a second independent visual adjudication, then compare the explicit list's LOCAL 志六 rather than guessing from whole-book 卷五十二. Verify the original item's 208/03130 firstparty identity and later classify exact target physical folio before any independent vote.",
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "The red genre-shortage list's existence does not establish membership of 志第六, nor historical autograph dating of each target folio.",
+      "Received database's 志六/全卷52 title mapping is not evidence that the NCL mirror 01 contains that work volume or its D16 table."
+    ],
+    "unresolved_lineage_questions": [
+      "Exact red list 志少 numeral collation including whether sixth local 志卷 listed",
+      "NCL original 208/03130 item identity and provenance bridge to Commons mirror",
+      "Work volume52 old-Qing or 1905 supplemented original physical leaf status"
+    ]
+  },
+  "snapshot": {
+    "matrix_audited": 222,
+    "external_source_total": 754,
+    "genealogy_nodes": 252,
+    "genealogy_edges": 238,
+    "open_or_blocked_issues": 11,
+    "algorithm_reopens": 0,
+    "product": "CLOSED"
+  }
+}

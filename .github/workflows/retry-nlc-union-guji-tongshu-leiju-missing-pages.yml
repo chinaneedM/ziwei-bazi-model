@@ -1,0 +1,159 @@
+name: retry-nlc-union-guji-tongshu-leiju-missing-pages
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/retry-nlc-union-guji-tongshu-leiju-missing-pages.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  retry:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Retry the 33 missing fuzzy-result pages with bounded parallelism
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT='audit/nlc-union-guji-tongshu-leiju-fuzzy-retry'
+          rm -rf "$ROOT"
+          mkdir -p "$ROOT/pages"
+          UA='Tianwen-Provenance-Audit/1.0'
+          ENDPOINT='http://read.nlc.cn/advanceSearch/gujiSearch/data'
+          SEARCH_JSON='[{"fldName":"title","content":"通書類聚","match":"like"}]'
+          MISSING='5 6 7 8 9 10 11 12 13 14 15 18 19 20 21 22 25 26 28 29 30 31 34 35 37 38 39 40 41 42 43 44 48'
+
+          printf '%s\n' $MISSING > "$ROOT/missing-pages.txt"
+          : > "$ROOT/attempt-status.tsv"
+
+          fetch_one() {
+            p="$1"; round="$2"
+            out=$(printf "$ROOT/pages/page-%03d.json" "$p")
+            tmp="$out.tmp.$round"
+            set +e
+            timeout 50s curl -L -sS --connect-timeout 10 --max-time 40 -A "$UA" \
+              -X POST \
+              --data-urlencode 'index=0019,' \
+              --data-urlencode "searchJson=$SEARCH_JSON" \
+              --data-urlencode "pageNo=$p" \
+              "$ENDPOINT" -o "$tmp"
+            rc=$?
+            set -e
+            valid=0
+            rows=''
+            total=''
+            if [ "$rc" -eq 0 ] && [ -s "$tmp" ]; then
+              read -r valid rows total < <(python - "$tmp" <<'PY'
+          import json,sys
+          try:
+              d=json.load(open(sys.argv[1],encoding='utf-8'))
+              rows=len(d.get('rows') or [])
+              total=int(d.get('total') or 0)
+              print(1 if total==576 and rows==12 else 0, rows, total)
+          except Exception:
+              print(0,0,0)
+          PY
+              )
+            fi
+            if [ "$valid" = "1" ]; then
+              mv "$tmp" "$out"
+            else
+              rm -f "$tmp"
+            fi
+            printf '%s\t%s\t%s\t%s\t%s\t%s\n' "$round" "$p" "$rc" "$valid" "${rows:-0}" "${total:-0}" >> "$ROOT/attempt-status.tsv"
+          }
+          export ROOT UA ENDPOINT SEARCH_JSON
+          export -f fetch_one
+
+          for round in 1 2 3 4; do
+            todo=$(python - "$ROOT" <<'PY'
+          from pathlib import Path
+          import sys
+          root=Path(sys.argv[1])
+          miss=[5,6,7,8,9,10,11,12,13,14,15,18,19,20,21,22,25,26,28,29,30,31,34,35,37,38,39,40,41,42,43,44,48]
+          print(' '.join(str(p) for p in miss if not (root/'pages'/f'page-{p:03d}.json').exists()))
+          PY
+            )
+            [ -z "$todo" ] && break
+            printf '%s\n' $todo | xargs -n1 -P4 -I{} bash -lc 'fetch_one "$1" "$2"' _ {} "$round"
+            sleep $((round*2))
+          done
+
+          python - <<'PY'
+          import json,re,html
+          from pathlib import Path
+          root=Path('audit/nlc-union-guji-tongshu-leiju-fuzzy-retry')
+          expected=[5,6,7,8,9,10,11,12,13,14,15,18,19,20,21,22,25,26,28,29,30,31,34,35,37,38,39,40,41,42,43,44,48]
+          present=[]; records=[]
+          for pno in expected:
+              p=root/'pages'/f'page-{pno:03d}.json'
+              if not p.exists(): continue
+              d=json.loads(p.read_text('utf-8'))
+              present.append(pno)
+              for r in d.get('rows') or []:
+                  x=dict(r); x['_page']=pno; records.append(x)
+          missing=[x for x in expected if x not in present]
+          (root/'retry-summary.json').write_text(json.dumps({
+              'expected_missing_pages':expected,
+              'recovered_pages':present,
+              'still_missing_pages':missing,
+              'recovered_page_count':len(present),
+              'still_missing_count':len(missing)
+          },ensure_ascii=False,indent=2),encoding='utf-8')
+
+          def clean(v):
+              if not isinstance(v,str): return ''
+              v=html.unescape(v).replace('###@@@',' ').replace('!@#',' ').replace('#@!',' ')
+              return ' '.join(re.sub(r'<[^>]+>','',v).split())
+          candidates=[]
+          for r in records:
+              title=clean(r.get('title','')); author=clean(r.get('author',''))
+              pub=clean(r.get('publish_unit','')); year=clean(r.get('publish_time',''))
+              desc=clean(r.get('description',''))
+              corpus=' | '.join([title,author,pub,year,desc])
+              reasons=[]
+              if any(x in title for x in ['通書類聚','通书类聚']): reasons.append('CONTIGUOUS_TITLE_PHRASE')
+              if ('通書' in title and '類聚' in title) or ('通书' in title and '类聚' in title): reasons.append('TITLE_HAS_BOTH_TOKENS')
+              if any(x in corpus for x in ['尅擇','尅择','抉擇','抉择','克擇','克择']): reasons.append('KEZE_JUEZE_TERM')
+              if '姚奎' in corpus: reasons.append('YAO_KUI')
+              if '王以寧' in corpus or '王以宁' in corpus: reasons.append('WANG_YINING')
+              if '芝城' in corpus: reasons.append('ZHICHENG')
+              if re.search(r'(^|[^0-9])1551([^0-9]|$)',corpus) or '嘉靖三十' in corpus or '嘉靖 30' in corpus or '嘉靖30' in corpus:
+                  reasons.append('EXACT_1551_OR_JIAJING30')
+              if reasons:
+                  candidates.append({
+                    'reasons':reasons,'identifier':r.get('identifier'),'id':r.get('id'),
+                    'index_name':r.get('index_name'),'l_id':r.get('l_id'),
+                    'title':title,'author':author,'publish_unit':pub,'publish_time':year,
+                    'description':desc,'cover':r.get('cover'),'filepath':r.get('filepath'),
+                    'page':r.get('_page')
+                  })
+          (root/'recovered-records.json').write_text(json.dumps(records,ensure_ascii=False,indent=2),encoding='utf-8')
+          (root/'candidates.json').write_text(json.dumps(candidates,ensure_ascii=False,indent=2),encoding='utf-8')
+          PY
+
+          find "$ROOT/pages" -type f -name '*.json' -print0 | xargs -0 -r sha256sum | sort -V > "$ROOT/pages.sha256"
+
+          printf '%s\n' \
+            'SOURCE=中國國家圖書館 中華古籍聯合書目 resource index 0019' \
+            'QUERY=title LIKE 通書類聚' \
+            'PURPOSE=retry exactly the 33 pages missing from run 35377985520; only validated total=576,row_count=12 pages are accepted' \
+            'RETRY_POLICY=4 rounds; 4-way bounded parallelism; 40s request max; missing pages remain explicit rather than silently treated as empty' \
+            'NEGATIVE_POLICY=only after all 48 pages are validated may local filtering support a complete indexed-result-set negative' \
+            'OCR_USED=false' \
+            > "$ROOT/manifest.txt"
+
+      - name: Upload retry evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: nlc-union-guji-tongshu-leiju-fuzzy-retry
+          path: audit/nlc-union-guji-tongshu-leiju-fuzzy-retry/
+          if-no-files-found: error
+          compression-level: 6
+          retention-days: 30

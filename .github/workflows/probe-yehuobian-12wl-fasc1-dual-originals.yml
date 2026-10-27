@@ -1,0 +1,50 @@
+name: probe-yehuobian-12wl-fasc1-dual-originals
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-yehuobian-12wl-fasc1-dual-originals.yml
+      - scripts/probe-yehuobian-cadal-fasc1-old-new-alias-12wl.py
+      - tests/test_yehuobian_cadal_fasc1_alias_12wl.py
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test source-bounded duplicate and print-state gate
+        run: |
+          set -euo pipefail
+          python scripts/verify-project-continuity-state-r1.py
+          python scripts/verify-historical-source-registry-extensions-r1.py
+          python -m unittest discover -s tests -p 'test_yehuobian_cadal_fasc1_alias_12wl.py' -v
+  capture:
+    needs: verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install DjVu reader and pure grayscale image comparison
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq djvulibre-bin
+          python -m pip install pillow
+      - name: Commons source-issued original bytes, original scan pages only, no OCR
+        run: python scripts/probe-yehuobian-cadal-fasc1-old-new-alias-12wl.py --output-dir cadal-fasc1-dual-alias-12wl-output
+      - name: Preserve two original sources, image previews and SHA receipt
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cadal-fasc1-dual-original-source-pages-12wl
+          path: cadal-fasc1-dual-alias-12wl-output/
+          retention-days: 30
+          if-no-files-found: warn

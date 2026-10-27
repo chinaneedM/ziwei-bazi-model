@@ -1,0 +1,39 @@
+{
+  "schema": "BAZI-COMBINED-UNIFIED-TARGET-TIMELINE-PRE-DAYUN-AUDIT-REPAIR-R1",
+  "defect_id": "PROV-DEFECT-018",
+  "discovered_by": {
+    "exact_head": "d9af9bd7c97e27ae708bf7d44240006ec34e4605",
+    "workflow_run_id": 37220292478,
+    "workflow_job_id": 111489079777,
+    "failing_test": "test_bazi_combined_unified_target_timeline_composition_audit_r1.BaziCombinedUnifiedTargetTimelineCompositionAuditR1Tests.test_pre_dayun_and_xiaoyun_engineering_linkage_remain_explicit"
+  },
+  "defect_class": "AUDIT_EXPECTATION_CONFLATED_PRE_DAYUN_INTERVAL_FRAME_WITH_SYNTHETIC_DAYUN_GANZHI",
+  "incorrect_expectation": "timeline[\"dayun\"][\"frame\"] is None when kind=PRE_DAYUN",
+  "released_runtime_contract": {
+    "active_dayun_kind": "PRE_DAYUN",
+    "active_dayun_frame_type": "PreDayunFrame",
+    "interval_fields": [
+      "frame_id",
+      "start_utc",
+      "end_utc",
+      "interval_semantics"
+    ],
+    "synthetic_dayun_ganzhi_fields_present": false
+  },
+  "code_basis": [
+    "src/fortune_training/bazi_flow/engine.py::_select_active_dayun returns ('PRE_DAYUN', state.pre_dayun) inside the pre-Dayun interval",
+    "src/fortune_training/bazi_flow/models.py::BaziFlowContext.active_dayun_frame is PreDayunFrame | DayunFrame",
+    "src/fortune_training/bazi_application/flow_service.py serializes active_dayun_frame into both flow and timeline views"
+  ],
+  "repair": {
+    "runtime_change": false,
+    "schema_change": false,
+    "hash_change": false,
+    "chart_algorithm_change": false,
+    "algorithm_reopen": false,
+    "candidate_collapse": false,
+    "corrected_semantics": "Preserve the released PreDayunFrame interval; forbid only synthetic PRE_DAYUN Ganzhi/sexagenary fields.",
+    "current_provenance_defect_total": 18,
+    "current_repaired_provenance_defect_total": 18
+  }
+}

@@ -1,0 +1,112 @@
+{
+  "schema": "MING-DATONG-JINGTAI1-BARE-DANGZAI-PHASE-SEMANTICS-R1",
+  "schema_version": "1.0.0",
+  "batch_id": "BATCH-12-BAZI-MING-DATONG-JINGTAI1-BARE-DANGZAI-PHASE-SEMANTICS-PS",
+  "date": "2026-10-07",
+  "status": "BARE_DANGZAI_PHASE_IDENTITY_NOT_SOURCE_CLOSED_NORMALIZATION_TO_CHUKUI_FORBIDDEN",
+  "question": "Does the 1450 Ming Shilu phrase 月食當在卯正三刻 itself identify a specific eclipse phase, especially 初虧, when compared with Ming Shilu records that explicitly mark eclipse phases?",
+  "target": {
+    "source_id": "EXT-NLC-WIKIMEDIA-YINGZONG-SHILU-V19-P10-JINGTAI1-ECLIPSE-PHYSICAL",
+    "event": "景泰元年春正月辛卯 / 1450",
+    "physical_wording": "是日早月食當在卯正三刻欽天監官以為辰初初刻致失救護",
+    "explicit_phase_lexeme": false,
+    "timing_predicate": "當在卯正三刻",
+    "phase_identity_before_batch": "UNRESOLVED"
+  },
+  "comparative_corpus": [
+    {
+      "source_id": "EXT-SHIDIAN-MINGSHILU-XIANZONG-V4-TIANSHUN8-ECLIPSE-CHUKUI-CONTROL",
+      "event": "天順八年夏四月癸未朔 / 1464",
+      "temporal_distance_from_target_year": 14,
+      "wording": "欽天監監正谷濱等奏日食三分十四秒酉正二刻初虧日入酉正三刻；天文生賈信奏該食六分六十秒酉初初刻初虧",
+      "observation": "Initial-contact forecasts explicitly attach the phase lexeme 初虧 to their clock labels.",
+      "role": "NEAR_CONTEMPORARY_POSITIVE_CONTROL_FOR_EXPLICIT_INITIAL_CONTACT_LEXEME"
+    },
+    {
+      "source_id": "EXT-SHIDIAN-MINGSHILU-XIAOZONG-V162-HONGZHI13-ECLIPSE-QIYUAN-CONTROL",
+      "event": "弘治十三年五月甲寅朔/乙卯 / 1500",
+      "temporal_distance_from_target_year": 50,
+      "wording": "欽天監春官正李宏等推算日食謂寅虧卯圓及期驗之乃虧於卯而復圓於辰",
+      "observation": "Forecast-versus-observation adjudication explicitly distinguishes the start and recovery endpoints.",
+      "role": "MING_RECEIVED_TEXT_CONTROL_FOR_EXPLICIT_KUI_YUAN_ENDPOINT_SEMANTICS"
+    },
+    {
+      "source_id": "EXT-SHIDIAN-MINGSHILU-SHENZONG-V477-WANLI38-ECLIPSE-PHASE-CLOCK-CONTROL",
+      "event": "萬曆三十八年十一月壬寅朔 / 1610",
+      "temporal_distance_from_target_year": 160,
+      "wording": "欽天監奏日食七分五十七杪未時正一刻初虧申時初三刻食甚酉時初刻復圓；後文另記調品壺漏、測驗簡儀",
+      "observation": "Later Ming positive control explicitly enumerates phase-specific times and measurement vocabulary.",
+      "role": "LATER_MING_POSITIVE_CONTROL_ONLY_NOT_BACK_PROJECTED_TO_1450"
+    }
+  ],
+  "philology": {
+    "target_term": "當在",
+    "syntactic_role": "TIMING_PREDICATION",
+    "attested_phase_lexeme": false,
+    "explicit_phase_terms_in_controls": [
+      "初虧",
+      "虧",
+      "食甚",
+      "圓",
+      "復圓"
+    ],
+    "normalization_bridge_to_chukui": "NOT_ATTESTED",
+    "normalization_bridge_to_shishen": "NOT_ATTESTED",
+    "normalization_bridge_to_fuyuan": "NOT_ATTESTED",
+    "adjudication": "BARE_DANGZAI_IS_NOT_AN_ATTESTED_PHASE_LEXEME; CONTEXT_DOES_NOT_AUTHORIZE_SILENT_PHASE_COMPLETION"
+  },
+  "adjudication": {
+    "normalize_dangzai_time_to_chukui_time": "FORBIDDEN",
+    "infer_target_is_not_chukui": "NOT_AUTHORIZED",
+    "select_target_as_shishen": "NOT_AUTHORIZED",
+    "select_target_as_fuyuan": "NOT_AUTHORIZED",
+    "target_phase_identity_after_batch": "UNRESOLVED",
+    "jingtai1_absolute_anchor_status": "NOT_YET_ADMISSIBLE",
+    "rescue_failure_phase_bridge": "STILL_OPEN_FOR_12PT",
+    "md_g03_status_after_batch": "OPEN_BLOCKING_GENERAL_ADAPTER",
+    "qishuo_geographic_reference": "UNRESOLVED",
+    "runtime_authorized": false,
+    "modern_ephemeris_meridian_fit_authorized": false,
+    "hpa_dayun_cal_002_status": "MISSING_FROM_PRODUCT"
+  },
+  "inference_firewalls": [
+    "BARE_當在_TIME != 初虧_TIME_WITHOUT_EXPLICIT_BRIDGE",
+    "EXPLICIT_INITIAL_CONTACT_VOCABULARY_IN_1464 != PROOF_1450_BARE_TIME_IS_NOT_INITIAL_CONTACT",
+    "LATER_MING_PHASE_SCHEMA != AUTOMATIC_1450_PHASE_SCHEMA",
+    "PHASE_SEMANTICS != CLOCK_ACQUISITION_METHOD",
+    "PHASE_SEMANTICS != EVENT_LOCALITY_OR_MERIDIAN"
+  ],
+  "transmission_impact": {
+    "graph_nodes_added": [
+      "PASSAGE-XIANZONG-V4-TIANSHUN8-ECLIPSE-CHUKUI-1464",
+      "PASSAGE-XIAOZONG-V162-HONGZHI13-ECLIPSE-QIYUAN-1500",
+      "PASSAGE-SHENZONG-V477-WANLI38-ECLIPSE-PHASE-CLOCK-1610",
+      "TERM-CONCEPT-MING-ECLIPSE-BARE-DANGZAI-NOT-PHASE-LEXEME"
+    ],
+    "graph_edges_added": [
+      "TG-E0211",
+      "TG-E0212",
+      "TG-E0213",
+      "TG-E0214"
+    ],
+    "impact": "Adds a philological control layer showing that Ming Shilu phase semantics can be explicit and prevents a silent 初虧 normalization of the 1450 bare 當在 time."
+  },
+  "route_disposition": {
+    "next_batch": "12PT",
+    "next_focus": "Audit early-/mid-Ming eclipse rescue initiation semantics to determine whether 失救護 source-binds the operational trigger to 初虧 or merely to a forecast/reporting time. Keep rescue trigger, astronomical phase, clock acquisition, and locality separate.",
+    "use_jingtai1_as_absolute_anchor_now": "FORBIDDEN"
+  },
+  "accounting": {
+    "matrix_rows": 222,
+    "audited_rows": 222,
+    "current_missing_from_product_rows": 4,
+    "provenance_defects_confirmed": 45,
+    "provenance_defects_repaired": 45,
+    "historical_candidate_extensions": 14,
+    "historical_candidate_registries": 5,
+    "historical_candidate_runtime_resolvers": 5,
+    "chart_algorithm_defects": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0
+  }
+}
