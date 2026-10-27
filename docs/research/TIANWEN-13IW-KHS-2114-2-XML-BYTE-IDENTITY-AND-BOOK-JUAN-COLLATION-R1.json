@@ -1,0 +1,105 @@
+{
+  "schema": "TIANWEN-13IW-KHS-2114-2-XML-BYTE-IDENTITY-AND-BOOK-JUAN-COLLATION-R1",
+  "date": "2026-10-28",
+  "issue_id": "TW-OPEN-0005",
+  "initial_live_head": "6e484a642329e99c301524d5e3a7b471250a3b8f",
+  "predecessor": {
+    "record": "docs/research/TIANWEN-13IV-KHS-OFFICIAL-DESCRIPTION-XML-1482-SCOPE-R1.json",
+    "immutable_git_blob_sha": "63b6bd28165cdf5afd996842d72875cd107ce5e6",
+    "retained_at_write_status": "OFFICIAL_XML_NOT_YET_RETURNED_IN_13IV_RECORD"
+  },
+  "source": {
+    "institution": "Korea Heritage Service 国家遗产厅",
+    "official_documented_endpoint": "https://www.khs.go.kr/cha/SearchKindOpenapiDt.do",
+    "api_documentation": "https://khs.go.kr/html/HtmlPage.do?mn=NS_04_04_03&pg=%2Fpublicinfo%2Fpbinfo3_0201.jsp",
+    "retrieval_action_url": "https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/40604470633",
+    "run_id": 40604470633,
+    "run_status": "completed",
+    "run_conclusion": "success",
+    "artifact_id": 12780626673,
+    "artifact_name": "tianwen-13iv-khs-bounded-xml-evidence",
+    "official_book_code": "0021140000200",
+    "official_category": "12",
+    "official_locality": "11",
+    "https_status": 200,
+    "body_size_bytes": 5414,
+    "body_sha256": "c8a7de9c9f0ff5a64674153e7dd2048b3e6bb7e6193e0f9f9d18d7fc9106a5b9",
+    "matched_book_title": true,
+    "matched_2114_2_identity": true,
+    "xml_description_char_count": 1759,
+    "official_full_description_recovered": true,
+    "xml_description_replay_script": "scripts/probe-tianwen-13iw-official-2114-2-target-contexts.py",
+    "origin_kind": "2021_GOVERNMENT_CULTURAL_HERITAGE_DESCRIPTION_NOT_ANCIENT_PHYSICAL_FOLIO"
+  },
+  "negative_control": {
+    "code": "21140200",
+    "https_status": 200,
+    "body_size_bytes": 1049,
+    "body_sha256": "2ad17e5106a236287c618d998a840bf89ced6c0d7438ca28c37f3ff81171f6d7",
+    "matched_target_title": false,
+    "matched_2114_2_identity": true,
+    "description_char_count": 0,
+    "result": "HTTP_200_IS_NOT_PROOF_OF_CORRECT_DETAIL_RECORD",
+    "no_automatic_short_code_to_long_code_equivalence": true
+  },
+  "source_authentication": {
+    "sha_from_github_job_log_and_artifact": true,
+    "source_copy_same_as_13IV_heritage_index": true,
+    "firstparty_description_still_modern_commentary": true,
+    "physical_original_leaf_verified": false,
+    "book29_juan81_83_status": "RETRACTED_UNBOUND",
+    "legacy_13IN_and_13FO_not_silently_rewritten": true
+  },
+  "firstparty_korean_juan_and_book_scope": {
+    "snu_gk5553_book8_26_29_replacement_holding": "FIRSTPARTY_CATALOG_METADATA",
+    "reported_secondary_2021_gk5553_8_12_26": "SECONDARY_UNVERIFIED_NOT_PROMOTED",
+    "gk5554_juan81_82": "DIRECT_OFFICIAL_WORDING_TARGETS_IN_NEW_CONTEXT_PROBE_NOT_YET_ADJUDICATED_IN_THIS_RECORD",
+    "physical_juan81_82_photo": null,
+    "original_gk5553_book29_leaf": null
+  },
+  "original_ancient_controls": {
+    "g893_six_original_numeric": null,
+    "gk3467_winter_d1_d7": null,
+    "nlc03130_solar_d30": null,
+    "nlc03130_summer_d14": null,
+    "d5_zero_five_glyph": null,
+    "distinct_fourfen_chudu_bridge": null,
+    "older_13EI": "RETRACTED"
+  },
+  "adjudication": "FIRSTPARTY_MODERN_GOVERNMENT_DETAILED_DESCRIPTION_SUCCESSFULLY_RECOVERED__ANCIENT_PHYSICAL_SOURCE_AND_BOOK_JUAN_INDEPENDENT_BINDING_STILL_OPEN",
+  "counts": {
+    "matrix": [
+      222,
+      222
+    ],
+    "sources": 761,
+    "genealogy": [
+      252,
+      238
+    ],
+    "open_issues": 11,
+    "chart": "CLOSED",
+    "algorithm_reopens": 0,
+    "ancient_pages_added": 0,
+    "ancient_glyph_votes": 0,
+    "numerical_winners": 0,
+    "lineage_edges_added": 0
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "2021 modern government bibliographic description cannot itself verify exact ancient printed folio, rule glyph, or direct historical copy transmission."
+    ],
+    "unresolved_lineage_questions": [
+      "Does the official 2114-2 Korean full description clarify which GK5553 volumes it supplements?",
+      "Can actual GK5553/5554 photographs independently prove book number, original juan, and missing leaves?"
+    ]
+  },
+  "next_actions": [
+    "Probe the exact 13-digit officially verified 2114-2 KHS code and collect hash-bound bounded original-Korean contexts for juan81/82 and GK5553/GK5554 against the explicitly secondary copy.",
+    "Preserve FIRSTPARTY_GOVERNMENT_DESCRIPTION and ORIGINAL_ANCIENT_FOLIO as separate witness classes: a source-scoped bibliographic discrepancy is not a six-number ancient reading.",
+    "Continue independent GK3467 winter D1-D7, G893 six original controls, NLC03130 solar D30/summer D14 and the D5 四分/初度 issue."
+  ]
+}
