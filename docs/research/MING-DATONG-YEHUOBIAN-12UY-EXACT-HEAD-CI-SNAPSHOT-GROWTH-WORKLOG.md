@@ -1,7 +1,0 @@
-# 12UY — 歷史 687 來源快照與目前 689 來源真值不可混用
-
-On exact-head 12UX commit `1f226dcff917da78db694f9b01daf087a46d810d`, all current continuity/source-shard/genealogy gates and new 12UX tests passed. Four older exact-head workflows 12UM (Kyoto item), 12UO (old20 anchors), 12UP (corrected old20 seams) and 12UQ (nine scoped scan pages) failed solely due to comparing their **immutable 12UM–12UQ historical record count 647+40=687** against a newer live source total **647+42=689** after source-supported 12UX NPM additions.
-
-A source count in a dated historical artifact describes the actual inventory at that batch; it is not a promised perpetual registry upper bound. Changes: keep all four historical JSON evidence records byte-identical; fix only five verifier/test files. Each now validates original 687 = root647 + ext40, and live >= historical; 12UQ's historical 250/237 graph counts remain internal batch facts rather than current graph totals. New tests cross-check 2026-10-13 manifest/current state total=689 and old four snapshots=687, plus zero original target readings, no external queries and no chart algorithm reopen.
-
-No change to original source images, printed text, target folio, historical evidence, Matrix222/222, 45 metadata repairs, graph252/238, formal487 latest12QD, MD-G03/12QE OPEN. Main next research work remains source-issued authenticated 1827 and 1869 thematic 卷20〈改造漏刻〉 pages and independent four-locus manual collation.
