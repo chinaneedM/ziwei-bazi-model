@@ -1,0 +1,140 @@
+{
+  "schema": "TIANWEN-13IR-P0-ACTIVE-FIELD-CONTROL-RECONCILIATION-R1",
+  "date": "2026-10-27",
+  "issue_id": "TW-OPEN-0005",
+  "scope": "ACTIVE_UNRESOLVED_RISK_REFERENCE_INTEGRITY_NO_HISTORICAL_NUMERIC_ADJUDICATION",
+  "parent_exact_head": "40a8bd7f7b1d5985cba212588dfb43eca39fe006",
+  "ci_baseline": {
+    "workflow_runs": 226,
+    "completed_success": 225,
+    "completed_failure": 1,
+    "failure_workflow": "clean-training-system",
+    "failure_step": "Goryeosa 13EI original glyph misattribution forward-only erratum",
+    "failure_line": "scripts/verify-ncl03130-d4-chudu-roi-erratum-13ei.py:71",
+    "root_cause": "P0 active next_action dropped still-unresolved source-specific field labels 四分 初度 NULL during rolling handoff",
+    "earlier_13ip_failures_repaired": true
+  },
+  "source_controls": [
+    {
+      "scope": "NLC03130_SOLAR",
+      "field": "D30 full original numeric",
+      "status": "OPEN",
+      "value": null,
+      "labels": [
+        "D30",
+        "NULL"
+      ],
+      "adjudication": "NOT_POPULATED_FROM_ARITHMETIC"
+    },
+    {
+      "scope": "NLC03130_OLD_SIX_DAY_SOLAR",
+      "field": "D1 through D6 original day/field coordination",
+      "status": "OPEN_PARTIAL",
+      "value": null,
+      "labels": [
+        "D1",
+        "D2",
+        "D3",
+        "D4",
+        "D5",
+        "D6",
+        "D1-D6",
+        "四分",
+        "初度"
+      ],
+      "adjudication": "ATTESTED_ISOLATED_GLYPHS_NOT_CROSS_TABLE_FIELD_EQUIVALENCE"
+    },
+    {
+      "scope": "NLC03130_SOLAR_13EI",
+      "field": "Original D4 firstfield ROI misattribution",
+      "status": "RETRACTED",
+      "value": null,
+      "labels": [
+        "13EI"
+      ],
+      "adjudication": "NO_FALSE_ORIGINAL_WINNER"
+    },
+    {
+      "scope": "NLC03130_SUMMER",
+      "field": "D14 direct original",
+      "status": "OPEN",
+      "value": null,
+      "labels": [
+        "summer D14"
+      ],
+      "adjudication": "INDEPENDENT_OF_SOLAR_D30"
+    },
+    {
+      "scope": "GK3467_WINTER",
+      "field": "Book 6 juan52 initial D1 through D7 title/folio",
+      "status": "OPEN",
+      "value": null,
+      "labels": [
+        "GK3467",
+        "D1-D7"
+      ],
+      "adjudication": "NO_PHYSICAL_LOSS_OR_EARLY_IMPRESSION_INFERRED"
+    },
+    {
+      "scope": "G893_SHOUSHI",
+      "field": "Six original field/numeric controls",
+      "status": "OPEN",
+      "value": null,
+      "labels": [
+        "G893"
+      ],
+      "adjudication": "ALL_SIX_NOT_GLOBALLY_ADJUDICATED"
+    },
+    {
+      "scope": "GK5553_1972_EVIDENCE",
+      "field": "Copy and juan identity",
+      "status": "OPEN",
+      "value": null,
+      "labels": [
+        "GK05553_00",
+        "GK03539_00",
+        "GK03579_00",
+        "GK03269_00",
+        "GK05554_00"
+      ],
+      "adjudication": "13IO_UNBOUND_BOOK29_TO_JUAN81_83"
+    }
+  ],
+  "invariants": {
+    "matrix": [
+      222,
+      222
+    ],
+    "external_sources": 761,
+    "graph": [
+      252,
+      238
+    ],
+    "risks": 11,
+    "product": "CLOSED",
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Catalog names and archived source IDs do not identify a common physical copy or justify numerical reuse"
+    ],
+    "unresolved_lineage_questions": [
+      "NLC03130 original full solar D30",
+      "Independent original field semantics 四分/初度",
+      "GK3467 original book6 winter table head",
+      "GK5553 book29 leaf/juan identity",
+      "G893 six target fields"
+    ]
+  },
+  "file_policy": {
+    "source_images_added": 0,
+    "original_journal_pdf_bytes_obtained": false,
+    "catalog_claims_promoted_to_original": false,
+    "historical_13in_source_rewritten": false,
+    "rolling_action_restored_historical_keywords_for_living_gaps_only": true
+  }
+}
