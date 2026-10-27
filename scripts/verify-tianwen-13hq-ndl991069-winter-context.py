@@ -4,7 +4,7 @@ import argparse,hashlib,json,zipfile
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 E=ROOT/"docs/research/TIANWEN-13HQ-NDL991069-CANVAS72-73-WINTER-SURPLUS-DEFICIT-CONTEXT-R1.json"
-def check(e):
+def check(e,*,ledger=None):
  assert e["schema"]=="TIANWEN-13HQ-NDL991069-CANVAS72-73-WINTER-SURPLUS-DEFICIT-CONTEXT-R1"
  assert e["issue_id"]=="TW-OPEN-0005" and e["source"]["print_year"]==1909
  assert e["source"]["canvas72"]["sha256"]=="295a3a839914f51a33c19f6e7cea6c113413d9bcb3c2423c60589bb51bdf5c86"
@@ -42,15 +42,22 @@ def check(e):
   a,b,c,d=x["bbox_xyxy"]
   assert 0<=a<c<=w and 0<=b<d<=h
  s=json.loads((ROOT/"docs/PROJECT-CURRENT-STATE-R1.json").read_text(encoding="utf8"))
- l=json.loads((ROOT/"docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json").read_text(encoding="utf8"))
+ l=ledger if ledger is not None else json.loads((ROOT/"docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json").read_text(encoding="utf8"))
  assert s["schema_version"]==l["binding"]["reviewed_state_version"]==s["historical_audit"]["research_omission_guard"]["reviewed_state_version"] and tuple(map(int,s["schema_version"].split("."))) >= (1,871,0)
  assert any(x.startswith("13HQ ") for x in s["historical_audit"]["current_focus"])
  assert any(x.startswith("13HQ ") for x in s["historical_audit"]["current_focus"])
  assert len(s["historical_audit"]["current_focus"])==l["binding"]["source_focus_count"]
  i=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
+ # Historical action transitions live in append-only history; next_action may advance.
+ for tag in ('13HQ', '13HP'):
+     assert any(
+         h.get("event")=="ISSUE_REVISION"
+         and h.get("revision_id", "").startswith("TW-OPEN-0005-"+tag+"-")
+         and "next_action" in h.get("changed_fields", [])
+         and (tag!="13HQ" or str(E.relative_to(ROOT)) in h.get("evidence_refs", []))
+         for h in i["history"]
+     ), tag
  assert i["priority"]=="P0" and i["status"]=="OPEN"
- assert (i["next_action"].startswith("13HQ CURRENT ACTION:") or "ARCHIVED 13HQ PRIOR ACTION:" in i["next_action"])
- assert "ARCHIVED 13HP PRIOR ACTION:" in i["next_action"]
  assert any(h.get("revision_id","").startswith("TW-OPEN-0005-13HQ-") for h in i["history"])
  assert str(E.relative_to(ROOT)) in i["source_refs"]
  return True

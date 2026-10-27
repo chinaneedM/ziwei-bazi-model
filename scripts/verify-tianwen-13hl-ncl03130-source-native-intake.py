@@ -7,7 +7,7 @@ E=ROOT/"docs/research/TIANWEN-13HL-NCL03130-NATIVE-DETAIL-AND-TARGET-RESEARCH-RE
 def blob(p):
  b=(ROOT/p).read_bytes()
  return hashlib.sha1(b"blob "+str(len(b)).encode()+b"\0"+b).hexdigest()
-def check(e):
+def check(e,*,ledger=None):
  assert e["issue_id"]=="TW-OPEN-0005" and e["schema"]=="TIANWEN-13HL-NCL03130-NATIVE-DETAIL-AND-TARGET-RESEARCH-REQUEST-SPEC-R1"
  c=e["provider_controls"];nb=c["indexed_neighbor_example"]
  assert c["catalog_shelfmark"]=="03130" and c["catalog_item_id"]=="549927"
@@ -32,14 +32,22 @@ def check(e):
  assert e["evidence_effect"]=={"new_registry_entries":0,"new_physical_witnesses":0,"new_target_original_glyphs":0,"new_genealogy_nodes":0,"new_genealogy_edges":0,"algorithm_reopens":0,"candidate_collapses":0,"research_request_sent":False}
  assert e["invariants"]=={"matrix":[222,222],"sources":761,"graph":[252,238],"open_issues":11,"chart":"CLOSED"} and e["transmission_impact"]=="NONE"
  s=json.loads((ROOT/"docs/PROJECT-CURRENT-STATE-R1.json").read_text(encoding="utf8"))
- l=json.loads((ROOT/"docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json").read_text(encoding="utf8"))
+ l=ledger if ledger is not None else json.loads((ROOT/"docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json").read_text(encoding="utf8"))
  assert s["schema_version"]==l["binding"]["reviewed_state_version"]
  assert l["binding"]["source_focus_count"]==len(s["historical_audit"]["current_focus"])
  assert l["binding"]["latest_research_focus_prefix"]==s["historical_audit"]["current_focus"][-1].split(" ",1)[0]
  assert any(x.startswith("13HL ") for x in s["historical_audit"]["current_focus"])
  i=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
- assert i["priority"]=="P0" and i["status"]=="OPEN" and "13HL CURRENT ACTION:" in i["next_action"]
- assert "ARCHIVED 13HK PRIOR ACTION:" in i["next_action"]
+ # Historical action transitions live in append-only history; next_action may advance.
+ for tag in ('13HL', '13HK'):
+     assert any(
+         h.get("event")=="ISSUE_REVISION"
+         and h.get("revision_id", "").startswith("TW-OPEN-0005-"+tag+"-")
+         and "next_action" in h.get("changed_fields", [])
+         and (tag!="13HL" or str(E.relative_to(ROOT)) in h.get("evidence_refs", []))
+         for h in i["history"]
+     ), tag
+ assert i["priority"]=="P0" and i["status"]=="OPEN"
  assert "docs/research/TIANWEN-13HL-NCL03130-NATIVE-DETAIL-AND-TARGET-RESEARCH-REQUEST-SPEC-R1.json" in i["source_refs"] and "docs/research/TIANWEN-13HL-NCL03130-NATIVE-DETAIL-AND-TARGET-RESEARCH-REQUEST-SPEC-R1.md" in i["source_refs"]
  assert any(h.get("revision_id","").startswith("TW-OPEN-0005-13HL-") and "next_action" in h.get("changed_fields",[]) for h in i["history"])
  return True

@@ -4,7 +4,7 @@ import argparse,hashlib,json,zipfile
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 E=ROOT/"docs/research/TIANWEN-13HO-NDL991069-CANVAS73-D14-D16-DIRECT-HEADING-LOCATORS-R1.json"
-def check(e):
+def check(e,*,ledger=None):
  assert e["schema"]=="TIANWEN-13HO-NDL991069-CANVAS73-D14-D16-DIRECT-HEADING-LOCATORS-R1"
  assert e["issue_id"]=="TW-OPEN-0005"
  s=e["source_binding"];a=e["immutable_artifact"]
@@ -40,13 +40,21 @@ def check(e):
  assert e["invariants"]=={"matrix":[222,222],"sources":761,"genealogy":[252,238],"open_issues":11,"chart":"CLOSED"}
  assert e["transmission_impact"]=="NONE"
  st=json.loads((ROOT/"docs/PROJECT-CURRENT-STATE-R1.json").read_text(encoding="utf8"))
- led=json.loads((ROOT/"docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json").read_text(encoding="utf8"))
+ led=ledger if ledger is not None else json.loads((ROOT/"docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json").read_text(encoding="utf8"))
  assert st["schema_version"]==led["binding"]["reviewed_state_version"] and tuple(map(int,st["schema_version"].split("."))) >= (1,869,0)
  assert led["binding"]["source_focus_count"]==len(st["historical_audit"]["current_focus"])
  assert any(z.startswith("13HO ") for z in st["historical_audit"]["current_focus"])
  i=next(z for z in led["issues"] if z["id"]=="TW-OPEN-0005")
+ # Historical action transitions live in append-only history; next_action may advance.
+ for tag in ('13HO', '13HN'):
+     assert any(
+         h.get("event")=="ISSUE_REVISION"
+         and h.get("revision_id", "").startswith("TW-OPEN-0005-"+tag+"-")
+         and "next_action" in h.get("changed_fields", [])
+         and (tag!="13HO" or str(E.relative_to(ROOT)) in h.get("evidence_refs", []))
+         for h in i["history"]
+     ), tag
  assert i["status"]=="OPEN" and i["priority"]=="P0"
- assert "13HO CURRENT ACTION:" in i["next_action"] and "ARCHIVED 13HN PRIOR ACTION:" in i["next_action"]
  assert "docs/research/TIANWEN-13HO-NDL991069-CANVAS73-D14-D16-DIRECT-HEADING-LOCATORS-R1.json" in i["source_refs"] and "docs/research/TIANWEN-13HO-NDL991069-CANVAS73-D14-D16-DIRECT-HEADING-LOCATORS-R1.md" in i["source_refs"]
  assert any(z.get("revision_id","").startswith("TW-OPEN-0005-13HO-") for z in i["history"])
  return True

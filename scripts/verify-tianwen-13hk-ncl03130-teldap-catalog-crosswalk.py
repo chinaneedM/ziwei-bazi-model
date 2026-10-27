@@ -7,7 +7,7 @@ E=ROOT/"docs/research/TIANWEN-13HK-NCL03130-TELDAP-ITEM549927-CATALOG-COPY-DATE-
 def gitblob(path):
     b=path.read_bytes()
     return hashlib.sha1(b"blob "+str(len(b)).encode()+b"\0"+b).hexdigest()
-def check(e,root=ROOT):
+def check(e,root=ROOT,*,ledger=None):
     assert e["schema"]=="TIANWEN-13HK-NCL03130-TELDAP-ITEM549927-CATALOG-COPY-DATE-CROSSWALK-R1"
     assert e["issue_id"]=="TW-OPEN-0005"
     c=e["institutional_catalog"]
@@ -41,15 +41,23 @@ def check(e,root=ROOT):
     assert e["invariants"]=={"matrix":[222,222],"sources":761,"graph":[252,238],"open_issues":11,"chart":"CLOSED","algorithm_reopens":0,"candidate_collapses":0}
     assert e["transmission_impact"]=="NONE"
     s=json.loads((root/"docs/PROJECT-CURRENT-STATE-R1.json").read_text(encoding="utf8"))
-    l=json.loads((root/"docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json").read_text(encoding="utf8"))
+    l=ledger if ledger is not None else json.loads((root/"docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json").read_text(encoding="utf8"))
     assert s["schema_version"]==l["binding"]["reviewed_state_version"]
     assert l["binding"]["source_focus_count"]==len(s["historical_audit"]["current_focus"])
     assert l["binding"]["latest_research_focus_prefix"]==s["historical_audit"]["current_focus"][-1].split(" ",1)[0]
     assert any(x.startswith("13HK ") for x in s["historical_audit"]["current_focus"])
     i=next(z for z in l["issues"] if z["id"]=="TW-OPEN-0005")
+    # Historical action transitions live in append-only history; next_action may advance.
+    for tag in ('13HK',):
+        assert any(
+            h.get("event")=="ISSUE_REVISION"
+            and h.get("revision_id", "").startswith("TW-OPEN-0005-"+tag+"-")
+            and "next_action" in h.get("changed_fields", [])
+            and (tag!="13HK" or str(E.relative_to(root)) in h.get("evidence_refs", []))
+            for h in i["history"]
+        ), tag
     assert i["priority"]=="P0" and i["status"]=="OPEN"
     assert str(E.relative_to(root)) in i["source_refs"] and str(E.relative_to(root)).replace(".json",".md") in i["source_refs"]
-    assert "13HK CURRENT ACTION:" in i["next_action"]
     assert any(h.get("event")=="ISSUE_REVISION" and h.get("revision_id","").startswith("TW-OPEN-0005-13HK-") and "next_action" in h.get("changed_fields",[]) for h in i["history"])
     return True
 if __name__=="__main__":
