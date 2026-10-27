@@ -1,0 +1,139 @@
+{
+  "schema": "TIANWEN-13IT-GK5553-5554-HERITAGE-COPY-CROSSWALK-R1",
+  "date": "2026-10-28",
+  "issue_id": "TW-OPEN-0005",
+  "parent_exact_head": "21c5df6dc88322823502b6e1db2f782f8c196554",
+  "evidence_tiers": {
+    "kyujanggak_firstparty_catalog": {
+      "url": "https://kyudb.snu.ac.kr/book/view.do?book_cd=GK05553_00",
+      "kind": "FIRSTPARTY_HOLDING_CATALOG_TEXT",
+      "shelfmark": "GK05553_00",
+      "book_count": 46,
+      "handwritten_supplement_book_numbers": [
+        8,
+        26,
+        29
+      ],
+      "same_record_toc_juan_81_83": "兵志",
+      "explicit_book29_to_juan81_83_binding": false,
+      "source_original_book29_folio_seen": false
+    },
+    "korean_heritage_firstparty_index": {
+      "url": "https://www.heritage.go.kr/heri/cul/culSelectDetail.do?ccbaAsno=21140200&ccbaCpno=1121121140200&ccbaCtcd=11&ccbaKdcd=12&pageNo=1_1_1_0",
+      "kind": "FIRSTPARTY_PUBLIC_SEARCH_INDEX_METADATA",
+      "designation": "高麗史(2021-2)",
+      "designated_on": "2021-02-17",
+      "described_juan_count": 98,
+      "described_book_count": 32,
+      "listed_period": "1482年(成宗13)",
+      "official_long_description_directly_retrieved": false,
+      "source_original_juan81_82_folio_seen": false,
+      "shelfmark_in_search_snippet": null
+    },
+    "copied_heritage_description": {
+      "url": "https://7390882.tistory.com/entry/%EB%B3%B4%EB%AC%BC-2114%ED%98%B8",
+      "kind": "SECONDARY_REPUBLICATION_ATTRIBUTED_TO_CULTURAL_HERITAGE_ADMINISTRATION_NOT_RETRIEVED_OFFICIAL_TEXT",
+      "posted_on": "2021-12-11",
+      "claimed_first_holding": "奎貴5553",
+      "claimed_second_holding": "奎貴5554",
+      "reported_first_holding_supplementation": [
+        {
+          "book": 8,
+          "juan": [
+            19,
+            20,
+            21
+          ]
+        },
+        {
+          "book": 12,
+          "juan": [
+            31,
+            32,
+            33
+          ]
+        },
+        {
+          "book": 26,
+          "juan": [
+            73,
+            74
+          ]
+        }
+      ],
+      "reported_second_holding_juan79_82_books": [
+        17,
+        18
+      ],
+      "reported_second_supplies_first_juan": [
+        81,
+        82
+      ],
+      "independent_ancient_physical_witness": false,
+      "official_paragraph_verified_against_firstparty": false
+    }
+  },
+  "source_conflicts": {
+    "supplement_book_number_sets": {
+      "firstparty_snu": [
+        8,
+        26,
+        29
+      ],
+      "secondary_republication": [
+        8,
+        12,
+        26
+      ],
+      "resolved": false
+    },
+    "juan81_82_candidate_reverse_attribution": "SECONDARY_REPUBLICATION_REPORTS_GK5554_SUPPLIES_GK5553_WHILE_2020_JOURNAL_FOOTNOTE_DESCRIBES_GK5553_AS_ALTERNATE_SOURCE",
+    "physical_original_juan81_82_seen": false,
+    "official_designation_long_description_verified": false,
+    "exact_insertion_order_or_volume_to_juan_map_proven": false,
+    "historical_13IN_book29_to_juan81_83_status": "RETRACTED_UNBOUND",
+    "neither_secondary_copy_nor_official_index_authorizes_a_winner": true
+  },
+  "pending_evidence": [
+    "Obtain directly retrievable official 2021 designation explanation for both 2114-1 and 2114-2 and compare original Korean long-description text without treating reprints as authority",
+    "Obtain firstparty holding-specific GK05553_00 original books 12 and 29 title/juan leaves and GK05554_00 original juan81-82 to adjudicate physical scope",
+    "Locate the original 1972 facsimile colophon and actual juan81-82 reproduction parent; compare against the 2020 SYSU original journal p100 note6",
+    "GK03467_04 book6 juan52 original winter table title and D1-D7 remain separately open; G893 six controls and NLC03130 original numerical fields remain separately open"
+  ],
+  "controls": {
+    "source_registry_count_unchanged": 761,
+    "matrix": [
+      222,
+      222
+    ],
+    "genealogy": [
+      252,
+      238
+    ],
+    "risk_issues": 11,
+    "chart": "CLOSED",
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0,
+    "new_original_images": 0,
+    "new_source_registry_entries": 0,
+    "new_genealogy_nodes": 0,
+    "new_genealogy_edges": 0,
+    "gk3467_d1_d7_decided": false,
+    "g893_six_decided": false,
+    "nlc03130_solar_d30": null,
+    "nlc03130_summer_d14": null
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Secondary purported 2021 heritage reprint cannot convert GK5553/GK5554 juan81-82 holdings into confirmed original folio provenance or a direct edition ancestry"
+    ],
+    "unresolved_lineage_questions": [
+      "Firstparty 2021 designation Korean original paragraph and 2114-1/2 catalog scope",
+      "GK5553 book12 versus book29 archival physical book/juan inventory",
+      "GK5554 81-82 and GK5553/1972 facsimile original page correspondence"
+    ]
+  }
+}
