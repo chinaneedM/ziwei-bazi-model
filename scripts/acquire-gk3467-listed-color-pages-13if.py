@@ -53,6 +53,15 @@ def image_urls(html, requested_page):
     return out
 
 
+def select_pages(all_ids, requested=None):
+    selected = requested if requested is not None else all_ids[:20]
+    if not selected or len(selected) > 20 or len(set(selected)) != len(selected):
+        raise ValueError('Invalid bounded page selection')
+    if any(page not in all_ids for page in selected):
+        raise ValueError('Page was not emitted in the provider list')
+    return selected
+
+
 def fetch(url, body=None, limit=25 * 1024 * 1024):
     request = Request(url, data=urlencode(body).encode() if body is not None else None)
     try:
@@ -70,13 +79,14 @@ def fetch(url, body=None, limit=25 * 1024 * 1024):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--pages', nargs='+', help='Optional bounded subset of provider-listed IDs')
     args = parser.parse_args()
     args.output.mkdir(parents=True, exist_ok=True)
     raw = gzip.decompress(SOURCE.read_bytes())
     assert hashlib.sha256(raw).hexdigest() == SOURCE_SHA
     html = raw.decode('utf-8')
     all_ids = listed_pages(html)
-    selected = all_ids[:20]
+    selected = select_pages(all_ids, args.pages)
     # These actions and form field names are published in this archived viewer.
     assert '/pf01/rendererImg.do' in html and 'name="page_no"' in html
     (args.output / 'seed-renderer.html').write_bytes(raw)

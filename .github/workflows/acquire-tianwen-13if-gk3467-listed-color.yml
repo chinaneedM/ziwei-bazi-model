@@ -18,7 +18,7 @@ jobs:
         with:
           python-version: '3.11'
       - run: python -m pip install 'Pillow>=10,<12'
-      - run: python scripts/acquire-gk3467-listed-color-pages-13if.py --output audit/tianwen-13if-gk3467-color
+      - run: python scripts/acquire-gk3467-listed-color-pages-13if.py --pages 000a 000b 001a --output audit/tianwen-13if-gk3467-color
       - uses: actions/upload-artifact@v4
         if: always()
         with:

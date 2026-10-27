@@ -36,6 +36,13 @@ class ProviderListedPageTest(unittest.TestCase):
         bad = self.source.replace('/data01/stream/STH/IMG/GK03467_04/', '/data01/stream/STH/IMG/GK05553_00/')
         self.assertEqual(M.image_urls(bad, '000a'), [])
 
+    def test_retry_subset_cannot_introduce_unknown_or_duplicate_pages(self):
+        pages = M.listed_pages(self.source)
+        self.assertEqual(M.select_pages(pages, ['000a', '000b', '001a']), ['000a', '000b', '001a'])
+        for requested in (['099a'], ['001a', '001a'], []):
+            with self.subTest(requested=requested), self.assertRaises(ValueError):
+                M.select_pages(pages, requested)
+
 
 if __name__ == '__main__':
     unittest.main()
