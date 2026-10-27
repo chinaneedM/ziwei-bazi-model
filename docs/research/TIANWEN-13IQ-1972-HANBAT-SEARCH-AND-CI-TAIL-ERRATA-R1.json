@@ -1,0 +1,90 @@
+{
+  "schema": "TIANWEN-13IQ-1972-HANBAT-SEARCH-AND-CI-TAIL-ERRATA-R1",
+  "date": "2026-10-27",
+  "issue_id": "TW-OPEN-0005",
+  "purpose": "FIRST_PARTY_SEARCH_ONLY_1972_HANBAT_AND_CI_STALE_TEST_RECOVERY",
+  "first_party_hanbat": {
+    "provider": "Daejeon Hanbat Municipal Library",
+    "search_url": "https://www.daejeon.go.kr/hanbatlibrary/newSearchBriefList.do?q=%EA%B3%A0%EB%A0%A4%EC%82%AC%5B%E9%AB%98%E9%BA%97%E5%8F%B2%5D&si=4&siteCodeGubun=home&vSType=KWRD",
+    "list_results": [
+      {
+        "list_number": 9,
+        "title": "高麗史. 中",
+        "catalog_publisher_literal": "亞世亞文化社",
+        "catalog_year": 1972,
+        "editor": "韓國學文獻硏究所",
+        "detail_control": "000000277137",
+        "detail_replay": "PAGE_NOT_FOUND",
+        "photographed_original": false
+      },
+      {
+        "list_number": 10,
+        "title": "高麗史. 上",
+        "catalog_publisher_literal": "亞世亞文化社",
+        "catalog_year": 1972,
+        "editor": "韓國學文獻硏究所",
+        "detail_control": "000000277587",
+        "detail_replay": "PAGE_NOT_FOUND",
+        "photographed_original": false
+      }
+    ],
+    "relation_to_CiNii_BA63617326": "UNBOUND_NO_COLOCATED_COLOPHON",
+    "relation_to_CiNii_BB04922175": "UNBOUND_NO_COLOCATED_COLOPHON",
+    "relation_to_journal_GK5554": "UNBOUND_NO_1972_PRINTED_TARGET",
+    "new_ancient_witness_votes": 0
+  },
+  "ci_tail": {
+    "parent_13ip_commit": "bc5c13fd8fc33714e18f531d09b750a45af6eb3f",
+    "exact_head_workflow_total": 225,
+    "completed_success": 222,
+    "completed_failure": 3,
+    "failures": [
+      "verify-tianwen-13in-gk5553-material",
+      "verify-tianwen-13hz-nikh-d18",
+      "clean-training-system"
+    ],
+    "corrections": [
+      {
+        "path": "tests/test_tianwen_13in_gk5553_material.py",
+        "fault": "NEGATIVE_MUTATION_TARGET_KEY_WRONG",
+        "fix": "Mutate real book29_original_folio_images_obtained key"
+      },
+      {
+        "path": "scripts/verify-tianwen-13hz-nikh-d18.py",
+        "fault": "LEGACY_NEXT_ACTION_ARCHIVE_TEXT",
+        "fix": "Check archived 13HZ and 13HY issue.history revisions"
+      },
+      {
+        "path": "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json",
+        "fault": "CURRENT_13IP_ACTION_OMITTED_OPEN_NCL03130_SOLAR_D30",
+        "fix": "Restore source-specific solar D30 pending value next action distinct from summer D14"
+      }
+    ],
+    "next_exact_head_ci": "PENDING"
+  },
+  "adjudication": {
+    "NLC03130_solar_D30_complete_original_numeric_value": null,
+    "NLC03130_summer_D14_numeric_value": null,
+    "distinct_solar_summer_tables": true,
+    "prior_13io_retraction_preserved": true,
+    "actual_new_old_book_leaf_images": 0,
+    "new_source_registry_records": 0,
+    "new_graph_nodes": 0,
+    "new_graph_edges": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0
+  },
+  "invariants": {
+    "matrix": [
+      222,
+      222
+    ],
+    "sources": 761,
+    "graph": [
+      252,
+      238
+    ],
+    "risk_issues": 11,
+    "chart": "CLOSED"
+  }
+}
