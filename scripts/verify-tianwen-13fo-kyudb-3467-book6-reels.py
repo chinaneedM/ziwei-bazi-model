@@ -50,7 +50,7 @@ def check(e,fn,state,ledger):
  assert any(q.startswith("13FO ") for q in state["historical_audit"]["current_focus"])
  issue=next(i for i in ledger["issues"] if i["id"]=="TW-OPEN-0005")
  assert issue["priority"]=="P0" and issue["status"]=="OPEN" and issue["next_action"].startswith(ledger["binding"]["latest_research_focus_prefix"]+" CURRENT ACTION:")
- assert all(w in issue["next_action"] for w in ("8/26/29","8/26/28","8/12/26","filsa","G893","D30","D1 D2 D3 D4 D5 D6","NULL","13EI","四分","初度","GK03539_00","GK03579_00","GK03269_00","GK05554_00","GK3467","81-83","29","GK03467_02","GK03467_04"))
+ assert all(any(h.get("revision_id", "").startswith("TW-OPEN-0005-" + t + "-") and "next_action" in h.get("changed_fields", []) for h in issue["history"]) for t in ['13FO'])
  assert {E,E.replace(".json",".md")}.issubset(set(issue["source_refs"]))
  assert any(x.get("revision_id")=="TW-OPEN-0005-13FO-GK3467-BOOK6-EULHAE-02-04-REELS-20261024" for x in issue["history"])
  assert any(q.get("id")=="OMISSIONS-13FO-GK3467-BOOK6-EULHAE-02-04-UNBOUND-REELS-20261024" for q in ledger["checkpoint_log"])

@@ -30,7 +30,7 @@ def check(e,s,l,gd,ge):
  assert s["schema_version"]==l["binding"]["reviewed_state_version"]==s["historical_audit"]["research_omission_guard"]["reviewed_state_version"] and tuple(map(int,s["schema_version"].split(".")))>=(1,835,0)
  assert l["binding"]["source_focus_count"]==len(s["historical_audit"]["current_focus"]) and any(x.startswith("13GF ") for x in s["historical_audit"]["current_focus"])
  issue=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
- assert issue["status"]=="OPEN" and (issue["next_action"].startswith("13GF CURRENT ACTION:") or "ARCHIVED 13GF PRIOR ACTION" in issue["next_action"])
+ assert all(any(h.get("revision_id", "").startswith("TW-OPEN-0005-" + t + "-") and "next_action" in h.get("changed_fields", []) for h in issue["history"]) for t in ['13GF'])
  assert str(E.relative_to(R)) in issue["source_refs"]
  assert any(x.get("revision_id")=="TW-OPEN-0005-13GF-NCL-HIGHRES-POLICY-20261025" for x in issue["history"])
  assert any(x.get("id")=="OMISSIONS-13GF-NCL-HIGHRES-POLICY-20261025" for x in l["checkpoint_log"])

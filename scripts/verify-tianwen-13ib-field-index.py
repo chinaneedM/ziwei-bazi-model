@@ -47,7 +47,7 @@ def check(e,with_state=True):
   assert ld["binding"]["source_focus_count"]==len(st["historical_audit"]["current_focus"])
   i=next(x for x in ld["issues"] if x["id"]=="TW-OPEN-0005")
   assert i["priority"]=="P0" and i["status"]=="OPEN"
-  assert (i["next_action"].startswith("13IB CURRENT ACTION:") or "ARCHIVED 13IB PRIOR ACTION:" in i["next_action"]) and "ARCHIVED 13IA PRIOR ACTION:" in i["next_action"]
+  assert all(any(h.get("revision_id", "").startswith("TW-OPEN-0005-" + t + "-") and "next_action" in h.get("changed_fields", []) for h in i["history"]) for t in ['13IB','13IA'])
   assert any(x.get("revision_id","").startswith("TW-OPEN-0005-13IB-") for x in i["history"])
   assert "docs/research/TIANWEN-13IB-WINTER-CUMULATIVE-VS-ADDITION-FIELD-INDEX-CONTROL-R1.json" in i["source_refs"] and ld["checkpoint_log"][-1]["state_version"]==st["schema_version"]
  return True

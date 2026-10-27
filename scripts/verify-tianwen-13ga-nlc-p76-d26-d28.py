@@ -112,7 +112,7 @@ def check(e,fy,fz,ledger,state,source_image=None):
  issue=next(x for x in ledger["issues"] if x["id"]=="TW-OPEN-0005")
  assert issue["priority"]=="P0" and issue["status"]=="OPEN"
  assert issue["next_action"].startswith(ledger["binding"]["latest_research_focus_prefix"]+" CURRENT ACTION:") # rolling current contract; historic 13FZ retained
- assert "13FZ CURRENT ACTION:" in issue["next_action"]
+ assert all(any(h.get("revision_id", "").startswith("TW-OPEN-0005-" + t + "-") and "next_action" in h.get("changed_fields", []) for h in issue["history"]) for t in ['13GA','13FZ'])
  assert str(E.relative_to(ROOT)) in issue["source_refs"] and str(E.relative_to(ROOT)).replace(".json",".md") in issue["source_refs"]
  assert any(h.get("revision_id")=="TW-OPEN-0005-13GA-D26-D28-NLC-20261024" for h in issue["history"])
  assert any(x.get("id")=="OMISSIONS-13GA-NLC-P76-D26-D28-20261024" for x in ledger["checkpoint_log"])

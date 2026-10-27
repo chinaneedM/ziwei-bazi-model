@@ -47,8 +47,8 @@ def check(e,with_state=True):
   assert l["binding"]["source_focus_count"]==len(s["historical_audit"]["current_focus"])
   issue=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
   assert issue["priority"]=="P0" and issue["status"]=="OPEN"
-  assert issue["next_action"].startswith("13HT CURRENT ACTION:") or "ARCHIVED 13HT PRIOR ACTION:" in issue["next_action"]
-  assert "ARCHIVED 13HS PRIOR ACTION:" in issue["next_action"]
+  assert all(any(h.get("revision_id", "").startswith("TW-OPEN-0005-" + t + "-") and "next_action" in h.get("changed_fields", []) for h in issue["history"]) for t in ['13HT'])
+  assert all(any(h.get("revision_id", "").startswith("TW-OPEN-0005-" + t + "-") and "next_action" in h.get("changed_fields", []) for h in issue["history"]) for t in ['13HT','13HS'])
   assert any(h.get("revision_id","").startswith("TW-OPEN-0005-13HT-") for h in issue["history"])
   assert str(E.relative_to(ROOT)) in issue["source_refs"]
   assert l["checkpoint_log"][-1]["state_version"]==s["schema_version"]

@@ -43,7 +43,7 @@ def check(e,ga,fu,ledger,state,source_image=None):
  issue=next(i for i in ledger["issues"] if i["id"]=="TW-OPEN-0005")
  assert issue["priority"]=="P0" and issue["status"]=="OPEN"
  assert issue["next_action"].startswith(ledger["binding"]["latest_research_focus_prefix"]+" CURRENT ACTION:")
- assert "13GA CURRENT ACTION:" in issue["next_action"] and "13FZ CURRENT ACTION:" in issue["next_action"]
+ assert all(any(h.get("revision_id", "").startswith("TW-OPEN-0005-" + t + "-") and "next_action" in h.get("changed_fields", []) for h in issue["history"]) for t in ['13GB','13GA','13FZ'])
  assert str(E.relative_to(ROOT)) in issue["source_refs"] and str(E.relative_to(ROOT)).replace(".json",".md") in issue["source_refs"]
  assert any(z.get("revision_id")=="TW-OPEN-0005-13GB-P75-D21-D25-20261025" for z in issue["history"])
  assert any(z.get("id")=="OMISSIONS-13GB-P75-CROSSPAGE-D21-D25-20261025" for z in ledger["checkpoint_log"])

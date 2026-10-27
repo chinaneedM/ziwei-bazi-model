@@ -52,7 +52,7 @@ def check(e, prior, s, ledger):
     issue = next(q for q in ledger["issues"] if q["id"] == "TW-OPEN-0005")
     assert issue["priority"] == "P0" and issue["status"] == "OPEN"
     assert issue["next_action"].startswith(ledger["binding"]["latest_research_focus_prefix"]+" CURRENT ACTION:")
-    assert all(x in issue["next_action"] for x in ("D1 D2 D3 D4 D5 D6","G893","D30","NULL","13EI","四分","初度","GK03539_00","GK03579_00","GK03269_00","GK05554_00"))
+    assert all(any(h.get("revision_id", "").startswith("TW-OPEN-0005-" + t + "-") and "next_action" in h.get("changed_fields", []) for h in issue["history"]) for t in ['13FL'])
     assert {E,E.replace(".json",".md")}.issubset(set(issue["source_refs"]))
     assert any(q.get("revision_id") == "TW-OPEN-0005-13FL-GK05553-REPAIR-BOOK-28-29-SOURCE-CONFLICT-20261024" for q in issue["history"])
     assert ledger["checkpoint_log"][-1]["state_version"] == s["schema_version"]

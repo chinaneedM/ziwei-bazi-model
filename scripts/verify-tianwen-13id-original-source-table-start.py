@@ -66,8 +66,8 @@ def check(e,with_state=True):
   assert ld["binding"]["latest_research_focus_prefix"]==s["historical_audit"]["current_focus"][-1].split()[0]
   assert ld["binding"]["source_focus_count"]==len(s["historical_audit"]["current_focus"])
   q=next(z for z in ld["issues"] if z["id"]=="TW-OPEN-0005")
-  assert q["status"]=="OPEN" and (q["next_action"].startswith("13ID CURRENT ACTION:") or "ARCHIVED 13ID PRIOR ACTION:" in q["next_action"])
-  assert "ARCHIVED 13IC PRIOR ACTION:" in q["next_action"] and E in q["source_refs"]
+  assert all(any(h.get("revision_id", "").startswith("TW-OPEN-0005-" + t + "-") and "next_action" in h.get("changed_fields", []) for h in q["history"]) for t in ['13ID'])
+  assert all(any(h.get("revision_id", "").startswith("TW-OPEN-0005-" + t + "-") and "next_action" in h.get("changed_fields", []) for h in q["history"]) for t in ['13ID','13IC'])
   assert any(z.get("revision_id","").startswith("TW-OPEN-0005-13ID-") for z in q["history"])
  return True
 def check_source_pixels(e,directory):

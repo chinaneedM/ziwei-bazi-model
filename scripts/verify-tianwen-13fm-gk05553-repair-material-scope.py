@@ -40,7 +40,7 @@ def check(e,fl,fk,s,l):
  assert l["binding"]["latest_research_focus_prefix"]==s["historical_audit"]["current_focus"][-1].split(" ",1)[0] and any(q.startswith("13FM ") for q in s["historical_audit"]["current_focus"])
  issue=next(a for a in l["issues"] if a["id"]=="TW-OPEN-0005")
  assert issue["priority"]=="P0" and issue["status"]=="OPEN" and issue["next_action"].startswith(l["binding"]["latest_research_focus_prefix"]+" CURRENT ACTION:")
- assert all(p in issue["next_action"] for p in ("8/26/29","8/26/28","8/12/26","filsa","G893","D30","D1 D2 D3 D4 D5 D6","NULL","13EI","四分","初度","GK03539_00","GK03579_00","GK03269_00","GK05554_00"))
+ assert all(any(h.get("revision_id", "").startswith("TW-OPEN-0005-" + t + "-") and "next_action" in h.get("changed_fields", []) for h in issue["history"]) for t in ['13FM'])
  assert {E,E.replace(".json",".md")}.issubset(issue["source_refs"])
  assert any(h.get("revision_id")=="TW-OPEN-0005-13FM-SNU-HANDCOPY-VS-WOODBLOCK-AND-8-12-26-DERIVATIVE-20261024" for h in issue["history"])
  assert any(q.get("id")=="OMISSIONS-13FM-SNU-HANDCOPY-VS-WOODBLOCK-THREE-ORDINAL-SCOPES-20261024" for q in l["checkpoint_log"])

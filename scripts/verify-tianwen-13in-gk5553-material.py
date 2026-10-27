@@ -10,8 +10,8 @@ def check(x,check_state=True):
     assert x["issue_id"]=="TW-OPEN-0005"
     a=x["snu_firstparty"];j=x["journal_2020"];c=x["conflict"];scope=x["evidence_scope"]
     assert a["item"]=="奎貴5553-v.1-46" and a["whole_set_type"]=="乙亥字"
-    assert a["supplemental_manuscript_book_numbers"]==[8,26,29] and a["book29_juan"]==[81,82,83]
-    assert a["original_book29_folio_images_obtained"] is False and a["exact_impression_year"] is None
+    assert a["supplemental_manuscript_book_numbers"]==[8,26,29] and a["book29_juan"]==[81,82,83]  # Historical 13IN assertion retained; 13IO retracts catalog attribution
+    assert a["book29_original_folio_images_obtained"] is False and a["exact_impression_year"] is None
     assert j["printed_page"]==100 and j["footnote"]==6 and j["facsimile_base"]=="奎5554" and j["alternate"]=="奎5553"
     assert j["claims_alternate_eulhae_juan"]==[31,77,78,79,81,82] and j["source_pdf_raw_sha256"] is None
     assert c["juan"]==[81,82] and c["status"]=="UNRESOLVED_BOOK_MATERIAL_VS_SECONDARY_PAPER"

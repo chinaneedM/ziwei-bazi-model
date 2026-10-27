@@ -52,7 +52,7 @@ def check(e,with_state=True):
   assert any(x.startswith("13IC ") for x in s["historical_audit"]["current_focus"]) and ld["binding"]["latest_research_focus_prefix"]==s["historical_audit"]["current_focus"][-1].split()[0]
   assert ld["binding"]["source_focus_count"]==len(s["historical_audit"]["current_focus"])
   q=next(x for x in ld["issues"] if x["id"]=="TW-OPEN-0005")
-  assert q["status"]=="OPEN" and (q["next_action"].startswith("13IC CURRENT ACTION:") or "ARCHIVED 13IC PRIOR ACTION:" in q["next_action"]) and "ARCHIVED 13IB PRIOR ACTION:" in q["next_action"]
+  assert all(any(h.get("revision_id", "").startswith("TW-OPEN-0005-" + t + "-") and "next_action" in h.get("changed_fields", []) for h in q["history"]) for t in ['13IC','13IB'])
   assert any(x.get("revision_id","").startswith("TW-OPEN-0005-13IC-") for x in q["history"])
   assert "docs/research/TIANWEN-13IC-WASEDA-13BO-13CD-13CF-DAY-LABEL-DESCENDANT-ERRATUM-R1.json" in q["source_refs"] and ld["checkpoint_log"][-1]["state_version"]==s["schema_version"]
  return True

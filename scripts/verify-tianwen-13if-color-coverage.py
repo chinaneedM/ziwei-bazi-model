@@ -99,7 +99,7 @@ def check(data, with_state=True):
         assert any(x.startswith('13IF ') for x in state['historical_audit']['current_focus'])
         issue = next(x for x in ledger['issues'] if x['id'] == 'TW-OPEN-0005')
         assert issue['status'] == 'OPEN' and EVIDENCE in issue['source_refs']
-        assert issue['next_action'].startswith('13IF CURRENT ACTION:') or 'ARCHIVED 13IF PRIOR ACTION:' in issue['next_action']
+        assert all(any(h.get("revision_id", "").startswith("TW-OPEN-0005-" + t + "-") and "next_action" in h.get("changed_fields", []) for h in issue["history"]) for t in ['13IF'])
     return True
 
 

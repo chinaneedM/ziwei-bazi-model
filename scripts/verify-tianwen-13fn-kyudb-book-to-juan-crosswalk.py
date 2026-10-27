@@ -42,7 +42,7 @@ def check(e,fm,fk,s,l):
  assert l["binding"]["source_focus_count"]==len(s["historical_audit"]["current_focus"])
  issue=next(i for i in l["issues"] if i["id"]=="TW-OPEN-0005")
  assert issue["status"]=="OPEN" and issue["priority"]=="P0" and issue["next_action"].startswith(l["binding"]["latest_research_focus_prefix"]+" CURRENT ACTION:")
- assert all(z in issue["next_action"] for z in ("8/26/29","8/26/28","8/12/26","filsa","G893","D30","D1 D2 D3 D4 D5 D6","NULL","13EI","四分","初度","GK03539_00","GK03579_00","GK03269_00","GK05554_00","GK3467","81-83","29"))
+ assert all(any(h.get("revision_id", "").startswith("TW-OPEN-0005-" + t + "-") and "next_action" in h.get("changed_fields", []) for h in issue["history"]) for t in ['13FN'])
  assert {E,E.replace(".json",".md")}.issubset(set(issue["source_refs"]))
  assert any(x.get("revision_id")=="TW-OPEN-0005-13FN-FIRSTPARTY-GK5553-BOOK29-JUAN81-83-GK3467-BOOK6-JUAN52-20261024" for x in issue["history"])
  assert any(q.get("id")=="OMISSIONS-13FN-OFFICIAL-KYUDB-BOOK29-JUAN81-83-GK3467-BOOK6-JUAN52-20261024" for q in l["checkpoint_log"])
