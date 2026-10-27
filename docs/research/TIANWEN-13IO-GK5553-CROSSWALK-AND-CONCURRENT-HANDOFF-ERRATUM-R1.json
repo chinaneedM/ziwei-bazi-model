@@ -1,0 +1,132 @@
+{
+  "schema": "TIANWEN-13IO-GK5553-CROSSWALK-AND-CONCURRENT-HANDOFF-ERRATUM-R1",
+  "date": "2026-10-27",
+  "issue_id": "TW-OPEN-0005",
+  "repository_recovery": {
+    "preincident_head": "bdb46c245d0252b243b639aef3af34fdd7ad0f05",
+    "recovered_latest_head": "46805f89e2df89f39a1ba936216625cd8a125b36",
+    "prior_head_preserved": true,
+    "unrelated_commits_kept": [
+      "a8b15075b4c696fe02009d0b42b2431340b47673",
+      "84b5e1181ca2da6571278596efd8f08d15ac1437",
+      "46805f89e2df89f39a1ba936216625cd8a125b36"
+    ],
+    "source_regression_commit": "a8b15075b4c696fe02009d0b42b2431340b47673",
+    "regressed_state_version": "1.104.0",
+    "repaired_prior_version": "1.893.0",
+    "new_version": "1.894.0",
+    "regressed_latest_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-HUQIANJING-SHIDIAN-TIANYIGE-DIGITAL-SURROGATE-DEDUP-CR.md",
+    "restored_latest_doc": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-FIRSTPARTY-AND-OLD20-ATLAS-QD.md",
+    "registry_old_access_date": "2026-10-09",
+    "registry_regression_access_date": "2026-09-18",
+    "previous_state_files_byte_equal_after_three_field_repair": true,
+    "source_registry_content_byte_equal_to_preincident_after_repair": true,
+    "incident_detected_before_13io_commit": true,
+    "incident_actions_observation": "EXACT_HEAD_RUNS_ZERO_NOT_SUCCESS"
+  },
+  "historical_erratum": {
+    "prior_batch": "13IN",
+    "frozen_evidence_json": "docs/research/TIANWEN-13IN-GK5553-BOOK29-MATERIAL-CONFLICT-R1.json",
+    "frozen_evidence_json_path": "snu_firstparty.book29_juan",
+    "prior_asserted_juan": [
+      81,
+      82,
+      83
+    ],
+    "new_status": "RETRACTED_UNBOUND_COPY_TO_JUAN_CROSSWALK",
+    "original_13in_file_preserved": true
+  },
+  "snu_firstparty": {
+    "item_url": "https://kyudb.snu.ac.kr/book/view.do?book_cd=GK05553_00",
+    "official_explanatory_url": "https://kyudb.snu.ac.kr/book/view.do?book_cd=GK03269_00&notes=basic",
+    "item": "奎貴5553-v.1-46",
+    "whole_set_edition": "乙亥字",
+    "supplemental_manuscript_books": [
+      8,
+      26,
+      29
+    ],
+    "book_29_juan_81_83_explicitly_bound": false,
+    "work_toc_juan_81_83": "兵志",
+    "work_toc_is_book29_physical_inventory": false,
+    "microfilm_group": "M/F74-102-17-4",
+    "microfilm_books_range": [
+      25,
+      31
+    ],
+    "original_book29_page_obtained": false
+  },
+  "journal_2020": {
+    "original_url": "https://sir.sysu.edu.cn/sites/default/files/2026-07/%E9%AB%98%E4%B8%BD%E5%8F%B2_%E7%89%88%E6%9C%AC%E6%BA%90%E6%B5%81%E4%B8%8E%E7%BC%96%E7%BA%82%E4%BD%93%E4%BE%8B%E8%80%83_%E9%AD%8F%E5%BF%97%E6%B1%9F.pdf",
+    "printed_page": 100,
+    "note": 6,
+    "base_1972": "奎5554",
+    "unused_alternate": "奎5553",
+    "potential_alternate_juan": [
+      31,
+      77,
+      78,
+      79,
+      81,
+      82
+    ],
+    "page100_pdf_text_and_numeral_screenshot_confirmed": true,
+    "book29_mapped_to_juan81_83_by_original_page": false,
+    "raw_pdf_sha256": null
+  },
+  "secondary_lead": {
+    "url": "https://www.haijiaoshi.com/archives/11423",
+    "search_index_literal": "第28冊(卷81、82、83)木板補寫",
+    "replay_status": "DIRECT_PAGE_HTTP_502",
+    "same_work_as_2020_original_pdf_proven": false,
+    "independent_physical_original": false,
+    "not_source_vote": true
+  },
+  "adjudication": {
+    "retracted_claim": "13IN_SOURCE_OFFICIAL_BOOK29_CONTAINS_JUAN81_83",
+    "official_book29_material_is_catalog_fact": true,
+    "paper_claims_juan81_82_usable_eulhae_is_modern_scholarship_fact": true,
+    "physical_copy_material_conflict_between_the_two_proven": false,
+    "same_title_does_not_prove_same_copy": true,
+    "new_original_leaf_images": 0,
+    "new_source_registry_records": 0,
+    "new_genealogy_nodes": 0,
+    "new_genealogy_edges": 0,
+    "algorithm_reopen_count": 0
+  },
+  "next_targets": [
+    "SNU GK05553 v29 official first/last physical folio and title/juan mapping",
+    "1972 facsimile juan81/82 original corresponding page",
+    "GK03467_04 juan52 missing original folio-to-folio text and winter D1-D7",
+    "G893 six original numeric controls",
+    "NCL03130 summer D14",
+    "2020 PDF raw source bytes SHA"
+  ],
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "13IN alleged source-explicit physical book29 to juan81–83 relation not proven"
+    ],
+    "unresolved_lineage_questions": [
+      "Physical book and volume mapping for GK5553 29th codex",
+      "1972 facsimile actual alternate woodblock source"
+    ]
+  },
+  "invariants": {
+    "matrix": [
+      222,
+      222
+    ],
+    "external_sources": 761,
+    "graph": [
+      252,
+      238
+    ],
+    "risks": 11,
+    "chart": "CLOSED",
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0
+  }
+}
