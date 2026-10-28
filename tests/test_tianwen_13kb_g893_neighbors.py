@@ -11,7 +11,7 @@ spec.loader.exec_module(mod)
 
 class TestSourceIssuedNeighborGate(unittest.TestCase):
     def test_target_window_narrow(self):
-        self.assertEqual(mod.TARGETS, ('020a', '035a', '037a'))
+        self.assertEqual(mod.TARGETS, ('020a', '035a', '036a', '037a'))
         self.assertTrue(set(mod.TARGETS).isdisjoint(mod.PREEXISTING))
 
     def test_official_path_emitted_is_required(self):
