@@ -1,0 +1,26 @@
+name: probe-tianwen-13iz-snu-source-listed-reels
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - 'scripts/probe-tianwen-13iz-snu-source-listed-reels.py'
+      - 'tests/test_tianwen_13iz_snu_source_listed_reels.py'
+      - '.github/workflows/probe-tianwen-13iz-snu-source-listed-reels.yml'
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  exact-snu-book-locator:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python -m unittest discover -s tests -p 'test_tianwen_13iz_snu_source_listed_reels.py' -v
+      - run: python scripts/probe-tianwen-13iz-snu-source-listed-reels.py
+        env: {TIANWEN_13IZ_OUT: /tmp/tianwen-13iz-snu}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: tianwen-13iz-snu-gk5553-gk5554-source-listed-reels
+          path: /tmp/tianwen-13iz-snu/
+          if-no-files-found: error
