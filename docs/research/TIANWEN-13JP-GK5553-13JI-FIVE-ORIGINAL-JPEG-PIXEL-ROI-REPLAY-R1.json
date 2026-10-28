@@ -1,0 +1,308 @@
+{
+  "schema": "TIANWEN-13JP-SNU-GK5553-13JI-FIVE-ORIGINAL-JPEG-PIXEL-ROI-REPLAY-R1",
+  "date": "2026-10-28",
+  "issue_id": "TW-OPEN-0005",
+  "source": {
+    "repository": "chinaneedM/ziwei-bazi-model",
+    "provider": "Seoul National University Kyujanggak",
+    "book_cd": "GK05553_00",
+    "catalog_and_viewer_original_chain": "13JH source-listed first-party 46-volume list and five exact viewer source-issued original page calls; no guessed page IDs",
+    "original_photos_run": 40672035278,
+    "original_photos_artifact_id": 12809230903,
+    "original_photos_artifact_name": "tianwen-13ji-snu-gk5553-five-source-emitted-jpegs",
+    "artifact_zip_sha256": "3c6c870e6155edc2c994679ef6921334549696816f9443cc12b4dd6a97fb18fe",
+    "github_actions_digest": "sha256:3c6c870e6155edc2c994679ef6921334549696816f9443cc12b4dd6a97fb18fe",
+    "prior_immutable_13jj_evidence_file": "docs/research/TIANWEN-13JJ-SNU-GK5553-ORIGINAL-12-29-PHOTO-COLLATION-R1.json",
+    "prior_immutable_13jj_git_blob_sha1": "77adb2bfac864c354f67890a0131dcfba1b6c2d2",
+    "decoder": "Pillow Image.convert('RGB'); hash raw row-major pixel bytes",
+    "offline_command": "python scripts/verify-tianwen-13jp-gk5553-five-source-rois.py --artifact-zip PATH_TO_EXACT_GITHUB_ARTIFACT"
+  },
+  "roi_spec": {
+    "coordinates": "integer half-open xyxy in original pixel space, top-left origin",
+    "heading_strip": "[round(width*0.68),round(height*0.12),width-20,round(height*0.75)]",
+    "body_field": "[round(width*0.07),round(height*0.20),round(width*0.60),round(height*0.78)]",
+    "minimum_width": 250,
+    "minimum_height": 500,
+    "hash_encoding": "SHA256 of raw cropped row-major RGB pixel bytes",
+    "scope": "Wide page zones; not individual glyph proof, physical binding, or complete collation"
+  },
+  "original_images": [
+    {
+      "digital_volume": "0012",
+      "digital_page": "002a",
+      "work_juan": 31,
+      "prior_13jj_visual_presentation": "PRINTED_RULED",
+      "artifact_member": "gk5553-0012-002a-source-original.jpg",
+      "jpeg_bytes": 305904,
+      "jpeg_sha256": "e545e4a71daaec40bbc2309b52ca1bc3d4e268a8e158c0b7c3cb8b557bca3b1b",
+      "native_pixel_size": [
+        1061,
+        2000
+      ],
+      "native_rgb_sha256": "b5eddceb825f9cb435b5753429d90b11dd85636b2dada36673bfc671dcbae84b",
+      "original_rgb_rois": [
+        {
+          "name": "heading_strip",
+          "xyxy": [
+            721,
+            240,
+            1041,
+            1500
+          ],
+          "pixel_size": [
+            320,
+            1260
+          ],
+          "pixel_format": "RGB",
+          "rgb_bytes": 1209600,
+          "rgb_sha256": "139a3d185f485ad46564b62bab3c14618092763015409828581ed07d78e85cf9"
+        },
+        {
+          "name": "body_field",
+          "xyxy": [
+            74,
+            400,
+            637,
+            1560
+          ],
+          "pixel_size": [
+            563,
+            1160
+          ],
+          "pixel_format": "RGB",
+          "rgb_bytes": 1959240,
+          "rgb_sha256": "cbbd5d10567950b0a978dc523fa013985bea394cc2a606a29917e8adff34a2d4"
+        }
+      ]
+    },
+    {
+      "digital_volume": "0012",
+      "digital_page": "075a",
+      "work_juan": 33,
+      "prior_13jj_visual_presentation": "PRINTED_RULED",
+      "artifact_member": "gk5553-0012-075a-source-original.jpg",
+      "jpeg_bytes": 281640,
+      "jpeg_sha256": "ea6fedc966dac00de62c70fdbf03367ca4e436f4eeb87b3b6bf747c0052d55c1",
+      "native_pixel_size": [
+        1016,
+        2000
+      ],
+      "native_rgb_sha256": "77aef7379d8b7576706b95b7bebd01c95b6231446b54f5a09dd8b60f646faa07",
+      "original_rgb_rois": [
+        {
+          "name": "heading_strip",
+          "xyxy": [
+            691,
+            240,
+            996,
+            1500
+          ],
+          "pixel_size": [
+            305,
+            1260
+          ],
+          "pixel_format": "RGB",
+          "rgb_bytes": 1152900,
+          "rgb_sha256": "8b61f187bffb2b3abf84aefcde7475c9bb190ca63c4ee6e2e594fcba929a0919"
+        },
+        {
+          "name": "body_field",
+          "xyxy": [
+            71,
+            400,
+            610,
+            1560
+          ],
+          "pixel_size": [
+            539,
+            1160
+          ],
+          "pixel_format": "RGB",
+          "rgb_bytes": 1875720,
+          "rgb_sha256": "53d5aac12a48e6db0d30c8a6d713cf593e43a3d24763f19ac37c52cba4177164"
+        }
+      ]
+    },
+    {
+      "digital_volume": "0029",
+      "digital_page": "001a",
+      "work_juan": 81,
+      "prior_13jj_visual_presentation": "HANDWRITING_APPEARANCE",
+      "artifact_member": "gk5553-0029-001a-source-original.jpg",
+      "jpeg_bytes": 218953,
+      "jpeg_sha256": "69c8e0f13c42e14ed04aa0496fe0fa320520bc4a977df90d301569586e8e44e1",
+      "native_pixel_size": [
+        1044,
+        2000
+      ],
+      "native_rgb_sha256": "9a19f6f3e70ba05053ee9558a5752dc8063309e87e3e13a4d70d59f6cc74c9e5",
+      "original_rgb_rois": [
+        {
+          "name": "heading_strip",
+          "xyxy": [
+            710,
+            240,
+            1024,
+            1500
+          ],
+          "pixel_size": [
+            314,
+            1260
+          ],
+          "pixel_format": "RGB",
+          "rgb_bytes": 1186920,
+          "rgb_sha256": "aa73e962c0ef04622ec6d05f6168ad79ede9d39cb1de156377fa02ee12c4010d"
+        },
+        {
+          "name": "body_field",
+          "xyxy": [
+            73,
+            400,
+            626,
+            1560
+          ],
+          "pixel_size": [
+            553,
+            1160
+          ],
+          "pixel_format": "RGB",
+          "rgb_bytes": 1924440,
+          "rgb_sha256": "a9e06d1da201f2f85dad34d2cfe147c5bbd44412478db7ab0cd7337a00974877"
+        }
+      ]
+    },
+    {
+      "digital_volume": "0029",
+      "digital_page": "038a",
+      "work_juan": 82,
+      "prior_13jj_visual_presentation": "HANDWRITING_APPEARANCE",
+      "artifact_member": "gk5553-0029-038a-source-original.jpg",
+      "jpeg_bytes": 163160,
+      "jpeg_sha256": "463109b049216253e6a5c3ed542da2911688233886c7f3c6ae32ea1710d656c4",
+      "native_pixel_size": [
+        1019,
+        2000
+      ],
+      "native_rgb_sha256": "942f1ce9a09c49e33cca04a82cbf539732ec7658a570518694b0a2fd7d3bd48e",
+      "original_rgb_rois": [
+        {
+          "name": "heading_strip",
+          "xyxy": [
+            693,
+            240,
+            999,
+            1500
+          ],
+          "pixel_size": [
+            306,
+            1260
+          ],
+          "pixel_format": "RGB",
+          "rgb_bytes": 1156680,
+          "rgb_sha256": "b4a23d8f55709816288e8818ba9b3f6d81d850dd64e6836518acb0fa604a1ed6"
+        },
+        {
+          "name": "body_field",
+          "xyxy": [
+            71,
+            400,
+            611,
+            1560
+          ],
+          "pixel_size": [
+            540,
+            1160
+          ],
+          "pixel_format": "RGB",
+          "rgb_bytes": 1879200,
+          "rgb_sha256": "fc832c5a8df4306e3c58ae440c8e4f5aa5dd95abf48e0ae831561522f0bed547"
+        }
+      ]
+    },
+    {
+      "digital_volume": "0029",
+      "digital_page": "081a",
+      "work_juan": 83,
+      "prior_13jj_visual_presentation": "HANDWRITING_APPEARANCE",
+      "artifact_member": "gk5553-0029-081a-source-original.jpg",
+      "jpeg_bytes": 166951,
+      "jpeg_sha256": "2c5591478fe79018ecf4d9190bdea935ed29164731abdc282c32d01e804b3a22",
+      "native_pixel_size": [
+        1012,
+        2000
+      ],
+      "native_rgb_sha256": "b49d34cd11c070491e0371a6b6badb79b2b61a2e8be3873cba82c1e88bf0b175",
+      "original_rgb_rois": [
+        {
+          "name": "heading_strip",
+          "xyxy": [
+            688,
+            240,
+            992,
+            1500
+          ],
+          "pixel_size": [
+            304,
+            1260
+          ],
+          "pixel_format": "RGB",
+          "rgb_bytes": 1149120,
+          "rgb_sha256": "9557ec9a497def9f23af53f79bad992dc14f5c266c1732c70878b50159994619"
+        },
+        {
+          "name": "body_field",
+          "xyxy": [
+            71,
+            400,
+            607,
+            1560
+          ],
+          "pixel_size": [
+            536,
+            1160
+          ],
+          "pixel_format": "RGB",
+          "rgb_bytes": 1865280,
+          "rgb_sha256": "cb9bd292a471d2937a4538157a3ee691156b0612675f515ccb4841e680ac4166"
+        }
+      ]
+    }
+  ],
+  "replay": {
+    "zip_sha256_verified": true,
+    "original_jpeg_sha256_verified": 5,
+    "decoded_rgb_sha256_verified": 5,
+    "verified_native_pixel_roi_sha256": 10,
+    "digital_volume_count": 2,
+    "combined_13jo_13jp_source_original_page_count": 11,
+    "combined_13jo_13jp_pixel_roi_count": 22,
+    "new_independent_physical_witness_count": 0,
+    "new_g893_numeric_controls_adjudicated": 0,
+    "algorithm_reopens": 0
+  },
+  "evidence_scope": {
+    "digital_0012": "PRINTED_RULED_SOURCE_APPEARANCE_AT_SOURCE_ORIGINAL_JPEG_SCOPE",
+    "digital_0029": "HANDWRITING_APPEARANCE_AT_SOURCE_ORIGINAL_JPEG_SCOPE",
+    "actual_ancient_fascicle_ordinal": "UNBOUND",
+    "manuscript_creation_date": "UNKNOWN",
+    "printed_impression_date": "UNKNOWN",
+    "khs_8_12_26_vs_snu_8_26_29": "OPEN_FIRST_PARTY_CATALOG_CONFLICT",
+    "historical_13io_physical_book_29": "RETRACTED_UNBOUND_STAYS",
+    "g893_six_numeric_targets": "OPEN",
+    "gk3467_winter_source": "OPEN",
+    "nlc03130_solar_d30_summer_d14": "OPEN",
+    "chart": "CLOSED"
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Repeated photographic pixel digest agreement of five images from the same SNU digitized holding is not new independent physical-copy evidence."
+    ],
+    "unresolved_lineage_questions": [
+      "Provider-issued physical accession/cover/lineal folio mapping for historical fascicle 12/29",
+      "Exact 1972 facsimile printed juan and manuscript additions concordance"
+    ]
+  }
+}

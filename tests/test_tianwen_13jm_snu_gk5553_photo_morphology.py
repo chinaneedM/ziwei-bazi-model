@@ -28,10 +28,11 @@ class CopyMorphology(unittest.TestCase):
   self.assertEqual(self.s['schema_version'],self.l['binding']['reviewed_state_version'])
   self.assertEqual(self.s['historical_audit']['research_omission_guard']['reviewed_state_version'],self.s['schema_version'])
   self.assertEqual(self.l['binding']['source_focus_count'],len(self.s['historical_audit']['current_focus']))
-  self.assertEqual(self.l['binding']['latest_research_focus_prefix'],'13JO')
+  self.assertEqual(self.l['binding']['latest_research_focus_prefix'],'13JP')
   self.assertTrue(any(x.startswith('13JM ') for x in self.s['historical_audit']['current_focus']))
   self.assertTrue(any(x.startswith('13JN ') for x in self.s['historical_audit']['current_focus']))
-  self.assertTrue(self.s['historical_audit']['current_focus'][-1].startswith('13JO '))
+  self.assertTrue(any(x.startswith('13JO ') for x in self.s['historical_audit']['current_focus']))
+  self.assertTrue(self.s['historical_audit']['current_focus'][-1].startswith('13JP '))
  def test_previous_batch_and_legacy_tokens_preserved(self):
   i=next(x for x in self.l['issues'] if x['id']=='TW-OPEN-0005')
   self.assertEqual((i['status'],i['priority']),('OPEN','P0'))

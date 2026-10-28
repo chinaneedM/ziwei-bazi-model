@@ -57,11 +57,12 @@ class ForwardOnlyRoiReplayErratum(unittest.TestCase):
         self.assertEqual(self.erratum["transmission_impact"], "NONE_EVIDENCE_REPLAY_GRADE_CORRECTION_ONLY")
 
     def test_state_and_issue_forward_only(self):
-        self.assertEqual(self.state["schema_version"], "1.912.0")
+        self.assertEqual(self.state["schema_version"], "1.913.0")
         self.assertEqual(self.ledger["binding"]["reviewed_state_version"], self.state["schema_version"])
-        self.assertEqual(self.ledger["binding"]["latest_research_focus_prefix"], "13JO")
+        self.assertEqual(self.ledger["binding"]["latest_research_focus_prefix"], "13JP")
         self.assertTrue(any(x.startswith("13JN ") for x in self.state["historical_audit"]["current_focus"]))
-        self.assertTrue(self.state["historical_audit"]["current_focus"][-1].startswith("13JO "))
+        self.assertTrue(any(x.startswith("13JO ") for x in self.state["historical_audit"]["current_focus"]))
+        self.assertTrue(self.state["historical_audit"]["current_focus"][-1].startswith("13JP "))
         self.assertEqual(self.ledger["binding"]["source_focus_count"],
                          len(self.state["historical_audit"]["current_focus"]))
         issue = next(x for x in self.ledger["issues"] if x["id"] == "TW-OPEN-0005")
@@ -71,7 +72,7 @@ class ForwardOnlyRoiReplayErratum(unittest.TestCase):
         self.assertIn("13JN CURRENT ACTION:", issue["next_action"])
         self.assertTrue(any(x.get("revision_id", "").startswith("TW-OPEN-0005-13JN")
                             for x in issue["history"]))
-        self.assertEqual(self.ledger["checkpoint_log"][-1]["state_version"], "1.912.0")
+        self.assertEqual(self.ledger["checkpoint_log"][-1]["state_version"], "1.913.0")
 
 if __name__ == "__main__":
     unittest.main()
