@@ -45,6 +45,27 @@ class TestGoryeosa1972ImprintFirewall(unittest.TestCase):
         self.x[2]["binding"]["latest_research_focus_prefix"] = "13JR"
         self.assertEqual(mod.check(*self.x)["status"], "PASS")
 
+    def test_prior_revision_not_deleted(self):
+        issue = next(i for i in self.x[2]["issues"] if i["id"] == "TW-OPEN-0005")
+        issue["history"] = [rev for rev in issue["history"]
+                            if rev.get("revision_id") != "TW-OPEN-0005-13JQ-1972-BIBLIOGRAPHIC-IMPRINT-COLLISION-20261028"]
+        self.reject()
+
+    def test_prior_revision_duplicate_rejected(self):
+        issue = next(i for i in self.x[2]["issues"] if i["id"] == "TW-OPEN-0005")
+        prior = next(rev for rev in issue["history"]
+                     if rev.get("revision_id") == "TW-OPEN-0005-13JQ-1972-BIBLIOGRAPHIC-IMPRINT-COLLISION-20261028")
+        issue["history"].append(copy.deepcopy(prior))
+        self.reject()
+
+    def test_prior_revision_forward_order(self):
+        issue = next(i for i in self.x[2]["issues"] if i["id"] == "TW-OPEN-0005")
+        prior = next(rev for rev in issue["history"]
+                     if rev.get("revision_id") == "TW-OPEN-0005-13JQ-1972-BIBLIOGRAPHIC-IMPRINT-COLLISION-20261028")
+        issue["history"].remove(prior)
+        issue["history"].append(prior)
+        self.reject()
+
     def test_prefix_drift_rejected(self):
         self.x[2]["binding"]["latest_research_focus_prefix"] = "BAD"
         self.reject()

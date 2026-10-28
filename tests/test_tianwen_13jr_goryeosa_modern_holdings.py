@@ -28,6 +28,14 @@ class TestModernGoryeosaHoldingsGate(unittest.TestCase):
  def test_issue_remains_open(self):
   next(x for x in self.x[2]["issues"] if x["id"]=="TW-OPEN-0005")["status"]="CLOSED"
   self.rejects()
+ def test_historical_13jr_revision_preserved(self):
+  issue=next(x for x in self.x[2]["issues"] if x["id"]=="TW-OPEN-0005")
+  issue["history"]=[rev for rev in issue["history"] if not rev.get("revision_id","").startswith("TW-OPEN-0005-13JR-")]
+  self.rejects()
+ def test_future_history_append_not_rejected(self):
+  issue=next(x for x in self.x[2]["issues"] if x["id"]=="TW-OPEN-0005")
+  issue["history"].append({"event":"ISSUE_REVISION","revision_id":"TW-OPEN-0005-13JS-FUTURE","evidence_refs":[],"changed_fields":["next_action"]})
+  self.assertEqual(mod.verify(*self.x)["status"],"PASS")
  def test_future_append_only_state(self):
   self.x[1]["historical_audit"]["current_focus"].append("13JS later")
   self.x[2]["binding"]["latest_research_focus_prefix"]="13JS"

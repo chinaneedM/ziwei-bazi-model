@@ -40,7 +40,14 @@ def verify(proof, state, ledger):
     issue = next(x for x in ledger["issues"] if x["id"] == "TW-OPEN-0005")
     assert issue["status"] == "OPEN" and issue["priority"] == "P0"
     assert P in issue["source_refs"] and P.replace(".json", ".md") in issue["source_refs"]
-    assert issue["history"][-1]["revision_id"].startswith("TW-OPEN-0005-13JR")
+    revisions = issue["history"]
+    matches = [(idx, rev) for idx, rev in enumerate(revisions)
+               if rev.get("revision_id") == "TW-OPEN-0005-13JR-1972-DUAL-SERIES-1983-REPRINT-HOLDINGS-20261028"]
+    assert len(matches) == 1, "13JR evidence revision must be preserved exactly once"
+    _, preserved = matches[0]
+    assert preserved["event"] == "ISSUE_REVISION"
+    assert preserved["evidence_refs"] == [P, P.replace(".json", ".md")]
+    assert {"source_refs", "next_action"}.issubset(preserved["changed_fields"])
     assert ledger["checkpoint_log"][-1]["state_version"] == state["schema_version"]
     assert set(ledger["checkpoint_log"][-1]["reviewed_issue_ids"]) == {x["id"] for x in ledger["issues"]}
     return {"status":"PASS", "catalog_records":5, "original_folio_new":0, "ancient_physical_votes":0}

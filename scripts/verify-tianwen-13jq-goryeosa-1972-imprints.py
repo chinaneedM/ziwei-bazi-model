@@ -39,8 +39,20 @@ def check(proof, state, ledger):
     issue = next(i for i in ledger["issues"] if i["id"] == "TW-OPEN-0005")
     assert issue["status"] == "OPEN"
     assert P in issue["source_refs"] and P.replace(".json", ".md") in issue["source_refs"]
-    assert issue["history"][-1]["event"] == "ISSUE_REVISION"
-    assert issue["history"][-1]["revision_id"] == "TW-OPEN-0005-13JQ-1972-BIBLIOGRAPHIC-IMPRINT-COLLISION-20261028"
+    # Prior evidence must persist after later forward-only batches (e.g. 13JR).
+    revisions = issue["history"]
+    target = "TW-OPEN-0005-13JQ-1972-BIBLIOGRAPHIC-IMPRINT-COLLISION-20261028"
+    matches = [(index, rev) for index, rev in enumerate(revisions)
+               if rev.get("revision_id") == target]
+    assert len(matches) == 1, "13JQ revision must be preserved exactly once"
+    target_index, preserved = matches[0]
+    assert preserved["event"] == "ISSUE_REVISION"
+    assert preserved["evidence_refs"] == [P, P.replace(".json", ".md")]
+    assert {"source_refs", "next_action"}.issubset(preserved["changed_fields"])
+    assert all(rev.get("revision_id") != target for rev in revisions[target_index + 1:])
+    later = [idx for idx, rev in enumerate(revisions)
+             if str(rev.get("revision_id", "")).startswith("TW-OPEN-0005-13JR")]
+    assert not later or min(later) > target_index, "later 13JR must follow 13JQ"
     assert ledger["checkpoint_log"][-1]["state_version"] == state["schema_version"]
     assert set(ledger["checkpoint_log"][-1]["reviewed_issue_ids"]) == {i["id"] for i in ledger["issues"]}
     return {"status":"PASS","modern_1972_imprints_distinguished":2,"new_ancient_witnesses":0,"g893_numeric_decisions":0}
