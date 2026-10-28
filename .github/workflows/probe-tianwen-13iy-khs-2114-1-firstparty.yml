@@ -1,0 +1,25 @@
+name: probe-tianwen-13iy-khs-2114-1-firstparty
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - 'scripts/probe-tianwen-13iy-khs-2114-1-firstparty.py'
+      - 'tests/test_tianwen_13iy_khs_2114_1_firstparty.py'
+      - '.github/workflows/probe-tianwen-13iy-khs-2114-1-firstparty.yml'
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  official-korean-designation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python -m unittest discover -s tests -p 'test_tianwen_13iy_khs_2114_1_firstparty.py' -v
+      - run: python scripts/probe-tianwen-13iy-khs-2114-1-firstparty.py
+        env: {TIANWEN_13IY_OUT: /tmp/tianwen-13iy-khs}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: tianwen-13iy-khs-firstparty-2114-1-probe
+          path: /tmp/tianwen-13iy-khs/
+          if-no-files-found: error
