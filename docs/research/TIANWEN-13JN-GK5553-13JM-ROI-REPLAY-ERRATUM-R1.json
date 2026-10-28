@@ -1,0 +1,188 @@
+{
+  "schema": "TIANWEN-13JN-GK5553-13JM-ROI-REPLAY-ERRATUM-R1",
+  "date": "2026-10-28",
+  "issue_id": "TW-OPEN-0005",
+  "kind": "FORWARD_ONLY_EVIDENCE_MANIFEST_CORRECTION",
+  "prior_evidence_path": "docs/research/TIANWEN-13JM-GK5553-8-26-MANUSCRIPT-NEIGHBOR-SIX-ORIGINAL-IMAGE-SCOPE-R1.json",
+  "prior_evidence_git_blob_sha1": "40d242fcffc8c45b66961b71d85fb0a8f306ada0",
+  "retention_policy": "ORIGINAL_13JM_RECORD_NOT_MODIFIED; ITS_ROI_COORDINATE_AND_HASH_CLAIMS_QUARANTINED",
+  "diagnostic_rule": "For each crop, require four integer xyxy coordinates within native pixel dimensions with x1>x0,y1>y0 AND a 64-character lowercase SHA256 crop digest.",
+  "total_original_jpeg_pages": 6,
+  "invalid_roi_records": 12,
+  "invalid_roi_details": [
+    {
+      "digital_volume": "0008",
+      "page": "001a",
+      "roi": "header",
+      "xyxy": [
+        2,
+        245,
+        "4",
+        1470
+      ],
+      "geometry_well_typed_and_bounded": false,
+      "sha256_well_formed": true
+    },
+    {
+      "digital_volume": "0008",
+      "page": "001a",
+      "roi": "body",
+      "xyxy": [
+        0,
+        310,
+        2,
+        1530
+      ],
+      "geometry_well_typed_and_bounded": true,
+      "sha256_well_formed": false
+    },
+    {
+      "digital_volume": "0026",
+      "page": "001a",
+      "roi": "header",
+      "xyxy": [
+        2,
+        245,
+        "3",
+        1470
+      ],
+      "geometry_well_typed_and_bounded": false,
+      "sha256_well_formed": true
+    },
+    {
+      "digital_volume": "0026",
+      "page": "001a",
+      "roi": "body",
+      "xyxy": [
+        0,
+        310,
+        1,
+        1530
+      ],
+      "geometry_well_typed_and_bounded": true,
+      "sha256_well_formed": false
+    },
+    {
+      "digital_volume": "0011",
+      "page": "002a",
+      "roi": "header",
+      "xyxy": [
+        2,
+        245,
+        "3",
+        1470
+      ],
+      "geometry_well_typed_and_bounded": false,
+      "sha256_well_formed": true
+    },
+    {
+      "digital_volume": "0011",
+      "page": "002a",
+      "roi": "body",
+      "xyxy": [
+        0,
+        310,
+        1,
+        1530
+      ],
+      "geometry_well_typed_and_bounded": true,
+      "sha256_well_formed": false
+    },
+    {
+      "digital_volume": "0013",
+      "page": "002a",
+      "roi": "header",
+      "xyxy": [
+        3,
+        245,
+        "5",
+        1470
+      ],
+      "geometry_well_typed_and_bounded": false,
+      "sha256_well_formed": true
+    },
+    {
+      "digital_volume": "0013",
+      "page": "002a",
+      "roi": "body",
+      "xyxy": [
+        0,
+        310,
+        3,
+        1530
+      ],
+      "geometry_well_typed_and_bounded": true,
+      "sha256_well_formed": false
+    },
+    {
+      "digital_volume": "0025",
+      "page": "001a",
+      "roi": "header",
+      "xyxy": [
+        null,
+        245,
+        "c",
+        1470
+      ],
+      "geometry_well_typed_and_bounded": false,
+      "sha256_well_formed": true
+    },
+    {
+      "digital_volume": "0025",
+      "page": "001a",
+      "roi": "body",
+      "xyxy": [
+        null,
+        310,
+        null,
+        1530
+      ],
+      "geometry_well_typed_and_bounded": false,
+      "sha256_well_formed": false
+    },
+    {
+      "digital_volume": "0027",
+      "page": "001a",
+      "roi": "header",
+      "xyxy": [
+        3,
+        245,
+        "5",
+        1470
+      ],
+      "geometry_well_typed_and_bounded": false,
+      "sha256_well_formed": true
+    },
+    {
+      "digital_volume": "0027",
+      "page": "001a",
+      "roi": "body",
+      "xyxy": [
+        0,
+        310,
+        3,
+        1530
+      ],
+      "geometry_well_typed_and_bounded": true,
+      "sha256_well_formed": false
+    }
+  ],
+  "scope": {
+    "source_issued_firstparty_jpeg_intake_sha256": "UNCHANGED_BUT_NOT_REDOWNLOADED_THIS_BATCH",
+    "source_visual_heading_and_typography": "PRIOR_13JM_SOURCE_SCOPED_OBSERVATION_UNCHANGED_NOT_INDEPENDENTLY_REVIEWED_HERE",
+    "prior_13jm_crop_digest_fields": "NOT_REPLAYABLE_AS_REGISTERED; DO_NOT_USE_AS_HASH_BOUND_PIXEL_EVIDENCE",
+    "new_recomputed_crop_digest_awards": 0,
+    "independent_physical_copy_votes_added": 0,
+    "khs_8_12_26_versus_snu_8_26_29": "OPEN_FIRSTPARTY_CATALOG_DISAGREEMENT",
+    "historical_physical_ordinal_or_impression_date": "UNVERIFIED",
+    "g893_six_historical_numeric_controls": "PENDING_DIRECT_TARGET_PAGE",
+    "chart_product": "CLOSED",
+    "algorithm_reopens": 0
+  },
+  "remediation_requirements": [
+    "Retrieve the original six JPEG files from source-bound 13JL artifact or firstparty provider and verify their previously registered JPEG SHA256 before any crop repair.",
+    "Derive full-width pixel bounding boxes from native image size with explicit crop purpose; record all four integer coordinates, pixel format, RGB SHA256 and ROI SHA256 under a new append-only document.",
+    "Do not rewrite the 13JM JSON, count crop claims as positive pixel evidence, infer physical fascicle ordinals, or close G893 numeric controls."
+  ],
+  "transmission_impact": "NONE_EVIDENCE_REPLAY_GRADE_CORRECTION_ONLY"
+}
