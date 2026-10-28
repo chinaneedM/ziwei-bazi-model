@@ -1,0 +1,26 @@
+name: probe-tianwen-13jb-snu-viewer-source-html
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - 'scripts/probe-tianwen-13jb-source-emitted-snu-viewer.py'
+      - 'tests/test_tianwen_13jb_source_emitted_snu_viewer.py'
+      - '.github/workflows/probe-tianwen-13jb-snu-viewer-source-html.yml'
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  literal-source-only:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python -m unittest discover -s tests -p 'test_tianwen_13jb_source_emitted_snu_viewer.py' -v
+      - run: python scripts/probe-tianwen-13jb-source-emitted-snu-viewer.py
+        env: {TIANWEN_13JB_OUT: /tmp/tianwen-13jb}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: tianwen-13jb-snu-gk5554-0018-viewer-source-contexts
+          path: /tmp/tianwen-13jb/
+          if-no-files-found: error
