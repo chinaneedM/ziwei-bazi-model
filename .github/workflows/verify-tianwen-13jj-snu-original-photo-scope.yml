@@ -1,0 +1,24 @@
+name: verify-tianwen-13jj-snu-original-photo-scope
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - 'docs/research/TIANWEN-13JJ-SNU-GK5553-ORIGINAL-12-29-PHOTO-COLLATION-R1.*'
+      - 'docs/PROJECT-CURRENT-STATE-R1.json'
+      - 'docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json'
+      - 'tests/test_tianwen_13jg_gk5554_direct_original_headings.py'
+      - 'tests/test_tianwen_13jj_snu_original_photo_scope.py'
+      - '.github/workflows/verify-tianwen-13jj-snu-original-photo-scope.yml'
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  bounded-original-photos:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python -m unittest discover -s tests -p 'test_tianwen_13jj_snu_original_photo_scope.py' -v
+      - run: python -m unittest discover -s tests -p 'test_tianwen_13jg_gk5554_direct_original_headings.py' -v
+      - run: python scripts/verify-research-omission-risk-ledger-r1.py

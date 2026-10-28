@@ -43,14 +43,14 @@ class FirstpartyHeadings(unittest.TestCase):
   self.assertEqual(self.s["schema_version"],self.l["binding"]["reviewed_state_version"])
   self.assertEqual(self.s["historical_audit"]["research_omission_guard"]["reviewed_state_version"],self.s["schema_version"])
   self.assertEqual(len(self.s["historical_audit"]["current_focus"]),self.l["binding"]["source_focus_count"])
-  self.assertEqual(self.l["binding"]["latest_research_focus_prefix"],"13JG")
-  self.assertTrue(self.s["historical_audit"]["current_focus"][-1].startswith("13JG "))
+  self.assertTrue(any(x.startswith("13JG ") for x in self.s["historical_audit"]["current_focus"]))
+  self.assertTrue(self.s["historical_audit"]["current_focus"][-1].startswith(self.l["binding"]["latest_research_focus_prefix"]+" "))
  def test_issue_stays_open_and_binds_record(self):
   issue=next(x for x in self.l["issues"] if x["id"]=="TW-OPEN-0005")
   self.assertEqual((issue["priority"],issue["status"]),("P0","OPEN"))
   self.assertIn(E.relative_to(R).as_posix(),issue["source_refs"])
   self.assertTrue(any(x.get("revision_id","").startswith("TW-OPEN-0005-13JG-") for x in issue["history"]))
-  self.assertTrue(issue["next_action"].startswith("13JG CURRENT ACTION:"))
+  self.assertIn("13JG CURRENT ACTION:",issue["next_action"])
   self.assertEqual(self.l["checkpoint_log"][-1]["state_version"],self.s["schema_version"])
  def test_other_source_controls_stay_open(self):
   x=next(y for y in self.l["issues"] if y["id"]=="TW-OPEN-0005")
