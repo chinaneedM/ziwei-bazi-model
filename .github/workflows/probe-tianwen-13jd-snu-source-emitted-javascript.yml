@@ -1,0 +1,26 @@
+name: probe-tianwen-13jd-snu-source-emitted-javascript
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - 'scripts/probe-tianwen-13jd-snu-source-emitted-js.py'
+      - 'tests/test_tianwen_13jd_snu_source_emitted_js.py'
+      - '.github/workflows/probe-tianwen-13jd-snu-source-emitted-javascript.yml'
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  exact-source-script-discovery:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python -m unittest discover -s tests -p 'test_tianwen_13jd_snu_source_emitted_js.py' -v
+      - run: python scripts/probe-tianwen-13jd-snu-source-emitted-js.py
+        env: {TIANWEN_13JD_OUT: /tmp/tianwen-13jd}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: tianwen-13jd-snu-source-emitted-js-firstparty
+          path: /tmp/tianwen-13jd/
+          if-no-files-found: error
