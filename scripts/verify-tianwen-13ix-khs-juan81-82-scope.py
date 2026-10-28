@@ -13,22 +13,36 @@ def check(x,s=None,l=None):
  assert a["raw_sha256"]=="c8a7de9c9f0ff5a64674153e7dd2048b3e6bb7e6193e0f9f9d18d7fc9106a5b9"
  assert a["body_text_sha256_utf8"]=="7f962af9ec2693a558e3a84acd013615850c847b897f827afa2c15d3a976ffc9"
  assert a["raw_bytes"]==5414 and a["description_length"]==1759 and a["collation_run_success"]
+ assert x["predecessor"]["path"]=="docs/research/TIANWEN-13IW-KHS-2114-2-XML-BYTE-IDENTITY-AND-BOOK-JUAN-COLLATION-R1.json"
+ assert x["predecessor"]["git_blob_sha"]=="0d258482ee423a0712fea119c3b40ecd8020b58d"
+ assert a["institution"]=="국가유산청 / Korea Heritage Service"
+ assert a["source_url"]=="https://www.khs.go.kr/cha/SearchKindOpenapiDt.do?ccbaKdcd=12&ccbaAsno=0021140000200&ccbaCtcd=11"
+ assert a["authentication"]=="DIRECT_OFFICIAL_XML_2114_2_FIRSTPARTY_MODERN_HERITAGE_DESIGNATION_DESCRIPTION"
  b=a["gk5554_bounded_book_range"]
  assert b["physical_book_ordinals"]==[17,18] and b["juan_span"]==[79,80,81,82]
  assert b["official_korean_excerpt"]=="권79∼권82(17책∼18책)"
  assert b["exact_book_to_individual_juan"] is None and b["original_photographed_folio"] is None
+ assert b["source_offset_13iw"]==1276
  c=a["gk5554_supplement_to_gk5553_bounded_claim"]
  assert c["gk5554_shelfmark"]=="奎貴5554" and c["gk5553_shelfmark"]=="奎貴5553"
  assert c["missing_in_stated_gk5553_comparison"]==[81,82]
  assert "5553" in c["official_korean_excerpt"] and "권81, 권82" in c["official_korean_excerpt"]
+ assert c["official_korean_excerpt"]=="‘奎貴5553’에 없는 권81, 권82를 보완할"
+ assert c["source_offset_13iw"]==1631
  assert c["scope"]=="2021_OFFICIAL_DESIGNATED_COPY_COMPARISON_NOT_1553_EVERY_BOOK_PHYSICAL_LEAF"
  assert not c["original_printed_books_collated"]
  assert a["gk5553_comparison_extent"]["juan"]==131 and a["gk5553_comparison_extent"]["books"]==43
+ assert a["gk5553_comparison_extent"]["source_offset_13iw"]==1418
+ assert a["gk5553_comparison_extent"]["source_label"]=="奎貴5553"
+ assert a["gk5553_comparison_extent"]["designation_2114_1_comparator"] is True
  z=x["separate_firstparty_snu_scope"]
+ assert z["snu_url"]=="https://kyudb.snu.ac.kr/book/view.do?book_cd=GK05553_00"
  assert z["full_catalog_books"]==46 and z["manuscript_replacement_books"]==z["designated_copy_excluded_books"]==[8,26,29]
  assert z["designated_print_book_count"]==43 and z["government_131_43_does_not_prove_missing_from_all_46"]
  assert z["book29_to_juan81_83"]=="RETRACTED_UNBOUND" and z["book29_original_source_juan"] is None
  assert z["gk5554_direct_image_leaf_unavailable"]
+ assert x["lower_authority_record"]["prior_2021_reprinted_text"]=="SECONDARY_DERIVATIVE"
+ assert x["lower_authority_record"]["prior_13IT_and_13IU_remain_immutable"] is True
  assert x["lower_authority_record"]["its_5554_supplement_juan81_82_is_now_independently_supported_as_GOVERNMENT_2021_DESCRIPTION"]
  assert x["lower_authority_record"]["its_5553_manuscript_books_8_12_26_is_still_not_verified_by_THIS_2114_2_DESCRIPTION"]
  i=x["interpretive_limits"]
