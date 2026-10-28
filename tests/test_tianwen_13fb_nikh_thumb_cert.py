@@ -10,6 +10,17 @@ class Test13FB(unittest.TestCase):
   x=copy.deepcopy(self.e);fn(x)
   with self.assertRaises(AssertionError):self.good(x)
  def test_pass(self):self.assertTrue(self.good())
+ def test_historical_count_remains_761(self):self.deny(lambda x:x['impact'].update(source_registry_current=763))
+ def test_live_registry_growth_does_not_retroactively_modify_13fb(self):
+  self.assertGreater(self.m['combined_source_count'],self.e['impact']['source_registry_current'])
+  self.assertTrue(self.good())
+ def test_live_registry_manifest_mismatch_rejected(self):
+  m=copy.deepcopy(self.m);m['combined_source_count']+=1
+  with self.assertRaises(AssertionError):v.check(self.e,self.s,self.l,m)
+ def test_live_registry_manifest_root_mismatch_rejected(self):
+  m=copy.deepcopy(self.m);m['root_source_count']+=1
+  with self.assertRaises(AssertionError):v.check(self.e,self.s,self.l,m)
+
  def test_fake_highres(self):self.deny(lambda x:x['native_viewer'].update(full_resolution_original_image_acquired=True))
  def test_fake_folio(self):self.deny(lambda x:x['native_viewer'].update(source_original_leaf_number=52))
  def test_fake_missing_original(self):self.deny(lambda x:x['bounded_thumbnail_requests'][1].update(status='ABSENT_FROM_MANUSCRIPT'))

@@ -32,7 +32,11 @@ def check(x,s,l,m):
  assert i['source_registry_records_added']==0 and i['source_registry_current']==761 and i['proven_modern_viewer_html_pages_added']==1 and i['successfully_captured_jpeg_thumbnail_files']==2 and i['failed_thumbnail_requests']==1
  assert all(i[k]==0 for k in ('source_original_high_resolution_folio_images_added','original_historic_glyph_votes_added','historical_matrix_rows_changed','genealogy_nodes_added','genealogy_edges_added','algorithm_reopens','research_risk_closures'))
  assert i['open_or_blocked_issues']==11 and i['product']=='CLOSED' and x['transmission_impact']['new_supported_edges']==[]
- assert m['combined_source_count']==761 and m['root_source_count']==647 and m['extension_source_count']==114
+ # Historical 13FB source_count is an immutable snapshot, not the live manifest total.
+ assert i['source_registry_current']==761
+ assert m['root_source_count']==647 and m['extension_source_count']>=114
+ assert m['combined_source_count']==m['root_source_count']+m['extension_source_count']
+ assert m['combined_source_count']>=i['source_registry_current']
  assert s['historical_audit']['external_source_registry_total_unique_count']==m['combined_source_count'] and s['schema_version']==l['binding']['reviewed_state_version']==s['historical_audit']['research_omission_guard']['reviewed_state_version']
  assert any(z.startswith('13FB ') for z in s['historical_audit']['current_focus']) and l['binding']['source_focus_count']==len(s['historical_audit']['current_focus'])
  risk=next(z for z in l['issues'] if z['id']=='TW-OPEN-0005')
