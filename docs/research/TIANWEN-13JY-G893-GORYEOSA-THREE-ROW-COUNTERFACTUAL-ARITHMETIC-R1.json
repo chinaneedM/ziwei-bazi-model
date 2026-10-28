@@ -1,0 +1,182 @@
+{
+  "schema": "TIANWEN-13JY-G893-GORYEOSA-THREE-ROW-COUNTERFACTUAL-ARITHMETIC-R1",
+  "date": "2026-10-29",
+  "issue_id": "TW-OPEN-0005",
+  "method": "For each row splice the previously directly read G893 source literal's proposed decimal candidate into FOUR neighboring values from the RECEIVED Goryeosa V52 table. Compare first and second finite differences with the corresponding received row candidate. This is an explicitly MIXED-WITNESS COUNTERFACTUAL, NOT a G893 within-book row-by-row direct original comparison or source transmission proof.",
+  "scope": "TABLE_INTERNAL_ARITHMETIC_DIAGNOSTIC_ONLY_NO_HISTORICAL_WINNER",
+  "received_text_url": "https://zh.wikisource.org/zh-hant/%E9%AB%98%E9%BA%97%E5%8F%B2/%E5%8D%B7%E4%BA%94%E5%8D%81%E4%BA%8C",
+  "received_text_authority": "PUBLIC_RECEIVED_TEXT_RENDERING; SAME FAMILY AS KRDB FACSIMILE COLLATION, NOT A NEW INDEPENDENT HISTORICAL WITNESS",
+  "upstream_evidence_docs": [
+    "docs/research/MING-DATONG-1569-CROSS-EDITION-VARIANT-LEDGER-R1.json",
+    "docs/research/TIANWEN-12XU-G893-L8-L132-SOURCE-GLYPH-AND-SYMMETRIC-LOCATORS-R1.json",
+    "docs/research/TIANWEN-12XX-G893-L124-DIRECT-ORIGINAL-JI-XINGDU-GLYPH-R1.json",
+    "docs/research/TIANWEN-12XZ-G893-L101-DIRECT-FULL-GLYPH-R1.json",
+    "docs/research/TIANWEN-12XR-G893-L114-DAYRATE-FULL-FIELD-SEPARATION-R1.json"
+  ],
+  "source_original_provider": "SNU Kyujanggak GK00893_00; source jpeg SHA256s cited from existing archived original reviews; original JPEG bytes not newly fetched in this batch",
+  "cases": [
+    {
+      "id": "VAR-NUM-LUNAR-L8-LOSSGAIN",
+      "target": 8,
+      "field": "損益分",
+      "g893_page": "019b",
+      "g893_original_jpeg_sha256": "05d6a658664475540333965079363e476c58f708819636f5137558b05a35bcda",
+      "g893_original_glyphs": "益一十〇分五六一七七五",
+      "received_goryeosa_glyphs": "一十〇分五六〇一七七五",
+      "g893_candidate": "10.561775",
+      "received_candidate": "10.5601775",
+      "received_candidate_grade": "PREEXISTING_CADAL_DIRECT_FACSIMILE_READ_81_PLUS_KRDB_WIKISOURCE",
+      "received_neighbour_rows": [
+        {
+          "limit": 6,
+          "value": "10.703425"
+        },
+        {
+          "limit": 7,
+          "value": "10.633575"
+        },
+        {
+          "limit": 9,
+          "value": "10.488025"
+        },
+        {
+          "limit": 10,
+          "value": "10.412325"
+        }
+      ],
+      "g893_splice_second_differences": [
+        "-0.0019500",
+        "-0.0019500",
+        "-0.0019500"
+      ],
+      "received_second_differences": [
+        "-0.0035475",
+        "+0.0012450",
+        "-0.0035475"
+      ],
+      "received_text_rows": [
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "interpretation": "G893/Ming candidate gives constant -0.00195 in received-neighbour arithmetic splice; Goryeosa received branch is genuinely different in extant facsimile and shall not be silently emended."
+    },
+    {
+      "id": "VAR-NUM-LUNAR-L124-JI-XINGDU",
+      "target": 124,
+      "field": "疾曆限行度",
+      "g893_page": "035b",
+      "g893_original_jpeg_sha256": "06b5a0ba80c5604576f84b59fc1017b5b0822920e737ef5c96a66b2d82d9e02c",
+      "g893_original_glyphs": "一度〇二八一",
+      "received_goryeosa_glyphs": "一度〇八二一",
+      "g893_candidate": "1.0281",
+      "received_candidate": "1.0821",
+      "received_candidate_grade": "PREEXISTING_CADAL_DIRECT_FACSIMILE_READ_120_PLUS_KRDB_WIKISOURCE",
+      "received_neighbour_rows": [
+        {
+          "limit": 122,
+          "value": "1.0309"
+        },
+        {
+          "limit": 123,
+          "value": "1.0295"
+        },
+        {
+          "limit": 125,
+          "value": "1.0267"
+        },
+        {
+          "limit": 126,
+          "value": "1.0253"
+        }
+      ],
+      "g893_splice_second_differences": [
+        "+0.0000000",
+        "+0.0000000",
+        "+0.0000000"
+      ],
+      "received_second_differences": [
+        "+0.0540000",
+        "-0.1080000",
+        "+0.0540000"
+      ],
+      "received_text_rows": [
+        122,
+        123,
+        124,
+        125,
+        126
+      ],
+      "interpretation": "1.0281 preserves -0.0014 steps among received neighbors; physically attested received 1.0821 yields +0.0526 then -0.0554 steps. Identifies arithmetic anomaly, not whether/when textual change arose."
+    },
+    {
+      "id": "VAR-NUM-LUNAR-L132-LOSSGAIN",
+      "target": 132,
+      "field": "損益分",
+      "g893_page": "036b",
+      "g893_original_jpeg_sha256": "8acb0c32bcdd0be8827bc2851f089bf5d73a2378c3b7ffcfa80eeaf725d1dd84",
+      "g893_original_glyphs": "損七分八八六〇七五",
+      "received_goryeosa_glyphs": "七分八八六七五",
+      "g893_candidate": "7.886075",
+      "received_candidate": "7.88675",
+      "received_candidate_grade": "HYPOTHETICAL_NAIVE_DECIMAL_GLYPH_JOIN_ONLY_NOT_ADJUDICATED_NORMALIZATION",
+      "received_neighbour_rows": [
+        {
+          "limit": 130,
+          "value": "7.631325"
+        },
+        {
+          "limit": 131,
+          "value": "7.759675"
+        },
+        {
+          "limit": 133,
+          "value": "8.010525"
+        },
+        {
+          "limit": 134,
+          "value": "8.133025"
+        }
+      ],
+      "g893_splice_second_differences": [
+        "-0.0019500",
+        "-0.0019500",
+        "-0.0019500"
+      ],
+      "received_second_differences": [
+        "-0.0012750",
+        "-0.0033000",
+        "-0.0012750"
+      ],
+      "received_text_rows": [
+        130,
+        131,
+        132,
+        133,
+        134
+      ],
+      "interpretation": "Received Goryeosa L132 has a physical zero-elided glyph string; candidate 7.88675 is explicitly only one unapproved decimal read. Earlier same-copy received L35 contains the zero, so source precision/place-value remains pending."
+    }
+  ],
+  "second_difference_units": "SAME_PLAIN_DECIMAL_SCALES_AS_DISPLAYED_CANDIDATES_ONLY; NO HISTORICAL_UNITS_STANDARDIZED",
+  "requirements_to_award_historical_winner": [
+    "Examine original G893 neighboring physical columns, independent old copy table rows, units and exact positional grouping.",
+    "Verify Goryeosa manuscript/printed original of correct edition rather than changing documented received-copy wording.",
+    "Trace copy date, edition identity and transmission stage; arithmetic agreement alone cannot prove physical descent or scribal error."
+  ],
+  "result": {
+    "mixed_witness_splice_examples": 3,
+    "new_original_target_jpeg_acquired": 0,
+    "new_independent_witnesses": 0,
+    "original_g893_six_cross_witness_variant_winners_awarded": 0,
+    "ancient_received_copy_readings_retracted": 0,
+    "source_registry_delta": 0,
+    "graph_nodes_delta": 0,
+    "graph_edges_delta": 0,
+    "algorithm_reopens": 0,
+    "product": "CLOSED",
+    "risk_closed": false
+  }
+}
