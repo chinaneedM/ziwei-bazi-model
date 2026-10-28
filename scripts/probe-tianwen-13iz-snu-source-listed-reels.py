@@ -34,8 +34,8 @@ def summarize(book,html):
  t=html.decode("utf-8","replace")
  marker="fn_mfPdfPopShow('"+book+"')"
  return {"own_book_marker":book in t,"exact_provider_microfilm_button":marker in t,"provider_mfPdfList_literal":PDF_ENDPOINT in t,
-         "reel_labels":sorted(set(re.findall(r'M/F74-102-17-[1-7](?:\\s*\\([^)]{0,90}\\))?',t))),
-         "source_named_volumes":sorted(set(re.findall(r'(?:(?:v\\.|v)[0-9]{1,2}[-–][0-9]{1,2}|v\\.[0-9]{1,2})',t)))[:40],
+         "reel_labels":sorted(set(re.findall(r'M/F74-102-17-[1-7](?:\s*\([^)]{0,90}\))?',t))),
+         "source_named_volumes":sorted(set(re.findall(r'v\.?[0-9]{1,2}(?:[-–][0-9]{1,2})?',t)))[:40],
          "physical_book12_original_folio_proven":False,"physical_book29_original_folio_proven":False}
 def parse_volumes(body,book):
  try:j=json.loads(body)
@@ -56,7 +56,7 @@ def probe(book,folder):
  (folder/(book+"-catalog.html")).write_bytes(raw)
  s=summarize(book,raw);result["source_emitted"]=s
  # Two source-identity gates and a documented prior firstparty endpoint are required.
- if not(s["own_book_marker"] and s["exact_provider_microfilm_button"]):
+ if not(s["own_book_marker"] and (s["exact_provider_microfilm_button"] or s["provider_mfPdfList_literal"])):
   result["microfilm"]={"status":"NO_EXACT_PROVIDER_CONTROL_NO_POST"};return result
  p,body=read(BASE+PDF_ENDPOINT,{"book_cd":book})
  result["microfilm"]={"request":p}

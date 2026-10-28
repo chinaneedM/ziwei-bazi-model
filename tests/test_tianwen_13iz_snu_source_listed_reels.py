@@ -8,6 +8,13 @@ class PublicProvider(unittest.TestCase):
   self.assertTrue(x["exact_provider_microfilm_button"])
   self.assertFalse(x["physical_book29_original_folio_proven"])
  def test_wrong_book_button(self):self.assertFalse(v.summarize("GK05553_00",b"fn_mfPdfPopShow('GK05554_00')")["exact_provider_microfilm_button"])
+ def test_source_reel_label_parser_preserves_bound_holding(self):
+  x=v.summarize("GK05553_00",b"GK05553_00 M/F74-102-17-4(GK5553/v25-31)")
+  self.assertIn("M/F74-102-17-4(GK5553/v25-31)",x["reel_labels"])
+ def test_exact_provider_endpoint_discovery_is_source_scoped(self):
+  x=v.summarize("GK05554_00",b"GK05554_00 /ajax/book/mfPdfList.do")
+  self.assertTrue(x["own_book_marker"] and x["provider_mfPdfList_literal"])
+  self.assertFalse(x["exact_provider_microfilm_button"])
  def test_reel_label_not_leaf(self):
   x=v.summarize("GK05553_00",b"M/F74-102-17-4(GK5553/v25-31)")
   self.assertFalse(x["physical_book12_original_folio_proven"]);self.assertFalse(x["physical_book29_original_folio_proven"])
