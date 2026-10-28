@@ -47,11 +47,13 @@ def check(e=None,state=None,ledger=None,manifest=None):
  assert tuple(map(int,state["schema_version"].split(".")))>=(1,905,0)
  assert manifest["combined_source_count"]==state["historical_audit"]["external_source_registry_total_unique_count"]>=763
  assert manifest["root_source_count"]==647 and manifest["combined_source_count"]==manifest["root_source_count"]+manifest["extension_source_count"]
- assert state["historical_audit"]["current_focus"][-1].startswith("13IZ ") and ledger["binding"]["latest_research_focus_prefix"]=="13IZ"
+ assert any(x.startswith("13IZ ") for x in state["historical_audit"]["current_focus"])
+ assert ledger["binding"]["latest_research_focus_prefix"]==state["historical_audit"]["current_focus"][-1].split(" ",1)[0]
  assert len(state["historical_audit"]["current_focus"])==ledger["binding"]["source_focus_count"]
  issue=next(i for i in ledger["issues"] if i["id"]=="TW-OPEN-0005")
  assert issue["priority"]=="P0" and issue["status"]=="OPEN" and {E,E.replace(".json",".md")}.issubset(set(issue["source_refs"]))
- assert issue["next_action"].startswith("13IZ CURRENT ACTION:")
+ assert issue["next_action"].startswith(ledger["binding"]["latest_research_focus_prefix"]+" CURRENT ACTION:")
+ assert any(h.get("revision_id","").startswith("TW-OPEN-0005-13IZ-") and h.get("previous_next_action","").startswith("13IY CURRENT ACTION:") for h in issue["history"])
  assert all(k in issue["next_action"] for k in ("GK05553_00","GK05554_00","G893","GK03539_00","GK03579_00","GK03269_00","D1-D6","四分","初度","NLC03130 solar D30","NLC03130 summer D14","NULL","13EI","RETRACTED"))
  assert any(x.get("revision_id","").startswith("TW-OPEN-0005-13IZ-") and E in x.get("evidence_refs",[]) for x in issue["history"])
  assert ledger["checkpoint_log"][-1]["state_version"]==state["schema_version"]

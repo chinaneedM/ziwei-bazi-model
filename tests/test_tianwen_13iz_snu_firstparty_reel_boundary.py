@@ -7,6 +7,18 @@ class FirstpartyVolList(unittest.TestCase):
  def deny(self):
   with self.assertRaises(AssertionError):M.check(self.e)
  def test_snapshot(self):self.assertTrue(M.check(self.e))
+ def test_13iz_persists_as_prior_batch_not_latest(self):
+  current=M.get(M.S);self.assertNotEqual(current["historical_audit"]["current_focus"][-1].split()[0],"13IZ")
+  self.assertTrue(any(f.startswith("13IZ ") for f in current["historical_audit"]["current_focus"]))
+  self.assertTrue(M.check(self.e))
+ def test_missing_archived_focus_rejected(self):
+  s=copy.deepcopy(M.get(M.S));s["historical_audit"]["current_focus"]=[x for x in s["historical_audit"]["current_focus"] if not x.startswith("13IZ ")]
+  with self.assertRaises(AssertionError):M.check(self.e,state=s)
+ def test_live_action_prefix_mutation_rejected(self):
+  l=copy.deepcopy(M.get(M.L));issue=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
+  issue["next_action"]="13IZ CURRENT ACTION: forged older focus"
+  with self.assertRaises(AssertionError):M.check(self.e,ledger=l)
+
  def test_fake_pdf_yes(self):self.e["official_5554"]["all_is_pdf"]="Y";self.deny()
  def test_fake_source_copy(self):self.e["official_5554"]["provider_books"]=["GK05553_00"];self.deny()
  def test_fake_raw_digest(self):self.e["official_5554"]["raw_json_sha256"]="0"*64;self.deny()
