@@ -1,0 +1,22 @@
+name: audit-tianwen-live-source-count-guards
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - 'scripts/audit-tianwen-live-source-count-guards-r1.py'
+      - 'tests/test_audit_tianwen_live_source_count_guards_r1.py'
+      - 'scripts/verify-tianwen-13fg-d5-source-photo-glyph.py'
+      - '.github/workflows/audit-tianwen-live-source-count-guards.yml'
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  source-count-triage:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python -m unittest discover -s tests -p 'test_audit_tianwen_live_source_count_guards_r1.py' -v
+      - run: python scripts/verify-tianwen-13fg-d5-source-photo-glyph.py
+      - run: python -m unittest discover -s tests -p 'test_verify_tianwen_13fg_d5_source_photo_glyph.py' -v
+      - run: python scripts/audit-tianwen-live-source-count-guards-r1.py

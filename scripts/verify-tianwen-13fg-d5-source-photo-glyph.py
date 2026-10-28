@@ -48,7 +48,9 @@ def check(e,s,l):
  assert l["binding"]["source_focus_count"]==len(s["historical_audit"]["current_focus"])
  assert isinstance(l["binding"]["latest_research_focus_prefix"],str) and l["binding"]["latest_research_focus_prefix"] and l["binding"]["latest_research_focus_prefix"].startswith("13")
  assert any(x.startswith("13FG ") for x in s["historical_audit"]["current_focus"])
- assert s["historical_audit"]["external_source_registry_total_unique_count"]==761
+ # Preserve the immutable 13FG 761-source historical snapshot, but compare
+ # the live handoff against it monotonically after later valid shard growth.
+ assert s["historical_audit"]["external_source_registry_total_unique_count"]>=im["source_registry_total_unique_count"]
  issue=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
  assert issue["priority"]=="P0" and issue["status"]=="OPEN"
  assert {P,P.replace(".json",".md")}.issubset(set(issue["source_refs"]))

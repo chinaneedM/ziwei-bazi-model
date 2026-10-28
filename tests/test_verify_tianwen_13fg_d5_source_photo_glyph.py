@@ -7,6 +7,14 @@ class Test13FG(unittest.TestCase):
  def setUpClass(cls):
   cls.e=v.read(v.P);cls.s=v.read(v.S);cls.l=v.read(v.L)
  def test_positive_source_evidence(self):self.assertTrue(v.check(self.e,self.s,self.l))
+ def test_live_source_growth_does_not_rewrite_13fg_snapshot(self):
+  self.assertGreater(self.s["historical_audit"]["external_source_registry_total_unique_count"],self.e["impact"]["source_registry_total_unique_count"])
+ def test_reject_tampering_with_frozen_13fg_source_count(self):
+  self.deny(lambda x:x["impact"].update(source_registry_total_unique_count=763))
+ def test_live_source_count_cannot_go_below_13fg_snapshot(self):
+  s=copy.deepcopy(self.s);s["historical_audit"]["external_source_registry_total_unique_count"]=760
+  with self.assertRaises(AssertionError):v.check(self.e,s,self.l)
+
  def deny(self,fn):
   x=copy.deepcopy(self.e);fn(x)
   with self.assertRaises(AssertionError):v.check(x,self.s,self.l)
