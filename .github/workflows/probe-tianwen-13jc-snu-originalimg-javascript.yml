@@ -1,0 +1,26 @@
+name: probe-tianwen-13jc-snu-originalimg-javascript
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - 'scripts/probe-tianwen-13jc-snu-booksearch-originalimg.py'
+      - 'tests/test_tianwen_13jc_snu_originalimg_js.py'
+      - '.github/workflows/probe-tianwen-13jc-snu-originalimg-javascript.yml'
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  exact-source-js:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python -m unittest discover -s tests -p 'test_tianwen_13jc_snu_originalimg_js.py' -v
+      - run: python scripts/probe-tianwen-13jc-snu-booksearch-originalimg.py
+        env: {TIANWEN_13JC_OUT: /tmp/tianwen-13jc}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: tianwen-13jc-snu-originalimg-js-firstparty
+          path: /tmp/tianwen-13jc/
+          if-no-files-found: error
