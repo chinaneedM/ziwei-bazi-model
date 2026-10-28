@@ -1,0 +1,80 @@
+{
+  "schema": "TIANWEN-13JQ-GORYEOSA-1972-IMPRINT-COLLISION-BIBLIOGRAPHIC-FIREWALL-R1",
+  "date": "2026-10-28",
+  "issue_id": "TW-OPEN-0005",
+  "classification": "DIRECT_MODERN_BIBLIOGRAPHIC_CATALOG_DISTINCTION_NOT_HISTORICAL_ORIGINAL_FOLIO",
+  "prior_scope": "docs/research/TIANWEN-12ZL-GORYEOSA-1972-MIXED-FACSIMILE-AND-5553-SUPPLEMENT-CONFLICT-R1.json",
+  "catalog_records": [
+    {
+      "id": "RISS-1972-YONSEI-FOUR",
+      "provider": "RISS Korean academic research catalog",
+      "url": "https://www.riss.kr/search/detail/DetailView.do?control_no=fcd7675d736aef1d&p_mat_type=d7345961987b50bf",
+      "control_no": "fcd7675d736aef1d",
+      "title": "高麗史",
+      "publisher": "延世大學校 東方學硏究所",
+      "year": 1972,
+      "edition_description": "4冊 : 影印本 ; 23 cm",
+      "series": "國故叢刊 ; 1",
+      "internal_volume_map": {
+        "841": "目錄 世家",
+        "842": "志 年表",
+        "843": "列傳",
+        "844": "索引"
+      },
+      "original_folio_examined": false,
+      "copy_gk5553_or_gk5554_bound": false
+    },
+    {
+      "id": "CINII-1972-ASIA-THREE",
+      "provider": "CiNii Books Japan union academic catalog",
+      "url": "https://ci.nii.ac.jp/ncid/BA63617326",
+      "ncid": "BA63617326",
+      "title": "高麗史",
+      "publisher": "亞細亞文化社",
+      "year": 1972,
+      "edition_description": "3冊 ; 21cm ; 上/中/下",
+      "series": "韓國學古典씨리즈",
+      "original_folio_examined": false,
+      "copy_gk5553_or_gk5554_bound": false
+    },
+    {
+      "id": "NDL-1981-YONSEI-REPRINT-NOT-1972",
+      "provider": "Japanese National Diet Library Search relaying CiNii Books",
+      "url": "https://ndlsearch.ndl.go.jp/books/R100000136-I1971993809687703753",
+      "ncid": "BN11459541",
+      "title": "高麗史",
+      "publisher": "延世大學國學研究院",
+      "year": 1981,
+      "edition_description": "modern 1981 edition, catalog note identifies 1955 延禧大學校東方學研究所刊 reprint reduction",
+      "original_folio_examined": false,
+      "copy_gk5553_or_gk5554_bound": false
+    }
+  ],
+  "adjudication": {
+    "year_only_1972_is_nonunique": true,
+    "riss_and_cinii_same_record": false,
+    "four_volume_yonsei_record_is_not_three_volume_asia_record": true,
+    "proof_asia_1972_is_exact_12zl_reported_facsimile": false,
+    "direct_modern_catalogs_do_not_establish_original_edition_composition": true,
+    "three_volume_asia_and_four_volume_yonsei_must_not_be_merged": true,
+    "ndl_1981_reprint_not_original_1972_witness": true,
+    "modern_imprint_is_not_ancient_fascicle_ordinals": true,
+    "source_original_1972_pages_verified": 0,
+    "new_independent_ancient_physical_witnesses": 0,
+    "g893_six_target_original_numeric_decisions": 0,
+    "khs_8_12_26_vs_snu_8_26_29": "OPEN",
+    "prior_13io_physical_volume29_binding": "RETRACTED_UNBOUND",
+    "deterministic_chart": "CLOSED",
+    "algorithm_reopens": 0,
+    "external_source_registry_additions": 0,
+    "genealogy_nodes_added": 0,
+    "genealogy_edges_added": 0
+  },
+  "next_evidence_gate": [
+    "Record exact physical holding/call-number and colophon for the 1972 Asia Cultural three-volume copy, then map work juan52 and actual leaf to the printed source, not bibliographic title alone",
+    "Compare the RISS Yonsei four-volume v.842 志 年表 original imprint/colophon to distinguish it from the 1972 Asia three-volume object before any textual reuse",
+    "Independently bind SNU GK05553 physical ancient fascicle covers/registrations and KHS 2114-1 inventory to resolve disputed manuscript ordinal 12 versus 29",
+    "Preserve GK00893_00 six target original numeric rows and other GK3467/NLC unresolved control issues"
+  ],
+  "transmission_impact": "NONE_NO_ANCIENT_LINEAGE_VOTE"
+}
