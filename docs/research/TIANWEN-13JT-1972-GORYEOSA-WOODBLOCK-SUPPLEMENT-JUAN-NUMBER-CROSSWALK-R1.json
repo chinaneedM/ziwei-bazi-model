@@ -1,0 +1,155 @@
+{
+  "schema": "TIANWEN-13JT-1972-GORYEOSA-WOODBLOCK-SUPPLEMENT-JUAN-CROSSWALK-R1",
+  "date": "2026-10-28",
+  "issue_id": "TW-OPEN-0005",
+  "classification": "SECONDARY_MODERN_HISTORICAL_DESCRIPTION_CONFLICT_AFTER_AUTHENTIC_GLOBAL_JUAN_NUMBER_NORMALIZATION",
+  "source_records": [
+    {
+      "id": "AKS-ENCYCLOPEDIA-GORYEOSA-1972-SUPPLEMENT-LIST",
+      "institution": "Academy of Korean Studies",
+      "provider": "Encyclopedia of Korean Culture",
+      "url": "https://encykorea.aks.ac.kr/Article/E0003456",
+      "section": "서지적 사항 / 書誌的事項",
+      "last_recorded_update": "2024-05-22",
+      "original_language": "ko",
+      "excerpt_locator": "1972년 아세아문화사에서 ... 세가의 권19∼21, 권31, 지의 권27 · 28 · 31 · 33 · 35 · 37",
+      "evidence_grade": "INSTITUTIONALLY_HOSTED_MODERN_SPECIALIST_ENCYCLOPEDIA_NOT_1972_ORIGINAL_PAGE",
+      "original_1972_colophon_or_folio_seen": false
+    },
+    {
+      "id": "SYSU-WEI-CHEN-2020-SUPPLEMENT-LIST",
+      "institution": "Sun Yat-sen University",
+      "provider": "Author/institution-hosted specialist scholarly publication previously archived as 12ZL",
+      "url": "https://www.aisixiang.com/data/121297.html",
+      "repository_prior": "docs/research/TIANWEN-12ZL-GORYEOSA-1972-MIXED-FACSIMILE-AND-5553-SUPPLEMENT-CONFLICT-R1.json",
+      "publication": "《史学史研究》2020年第1期, printed page 100 (prior 12ZL)",
+      "evidence_grade": "MODERN_SPECIALIST_RESEARCH_REPORTED_IN_PRIOR_IMMUTABLE_12ZL_NOT_SOURCE_1972_PHYSICAL_PAGE",
+      "original_1972_colophon_or_folio_seen": false
+    },
+    {
+      "id": "NIKH-GORYEOSA-WORK-STRUCTURE",
+      "institution": "National Institute of Korean History",
+      "provider": "Official Goryeo historical text table of contents",
+      "url": "https://db.history.go.kr/goryeo/itemLevelKrList.do?levelId=kr_054r_0010_0010_0050",
+      "evidence_grade": "INSTITUTIONAL_RECEIVED_WORK_GLOBAL_AND_INTERNAL_JUAN_NUMBER_MAPPING_NOT_1972_EDITION_VARIANT",
+      "original_1972_colophon_or_folio_seen": false
+    }
+  ],
+  "normalization": {
+    "sega_global_start": 1,
+    "sega_global_end": 46,
+    "ji_global_start": 47,
+    "ji_global_end": 85,
+    "ji_relative_offset": 46,
+    "ji_length": 39,
+    "aks": {
+      "sega_juan": [
+        19,
+        20,
+        21,
+        31
+      ],
+      "ji_internal_juan": [
+        27,
+        28,
+        31,
+        33,
+        35,
+        37
+      ],
+      "expected_global_juan": [
+        19,
+        20,
+        21,
+        31,
+        73,
+        74,
+        77,
+        79,
+        81,
+        83
+      ]
+    },
+    "wei_chen_2020": {
+      "previous_immutable_data_path": "docs/research/TIANWEN-12ZL-GORYEOSA-1972-MIXED-FACSIMILE-AND-5553-SUPPLEMENT-CONFLICT-R1.json",
+      "previous_immutable_json_field": "source_evidence.academic.replaced_work_volumes",
+      "reported_global_juan": [
+        19,
+        20,
+        21,
+        31,
+        73,
+        74,
+        77,
+        78,
+        79,
+        81,
+        82,
+        83
+      ]
+    },
+    "comparison": {
+      "intersection_global_juan": [
+        19,
+        20,
+        21,
+        31,
+        73,
+        74,
+        77,
+        79,
+        81,
+        83
+      ],
+      "only_aks_global_juan": [],
+      "only_wei_chen_global_juan": [
+        78,
+        82
+      ],
+      "only_wei_chen_ji_internal_juan": [
+        32,
+        36
+      ],
+      "contested_context": [
+        {
+          "work_global_juan": 78,
+          "ji_internal_juan": 32,
+          "topic": "食貨一"
+        },
+        {
+          "work_global_juan": 82,
+          "ji_internal_juan": 36,
+          "topic": "兵二"
+        }
+      ],
+      "full_work_juan_52_in_aks_or_wei_chen_supplement_lists": false,
+      "no_list_proves_1972_work_juan_52_printing_copy": true,
+      "distinct_secondary_descriptions_not_two_ancient_copy_votes": true
+    }
+  },
+  "conclusion": {
+    "modern_descriptions_show_two_entry_supplement_scope_disagreement": true,
+    "not_sufficient_to_adjudicate_1972_edition_winner": true,
+    "akademy_institution_name_is_not_physical_leaf_provenance": true,
+    "source_1972_page_read": false,
+    "juan_78_original_leaf_read": false,
+    "juan_82_original_leaf_read": false,
+    "akademy_catalog_does_not_invalidate_2020_paper_without_1972_original": true,
+    "past_12zl_2020_record_must_remain_unchanged": true,
+    "khs_8_12_26_vs_snu_8_26_29": "OPEN",
+    "old_13io_physical_book29": "RETRACTED_UNBOUND",
+    "new_g893_six_numeric_decisions": 0,
+    "independent_ancient_physical_copy_votes": 0,
+    "registry_growth": 0,
+    "genealogy_nodes_added": 0,
+    "genealogy_edges_added": 0,
+    "algorithm_reopens": 0,
+    "deterministic_chart_product": "CLOSED"
+  },
+  "next_evidence_gate": [
+    "Examine identical 1972 physical edition juan78 食貨一 and juan82 兵二 actual photographed page plus edition/volume/colophon, compare with attributed 乙亥字 and 木板本; do not infer family from textbook alone.",
+    "Examine same verified physical 1972 source work juan52 志6 original page (not in either reported supplement list), then compare against separate GK05554/GK05553 actually identified physical copy and G893 target rows.",
+    "Keep Korean government physical fascicle 8/12/26 versus SNU digitized copy 8/26/29 as separate unresolved question; one modern list cannot substitute for fascicle labels."
+  ],
+  "transmission_impact": "NONE_NOT_YET_A_SOURCE_PHYSICAL_DEPENDENCY_LINK"
+}
