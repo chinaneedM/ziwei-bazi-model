@@ -1,0 +1,55 @@
+{
+  "schema": "TIANWEN-13JZ-G893-EXACT-PAGE-RECOVERY-CHECKPOINT-R1",
+  "date": "2026-10-29",
+  "issue_id": "TW-OPEN-0005",
+  "startup": {
+    "head": "cb3d08b386ce89616f8ddb30b614fb8ca874faf5",
+    "tree": "e98d17271ee03257e361a7f688c31df5845ca2f7",
+    "state_version": "1.922.0",
+    "latest_focus": "13JY",
+    "actions_observed": 239,
+    "actions_success": 238,
+    "actions_in_progress": [
+      40781418315
+    ]
+  },
+  "observed_access": {
+    "archived_run": 35324088110,
+    "archived_artifact": 10538746764,
+    "download_result": "HTTP404_NOT_FOUND",
+    "run_artifacts_result": [],
+    "historical_expiry_record": "docs/PROJECT-CURRENT-STATE-R1.json focus12XO records expiry2026-10-18T08:28:40Z",
+    "direct_source_page": "035b",
+    "direct_source_result": "HTTP503_IN_CURRENT_EXECUTION_ENVIRONMENT",
+    "historical_original_evidence_retracted": false
+  },
+  "acquisition_plan": {
+    "pages": [
+      "018b",
+      "019b",
+      "035b",
+      "036b"
+    ],
+    "url_authority": [
+      "docs/research/TIANWEN-12XU-G893-L8-L132-SOURCE-GLYPH-AND-SYMMETRIC-LOCATORS-R1.json",
+      "docs/research/TIANWEN-12XX-G893-L124-DIRECT-ORIGINAL-JI-XINGDU-GLYPH-R1.json"
+    ],
+    "script": "scripts/acquire-tianwen-13jz-g893-exact-pages.py",
+    "workflow": ".github/workflows/acquire-tianwen-13jz-g893-exact-pages.yml",
+    "purpose": "Recover exact previously hash-bound public source JPEG bytes, then inspect same-copy adjacent rows; no inferred/guessed image IDs or original glyph claims at planning stage.",
+    "all_four_required_for_full_scope": true,
+    "whole_204_page_archive_reacquired": false
+  },
+  "scope": {
+    "new_direct_glyph_readings": 0,
+    "cross_witness_numeric_winners": 0,
+    "old_original_records_overwritten": false,
+    "source_registry_delta": 0,
+    "genealogy_delta": 0,
+    "algorithm_reopens": 0,
+    "product": "CLOSED",
+    "research_issues_open": 11
+  },
+  "transmission_impact": "NONE: operational source-byte recovery only.",
+  "next_action": "Inspect exact-head acquisition receipt and original image bytes. Hash mismatch, unavailable images or unreadable glyphs remain explicit blockers; do not substitute 13JY received-neighbor arithmetic for original rows."
+}
