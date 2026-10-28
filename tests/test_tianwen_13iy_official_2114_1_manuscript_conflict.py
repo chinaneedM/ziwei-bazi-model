@@ -7,6 +7,22 @@ class SourceScope(unittest.TestCase):
  def reject(self):
   with self.assertRaises(AssertionError):M.check(self.d)
  def test_original(self):self.assertTrue(M.check(self.d))
+ def test_old_13iy_focus_retained_after_13jb(self):
+  st=M.get("docs/PROJECT-CURRENT-STATE-R1.json")
+  self.assertNotEqual(st["historical_audit"]["current_focus"][-1].split()[0],"13IY")
+  self.assertTrue(any(x.startswith("13IY ") for x in st["historical_audit"]["current_focus"]))
+  self.assertTrue(M.check(self.d))
+ def test_dropped_13iy_archival_focus_rejected(self):
+  st=M.get("docs/PROJECT-CURRENT-STATE-R1.json")
+  import copy
+  st=copy.deepcopy(st);st["historical_audit"]["current_focus"]=[x for x in st["historical_audit"]["current_focus"] if not x.startswith("13IY ")]
+  with self.assertRaises(AssertionError):M.check(self.d,state=st)
+ def test_forged_live_registry_total_rejected(self):
+  m=M.get("docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json")
+  import copy
+  m=copy.deepcopy(m);m["combined_source_count"]+=1
+  with self.assertRaises(AssertionError):M.check(self.d,manifest=m)
+
  def test_wrong_2114_1_sha(self):self.d["firstparty_2114_1"]["raw_sha256"]="0"*64;self.reject()
  def test_wrong_title_source_url(self):self.d["firstparty_2114_1"]["api_url"]="https://example.invalid";self.reject()
  def test_wrong_2114_1_page(self):self.d["firstparty_2114_1"]["source_discovered_official_page"]="https://example.invalid";self.reject()

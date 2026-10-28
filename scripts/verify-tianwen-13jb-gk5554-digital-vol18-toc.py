@@ -36,11 +36,12 @@ def check(e=None,s=None,l=None):
  assert s["schema_version"]==l["binding"]["reviewed_state_version"]==s["historical_audit"]["research_omission_guard"]["reviewed_state_version"]
  assert tuple(map(int,s["schema_version"].split(".")))>=(1,906,0)
  assert s["historical_audit"]["external_source_registry_total_unique_count"]>=im["sources"]
- assert s["historical_audit"]["current_focus"][-1].startswith("13JB ") and l["binding"]["latest_research_focus_prefix"]=="13JB"
+ assert any(x.startswith("13JB ") for x in s["historical_audit"]["current_focus"])
+ assert l["binding"]["latest_research_focus_prefix"]==s["historical_audit"]["current_focus"][-1].split(" ",1)[0]
  assert l["binding"]["source_focus_count"]==len(s["historical_audit"]["current_focus"])
  issue=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
  assert issue["status"]=="OPEN" and issue["priority"]=="P0" and {E,E.replace(".json",".md")}.issubset(set(issue["source_refs"]))
- assert issue["next_action"].startswith("13JB CURRENT ACTION:")
+ assert issue["next_action"].startswith(l["binding"]["latest_research_focus_prefix"]+" CURRENT ACTION:")
  assert all(k in issue["next_action"] for k in ("GK05554_00","0018","048a","085a","GK05553_00","G893","NLC03130 solar D30","NLC03130 summer D14","D1-D6","四分","初度","13EI","RETRACTED"))
  assert any(x.get("revision_id","").startswith("TW-OPEN-0005-13JB-") and E in x.get("evidence_refs",[]) for x in issue["history"])
  assert l["checkpoint_log"][-1]["state_version"]==s["schema_version"]

@@ -50,17 +50,21 @@ def check(d=None,state=None,ledger=None,manifest=None):
  manifest=get("docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json") if manifest is None else manifest
  assert state["schema_version"]==ledger["binding"]["reviewed_state_version"]==state["historical_audit"]["research_omission_guard"]["reviewed_state_version"]
  assert tuple(map(int,state["schema_version"].split(".")))>=(1,904,0)
- assert manifest["root_source_count"]==647 and manifest["extension_source_count"]==116 and manifest["combined_source_count"]==763
- assert state["historical_audit"]["external_source_registry_extension_count"]==116 and state["historical_audit"]["external_source_registry_total_unique_count"]==763
+ assert manifest["root_source_count"]==647 and manifest["extension_source_count"]>=116
+ assert manifest["combined_source_count"]==manifest["root_source_count"]+manifest["extension_source_count"]>=763
+ assert state["historical_audit"]["external_source_registry_extension_count"]==manifest["extension_source_count"]
+ assert state["historical_audit"]["external_source_registry_total_unique_count"]==manifest["combined_source_count"]
  assert len(state["historical_audit"]["current_focus"])==ledger["binding"]["source_focus_count"]
- assert state["historical_audit"]["current_focus"][-1].startswith("13IY ") and ledger["binding"]["latest_research_focus_prefix"]=="13IY"
+ assert any(x.startswith("13IY ") for x in state["historical_audit"]["current_focus"])
+ assert ledger["binding"]["latest_research_focus_prefix"]==state["historical_audit"]["current_focus"][-1].split(" ",1)[0]
  assert any(x["path"]==S and x["blob_sha"]=="1c99ec83c879efe0242a2672bde2f07d94b8c5a0" and x["source_count"]==2 for x in manifest["shards"])
  shard=get(S);assert len(shard["sources"])==2
  assert all(x["physical_glyph_authority"] is False and x["verification_status"]=="BIBLIOGRAPHIC_METADATA_ONLY" for x in shard["sources"])
  issue=next(x for x in ledger["issues"] if x["id"]=="TW-OPEN-0005")
  assert issue["status"]=="OPEN" and issue["priority"]=="P0"
  assert D in issue["source_refs"] and S in issue["source_refs"]
- assert issue["next_action"].startswith("13IY ")
+ assert issue["next_action"].startswith(ledger["binding"]["latest_research_focus_prefix"]+" CURRENT ACTION:")
+ assert any(x.get("revision_id","").startswith("TW-OPEN-0005-13IY-") and x.get("previous_next_action","").startswith("13IX CURRENT ACTION:") for x in issue["history"])
  assert all(z in issue["next_action"] for z in ("GK03539_00","GK03579_00","GK03269_00","D1-D6","四分","初度","G893","NLC03130 solar D30","NLC03130 summer D14","NULL","13EI","RETRACTED"))
  assert any(x.get("revision_id","").startswith("TW-OPEN-0005-13IY-") and D in x.get("evidence_refs",[]) for x in issue["history"])
  assert ledger["checkpoint_log"][-1]["state_version"]==state["schema_version"]

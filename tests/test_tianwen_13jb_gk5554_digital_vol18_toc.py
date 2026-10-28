@@ -7,6 +7,17 @@ class SourceIndex(unittest.TestCase):
  def deny(self):
   with self.assertRaises(AssertionError):v.check(self.e)
  def test_positive(self):self.assertTrue(v.check(self.e))
+ def test_archival_focus_survives_later_batch(self):
+  s=v.get(v.S)
+  self.assertTrue(any(q.startswith("13JB ") for q in s["historical_audit"]["current_focus"]))
+ def test_current_focus_and_ledger_prefix_agree(self):
+  s=v.get(v.S);l=v.get(v.L)
+  self.assertEqual(l["binding"]["latest_research_focus_prefix"],s["historical_audit"]["current_focus"][-1].split()[0])
+ def test_dropped_13jb_focus_rejected(self):
+  s=copy.deepcopy(v.get(v.S))
+  s["historical_audit"]["current_focus"]=[q for q in s["historical_audit"]["current_focus"] if not q.startswith("13JB ")]
+  with self.assertRaises(AssertionError):v.check(self.e,s=s)
+
  def test_sha_mismatch(self):self.e["source"]["raw_html_sha256"]="0"*64;self.deny()
  def test_source_no_pdf_to_ancient(self):self.e["source_emitted_toc"][1]["photo_bytes"]=100;self.deny()
  def test_glyph_not_proven(self):self.e["source_emitted_toc"][2]["original_folio_glyph_verified"]=True;self.deny()
