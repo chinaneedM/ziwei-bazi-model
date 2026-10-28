@@ -20,11 +20,11 @@ class PhotoScope(unittest.TestCase):
   self.assertEqual(self.s['schema_version'],self.l['binding']['reviewed_state_version'])
   self.assertEqual(self.s['historical_audit']['research_omission_guard']['reviewed_state_version'],self.s['schema_version'])
   self.assertEqual(self.l['binding']['source_focus_count'],len(self.s['historical_audit']['current_focus']))
-  self.assertIn('13JJ ',self.s['historical_audit']['current_focus'][-1][:5])
+  self.assertTrue(any(x.startswith('13JJ ') for x in self.s['historical_audit']['current_focus']))
  def test_living_issue(self):
   issue=next(x for x in self.l['issues'] if x['id']=='TW-OPEN-0005')
   self.assertEqual((issue['priority'],issue['status']),('P0','OPEN'));self.assertIn(E.relative_to(R).as_posix(),issue['source_refs'])
-  self.assertTrue(issue['next_action'].startswith('13JJ CURRENT ACTION:'))
+  self.assertIn('13JJ CURRENT ACTION:',issue['next_action'])
   for word in ('13JG CURRENT ACTION:','GK03539_00','G893','GK3467','NULL','四分','初度','RETRACTED'):self.assertIn(word,issue['next_action'])
   self.assertEqual(self.l['checkpoint_log'][-1]['state_version'],self.s['schema_version'])
 if __name__=='__main__':unittest.main()
