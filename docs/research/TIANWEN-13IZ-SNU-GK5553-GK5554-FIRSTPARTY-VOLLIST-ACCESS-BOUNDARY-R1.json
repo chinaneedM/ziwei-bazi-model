@@ -1,0 +1,129 @@
+{
+  "schema": "TIANWEN-13IZ-SNU-GK5553-GK5554-FIRSTPARTY-VOLLIST-ACCESS-BOUNDARY-R1",
+  "date": "2026-10-28",
+  "issue_id": "TW-OPEN-0005",
+  "prior_head": "a654719a999994a316c488942aadb87f96804609",
+  "evidence_source": {
+    "provider": "Seoul National University Kyujanggak",
+    "catalog_gk5553": "https://kyudb.snu.ac.kr/book/view.do?book_cd=GK05553_00",
+    "catalog_gk5554": "https://kyudb.snu.ac.kr/book/view.do?book_cd=GK05554_00",
+    "public_post_url": "https://kyudb.snu.ac.kr/ajax/book/mfPdfList.do",
+    "post_param": "book_cd",
+    "script": "scripts/probe-tianwen-13iz-snu-source-listed-reels.py",
+    "run_id": 40633848115,
+    "job_id": 122636165639,
+    "artifact_id": 12792772609,
+    "artifact_name": "tianwen-13iz-snu-gk5553-gk5554-source-listed-reels",
+    "artifact_zip_sha256": "017ba403723c25f3113463a2196c4715e9bab04df7f78ea48609a54ffafaa83e",
+    "test_count": 10
+  },
+  "official_5553": {
+    "catalog_request_status": "TRANSPORT_ERROR",
+    "public_catalog_html_acquired": false,
+    "provider_volumes_response": null,
+    "physical_book12_folio": null,
+    "physical_book29_folio": null,
+    "negative_original_absence_proven": false
+  },
+  "official_5554": {
+    "catalog_request_status": "CAPTURED",
+    "source_emitted_exact_book_identity": true,
+    "source_emitted_mfPdfList_endpoint": true,
+    "source_emitted_exact_onclick_for_5554": false,
+    "public_ajax_http": 200,
+    "raw_json_bytes": 6263,
+    "raw_json_sha256": "af2c8082894765fa9752121b2ff29894f1c0d8848637f4d99817186226d97410",
+    "result_literal": "SUCCESS",
+    "volList_count": 32,
+    "provider_books": [
+      "GK05554_00"
+    ],
+    "volume_no_lower": "0001",
+    "volume_no_upper": "0032",
+    "all_item_cd": "GJB",
+    "all_is_pdf": "N",
+    "source_emitted_microfilm_labels": [
+      "M/F74-102-17-1(奎 5553/v1-9)",
+      "M/F74-102-17-2(奎 5553/v.10-16)",
+      "M/F74-102-17-3(奎 5553/v.17-24)",
+      "M/F74-102-17-4(奎 5553/v.25-31)",
+      "M/F74-102-17-5(奎 5553/v.32-38)",
+      "M/F74-102-17-6(奎 5553/v.39-43)",
+      "M/F74-102-17-7(奎 5553/v.44-46)"
+    ],
+    "item_volumes_are_exact_original_folio_proof": false,
+    "all_32_volumes_printed_original_images_acquired": false,
+    "gk5554_books17_18_juan81_82_physical_titles": null,
+    "other_image_service_absence_proven": false
+  },
+  "evidence_boundary": {
+    "official_5554_pdf_service_no_pdf_items_reported": true,
+    "do_not_conclude_no_snu_digital_images": true,
+    "do_not_conclude_gk5553_same_film_pixels": true,
+    "do_not_count_32_provider_rows_as_independent_ancient_witnesses": true,
+    "do_not_infer_81_in_book17_or_book18": true,
+    "do_not_infer_book29_juan81_83": true,
+    "do_not_close_snu_book12_29_disagreement": true,
+    "network_error_not_negative_holding_proof": true,
+    "previous_13IO_book29_to_juan81_83": "RETRACTED_UNBOUND"
+  },
+  "prior_13iy": {
+    "source": "docs/research/TIANWEN-13IY-KHS-2114-1-DIRECT-KOREAN-DESIGNATION-COPY-SCOPE-R1.json",
+    "firstparty_khs_manuscript_books": [
+      8,
+      12,
+      26
+    ],
+    "firstparty_snu_catalog_manuscript_books": [
+      8,
+      26,
+      29
+    ],
+    "book12_29_winner": null
+  },
+  "pending_ancient": {
+    "g893_six": null,
+    "gk3467_winter_d1_d7": null,
+    "nlc03130_solar_d30": null,
+    "nlc03130_summer_d14": null,
+    "d5_zero_vs_five": null,
+    "fourfen_chudu_original_bridge": null,
+    "erroneous_13ei": "RETRACTED"
+  },
+  "impact": {
+    "historical_matrix": [
+      222,
+      222
+    ],
+    "root_sources": 647,
+    "extension_sources": 116,
+    "total_sources": 763,
+    "genealogy_nodes": 252,
+    "genealogy_edges": 238,
+    "open_issues": 11,
+    "chart": "CLOSED",
+    "algorithms_reopened": 0,
+    "new_original_ancient_pages": 0,
+    "new_ancient_numeric_winners": 0,
+    "new_transmission_edges": 0,
+    "source_registry_entries_added": 0
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "GK05554_00 32 source-listed volume rows with IS_PDF=N are not downloaded ancient original folios or a census of all possible image service endpoints.",
+      "Seven GK5553-labelled M/F groups in GK5554 catalog do not prove pixel identity or distinct physical G5554 microfilm."
+    ],
+    "unresolved_lineage_questions": [
+      "Can a source-provided original image endpoint bind GK5554 physical books 17/18 to original juan81/82 headings?",
+      "Can exact GK5553 books12/29 opening folios arbitrate firstparty government/SNU discord?"
+    ]
+  },
+  "next_actions": [
+    "Use only permitted provider-emitted independent original image routes, binding book item/physical copy/folio/hash; do not repeat mfPdfList G5554 expecting PDFs until provider status changes.",
+    "Retry GK05553_00 with bounded network without treating failed transport as book absence; obtain original book12/29 front and volume titles.",
+    "Keep G893 six, GK3467 winter D1-D7, NLC03130 solar D30, summer D14, D5〇/五, 四分/初度 physical checks open."
+  ]
+}
