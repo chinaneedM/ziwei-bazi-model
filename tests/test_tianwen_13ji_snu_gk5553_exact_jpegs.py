@@ -27,11 +27,11 @@ class ExactJpeg(unittest.TestCase):
   h=b'<html><img src="/ImageServlet.do?imgFileNm=test.jpg&path=xyz"></html>'
   p=v.Images();p.feed(h.decode());self.assertEqual(len(p.srcs),1)
  def test_jpeg_content_type_blank(self):
-  raw=b"\\xff\\xd8\\xff"+b"a"*220+b"\\xff\\xd9"
+  raw=b"\xff\xd8\xff"+b"a"*220+b"\xff\xd9"
   self.assertTrue(v.valid_jpeg(raw,""))
   self.assertFalse(v.valid_jpeg(b"<html>denied</html>",""))
  def test_mime_reject_html(self):
-  self.assertFalse(v.valid_jpeg(b"\\xff\\xd8\\xff"+b"x"*150+b"\\xff\\xd9","text/html"))
+  self.assertFalse(v.valid_jpeg(b"\xff\xd8\xff"+b"x"*150+b"\xff\xd9","text/html"))
  def test_firstparty_redirect(self):
   with self.assertRaises(urllib.error.HTTPError):
    v.SourceOnly().redirect_request(urllib.request.Request(v.VIEWER),None,302,"Found",{},"https://attacker.example/image")
