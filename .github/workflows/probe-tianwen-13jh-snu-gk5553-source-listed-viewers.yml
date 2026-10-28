@@ -1,0 +1,26 @@
+name: probe-tianwen-13jh-snu-gk5553-source-listed-viewers
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - 'scripts/probe-tianwen-13jh-snu-gk5553-source-listed-viewers.py'
+      - 'tests/test_tianwen_13jh_snu_gk5553_source_list.py'
+      - '.github/workflows/probe-tianwen-13jh-snu-gk5553-source-listed-viewers.yml'
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  own-source-catalog-list-viewers:
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python -m unittest discover -s tests -p 'test_tianwen_13jh_snu_gk5553_source_list.py' -v
+      - run: python scripts/probe-tianwen-13jh-snu-gk5553-source-listed-viewers.py
+        env: {TIANWEN_13JH_OUT: /tmp/tianwen-13jh}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: tianwen-13jh-snu-gk5553-own-source-catalog-list-viewers
+          path: /tmp/tianwen-13jh/
+          if-no-files-found: error
