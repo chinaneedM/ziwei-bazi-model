@@ -32,9 +32,9 @@ def check(proof, state, ledger):
     assert a["prior_13io_physical_volume29_binding"] == "RETRACTED_UNBOUND"
     assert a["deterministic_chart"] == "CLOSED"
     f = state["historical_audit"]["current_focus"]
-    assert any(x.startswith("13JP ") for x in f) and f[-1].startswith("13JQ ")
+    assert any(x.startswith("13JP ") for x in f) and any(x.startswith("13JQ ") for x in f)
     assert len(f) == ledger["binding"]["source_focus_count"]
-    assert ledger["binding"]["latest_research_focus_prefix"] == "13JQ"
+    assert ledger["binding"]["latest_research_focus_prefix"] == f[-1].split(" ",1)[0]
     assert state["schema_version"] == ledger["binding"]["reviewed_state_version"] == state["historical_audit"]["research_omission_guard"]["reviewed_state_version"]
     issue = next(i for i in ledger["issues"] if i["id"] == "TW-OPEN-0005")
     assert issue["status"] == "OPEN"

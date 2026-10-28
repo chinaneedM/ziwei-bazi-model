@@ -37,10 +37,10 @@ class OriginalFivePixelReplay(unittest.TestCase):
             with self.subTest(mode=mode):
                 with self.assertRaises(AssertionError): V.verify_manifest(x,self.p)
     def test_forward_state(self):
-        self.assertEqual(self.s["schema_version"],"1.913.0")
-        self.assertEqual(self.l["binding"]["reviewed_state_version"],"1.913.0")
-        self.assertEqual(self.l["binding"]["latest_research_focus_prefix"],"13JP")
-        self.assertTrue(self.s["historical_audit"]["current_focus"][-1].startswith("13JP "))
+        self.assertEqual(self.s["schema_version"],self.l["binding"]["reviewed_state_version"])
+        self.assertEqual(self.l["binding"]["reviewed_state_version"],self.s["historical_audit"]["research_omission_guard"]["reviewed_state_version"])
+        self.assertEqual(self.l["binding"]["latest_research_focus_prefix"],self.s["historical_audit"]["current_focus"][-1].split(" ",1)[0])
+        self.assertTrue(any(x.startswith("13JP ") for x in self.s["historical_audit"]["current_focus"]))
         self.assertEqual(self.l["binding"]["source_focus_count"],len(self.s["historical_audit"]["current_focus"]))
         issue=next(q for q in self.l["issues"] if q["id"]=="TW-OPEN-0005")
         self.assertIn(E.relative_to(ROOT).as_posix(),issue["source_refs"])
@@ -48,6 +48,6 @@ class OriginalFivePixelReplay(unittest.TestCase):
         for prev in ("13JJ CURRENT ACTION:","13JN CURRENT ACTION:","13JO CURRENT ACTION:"):
             self.assertIn(prev,issue["next_action"])
         self.assertTrue(any(x.get("revision_id","").startswith("TW-OPEN-0005-13JP") for x in issue["history"]))
-        self.assertEqual(self.l["checkpoint_log"][-1]["state_version"],"1.913.0")
+        self.assertEqual(self.l["checkpoint_log"][-1]["state_version"],self.s["schema_version"])
         self.assertEqual(self.s["invariants"]["deterministic_fusion_chart_product_r1"],"CLOSED")
 if __name__=="__main__":unittest.main()

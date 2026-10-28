@@ -42,9 +42,12 @@ class TestGoryeosa1972ImprintFirewall(unittest.TestCase):
     def test_prior_state_compatible(self):
         self.x[1]["historical_audit"]["current_focus"].append("13JR later evidence")
         self.x[2]["binding"]["source_focus_count"] += 1
-        self.x[2]["binding"]["latest_research_focus_prefix"] = "13JQ"
-        with self.assertRaises(AssertionError):
-            mod.check(*self.x)
+        self.x[2]["binding"]["latest_research_focus_prefix"] = "13JR"
+        self.assertEqual(mod.check(*self.x)["status"], "PASS")
+
+    def test_prefix_drift_rejected(self):
+        self.x[2]["binding"]["latest_research_focus_prefix"] = "BAD"
+        self.reject()
 
 if __name__ == "__main__":
     unittest.main()
