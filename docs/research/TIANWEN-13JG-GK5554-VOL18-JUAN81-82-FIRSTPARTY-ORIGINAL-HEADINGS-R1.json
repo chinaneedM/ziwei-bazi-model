@@ -1,0 +1,177 @@
+{
+  "schema": "TIANWEN-13JG-GK5554-VOL18-JUAN81-82-FIRSTPARTY-ORIGINAL-HEADINGS-R1",
+  "date": "2026-10-28",
+  "issue_id": "TW-OPEN-0005",
+  "evidence_grade": "DIRECT_FIRSTPARTY_DIGITAL_IMAGE_ORIGINAL_PRINTED_HEADINGS_MANUALLY_READ_WITHOUT_OCR",
+  "source_chain": {
+    "provider": "서울대학교 규장각한국학연구원",
+    "shelfmark": "奎貴5554",
+    "item_cd": "GJB",
+    "book_cd": "GK05554_00",
+    "digital_vol": "0018",
+    "source_toc_document": "docs/research/TIANWEN-13JB-GK5554-BOOK18-JUAN80-82-SOURCE-EMITTED-TOC-R1.json",
+    "source_html_run": 40634324150,
+    "source_html_artifact": 12792862189,
+    "source_html_sha256": "31c9afa4e92d68b6ec728758c20ca4cd0787c91a5690cbcd222bf8febdd13374",
+    "javascript_run": 40639184302,
+    "javascript_artifact": 12794752735,
+    "javascript_file": "snu-common2.js",
+    "javascript_sha256": "b2b4aaabf3da440b84b64f25768965a6c2c5500775b53e7634e98e4f59adf087",
+    "javascript_function": "function fn_originalImg(i, b, v, p)",
+    "official_submit_method": "POST",
+    "official_submit_endpoint": "https://kyudb.snu.ac.kr/pf01/rendererImg.do",
+    "viewer_run": 40639358829,
+    "viewer_artifact": 12795210294,
+    "image_run": 40639648199,
+    "image_job": 122654546271,
+    "image_artifact": 12794394664,
+    "pixel_review_method": "Direct visual inspection of authenticated source JPEG; RGB ROI hash replay using Pillow on downloaded artifact, no OCR"
+  },
+  "original_pages": [
+    {
+      "toc_work_juan": 81,
+      "page_id": "048a",
+      "viewer_html_sha256": "d7422a70e9218471279826e7ad3360b46f3eeae9cd65a71908b9ef9e7eef0c4e",
+      "image_filename": "GK05554_00_IL_0018_048a.jpg",
+      "provider_emitted_src": "/ImageServlet.do?imgFileNm=GK05554_00_IL_0018_048a.jpg&path=/data01/stream/GJB/IMG/GK05554_00/GK05554_00_0018/GK05554_00_IL_0018_048a.jpg",
+      "captured_jpeg_bytes": 311454,
+      "jpeg_sha256": "adb477f4758bb51b8758373dd646201eca4a61fa74692738cf8d766505454f65",
+      "pixel_dimensions": [
+        1009,
+        2000
+      ],
+      "rgb_sha256": "bb33453425c5aa75072df025cdb3c0c0b29cd2ecd4eefe34afac29380aff978e",
+      "manual_original_heading_readings": [
+        "志卷第三十五",
+        "高麗史八十一",
+        "兵一"
+      ],
+      "heading_rois": [
+        {
+          "label": "printed work_juan_and_zhijuan",
+          "xyxy": [
+            740,
+            250,
+            1009,
+            1490
+          ],
+          "rgb_sha256": "0578ea8a3c5d2abbd01a7b479d5c356efcc27111c2787170a25d867cdb0d2593"
+        },
+        {
+          "label": "printed section 兵一",
+          "xyxy": [
+            468,
+            340,
+            719,
+            950
+          ],
+          "rgb_sha256": "5754db2615191f3cbc4f34964108ffdcc55e8c26a9d6327f736cf8e47609a825"
+        }
+      ],
+      "printed_work_juan_heading_confirmed": true,
+      "physical_edition_year": null
+    },
+    {
+      "toc_work_juan": 82,
+      "page_id": "085a",
+      "viewer_html_sha256": "44babd776b2e59cb6c1ce93f22b47c1d9e47c677967392f654a6e16669cd6c23",
+      "image_filename": "GK05554_00_IL_0018_085a.jpg",
+      "provider_emitted_src": "/ImageServlet.do?imgFileNm=GK05554_00_IL_0018_085a.jpg&path=/data01/stream/GJB/IMG/GK05554_00/GK05554_00_0018/GK05554_00_IL_0018_085a.jpg",
+      "captured_jpeg_bytes": 324283,
+      "jpeg_sha256": "1a577a1f50cc4c321088db00477fe9c25dbcbfcfea6d669e92589b69275eb502",
+      "pixel_dimensions": [
+        1006,
+        2000
+      ],
+      "rgb_sha256": "859bf8d5f13d2d1edefbd44df631493d729c5bf4069c49894a9f82ab4b331562",
+      "manual_original_heading_readings": [
+        "志卷第三十六",
+        "高麗史八十二",
+        "兵二",
+        "宿衛"
+      ],
+      "heading_rois": [
+        {
+          "label": "printed work_juan_and_zhijuan",
+          "xyxy": [
+            737,
+            260,
+            1006,
+            1460
+          ],
+          "rgb_sha256": "473b6ddf40a531c011462ede629292563f1be84951a2505a7ba2bd6659b37e76"
+        },
+        {
+          "label": "printed section 兵二 宿衛",
+          "xyxy": [
+            420,
+            330,
+            700,
+            960
+          ],
+          "rgb_sha256": "0b92c73dc45c388b1c880c184fbc744fa9e1851844dbc9c4248d1e821e47e0a9"
+        }
+      ],
+      "printed_work_juan_heading_confirmed": true,
+      "physical_edition_year": null
+    }
+  ],
+  "scope_firewall": {
+    "two_pages_are_one_digital_book_and_not_two_independent_physical_witnesses": true,
+    "digital_page_id_not_ancient_folio_identifier": true,
+    "recovered_original_printed_heading_does_not_fix_specific_impression_date": true,
+    "direct_gk5554_pages_do_not_bind_gk5553_book12_or29": true,
+    "gk5553_book29_81_83_claim": "RETRACTED_UNBOUND",
+    "government_2114_1_manuscripts": [
+      8,
+      12,
+      26
+    ],
+    "snu_catalog_manuscripts": [
+      8,
+      26,
+      29
+    ],
+    "manuscript_book_disagreement": "OPEN",
+    "gov_2114_2_books_17_18_collective_juan_range": [
+      79,
+      80,
+      81,
+      82
+    ],
+    "physical_copy_date": null,
+    "edition_impression_date": null,
+    "zero_historical_numerical_adjudication": true,
+    "no_chart_algorithm_reopen": true
+  },
+  "counts": {
+    "matrix_rows": 222,
+    "matrix_audited": 222,
+    "source_registry_root": 647,
+    "source_registry_extension": 116,
+    "source_registry_total": 763,
+    "graph_nodes": 252,
+    "graph_edges": 238,
+    "open_issues": 11,
+    "verified_original_source_page_headings": 2,
+    "independent_physical_copies_awarded": 0,
+    "chart_algorithms_reopened": 0
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Two source JPEG page headings support GK5554 digital volume0018 printed juan81/juan82 content but do not prove a 1482 impression or establish distinct physical copies.",
+      "No GK5553 book29->juan81/82/83 binding is restored; government-versus-SNU manuscript ordinal disagreement remains open."
+    ],
+    "unresolved_lineage_questions": [
+      "Which physical SNU GK5553 manuscript books12/29 contain which original folios, and can a dated independent impression authenticate copying history?"
+    ]
+  },
+  "next_actions": [
+    "Keep TW-OPEN-0005 P0 OPEN for G893 original six, GK3467 winter D1–D7, NLC03130 solar D30 and summer D14, D5〇/五 and 四分/初度 original column scope.",
+    "Acquire firstparty GK05553_00 books12 and29 native title/juan images and 1972 facsimile exact folios; do not award a winner to the conflicting manuscript ordinals 8/12/26 versus 8/26/29.",
+    "If relevant to historical dating, compare independent physical edition/impression evidence before claiming 1482 original printing."
+  ]
+}

@@ -1,0 +1,23 @@
+name: verify-tianwen-13jg-gk5554-direct-original-headings
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - 'docs/research/TIANWEN-13JG-GK5554-VOL18-JUAN81-82-FIRSTPARTY-ORIGINAL-HEADINGS-R1.*'
+      - 'docs/PROJECT-CURRENT-STATE-R1.json'
+      - 'docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json'
+      - 'tests/test_tianwen_13jg_gk5554_direct_original_headings.py'
+      - '.github/workflows/verify-tianwen-13jg-gk5554-direct-original-headings.yml'
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  source-original-page-scope:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python -m unittest discover -s tests -p 'test_tianwen_13jg_gk5554_direct_original_headings.py' -v
+      - run: python scripts/verify-tianwen-13jb-gk5554-digital-vol18-toc.py
+      - run: python scripts/verify-research-omission-risk-ledger-r1.py
