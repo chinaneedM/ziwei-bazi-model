@@ -1,0 +1,26 @@
+name: probe-tianwen-13jf-snu-source-emitted-original-image-bytes
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - 'scripts/probe-tianwen-13jf-snu-exact-original-images.py'
+      - 'tests/test_tianwen_13jf_snu_exact_images.py'
+      - '.github/workflows/probe-tianwen-13jf-snu-exact-image-bytes.yml'
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  only-firstparty-exact-two-images:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python -m unittest discover -s tests -p 'test_tianwen_13jf_snu_exact_images.py' -v
+      - run: python scripts/probe-tianwen-13jf-snu-exact-original-images.py
+        env: {TIANWEN_13JF_OUT: /tmp/tianwen-13jf}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: tianwen-13jf-source-emitted-gk5554-vol18-original-image-bytes
+          path: /tmp/tianwen-13jf/
+          if-no-files-found: error
