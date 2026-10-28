@@ -15,6 +15,10 @@ class ExactImages(unittest.TestCase):
   with self.assertRaises(ValueError):m.exact_image_url("not-real")
  def test_reject_html_under_image_status(self):
   self.assertEqual(m.validate_jpeg(b"<html>blocked</html>","text/html"),"NON_JPEG_CONTENT_TYPE")
+ def test_blank_content_type_requires_jpeg_magic(self):
+  raw=b"\xff\xd8\xff"+b"a"*180+b"\xff\xd9"
+  self.assertEqual(m.validate_jpeg(raw,""),"JPEG_BYTES_ACQUIRED_UNCOLLATED")
+  self.assertEqual(m.validate_jpeg(b"<html>blocked</html>",""),"INVALID_JPEG_BYTES")
  def test_reject_truncated_jpeg(self):
   self.assertEqual(m.validate_jpeg(b"\xff\xd8\xff"+b"A"*100,"image/jpeg"),"INVALID_JPEG_BYTES")
  def test_accept_synthetic_container_without_claim(self):

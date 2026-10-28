@@ -32,8 +32,10 @@ def exact_image_url(page):
 
 def validate_jpeg(raw,media):
  media=(media or "").split(";",1)[0].strip().lower()
- if media not in ("image/jpeg","image/pjpeg","application/octet-stream"):
+ if media not in ("","image/jpeg","image/pjpeg","application/octet-stream"):
   return "NON_JPEG_CONTENT_TYPE"
+ # Some firstparty ImageServlet responses omit Content-Type. Magic + EOI
+ # must validate both independently; HTTP 200 alone is never evidence.
  if len(raw)<100 or not raw.startswith(b"\xff\xd8\xff") or not raw.endswith(b"\xff\xd9"):
   return "INVALID_JPEG_BYTES"
  return "JPEG_BYTES_ACQUIRED_UNCOLLATED"
@@ -61,7 +63,12 @@ def read_original(page,opener,out):
      elif r.status!=200:d["status"]="UNEXPECTED_HTTP_STATUS"
      else:
       d["content_type"]=r.headers.get("Content-Type","").split(";",1)[0].strip().lower()
+      d["response_bytes"]=len(raw)
+      d["response_prefix16_hex"]=raw[:16].hex()
+      d["response_sha256"]=hashlib.sha256(raw).hexdigest()
       d["status"]=validate_jpeg(raw,d["content_type"])
+      if d["status"]=="JPEG_BYTES_ACQUIRED_UNCOLLATED":
+       d.pop("error_type",None)
       if d["status"]=="JPEG_BYTES_ACQUIRED_UNCOLLATED":
        d["raw_bytes"]=len(raw)
        d["sha256"]=hashlib.sha256(raw).hexdigest()
