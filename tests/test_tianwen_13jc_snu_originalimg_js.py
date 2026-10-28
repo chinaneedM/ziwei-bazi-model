@@ -16,4 +16,26 @@ class BoundJS(unittest.TestCase):
   import hashlib
   b=b"function fn_originalImg(x){}"
   self.assertEqual(v.inspect(b)["sha256"],hashlib.sha256(b).hexdigest())
+ def test_accepts_known_javascript_media(self):
+  self.assertTrue(v.accepts_script_payload("text/javascript; charset=utf-8",b"function fn_originalImg(){}"))
+  self.assertTrue(v.accepts_script_payload("application/javascript",b"var x=1;"))
+ def test_rejects_html_even_when_labeled_js(self):
+  self.assertFalse(v.accepts_script_payload("text/javascript",b"  <!DOCTYPE HTML><html>not a script</html>"))
+  self.assertFalse(v.accepts_script_payload("text/plain",b"<html>Access Denied</html>"))
+ def test_rejects_unknown_media_and_empty(self):
+  self.assertFalse(v.accepts_script_payload("image/jpeg",b"not actually js"))
+  self.assertFalse(v.accepts_script_payload("text/javascript",b"   "))
+ def test_retry_is_bounded(self):
+  self.assertEqual(v.MAX_ATTEMPTS,3)
+  self.assertEqual(v.RETRY_HTTP,{429,502,503,504})
+ def test_transport_category_does_not_leak_network_names(self):
+  self.assertEqual(v.transport_category("timed out"),"TIMEOUT")
+  self.assertEqual(v.transport_category("certificate verify failed"),"TLS")
+  self.assertEqual(v.transport_category("Temporary failure in name resolution"),"DNS")
+ def test_redirect_to_outside_provider_is_denied(self):
+  import urllib.request,urllib.error
+  handler=v.StrictProvider()
+  request=urllib.request.Request(v.URL)
+  with self.assertRaises(urllib.error.HTTPError):
+   handler.redirect_request(request,None,302,"Found",{},"https://untrusted.example/other.js")
 if __name__=="__main__":unittest.main()
