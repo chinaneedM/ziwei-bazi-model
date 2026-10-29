@@ -1,0 +1,190 @@
+{
+  "schema": "TIANWEN-13KP-HUANG-MING-DIRECT-ORIGINAL-CROSSWALK-R1",
+  "date": "2026-10-29",
+  "issue_id": "TW-OPEN-0005",
+  "scope": "TWO_DISTINCT_DIGITAL_SOURCES_AND_CONDITIONAL_INTEGER_INDEX_CROSSWALK",
+  "sources": {
+    "huang": {
+      "work": "黃宗羲 授時曆故卷四",
+      "source_artifact_id": 12890397318,
+      "source_pdf_sha256": "c524693e7bad502d222a1444d688cc7d63ca4a4037d7d4e08cee4aa94f9adbae",
+      "page_1_based": 80,
+      "pixel_method": "PyMuPDF Matrix(1.25,1.25) csRGB alpha=False",
+      "page_size_rgb": [
+        1161,
+        969
+      ],
+      "page_rgb_sha256": "37443f9e73d134cb331c8ecc142d0b1e473f6c8c3fc15123fb9b7ee87e8fea07",
+      "roi_xyxy": [
+        605,
+        165,
+        915,
+        944
+      ],
+      "roi_rgb_sha256": "920bfa8ab658e9782bb3526474d24a4ff44e36114d137c11a214107f3a429c5a",
+      "original_glyphs": [
+        "在八十三限已下者不減為初限",
+        "已上者置一百六十七限以所得限減之餘為末限"
+      ],
+      "witness_status": "ORIGINAL_DIGITAL_IMAGE_DIRECT_VERIFIED_PHYSICAL_ID_UNBOUND",
+      "original_page_positive": true
+    },
+    "ming": {
+      "work": "明史卷三十三 志第九 曆三",
+      "source_artifact_id": 12873689749,
+      "source_pdf_sha256": "dde1bfd5d3cf15954ddc6dbf1c020971806038bbc7f737b9053d5643e5c7c264",
+      "source_pdf_bytes": 46883051,
+      "pdf_pages": 52,
+      "page_1_based": 11,
+      "pixel_method": "PyMuPDF Matrix(1.15,1.15) csRGB alpha=False",
+      "page_size_rgb": [
+        2070,
+        1786
+      ],
+      "page_rgb_sha256": "55afb1634fb5558e4db1a7de7c1b6b180e6b35094fddc39ea3c1cd615820de7e",
+      "roi_xyxy": [
+        1075,
+        260,
+        1805,
+        1710
+      ],
+      "roi_rgb_sha256": "48c692ba9202e12303e472e81e3e53f4653f538eac9b4106c0e9cb0fe131f67f",
+      "original_glyphs": [
+        "凡求遲疾皆以入曆日乘十二限二十分",
+        "以在八十四限已下為初",
+        "已上轉減一百六十八限餘為末"
+      ],
+      "witness_status": "ORIGINAL_PRINTED_DIGITAL_IMAGE_DIRECT_VERIFIED_PHYSICAL_IMPRESSION_UNBOUND",
+      "original_page_positive": true
+    }
+  },
+  "prior_evidence": [
+    "docs/research/TIANWEN-13KO-HUANG-P79-P80-ORIGINAL-NEXTDAY-REVERSE167-R1.json",
+    "docs/research/TIANWEN-13KG-HARVARD-1739-MINGSHI-J33-DIRECT-PRINTED-POLARITY-R1.json",
+    "docs/research/TIANWEN-13KM-SHANGHAI-HUANG-P75-P79-DIRECT-ORIGINAL-LIMIT-PRECISION-POLARITY-R1.json"
+  ],
+  "counterfactual": {
+    "domain_h": [
+      0,
+      167
+    ],
+    "domain_m": [
+      1,
+      168
+    ],
+    "mapping": "m=h+1",
+    "huang_initial_guard": "h<=83",
+    "ming_initial_guard": "m<=84",
+    "huang_terminal_rule": "167-h",
+    "ming_terminal_rule": "168-m",
+    "initial_cardinality": 84,
+    "terminal_cardinality": 84,
+    "samples": [
+      {
+        "huang_h": 0,
+        "ming_m": 1,
+        "region": "INITIAL",
+        "huang_scoped_value": 0,
+        "ming_scoped_value": 1,
+        "ming_minus_huang": 1
+      },
+      {
+        "huang_h": 1,
+        "ming_m": 2,
+        "region": "INITIAL",
+        "huang_scoped_value": 1,
+        "ming_scoped_value": 2,
+        "ming_minus_huang": 1
+      },
+      {
+        "huang_h": 82,
+        "ming_m": 83,
+        "region": "INITIAL",
+        "huang_scoped_value": 82,
+        "ming_scoped_value": 83,
+        "ming_minus_huang": 1
+      },
+      {
+        "huang_h": 83,
+        "ming_m": 84,
+        "region": "INITIAL",
+        "huang_scoped_value": 83,
+        "ming_scoped_value": 84,
+        "ming_minus_huang": 1
+      },
+      {
+        "huang_h": 84,
+        "ming_m": 85,
+        "region": "TERMINAL",
+        "huang_scoped_value": 83,
+        "ming_scoped_value": 83,
+        "ming_minus_huang": 0
+      },
+      {
+        "huang_h": 85,
+        "ming_m": 86,
+        "region": "TERMINAL",
+        "huang_scoped_value": 82,
+        "ming_scoped_value": 82,
+        "ming_minus_huang": 0
+      },
+      {
+        "huang_h": 166,
+        "ming_m": 167,
+        "region": "TERMINAL",
+        "huang_scoped_value": 1,
+        "ming_scoped_value": 1,
+        "ming_minus_huang": 0
+      },
+      {
+        "huang_h": 167,
+        "ming_m": 168,
+        "region": "TERMINAL",
+        "huang_scoped_value": 0,
+        "ming_scoped_value": 0,
+        "ming_minus_huang": 0
+      }
+    ],
+    "synthetic_index_test_not_historical_limit_tables": true
+  },
+  "mathematical_boundaries": {
+    "first_partition_alignment_under_shift": true,
+    "terminal_mirror_values_equal_under_shift": true,
+    "initial_branch_values_equal_under_shift": false,
+    "initial_branch_delta_ming_minus_huang": 1,
+    "terminal_branch_delta_ming_minus_huang": 0,
+    "source_已上_ambiguity_at_boundary_explicitly_resolved": false,
+    "historically_adopted_index_base_proven": false,
+    "historical_full_formula_equivalence_proven": false
+  },
+  "source_boundaries": {
+    "same_person_or_work": false,
+    "verified_exact_independent_physical_impressions": false,
+    "source_independence_by_wording_not_a_lineage_edge": true,
+    "huang_next_day_vs_ming_next_limit_equivalence_proven": false,
+    "physical_shanghai_item_authenticated": false,
+    "ming_source_specific_impression_date_authenticated": false,
+    "new_source_registry_entries": 0,
+    "new_graph_nodes": 0,
+    "new_graph_edges": 0,
+    "verified_g893_six_variant_winners": 0,
+    "algorithm_reopens": 0,
+    "product": "CLOSED",
+    "open_risks": 11
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "One-unit boundary and reversal constants support a conditional shifted-index structural comparator, not direct textual copying, common algorithm, or edition chronology."
+    ],
+    "unresolved_lineage_questions": [
+      "Do both original operations use the same normalized elapsed-limit variable?",
+      "Is 已上 in both passages strictly subsequent to the 已下 branch, and how are exact 83/84 endpoints treated?",
+      "Can the first-half one-limit difference be reconciled with a separate limit-start convention and complete degree difference replay?",
+      "Authenticate exact Shanghai physical copy and Harvard physical impression separately."
+    ]
+  },
+  "next_action": "Collate source-original worked samples and literal time-to-limit conversion across Huang P75/P80 and Ming P11/P12; prove or refute initial-half offset and day/limit recurrence across one complete transition before any mechanical winner. Keep physical dates unbound."
+}
