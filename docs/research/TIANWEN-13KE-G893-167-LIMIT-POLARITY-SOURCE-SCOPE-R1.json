@@ -1,0 +1,95 @@
+{
+  "schema": "TIANWEN-13KE-G893-167-LIMIT-POLARITY-SOURCE-SCOPE-R1",
+  "date": "2026-10-29",
+  "issue_id": "TW-OPEN-0005",
+  "source_scope": "MODERN_RECEIVED_TEXT_EXACT_LOCUS_AND_BIBLIOGRAPHIC_ROUTE_NOT_PHYSICAL_PAGE_PROOF",
+  "historical_inputs_unchanged": [
+    "docs/research/TIANWEN-13KC-G893-SAME-COPY-FIVE-ROW-ORIGINAL-COLLATION-R1.json",
+    "docs/research/TIANWEN-13KD-G893-MINGSHI-RECEIVED-RECURRENCE-UNIT-BRIDGE-R1.json"
+  ],
+  "received_loci": {
+    "mingshi": {
+      "work": "明史",
+      "chapter": "卷三十三 志第九 曆三 月離 布立成法",
+      "url": "https://zh.wikisource.org/wiki/%E6%98%8E%E5%8F%B2/%E5%8D%B733",
+      "source_type": "MODERN_RECEIVED_DIGITAL_TEXT_NOT_IDENTIFIED_PRINTED_EDITION",
+      "text": "置損益分以其限平立合差益減損加之即為次限損益分",
+      "gain_loss_direction": "GAIN_DECREASE_LOSS_INCREASE",
+      "initial_step_writing": "五秒八十一微",
+      "received_expansion_caution": "The preceding explicit arithmetic 5秒62微 + 19微50纤 totals 5秒81微50纤, not written in this final shortened step line"
+    },
+    "huang": {
+      "work": "授時曆故",
+      "chapter": "卷四 月離曆",
+      "url": "https://www.shidianguji.com/book/CADAL02093993/chapter/1laylkzccub7j",
+      "source_type": "MODERN_HIGH_ERROR_OCR_OF_UNVERIFIED_IMPRESSION_NOT_DIRECT_ORIGINAL_GLYPH",
+      "reverse_index_source_literal": "在八十三限己下者不減為初限已上者置一百六十七限以所得限減之餘為末限",
+      "reverse_index_grade": "ONLINE_OCR_TEXTUAL_POSITIVE_ONLY",
+      "polarity_source_literal": "損益分以其日平合立差益加損減之即為次日損益分",
+      "gain_loss_direction": "GAIN_INCREASE_LOSS_DECREASE_AS_OCR_RENDERED",
+      "initial_step_writing": "五秒八十一微五十纤",
+      "unit_locus": "限平行度一百○九分六十三秒",
+      "ocr_internal_warning": "same OCR reading labels author 黄宗羡 on chapter title although known catalog author is 黄宗羲; do not treat a single OCR variant as physical typo"
+    }
+  },
+  "comparator_identity": {
+    "G893_digital_object": "GK00893_00",
+    "physical_independent_copy_delta": 0,
+    "collated_same_copy_rows": 15,
+    "exact_received_mingshi_recurrence_same_copy_rows": 10,
+    "unit_and_impression_still_unproved": true
+  },
+  "explicit_conflicts": [
+    {
+      "id": "13KE-POLARITY-GAIN",
+      "kind": "OPERATIVE_WORDING_CONFLICT",
+      "mingshi_text": "益減損加",
+      "huang_online_ocr_text": "益加損減",
+      "risk": "NON_EQUIVALENT_OPERATION_UNTIL_ORIGINAL_LEAF_AND_LAYER_COLLATION",
+      "historical_ocr_or_print_error_finalized": false
+    },
+    {
+      "id": "13KE-INDEX-167",
+      "kind": "SOURCE_GRADE_CORRECTION_NOT_RETRACTION",
+      "earlier_13KD_status": "EMPIRICAL_TABLE_ROW_INDEX_CONVENTION_NOT_INDEPENDENTLY_PROVEN_DIRECT_FROM_168_LIMIT_SOURCE_TEXT",
+      "added_source_scope": "Huang modern OCR includes literal 一百六十七限 and reverse subtraction for upper-half limits",
+      "independently_attested_original_printed_leaf": false,
+      "algorithm_index_proven_from_historic_original": false
+    },
+    {
+      "id": "13KE-TAIL-50",
+      "kind": "DISPLAY_PRECISION_DIFFERENCE",
+      "mingshi_received": "五秒八十一微",
+      "huang_ocr": "五秒八十一微五十纤",
+      "computation_ming_preceding_total": "五秒六十二微加一十九微五十纤",
+      "interpretation": "50纤 is arithmetically required at full precision; does not prove printed ancient scribal omission"
+    }
+  ],
+  "source_acquisition_leads": [
+    {
+      "url": "https://www.shuge.org/view/ming_shi/",
+      "title": "明史 清乾隆四年武英殿刊本 哈佛大学图书馆藏本",
+      "role": "PUBLIC_FACSIMILE_DESCRIPTION_NOT_TARGET_FOLIO_VISUALLY_CHECKED",
+      "date_description": "1739 printing in Shuge description; source binding to folio unverified"
+    },
+    {
+      "url": "https://www.guoxuedashi.com/shumu/gj-3213822hz.html",
+      "title": "授時曆故四卷 民国十二年嘉业堂刻本 浙江师范大学馆藏书目转录",
+      "role": "SECONDARY_CATALOG_RETRIEVAL_LEAD_NOT_AUTHENTICATED_TARGET_ORIGINAL",
+      "date_description": "1923 claimed; original colophon and text leaf not examined"
+    },
+    {
+      "url": "https://ge.nii.ac.jp/ncid/BA68484081",
+      "title": "授時暦故 文物出版社 1982.10 CiNii Books",
+      "role": "MODERN_BIBLIOGRAPHIC_IDENTITY_WITH_LIBRARY_HOLDINGS_NOT_PHYSICAL_GLpyh",
+      "date_description": "1982.10; catalog describes later printing of 嘉業堂 woodblock source; exact graphic original not read"
+    }
+  ],
+  "original_witnesses_considered_new": 0,
+  "full_historical_numeric_winners_awarded": 0,
+  "received_text_transmission_edges_awarded": 0,
+  "algorithm_reopens": 0,
+  "scope_limit": "NOT A NEW ANCIENT ORIGINAL PAGE COLLATION; 13KD ten row integer arithmetic is preserved, but cannot claim reverse-index originally attested in G893 or prove Huang printed error.",
+  "transmission_impact": "NONE: Received digital texts and catalog identity/print-period leads cannot establish ancient stemmatic direct-copy edges.",
+  "next_action": "Obtain licensed exact original image folio of Ming Shi juan33 and Huang Shoushi Ligu juan4 from identified edition and holding, verify exact reverse index, 益加/益減 wording, 50纤 tail, and unit/line layout by native image + SHA. Reconcile G893 original chapter header and independent Goryeosa original before rule/polarity historical adjudication."
+}
