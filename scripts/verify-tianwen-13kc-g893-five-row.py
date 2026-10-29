@@ -130,7 +130,7 @@ def handoff():
     require(l["binding"]["source_focus_count"]==len(h["current_focus"]) and
             h["current_focus"][-1].startswith(l["binding"]["latest_research_focus_prefix"]+" "),"state focus")
     issue=next(i for i in l["issues"] if i["id"]=="TW-OPEN-0005")
-    require(issue["next_action"].startswith("13KC CURRENT ACTION:"),"research action contract")
+    require(issue["next_action"].startswith(l["binding"]["latest_research_focus_prefix"]+" CURRENT ACTION:") and any(x.get("revision_id")=="TW-OPEN-0005-13KC-FIVE-ROW-20261029" for x in issue["history"]),"forward-only research action contract")
     require({EVIDENCE,EVIDENCE.replace(".json",".md")}.issubset(issue["source_refs"]),"source evidence anchored")
     require(any(r.get("revision_id")=="TW-OPEN-0005-13KC-FIVE-ROW-20261029" for r in issue["history"]),"forward-only history")
     require(s["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED" and s["invariants"]["algorithm_reopen_count"]==0,"product invariant")

@@ -1,0 +1,155 @@
+{
+  "schema": "TIANWEN-13KD-G893-MINGSHI-RECEIVED-RECURRENCE-UNIT-BRIDGE-R1",
+  "date": "2026-10-29",
+  "issue_id": "TW-OPEN-0005",
+  "source_copy": "SNU Kyujanggak GK00893_00",
+  "source_physical_copy_count": 1,
+  "upstream_same_copy_evidence": "docs/research/TIANWEN-13KC-G893-SAME-COPY-FIVE-ROW-ORIGINAL-COLLATION-R1.json",
+  "received_rule_sources": [
+    {
+      "work": "明史",
+      "chapter": "卷三十三 曆三 月離 布立成法",
+      "url": "https://zh.wikisource.org/wiki/%E6%98%8E%E5%8F%B2/%E5%8D%B733",
+      "role": "PUBLIC_MODERN_RECEIVED_TRANSCRIPTION_NOT_ORIGINAL_FOLIO",
+      "basis": "initial 11分08秒15微75纤; initial step 5秒81微[received text omits 50纤 after intermediate addition]; step increase 19微50纤; gain decreasing and loss increasing"
+    },
+    {
+      "work": "授時曆故",
+      "chapter": "卷四 月離",
+      "url": "https://www.shidianguji.com/book/CADAL02093993/chapter/1laylkzccub7j",
+      "role": "PUBLIC_OCR_RECEIVED_READING_NOT_AUTHENTICATED_PHYSICAL_COPY",
+      "basis": "initial 11分08秒15微75纤, initial 5秒81微50纤, step increase 19微50纤; 109分63秒 limit mean; OCR/author string risks explicit"
+    },
+    {
+      "work": "中国古历定朔推步综述",
+      "authors": [
+        "李勇",
+        "张培瑜"
+      ],
+      "date": "1996",
+      "journal": "天文学进展 14(1):66-76",
+      "url": "https://www.shao.cas.cn/twxjz/wzll/199601/",
+      "role": "SECONDARY_BIBLIOGRAPHIC_LEAD_NOT_HISTORIC_SOURCE_OR_PHYSICAL_RULE_VOTE",
+      "basis": "journal first-party issue TOC only, no scanned-page citation promoted"
+    }
+  ],
+  "historical_unit_position_candidate": {
+    "base": "one degree = 100 分; one 分 = 100 秒; one 秒 = 100 微; one 微 = 100 纤",
+    "support_scope": "MINGSHI_RECEIVED_RULE_DECIMAL_PLACE_REPLAY_NOT_CONFIRMED_G893_IMPRESSION_UNIT_OR_EXPLICIT_ORIGINAL_HEADER",
+    "base_microfen": 1000000,
+    "derived": {
+      "initial_gain_microfen": 11081575,
+      "initial_step_microfen": 58150,
+      "step_increase_microfen": 1950,
+      "half_step_increase_microfen": 975
+    },
+    "decimal_formula": "Q(g)=11.081575 - 0.058150*g - 0.000975*g*(g-1)",
+    "source_recension_caution": "The Ming Shi received transcription's first-step summary writes 5秒81微 without final 50纤; its preceding addition and Huang received rendering include the 50纤. Do not call a proven ancient printing error or exact physical glyph without source page."
+  },
+  "indexing": {
+    "gain": "g = original limit n for n=6..10",
+    "loss": "g = 167-n for n=130..134",
+    "loss_mirror_status": "EMPIRICAL_TABLE_ROW_INDEX_CONVENTION_NOT_INDEPENDENTLY_PROVEN_DIRECT_FROM_168_LIMIT_SOURCE_TEXT"
+  },
+  "exact_same_copy_replay": [
+    {
+      "target": 8,
+      "limits": [
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "expected_microfen": [
+        10703425,
+        10633575,
+        10561775,
+        10488025,
+        10412325
+      ],
+      "expected_residual_microfen": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "target": 132,
+      "limits": [
+        130,
+        131,
+        132,
+        133,
+        134
+      ],
+      "expected_microfen": [
+        7631325,
+        7759675,
+        7886075,
+        8010525,
+        8133025
+      ],
+      "expected_residual_microfen": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "ji_limit_exploration": {
+    "target": 124,
+    "limits": [
+      122,
+      123,
+      124,
+      125,
+      126
+    ],
+    "candidate_mean_per_limit_degree": "1.0963",
+    "candidate_mean_source": "Huang received online transcription: 109分63秒; independently verify historic page and conversion",
+    "degree_to_1e8_denominator": 100000000,
+    "displayed_ji_five_rows": [
+      "1.0309",
+      "1.0295",
+      "1.0281",
+      "1.0267",
+      "1.0253"
+    ],
+    "candidate_prediction_degree": [
+      "1.03095675",
+      "1.02951725",
+      "1.02809725",
+      "1.02669675",
+      "1.02531575"
+    ],
+    "prediction_minus_display_1e8": [
+      5675,
+      1725,
+      -275,
+      -325,
+      1575
+    ],
+    "four_decimal_half_up_violation_limit": 122,
+    "scope": "CANDIDATE_APPROXIMATION_ONLY_NOT_COMPLETE_HISTORICAL_MECHANICAL_ALGORITHM_OR_ROUNDING_POLICY"
+  },
+  "results": {
+    "same_copy_loss_gain_exact_rows": 10,
+    "same_copy_loss_gain_comparisons": 10,
+    "ji_exact_literal_algorithm_closure": false,
+    "new_physically_independent_historical_witnesses": 0,
+    "source_registry_delta": 0,
+    "genealogy_nodes_delta": 0,
+    "genealogy_edges_delta": 0,
+    "historical_cross_witness_numeric_winners": 0,
+    "remaining_omission_risks": 11,
+    "algorithm_reopens": 0,
+    "chart_product": "CLOSED"
+  },
+  "transmission_impact": "NONE. Parallel or later received rule reconstruction is not a proved direct textual-ancestry edge. Loss mirror index and exact precision must be separately documented.",
+  "next_action": "Verify physical original of Ming Shi juan33 and Huang Zongxi Shoushi Ligu juan4 at exact rule lines; independently derive ancient G893 own unit/place and mirror index convention from its original preface/headers; resolve near-but-not-exact L122 ji degree rounding and alternate received-copy original glyphs before any numeric winner."
+}
