@@ -12,6 +12,7 @@ class ThirteenMoonVariants(unittest.TestCase):
  def test_wrong_siku_quote(self):self.a[0]["sources"]["siku_received"]["phrase_month_13"]="有閏加二十三萬八九七七○九";self.fails()
  def test_wrong_common_quote(self):self.a[0]["sources"]["common_received"]["phrase_month_13"]="有閏加二十八萬八九七七○九";self.fails()
  def test_wrong_12_remainder(self):self.a[0]["exact_arithmetic"]["ordinary_year_remainder"]="54367115/100";self.fails()
+ def test_false_daily_base(self):self.a[0]["exact_arithmetic"]["daily_base_units"]="9999";self.fails()
  def test_false_original_claim(self):self.a[0]["original_constant_control"]["original_harvard_v11_page_with_13_month_remainder_directly_verified_this_batch"]=True;self.fails()
  def test_fake_siku_witness(self):self.a[0]["sources"]["siku_received"]["separate_physical_original_authenticated"]=True;self.fails()
  def test_fake_text_winner(self):self.a[0]["adjudication"]["modern_transcription_typo_proven"]=True;self.fails()

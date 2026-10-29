@@ -34,7 +34,7 @@ def verify(e,prior,state,ledger):
  check(F(a["ordinary_received_leap_remainder"])==r13 and F(a["siku_received_leap_remainder"])==F("288977.09"),"both transcriptions")
  check(F(a["ordinary_received_leap_remainder"])!=F(a["siku_received_leap_remainder"]),"variant distinct")
  diff=F(a["siku_received_leap_remainder"])-r13
- check(diff==F(a["discrepancy_units"])==50000 and a["daily_base_units"]==10000 and diff/10000==F(a["discrepancy_daily_unit_equivalent"])==5,"bounded delta")
+ check(diff==F(a["discrepancy_units"])==50000 and F(a["daily_base_units"])==10000 and diff/10000==F(a["discrepancy_daily_unit_equivalent"])==5,"bounded delta")
  check(a["strictly_internal_calculation_not_ancient_example"] is True,"no dated oracle")
  p=e["philological_controls"]
  check(p["ordinary_subject"]=="遲次歷" and p["siku_subject"]=="遲疾歴" and p["preceding_and_following_context_both_use_chiji"] is True,"subject contrast")

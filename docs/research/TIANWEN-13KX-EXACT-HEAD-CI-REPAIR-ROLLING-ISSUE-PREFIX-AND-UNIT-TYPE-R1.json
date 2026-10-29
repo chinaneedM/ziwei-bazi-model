@@ -1,0 +1,70 @@
+{
+  "schema": "TIANWEN-13KX-EXACT-HEAD-CI-REPAIR-ROLLING-ISSUE-PREFIX-AND-UNIT-TYPE-R1",
+  "date": "2026-10-30",
+  "issue_id": "TW-OPEN-0005",
+  "failed_exact_head": "b4e43d12cc013301b86dac95852762e707704b1c",
+  "evidence_grade": "EXACT_HEAD_CI_FAILURE_LOG_AND_SOURCE_PRESERVING_TEST_FIX_NOT_NEW_HISTORIC_WITNESS",
+  "defects": [
+    {
+      "kind": "SOURCE_TYPED_SCALAR_COMPARISON_IN_VERIFIER",
+      "path": "scripts/verify-tianwen-13kv-mingshi-synodic-remainder-variants.py",
+      "line_context": "a['daily_base_units']==10000",
+      "value_in_13kv_json": "10000",
+      "actual_type": "str",
+      "old_test_comparison": "string != integer",
+      "fix": "F(a['daily_base_units'])==10000",
+      "arithmetic_invariant": "50000/10000=5",
+      "negative_test": "9999 must still reject",
+      "workflow_failure_run": 40969107255
+    },
+    {
+      "kind": "ISSUE_LATEST_ACTION_PREFIX_CONTRACT",
+      "path": "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json",
+      "old_prefix": "13KW FORWARD ERRATUM FIRST:",
+      "required_prefix_format": "{latest_research_focus_prefix} CURRENT ACTION:",
+      "new_prefix": "13KX CURRENT ACTION:",
+      "source_check_examples": [
+        "verify-tianwen-13fg-d5-source-photo-glyph.py",
+        "verify-tianwen-13ga-nlc-p76-d26-d28.py",
+        "verify-tianwen-13kg-harvard-original.py"
+      ],
+      "evidence_runs": [
+        40969109273,
+        40969107450,
+        40969107060
+      ]
+    }
+  ],
+  "preserved_boundaries": {
+    "no_change_to_13kv_original_source_json": true,
+    "no_change_to_13kw_erratum_evidence": true,
+    "no_change_to_historic_numeric_variant_readings": true,
+    "prior_error_reproduced_in_exact_head_ci": true,
+    "source_13_lunation_remainder": "23897709/100",
+    "siku_received_lunation_variant": "28897709/100",
+    "unit_delta": "50000",
+    "unit_delta_in_days": "5",
+    "independent_physical_witnesses_added": 0,
+    "historical_g893_six_numeric_winners": 0,
+    "algorithm_reopens": 0,
+    "chart": "CLOSED",
+    "open_issues": 11
+  },
+  "counts": {
+    "root": 647,
+    "extension": 118,
+    "total": 765,
+    "matrix": 222,
+    "graph_nodes": 252,
+    "graph_edges": 238
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "CI validator scalar-type fix and ledger prefix repair provide no new historical genealogy edge."
+    ]
+  },
+  "next_action": "Recheck exact HEAD 13KV/13KW and existing P0-issue validators; then return to Harvard v11 original p7-p12, Siku scanned original, and G893 unresolved numerical controls."
+}
