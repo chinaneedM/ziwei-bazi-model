@@ -1,0 +1,90 @@
+{
+  "schema": "TIANWEN-13KG-HARVARD-1739-MINGSHI-J33-DIRECT-PRINTED-POLARITY-R1",
+  "date": "2026-10-29",
+  "issue_id": "TW-OPEN-0005",
+  "physical_source_count_delta": 0,
+  "prior_evidence": [
+    "docs/research/TIANWEN-13KD-G893-MINGSHI-RECEIVED-RECURRENCE-UNIT-BRIDGE-R1.json",
+    "docs/research/TIANWEN-13KE-G893-167-LIMIT-POLARITY-SOURCE-SCOPE-R1.json",
+    "docs/research/TIANWEN-12YM-MINGSHI-V33-CADAL-DIRECT-ORIGINAL-DUAL-LOCUS-R1.json",
+    "docs/research/TIANWEN-12YN-NLC1892-MINGSHI-V33-PRINTED-TWO-LOCUS-R1.json"
+  ],
+  "witness": {
+    "source_provider": "Harvard Library digitization, Commons file Harvard drs 428231183 明史 v.10.pdf",
+    "source_file_title": "Harvard drs 428231183 明史 v.10.pdf",
+    "source_url": "https://upload.wikimedia.org/wikipedia/commons/5/57/Harvard_drs_428231183_%E6%98%8E%E5%8F%B2_v.10.pdf?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "source_sha256": "dde1bfd5d3cf15954ddc6dbf1c020971806038bbc7f737b9053d5643e5c7c264",
+    "source_sha1": "5aa766a7985b92c84f81626529d57ca96fd865ab",
+    "size_bytes": 46883051,
+    "page_count": 52,
+    "digital_volume_index": 10,
+    "literary_juan": 33,
+    "edition_impression_date_bound": false,
+    "physical_copy_catalog_identity_bound": false,
+    "catalog_edition_description": "Harvard 1739 Wuying Dian Ming Shi; specific ancient impression year unbound",
+    "pdf_page_3_title": "明史卷三十三 志第九 曆三",
+    "acquisition_run_id": 40821335655,
+    "acquisition_artifact_id": 12873689749,
+    "source_pdf_api_sha1_and_bytes_matched": true,
+    "render_method": "PyMuPDF 1.26.7 Page.get_pixmap(Matrix(1.15,1.15),csRGB,alpha=False), save PNG and decoded RGB pixel hash; no OCR",
+    "manually_collated_pages": [
+      {
+        "page": 11,
+        "sha256": "1729d74605f74ac1ff15a7e0b057d56398424b9472602d04eec9ac34fc2061c0",
+        "size_px": [
+          2070,
+          1786
+        ],
+        "rgb_sha256": "55afb1634fb5558e4db1a7de7c1b6b180e6b35094fddc39ea3c1cd615820de7e",
+        "original_locus": "布立成法 initial loss-gain step",
+        "literal": "共得五秒八十一微為初限平立合差",
+        "rect_px": [
+          245,
+          150,
+          620,
+          1630
+        ],
+        "rect_rgb_sha256": "c87713d304e4ef4380a3703b32ed659509a7c281e9b728670e175b24fd977821"
+      },
+      {
+        "page": 12,
+        "sha256": "d84b365e58b07ee8ccaa1fe4b2cbf243e9cd6ca61660946d171eb211b68b2ac6",
+        "size_px": [
+          2070,
+          1804
+        ],
+        "rgb_sha256": "9e2efc909ef20b1d8682a30474e33d438bcaa6c91914c5116791e2394c9967ef",
+        "original_locus": "布立成法 continuation, limit-by-limit loss-gain recurrence",
+        "literal": "置損益分以其限平立合差益減損加之即為次限損益分",
+        "rect_px": [
+          1110,
+          145,
+          1750,
+          1660
+        ],
+        "rect_rgb_sha256": "1a8f84fb8d05cb9c08c89b06cea686fa10502f4b113a3276d6b0555aa8bff690"
+      }
+    ]
+  },
+  "observed_original_readings": {
+    "initial_step": "共得五秒八十一微為初限平立合差",
+    "operative_polarity": "置損益分以其限平立合差益減損加之即為次限損益分",
+    "after_81_wei_50_xian_explicit": false
+  },
+  "contrary_received_huang_ocr": "益加損減 and 五秒八十一微五十纖: OCR original page unverified, no error awarded",
+  "remaining_boundaries": {
+    "new_physical_impression_votes": 0,
+    "source_registry_new_digital_entry": 1,
+    "G893_cross_witness_numeric_winners": 0,
+    "huang_printed_original_observed": false,
+    "huang_ocr_error_proven": false,
+    "ancient_impression_year_proven": false,
+    "transmission_direct_copy_edge_added": false,
+    "graph_edges_added": 0,
+    "algorithm_reopens": 0,
+    "product": "CLOSED",
+    "TW_OPEN_0005_closed": false
+  },
+  "transmission_impact": "NEW bounded Harvard digital scan glyph evidence of one other work, no direct transmission edge, no source-copy impression date proof.",
+  "next_action": "Obtain independently authenticated Huang Shoushi Ligu4 original printed folio and compare opposed 益加損減, old precise step tail, source unit and operation-layer grammar; preserve existing G893 primary original and NLC/CADAL distinct controls."
+}
