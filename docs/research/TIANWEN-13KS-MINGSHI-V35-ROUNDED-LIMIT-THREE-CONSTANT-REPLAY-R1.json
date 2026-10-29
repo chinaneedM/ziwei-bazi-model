@@ -1,0 +1,105 @@
+{
+  "schema": "TIANWEN-13KS-MINGSHI-V35-ROUNDED-LIMIT-THREE-CONSTANT-REPLAY-R1",
+  "date": "2026-10-29",
+  "issue_id": "TW-OPEN-0005",
+  "finding_grade": "RECEIVED_TEXT_INTERNAL_ARITHMETIC_CONCORDANCE_NOT_ORIGINAL_PHYSICAL_PAGE",
+  "source": {
+    "source_id": "EXT-WIKISOURCE-MINGSHI-V35-DATONG-TIME",
+    "title": "《明史》卷三十五·曆五·大統曆法三上",
+    "url": "https://zh.wikisource.org/wiki/明史/卷35",
+    "locator": "步氣朔發斂附：日週、朔策、轉終、朔轉差、日轉限、轉中限、朔轉限、弦轉限；另見推遲疾限",
+    "role": "ALREADY_REGISTERED_RECEIVED_TRANSCRIPTION_NOT_SOURCE_IMAGE",
+    "electronic_text_checked_this_batch": true,
+    "dated_original_folio_image_checked_this_batch": false,
+    "original_physical_impression_authenticated": false,
+    "publisher_or_copy_lineage_adjudicated": false,
+    "received_phrases": [
+      "日週一萬。即一百刻，刻有百分，分有百秒",
+      "朔策二十九萬五千三百零五分九十三秒；又半之爲弦策",
+      "轉終二十七萬五千五百四十六分，半之爲轉中",
+      "朔轉差一萬九千七百五十九分九十三秒",
+      "日轉限一十二限二十",
+      "轉中限一百六十八限零八三零六零",
+      "朔轉限二十四限一零七一一四六",
+      "弦轉限九十零限零六八三零八六五"
+    ]
+  },
+  "arithmetic_basis": {
+    "day_base_units": 10000,
+    "original_820_units_per_limit": 820,
+    "received_daily_limit_rate": "61/5",
+    "exact_daily_limit_rate": "500/41",
+    "comparison_is_model_scoped": true,
+    "half_turn_from_full_turn_units": "275546/2",
+    "first_quarter_from_new_moon_units": "29530593/100/4",
+    "new_moon_turn_difference_units": "1975993/100",
+    "source_display_numeric_unit_bridge": "Original received text gives 10000 base units per day, 100 small seconds per fraction; decimal display only in this modern replay."
+  },
+  "controls": [
+    {
+      "id": "TURN_MID_LIMIT",
+      "source_label": "轉中限",
+      "source_value": "168.083060",
+      "input_base_units": "137773",
+      "rounded_replay_fraction": "8404153/50000",
+      "exact_820_replay_fraction": "137773/820",
+      "rounded_minus_exact_fraction": "137773/2050000"
+    },
+    {
+      "id": "SYNODIC_TURN_DIFF_LIMIT",
+      "source_label": "朔轉限",
+      "source_value": "24.1071146",
+      "input_base_units": "1975993/100",
+      "rounded_replay_fraction": "120535573/5000000",
+      "exact_820_replay_fraction": "1975993/82000",
+      "rounded_minus_exact_fraction": "1975993/205000000"
+    },
+    {
+      "id": "QUARTER_PHASE_TURN_LIMIT",
+      "source_label": "弦轉限",
+      "source_value": "90.06830865",
+      "input_base_units": "29530593/400",
+      "rounded_replay_fraction": "1801366173/20000000",
+      "exact_820_replay_fraction": "29530593/328000",
+      "rounded_minus_exact_fraction": "29530593/820000000"
+    }
+  ],
+  "adjudication": {
+    "three_received_rounded_rate_matches": true,
+    "three_exact_820_replays_equal_received_values": false,
+    "received_text_rounded_rate_operational_consistency": "ATTESTED_WITHIN_THIS_RECEIVED_TEXT_AND_EXACT_REPLAY",
+    "is_a_calendar_dated_worked_example": false,
+    "source_specific_integer_limit_truncation_attested": false,
+    "source_specific_index_base_selected": false,
+    "source_specific_83_84_threshold_reconciled": false,
+    "ming_v35_turn_mid_limit_equals_ming_v33_integer_reverse_constant_as_full_mechanical_object": false,
+    "huang_and_ming_same_epoch_and_coordinate_proven": false,
+    "physical_original_page_direct_glyph_attested_this_batch": false,
+    "new_independent_source_count": 0,
+    "original_g893_six_numeric_winners": 0,
+    "deterministic_chart_algorithm_defect_confirmed": 0,
+    "algorithm_reopens": 0,
+    "deterministic_chart_product": "CLOSED"
+  },
+  "counts": {
+    "source_registry": 765,
+    "matrix_rows": 222,
+    "graph_nodes": 252,
+    "graph_edges": 238,
+    "open_research_issues": 11
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Electronic received v35 three-constant arithmetic matches a 12.20 daily rate but does not prove direct Huang/Ming copying, common calendar epoch or equivalent 83/84 terminal index."
+    ],
+    "unresolved_lineage_questions": [
+      "Verify same three numerals on a directly collated historic Ming Shi v35 edition image.",
+      "Find a source-dated astronomical example and determine each source's quotient/carry and index base.",
+      "Authenticate Shanghai Huang and Harvard Ming physical copy/impression identity independently."
+    ]
+  },
+  "next_action": "Direct original-printed Ming Shi v35 source image of all three constants; source-dated limit/carry worked example plus physical-copy bindings; no historical 83/84 selection or G893 six-control winner."
+}
