@@ -1,0 +1,123 @@
+{
+  "schema": "TIANWEN-13KO-HUANG-ORIGINAL-P79-P80-R1",
+  "date": "2026-10-29",
+  "issue_id": "TW-OPEN-0005",
+  "source": {
+    "title": "Shanghai 授時歷故四卷.pdf (Commons dGJ2300966)",
+    "url": "https://commons.wikimedia.org/wiki/File:Shanghai_%E6%8E%88%E6%99%82%E6%AD%B7%E6%95%85%E5%9B%9B%E5%8D%B7.pdf",
+    "artifact_id": 12890397318,
+    "zip_sha256": "1328eaca52cf8c692edf397ee76aedad90c8d63bbea1b8bba8ae48772ddd835d",
+    "pdf_sha256": "c524693e7bad502d222a1444d688cc7d63ca4a4037d7d4e08cee4aa94f9adbae",
+    "pdf_bytes": 14376480,
+    "pdf_pages": 97,
+    "physical_copy_or_impression_authenticated": false
+  },
+  "method": "Original PDF pixels visually reviewed without OCR, native page rendering PyMuPDF Matrix(1.25,1.25), csRGB, alpha=False. SHA256 over full raw RGB or PIL RGB crop bytes; rect xyxy pixel coordinates.",
+  "original_regions": [
+    {
+      "page": 79,
+      "size": [
+        1160,
+        1028
+      ],
+      "full": "4dc6c52c353bc28ec8f059030e68f6689952944c64651e1fcb92f13dede8c4de",
+      "rect": [
+        88,
+        170,
+        255,
+        938
+      ],
+      "rgb_sha256": "e905b2501b5b54570e84fdb3782a674868945818d1f99e7f2bd41dc00fb223a4",
+      "original": [
+        "置損益分以其日平合立差益加",
+        "損減之即為次日損益分"
+      ],
+      "scope": "NEXT_DAY_GAIN_LOSS"
+    },
+    {
+      "page": 79,
+      "size": [
+        1160,
+        1028
+      ],
+      "full": "4dc6c52c353bc28ec8f059030e68f6689952944c64651e1fcb92f13dede8c4de",
+      "rect": [
+        22,
+        170,
+        118,
+        932
+      ],
+      "rgb_sha256": "017332a64ce6111122050c17ca64f2c7bcb44af5b0a490f0a806f6a7458b42e0",
+      "original": [
+        "以益分積之損分減之便為其下遲疾度"
+      ],
+      "scope": "SUBSEQUENT_MOON_DEGREE"
+    },
+    {
+      "page": 80,
+      "size": [
+        1161,
+        969
+      ],
+      "full": "37443f9e73d134cb331c8ecc142d0b1e473f6c8c3fc15123fb9b7ee87e8fea07",
+      "rect": [
+        605,
+        165,
+        915,
+        944
+      ],
+      "rgb_sha256": "920bfa8ab658e9782bb3526474d24a4ff44e36114d137c11a214107f3a429c5a",
+      "original": [
+        "求損益分術曰置所得限在八十三限已下者不減為初限",
+        "已上者置一百六十七限以所得限減之餘為末限"
+      ],
+      "scope": "SPLIT_83_AND_REVERSE_167"
+    }
+  ],
+  "prior_positive_source": "docs/research/TIANWEN-13KM-SHANGHAI-HUANG-P75-P79-DIRECT-ORIGINAL-LIMIT-PRECISION-POLARITY-R1.json",
+  "prior_13kn_received_only_snapshot": "docs/research/TIANWEN-13KN-MOON-LIMIT-OPERATOR-OBJECT-AND-INDEX-FIREWALL-R1.json",
+  "original_positives": {
+    "next_day_add_gain_subtract_loss": true,
+    "separate_degree_integrator": true,
+    "reversal_167": true,
+    "limit_83_branch": true,
+    "preexisting_limit_168_at_p75": true
+  },
+  "unproven": {
+    "physical_edition_identity": true,
+    "zero_based_or_one_based_historic_index": true,
+    "complete_83_84_limit_semantics": true,
+    "huang_ming_same_mechanical_step": true,
+    "ancient_copying_error": true,
+    "independent_second_witness": true
+  },
+  "preserved": {
+    "registry_total": 765,
+    "matrix_rows": 222,
+    "graph_nodes": 252,
+    "graph_edges": 238,
+    "open_risks": 11,
+    "g893_six_historic_numeric_winners": 0,
+    "algorithm_reopens": 0,
+    "product": "CLOSED"
+  },
+  "ci_recovery": {
+    "failed_13kn_run": 40866438875,
+    "failed_test": "test_tianwen_13jy_g893_three_row_arithmetic.ExactDecimalSourceFence.test_source_registry_regression",
+    "why": "765 minus 2 equals historical allowed 763; negative test did not trigger assertion",
+    "fix": "Change negative test mutation from decrement 2 to decrement 3 (762 < 763); verifier unchanged"
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Same digital book has operation and 167 string, but does not prove stemmatic relation to Ming Shi."
+    ],
+    "unresolved_lineage_questions": [
+      "Bind Shanghai physical copy and print/impression date",
+      "Reconstruct exact 83/84 split and 167 reversal with original arithmetic"
+    ]
+  },
+  "next_action": "Original 79/80 recurrence, initial/terminal limit 83/84 index and signed difference replay; authenticate Shanghai physical object before edition or stemma promotion."
+}

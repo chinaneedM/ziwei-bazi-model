@@ -20,8 +20,9 @@ class ExactDecimalSourceFence(unittest.TestCase):
   self.assertEqual(v.verify(*self.data)["status"],"PASS")
  def test_source_registry_regression(self):
   h=self.data[1]["historical_audit"]
-  h["external_source_registry_extension_count"]-=2
-  h["external_source_registry_total_unique_count"]-=2
+  # Source total grew from 763 to 765; subtract 3 to breach historical >=763 floor.
+  h["external_source_registry_extension_count"]-=3
+  h["external_source_registry_total_unique_count"]-=3
   self.fails()
  def test_source_registry_count_mismatch(self):
   self.data[1]["historical_audit"]["external_source_registry_total_unique_count"]+=1
