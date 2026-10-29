@@ -11,6 +11,18 @@ class ShanghaiP71Seam(unittest.TestCase):
  def test_false_glyph_award(self):self.data[0]["revised_source_scope"]["huang_益加損減_original_glyph_proven"]=True;self.fails()
  def test_false_physical_edition(self):self.data[0]["source_identity"]["original_physical_copy_identity_bound"]=True;self.fails()
  def test_rename_prior_work(self):self.data[0]["direct_visual_collation"]["pixel_roi_reviews"][0]["literal"]="授時曆故卷三終";self.fails()
+ def test_13kl_forward_erratum_has_original_evidence(self):
+  issue=next(q for q in self.data[2]["issues"] if q["id"]=="TW-OPEN-0005")
+  history=issue["history"]
+  prior=next(q for q in history if q.get("revision_id")=="TW-OPEN-0005-13KK-ORIGINAL-P71-SEAM-20261029")
+  last=next(q for q in history if q.get("revision_id")=="TW-OPEN-0005-13KL-CI-EVIDENCE-REF-ERRATUM-20261029")
+  self.assertNotIn("evidence_refs",prior)
+  self.assertIn("next_action",last["changed_fields"])
+  self.assertEqual(set(last["evidence_refs"]),{
+   "docs/research/TIANWEN-13KK-HUANG-DATONG-V3-SHOUSHI-V4-ORIGINAL-SEAM-P71-R1.json",
+   "docs/research/TIANWEN-13KK-HUANG-DATONG-V3-SHOUSHI-V4-ORIGINAL-SEAM-P71-R1.md",
+   "docs/research/TIANWEN-13KI-SHANGHAI-HUANG-97PAGE-DIGITAL-ACQUISITION-R1.json"})
+  self.assertEqual(history.index(last),history.index(prior)+1)
  def test_future_append_only(self):
   self.data[1]["historical_audit"]["current_focus"].append("13KL next")
   self.data[2]["binding"]["source_focus_count"]+=1
