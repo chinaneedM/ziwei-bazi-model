@@ -10,7 +10,6 @@ import os
 import urllib.parse
 from pathlib import Path
 
-import requests
 
 TITLE="File:Harvard drs 428231183 明史 v.10.pdf"
 API="https://commons.wikimedia.org/w/api.php"
@@ -135,6 +134,7 @@ def create_atlas(rec):
 
 def main():
     OUT.mkdir(parents=True,exist_ok=True)
+    import requests  # optional network dependency: do not break global offline unittest import
     s=requests.Session()
     s.headers.update({"User-Agent":"Tianwen-historical-source-provenance/1.0 (public edition verification)","Accept":"application/pdf,application/json,*/*"})
     rec=acquire(s)
