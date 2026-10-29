@@ -1,0 +1,124 @@
+{
+  "schema": "TIANWEN-13KQ-HUANG-MING-820-DAILY-LIMIT-ROUNDING-R1",
+  "date": "2026-10-29",
+  "issue_id": "TW-OPEN-0005",
+  "study_scope": "DIRECT_SOURCE_820_UNIT_AND_DAILY_12_20_APPROXIMATION_WITH_EXACT_RATIONAL_DIAGNOSTIC",
+  "sources": {
+    "huang_p75": {
+      "original_source": "Shanghai 授時歷故四卷.pdf dGJ2300966",
+      "pdf_sha256": "c524693e7bad502d222a1444d688cc7d63ca4a4037d7d4e08cee4aa94f9adbae",
+      "pdf_page": 75,
+      "page_size_rgb": [
+        1161,
+        969
+      ],
+      "page_rgb_sha256": "d0598899732f5a76c89eb43454d912d3242832e88d9ffc64fd557db661cb5f69",
+      "roi_xyxy": [
+        735,
+        105,
+        1140,
+        910
+      ],
+      "roi_rgb_sha256": "09b9ceff44a4beee73ca0e3c0fd465ca4887e99934443831294ede26d5f9c104",
+      "render": "PyMuPDF Matrix(1.25,1.25) csRGB alpha=False",
+      "positive_phrases": [
+        "日法萬分以八百二十分為一限",
+        "一日得十二限餘一百六十分今就整為二十分"
+      ],
+      "physical_impression_authenticated": false
+    },
+    "ming_p12": {
+      "original_source": "Harvard 明史卷33 volume10.pdf",
+      "pdf_sha256": "dde1bfd5d3cf15954ddc6dbf1c020971806038bbc7f737b9053d5643e5c7c264",
+      "pdf_page": 12,
+      "page_size_rgb": [
+        2070,
+        1804
+      ],
+      "page_rgb_sha256": "9e2efc909ef20b1d8682a30474e33d438bcaa6c91914c5116791e2394c9967ef",
+      "roi_xyxy": [
+        1090,
+        245,
+        1520,
+        1690
+      ],
+      "roi_rgb_sha256": "26bf9a667db927fe2cae6124427c41a4ad95c9a593cd820eec5db216f666280a",
+      "render": "PyMuPDF Matrix(1.15,1.15) csRGB alpha=False",
+      "positive_phrases": [
+        "以八百二十分為一限日率",
+        "累加八百二十分為每限日率"
+      ],
+      "physical_impression_authenticated": false
+    }
+  },
+  "prior_crosswalk": "docs/research/TIANWEN-13KP-HUANG-MING-83-84-167-168-DIRECT-ORIGINAL-CROSSWALK-R1.json",
+  "exact_arithmetic": {
+    "daily_base_units": 10000,
+    "limit_base_units": 820,
+    "whole_limits": 12,
+    "remaining_units": 160,
+    "exact_fractional_limit": "8/41",
+    "rounded_fractional_limit": "1/5",
+    "exact_daily_limits": "500/41",
+    "approximated_daily_limits": "61/5",
+    "approximation_surplus_limits_per_day": "1/205",
+    "approximation_surplus_base_units_per_day": 4,
+    "hundredth_interpretation": "CONDITIONAL_DECIMAL_INTERPRETATION_OF_二十分",
+    "controls": [
+      {
+        "days": 1,
+        "delta_limit_fraction": "1/205",
+        "delta_time_units_fraction": "4/1"
+      },
+      {
+        "days": 7,
+        "delta_limit_fraction": "7/205",
+        "delta_time_units_fraction": "28/1"
+      },
+      {
+        "days": 14,
+        "delta_limit_fraction": "14/205",
+        "delta_time_units_fraction": "56/1"
+      },
+      {
+        "days": 27,
+        "delta_limit_fraction": "27/205",
+        "delta_time_units_fraction": "108/1"
+      }
+    ],
+    "interval_warning": "At <=28 elapsed days, absolute forward approximation error is <28/205 limit < 1 limit, but near a rounding threshold even a sublimit error can alter a discrete decision; no ancient branch-selection proof."
+  },
+  "negative_boundaries": {
+    "same_limit_unit_proven_for_both_direct_image_phrases": true,
+    "ming_source_origin_12limit20fraction_original_positive_from_13kp": true,
+    "full_huang_ming_time_to_limit_equivalence_proven": false,
+    "integer_83_84_boundary_reconciled": false,
+    "historic_index_base_selected": false,
+    "rounding_was_the_only_source_of_one_limit_offset": false,
+    "new_physical_source_or_impression_proven": false,
+    "historical_g893_six_numeric_winners": 0,
+    "chart_algorithm_reopens": 0,
+    "chart_product": "CLOSED"
+  },
+  "registry": {
+    "source_total": 765,
+    "matrix_rows": 222,
+    "graph_nodes": 252,
+    "graph_edges": 238,
+    "open_issues": 11
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "The two original source scans both employ 820-unit limit vocabulary; this lexical/numeric match alone does not prove direct copying or a common normalized elapsed-limit argument."
+    ],
+    "unresolved_lineage_questions": [
+      "Bind complete year/day-to-limit interpolation and whether day-fraction numerator 160 to 20 hundredths is a rounded operational convention",
+      "Check if either version uses an additional offset/ceiling convention in initial half",
+      "Independently authenticate physical item and impression of the Shanghai and Harvard scanned books."
+    ]
+  },
+  "next_action": "Directly compare both original folios' cumulative limit-numbering, approximation rounding and 83/84 threshold at an actual source-scoped worked date before any model implementation change."
+}
