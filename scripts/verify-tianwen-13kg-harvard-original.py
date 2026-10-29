@@ -80,12 +80,12 @@ def check_handoff():
  ledger=json.loads((ROOT/"docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json").read_text())
  h=state["historical_audit"]
  check(state["schema_version"]==ledger["binding"]["reviewed_state_version"]==h["research_omission_guard"]["reviewed_state_version"],"handoff version")
- check(ledger["binding"]["source_focus_count"]==len(h["current_focus"]) and h["current_focus"][-1].startswith("13KG "),"latest source focus")
+ check(ledger["binding"]["source_focus_count"]==len(h["current_focus"]) and h["current_focus"][-1].startswith(ledger["binding"]["latest_research_focus_prefix"]+" "),"latest source focus")
  i=next(x for x in ledger["issues"] if x["id"]=="TW-OPEN-0005")
- check(i["next_action"].startswith("13KG CURRENT ACTION:"),"next action")
+ check(i["next_action"].startswith(ledger["binding"]["latest_research_focus_prefix"]+" CURRENT ACTION:"),"next action")
  check({E,E.replace(".json",".md"),SHARD}.issubset(i["source_refs"]),"bound source refs")
  check(any(x.get("revision_id")=="TW-OPEN-0005-13KG-HARVARD-PRINTED-20261029" for x in i["history"]),"append-only issue")
- check(h["external_source_registry_total_unique_count"]==764 and state["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED","source/algorithm invariant")
+ check(h["external_source_registry_total_unique_count"]>=764 and h["external_source_registry_total_unique_count"]==h["external_source_registry_root_count"]+h["external_source_registry_extension_count"] and state["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED","source/algorithm invariant")
 
 if __name__=="__main__":
  parser=argparse.ArgumentParser();parser.add_argument("--pdf",type=Path)

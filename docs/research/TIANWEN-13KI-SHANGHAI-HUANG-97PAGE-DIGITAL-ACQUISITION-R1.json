@@ -1,0 +1,89 @@
+{
+  "schema": "TIANWEN-13KI-SHANGHAI-HUANG-97PAGE-DIGITAL-ACQUISITION-R1",
+  "date": "2026-10-29",
+  "research_issue": "TW-OPEN-0005",
+  "prior_evidence": "docs/research/TIANWEN-13KG-HARVARD-1739-MINGSHI-J33-DIRECT-PRINTED-POLARITY-R1.json",
+  "digital_source": {
+    "commons_file_page": "https://commons.wikimedia.org/wiki/File:Shanghai_%E6%8E%88%E6%99%82%E6%AD%B7%E6%95%85%E5%9B%9B%E5%8D%B7.pdf",
+    "commons_title": "File:Shanghai 授時歷故四卷.pdf",
+    "reported_shanghai_upstream_name": "dGJ2300966.pdf",
+    "provenance_grade": "COMMONS_UPLOADER_DESCRIBED_AS_SHANGHAI_LIBRARY_NOT_INDEPENDENT_FIRSTPARTY_ITEM_BINDING",
+    "publication_upload_date": "2024-04-20",
+    "size_bytes": 14376480,
+    "pdf_pages": 97,
+    "sha1": "73c2017bb9eb109edf069f9563c397e7fcb2cba4",
+    "sha256": "c524693e7bad502d222a1444d688cc7d63ca4a4037d7d4e08cee4aa94f9adbae",
+    "source_bytes_verified_at": "GitHub Actions 2026-10-29",
+    "exact_head_acquisition_commit": "8f8a477aa682e8d00ef9ddd9debe5f78257aa633",
+    "run_id": 40858637903,
+    "artifact_id": 12890397318,
+    "artifact_zip_sha256": "1328eaca52cf8c692edf397ee76aedad90c8d63bbea1b8bba8ae48772ddd835d",
+    "artifacts": "original.pdf, intake.json, atlas-01.jpg through atlas-07.jpg, 9 sample page PNGs",
+    "source_page_preview": "Commons public page1 thumbnail 960px was opened and visually reviewed as title-page handwriting, without target glyph transcription",
+    "full_pdf_digitally_acquired": true,
+    "full_pdf_target_text_line_by_line_collated": false,
+    "target_pdf_page_mapped": false,
+    "target_glyphs_collated": false,
+    "ocr_used": false
+  },
+  "bibliographic_disambiguation": [
+    {
+      "catalog_url": "https://m.guoxuedashi.com/shumu/gj-1931574qy.html",
+      "identity": "清抄本，黃宗羲撰／曹元忠校／宋景昌跋，上圖藏",
+      "proof_grade": "SECONDARY_CATALOG_LEAD_NOT_YET_LINKED_TO_dGJ2300966"
+    },
+    {
+      "catalog_url": "https://www.guoxuedashi.com/shumu/gj-2026002re.html",
+      "identity": "民國十二年（1923）刻本，上圖藏",
+      "proof_grade": "DIFFERENT_SECONDARY_CATALOG_LEAD_NOT_YET_LINKED_TO_dGJ2300966"
+    },
+    {
+      "catalog_url": "https://www.guoxuedashi.com/shumu/gj-3213822hz.html",
+      "identity": "民國十二年吳興劉氏嘉業堂刻本，浙江師範大學藏",
+      "proof_grade": "DISTINCT_HOLDING_CATALOG_ONLY_NOT_SAME_COPY"
+    },
+    {
+      "catalog_url": "https://ge.nii.ac.jp/ncid/BA68484081",
+      "identity": "1982 後印本; Japan CiNii physical holdings",
+      "proof_grade": "MODERN_BIBLIOGRAPHIC_IDENTITY_NOT_AN_ORIGINAL_TARGET_FOLIO"
+    }
+  ],
+  "immutable_coverage_snapshot": {
+    "registration_grade": "WHOLE_97PAGE_DIGITAL_PDF_ACQUIRED_PAGE1_PREVIEW_ONLY_TARGET_UNCOLLATED",
+    "source_pdf_sha256": "c524693e7bad502d222a1444d688cc7d63ca4a4037d7d4e08cee4aa94f9adbae",
+    "original_pdf_pages_acquired": 97,
+    "target_text_pages_native_glyph_collated": 0,
+    "original_ancient_edition_status": "EDITION_IMPRESSION_AND_PHYSICAL_COPY_UNBOUND",
+    "archival_method": "hash-bound remote Actions artifact; future stronger original page reviews appended separately"
+  },
+  "critical_readings_not_awarded": {
+    "huang_益加損減_original_glyph_proven": false,
+    "ming_益減損加_printed_glyph_prior_13KG": true,
+    "huang_五秒八十一微五十纖_original_glyph_proven": false,
+    "huang_一百六十七限_original_glyph_proven": false,
+    "G893_six_cross_witness_numeric_winners": 0
+  },
+  "historical_scope": {
+    "new_independent_physical_copy_votes": 0,
+    "source_registry_digital_object_delta": 1,
+    "source_registry_status": "UNVERIFIED_TARGET_LOCATOR_QUARANTINED",
+    "transmission_graph_nodes_delta": 0,
+    "transmission_graph_edges_delta": 0,
+    "chart_algorithm_reopens": 0,
+    "product": "CLOSED",
+    "issue_closed": false
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "No 1923 JiaYeTang direct-copy edge; no Qing manuscript physical identity from an uploader file name"
+    ],
+    "unresolved_lineage_questions": [
+      "Bind Shanghai source item identifier dGJ2300966 to official physical catalog/impression",
+      "Locate original volume4 月離曆 p/leaf and native glyphs 益加/益減 and 50纖 and 167 limit"
+    ]
+  },
+  "next_action": "Use 97-page page-atlas to locate volume 4 original target page; inspect native original JPEG/PDF image at source hash with pixel ROI; compare Shanghai physical holding identity separately from 1923 JiaYeTang and received OCR. Retain P0 and zero historical numerical awards."
+}
