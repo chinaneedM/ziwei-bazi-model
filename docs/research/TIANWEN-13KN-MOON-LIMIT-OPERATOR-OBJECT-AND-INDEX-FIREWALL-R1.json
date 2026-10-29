@@ -1,0 +1,145 @@
+{
+  "schema": "TIANWEN-13KN-MOON-LIMIT-OPERATOR-OBJECT-AND-INDEX-FIREWALL-R1",
+  "date": "2026-10-29",
+  "issue_id": "TW-OPEN-0005",
+  "prior_batch": "13KM",
+  "scope": "RECEIVED_TEXT_OPERATION_OBJECT_DISAMBIGUATION_WITH_PRIMARY_IMAGE_BOUNDARIES",
+  "primary_repo_evidence": [
+    "docs/research/TIANWEN-13KM-SHANGHAI-HUANG-P75-P79-DIRECT-ORIGINAL-LIMIT-PRECISION-POLARITY-R1.json",
+    "docs/research/TIANWEN-13KG-HARVARD-1739-MINGSHI-J33-DIRECT-PRINTED-POLARITY-R1.json"
+  ],
+  "modern_reading_locators": [
+    {
+      "work": "Huang Zongxi, 授時曆故卷四, 月離曆",
+      "url": "https://www.shidianguji.com/book/CADAL02093993/chapter/1laylkzccub7j",
+      "digital_status": "MODERN_TRANSCRIPTION_NOT_13KI_SOURCE_IMAGE",
+      "topic_lines": "circa web text 317-352 (定立成術) and 369-390 (reverse-limit)",
+      "direct_original_target_glyph_verified": false
+    },
+    {
+      "work": "Mei Wending, 大統曆志卷四",
+      "url": "https://zh.wikisource.org/wiki/大統厯志_(四庫全書本)/卷4",
+      "digital_status": "RECEIVED_TRANSCRIPTION_NOT_PHYSICAL_FOLIO_REPLAY",
+      "direct_original_target_glyph_verified": false
+    }
+  ],
+  "operator_layers": [
+    {
+      "id": "HUANG_RECEIVED_NEXT_DAY",
+      "evidence_level": "MODERN_TRANSCRIPTION_ONLY",
+      "object": "NEXT_DAY_GAIN_LOSS_AMOUNT",
+      "condition": "益",
+      "effect_sign": 1,
+      "opposite_condition": "損",
+      "opposite_effect_sign": -1,
+      "temporal_step": "日",
+      "original_page_bound_to_this_full_clause": false
+    },
+    {
+      "id": "MING_HARVARD_NEXT_LIMIT",
+      "evidence_level": "DIRECT_PRINTED_ORIGINAL_P12",
+      "object": "NEXT_LIMIT_GAIN_LOSS_AMOUNT",
+      "condition": "益",
+      "effect_sign": -1,
+      "opposite_condition": "損",
+      "opposite_effect_sign": 1,
+      "temporal_step": "限",
+      "original_page_bound_to_this_full_clause": true
+    },
+    {
+      "id": "MEI_RECEIVED_FAST",
+      "evidence_level": "RECEIVED_TEXT_TRANSCRIPTION",
+      "object": "FINAL_MOON_MOTION_DEGREE_FROM_BASELINE",
+      "condition": "益",
+      "effect_sign": 1,
+      "opposite_condition": "損",
+      "opposite_effect_sign": -1,
+      "temporal_step": "限",
+      "original_page_bound_to_this_full_clause": false
+    },
+    {
+      "id": "MEI_RECEIVED_SLOW",
+      "evidence_level": "RECEIVED_TEXT_TRANSCRIPTION",
+      "object": "FINAL_MOON_MOTION_DEGREE_FROM_BASELINE",
+      "condition": "益",
+      "effect_sign": -1,
+      "opposite_condition": "損",
+      "opposite_effect_sign": 1,
+      "temporal_step": "限",
+      "original_page_bound_to_this_full_clause": false
+    }
+  ],
+  "limits": {
+    "primary_huang_p75": {
+      "middle_limit": 168,
+      "initial_limit": 84,
+      "circumference_limit": 336,
+      "original_rgb_hash_recorded_in": "13KM"
+    },
+    "received_huang_167_reverse_formula": "167 - obtained_limit",
+    "received_reverse_only_not_original": true,
+    "zero_based_candidate": {
+      "domain_min": 0,
+      "domain_max": 167,
+      "reflection_sum": 167
+    },
+    "one_based_candidate": {
+      "domain_min": 1,
+      "domain_max": 168,
+      "reflection_sum": 169
+    },
+    "original_index_base_adjudicated": false
+  },
+  "bounded_illustration": {
+    "inputs": {
+      "prior_amount": 100,
+      "increment": 10
+    },
+    "results": {
+      "huang_received_gain": 110,
+      "huang_received_loss": 90,
+      "ming_print_gain": 90,
+      "ming_print_loss": 110,
+      "mei_fast_degree_gain": 110,
+      "mei_fast_degree_loss": 90,
+      "mei_slow_degree_gain": 90,
+      "mei_slow_degree_loss": 110
+    },
+    "not_historical_source_numbers": true
+  },
+  "adjudication": {
+    "huang_received_and_ming_primary_have_opposing_literal_next_amount_directions": true,
+    "all_temporal_stage_semantics_identical_proven": false,
+    "mei_final_degree_operator_equals_ming_next_amount_operator": false,
+    "huang_p79_dayan_glyph_proves_received_next_day_clause": false,
+    "huang_original_full_167_glyph_verified": false,
+    "transcript_is_independent_manuscript_witness": false,
+    "ancient_copying_error_proven": false,
+    "zero_based_selection_proven": false,
+    "original_physical_edition_binding_proven": false
+  },
+  "invariant_counts": {
+    "source_registry_total": 765,
+    "matrix_rows": 222,
+    "graph_nodes": 252,
+    "graph_edges": 238,
+    "open_risks": 11,
+    "g893_six_numeric_winners": 0,
+    "chart_algorithm_reopens": 0,
+    "chart_product": "CLOSED"
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Similar add/subtract vocabulary among received Huang/Mei is not evidence of direct copying; final-degree application and next-step amount update are distinct operations."
+    ],
+    "unresolved_lineage_questions": [
+      "Directly read Huang original full next-day operation and reverse-167 clause on dGJ2300966 source pages.",
+      "Independently identify Shanghai physical holding/edition behind Wikimedia digital surrogate.",
+      "Locate an independent original Mei folio and compare its precise technical object before lineage claims."
+    ]
+  },
+  "next_action": "Read exact Shanghai source P79+ full next-day clause and 167 limit in native original pixels with reproducible page+ROI hash; compare to 13KG Ming printed next-limit clause, resolving 日/限 index and sign before inferring a mechanical contradiction or chart reopen."
+}
