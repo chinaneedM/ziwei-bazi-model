@@ -37,7 +37,7 @@ def verify(e,harvard,state,ledger):
  remainder=13*m-(13*m//mod)*mod
  check(remainder==F(a["harvard_original_remainder"])==F("238977.09"),"exact source replay")
  check(F(a["siku_original_remainder"])==F("288977.09") and F(a["siku_original_remainder"])-remainder==F(a["source_discrepancy_units"])==50000,"difference")
- check(a["day_base"]==10000 and F(a["difference_day_base_equivalent"])==5 and a["historical_date_to_limit_worked_example_found"] is False,"historical date boundary")
+ check(F(a["day_base"])==10000 and F(a["difference_day_base_equivalent"])==5 and a["historical_date_to_limit_worked_example_found"] is False,"historical date boundary")
  b=e["boundaries"]
  for key in ("source_original_1739_impression_proven","physical_holding_accession_authenticated","shared_harvard_siku_impression_proven","ancient_scribal_error_cause_proven","original_historic_83_84_index_proven","original_historic_167_168_mechanics_proven"):check(b[key] is False,"false edition/rule award "+key)
  for key in ("original_g893_six_numeric_winners","new_physical_witness_votes","new_external_registry_entries","graph_nodes_added","graph_edges_added","algorithm_reopens"):check(b[key]==0,"unearned count "+key)

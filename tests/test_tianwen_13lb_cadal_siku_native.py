@@ -14,5 +14,6 @@ class Native(unittest.TestCase):
  def test_fake_roi_hash(self):self.a[0]["original_pages"][2]["roi_rgb_sha256"]="a"*64;self.fails()
  def test_fake_1739(self):self.a[0]["boundaries"]["source_original_1739_impression_proven"]=True;self.fails()
  def test_fake_copying(self):self.a[0]["cross_witness"]["historical_copying_lineage_proven"]=True;self.fails()
+ def test_fake_day_base(self):self.a[0]["arithmetic"]["day_base"]="9999";self.fails()
  def test_fake_chart(self):self.a[0]["boundaries"]["algorithm_reopens"]=1;self.fails()
 if __name__=="__main__":unittest.main()
