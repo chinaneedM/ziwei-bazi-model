@@ -57,7 +57,7 @@ def handoff():
     require(len(h["current_focus"])==ledger["binding"]["source_focus_count"] and
             h["current_focus"][-1].startswith(ledger["binding"]["latest_research_focus_prefix"]+" "), "current focus")
     issue=next(x for x in ledger["issues"] if x["id"]=="TW-OPEN-0005")
-    require(issue["next_action"].startswith("13KE CURRENT ACTION:"),"new action first")
+    require(issue["next_action"].startswith(ledger["binding"]["latest_research_focus_prefix"]+" CURRENT ACTION:"),"current action follows live reviewed research batch")
     require({DOC,DOC.replace(".json",".md")}.issubset(set(issue["source_refs"])),"new source records bound")
     require(any(x.get("revision_id")=="TW-OPEN-0005-13KE-TEXT-SEGREGATION-20261029" for x in issue["history"]),"forward-only revision history")
     require(state["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED" and
