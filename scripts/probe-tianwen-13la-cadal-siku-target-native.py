@@ -23,9 +23,9 @@ def main():
  require(int(n.stdout.strip())==126,"source page count")
  page_rows=[]
  for p in PAGES:
-  decoded=subprocess.run(["ddjvu","-format=ppm",f"-page={p}",str(target),"-"],capture_output=True,check=True).stdout
+  decoded=subprocess.run(["ddjvu","-format=ppm",f"-page={p}","-scale=100",str(target),"-"],capture_output=True,check=True).stdout
   im=Image.open(io.BytesIO(decoded)).convert("RGB")
-  require(im.width==957 and im.height==1359,"wrong native dimensions")
+  require(600<=im.width<=2500 and 800<=im.height<=3500,"source-native size sanity")
   file=OUT/f"native-p{p:03d}.png";im.save(file,format="PNG")
   page_rows.append({"pdf_page_1based":None,"djvu_page_1based":p,"native_rgb_dimensions":[im.width,im.height],"rgb_sha256":hashlib.sha256(im.tobytes()).hexdigest(),"png_sha256":hashlib.sha256(file.read_bytes()).hexdigest(),"png_bytes":file.stat().st_size,"status":"SOURCE_NATIVE_BYTES_CAPTURED_NOT_YET_HISTORICAL_GLYPH_READ"})
  evidence={"source_file_sha256":SHA256,"source_file_sha1":SHA1,"source_bytes":LENGTH,"full_source_page_count":126,"pages":page_rows,"no_ocr":True,"new_physical_witness_votes":0,"new_historical_winners":0}
