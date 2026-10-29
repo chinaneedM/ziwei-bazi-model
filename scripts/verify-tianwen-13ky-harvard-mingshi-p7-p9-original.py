@@ -50,10 +50,10 @@ def verify(e,old,variants,erratum,state,ledger,pdf=None):
  ensure(not e["transmission_impact"]["edges_supported"] and not e["transmission_impact"]["edges_revised"],"no lineage")
  h=state["historical_audit"];binding=ledger["binding"];i=state["invariants"]
  ensure(state["schema_version"]==h["research_omission_guard"]["reviewed_state_version"]==binding["reviewed_state_version"],"state review sync")
- ensure(h["current_focus"][-1].startswith("13KY ") and binding["latest_research_focus_prefix"]=="13KY" and binding["source_focus_count"]==len(h["current_focus"]),"current research")
+ ensure(any(z.startswith("13KY ") for z in h["current_focus"]) and binding["latest_research_focus_prefix"]==h["current_focus"][-1].split(" ")[0] and binding["source_focus_count"]==len(h["current_focus"]),"current research")
  ensure(i["deterministic_fusion_chart_product_r1"]=="CLOSED" and i["algorithm_reopen_count"]==0 and h["external_source_registry_total_unique_count"]==765 and h["row_count"]==h["audited_row_count"]==222,"chart invariant")
  issue=next(x for x in ledger["issues"] if x["id"]=="TW-OPEN-0005")
- ensure(issue["status"]=="OPEN" and issue["priority"]=="P0" and issue["next_action"].startswith("13KY CURRENT ACTION:"),"unresolved issue next")
+ ensure(issue["status"]=="OPEN" and issue["priority"]=="P0" and issue["next_action"].startswith(binding["latest_research_focus_prefix"]+" CURRENT ACTION:"),"unresolved issue next")
  ensure(E in issue["source_refs"] and E.replace(".json",".md") in issue["source_refs"] and any(z.get("revision_id")=="TW-OPEN-0005-13KY-HARVARD-P7-P9-ORIGINAL-20261030" and E in z.get("evidence_refs",[]) for z in issue["history"]),"forward event")
  ensure(len(ledger["issues"])==11 and ledger["checkpoint_log"][-1]["state_version"]==state["schema_version"],"ledger review")
  if pdf is not None:

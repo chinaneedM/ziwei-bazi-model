@@ -1,0 +1,82 @@
+{
+  "schema": "TIANWEN-13KZ-CADAL06056956-SIKU-MINGSHI-V35-ORIGINAL-ACQUISITION-ROUTE-R1",
+  "date": "2026-10-30",
+  "issue_id": "TW-OPEN-0005",
+  "research_grade": "PUBLIC_CATALOG_AND_DIGITAL_FILE_LOCATOR_ONLY_NOT_YET_SOURCE_NATIVE_TARGET_GLYPH",
+  "target": {
+    "collection": "CADAL (China Academic Digital Associative Library) Commons backup",
+    "file_id": "CADAL06056956",
+    "work_label": "明史 卷三十五至卷三十六",
+    "commons_category_description": "四庫全書；史部",
+    "commons_page": "https://commons.wikimedia.org/wiki/File:CADAL06056956_%E6%98%8E%E5%8F%B2%C2%B7%E5%8D%B7%E4%B8%89%E5%8D%81%E4%BA%94~%E5%8D%B7%E4%B8%89%E5%8D%81%E5%85%AD.djvu",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/3/36/CADAL06056956_%E6%98%8E%E5%8F%B2%C2%B7%E5%8D%B7%E4%B8%89%E5%8D%81%E4%BA%94~%E5%8D%B7%E4%B8%89%E5%8D%81%E5%85%AD.djvu",
+    "document_format": "image/vnd.djvu",
+    "commons_reported_pages": 126,
+    "commons_reported_width": 957,
+    "commons_reported_height": 1359,
+    "commons_reported_bytes": 4528817,
+    "commons_reported_sha1": "45fc977d134b07689391907d6671eac3c0b7eedb",
+    "author_credit": "張廷玉 撰; other uploader attribution not a physical edition colophon",
+    "uploader": "Wmr-bot",
+    "public_uploaded_date": "2019-12-28",
+    "provider_catalog_number": "06056956",
+    "physical_original_edition_date_authenticated": false,
+    "publisher_1739_impression_date_authenticated": false,
+    "holding_accession_and_physical_copy_crosswalk_authenticated": false,
+    "counted_as_independent_physical_copy_now": false
+  },
+  "probe": {
+    "script": "scripts/probe-tianwen-13kz-cadal-siku-original.py",
+    "workflow": ".github/workflows/probe-tianwen-13kz-cadal-siku-original.yml",
+    "expected_sha1_treated_as_provider_metadata_until_download_rechecked": true,
+    "reproducible_fetch": "HTTPS Wikimedia Commons source file and optional Special:Redirect alias; sha1+bytes gates",
+    "image_method": "djvulibre ddjvu native per-page PPM source render; Pillow contact sheets; no OCR",
+    "planned_image_pages": [
+      1,
+      126
+    ],
+    "planned_contact_sheet_groups": 4,
+    "artifact_name": "tianwen-13kz-cadal06056956-original-contacts",
+    "artifact_contains": [
+      "original-source.djvu",
+      "contact-p001-036.jpg",
+      "contact-p037-072.jpg",
+      "contact-p073-108.jpg",
+      "contact-p109-126.jpg",
+      "source-receipt.json"
+    ],
+    "downloaded_and_hash_verified_at_research_commit": false,
+    "target_13_lunation_original_glyphs_read_this_batch": 0,
+    "target_chici_chiji_original_glyphs_read_this_batch": 0,
+    "new_verified_source_family_registry_entries": 0
+  },
+  "source_scope": {
+    "old_harvard_13ky_remains_original_p7_and_p9_positive": true,
+    "siku_received_288977_09_still_received_only": true,
+    "candidate_scan_is_not_a_proven_chronologically_distinct_printing": true,
+    "no_derived_13_month_source_winner_before_original_read": true,
+    "no_new_83_84_167_168_index_winner": true,
+    "no_new_physical_or_stemmatic_vote": true,
+    "chart": "CLOSED",
+    "algorithm_reopens": 0,
+    "open_research_risks": 11
+  },
+  "counts": {
+    "root_sources": 647,
+    "source_extension": 118,
+    "combined_sources": 765,
+    "matrix_rows": 222,
+    "graph_nodes": 252,
+    "graph_edges": 238,
+    "open_issues": 11
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Commons page metadata labeling 四庫全書史部 and a public 126-page DjVu do not prove its physical impression, stemmatic independence, or the disputed target glyphs."
+    ]
+  },
+  "next_action": "Inspect hash-bound 126-page CADAL06056956 contact sheet, locate original folio of leap-year 13 moon residue and 推遲疾限 subject, inspect native high-res source page and repeat independent on-page image SHA; then register as an actual witness only if graded and physically scoped."
+}
