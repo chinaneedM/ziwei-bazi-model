@@ -1,0 +1,65 @@
+{
+  "schema": "TIANWEN-13KW-MINGSHI-V35-13KU-SOURCE-ATTRIBUTION-FORWARD-ERRATUM-R1",
+  "date": "2026-10-30",
+  "issue_id": "TW-OPEN-0005",
+  "transition": "FORWARD_ONLY_SOURCE_ATTRIBUTION_ERRATUM_NO_PREVIOUS_EVIDENCE_REWRITE",
+  "prior_evidence_file": "docs/research/TIANWEN-13KU-MINGSHI-V35-FOUR-PHASE-RETURN-AND-RECEIVED-OPERATOR-R1.json",
+  "prior_field": "received_operator.operative_phrase",
+  "prior_source_id": "EXT-WIKISOURCE-MINGSHI-V35-DATONG-TIME",
+  "prior_source_url": "https://zh.wikisource.org/wiki/明史/卷35",
+  "prior_published_quote_preserved": "推遲疾限　各置遲疾歷，以日轉限乘之，即得限數；以弦轉限累加之，滿轉中限去之；如徑求次月，以朔轉限加之，亦滿轉中去之",
+  "correction": {
+    "ordinary_url": "https://zh.wikisource.org/wiki/明史/卷35",
+    "ordinary_received_exact_subject": "推遲疾限　各置遲次歷",
+    "another_received_url": "https://zh.wikisource.org/wiki/明史_(四庫全書本)/卷035",
+    "siku_received_exact_subject": "推遲疾限　各置遲疾歴",
+    "source_of_13ku_subject_placement": "13KU quotation mixes a Siku-style 遲疾 subject into the source attribution to the ordinary received Wikisource page. It did not transcribe the stated ordinary page verbatim.",
+    "correction_scope": "CITATION_AND_SUBJECT_TEXT_ATTRIBUTE_ONLY_NOT_ORIGINAL_ANTIQUE_PRINTED_GLYPH",
+    "first_forward_notice": "docs/research/TIANWEN-13KV-MINGSHI-V35-THIRTEEN-SYNODIC-REM-RUBRIC-RECEIVED-VARIANTS-R1.json",
+    "current_erratum_not_retroactive_edition_winner": true,
+    "previous_13ku_json_and_md_kept_unmodified": true,
+    "two_website_transcriptions_not_two_ancient_physical_copies": true,
+    "full_original_harvard_p7_to_p12_operator_native_glyph_verified": false,
+    "siku_edition_original_subject_glyph_verified": false
+  },
+  "arithmetic_invariance": {
+    "prior_13ku_exact_four_quarters_minus_two_half_turns": "24.1071146",
+    "prior_13ku_math_unchanged": true,
+    "newly_proven_historical_index_or_rounding_rule": false,
+    "no_new_source_numeric_control_from_erratum": true
+  },
+  "bounded_consequence": {
+    "report_old_literal_as_misassigned_not_as_a_verified_quote": true,
+    "correct_source_ordinary_reading_to_chici": "遲次歷",
+    "preserve_distinct_siku_received_reading": "遲疾歴",
+    "historical_winner_selected": false,
+    "confirmed_chart_implementation_defect": false,
+    "source_registry_new_entries": 0,
+    "historic_g893_six_winners": 0,
+    "new_transmission_nodes": 0,
+    "new_transmission_edges": 0,
+    "algorithm_reopens": 0,
+    "chart_product": "CLOSED",
+    "risk_items_remaining_open": 11
+  },
+  "counts": {
+    "registry": 765,
+    "matrix": 222,
+    "graph_nodes": 252,
+    "graph_edges": 238,
+    "open_issues": 11
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Correcting a misattributed received transcription phrase does not demonstrate a particular Siku physical impression or direct copying edge."
+    ],
+    "unresolved_lineage_questions": [
+      "Hash bind native Harvard v11 original p7-p12 exact object 遲次/遲疾 glyph.",
+      "Check Siku printed original corresponding folio and actual source identity and relationship."
+    ]
+  },
+  "next_action": "Source-native original Harvard and Siku images with actual 13 moon numerical and 遲次/遲疾 glyphs, then source-specific date/limit worked cases."
+}
