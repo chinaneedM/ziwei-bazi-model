@@ -30,7 +30,7 @@ def verify(e,old,variants,erratum,state,ledger,pdf=None):
   size,page_sha,box,roi_sha,glyph=expected
   ensure(item["rgb_image_size"]==size and item["full_page_rgb_sha256"]==page_sha and item["roi_xyxy"]==box and item["roi_rgb_sha256"]==roi_sha,"original pixel hash")
   ensure(item["positive_glyph"]==glyph and item["pixmap_render"]=="PyMuPDF RGB 1.0x alpha=False no OCR","original glyph and method")
- ensure(comp["ordinary_received_quote_number"]==variants["sources"]["common_received"]["phrase_month_13"].replace("有閏，加","有閏加").replace("零","○"),"ordinary transcript numeric")
+ ensure(comp["ordinary_received_quote_number"]==variants["sources"]["common_received"]["phrase_month_13"].replace("有閏，加","有閏加"),"ordinary transcript numeric")
  ensure(comp["ordinary_received_quote_subject"]=="各置遲次歷" and comp["siku_labeled_received_subject"]=="各置遲疾歴","cross scope")
  ensure(comp["siku_labeled_received_number"]==variants["sources"]["siku_received"]["phrase_month_13"],"Siku received number")
  ensure(comp["original_harvard_subject"]=="遲疾歷" and comp["original_harvard_number_replays"]=="238977.09","cross-scope originals")

@@ -8,6 +8,7 @@ class HarvardTwoOriginalPages(unittest.TestCase):
   with self.assertRaises(ValueError):v.verify(*self.args)
  def test_valid(self):self.assertEqual(v.verify(*self.args)["native_original_pages"],[7,9])
  def test_false_p7_glyph(self):self.args[0]["source_native_page_collations"][0]["positive_glyph"]="有閏加二十八萬八九七七○九";self.rejects()
+ def test_receipt_ordinary_zero_variant(self):self.args[0]["comparison"]["ordinary_received_quote_number"]="有閏加二十三萬八九七七○九";self.rejects()
  def test_false_p9_glyph(self):self.args[0]["source_native_page_collations"][1]["positive_glyph"]="推遲疾限各置遲次歷";self.rejects()
  def test_false_page_sha(self):self.args[0]["source_native_page_collations"][1]["full_page_rgb_sha256"]="0"*64;self.rejects()
  def test_false_roi_sha(self):self.args[0]["source_native_page_collations"][0]["roi_rgb_sha256"]="1"*64;self.rejects()
