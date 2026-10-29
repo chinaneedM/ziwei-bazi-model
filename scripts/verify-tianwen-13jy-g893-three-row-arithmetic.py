@@ -48,7 +48,11 @@ def verify(e,s,l):
  assert len(f)==b["source_focus_count"] and f[-1].split(" ",1)[0]==b["latest_research_focus_prefix"]
  assert any(q.startswith("13JX ") for q in f) and any(q.startswith("13JY ") for q in f)
  assert a["row_count"]==222 and a["audited_row_count"]==222
- assert a["external_source_registry_total_unique_count"]==763
+ # 13JY established a 763-source baseline; later independently registered
+ # digital objects are append-only growth, not a mutation of the old reading.
+ assert a["external_source_registry_total_unique_count"]>=763
+ assert a["external_source_registry_total_unique_count"]==(
+  a["external_source_registry_root_count"]+a["external_source_registry_extension_count"])
  assert s["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED" and s["invariants"]["algorithm_reopen_count"]==0
  issue=next(q for q in l["issues"] if q["id"]=="TW-OPEN-0005")
  assert issue["status"]=="OPEN" and issue["priority"]=="P0"

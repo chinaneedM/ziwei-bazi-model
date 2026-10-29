@@ -13,6 +13,19 @@ class ExactDecimalSourceFence(unittest.TestCase):
  def test_l132_promotion(self):self.data[0]["cases"][2]["received_candidate_grade"]="CERTIFIED";self.fails()
  def test_false_original_award(self):self.data[0]["result"]["original_g893_six_cross_witness_variant_winners_awarded"]=1;self.fails()
  def test_cross_witness_scope(self):self.data[0]["method"]="same witness true";self.fails()
+ def test_source_registry_forward_growth(self):
+  h=self.data[1]["historical_audit"]
+  h["external_source_registry_extension_count"]+=1
+  h["external_source_registry_total_unique_count"]+=1
+  self.assertEqual(v.verify(*self.data)["status"],"PASS")
+ def test_source_registry_regression(self):
+  h=self.data[1]["historical_audit"]
+  h["external_source_registry_extension_count"]-=2
+  h["external_source_registry_total_unique_count"]-=2
+  self.fails()
+ def test_source_registry_count_mismatch(self):
+  self.data[1]["historical_audit"]["external_source_registry_total_unique_count"]+=1
+  self.fails()
  def test_future_append_only(self):
   self.data[1]["historical_audit"]["current_focus"].append("13JZ future work")
   self.data[2]["binding"]["source_focus_count"]+=1
