@@ -26,7 +26,7 @@ def verify(e,v,w,state,ledger):
  ck(d[0]["value_in_13kv_json"]==a["daily_base_units"]=="10000" and d[0]["actual_type"]=="str" and d[0]["fix"]=="F(a['daily_base_units'])==10000","not weakened unit type gate")
  ck(d[0]["negative_test"]=="9999 must still reject" and d[1]["new_prefix"]=="13KX CURRENT ACTION:","must retain strict gates")
  issue=next(x for x in ledger["issues"] if x["id"]=="TW-OPEN-0005")
- ck(issue["status"]=="OPEN" and issue["priority"]=="P0" and issue["next_action"].startswith("13KX CURRENT ACTION:"),"rolling issue")
+ ck(issue["status"]=="OPEN" and issue["priority"]=="P0" and issue["next_action"].startswith(binding["latest_research_focus_prefix"]+" CURRENT ACTION:"),"rolling issue")
  ck(w["transition"]=="FORWARD_ONLY_SOURCE_ATTRIBUTION_ERRATUM_NO_PREVIOUS_EVIDENCE_REWRITE","preserve 13KW erratum")
  b=e["preserved_boundaries"]
  for k in ("no_change_to_13kv_original_source_json","no_change_to_13kw_erratum_evidence","no_change_to_historic_numeric_variant_readings","prior_error_reproduced_in_exact_head_ci"):
@@ -37,7 +37,7 @@ def verify(e,v,w,state,ledger):
  ck(b["chart"]=="CLOSED" and b["open_issues"]==11 and e["counts"]==dict(root=647,extension=118,total=765,matrix=222,graph_nodes=252,graph_edges=238),"scope")
  h=state["historical_audit"];binding=ledger["binding"];i=state["invariants"]
  ck(state["schema_version"]==h["research_omission_guard"]["reviewed_state_version"]==binding["reviewed_state_version"],"version sync")
- ck(h["current_focus"][-1].startswith("13KX ") and binding["latest_research_focus_prefix"]=="13KX" and binding["source_focus_count"]==len(h["current_focus"]),"current focus")
+ ck(any(z.startswith("13KX ") for z in h["current_focus"]) and binding["latest_research_focus_prefix"]==h["current_focus"][-1].split(" ")[0] and binding["source_focus_count"]==len(h["current_focus"]),"current focus")
  ck(i["deterministic_fusion_chart_product_r1"]=="CLOSED" and i["algorithm_reopen_count"]==0 and h["row_count"]==222 and h["external_source_registry_total_unique_count"]==765,"unchanged counters")
  ck(E in issue["source_refs"] and E.replace(".json",".md") in issue["source_refs"] and any(x.get("revision_id")=="TW-OPEN-0005-13KX-CI-GATE-REPAIR-20261030" and E in x.get("evidence_refs",[]) for x in issue["history"]),"append only issue event")
  ck(len(ledger["issues"])==11 and ledger["checkpoint_log"][-1]["state_version"]==state["schema_version"],"checkpoint")

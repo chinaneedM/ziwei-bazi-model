@@ -1,0 +1,123 @@
+{
+  "schema": "TIANWEN-13KY-HARVARD-MINGSHI-V11-P7-P9-DIRECT-ORIGINAL-DUAL-GLYPHS-R1",
+  "date": "2026-10-30",
+  "issue_id": "TW-OPEN-0005",
+  "evidence_grade": "DIRECT_SOURCE_NATIVE_ORIGINAL_PRINTED_PAGE_IMAGE_SHA256_RGB_ROI_NO_OCR;_PHYSICAL_EDITION_IMPRESSION_UNBOUND",
+  "source": {
+    "institution": "Harvard Library digitized Ming Shi multivolume holding; original file available through Wikimedia Commons and existing 13KT GitHub Actions artifact",
+    "file_name": "Harvard drs 428231199 明史 v.11.pdf",
+    "original_source_url": "https://upload.wikimedia.org/wikipedia/commons/d/de/Harvard_drs_428231199_%E6%98%8E%E5%8F%B2_v.11.pdf?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "catalog_manifest": "https://iiif.lib.harvard.edu/manifests/view/drs:428231199",
+    "original_file_sha256": "36a2a99461d9d16a71e203d95ffa6cac189f1bbab94295de51ed6d3b60bd649b",
+    "original_file_bytes": 70809419,
+    "pdf_page_count": 74,
+    "recovered_existing_artifact_run_id": 40891158390,
+    "recovered_existing_artifact_id": 12904614601,
+    "source_existing_13kt_receipt": "docs/research/TIANWEN-13KT-HARVARD-MINGSHI-V11-J35-DIRECT-ORIGINAL-THREE-CONSTANTS-R1.json",
+    "distinct_original_physical_impressions_new": 0,
+    "source_registry_new_entries": 0,
+    "actual_1739_edition_impression_authenticated": false,
+    "s_other_original_copy_or_recension_authenticated": false
+  },
+  "source_native_page_collations": [
+    {
+      "pdf_page_1_based": 7,
+      "pdf_zero_index": 6,
+      "pixmap_render": "PyMuPDF RGB 1.0x alpha=False no OCR",
+      "rgb_image_size": [
+        1800,
+        1549
+      ],
+      "full_page_rgb_sha256": "b1e6e6065b9816ee8abbfb31ca36304a8af01c730a79275237116af0d9511e1f",
+      "roi_xyxy": [
+        1035,
+        220,
+        1230,
+        1210
+      ],
+      "roi_rgb_sha256": "fff1575bcf1e94a81c285a5d804a890e529456ba832d501962abc17ea0c32961",
+      "positive_glyph": "有閏加二十三萬八九七七○九",
+      "original_witness_scope": "DIRECT_ORIGINAL_PRINTED_13_SYNODIC_RESIDUE_238977_09",
+      "not_proven": "Does not reproduce the Siku physical original 288977.09 and does not by itself prove which source recension was historically prior."
+    },
+    {
+      "pdf_page_1_based": 9,
+      "pdf_zero_index": 8,
+      "pixmap_render": "PyMuPDF RGB 1.0x alpha=False no OCR",
+      "rgb_image_size": [
+        1800,
+        1551
+      ],
+      "full_page_rgb_sha256": "9078906ef067886b1bd2fc98c069fd90861cad795d50204c31c930f0b8605fef",
+      "roi_xyxy": [
+        920,
+        210,
+        1370,
+        1220
+      ],
+      "roi_rgb_sha256": "13fbbdcc23e7554690d37c50ad71e0e3d957678004d4e7c53a3f0a4adca37146",
+      "positive_glyph": "推遲疾限各置遲疾歷以日轉限乘之即得限數",
+      "neighboring_positive_glyphs": [
+        "以弦轉限累加之滿轉中限去之即各弦望及次朔限",
+        "求遲疾差置遲疾歷以立成日率減之"
+      ],
+      "original_witness_scope": "DIRECT_ORIGINAL_PRINTED_CHI_JI_LI_OBJECT_AND_OPERATOR",
+      "not_proven": "Does not imply ordinary Wikisource digital page's 遲次歷 quote is actually 遲疾歷; only this one Harvard original printed source reads 遲疾歷."
+    }
+  ],
+  "comparison": {
+    "ordinary_received_quote_number": "有閏加二十三萬八九七七零九",
+    "ordinary_received_quote_subject": "各置遲次歷",
+    "siku_labeled_received_number": "有閏加二十八萬八九七七○九",
+    "siku_labeled_received_subject": "各置遲疾歴",
+    "original_harvard_number_replays": "238977.09",
+    "original_harvard_subject": "遲疾歷",
+    "crosswise_evidence_must_be_scoped_per_phrase": true,
+    "one_printed_volume_is_one_physical_citation_family": true,
+    "original_siku_288977_original_image_confirmed": false,
+    "common_wikisource_chici_is_a_false_reading_proven": false,
+    "handwritten_or_printed_recension_genealogy_proven": false,
+    "thirteen_month_formula_index_rounding_calendar_date_proven": false
+  },
+  "fractional_replay": {
+    "period_basic_units": "29530593/100",
+    "modulus_basic_units": "600000",
+    "months": 13,
+    "quotient": 6,
+    "remainder_basic_units": "23897709/100",
+    "matched_prior_13kv_harvard_original_13month_candidate": true,
+    "does_not_match_siku_received_variant": true,
+    "numerical_difference_from_siku_received_basic_units": "50000"
+  },
+  "adjudication": {
+    "upgraded_from_received_only_in_13kv_for_harvard_specific_p7_numeric_glyph": true,
+    "upgraded_from_received_only_in_13ku_for_harvard_specific_p9_operator_glyph": true,
+    "old_13ku_received_quote_source_attribution_erratum_13kw_still_valid": true,
+    "original_g893_six_historical_numeric_winners": 0,
+    "historical_83_84_limit_index_selected": false,
+    "historical_167_168_mechanism_equivalent_proven": false,
+    "physical_copy_edition_impression_year_proven": false,
+    "new_independent_historical_source_vote": 0,
+    "new_transmission_nodes": 0,
+    "new_transmission_edges": 0,
+    "chart_algorithm_reopens": 0,
+    "product": "CLOSED",
+    "research_risks_open": 11
+  },
+  "counts": {
+    "registered_sources": 765,
+    "matrix_rows": 222,
+    "graph_nodes": 252,
+    "graph_edges": 238,
+    "risks_open": 11
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "The same Harvard v11 printed page7 and page9 collations cannot count as separate independent antiquarian witnesses or prove a source genealogy against uncollated Siku original."
+    ]
+  },
+  "next_action": "Acquire exact Siku scanned original page for 13-lunation numeral and 遲次/遲疾, independently bind actual Harvard v11 physical copy/impression, and find dated calculation of time-to-limit plus 83/84/167/168 index mechanism; G893 numeric historical controls remain open."
+}

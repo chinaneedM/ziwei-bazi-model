@@ -1,0 +1,29 @@
+name: verify-tianwen-13ky-harvard-mingshi-p7-p9-original
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - docs/PROJECT-CURRENT-STATE-R1.json
+      - docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json
+      - docs/research/TIANWEN-13KY-*
+      - scripts/verify-tianwen-13ky-harvard-mingshi-p7-p9-original.py
+      - scripts/verify-tianwen-13kx-exact-head-ci-repair.py
+      - tests/test_tianwen_13ky_harvard_mingshi_p7_p9_original.py
+      - .github/workflows/verify-tianwen-13ky-harvard-mingshi-p7-p9-original.yml
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 2}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python scripts/verify-tianwen-13ky-harvard-mingshi-p7-p9-original.py
+      - run: python -m unittest discover -s tests -p 'test_tianwen_13ky_harvard_mingshi_p7_p9_original.py' -v
+      - run: python scripts/verify-tianwen-13kx-exact-head-ci-repair.py
+      - run: python scripts/verify-tianwen-13kv-mingshi-synodic-remainder-variants.py
+      - run: python scripts/verify-research-omission-risk-ledger-r1.py --check-parent
+      - run: python scripts/verify-project-continuity-state-r1.py
