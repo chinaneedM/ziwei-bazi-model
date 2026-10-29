@@ -26,7 +26,7 @@ def verify(e,v,w,state,ledger):
  ck(d[0]["value_in_13kv_json"]==a["daily_base_units"]=="10000" and d[0]["actual_type"]=="str" and d[0]["fix"]=="F(a['daily_base_units'])==10000","not weakened unit type gate")
  ck(d[0]["negative_test"]=="9999 must still reject" and d[1]["new_prefix"]=="13KX CURRENT ACTION:","must retain strict gates")
  issue=next(x for x in ledger["issues"] if x["id"]=="TW-OPEN-0005")
- ck(issue["status"]=="OPEN" and issue["priority"]=="P0" and issue["next_action"].startswith(binding["latest_research_focus_prefix"]+" CURRENT ACTION:"),"rolling issue")
+ ck(issue["status"]=="OPEN" and issue["priority"]=="P0" and issue["next_action"].startswith(ledger["binding"]["latest_research_focus_prefix"]+" CURRENT ACTION:"),"rolling issue")
  ck(w["transition"]=="FORWARD_ONLY_SOURCE_ATTRIBUTION_ERRATUM_NO_PREVIOUS_EVIDENCE_REWRITE","preserve 13KW erratum")
  b=e["preserved_boundaries"]
  for k in ("no_change_to_13kv_original_source_json","no_change_to_13kw_erratum_evidence","no_change_to_historic_numeric_variant_readings","prior_error_reproduced_in_exact_head_ci"):
