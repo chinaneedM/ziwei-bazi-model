@@ -71,3 +71,20 @@ with fitz.open(pdf) as doc:
         for offset in range(0,len(blob),256):
             print("TW13KT_ATLAS_B64:"+blob[offset:offset+256])
         print("TW13KT_ATLAS_B64_END")
+
+# Second-pass, source-NATIVE manual target-page review; JPGs are not independent books.
+with fitz.open(pdf) as doc:
+    for one_based in (4,5,6,7):
+        p=doc.load_page(one_based-1)
+        pix=p.get_pixmap(matrix=fitz.Matrix(1.0,1.0),colorspace=fitz.csRGB,alpha=False)
+        img=Image.frombytes("RGB",(pix.width,pix.height),pix.samples)
+        out=io.BytesIO()
+        img.save(out,format="JPEG",quality=86,optimize=True)
+        content=out.getvalue()
+        (OUT/f"original-page-{one_based:03d}.jpg").write_bytes(content)
+        print(f"TW13KT_DETAIL_PAGE_{one_based:03d}_META:"+json.dumps({"source_page":one_based,"dimensions":[pix.width,pix.height],"jpeg_sha256":hashlib.sha256(content).hexdigest(),"rgb_sha256":hashlib.sha256(pix.samples).hexdigest(),"render":"fitz Matrix(1,1) csRGB alpha=False","native_source_page_pdf_sha256":sha256.hexdigest()}))
+        print(f"TW13KT_DETAIL_PAGE_{one_based:03d}_B64_START")
+        string=base64.b64encode(content).decode("ascii")
+        for k in range(0,len(string),256):
+            print(f"TW13KT_DETAIL_PAGE_{one_based:03d}_B64:"+string[k:k+256])
+        print(f"TW13KT_DETAIL_PAGE_{one_based:03d}_B64_END")
