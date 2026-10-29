@@ -1,0 +1,107 @@
+{
+  "schema": "TIANWEN-13KV-MINGSHI-V35-THIRTEEN-SYNODIC-REM-RUBRIC-RECEIVED-VARIANTS-R1",
+  "date": "2026-10-30",
+  "issue_id": "TW-OPEN-0005",
+  "grade": "TWO_RECEIVED_DIGITAL_TRANSCRIPTIONS_AND_ONE_PRIOR_ORIGINAL_PRINTED_CONSTANT;_ORIGINAL_OPERATOR_GLYPHS_NOT_COLLATED",
+  "sources": {
+    "common_received": {
+      "source_id": "EXT-WIKISOURCE-MINGSHI-V35-DATONG-TIME",
+      "url": "https://zh.wikisource.org/wiki/明史/卷35",
+      "scope": "REGISTERED_RECEIVED_TEXT_ONLY",
+      "phrase_month_13": "有閏，加二十三萬八九七七零九",
+      "phrase_month_12": "無閏加五十四萬三六七一一六",
+      "phrase_divisor": "紀法六十萬",
+      "phrase_operator": "十三朔實去紀法",
+      "phrase_limit_subject": "推遲疾限　各置遲次歷",
+      "context_preceding": "推各月遲疾歷",
+      "context_following": "求遲疾差"
+    },
+    "siku_received": {
+      "url": "https://zh.wikisource.org/wiki/明史_(四庫全書本)/卷035",
+      "scope": "SEPARATE_SIKU_LABELED_RECEIVED_WEB_TRANSCRIPTION_NO_SOURCE_ORIGINAL_IMAGE_COLLATION",
+      "phrase_month_13": "有閏加二十八萬八九七七○九",
+      "phrase_month_12": "無閏加五十四萬三六七一一六",
+      "phrase_divisor": "紀法六十萬",
+      "phrase_operator": "十三朔實去紀法",
+      "phrase_limit_subject": "推遲疾限　各置遲疾歴",
+      "context_preceding": "推各月遲疾厯",
+      "context_following": "求遲疾差",
+      "separate_physical_original_authenticated": false,
+      "independent_textual_stemma_proven": false
+    }
+  },
+  "original_constant_control": {
+    "evidence_doc": "docs/research/TIANWEN-13KT-HARVARD-MINGSHI-V11-J35-DIRECT-ORIGINAL-THREE-CONSTANTS-R1.json",
+    "harvard_v11_page6_pdf_sha256": "36a2a99461d9d16a71e203d95ffa6cac189f1bbab94295de51ed6d3b60bd649b",
+    "source_original_p6_phrase": "朔策二十九萬五千三百○五分九十三秒",
+    "ancient_edition_or_impression_identity_bound": false,
+    "original_harvard_v11_page_with_13_month_remainder_directly_verified_this_batch": false
+  },
+  "exact_arithmetic": {
+    "source_succeeding_moon_base_units": "29530593/100",
+    "period_divisor_units": "600000",
+    "count_ordinary_months": 12,
+    "count_leap_months": 13,
+    "ordinary_year_full_input": "354367116/100",
+    "ordinary_year_quotient": 5,
+    "ordinary_year_remainder": "54367116/100",
+    "leap_year_full_input": "383897709/100",
+    "leap_year_quotient": 6,
+    "leap_year_remainder": "23897709/100",
+    "ordinary_received_leap_remainder": "23897709/100",
+    "siku_received_leap_remainder": "28897709/100",
+    "discrepancy_units": "50000",
+    "daily_base_units": "10000",
+    "discrepancy_daily_unit_equivalent": "5",
+    "strictly_internal_calculation_not_ancient_example": true
+  },
+  "philological_controls": {
+    "compared_phrase": "推遲疾限，各置…歷",
+    "ordinary_subject": "遲次歷",
+    "siku_subject": "遲疾歴",
+    "preceding_and_following_context_both_use_chiji": true,
+    "interpretation": "VARIANT_OR_TRANSCRIPTION_NO_WINNER; CONTEXTUALLY_PLAUSIBLE_CHIJI_BUT_NO_ORIGINAL_PRINTED_GLYPH_PROOF",
+    "independent_source_native_image_original_glyph_p7_to_p12_verified": false,
+    "different_reading_may_not_be_silently_corrected": true
+  },
+  "adjudication": {
+    "arithmetic_13_month_remainder_matches_registered_common_received": true,
+    "arithmetic_13_month_remainder_does_not_match_siku_web_transcription": true,
+    "arithmetic_12_month_remainder_matches_both_web_transcriptions": true,
+    "modern_transcription_typo_proven": false,
+    "historical_siku_physical_edition_original_glyph_proven": false,
+    "historic_calendar_date_or_epoch_full_mechanical_example_collected": false,
+    "original_source_specific_rounding_convention_attested": false,
+    "two_web_pages_count_as_two_independent_physical_witnesses": false,
+    "historic_zero_one_index_for_83_84_proven": false,
+    "g893_six_historic_numeric_winners": 0,
+    "new_independent_source_registry_entries": 0,
+    "matrix_rows_changed": 0,
+    "new_graph_nodes": 0,
+    "new_graph_edges": 0,
+    "algorithm_reopens": 0,
+    "product": "CLOSED",
+    "open_risks": 11
+  },
+  "counters": {
+    "registered_sources": 765,
+    "matrix_rows": 222,
+    "graph_nodes": 252,
+    "graph_edges": 238,
+    "unresolved_research_issues": 11
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Received digital transcription disagreement and arithmetic favoring one reading do not prove that a specific historical impression carries that reading, nor a Ming/Huang or Siku stemmatic edge."
+    ],
+    "unresolved_lineage_questions": [
+      "Native high resolution original Harvard v11 p7-p12 exact 13-month number and 遲次/遲疾 glyph with ROI SHA.",
+      "Original Siku printed/handwritten witness displaying the 13-month residue and operator subject.",
+      "Independent Shanghai Huang/Jiayutang physical edition-to-copy binding and dated history-specific limit/epoch operation."
+    ]
+  },
+  "next_action": "Locate Harvard v11 and Siku actual original scan pages for 13-month 238977.09 vs 288977.09 and 遲次/遲疾, SHA-bound native glyphs, preserve both received variants until original; then work historical date-to-limit computation and G893 primary numeric control."
+}

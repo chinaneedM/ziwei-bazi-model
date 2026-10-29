@@ -1,0 +1,30 @@
+name: verify-tianwen-13kv-mingshi-synodic-remainder-variants
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - docs/PROJECT-CURRENT-STATE-R1.json
+      - docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json
+      - docs/research/TIANWEN-13KV-*
+      - scripts/verify-tianwen-13kv-mingshi-synodic-remainder-variants.py
+      - scripts/verify-tianwen-13ku-mingshi-four-phase-return.py
+      - tests/test_tianwen_13kv_mingshi_synodic_remainder_variants.py
+      - .github/workflows/verify-tianwen-13kv-mingshi-synodic-remainder-variants.yml
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 2}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python scripts/verify-tianwen-13kv-mingshi-synodic-remainder-variants.py
+      - run: python -m unittest discover -s tests -p 'test_tianwen_13kv_mingshi_synodic_remainder_variants.py' -v
+      - run: python scripts/verify-tianwen-13ku-mingshi-four-phase-return.py
+      - run: python -m unittest discover -s tests -p 'test_tianwen_13ku_mingshi_four_phase_return.py' -v
+      - run: python scripts/verify-tianwen-13kt-mingshi-v35-original.py
+      - run: python scripts/verify-research-omission-risk-ledger-r1.py --check-parent
+      - run: python scripts/verify-project-continuity-state-r1.py
