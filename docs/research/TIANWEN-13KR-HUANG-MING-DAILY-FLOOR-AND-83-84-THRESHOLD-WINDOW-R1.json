@@ -1,0 +1,146 @@
+{
+  "schema": "TIANWEN-13KR-LIMIT-THRESHOLD-WINDOWS-R1",
+  "date": "2026-10-29",
+  "issue_id": "TW-OPEN-0005",
+  "source_grade": "DERIVED_EXACT_FRACTION_DIAGNOSTIC_NO_NEW_PHYSICAL_SOURCE_OR_ORIGINAL_GLYPH",
+  "source_evidence": [
+    "docs/research/TIANWEN-13KQ-HUANG-MING-820-DAILY-LIMIT-ROUNDING-R1.json",
+    "docs/research/TIANWEN-13KP-HUANG-MING-83-84-167-168-DIRECT-ORIGINAL-CROSSWALK-R1.json",
+    "docs/research/TIANWEN-13KO-HUANG-P79-P80-ORIGINAL-NEXTDAY-REVERSE167-R1.json"
+  ],
+  "source_identity": {
+    "huang_pdf_sha256": "c524693e7bad502d222a1444d688cc7d63ca4a4037d7d4e08cee4aa94f9adbae",
+    "ming_pdf_sha256": "dde1bfd5d3cf15954ddc6dbf1c020971806038bbc7f737b9053d5643e5c7c264",
+    "source_pdf_byte_hashes_reverified_this_batch": true,
+    "source_pixel_hashes_reverified_this_batch": true,
+    "new_original_target_glyphs": 0,
+    "new_independent_witnesses": 0,
+    "huang_physical_copy_authenticated": false,
+    "ming_specific_physical_impression_authenticated": false
+  },
+  "conditional_model": {
+    "exact_daily_limit_fraction": "500/41",
+    "rounded_daily_limit_fraction": "61/5",
+    "exact_as_function": "E(t)=500*t/41",
+    "approx_as_function": "A(t)=61*t/5",
+    "approx_minus_exact": "t/205",
+    "interpretation": "TEST_ONLY_ASSUME_二十分_EQUALS_ONE_FIFTH_LIMIT_AND_NONNEGATIVE_ELAPSED_DAYS",
+    "integer_day_domain": [
+      0,
+      28
+    ],
+    "integer_conversion": "floor of positive rational limit value for the conditional diagnostic, not an attested historical rule",
+    "integer_day_disagreement_days": [
+      5,
+      10,
+      15,
+      20,
+      25
+    ],
+    "integer_day_disagreement_records": [
+      {
+        "elapsed_day": 5,
+        "exact_raw_limits": "2500/41",
+        "approx_raw_limits": "61",
+        "exact_trunc_limit": 60,
+        "approx_trunc_limit": 61,
+        "ceil_difference": 1,
+        "extra_approx_limits": "1/41"
+      },
+      {
+        "elapsed_day": 10,
+        "exact_raw_limits": "5000/41",
+        "approx_raw_limits": "122",
+        "exact_trunc_limit": 121,
+        "approx_trunc_limit": 122,
+        "ceil_difference": 1,
+        "extra_approx_limits": "2/41"
+      },
+      {
+        "elapsed_day": 15,
+        "exact_raw_limits": "7500/41",
+        "approx_raw_limits": "183",
+        "exact_trunc_limit": 182,
+        "approx_trunc_limit": 183,
+        "ceil_difference": 1,
+        "extra_approx_limits": "3/41"
+      },
+      {
+        "elapsed_day": 20,
+        "exact_raw_limits": "10000/41",
+        "approx_raw_limits": "244",
+        "exact_trunc_limit": 243,
+        "approx_trunc_limit": 244,
+        "ceil_difference": 1,
+        "extra_approx_limits": "4/41"
+      },
+      {
+        "elapsed_day": 25,
+        "exact_raw_limits": "12500/41",
+        "approx_raw_limits": "305",
+        "exact_trunc_limit": 304,
+        "approx_trunc_limit": 305,
+        "ceil_difference": 1,
+        "extra_approx_limits": "5/41"
+      }
+    ],
+    "proof": "For 1<=d<=28, d/205<1/5. If d is not divisible by 5, A(d) has fractional part at least 1/5 so floor E(d)=floor A(d); if d=5k, A(d)=61k exactly and E(d)=61k-k/41, so the floors differ by exactly 1.",
+    "thresholds": [
+      {
+        "integer_limit": 83,
+        "exact_crossing_day": "3403/500",
+        "approx_crossing_day": "415/61",
+        "crossing_advance_day": "83/30500",
+        "illustrative_1440_minute_advance": "5976/1525"
+      },
+      {
+        "integer_limit": 84,
+        "exact_crossing_day": "861/125",
+        "approx_crossing_day": "420/61",
+        "crossing_advance_day": "21/7625",
+        "illustrative_1440_minute_advance": "6048/1525"
+      }
+    ],
+    "threshold_window_formula": "t_rounded(L)=5L/61 <= t < t_exact(L)=41L/500; width=L/30500 days",
+    "threshold_crossover_behavior": "In each specified half-open interval the conditional approximation has reached integer L but exact cumulative limits have not; at t_exact both have reached L.",
+    "limit_83_to_84_exact_gap": "41/500",
+    "limit_83_to_84_approx_gap": "5/61",
+    "source_counted_calendrical_epoch": false,
+    "physical_wall_clock_minute_translation_historically_attested": false
+  },
+  "claim_boundaries": {
+    "difference_less_than_one_limit_can_alter_floor": true,
+    "proof_83_84_index_offset_caused_by_rounding": false,
+    "source_historic_integer_truncation_or_floor_attested": false,
+    "all_worked_orig_source_dates_collated": false,
+    "same_epoch_day_origin_proven": false,
+    "huang_ming_same_limit_variable_proven": false,
+    "modern_0_based_historical_choice_proven": false,
+    "ancient_copying_error_proven": false,
+    "chart_algorithm_reopened": false
+  },
+  "counts": {
+    "source_registry": 765,
+    "matrix_rows": 222,
+    "graph_nodes": 252,
+    "graph_edges": 238,
+    "open_risks": 11,
+    "g893_six_historical_numeric_winners": 0,
+    "algorithm_reopens": 0,
+    "chart_product": "CLOSED"
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Shared 820 base units plus exact conditional floor-window math does not attest historical direct copying or a common calendar epoch."
+    ],
+    "unresolved_lineage_questions": [
+      "Obtain primary source original worked date/elapsed day and explicit integer/fractional truncation rule for both texts.",
+      "Determine whether Huang 83 and Ming 84 reflect coordinate choice independent of the 820 unit rounding.",
+      "Authenticate physical holdings and impression chronology for both digital surrogates."
+    ]
+  },
+  "next_action": "Seek an original-scoped worked dated input tied to the day-to-limit integer convention; replay both formulae at the historical initial/terminal boundary, including epoch and carry rules, before historical index adjudication."
+}

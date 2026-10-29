@@ -1,0 +1,26 @@
+name: verify-tianwen-13kr-limit-threshold-windows
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - docs/PROJECT-CURRENT-STATE-R1.json
+      - docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json
+      - docs/research/TIANWEN-13KR-*
+      - scripts/verify-tianwen-13kr-limit-threshold-windows.py
+      - tests/test_tianwen_13kr_limit_threshold_windows.py
+      - .github/workflows/verify-tianwen-13kr-limit-threshold-windows.yml
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 2}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python scripts/verify-tianwen-13kr-limit-threshold-windows.py
+      - run: python -m unittest discover -s tests -p 'test_tianwen_13kr_limit_threshold_windows.py' -v
+      - run: python scripts/verify-research-omission-risk-ledger-r1.py --check-parent
+      - run: python scripts/verify-project-continuity-state-r1.py
