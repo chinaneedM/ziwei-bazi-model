@@ -1,0 +1,116 @@
+{
+  "schema": "TIANWEN-13KU-MINGSHI-V35-FOUR-PHASE-RETURN-AND-RECEIVED-OPERATOR-R1",
+  "date": "2026-10-30",
+  "issue_id": "TW-OPEN-0005",
+  "grade": "DIRECT_13KT_PRINTED_NUMERIC_CONSTANTS_PLUS_REGISTERED_RECEIVED_OPERATOR_TEXT;_NO_NEW_ORIGINAL_OPERATOR_GLYPH",
+  "original_source": {
+    "earlier_evidence": "docs/research/TIANWEN-13KT-HARVARD-MINGSHI-V11-J35-DIRECT-ORIGINAL-THREE-CONSTANTS-R1.json",
+    "source_pdf_sha256": "36a2a99461d9d16a71e203d95ffa6cac189f1bbab94295de51ed6d3b60bd649b",
+    "original_target_pdf_page": 6,
+    "original_target_literals": [
+      "日轉限一十二限二十",
+      "轉中限一百六十八限○八三○六○",
+      "朔轉限二十四限一○七一一四六",
+      "弦轉限九十○限○六八三○八六五"
+    ],
+    "source_page_p7_to_p12_native_operator_collation_this_batch": false,
+    "exact_physical_impression_or_1739_date_proven": false,
+    "new_independent_physical_witnesses": 0
+  },
+  "received_operator": {
+    "source_id": "EXT-WIKISOURCE-MINGSHI-V35-DATONG-TIME",
+    "source_url": "https://zh.wikisource.org/wiki/明史/卷35",
+    "evidence_role": "REGISTERED_RECEIVED_TRANSCRIPTION_NOT_A_NEW_ORIGINAL_IMAGE",
+    "operative_phrase": "推遲疾限　各置遲疾歷，以日轉限乘之，即得限數；以弦轉限累加之，滿轉中限去之；如徑求次月，以朔轉限加之，亦滿轉中去之",
+    "arithmetic_text_graded_received_only": true,
+    "independent_source_native_page_confirmation_of_this_full_phrase": false,
+    "caution": "Received wording carries recognized transcription noise; in particular other editions show 遲次/遲疾 variants. The direct-image positive this batch is restricted to previously checked 13KT p6 constants."
+  },
+  "rational_basis": {
+    "day_units": 10000,
+    "daily_limit_rate": "61/5",
+    "exact_820_unit_rate": "500/41",
+    "full_turn_units": "275546",
+    "middle_turn_units": "137773",
+    "synodic_period_units": "29530593/100",
+    "synodic_turn_difference_units": "1975993/100",
+    "middle_turn_limit": "168.083060",
+    "quarter_turn_limit": "90.06830865",
+    "synodic_turn_limit": "24.1071146",
+    "algebraic_identity": "four_quarter_limits_minus_two_half_turn_limits_equals_one_synodic_turn_limit",
+    "all_values_are_source_specific_not_universal_invariants": true
+  },
+  "conditional_four_phase_replay": [
+    {
+      "phase_index": 0,
+      "raw_cumulative_limit": "0",
+      "half_turns_removed": 0,
+      "residual_limit": "0",
+      "parity": "EVEN"
+    },
+    {
+      "phase_index": 1,
+      "raw_cumulative_limit": "90.06830865",
+      "half_turns_removed": 0,
+      "residual_limit": "90.06830865",
+      "parity": "EVEN"
+    },
+    {
+      "phase_index": 2,
+      "raw_cumulative_limit": "180.13661730",
+      "half_turns_removed": 1,
+      "residual_limit": "12.05355730",
+      "parity": "ODD"
+    },
+    {
+      "phase_index": 3,
+      "raw_cumulative_limit": "270.20492595",
+      "half_turns_removed": 1,
+      "residual_limit": "102.12186595",
+      "parity": "ODD"
+    },
+    {
+      "phase_index": 4,
+      "raw_cumulative_limit": "360.27323460",
+      "half_turns_removed": 2,
+      "residual_limit": "24.10711460",
+      "parity": "EVEN"
+    }
+  ],
+  "mathematical_result": {
+    "four_times_quarter_minus_two_times_middle": "24.10711460",
+    "direct_synodic_limit": "24.1071146",
+    "exact_equality": true,
+    "threshold_168_integer_vs_middle_168_083060_distinct": true,
+    "phase_quotient_parity_a_conditional_model_only": true
+  },
+  "boundaries": {
+    "dated_original_historic_calendar_example_found": false,
+    "source_specific_integer_floor_or_carry_attested": false,
+    "huang_vs_ming_83_84_or_167_168_mechanical_equivalence_proven": false,
+    "historic_zero_or_one_base_selected": false,
+    "historical_168_integer_is_identical_to_168_083060_middle_period": false,
+    "new_original_full_operator_glyphs_verified": 0,
+    "historic_g893_six_numeric_winners": 0,
+    "new_source_registry_entries": 0,
+    "transmission_graph_nodes_added": 0,
+    "transmission_graph_edges_supported": 0,
+    "chart_algorithm_reopens": 0,
+    "deterministic_chart_product": "CLOSED",
+    "remaining_open_risks": 11
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Four-phase arithmetic equality in the same received Ming Shi numerical family does not show an independent Huang-to-Ming copying relation or edition identity."
+    ],
+    "unresolved_lineage_questions": [
+      "Collate original Harvard v11 p7-p12 operational glyphs at native resolution and compare exact variants.",
+      "Find a dated original calendrical worked case binding epoch, elapsed time, limit quotient and remainder.",
+      "Authenticate Shanghai Huang and Harvard printed physical copies and resolve 83/84 vs167/168 indexed operations."
+    ]
+  },
+  "next_action": "Source-native p7-p12 complete step-by-step operator and dated worked case; do not replace the received text with original grade without new hash-bound image ROI; preserve G893 six unresolved historic numeric decisions."
+}
