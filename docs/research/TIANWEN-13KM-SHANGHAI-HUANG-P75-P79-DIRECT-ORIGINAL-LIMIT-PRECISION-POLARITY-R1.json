@@ -1,0 +1,120 @@
+{
+  "schema": "TIANWEN-13KM-SHANGHAI-HUANG-P75-P79-DIRECT-ORIGINAL-LIMIT-PRECISION-POLARITY-R1",
+  "date": "2026-10-29",
+  "issue_id": "TW-OPEN-0005",
+  "prior_source_evidence": [
+    "docs/research/TIANWEN-13KI-SHANGHAI-HUANG-97PAGE-DIGITAL-ACQUISITION-R1.json",
+    "docs/research/TIANWEN-13KK-HUANG-DATONG-V3-SHOUSHI-V4-ORIGINAL-SEAM-P71-R1.json",
+    "docs/research/TIANWEN-13KG-HARVARD-1739-MINGSHI-J33-DIRECT-PRINTED-POLARITY-R1.json"
+  ],
+  "source": {
+    "title": "Shanghai 授時歷故四卷.pdf",
+    "origin": "Wikimedia Commons source-labeled dGJ2300966; upstream Shanghai holding/impression not first-party authenticated",
+    "url": "https://commons.wikimedia.org/wiki/File:Shanghai_%E6%8E%88%E6%99%82%E6%AD%B7%E6%95%85%E5%9B%9B%E5%8D%B7.pdf",
+    "pdf_sha256": "c524693e7bad502d222a1444d688cc7d63ca4a4037d7d4e08cee4aa94f9adbae",
+    "pdf_pages": 97,
+    "pdf_bytes": 14376480,
+    "source_acquisition_artifact_id": 12890397318,
+    "review_method": "Direct visual original RGB pixel review; PDF pages 75 and 79; no OCR",
+    "identified_physical_copy": false,
+    "original_impression_year_proven": false
+  },
+  "positive_original_image_regions": [
+    {
+      "pdf_page": 75,
+      "page_rgb_size": [
+        1161,
+        969
+      ],
+      "page_rgb_sha256": "d0598899732f5a76c89eb43454d912d3242832e88d9ffc64fd557db661cb5f69",
+      "rect_px": [
+        110,
+        110,
+        440,
+        770
+      ],
+      "rect_rgb_sha256": "51cf3da6a6790fb9b6988d7ab30e8c40a152e61d0ae95747b08b602b97882725",
+      "positive_glyphs": [
+        "中限一百六十八",
+        "初限八十四",
+        "周限三百三十六"
+      ],
+      "role": "LUNAR_RELATED_LIMIT_NUMERIC_CONTEXT_NOT_DIRECT_167_MINUS_INDEX_PROOF"
+    },
+    {
+      "pdf_page": 79,
+      "page_rgb_size": [
+        1160,
+        1028
+      ],
+      "page_rgb_sha256": "4dc6c52c353bc28ec8f059030e68f6689952944c64651e1fcb92f13dede8c4de",
+      "rect_px": [
+        785,
+        125,
+        1130,
+        920
+      ],
+      "rect_rgb_sha256": "2f57048dbcbeec29c7334cd183b182f172f73c145327aaf25dd68b643f44cdab",
+      "positive_glyphs": [
+        "大衍",
+        "益加損減"
+      ],
+      "role": "DAYAN_BOUNDED_LEGACY_STEP_P79_NOT_AUTOMATICALLY_SAME_OPERATION_AS_HUANG_RECEIVED_MODERN_OCR"
+    },
+    {
+      "pdf_page": 79,
+      "page_rgb_size": [
+        1160,
+        1028
+      ],
+      "page_rgb_sha256": "4dc6c52c353bc28ec8f059030e68f6689952944c64651e1fcb92f13dede8c4de",
+      "rect_px": [
+        688,
+        120,
+        935,
+        1005
+      ],
+      "rect_rgb_sha256": "7eeac699644fc666e1ee496628408a1dd5e7aa038588d66d2eb6f5be10a705b5",
+      "positive_glyphs": [
+        "定立成術",
+        "五秒八十一微五十纖"
+      ],
+      "role": "SEPARATE_HUANG_SOURCE_CALCULATION_LAYER_FULL_PRECISION_AT_P79"
+    }
+  ],
+  "interpretation_boundaries": {
+    "gain_loss_glyph_present_in_one_dayanscope_section": true,
+    "huang_received_益加損減_same_step_as_dayanscope_proven": false,
+    "huang_source_50xian_full_precision_glyph_positive": true,
+    "ming_harvard_50xian_written_in_its_short_final_step": false,
+    "ancient_cross_version_copying_error_proven": false,
+    "source_P75_168_limits_positive": true,
+    "source_167_reverse_index_original_glyph_positive": false,
+    "zero_based_167_and_168_period_semantics_proven": false,
+    "physical_manuscript_or_1923_identity_proven": false,
+    "one_digital_object_only": true,
+    "new_independent_witnesses": 0,
+    "new_source_registry_entries": 0,
+    "graph_nodes_delta": 0,
+    "graph_edges_delta": 0,
+    "g893_six_cross_witness_numeric_winners": 0,
+    "chart_algorithm_reopens": 0,
+    "chart_product": "CLOSED",
+    "issue_closed": false
+  },
+  "research_question": "Disentangle distinct Dayan wording from Huang Dinglichengshu (定立成術) and Ming Shi 布立成法. Do not conflate shared glyphs with same mechanical step; seek its full original operation and Shanghai official physical item binding.",
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "One Huang-associated scanned manuscript presents full-precision expression and an adjacent historical Dayan gain/loss step; same PDF is not an independent Ming printed witness or a proven direct-copy relationship."
+    ],
+    "unresolved_lineage_questions": [
+      "Physical edition/impression of dGJ2300966 remains unbound",
+      "Check exact Huang lunar target operational phrase beyond Dayan earlier step, including preceding definition of current difference",
+      "Determine if a four-decimal Ji row in G893 can be reconciled with source precision only via independently source-scoped reproduction"
+    ]
+  },
+  "next_action": "Locate original Huang lunar limit-by-limit gain/loss operative step (not just Dayan historical formula) on source P79+ and directly collate with the 13KG Harvard Ming Shi step; map 167 reverse limit only when original glyph is actually located; authenticate Shanghai physical copy before edition/stemma claims."
+}
