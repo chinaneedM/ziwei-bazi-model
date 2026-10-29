@@ -1,0 +1,90 @@
+{
+  "schema": "TIANWEN-13KK-HUANG-DATONG-V3-SHOUSHI-V4-ORIGINAL-SEAM-P71-R1",
+  "date": "2026-10-29",
+  "issue_id": "TW-OPEN-0005",
+  "parent_digital_acquisition": "docs/research/TIANWEN-13KI-SHANGHAI-HUANG-97PAGE-DIGITAL-ACQUISITION-R1.json",
+  "source_identity": {
+    "provider": "Wikimedia Commons digital file named Shanghai 授時歷故四卷.pdf; underlying Shanghai official item identity not authenticated",
+    "commons_file_page": "https://commons.wikimedia.org/wiki/File:Shanghai_%E6%8E%88%E6%99%82%E6%AD%B7%E6%95%85%E5%9B%9B%E5%8D%B7.pdf",
+    "upstream_file_label": "dGJ2300966.pdf",
+    "source_pdf_sha256": "c524693e7bad502d222a1444d688cc7d63ca4a4037d7d4e08cee4aa94f9adbae",
+    "source_sha1": "73c2017bb9eb109edf069f9563c397e7fcb2cba4",
+    "source_pdf_pages": 97,
+    "source_pdf_bytes": 14376480,
+    "acquisition_artifact_id": 12890397318,
+    "original_physical_copy_identity_bound": false,
+    "ancient_edition_impression_bound": false
+  },
+  "direct_visual_collation": {
+    "pdf_page_1_based": 71,
+    "zero_based_index": 70,
+    "pixmap": "PyMuPDF Page.get_pixmap(Matrix(1.25,1.25),csRGB,alpha=False)",
+    "page_rgb_size_px": [
+      1160,
+      1028
+    ],
+    "page_rgb_sha256": "c8b5be0c976d966240403c3d357e9453cd22c69a36c772ef7da0cdad4807160d",
+    "pixel_roi_reviews": [
+      {
+        "id": "P71-RIGHT-PREVIOUS-WORK-TERMINUS",
+        "location": "right-hand half, bounded final column",
+        "rect_px": [
+          685,
+          200,
+          770,
+          490
+        ],
+        "roi_rgb_sha256": "e6a0758fb67eb7f603c357bb9539c87db8f6135911722eff474fd3d846cea0ee",
+        "literal": "大統曆故卷三終",
+        "scope": "DIRECT_SOURCE_GLYPH_POSITIVE_ONLY"
+      },
+      {
+        "id": "P71-LEFT-NEW-WORK-HEADING",
+        "location": "left-hand half, new heading and subsection",
+        "rect_px": [
+          510,
+          165,
+          575,
+          605
+        ],
+        "roi_rgb_sha256": "248b5b6af0e28b499bc61f959ede1c71c93d0c2c194ce07bfc0c59d58d912a73",
+        "literal": "授時曆故卷四／月離曆",
+        "scope": "DIRECT_SOURCE_GLYPH_POSITIVE_ONLY"
+      }
+    ],
+    "manual_method": "read original 13KI archival PDF and native source pixels; no OCR",
+    "scope_boundary": "One crosspage original image, not full-text collation of PDF pages 71-92 and not proof of two independent printed editions"
+  },
+  "revised_source_scope": {
+    "volume_four_start_page_mapped": 71,
+    "two_different_adjacent_work_labels_attested": true,
+    "source_compilation_or_rebinding_mechanism_proven": false,
+    "g893_source_algorithm_units_proven": false,
+    "huang_益加損減_original_glyph_proven": false,
+    "huang_五秒八十一微五十纖_original_glyph_proven": false,
+    "huang_一百六十七限_original_glyph_proven": false,
+    "printed_1923_Jiayetang_copy_identity_proven": false,
+    "no_false_absence_in_unevaluated_pages": true,
+    "previous_13KI_immutable_coverage_snapshot_unchanged": true,
+    "new_independent_physical_witnesses": 0,
+    "new_source_registry_entries": 0,
+    "new_genealogy_nodes": 0,
+    "new_genealogy_edges": 0,
+    "numeric_variant_winners": 0,
+    "algorithm_reopens": 0,
+    "product": "CLOSED",
+    "issue_closed": false
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Adjacent titles on one digitized page do not prove author identity, physical rebinding history, or direct copying between the works."
+    ],
+    "unresolved_lineage_questions": [
+      "Why does this digital object join a 大統曆故卷三 terminus to 授時曆故卷四? Verify original catalog and bindings before stemmatic interpretation."
+    ]
+  },
+  "next_action": "Using direct P71 heading bound, inspect original P71-P92 chapter body for exactly the three target lexemes and line-position grammar; publish hash-scoped exact ROI only after visual collation. Confirm Shanghai official accession and physical edition independently."
+}
