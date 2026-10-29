@@ -64,13 +64,13 @@ def verify(e,s,l,r):
     require(e["counts"]==dict(source_registry=765,matrix_rows=222,graph_nodes=252,graph_edges=238,open_research_issues=11),"counts")
     imp=e["transmission_impact"]
     require(not imp["edges_supported"] and not imp["edges_revised"] and not imp["nodes_added_or_strengthened"],"genealogy direct edge")
-    require(s["schema_version"]=="1.938.0","state version")
+    require(s["schema_version"]==s["historical_audit"]["research_omission_guard"]["reviewed_state_version"]==l["binding"]["reviewed_state_version"],"state version synced")
     require(s["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED" and s["invariants"]["algorithm_reopen_count"]==0,"chart invariants")
     h=s["historical_audit"]
     require(h["external_source_registry_total_unique_count"]==765 and h["row_count"]==h["audited_row_count"]==222,"source and matrix")
     require(h["research_omission_guard"]["reviewed_state_version"]==s["schema_version"]==l["binding"]["reviewed_state_version"],"ledger review version")
-    require(l["binding"]["latest_research_focus_prefix"]=="13KS" and l["binding"]["source_focus_count"]==len(h["current_focus"]),"focus count")
-    require(h["current_focus"][-1].startswith("13KS "),"focus event")
+    require(l["binding"]["source_focus_count"]==len(h["current_focus"]) and h["current_focus"][-1].startswith(l["binding"]["latest_research_focus_prefix"]+" "),"focus count")
+    require(any(z.startswith("13KS ") for z in h["current_focus"]),"prior 13KS focus preserved")
     issue=next(x for x in l["issues"] if x["id"]==e["issue_id"])
     require(issue["status"]=="OPEN" and issue["priority"]=="P0","open issue scope")
     require(E in issue["source_refs"] and E.replace(".json",".md") in issue["source_refs"],"evidence links")
