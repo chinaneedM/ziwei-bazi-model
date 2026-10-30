@@ -1,0 +1,37 @@
+{
+  "schema": "TIANWEN-13LK-EXACT-HEAD-SOURCE-PHOTO-TRANSPORT-RECOVERY-R1",
+  "date": "2026-10-30",
+  "issue_id": "TW-OPEN-0005",
+  "failed_head": "45c7b3b9e7ff46c6b67aa404ba9269be91db2aaf",
+  "failed_run_id": 41043922884,
+  "failed_job_id": 124023186867,
+  "failed_step": "Verify previously source-declared official photo4 pixels",
+  "failure_kind": "urllib.error.URLError caused by socket connect TimeoutError after 25s; not an assertion/image-hash/glyph-test failure",
+  "source_url": "https://db.history.go.kr/common/imageProxy.do?filePath=/kr/052/kr_052_1058.jpg&mode=download",
+  "local_record_checks_passed": 8,
+  "recovery_commit": "b9568e654fb2b26412d7fa84c3c1ec9fa544738c",
+  "recovery_run_id": 41044890867,
+  "recovery_status": "success",
+  "observed_success_attempt": 1,
+  "observed_bytes": 247816,
+  "observed_sha256": "63a45c4dc223e360267659acd2a6900767aaf10d82db1bf43724463edb8ddc0a",
+  "new_transport_tests_passed": 9,
+  "retry_policy": {
+    "maximum_attempts": 3,
+    "per_attempt_timeout_seconds": 25,
+    "backoff_seconds": [
+      1,
+      2
+    ],
+    "retry_only": "Timeout/connection-reset/refused/DNS transient or HTTP408,429,500,502,503,504",
+    "never_accept": "403/TLS certificate failure, wrong source, byte length/SHA256/RGB/glyph ROI mismatch",
+    "alternate_sources_used": false,
+    "source_hash_gate_unchanged": true,
+    "original_13HB_evidence_changed": false
+  },
+  "historical_claims_changed": false,
+  "new_historical_sources": 0,
+  "algorithm_reopens": 0,
+  "product": "CLOSED",
+  "next_action": "Source byte/pixel verification recovered; continue 13LJ first-party color physical-plate investigation. A retry is transport recovery, not new historical evidence."
+}

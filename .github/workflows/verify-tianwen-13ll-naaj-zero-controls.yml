@@ -1,0 +1,31 @@
+name: verify-tianwen-13ll-naaj-zero-controls
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - docs/PROJECT-CURRENT-STATE-R1.json
+      - docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json
+      - docs/research/TIANWEN-13LK-*
+      - docs/research/TIANWEN-13LL-*
+      - scripts/verify-tianwen-13ll-naaj-zero-controls.py
+      - scripts/replay-tianwen-13ll-naaj-zero-controls.py
+      - tests/test_tianwen_13ll_naaj_zero_controls.py
+      - .github/workflows/verify-tianwen-13ll-naaj-zero-controls.yml
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 2}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python scripts/verify-tianwen-13ll-naaj-zero-controls.py
+      - run: python -m unittest discover -s tests -p 'test_tianwen_13l*.py' -v
+      - run: python -m py_compile scripts/replay-tianwen-13ll-naaj-zero-controls.py
+      - run: python scripts/verify-tianwen-13lj-naaj-firstparty-color.py
+      - run: python scripts/verify-tianwen-13li-naaj-mrc-layers.py
+      - run: python scripts/verify-research-omission-risk-ledger-r1.py --check-parent
+      - run: python scripts/verify-project-continuity-state-r1.py
