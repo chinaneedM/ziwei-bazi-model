@@ -66,11 +66,11 @@ def main():
                             height=min(2000,y2-y)
                             region=f'{x1},{y},{x2-x1},{height}'
                             # IIIF regionByPx at full output keeps source coordinate sampling.
-                            tile_url=resource['service']['@id']+'/'+region+'/full/0/native.png'
+                            tile_url=resource['service']['@id']+'/'+region+f'/{x2-x1},/0/native.jpg'
                             tile,tile_meta=fetch(tile_url)
                             tile_im=Image.open(io.BytesIO(tile)).convert('RGB')
                             assert tile_im.size==(x2-x1,height),'native region unexpectedly resampled'
-                            name=label+f'-roi-y{y}.png';(OUT/name).write_bytes(tile)
+                            name=label+f'-roi-y{y}.jpg';(OUT/name).write_bytes(tile)
                             parts.append({'file':name,'region_xywh':[x1,y,x2-x1,height],'download':tile_meta,'rgb_sha256':hashlib.sha256(tile_im.tobytes()).hexdigest()})
                             assembled.paste(tile_im,(0,y-y1))
                         assembled.save(OUT/(label+'-numeric-roi.png'))
