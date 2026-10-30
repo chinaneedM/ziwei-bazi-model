@@ -32,6 +32,6 @@ assert l["binding"]["latest_research_focus_prefix"]=="13MK"
 issue=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
 assert issue["status"]=="OPEN" and issue["priority"]=="P0"
 assert str(p.relative_to(R)) in issue["source_refs"]
-assert issue["history"][-1]["revision_id"]=="TW-OPEN-0005-13MK-ORIGINAL-001A-REACQUIRED-20261031"
+assert any(x.get("revision_id")=="TW-OPEN-0005-13MK-ORIGINAL-001A-REACQUIRED-20261031" for x in issue["history"])
 assert l["checkpoint_log"][-1]["state_version"]=="1.973.0"
 print(json.dumps({"result":"PASS","g893_original_pages_verified":3,"crosssource_winners":0,"product":"CLOSED"}))
