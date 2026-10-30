@@ -26,7 +26,8 @@ def check(e,s,l):
  assert s["schema_version"]==l["binding"]["reviewed_state_version"]==s["historical_audit"]["research_omission_guard"]["reviewed_state_version"]
  assert tuple(map(int,s["schema_version"].split(".")))>=(1,960,0)
  assert any(x.startswith("13LP ") for x in s["historical_audit"]["current_focus"])
- assert l["binding"]["latest_research_focus_prefix"]=="13LP"
+ # Forward-only batches move the current prefix; archived 13LP must remain cited.
+ assert l["binding"]["latest_research_focus_prefix"]==s["historical_audit"]["current_focus"][-1].split(" ",1)[0]
  assert len(s["historical_audit"]["current_focus"])==l["binding"]["source_focus_count"]
  issue=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
  assert issue["status"]=="OPEN" and "13LP CURRENT ACTION:" in issue["next_action"]

@@ -23,4 +23,13 @@ class Test13LP(unittest.TestCase):
  def test_registry_count_inflated(self):
   e,s,l=copy.deepcopy(self.data);e["counts"]["sources"]=766
   with self.assertRaises(AssertionError):m.check(e,s,l)
+ def test_forward_only_newer_focus(self):
+  e,s,l=copy.deepcopy(self.data)
+  s["historical_audit"]["current_focus"].append("13LR future scope preserves 13LP")
+  l["binding"]["source_focus_count"]=len(s["historical_audit"]["current_focus"])
+  l["binding"]["latest_research_focus_prefix"]="13LR"
+  self.assertEqual(m.check(e,s,l)["status"],"PASS")
+ def test_stale_latest_prefix(self):
+  e,s,l=copy.deepcopy(self.data);l["binding"]["latest_research_focus_prefix"]="13LP"
+  with self.assertRaises(AssertionError):m.check(e,s,l)
 if __name__=="__main__":unittest.main()

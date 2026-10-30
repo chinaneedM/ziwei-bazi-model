@@ -25,4 +25,15 @@ class Test13LQ(unittest.TestCase):
  def test_missing_ledger_review(self):
   e,s,l=copy.deepcopy(self.data);l["binding"]["reviewed_state_version"]="1.960.0"
   with self.assertRaises(AssertionError):m.check(e,s,l)
+ def test_forward_only_newer_focus(self):
+  e,s,l=copy.deepcopy(self.data)
+  s["historical_audit"]["current_focus"].append("13LR future scope preserves 13LQ")
+  l["binding"]["source_focus_count"]=len(s["historical_audit"]["current_focus"])
+  l["binding"]["latest_research_focus_prefix"]="13LR"
+  issue=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
+  issue["next_action"]="13LR CURRENT ACTION: later batch\\n"+issue["next_action"]
+  self.assertEqual(m.check(e,s,l)["status"],"PASS")
+ def test_stale_latest_prefix(self):
+  e,s,l=copy.deepcopy(self.data);l["binding"]["latest_research_focus_prefix"]="13LP"
+  with self.assertRaises(AssertionError):m.check(e,s,l)
 if __name__=="__main__":unittest.main()
