@@ -1,0 +1,31 @@
+name: acquire-tianwen-13mg-bsb-juan35-complete-source-lane
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - scripts/acquire-tianwen-13mg-bsb-v1-juan35-complete-image-lane.py
+      - scripts/verify-tianwen-13mf-bsb-title-c560.py
+      - docs/research/TIANWEN-13MF-BSB-JUAN35-DIRECT-TITLE-C560-AND-ADJACENT-FASCICLE-GATE-R1.json
+      - .github/workflows/acquire-tianwen-13mg-bsb-v1-juan35-complete-lane.yml
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  acquire:
+    runs-on: ubuntu-latest
+    timeout-minutes: 24
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 2}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python -m pip install pillow
+      - run: python scripts/verify-tianwen-13mf-bsb-title-c560.py
+      - run: python scripts/acquire-tianwen-13mg-bsb-v1-juan35-complete-image-lane.py --out /tmp/tianwen-13mg
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: tianwen-13mg-bsb-volume1-juan35-51-original-images
+          path: /tmp/tianwen-13mg/
+          if-no-files-found: warn
+      - run: python scripts/verify-research-omission-risk-ledger-r1.py --check-parent
+      - run: python scripts/verify-project-continuity-state-r1.py

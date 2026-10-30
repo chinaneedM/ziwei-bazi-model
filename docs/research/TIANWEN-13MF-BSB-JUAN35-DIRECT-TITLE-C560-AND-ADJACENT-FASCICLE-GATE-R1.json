@@ -1,0 +1,224 @@
+{
+  "schema": "TIANWEN-13MF-BSB-JUAN35-DIRECT-TITLE-C560-AND-ADJACENT-FASCICLE-GATE-R1",
+  "date": "2026-10-31",
+  "issue_id": "TW-OPEN-0005",
+  "type": "SAME_SOURCE_DIRECT_ORIGINAL_TITLE_AND_JUAN_BOUNDS",
+  "source": {
+    "provider": "Bayerische Staatsbibliothek",
+    "digital_surrogate": "bsb11166691",
+    "manifest": "https://api.digitale-sammlungen.de/iiif/presentation/v2/bsb11166691/manifest",
+    "manifest_sha256": "ed4ff6358db2c462edceb9ed5c2d667645cf000ed5f031eec8342fb3a241a369",
+    "manifest_canvas_count": 1910
+  },
+  "acquisition": {
+    "head_sha": "8e8ac73a74c1261c1fd731f274f670735d8490ba",
+    "workflow_run": 41081537867,
+    "workflow_url": "https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/41081537867",
+    "status": "completed",
+    "conclusion": "success",
+    "artifact_id": 12988714689,
+    "artifact_name": "tianwen-13me-bsb-v1-j35-title-boundary",
+    "artifact_zip_size_bytes": 6871624,
+    "artifact_zip_sha256": "596b55bcda02a84b316f82ba7770c826417a62eaa4619d9a578ffa3fd0320c98",
+    "manifest_sha256_verified": true,
+    "source_derived_900px_jpeg_count": 29,
+    "reverified_jpeg_sha256_count": 29,
+    "reverified_decoded_rgb_sha256_count": 29,
+    "full_image_ocr_used": false,
+    "readback": "Downloaded original GitHub Actions output and independently verified all 29 JPEG and decoded RGB hashes against source-report.json; manually inspected firstparty c560/c574 pages."
+  },
+  "direct_page_observations": [
+    {
+      "canvas": 560,
+      "page_type": "ORIGINAL_PRINTED_JUAN35_TITLE_AND_BEGINNING",
+      "glyphs": [
+        "明史卷三十五",
+        "志第十一",
+        "歷五",
+        "大統曆法三上"
+      ],
+      "url": "https://api.digitale-sammlungen.de/iiif/image/v2/bsb11166691_00560/full/900,/0/default.jpg",
+      "bytes": 262917,
+      "pixels": [
+        900,
+        1470
+      ],
+      "jpeg_sha256": "3e28a2edb539561b952e46a01a75d4bfd003cdf46f0287f2140b0d20fc405ca8",
+      "rgb_sha256": "0c7e289209d29d541d331019dee93dae4858ffb808933cfbd4a8a17a96047835",
+      "roi_regions": "title in upper right vertical columns, calendar subtitle in inner central vertical headings",
+      "grade": "SOURCE_PAGE_DIRECT_VISUAL_BOUNDED_NOT_FULL_LINE_COLLATION"
+    },
+    {
+      "canvas": 574,
+      "page_type": "ORIGINAL_PRINTED_JUAN34_END_ON_SAME_CARRIER",
+      "glyphs": [
+        "明史卷三十四終"
+      ],
+      "url": "https://api.digitale-sammlungen.de/iiif/image/v2/bsb11166691_00574/full/900,/0/default.jpg",
+      "bytes": 218581,
+      "pixels": [
+        900,
+        1518
+      ],
+      "jpeg_sha256": "ddd92505bd9775d4ed0babd859fb9d164d4b7d476270fd3604dc1bb2959523a6",
+      "rgb_sha256": "3a3b6eab0bb663486ec0f3b9cda46be797b542d9467b3aa9098c40a1aeee02c1",
+      "roi_regions": "leftmost vertical end column",
+      "grade": "SOURCE_PAGE_DIRECT_VISUAL_BOUNDED_NOT_FULL_LINE_COLLATION"
+    },
+    {
+      "canvas": 511,
+      "page_type": "PRIOR_VERIFIED_ORIGINAL_JUAN35_END",
+      "glyphs": [
+        "明史卷三十五終"
+      ],
+      "url": "https://api.digitale-sammlungen.de/iiif/image/v2/bsb11166691_00511/full/900,/0/default.jpg",
+      "bytes": 268327,
+      "pixels": [
+        900,
+        1514
+      ],
+      "jpeg_sha256": "d7c9ffb0ea1db796c30779f56b08388f960c099574181063dba3ea585ff70226",
+      "rgb_sha256": "72764e4c0089c9c558e095cf6a2498a56552f7e829e04f3129053f2b1fcbbd92"
+    },
+    {
+      "canvas": 539,
+      "page_type": "PRIOR_VERIFIED_ORIGINAL_JUAN35_BODY",
+      "glyphs": [
+        "從行積度內減去相距度者為減"
+      ],
+      "url": "https://api.digitale-sammlungen.de/iiif/image/v2/bsb11166691_00539/full/900,/0/default.jpg",
+      "bytes": 252919,
+      "pixels": [
+        900,
+        1517
+      ],
+      "jpeg_sha256": "7c26f50ce77c3265862e8d347047a568cf424c84f5c4df4dd60b72746fdf0ca0",
+      "rgb_sha256": "60122831911f4542d023fc3c3d55e94f1e8764e567205c7c4b0d6d0cb63b090a"
+    }
+  ],
+  "scoped_folio_relationship": {
+    "original_title_leaf_juan35_positive": true,
+    "original_juan35_title_leaf_canvas": 560,
+    "juan35_body_original_canvas": 539,
+    "juan35_end_original_canvas": 511,
+    "juan34_end_original_canvas": 574,
+    "in_this_digital_surrogate_limited_local_sequence": "c574 juan34 end -> c560 juan35 beginning -> c539 juan35 body -> c511 juan35 end when browsing descending canvas numbers",
+    "global_copyright_or_whole_manifest_juan_sequence_proven": false,
+    "same_digital_surrogate_not_independent_physical_witness": true,
+    "title_leaf_page_is_printed_original_text_in_900px_provider_derivative": true
+  },
+  "next_acquisition_plan": {
+    "status": "SCRIPT_AND_ACTION_STAGED_NOT_REPLAYED",
+    "source_object": "bsb11166691",
+    "candidate_original_juan35_canvas_range_1based": [
+      511,
+      560
+    ],
+    "canvas_ids_1based": [
+      511,
+      512,
+      513,
+      514,
+      515,
+      516,
+      517,
+      518,
+      519,
+      520,
+      521,
+      522,
+      523,
+      524,
+      525,
+      526,
+      527,
+      528,
+      529,
+      530,
+      531,
+      532,
+      533,
+      534,
+      535,
+      536,
+      537,
+      538,
+      539,
+      540,
+      541,
+      542,
+      543,
+      544,
+      545,
+      546,
+      547,
+      548,
+      549,
+      550,
+      551,
+      552,
+      553,
+      554,
+      555,
+      556,
+      557,
+      558,
+      559,
+      560,
+      574
+    ],
+    "requested_firstparty_image_width_px": 900,
+    "high_resolution_optional_targets": [
+      511,
+      539,
+      560,
+      574
+    ],
+    "higher_resolution_target_width_px": 1800,
+    "source_only_manifest_declared_image_service": true,
+    "manual_review_required": true,
+    "original_numerals_not_yet_collated": true,
+    "script": "scripts/acquire-tianwen-13mg-bsb-v1-juan35-complete-image-lane.py",
+    "workflow": ".github/workflows/acquire-tianwen-13mg-bsb-v1-juan35-complete-lane.yml",
+    "verifier": "scripts/verify-tianwen-13mf-bsb-title-c560.py"
+  },
+  "limitations": {
+    "not_original_native_optical_lossless": true,
+    "not_complete_juan35_line_by_line_collation": true,
+    "original_specific_contested_mingshi_numeric_loci_verified": false,
+    "source_1739_physical_impression_verified": false,
+    "physical_edition_identity_independence_verified": false,
+    "source_block_ancestry_verified": false,
+    "global_juan_order_verified": false,
+    "original_g893_six_numeric_winners_added": 0,
+    "independent_historical_witness_votes_added": 0,
+    "matrix_rows_delta": 0,
+    "source_registry_delta": 0,
+    "genealogy_nodes_delta": 0,
+    "genealogy_edges_delta": 0,
+    "algorithm_reopens": 0,
+    "product": "CLOSED"
+  },
+  "counters": {
+    "sources": 765,
+    "root_sources": 647,
+    "extension_sources": 118,
+    "matrix_rows": 222,
+    "matrix_audited": 222,
+    "genealogy_nodes": 252,
+    "genealogy_edges": 238,
+    "open_issue_count": 11,
+    "g893_six_historical_numeric_winners": 0
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [],
+    "unresolved_lineage_questions": [
+      "The same BSB digital source cannot prove a specific 1739 physical impression or an independent historical edition.",
+      "The exact original printed Mingshi numeric literals, rare solar-table field units and their equivalence to G893 remain unresolved."
+    ]
+  },
+  "next_action": "Read 13MG exact-head image artifact, inspect all fifty consecutive folios c511–560 and high-resolution anchored title/numeric regions, record target variants and independent edition identity separately; never count source canvases as historical witnesses."
+}
