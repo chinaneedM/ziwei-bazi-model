@@ -1,0 +1,203 @@
+{
+  "schema": "TIANWEN-13LO-NAJDA-HARVARD-J35-P7-P8-THREE-WAY-SOURCE-CROSSWALK-R1",
+  "date": "2026-10-30",
+  "issue_id": "TW-OPEN-0005",
+  "prior_batch": "docs/research/TIANWEN-13LN-NAAJ-P7-NATIVE-COLOR-ACQUISITION-AND-SOURCE-SCOPE-R1.json",
+  "no_ocr": true,
+  "evidence_grade": "THREE_CATALOG_LINKED_DIGITAL_SOURCE_STREAMS_DIRECT_SAME_TEXT_PAGE_CORRESPONDENCE; EXPLORATORY_IMAGE_GEOMETRY_NOT_PHYSICAL_WOODBLOCK_PROOF",
+  "harvard": {
+    "provider": "Harvard Library digitized 明史 卷三十五; Commons public scanned-source mirror",
+    "original_source_record": "docs/research/TIANWEN-13KT-HARVARD-MINGSHI-V11-J35-DIRECT-ORIGINAL-THREE-CONSTANTS-R1.json",
+    "original_source_url": "https://upload.wikimedia.org/wikipedia/commons/d/de/Harvard_drs_428231199_%E6%98%8E%E5%8F%B2_v.11.pdf",
+    "original_iiif_manifest": "https://iiif.lib.harvard.edu/manifests/view/drs:428231199",
+    "original_pdf_sha256": "36a2a99461d9d16a71e203d95ffa6cac189f1bbab94295de51ed6d3b60bd649b",
+    "original_pdf_bytes": 70809419,
+    "original_pdf_pages": 74,
+    "existing_artifact": {
+      "run_id": 40891158390,
+      "artifact_id": 12904614601,
+      "artifact_zip_sha256": "687af64da3978927cdb096a7a43c0e79381dfb00bc6443f8b49b5b69d7eacec5",
+      "artifact_zip_bytes": 74203635
+    },
+    "durable_archive": {
+      "library_file_id": "libfile_d77a1a76c0148191a85e5e0c9c4f351e",
+      "library_path": "/命运/tianwen-13lo-harvard-mingshi-v11-original-evidence.zip",
+      "zip_sha256": "687af64da3978927cdb096a7a43c0e79381dfb00bc6443f8b49b5b69d7eacec5"
+    },
+    "same_text_page": {
+      "pdf_page_1_based": 8,
+      "pdf_zero_index": 7,
+      "pdf_image_pixels": [
+        1800,
+        1551
+      ],
+      "page_rgb_sha256": "fd419982a337823736296b0fe0fd1c86d20a6c2b8e48987c312b0346e0096a03",
+      "local_decode": "PyMuPDF 1.26.7 RGB 1x no alpha; original page object",
+      "direct_visible_text_examples": [
+        "推天正入交",
+        "天正入交汎日",
+        "推各月經朔及弦望",
+        "推閏在何月",
+        "以月閏為法而一得數命起天正次月算外"
+      ]
+    },
+    "original_physical_copy_catalog_binding_complete": false,
+    "exact_1739_impression_proven": false
+  },
+  "naaj": {
+    "prior_original": "docs/research/TIANWEN-13LN-NAAJ-P7-NATIVE-COLOR-ACQUISITION-AND-SOURCE-SCOPE-R1.json",
+    "source_page_1_based": 7,
+    "physical_holdings": [
+      "281-0037",
+      "281-0038"
+    ],
+    "verified_six_native_color_roi_archive_sha256": "369e9b6c9bbb54f40210d589c515a20c0a0d2b41dc36ea25a11fff82d71bfd5b",
+    "native_roi_count": 6,
+    "holding_0037_p7_resized_overview_rgb_source": "docs/research/TIANWEN-13LJ-NAAJ-FIRSTPARTY-COLOR-ACQUISITION-SNAPSHOT-R1.json",
+    "source_native_color_medium": "PROVIDER_IIIF_JPEG_REGION_DERIVATIVE_NOT_RAW"
+  },
+  "same_passage_three_locus_controls": [
+    {
+      "target_id": "LEFT_NONCIRCLE_COLUMNS",
+      "text_anchor": "乘之為實日周／推盈縮差／推初末限",
+      "harvard_page_8_rgb_roi_xyxy": [
+        35,
+        160,
+        620,
+        740
+      ],
+      "harvard_roi_rgb_sha256": "f078c82bba1d33121139634bc91410aca8ec5d5dfaa4ad6df572f827cb600891",
+      "harvard_roi_pixels": [
+        585,
+        580
+      ],
+      "naaj_native_p7_target_ref": "LEFT_NONCIRCLE_COLUMNS",
+      "matching_printed_writing": "CONTENT_LEVEL_CORRESPONDENCE",
+      "unique_accidental_woodblock_damage_confirmed": false
+    },
+    {
+      "target_id": "GUTTER_NONCIRCLE_COLUMNS",
+      "text_anchor": "推閏在何月／立春恒日／以月閏為法",
+      "harvard_page_8_rgb_roi_xyxy": [
+        645,
+        160,
+        1240,
+        740
+      ],
+      "harvard_roi_rgb_sha256": "99f1c6837fea1275c7badb43aea73a4b5c68fa817088d151b04d99525cc59211",
+      "harvard_roi_pixels": [
+        595,
+        580
+      ],
+      "naaj_native_p7_target_ref": "GUTTER_NONCIRCLE_COLUMNS",
+      "matching_printed_writing": "CONTENT_LEVEL_CORRESPONDENCE",
+      "unique_accidental_woodblock_damage_confirmed": false
+    },
+    {
+      "target_id": "RIGHT_NONCIRCLE_COLUMNS",
+      "text_anchor": "推天正入交／天正入交汎日",
+      "harvard_page_8_rgb_roi_xyxy": [
+        1220,
+        160,
+        1785,
+        740
+      ],
+      "harvard_roi_rgb_sha256": "90d6de7ee1cac452d636405006c2082b1892898cc4dbed147f680e169f42c46b",
+      "harvard_roi_pixels": [
+        565,
+        580
+      ],
+      "naaj_native_p7_target_ref": "RIGHT_NONCIRCLE_COLUMNS",
+      "matching_printed_writing": "CONTENT_LEVEL_CORRESPONDENCE",
+      "unique_accidental_woodblock_damage_confirmed": false
+    }
+  ],
+  "exploratory_geometric_page_identification": {
+    "method": "OpenCV SIFT_create(nfeatures=4000,contrastThreshold=.016), BFMatcher KNN ratio 0.76, cv2.findHomography RANSAC 5px; grayscale images independently resampled to 1500x1000; not original-coordinate plate proof",
+    "naaj_2810037_vs_harvard_pdf_pages": {
+      "6": {
+        "pairs": 90,
+        "inliers": 7
+      },
+      "7": {
+        "pairs": 138,
+        "inliers": 8
+      },
+      "8": {
+        "pairs": 163,
+        "inliers": 27
+      },
+      "9": {
+        "pairs": 141,
+        "inliers": 11
+      }
+    },
+    "naaj_2810038_vs_harvard_pdf_pages": {
+      "6": {
+        "pairs": 99,
+        "inliers": 11
+      },
+      "7": {
+        "pairs": 123,
+        "inliers": 7
+      },
+      "8": {
+        "pairs": 212,
+        "inliers": 45
+      },
+      "9": {
+        "pairs": 115,
+        "inliers": 7
+      }
+    },
+    "naaj_2810037_vs_2810038_p7": {
+      "pairs": 564,
+      "inliers": 339
+    },
+    "interpretation": "Harvard p8 matches the same passage as both NAJ p7 by direct human-visible text. SIFT is only a page-location/structure control; low cross-provider inliers may reflect different capture, print, crop, carving, stain or typography and cannot adjudicate identical/different original woodblocks.",
+    "font_or_frame_unique_damage_identified": false,
+    "same_plate_refuted": false,
+    "same_plate_proven": false
+  },
+  "adjudication": {
+    "same_printed_passage_three_digital_source_streams": true,
+    "harvard_pdf_page8_corresponds_to_naaj_p7": true,
+    "new_independently_authenticated_print_recensions": 0,
+    "new_original_historical_source_registry_records": 0,
+    "new_historical_g893_numeric_winners": 0,
+    "shared_or_distinct_woodblock_proven": false,
+    "unique_accidental_engraving_break_proven": false,
+    "exact_1739_physical_impression_date_proven": false,
+    "three_scanned_source_streams_not_three_historical_numeric_votes": true,
+    "original_harvard_and_naaj_literal": "238977.09",
+    "separate_cadal_siku_literal": "288977.09",
+    "algorithm_reopens": 0,
+    "product": "CLOSED"
+  },
+  "replay_script": "scripts/replay-tianwen-13lo-harvard-naaj-p7-p8.py",
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Corresponding text and frame across three digital streams is not an authenticated shared ancient plate, a known date of impression, or multiple independent stemmatic votes.",
+      "Modern SIFT inliers on mismatched digital resolutions are not a cause-of-difference test between carving, ink, paper, capture, and digital processing."
+    ],
+    "unresolved_lineage_questions": [
+      "Need higher-quality material/identifiable anomalous accidental block feature across Harvard p8 and both NAJ p7 with a specified optical image-state calibration.",
+      "Obtain Harvard and NAJ precise copy/edition/impression catalog or physical colophon, before declaring one or different printing blocks.",
+      "Locate independently dated worked calendar cases to test 238977.09 against Siku 288977.09 and G893 six pending mechanical controls."
+    ]
+  },
+  "counts": {
+    "historical_sources": 765,
+    "matrix_rows": 222,
+    "matrix_audited": 222,
+    "graph_nodes": 252,
+    "graph_edges": 238,
+    "open_issues": 11,
+    "algorithm_reopens": 0,
+    "product": "CLOSED"
+  },
+  "next_action": "Use exact Harvard PDF p8 and NAAJ p7 triple source controls to investigate a distinct accidental woodblock or plate frame anomaly in native-resolution text; resolve physical copy/impression dates separately, and pursue independent calendar worked examples. Avoid unique woodblock claims based on SIFT score or same modern text."
+}
