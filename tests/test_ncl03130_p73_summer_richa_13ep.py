@@ -1,5 +1,6 @@
 import copy,importlib.util,unittest
 from pathlib import Path
+from scripts._tianwen_historical_action_r1 import historical_action_view
 p=Path(__file__).resolve().parents[1]/"scripts"/"verify-ncl03130-p73-summer-richa-13ep.py"
 spec=importlib.util.spec_from_file_location("v13ep",p);m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
 class Test13EP(unittest.TestCase):
@@ -18,6 +19,6 @@ class Test13EP(unittest.TestCase):
  def test_reject_witness_inflation(self):self.reject(lambda e:e["source"].update(new_independent_physical_witnesses=1))
  def test_legacy_day_labels_remain_explicit(self):
   q=next(x for x in self.l["issues"] if x["id"]=="TW-OPEN-0005")
-  self.assertTrue(all(x in q["next_action"] for x in ("D4","D5","D6","D30","四分","初度","NULL")))
+  self.assertTrue(all(x in historical_action_view(q) for x in ("D4","D5","D6","D30","四分","初度","NULL")))
  def test_reject_imputed_p74_mapping(self):self.reject(lambda e:e["findings"].update(p73_to_p74_day4_6_field_assignment="PROVEN"))
 if __name__=="__main__":unittest.main()
