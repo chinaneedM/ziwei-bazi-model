@@ -69,7 +69,9 @@ def acquire():
   result["candidate_pages"]=entries
   result["contact_sheets"]=sheets
   doc.close()
-  path.unlink()
+  result["original_pdf_retained_in_artifact"] = os.environ.get("TIANWEN_13LD_KEEP_ORIGINAL", "0") == "1"
+  if not result["original_pdf_retained_in_artifact"]:
+   path.unlink()
  except Exception as exc:
   result["status"]="SOURCE_ACQUISITION_BLOCKED_OR_INVALID_NOT_HISTORICAL_ABSENCE"
   result["error"]=str(type(exc).__name__)+": "+str(exc)[:500]

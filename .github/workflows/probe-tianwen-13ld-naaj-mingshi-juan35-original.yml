@@ -17,6 +17,8 @@ jobs:
         with: {python-version: '3.12'}
       - run: python -m pip install pymupdf pillow
       - run: python scripts/probe-tianwen-13ld-naaj-mingshi-juan35-original.py
+        env:
+          TIANWEN_13LD_KEEP_ORIGINAL: '1'
       - uses: actions/upload-artifact@v4
         if: always()
         with:
