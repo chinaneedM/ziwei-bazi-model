@@ -1,0 +1,137 @@
+{
+  "schema": "TIANWEN-13LJ-NAAJ-FIRSTPARTY-COLOR-RECOVERY-R1",
+  "date": "2026-10-30",
+  "issue_id": "TW-OPEN-0005",
+  "no_ocr": true,
+  "evidence_grade": "DIRECT_FIRST_PARTY_IIIF_COLOR_NUMERIC_REGIONS; NOT_ORIGINAL_JP2_OR_OPTICAL_RAW_OR_EDITION_CERTIFICATE",
+  "startup": {
+    "remote_head": "b4b9238a6696973323c71bea1c87040bdcbdd39b",
+    "remote_tree": "690e3aec8a064c2e5ff2898dcc0475fedd578de6",
+    "latest_supplemental_focus": "13LI",
+    "all_11_omission_issues_reviewed": true
+  },
+  "source_acquisition_snapshot": "docs/research/TIANWEN-13LJ-NAAJ-FIRSTPARTY-COLOR-ACQUISITION-SNAPSHOT-R1.json",
+  "source_acquisition_snapshot_sha256": "63978aa46ad0f86cede3044d96deed37e3caadbbb142f325989421032f80ab06",
+  "acquisition_workflow": {
+    "run_id": 41043143366,
+    "head_sha": "92513409c5c79f0e7f5d69c238a2c55fe1bdc102",
+    "conclusion": "success",
+    "artifact_id": 12970842242,
+    "artifact_bytes": 7779645,
+    "artifact_sha256": "4dfdafa918d89b8a8c137da295ff3a121d4f59e186289ce716732cf49176814e",
+    "retention_days": 7
+  },
+  "durable_source_archive": {
+    "library_file_id": "libfile_9b4e0f1341c08191b067de8643f7d8fa",
+    "file_name": "tianwen-13lj-firstparty-color-evidence.zip",
+    "sha256": "4dfdafa918d89b8a8c137da295ff3a121d4f59e186289ce716732cf49176814e"
+  },
+  "route_recovery": {
+    "initial_probe_run": 41042072190,
+    "initial_probe_artifact": 12970158290,
+    "firstparty_catalog_items": {
+      "281-0037": "https://www.digital.archives.go.jp/item/4034620",
+      "281-0038": "https://www.digital.archives.go.jp/item/3637417"
+    },
+    "provider_general_faq": "https://www.digital.archives.go.jp/faq",
+    "jp2_form_400_is_not_historical_absence": true,
+    "failed_acquisition_runs": [
+      41042351216,
+      41042526761,
+      41042843277
+    ],
+    "recovery": "Use the declared IIIF manifest full/max JPEG resource for overviews; native-coordinate target regions use the provider viewer numeric-width native.jpg request; no login or access bypass. Source full/max returns width3000, not the declared canvas width6300/6200. Original JP2 POST remains HTTP400."
+  },
+  "manual_numeric_collations": [
+    {
+      "holding": "281-0037",
+      "page": 6,
+      "literal": "有閏加二十三萬八九七七○九",
+      "numeric": "238977.09",
+      "source_medium": "FIRST_PARTY_IIIF_COLOR_JPEG_REGION_NOT_PDF_JBIG2",
+      "roi_xyxy": [
+        3277,
+        472,
+        3566,
+        3955
+      ],
+      "roi_rgb_sha256": "eba797ce34a75cf5fb899403e415bcf5eb9dd239b9181f7b2f37855a27dbaede",
+      "reviewer": "Codex direct visual source-image reading",
+      "whole_page_context": "same declared canvas, source native coordinate region, no OCR",
+      "independent_historical_recension_increment": 0
+    },
+    {
+      "holding": "281-0038",
+      "page": 6,
+      "literal": "有閏加二十三萬八九七七○九",
+      "numeric": "238977.09",
+      "source_medium": "FIRST_PARTY_IIIF_COLOR_JPEG_REGION_NOT_PDF_JBIG2",
+      "roi_xyxy": [
+        3383,
+        499,
+        3738,
+        4044
+      ],
+      "roi_rgb_sha256": "ce90010e39364a36d4440d9b18c0fcd8b4824657e3eb7ea2b9015d84d7e31dac",
+      "reviewer": "Codex direct visual source-image reading",
+      "whole_page_context": "same declared canvas, source native coordinate region, no OCR",
+      "independent_historical_recension_increment": 0
+    }
+  ],
+  "title_and_copy_review": [
+    {
+      "holding": "281-0037",
+      "page": 2,
+      "color_file_sha256": "e51e565a1daebedc785dc5e97b3070a3b469148bfb066c651dc849256925b6c6",
+      "reading": "明史卷三十五／志第十一／曆五／大統曆法三上推步",
+      "page_state": "Different stamp placement and paper/wormhole state visible across these photographed pages; supports separate page-state identification, not independent plate/edition."
+    },
+    {
+      "holding": "281-0038",
+      "page": 2,
+      "color_file_sha256": "7efb7217bff4686f29dc384bedbb174b6ed9258daa9e91b563c2f1cad04ac518",
+      "reading": "明史卷三十[末字受虫损影响]／志第十一／曆五；未把残损标题补字当作全字原读",
+      "page_state": "Different stamp placement and paper/wormhole state visible across these photographed pages; supports separate page-state identification, not independent plate/edition."
+    }
+  ],
+  "interpretation": {
+    "original_jp2_downloaded": false,
+    "unprocessed_optical_RAW_proven": false,
+    "jpeg2000_lossless_proven": false,
+    "same_woodblock_proven": false,
+    "dated_1739_impression_proven": false,
+    "jbig2_wrong_symbol_substitution_proven": false,
+    "source_full_max_overview_is_resized": true,
+    "native_target_regions_use_explicit_1_to_1_pixel_dimensions": true,
+    "native_target_regions_are_color_jpeg_derivatives": true,
+    "independent_historical_recensions_added": 0,
+    "g893_six_numeric_winners_added": 0,
+    "siku_original_literal_retained": "288977.09",
+    "matching_masks_and_color_are_same_copy_rechecks_not_new_historical_votes": true
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Same physical woodblock or ancient impression cannot be inferred from matching color numeric literals or a shared digitization pipeline.",
+      "Two distinct source-page states are not two proven independent textual recensions."
+    ],
+    "unresolved_lineage_questions": [
+      "Compare source-coordinate color glyph details across adjacent leaves and Harvard with full compression and paper-damage scope.",
+      "Obtain actual dated colophons or provider-issued impression binding for these holdings.",
+      "Obtain dated calendar computation oracle and retain the competing CADAL Siku 288977.09 literal."
+    ]
+  },
+  "counts": {
+    "historical_sources": 765,
+    "matrix_rows": 222,
+    "audited_rows": 222,
+    "graph_nodes": 252,
+    "graph_edges": 238,
+    "unresolved_issues": 11,
+    "algorithm_reopens": 0,
+    "product": "CLOSED"
+  },
+  "next_action": "Native first-party color route is now available: reuse exact item/canvas IDs and snapshot hashes before repeating source-route searches. Compare distinctive engraved fractures across p6/p7 and Harvard while separating compression, ink, paper wormholes and stamps; physical plate/date remains unproved. Seek dated calendar worked computation; all original G893 six controls remain unresolved."
+}
