@@ -1,0 +1,133 @@
+{
+  "schema": "TIANWEN-13LY-BSB-MINGSHI-ALL-EIGHT-VOLUMES-FIRSTPARTY-TITLE-INDEX-R1",
+  "date": "2026-10-30",
+  "issue_id": "TW-OPEN-0005",
+  "prior_batch": "docs/research/TIANWEN-13LV-BSB-MINGSHI-ORIGINAL-MANIFEST-OPAC-AND-RELATIONS-ROUTE-R1.json",
+  "firstparty_index": {
+    "url": "https://ostasien.digitale-sammlungen.de/discover/titles/M?q=Ming+shi+%28%E6%98%8E%E5%8F%B2%29",
+    "source_html_bytes": 56460,
+    "source_html_sha256": "f4d775d5e4e4f0d7a9579f109bce0bfa8a26c99a5c0338077e3640bbf4dad53c",
+    "http_status": 200,
+    "source_volume_labels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "source_documents": [
+      {
+        "volume": 1,
+        "official_viewer": "https://ostasien.digitale-sammlungen.de/view/bsb11166691",
+        "object_id": "bsb11166691"
+      },
+      {
+        "volume": 2,
+        "official_viewer": "https://ostasien.digitale-sammlungen.de/view/bsb11166692",
+        "object_id": "bsb11166692"
+      },
+      {
+        "volume": 3,
+        "official_viewer": "https://ostasien.digitale-sammlungen.de/view/bsb11166693",
+        "object_id": "bsb11166693"
+      },
+      {
+        "volume": 4,
+        "official_viewer": "https://ostasien.digitale-sammlungen.de/view/bsb11166694",
+        "object_id": "bsb11166694"
+      },
+      {
+        "volume": 5,
+        "official_viewer": "https://ostasien.digitale-sammlungen.de/view/bsb11166695",
+        "object_id": "bsb11166695"
+      },
+      {
+        "volume": 6,
+        "official_viewer": "https://ostasien.digitale-sammlungen.de/view/bsb11166696",
+        "object_id": "bsb11166696"
+      },
+      {
+        "volume": 7,
+        "official_viewer": "https://ostasien.digitale-sammlungen.de/view/bsb11166697",
+        "object_id": "bsb11166697"
+      },
+      {
+        "volume": 8,
+        "official_viewer": "https://ostasien.digitale-sammlungen.de/view/bsb11166698",
+        "object_id": "bsb11166698"
+      }
+    ],
+    "verified_volume_2_against_previous": "bsb11166692",
+    "volume1_official_link": "https://ostasien.digitale-sammlungen.de/view/bsb11166691",
+    "not_inferred_from_numeric_increment": true,
+    "not_original_page_witness": true
+  },
+  "capture": {
+    "run_id": 41063575035,
+    "artifact_id": 12981466158,
+    "artifact_url": "https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/41063575035/artifacts/12981466158",
+    "source_artifact_zip_bytes": 11927,
+    "source_artifact_sha256": "a5b4d8f37aadbb79024eb990bd5b4bfd20e49b758d3bc59f076c867be4ac42fe",
+    "durable_library_file_id": "libfile_09c45f8cd2948191a080b6c8727ca824",
+    "durable_library_path": "/命运/tianwen-13lx-bsb-eight-volume-firstparty-index-evidence.zip",
+    "raw_archive_files": [
+      "firstparty-ming-shi-volume-index.html",
+      "firstparty-index-route.json"
+    ],
+    "unit_tests": 4,
+    "status": "SUCCESS"
+  },
+  "next_probe": {
+    "script": "scripts/probe-tianwen-13ly-bsb-volume1-manifest.py",
+    "workflow": ".github/workflows/probe-tianwen-13ly-bsb-volume1-manifest.yml",
+    "source_url": "https://api.digitale-sammlungen.de/iiif/presentation/v2/bsb11166691/manifest",
+    "scope": "PROVIDER_TEMPLATE_FROM_DIRECT_FIRSTPARTY_VOLUME1_LINK",
+    "run_status_at_commit": "UNRUN",
+    "no_ocr": true,
+    "original_page_sha_gate": true,
+    "bounded_index_samples": 40
+  },
+  "adjudication": {
+    "provider_index_eight_volumes_positive": true,
+    "first_volume_exact_official_link_positive": true,
+    "volume1_iiif_original_manifest_captured": false,
+    "juan35_source_title_leaf_positive": false,
+    "juan35_number_positive": false,
+    "new_ancient_witness_vote": 0,
+    "known_1739_physical_impression": false,
+    "same_plate_or_lineage_proven": false,
+    "new_g893_numeric_winners": 0,
+    "algorithm_reopens": 0,
+    "product": "CLOSED"
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Eight separate digital viewer links are not proof of eight independently descended textual recensions.",
+      "Official title-index link is not physical 1739 impression evidence, nor direct juan35 passage."
+    ],
+    "unresolved_lineage_questions": [
+      "Inspect exact first-volume IIIF canvas and printed title leaf for original 明史卷三十五.",
+      "Only after an original leaf is identified acquire native-resolution text and 13-lunation numeral.",
+      "Keep physical-copy and edition chronology distinct from publication date."
+    ]
+  },
+  "counts": {
+    "sources": 765,
+    "root": 647,
+    "extensions": 118,
+    "matrix_rows": 222,
+    "matrix_audited": 222,
+    "genealogy_nodes": 252,
+    "genealogy_edges": 238,
+    "open_issues": 11,
+    "original_g893_six_winners": 0,
+    "algorithm_reopens": 0
+  },
+  "next_action": "Run official BSB volume1 IIIF manifest probe, inspect source-journal folio positions, then original glyph if positive. Do not use guessed BSB IDs; all eight IDs were independently obtained in source HTML."
+}
