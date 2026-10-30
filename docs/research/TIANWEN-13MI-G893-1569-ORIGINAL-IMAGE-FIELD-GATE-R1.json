@@ -1,0 +1,123 @@
+{
+  "schema": "TIANWEN-13MI-G893-1569-ORIGINAL-IMAGE-FIELD-GATE-R1",
+  "date": "2026-10-31",
+  "issue_id": "TW-OPEN-0005",
+  "prior_evidence": [
+    "docs/research/TIANWEN-12YA-G893-D16-SOLAR-HEADER-AND-EXTERNAL-ARITHMETIC-R1.json",
+    "docs/research/TIANWEN-12YJ-G893-HEADER-MINGSHI-PINGLI-RECEIVED-TEXT-ARITHMETIC-R1.json",
+    "docs/research/TIANWEN-13MH-BSB-J35-51-IMAGE-REPLAY-C539-FOUR-FIELD-COLLATION-R1.json"
+  ],
+  "prior_success_exact_head": {
+    "head": "dcec7ca82b1cc36d47881b7f926e16e2d7d782fc",
+    "run": 41140018288,
+    "conclusion": "success"
+  },
+  "stage": "SOURCE_ACQUISITION_SCRIPT_AND_ACTION_STAGED_NOT_EXECUTED",
+  "research_hypothesis": "Original G893 001a solar header instruction and 002b D16 row should be read beside Zhou Xiang 1569 exact source page14 solar winter standing table; identical two-digit code in an adjacent mathematical phrase cannot establish same original column or unit.",
+  "source_a": {
+    "institution": "Seoul National University Kyujanggak",
+    "book_code": "GK00893_00",
+    "physical_copy_count": 1,
+    "known_original_pages": [
+      {
+        "page": "001a",
+        "role": "SOLAR_SOURCE_PRINTED_HEADER",
+        "sha256": "8b07513ca8aad42ae167a93f22c39f14850c8cd1c345db9ce98c1e0e769226a5"
+      },
+      {
+        "page": "002a",
+        "role": "SOURCE_D13_SAME_SOLAR_TABLE_CONTINUITY",
+        "sha256": "31d0452e9350e32ff73549f49d894ab26f6e588654926d45b3a603ae4da9a914"
+      },
+      {
+        "page": "002b",
+        "role": "SOURCE_D15_D16_D17_ROI",
+        "sha256": "f9812e8c6a357eb6cd1117bb2af58d816e01030d5b93f34e7094bddb766b2b55"
+      }
+    ],
+    "source_file_access": "POST official pf01/rendererImg.do; only accept exact server-emitted full source path, no invented ImageServlet target; cross-check known original JPEG SHA and native 1150×2000 dimensions",
+    "existing_direct_visible_header": [
+      "積日",
+      "盈縮加分",
+      "盈縮積",
+      "日差加一秒八十六少"
+    ],
+    "disputed_original_last_glyph": "少 / 微 normalization, still unresolved",
+    "winter_D16_field_numeric_status": "NOT_FORMALLY_MAPPED_OR_COLLATION_COMPLETE"
+  },
+  "source_b": {
+    "work": "周相《大明大統曆法》卷六1569版印本公開影像",
+    "public_pdf": "https://www.kotenmon.com/cal/arabe/vol6.pdf",
+    "expected_pdf_sha256": "4c006b7ce131902fe33012d42f62cd2bbc2140affa3d5886e0da02966352cb7c",
+    "pages_total": 45,
+    "target_pdf_pages_1based": [
+      7,
+      9,
+      14,
+      19
+    ],
+    "previous_document": "docs/research/ZIWEI-ZHOUXIANG-DAMING-DATONG-1569-1477-PHYSICAL-COLLATION-R1.json",
+    "date_firewall": {
+      "calculation_epoch": 1477,
+      "reprint_preface_date": 1569,
+      "modern_pdf_date": 2019,
+      "actual_holding_call_number_exact": "UNRESOLVED"
+    },
+    "target_page14": "太陽冬至前後立成卷第二, original solar method table",
+    "target_page19": "太陽夏至前後立成卷第四, original solar method table",
+    "same_calendar_source_for_older_vs_g893": false
+  },
+  "source_replay_plan": {
+    "script": "scripts/acquire-tianwen-13mi-g893-solar-header-ming1569-original.py",
+    "workflow": ".github/workflows/acquire-tianwen-13mi-g893-vs-ming1569-original.yml",
+    "verifier": "scripts/verify-tianwen-13mi-acquisition-gate.py",
+    "artifact_expected": "tianwen-13mi-g893-original-solar-ming1569-vol6-source-gate",
+    "status": "NOT_YET_EXECUTED",
+    "no_ocr": true,
+    "raw_jpegs_verified_against_prior_sha": true,
+    "original_pdf_hash_replay_planned": true,
+    "visual_printed_glyph_collation_complete": false
+  },
+  "required_comparability_gates": [
+    "Verify G893 printed 001a header is one instruction or an actual numeric field heading; distinguish 少 and 微 without substituting other printed witnesses",
+    "Bind exact original G893 D16 column's top heading, row index, text string, and radix/precision rather than inferred 5.2362",
+    "Identify 1569 source page original table heading and calendar variable/epoch; do not treat 太陽立成 as automatically identical to 收本 盈縮加分",
+    "Prove unit base, degree/minute/second correspondence, phase orientation and arithmetic recurrence for both original carriers, then assess whether same-field numeric comparison is permitted",
+    "Independent physical/copy/edition genealogy and 1739 MingShi printing chronology are separate questions"
+  ],
+  "no_promotion": {
+    "same_field_assigned": false,
+    "same_numeric_units_assigned": false,
+    "printed_mingshi_c539_as_g893_source": false,
+    "received_text_arithmetic_as_direct_historic_image": false,
+    "independent_numerical_winner_added": 0,
+    "g893_six_cross_source_winners": 0,
+    "source_registry_delta": 0,
+    "genealogy_node_delta": 0,
+    "genealogy_edge_delta": 0,
+    "matrix_change": 0,
+    "algorithm_reopens": 0,
+    "product": "CLOSED"
+  },
+  "counts": {
+    "sources": 765,
+    "root": 647,
+    "shard_total": 118,
+    "matrix": "222/222",
+    "graph_nodes": 252,
+    "graph_edges": 238,
+    "open_issues": 11
+  },
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [],
+    "unresolved_questions": [
+      "What exact historical original character is 001a 少/微?",
+      "Are G893 001a–002b and 1569 Zhou Xiang solar standing table same variable/units?",
+      "Do precise physical editions and stemmatic independence support cross-source voting?"
+    ]
+  },
+  "next": "After the new exact-HEAD acquisition run, independently verify artifact original image hashes and compare source heading/column/locus visually before any field/unit claims."
+}
