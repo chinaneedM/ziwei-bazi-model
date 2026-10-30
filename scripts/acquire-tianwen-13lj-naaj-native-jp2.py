@@ -26,7 +26,7 @@ def fetch(url, data=None):
 
 def main():
     OUT.mkdir(exist_ok=True)
-    result={'no_ocr':True,'evidence_grade':'PROVIDER_JP2_DIGITAL_SURROGATE_PENDING_HUMAN_REVIEW','ancient_impression_proven':False,'optical_raw_proven':False,'sources':[]}
+    result={'no_ocr':True,'evidence_grade':'PROVIDER_COLOR_DERIVATIVES_PENDING_HUMAN_REVIEW','ancient_impression_proven':False,'optical_raw_proven':False,'sources':[]}
     for holding,item,pages,roi in TARGETS:
         row={'holding':holding,'viewer_id':item,'pages':[]};result['sources'].append(row)
         try:
@@ -43,7 +43,40 @@ def main():
                 cid=re.search(rb'id="download-item-'+str(page).encode()+rb'"[^>]+value="([^"]+)"',html).group(1).decode()
                 data=urllib.parse.urlencode({'cid':cid}).encode();url=BASE+action+'?type=jpeg2000'
                 info,imeta=fetch(BASE+entry['path']+'/info.json');(OUT/(holding+f'-p{page:03d}-info.json')).write_bytes(info)
-                body,download=fetch(url,data)
+                try:
+                    body,download=fetch(url,data)
+                except urllib.error.HTTPError as exc:
+                    # Public JP2 form currently fails; never turn that into source absence.
+                    error_body=exc.read()
+                    (OUT/(holding+f'-p{page:03d}-jp2-http-error.bin')).write_bytes(error_body)
+                    manifest_doc=json.loads(manifest)
+                    canvas=manifest_doc['sequences'][0]['canvases'][page-1]
+                    resource=canvas['images'][0]['resource']
+                    assert canvas['label']==entry['id']
+                    color,color_meta=fetch(resource['@id'])
+                    label=holding+f'-p{page:03d}'
+                    (OUT/(label+'-iiif.jpg')).write_bytes(color)
+                    image=Image.open(io.BytesIO(color)).convert('RGB')
+                    info_record={'page':page,'source_content':entry,'jp2_download_status':exc.code,'jp2_error_sha256':hashlib.sha256(error_body).hexdigest(),'jp2_acquired':False,'color_download':color_meta,'color_file':label+'-iiif.jpg','color_pixels':list(image.size),'color_rgb_sha256':hashlib.sha256(image.tobytes()).hexdigest(),'source_canvas_pixels':[canvas['width'],canvas['height']],'info':json.loads(info),'human_reading':'PENDING'}
+                    if page==6:
+                        x1,y1,x2,y2=roi
+                        assembled=Image.new('RGB',(x2-x1,y2-y1))
+                        parts=[]
+                        for y in range(y1,y2,2000):
+                            height=min(2000,y2-y)
+                            region=f'{x1},{y},{x2-x1},{height}'
+                            # IIIF regionByPx at full output keeps source coordinate sampling.
+                            tile_url=resource['service']['@id']+'/'+region+'/full/0/native.png'
+                            tile,tile_meta=fetch(tile_url)
+                            tile_im=Image.open(io.BytesIO(tile)).convert('RGB')
+                            assert tile_im.size==(x2-x1,height),'native region unexpectedly resampled'
+                            name=label+f'-roi-y{y}.png';(OUT/name).write_bytes(tile)
+                            parts.append({'file':name,'region_xywh':[x1,y,x2-x1,height],'download':tile_meta,'rgb_sha256':hashlib.sha256(tile_im.tobytes()).hexdigest()})
+                            assembled.paste(tile_im,(0,y-y1))
+                        assembled.save(OUT/(label+'-numeric-roi.png'))
+                        info_record.update(roi_xyxy=roi,roi_rgb_sha256=hashlib.sha256(assembled.tobytes()).hexdigest(),roi_file=label+'-numeric-roi.png',native_region_parts=parts)
+                    row['pages'].append(info_record)
+                    continue
                 label=holding+f'-p{page:03d}'
                 (OUT/(label+'-download.bin')).write_bytes(body)
                 binaries=[]
