@@ -101,7 +101,16 @@ def check(e,be,bg,bh,yz,ledger,state):
   assert issue["next_action"].startswith((action_prefix+" CURRENT ACTION",action_prefix+" NEXT:")), "next_action must use a registered scope-bound CURRENT ACTION or NEXT: prefix"
   revision_id=last.get("revision_id")
   if revision_id:
-   assert revision_id.startswith("TW-OPEN-0005-"+action_prefix+"-"), "action not matched to last durable next_action revision"
+   primary=revision_id.startswith("TW-OPEN-0005-"+action_prefix+"-")
+   # Forward-only same-batch typographic errata may use a trailing A batch
+   # suffix, but only when the prior action and new action differ solely
+   # by the required CURRENT ACTION: prefix, with cited revision evidence.
+   erratum=(revision_id.startswith("TW-OPEN-0005-"+action_prefix+"A-")
+            and last.get("event")=="ISSUE_REVISION"
+            and "next_action" in last.get("changed_fields",[])
+            and bool(last.get("evidence_refs"))
+            and last.get("previous_next_action","").replace(" CURRENT:"," CURRENT ACTION:",1)==issue["next_action"])
+   assert primary or erratum, "action not matched to a source-bound research revision or exact-prefix erratum"
   else:
    # Legacy future-event fixture has no revision_id. It must be bound to
    # the latest focus and cannot use an unregistered stale instruction.

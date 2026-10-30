@@ -1,0 +1,25 @@
+name: verify-tianwen-13ml-g893-original-folio-seam
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - scripts/verify-tianwen-13ml-g893-folio-seam.py
+      - scripts/verify-goryeosa-waseda-d18-d20-13bj.py
+      - docs/research/TIANWEN-13ML-G893-ORIGINAL-FOLIO-SEAM-D9-D19-HEADER-GEOMETRY-R1.json
+      - docs/PROJECT-CURRENT-STATE-R1.json
+      - docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json
+      - .github/workflows/verify-tianwen-13ml-g893-original-folio-seam.yml
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 2}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python scripts/verify-tianwen-13ml-g893-folio-seam.py
+      - run: python scripts/verify-goryeosa-waseda-d18-d20-13bj.py
+      - run: python scripts/verify-research-omission-risk-ledger-r1.py --check-parent
+      - run: python scripts/verify-project-continuity-state-r1.py

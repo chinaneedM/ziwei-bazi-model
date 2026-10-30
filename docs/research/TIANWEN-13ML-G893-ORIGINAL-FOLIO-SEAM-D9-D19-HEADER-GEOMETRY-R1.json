@@ -1,0 +1,184 @@
+{
+  "schema": "TIANWEN-13ML-G893-ORIGINAL-FOLIO-SEAM-D9-D19-HEADER-GEOMETRY-R1",
+  "date": "2026-10-31",
+  "issue_id": "TW-OPEN-0005",
+  "source_acquisition": {
+    "exact_verified_head": "468f1d2576057404d279313c8b0a19e0597969f8",
+    "artifact_run": 41144025711,
+    "artifact_id": 13019278183,
+    "zip_sha256": "1d8f10da7c27411bf38ad635494a1b9f4e700fb76cb37b2a7541c075a0ca9835",
+    "original_images_are_from_one_G893_digital_surrogate": true,
+    "reused_not_new_physical_copy": true,
+    "no_ocr": true
+  },
+  "g893_original_images": [
+    {
+      "page": "001a",
+      "jpg": "G893-001a.jpg",
+      "sha256": "8b07513ca8aad42ae167a93f22c39f14850c8cd1c345db9ce98c1e0e769226a5",
+      "rgb_sha256": "653e1d9d91c754695ac43f96ca86afef44fd8c4b39c5cd1c9e26b475a58d2636",
+      "native_size": [
+        1150,
+        2000
+      ],
+      "roi": [
+        400,
+        540,
+        700,
+        1120
+      ],
+      "roi_rgb_sha256": "04471ba8b25ca5b114e0fc4f3817c968a2426db1d5cecad1f25091c86ad5735c",
+      "observed_source_labels": [
+        "積日",
+        "日差",
+        "盈縮加分",
+        "盈縮積度"
+      ],
+      "observed_source_small_glyph": "加一秒八十六少",
+      "conclusion": "MULTIPLE_ORIGINAL_FIELDS_PRESENT_NO_CROSS_BOOK_UNIT_BRIDGE"
+    },
+    {
+      "page": "002a",
+      "jpg": "G893-002a.jpg",
+      "sha256": "31d0452e9350e32ff73549f49d894ab26f6e588654926d45b3a603ae4da9a914",
+      "rgb_sha256": "a04c848b976d24c8d4bdf255d4f3370eb1fa27cac2b50b99722848cd688235f5",
+      "native_size": [
+        1150,
+        2000
+      ],
+      "roi": [
+        84,
+        215,
+        847,
+        1385
+      ],
+      "roi_rgb_sha256": "7bb283826af72ba381c6abc9bb5555d698439597dc5eaf7f5a1e10d7a2b7439d",
+      "source_day_headings_left_to_right": [
+        13,
+        12,
+        11,
+        10,
+        9
+      ],
+      "conclusion": "END_OF_PAGE_SEAM_REQUIRES_NEXT_FOLIO_RIGHTMOST_COLUMN"
+    },
+    {
+      "page": "002b",
+      "jpg": "G893-002b.jpg",
+      "sha256": "f9812e8c6a357eb6cd1117bb2af58d816e01030d5b93f34e7094bddb766b2b55",
+      "rgb_sha256": "e3eca1b8f979c1de7ccc5e924d2d493288e7764f92e0a77ad96cf26e80c987f7",
+      "native_size": [
+        1150,
+        2000
+      ],
+      "roi": [
+        35,
+        210,
+        897,
+        1385
+      ],
+      "roi_rgb_sha256": "d7b5b7fd7199d23ecd8c38479c4ead362e18929de8a7fe4d56bb5fbebdcc83df",
+      "source_day_headings_left_to_right": [
+        19,
+        18,
+        17,
+        16,
+        15,
+        14
+      ],
+      "second_roi": [
+        371,
+        218,
+        759,
+        1320
+      ],
+      "second_roi_rgb_sha256": "a5faed80f5f5f2ad7155a05e7fa0e5a81f2f6af56d8382e3982248ca34b00d4f",
+      "conclusion": "D14_AFTER_D13_PHYSICAL_PAGE_SEAM; D15_D16_D17_SOURCE_ORIGINAL_HEADINGS_POSITIVE"
+    }
+  ],
+  "day_sequence": {
+    "direction_in_each_g893_page": "RIGHT_TO_LEFT",
+    "near_seam_original_left_page": "002a",
+    "left_page_last_day_at_left_edge": 13,
+    "next_page_original_right_page": "002b",
+    "next_page_first_day_at_right_edge": 14,
+    "contiguous_source_day_numbers": [
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19
+    ],
+    "verified_by": "DIRECT_VISUAL_REVIEW_OF_SOURCE_NATIVE_JPEG_NO_OCR",
+    "not_proven": "whole_table_absolute_calendar_epoch_or_crosswork_field_equivalence"
+  },
+  "independent_original_print": {
+    "zhouxiang_1569_source_pdf_url": "https://www.kotenmon.com/cal/arabe/vol6.pdf",
+    "source_pdf_sha256": "4c006b7ce131902fe33012d42f62cd2bbc2140affa3d5886e0da02966352cb7c",
+    "pages": 45,
+    "original_print_heading_page": 14,
+    "original_print_numeric_page": 15,
+    "source_page15_rgb_sha256": "7b35af0e1e802c9346c927a02c67d1681e01b5120c3cf891160126f2018478d5",
+    "p15_roi": [
+      1050,
+      100,
+      1780,
+      700
+    ],
+    "p15_roi_rgb_sha256": "72f4069db6044ce0b77f85259303c830b4f1cd14407469f73ac37e6d00632e41",
+    "direct_source_values": [
+      {
+        "day": 15,
+        "printed": "五分二一七六",
+        "decimal": "5.2176"
+      },
+      {
+        "day": 16,
+        "printed": "五分二三六二",
+        "decimal": "5.2362"
+      },
+      {
+        "day": 17,
+        "printed": "五分二五四八",
+        "decimal": "5.2548"
+      }
+    ],
+    "local_decimal_increment": "0.0186",
+    "inherited_from_prior_source_doc": "docs/research/TIANWEN-13MJ-ZHOUXIANG-1569-D15-D17-PRINTED-SOURCE-VS-G893-GATE-R1.json"
+  },
+  "comparison_gate": {
+    "G893_day_number_topology": "SOURCE_NATIVE_POSITIVE",
+    "G893_source_header_has_distinct_fields": "SOURCE_NATIVE_POSITIVE",
+    "G893_exact_少_at_001a": "SOURCE_NATIVE_POSITIVE",
+    "G893_D16_source_numeric_field_mapping": "UNRESOLVED",
+    "G893_001a_header_to_002b_D16_full_field_geometry": "UNRESOLVED",
+    "G893_vs_zhouxiang_same_column_and_unit": "UNPROVEN",
+    "original_print_edition_impression_relation": "UNPROVEN",
+    "historical_G893_six_cross_original_winners": 0,
+    "newly_proved_algorithms": 0,
+    "candidate_collapse": 0,
+    "source_registry_delta": 0,
+    "matrix_delta": 0,
+    "genealogy_nodes_delta": 0,
+    "genealogy_edges_delta": 0,
+    "algorithm_reopens": 0,
+    "product": "CLOSED",
+    "open_P0": "TW-OPEN-0005",
+    "transmission_impact": "NONE (same source-original surrogate re-examined, no new copy or direct transmission edge)"
+  },
+  "ci_13bj_legacy_erratum": {
+    "prior_failed_head": "e7df1a9508ea6776365ab5ed47f61cb1dd7c2fae",
+    "run_id": 41145375032,
+    "failed_job": "Goryeosa 13BJ Waseda original D18 D20 native cumulative ROI gate",
+    "cause": "Previous exact 13MKA suffix was incorrectly rejected by a 13BJ legacy action-revision string gate.",
+    "correction": "Permit exact same-batch A-suffix prefix-only correction only when previous-next-action normalizes exactly and revision has source evidence; preserve negative wrong-prefix rejections.",
+    "historical_data_or_algorithm_changed": false
+  },
+  "next_action": "Visually and numerically bind G893 001a printed table field label to D16 precisely within 002b two numerical columns, then independently compare Zhou Xiang 1569 p14/p15 units, day-index and edition scope; no G893 six-point winner until all bridges are mechanically replayable."
+}
