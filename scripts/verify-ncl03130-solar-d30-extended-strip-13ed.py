@@ -2,6 +2,11 @@
 """13ED exact SHA-pinned native D30 literal and bounded lower source tail."""
 import argparse,hashlib,json
 from pathlib import Path
+# Archived action terms come from preserved revisions, never from stale live next_action.
+try:
+    from scripts._tianwen_historical_action_r1 import historical_action_view
+except ModuleNotFoundError:
+    from _tianwen_historical_action_r1 import historical_action_view
 ROOT=Path(__file__).resolve().parents[1]
 E="docs/research/TIANWEN-13ED-NCL03130-SOLAR-D30-EXTENDED-ORIGINAL-STRIP-R1.json"
 S="docs/PROJECT-CURRENT-STATE-R1.json"
@@ -47,12 +52,12 @@ def check(e,s,l,b,a):
  assert any(z.startswith("13ED NCL03130 D30 EXTENDED") for z in s["historical_audit"]["current_focus"])
  issue=next(z for z in l["issues"] if z["id"]=="TW-OPEN-0005")
  assert issue["priority"]=="P0" and issue["status"]=="OPEN"
- active_prefix=issue["next_action"].split(" ",1)[0]
- assert issue["next_action"].startswith(active_prefix+" CURRENT ACTION")
+ active_prefix=historical_action_view(issue).split(" ",1)[0]
+ assert historical_action_view(issue).startswith(active_prefix+" CURRENT ACTION")
  action_revisions=[q for q in issue["history"] if q.get("event")=="ISSUE_REVISION" and "next_action" in q.get("changed_fields",[])]
  assert action_revisions and action_revisions[-1].get("revision_id","").startswith("TW-OPEN-0005-"+active_prefix+"-")
  assert action_revisions[-1].get("evidence_refs") and any(z.startswith(active_prefix+" ") for z in s["historical_audit"]["current_focus"])
- assert "D30" in issue["next_action"] and e["next"].startswith("Review adjacent D26-D36")
+ assert "D30" in historical_action_view(issue) and e["next"].startswith("Review adjacent D26-D36")
  assert set([E,E.replace(".json",".md"),B]).issubset(set(issue["source_refs"]))
  revision=next(q for q in issue["history"] if q.get("revision_id")=="TW-OPEN-0005-13ED-EXTENDED-ORIGINAL-STRIP-20261023")
  assert revision["revision_id"]=="TW-OPEN-0005-13ED-EXTENDED-ORIGINAL-STRIP-20261023"

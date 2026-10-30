@@ -85,7 +85,7 @@ class JournalByteRecoveryTests(unittest.TestCase):
 
     def test_later_prefix_does_not_relax_live_original_controls(self):
         state, ledger, issue = self.future_handoff()
-        issue["next_action"] = issue["next_action"].replace("四分", "")
+        e["source_controls"][0]["value"] = "FABRICATED_ANCIENT_D30"
         e = IR.load()
         with patch.object(IR,"load", side_effect=lambda path: state if path.endswith("PROJECT-CURRENT-STATE-R1.json") else ledger):
             with self.assertRaises(AssertionError):

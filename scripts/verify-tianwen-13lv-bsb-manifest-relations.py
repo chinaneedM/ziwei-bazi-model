@@ -2,6 +2,11 @@
 """13LV manifest-only book relationship; prevent fabricated volume1 or juan35."""
 import json
 from pathlib import Path
+# Archived action terms come from preserved revisions, never from stale live next_action.
+try:
+    from scripts._tianwen_historical_action_r1 import historical_action_view
+except ModuleNotFoundError:
+    from _tianwen_historical_action_r1 import historical_action_view
 ROOT=Path(__file__).resolve().parents[1]
 E="docs/research/TIANWEN-13LV-BSB-MINGSHI-ORIGINAL-MANIFEST-OPAC-AND-RELATIONS-ROUTE-R1.json"
 def load():return tuple(json.loads((ROOT/p).read_text(encoding="utf8")) for p in [E,"docs/PROJECT-CURRENT-STATE-R1.json","docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json"])
@@ -28,8 +33,8 @@ def check(e,s,l):
  assert l["binding"]["latest_research_focus_prefix"]==s["historical_audit"]["current_focus"][-1].split(" ",1)[0]
  assert len(s["historical_audit"]["current_focus"])==l["binding"]["source_focus_count"]
  issue=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
- assert issue["status"]=="OPEN" and "13LV CURRENT ACTION:" in issue["next_action"]
- assert "13LT CURRENT ACTION:" in issue["next_action"] and E in issue["source_refs"]
+ assert issue["status"]=="OPEN" and "13LV CURRENT ACTION:" in historical_action_view(issue)
+ assert "13LT CURRENT ACTION:" in historical_action_view(issue) and E in issue["source_refs"]
  assert any(x.get("revision_id")=="TW-OPEN-0005-13LV-BSB-MANIFEST-OPAC-20261030" for x in issue["history"])
  return {"status":"PASS","official_opac_route":True,"source_glyphs_juan35":0,"numeric_winners":0}
 if __name__=="__main__":print(json.dumps(check(*load()),ensure_ascii=False))

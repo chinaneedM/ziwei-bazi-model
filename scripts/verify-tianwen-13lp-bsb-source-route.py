@@ -2,6 +2,11 @@
 """13LP catalog-only evidence gate with forward-only state / ledger binding."""
 import json
 from pathlib import Path
+# Archived action terms come from preserved revisions, never from stale live next_action.
+try:
+    from scripts._tianwen_historical_action_r1 import historical_action_view
+except ModuleNotFoundError:
+    from _tianwen_historical_action_r1 import historical_action_view
 ROOT=Path(__file__).resolve().parents[1]
 PATH="docs/research/TIANWEN-13LP-BSB1739-MINGSHI-IIIF-CATALOG-AND-ATLAS-TRIAGE-R1.json"
 def load():
@@ -30,8 +35,8 @@ def check(e,s,l):
  assert l["binding"]["latest_research_focus_prefix"]==s["historical_audit"]["current_focus"][-1].split(" ",1)[0]
  assert len(s["historical_audit"]["current_focus"])==l["binding"]["source_focus_count"]
  issue=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
- assert issue["status"]=="OPEN" and "13LP CURRENT ACTION:" in issue["next_action"]
- assert "13LO CURRENT ACTION:" in issue["next_action"] and PATH in issue["source_refs"]
+ assert issue["status"]=="OPEN" and "13LP CURRENT ACTION:" in historical_action_view(issue)
+ assert "13LO CURRENT ACTION:" in historical_action_view(issue) and PATH in issue["source_refs"]
  assert any(x.get("revision_id")=="TW-OPEN-0005-13LP-BSB-CATALOG-20261030" for x in issue["history"])
  assert s["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED"
  return {"status":"PASS","source_grade":"CATALOG_ONLY","original_glyph_winners":0}
