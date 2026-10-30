@@ -15,5 +15,6 @@ class OriginalBook10(unittest.TestCase):
  def test_future_focus(self):
   self.a[1]["historical_audit"]["current_focus"].append("13LH future")
   self.a[2]["binding"]["source_focus_count"]+=1;self.a[2]["binding"]["latest_research_focus_prefix"]="13LH"
+  self.a[2]["issues"][4]["next_action"]="13LH CURRENT ACTION: forward replay\\n"+self.a[2]["issues"][4]["next_action"]
   self.assertEqual(v.check(*self.a)["status"],"PASS")
 if __name__=="__main__":unittest.main()

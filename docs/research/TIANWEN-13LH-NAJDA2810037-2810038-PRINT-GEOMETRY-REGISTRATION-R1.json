@@ -1,0 +1,201 @@
+{
+  "schema": "TIANWEN-13LH-NAJDA2810037-2810038-PRINT-GEOMETRY-REGISTRATION-R1",
+  "date": "2026-10-30",
+  "issue_id": "TW-OPEN-0005",
+  "evidence_grade": "TWO_HASH_VERIFIED_DIGITAL_ORIGINALS_SOURCE_NATIVE_PAGE_GEOMETRY_SIFT_RANSAC_SIMILARITY; NOT_PRINTING_BLOCK_IDENTITY_OR_EDITION_GENEALOGY",
+  "input_originals": [
+    {
+      "archive_reference": "281-0037",
+      "book": 10,
+      "filename": "NAJDA-281-0037 明史10.pdf",
+      "source_page": "https://commons.wikimedia.org/wiki/File:NAJDA-281-0037_明史10.pdf",
+      "bytes": 9931786,
+      "pages": 51,
+      "sha1": "8d846026d8be21e3407a395421417a1323dfb421",
+      "sha256": "8892b16c3b8e17f12211195cf7b58acfd5b7dc0d0aefca6623f653a04d4da93e",
+      "historic_chapter": "明史卷三十五",
+      "numeral_pdf_page": 6,
+      "original_numeral": "238977.09"
+    },
+    {
+      "archive_reference": "281-0038",
+      "book": 11,
+      "filename": "NAJDA-281-0038 明史 志第11-13.pdf",
+      "source_page": "https://commons.wikimedia.org/wiki/File:NAJDA-281-0038_明史_志第11-13.pdf",
+      "bytes": 15476093,
+      "pages": 73,
+      "sha1": "984fbeb6db2e5dd16ffe40133747732d87b0fd40",
+      "sha256": "73322281149551c76f96008c1b9f3933e817543f7cb8710c92268ade9ca031eb",
+      "historic_chapter": "明史卷三十五",
+      "numeral_pdf_page": 6,
+      "original_numeral": "238977.09"
+    }
+  ],
+  "replay": {
+    "script": "scripts/replay-tianwen-13lh-naaj-geometry.py",
+    "libraries": {
+      "opencv": "4.13.0",
+      "pymupdf": "installed source-native pixmap"
+    },
+    "sift_nfeatures": 5500,
+    "sift_contrastThreshold": 0.013,
+    "sift_edgeThreshold": 20,
+    "matcher": "BruteForce KNN k=2",
+    "lowe_ratio": 0.78,
+    "homography": "cv2.findHomography(target_points,source_points,cv2.RANSAC,3.5)",
+    "roi_coordinates": "x1,y1,x2,y2 in source-native 1.0x pixel space; no resizing; distinct left/right leaf crops",
+    "leaf_rectangles": {
+      "left": [
+        [
+          105,
+          86,
+          501,
+          675
+        ],
+        [
+          132,
+          93,
+          502,
+          675
+        ]
+      ],
+      "right": [
+        [
+          500,
+          80,
+          897,
+          672
+        ],
+        [
+          505,
+          90,
+          942,
+          668
+        ]
+      ]
+    },
+    "paired_pages": [
+      {
+        "pdf_page": 2,
+        "leaf": "left",
+        "good_matches": 500,
+        "ransac_inliers": 412,
+        "median_residual_px": 0.354,
+        "grade": "SUPPORTING_MATCH_NOT_WHOLE_PAGE"
+      },
+      {
+        "pdf_page": 2,
+        "leaf": "right",
+        "good_matches": 27,
+        "ransac_inliers": 16,
+        "median_residual_px": 0.566,
+        "grade": "LOW_MATCH_SEPARATE_PAGE_CONTENT_OR_LARGE_LAYOUT_VARIATION"
+      },
+      {
+        "pdf_page": 5,
+        "leaf": "left",
+        "good_matches": 378,
+        "ransac_inliers": 226,
+        "median_residual_px": 0.589,
+        "grade": "SUPPORTING_MATCH"
+      },
+      {
+        "pdf_page": 5,
+        "leaf": "right",
+        "good_matches": 366,
+        "ransac_inliers": 201,
+        "median_residual_px": 0.545,
+        "grade": "SUPPORTING_MATCH"
+      },
+      {
+        "pdf_page": 6,
+        "leaf": "left",
+        "good_matches": 581,
+        "ransac_inliers": 424,
+        "median_residual_px": 0.436,
+        "grade": "TARGET_PAGE_PRINTED_GEOMETRY_MATCH"
+      },
+      {
+        "pdf_page": 6,
+        "leaf": "right",
+        "good_matches": 459,
+        "ransac_inliers": 309,
+        "median_residual_px": 0.406,
+        "grade": "TARGET_PAGE_PRINTED_GEOMETRY_MATCH"
+      },
+      {
+        "pdf_page": 7,
+        "leaf": "left",
+        "good_matches": 595,
+        "ransac_inliers": 440,
+        "median_residual_px": 0.447,
+        "grade": "ADJACENT_PAGE_PRINTED_GEOMETRY_MATCH"
+      },
+      {
+        "pdf_page": 7,
+        "leaf": "right",
+        "good_matches": 580,
+        "ransac_inliers": 379,
+        "median_residual_px": 0.425,
+        "grade": "ADJACENT_PAGE_PRINTED_GEOMETRY_MATCH"
+      }
+    ],
+    "page_native_rgb_sha256": {
+      "281-0037": {
+        "2": "738bed76d0fc1599dee67f5854041e0ffc4a9e2ac942df5f3697a9539ed4dba7",
+        "5": "5694eeb68fe0f83235c160492f46b09da9285837bfd9a52e9978184c0383e795",
+        "6": "a90105202278a2cd0a4c6fb06e7840a673a3d342882f1c6c6ed02e30d49a1913",
+        "7": "e8bbe97543c9df1ffbb5c0de847a279e548074ac47fd56f58dd91c34bdd3b8f5"
+      },
+      "281-0038": {
+        "2": "6a918db244de1e7280c1c6cefad58142ab9cee29289893b5e0f1607abc2fa66c",
+        "5": "13b4599212f2ee1e63717d2cb079bf4933434c8344fe2e81c05a0a1472b565cb",
+        "6": "f5963e5ce75039038ce4aee42655e1ecef6224b36ed9411cc6072c0fba793cb4",
+        "7": "1494ea549576394ecba90e2479b5670e2a879ffa929e6accff1d3af3955bd0ba"
+      }
+    },
+    "metric_status": "LOCAL_REPLAY_ON_FULL_ORIGINAL_SOURCE_BYTES",
+    "registration_not_historical_source_proof": true,
+    "exact_pixel_scores_library_sensitive": true
+  },
+  "adjudication": {
+    "geometric_similarity_evidence": "STRONG_LOCAL_LAYOUT_AND_GLYPH_POSITION_COMPATIBILITY",
+    "same_woodblocks_historically_proven": false,
+    "same_historical_print_run_proven": false,
+    "same_physical_copy": false,
+    "independent_textual_recension_votes_new": 0,
+    "competing_cadal_siku_original": "288977.09",
+    "competing_2810037_2810038_original": "238977.09",
+    "historical_numeric_winners_added": 0,
+    "candidate_status": "SHARED_PLATE_POSSIBLE_NOT_CONFIRMED",
+    "original_1739_impression_proven": false,
+    "ancient_50000_error_causality_proven": false
+  },
+  "counts": {
+    "source_root": 647,
+    "extension": 118,
+    "total": 765,
+    "matrix_rows": 222,
+    "audited": 222,
+    "graph_nodes": 252,
+    "graph_edges": 238,
+    "unresolved_issues": 11,
+    "algorithm_reopens": 0,
+    "product": "CLOSED"
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "High feature alignment is consistent with shared layout/woodblocks but does not prove plate identity, specific 1739 impression, copying direction or independent recension.",
+      "The 3:1 agreement of scanned glyphs cannot settle 238977.09 versus 288977.09."
+    ],
+    "unresolved_lineage_questions": [
+      "Directly collate distinctive broken/carved strokes and block defects from equal photographed coordinates at source high resolution with multiple leaves/other copies.",
+      "Bind any 1739 Wu Ying dated edition to physical impression through seals, preface, colophon and institutional accession.",
+      "Obtain earliest independent dated worked limit calculation and Siku edition/pavilion control for the +50000 variant."
+    ]
+  },
+  "next_action": "Perform high-resolution character-by-character block-defect comparisons on 281-0037 versus 281-0038 (and Harvard original), and obtain print/edition binding; do not upgrade SIFT geometry to definitive shared plate."
+}

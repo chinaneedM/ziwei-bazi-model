@@ -24,10 +24,10 @@ def check(e,s,l):
  assert any(x.startswith("13LG ") for x in focus) and b["source_focus_count"]==len(focus) and b["latest_research_focus_prefix"]==focus[-1].split(" ",1)[0]
  assert s["schema_version"]==s["historical_audit"]["research_omission_guard"]["reviewed_state_version"]==b["reviewed_state_version"]==l["checkpoint_log"][-1]["state_version"]
  issue=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
- assert issue["status"]=="OPEN" and issue["priority"]=="P0" and issue["next_action"].startswith("13LG CURRENT ACTION:")
+ assert issue["status"]=="OPEN" and issue["priority"]=="P0" and issue["next_action"].startswith(b["latest_research_focus_prefix"]+" CURRENT ACTION:")
  assert E in issue["source_refs"] and E[:-5]+".md" in issue["source_refs"]
  assert any(x.get("revision_id")=="TW-OPEN-0005-13LG-NAJDA2810037-ORIGINAL-20261030" for x in issue["history"])
- assert "13LF CURRENT ACTION:" in issue["next_action"] and "13JM CURRENT ACTION:" in issue["next_action"] and "RETRACTED" in issue["next_action"]
+ assert "13LG CURRENT ACTION:" in issue["next_action"] and "13LF CURRENT ACTION:" in issue["next_action"] and "13JM CURRENT ACTION:" in issue["next_action"] and "RETRACTED" in issue["next_action"]
  assert len(l["issues"])==11 and s["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED" and s["invariants"]["algorithm_reopen_count"]==0
  return {"status":"PASS","confirmed_original_book10_juan35":True,"confirmed_numeric_original":"238977.09","historical_winners":0,"new_independent_recensions":0}
 if __name__=="__main__":print(json.dumps(check(*load()),ensure_ascii=False))
