@@ -1,0 +1,82 @@
+{
+  "schema": "TIANWEN-13LF-NAJDA-2810037-CHAPTER-BINDING-AND-ORIGINAL-ACQUISITION-R1",
+  "date": "2026-10-30",
+  "issue_id": "TW-OPEN-0005",
+  "evidence_grade": "FIRST_PARTY_CATALOG_120_VOLUME_HOLDING_PLUS_PUBLIC_COMMONS_DIGITAL_FILE_LOCATOR_NOT_TARGET_FOLIO_GLYPH",
+  "holding": {
+    "provider": "National Archives of Japan",
+    "record_url": "https://www.digital.archives.go.jp/file/3602570",
+    "reference_code": "281-0037",
+    "physical_volumes": 120,
+    "prior_holder": "昌平坂学問所",
+    "printed_edition_description": "刊本:清乾隆",
+    "exact_impression_1739_proved": false,
+    "independent_from_2810038_physical_holding": true,
+    "same_printing_block_as_2810038_proved": false
+  },
+  "file_directory": {
+    "url": "https://commons.wikimedia.org/wiki/Commons:Library_back_up_project/file_list/NAJDA/12",
+    "reported_range": "NAJDA-281-0037 明史1.pdf through 明史120.pdf",
+    "catalog_filename_matches_volumes": true,
+    "exact_chapter_to_book_mapping_proved": false,
+    "candidate_books_for_image_review": [
+      10,
+      11,
+      12,
+      13,
+      14
+    ],
+    "candidate_books_are_not_asserted_to_contain_juan35": true,
+    "original_pdf_acquired_and_hash_verified_in_this_batch": false,
+    "printed_numeral_read_from_2810037": false
+  },
+  "acquisition": {
+    "script": "scripts/probe-tianwen-13lf-naaj-2810037-original.py",
+    "workflow": ".github/workflows/probe-tianwen-13lf-naaj-2810037-original.yml",
+    "verification": "scripts/verify-tianwen-13lf-naaj-2810037-scope.py",
+    "method": "Commons imageinfo SHA1+byte count, local SHA256/PDF page count, raw original retained short-lived, native page sampling+non-OCR contact atlas",
+    "published_run_id": null,
+    "published_artifact_id": null,
+    "original_folio_glyph_read": false,
+    "actual_matching_chapter_number": null
+  },
+  "comparisons": {
+    "naaj_2810038_original_23897709": true,
+    "harvard_original_23897709": true,
+    "cadal_siku_original_28897709": true,
+    "printed_variants_still_conflict": true,
+    "direct_2810037_original_reading": null,
+    "independent_textual_recension_votes_new": 0,
+    "original_g893_six_historical_winners": 0
+  },
+  "scope": {
+    "registry_root": 647,
+    "registry_extensions": 118,
+    "registry_total": 765,
+    "matrix_rows": 222,
+    "matrix_audited": 222,
+    "graph_nodes": 252,
+    "graph_edges": 238,
+    "issues_open": 11,
+    "chart_product": "CLOSED",
+    "algorithm_reopens": 0,
+    "registered_sources_added": 0,
+    "genealogy_nodes_added": 0,
+    "genealogy_edges_added": 0
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "281-0037 and 281-0038 are two archival holdings, but shared or distinct textual edition/printing plates remain unproved.",
+      "Filename order 10–14 cannot be equated to historical chapter 35 without the original title/leaf."
+    ],
+    "unresolved_lineage_questions": [
+      "Which actual 281-0037 book physically contains 明史卷三十五 and where is 有閏加 on its original leaf?",
+      "Does the glyph read 238977.09, 288977.09 or another variant?",
+      "Are printed character spacing, frame lines, damaged blocks and colophons sufficient to decide shared plates with 281-0038 or Harvard?"
+    ]
+  },
+  "next_action": "Inspect new workflow original-file artifact and identify the actual 281-0037 Juan35 volume by first-page original headings; only then page/ROI hash the exact original numeral and compare print blocks without 2:1 witness voting."
+}
