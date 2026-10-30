@@ -1,0 +1,253 @@
+{
+  "schema": "TIANWEN-13LM-NAAJ-P7-COLOR-OVERVIEW-DISCRIMINATOR-TRIAGE-R1",
+  "date": "2026-10-30",
+  "issue_id": "TW-OPEN-0005",
+  "stage": "HASH_BOUND_FIRSTPARTY_RESIZED_OVERVIEW_VISUAL_SCREEN; NATIVE_GLYPH_OR_FRAME_COLLATION_PENDING",
+  "no_ocr": true,
+  "source_archive": {
+    "name": "tianwen-13lj-firstparty-color-evidence.zip",
+    "sha256": "4dfdafa918d89b8a8c137da295ff3a121d4f59e186289ce716732cf49176814e",
+    "library_file_id": "libfile_9b4e0f1341c08191b067de8643f7d8fa",
+    "bytes": 7779645,
+    "prior_source_doc": "docs/research/TIANWEN-13LJ-NAAJ-FIRSTPARTY-COLOR-RECOVERY-R1.json"
+  },
+  "sources": [
+    {
+      "holding": "281-0037",
+      "viewer_id": 4034620,
+      "source_content_id": "C100857577900",
+      "page": 7,
+      "source_file": "M2015092811272117165_0007.jp2",
+      "source_canvas_pixels": [
+        6300,
+        4450
+      ],
+      "acquired_overview_pixels": [
+        3000,
+        2119
+      ],
+      "overview_jpeg_sha256": "758bd74ccb2ad42255275f5f73a6e34aaff4ede77942f0861e91ba73579ec48d",
+      "overview_rgb_sha256": "9f9d3c1e576023e8c076ae1cf5a70cd98c1ab69e198fb5b5eb2c1ee0e1d443e0",
+      "overview_is_resized": true,
+      "original_jp2_acquired": false,
+      "firstparty_service": "https://www.digital.archives.go.jp/api/content/item/da12/C100857577900/iiif/M2015092811272117165_0007.jp2"
+    },
+    {
+      "holding": "281-0038",
+      "viewer_id": 3637417,
+      "source_content_id": "C100858348000",
+      "page": 7,
+      "source_file": "M2014061820051363604_0007.jp2",
+      "source_canvas_pixels": [
+        6200,
+        4500
+      ],
+      "acquired_overview_pixels": [
+        3000,
+        2177
+      ],
+      "overview_jpeg_sha256": "397f3fb839e8128721feb7bdeebbf7677259e97b206f1cc3a04a7b608a7a393f",
+      "overview_rgb_sha256": "b1e88450e088226f6c0159f3b657cd004241842823f69fe183584ed7c033e385",
+      "overview_is_resized": true,
+      "original_jp2_acquired": false,
+      "firstparty_service": "https://www.digital.archives.go.jp/api/content/item/da12/C100858348000/iiif/M2014061820051363604_0007.jp2"
+    }
+  ],
+  "overview_alignment": {
+    "method": "SIFT full color overview grayscale; 9000 features; contrastThreshold .012, BF KNN ratio .74 and RANSAC4px; exploratory only",
+    "candidate_matches": 748,
+    "ransac_inliers": 266,
+    "comparison_level": "RESIZED_JPEG_OVERVIEW_NOT_NATIVE",
+    "same_woodblock_adjudicated": false,
+    "homography_2810038_to_2810037": [
+      [
+        0.9976852106744603,
+        0.0061693901879511645,
+        -50.477386438200455
+      ],
+      [
+        0.004240189130746099,
+        0.979483769024632,
+        -58.828097622137946
+      ],
+      [
+        0.000006108991232607811,
+        -0.00001563830300914031,
+        1
+      ]
+    ],
+    "precision_warning": "registration subject to resampled JPG geometry, local distortion, and scene photometry; not a plate-identification score"
+  },
+  "targets": [
+    {
+      "target_id": "LEFT_NONCIRCLE_COLUMNS",
+      "qualitative_scope": "乘之為實日周 / 推盈縮差; test a non-circle printed column and nearby left border",
+      "visual_status": "CORRESPONDING_COLUMN_AND_FRAME_LAYOUT_COMPATIBLE; NO_UNIQUE_ACCIDENTAL_BREAK_IDENTIFIED",
+      "native_color_acquisition": "PENDING",
+      "positions": [
+        {
+          "holding": "281-0037",
+          "overview_xyxy": [
+            350,
+            225,
+            750,
+            745
+          ],
+          "planned_native_canvas_xyxy": [
+            735,
+            472,
+            1575,
+            1565
+          ],
+          "overview_crop_rgb_sha256": "a9b2aaa9c6ca2978dd4119a0b992a4fa5f0fcd0b680aafdf2583e4763db68afa",
+          "native_bounds_derived_by_floor_ceil_scale": true
+        },
+        {
+          "holding": "281-0038",
+          "overview_xyxy": [
+            392,
+            285,
+            803,
+            814
+          ],
+          "planned_native_canvas_xyxy": [
+            810,
+            589,
+            1660,
+            1683
+          ],
+          "overview_crop_rgb_sha256": "0e2c8190d0c6e2c3aa068d62c1e4ea22a4e167ad36ebde79e3adc58eabafe3fd",
+          "native_bounds_derived_by_floor_ceil_scale": true
+        }
+      ]
+    },
+    {
+      "target_id": "GUTTER_NONCIRCLE_COLUMNS",
+      "qualitative_scope": "以月閏為法 / 推閏在何月; test inner printed frame and adjacent non-circle character",
+      "visual_status": "CORRESPONDING_COLUMN_AND_FRAME_LAYOUT_COMPATIBLE; NO_UNIQUE_ACCIDENTAL_BREAK_IDENTIFIED",
+      "native_color_acquisition": "PENDING",
+      "positions": [
+        {
+          "holding": "281-0037",
+          "overview_xyxy": [
+            1340,
+            215,
+            1710,
+            750
+          ],
+          "planned_native_canvas_xyxy": [
+            2814,
+            451,
+            3591,
+            1576
+          ],
+          "overview_crop_rgb_sha256": "9ee4ac81ff7254753b6ce5f033b633873ca2ae967a9e98edad163955310f1fb6",
+          "native_bounds_derived_by_floor_ceil_scale": true
+        },
+        {
+          "holding": "281-0038",
+          "overview_xyxy": [
+            1382,
+            272,
+            1777,
+            819
+          ],
+          "planned_native_canvas_xyxy": [
+            2856,
+            562,
+            3673,
+            1693
+          ],
+          "overview_crop_rgb_sha256": "b75d5e22df193baac328f33a93f9525b32bb0ebed71235a91a0ed464f383ed40",
+          "native_bounds_derived_by_floor_ceil_scale": true
+        }
+      ]
+    },
+    {
+      "target_id": "RIGHT_NONCIRCLE_COLUMNS",
+      "qualitative_scope": "天正入交 / 推天正入交; test right column engravings and right frame/edge",
+      "visual_status": "CORRESPONDING_COLUMN_AND_FRAME_LAYOUT_COMPATIBLE; NO_UNIQUE_ACCIDENTAL_BREAK_IDENTIFIED",
+      "native_color_acquisition": "PENDING",
+      "positions": [
+        {
+          "holding": "281-0037",
+          "overview_xyxy": [
+            2240,
+            220,
+            2630,
+            755
+          ],
+          "planned_native_canvas_xyxy": [
+            4704,
+            462,
+            5523,
+            1586
+          ],
+          "overview_crop_rgb_sha256": "76492d5ba8144869a620faac71c0b1eb33e255586b7ffb356afcf7f6022590b5",
+          "native_bounds_derived_by_floor_ceil_scale": true
+        },
+        {
+          "holding": "281-0038",
+          "overview_xyxy": [
+            2292,
+            274,
+            2721,
+            825
+          ],
+          "planned_native_canvas_xyxy": [
+            4736,
+            566,
+            5624,
+            1706
+          ],
+          "overview_crop_rgb_sha256": "a8cad9cf4ba824ba46df4d1a9d0076c41eaab0b97cef9efc446a19aa1fd33418",
+          "native_bounds_derived_by_floor_ceil_scale": true
+        }
+      ]
+    }
+  ],
+  "adjudication": {
+    "three_source_page_loci_registered": 3,
+    "independent_physical_copies_added": 0,
+    "new_historical_recensions": 0,
+    "unique_accidental_engraving_damage_identified": false,
+    "plate_identity_or_impression_date_proven": false,
+    "ancient_source_negative_proof": false,
+    "black_mask_or_jbig2_used_for_this_screen": false,
+    "source_color_media": "FIRST_PARTY_JPEG_3000PX_RESIZED_OVERVIEWS",
+    "source_native_jpeg_fragments_acquired_in_this_batch": false,
+    "firstparty_native_acquisition_is_pending": true,
+    "harvard_cross_witness_not_yet_screened": true,
+    "original_23897709_retained": "238977.09",
+    "siku_28897709_retained": "288977.09",
+    "g893_six_winners": 0,
+    "no_algorithm_reopen": true
+  },
+  "replay_script": "scripts/replay-tianwen-13lm-naaj-p7-overview.py",
+  "native_acquisition_script": "scripts/acquire-tianwen-13lm-naaj-p7-native-controls.py",
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "High visual alignment in three additional non-circle, p7 regions is not proof of the same physical woodblock or a unique coincident engraving break.",
+      "Overview-derived native-region candidate coordinates are acquisition targets, not original native visual findings."
+    ],
+    "unresolved_lineage_questions": [
+      "Recover and inspect the actual first-party p7 native-window JPEG derivatives for distinct nonrepeat accidental line and frame defects.",
+      "Triangulate with Harvard original page scan and dated copy-specific colophon or ownership chain, separating physical-copy, edition and optical-surrogate dates.",
+      "Find independently dated calendar worked computation for G893 six unsettled numeric decisions."
+    ]
+  },
+  "counts": {
+    "source_registry": 765,
+    "matrix_rows": 222,
+    "matrix_audited": 222,
+    "graph_nodes": 252,
+    "graph_edges": 238,
+    "open_issues": 11,
+    "algorithm_reopens": 0,
+    "product": "CLOSED"
+  },
+  "next_action": "Acquire source-native p7 first-party regions from established canvas IDs, preserve JPEG hashes and exact pixel geometry in an append-only snapshot, directly inspect unique non-repeat engraving and frame defects against both physical copies/Harvard; this overview does not decide woodblocks, editions, printed years or calendar values."
+}
