@@ -1,5 +1,6 @@
 import copy,importlib.util,unittest
 from pathlib import Path
+from scripts._tianwen_historical_action_r1 import historical_action_view
 p=Path(__file__).resolve().parents[1]/'scripts'/'verify-tianwen-13fb-nikh-thumb-cert.py'
 s=importlib.util.spec_from_file_location('v13fb',p);v=importlib.util.module_from_spec(s);s.loader.exec_module(v)
 class Test13FB(unittest.TestCase):
@@ -33,11 +34,15 @@ class Test13FB(unittest.TestCase):
  def test_algorithm_reopen(self):self.deny(lambda x:x['impact'].update(algorithm_reopens=1))
  def test_current_gk5553_shelfmark_alias(self):
   q=copy.deepcopy(self.l);risk=next(x for x in q['issues'] if x['id']=='TW-OPEN-0005')
-  self.assertIn('GK5553',risk['next_action'])
-  risk['next_action']=risk['next_action'].replace('GK5553','GK05553_00')
+  self.assertIn('GK5553',historical_action_view(risk))
+  for h in risk['history']:
+   if 'previous_next_action' in h:
+    h['previous_next_action']=h['previous_next_action'].replace('GK5553','GK05553_00')
   self.assertTrue(v.check(self.e,self.s,q,self.m))
  def test_unbound_gk5553_shelfmark_rejected(self):
   q=copy.deepcopy(self.l);risk=next(x for x in q['issues'] if x['id']=='TW-OPEN-0005')
-  risk['next_action']=risk['next_action'].replace('GK05553_00','UNBOUND_COPY').replace('GK5553','UNBOUND_COPY')
+  for h in risk['history']:
+   if 'previous_next_action' in h:
+    h['previous_next_action']=h['previous_next_action'].replace('GK05553_00','UNBOUND_COPY').replace('GK5553','UNBOUND_COPY')
   with self.assertRaises(AssertionError):v.check(self.e,self.s,q,self.m)
 if __name__=='__main__':unittest.main()

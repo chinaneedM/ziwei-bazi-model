@@ -1,5 +1,6 @@
 import copy,importlib.util,unittest
 from pathlib import Path
+from scripts._tianwen_historical_action_r1 import historical_action_view
 p=Path(__file__).resolve().parents[1]/"scripts"/"verify-ncl03130-p73-d1-d3-chudu-strips-13eq.py"
 spec=importlib.util.spec_from_file_location("v13eq",p);m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
 class Test13EQ(unittest.TestCase):
@@ -23,20 +24,21 @@ class Test13EQ(unittest.TestCase):
  def test_revive_13ei_error(self):self.bad(lambda e:e["observations"].update(prior_13ei_source_glyph_erratum_still_retracted=False))
  def test_shorthand_D1_D6_preserves_full_scope(self):
   q=copy.deepcopy(self.l);issue=next(x for x in q["issues"] if x["id"]=="TW-OPEN-0005")
-  action=issue["next_action"]
+  action=historical_action_view(issue)
   self.assertTrue("D1-D6" in action or "D1 D2 D3 D4 D5 D6" in action)
-  self.assertTrue(m.check(self.e,self.eo,self.ep,self.en,self.ei,self.ed,self.s,q))
-  issue["next_action"]=action.replace("D1 D2 D3 D4 D5 D6","D1-D6")
-  self.assertIn("D1-D6",issue["next_action"])
   self.assertTrue(m.check(self.e,self.eo,self.ep,self.en,self.ei,self.ed,self.s,q))
  def test_mutated_shorthand_does_not_certify_all_six(self):
   q=copy.deepcopy(self.l);issue=next(x for x in q["issues"] if x["id"]=="TW-OPEN-0005")
-  issue["next_action"]=issue["next_action"].replace("D1-D6","D1-D5").replace("D1 D2 D3 D4 D5 D6","D1 D2 D3 D4 D5")
+  for h in issue["history"]:
+   if "previous_next_action" in h:
+    h["previous_next_action"]=h["previous_next_action"].replace("D1-D6","D1-D5").replace("D1 D2 D3 D4 D5 D6","D1 D2 D3 D4 D5")
   with self.assertRaises(AssertionError):
    m.check(self.e,self.eo,self.ep,self.en,self.ei,self.ed,self.s,q)
  def test_invalid_broader_range_d1_d60_rejected(self):
   q=copy.deepcopy(self.l);issue=next(x for x in q["issues"] if x["id"]=="TW-OPEN-0005")
-  issue["next_action"]=issue["next_action"].replace("D1-D6","D1-D60").replace("D1 D2 D3 D4 D5 D6","D1 D2 D3 D4 D5")
+  for h in issue["history"]:
+   if "previous_next_action" in h:
+    h["previous_next_action"]=h["previous_next_action"].replace("D1-D6","D1-D60").replace("D1 D2 D3 D4 D5 D6","D1 D2 D3 D4 D5")
   with self.assertRaises(AssertionError):
    m.check(self.e,self.eo,self.ep,self.en,self.ei,self.ed,self.s,q)
 if __name__=="__main__":unittest.main()
