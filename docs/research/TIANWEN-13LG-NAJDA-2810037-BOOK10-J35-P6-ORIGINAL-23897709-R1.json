@@ -1,0 +1,112 @@
+{
+  "schema": "TIANWEN-13LG-NAJDA-2810037-BOOK10-J35-P6-ORIGINAL-23897709-R1",
+  "date": "2026-10-30",
+  "issue_id": "TW-OPEN-0005",
+  "evidence_grade": "DIRECT_ORIGINAL_BOOK_AND_CHAPTER_TITLE_PAGE_PLUS_NUMERIC_PAGE_SOURCE_NATIVE_RGB_SHA256_NO_OCR;_NO_HISTORICAL_EDITIONS_OR_PRINTING_BLOCK_GENEALOGY",
+  "archive": {
+    "institution": "National Archives of Japan",
+    "reference_code": "281-0037",
+    "catalog_url": "https://www.digital.archives.go.jp/file/3602570",
+    "original_holding_volumes": 120,
+    "prior_holder": "昌平坂学問所",
+    "source_book_number": 10,
+    "original_title_page_verifies_historical_juan35": true,
+    "not_same_physical_holding_as_2810038": true,
+    "exact_1739_physical_impression_proved": false,
+    "shared_printing_blocks_with_2810038_harvard_proved": false
+  },
+  "original_pdf": {
+    "filename": "NAJDA-281-0037 明史10.pdf",
+    "commons_source_file": "https://commons.wikimedia.org/wiki/File:NAJDA-281-0037_明史10.pdf",
+    "bytes": 9931786,
+    "sha1": "8d846026d8be21e3407a395421417a1323dfb421",
+    "sha256": "8892b16c3b8e17f12211195cf7b58acfd5b7dc0d0aefca6623f653a04d4da93e",
+    "pages": 51,
+    "github_actions_source_run_id": 41008895126,
+    "github_actions_artifact_id": 12956527752,
+    "artifacts_retention_days": 7,
+    "hash_verified_against_mediawiki_original_metadata": true,
+    "independently_read_original_pdf_from_artifact": true
+  },
+  "page_collation": [
+    {
+      "pdf_page": 2,
+      "chapter_title": "明史卷三十五",
+      "source_original_not_ocr": true,
+      "native_rgb_dimensions": [
+        1135,
+        802
+      ],
+      "full_page_rgb_sha256": "738bed76d0fc1599dee67f5854041e0ffc4a9e2ac942df5f3697a9539ed4dba7",
+      "roi_xyxy": [
+        470,
+        60,
+        590,
+        400
+      ],
+      "roi_rgb_sha256": "1b3be2524398737a8d4561bb241915c28b0eaaf22bad55251a29d15aef26aed0"
+    },
+    {
+      "pdf_page": 6,
+      "original_printed_text": "有閏加二十三萬八九七七○九",
+      "normalized_numeric_basic_units": "238977.09",
+      "source_original_not_ocr": true,
+      "native_rgb_dimensions": [
+        1135,
+        802
+      ],
+      "full_page_rgb_sha256": "a90105202278a2cd0a4c6fb06e7840a673a3d342882f1c6c6ed02e30d49a1913",
+      "roi_xyxy": [
+        590,
+        85,
+        642,
+        712
+      ],
+      "roi_rgb_sha256": "e3099ff2b939cc3df01112b10978f32710ddc95243c386259e3fe81edff4b90f",
+      "note": "The ROI contains the target column and part of neighboring print; only 有閏加 numeral is adjudicated, not surrounding operators."
+    }
+  ],
+  "acquisition_other_candidate_books": {
+    "books_11_to_14_sha1_sha256_length_verified": true,
+    "books_11_to_14_claimed_to_contain_juan35": false,
+    "book_10_direct_original_positive": true,
+    "remaining_books_not_independent_recension_votes": true
+  },
+  "comparison": {
+    "naaj_2810037_book10_direct_original": "238977.09",
+    "naaj_2810038_book0011_direct_original": "238977.09",
+    "harvard_original": "238977.09",
+    "cadal_siku_original": "288977.09",
+    "numeric_delta_basic_units": "50000",
+    "historical_independent_textual_recensions_added": 0,
+    "edition_stemma_judged": false,
+    "causal_copying_direction_judged": false,
+    "g893_six_historically_adjudicated_winners": 0,
+    "algorithm_reopens": 0
+  },
+  "unchanged_scope": {
+    "source_registry_root": 647,
+    "source_registry_extension": 118,
+    "source_registry_total": 765,
+    "historical_matrix_rows": 222,
+    "historical_matrix_audited": 222,
+    "genealogy_nodes": 252,
+    "genealogy_edges": 238,
+    "p0_p1_issues_open": 11,
+    "product": "CLOSED"
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Two NAAJ source-original images share the 238977.09 printed numeral; without physical print-block damage/colophon/paper collation these are not independently established historical textual recensions.",
+      "The three 238977.09 image observations do not license simple majority voting against Siku 288977.09."
+    ],
+    "unresolved_lineage_questions": [
+      "Exact printed-block identity and impression chronology of NAAJ281-0037, NAAJ281-0038, Harvard volume11 and CADAL Siku remain unresolved.",
+      "Source-original early dated worked example, Ming1569 same-field index and G893 少/微 original technical column need independent proof."
+    ]
+  },
+  "next_action": "Compare target page exact full line and unique block-damage/column placements across Japan 281-0037 and 281-0038, Harvard, Siku; independently seek original dated calendrical worked example. No historical winner or runtime reopen."
+}
