@@ -1,0 +1,92 @@
+{
+  "schema": "TIANWEN-13LV-BSB-MINGSHI-ORIGINAL-MANIFEST-OPAC-AND-RELATIONS-ROUTE-R1",
+  "date": "2026-10-30",
+  "issue_id": "TW-OPEN-0005",
+  "provider": "Bayerische Staatsbibliothek",
+  "digital_object": "bsb11166692",
+  "prior_title_page_batch": "docs/research/TIANWEN-13LT-BSB1739-MINGSHI-V2-36-SOURCE-FOLIOS-J51-J46-TITLE-COLLATION-R1.json",
+  "source_identifiers": {
+    "provider_title": "Ming shi. 2",
+    "provider_bsb_catalog_id": "991045503389707356",
+    "provider_union_catalog_id": "BV039968895",
+    "holding_call_number": "4 L.sin. D 208-11/20",
+    "creator": "張廷玉等奉敕纂",
+    "catalog_published": "[China] : 武英殿, 1739",
+    "exact_1739_physical_print_date_proven": false
+  },
+  "manifest": {
+    "original_url": "https://api.digitale-sammlungen.de/iiif/presentation/v2/bsb11166692/manifest",
+    "source_manifest_sha256": "fb28be88c767636c6394926620c112e994f1b0b5d58cf896d4a5edc2919f047c",
+    "canvas_count": 1880,
+    "viewer_display_images": 1886,
+    "unexplained_count_difference": 6,
+    "metadata_from_exact_source_hash": true
+  },
+  "metadata_acquisition": {
+    "run_id": 41058584230,
+    "run_url": "https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/41058584230",
+    "artifact_id": 12978341985,
+    "zip_bytes": 2070,
+    "zip_sha256": "dcd8385c7a648216da9cdb5813adc143ac237ceb637a33ac8524109e02ce0547",
+    "permanent_archive": {
+      "library_file_id": "libfile_191afe87a5608191860186892d2ae899",
+      "library_path": "/命运/tianwen-13lu-bsb-iiif-official-relations-metadata.zip"
+    },
+    "archived_payload": "manifest-top-metadata.json",
+    "source_version": "IIIF Presentation 2",
+    "no_ocr": true
+  },
+  "direct_first_party_links": {
+    "details": "https://mdz-nbn-resolving.de/details:bsb11166692",
+    "opac": "https://opacplus.bsb-muenchen.de/title/BV039968895",
+    "marcxml": "https://opacplus.bsb-muenchen.de/title/BV039968895?format=marc",
+    "rdf": "https://opacplus.bsb-muenchen.de/title/BV039968895?format=rdf",
+    "manifest_iiif_search": "https://api.digitale-sammlungen.de/iiif/services/search/v1/bsb11166692",
+    "source_manifest_provided_explicit_sibling_volume1_identifier": false,
+    "source_manifest_provided_juan35_original_leaf_identifier": false
+  },
+  "follow_up_first_party_probe": {
+    "script": "scripts/probe-tianwen-13lv-bsb-opac-catalog.py",
+    "workflow": ".github/workflows/probe-tianwen-13lv-bsb-opac-catalog.yml",
+    "urls_scoped_to_manifest_explicit_links_only": true,
+    "credentials_used": false,
+    "neighbor_identifiers_guessed": false,
+    "ran_before_commit": false,
+    "opac_access_status": "UNRUN",
+    "physical_leaf_image_positive": false
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Exact BSB catalog link does not attest precise ancient copy impression or prove another BSB volume belongs to the same scanned physical specimen.",
+      "No verified sibling volume or juan35 page in the exact manifest; that is only an absence in specific metadata fields, not proof no physical page exists."
+    ],
+    "unresolved_lineage_questions": [
+      "Follow manifest-linked official OPAC entry and its linked volume listing if accessible, without numeric ID guessing.",
+      "Locate actual source original juan35 target leaf and physical impression.",
+      "Separate Hong/Zhang numeric variants from catalog-only item identity."
+    ]
+  },
+  "adjudication": {
+    "new_target_original_juan35_glyph": false,
+    "sibling_first_volume_verified": false,
+    "source_page_juan35_absence_proven": false,
+    "original_1739_print_copy_verified": false,
+    "historical_numeric_winners_added": 0,
+    "algorithm_reopens": 0,
+    "chart": "CLOSED"
+  },
+  "counts": {
+    "sources": 765,
+    "matrix_rows": 222,
+    "matrix_audited": 222,
+    "genealogy_nodes": 252,
+    "genealogy_edges": 238,
+    "open_issues": 11,
+    "g893_six_numeric_winners": 0,
+    "product": "CLOSED"
+  },
+  "next_action": "Use first-party metadata exact OPAC/MARCXML link BV039968895 to bind actual same-holding volume1 and juan35 title leaf if exposed, without inferring volume ID from number succession. Preserve all previous 13LT original glyph and 13LO numeric distinctions."
+}

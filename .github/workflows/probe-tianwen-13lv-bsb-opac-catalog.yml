@@ -1,0 +1,27 @@
+name: probe-tianwen-13lv-bsb-opac-catalog
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - scripts/probe-tianwen-13lv-bsb-opac-catalog.py
+      - .github/workflows/probe-tianwen-13lv-bsb-opac-catalog.yml
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python scripts/probe-tianwen-13lv-bsb-opac-catalog.py --out /tmp/tianwen-13lv
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: tianwen-13lv-bsb-verified-opac-route
+          path: /tmp/tianwen-13lv/
+          if-no-files-found: warn
+      - run: python scripts/verify-tianwen-13lv-bsb-manifest-relations.py
+      - run: python scripts/verify-research-omission-risk-ledger-r1.py --check-parent
+      - run: python scripts/verify-project-continuity-state-r1.py
