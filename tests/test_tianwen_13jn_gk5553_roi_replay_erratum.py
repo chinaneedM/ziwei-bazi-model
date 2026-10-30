@@ -3,6 +3,7 @@ import hashlib
 import json
 import unittest
 from pathlib import Path
+from scripts._tianwen_historical_action_r1 import historical_action_view
 
 ROOT = Path(__file__).resolve().parents[1]
 PRIOR = ROOT / "docs/research/TIANWEN-13JM-GK5553-8-26-MANUSCRIPT-NEIGHBOR-SIX-ORIGINAL-IMAGE-SCOPE-R1.json"
@@ -68,8 +69,8 @@ class ForwardOnlyRoiReplayErratum(unittest.TestCase):
         issue = next(x for x in self.ledger["issues"] if x["id"] == "TW-OPEN-0005")
         self.assertEqual((issue["status"], issue["priority"]), ("OPEN", "P0"))
         self.assertIn("docs/research/TIANWEN-13JN-GK5553-13JM-ROI-REPLAY-ERRATUM-R1.json", issue["source_refs"])
-        self.assertIn("13JM CURRENT ACTION:", issue["next_action"])
-        self.assertIn("13JN CURRENT ACTION:", issue["next_action"])
+        self.assertIn("13JM CURRENT ACTION:", historical_action_view(issue))
+        self.assertIn("13JN CURRENT ACTION:", historical_action_view(issue))
         self.assertTrue(any(x.get("revision_id", "").startswith("TW-OPEN-0005-13JN")
                             for x in issue["history"]))
         self.assertEqual(self.ledger["checkpoint_log"][-1]["state_version"], self.state["schema_version"])

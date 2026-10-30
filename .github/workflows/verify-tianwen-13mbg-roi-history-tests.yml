@@ -1,0 +1,29 @@
+name: verify-tianwen-13mbg-roi-history-tests
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - tests/test_tianwen_13jn_gk5553_roi_replay_erratum.py
+      - tests/test_tianwen_13jo_gk5553_original_roi_replay.py
+      - tests/test_tianwen_13jp_gk5553_five_original_roi_replay.py
+      - scripts/_tianwen_historical_action_r1.py
+      - .github/workflows/verify-tianwen-13mbg-roi-history-tests.yml
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 2}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: Historical provenance ROI regression tests
+        run: |
+          python -m unittest discover -s tests -p 'test_tianwen_13jn_gk5553_roi_replay_erratum.py' -v
+          python -m unittest discover -s tests -p 'test_tianwen_13jo_gk5553_original_roi_replay.py' -v
+          python -m unittest discover -s tests -p 'test_tianwen_13jp_gk5553_five_original_roi_replay.py' -v
+          python -m unittest discover -s tests -p 'test_tianwen_historical_action_view_r1.py' -v
+      - run: python scripts/verify-research-omission-risk-ledger-r1.py --check-parent
+      - run: python scripts/verify-project-continuity-state-r1.py

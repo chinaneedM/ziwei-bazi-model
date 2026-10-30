@@ -2,6 +2,7 @@
 import importlib.util,json,unittest
 from copy import deepcopy
 from pathlib import Path
+from scripts._tianwen_historical_action_r1 import historical_action_view
 R=Path(__file__).resolve().parents[1]
 E=R/"docs/research/TIANWEN-13JO-GK5553-13JL-ORIGINAL-JPEG-PIXEL-ROI-REPLAY-R1.json"
 L=R/"docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json"
@@ -41,8 +42,8 @@ class OriginalRoiReplay(unittest.TestCase):
   i=next(x for x in self.l["issues"] if x["id"]=="TW-OPEN-0005")
   self.assertEqual((i["status"],i["priority"]),("OPEN","P0"))
   self.assertIn(E.relative_to(R).as_posix(),i["source_refs"])
-  self.assertIn("13JN CURRENT ACTION:",i["next_action"])
-  self.assertIn("13JM CURRENT ACTION:",i["next_action"])
+  self.assertIn("13JN CURRENT ACTION:",historical_action_view(i))
+  self.assertIn("13JM CURRENT ACTION:",historical_action_view(i))
   self.assertTrue(any(x.get("revision_id","").startswith("TW-OPEN-0005-13JO") for x in i["history"]))
   self.assertEqual(self.l["checkpoint_log"][-1]["state_version"],self.s["schema_version"])
   self.assertEqual(self.s["invariants"]["deterministic_fusion_chart_product_r1"],"CLOSED")

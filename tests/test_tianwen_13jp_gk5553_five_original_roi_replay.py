@@ -4,6 +4,7 @@ import json
 import unittest
 from copy import deepcopy
 from pathlib import Path
+from scripts._tianwen_historical_action_r1 import historical_action_view
 
 ROOT=Path(__file__).resolve().parents[1]
 E=ROOT/"docs/research/TIANWEN-13JP-GK5553-13JI-FIVE-ORIGINAL-JPEG-PIXEL-ROI-REPLAY-R1.json"
@@ -46,7 +47,7 @@ class OriginalFivePixelReplay(unittest.TestCase):
         self.assertIn(E.relative_to(ROOT).as_posix(),issue["source_refs"])
         self.assertEqual((issue["priority"],issue["status"]),("P0","OPEN"))
         for prev in ("13JJ CURRENT ACTION:","13JN CURRENT ACTION:","13JO CURRENT ACTION:"):
-            self.assertIn(prev,issue["next_action"])
+            self.assertIn(prev,historical_action_view(issue))
         self.assertTrue(any(x.get("revision_id","").startswith("TW-OPEN-0005-13JP") for x in issue["history"]))
         self.assertEqual(self.l["checkpoint_log"][-1]["state_version"],self.s["schema_version"])
         self.assertEqual(self.s["invariants"]["deterministic_fusion_chart_product_r1"],"CLOSED")
