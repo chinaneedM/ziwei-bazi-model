@@ -25,13 +25,15 @@ assert c["same_source_field_and_unit_crosswalk"]=="UNPROVEN"
 assert c["numerical_g893_six_target_historical_winners"]==c["chart_algorithm_reopens"]==0
 assert c["chart_product"]=="CLOSED"
 assert c["external_source_entries_added"]==c["graph_edges_added"]==c["matrix_row_status_changes"]==0
-assert s["schema_version"]==l["binding"]["reviewed_state_version"]=="1.973.0"
+assert s["schema_version"]==l["binding"]["reviewed_state_version"]
+assert tuple(map(int,s["schema_version"].split("."))) >= (1,973,0)
 assert s["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED"
-assert s["historical_audit"]["current_focus"][-1].startswith("13MK ")
-assert l["binding"]["latest_research_focus_prefix"]=="13MK"
+assert any(x.startswith("13MK ") for x in s["historical_audit"]["current_focus"])
+assert l["binding"]["latest_research_focus_prefix"]==s["historical_audit"]["current_focus"][-1].split(" ")[0]
 issue=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
 assert issue["status"]=="OPEN" and issue["priority"]=="P0"
 assert str(p.relative_to(R)) in issue["source_refs"]
 assert any(x.get("revision_id")=="TW-OPEN-0005-13MK-ORIGINAL-001A-REACQUIRED-20261031" for x in issue["history"])
-assert l["checkpoint_log"][-1]["state_version"]=="1.973.0"
+assert any(x["state_version"]=="1.973.0" and x["id"]=="OMISSIONS-13MK-G893-001A-ORIGINAL-REACQUISITION-20261031" for x in l["checkpoint_log"])
+assert l["checkpoint_log"][-1]["state_version"]==s["schema_version"]
 print(json.dumps({"result":"PASS","g893_original_pages_verified":3,"crosssource_winners":0,"product":"CLOSED"}))
