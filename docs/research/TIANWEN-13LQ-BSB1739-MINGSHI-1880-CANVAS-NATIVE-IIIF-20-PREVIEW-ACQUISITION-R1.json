@@ -1,0 +1,121 @@
+{
+  "schema": "TIANWEN-13LQ-BSB1739-MINGSHI-1880-CANVAS-NATIVE-IIIF-20-PREVIEW-ACQUISITION-R1",
+  "date": "2026-10-30",
+  "issue_id": "TW-OPEN-0005",
+  "previous_batch": "docs/research/TIANWEN-13LP-BSB1739-MINGSHI-IIIF-CATALOG-AND-ATLAS-TRIAGE-R1.json",
+  "evidence_grade": "FIRST_PARTY_IIIF_MANIFEST_AND_TWENTY_PROVIDER_THUMBNAIL_IMAGES_ACQUIRED_SHA_BOUND_NOT_TARGET_ORIGINAL_FOLIO",
+  "acquisition": {
+    "run_id": 41054248271,
+    "run_url": "https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/41054248271",
+    "artifact_id": 12975358673,
+    "artifact_name": "tianwen-13lp-bsb-iiif-catalog-probe",
+    "artifact_zip_sha256": "c13af97a923dd36adbb2c242858bd50f32780cacc3982a301e3ba263148d949e",
+    "artifact_zip_bytes": 280457,
+    "durable_archive": {
+      "library_file_id": "libfile_bd904974e1048191bcdc08a89e34db11",
+      "library_path": "/命运/tianwen-13lp-bsb-mingshi1739-manifest-preview-evidence.zip",
+      "artifact_zip_sha256": "c13af97a923dd36adbb2c242858bd50f32780cacc3982a301e3ba263148d949e"
+    },
+    "provider_manifest_url": "https://api.digitale-sammlungen.de/iiif/presentation/v2/bsb11166692/manifest",
+    "provider_manifest_bytes": 1762391,
+    "provider_manifest_sha256": "fb28be88c767636c6394926620c112e994f1b0b5d58cf896d4a5edc2919f047c",
+    "provider_manifest_type": "sc:Manifest",
+    "canvas_count": 1880,
+    "artifact_manifest_probe_json_sha256": "ebc294be4b34cad7b25fd08db3ccf1d3bb42d4bb75f9685673243b0f12551910",
+    "sampled_canvas_numbers_1_based": [
+      1,
+      2,
+      3,
+      4,
+      6,
+      8,
+      12,
+      20,
+      30,
+      50,
+      75,
+      100,
+      150,
+      250,
+      400,
+      650,
+      900,
+      1200,
+      1500,
+      1850
+    ],
+    "sampled_preview_count": 20,
+    "sampled_preview_all_success": true,
+    "preview_size_request": "full/320,/0/default.jpg",
+    "preview_image_service_prefix": "https://api.digitale-sammlungen.de/iiif/image/v2/bsb11166692_",
+    "preview_contact_image": {
+      "sha256": "5be41d5fb0cfdf0ab9f528e8672c647859d2349a5a61ab7b8f2c2d88f51d6810",
+      "bytes": 287443,
+      "pixels": [
+        1200,
+        1300
+      ]
+    },
+    "sampled_index_sha256": "094c7df395b9d2d8d3bc88ecbe24aad4717407a621671b79b0f910df558950a1",
+    "exact_per_image_jpeg_and_rgb_sha256": "PRESERVED_IN_IMMUTABLE_HASH_BOUND_ARCHIVE_manifest-probe.json_AND_sampled-preview-index.json",
+    "viewer_reported_count": 1886,
+    "viewer_vs_manifest_delta": 6,
+    "count_discrepancy_explanation": "UNVERIFIED_DIFFERENT_PROVIDER_INDEX_OR_UI_COUNT; DO_NOT_ASSUME_MISSING_PHYSICAL_FOLIOS",
+    "readout_source": "rechecked independent local ZIP sha and archive files, original 13LP Actions success logs"
+  },
+  "scope_review": {
+    "source_image_presence": "POSITIVE_NATIVE_PROVIDER_IMAGE_SERVICE_RESPONDED",
+    "first_four_previews": "VISUAL_OUTER_COVERS_OR_BLANK_LEAVES",
+    "later_sampled_previews": "VISUAL_PRINTED_CHINESE_TEXT_LAYOUT_ONLY",
+    "target_juan35_title_leaf": "UNIDENTIFIED",
+    "target_13_lunation_numeric_glyph": "UNIDENTIFIED",
+    "complete_1880_page_content_review": false,
+    "low_resolution_only": true,
+    "image_derivative_not_lossless_raw": true,
+    "no_ocr": true,
+    "physical_1739_impression_proven": false,
+    "independent_historical_recension_count_added": 0,
+    "historical_g893_six_numeric_winners_added": 0
+  },
+  "source_status": {
+    "root": 647,
+    "extension_shards": 68,
+    "extension_records": 118,
+    "combined": 765,
+    "added_registry_source_rows": 0,
+    "matrix_rows": 222,
+    "matrix_audited": 222,
+    "graph_nodes": 252,
+    "graph_edges": 238,
+    "unresolved_issues": 11
+  },
+  "mechanical_context": {
+    "original_harvard_naaj": "238977.09",
+    "original_cadal_siku": "288977.09",
+    "no_numeric_edition_winner": true
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Provider item IIIF image presence does not itself identify juan35 or establish impression date.",
+      "The catalog 1739 publication label does not date this digitized copy; 1880 canvas and 1886 viewer count discrepancy does not prove missing folios."
+    ],
+    "unresolved_lineage_questions": [
+      "Locate precise juan35 leaf in institutionally mapped digital volume or another exact provider-linked volume.",
+      "Verify a full/native source target ROI against original 238977.09 / 288977.09 after source leaf mapping.",
+      "Determine physical impression and woodblock relationship independently of source photo similarities."
+    ]
+  },
+  "adjudication": {
+    "physical_print_year_verified": false,
+    "juan35_target_present_verified": false,
+    "new_original_numeric_glyph_identified": false,
+    "woodblock_same_or_different_proven": false,
+    "new_numeric_winners": 0,
+    "algorithm_reopens": 0,
+    "chart": "CLOSED"
+  },
+  "next_action": "Provider IIIF source acquisition is successfully replayable. Map volume2 chapter title leaves by direct original-page and correct source canvas indexing, resolve 1880 vs 1886 provider count via first-party metadata, then target original 13-lunation value at full native image resolution. Preserve all text/copy dates and competing readings until independently proven."
+}
