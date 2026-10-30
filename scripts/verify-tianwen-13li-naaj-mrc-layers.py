@@ -13,13 +13,13 @@ def check(e,s,l):
     assert a["pdf_producer"]==b["pdf_producer"]=="LuraDocument.jpm v2.05"
     assert a["pdf_creation_metadata"].startswith("D:20160213") and b["pdf_creation_metadata"].startswith("D:20150116")
     assert a["metadata_is_not_print_date"] and b["metadata_is_not_print_date"]
-    for x,width,height,maskhash in ((a,6300,4450,"a18164299d54e38f808ba229f5efec591bcaf41919d7aaa044803d29784d081b"),(b,6200,4500,"5d1c5e28f13341ca74832dddc0c5754f9e6cc6958b34664ad55b5383f75a5193")):
+    for x,width,height,maskhash,crop,crhash in ((a,6300,4450,"a18164299d54e38f808ba229f5efec591bcaf41919d7aaa044803d29784d081b",[3277,472,3566,3955],"f64e1fb09435a14216df6a57fa84065290f0270156b103c91c308dd88a5712cc"),(b,6200,4500,"5d1c5e28f13341ca74832dddc0c5754f9e6cc6958b34664ad55b5383f75a5193",[3383,499,3738,4044],"5dd68c5e361c29854bd6e023a7c5393851505543961ea0471dc42af44fd47481")):
         base,mask,foreground=x["layers"]
         assert [v["xref"] for v in x["layers"]]==[32,33,34]
         assert base["filter"]==foreground["filter"]=="JPXDecode" and base["width"]==foreground["width"] and base["height"]==foreground["height"]
         assert mask["role"]=="TEXT_MASK" and mask["filter"]=="JBIG2Decode" and mask["width"]==width and mask["height"]==height and mask["bits"]==1
         assert mask["decoded_pixmap_sha256"]==maskhash and foreground["smask_xref"]==33
-        assert x["historic_numeric"]=="238977.09" and x["target_mask_crop_gray_sha256"] and x["target_mask_crop_rgb_not_applicable"]
+        assert x["historic_numeric"]=="238977.09" and x["target_mask_crop_xyxy"]==crop and x["target_mask_crop_gray_sha256"]==crhash and x["target_mask_crop_rgb_not_applicable"]
     c=e["interpretation"];scope=e["counts"]
     for key in ("pdf_creation_dates_prove_ancient_printing","decoded_jbig2_mask_is_unprocessed_camera_original","lossy_symbol_substitution_proven_in_these_files","mask_6300x4450_equivalent_to_physical_optical_resolution_proven","derived_glyph_stroke_damage_sufficient_to_identify_woodblock","same_woodblocks_historically_proven"):
         assert c[key] is False,key

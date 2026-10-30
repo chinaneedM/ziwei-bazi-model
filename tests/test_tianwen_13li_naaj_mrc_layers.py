@@ -12,6 +12,8 @@ class MRCFirewall(unittest.TestCase):
  def test_fake_physical_plate(self):self.a[0]["interpretation"]["same_woodblocks_historically_proven"]=True;self.bad()
  def test_fake_impression_date(self):self.a[0]["interpretation"]["pdf_creation_dates_prove_ancient_printing"]=True;self.bad()
  def test_forged_mask_hash(self):self.a[0]["source_originals"][0]["layers"][1]["decoded_pixmap_sha256"]="0"*64;self.bad()
+ def test_forged_crop_hash(self):self.a[0]["source_originals"][0]["target_mask_crop_gray_sha256"]="0"*64;self.bad()
+ def test_forged_crop_coordinates(self):self.a[0]["source_originals"][1]["target_mask_crop_xyxy"]=[0,0,100,100];self.bad()
  def test_forged_original(self):self.a[0]["source_originals"][1]["pdf_sha256"]="0"*64;self.bad()
  def test_restore_preceding_actions(self):self.a[2]["issues"][4]["next_action"]="13LI CURRENT ACTION: nothing archived";self.bad()
  def test_forward(self):
