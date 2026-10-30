@@ -1,0 +1,100 @@
+{
+  "schema": "TIANWEN-13MK-G893-001A-ORIGINAL-REACQUISITION-HEADER-D16-GEOMETRY-R1",
+  "date": "2026-10-31",
+  "issue_id": "TW-OPEN-0005",
+  "evidence_grade": "EXACT_HEAD_ARTIFACT_SOURCE_ORIGINAL_HASH_AND_BOUNDED_MANUAL_GLYPH_REVIEW",
+  "input_head": "468f1d2576057404d279313c8b0a19e0597969f8",
+  "source_acquisition": {
+    "run_id": 41144025711,
+    "run_head": "468f1d2576057404d279313c8b0a19e0597969f8",
+    "conclusion": "success",
+    "artifact_id": 13019278183,
+    "artifact_name": "tianwen-13mi-g893-original-solar-ming1569-vol6-source-gate",
+    "zip_bytes": 10441335,
+    "zip_sha256": "1d8f10da7c27411bf38ad635494a1b9f4e700fb76cb37b2a7541c075a0ca9835",
+    "acquisition_status": "BOTH_OBJECTS_SOURCE_BOUND_UNCOLLATED",
+    "g893_requested": 3,
+    "g893_source_issued_hash_verified": 3,
+    "g893_001a_attempt_count": 2,
+    "first_failure": "URLError [Errno 104] Connection reset by peer",
+    "g893_verified_originals": [
+      {
+        "page": "001a",
+        "jpeg_sha256": "8b07513ca8aad42ae167a93f22c39f14850c8cd1c345db9ce98c1e0e769226a5",
+        "rgb_sha256": "653e1d9d91c754695ac43f96ca86afef44fd8c4b39c5cd1c9e26b475a58d2636"
+      },
+      {
+        "page": "002a",
+        "jpeg_sha256": "31d0452e9350e32ff73549f49d894ab26f6e588654926d45b3a603ae4da9a914",
+        "rgb_sha256": "a04c848b976d24c8d4bdf255d4f3370eb1fa27cac2b50b99722848cd688235f5"
+      },
+      {
+        "page": "002b",
+        "jpeg_sha256": "f9812e8c6a357eb6cd1117bb2af58d816e01030d5b93f34e7094bddb766b2b55",
+        "rgb_sha256": "e3eca1b8f979c1de7ccc5e924d2d493288e7764f92e0a77ad96cf26e80c987f7"
+      }
+    ],
+    "zhouxiang_pdf_original_sha256": "4c006b7ce131902fe33012d42f62cd2bbc2140affa3d5886e0da02966352cb7c",
+    "zhouxiang_pdf_pages": 45,
+    "zipped_source_report": "source-report.json",
+    "artifact_binary_is_not_repository_primary_original": true
+  },
+  "direct_visual_reviews": [
+    {
+      "source": "G893 source original GK00893_00 001a JPEG",
+      "source_jpeg_sha256": "8b07513ca8aad42ae167a93f22c39f14850c8cd1c345db9ce98c1e0e769226a5",
+      "observed": "The original image visibly prints 加一秒八十六少 in the rightmost vertical heading/annotation lane. The final character is 少 in this exact source image, not an OCR reconstruction.",
+      "isolated_native_rgb_crop_xyxy": [
+        797,
+        970,
+        872,
+        1460
+      ],
+      "crop_rgb_sha256": "f1c2fd172cad71f37d546b4ae67181282aad76c22064e8113593a835d2103e88",
+      "original_image_dimensions": [
+        1150,
+        2000
+      ],
+      "no_ocr": true,
+      "limitation": "Bounded glyph reading; source header context and position do not by themselves certify a modern decimal radix or crosswork field identity."
+    },
+    {
+      "source": "G893 source original GK00893_00 002b JPEG",
+      "source_jpeg_sha256": "f9812e8c6a357eb6cd1117bb2af58d816e01030d5b93f34e7094bddb766b2b55",
+      "observed": "Original page visibly places 十六日 between 十五日 and 十七日 in adjacent printed day columns, with two tightly adjacent numeric lanes. The header-to-numeral/day full geometry and historical unit bridge are not yet adjudicated.",
+      "isolated_native_rgb_crop_xyxy": [
+        610,
+        280,
+        745,
+        1350
+      ],
+      "crop_rgb_sha256": "0feb183b7f0c873ff01130e7c14b796dae03ee7539251dd38fbc1247a3156aaa",
+      "original_image_dimensions": [
+        1150,
+        2000
+      ],
+      "no_ocr": true,
+      "limitation": "No single G893 D16 decimal numeric winner or equivalence to the Zhou Xiang 1569 page15 value asserted."
+    }
+  ],
+  "comparison_controls": {
+    "zhouxiang_1569_original_pdf_page15_D15_D16_D17": [
+      "5.2176",
+      "5.2362",
+      "5.2548"
+    ],
+    "zhouxiang_source_page15_rgb_sha256": "7b35af0e1e802c9346c927a02c67d1681e01b5120c3cf891160126f2018478d5",
+    "same_source_field_and_unit_crosswalk": "UNPROVEN",
+    "original_少_vs_received_微_explanation": "EXACT_G893_少_GLYPH_ONLY; NOT_YET_SCRIBAL_ERROR_OR_UNIT_DECISION",
+    "independent_physical_edition_and_impression": "UNPROVEN",
+    "numerical_g893_six_target_historical_winners": 0,
+    "chart_algorithm_reopens": 0,
+    "chart_product": "CLOSED",
+    "graph_nodes_added": 0,
+    "graph_edges_added": 0,
+    "external_source_entries_added": 0,
+    "matrix_row_status_changes": 0
+  },
+  "next_action": "Inspect full original 001a header-to-field geometry and 002b D15-D17 two numerical lanes against Zhou Xiang 1569 PDF p14-p15, preserving historical unit/radix and source exemplar boundaries. No cross-source numeric award before original-field identity, reproducible mapping and independent edition scope.",
+  "transmission_impact": "NONE: reacquisition of one previously SHA-registered source image is not a new physical witness or independently established lineage edge."
+}
