@@ -2,6 +2,10 @@
 """13ES: verify pre-existing source ROI geometry only; do not infer original ink or historical numbers."""
 import json
 from pathlib import Path
+try:
+    from scripts._tianwen_historical_action_r1 import historical_action_view
+except ModuleNotFoundError:
+    from _tianwen_historical_action_r1 import historical_action_view
 ROOT=Path(__file__).resolve().parents[1]
 E="docs/research/TIANWEN-13ES-NCL03130-D1-D6-ROI-OVERLAP-GEOMETRY-FIREWALL-R1.json"
 ER="docs/research/TIANWEN-13ER-NCL03130-P73-D1-D3-FOURFEN-BOUNDED-ORIGINAL-R1.json"
@@ -58,8 +62,8 @@ def check(e,er,eq,en,s,l):
     assert any(z.startswith("13ES ") for z in s["historical_audit"]["current_focus"])
     issue=next(z for z in l["issues"] if z["id"]=="TW-OPEN-0005")
     assert issue["priority"]=="P0" and issue["status"]=="OPEN"
-    assert issue["next_action"].startswith(l["binding"]["latest_research_focus_prefix"]+" CURRENT ACTION:")
-    assert all(z in issue["next_action"] for z in ("D1","D2","D3","D4","D5","D6","D30","四分","初度","NULL"))
+    assert historical_action_view(issue).startswith(l["binding"]["latest_research_focus_prefix"]+" CURRENT ACTION:")
+    assert all(z in historical_action_view(issue) for z in ("D1","D2","D3","D4","D5","D6","D30","四分","初度","NULL"))
     assert {E,E.replace(".json",".md")}.issubset(set(issue["source_refs"]))
     rev=next(z for z in issue["history"] if z.get("revision_id")=="TW-OPEN-0005-13ES-ROI-GEOMETRY-20261024")
     assert rev["previous_next_action"].startswith("13ER CURRENT ACTION:")

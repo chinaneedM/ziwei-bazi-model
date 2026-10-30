@@ -2,6 +2,10 @@
 """13EK exact-NCL original glyph strip positive with SHA and decimal firewall."""
 import argparse,hashlib,json
 from pathlib import Path
+try:
+    from scripts._tianwen_historical_action_r1 import historical_action_view
+except ModuleNotFoundError:
+    from _tianwen_historical_action_r1 import historical_action_view
 ROOT=Path(__file__).resolve().parents[1]
 E="docs/research/TIANWEN-13EK-NCL03130-P74-D4-D5-CHUDU-LONG-STRIPS-R1.json";S="docs/PROJECT-CURRENT-STATE-R1.json";L="docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json";EJ="docs/research/TIANWEN-13EJ-NCL03130-P74-D4-D5-TRIPLE-LANE-R1.json";EI="docs/research/TIANWEN-13EI-NCL03130-D4-MISATTRIBUTED-CHUDU-ROI-ERRATUM-R1.json";ED="docs/research/TIANWEN-13ED-NCL03130-SOLAR-D30-EXTENDED-ORIGINAL-STRIP-R1.json"
 EXPECTED=json.loads(r'''[["D4_CHUDU_LONG",[943,411,970,771],"a82d6f37825b16f1c1250604f8021cbf165b2ce26d0913928a19be720eb0375c","初度九十五二八五一"],["D5_CHUDU_LONG",[849,411,876,771],"3005a769650dbb37c5213ab977a1f196b88c9a2bca6f02e0d7e75b1747e2dc79","初度九十五三三〇〇"],["D4_LOWER_TAIL",[943,771,970,830],"c702230aac436f44407d3c37b1f41646b26f8bd51960501e3bf692b4d3524487",null],["D5_LOWER_TAIL",[849,771,876,830],"8d04634715f04bbc86d67570a4102835cda24bb83bfc042bd217949a973f2c09",null],["D4_EXTENDED",[943,405,970,830],"99e47841e2fd50bc11b389e14b49246c0ce732fd7b55f2a347084bdeda86093f",null],["D5_EXTENDED",[849,405,876,830],"caf2dea7a743478275aa3a291056963040201efeefac1165a695260bf321043c",null],["D4_FOURFEN_NEIGHBOR",[918,411,945,771],"41022bfb57573dfb9579c6f2a075f107833d7367725137a583c5c7bd6a2faa9f",null],["D5_FOURFEN_NEIGHBOR",[826,411,855,771],"6785ec77f463723ac44552069104b244a364861deaf89c0913f7d5d3c23bbce0",null],["D4_D5_PANEL",[804,397,1003,790],"cd7ed52849863f08406ede7848cc57d113c8120647fd0aa9ad2a5ce917135755",null]]''')
@@ -39,8 +43,8 @@ def check(e,s,l,ej,ei,ed):
  assert l["binding"]["latest_research_focus_prefix"]==s["historical_audit"]["current_focus"][-1].split(" ",1)[0]
  assert any(x.startswith("13EK SHA-BOUND ORIGINAL P74 D4/D5 CHUDU LONG STRIPS") for x in s["historical_audit"]["current_focus"])
  q=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
- assert q["priority"]=="P0" and q["status"]=="OPEN" and q["next_action"].startswith(l["binding"]["latest_research_focus_prefix"]+" CURRENT ACTION")
- assert all(x in q["next_action"] for x in ("D4","D5","D30","初度","NULL"))
+ assert q["priority"]=="P0" and q["status"]=="OPEN" and historical_action_view(q).startswith(l["binding"]["latest_research_focus_prefix"]+" CURRENT ACTION")
+ assert all(x in historical_action_view(q) for x in ("D4","D5","D30","初度","NULL"))
  assert {E,E.replace(".json",".md")}.issubset(set(q["source_refs"]))
  h=next(x for x in q["history"] if x.get("revision_id")=="TW-OPEN-0005-13EK-ORIGINAL-P74-D4-D5-LONG-LITERALS-20261023")
  assert h["revision_id"]=="TW-OPEN-0005-13EK-ORIGINAL-P74-D4-D5-LONG-LITERALS-20261023"

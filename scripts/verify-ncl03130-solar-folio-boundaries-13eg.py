@@ -2,6 +2,10 @@
 """13EG independent source-original cross-folio day-heading boundary controls."""
 import argparse,hashlib,json
 from pathlib import Path
+try:
+    from scripts._tianwen_historical_action_r1 import historical_action_view
+except ModuleNotFoundError:
+    from _tianwen_historical_action_r1 import historical_action_view
 ROOT=Path(__file__).resolve().parents[1]
 E="docs/research/TIANWEN-13EG-NCL03130-SOLAR-FOLIO-DAY-BOUNDARIES-R1.json";S="docs/PROJECT-CURRENT-STATE-R1.json";L="docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json";DZ="docs/research/TIANWEN-13DZ-NCL03130-CORRECT-SOLAR-D28-ORIGINAL-P76-LOCATOR-R1.json";EF="docs/research/TIANWEN-13EF-NCL03130-SOLAR-P73-TECHNICAL-HEADINGS-R1.json";EE="docs/research/TIANWEN-13EE-NCL03130-SOLAR-SAME-COLUMN-THREE-FOLIO-R1.json"
 EXPECTED_HEADINGS=[(73,0,"初日",3,"三日"),(74,4,"四日",14,"十四日"),(75,15,"十五日",25,"二十五日"),(76,26,"二十六日",36,"三十六日"),(77,37,"三十七日",47,"四十七日")]
@@ -49,8 +53,8 @@ def check(e,s,l,dz,ef,ee):
  assert any(z.startswith("13EG NCL03130 SOURCE-LOCAL FIVE-FOLIO") for z in s["historical_audit"]["current_focus"])
  issue=next(z for z in l["issues"] if z["id"]=="TW-OPEN-0005")
  assert issue["status"]=="OPEN" and issue["priority"]=="P0"
- current=issue["next_action"].split(" ",1)[0]
- assert issue["next_action"].startswith(current+" CURRENT ACTION") and "D30" in issue["next_action"]
+ current=historical_action_view(issue).split(" ",1)[0]
+ assert historical_action_view(issue).startswith(current+" CURRENT ACTION") and "D30" in historical_action_view(issue)
  assert issue["history"][-1]["revision_id"].startswith("TW-OPEN-0005-"+current+"-")
  assert issue["history"][-1]["evidence_refs"]
  assert set([E,E.replace(".json",".md")]).issubset(set(issue["source_refs"]))

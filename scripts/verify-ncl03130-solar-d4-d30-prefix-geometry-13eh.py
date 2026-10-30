@@ -2,6 +2,10 @@
 """13EH source-original p74 D4 / p76 D30 bounded prefix geometry; fail closed."""
 import argparse, hashlib, json
 from pathlib import Path
+try:
+    from scripts._tianwen_historical_action_r1 import historical_action_view
+except ModuleNotFoundError:
+    from _tianwen_historical_action_r1 import historical_action_view
 ROOT=Path(__file__).resolve().parents[1]
 E="docs/research/TIANWEN-13EH-NCL03130-SOLAR-D4-D30-PREFIX-LANE-GEOMETRY-R1.json";S="docs/PROJECT-CURRENT-STATE-R1.json";L="docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json"
 EG="docs/research/TIANWEN-13EG-NCL03130-SOLAR-FOLIO-DAY-BOUNDARIES-R1.json"
@@ -66,8 +70,8 @@ def check(e,s,l,eg,ef,ed):
  assert current==s["historical_audit"]["current_focus"][-1].split(" ",1)[0]
  assert any(x.startswith("13EH SOURCE-ORIGINAL") for x in s["historical_audit"]["current_focus"])
  issue=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
- assert issue["priority"]=="P0" and issue["status"]=="OPEN" and issue["next_action"].startswith(current+" CURRENT ACTION")
- assert "D30" in issue["next_action"]
+ assert issue["priority"]=="P0" and issue["status"]=="OPEN" and historical_action_view(issue).startswith(current+" CURRENT ACTION")
+ assert "D30" in historical_action_view(issue)
  assert {E,E.replace(".json",".md")}.issubset(set(issue["source_refs"]))
  h=next(x for x in issue["history"] if x.get("revision_id")=="TW-OPEN-0005-13EH-SAME-SOURCE-PREFIX-GEOMETRY-20261023")
  assert h["previous_next_action"].startswith("13EG CURRENT ACTION") and set(h["changed_fields"])=={"source_refs","next_action"}

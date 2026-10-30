@@ -2,6 +2,10 @@
 """13EI fail-closed visual glyph identity erratum, replay by archival RGB hashes."""
 import argparse,hashlib,json
 from pathlib import Path
+try:
+    from scripts._tianwen_historical_action_r1 import historical_action_view
+except ModuleNotFoundError:
+    from _tianwen_historical_action_r1 import historical_action_view
 ROOT=Path(__file__).resolve().parents[1]
 E="docs/research/TIANWEN-13EI-NCL03130-D4-MISATTRIBUTED-CHUDU-ROI-ERRATUM-R1.json"; EH="docs/research/TIANWEN-13EH-NCL03130-SOLAR-D4-D30-PREFIX-LANE-GEOMETRY-R1.json";EG="docs/research/TIANWEN-13EG-NCL03130-SOLAR-FOLIO-DAY-BOUNDARIES-R1.json";ED="docs/research/TIANWEN-13ED-NCL03130-SOLAR-D30-EXTENDED-ORIGINAL-STRIP-R1.json"
 STATE="docs/PROJECT-CURRENT-STATE-R1.json";LEDGER="docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json"
@@ -67,8 +71,8 @@ def check(e,s,l,eh,eg,ed):
  assert l["binding"]["latest_research_focus_prefix"]==s["historical_audit"]["current_focus"][-1].split(" ",1)[0]
  assert any(x.startswith("13EI FORWARD-ONLY ORIGINAL P74 GLYPH ERRATUM") for x in s["historical_audit"]["current_focus"])
  q=next(z for z in l["issues"] if z["id"]=="TW-OPEN-0005")
- assert q["priority"]=="P0" and q["status"]=="OPEN" and q["next_action"].startswith(l["binding"]["latest_research_focus_prefix"]+" CURRENT ACTION")
- assert all(z in q["next_action"] for z in ("四分","初度","D30","NULL"))
+ assert q["priority"]=="P0" and q["status"]=="OPEN" and historical_action_view(q).startswith(l["binding"]["latest_research_focus_prefix"]+" CURRENT ACTION")
+ assert all(z in historical_action_view(q) for z in ("四分","初度","D30","NULL"))
  assert {E,E.replace(".json",".md")}.issubset(set(q["source_refs"]))
  h=next(x for x in q["history"] if x.get("revision_id")=="TW-OPEN-0005-13EI-GLYPH-LANE-FORWARD-ERRATUM-20261023")
  assert h["previous_next_action"].startswith("13EH CURRENT ACTION")

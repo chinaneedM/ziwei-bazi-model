@@ -2,6 +2,10 @@
 """13EO: p73 four original heading glyphs, day labels, and bounded p74 day sequence."""
 import argparse,hashlib,json
 from pathlib import Path
+try:
+    from scripts._tianwen_historical_action_r1 import historical_action_view
+except ModuleNotFoundError:
+    from _tianwen_historical_action_r1 import historical_action_view
 ROOT=Path(__file__).resolve().parents[1]
 E="docs/research/TIANWEN-13EO-NCL03130-P73-HEADINGS-P74-DAY-SEQUENCE-R1.json"
 EN="docs/research/TIANWEN-13EN-NCL03130-P74-FOURFEN-D4-D6-BOUNDED-PREFIX-R1.json"
@@ -41,7 +45,7 @@ def check(e,en,ei,ed,s,l):
  assert any(z.startswith("13EO P73 SOURCE ORIGINAL") for z in s["historical_audit"]["current_focus"])
  assert l["binding"]["latest_research_focus_prefix"]==s["historical_audit"]["current_focus"][-1].split(" ",1)[0]
  q=next(z for z in l["issues"] if z["id"]=="TW-OPEN-0005")
- assert q["priority"]=="P0" and q["status"]=="OPEN" and q["next_action"].startswith(l["binding"]["latest_research_focus_prefix"]+" CURRENT ACTION")
+ assert q["priority"]=="P0" and q["status"]=="OPEN" and historical_action_view(q).startswith(l["binding"]["latest_research_focus_prefix"]+" CURRENT ACTION")
  assert {E,E.replace(".json",".md")}.issubset(set(q["source_refs"]))
  h=next(z for z in q["history"] if z.get("revision_id")=="TW-OPEN-0005-13EO-P73-HEADINGS-DAY-CONTINUITY-20261024")
  assert h["previous_next_action"].startswith("13EN CURRENT ACTION") and set(h["changed_fields"])=={"source_refs","next_action"}

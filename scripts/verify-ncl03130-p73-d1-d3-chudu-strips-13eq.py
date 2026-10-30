@@ -2,6 +2,10 @@
 """13EQ: source-original NCL03130 p73 D1-D3 narrow vertical glyph strings; no numbers inferred."""
 import argparse,hashlib,json,re
 from pathlib import Path
+try:
+    from scripts._tianwen_historical_action_r1 import historical_action_view
+except ModuleNotFoundError:
+    from _tianwen_historical_action_r1 import historical_action_view
 ROOT=Path(__file__).resolve().parents[1]
 E="docs/research/TIANWEN-13EQ-NCL03130-P73-D1-D3-ORIGINAL-CHUDU-STRIPS-R1.json"
 S="docs/PROJECT-CURRENT-STATE-R1.json";L="docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json";EO="docs/research/TIANWEN-13EO-NCL03130-P73-HEADINGS-P74-DAY-SEQUENCE-R1.json";EP="docs/research/TIANWEN-13EP-NCL03130-P73-SUMMER-RICHA-ORIGINAL-R1.json";EN="docs/research/TIANWEN-13EN-NCL03130-P74-FOURFEN-D4-D6-BOUNDED-PREFIX-R1.json";EI="docs/research/TIANWEN-13EI-NCL03130-D4-MISATTRIBUTED-CHUDU-ROI-ERRATUM-R1.json";ED="docs/research/TIANWEN-13ED-NCL03130-SOLAR-D30-EXTENDED-ORIGINAL-STRIP-R1.json"
@@ -46,9 +50,9 @@ def check(e,eo,ep,en,ei,ed,s,l):
  assert l["binding"]["latest_research_focus_prefix"]==s["historical_audit"]["current_focus"][-1].split(" ",1)[0]
  assert any(x.startswith("13EQ ") for x in s["historical_audit"]["current_focus"])
  q=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
- assert q["priority"]=="P0" and q["status"]=="OPEN" and q["next_action"].startswith(l["binding"]["latest_research_focus_prefix"]+" CURRENT ACTION:")
- assert re.search(r"(?<![A-Za-z0-9])(?:D1-D6|D1\s+D2\s+D3\s+D4\s+D5\s+D6)(?![A-Za-z0-9])",q["next_action"])
- assert all(x in q["next_action"] for x in ("D30","初度","四分","NULL"))
+ assert q["priority"]=="P0" and q["status"]=="OPEN" and historical_action_view(q).startswith(l["binding"]["latest_research_focus_prefix"]+" CURRENT ACTION:")
+ assert re.search(r"(?<![A-Za-z0-9])(?:D1-D6|D1\s+D2\s+D3\s+D4\s+D5\s+D6)(?![A-Za-z0-9])",historical_action_view(q))
+ assert all(x in historical_action_view(q) for x in ("D30","初度","四分","NULL"))
  assert E in q["source_refs"] and E.replace(".json",".md") in q["source_refs"]
  h=next(x for x in q["history"] if x.get("revision_id")=="TW-OPEN-0005-13EQ-P73-D1-D3-ORIGINAL-STRIPS-20261024")
  assert h["previous_next_action"].startswith("13EP CURRENT ACTION:") and set(h["changed_fields"])=={"source_refs","next_action"} and bool(h["evidence_refs"])

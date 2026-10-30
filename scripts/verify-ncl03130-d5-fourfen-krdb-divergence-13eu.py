@@ -2,6 +2,10 @@
 """13EU: preserve NCL original D5 〇 versus KRDB textual 五, NO historical variant inference."""
 import argparse,hashlib,json
 from pathlib import Path
+try:
+    from scripts._tianwen_historical_action_r1 import historical_action_view
+except ModuleNotFoundError:
+    from _tianwen_historical_action_r1 import historical_action_view
 ROOT=Path(__file__).resolve().parents[1]
 P="docs/research/TIANWEN-13EU-NCL03130-P74-D5-FOURFEN-KRDB-TRANSCRIPTION-DIVERGENCE-R1.json";EN="docs/research/TIANWEN-13EN-NCL03130-P74-FOURFEN-D4-D6-BOUNDED-PREFIX-R1.json";ET="docs/research/TIANWEN-13ET-NCL03130-SIX-DAY-SOURCE-PIXEL-INTERSECTIONS-R1.json";S="docs/PROJECT-CURRENT-STATE-R1.json";L="docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json"
 def load(p):return json.loads((ROOT/p).read_text(encoding="utf-8"))
@@ -45,13 +49,13 @@ def verify(v,en,et,s,l):
     assert l["binding"]["latest_research_focus_prefix"]==s["historical_audit"]["current_focus"][-1].split(" ",1)[0]
     assert any(z.startswith("13EU ") for z in s["historical_audit"]["current_focus"])
     issue=next(z for z in l["issues"] if z["id"]=="TW-OPEN-0005")
-    assert issue["status"]=="OPEN" and issue["priority"]=="P0" and issue["next_action"].startswith(l["binding"]["latest_research_focus_prefix"]+" CURRENT ACTION:")
+    assert issue["status"]=="OPEN" and issue["priority"]=="P0" and historical_action_view(issue).startswith(l["binding"]["latest_research_focus_prefix"]+" CURRENT ACTION:")
     # Source-grade glyphs must remain in 13EU evidence and append-only historical
     # action. The rolling NEXT action intentionally changes with later batches.
     archived_13eu=next(z for z in issue["history"] if z.get("revision_id")=="TW-OPEN-0005-13EU-LEGACY-D1D6-GUARD-20261024")["previous_next_action"]
     assert all(z in archived_13eu for z in ("四分〇一七二","四分五一七二","D5","G893","NULL","13EI"))
-    assert all(z in issue["next_action"] for z in ("D5","G893","NULL","13EI"))
-    assert all(z in issue["next_action"] for z in ("D1","D2","D3","D4","D5","D6","四分","初度"))
+    assert all(z in historical_action_view(issue) for z in ("D5","G893","NULL","13EI"))
+    assert all(z in historical_action_view(issue) for z in ("D1","D2","D3","D4","D5","D6","四分","初度"))
     assert {P,P.replace(".json",".md")}.issubset(set(issue["source_refs"]))
     assert next(z for z in issue["history"] if z.get("revision_id")=="TW-OPEN-0005-13EU-D5-FOURFEN-DIVERGENCE-20261024")["previous_next_action"].startswith("13ET CURRENT ACTION:")
     assert l["checkpoint_log"][-1]["state_version"]==s["schema_version"] and len(l["issues"])==11

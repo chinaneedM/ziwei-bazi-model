@@ -2,6 +2,10 @@
 """13EP original-image summer 日差 phrase scope, exact source and forward-only handoff gate."""
 import argparse, hashlib, json
 from pathlib import Path
+try:
+    from scripts._tianwen_historical_action_r1 import historical_action_view
+except ModuleNotFoundError:
+    from _tianwen_historical_action_r1 import historical_action_view
 ROOT=Path(__file__).resolve().parents[1]
 P="docs/research/TIANWEN-13EP-NCL03130-P73-SUMMER-RICHA-ORIGINAL-R1.json"
 EO="docs/research/TIANWEN-13EO-NCL03130-P73-HEADINGS-P74-DAY-SEQUENCE-R1.json"
@@ -51,11 +55,11 @@ def check(e,eo,en,ei,ed,s,l):
  assert any(x.startswith("13EP ") for x in s["historical_audit"]["current_focus"])
  assert l["binding"]["latest_research_focus_prefix"]==s["historical_audit"]["current_focus"][-1].split(" ",1)[0]
  q=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
- assert q["priority"]=="P0" and q["status"]=="OPEN" and q["next_action"].startswith(l["binding"]["latest_research_focus_prefix"]+" CURRENT ACTION:")
+ assert q["priority"]=="P0" and q["status"]=="OPEN" and historical_action_view(q).startswith(l["binding"]["latest_research_focus_prefix"]+" CURRENT ACTION:")
  assert P in q["source_refs"] and P.replace(".json",".md") in q["source_refs"]
  h=next(x for x in q["history"] if x.get("revision_id")=="TW-OPEN-0005-13EP-P73-SUMMER-RICHA-20261024")
  assert h["previous_next_action"].startswith("13EO CURRENT ACTION:") and set(h["changed_fields"])=={"source_refs","next_action"}
- assert all(x in q["next_action"] for x in ("D4","D5","D6","D30","四分","初度","NULL"))
+ assert all(x in historical_action_view(q) for x in ("D4","D5","D6","D30","四分","初度","NULL"))
  assert any(x.get("revision_id")=="TW-OPEN-0005-13EP-LEGACY-GATE-EXPLICIT-DAYLABELS-20261024" and x.get("previous_next_action","").startswith("13EP CURRENT ACTION:") for x in q["history"])
  assert l["checkpoint_log"][-1]["state_version"]==s["schema_version"] and len(l["issues"])==11
  return True

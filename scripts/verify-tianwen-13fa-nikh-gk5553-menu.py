@@ -2,6 +2,10 @@
 """13FA NIKH exact-article native GK5553 menu: source label != original glyph."""
 import json
 from pathlib import Path
+try:
+    from scripts._tianwen_historical_action_r1 import historical_action_view
+except ModuleNotFoundError:
+    from _tianwen_historical_action_r1 import historical_action_view
 ROOT=Path(__file__).resolve().parents[1]
 E="docs/research/TIANWEN-13FA-GORYEOSA-JUAN52-GK05553-POPUP-CATALOG-R1.json";SH="docs/research/TIANWEN-13FA-GORYEOSA-JUAN52-GK05553-POPUP-CATALOG-SOURCE-SHARD-R1.json";M="docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json";ST="docs/PROJECT-CURRENT-STATE-R1.json";L="docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json"
 def get(p):return json.loads((ROOT/p).read_text(encoding='utf-8'))
@@ -40,9 +44,9 @@ def check(d,src,manifest,state,ledger):
  assert any(z.startswith('13FA ') for z in state['historical_audit']['current_focus']) and ledger['binding']['source_focus_count']==len(state['historical_audit']['current_focus'])
  risk=next(z for z in ledger['issues'] if z['id']=='TW-OPEN-0005')
  assert risk['priority']=='P0' and risk['status']=='OPEN' and {E,E.replace('.json','.md'),SH}.issubset(set(risk['source_refs']))
- assert risk['next_action'].startswith(ledger['binding']['latest_research_focus_prefix']+' CURRENT ACTION:')
- assert any(z in risk['next_action'] for z in ('GK05553_00','GK5553'))
- assert all(z in risk['next_action'] for z in ('GK03539_00','GK03579_00','GK03269_00','D1','D2','D3','D4','D5','D6','四分','初度','G893','NULL','13EI'))
+ assert historical_action_view(risk).startswith(ledger['binding']['latest_research_focus_prefix']+' CURRENT ACTION:')
+ assert any(z in historical_action_view(risk) for z in ('GK05553_00','GK5553'))
+ assert all(z in historical_action_view(risk) for z in ('GK03539_00','GK03579_00','GK03269_00','D1','D2','D3','D4','D5','D6','四分','初度','G893','NULL','13EI'))
  assert any(z.get('revision_id')=='TW-OPEN-0005-13FA-NIKH-EXACT-JUAN52-GK5553-20261024' for z in risk['history'])
  assert ledger['checkpoint_log'][-1]['state_version']==state['schema_version'] and len(ledger['issues'])==11
  return True

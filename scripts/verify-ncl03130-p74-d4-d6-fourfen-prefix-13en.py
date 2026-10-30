@@ -2,6 +2,10 @@
 """13EN source-original bounded 四分 prefixes, hash gates, no complete-field invention."""
 import argparse,hashlib,json
 from pathlib import Path
+try:
+    from scripts._tianwen_historical_action_r1 import historical_action_view
+except ModuleNotFoundError:
+    from _tianwen_historical_action_r1 import historical_action_view
 ROOT=Path(__file__).resolve().parents[1]
 E="docs/research/TIANWEN-13EN-NCL03130-P74-FOURFEN-D4-D6-BOUNDED-PREFIX-R1.json"
 EL="docs/research/TIANWEN-13EL-NCL03130-P74-D6-CHUDU-LONG-AND-D4-D6-CONTROLS-R1.json";EM="docs/research/TIANWEN-13EM-NCL03130-P74-D4-D6-RIGHT-NEIGHBOR-LONG-STRIPS-R1.json";EI="docs/research/TIANWEN-13EI-NCL03130-D4-MISATTRIBUTED-CHUDU-ROI-ERRATUM-R1.json";ED="docs/research/TIANWEN-13ED-NCL03130-SOLAR-D30-EXTENDED-ORIGINAL-STRIP-R1.json"
@@ -42,7 +46,7 @@ def check(e,el,em,ei,ed,state,ledger):
  assert any(r.startswith("13EN SOURCE ORIGINAL NCL03130") for r in state["historical_audit"]["current_focus"])
  assert ledger["binding"]["latest_research_focus_prefix"]==state["historical_audit"]["current_focus"][-1].split(" ",1)[0]
  q=next(x for x in ledger["issues"] if x["id"]=="TW-OPEN-0005")
- assert q["priority"]=="P0" and q["status"]=="OPEN" and q["next_action"].startswith(ledger["binding"]["latest_research_focus_prefix"]+" CURRENT ACTION")
+ assert q["priority"]=="P0" and q["status"]=="OPEN" and historical_action_view(q).startswith(ledger["binding"]["latest_research_focus_prefix"]+" CURRENT ACTION")
  assert {E,E.replace(".json",".md")}.issubset(set(q["source_refs"]))
  h=next(z for z in q["history"] if z.get("revision_id")=="TW-OPEN-0005-13EN-FOURFEN-BOUNDED-PREFIX-20261024")
  assert h["previous_next_action"].startswith("13EM CURRENT ACTION") and set(h["changed_fields"])=={"source_refs","next_action"}

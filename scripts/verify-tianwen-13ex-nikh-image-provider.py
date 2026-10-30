@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
 import json
 from pathlib import Path
+try:
+    from scripts._tianwen_historical_action_r1 import historical_action_view
+except ModuleNotFoundError:
+    from _tianwen_historical_action_r1 import historical_action_view
 R=Path(__file__).resolve().parents[1]
 P="docs/research/TIANWEN-13EX-NIKH-2025-GORYEOSA-SNU-IMAGE-LINK-R1.json";H="docs/research/TIANWEN-13EX-NIKH-2025-GORYEOSA-SNU-IMAGE-LINK-SOURCE-SHARD-R1.json";M="docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json";C="docs/PROJECT-CURRENT-STATE-R1.json";L="docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json"
 def get(x):return json.loads((R/x).read_text(encoding='utf-8'))
@@ -27,8 +31,8 @@ def check(a,b,m,c,l):
  assert l['binding']['source_focus_count']==len(c['historical_audit']['current_focus'])
  i=next(x for x in l['issues'] if x['id']=='TW-OPEN-0005')
  assert i['priority']=='P0' and i['status']=='OPEN' and {P,P.replace('.json','.md'),H}.issubset(set(i['source_refs']))
- assert i['next_action'].startswith(l['binding']['latest_research_focus_prefix']+' CURRENT ACTION:')
- assert all(x in i['next_action'] for x in ('GK03539_00','GK03579_00','GK03269_00','D1','D2','D3','D4','D5','D6','四分','初度','G893','NULL','13EI'))
+ assert historical_action_view(i).startswith(l['binding']['latest_research_focus_prefix']+' CURRENT ACTION:')
+ assert all(x in historical_action_view(i) for x in ('GK03539_00','GK03579_00','GK03269_00','D1','D2','D3','D4','D5','D6','四分','初度','G893','NULL','13EI'))
  assert any(x.get('revision_id')=='TW-OPEN-0005-13EX-NIKH-2025-KYUJANGGAK-BRIDGE-20261024' for x in i['history'])
  assert any(x.get('id')=='OMISSIONS-13EX-NIKH2025-KYU-IMAGE-PROVIDER-20261024' for x in l['checkpoint_log']) and len(l['issues'])==11
  return True

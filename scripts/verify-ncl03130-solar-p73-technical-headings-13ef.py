@@ -2,6 +2,10 @@
 """13EF source P73 original heading and three technical terms: strict original ROI SHA."""
 import argparse,hashlib,json
 from pathlib import Path
+try:
+    from scripts._tianwen_historical_action_r1 import historical_action_view
+except ModuleNotFoundError:
+    from _tianwen_historical_action_r1 import historical_action_view
 ROOT=Path(__file__).resolve().parents[1]
 E="docs/research/TIANWEN-13EF-NCL03130-SOLAR-P73-TECHNICAL-HEADINGS-R1.json";STATE="docs/PROJECT-CURRENT-STATE-R1.json";LEDGER="docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json"
 DZ="docs/research/TIANWEN-13DZ-NCL03130-CORRECT-SOLAR-D28-ORIGINAL-P76-LOCATOR-R1.json"
@@ -39,12 +43,12 @@ def check(e,s,l,dz,ee):
  assert any(x.startswith("13EF DIRECT NCL03130 TRUE SOLAR P73") for x in s["historical_audit"]["current_focus"])
  issue=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
  assert issue["priority"]=="P0" and issue["status"]=="OPEN"
- current_prefix=issue["next_action"].split(" ",1)[0]
- assert issue["next_action"].startswith(current_prefix+" CURRENT ACTION")
+ current_prefix=historical_action_view(issue).split(" ",1)[0]
+ assert historical_action_view(issue).startswith(current_prefix+" CURRENT ACTION")
  future=[h for h in issue["history"] if h.get("event")=="ISSUE_REVISION" and "next_action" in h.get("changed_fields",[])]
  assert future and future[-1]["revision_id"].startswith("TW-OPEN-0005-"+current_prefix+"-")
  assert future[-1].get("evidence_refs") and any(z.startswith(current_prefix+" ") for z in s["historical_audit"]["current_focus"])
- assert "D30" in issue["next_action"] and pos["visible_original_technical_names"]==["行度","盈縮積","日差"]
+ assert "D30" in historical_action_view(issue) and pos["visible_original_technical_names"]==["行度","盈縮積","日差"]
  assert E in issue["source_refs"] and E.replace(".json",".md") in issue["source_refs"]
  h=next(h for h in issue["history"] if h.get("revision_id")=="TW-OPEN-0005-13EF-P73-ORIGINAL-TECHNICAL-HEADINGS-20261023")
  assert h["previous_next_action"].startswith("13EE CURRENT ACTION") and set(h["changed_fields"])=={"source_refs","next_action"}

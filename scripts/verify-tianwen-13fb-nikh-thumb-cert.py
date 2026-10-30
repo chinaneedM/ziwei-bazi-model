@@ -2,6 +2,10 @@
 """13FB source-emitted 23-image viewer + bounded two-thumbnail positive control."""
 import json
 from pathlib import Path
+try:
+    from scripts._tianwen_historical_action_r1 import historical_action_view
+except ModuleNotFoundError:
+    from _tianwen_historical_action_r1 import historical_action_view
 ROOT=Path(__file__).resolve().parents[1]
 P="docs/research/TIANWEN-13FB-NIKH-JUAN52-SOURCE-EMITTED-VIEWER-THUMBNAIL-ATTESTATION-R1.json";C="docs/PROJECT-CURRENT-STATE-R1.json";L="docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json";M="docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json"
 def get(p):return json.loads((ROOT/p).read_text(encoding='utf-8'))
@@ -41,9 +45,9 @@ def check(x,s,l,m):
  assert any(z.startswith('13FB ') for z in s['historical_audit']['current_focus']) and l['binding']['source_focus_count']==len(s['historical_audit']['current_focus'])
  risk=next(z for z in l['issues'] if z['id']=='TW-OPEN-0005')
  assert risk['priority']=='P0' and risk['status']=='OPEN' and {P,P.replace('.json','.md')}.issubset(set(risk['source_refs']))
- assert risk['next_action'].startswith(l['binding']['latest_research_focus_prefix']+' CURRENT ACTION:')
- assert any(z in risk['next_action'] for z in ('GK05553_00','GK5553'))
- assert all(z in risk['next_action'] for z in ('GK03539_00','GK03579_00','GK03269_00','D1','D2','D3','D4','D5','D6','四分','初度','G893','NULL','13EI'))
+ assert historical_action_view(risk).startswith(l['binding']['latest_research_focus_prefix']+' CURRENT ACTION:')
+ assert any(z in historical_action_view(risk) for z in ('GK05553_00','GK5553'))
+ assert all(z in historical_action_view(risk) for z in ('GK03539_00','GK03579_00','GK03269_00','D1','D2','D3','D4','D5','D6','四分','初度','G893','NULL','13EI'))
  assert any(z.get('revision_id')=='TW-OPEN-0005-13FB-JUAN52-23FRAMES-TWO-THUMBS-20261024' for z in risk['history'])
  assert l['checkpoint_log'][-1]['state_version']==s['schema_version'] and len(l['issues'])==11
  return True

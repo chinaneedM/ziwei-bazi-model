@@ -2,6 +2,10 @@
 """13ER NCL source-local D1-D3 四分 visible glyph strips, no numerical filling."""
 import argparse,hashlib,json
 from pathlib import Path
+try:
+    from scripts._tianwen_historical_action_r1 import historical_action_view
+except ModuleNotFoundError:
+    from _tianwen_historical_action_r1 import historical_action_view
 ROOT=Path(__file__).resolve().parents[1]
 E="docs/research/TIANWEN-13ER-NCL03130-P73-D1-D3-FOURFEN-BOUNDED-ORIGINAL-R1.json";EQ="docs/research/TIANWEN-13EQ-NCL03130-P73-D1-D3-ORIGINAL-CHUDU-STRIPS-R1.json";EN="docs/research/TIANWEN-13EN-NCL03130-P74-FOURFEN-D4-D6-BOUNDED-PREFIX-R1.json";EI="docs/research/TIANWEN-13EI-NCL03130-D4-MISATTRIBUTED-CHUDU-ROI-ERRATUM-R1.json";ED="docs/research/TIANWEN-13ED-NCL03130-SOLAR-D30-EXTENDED-ORIGINAL-STRIP-R1.json"
 S="docs/PROJECT-CURRENT-STATE-R1.json";L="docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json"
@@ -39,8 +43,8 @@ def check(e,eq,en,ei,ed,s,l):
  assert l["binding"]["latest_research_focus_prefix"]==s["historical_audit"]["current_focus"][-1].split(" ",1)[0]
  assert any(z.startswith("13ER ") for z in s["historical_audit"]["current_focus"])
  q=next(z for z in l["issues"] if z["id"]=="TW-OPEN-0005")
- assert q["priority"]=="P0" and q["status"]=="OPEN" and q["next_action"].startswith(l["binding"]["latest_research_focus_prefix"]+" CURRENT ACTION:")
- assert all(z in q["next_action"] for z in ("D1","D2","D3","D4","D5","D6","D30","四分","初度","NULL"))
+ assert q["priority"]=="P0" and q["status"]=="OPEN" and historical_action_view(q).startswith(l["binding"]["latest_research_focus_prefix"]+" CURRENT ACTION:")
+ assert all(z in historical_action_view(q) for z in ("D1","D2","D3","D4","D5","D6","D30","四分","初度","NULL"))
  assert {E,E.replace(".json",".md")}.issubset(set(q["source_refs"]))
  h=next(z for z in q["history"] if z.get("revision_id")=="TW-OPEN-0005-13ER-P73-D1-D3-FOURFEN-SOURCE-20261024")
  assert h["previous_next_action"].startswith("13EQ CURRENT ACTION:") and set(h["changed_fields"])=={"source_refs","next_action"}

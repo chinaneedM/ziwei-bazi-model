@@ -2,6 +2,10 @@
 """13ET source-original RGB crop intersection replay; no glyph/number inference."""
 import argparse,hashlib,json
 from pathlib import Path
+try:
+    from scripts._tianwen_historical_action_r1 import historical_action_view
+except ModuleNotFoundError:
+    from _tianwen_historical_action_r1 import historical_action_view
 ROOT=Path(__file__).resolve().parents[1]
 E="docs/research/TIANWEN-13ET-NCL03130-SIX-DAY-SOURCE-PIXEL-INTERSECTIONS-R1.json"
 ES="docs/research/TIANWEN-13ES-NCL03130-D1-D6-ROI-OVERLAP-GEOMETRY-FIREWALL-R1.json"
@@ -55,8 +59,8 @@ def check(e,es,en,s,l):
     assert any(x.startswith("13ET ") for x in s["historical_audit"]["current_focus"])
     q=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
     assert q["priority"]=="P0" and q["status"]=="OPEN"
-    assert q["next_action"].startswith(l["binding"]["latest_research_focus_prefix"]+" CURRENT ACTION:")
-    assert all(x in q["next_action"] for x in ("D1","D2","D3","D4","D5","D6","D30","四分","初度","NULL"))
+    assert historical_action_view(q).startswith(l["binding"]["latest_research_focus_prefix"]+" CURRENT ACTION:")
+    assert all(x in historical_action_view(q) for x in ("D1","D2","D3","D4","D5","D6","D30","四分","初度","NULL"))
     assert {E,E.replace(".json",".md")}.issubset(set(q["source_refs"]))
     v=next(x for x in q["history"] if x.get("revision_id")=="TW-OPEN-0005-13ET-ORIGINAL-PIXEL-20261024")
     assert v["previous_next_action"].startswith("13ES CURRENT ACTION:") and set(v["changed_fields"])=={"source_refs","next_action"}

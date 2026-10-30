@@ -2,6 +2,10 @@
 """13EW microfilm owner and physical-copy non-promotion verifier."""
 import json
 from pathlib import Path
+try:
+    from scripts._tianwen_historical_action_r1 import historical_action_view
+except ModuleNotFoundError:
+    from _tianwen_historical_action_r1 import historical_action_view
 ROOT=Path(__file__).resolve().parents[1]
 P="docs/research/TIANWEN-13EW-KYUJANGGAK-MICROFILM-COPY-IDENTITY-BOUNDARY-R1.json";S="docs/PROJECT-CURRENT-STATE-R1.json";L="docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json"
 def load(p): return json.loads((ROOT/p).read_text(encoding="utf-8"))
@@ -29,8 +33,8 @@ def check(x,s,l):
  assert l["binding"]["source_focus_count"]==len(s["historical_audit"]["current_focus"])
  issue=next(z for z in l["issues"] if z["id"]=="TW-OPEN-0005")
  assert issue["priority"]=="P0" and issue["status"]=="OPEN" and {P,P.replace(".json",".md")}.issubset(issue["source_refs"])
- assert issue["next_action"].startswith(l["binding"]["latest_research_focus_prefix"]+" CURRENT ACTION:")
- assert all(z in issue["next_action"] for z in ("GK03539_00","GK03579_00","GK03269_00","D1","D2","D3","D4","D5","D6","四分","初度","G893","NULL","13EI"))
+ assert historical_action_view(issue).startswith(l["binding"]["latest_research_focus_prefix"]+" CURRENT ACTION:")
+ assert all(z in historical_action_view(issue) for z in ("GK03539_00","GK03579_00","GK03269_00","D1","D2","D3","D4","D5","D6","四分","初度","G893","NULL","13EI"))
  assert any(q.get("revision_id")=="TW-OPEN-0005-13EW-3539-3579-MF-BOUNDARY-20261024" for q in issue["history"])
  assert l["checkpoint_log"][-1]["state_version"]==s["schema_version"] and len(l["issues"])==11
  return True
