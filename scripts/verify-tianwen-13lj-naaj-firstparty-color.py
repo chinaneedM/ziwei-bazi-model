@@ -2,6 +2,11 @@
 """13LJ first-party color recovery: route success never proves optical RAW/edition."""
 import hashlib,json
 from pathlib import Path
+# Verify historical action text through append-only revisions, not the current instruction.
+try:
+    from scripts._tianwen_historical_action_r1 import historical_action_view
+except ModuleNotFoundError:
+    from _tianwen_historical_action_r1 import historical_action_view
 ROOT=Path(__file__).resolve().parents[1]
 E='docs/research/TIANWEN-13LJ-NAAJ-FIRSTPARTY-COLOR-RECOVERY-R1.json'
 A='docs/research/TIANWEN-13LJ-NAAJ-FIRSTPARTY-COLOR-ACQUISITION-SNAPSHOT-R1.json'
@@ -57,8 +62,8 @@ def check(e,a,s,l):
     assert b['reviewed_state_version']==s['schema_version']==s['historical_audit']['research_omission_guard']['reviewed_state_version']==l['checkpoint_log'][-1]['state_version']
     issue=next(x for x in l['issues'] if x['id']=='TW-OPEN-0005')
     assert issue['status']=='OPEN' and issue['priority']=='P0'
-    assert issue['next_action'].startswith(b['latest_research_focus_prefix']+' CURRENT ACTION:')
-    assert '13LI CURRENT ACTION:' in issue['next_action'] and E in issue['source_refs'] and A in issue['source_refs']
+    assert historical_action_view(issue).startswith(b['latest_research_focus_prefix']+' CURRENT ACTION:')
+    assert '13LI CURRENT ACTION:' in historical_action_view(issue) and E in issue['source_refs'] and A in issue['source_refs']
     assert any(x.get('revision_id')=='TW-OPEN-0005-13LJ-FIRSTPARTY-COLOR-20261030' for x in issue['history'])
     assert s['invariants']['deterministic_fusion_chart_product_r1']=='CLOSED' and len(l['issues'])==11
     return {'status':'PASS','firstparty_color_pages':6,'native_numeric_regions':2,'new_historical_recensions':0,'product':'CLOSED'}

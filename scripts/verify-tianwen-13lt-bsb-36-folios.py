@@ -2,6 +2,11 @@
 """13LT bounded original source title leaf; NOT Ming shi juan35 or physical date proof."""
 import json,re
 from pathlib import Path
+# Verify historical action text through append-only revisions, not the current instruction.
+try:
+    from scripts._tianwen_historical_action_r1 import historical_action_view
+except ModuleNotFoundError:
+    from _tianwen_historical_action_r1 import historical_action_view
 ROOT=Path(__file__).resolve().parents[1]
 PATH="docs/research/TIANWEN-13LT-BSB1739-MINGSHI-V2-36-SOURCE-FOLIOS-J51-J46-TITLE-COLLATION-R1.json"
 def check(e,s,l):
@@ -34,8 +39,8 @@ def check(e,s,l):
  assert l["binding"]["latest_research_focus_prefix"]==s["historical_audit"]["current_focus"][-1].split(" ",1)[0]
  assert len(s["historical_audit"]["current_focus"])==l["binding"]["source_focus_count"]
  issue=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
- assert issue["status"]=="OPEN" and "13LT CURRENT ACTION:" in issue["next_action"]
- assert PATH in issue["source_refs"] and "13LQ CURRENT ACTION:" in issue["next_action"]
+ assert issue["status"]=="OPEN" and "13LT CURRENT ACTION:" in historical_action_view(issue)
+ assert PATH in issue["source_refs"] and "13LQ CURRENT ACTION:" in historical_action_view(issue)
  assert any(x.get("revision_id")=="TW-OPEN-0005-13LT-BSB-TWO-JUAN-TITLE-20261030" for x in issue["history"])
  assert s["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED"
  return {"status":"PASS","original_heading_positives":2,"source_images":36,"juan35_location":"OPEN","numeric_winners":0}

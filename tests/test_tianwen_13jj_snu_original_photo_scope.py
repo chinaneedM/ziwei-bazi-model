@@ -1,5 +1,10 @@
 import json,unittest
 from pathlib import Path
+# Backward-looking assertions use append-only history, never overwrite live next_action.
+try:
+    from scripts._tianwen_historical_action_r1 import historical_action_view
+except ModuleNotFoundError:
+    from _tianwen_historical_action_r1 import historical_action_view
 R=Path(__file__).resolve().parents[1]
 E=R/"docs/research/TIANWEN-13JJ-SNU-GK5553-ORIGINAL-12-29-PHOTO-COLLATION-R1.json"
 S=R/"docs/PROJECT-CURRENT-STATE-R1.json"
@@ -24,7 +29,7 @@ class PhotoScope(unittest.TestCase):
  def test_living_issue(self):
   issue=next(x for x in self.l['issues'] if x['id']=='TW-OPEN-0005')
   self.assertEqual((issue['priority'],issue['status']),('P0','OPEN'));self.assertIn(E.relative_to(R).as_posix(),issue['source_refs'])
-  self.assertIn('13JJ CURRENT ACTION:',issue['next_action'])
-  for word in ('13JG CURRENT ACTION:','GK03539_00','G893','GK3467','NULL','四分','初度','RETRACTED'):self.assertIn(word,issue['next_action'])
+  self.assertIn('13JJ CURRENT ACTION:',historical_action_view(issue))
+  for word in ('13JG CURRENT ACTION:','GK03539_00','G893','GK3467','NULL','四分','初度','RETRACTED'):self.assertIn(word,historical_action_view(issue))
   self.assertEqual(self.l['checkpoint_log'][-1]['state_version'],self.s['schema_version'])
 if __name__=='__main__':unittest.main()

@@ -1,5 +1,10 @@
 import json,unittest
 from pathlib import Path
+# Historical source text is validated through immutable issue revisions.
+try:
+    from scripts._tianwen_historical_action_r1 import historical_action_view
+except ModuleNotFoundError:
+    from _tianwen_historical_action_r1 import historical_action_view
 R=Path(__file__).resolve().parents[1]
 E=R/"docs/research/TIANWEN-13JM-GK5553-8-26-MANUSCRIPT-NEIGHBOR-SIX-ORIGINAL-IMAGE-SCOPE-R1.json"
 S=R/'docs/PROJECT-CURRENT-STATE-R1.json'
@@ -37,7 +42,7 @@ class CopyMorphology(unittest.TestCase):
   i=next(x for x in self.l['issues'] if x['id']=='TW-OPEN-0005')
   self.assertEqual((i['status'],i['priority']),('OPEN','P0'))
   self.assertIn(E.relative_to(R).as_posix(),i['source_refs'])
-  for word in ('13JM CURRENT ACTION:','13JJ CURRENT ACTION:','13JG CURRENT ACTION:','GK03539_00','G893','GK3467','NLC03130 solar D30','NULL','四分','初度','13EI','RETRACTED'):self.assertIn(word,i['next_action'])
+  for word in ('13JM CURRENT ACTION:','13JJ CURRENT ACTION:','13JG CURRENT ACTION:','GK03539_00','G893','GK3467','NLC03130 solar D30','NULL','四分','初度','13EI','RETRACTED'):self.assertIn(word,historical_action_view(i))
   self.assertTrue(any(x.get('revision_id','').startswith('TW-OPEN-0005-13JM') for x in i['history']))
   self.assertEqual(self.l['checkpoint_log'][-1]['state_version'],self.s['schema_version'])
 if __name__=='__main__':unittest.main()

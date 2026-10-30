@@ -2,6 +2,11 @@
 """13IW byte identity / foreign modern commentary not classical folio and live state check."""
 import json
 from pathlib import Path
+# Verify historical action text through append-only revisions, not the current instruction.
+try:
+    from scripts._tianwen_historical_action_r1 import historical_action_view
+except ModuleNotFoundError:
+    from _tianwen_historical_action_r1 import historical_action_view
 ROOT=Path(__file__).resolve().parents[1]
 PATH="docs/research/TIANWEN-13IW-KHS-2114-2-XML-BYTE-IDENTITY-AND-BOOK-JUAN-COLLATION-R1.json"
 def load(p=PATH):return json.loads((ROOT/p).read_text(encoding="utf-8"))
@@ -37,7 +42,7 @@ def check(e,state=None,ledger=None):
  assert focus[-1].split(" ",1)[0]==l["binding"]["latest_research_focus_prefix"]
  issue=next(i for i in l["issues"] if i["id"]=="TW-OPEN-0005")
  assert issue["status"]=="OPEN" and PATH in issue["source_refs"]
- assert all(x in issue["next_action"] for x in ("GK03539_00","GK03579_00","GK03269_00","D1-D6","四分","初度","G893","NLC03130 solar D30","NLC03130 summer D14","NULL","13EI","RETRACTED"))
+ assert all(x in historical_action_view(issue) for x in ("GK03539_00","GK03579_00","GK03269_00","D1-D6","四分","初度","G893","NLC03130 solar D30","NLC03130 summer D14","NULL","13EI","RETRACTED"))
  assert any(h.get("revision_id","").startswith("TW-OPEN-0005-13IW-") and PATH in h.get("evidence_refs",[]) for h in issue["history"])
  assert l["checkpoint_log"][-1]["state_version"]==s["schema_version"]
  return True

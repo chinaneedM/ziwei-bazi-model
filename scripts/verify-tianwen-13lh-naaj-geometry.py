@@ -2,6 +2,11 @@
 """13LH historical boundary: SIFT scan geometry != edition/block/recension proof."""
 import json
 from pathlib import Path
+# Verify historical action text through append-only revisions, not the current instruction.
+try:
+    from scripts._tianwen_historical_action_r1 import historical_action_view
+except ModuleNotFoundError:
+    from _tianwen_historical_action_r1 import historical_action_view
 ROOT=Path(__file__).resolve().parents[1]
 E="docs/research/TIANWEN-13LH-NAJDA2810037-2810038-PRINT-GEOMETRY-REGISTRATION-R1.json"
 def load():
@@ -32,8 +37,8 @@ def check(e,s,l):
     assert binding["latest_research_focus_prefix"]==focus[-1].split(" ",1)[0]
     assert s["schema_version"]==s["historical_audit"]["research_omission_guard"]["reviewed_state_version"]==binding["reviewed_state_version"]==l["checkpoint_log"][-1]["state_version"]
     i=next(q for q in l["issues"] if q["id"]=="TW-OPEN-0005")
-    assert i["status"]=="OPEN" and i["priority"]=="P0" and i["next_action"].startswith(binding["latest_research_focus_prefix"]+" CURRENT ACTION:")
-    assert "13LG CURRENT ACTION:" in i["next_action"] and "13JM CURRENT ACTION:" in i["next_action"] and "RETRACTED" in i["next_action"]
+    assert i["status"]=="OPEN" and i["priority"]=="P0" and historical_action_view(i).startswith(binding["latest_research_focus_prefix"]+" CURRENT ACTION:")
+    assert "13LG CURRENT ACTION:" in historical_action_view(i) and "13JM CURRENT ACTION:" in historical_action_view(i) and "RETRACTED" in historical_action_view(i)
     assert E in i["source_refs"] and E[:-5]+".md" in i["source_refs"]
     assert any(q.get("revision_id")=="TW-OPEN-0005-13LH-GEOMETRY-20261030" for q in i["history"])
     assert len(l["issues"])==11 and s["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED"

@@ -3,6 +3,11 @@
 import copy
 import json
 from pathlib import Path
+# Verify historical action text through append-only revisions, not the current instruction.
+try:
+    from scripts._tianwen_historical_action_r1 import historical_action_view
+except ModuleNotFoundError:
+    from _tianwen_historical_action_r1 import historical_action_view
 ROOT=Path(__file__).resolve().parents[1]
 DOC="docs/research/TIANWEN-13IT-GK5553-5554-HERITAGE-COPY-CROSSWALK-R1.json"
 def load(path=DOC):
@@ -44,7 +49,7 @@ def check(e, *, state=None, ledger=None):
     iss=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
     assert iss["status"]=="OPEN" and iss["priority"]=="P0"
     assert DOC in iss["source_refs"]
-    assert "13IO" in iss["next_action"] and "RETRACTED" in iss["next_action"]
+    assert "13IO" in historical_action_view(iss) and "RETRACTED" in historical_action_view(iss)
     assert any(h.get("revision_id","").startswith("TW-OPEN-0005-13IT-") and DOC in h.get("evidence_refs",[]) for h in iss["history"])
     assert l["checkpoint_log"][-1]["state_version"]==s["schema_version"]
     return True

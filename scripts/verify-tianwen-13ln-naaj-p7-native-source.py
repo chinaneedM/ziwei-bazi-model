@@ -2,6 +2,11 @@
 """13LN exact first-party six-color region acquisition versus historical adjudication firewall."""
 import json,re
 from pathlib import Path
+# Historical source text is validated through immutable issue revisions.
+try:
+    from scripts._tianwen_historical_action_r1 import historical_action_view
+except ModuleNotFoundError:
+    from _tianwen_historical_action_r1 import historical_action_view
 ROOT=Path(__file__).resolve().parents[1]
 D="docs/research/"
 E=D+"TIANWEN-13LN-NAAJ-P7-NATIVE-COLOR-ACQUISITION-AND-SOURCE-SCOPE-R1.json"
@@ -52,8 +57,8 @@ def check(e,m,s,l):
  assert l["binding"]["reviewed_state_version"]==s["schema_version"]==l["checkpoint_log"][-1]["state_version"]
  assert len(s["historical_audit"]["current_focus"])==l["binding"]["source_focus_count"]
  issue=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
- assert issue["status"]=="OPEN" and "13LN CURRENT ACTION:" in issue["next_action"]
- assert "13LM CURRENT ACTION:" in issue["next_action"] and E in issue["source_refs"]
+ assert issue["status"]=="OPEN" and "13LN CURRENT ACTION:" in historical_action_view(issue)
+ assert "13LM CURRENT ACTION:" in historical_action_view(issue) and E in issue["source_refs"]
  assert any(x.get("revision_id")=="TW-OPEN-0005-13LN-NATIVE-COLOR-20261030" for x in issue["history"])
  assert sum(x["status"]=="RESOLVED_WITH_EVIDENCE" for x in l["issues"])==0
  return {"status":"PASS","source_native_jpeg_regions":6,"historical_winners":0,"same_plate_proven":False,"product":"CLOSED"}

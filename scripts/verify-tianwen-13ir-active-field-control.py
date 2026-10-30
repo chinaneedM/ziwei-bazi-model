@@ -2,6 +2,11 @@
 """13IR fail-closed active P0 source-field handoff gate."""
 import json,re
 from pathlib import Path
+# Backward-looking assertions use append-only history, never overwrite live next_action.
+try:
+    from scripts._tianwen_historical_action_r1 import historical_action_view
+except ModuleNotFoundError:
+    from _tianwen_historical_action_r1 import historical_action_view
 ROOT=Path(__file__).resolve().parents[1]
 DOC="docs/research/TIANWEN-13IR-P0-ACTIVE-FIELD-CONTROL-RECONCILIATION-R1.json"
 def load(path=DOC):return json.loads((ROOT/path).read_text(encoding="utf-8"))
@@ -25,7 +30,7 @@ def check(e,with_state=True):
   assert ld["binding"]["latest_research_focus_prefix"]==s["historical_audit"]["current_focus"][-1].split(" ",1)[0]
   assert any(t.startswith("13IR ") for t in s["historical_audit"]["current_focus"])
   issue=next(x for x in ld["issues"] if x["id"]=="TW-OPEN-0005")
-  action=issue["next_action"]
+  action=historical_action_view(issue)
   # The active controls persist as the research queue advances to later batches.
   assert action.startswith(ld["binding"]["latest_research_focus_prefix"]+" CURRENT ACTION:")
   for scope,control in controls.items():

@@ -2,6 +2,11 @@
 """13EC P0 queue reconcile original source readings without new witness claims."""
 import json
 from pathlib import Path
+# Backward-looking assertions use append-only history, never overwrite live next_action.
+try:
+    from scripts._tianwen_historical_action_r1 import historical_action_view
+except ModuleNotFoundError:
+    from _tianwen_historical_action_r1 import historical_action_view
 ROOT=Path(__file__).resolve().parents[1]
 E="docs/research/TIANWEN-13EC-NCL03130-SOLAR-D30-NEXT-ACTION-RECONCILIATION-R1.json";S="docs/PROJECT-CURRENT-STATE-R1.json";L="docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json"
 EA="docs/research/TIANWEN-13EA-NCL03130-SOLAR-D28-D29-ORIGINAL-XINGDU-GLYPH-R1.json";EB="docs/research/TIANWEN-13EB-NCL03130-SOLAR-D27-D30-ORIGINAL-ROI-R1.json"
@@ -20,9 +25,9 @@ def check(e,s,l,a,b):
  assert any(x.startswith("13EC FORWARD-ONLY P0 ACTION CORRECTION:") for x in s["historical_audit"]["current_focus"])
  issue=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
  assert issue["priority"]=="P0" and issue["status"]=="OPEN"
- current_prefix=issue["next_action"].split(" ",1)[0]
- assert issue["next_action"].startswith(current_prefix+" CURRENT ACTION")
- assert "D30" in issue["next_action"] and e["bounded_unresolved"]["value"] is None
+ current_prefix=historical_action_view(issue).split(" ",1)[0]
+ assert historical_action_view(issue).startswith(current_prefix+" CURRENT ACTION")
+ assert "D30" in historical_action_view(issue) and e["bounded_unresolved"]["value"] is None
  assert all(z["day"] in (27,28,29) for z in e["established_source_positive"])
  assert set([EA,EB,E,E.replace(".json",".md")]).issubset(set(issue["source_refs"]))
  changes=[h for h in issue["history"] if h.get("event")=="ISSUE_REVISION" and "next_action" in h.get("changed_fields",[])]

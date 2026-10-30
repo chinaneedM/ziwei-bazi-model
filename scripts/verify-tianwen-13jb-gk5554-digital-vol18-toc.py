@@ -2,6 +2,11 @@
 """13JB firstparty SNU vol18 TOC: authenticated HTML, not ancient original."""
 import json
 from pathlib import Path
+# Historical source text is validated through immutable issue revisions.
+try:
+    from scripts._tianwen_historical_action_r1 import historical_action_view
+except ModuleNotFoundError:
+    from _tianwen_historical_action_r1 import historical_action_view
 R=Path(__file__).resolve().parents[1]
 E="docs/research/TIANWEN-13JB-GK5554-BOOK18-JUAN80-82-SOURCE-EMITTED-TOC-R1.json";S="docs/PROJECT-CURRENT-STATE-R1.json";L="docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json"
 def get(p):return json.loads((R/p).read_text(encoding="utf-8"))
@@ -41,8 +46,8 @@ def check(e=None,s=None,l=None):
  assert l["binding"]["source_focus_count"]==len(s["historical_audit"]["current_focus"])
  issue=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
  assert issue["status"]=="OPEN" and issue["priority"]=="P0" and {E,E.replace(".json",".md")}.issubset(set(issue["source_refs"]))
- assert issue["next_action"].startswith(l["binding"]["latest_research_focus_prefix"]+" CURRENT ACTION:")
- assert all(k in issue["next_action"] for k in ("GK05554_00","0018","048a","085a","GK05553_00","G893","NLC03130 solar D30","NLC03130 summer D14","D1-D6","四分","初度","13EI","RETRACTED"))
+ assert historical_action_view(issue).startswith(l["binding"]["latest_research_focus_prefix"]+" CURRENT ACTION:")
+ assert all(k in historical_action_view(issue) for k in ("GK05554_00","0018","048a","085a","GK05553_00","G893","NLC03130 solar D30","NLC03130 summer D14","D1-D6","四分","初度","13EI","RETRACTED"))
  assert any(x.get("revision_id","").startswith("TW-OPEN-0005-13JB-") and E in x.get("evidence_refs",[]) for x in issue["history"])
  assert l["checkpoint_log"][-1]["state_version"]==s["schema_version"]
  return True

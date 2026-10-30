@@ -2,6 +2,11 @@
 """13LO p7/p8 three-source crosswalk; prevent false plate and historical vote upgrades."""
 import json,re
 from pathlib import Path
+# Backward-looking assertions use append-only history, never overwrite live next_action.
+try:
+    from scripts._tianwen_historical_action_r1 import historical_action_view
+except ModuleNotFoundError:
+    from _tianwen_historical_action_r1 import historical_action_view
 ROOT=Path(__file__).resolve().parents[1]
 E="docs/research/TIANWEN-13LO-NAJDA-HARVARD-J35-P7-P8-THREE-WAY-SOURCE-CROSSWALK-R1.json"
 def load():
@@ -49,8 +54,8 @@ def check(e,s,l):
  assert any(x.startswith("13LO ") for x in s["historical_audit"]["current_focus"])
  assert len(s["historical_audit"]["current_focus"])==l["binding"]["source_focus_count"]
  issue=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
- assert issue["status"]=="OPEN" and "13LO CURRENT ACTION:" in issue["next_action"]
- assert "13LN CURRENT ACTION:" in issue["next_action"] and E in issue["source_refs"]
+ assert issue["status"]=="OPEN" and "13LO CURRENT ACTION:" in historical_action_view(issue)
+ assert "13LN CURRENT ACTION:" in historical_action_view(issue) and E in issue["source_refs"]
  assert any(x.get("revision_id")=="TW-OPEN-0005-13LO-HARVARD-NAJ-CROSSWALK-20261030" for x in issue["history"])
  assert s["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED"
  return {"status":"PASS","historical_numeric_winners":0,"same_plate_adjudication":"UNRESOLVED","harvard_page":8,"naaj_page":7}

@@ -2,6 +2,11 @@
 """13LG: direct NAAJ book10 original image checks, never invent copy stemma."""
 import json
 from pathlib import Path
+# Backward-looking assertions use append-only history, never overwrite live next_action.
+try:
+    from scripts._tianwen_historical_action_r1 import historical_action_view
+except ModuleNotFoundError:
+    from _tianwen_historical_action_r1 import historical_action_view
 ROOT=Path(__file__).resolve().parents[1]
 E="docs/research/TIANWEN-13LG-NAJDA-2810037-BOOK10-J35-P6-ORIGINAL-23897709-R1.json"
 def load():return tuple(json.loads((ROOT/f).read_text(encoding="utf-8")) for f in (E,"docs/PROJECT-CURRENT-STATE-R1.json","docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json"))
@@ -24,10 +29,10 @@ def check(e,s,l):
  assert any(x.startswith("13LG ") for x in focus) and b["source_focus_count"]==len(focus) and b["latest_research_focus_prefix"]==focus[-1].split(" ",1)[0]
  assert s["schema_version"]==s["historical_audit"]["research_omission_guard"]["reviewed_state_version"]==b["reviewed_state_version"]==l["checkpoint_log"][-1]["state_version"]
  issue=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
- assert issue["status"]=="OPEN" and issue["priority"]=="P0" and issue["next_action"].startswith(b["latest_research_focus_prefix"]+" CURRENT ACTION:")
+ assert issue["status"]=="OPEN" and issue["priority"]=="P0" and historical_action_view(issue).startswith(b["latest_research_focus_prefix"]+" CURRENT ACTION:")
  assert E in issue["source_refs"] and E[:-5]+".md" in issue["source_refs"]
  assert any(x.get("revision_id")=="TW-OPEN-0005-13LG-NAJDA2810037-ORIGINAL-20261030" for x in issue["history"])
- assert "13LG CURRENT ACTION:" in issue["next_action"] and "13LF CURRENT ACTION:" in issue["next_action"] and "13JM CURRENT ACTION:" in issue["next_action"] and "RETRACTED" in issue["next_action"]
+ assert "13LG CURRENT ACTION:" in historical_action_view(issue) and "13LF CURRENT ACTION:" in historical_action_view(issue) and "13JM CURRENT ACTION:" in historical_action_view(issue) and "RETRACTED" in historical_action_view(issue)
  assert len(l["issues"])==11 and s["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED" and s["invariants"]["algorithm_reopen_count"]==0
  return {"status":"PASS","confirmed_original_book10_juan35":True,"confirmed_numeric_original":"238977.09","historical_winners":0,"new_independent_recensions":0}
 if __name__=="__main__":print(json.dumps(check(*load()),ensure_ascii=False))

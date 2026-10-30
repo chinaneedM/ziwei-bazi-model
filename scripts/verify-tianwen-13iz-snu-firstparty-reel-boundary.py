@@ -2,6 +2,11 @@
 """13IZ firstparty SNU 32-volume PDF service: no ancient physical-folio inference."""
 import json
 from pathlib import Path
+# Historical claim presence is read from append-only history, not current next_action.
+try:
+    from scripts._tianwen_historical_action_r1 import historical_action_view
+except ModuleNotFoundError:
+    from _tianwen_historical_action_r1 import historical_action_view
 ROOT=Path(__file__).resolve().parents[1]
 E="docs/research/TIANWEN-13IZ-SNU-GK5553-GK5554-FIRSTPARTY-VOLLIST-ACCESS-BOUNDARY-R1.json"
 S="docs/PROJECT-CURRENT-STATE-R1.json"
@@ -52,9 +57,9 @@ def check(e=None,state=None,ledger=None,manifest=None):
  assert len(state["historical_audit"]["current_focus"])==ledger["binding"]["source_focus_count"]
  issue=next(i for i in ledger["issues"] if i["id"]=="TW-OPEN-0005")
  assert issue["priority"]=="P0" and issue["status"]=="OPEN" and {E,E.replace(".json",".md")}.issubset(set(issue["source_refs"]))
- assert issue["next_action"].startswith(ledger["binding"]["latest_research_focus_prefix"]+" CURRENT ACTION:")
+ assert historical_action_view(issue).startswith(ledger["binding"]["latest_research_focus_prefix"]+" CURRENT ACTION:")
  assert any(h.get("revision_id","").startswith("TW-OPEN-0005-13IZ-") and h.get("previous_next_action","").startswith("13IY CURRENT ACTION:") for h in issue["history"])
- assert all(k in issue["next_action"] for k in ("GK05553_00","GK05554_00","G893","GK03539_00","GK03579_00","GK03269_00","D1-D6","四分","初度","NLC03130 solar D30","NLC03130 summer D14","NULL","13EI","RETRACTED"))
+ assert all(k in historical_action_view(issue) for k in ("GK05553_00","GK05554_00","G893","GK03539_00","GK03579_00","GK03269_00","D1-D6","四分","初度","NLC03130 solar D30","NLC03130 summer D14","NULL","13EI","RETRACTED"))
  assert any(x.get("revision_id","").startswith("TW-OPEN-0005-13IZ-") and E in x.get("evidence_refs",[]) for x in issue["history"])
  assert ledger["checkpoint_log"][-1]["state_version"]==state["schema_version"]
  return True

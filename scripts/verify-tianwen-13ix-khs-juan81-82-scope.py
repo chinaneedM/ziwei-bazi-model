@@ -2,6 +2,11 @@
 """13IX: bound gov Korean book/juan modern interpretation, never ancient folio."""
 import json
 from pathlib import Path
+# Historical source text is validated through immutable issue revisions.
+try:
+    from scripts._tianwen_historical_action_r1 import historical_action_view
+except ModuleNotFoundError:
+    from _tianwen_historical_action_r1 import historical_action_view
 R=Path(__file__).resolve().parents[1]
 J="docs/research/TIANWEN-13IX-KHS-2114-2-DIRECT-KOREAN-JUAN81-82-BOUNDARY-R1.json"
 def get(p=J):return json.loads((R/p).read_text(encoding="utf-8"))
@@ -60,7 +65,7 @@ def check(x,s=None,l=None):
  assert any(t.startswith("13IX ") for t in focus) and len(focus)==l["binding"]["source_focus_count"] and focus[-1].split(" ",1)[0]==l["binding"]["latest_research_focus_prefix"]
  issue=next(z for z in l["issues"] if z["id"]=="TW-OPEN-0005")
  assert issue["priority"]=="P0" and issue["status"]=="OPEN" and J in issue["source_refs"]
- assert all(v in issue["next_action"] for v in ("GK03539_00","GK03579_00","GK03269_00","D1-D6","四分","初度","G893","NLC03130 solar D30","NLC03130 summer D14","NULL","13EI","RETRACTED"))
+ assert all(v in historical_action_view(issue) for v in ("GK03539_00","GK03579_00","GK03269_00","D1-D6","四分","初度","G893","NLC03130 solar D30","NLC03130 summer D14","NULL","13EI","RETRACTED"))
  assert any(h.get("revision_id","").startswith("TW-OPEN-0005-13IX-") and J in h.get("evidence_refs",[]) for h in issue["history"])
  assert l["checkpoint_log"][-1]["state_version"]==s["schema_version"]
  return True

@@ -2,6 +2,11 @@
 """13IU: fail closed when an M/F label is promoted across independent shelfmarks."""
 import hashlib,json
 from pathlib import Path
+# Verify historical action text through append-only revisions, not the current instruction.
+try:
+    from scripts._tianwen_historical_action_r1 import historical_action_view
+except ModuleNotFoundError:
+    from _tianwen_historical_action_r1 import historical_action_view
 ROOT=Path(__file__).resolve().parents[1]
 DOC="docs/research/TIANWEN-13IU-GK5553-GK5554-MICROFILM-IDENTITY-FIREWALL-R1.json"
 def load(path=DOC):return json.loads((ROOT/path).read_text(encoding="utf-8"))
@@ -52,8 +57,8 @@ def check(e,*,state=None,ledger=None):
  issue=next(i for i in l["issues"] if i["id"]=="TW-OPEN-0005")
  assert issue["status"]=="OPEN" and issue["priority"]=="P0"
  assert DOC in issue["source_refs"]
- assert "13IO" in issue["next_action"] and "RETRACTED" in issue["next_action"]
- assert all(z in issue["next_action"] for z in ("四分","初度","NLC03130 solar D30","NLC03130 summer D14","13EI","NULL","D1-D6","GK03539_00"))
+ assert "13IO" in historical_action_view(issue) and "RETRACTED" in historical_action_view(issue)
+ assert all(z in historical_action_view(issue) for z in ("四分","初度","NLC03130 solar D30","NLC03130 summer D14","13EI","NULL","D1-D6","GK03539_00"))
  assert any(h.get("revision_id","").startswith("TW-OPEN-0005-13IU-") and DOC in h.get("evidence_refs",[]) for h in issue["history"])
  assert l["checkpoint_log"][-1]["state_version"]==s["schema_version"]
  return True

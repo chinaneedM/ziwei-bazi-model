@@ -2,6 +2,11 @@
 """13IY: guard modern firstparty government/SNU discord without ancient-folio promotion."""
 import json
 from pathlib import Path
+# Backward-looking assertions use append-only history, never overwrite live next_action.
+try:
+    from scripts._tianwen_historical_action_r1 import historical_action_view
+except ModuleNotFoundError:
+    from _tianwen_historical_action_r1 import historical_action_view
 R=Path(__file__).resolve().parents[1]
 D="docs/research/TIANWEN-13IY-KHS-2114-1-DIRECT-KOREAN-DESIGNATION-COPY-SCOPE-R1.json"
 S="docs/research/TIANWEN-13IY-KHS-2114-1-2114-2-OFFICIAL-DESCRIPTION-SOURCE-SHARD-R1.json"
@@ -63,9 +68,9 @@ def check(d=None,state=None,ledger=None,manifest=None):
  issue=next(x for x in ledger["issues"] if x["id"]=="TW-OPEN-0005")
  assert issue["status"]=="OPEN" and issue["priority"]=="P0"
  assert D in issue["source_refs"] and S in issue["source_refs"]
- assert issue["next_action"].startswith(ledger["binding"]["latest_research_focus_prefix"]+" CURRENT ACTION:")
+ assert historical_action_view(issue).startswith(ledger["binding"]["latest_research_focus_prefix"]+" CURRENT ACTION:")
  assert any(x.get("revision_id","").startswith("TW-OPEN-0005-13IY-") and x.get("previous_next_action","").startswith("13IX CURRENT ACTION:") for x in issue["history"])
- assert all(z in issue["next_action"] for z in ("GK03539_00","GK03579_00","GK03269_00","D1-D6","四分","初度","G893","NLC03130 solar D30","NLC03130 summer D14","NULL","13EI","RETRACTED"))
+ assert all(z in historical_action_view(issue) for z in ("GK03539_00","GK03579_00","GK03269_00","D1-D6","四分","初度","G893","NLC03130 solar D30","NLC03130 summer D14","NULL","13EI","RETRACTED"))
  assert any(x.get("revision_id","").startswith("TW-OPEN-0005-13IY-") and D in x.get("evidence_refs",[]) for x in issue["history"])
  assert ledger["checkpoint_log"][-1]["state_version"]==state["schema_version"]
  return True

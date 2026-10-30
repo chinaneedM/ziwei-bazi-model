@@ -2,6 +2,11 @@
 """13IQ: official library list-only identity + exact-head CI tail guards."""
 import json
 from pathlib import Path
+# Verify historical action text through append-only revisions, not the current instruction.
+try:
+    from scripts._tianwen_historical_action_r1 import historical_action_view
+except ModuleNotFoundError:
+    from _tianwen_historical_action_r1 import historical_action_view
 ROOT=Path(__file__).resolve().parents[1]
 DOC="docs/research/TIANWEN-13IQ-1972-HANBAT-SEARCH-AND-CI-TAIL-ERRATA-R1.json"
 def load(path=DOC):return json.loads((ROOT/path).read_text(encoding="utf-8"))
@@ -25,7 +30,7 @@ def check(d, with_repo=True):
   assert ld["binding"]["source_focus_count"]==len(st["historical_audit"]["current_focus"])
   assert any(q.startswith("13IQ ") for q in st["historical_audit"]["current_focus"])
   i=next(x for x in ld["issues"] if x["id"]=="TW-OPEN-0005")
-  assert i["status"]=="OPEN" and DOC in i["source_refs"] and "solar D30" in i["next_action"] and "summer D14" in i["next_action"]
+  assert i["status"]=="OPEN" and DOC in i["source_refs"] and "solar D30" in historical_action_view(i) and "summer D14" in historical_action_view(i)
   test=(ROOT/"tests/test_tianwen_13in_gk5553_material.py").read_text(encoding="utf-8")
   assert 'a["snu_firstparty"]["book29_original_folio_images_obtained"]=True' in test
   v=(ROOT/"scripts/verify-tianwen-13hz-nikh-d18.py").read_text(encoding="utf-8")

@@ -1,5 +1,10 @@
 import json,unittest
 from pathlib import Path
+# Historical source text is validated through immutable issue revisions.
+try:
+    from scripts._tianwen_historical_action_r1 import historical_action_view
+except ModuleNotFoundError:
+    from _tianwen_historical_action_r1 import historical_action_view
 R=Path(__file__).resolve().parents[1]
 E=R/"docs/research/TIANWEN-13JG-GK5554-VOL18-JUAN81-82-FIRSTPARTY-ORIGINAL-HEADINGS-R1.json"
 S=R/"docs/PROJECT-CURRENT-STATE-R1.json"
@@ -50,10 +55,10 @@ class FirstpartyHeadings(unittest.TestCase):
   self.assertEqual((issue["priority"],issue["status"]),("P0","OPEN"))
   self.assertIn(E.relative_to(R).as_posix(),issue["source_refs"])
   self.assertTrue(any(x.get("revision_id","").startswith("TW-OPEN-0005-13JG-") for x in issue["history"]))
-  self.assertIn("13JG CURRENT ACTION:",issue["next_action"])
+  self.assertIn("13JG CURRENT ACTION:",historical_action_view(issue))
   self.assertEqual(self.l["checkpoint_log"][-1]["state_version"],self.s["schema_version"])
  def test_other_source_controls_stay_open(self):
   x=next(y for y in self.l["issues"] if y["id"]=="TW-OPEN-0005")
   for token in ("G893","GK3467","NLC03130 solar D30","NLC03130 summer D14","四分","初度","13EI","RETRACTED"):
-   self.assertIn(token,x["next_action"])
+   self.assertIn(token,historical_action_view(x))
 if __name__=="__main__":unittest.main()

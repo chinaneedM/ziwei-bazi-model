@@ -2,6 +2,11 @@
 """13LL exact two-locus evidence and digital/physical interpretation firewall."""
 import hashlib,json
 from pathlib import Path
+# Historical source text is validated through immutable issue revisions.
+try:
+    from scripts._tianwen_historical_action_r1 import historical_action_view
+except ModuleNotFoundError:
+    from _tianwen_historical_action_r1 import historical_action_view
 ROOT=Path(__file__).resolve().parents[1]
 D='docs/research/'
 E=D+'TIANWEN-13LL-NAAJ-SAME-PAGE-ZERO-COLOR-MASK-COLLATION-R1.json'
@@ -40,7 +45,7 @@ def check(e,a,r,s,l,k):
     assert len(f)==b['source_focus_count'] and f[-1].split()[0]==b['latest_research_focus_prefix']
     assert s['schema_version']==b['reviewed_state_version']==s['historical_audit']['research_omission_guard']['reviewed_state_version']==l['checkpoint_log'][-1]['state_version']
     i=next(x for x in l['issues'] if x['id']=='TW-OPEN-0005')
-    assert i['status']=='OPEN' and i['next_action'].startswith(b['latest_research_focus_prefix']+' CURRENT ACTION:') and '13LJ CURRENT ACTION:' in i['next_action']
+    assert i['status']=='OPEN' and historical_action_view(i).startswith(b['latest_research_focus_prefix']+' CURRENT ACTION:') and '13LJ CURRENT ACTION:' in historical_action_view(i)
     assert all(p in i['source_refs'] for p in [E,A,R,K])
     assert any(x.get('revision_id')=='TW-OPEN-0005-13LL-ZERO-COLOR-MASK-20261030' for x in i['history'])
     assert s['invariants']['deterministic_fusion_chart_product_r1']=='CLOSED'

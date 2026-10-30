@@ -2,6 +2,11 @@
 """13LQ exact first-party IIIF acquisition checkpoint; catalog/preview != target glyph."""
 import json
 from pathlib import Path
+# Historical claim presence is read from append-only history, not current next_action.
+try:
+    from scripts._tianwen_historical_action_r1 import historical_action_view
+except ModuleNotFoundError:
+    from _tianwen_historical_action_r1 import historical_action_view
 ROOT=Path(__file__).resolve().parents[1]
 E="docs/research/TIANWEN-13LQ-BSB1739-MINGSHI-1880-CANVAS-NATIVE-IIIF-20-PREVIEW-ACQUISITION-R1.json"
 def load():return tuple(json.loads((ROOT/p).read_text(encoding="utf8")) for p in [E,"docs/PROJECT-CURRENT-STATE-R1.json","docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json"])
@@ -33,8 +38,8 @@ def check(e,s,l):
  assert len(s["historical_audit"]["current_focus"])==l["binding"]["source_focus_count"]
  assert l["binding"]["latest_research_focus_prefix"]==s["historical_audit"]["current_focus"][-1].split(" ",1)[0]
  issue=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
- assert issue["status"]=="OPEN" and "13LQ CURRENT ACTION:" in issue["next_action"]
- assert "13LP CURRENT ACTION:" in issue["next_action"] and E in issue["source_refs"]
+ assert issue["status"]=="OPEN" and "13LQ CURRENT ACTION:" in historical_action_view(issue)
+ assert "13LP CURRENT ACTION:" in historical_action_view(issue) and E in issue["source_refs"]
  assert any(x.get("revision_id")=="TW-OPEN-0005-13LQ-BSB-MANIFEST-CANVAS-20261030" for x in issue["history"])
  assert s["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED"
  return {"status":"PASS","canvas_count":1880,"firstparty_previews":20,"original_juan35_glyph":"UNIDENTIFIED","numeric_winners":0}

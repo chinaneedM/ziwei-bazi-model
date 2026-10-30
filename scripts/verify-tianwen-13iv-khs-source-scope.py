@@ -2,6 +2,11 @@
 """13IV source-scope and forward-only active-state strict gate."""
 import json
 from pathlib import Path
+# Historical source text is validated through immutable issue revisions.
+try:
+    from scripts._tianwen_historical_action_r1 import historical_action_view
+except ModuleNotFoundError:
+    from _tianwen_historical_action_r1 import historical_action_view
 R=Path(__file__).resolve().parents[1]
 P="docs/research/TIANWEN-13IV-KHS-OFFICIAL-DESCRIPTION-XML-1482-SCOPE-R1.json"
 def load(p=P):return json.loads((R/p).read_text(encoding="utf-8"))
@@ -30,7 +35,7 @@ def check(e,s=None,l=None):
  assert any(x.startswith("13IV ") for x in f) and len(f)==l["binding"]["source_focus_count"] and f[-1].split(" ",1)[0]==l["binding"]["latest_research_focus_prefix"]
  issue=next(i for i in l["issues"] if i["id"]=="TW-OPEN-0005")
  assert issue["priority"]=="P0" and issue["status"]=="OPEN" and P in issue["source_refs"]
- assert all(t in issue["next_action"] for t in ("D1-D6","四分","初度","G893","NLC03130 solar D30","NLC03130 summer D14","GK03539_00","GK03579_00","GK03269_00","NULL","13EI","RETRACTED"))
+ assert all(t in historical_action_view(issue) for t in ("D1-D6","四分","初度","G893","NLC03130 solar D30","NLC03130 summer D14","GK03539_00","GK03579_00","GK03269_00","NULL","13EI","RETRACTED"))
  assert any(x.get("revision_id","").startswith("TW-OPEN-0005-13IV-") and P in x.get("evidence_refs",[]) for x in issue["history"])
  assert l["checkpoint_log"][-1]["state_version"]==s["schema_version"]
  return True

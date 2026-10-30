@@ -2,6 +2,11 @@
 """13LI source image-layer firewall: derived JBIG2 glyph mask != original physical block damage."""
 import json
 from pathlib import Path
+# Verify historical action text through append-only revisions, not the current instruction.
+try:
+    from scripts._tianwen_historical_action_r1 import historical_action_view
+except ModuleNotFoundError:
+    from _tianwen_historical_action_r1 import historical_action_view
 ROOT=Path(__file__).resolve().parents[1]
 E="docs/research/TIANWEN-13LI-NAJDA2810037-2810038-PDF-MRC-DIGITAL-LAYER-FIREWALL-R1.json"
 def load():return tuple(json.loads((ROOT/p).read_text(encoding="utf-8")) for p in (E,"docs/PROJECT-CURRENT-STATE-R1.json","docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json"))
@@ -33,8 +38,8 @@ def check(e,s,l):
     assert any(x.startswith("13LI ") for x in f) and len(f)==binding["source_focus_count"] and f[-1].split(" ",1)[0]==binding["latest_research_focus_prefix"]
     assert s["schema_version"]==s["historical_audit"]["research_omission_guard"]["reviewed_state_version"]==binding["reviewed_state_version"]==l["checkpoint_log"][-1]["state_version"]
     issue=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
-    assert issue["status"]=="OPEN" and issue["priority"]=="P0" and issue["next_action"].startswith(binding["latest_research_focus_prefix"]+" CURRENT ACTION:")
-    assert "13LH CURRENT ACTION:" in issue["next_action"] and "13LG CURRENT ACTION:" in issue["next_action"] and "13JM CURRENT ACTION:" in issue["next_action"] and "RETRACTED" in issue["next_action"]
+    assert issue["status"]=="OPEN" and issue["priority"]=="P0" and historical_action_view(issue).startswith(binding["latest_research_focus_prefix"]+" CURRENT ACTION:")
+    assert "13LH CURRENT ACTION:" in historical_action_view(issue) and "13LG CURRENT ACTION:" in historical_action_view(issue) and "13JM CURRENT ACTION:" in historical_action_view(issue) and "RETRACTED" in historical_action_view(issue)
     assert E in issue["source_refs"] and E[:-5]+".md" in issue["source_refs"]
     assert any(x.get("revision_id")=="TW-OPEN-0005-13LI-MRC-LAYER-20261030" for x in issue["history"])
     assert len(l["issues"])==11 and s["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED"
