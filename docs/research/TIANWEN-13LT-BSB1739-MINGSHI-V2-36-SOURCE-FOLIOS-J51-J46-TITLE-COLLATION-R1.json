@@ -1,0 +1,160 @@
+{
+  "schema": "TIANWEN-13LT-BSB1739-MINGSHI-V2-36-SOURCE-FOLIOS-J51-J46-TITLE-COLLATION-R1",
+  "date": "2026-10-30",
+  "issue_id": "TW-OPEN-0005",
+  "prior_batches": [
+    "docs/research/TIANWEN-13LP-BSB1739-MINGSHI-IIIF-CATALOG-AND-ATLAS-TRIAGE-R1.json",
+    "docs/research/TIANWEN-13LQ-BSB1739-MINGSHI-1880-CANVAS-NATIVE-IIIF-20-PREVIEW-ACQUISITION-R1.json"
+  ],
+  "source": {
+    "provider": "Bayerische Staatsbibliothek",
+    "digital_item": "bsb11166692",
+    "manifest_url": "https://api.digitale-sammlungen.de/iiif/presentation/v2/bsb11166692/manifest",
+    "manifest_sha256": "fb28be88c767636c6394926620c112e994f1b0b5d58cf896d4a5edc2919f047c",
+    "manifest_canvas_count": 1880,
+    "viewer_display_count": 1886,
+    "provider_count_delta_unexplained": 6,
+    "version_label": "Ming shi. 2",
+    "catalog_publication_label": "1739, Wu ying dian",
+    "physical_copy_impression_proven": false
+  },
+  "acquisition": {
+    "workflow_run_id": 41056970542,
+    "workflow_url": "https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/41056970542",
+    "artifact_id": 12977811076,
+    "artifact_zip_bytes": 9229171,
+    "artifact_zip_sha256": "3dd97d5bc9d994f708d8a7982585c98d2bb2b4582333e9aab6f30cf8b3b3edb6",
+    "durable_archive": {
+      "library_file_id": "libfile_6bbef08da644819185575c89108c90a5",
+      "path": "/命运/tianwen-13ls-bsb-mingshi-v2-36-folio-source-atlas.zip"
+    },
+    "source_original_derivative_medium": "IIIF source-listed JPEG width 900 not raw optical or lossless original",
+    "requested_indices": [
+      1,
+      6,
+      8,
+      30,
+      80,
+      130,
+      190,
+      250,
+      310,
+      370,
+      430,
+      490,
+      550,
+      610,
+      670,
+      730,
+      790,
+      850,
+      910,
+      970,
+      1030,
+      1090,
+      1150,
+      1210,
+      1270,
+      1330,
+      1390,
+      1450,
+      1510,
+      1570,
+      1630,
+      1690,
+      1750,
+      1810,
+      1870,
+      1880
+    ],
+    "attempted": 36,
+    "acquired": 36,
+    "each_image_sha256_in_archive": "folio-sweep.json",
+    "no_ocr": true,
+    "all_1880_pages_exhaustively_collated": false,
+    "source_page_title_loci": [
+      {
+        "canvas_1_based": 1570,
+        "source_jpeg": "canvas-1570.jpg",
+        "source_url": "https://api.digitale-sammlungen.de/iiif/image/v2/bsb11166692_01570/full/900,/0/default.jpg",
+        "jpeg_bytes_sha256": "5d3bd734a3361bfecd26f81038a845cdc0b5cba66817d5cfeb1e10325e9ac7b2",
+        "decoded_rgb_sha256": "61f1ca0d61a494d7f0e4bee7e8d52ecfc03929cbe22dc992a129b9fe3b0d79c1",
+        "image_px": [
+          900,
+          1414
+        ],
+        "title_crop_xyxy": [
+          720,
+          110,
+          895,
+          650
+        ],
+        "title_crop_rgb_sha256": "66ab9c05ef7ec12f1c9f0af4f8e1694828a258093429ace94de57d5d17d6ffab",
+        "manual_read": "明史卷五十一",
+        "adjacent_topic": "志第二十七；禮五",
+        "status": "DIRECT_PROVIDER_IMAGE_GLYPH_POSITIVE"
+      },
+      {
+        "canvas_1_based": 1810,
+        "source_jpeg": "canvas-1810.jpg",
+        "source_url": "https://api.digitale-sammlungen.de/iiif/image/v2/bsb11166692_01810/full/900,/0/default.jpg",
+        "jpeg_bytes_sha256": "76edf915ed4be5ae73d2713ce01635f985d59b38f73144af4227afacaaf66174",
+        "decoded_rgb_sha256": "66502bd4eb87d139dee6be534647f0f1fd9ac739b20e3ef5a673484bd14aa65c",
+        "image_px": [
+          900,
+          1443
+        ],
+        "title_crop_xyxy": [
+          720,
+          110,
+          895,
+          650
+        ],
+        "title_crop_rgb_sha256": "a47493b459478c961f048afafdd29d3a7fd2bd8a07ea5f4f128885fb05dffb8b",
+        "manual_read": "明史卷四十六",
+        "adjacent_topic": "志第二十二；地理七",
+        "status": "DIRECT_PROVIDER_IMAGE_GLYPH_POSITIVE"
+      }
+    ]
+  },
+  "textual_scope": {
+    "direct_bsb_volume_2_heading_positives": [
+      "明史卷五十一",
+      "明史卷四十六"
+    ],
+    "canvas1570_to1810_numbering": "LOCAL_CHAPTER_NUMBERS_DECREASE_51_TO_46_IN_THIS_SAMPLED_CANVAS_ORDER",
+    "this_does_not_prove_global_inverse_order": true,
+    "target_juan35": "NOT_YET_LOCATED",
+    "target_juan35_not_present_proven": false,
+    "original_238977_09_or_288977_09_new_glyph": "NOT_EXAMINED",
+    "copy_impression_1739_not_proven": true,
+    "other_volume_identifiers_not_guessed": true,
+    "verdict": "BOUNDED_DIRECT_TITLE_LEAF_COLLATION_NOT_TARGET_NUMERIC_OR_STEMMATIC_ADJUDICATION"
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Local reverse chapter headings 51->46 do not establish entire volume coverage or prove absence of chapter35.",
+      "Modern BSB 900px JPEG derivatives from one source digital object cannot become new independent ancient witnesses or date a printing block."
+    ],
+    "unresolved_lineage_questions": [
+      "Find first-party item link and exact juan35 leaf (likely different digitally bound volume; no identifier guess).",
+      "Reconcile viewer 1886 and manifest 1880 counts at provider indexing level.",
+      "Verify target 238977.09/288977.09 only at original page after source/copy binding."
+    ]
+  },
+  "counts": {
+    "sources": 765,
+    "matrix_rows": 222,
+    "matrix_audited": 222,
+    "graph_nodes": 252,
+    "graph_edges": 238,
+    "risks_open": 11,
+    "g893_historic_six_numeric_winners": 0,
+    "algorithm_reopens": 0,
+    "product": "CLOSED"
+  },
+  "next_action": "Seek first-party provider-linked Ming shi volume1 catalog and bound its actual original chapter 35 title leaf before exact target original glyph collation. Current source volume2 directly proves j51 and j46 page heads but NOT target presence or absence. Never infer missing volumes from 1886 vs1880 viewer/manifest count."
+}
