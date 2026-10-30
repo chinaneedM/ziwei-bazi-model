@@ -1,0 +1,24 @@
+name: probe-tianwen-13lj-naaj-firstparty-images
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - scripts/probe-tianwen-13lj-naaj-firstparty-images.py
+      - .github/workflows/probe-tianwen-13lj-naaj-firstparty-images.yml
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  public-source-route:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python scripts/probe-tianwen-13lj-naaj-firstparty-images.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: tianwen-13lj-firstparty-route-responses
+          path: 13lj-naaj-firstparty-output/
+          retention-days: 7
