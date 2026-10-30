@@ -1,0 +1,90 @@
+{
+  "schema": "TIANWEN-13LD-NAJDA-2810038-MINGSHI-JUAN35-ORIGINAL-SOURCE-ROUTE-R1",
+  "date": "2026-10-30",
+  "issue_id": "TW-OPEN-0005",
+  "grade": "FIRST_PARTY_ARCHIVAL_EXACT_JUAN_SCOPE_PLUS_COMMONS_CATALOGUED_SOURCE_OBJECT_NOT_YET_ACQUIRED",
+  "original_catalog": {
+    "provider": "National Archives of Japan Digital Archive",
+    "catalog_url": "https://www.digital.archives.go.jp/file/en/3610285",
+    "reference_code": "281-0038",
+    "historical_provenance_note": "林家（大学頭）; 林述斎手校本",
+    "object_title": "明史",
+    "physical_set_size_volumes": 112,
+    "recorded_publication_scope": "刊本:清乾隆 (no exact 1739-year attested on this record)",
+    "target_book_order": "0011",
+    "target_item_title": "明史 志第11-13",
+    "target_chapter": "明史卷三十五 = 志第十一",
+    "public_catalog_access_status": "INDEXED_SOURCE_TEXT_AVAILABLE; DIRECT_FULL_PAGE_HTTP_403_IN_CURRENT_WEB_ACCESS",
+    "original_target_glyph_observed": false,
+    "direct_physical_impression_date_observed": false
+  },
+  "cross_holdings_control": {
+    "another_catalog_url": "https://www.digital.archives.go.jp/file/3602570",
+    "another_reference_code": "281-0037",
+    "another_set_size_volumes": 120,
+    "another_previous_holder": "昌平坂学問所",
+    "same_holding_as_2810038_proven": false,
+    "actual_printing_block_identity_equivalence_proven": false,
+    "independent_original_glyph_vote": false
+  },
+  "commons_source_route": {
+    "catalog_page": "https://commons.wikimedia.org/wiki/Commons:Library_back_up_project/file_list/NAJDA/12",
+    "exact_filename": "NAJDA-281-0038 明史 志第11-13.pdf",
+    "commons_api": "https://commons.wikimedia.org/w/api.php",
+    "file_page": "https://commons.wikimedia.org/wiki/File:NAJDA-281-0038_明史_志第11-13.pdf",
+    "acquisition_script": "scripts/probe-tianwen-13ld-naaj-mingshi-juan35-original.py",
+    "acquisition_workflow": ".github/workflows/probe-tianwen-13ld-naaj-mingshi-juan35-original.yml",
+    "expected_pdf_sha1": null,
+    "expected_pdf_size": null,
+    "expected_pdf_page_count": null,
+    "original_pdf_bytes_acquired": false,
+    "target_page_human_gloss_review": false,
+    "roi_hash_review_complete": false
+  },
+  "adjacent_existing": {
+    "harvard_original_file_sha256": "36a2a99461d9d16a71e203d95ffa6cac189f1bbab94295de51ed6d3b60bd649b",
+    "harvard_original_number": "238977.09",
+    "siku_cadal_original_file_sha256": "98a65bbecf7f07fc8b7dbf3307ae2e2ee8888d0b7c7d841161c944e2ea3b9759",
+    "siku_cadal_original_number": "288977.09",
+    "unresolved_real_edition_copying_lineage": true
+  },
+  "recovery_contract": [
+    "Resolve Commons file via official MediaWiki imageinfo rather than fabricated Special:Redirect SHA path.",
+    "Compare downloaded actual PDF SHA1 and byte-length with independent Commons API imageinfo response, then SHA256 and PDF page count.",
+    "Render no-OCR scaled whole-book contact sheets plus separately hash first original target-range candidate pages; acquisition alone is not original glyph collation.",
+    "Do not turn upload metadata, 112-volumes catalog, or 120-volumes second copy into a numeric original witness.",
+    "Only after positive human native-page review bind actual source page/ROI digest, source printing, and exact textual reading into forward-only evidence."
+  ],
+  "counts": {
+    "source_registry_root": 647,
+    "source_registry_extension": 118,
+    "source_registry_total": 765,
+    "matrix_rows": 222,
+    "audited_rows": 222,
+    "graph_nodes": 252,
+    "graph_edges": 238,
+    "risks_open": 11
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "The NAAJ 281-0038 and 281-0037 items are distinct catalog holdings but not yet independent original glyph votes or proven shared printing blocks."
+    ],
+    "unresolved_lineage_questions": [
+      "Extract and inspect original 281-0038/0011 PDF target p/leaf to decide 238977 vs 288977 without OCR.",
+      "Cross-bind exact item URL to its archivist-issued image data, accession, collation and historical printing.",
+      "Compare 281-0037 separately only after a matching chapter/folio and copy identity is established."
+    ]
+  },
+  "scope": {
+    "product": "CLOSED",
+    "algorithm_reopens": 0,
+    "new_confirmed_original_numeric_winners": 0,
+    "new_external_registered_sources": 0,
+    "new_graph_nodes": 0,
+    "new_graph_edges": 0
+  },
+  "next_action": "Execute hash-checked NAJDA 281-0038 志11-13 original PDF acquisition; inspect source-native pages with original page/ROI hashes; 11 issues remain OPEN."
+}
