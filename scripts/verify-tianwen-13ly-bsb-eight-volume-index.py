@@ -11,7 +11,7 @@ def check(e,s,l):
  assert [x["volume"] for x in a["source_documents"]]==list(range(1,9))
  assert a["volume1_official_link"]=="https://ostasien.digitale-sammlungen.de/view/bsb11166691"
  assert a["not_inferred_from_numeric_increment"] is True and a["not_original_page_witness"] is True
- assert c["artifact_id"]==12981466158 and c["source_artifact_zip_sha256"]=="a5b4d8f37aadbb79024eb990bd5b4bfd20e49b758d3bc59f076c867be4ac42fe"
+ assert c["artifact_id"]==12981466158 and c["source_artifact_sha256"]=="a5b4d8f37aadbb79024eb990bd5b4bfd20e49b758d3bc59f076c867be4ac42fe"
  assert c["durable_library_file_id"]=="libfile_09c45f8cd2948191a080b6c8727ca824"
  assert e["next_probe"]["run_status_at_commit"]=="UNRUN" and e["next_probe"]["no_ocr"] is True
  for f in ["volume1_iiif_original_manifest_captured","juan35_source_title_leaf_positive","juan35_number_positive","known_1739_physical_impression","same_plate_or_lineage_proven"]:assert q[f] is False
