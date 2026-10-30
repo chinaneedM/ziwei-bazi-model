@@ -7,6 +7,13 @@ class Native(unittest.TestCase):
  def fails(self):
   with self.assertRaises(ValueError):v.verify(*self.a)
  def test_valid(self):self.assertEqual(v.verify(*self.a)["delta_units"],50000)
+ def test_forward_append(self):
+  self.a[2]["historical_audit"]["current_focus"].append("13LC newer retained source research")
+  self.a[3]["binding"]["latest_research_focus_prefix"]="13LC"
+  self.a[3]["binding"]["source_focus_count"]+=1
+  self.assertEqual(v.verify(*self.a)["status"],"PASS")
+ def test_bad_latest_marker(self):
+  self.a[3]["binding"]["latest_research_focus_prefix"]="13AB";self.fails()
  def test_fake_source(self):self.a[0]["source"]["sha256"]="0"*64;self.fails()
  def test_fake_p11_glyph(self):self.a[0]["original_pages"][1]["original_literal"]="有閏加二十三萬八九七七○九";self.fails()
  def test_fake_p16_glyph(self):self.a[0]["original_pages"][2]["original_literal"]="推遲疾限各置遲次歷";self.fails()

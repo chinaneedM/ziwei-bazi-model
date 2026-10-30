@@ -1,0 +1,108 @@
+{
+  "schema": "TIANWEN-13LC-MINGSHI-SIKU-1739-1782-EDITION-CHRONOLOGY-SCOPE-R1",
+  "date": "2026-10-30",
+  "issue_id": "TW-OPEN-0005",
+  "grade": "DIRECT_OFFICIAL_INSTITUTIONAL_BIBLIOGRAPHIC_CHRONOLOGY_NOT_DIRECT_TARGET_GLYPH",
+  "research_question": "Does the Commons/CADAL digital label year 1739 date the imaged 欽定四庫全書 copy, or the different historical publication layer of 明史?",
+  "institutional_witnesses": [
+    {
+      "id": "DPM-MINGSHI-1739-WUYING",
+      "provider": "故宫博物院",
+      "url": "https://www.dpm.org.cn/ancient/hall/181550.html",
+      "object": "欽定明史／武英殿刻本",
+      "event": "QIANLONG_YEAR_4_WUYINGDIAN_ENGRAVED_EDITION",
+      "year": 1739,
+      "scope": "official museum catalog of a dated historical Ming Shi printed edition; NOT CADAL item/copy binding",
+      "target_juan35_glyph_observed": false
+    },
+    {
+      "id": "CINII-MINGSHI-1739-CATALOG",
+      "provider": "CiNii Books",
+      "url": "https://ci.nii.ac.jp/ncid/BD00540342",
+      "object": "明史 332巻／武英殿",
+      "event": "INDEPENDENT_CATALOG_EDITION_IDENTITY",
+      "year": 1739,
+      "scope": "bibliography of a separately catalogued edition; no authenticated CADAL digital-surrogate or Harvard source-image link",
+      "target_juan35_glyph_observed": false
+    },
+    {
+      "id": "DPM-SIKU-FIRST-1782",
+      "provider": "故宫博物院",
+      "url": "https://www.dpm.org.cn/court/lineage/226263.html",
+      "object": "四庫全書工程／第一部",
+      "event": "FIRST_COMPLETED_SIKU_COPY",
+      "year": 1782,
+      "scope": "institutional chronology of first completed copy; not evidence that CADAL is that copy",
+      "target_juan35_glyph_observed": false
+    },
+    {
+      "id": "NPM-SIKU-1772-1787",
+      "provider": "國立故宮博物院",
+      "url": "https://theme.npm.edu.tw/selection/Article.aspx?sNo=04001076",
+      "object": "四庫全書文淵閣本",
+      "event": "SIKU_PROJECT_PREPARATION_AND_GENERAL_COMPLETION",
+      "start_year": 1772,
+      "end_year": 1787,
+      "scope": "institutional history of the Siku anthology; 1772 order/launch is distinct from the 1773 bureau opening",
+      "target_juan35_glyph_observed": false
+    }
+  ],
+  "chronological_firewall": {
+    "ming_shi_1739_wuying_print_exists": true,
+    "siku_compilation_order_1772_attested": true,
+    "siku_first_completed_copy_1782_attested": true,
+    "siku_broad_completion_1787_attested": true,
+    "logical_conclusion": "A 1739 Ming Shi edition exists, but its date cannot by itself be transferred to a self-labelled Siku anthology surrogate, produced by the later Siku project.",
+    "citable_museum_metadata_implies_cadal_copy_1739": false,
+    "cadal_physical_copy_linked_to_wuying_1739": false,
+    "cadal_physical_copy_linked_to_wenyuan_1782": false,
+    "cadal_earliest_physical_impression_established": false,
+    "harvard_v11_exact_1739_impression_authenticated": false,
+    "direct_target_numeric_witness_added": false,
+    "chronology_can_prove_numeric_corruption": false
+  },
+  "source_native_preservation": {
+    "cadal_positive_evidence": "docs/research/TIANWEN-13LB-CADAL-SIKU-MINGSHI-V35-NATIVE-TARGET-COLLATION-R1.json",
+    "cadal_source_sha256": "98a65bbecf7f07fc8b7dbf3307ae2e2ee8888d0b7c7d841161c944e2ea3b9759",
+    "cadal_original_13month": "288977.09",
+    "harvard_original_13month": "238977.09",
+    "distinct_digital_image_witnesses": 2,
+    "independently_authenticated_historical_physical_editions": 0,
+    "original_historical_g893_six_control_winners": 0,
+    "original_83_84_or_167_168_historic_index_winner": false,
+    "dated_historic_calendar_to_limit_worked_example": false
+  },
+  "evidence_policy": "Institutional bibliographic dating constrains interpretation of publisher metadata, but neither museum catalog nor CiNii article exposes the CADAL or Harvard exact photographed physical impression; do not count such entries as a new source-original numeric witness or as independent stemmatic proof.",
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "1739 Wuying Ming Shi edition existence does not prove that the CADAL 四庫 source image reproduces that edition; 1782 first complete Siku copy does not prove CADAL scans 文淵閣 either."
+    ],
+    "unresolved_lineage_questions": [
+      "Identify CADAL06056956 physical holding/copy/edition and actual copy/impression date.",
+      "Confirm Harvard v11 exact original against the 1739 Wu Ying Dian institutional item, without relying on third-party title similarity.",
+      "Compare independent source-original juan35 numerical glyphs across dated copies and a dated calendar-to-limit worked example."
+    ]
+  },
+  "counts": {
+    "sources_root": 647,
+    "sources_extensions": 118,
+    "sources_total": 765,
+    "matrix_rows": 222,
+    "matrix_audited": 222,
+    "graph_nodes": 252,
+    "graph_edges": 238,
+    "open_risks": 11
+  },
+  "scope": {
+    "product": "CLOSED",
+    "algorithm_reopens": 0,
+    "new_external_source_registry_entries": 0,
+    "new_physical_witness_votes": 0,
+    "new_chart_winner_selections": 0,
+    "physical_copy_edition_binding_still_open": true
+  },
+  "next_action": "Obtain provider-issued item/holding and provenance labels for CADAL and Harvard digitizations; pursue explicit source-native 1739 Wuying Juan35 original and a dated operational arithmetic witness."
+}

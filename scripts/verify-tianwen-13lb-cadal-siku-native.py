@@ -47,7 +47,7 @@ def verify(e,harvard,state,ledger):
  hs=state["historical_audit"];li=ledger["binding"];inv=state["invariants"]
  check(state["schema_version"]==hs["research_omission_guard"]["reviewed_state_version"]==li["reviewed_state_version"],"handoff")
  check(hs["external_source_registry_total_unique_count"]==765 and hs["row_count"]==hs["audited_row_count"]==222 and inv["deterministic_fusion_chart_product_r1"]=="CLOSED" and inv["algorithm_reopen_count"]==0,"product")
- check(hs["current_focus"][-1].startswith("13LB ") and li["latest_research_focus_prefix"]=="13LB" and li["source_focus_count"]==len(hs["current_focus"]),"focus")
+ check(any(z.startswith("13LB ") for z in hs["current_focus"]) and hs["current_focus"][-1].split(" ",1)[0]==li["latest_research_focus_prefix"] and li["source_focus_count"]==len(hs["current_focus"]),"focus")
  issue=next(x for x in ledger["issues"] if x["id"]=="TW-OPEN-0005")
  check(issue["priority"]=="P0" and issue["status"]=="OPEN" and E in issue["source_refs"] and E.replace(".json",".md") in issue["source_refs"],"issue")
  check(any(x.get("revision_id")=="TW-OPEN-0005-13LB-SIKU-NATIVE-20261030" and E in x.get("evidence_refs",[]) for x in issue["history"]),"forward revision")
