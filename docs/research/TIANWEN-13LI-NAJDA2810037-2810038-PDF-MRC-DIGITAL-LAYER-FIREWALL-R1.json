@@ -1,0 +1,171 @@
+{
+  "schema": "TIANWEN-13LI-NAJDA2810037-2810038-PDF-MRC-DIGITAL-LAYER-FIREWALL-R1",
+  "date": "2026-10-30",
+  "issue_id": "TW-OPEN-0005",
+  "evidence_grade": "HASH_VERIFIED_SOURCE_PDF_INTERNAL_IMAGE_OBJECT_STRUCTURES_AND_DECODED_BITONAL_MASK_HASHES; NOT_UNCOMPRESSED_PHYSICAL_NEGATIVE_OR_PRINT_BLOCK_WITNESS",
+  "source_originals": [
+    {
+      "holding": "281-0037",
+      "book": 10,
+      "pdf_sha256": "8892b16c3b8e17f12211195cf7b58acfd5b7dc0d0aefca6623f653a04d4da93e",
+      "pdf_bytes": 9931786,
+      "pdf_pages": 51,
+      "pdf_producer": "LuraDocument.jpm v2.05",
+      "pdf_creation_metadata": "D:20160213064740+09'00'",
+      "metadata_is_not_print_date": true,
+      "original_p6_operator": "有閏加二十三萬八九七七○九",
+      "historic_numeric": "238977.09",
+      "p6_pdf_rect": [
+        1134.07,
+        801.05
+      ],
+      "layers": [
+        {
+          "xref": 32,
+          "role": "BACKGROUND",
+          "filter": "JPXDecode",
+          "width": 2100,
+          "height": 1484,
+          "bits": 8,
+          "colorspace": "DeviceRGB"
+        },
+        {
+          "xref": 33,
+          "role": "TEXT_MASK",
+          "filter": "JBIG2Decode",
+          "width": 6300,
+          "height": 4450,
+          "bits": 1,
+          "colorspace": "DeviceGray",
+          "decoded_pixmap_sha256": "a18164299d54e38f808ba229f5efec591bcaf41919d7aaa044803d29784d081b"
+        },
+        {
+          "xref": 34,
+          "role": "FOREGROUND",
+          "filter": "JPXDecode",
+          "width": 2100,
+          "height": 1484,
+          "bits": 8,
+          "colorspace": "DeviceRGB",
+          "smask_xref": 33
+        }
+      ],
+      "target_mask_crop_xyxy": [
+        3277,
+        472,
+        3566,
+        3955
+      ],
+      "target_mask_crop_rgb_not_applicable": true,
+      "target_mask_crop_gray_sha256": "f64e1fb09435a14216df6a57fa84065290f0270156b103c91c308dd88a5712cc"
+    },
+    {
+      "holding": "281-0038",
+      "book": 11,
+      "pdf_sha256": "73322281149551c76f96008c1b9f3933e817543f7cb8710c92268ade9ca031eb",
+      "pdf_bytes": 15476093,
+      "pdf_pages": 73,
+      "pdf_producer": "LuraDocument.jpm v2.05",
+      "pdf_creation_metadata": "D:20150116181231+09'00'",
+      "metadata_is_not_print_date": true,
+      "original_p6_operator": "有閏加二十三萬八九七七○九",
+      "historic_numeric": "238977.09",
+      "p6_pdf_rect": [
+        1116.07,
+        810.05
+      ],
+      "layers": [
+        {
+          "xref": 32,
+          "role": "BACKGROUND",
+          "filter": "JPXDecode",
+          "width": 2067,
+          "height": 1500,
+          "bits": 8,
+          "colorspace": "DeviceRGB"
+        },
+        {
+          "xref": 33,
+          "role": "TEXT_MASK",
+          "filter": "JBIG2Decode",
+          "width": 6200,
+          "height": 4500,
+          "bits": 1,
+          "colorspace": "DeviceGray",
+          "decoded_pixmap_sha256": "5d1c5e28f13341ca74832dddc0c5754f9e6cc6958b34664ad55b5383f75a5193"
+        },
+        {
+          "xref": 34,
+          "role": "FOREGROUND",
+          "filter": "JPXDecode",
+          "width": 2067,
+          "height": 1500,
+          "bits": 8,
+          "colorspace": "DeviceRGB",
+          "smask_xref": 33
+        }
+      ],
+      "target_mask_crop_xyxy": [
+        3383,
+        499,
+        3738,
+        4044
+      ],
+      "target_mask_crop_rgb_not_applicable": true,
+      "target_mask_crop_gray_sha256": "5dd68c5e361c29854bd6e023a7c5393851505543961ea0471dc42af44fd47481"
+    }
+  ],
+  "interpretation": {
+    "comparison_stage": "MRC_COMPOSITE_RENDER_AND_SEGMENTED_IMAGE_LAYERS",
+    "both_pdfs_have_same_document_producer": true,
+    "pdf_creation_dates_prove_ancient_printing": false,
+    "bitonal_mask_contains_printed_glyph_raster": true,
+    "decoded_jbig2_mask_is_unprocessed_camera_original": false,
+    "lossy_symbol_substitution_proven_in_these_files": false,
+    "lossy_symbol_substitution_possible_without_encoder_proof": true,
+    "mask_6300x4450_equivalent_to_physical_optical_resolution_proven": false,
+    "derived_glyph_stroke_damage_sufficient_to_identify_woodblock": false,
+    "same_woodblocks_historically_proven": false,
+    "independent_historical_recensions_added": 0,
+    "ancient_1739_impressions_proven": 0,
+    "competing_siku_original": "288977.09",
+    "naje_originals": "238977.09",
+    "numeric_historical_winners_added": 0,
+    "caution": "Higher decoded JBIG2 dimensions do not by themselves confer greater physical-source fidelity; thresholding/segmentation and possible symbol reuse must be independently scoped before engraving-defect judgments."
+  },
+  "replay_contract": {
+    "script": "scripts/replay-tianwen-13li-naaj-mrc-layers.py",
+    "input_source_binaries_must_match_sha256": true,
+    "p6_pdf_page_1_based": 6,
+    "no_ocr": true,
+    "prefer_archival_unprocessed_original_in_future": true
+  },
+  "counts": {
+    "root_sources": 647,
+    "extension_sources": 118,
+    "total_sources": 765,
+    "matrix_rows": 222,
+    "audited": 222,
+    "graph_nodes": 252,
+    "graph_edges": 238,
+    "open_issues": 11,
+    "historical_g893_winners": 0,
+    "algorithm_reopens": 0,
+    "product": "CLOSED"
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Digitized bitonal layer similarity or PDF producer identity is not proof of historical plate/impression identity.",
+      "Same digitization pipeline cannot be treated as independent ancient witness or ancient copying route."
+    ],
+    "unresolved_lineage_questions": [
+      "Are first-party nonsegmented photographic originals of both holdings accessible with verifiable optical image provenance?",
+      "Do color-layer and glyph-mask detail agree on a distinctive engraved fracture in multiple pages?",
+      "Which dated plate and impression source best explains Siku +50000 literal variant?"
+    ]
+  },
+  "next_action": "Seek original unprocessed color exposures or provider-linked source-resolution imaging. Where only MRC PDF exists, inspect each JPX and JBIG2 layer with exact byte/hash/scope before judging distinctive engraved defects; retain 13LH POSSIBLE shared-plate hypothesis and all original numeric variants."
+}
