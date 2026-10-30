@@ -1,0 +1,84 @@
+{
+  "schema": "TIANWEN-13LP-BSB1739-MINGSHI-IIIF-CATALOG-AND-ATLAS-TRIAGE-R1",
+  "date": "2026-10-30",
+  "issue_id": "TW-OPEN-0005",
+  "preceding_source_crosswalk": "docs/research/TIANWEN-13LO-NAJDA-HARVARD-J35-P7-P8-THREE-WAY-SOURCE-CROSSWALK-R1.json",
+  "evidence_grade": "NEW_FIRSTPARTY_BIBLIOGRAPHIC_DIGITAL_LOCATOR_ONLY_NOT_DIRECT_TARGET_GLYPH_OR_PRINTING_BLOCK",
+  "first_party_catalog": {
+    "institution": "Bayerische Staatsbibliothek (Munich)",
+    "viewer": "https://ostasien.digitale-sammlungen.de/view/bsb11166692?locale=de",
+    "provider_item_id": "bsb11166692",
+    "display_title": "Ming shi. 2 / 明史",
+    "reported_publication": "[China] : Wu ying dian; 1739",
+    "reported_extent": "8 Bd., 80 ce, 8 tao",
+    "reported_signatur": "4 L.sin. D 208-11/20",
+    "reported_digitized_image_count": 1886,
+    "reported_work_extent": "336 juan, mu lu 4 juan (provider display; do not equate with 332+4 without direct check)",
+    "institutional_manifest": "https://api.digitale-sammlungen.de/iiif/presentation/v2/bsb11166692/manifest",
+    "exact_holding_and_specific_1739_impression_binding": "NOT_YET_ESTABLISHED",
+    "actual_chapter_juan35_in_this_object": "NOT_YET_LOCATED",
+    "specific_target_leaf_and_glyph": "NOT_YET_EXAMINED",
+    "historical_witness_vote": 0
+  },
+  "source_inventory_crosscheck": {
+    "root_count": 647,
+    "extension_shards_read": 68,
+    "extension_count": 118,
+    "union_count": 765,
+    "matching_registered_bsb11166692_literal": 0,
+    "new_source_record_added": 0,
+    "reason": "Catalog lead is retained in issue evidence; do not inflate original-page or independent-recension evidence before identifying target folio and impression."
+  },
+  "acquisition_probe": {
+    "script": "scripts/acquire-tianwen-13lp-bsb-iiif.py",
+    "workflow": ".github/workflows/acquire-tianwen-13lp-bsb-iiif.yml",
+    "request_scope": "Exact official IIIF manifest URL only; sample provider-listed image-service endpoints at bounded resolution",
+    "planned_outputs": [
+      "manifest-probe.json",
+      "preview-contact.jpg",
+      "sampled-preview-index.json"
+    ],
+    "no_ocr": true,
+    "no_full_1886_page_image_extraction": true,
+    "provider_transport_status_at_commit": "UNRUN",
+    "sampled_page_preview_is_not_line_by_line_reading": true
+  },
+  "mechanical_context": {
+    "harvard_and_naaj_original_literal": "238977.09",
+    "cadal_siku_original_literal": "288977.09",
+    "g893_six_historical_numeric_winners": 0
+  },
+  "adjudication": {
+    "new_juan35_original_glyph_positive": false,
+    "new_exactly_dated_physical_impression": false,
+    "same_or_distinct_woodblock_decided": false,
+    "original_calendar_worked_case_located": false,
+    "new_g893_numeric_winners": 0,
+    "algorithm_reopens": 0,
+    "product": "CLOSED"
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "BSB volume-2 catalog date 1739 is not proof that this digitized physical specimen or a chapter-35 leaf has been directly dated or collated.",
+      "A new digitized item is not an automatically independent historical textual recension."
+    ],
+    "unresolved_lineage_questions": [
+      "Locate juan35 in the provider item (or identify correct volume) using original title leaves and page-index evidence.",
+      "Read the specific printed 13-lunation constant from a provider-bound original page and compare 238977.09 / 288977.09 only after source-original acquisition.",
+      "Establish physical copy and edition/impression chronology by catalog identifiers, colophon and original-book evidence."
+    ]
+  },
+  "counts": {
+    "sources": 765,
+    "matrix": "222/222",
+    "genealogy_nodes": 252,
+    "genealogy_edges": 238,
+    "open_issues": 11,
+    "chart": "CLOSED",
+    "algorithm_reopens": 0
+  },
+  "next_action": "Inspect acquisition workflow outcome, manually locate target Ming Shi juan35 original leaf if it exists in BSB item bsb11166692 (volume 2). If not in volume 2, look up an exact first-party linked volume rather than guessing IDs. No glyph, impression, block or arithmetic winner from this catalog-only route."
+}
