@@ -4,18 +4,23 @@
 The response is a provider image surrogate, not certified RAW camera data or
 proof of ancient edition/impression identity. No OCR or automated glyph claims.
 """
-import hashlib, io, json, re, urllib.parse, urllib.request, zipfile
+import hashlib, http.cookiejar, io, json, re, urllib.error, urllib.parse, urllib.request, zipfile
 from pathlib import Path
 from PIL import Image
 
 BASE='https://www.digital.archives.go.jp'
 OUT=Path('13lj-naaj-jp2-output')
+OPENER=urllib.request.build_opener(urllib.request.HTTPCookieProcessor(http.cookiejar.CookieJar()))
 TARGETS=[('281-0037',4034620,51,[3277,472,3566,3955]),('281-0038',3637417,73,[3383,499,3738,4044])]
 
 def fetch(url, data=None):
     assert urllib.parse.urlsplit(url).netloc=='www.digital.archives.go.jp'
     req=urllib.request.Request(url,data=data,headers={'User-Agent':'TianwenHistoricalAudit/1.0 (public source provenance research)'})
-    with urllib.request.urlopen(req,timeout=70) as r:
+    if data is not None:
+        req.add_header('X-Requested-With','XMLHttpRequest')
+        req.add_header('Referer',BASE+'/img/'+url.split('/contentDownload/')[1].split('?')[0])
+        req.add_header('Content-Type','application/x-www-form-urlencoded; charset=UTF-8')
+    with OPENER.open(req,timeout=70) as r:
         b=r.read(60_000_001);assert len(b)<=60_000_000
         return b, {'url':url,'method':'POST' if data else 'GET','status':r.status,'content_type':r.headers.get('Content-Type'),'bytes':len(b),'sha256':hashlib.sha256(b).hexdigest()}
 
@@ -26,6 +31,8 @@ def main():
         row={'holding':holding,'viewer_id':item,'pages':[]};result['sources'].append(row)
         try:
             html,meta=fetch(BASE+f'/img/{item}');(OUT/(holding+'-viewer.html')).write_bytes(html);row['viewer']=meta
+            manifest_url=re.search(rb'href="([^"]+/api/iiif/[^"]+/manifest.json)"',html).group(1).decode()
+            manifest,manifest_meta=fetch(manifest_url);(OUT/(holding+'-manifest.json')).write_bytes(manifest);row['manifest']=manifest_meta
             arr=json.loads(re.search(rb'var najContentList = (\[.*?\]);',html).group(1));assert len(arr)==pages
             match=re.search(rb'<form[^>]+id="download-form"[^>]*',html).group(0)
             action=re.search(rb'data-download-base-path="([^"]+)"',match).group(1).decode()
@@ -35,6 +42,7 @@ def main():
                 # Exact cid comes from the checked input in the rendered public download UI.
                 cid=re.search(rb'id="download-item-'+str(page).encode()+rb'"[^>]+value="([^"]+)"',html).group(1).decode()
                 data=urllib.parse.urlencode({'cid':cid}).encode();url=BASE+action+'?type=jpeg2000'
+                info,imeta=fetch(BASE+entry['path']+'/info.json');(OUT/(holding+f'-p{page:03d}-info.json')).write_bytes(info)
                 body,download=fetch(url,data)
                 label=holding+f'-p{page:03d}'
                 (OUT/(label+'-download.bin')).write_bytes(body)
@@ -53,7 +61,10 @@ def main():
                     crop=im.crop(roi);crop.save(OUT/(label+'-numeric-roi.png'));info.update(roi_xyxy=roi,roi_rgb_sha256=hashlib.sha256(crop.tobytes()).hexdigest())
                 preview=im.copy();preview.thumbnail((1600,1600));preview.save(OUT/(label+'-preview.jpg'),quality=85)
                 row['pages'].append(info)
-        except Exception as exc:row['error']=type(exc).__name__+': '+str(exc)
+        except Exception as exc:
+            row['error']=type(exc).__name__+': '+str(exc)
+            if isinstance(exc,urllib.error.HTTPError):
+                b=exc.read();(OUT/(holding+'-http-error.bin')).write_bytes(b);row['error_body_sha256']=hashlib.sha256(b).hexdigest();row['error_body_excerpt']=b.decode('utf-8','replace')[:2000]
         (OUT/'acquisition.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n')
     print(json.dumps(result,ensure_ascii=False,indent=2))
     assert sum(len(x['pages']) for x in result['sources'])==6,'Not all original JP2 sources acquired'
