@@ -7,3 +7,7 @@
 **证据等级：只完成采集程序与 Actions 部署，不报告任何未经人工核读的题名或数字。** 后续须从产物逐幅定位真实《明史卷三十五》题名叶、原始数表争议位、版刻年代及物理版本身份。未完成之前，`TW-OPEN-0005` 仍 P0/OPEN，历史 G893 六控胜出仍为 0，算法不重开。
 
 远端事实计数沿用当轮实读 765 来源、Matrix 222/222、传承图 252/238、11 风险 OPEN；独立新来源/新谱系边均为零。源码：`scripts/acquire-tianwen-13md-bsb-juan35-title-leaf-sweep.py`；执行：`.github/workflows/acquire-tianwen-13md-bsb-juan35-title-leaf-sweep.yml`；复验：`scripts/verify-tianwen-13md-bsb-juan35-sweep-gate.py`。
+
+### 13MDA 前向勘误（采样控制页）
+
+首次 13MD 采样数组因 5 页步长没有覆盖精确 canvas 539，虽然研究描述把它列作 SHA 锚。13MDA 在采集任务运行前补入 539，使实际数组共 33 页；保留之前 Git 历史，不把脚本错误伪装成新的原页证据。

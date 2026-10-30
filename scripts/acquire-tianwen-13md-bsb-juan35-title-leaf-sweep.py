@@ -5,7 +5,7 @@ from pathlib import Path
 from PIL import Image, ImageDraw
 MANIFEST="https://api.digitale-sammlungen.de/iiif/presentation/v2/bsb11166691/manifest"
 MANIFEST_SHA="ed4ff6358db2c462edceb9ed5c2d667645cf000ed5f031eec8342fb3a241a369"
-INDEXES=[490,491,496,501,506,511,516,521,526,531,536,541,546,551,556,561,566,571,576,581,586,591,596,601,606,611,616,621,626,631,636,637]
+INDEXES=[490,491,496,501,506,511,516,521,526,531,536,539,541,546,551,556,561,566,571,576,581,586,591,596,601,606,611,616,621,626,631,636,637]
 EXPECTED_539="7c26f50ce77c3265862e8d347047a568cf424c84f5c4df4dd60b72746fdf0ca0"
 def sha(b): return hashlib.sha256(b).hexdigest()
 def validate(url):
