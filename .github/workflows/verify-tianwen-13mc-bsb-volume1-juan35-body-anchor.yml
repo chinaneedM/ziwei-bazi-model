@@ -1,0 +1,24 @@
+name: verify-tianwen-13mc-bsb-volume1-juan35-body-anchor
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - docs/research/TIANWEN-13MC-BSB-VOLUME1-JUAN35-CANVAS539-DIRECT-TEXTUAL-ANCHOR-R1.json
+      - scripts/verify-tianwen-13mc-bsb-juan35-canvas539.py
+      - tests/test_tianwen_13mc_bsb_juan35_canvas539.py
+      - .github/workflows/verify-tianwen-13mc-bsb-volume1-juan35-body-anchor.yml
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 2}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python scripts/verify-tianwen-13mc-bsb-juan35-canvas539.py
+      - run: python -m unittest discover -s tests -p 'test_tianwen_13mc_bsb_juan35_canvas539.py' -v
+      - run: python scripts/verify-research-omission-risk-ledger-r1.py --check-parent
+      - run: python scripts/verify-project-continuity-state-r1.py
