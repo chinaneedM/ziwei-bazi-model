@@ -19,6 +19,8 @@ jobs:
         with: {fetch-depth: 2}
       - uses: actions/setup-python@v5
         with: {python-version: '3.12'}
+      - name: Install image decoder needed for ROI source gates
+        run: python -m pip install 'Pillow>=10,<12'
       - name: Historical provenance ROI regression tests
         run: |
           python -m unittest discover -s tests -p 'test_tianwen_13jn_gk5553_roi_replay_erratum.py' -v
