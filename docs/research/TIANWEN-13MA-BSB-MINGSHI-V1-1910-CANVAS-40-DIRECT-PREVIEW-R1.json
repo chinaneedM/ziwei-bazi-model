@@ -1,0 +1,100 @@
+{
+  "schema": "TIANWEN-13MA-BSB-MINGSHI-V1-1910-CANVAS-40-DIRECT-PREVIEW-R1",
+  "date": "2026-10-30",
+  "issue_id": "TW-OPEN-0005",
+  "prior_batch": "docs/research/TIANWEN-13LY-BSB-MINGSHI-ALL-EIGHT-VOLUMES-FIRSTPARTY-TITLE-INDEX-R1.json",
+  "source": {
+    "provider": "Bayerische Staatsbibliothek / Digitale Sammlungen Ostasien",
+    "volume_index_source": "https://ostasien.digitale-sammlungen.de/discover/titles/M?q=Ming+shi+%28%E6%98%8E%E5%8F%B2%29",
+    "official_viewer": "https://ostasien.digitale-sammlungen.de/view/bsb11166691",
+    "object_id": "bsb11166691",
+    "manifest_url": "https://api.digitale-sammlungen.de/iiif/presentation/v2/bsb11166691/manifest",
+    "manifest_sha256": "ed4ff6358db2c462edceb9ed5c2d667645cf000ed5f031eec8342fb3a241a369",
+    "manifest_bytes": 1790512,
+    "canvas_count": 1910,
+    "manifest_title": "Ming shi. 1",
+    "manifest_type": "sc:Manifest",
+    "canvas_1based_first": 1,
+    "canvas_1based_last": 1910,
+    "provider_page_original_not_supplied": true
+  },
+  "acquisition": {
+    "run_id": 41064404159,
+    "head_sha": "7a761935f66baf3dd6405110d3261ab2005afe16",
+    "run_url": "https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/41064404159",
+    "artifact_id": 12982700693,
+    "artifact_name": "tianwen-13ly-bsb-volume1-firstparty-canvas-atlas",
+    "artifact_zip_sha256": "60b97d2b848444182816b0620a8578286cfbbc349ba5a1a3b2e61a61a866f39e",
+    "artifact_zip_bytes": 11021794,
+    "library_file_id": "libfile_0dd09d6b40888191afaa8a5e9ffd4703",
+    "library_path": "/命运/tianwen-13ly-bsb-volume1-1910-canvas-40-image-original-evidence.zip",
+    "sample_count": 40,
+    "successful_jpegs": 40,
+    "verified_jpeg_sha256_count": 40,
+    "verified_decoded_rgb_sha256_count": 40,
+    "sampled_jpeg_total_bytes": 9962818,
+    "image_width_px": 900,
+    "atlas_name": "volume1-firstpass-atlas.jpg",
+    "atlas_sha256": "d0610e2110af0fde0ce79ae6a2aac1fbbe3bb7b0d80b47b1be272c35dfb2e660",
+    "atlas_bytes": 1005717,
+    "archive_entries": [
+      "volume1-original-manifest.json",
+      "volume1-probe.json",
+      "volume1-firstpass-atlas.jpg",
+      "40 provider-derived JPEG images"
+    ],
+    "no_ocr": true,
+    "readback_verified": true
+  },
+  "visual_review": {
+    "scope": "Bounded 40-image evenly sampled visual contact atlas, not complete 1910-image folio collation",
+    "observed": "Cover/blank folio and text/table regions are visible. One sample shows dense numeric calendrical tabulation; no independently full-resolution verified 明史卷三十五 title leaf or specific thirteen-synodic numeral is yet source bound.",
+    "target_juan35_original_title_positive": false,
+    "source_full_folio_review_done": false,
+    "source_original_numeral_positive": false,
+    "source_copy_exact_1739_impression_positive": false,
+    "printing_block_identity_positive": false,
+    "global_target_absence_proven": false,
+    "negative_search_assertion": false
+  },
+  "adjudication": {
+    "original_manifest_acquired": true,
+    "samples_acquired": true,
+    "new_historical_recension_votes": 0,
+    "new_g893_historical_numeric_winners": 0,
+    "algorithm_reopens": 0,
+    "product": "CLOSED",
+    "source_registry_delta": 0,
+    "matrix_delta": 0,
+    "genealogy_nodes_delta": 0,
+    "genealogy_edges_delta": 0,
+    "open_issues_delta": 0
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "One BSB digital object and 1910 digital canvases do not imply 1910 physical witnesses or a 1739 dated impression.",
+      "Identical numerals or nearby table layout are not proof of a common original block without dated physical-copy and accidental-defect evidence."
+    ],
+    "remaining_questions": [
+      "Identify first-party canvas whose actual printed title leaf reads 明史卷三十五; inspect candidate near calendrical table region by bounded additional original-image acquisition.",
+      "Native-resolution target numeral crop and dated/physical-copy evidence must be separately acquired, hashed and adjudicated.",
+      "Retain Harvard and NAAJ 238977.09 vs CADAL Siku 288977.09 without majority vote; G893 six numerical targets remain open."
+    ]
+  },
+  "counts": {
+    "sources": 765,
+    "root": 647,
+    "extensions": 118,
+    "matrix_rows": 222,
+    "matrix_audited": 222,
+    "genealogy_nodes": 252,
+    "genealogy_edges": 238,
+    "open_issues": 11,
+    "original_g893_six_winners": 0,
+    "algorithm_reopens": 0
+  },
+  "next_action": "Conduct provider-declared source-page title leaf search in BSB volume1; capture 900px-or-better bounded candidate range and then full image target only after source-binding. No OCR-based witness or chapter absence claim."
+}
