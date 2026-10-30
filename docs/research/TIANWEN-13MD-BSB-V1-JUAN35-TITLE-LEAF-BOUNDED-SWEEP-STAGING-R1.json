@@ -1,0 +1,90 @@
+{
+  "schema": "TIANWEN-13MD-BSB-V1-J35-TITLE-LEAF-BOUNDED-SWEEP-STAGING-R1",
+  "date": "2026-10-30",
+  "issue_id": "TW-OPEN-0005",
+  "stage": "ACQUISITION_SCRIPT_STAGED_NOT_YET_RESULT",
+  "source": {
+    "provider": "Bayerische Staatsbibliothek",
+    "provider_object_id": "bsb11166691",
+    "official_manifest": "https://api.digitale-sammlungen.de/iiif/presentation/v2/bsb11166691/manifest",
+    "manifest_sha256": "ed4ff6358db2c462edceb9ed5c2d667645cf000ed5f031eec8342fb3a241a369",
+    "canvas_count": 1910,
+    "prior_original_replay": "docs/research/TIANWEN-13MC-BSB-VOLUME1-JUAN35-CANVAS539-DIRECT-TEXTUAL-ANCHOR-R1.json",
+    "prior_original_replay_539_sha256": "7c26f50ce77c3265862e8d347047a568cf424c84f5c4df4dd60b72746fdf0ca0"
+  },
+  "acquisition_plan": {
+    "candidate_search_window_1based": [
+      491,
+      636
+    ],
+    "context_canvases": [
+      490,
+      637
+    ],
+    "sampled_indexes": [
+      490,
+      491,
+      496,
+      501,
+      506,
+      511,
+      516,
+      521,
+      526,
+      531,
+      536,
+      541,
+      546,
+      551,
+      556,
+      561,
+      566,
+      571,
+      576,
+      581,
+      586,
+      591,
+      596,
+      601,
+      606,
+      611,
+      616,
+      621,
+      626,
+      631,
+      636,
+      637
+    ],
+    "source_issued_derivative_width_px": 900,
+    "no_ocr": true,
+    "uses_exact_manifest_declared_services": true,
+    "stores_original_jpeg_bytes_and_sha256": true,
+    "stores_decoded_rgb_sha256": true,
+    "creates_labeled_contact_atlases": true,
+    "workflow": ".github/workflows/acquire-tianwen-13md-bsb-juan35-title-leaf-sweep.yml",
+    "acquisition_script": "scripts/acquire-tianwen-13md-bsb-juan35-title-leaf-sweep.py",
+    "artifact_expected_name": "tianwen-13md-bsb-v1-juan35-bounded-firstparty-sweep"
+  },
+  "evidentiary_limits": {
+    "sampled_images_not_yet_acquired_in_this_staging_record": true,
+    "title_leaf_original_glyph_verified": false,
+    "numeric_target_original_glyph_verified": false,
+    "source_page_full_text_collation_done": false,
+    "independent_1739_impression_verified": false,
+    "global_negative_absence_proven": false,
+    "independent_source_votes_added": 0,
+    "g893_six_numerical_winners_added": 0,
+    "algorithm_reopens": 0,
+    "product": "CLOSED"
+  },
+  "counts": {
+    "sources": 765,
+    "matrix_rows": 222,
+    "matrix_audited": 222,
+    "genealogy_nodes": 252,
+    "genealogy_edges": 238,
+    "open_issues": 11
+  },
+  "transmission_impact": "NONE_STAGED_SOURCE_ACQUISITION_NO_GENEALOGICAL_PROMOTION",
+  "next_action": "After exact-head action succeeds, download source artifact and visually identify title leaf on a specific canvas; then source-native high-resolution leaf glyph, separate original numeric target and physical edition examination."
+}
