@@ -18,7 +18,8 @@ assert not E["no_promotion"]["same_field_assigned"]
 assert S["schema_version"]==L["binding"]["reviewed_state_version"]==S["historical_audit"]["research_omission_guard"]["reviewed_state_version"]
 assert tuple(map(int,S["schema_version"].split(".")))>=(1,971,0)
 assert len(S["historical_audit"]["current_focus"])==L["binding"]["source_focus_count"]
-assert L["binding"]["latest_research_focus_prefix"]=="13MI"
+assert any(x.startswith("13MI ") for x in S["historical_audit"]["current_focus"])
+assert L["binding"]["latest_research_focus_prefix"] in ("13MI","13MJ")
 issue=next(x for x in L["issues"] if x["id"]=="TW-OPEN-0005")
 assert issue["status"]=="OPEN" and issue["priority"]=="P0"
 assert "docs/research/TIANWEN-13MI-G893-1569-ORIGINAL-IMAGE-FIELD-GATE-R1.json" in issue["source_refs"]

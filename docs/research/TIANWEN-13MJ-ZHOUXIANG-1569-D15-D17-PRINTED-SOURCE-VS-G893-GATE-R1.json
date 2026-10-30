@@ -1,0 +1,160 @@
+{
+  "schema": "TIANWEN-13MJ-ZHOUXIANG-1569-D15-D17-PRINTED-SOURCE-VS-G893-GATE-R1",
+  "date": "2026-10-31",
+  "issue_id": "TW-OPEN-0005",
+  "status": "FIRSTPARTY_HISTORICAL_SCAN_P15_DIRECT_BOUND_ORIGINAL_TRIPLET__G893_FIELD_CROSSWALK_UNPROVEN",
+  "source_acquisition": {
+    "commit": "86527538d9d5132c2c04e377025dd6622f5e7044",
+    "run": 41143378360,
+    "conclusion": "success",
+    "artifact_id": 13019752548,
+    "artifact_name": "tianwen-13mi-g893-original-solar-ming1569-vol6-source-gate",
+    "zip_bytes": 10210131,
+    "zip_sha256": "bc68ccf228848fedddc2cc75ce12d6dee6d669c684bc9e33558c2c85f0c8e9ab",
+    "report_status": "PARTIAL_ACCESS_BOUNDARY_UNCOLLATED",
+    "g893_images_requested": 3,
+    "g893_images_hash_verified": 2,
+    "g893_results": [
+      {
+        "page": "001a",
+        "status": "ACCESS_OR_HASH_BOUNDARY",
+        "error": "URLError Connection reset by peer, 13MI first attempt, no original image in current artifact"
+      },
+      {
+        "page": "002a",
+        "status": "EXACT_PROVIDER_JPEG_VERIFIED",
+        "sha256": "31d0452e9350e32ff73549f49d894ab26f6e588654926d45b3a603ae4da9a914",
+        "rgb_sha256": "a04c848b976d24c8d4bdf255d4f3370eb1fa27cac2b50b99722848cd688235f5",
+        "pixels": [
+          1150,
+          2000
+        ]
+      },
+      {
+        "page": "002b",
+        "status": "EXACT_PROVIDER_JPEG_VERIFIED",
+        "sha256": "f9812e8c6a357eb6cd1117bb2af58d816e01030d5b93f34e7094bddb766b2b55",
+        "rgb_sha256": "e3eca1b8f979c1de7ccc5e924d2d493288e7764f92e0a77ad96cf26e80c987f7",
+        "pixels": [
+          1150,
+          2000
+        ]
+      }
+    ],
+    "ming1569_pdf": {
+      "source_url": "https://www.kotenmon.com/cal/arabe/vol6.pdf",
+      "bytes": 4936040,
+      "sha256": "4c006b7ce131902fe33012d42f62cd2bbc2140affa3d5886e0da02966352cb7c",
+      "pages": 45,
+      "status": "SOURCE_HISTORICAL_PRINT_PUBLIC_PDF_HASH_VERIFIED",
+      "representative_page_renders_verified": [
+        7,
+        9,
+        14,
+        19
+      ],
+      "rendered_jpg_or_pdf_image_no_ocr": true
+    },
+    "no_ocr": true
+  },
+  "new_direct_source_locus": {
+    "source": "Zhou Xiang 大明大統曆法 1569-reprint public image, corresponding original solar winter table",
+    "date_provenance": "Previously verified page7 隆慶三年; page9 成化十三年 computation epoch, not same as impression year",
+    "tabular_heading_page_1based": 14,
+    "tabular_heading_original_print": "太陽冬至前後立成卷第二",
+    "printed_three_days_page_1based": 15,
+    "page15_replay": {
+      "input_original_pdf_sha256": "4c006b7ce131902fe33012d42f62cd2bbc2140affa3d5886e0da02966352cb7c",
+      "renderer": "PyMuPDF get_pixmap matrix=2.5, colorspace=RGB, alpha=False; page index14, one-based p15",
+      "pixels": [
+        2105,
+        1489
+      ],
+      "full_rgb_sha256": "7b35af0e1e802c9346c927a02c67d1681e01b5120c3cf891160126f2018478d5",
+      "full_png_sha256": "d72327e4589455c3879af4de23d56d52049035e9b84a62f10867e92916eced76",
+      "review_crop_original_coordinates": [
+        1050,
+        100,
+        1780,
+        700
+      ],
+      "crop_rgb_sha256": "72f4069db6044ce0b77f85259303c830b4f1cd14407469f73ac37e6d00632e41",
+      "review_crop_is_scaled_for_visual_only": true
+    },
+    "source_printed_values": [
+      {
+        "elapsed_day": 15,
+        "following_printed_digits": "二一七六",
+        "reconstructed_traditional_decimal": "五分二一七六",
+        "normalized": "5.2176"
+      },
+      {
+        "elapsed_day": 16,
+        "following_printed_digits": "二三六二",
+        "reconstructed_traditional_decimal": "五分二三六二",
+        "normalized": "5.2362"
+      },
+      {
+        "elapsed_day": 17,
+        "following_printed_digits": "二五四八",
+        "reconstructed_traditional_decimal": "五分二五四八",
+        "normalized": "5.2548"
+      }
+    ],
+    "same_internal_table_local_arithmetic": {
+      "d16_minus_d15": "0.0186",
+      "d17_minus_d16": "0.0186",
+      "precision": "EXACT_DECIMAL_4_PLACE_SOURCE_DISPLAY",
+      "not_historical_crosswitness_proof": true
+    },
+    "direct_source_read_grade": "DIRECT_BOUND_ORIGINAL_IMAGE_MANUAL_GLYPH_JUXTAPOSITION_NOT_AUTOMATIC_FIELD_EQUIVALENCE"
+  },
+  "comparability_guard": {
+    "source_1569_three_literals_confirmed": true,
+    "source_g893_original_001a_this_run_acquired": false,
+    "source_g893_002b_day16_heading_visible": true,
+    "source_g893_002b_numeric_lane_crosswalk_to_1569_day16_confirmed": false,
+    "source_g893_001a_minor_digit_少_vs_微_re_adjudicated": false,
+    "original_field_name_radix_and_conversion_equal": false,
+    "comparison_received_goryeosa_day16_5_1362_prior_status": "RECEIVED_TEXT_CONFLICT_NOT_NEW_SCORED_HISTORICAL_WITNESS",
+    "same_radix_arithmetic_does_not_override_print": false,
+    "material_new_independent_physical_copy_vote": 0,
+    "g893_cross_witness_six_winners_awarded": 0,
+    "source_registry_delta": 0,
+    "graph_nodes_delta": 0,
+    "graph_edges_delta": 0,
+    "algorithm_reopens": 0,
+    "product": "CLOSED"
+  },
+  "followup_source_access": {
+    "status": "13MI_SOURCE_SCRIPT_RETRY_ADDED_NOT_YET_REPLAYED",
+    "requested_missing_page": "001a",
+    "exact_prior_original_sha256": "8b07513ca8aad42ae167a93f22c39f14850c8cd1c345db9ce98c1e0e769226a5",
+    "retry_budget": 3,
+    "source_issued_only": true,
+    "source_script": "scripts/acquire-tianwen-13mi-g893-solar-header-ming1569-original.py",
+    "workflow": ".github/workflows/acquire-tianwen-13mi-g893-vs-ming1569-original.yml",
+    "next": "Acquire original 001a from official renderer with hash after bounded retries; then original full column 002b and original 1569 p15 must be transcribed by verified source header/units, and independent Ming compilation witness lineage separately."
+  },
+  "counts": {
+    "sources": 765,
+    "matrix": "222/222",
+    "graph_nodes": 252,
+    "graph_edges": 238,
+    "open_issues": 11,
+    "original_g893_six_historical_winners": 0
+  },
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_unproved": [
+      "1569 solar printed D16=5.2362 does not by itself prove a direct copying edge or equivalent numeric lane to Korean G893"
+    ],
+    "open": [
+      "G893 001a glyph/units after reread",
+      "G893 D16 exact same-field crosswalk",
+      "1569 printing physical holding/call-number and relation to older original table roots"
+    ]
+  }
+}

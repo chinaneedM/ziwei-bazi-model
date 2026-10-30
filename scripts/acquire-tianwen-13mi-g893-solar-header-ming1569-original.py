@@ -71,13 +71,22 @@ def main():
         "calendar_engine_change":False}}
     acquired={}
     for page in TARGET:
-        try:
-            b,record=source_page(page);(dest/f"G893-{page}.jpg").write_bytes(b)
-            result["g893_original"]["pages"].append(record)
-            acquired[page]=Image.open(io.BytesIO(b)).convert("RGB")
-        except Exception as e:
+        failures=[]
+        ok=False
+        for attempt in (1,2,3):
+            try:
+                b,record=source_page(page);(dest/f"G893-{page}.jpg").write_bytes(b)
+                record["attempt_count"]=attempt
+                record["prior_access_boundaries"]=failures
+                result["g893_original"]["pages"].append(record)
+                acquired[page]=Image.open(io.BytesIO(b)).convert("RGB")
+                ok=True
+                break
+            except Exception as e:
+                failures.append({"attempt":attempt,"error":type(e).__name__+": "+str(e)[:220]})
+        if not ok:
             result["g893_original"]["pages"].append({"page":page,"status":"ACCESS_OR_HASH_BOUNDARY",
-                    "error":type(e).__name__+": "+str(e)[:220],"source_issued":False})
+                           "attempt_count":len(failures),"attempts":failures,"source_issued":False})
     if acquired:
         canvas=Image.new("RGB",(len(acquired)*430,760),"white");d=ImageDraw.Draw(canvas)
         for i,(page,img) in enumerate(acquired.items()):
