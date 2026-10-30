@@ -1,0 +1,100 @@
+{
+  "schema": "TIANWEN-13ME-BSB-V1-J35-ORIGINAL-C511-END-AND-TITLE-RECHECK-R1",
+  "date": "2026-10-30",
+  "issue_id": "TW-OPEN-0005",
+  "source": {
+    "provider": "Bayerische Staatsbibliothek",
+    "digital_id": "bsb11166691",
+    "official_manifest": "https://api.digitale-sammlungen.de/iiif/presentation/v2/bsb11166691/manifest",
+    "manifest_sha256": "ed4ff6358db2c462edceb9ed5c2d667645cf000ed5f031eec8342fb3a241a369",
+    "canvases": 1910
+  },
+  "acquisition_13md": {
+    "exact_head": "5768af4fa2683cb74983ae9a292a7a2d97e09f37",
+    "run_id": 41079942844,
+    "conclusion": "success",
+    "artifact_id": 12987824782,
+    "zip_bytes": 9919133,
+    "zip_sha256": "9455f25be1ce22402a094bf7b22bd60f3fa0d90d9601554cb42c83f4caaee1e5",
+    "original_jpeg_count": 33,
+    "all_original_jpegs_have_hashes": true,
+    "all_original_rgb_have_hashes": true,
+    "report_in_artifact": "source-report.json",
+    "no_ocr": true
+  },
+  "original_juan35_end": {
+    "canvas_1based": 511,
+    "image": "https://api.digitale-sammlungen.de/iiif/image/v2/bsb11166691_00511/full/900,/0/default.jpg",
+    "bytes": 268327,
+    "jpeg_sha256": "d7c9ffb0ea1db796c30779f56b08388f960c099574181063dba3ea585ff70226",
+    "rgb_sha256": "72764e4c0089c9c558e095cf6a2498a56552f7e829e04f3129053f2b1fcbbd92",
+    "manual_original_print": "明史卷三十五終",
+    "locus": "leftmost vertical column",
+    "grade": "DIRECT_PROVIDER_DERIVATIVE_ORIGINAL_PRINT_END",
+    "is_original_juan35_start_title": false
+  },
+  "juan35_body_context": {
+    "canvas_1based": 539,
+    "jpeg_sha256": "7c26f50ce77c3265862e8d347047a568cf424c84f5c4df4dd60b72746fdf0ca0"
+  },
+  "next_acquisition": {
+    "status": "STAGED_NOT_ACQUIRED",
+    "indices_1based": [
+      511,
+      539,
+      552,
+      553,
+      554,
+      555,
+      556,
+      557,
+      558,
+      559,
+      560,
+      561,
+      562,
+      563,
+      564,
+      565,
+      566,
+      567,
+      568,
+      569,
+      570,
+      571,
+      572,
+      573,
+      574,
+      575,
+      576,
+      577,
+      581
+    ],
+    "script": "scripts/acquire-tianwen-13me-bsb-v1-j35-title-boundary.py",
+    "workflow": ".github/workflows/acquire-tianwen-13me-bsb-j35-title-boundary.yml",
+    "verify": "scripts/verify-tianwen-13me-bsb-j35-anchor.py",
+    "source_manifest_only": true,
+    "no_ocr": true
+  },
+  "no_promotion": {
+    "original_juan35_title_leaf_verified": false,
+    "historical_target_numeric_verified": false,
+    "exact_1739_physical_impression_verified": false,
+    "independent_historical_witness_votes_added": 0,
+    "source_registry_delta": 0,
+    "graph_delta": 0,
+    "g893_six_numeric_winners": 0,
+    "algorithm_reopens": 0,
+    "product": "CLOSED"
+  },
+  "counts": {
+    "sources": 765,
+    "matrix_rows": 222,
+    "matrix_audited": 222,
+    "genealogy_nodes": 252,
+    "genealogy_edges": 238,
+    "open_issues": 11
+  },
+  "transmission_impact": "NONE_SAME_DIGITAL_SURROGATE_ONLY",
+  "next_action": "Retrieve firstparty source bound 13ME candidate atlas near c552–577, manually inspect original title leaf and bind exact source image bytes; do not promote printed juan end to title start."
+}

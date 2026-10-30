@@ -15,13 +15,14 @@ assert E["acquisition_plan"]["no_ocr"] and E["acquisition_plan"]["uses_exact_man
 assert 490 in E["acquisition_plan"]["sampled_indexes"] and 539 in E["acquisition_plan"]["sampled_indexes"] and 637 in E["acquisition_plan"]["sampled_indexes"]
 assert all(E["evidentiary_limits"][k] is False for k in ("title_leaf_original_glyph_verified","numeric_target_original_glyph_verified","independent_1739_impression_verified","global_negative_absence_proven"))
 assert E["evidentiary_limits"]["g893_six_numerical_winners_added"]==E["evidentiary_limits"]["algorithm_reopens"]==0
-assert S["schema_version"]==L["binding"]["reviewed_state_version"]==S["historical_audit"]["research_omission_guard"]["reviewed_state_version"]=="1.967.0"
+assert S["schema_version"]==L["binding"]["reviewed_state_version"]==S["historical_audit"]["research_omission_guard"]["reviewed_state_version"]
+assert tuple(map(int,S["schema_version"].split(".")))>=(1,967,0)
 assert len(S["historical_audit"]["current_focus"])==L["binding"]["source_focus_count"]
-assert S["historical_audit"]["current_focus"][-1].startswith("13MD ")
-assert L["binding"]["latest_research_focus_prefix"]=="13MD"
+assert any(x.startswith("13MD ") for x in S["historical_audit"]["current_focus"])
+assert L["binding"]["latest_research_focus_prefix"]==S["historical_audit"]["current_focus"][-1].split()[0]
 I=next(x for x in L["issues"] if x["id"]=="TW-OPEN-0005")
 assert I["priority"]=="P0" and I["status"]=="OPEN"
-assert I["next_action"].startswith("13MD CURRENT ACTION:")
+assert I["next_action"].startswith(L["binding"]["latest_research_focus_prefix"]+" CURRENT ACTION:")
 assert "docs/research/TIANWEN-13MD-BSB-V1-JUAN35-TITLE-LEAF-BOUNDED-SWEEP-STAGING-R1.json" in I["source_refs"]
 assert any(h.get("revision_id")=="TW-OPEN-0005-13MD-STAGED-SOURCE-TITLE-SWEEP-20261030" for h in I["history"])
 assert S["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED"
