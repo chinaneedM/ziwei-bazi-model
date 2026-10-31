@@ -1,0 +1,172 @@
+{
+  "schema": "TIANWEN-13MU-ZHOU1569-G893-D15-D16-THREE-LANE-CROSSWALK-R1",
+  "date": "2026-10-31",
+  "issue_id": "TW-OPEN-0005",
+  "evidence_grade": "DIRECT_ORIGINAL_VISUAL_SOURCE_SCOPED_TABLE_LANES_AND_EXACT_DECIMAL_REPLAY; NO_ALL_FIELD_UNIT_OR_LINEAGE_PROOF",
+  "originals": {
+    "zhou": {
+      "url": "https://www.kotenmon.com/cal/arabe/vol6.pdf",
+      "sha256": "4c006b7ce131902fe33012d42f62cd2bbc2140affa3d5886e0da02966352cb7c",
+      "bytes": 4936040,
+      "pages": 45,
+      "rendered_1based": [
+        14,
+        15
+      ],
+      "scale": 2.5,
+      "pymupdf": "1.26.7",
+      "pillow": "11.3.0",
+      "source_page_pixels": [
+        2105,
+        1489
+      ]
+    },
+    "g893": {
+      "source_object": "Kyujanggak GK00893_00",
+      "original_page": "002b",
+      "sha256": "f9812e8c6a357eb6cd1117bb2af58d816e01030d5b93f34e7094bddb766b2b55",
+      "pixels": [
+        1150,
+        2000
+      ]
+    },
+    "artifact_zip": {
+      "archive_run_id": 41144025711,
+      "artifact_id": 13019278183,
+      "sha256": "1d8f10da7c27411bf38ad635494a1b9f4e700fb76cb37b2a7541c075a0ca9835",
+      "source_files_separately_sha_bound": true
+    },
+    "ocr_used": false,
+    "new_source_objects": 0,
+    "new_physical_originals": 0
+  },
+  "native_rgb_rois": [
+    {
+      "key": "ZHOU_PAGE14_TABLE_FIELDS",
+      "page": 14,
+      "box": [
+        680,
+        75,
+        1085,
+        1410
+      ],
+      "rgb_sha256": "e975307f38dd3f7c8cfe77af1f7ab70030f31f2ed6998fdfa067bed65b618024"
+    },
+    {
+      "key": "ZHOU_PAGE14_HEADER_LABELS",
+      "page": 14,
+      "box": [
+        740,
+        65,
+        1065,
+        1140
+      ],
+      "rgb_sha256": "86e7e3a1938af98e55ea0dd4b26f356211d71a925ea6370a3f91097ef127c596"
+    },
+    {
+      "key": "ZHOU_PAGE15_D15_D16",
+      "page": 15,
+      "box": [
+        1215,
+        90,
+        1380,
+        1420
+      ],
+      "rgb_sha256": "d33c49e1d28a2a56f47901e5148a822f6a98469f4688dd6285d7d38a64a0a20d"
+    },
+    {
+      "key": "ZHOU_PAGE15_D15_MID_LOWER",
+      "page": 15,
+      "box": [
+        1290,
+        500,
+        1375,
+        1410
+      ],
+      "rgb_sha256": "6c350c78183673feeb4f5337423ec7af536f38fbfed4564ad4b29978e856cf54"
+    },
+    {
+      "key": "ZHOU_PAGE15_D16_MID_LOWER",
+      "page": 15,
+      "box": [
+        1210,
+        500,
+        1295,
+        1410
+      ],
+      "rgb_sha256": "7d9884eabe6b70a4329c1483863be333337b9c73f679a027c09a0796c9f96e90"
+    }
+  ],
+  "visible_original_context": {
+    "zhou_page14_table_title": "太陽冬至前後立成卷第二",
+    "zhou_page14_column_labels_source_scoped": [
+      "積日",
+      "盈縮加分",
+      "盈縮積度"
+    ],
+    "zhou_page15_day_headers": [
+      "十五日",
+      "十六日"
+    ],
+    "highest_printed_place_elision": "SOME HIGHER PLACE-CHARACTERS OMITTED IN ADJACENT DAILY CELLS",
+    "label_to_mathematical_unit_mapping": "SOURCE_LOCAL_TABLE_ROW_GEOMETRY_PARTIAL; FULL HISTORICAL UNIT/SCALING_UNBOUND",
+    "normalized_from_context_not_all_glyphs_printed_each_day": true
+  },
+  "rows": [
+    {
+      "day": 15,
+      "zhou_short": "5.2176",
+      "zhou_middle_print_visible": "三十四分八二四九",
+      "zhou_middle_normalized": "434.8249",
+      "zhou_lower_print_visible": "七千一百三十五分八三七五",
+      "zhou_lower_normalized": "7135.8375",
+      "g893_short": "5.2176",
+      "g893_decreasing": "434.8249"
+    },
+    {
+      "day": 16,
+      "zhou_short": "5.2362",
+      "zhou_middle_print_visible": "二十九分六〇七三",
+      "zhou_middle_normalized": "429.6073",
+      "zhou_lower_print_visible": "五百七十〇分六六二四",
+      "zhou_lower_normalized": "7570.6624",
+      "g893_short": "5.2362",
+      "g893_decreasing": "429.6073"
+    }
+  ],
+  "arithmetical_source_local": {
+    "zhou_c16_minus_c15": "434.8249",
+    "zhou_middle_d15_minus_short_d15": "429.6073",
+    "expected_next_zhou_middle": "429.6073",
+    "zhou_cumulative_delta_matches_zhou_middle_d15": true,
+    "zhou_middle_d15_matches_g893_d15_source_number": true,
+    "zhou_middle_d16_matches_g893_d16_source_number": true,
+    "four_decimal_context_only_not_historical_unit_proof": true
+  },
+  "forward_only_adjudication": {
+    "previous_13mq_nonidentical_print_strings_still_true": true,
+    "previous_13mq_crossbook_pair_compared": "G893_D15_DECREASING_LANE_VS_ZHOU_D15_LOWER_ACCUMULATED_LANE",
+    "wrong_comparator_for_same_field_historical_disagreement": true,
+    "corrected_zhou_to_g893_numeric_lane": "ZHOU_D15_MIDDLE_434.8249_EQUALS_G893_D15_DECREASING_434.8249_NUMBER_LEVEL_ONLY",
+    "same_printed_number_is_not_proven_direct_copying": true,
+    "specific_1569_physical_impression": "UNVERIFIED",
+    "full_original_field_unit_radix_epoch_bridge": "UNPROVEN",
+    "independent_lineage": "UNPROVEN",
+    "G893_six_final_historical_winners": 0,
+    "original_text_correction_asserted": false,
+    "algorithm_reopen": 0
+  },
+  "guard": {
+    "registered_sources": 765,
+    "matrix_total": 222,
+    "matrix_audited": 222,
+    "genealogy_nodes": 252,
+    "genealogy_edges": 238,
+    "open_issues": 11,
+    "source_registry_delta": 0,
+    "graph_node_delta": 0,
+    "graph_edge_delta": 0,
+    "product": "CLOSED"
+  },
+  "next_action": "Cross-check exact original p14 headings to p15 all daily horizontal numeric bands including D14-D18 and historical field units; separately bind G893 001a printed column header, day-index, radix, epoch. Locate NAAJ official item-level catalog and physical impression evidence; do not infer direct copying from two matched numbers."
+}
