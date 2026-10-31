@@ -1,0 +1,26 @@
+name: verify-tianwen-13mo-g893-paired-source-comparison
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - scripts/verify-tianwen-13mo-g893-paired-source-comparison.py
+      - tests/test_tianwen_13mo_g893_paired_source_comparison.py
+      - docs/research/TIANWEN-13MO-G893-ZHOU1569-PAIRED-LANE-SOURCE-COMPARISON-R1.json
+      - docs/research/TIANWEN-13MO-G893-ZHOU1569-PAIRED-LANE-SOURCE-COMPARISON-R1.md
+      - docs/PROJECT-CURRENT-STATE-R1.json
+      - docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json
+      - .github/workflows/verify-tianwen-13mo-g893-paired-source-comparison.yml
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 2}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python scripts/verify-tianwen-13mo-g893-paired-source-comparison.py
+      - run: python -m unittest discover -s tests -p 'test_tianwen_13mo_g893_paired_source_comparison.py' -v
+      - run: python scripts/verify-research-omission-risk-ledger-r1.py --check-parent
+      - run: python scripts/verify-project-continuity-state-r1.py
