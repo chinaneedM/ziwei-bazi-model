@@ -7,6 +7,10 @@ on:
       - docs/research/TIANWEN-13MQ-G893-ZHOU1569-D15-SECOND-LANE-ORIGINAL-PRINT-SCOPE-R1.md
       - scripts/verify-tianwen-13mq-g893-zhou-d15-second-lane.py
       - tests/test_tianwen_13mq_g893_zhou_d15_second_lane.py
+      - docs/research/TIANWEN-13MR-ZHOU1569-ORIGINAL-OPERATOR-PRINTED-FIELD-SCOPE-R1.json
+      - docs/research/TIANWEN-13MR-ZHOU1569-ORIGINAL-OPERATOR-PRINTED-FIELD-SCOPE-R1.md
+      - scripts/verify-tianwen-13mr-zhou-operator-scope.py
+      - tests/test_tianwen_13mr_zhou_operator_scope.py
       - docs/PROJECT-CURRENT-STATE-R1.json
       - docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json
       - .github/workflows/verify-tianwen-13mq-g893-zhou-d15-second-lane.yml
@@ -22,6 +26,8 @@ jobs:
         with: {python-version: '3.12'}
       - run: python scripts/verify-tianwen-13mq-g893-zhou-d15-second-lane.py
       - run: python -m unittest discover -s tests -p 'test_tianwen_13mq_g893_zhou_d15_second_lane.py' -v
+      - run: python scripts/verify-tianwen-13mr-zhou-operator-scope.py
+      - run: python -m unittest discover -s tests -p 'test_tianwen_13mr_zhou_operator_scope.py' -v
       - run: python scripts/verify-tianwen-13mp-g893-archive-pixel-replay.py
       - run: python scripts/verify-research-omission-risk-ledger-r1.py --check-parent
       - run: python scripts/verify-project-continuity-state-r1.py
