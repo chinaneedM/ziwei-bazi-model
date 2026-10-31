@@ -12,8 +12,8 @@ def check(e,s,l,p,a):
  assert e["schema"]=="TIANWEN-13MT-ZHOU1569-PINNED-RENDERER-DIGEST-ERRATUM-R1"
  v=e["experiment"];pr=e["pinned_renderer_profiles"];a0=e["adjudication"]
  assert v["run_id"]==41197580583 and v["artifact_id"]==13041700130
- assert v["source_original_pdf_sha256"]==p["provenance"]["zhou1569_pdf_sha256"]==a["original_acquisition"]["source_sha256"]
- assert v["source_original_pdf_pages"]==45 and v["pdf_bytes"]==4936040
+ assert v["original_source_pdf_sha256"]==p["provenance"]["zhou1569_pdf_sha256"]==a["original_acquisition"]["source_sha256"]
+ assert v["pdf_pages"]==45 and v["pdf_bytes"]==4936040
  assert v["pillow_fixed"]=="11.3.0" and v["roi_box"]==p["original_roi_controls"][1]["box"]
  assert len(pr)==2 and [x["pymupdf"] for x in pr]==["1.26.7","1.28.2"]
  assert pr[0]["roi_rgb_sha256"]==p["original_roi_controls"][1]["rgb_sha256"]
