@@ -28,4 +28,17 @@ class PairedLaneGate(unittest.TestCase):
  def test_false_field_identity(self):
   e=copy.deepcopy(self.e);e["limits"]["full_field_header_unit_radix_day_anchor_identity_bound"]=True
   with self.assertRaises(AssertionError):v.check(e,self.s,self.l)
+ def test_successor_state_allowed(self):
+  s=copy.deepcopy(self.s);l=copy.deepcopy(self.l)
+  s["schema_version"]="1.978.0"
+  s["historical_audit"]["research_omission_guard"]["reviewed_state_version"]="1.978.0"
+  s["historical_audit"]["current_focus"].append("13MP successor, preserves 13MO source proof")
+  l["binding"]["reviewed_state_version"]="1.978.0"
+  l["binding"]["source_focus_count"]+=1
+  l["binding"]["latest_research_focus_prefix"]="13MP"
+  self.assertEqual(v.check(self.e,s,l)["status"],"PASS")
+ def test_false_missing_predecessor_rejected(self):
+  s=copy.deepcopy(self.s)
+  s["historical_audit"]["current_focus"]=[x for x in s["historical_audit"]["current_focus"] if not x.startswith("13MO ")]
+  with self.assertRaises(AssertionError):v.check(self.e,s,self.l)
 if __name__=="__main__":unittest.main()
