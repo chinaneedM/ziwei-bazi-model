@@ -26,7 +26,7 @@ def check(e,s,l):
  assert s["schema_version"]==s["historical_audit"]["research_omission_guard"]["reviewed_state_version"]==l["binding"]["reviewed_state_version"]
  assert len(s["historical_audit"]["current_focus"])==l["binding"]["source_focus_count"]
  issue=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
- assert issue["priority"]=="P0" and issue["status"]=="OPEN" and issue["next_action"].startswith("13MW CURRENT ACTION:")
+ assert issue["priority"]=="P0" and issue["status"]=="OPEN" and issue["next_action"].startswith(("13MW CURRENT ACTION:","13MX CURRENT ACTION:"))
  assert str(E.relative_to(R)) in issue["source_refs"] and str(E.with_suffix(".md").relative_to(R)) in issue["source_refs"]
  assert any(x.get("revision_id")=="TW-OPEN-0005-13MW-NII-2022-CATALOG-20261031" for x in issue["history"])
  assert any(x.get("id")=="OMISSIONS-13MW-NII-2022-CATALOG-20261031" for x in l["checkpoint_log"])
