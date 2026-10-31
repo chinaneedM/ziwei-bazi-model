@@ -1,0 +1,106 @@
+{
+  "schema": "TIANWEN-13NB-G893-001A-D0-D2-DUAL-NUMERIC-LANE-R1",
+  "date": "2026-10-31",
+  "issue_id": "TW-OPEN-0005",
+  "source": {
+    "provider": "Seoul National University Kyujanggak",
+    "holding": "奎貴893 / GK00893_00",
+    "source_original_page": "001a",
+    "original_jpeg": "G893-001a.jpg",
+    "original_jpeg_sha256": "8b07513ca8aad42ae167a93f22c39f14850c8cd1c345db9ce98c1e0e769226a5",
+    "original_decoded_rgb_sha256": "653e1d9d91c754695ac43f96ca86afef44fd8c4b39c5cd1c9e26b475a58d2636",
+    "dimensions_pixels": [
+      1150,
+      2000
+    ],
+    "github_actions_run": 41144025711,
+    "github_artifact_id": 13019278183,
+    "archive_zip_sha256": "1d8f10da7c27411bf38ad635494a1b9f4e700fb76cb37b2a7541c075a0ca9835",
+    "same_previously_acquired_copy": true,
+    "new_original_artifact": false,
+    "new_historical_physical_witness": false,
+    "no_ocr": true,
+    "roi_digest_definition": "Pillow Image.open(original JPEG).convert('RGB').crop(xyxy).tobytes() then hashlib.sha256; rectangular pixel coordinates zero-based."
+  },
+  "observation_grade": "SOURCE_NATIVE_IMAGE_DIRECT_PRINT_GLYPH_COLLATION_FOR_D0_D2_PAIRED_NUMERIC_LANES_AND_SOURCE_LOCAL_DECIMAL_DIFFERENCES",
+  "rows": [
+    {
+      "day": 0,
+      "printed_day": "初日",
+      "source_m_print": "五百一十〇分八五六九",
+      "m_normalized": "510.8569",
+      "source_short_print": "四分九三八六",
+      "short_normalized": "4.9386",
+      "source_native_rgb_roi_xyxy": [
+        536,
+        685,
+        644,
+        1360
+      ],
+      "source_native_roi_rgb_sha256": "5096cb54f83bdf541ce268fc5692db3813a64ade8db8523d724dfbc4ac542513"
+    },
+    {
+      "day": 1,
+      "printed_day": "一日",
+      "source_m_print": "五百〇五分九一八三",
+      "m_normalized": "505.9183",
+      "source_short_print": "四分九五七二",
+      "short_normalized": "4.9572",
+      "source_native_rgb_roi_xyxy": [
+        341,
+        685,
+        455,
+        1360
+      ],
+      "source_native_roi_rgb_sha256": "5e5a596657226e65ae52b805ac8df79deab6b32b50ddd69d4b9708acaa1608fc"
+    },
+    {
+      "day": 2,
+      "printed_day": "二日",
+      "source_m_print": "五百〇〇分九六一一",
+      "m_normalized": "500.9611",
+      "source_short_print": "四分九七五八",
+      "short_normalized": "4.9758",
+      "source_native_rgb_roi_xyxy": [
+        145,
+        685,
+        251,
+        1360
+      ],
+      "source_native_roi_rgb_sha256": "514105bc5827624c31c69fd79c9b0299e15fcd357e2171d11d0bdb1e1f19272d"
+    }
+  ],
+  "bounded_arithmetic": {
+    "m_d0_minus_m_d1": "4.9386",
+    "equals_short_d0": true,
+    "m_d1_minus_m_d2": "4.9572",
+    "equals_short_d1": true,
+    "source_local_decreasing_numeric_lane_supported": true,
+    "fully_bound_field_heading_and_historical_units": false,
+    "all_original_historical_radix_and_epoch_resolved": false
+  },
+  "relation_to_prior_13na": {
+    "prior_source": "docs/research/TIANWEN-13NA-G893-001A-D0-D2-ORIGINAL-SHORT-LANE-R1.json",
+    "this_batch_new_content": "ADJACENT_ORIGINAL_DECREASING_NUMERIC_LANE_AND_ITS_SUBTRACTION_MAPPING_NOT_ANOTHER_SHORT_ONLY_TEST",
+    "prior_13na_data_reused": true
+  },
+  "scope_firewall": {
+    "six_g893_historical_final_winners": 0,
+    "zhou_independent_impression_or_direct_copy_proven": false,
+    "naaj_051_0003_sixth_fascicle_physical_identity_proven": false,
+    "field_unit_radix_absolute_epoch_crossbook_identity_proven": false,
+    "registered_source_additions": 0,
+    "genealogy_nodes_added": 0,
+    "genealogy_edges_added": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0,
+    "chart": "CLOSED",
+    "matrix_rows": 222,
+    "matrix_audited_rows": 222,
+    "root_plus_extension_sources": 765,
+    "genealogy_nodes": 252,
+    "genealogy_edges": 238,
+    "unresolved_issues": 11
+  },
+  "next": "Do not repeat the same first-three-day arithmetic; pursue original exact 001a field-heading-to-paired-lane unit/radix bridge and 002b D16 field geometry, or official NAAJ target sixth fascicle physical impression with authenticated item identifier."
+}
