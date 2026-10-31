@@ -5,8 +5,6 @@ For SOURCE RENDER PROFILE only. No OCR, physical impression, or G893 field judge
 from __future__ import annotations
 import argparse,hashlib,json,os,urllib.request
 from pathlib import Path
-import fitz
-from PIL import Image
 URL="https://www.kotenmon.com/cal/arabe/vol6.pdf"
 SHA="4c006b7ce131902fe33012d42f62cd2bbc2140affa3d5886e0da02966352cb7c"
 RECORDS={
@@ -18,6 +16,8 @@ RECORDS={
 BOX=(1295,70,1353,1370)
 def sha(b):return hashlib.sha256(b).hexdigest()
 def check(version):
+ import fitz
+ from PIL import Image
  assert version in RECORDS and fitz.VersionBind==version,("unexpected renderer",fitz.VersionBind)
  assert Image.__version__=="11.3.0",("Pillow drift",Image.__version__)
  req=urllib.request.Request(URL,headers={"User-Agent":"Mozilla/5.0 Tianwen13MT/1.0","Accept":"application/pdf"})
