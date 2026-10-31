@@ -13,6 +13,16 @@ class PairedLaneGate(unittest.TestCase):
   cls.l=json.loads(v.L.read_text(encoding="utf-8"))
  def test_source_pair_pass(self):
   self.assertEqual(v.check(self.e,self.s,self.l)["status"],"PASS")
+ def test_legacy_nonrevision_event_allowed(self):
+  l=copy.deepcopy(self.l)
+  i=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
+  i["history"].insert(0,{"event":"HISTORICAL_ADMISSION"})
+  self.assertEqual(v.check(self.e,self.s,l)["status"],"PASS")
+ def test_missing_exact_13mo_revision_rejected(self):
+  l=copy.deepcopy(self.l)
+  i=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
+  i["history"]=[x for x in i["history"] if x.get("revision_id")!="TW-OPEN-0005-13MO-PAIRED-SOURCE-COMPARISON-20261031"]
+  with self.assertRaises(AssertionError):v.check(self.e,self.s,l)
  def test_short_d16_tamper(self):
   e=copy.deepcopy(self.e);e["paired_column_transcriptions"][1]["short"]="5.1362"
   with self.assertRaises(AssertionError):v.check(e,self.s,self.l)

@@ -43,7 +43,7 @@ def check(e,s,l):
     i=next(i for i in l["issues"] if i["id"]=="TW-OPEN-0005")
     assert i["priority"]=="P0" and i["status"]=="OPEN"
     assert "docs/research/TIANWEN-13MO-G893-ZHOU1569-PAIRED-LANE-SOURCE-COMPARISON-R1.json" in i["source_refs"]
-    assert any(x["revision_id"]=="TW-OPEN-0005-13MO-PAIRED-SOURCE-COMPARISON-20261031" for x in i["history"])
+    assert any(x.get("revision_id")=="TW-OPEN-0005-13MO-PAIRED-SOURCE-COMPARISON-20261031" for x in i["history"])
     assert any(x["id"]=="OMISSIONS-13MO-G893-PAIRED-SOURCE-COMPARISON-20261031" for x in l["checkpoint_log"])
     assert s["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED"
     return {"status":"PASS","days":[15,16,17],"source_scope":"PAIRED_NUMERIC_IMAGE_CONGRUENCE_ONLY","six_winners":0}

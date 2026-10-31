@@ -11,6 +11,10 @@ on:
       - docs/research/TIANWEN-13MR-ZHOU1569-ORIGINAL-OPERATOR-PRINTED-FIELD-SCOPE-R1.md
       - scripts/verify-tianwen-13mr-zhou-operator-scope.py
       - tests/test_tianwen_13mr_zhou_operator_scope.py
+      - scripts/verify-tianwen-13mo-g893-paired-source-comparison.py
+      - tests/test_tianwen_13mo_g893_paired_source_comparison.py
+      - scripts/verify-tianwen-13mp-g893-archive-pixel-replay.py
+      - tests/test_tianwen_13mp_g893_archive_pixel_replay.py
       - docs/PROJECT-CURRENT-STATE-R1.json
       - docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json
       - .github/workflows/verify-tianwen-13mq-g893-zhou-d15-second-lane.yml
@@ -28,7 +32,10 @@ jobs:
       - run: python -m unittest discover -s tests -p 'test_tianwen_13mq_g893_zhou_d15_second_lane.py' -v
       - run: python scripts/verify-tianwen-13mr-zhou-operator-scope.py
       - run: python -m unittest discover -s tests -p 'test_tianwen_13mr_zhou_operator_scope.py' -v
+      - run: python scripts/verify-tianwen-13mo-g893-paired-source-comparison.py
+      - run: python -m unittest discover -s tests -p 'test_tianwen_13mo_g893_paired_source_comparison.py' -v
       - run: python scripts/verify-tianwen-13mp-g893-archive-pixel-replay.py
+      - run: python -m unittest discover -s tests -p 'test_tianwen_13mp_g893_archive_pixel_replay.py' -v
       - run: python scripts/verify-research-omission-risk-ledger-r1.py --check-parent
       - run: python scripts/verify-project-continuity-state-r1.py
 # Original ZIP not bundled: source-native pixel replay needs explicitly
