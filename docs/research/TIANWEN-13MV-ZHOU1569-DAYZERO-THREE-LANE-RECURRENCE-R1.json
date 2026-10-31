@@ -1,0 +1,76 @@
+{
+  "schema": "TIANWEN-13MV-ZHOU1569-DAYZERO-THREE-LANE-RECURRENCE-R1",
+  "date": "2026-10-31",
+  "issue_id": "TW-OPEN-0005",
+  "evidence_grade": "PUBLIC_ORIGINAL_PDF_VISUAL_REVIEW_PLUS_PRIOR_SHA_BOUND_13MU_ROIS_AND_RECEIVED_MEI_MECHANICAL_TEXT; NO_NEW_SOURCE_BYTES_OR_PIXEL_SHA",
+  "sources": {
+    "zhou": {
+      "url": "https://www.kotenmon.com/cal/arabe/vol6.pdf",
+      "prior_verified_pdf_sha256": "4c006b7ce131902fe33012d42f62cd2bbc2140affa3d5886e0da02966352cb7c",
+      "original_pages_1based": [
+        14,
+        15
+      ],
+      "original_historical_table_title": "太陽冬至前後立成卷第二",
+      "physical_impression": "UNBOUND"
+    },
+    "original_pixel_predecessor": "docs/research/TIANWEN-13MU-ZHOU1569-G893-D15-D16-THREE-LANE-CROSSWALK-R1.json",
+    "prior_zhou_source_local_operator": "docs/research/TIANWEN-13MR-ZHOU1569-ORIGINAL-OPERATOR-PRINTED-FIELD-SCOPE-R1.json",
+    "received_mei": {
+      "url": "https://ctext.org/wiki.pl?chapter=900071&if=en",
+      "work": "大統曆志卷四",
+      "text_role": "RECEIVED_MECHANISM_COMPARATOR_NOT_INDEPENDENT_PHYSICAL_1569_WITNESS"
+    }
+  },
+  "original_source_local_day_anchor": {
+    "day0_label": "初日",
+    "day1_label": "一日",
+    "day0_short": "4.9386",
+    "day1_short_normalized": "4.9572",
+    "day1_high_place_inherited_from_adjacent_cells": true,
+    "page14_firstday_glyph_pixels_newly_rehashed": false,
+    "day15_label": "十五日",
+    "day16_label": "十六日",
+    "day15_short": "5.2176",
+    "day16_short": "5.2362",
+    "equal_step_hypothesis": "0.0186",
+    "calendar_epoch": "UNPROVEN_OUTSIDE_THIS_SOURCE_LOCAL_TABLE"
+  },
+  "original_source_local_lane_recurrence": {
+    "d15_middle": "434.8249",
+    "d16_middle": "429.6073",
+    "d15_lower_cumulative": "7135.8375",
+    "d16_lower_cumulative": "7570.6624",
+    "midpoint_rule": "M15-M16=S15",
+    "cumulative_rule": "C16-C15=M15",
+    "source_local_step_rule": "S(d)=S(0)+d*0.0186 for d=0,1,15,16 only; not all years or editions",
+    "historical_unit_and_radix": "UNPROVEN"
+  },
+  "received_text_comparator": {
+    "mei_work_chapter": "大統曆志卷四 / 立成",
+    "explicitly_described_derived_roles": [
+      "successive 盈縮積 differences produce 盈縮加分",
+      "successive 盈縮加分 differences produce 消息分"
+    ],
+    "stated_firstday_short": "4.9386",
+    "stated_terminal_day": "87/88-day limit discussed in received text",
+    "use_scope": "CONFIRMS_RECEIVED_RULE_DESCRIPTION_COMPATIBLE_WITH_LOCAL_FINITE_DIFFERENCES_ONLY",
+    "copied_1569_table_proven": false
+  },
+  "bounds": {
+    "new_original_physical_copies": 0,
+    "new_source_registry_entries": 0,
+    "new_graph_nodes": 0,
+    "new_graph_edges": 0,
+    "g893_final_historical_winners": 0,
+    "algorithm_reopens": 0,
+    "product": "CLOSED",
+    "g893_001a_to_002b_exact_header_unit_epoch": "OPEN",
+    "cross_source_unit_radix_epoch": "OPEN",
+    "naaj_official_item_impression": "OPEN",
+    "day0_is_absolute_calendar_epoch": false,
+    "received_mei_is_not_original_zhou_image": true,
+    "transmission_impact": "NONE"
+  },
+  "next_action": "Bind original source-native p14 first-day/section labels to p15 continued day rows at pinned-pixel/folio level, resolve p14 vertical label-to-column and degree/fraction unit hierarchy; independently bind G893 001a 少/微 and day origin and the official NAAJ 子151-0003 item/impression. Keep zero cross-original historic winners."
+}
