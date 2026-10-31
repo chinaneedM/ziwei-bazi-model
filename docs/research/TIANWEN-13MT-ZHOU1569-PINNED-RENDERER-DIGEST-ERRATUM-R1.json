@@ -1,0 +1,85 @@
+{
+  "schema": "TIANWEN-13MT-ZHOU1569-PINNED-RENDERER-DIGEST-ERRATUM-R1",
+  "date": "2026-10-31",
+  "issue_id": "TW-OPEN-0005",
+  "experiment": {
+    "run_id": 41197580583,
+    "head_sha": "4e67c2fec30a45a1f4410501cf62f58f16ce58a6",
+    "artifact_id": 13041700130,
+    "artifact_name": "tianwen-13mt-same-pdf-pinned-two-renderers",
+    "artifact_source": "GitHub Actions 41197580583 logs + machine reports",
+    "same_runner": true,
+    "python": "3.12.15",
+    "pillow_fixed": "11.3.0",
+    "rendered_pdf_page_1based": 15,
+    "pdf_bytes": 4936040,
+    "pdf_pages": 45,
+    "original_source_pdf_sha256": "4c006b7ce131902fe33012d42f62cd2bbc2140affa3d5886e0da02966352cb7c",
+    "colorspace": "RGB",
+    "scale": 2.5,
+    "alpha": false,
+    "pixels": [
+      2105,
+      1489
+    ],
+    "roi_box": [
+      1295,
+      70,
+      1353,
+      1370
+    ],
+    "no_ocr": true
+  },
+  "pinned_renderer_profiles": [
+    {
+      "pymupdf": "1.26.7",
+      "pillow": "11.3.0",
+      "full_page_rgb_sha256": "7b35af0e1e802c9346c927a02c67d1681e01b5120c3cf891160126f2018478d5",
+      "roi_rgb_sha256": "188a2d98f567bf4c5c90cbd9dcb3bb4c0cbb86b097ec3f07196bf168413b0c94",
+      "prior_batch": "13MQ",
+      "verified_result": "PASS"
+    },
+    {
+      "pymupdf": "1.28.2",
+      "pillow": "11.3.0",
+      "full_page_rgb_sha256": "d617e4e0a553dd019ea89a5bc54307e4d08a50cb96e958e7b34897c203c7d75d",
+      "roi_rgb_sha256": "1d85a06bd3421d38113c567fbfb393d2db633232179c5d50f932ebbd4cb59d07",
+      "prior_batch": "13MS",
+      "verified_result": "PASS"
+    }
+  ],
+  "adjudication": {
+    "discrepancy_kind": "VERSION_SCOPED_PDF_RENDITION_RGB_PIXEL_BYTES",
+    "source_pdf_byte_drift": false,
+    "independent_printing_different": false,
+    "pymupdf_version_effect_isolated_by_constant_pillow": true,
+    "glyph_change_in_original_source_proven": false,
+    "historical_field_identity_to_g893": "OPEN",
+    "unit_radix_epoch_crosswork": "OPEN",
+    "same_source_object_reused": true,
+    "new_physical_witness_count": 0
+  },
+  "durable_source_archive": {
+    "original_13ms_library_id": "libfile_5c8aab97ac8c8191a721705a863c95f1",
+    "original_library_path": "/TianwenResearch/OriginalSources/2026-10-31-13MS-Zhou1569-SourceAtlas.zip",
+    "original_archive_zip_sha256": "73a0e60f911a8197925dee6b0fb43d7838a2ca20242e26ad312259861fe18ec5",
+    "renderer_comparison_library_id": "libfile_51375c053958819190bdab1e980f6ebf",
+    "renderer_library_path": "/TianwenResearch/OriginalSources/2026-10-31-13MT-Zhou1569-RendererProfiles.zip",
+    "original_artifact_retention_days": 30,
+    "library_archive_persistent": true
+  },
+  "nonpromotion": {
+    "registered_sources_total": 765,
+    "matrix_rows": 222,
+    "matrix_audited": 222,
+    "genealogy_nodes": 252,
+    "genealogy_edges": 238,
+    "issue_count": 11,
+    "algorithm_reopens": 0,
+    "g893_cross_original_historical_winners": 0,
+    "product": "CLOSED",
+    "lineage_edges_added": 0,
+    "transmission_impact": "NONE: rendering-binary drift does not prove historical printing or copying"
+  },
+  "next_action": "Source p14 headline exact original glyph/column/day coordinate mapping to p15 D15 three numerical bands with explicitly chosen renderer profile, then G893 001a→002b original column mechanics; independently obtain NAAJ official 子151-0003 catalog item and authenticated physical printing details. No field equivalence inferred from source-local numeric match."
+}

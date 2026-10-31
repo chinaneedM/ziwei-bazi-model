@@ -1,0 +1,30 @@
+name: verify-tianwen-13mt-renderer-digest-closure
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - docs/research/TIANWEN-13MT-ZHOU1569-PINNED-RENDERER-DIGEST-ERRATUM-R1.json
+      - docs/research/TIANWEN-13MT-ZHOU1569-PINNED-RENDERER-DIGEST-ERRATUM-R1.md
+      - scripts/verify-tianwen-13mt-renderer-bridge.py
+      - tests/test_tianwen_13mt_renderer_bridge.py
+      - scripts/verify-tianwen-13mp-g893-archive-pixel-replay.py
+      - scripts/verify-tianwen-13mq-g893-zhou-d15-second-lane.py
+      - docs/PROJECT-CURRENT-STATE-R1.json
+      - docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json
+      - .github/workflows/verify-tianwen-13mt-renderer-digest-closure.yml
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 2}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python scripts/verify-tianwen-13mt-renderer-bridge.py
+      - run: python -m unittest discover -s tests -p 'test_tianwen_13mt_renderer_bridge.py' -v
+      - run: python scripts/verify-tianwen-13mr-zhou-operator-scope.py
+      - run: python scripts/verify-tianwen-13ms-zhou-source-atlas-provenance.py
+      - run: python scripts/verify-research-omission-risk-ledger-r1.py --check-parent
+      - run: python scripts/verify-project-continuity-state-r1.py

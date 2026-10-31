@@ -61,6 +61,7 @@ def check(e,p,s,l):
 def replay(e,source_archive):
  from PIL import Image
  import fitz
+ assert fitz.VersionBind=="1.26.7","13MP legacy original crop SHA must be replayed with PyMuPDF 1.26.7"
  raw=Path(source_archive).read_bytes()
  assert digest(raw)==ZIP_SHA,"Source archive SHA mismatch"
  with zipfile.ZipFile(BytesIO(raw)) as z:

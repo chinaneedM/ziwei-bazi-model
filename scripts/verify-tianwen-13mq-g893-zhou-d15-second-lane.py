@@ -55,6 +55,7 @@ def check(e,s,l,y,m):
 def replay(e,filename):
  from PIL import Image
  import fitz
+ assert fitz.VersionBind=="1.26.7","13MQ original crop SHA is a PyMuPDF 1.26.7 profile; fail-closed on renderer mismatch"
  raw=Path(filename).read_bytes()
  assert sha(raw)==e["provenance"]["zip_sha256"]
  with zipfile.ZipFile(BytesIO(raw)) as z:
