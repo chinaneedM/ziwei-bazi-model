@@ -19,9 +19,9 @@ def check(e,s,l):
  assert g["product"]==s["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED"
  assert s["schema_version"]==s["historical_audit"]["research_omission_guard"]["reviewed_state_version"]==l["binding"]["reviewed_state_version"]
  assert tuple(map(int,s["schema_version"].split(".")))>=(1,986,0)
- assert len(s["historical_audit"]["current_focus"])==l["binding"]["source_focus_count"] and l["binding"]["latest_research_focus_prefix"]=="13MX"
+ assert len(s["historical_audit"]["current_focus"])==l["binding"]["source_focus_count"] and l["binding"]["latest_research_focus_prefix"]==s["historical_audit"]["current_focus"][-1].split(" ")[0]
  issue=next(i for i in l["issues"] if i["id"]=="TW-OPEN-0005")
- assert issue["priority"]=="P0" and issue["status"]=="OPEN" and issue["next_action"].startswith("13MX CURRENT ACTION:")
+ assert issue["priority"]=="P0" and issue["status"]=="OPEN" and issue["next_action"].startswith(l["binding"]["latest_research_focus_prefix"]+" CURRENT ACTION:")
  assert all(x in issue["source_refs"] for x in ("docs/research/TIANWEN-13MX-2019-DATONG-FACSIMILE-CROSSWALK-R1.json","docs/research/TIANWEN-13MX-2019-DATONG-FACSIMILE-CROSSWALK-R1.md"))
  assert any(x.get("revision_id")=="TW-OPEN-0005-13MX-2019-DATONG-20261031" for x in issue["history"])
  assert any(x.get("id")=="OMISSIONS-13MX-2019-DATONG-20261031" for x in l["checkpoint_log"])
