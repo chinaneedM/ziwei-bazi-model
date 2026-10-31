@@ -28,13 +28,17 @@ def check(e,s,l):
  assert tuple(map(int,s["schema_version"].split(".")))>=(1,966,0)
  assert s["schema_version"]==l["binding"]["reviewed_state_version"]==s["historical_audit"]["research_omission_guard"]["reviewed_state_version"]
  assert len(s["historical_audit"]["current_focus"])==l["binding"]["source_focus_count"]
- assert s["historical_audit"]["current_focus"][-1].startswith("13MC ")
- assert l["binding"]["latest_research_focus_prefix"]=="13MC"
+ focus=s["historical_audit"]["current_focus"]
+ assert any(x.startswith("13MC ") for x in focus)
+ assert l["binding"]["latest_research_focus_prefix"]==focus[-1].split(" ",1)[0]
  issue=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
  assert issue["status"]=="OPEN" and issue["priority"]=="P0"
- assert issue["next_action"].startswith("13MC CURRENT ACTION:")
+ assert issue["next_action"]  # rolling live action may advance beyond archived 13MC
  assert "docs/research/TIANWEN-13MC-BSB-VOLUME1-JUAN35-CANVAS539-DIRECT-TEXTUAL-ANCHOR-R1.json" in issue["source_refs"]
- assert any(h.get("revision_id")=="TW-OPEN-0005-13MC-BSB-V1-J35-P539-20261030" for h in issue["history"])
+ archived=next(h for h in issue["history"] if h.get("revision_id")=="TW-OPEN-0005-13MC-BSB-V1-J35-P539-20261030")
+ assert "docs/research/TIANWEN-13MC-BSB-VOLUME1-JUAN35-CANVAS539-DIRECT-TEXTUAL-ANCHOR-R1.json" in archived["evidence_refs"]
+ assert any(c.get("state_version")=="1.966.0" and c.get("id")=="OMISSIONS-13MC-BSB-J35-C539-CROSSWALK-20261030" for c in l["checkpoint_log"])
+ assert l["checkpoint_log"][-1]["state_version"]==s["schema_version"]
  assert s["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED"
  return {"status":"PASS","BSB_canvas_539_content_crosswalk":True,"original_title_leaf_confirmed":False,"historical_numeric_winners_added":0}
 if __name__=="__main__":print(json.dumps(check(*[json.loads(p.read_text(encoding="utf-8")) for p in (E,S,L)]),ensure_ascii=False))

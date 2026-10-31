@@ -31,15 +31,19 @@ def verify(e,s,l):
  assert c["G893_vs_zhouxiang_same_column_and_unit"]=="UNPROVEN" and c["G893_D16_source_numeric_field_mapping"]=="UNRESOLVED"
  assert c["historical_G893_six_cross_original_winners"]==0 and c["algorithm_reopens"]==0 and c["product"]=="CLOSED"
  assert all(c[k]==0 for k in ("source_registry_delta","matrix_delta","genealogy_nodes_delta","genealogy_edges_delta","newly_proved_algorithms","candidate_collapse"))
- assert s["schema_version"]==l["binding"]["reviewed_state_version"]=="1.974.0"
- assert s["historical_audit"]["current_focus"][-1].startswith("13ML ")
- assert l["binding"]["latest_research_focus_prefix"]=="13ML"
+ assert s["schema_version"]==l["binding"]["reviewed_state_version"]
+ assert tuple(map(int,s["schema_version"].split(".")))>=(1,974,0)
+ focus=s["historical_audit"]["current_focus"]
+ assert any(x.startswith("13ML ") for x in focus)
+ assert len(focus)==l["binding"]["source_focus_count"]
+ assert l["binding"]["latest_research_focus_prefix"]==focus[-1].split(" ",1)[0]
  issue=next(i for i in l["issues"] if i["id"]=="TW-OPEN-0005")
  assert issue["status"]=="OPEN" and issue["priority"]=="P0"
- assert issue["next_action"].startswith("13ML CURRENT ACTION:")
+ assert issue["next_action"]  # archive survives later evidence-scoped issue revisions
  assert "docs/research/TIANWEN-13ML-G893-ORIGINAL-FOLIO-SEAM-D9-D19-HEADER-GEOMETRY-R1.json" in issue["source_refs"]
  assert any(x.get("revision_id")=="TW-OPEN-0005-13ML-FOLIO-SEAM-20261031" for x in issue["history"])
- assert l["checkpoint_log"][-1]["state_version"]=="1.974.0"
+ assert any(x.get("state_version")=="1.974.0" and x.get("id")=="OMISSIONS-13ML-G893-ORIGINAL-D9-D19-FOLIO-SEAM-20261031" for x in l["checkpoint_log"])
+ assert l["checkpoint_log"][-1]["state_version"]==s["schema_version"]
  return True
 def replay_images(e,dirpath):
  from PIL import Image
