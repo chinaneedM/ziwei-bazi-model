@@ -1,0 +1,116 @@
+{
+  "schema": "TIANWEN-13ND-G893-002A-002B-D13-D14-FOLIO-SEAM-R1",
+  "date": "2026-11-01",
+  "issue_id": "TW-OPEN-0005",
+  "provenance": {
+    "provider": "SNU Kyujanggak",
+    "catalog": "奎貴893 / GK00893_00",
+    "source": "pre-existing acquired firstparty G893 physical image JPGs",
+    "source_archive": {
+      "run_id": 41144025711,
+      "artifact_id": 13019278183,
+      "zip_sha256": "1d8f10da7c27411bf38ad635494a1b9f4e700fb76cb37b2a7541c075a0ca9835"
+    },
+    "same_physical_copy": true,
+    "no_ocr": true,
+    "digest_method": "SHA256(Pillow Image.open(original JPEG).convert('RGB').crop([x0,y0,x1,y1]).tobytes()); original native pixel grid, zero-based"
+  },
+  "physical_image_review": [
+    {
+      "page": "002a",
+      "day": 13,
+      "source_printed_day": "十三日",
+      "original_jpeg_sha256": "31d0452e9350e32ff73549f49d894ab26f6e588654926d45b3a603ae4da9a914",
+      "original_rgb_sha256": "a04c848b976d24c8d4bdf255d4f3370eb1fa27cac2b50b99722848cd688235f5",
+      "original_size": [
+        1150,
+        2000
+      ],
+      "roi_xyxy": [
+        102,
+        215,
+        270,
+        1680
+      ],
+      "roi_rgb_sha256": "57b204d80b0bc05cb38a9cc37669ee3e4a0afec5056549633d865d4d11217cb6",
+      "printed_M": "四百四十五分二〇四三",
+      "normalized_M": "445.2043",
+      "printed_S": "五分一八〇四",
+      "normalized_S": "5.1804"
+    },
+    {
+      "page": "002b",
+      "day": 14,
+      "source_printed_day": "十四日",
+      "original_jpeg_sha256": "f9812e8c6a357eb6cd1117bb2af58d816e01030d5b93f34e7094bddb766b2b55",
+      "original_rgb_sha256": "e3eca1b8f979c1de7ccc5e924d2d493288e7764f92e0a77ad96cf26e80c987f7",
+      "original_size": [
+        1150,
+        2000
+      ],
+      "roi_xyxy": [
+        929,
+        220,
+        1145,
+        1650
+      ],
+      "roi_rgb_sha256": "edbf427037285a90541544c441db1791e91c3dd509941e3ef486e590f0b622f9",
+      "printed_M": "四百四十〇分〇二三九",
+      "normalized_M": "440.0239",
+      "printed_S": "五分一九九〇",
+      "normalized_S": "5.1990"
+    }
+  ],
+  "prior_original_context": [
+    {
+      "page": "001a",
+      "day": 0,
+      "M": "510.8569",
+      "S": "4.9386",
+      "source_doc": "docs/research/TIANWEN-13NB-G893-001A-D0-D2-DUAL-NUMERIC-LANE-R1.json",
+      "scope": "Previously collated; 13NC limited narrow-crop proof sufficiency and added broad native image regions"
+    },
+    {
+      "page": "002b",
+      "day": 15,
+      "M": "434.8249",
+      "S": "5.2176",
+      "source_doc": "docs/research/TIANWEN-12YG-G893-SEVEN-DAY-SOLAR-DECREASING-LANE-SECOND-ERRATUM-R1.json",
+      "scope": "Previously source-native verified"
+    }
+  ],
+  "arithmetic": {
+    "M13_minus_M14": "5.1804",
+    "equals_original_S13": true,
+    "S14_minus_S13": "0.0186",
+    "M14_minus_M15": "5.1990",
+    "equals_original_S14": true,
+    "integrated_M13_from_original_D0_using_S0_plus_linear_step": "510.8569 - 13*4.9386 - (13*12/2)*0.0186 = 445.2043",
+    "integrated_check_only": true
+  },
+  "scope": "POSITIVE_SOURCE_LOCAL_D13_TO_D14_PAGE_SEAM_M_S_ARITHMETIC_AND_D14_TO_D15_CONTEXT_ONLY",
+  "boundaries": [
+    "not new independent physical copy",
+    "no historical 少/微 unit/radix or column-name winner",
+    "does not establish absolute epoch or prove Zhou1569 same original mechanical field",
+    "source-local M/S letters are convenience labels, not newly authenticated printed historic field names",
+    "not a cross-edition numeric winner, does not close any of six G893 final targets",
+    "official NAAJ 子051-0003 exact sixth physical object/impression still unbound"
+  ],
+  "no_new_source_registry_entries": true,
+  "new_genealogy_nodes": 0,
+  "new_genealogy_edges": 0,
+  "invariants": {
+    "registered_sources": 765,
+    "matrix_rows": 222,
+    "matrix_audited_rows": 222,
+    "genealogy_nodes": 252,
+    "genealogy_edges": 238,
+    "open_research_issues": 11,
+    "g893_historical_winners": 0,
+    "product": "CLOSED",
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0
+  },
+  "next_action": "Stop repeating 001a D0-D2 and 002a→002b D13/D14 numerical differences. Focus truly missing original 001a column-head-to-field, 少 unit/radix and official NAAJ 子051-0003 sixth fascicle item."
+}
