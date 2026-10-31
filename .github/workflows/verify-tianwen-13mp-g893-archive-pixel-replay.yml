@@ -1,0 +1,32 @@
+name: verify-tianwen-13mp-g893-archive-pixel-replay
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - scripts/verify-tianwen-13mo-g893-paired-source-comparison.py
+      - tests/test_tianwen_13mo_g893_paired_source_comparison.py
+      - scripts/verify-tianwen-13mp-g893-archive-pixel-replay.py
+      - tests/test_tianwen_13mp_g893_archive_pixel_replay.py
+      - docs/research/TIANWEN-13MP-G893-1569-ARCHIVE-PIXEL-REPLAY-AND-CROSSSOURCE-SCOPE-R1.json
+      - docs/research/TIANWEN-13MP-G893-1569-ARCHIVE-PIXEL-REPLAY-AND-CROSSSOURCE-SCOPE-R1.md
+      - docs/PROJECT-CURRENT-STATE-R1.json
+      - docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json
+      - .github/workflows/verify-tianwen-13mp-g893-archive-pixel-replay.yml
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 2}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python scripts/verify-tianwen-13mo-g893-paired-source-comparison.py
+      - run: python -m unittest discover -s tests -p 'test_tianwen_13mo_g893_paired_source_comparison.py' -v
+      - run: python scripts/verify-tianwen-13mp-g893-archive-pixel-replay.py
+      - run: python -m unittest discover -s tests -p 'test_tianwen_13mp_g893_archive_pixel_replay.py' -v
+      - run: python scripts/verify-research-omission-risk-ledger-r1.py --check-parent
+      - run: python scripts/verify-project-continuity-state-r1.py
+# Original source ZIP replay is separate and opt-in. Without source bytes,
+# CI tests only metadata and MUST report NOT_EXECUTED_WITHOUT_ARCHIVE.
