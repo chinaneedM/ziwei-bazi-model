@@ -223,3 +223,9 @@ TIANWEN_TRANSMISSION_GENEALOGY_R1=ACTIVE_INCREMENTAL
 ## Source-registry sharding checkpoint (12QE)
 
 When retrieving external provenance witnesses, read the original root registry and then `docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json` and every explicitly listed shard. Do not infer a source is absent merely because the root registry alone lacks it. Root and extension counts are separate; the union count and Git blob hashes are checked by `scripts/verify-historical-source-registry-extensions-r1.py` in CI. An extension entry marked `UNVERIFIED_TARGET_LOCATOR_QUARANTINED` or `ACCESS_BOUNDARY_UNVERIFIED` cannot attest a target historical glyph or provide stemmatic voting. Never silently rewrite older historical assertions when direct source recheck fails; publish a forward-only correction record.
+
+## Simplicity-first execution rule — 2026-10-31
+
+The user explicitly requires avoiding needless complexity across all project work. **Choose the simplest correct, maintainable path that produces the required real outcome.** Before adding a step, ask whether omitting it would materially harm correctness, provenance, acceptance, or delivery; if not, omit it. Reuse already verified sources, tools and implementations before creating new abstractions, helpers, reports, checks or workflows. Do not expand a bounded task after its acceptance criteria are met merely because more detail can be explored; move to the next material priority. Treat unnecessary duplication, speculative engineering and process-for-process's-sake as execution defects to correct, not as progress.
+
+This rule does **not** weaken historical-source fidelity, deterministic correctness, copyright/security boundaries, mandatory verification or remote-publication safety. The minimum effective work-unit duration, where applicable, means progressing to adjacent valuable work, never padding a task with irrelevant work.
