@@ -1,0 +1,95 @@
+{
+  "schema": "TIANWEN-13MM-GORYEOSA-D16-RECEIVED-DISCREPANCY-1569-PRINT-GATE-R1",
+  "date": "2026-10-31",
+  "issue_id": "TW-OPEN-0005",
+  "evidence_grade": "RECEIVED_TEXT_FIVE_DAY_ARITHMETIC_DIAGNOSIS_WITH_PRIOR_1569_DIRECT_ORIGINAL_PRINT; NOT_G893_PHYSICAL_NUMERIC_ADJUDICATION",
+  "source_layers": {
+    "official_korean_received": {
+      "provider": "National Institute of Korean History / Korean History Database",
+      "url": "https://db.history.go.kr/id/kr_052r_0010_0010_0020_0010",
+      "work": "高麗史卷五十二 授時曆立成 太陽盈初縮末",
+      "layer": "MODERN_OFFICIAL_RECEIVED_TRANSLATION_AND_TRANSCRIPTION_NOT_SCANNED_PHYSICAL_FOLIO",
+      "data_scope": "D14–D18 source-emitted received day/column data",
+      "day_index": [
+        14,
+        15,
+        16,
+        17,
+        18
+      ],
+      "received_day_difference": [
+        "5.1990",
+        "5.2176",
+        "5.1362",
+        "5.2548",
+        "5.2734"
+      ]
+    },
+    "wikisource_received": {
+      "url": "https://zh.wikisource.org/zh-hant/高麗史/卷五十二",
+      "day16_string": "五分一三六二",
+      "role": "PARALLEL_ONLINE_RECEIVED_TEXT_NOT_AN_INDEPENDENT_PRINT_OR_WITNESS_VOTE",
+      "physical_copy_bound": false
+    },
+    "zhouxiang_1569_original": {
+      "prior_evidence": "docs/research/TIANWEN-13MJ-ZHOUXIANG-1569-D15-D17-PRINTED-SOURCE-VS-G893-GATE-R1.json",
+      "pdf_url": "https://www.kotenmon.com/cal/arabe/vol6.pdf",
+      "pdf_sha256": "4c006b7ce131902fe33012d42f62cd2bbc2140affa3d5886e0da02966352cb7c",
+      "page_1based": 15,
+      "page_rgb_sha256": "7b35af0e1e802c9346c927a02c67d1681e01b5120c3cf891160126f2018478d5",
+      "crop_rgb_sha256": "72f4069db6044ce0b77f85259303c830b4f1cd14407469f73ac37e6d00632e41",
+      "printed_day_index": [
+        15,
+        16,
+        17
+      ],
+      "printed_decimals": [
+        "5.2176",
+        "5.2362",
+        "5.2548"
+      ],
+      "scope": "SAME_1569_ORIGINAL_PRINT_TRIPLET_ONLY; CROSS_BOOK_FIELD_UNIT_IDENTITY_UNPROVEN"
+    },
+    "g893_original": {
+      "prior_evidence": "docs/research/TIANWEN-13ML-G893-ORIGINAL-FOLIO-SEAM-D9-D19-HEADER-GEOMETRY-R1.json",
+      "source": "Kyujanggak GK00893_00 ONE DIGITAL SURROGATE",
+      "page_001a_sha256": "8b07513ca8aad42ae167a93f22c39f14850c8cd1c345db9ce98c1e0e769226a5",
+      "page_002b_sha256": "f9812e8c6a357eb6cd1117bb2af58d816e01030d5b93f34e7094bddb766b2b55",
+      "header_001a_observed": "加一秒八十六少",
+      "page_002b_D16_day_heading_verified": true,
+      "page_002b_D16_exact_numeric_lane_collected_for_this_batch": false,
+      "role": "ORIGINAL_DAY_HEADING_AND_HEADER_PRESENT; D16_FULL_FIELD_AND_RADIX_UNRESOLVED"
+    }
+  },
+  "arithmetic": {
+    "source_field": "RECEIVED_DAY_DIFFERENCE_FIVE_DAYS_ONLY",
+    "normal_increment": "0.0186",
+    "d15_minus_d14": "0.0186",
+    "received_d16_minus_d15": "-0.0814",
+    "received_d17_minus_d16": "0.1186",
+    "d18_minus_d17": "0.0186",
+    "interpolated_d16_from_neighbors": "5.2362",
+    "received_d16": "5.1362",
+    "received_d16_minus_interpolated": "-0.1000",
+    "independent_1569_print_d16": "5.2362",
+    "exact_digit_replacement_candidate": "5.1362 -> 5.2362 (tenths digit, received-text candidate only)",
+    "conclusion": "RECEIVED_TEXT_SINGLE_DIGIT_OUTLIER_WITH_INDEPENDENT_PRINT_ARITHMETIC_CORROBORATION_NOT_PROVEN_ORIGINAL_G893_EMENDATION"
+  },
+  "safeguards": {
+    "online_transcriptions_are_independent_print_votes": false,
+    "received_d16_anomaly_proves_korean_physical_typo": false,
+    "independent_original_print_proves_G893_same_numeric_column": false,
+    "G893_001a_to_002b_D16_full_field_and_radix_bound": false,
+    "cross_original_G893_six_historical_winners": 0,
+    "new_registry_sources": 0,
+    "new_independent_physical_copies": 0,
+    "matrix_rows_changed": 0,
+    "graph_nodes_added": 0,
+    "graph_edges_added": 0,
+    "candidate_collapse": 0,
+    "algorithm_reopens": 0,
+    "product": "CLOSED",
+    "transmission_impact": "NONE; original 1569 historical image was registered in 13MJ; received text similarity does not establish physical-copy lineage."
+  },
+  "next_action": "13MM EVIDENCE BOUNDARY: Acquire/review original G893 001a label-to-002b D16 exact vertical numeric lane with source-native pixels and day-index/field/radix; separately identify 1569 physical impression before any six historical numeric winner. Do not equate two online Korean received renderings with two physical witnesses."
+}
