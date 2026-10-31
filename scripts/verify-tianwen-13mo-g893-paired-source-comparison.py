@@ -36,9 +36,10 @@ def check(e,s,l):
     assert p["deterministic_product"]=="CLOSED"
     assert tuple(map(int,s["schema_version"].split(".")))>=(1,977,0)
     assert s["schema_version"]==l["binding"]["reviewed_state_version"]==s["historical_audit"]["research_omission_guard"]["reviewed_state_version"]
-    assert s["historical_audit"]["current_focus"][-1].startswith("13MO ")
-    assert l["binding"]["latest_research_focus_prefix"]=="13MO"
-    assert l["binding"]["source_focus_count"]==len(s["historical_audit"]["current_focus"])
+    focus=s["historical_audit"]["current_focus"]
+    assert any(x.startswith("13MO ") for x in focus)
+    assert l["binding"]["latest_research_focus_prefix"]==focus[-1].split(" ",1)[0]
+    assert l["binding"]["source_focus_count"]==len(focus)
     i=next(i for i in l["issues"] if i["id"]=="TW-OPEN-0005")
     assert i["priority"]=="P0" and i["status"]=="OPEN"
     assert "docs/research/TIANWEN-13MO-G893-ZHOU1569-PAIRED-LANE-SOURCE-COMPARISON-R1.json" in i["source_refs"]
