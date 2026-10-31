@@ -1,0 +1,105 @@
+{
+  "schema": "TIANWEN-13MQ-G893-ZHOU1569-D15-SECOND-LANE-ORIGINAL-PRINT-SCOPE-R1",
+  "date": "2026-10-31",
+  "issue_id": "TW-OPEN-0005",
+  "evidence_class": "DIRECT_ORIGINAL_D15_TWO-SOURCE_NONIDENTICAL_PRINTED_SECOND_NUMERIC_STRING; NOT_FIELD_UNIT_OR_LINEAGE_PROOF",
+  "provenance": {
+    "archive_run_id": 41144025711,
+    "artifact_id": 13019278183,
+    "zip_sha256": "1d8f10da7c27411bf38ad635494a1b9f4e700fb76cb37b2a7541c075a0ca9835",
+    "same_source_objects_reused": true,
+    "new_digital_source_objects": 0,
+    "new_physical_copies": 0,
+    "ocr_used": false,
+    "g893_original_page": "002b",
+    "g893_original_jpg_sha256": "f9812e8c6a357eb6cd1117bb2af58d816e01030d5b93f34e7094bddb766b2b55",
+    "zhou1569_original_url": "https://www.kotenmon.com/cal/arabe/vol6.pdf",
+    "zhou1569_pdf_sha256": "4c006b7ce131902fe33012d42f62cd2bbc2140affa3d5886e0da02966352cb7c",
+    "zhou1569_pdf_page_1based": 15,
+    "zhou1569_pdf_render": "PyMuPDF 2.5x, RGB alpha=False, one-based p15"
+  },
+  "original_roi_controls": [
+    {
+      "source": "G893_GK00893_00",
+      "page": "002b",
+      "role": "D15_PRINTED_LONG_LANE",
+      "pixel_space": "NATIVE_JPEG_RGB",
+      "box": [
+        824,
+        640,
+        868,
+        1435
+      ],
+      "rgb_sha256": "776e4a255da4787856b45298b2a3924d2d979e83b42e05b426f34151fd84c824",
+      "source_original_reading": "四百三十四分八二四九",
+      "normalized_hypothesis": "434.8249",
+      "prior_evidence": "docs/research/TIANWEN-12YG-G893-SEVEN-DAY-SOLAR-DECREASING-LANE-SECOND-ERRATUM-R1.json"
+    },
+    {
+      "source": "ZHOU_XIANG_1569",
+      "page": 15,
+      "role": "D15_PRINTED_OTHER_NUMERIC_LANE",
+      "pixel_space": "PDF_250_PERCENT_RGB",
+      "box": [
+        1295,
+        70,
+        1353,
+        1370
+      ],
+      "rgb_sha256": "188a2d98f567bf4c5c90cbd9dcb3bb4c0cbb86b097ec3f07196bf168413b0c94",
+      "source_original_reading_prefix": "七千一百",
+      "source_original_reading_full": "七千一百三十五分八三七五",
+      "numeric_normalization_status": "NOT_ASSIGNED_NO_SHARED_FIELD_UNIT_GATE"
+    },
+    {
+      "source": "ZHOU_XIANG_1569",
+      "page": 15,
+      "role": "D15_DATE_AND_TWO_LANE_CONTEXT",
+      "pixel_space": "PDF_250_PERCENT_RGB",
+      "box": [
+        1240,
+        50,
+        1370,
+        1390
+      ],
+      "rgb_sha256": "482656d6462165504d2b9c72b2b8d1b2e7057339bbd733300add22e4c4bca3c0",
+      "source_original_reading": "十五日 / 二一七六 / 七千一百三十五分八三七五",
+      "context_only": true
+    }
+  ],
+  "reading_adjudication": {
+    "compared_day": 15,
+    "g893_other_column_print": "四百三十四分八二四九",
+    "zhou_other_column_print": "七千一百三十五分八三七五",
+    "cross_source_D15_second_column_printed_strings_equal": false,
+    "cross_source_D15_short_string_agreement": "5.2176",
+    "cross_source_D16_D17_short_string_agreement": [
+      "5.2362",
+      "5.2548"
+    ],
+    "short_string_agreement_is_not_field_identity": true,
+    "numerically_normalized_zhou_second_column_value": null,
+    "source_header_label_and_column_unit_crosswalk": "OPEN",
+    "source_1569_specific_physical_impression": "UNBOUND",
+    "mechanical_same_field_or_equivalent_epoch": "NOT_PROVEN",
+    "direct_textual_copying": "NOT_PROVEN",
+    "note": "D15 nonidentity is an original-print STRING comparison between two visually located columns only. It does not establish whether second columns represent the same quantity; do not count the difference as a historical algorithm contradiction or declare a corruption."
+  },
+  "scope_guard": {
+    "source_registry_total_unique": 765,
+    "matrix_rows": 222,
+    "matrix_audited": 222,
+    "graph_nodes": 252,
+    "graph_edges": 238,
+    "open_issue_count": 11,
+    "issue_status": "P0_OPEN",
+    "G893_six_cross_original_historical_winners": 0,
+    "new_historical_source_count": 0,
+    "new_physical_copy_count": 0,
+    "graph_edge_additions": 0,
+    "algorithm_reopens": 0,
+    "deterministic_product": "CLOSED",
+    "transmission_impact": "NONE; identical short numerals and nonidentical second-column originals do not prove lineage."
+  },
+  "next_action": "Source-native head-column coordinate bridging in each physical copy, 1569 table field definitions, units and calendar epoch, independent physical impression and source identity. No numeric winner until complete source-scoped proof."
+}
