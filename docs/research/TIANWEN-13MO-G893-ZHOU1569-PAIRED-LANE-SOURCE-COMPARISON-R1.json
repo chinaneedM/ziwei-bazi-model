@@ -1,0 +1,145 @@
+{
+  "schema": "TIANWEN-13MO-G893-ZHOU1569-PAIRED-LANE-SOURCE-COMPARISON-R1",
+  "date": "2026-10-31",
+  "issue_id": "TW-OPEN-0005",
+  "evidence_class": "REPLAYED_PREVIOUSLY_ARCHIVED_DIRECT_ORIGINAL_TWO-LANE_BOUNDED_IMAGE_COMPARISON",
+  "archive": {
+    "run_id": 41144025711,
+    "artifact_id": 13019278183,
+    "zip_sha256": "1d8f10da7c27411bf38ad635494a1b9f4e700fb76cb37b2a7541c075a0ca9835",
+    "archive_retrieved_again": true,
+    "new_physical_copy": false,
+    "ocr": false
+  },
+  "g893": {
+    "copy": "Kyujanggak GK00893_00 / 奎貴893",
+    "header_page": "001a",
+    "header_jpeg_sha256": "8b07513ca8aad42ae167a93f22c39f14850c8cd1c345db9ce98c1e0e769226a5",
+    "observed_header_terms": [
+      "積日",
+      "日差",
+      "盈縮加分",
+      "盈縮積度"
+    ],
+    "header_minor_unit_glyph": "少",
+    "numeric_page": "002b",
+    "jpeg_sha256": "f9812e8c6a357eb6cd1117bb2af58d816e01030d5b93f34e7094bddb766b2b55",
+    "rgb_sha256": "e3eca1b8f979c1de7ccc5e924d2d493288e7764f92e0a77ad96cf26e80c987f7",
+    "page_pixels": [
+      1150,
+      2000
+    ],
+    "bounded_native_rgb_crops": [
+      {
+        "role": "header-field-review",
+        "page": "001a",
+        "box": [
+          570,
+          600,
+          770,
+          1210
+        ],
+        "rgb_sha256": "2d6970c987306c5fc47eb8f7443791ef750b1da33c17983ebf951ceb433a8916"
+      },
+      {
+        "role": "d15-d17-two-lane-visual-context",
+        "page": "002b",
+        "box": [
+          390,
+          210,
+          1010,
+          1450
+        ],
+        "rgb_sha256": "41540120918ba8de4d9844740952f965d903c6c713b9b524ac8305c5c288f23f"
+      },
+      {
+        "role": "d16-two-lane-visual-context",
+        "page": "002b",
+        "box": [
+          570,
+          650,
+          820,
+          1420
+        ],
+        "rgb_sha256": "ff5787e4ce6c09855f6c27e2f1b438762982aaf84520aa44b75fbf79eaa322f6"
+      }
+    ]
+  },
+  "zhou1569": {
+    "source": "周相《大明大統曆法》卷六，公開1569本影印",
+    "url": "https://www.kotenmon.com/cal/arabe/vol6.pdf",
+    "pdf_sha256": "4c006b7ce131902fe33012d42f62cd2bbc2140affa3d5886e0da02966352cb7c",
+    "total_pages": 45,
+    "table_head_page": 14,
+    "numeric_page": 15,
+    "source_table_heading": "太陽冬至前後立成卷第二",
+    "render": "PyMuPDF 2.5x, RGB, alpha=False, original PDF pages 14/15 (1-based)",
+    "bounded_native_rgb_crops": [
+      {
+        "page": 14,
+        "box": [
+          840,
+          65,
+          1120,
+          1400
+        ],
+        "rgb_sha256": "27eb88c45cb2f9c2c3d550a7134a76fbd9ca053f244d8ebc4624ac4f4a565d4c"
+      },
+      {
+        "page": 15,
+        "box": [
+          1130,
+          70,
+          1410,
+          1340
+        ],
+        "rgb_sha256": "328833c306e7976545bb0337a573d78c39492ee19df3210e40cf7f7cc3cb298f"
+      }
+    ]
+  },
+  "paired_column_transcriptions": [
+    {
+      "day": 15,
+      "short": "5.2176",
+      "long": "434.8249",
+      "original_scope": "PRINTED_DAY_PLUS_SHORT_NUMERALS; LONG_NORMALIZED_BY_TABLE_COLUMN_CONTEXT"
+    },
+    {
+      "day": 16,
+      "short": "5.2362",
+      "long": "429.6073",
+      "original_scope": "PRINTED_DAY_PLUS_SHORT_NUMERALS; LONG_NORMALIZED_BY_TABLE_COLUMN_CONTEXT"
+    },
+    {
+      "day": 17,
+      "short": "5.2548",
+      "long": "424.3711",
+      "original_scope": "PRINTED_DAY_PLUS_SHORT_NUMERALS; LONG_NORMALIZED_BY_TABLE_COLUMN_CONTEXT"
+    }
+  ],
+  "local_exact_decimal_checks": {
+    "short_step_15_to_16": "0.0186",
+    "short_step_16_to_17": "0.0186",
+    "long_15_minus_short_15_equals_long_16": true,
+    "long_16_minus_short_16_equals_long_17": true,
+    "cross_source_two_lane_display_agreement": "BOUNDED_PRINTED_NUMERAL_CONGRUENCE_NOT_CERTIFIED_SAME_FIELD_UNIT_OR_EPOCH"
+  },
+  "limits": {
+    "same_source_g893_001a_to_002b_layout_consistent": true,
+    "source_original_rows_in_both_documents_reinspected": true,
+    "zhous_1569_physical_impression_catalog_independence_bound": false,
+    "full_field_header_unit_radix_day_anchor_identity_bound": false,
+    "direct_copying_or_same_archetype_proved": false,
+    "received_goryeosa_d16_5_1362_not_emended_as_physical_original": true,
+    "historical_cross_original_six_target_winners": 0,
+    "registered_sources_added": 0,
+    "new_copies_added": 0,
+    "matrix_rows_changed": 0,
+    "graph_nodes_changed": 0,
+    "graph_edges_changed": 0,
+    "algorithm_reopens": 0,
+    "deterministic_product": "CLOSED",
+    "transmission_impact": "NONE; numerical congruence is not a direct historical copying edge."
+  },
+  "next_action": "Original-column heading/units and calendar epoch plus specific 1569 surviving copy/impression need independent evidence before source-field identity or six-target historical verdict."
+}
