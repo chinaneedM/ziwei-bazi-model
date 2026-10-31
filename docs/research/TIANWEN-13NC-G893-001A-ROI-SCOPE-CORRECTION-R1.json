@@ -1,0 +1,151 @@
+{
+  "schema": "TIANWEN-13NC-G893-001A-ROI-SCOPE-CORRECTION-R1",
+  "date": "2026-10-31",
+  "issue_id": "TW-OPEN-0005",
+  "source": {
+    "provider": "Seoul National University Kyujanggak",
+    "holding": "奎貴893 / GK00893_00",
+    "page": "001a",
+    "image_sha256": "8b07513ca8aad42ae167a93f22c39f14850c8cd1c345db9ce98c1e0e769226a5",
+    "image_rgb_sha256": "653e1d9d91c754695ac43f96ca86afef44fd8c4b39c5cd1c9e26b475a58d2636",
+    "image_dimensions": [
+      1150,
+      2000
+    ],
+    "workflow_run": 41144025711,
+    "artifact_id": 13019278183,
+    "archive_zip_sha256": "1d8f10da7c27411bf38ad635494a1b9f4e700fb76cb37b2a7541c075a0ca9835",
+    "same_copy_as_13nb": true,
+    "no_ocr": true
+  },
+  "grade": "SOURCE_NATIVE_RGB_ROI_COVERAGE_REPLAY_AND_FORWARD_ONLY_SCOPE_ERRATUM",
+  "prior_claim": {
+    "document": "docs/research/TIANWEN-13NB-G893-001A-D0-D2-DUAL-NUMERIC-LANE-R1.json",
+    "claim": "13NB describes each per-day old ROI as supporting both original decreasing M and short S in a paired-lane reading",
+    "correction": "The exact old ROI hashes replay, but the narrow x ranges do not contain the complete two separately printed numeral lanes. They directly cover the short strings and adjacent geometry. They alone cannot prove a full second original M reading or its day/header attribution.",
+    "old_rois": [
+      {
+        "day": 0,
+        "box": [
+          536,
+          685,
+          644,
+          1360
+        ],
+        "rgb_sha256": "5096cb54f83bdf541ce268fc5692db3813a64ade8db8523d724dfbc4ac542513"
+      },
+      {
+        "day": 1,
+        "box": [
+          341,
+          685,
+          455,
+          1360
+        ],
+        "rgb_sha256": "5e5a596657226e65ae52b805ac8df79deab6b32b50ddd69d4b9708acaa1608fc"
+      },
+      {
+        "day": 2,
+        "box": [
+          145,
+          685,
+          251,
+          1360
+        ],
+        "rgb_sha256": "514105bc5827624c31c69fd79c9b0299e15fcd357e2171d11d0bdb1e1f19272d"
+      }
+    ],
+    "status": "PREVIOUS_DUAL_LANE_ROI_SUFFICIENCY_WITHDRAWN_SOURCE_ORIGINAL_RETAINED"
+  },
+  "new_wider_source_native_rgb_rois": [
+    {
+      "label": "RIGHT_EARLY_GROUP_NEIGHBORHOOD",
+      "box": [
+        347,
+        665,
+        643,
+        1515
+      ],
+      "rgb_sha256": "258c189f5dd3fd5dcf9bdac17538625b6a42967e9063793b458d8eee9ad2a30c"
+    },
+    {
+      "label": "MIDDLE_EARLY_GROUP_NEIGHBORHOOD",
+      "box": [
+        192,
+        665,
+        454,
+        1515
+      ],
+      "rgb_sha256": "92640869365e888c7e22aa802ff555dd50331295a5e16459750e8aba894a7498"
+    },
+    {
+      "label": "LEFT_EARLY_GROUP_NEIGHBORHOOD",
+      "box": [
+        0,
+        665,
+        251,
+        1515
+      ],
+      "rgb_sha256": "1effe5404bc3dcf6b27abb60a85a3b9940dc74c73bdb036a3ded77cf175e012c"
+    },
+    {
+      "label": "PRINTED_SOURCE_HEADER_NEIGHBORHOOD",
+      "box": [
+        522,
+        665,
+        851,
+        1450
+      ],
+      "rgb_sha256": "41d76ef2ce5a89b6308f5ae300c4297d2afd503a9cb096726f9260f1d7ade799"
+    },
+    {
+      "label": "EARLY_TABLE_WITH_DAY_HEADINGS",
+      "box": [
+        0,
+        212,
+        851,
+        1515
+      ],
+      "rgb_sha256": "1b4c15d77186d4c2f45b1958b9142778e9e264dd32d80857a98b74632e6f37c8"
+    }
+  ],
+  "crop_digest_method": "Pillow Image.open(source original JPEG).convert('RGB').crop((left,top,right,bottom)).tobytes(), SHA256; zero-based pixel xyxy; no resampled pixels used for SHA",
+  "image_visual_observations": {
+    "day_headers": [
+      "初日",
+      "一日",
+      "二日"
+    ],
+    "first_three_short_numerals": [
+      "四分九三八六",
+      "四分九五七二",
+      "四分九七五八"
+    ],
+    "same_page_prior_known_header": "日差加一秒八十六少",
+    "header_scope": "Visible glyph is 少, not automatically converted to 微; header and numeric day-to-field mapping remains edition-and-unit scoped",
+    "separately_printed_neighboring_long_numerals_present": true
+  },
+  "arithmetic_scope": "Prior 13NB decimal M0-M1=S0 and M1-M2=S1 remains a correct arithmetic calculation on transcribed numbers; this batch does NOT newly certify all values as paired fully cropped original glyphs with exact historical day/field meaning.",
+  "unresolved": [
+    "full original source-printed M-to-S day/field geometry for 001a to 002b",
+    "explicit units/radix and 少 versus later 微",
+    "cross-book Ming 1569 field equivalence, absolute epoch and independent impression",
+    "NAAJ exact official 子051-0003 sixth-fascicle item/copy"
+  ],
+  "status": {
+    "tw_open_0005": "P0_OPEN",
+    "g893_six_final_historical_winners": 0,
+    "source_registry_total": 765,
+    "matrix_rows": 222,
+    "matrix_audited": 222,
+    "genealogy_nodes": 252,
+    "genealogy_edges": 238,
+    "open_issues": 11,
+    "product": "CLOSED",
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0
+  },
+  "new_historical_physical_witnesses": 0,
+  "new_source_registry_entries": 0,
+  "new_genealogy_nodes_or_edges": 0
+}
