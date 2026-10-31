@@ -54,7 +54,7 @@ def check(e,p,s,l):
  issue=next(i for i in l["issues"] if i["id"]=="TW-OPEN-0005")
  assert issue["priority"]=="P0" and issue["status"]=="OPEN"
  assert str(P.relative_to(R)) in issue["source_refs"]
- assert any(x["revision_id"]=="TW-OPEN-0005-13MP-PIXEL-REPLAY-20261031" for x in issue["history"])
+ assert any(x.get("revision_id")=="TW-OPEN-0005-13MP-PIXEL-REPLAY-20261031" for x in issue["history"])
  assert any(x["id"]=="OMISSIONS-13MP-G893-PIXEL-REPLAY-20261031" for x in l["checkpoint_log"])
  assert s["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED"
  return {"status":"PASS","source_image_hash_replay":"NOT_EXECUTED_WITHOUT_ARCHIVE"}

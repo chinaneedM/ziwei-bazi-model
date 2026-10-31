@@ -12,6 +12,17 @@ class OriginalArchiveGate(unittest.TestCase):
   got=v.check(self.e,self.p,self.s,self.l)
   self.assertEqual(got["status"],"PASS")
   self.assertEqual(got["source_image_hash_replay"],"NOT_EXECUTED_WITHOUT_ARCHIVE")
+ def test_historical_nonrevision_events_are_valid(self):
+  # Earlier history legitimately includes original admission/nonrevision entries.
+  l=copy.deepcopy(self.l)
+  issue=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
+  issue["history"].insert(0,{"event":"LEGACY_ADMISSION","date":"2026-10-15"})
+  self.assertEqual(v.check(self.e,self.p,self.s,l)["status"],"PASS")
+ def test_missing_specific_13mp_revision_is_rejected(self):
+  l=copy.deepcopy(self.l)
+  issue=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
+  issue["history"]=[x for x in issue["history"] if x.get("revision_id")!="TW-OPEN-0005-13MP-PIXEL-REPLAY-20261031"]
+  with self.assertRaises(AssertionError):v.check(self.e,self.p,self.s,l)
  def test_source_sublane_tamper_rejected(self):
   e=copy.deepcopy(self.e)
   e["paired_column_transcriptions"][1]["short"]="5.1362"
