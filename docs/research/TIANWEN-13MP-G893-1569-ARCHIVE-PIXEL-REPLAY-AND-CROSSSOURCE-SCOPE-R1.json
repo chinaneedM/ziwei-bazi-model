@@ -1,0 +1,83 @@
+{
+  "schema": "TIANWEN-13MP-G893-1569-ARCHIVE-PIXEL-REPLAY-AND-CROSSSOURCE-SCOPE-R1",
+  "date": "2026-10-31",
+  "issue_id": "TW-OPEN-0005",
+  "classification": "SOURCE_PIXEL_REPLAY_POSITIVE_AND_CROSSSOURCE_SCOPE_CORRECTION",
+  "input_evidence": "docs/research/TIANWEN-13MO-G893-ZHOU1569-PAIRED-LANE-SOURCE-COMPARISON-R1.json",
+  "archived_original": {
+    "run_id": 41144025711,
+    "artifact_id": 13019278183,
+    "zip_sha256": "1d8f10da7c27411bf38ad635494a1b9f4e700fb76cb37b2a7541c075a0ca9835",
+    "zip_crc_pass": true,
+    "retrieved_again_this_session": true,
+    "verified_no_ocr": true,
+    "source_files": [
+      {
+        "filename": "G893-001a.jpg",
+        "sha256": "8b07513ca8aad42ae167a93f22c39f14850c8cd1c345db9ce98c1e0e769226a5",
+        "native_rgb_sha256": "653e1d9d91c754695ac43f96ca86afef44fd8c4b39c5cd1c9e26b475a58d2636"
+      },
+      {
+        "filename": "G893-002b.jpg",
+        "sha256": "f9812e8c6a357eb6cd1117bb2af58d816e01030d5b93f34e7094bddb766b2b55",
+        "native_rgb_sha256": "e3eca1b8f979c1de7ccc5e924d2d493288e7764f92e0a77ad96cf26e80c987f7"
+      },
+      {
+        "filename": "zhouxiang-1569-vol6-original.pdf",
+        "sha256": "4c006b7ce131902fe33012d42f62cd2bbc2140affa3d5886e0da02966352cb7c"
+      }
+    ],
+    "native_rgb_crop_count": 5,
+    "source_page_crops": 3,
+    "zhou_pdf_page_crops": 2,
+    "rendering_for_zhou_pdf": "PyMuPDF 2.5 x matrix RGB alpha false, one-based p14 and p15",
+    "python_pixel_replay_in_this_session": "PASS"
+  },
+  "source_field_scope": {
+    "g893_original_001a_header_terms": [
+      "積日",
+      "日差",
+      "盈縮加分",
+      "盈縮積度"
+    ],
+    "g893_source_original_001a_minor_glyph": "少",
+    "g893_original_002b_short_15_16_17": [
+      "5.2176",
+      "5.2362",
+      "5.2548"
+    ],
+    "g893_original_002b_long_15_16_17": [
+      "434.8249",
+      "429.6073",
+      "424.3711"
+    ],
+    "g893_short_difference_15_16_17": "0.0186",
+    "g893_same_copy_long_subtraction_edges": 2,
+    "zhou1569_p15_short_numeric_strings_match_g893": true,
+    "zhou1569_other_column_field_identity_to_g893_long": "NOT_PROVEN",
+    "zhou1569_other_column_normalized_values_claimed_equal_to_g893_long": false,
+    "short_numeric_match_does_not_prove_unit_epoch_or_causal_copy": true,
+    "received_goryeosa_d16": "5.1362",
+    "g893_original_d16": "5.2362",
+    "original_impression_independence_and_lineage": "UNRESOLVED",
+    "scope_erratum": "13MO worded 'paired numeric congruence / corresponding arrangement' too broadly if read as BOTH numerical sublanes matching the two different sources. Read 13MO as G893 SAME-COPY paired numerical recurrence PLUS G893-Zhou CROSS-SOURCE SHORT numerical string match only. Neither second cross-source long-lane equality nor field/unit lineage is proven."
+  },
+  "regression": {
+    "scope": "13MO verifier formerly tied latest_focus to 13MO; amended to require 13MO preserved while allowing later current_focus prefixes.",
+    "preserve_old_record_forward_only": true,
+    "run_without_archive_must_report": "NOT_EXECUTED_WITHOUT_ARCHIVE",
+    "archive_replay_requires_exact_sha_crc_native_pixels": true
+  },
+  "invariants": {
+    "historical_cross_original_six_winners": 0,
+    "source_registry_delta": 0,
+    "physical_copy_delta": 0,
+    "matrix_delta": 0,
+    "graph_node_delta": 0,
+    "graph_edge_delta": 0,
+    "algorithm_reopen": 0,
+    "deterministic_product": "CLOSED",
+    "transmission_impact": "NONE; same numerical strings without historical copying proof."
+  },
+  "next": "Bound full 001a source table fields and both 002b sublanes to independent unit/radix/day epoch proof, identify physical impression of 1569 witness, and check whether second source column genuinely corresponds; preserve TW-OPEN-0005 P0 OPEN."
+}
