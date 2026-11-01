@@ -1,0 +1,105 @@
+{
+  "schema": "TIANWEN-13NI-MINGSHI-DRAFT-AND-TWO-ORIGINAL-CROSSCHECK-R1",
+  "date": "2026-11-01",
+  "issue": "TW-OPEN-0005",
+  "type": "FORWARD_ONLY_13NH_ORIGINAL_SOURCE_CROSS_REFERENCE_PLUS_ONE_NEW_DRAFT_DIGITAL_LOCUS",
+  "reused_direct_original_image_evidence": [
+    {
+      "source_doc": "docs/research/TIANWEN-12YM-MINGSHI-V33-CADAL-DIRECT-ORIGINAL-DUAL-LOCUS-R1.json",
+      "source": "CADAL06056955 digitized Siku-format 明史卷33 PDF p58",
+      "original_first_intermediate": "一秒三十六微",
+      "original_final": "四分九十三秒八十六微",
+      "copy_age": "UNVERIFIED",
+      "notes": "Already image/SHA collated in 12YM; intermediate conflicts with its own 31×6, not freshly recaptured or newly authenticated"
+    },
+    {
+      "source_doc": "docs/research/TIANWEN-12YN-NLC1892-MINGSHI-V33-PRINTED-TWO-LOCUS-R1.json",
+      "source": "NLC892-312002017339-363680 卷33 PDF p62 catalogued 1892 石印",
+      "original_first_intermediate": "一秒八十六微",
+      "original_final": "四分九十三秒八十六微",
+      "copy_age": "CATALOGUED_QING_GUANGXU_18_1892_LITHOGRAPH",
+      "notes": "Previously image/SHA collated in 12YN; catalogued lithograph not automatically 1739 original print"
+    }
+  ],
+  "new_received_draft_text": {
+    "work": "王鴻緒 明史稿 卷二十九／志第十 曆三",
+    "provider": "识典古籍 digital edition NA03560",
+    "uri": "https://www.shidianguji.com/zh/book/NA03560/chapter/1m8gn3gv7bkms",
+    "digital_reading_first": "一秒八十六微",
+    "digital_reading_final": "四分九十三秒八十六微",
+    "grade": "INDEXED_RECEIVED_DIGITAL_TEXT_NOT_NATIVE_PHYSICAL_PAGE",
+    "date_and_edition_scope": "王鴻緒 version of 明史稿 was presented in 1723 per Li Liang scholarly research; NA03560 physical edition/impression, original folio and text lineage NOT YET PROVEN",
+    "not_equivalent": "This is a distinct work/redaction locator, not an independent physical impression vote from its digital transcript"
+  },
+  "other_late_received_scopes": [
+    {
+      "work": "明史 卷33 common Wikisource transcript",
+      "uri": "https://zh.wikisource.org/wiki/明史/卷33",
+      "first": "一秒八十六微",
+      "final": "四分九十二秒八十六微",
+      "grade": "DIGITAL_TRANSCRIPTION_NOT_AUTHENTICATED_ORIGINAL_PRINT"
+    },
+    {
+      "work": "明史 四庫全書本 Wikisource",
+      "uri": "https://zh.wikisource.org/wiki/明史_(四庫全書本)/卷033",
+      "first": "一秒三十六微",
+      "final": "四分九十三秒八十六微",
+      "grade": "EDITION_LABELED_DIGITAL_RECEIVED_TEXT_NOT_SAME_PHYSICAL_COPY_PROOF"
+    },
+    {
+      "work": "梅文鼎 大統曆志 卷三",
+      "uri": "https://www.shidianguji.com/zh/book/SK1539/chapter/1la1487n41uf3",
+      "first": "一秒八十六微",
+      "final": "四分九十三秒八十六微",
+      "grade": "LATER_RECEIVED_DIGITAL_TEXT_NOT_ORIGINAL_FOLIO"
+    }
+  ],
+  "secondary_bibliography": {
+    "author": "李亮",
+    "paper": "《明史》历志中大统和回回历法的编修",
+    "journal": "中国科技史杂志",
+    "date": "2018-12-15",
+    "uri": "https://zgks.cbpt.cnki.net/portal/journal/portal/client/paper/498caf05248bd52332bb562d1afc3431",
+    "role": "REDACTION_CONTEXT_ONLY_NOT_PRIMARY_NUMERIC_PRINT_WITNESS",
+    "claims": "王鸿绪 draft presented 1723; 张廷玉 final work presentation 1735 and printed 1739; source print/surrogate dating separate"
+  },
+  "arithmetic_scope": {
+    "base100": "2×2.46+6×31/10000",
+    "consistent": "4.9386",
+    "inconsistent_common_digital": "4.9286",
+    "physical_originals_consistent_final_count": 2,
+    "distinct_historical_stemmatic_roots_proven": 0
+  },
+  "adjudication": [
+    "13NH online 92-versus-93 comparison lacked the already committed 12YM/12YN two direct-original 93 final readings: supply a forward-only missing-cross-reference correction.",
+    "Local later-scheme value 4.9386 has two scoped existing image-collected printed supports; no need to re-download or re-count them as fresh sources.",
+    "Online 4.9286 is arithmetically inconsistent and currently unsupported by either of those two scanned print loci; cannot infer absence in every edition or prove modern transcription origin.",
+    "Wang earlier 明史稿 digital received text makes the historical redaction distinction a real research lead, but no edition-scoped physical proof or direct predecessor edge is awarded.",
+    "No bearing on G893 original 少/微 radix or production precision; no six cross-edition historic winners adjudicated."
+  ],
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Wang 1723 composition context + same received 93 value do not prove exact editorial-copying pathway to 1739 MingShi."
+    ],
+    "unresolved_lineage_questions": [
+      "What are the physical NA03560 明史稿 volume29 original printed numeral and copy date?",
+      "Does any original MingShi copy genuinely print 92 final, or is it exclusively online text?"
+    ]
+  },
+  "invariants": {
+    "registered_sources_after": 766,
+    "source_registry_root": 647,
+    "source_extensions_after": 119,
+    "matrix": "222/222",
+    "genealogy_nodes": 252,
+    "genealogy_edges": 238,
+    "open_issues": 11,
+    "G893_global_historical_controls": "0/6",
+    "chart": "CLOSED",
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0
+  }
+}
