@@ -12,12 +12,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with: {persist-credentials: true}
+      - name: Install PDF source parser
+        run: python -m pip install 'pymupdf>=1.24,<2'
       - name: Acquire source PDF and extract two original folios
         shell: bash
         run: |
           set -euo pipefail
           python - <<'PY'
-          import hashlib, json, pathlib, re, subprocess, urllib.parse, urllib.request
+          import hashlib, json, pathlib, urllib.parse, urllib.request, fitz
           out=pathlib.Path('docs/research/evidence/13nv')
           out.mkdir(parents=True,exist_ok=True)
           filename='NLC892-CBM1408-371938_古今律曆考_七十二卷_第19冊.pdf'
@@ -29,10 +31,14 @@ jobs:
           assert len(pdfbytes)==16674606, f'Unexpected PDF length: {len(pdfbytes)}'
           pdf=pathlib.Path('/tmp/tianwen-13nv-source.pdf')
           pdf.write_bytes(pdfbytes)
-          info=subprocess.run(['pdfinfo',str(pdf)],capture_output=True,text=True,check=True).stdout
-          assert re.search(r'^Pages:\s+65\s*$',info,re.M),info[:500]
-          subprocess.run(['pdftoppm','-f','16','-l','17','-r','200','-png',str(pdf),str(out/'render')],check=True,timeout=90)
-          subprocess.run(['pdfimages','-f','16','-l','17','-all',str(pdf),str(out/'embedded')],check=True,timeout=60)
+          doc=fitz.open(stream=pdfbytes,filetype='pdf')
+          assert doc.page_count==65, f'Unexpected pages: {doc.page_count}'
+          for pno in (16,17):
+              page=doc[pno-1]
+              page.get_pixmap(matrix=fitz.Matrix(2.5,2.5),alpha=False).save(str(out/f'render-{pno}.png'))
+              for j,x in enumerate(page.get_images(full=True)):
+                  obj=doc.extract_image(x[0])
+                  (out/f'embedded-{pno}-{j+1}-xref{x[0]}.{obj["ext"]}').write_bytes(obj['image'])
           files=[{'path':p.name,'bytes':p.stat().st_size,'sha256':hashlib.sha256(p.read_bytes()).hexdigest()} for p in sorted(out.iterdir()) if p.is_file()]
           manifest={'schema':'TIANWEN-13NV-NLC-CBM1408-V19-SOURCE-PAGE-INTAKE-R1',
                     'source_url':url,'source_pdf_bytes':len(pdfbytes),
