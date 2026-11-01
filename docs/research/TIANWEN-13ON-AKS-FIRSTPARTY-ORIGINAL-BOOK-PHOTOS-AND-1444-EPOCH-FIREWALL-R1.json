@@ -1,0 +1,103 @@
+{
+  "schema": "TIANWEN-13ON-AKS-FIRSTPARTY-ORIGINAL-BOOK-PHOTOS-AND-1444-EPOCH-FIREWALL-R1",
+  "date": "2026-11-01",
+  "issue_id": "TW-OPEN-0005",
+  "predecessor": "docs/research/TIANWEN-13OM-JIAOSHI-1457-1459-COMMISSION-AND-IMPRESSION-DATE-FIREWALL-R1.json",
+  "question": "Does the Academy of Korean Studies source itself expose verifiable photographed original-book leaf/page images, beyond bibliographic entries and a 2017 facsimile TOC? Does the visible 1444 epoch change 1457-1459 impression dating?",
+  "provider_landing": {
+    "provider": "Academy of Korean Studies / 한국민족문화대백과사전",
+    "url": "https://encykorea.aks.ac.kr/Article/E0005505",
+    "title": "交食推步法",
+    "item_scope": "Work-level encyclopedia with photo gallery, text says holding at Kyujanggak, publication year 1459. Native photo URLs are AKS-hosted; NOT proven to be precise SNU item 奎貴67 same physical copy/impression."
+  },
+  "observed_image_objects": [
+    {
+      "uuid": "057cd6c3-50f8-482e-a77b-36f434a6afb1",
+      "url": "https://devin.aks.ac.kr/image/057cd6c3-50f8-482e-a77b-36f434a6afb1?preset=orig",
+      "also_same_uuid_url": "https://devin.aks.ac.kr/image/057cd6c3-50f8-482e-a77b-36f434a6afb1?preset=page",
+      "visual": "Visible original book open spread: left has heading 交食推步法 上 假令, then 正統九年歲次甲子爲元, 用數目錄 and rows; right contains cyclical labels. Two sizes are ONE distinct photograph, not two independent source leaves.",
+      "literal_source_glyphs_visually_read": [
+        "交食推步法",
+        "上",
+        "假令",
+        "正統九年歲次甲子爲元",
+        "用數目錄"
+      ],
+      "confidence": "VISUAL_READING_FROM_PROVIDER_OPENED_IMAGE_NON_TARGET",
+      "original_impression_year_proved": false,
+      "target_formula_visible": false
+    },
+    {
+      "uuid": "31e058a3-f71f-4fd2-bdb4-92b46aed89bf",
+      "url": "https://devin.aks.ac.kr/image/31e058a3-f71f-4fd2-bdb4-92b46aed89bf?preset=page",
+      "visual": "Book-cover photograph with vertical title 交食推步法 and pasted library-label area; the label/catalog number is not verified at native resolution.",
+      "target_formula_visible": false
+    },
+    {
+      "uuid": "694a7c1c-24fd-4e4e-8553-55cd3afbf0b4",
+      "url": "https://devin.aks.ac.kr/image/694a7c1c-24fd-4e4e-8553-55cd3afbf0b4?preset=page",
+      "visual": "Photograph of a preface/inside text leaf with square red seals and a vertical heading referencing 交食推步法假令序; too small here to adjudicate colophon or large-type identification.",
+      "target_formula_visible": false
+    }
+  ],
+  "access_grade": "AKS_OFFICIAL_ORIGINAL_BOOK_PHOTOGRAPH_VISUALLY_OPENED_UNHASHED_NON_TARGET_ROIS",
+  "data_access": {
+    "distinct_image_uuid_count": 3,
+    "rendered_urls_count": 4,
+    "source_photo_landing_confirmed": true,
+    "images_visually_viewed": true,
+    "image_binary_saved_to_repo": false,
+    "image_byte_hashes": null,
+    "tool_local_native_download": "FAILED_DNS_OR_DOWNLOAD",
+    "full_book_inventory_acquired": false,
+    "provider_signed_download_permission_not_assumed": true,
+    "photo_holding_item_identity": "NOT_ITEM_BOUND",
+    "photo_impression_and_typeform": "UNADJUDICATED",
+    "specific_original_YING_SUO_formula_folios": 0
+  },
+  "philology": {
+    "source_native_epoch_label": "正統九年歲次甲子爲元",
+    "calendar_epoch_year": 1444,
+    "interpretation": "The visible page labels its computational calendrical epoch. It does NOT mean the extant copy was written or printed in 1444.",
+    "year_1457": "Received annal royal commission, different date layer",
+    "year_1458": "SNU catalog/printing chronology assertion",
+    "year_1459": "AKS work entry assertion",
+    "caution": "None of these chronology layers proves original formula coefficients in an unpictured leaf."
+  },
+  "adjudication": {
+    "new_positive": "At least three distinct images of an original-looking printed book physically photographed are publicly rendered on the AKS first-party encyclopedia article; one image directly shows the work/title and 1444 calendrical epoch, plus 用數目錄. This is materially more than a book-only catalog/received text search.",
+    "unproved": [
+      "Direct identity with 奎貴67 physical holding or identical 1458/1459 impression.",
+      "Whether the photo is the disputed 丙辰字 or 戊寅字 big-font type, or whether there is a modern reuse/reprint.",
+      "Any target 1458 盈縮加分 upper/lower original page, source-literal coefficients, and original 少/微 numerical radix.",
+      "Whether the AKS photo can be downloaded as raw byte-for-byte native object and hash-bound.",
+      "G893 six historic final controls or algorithm defect."
+    ],
+    "target_formula_witness_count": 0,
+    "g893_historical_final_controls": "0/6",
+    "algorithm_reopen": false,
+    "chart_product": "CLOSED"
+  },
+  "next_gate": "Use the exact three AKS gallery image UUIDs as authenticated gallery anchors to request authorized full-book/adjacent image inventory or institutional reprint reproduction. Do not infer page IDs by numerical increments. Bind photo to physical copy, secure exact original 盈縮加分 upper and lower folios, and hash raw images before making claims about target formula or 1458/1459 imprint.",
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Photographed AKS pages are not automatically a second physical witness, printing lineage edge or a verified SNU physical-copy object."
+    ],
+    "unresolved_lineage_questions": [
+      "Can AKS photograph or its metadata be bound to 奎貴67 exact native impression?",
+      "Can an authorized complete original-image inventory expose both 盈縮加分 formula leaves with hashes?",
+      "What are original printed units and historical G893 matched controls?"
+    ]
+  },
+  "counters": {
+    "state_version": "1.1024.0",
+    "matrix": "222/222",
+    "sources": 765,
+    "graph": "252/238",
+    "omission_issues": 11,
+    "algorithm_reopens": 0
+  }
+}
