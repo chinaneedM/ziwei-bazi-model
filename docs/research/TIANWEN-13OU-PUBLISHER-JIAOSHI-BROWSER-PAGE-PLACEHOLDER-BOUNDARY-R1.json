@@ -1,0 +1,76 @@
+{
+  "schema": "TIANWEN-13OU-PUBLISHER-JIAOSHI-BROWSER-PAGE-PLACEHOLDER-BOUNDARY-R1",
+  "date": "2026-11-02",
+  "issue_id": "TW-OPEN-0005",
+  "predecessor": "docs/research/TIANWEN-13OT-1555-JIAOSHI-RECEPTION-HOUJI-COPY-AND-CATALOG-DATE-R1.json",
+  "objective": "Resolve whether publisher's public JS reader can show source-issued images, and whether the sampled visible pages expose historical original text.",
+  "publisher_reader_url": "https://m.sejongkorea.org/core/mobile/webzine/view.html?webzineCode=381",
+  "method": "Unauthenticated Chrome/Selenium; only clicked visible next-page image controls, observed 13 sequential browser display states and sampled six screenshots. No guessed URLs, hidden API calls, downloads or login.",
+  "github_evidence": {
+    "run_id": 41363418192,
+    "run_url": "https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/41363418192",
+    "artifact_id": 13106241446,
+    "artifact_name": "jiaoshi-2017-publisher-public-reader-13ou",
+    "artifact_zip_sha256": "d885d280abca830f1d2f6b02f3ea108a475061e317eda5cf86e3d81ba12a0609",
+    "job_id": 125018445207
+  },
+  "browser_observation": {
+    "visited_display_pages": "1–13 / 199",
+    "first_source_visible_image": "https://webzine.sejongkorea.org/core/webzine/images/blank.jpg",
+    "later_source_emitted_distinct_page_images": [
+      "https://sejongkorea.org/user/saveDir/webzine/381/p110881.jpg",
+      "https://sejongkorea.org/user/saveDir/webzine/381/p109342.jpg",
+      "https://sejongkorea.org/user/saveDir/webzine/381/p109345.jpg",
+      "https://sejongkorea.org/user/saveDir/webzine/381/p109350.jpg",
+      "https://sejongkorea.org/user/saveDir/webzine/381/p109352.jpg"
+    ],
+    "image_natural_width": 917,
+    "image_natural_height": 1296,
+    "screenshots": [
+      "reader-step-00.png",
+      "reader-step-01.png",
+      "reader-step-02.png",
+      "reader-step-05.png",
+      "reader-step-10.png",
+      "reader-step-12.png"
+    ],
+    "visual_result": "Every sampled screenshot displays the same WEBZINE / 인터넷소식지 placeholder instead of any book page.",
+    "crop_method": "Each 1152-pixel-wide browser screenshot: RGB crop (100,170,1000,1290), compare raw pixel bytes.",
+    "six_sample_crop_sha256_identical": "d4bd403f0be23afa53ce981f90636940fb68d85ab71108ab6d06a645c3ca0a17"
+  },
+  "adjudication": {
+    "source_issued_pagination_works": true,
+    "source_issued_differing_image_src_observed": true,
+    "target_original_formula_image_acquired": false,
+    "native_historic_folio_sha256_acquired": false,
+    "whole_viewer_negative_proof": false,
+    "access_scope": "PLACEHOLDER_VISUAL_ONLY_FOR_SIX_SAMPLED_DISPLAYS_WITHIN_FIRST_13_PAGES",
+    "independent_physical_witness_vote_added": 0,
+    "source_registry_entries_added": 0,
+    "graph_nodes_added": 0,
+    "graph_edges_added": 0,
+    "g893_original_historical_final": "0/6"
+  },
+  "next_action": "Do not treat changed image URLs or browser page counters as usable text. Favor SNU Kyujanggak 奎貴67 original 假令上/下 盈縮加分 source-bound folio images, or the prepared item-specific authorized reproduction inquiry. No request has been sent. Avoid repetitively probing identical placeholder pages.",
+  "chart_algorithm_reopen": false,
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Public 2017 publisher webzine navigation does not attest 1458 original folio, physical-copy identity, original glyph or G893 direct copying."
+    ],
+    "unresolved_lineage_questions": [
+      "Obtain source-original 奎貴67 upper/lower 盈縮加分 with authenticated page/item hashes and printing-type provenance."
+    ]
+  },
+  "counters": {
+    "state_version": "1.1032.0",
+    "matrix": "222/222",
+    "sources": 765,
+    "graph": "252/238",
+    "issues": 11,
+    "product": "CLOSED",
+    "algorithm_reopens": 0
+  }
+}
