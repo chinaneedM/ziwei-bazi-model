@@ -77,6 +77,25 @@ jobs:
                   pix=page.get_pixmap(matrix=fitz.Matrix(2.3,2.3),alpha=False)
                   jpg=pix.tobytes('jpg',jpg_quality=87)
                   (out/f'locator-{n}.jpg.b64.txt').write_text(base64.b64encode(jpg).decode('ascii')+'\n',encoding='ascii')
+              target_direct_pages=[467,468,469,470,471]
+              native_records=[]
+              for n in target_direct_pages:
+                  pg=doc[n-1]
+                  factor=min(8.0,1900.0/pg.rect.width)
+                  px=pg.get_pixmap(matrix=fitz.Matrix(factor,factor),alpha=False)
+                  raw=px.tobytes('jpg',jpg_quality=88)
+                  fn=out/f'direct-{n}.jpg.b64.txt'
+                  fn.write_text(base64.b64encode(raw).decode('ascii')+'\n',encoding='ascii')
+                  xrefs=[]
+                  for idx,z in enumerate(pg.get_images(full=True)):
+                      obj=doc.extract_image(z[0])
+                      img=obj['image']
+                      native=(out/f'native-{n}-{idx+1}-xref{z[0]}.{obj["ext"]}')
+                      native.write_bytes(img)
+                      xrefs.append({'path':str(native.relative_to(out)),'sha256':hashlib.sha256(img).hexdigest(),'bytes':len(img)})
+                  native_records.append({'pdf_page':n,'image_sha256':hashlib.sha256(raw).hexdigest(),'native_embedded_images':xrefs})
+              report['direct_page_original_inspection_candidates']=native_records
+              report['direct_page_grade']='FILES_HASHED_ONLY_NOT_YET_HUMAN_REVIEWED'
               report['locator_target_pages_1based']=target_pages
               report['locator_note']='Selected original page raster previews are for chapter and physical page identity only; numeric glyphs remain undecided until direct review.'
               report['contact_sheet_count']=(len(thumbs)+11)//12
