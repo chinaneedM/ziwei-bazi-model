@@ -43,6 +43,39 @@ jobs:
               print('Reused 1599 PDF atlas; saved 12 GitHub-readable rows and repaired trailing literal newline, no new source fetch')
               raise SystemExit(0)
 
+          # Reuse the existing volume locator: retrieve ONLY the pinned 1599 original volume 26 for the actual j68 target pages.
+          if (output/'vol26-row-01-03.jpg.b64.txt').exists() and not (output/'vol26-original-direct.json').exists():
+              original=json.loads((output/'manifest.json').read_text(encoding='utf-8'))
+              selected=next(x for x in original['volumes'] if x['volume']==26)
+              request=urllib.request.Request(selected['original_pdf_url'],headers={'User-Agent':'TianwenHistoricalCollation/1.0 (https://github.com/chinaneedM/ziwei-bazi-model)'})
+              with urllib.request.urlopen(request,timeout=120) as response:
+                  source_pdf=response.read(20_000_000)
+              assert len(source_pdf)==selected['declared_bytes'] and hashlib.sha256(source_pdf).hexdigest()==selected['original_pdf_sha256']
+              physical=fitz.open(stream=source_pdf,filetype='pdf')
+              assert physical.page_count==36
+              details=[]
+              for p in [16,17,18]:
+                  pg=physical[p-1]
+                  scale=min(6.0,2050/pg.rect.width)
+                  preview=pg.get_pixmap(matrix=fitz.Matrix(scale,scale),alpha=False).tobytes('jpg',jpg_quality=87)
+                  preview_path=f'direct-vol26-p{p}.jpg.b64.txt'
+                  (output/preview_path).write_text(base64.b64encode(preview).decode('ascii')+chr(10),encoding='ascii')
+                  originals=[]
+                  for j,image_info in enumerate(pg.get_images(full=True)):
+                      im=physical.extract_image(image_info[0])
+                      bits=im['image']
+                      original_fn=f'native-vol26-p{p}-{j+1}-xref{image_info[0]}.{im["ext"]}.b64.txt'
+                      (output/original_fn).write_text(base64.b64encode(bits).decode('ascii')+chr(10),encoding='ascii')
+                      originals.append({'file':original_fn,'sha256':hashlib.sha256(bits).hexdigest(),'bytes':len(bits)})
+                  details.append({'pdf_page_1based':p,'render_sha256':hashlib.sha256(preview).hexdigest(),'preview_path':preview_path,'original_embedded_images':originals})
+              record={'schema':'TIANWEN-13NY-NLC1599-J68-DIRECT-ORIGINAL-TARGET-IMAGE-R1',
+                      'original_pdf_sha256':selected['original_pdf_sha256'],'original_pdf_bytes':selected['declared_bytes'],
+                      'original_pdf_pages':physical.page_count,'juan67_open_pdf_page':2,'juan68_open_pdf_page':11,
+                      'direct_targets':details,'ocr_used':False,'source_grade':'ORIGINAL_EMBEDDED_BYTES_AND_PAGE_PREVIEWS_HASHED_PENDING_DIRECT_HUMAN_GLYPH_REVIEW',
+                      'textual_copy_independence':'NOT_YET_ADJUDICATED','historical_g893_final':'0/6'}
+              (output/'vol26-original-direct.json').write_text(json.dumps(record,ensure_ascii=False,indent=2)+chr(10),encoding='utf-8')
+              print(json.dumps(record,ensure_ascii=False,indent=2))
+              raise SystemExit(0)
           ua={'User-Agent':'TianwenHistoricalCollation/1.0 (https://github.com/chinaneedM/ziwei-bazi-model; historical original comparison)'}
           names={26:'NLC892-411999015732-116313 古今律曆考 第26冊.pdf',
                  27:'NLC892-411999015732-116314 古今律曆考 第27冊.pdf',
