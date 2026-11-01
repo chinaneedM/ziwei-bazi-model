@@ -1,0 +1,65 @@
+{
+  "schema": "TIANWEN-13OS-JIAOSHI-2017-READER-STATIC-BOUNDARY-AND-TYPE-ALIAS-R1",
+  "date": "2026-11-02",
+  "issue_id": "TW-OPEN-0005",
+  "predecessor": "docs/research/TIANWEN-13OR-PUBLISHER-2017-JIAOSHI-WEBZINE-READER-SCOPE-R1.json",
+  "purpose": "Directly recheck the publisher's publicly retrievable reader surface, prevent presumed page coverage, and scope the independently published 交食字 type alias before the next original-folio acquisition.",
+  "observations": [
+    {
+      "provider": "세종대왕기념사업회 first-party mobile reader",
+      "url": "https://m.sejongkorea.org/core/mobile/webzine/view.html?webzineCode=381",
+      "observed": "HTTP-readable HTML/text surface displays 0/199 and image-backed previous/next controls. Its page-zero image link resolves to https://webzine.sejongkorea.org/core/webzine/images/blank.jpg. No source-rendered next-page anchor, original-facsimile page, image bytes or page SHA was obtained by this static-web retrieval.",
+      "grade": "PUBLISHER_READER_SHELL_RECHECK_ONLY",
+      "limit": "A static-web extractor not executing reader JavaScript cannot determine which pages would appear after actual browser navigation; it is not evidence that the 2017 original appendix is absent or present."
+    },
+    {
+      "provider": "한국학자료센터 / AKS KOSTMA printing chronology",
+      "url": "https://kostma.aks.ac.kr/history_table/history_list3.aspx",
+      "observed": "The 1458 交食推步法假令 row explicitly labels printing type 동활자(戊寅字/交食字), and a neighboring 易學啓蒙要解 row uses the same label. This explicitly records 交食字 as an alternative catalog/type name for 戊寅字 in that chronology.",
+      "grade": "FIRST_PARTY_INSTITUTIONAL_TYPENAME_ALIAS_WITNESS",
+      "limit": "The alias does not identify the physical SNU 奎貴67 item's main glyph type or refute its catalog's 大字丙辰字/中字甲寅字 classification. It is not a third independent type or physical witness."
+    },
+    {
+      "provider": "Seoul National University institutional-hosted modern illustrated print specimen",
+      "url": "https://s-space.snu.ac.kr/bitstream/10371/63377/1/dbpia1004235.pdf",
+      "observed": "Index-extracted PDF illustrated item at printed page 69 is captioned No. 17 交食推步法(交食字), containing a specimen starting 交食推步法 / 正統十二年丁卯八月朔食. PDF-page screenshot endpoint did not yield the original image in this execution environment.",
+      "grade": "SECONDARY_REPRODUCED_TYPE_EXAMPLE_LOCATOR_NOT_NATIVE_FOLIO_COLLATION",
+      "limit": "No native source image SHA, original-physical-copy match, full type comparison or 奎貴67 identity established; do not vote this specimen as a separate ancient printed leaf."
+    }
+  ],
+  "scope_firewall": [
+    "2017 publisher webzine 0/199 is not matched to printed 2017 418-page book, original appendix token ,423,0, or upper/lower 盈縮加分 TOC tokens 68/71 and 140/143.",
+    "交食字 is an alias in the AKS chronology's type label, not a proved independent type, not a proved SNU physical-copy classification, and not proof that 丙辰字 catalog metadata is wrong.",
+    "Original 奎貴67 假令上/下 盈縮加分 folio images, ancient G893 少/微 unit provenance and six direct historical final controls remain unacquired/unadjudicated.",
+    "The original SNU copy request prepared under 13OP remains NOT SENT and requires explicit authorization; do not guess source IDs, use paywalled routes, or bypass access controls."
+  ],
+  "efficient_next_action": "Use a genuine JavaScript-capable browser on the publisher's source-issued reader navigation to determine whether the original appendix is included and whether the upper/lower target folios can be page-bound. If actual target pages are unavailable, use the prepared SNU 奎貴67 item-specific reproduction inquiry only after user authorization. Stop redundant generic catalog/type-name searches.",
+  "publisher_viewer_original_folios_acquired": 0,
+  "native_image_sha256_acquired": 0,
+  "g893_historical_final": "0/6",
+  "source_registry_entries_added": 0,
+  "graph_nodes_added": 0,
+  "graph_edges_added": 0,
+  "chart_algorithm_reopen": false,
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "An AKS 交食字 printing-type alias cannot resolve conflicting 奎貴67 physical-impression typeface labels or create a novel type/edition lineage."
+    ],
+    "unresolved_lineage_questions": [
+      "Which native original 奎貴67 folios demonstrate upper/lower 盈縮加分?",
+      "Which particular physical impression's typeforms correspond to AKS 戊寅字/交食字 versus catalog 丙辰字?"
+    ]
+  },
+  "counters": {
+    "state_version": "1.1030.0",
+    "matrix": "222/222",
+    "sources": 765,
+    "graph": "252/238",
+    "issues": 11,
+    "product": "CLOSED",
+    "algorithm_reopens": 0
+  }
+}
