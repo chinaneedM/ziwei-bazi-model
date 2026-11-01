@@ -1,0 +1,60 @@
+{
+  "schema": "TIANWEN-13NJ-13NI-DIGITAL-LOCATOR-REGISTRY-CORRECTION-R1",
+  "date": "2026-11-01",
+  "issue": "TW-OPEN-0005",
+  "corrects_commit": "c5a83ccbd47a78eb9b46e37a783c4304fa137288",
+  "corrects_batch": "13NI",
+  "classification": "FORWARD_ONLY_RESEARCH_LEAD_NOT_MATURE_ACTIVE_REGISTRY_ENTRY_AND_CI_RECOVERY",
+  "original_discovery_preserved": "docs/research/TIANWEN-13NI-MINGSHI-DRAFT-AND-TWO-ORIGINAL-REPLAY-R1.json",
+  "original_locator_shard_preserved_unlisted": "docs/research/TIANWEN-13NI-MINGSHIGAO-RECEIVED-SOURCE-SHARD-R1.json",
+  "earlier_suspect_id": "EXT-TIANWEN-13NI-WANG-MINGSHIGAO-NA03560-V29-RECEIVED",
+  "error": "13NI counted a digital-only indexed NA03560 Wang MingShiGao passage as a newly active 766th historical registry item before first-party original physical text/origin was bound. The shard also used a verification_status outside the registry verifier enum. Existing CI historical snapshots explicitly expect 765 and are unrelated to this non-physical candidate; changing all these verified gates would add needless churn.",
+  "corrected_effective_registry": {
+    "root": 647,
+    "extensions": 118,
+    "unique": 765,
+    "active_shards": 68,
+    "removed_from_active_manifest_only": "13NI new shard previously counted 1",
+    "research_locator_file_retained_in_repository": true
+  },
+  "retained_historiography": [
+    "12YM CADAL and 12YN NLC already image-collated MingShi 93 final original findings remain intact.",
+    "Wang MingShiGao NA03560 online 93 remains a valid DISCOVERY LEAD but physical source edition and original folio are unbound.",
+    "No claim that the earlier file never existed or that earlier 766 count was correct."
+  ],
+  "ci_evidence": {
+    "exact_head": "c5a83ccbd47a78eb9b46e37a783c4304fa137288",
+    "runs": [
+      {
+        "name": "verify-yehuobian-12xf-utokyo-digital-access",
+        "run_id": 41259211907,
+        "failure": "unrecognized source verification status"
+      },
+      {
+        "name": "verify-tianwen-13le-naaj-original-p6",
+        "run_id": 41259211307,
+        "failure": "script asserts historical source count ==765"
+      }
+    ],
+    "repair_strategy": "Restore active registry to last passing 765 baseline with explicit forward-only erratum; preserve research files as non-counted unverified locator, no weakening or bulk rewrite of tests"
+  },
+  "no_new_physical_witness": true,
+  "no_original_image_acquired": true,
+  "followup": "Do not activate this editorial digital text as a unique physical-historical source without original-page/edition identity; reuse evidence doc for future targeted lookup; return to original G893 少 and NAAJ exact book item.",
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": []
+  },
+  "invariants": {
+    "sources_active": 765,
+    "matrix": "222/222",
+    "graph_nodes": 252,
+    "graph_edges": 238,
+    "issues_open": 11,
+    "G893_six_historical": "0/6",
+    "chart": "CLOSED",
+    "algorithms_reopened": 0
+  }
+}
