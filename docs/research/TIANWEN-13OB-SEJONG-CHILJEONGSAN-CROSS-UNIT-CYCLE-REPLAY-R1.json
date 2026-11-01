@@ -1,0 +1,86 @@
+{
+  "schema": "TIANWEN-13OB-SEJONG-CHILJEONGSAN-CROSS-UNIT-CYCLE-REPLAY-R1",
+  "date": "2026-11-01",
+  "issue_id": "TW-OPEN-0005",
+  "follows": "docs/research/TIANWEN-13OA-SEJONG-CHILJEONGSAN-SHAO-TAI-QUARTER-REPLAY-R1.json",
+  "question": "Can exact cross-line arithmetic within the same first-party Joseon Chiljeongsan received transcription check local quarter and half semantics across different named positions, without importing any fraction rule into G893?",
+  "source": {
+    "provider": "National Institute of Korean History",
+    "class": "FIRST_PARTY_OFFICIAL_HISTORICAL_TRANSCRIPTION_NOT_NATIVE_ORIGINAL_GLYPH",
+    "work": "世宗實錄 卷156 七政算內篇 上卷",
+    "url": "https://sillok.history.go.kr/id/wda_500130",
+    "physical_folio_label": "太白山史庫本 第60冊 第156卷 第1張 B面",
+    "literal_atoms": [
+      "日周;一萬",
+      "歲實;三百六十五萬,二千四百二十五分",
+      "半歲周;一百八十二日,六千二百一十二分半",
+      "盈初縮末限;八十八日,九千九十二分少",
+      "縮初盈末限;九十三日,七千一百二十分少",
+      "氣策;一十五日,二千一百八十四分,三十七秒半",
+      "沒限;七千八百一十五分,六十二秒半"
+    ],
+    "source_level_limit": "Official online transcription with folio locator; no newly accessed physical-source folio image, original glyph crop, SHA, or independent physical copy."
+  },
+  "integer_replay": {
+    "base_day_fraction": 10000,
+    "integer_scale_per_day_fraction": 200,
+    "notes": "The scale represents 1/200 of one 日分; local 少 after 分 contributes 50 scale ticks, 半 after 分 contributes 100, 秒半 contributes 1/200 分, i.e. one tick. Thus 37秒半 is 75 ticks, 62秒半 is 125 ticks.",
+    "equations": [
+      {
+        "name": "Two seasonal limits sum to the stated half-year",
+        "left_literal": "(88日9092分少)+(93日7120分少)",
+        "right_literal": "182日6212分半",
+        "left_ticks": 365242500,
+        "right_ticks": 365242500,
+        "status": "EXACT_INTEGER_MATCH",
+        "scope": "Source-local 少=1/4 分 and 半=1/2 分; carry at 日周=10000 分"
+      },
+      {
+        "name": "24 qi units reconstruct the printed tropical year",
+        "left_literal": "24×(15日2184分37秒半)",
+        "right_literal": "365日2425分",
+        "left_ticks": 730485000,
+        "right_ticks": 730485000,
+        "status": "EXACT_INTEGER_MATCH",
+        "scope": "Source-local 秒=1/100 分 and 秒半=1/200 分; year-round calendrical normalization"
+      },
+      {
+        "name": "Qi-ce plus its complementary limit equals 16 days",
+        "left_literal": "(15日2184分37秒半)+(7815分62秒半)",
+        "right_literal": "16日",
+        "left_ticks": 32000000,
+        "right_ticks": 32000000,
+        "status": "EXACT_INTEGER_MATCH",
+        "scope": "37秒半+62秒半=100秒=1分 and 2184分+7815分+1分=10000分"
+      }
+    ]
+  },
+  "adjudication": {
+    "positive": "Same official transcription has three new cross-line, exact integer identities. It distinguishes a 少 immediately after 分 from 秒半, and connects local subdivisions to the printed day fraction/cycle.",
+    "not_proven": [
+      "G893 奎貴893 original 日差加一秒八十六少 shares any precisely identical smallest unit",
+      "G893 source-original quantization, intermediate rounding or six targeted final values",
+      "The transcription's physical leaf glyphs, 1569 Zhou printed field identity or stemmatic descent"
+    ],
+    "new_source_registry_entries": 0,
+    "new_independent_original_witnesses": 0,
+    "new_transmission_edges": 0,
+    "g893_six_final_historical_controls": "0/6",
+    "issue_status": "P0 OPEN",
+    "product": "CLOSED",
+    "algorithm_reopen_authorized": false
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "No direct G893←七政算 or identical 少 positional radix edge can be inferred from source-local arithmetic."
+    ],
+    "unresolved_lineage_questions": [
+      "Bind original G893 header to its own precise positional units and rounding stage using physical source-adjacent operations.",
+      "Verify NAAJ 子051-0003 sixth source-native object/folio or NCL 06270 original item-specific 卷68 leaf when legitimate access becomes available."
+    ]
+  },
+  "next_priority": "Proceed with G893 source-original first-party suffix/column-unit evidence or genuine independent sixth-fascicle image. Do not repeat generic 少 vocabulary or count same source's multiple identities as multiple historical witnesses."
+}
