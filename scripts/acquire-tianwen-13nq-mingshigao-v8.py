@@ -100,6 +100,7 @@ def main():
                     })
                     continue
                 available[page] = body
+                (OUT / ('sample-page-%03d.jpg' % page)).write_bytes(body)
             except Exception as exc:
                 record.setdefault("preview_access_errors", []).append({"page": page, "error": type(exc).__name__+": "+str(exc)[:90]})
                 break
