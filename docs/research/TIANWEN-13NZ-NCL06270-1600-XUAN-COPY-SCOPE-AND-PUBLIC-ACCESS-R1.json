@@ -1,0 +1,68 @@
+{
+  "schema": "TIANWEN-13NZ-NCL06270-1600-XUAN-COPY-SCOPE-AND-PUBLIC-ACCESS-R1",
+  "date": "2026-11-01",
+  "issue_id": "TW-OPEN-0005",
+  "method": "First-party NCL catalog detail and public FAQ comparison against already hash-bound 13NY original scan; anonymous public HTML only, no login, no guessed file ID, no OCR and no new target folio.",
+  "first_party_catalog_records": [
+    {
+      "institution": "National Central Library (Taiwan)",
+      "holding_id": "06270",
+      "url": "https://rbook.ncl.edu.tw/NCLSearch/Search/SearchDetail?HasImage=&SourceID=1&item=b150777dc6f64192a13df8409e0ff3fcfDcyNTAx0.VqTuk2tSZyF_yFRuzT2MJrnh3LoXzIYbAW6O1JjTMCU_&page=",
+      "catalogued_edition": "明萬曆庚子(二十八年,1600)延安知府徐安刊本",
+      "extent": "72卷, 40冊",
+      "frame": "9行18字, 匡20.8×14.2cm",
+      "public_page_observation": "Rendered anonymous detail displays 06270, 72卷/40冊 and an onsite-retrieval action; it does not expose an identifiable 卷68 original leaf, source file or image-viewer target in the observed HTML. This does not prove no scan exists.",
+      "relevance": "Valid exact complete-copy target for 卷68 comparison with NLC 411999015732; physical/plate identity remains unproven."
+    },
+    {
+      "institution": "National Central Library (Taiwan)",
+      "holding_id": "06271",
+      "url": "https://rbook.ncl.edu.tw/NCLSearch/Search/SearchDetail?HasImage=&SourceID=1&item=425ecd7be8ee45acad012ac1be1ab0f9fDcyNTAy0.Gs50AUtHw9wWqxkKZL1QnLgS4WLGSXAzyOxWCdJu5_I_&page=",
+      "catalogued_edition": "明萬曆庚子(二十八年,1600)延安知府徐安刊本",
+      "extent": "存卷1–26, 13冊",
+      "frame": "9行18字, 匡20.7×14.4cm",
+      "public_page_observation": "Detail visibly advertises 進入影像瀏覽 but retains only 卷1–26.",
+      "relevance": "Reject as a 卷68 original-page candidate despite possible public image access; no full-work negative inference."
+    },
+    {
+      "institution": "National Central Library (Taiwan)",
+      "holding_id": "06273",
+      "url": "https://rbook.ncl.edu.tw/NCLSearch/Search/SearchDetail?HasImage=&SourceID=1&item=56e6ed5cbce14fc3a10a312cb8057d23fDcyNTA00.dLZGHJOE0XLZf5cTCQKNqbNDaqqjmxH0Dp0meHcb2Ss_&page=",
+      "catalogued_edition": "明萬曆戊申(三十六年,1608)孫瑋保定刊本",
+      "extent": "72卷附錄1卷, 20冊",
+      "frame": "9行18字, 匡19.9×14.3cm",
+      "public_page_observation": "Detail offers 進入影像瀏覽; its original 13NW p469 quotient was previously directly acquired/collated.",
+      "relevance": "Printed 1608 comparison only, not proof of independent block or textual lineage."
+    }
+  ],
+  "official_access_policy": {
+    "url": "https://rbook.ncl.edu.tw/NCLSearch/FAQ",
+    "observed_rule": "Library FAQ says scanned books are normally browsed online instead of supplied for onsite handling; where a specific bibliographic item lacks images and research needs original access, a titled onsite-retrieval application may be used, subject to library review. Digital-image licensing separately requires an existing image and its own application.",
+    "scope_limit": "Generic FAQ does not prove 06270 lacks a scan or grant remote download, image reuse, reproduction, approval, delivery time or fees.",
+    "current_action_taken": "NONE_EXTERNAL_APPLICATION_SENT"
+  },
+  "cross_copy_firewall": {
+    "nlc_original_13ny": "NLC 411999015732, digitized 第26冊, catalogued 徐安萬曆27[1599], original PDF p17 and source-native JPX already SHA-bound in 13NY",
+    "ncl_06270": "Distinct institution and holding ID, catalogued 徐安萬曆28[1600]",
+    "shared_descriptor": "Xu An 延安 print family, 9行18字 in NCL first-party descriptions and NLC scan metadata",
+    "forbidden_inference": "Similarity of catalogued Xu An attribution, format or near dates proves neither identical physical copy nor same edition/impression/blocks; NLC 1599 scan does not substitute for 06270 卷68 target.",
+    "target_glyph_collected_this_batch": false,
+    "original_quotient_issue": "Prior 13NY original visually reads 36分38秒 ÷ 14日82 -> 2分46秒 (有零不用); displayed operands yield 2.4547908... and still do not reveal upstream hidden precision.",
+    "transmission_impact": "NONE — only holding/access routing and non-identity control; no new graph edge or independent textual vote."
+  },
+  "adjudication": {
+    "status": "NCL06270_PRECISE_TARGET_ORIGINAL_FOLIO_UNOBTAINED_IN_PUBLIC_HTML",
+    "ncl_06271_j68_eligible": false,
+    "new_original_page_glyphs": 0,
+    "new_independent_historical_witness_votes": 0,
+    "new_source_registry_entries": 0,
+    "active_registry_total": 765,
+    "matrix": "222/222",
+    "genealogy": "252 nodes/238 edges",
+    "p0_issue": "TW-OPEN-0005 OPEN",
+    "original_g893_final": "0/6",
+    "chart": "CLOSED",
+    "algorithm_reopens": 0
+  },
+  "next_priority": "Stop treating 06271 public image previews as j68 candidate. Only advance 06270 with authenticated first-party item-specific source image or a legitimately approved original-leaf consultation; otherwise proceed independently to original G893 少 radix/quantization and NAAJ 子051-0003 sixth source. No access request, login, paywall bypass or speculation."
+}
