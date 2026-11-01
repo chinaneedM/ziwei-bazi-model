@@ -1,0 +1,77 @@
+{
+  "schema": "TIANWEN-13NF-SHAO-QUARTER-AND-ROUNDING-CONDITIONAL-GATE-R1",
+  "date": "2026-11-01",
+  "issue": "TW-OPEN-0005",
+  "classification": "GENERAL_QUARTER_SEMANTIC_WITNESS_AND_CONDITIONAL_FULL_PRECISION_ACCUMULATION_MODEL_REJECTED",
+  "source_basis": [
+    {
+      "work": "晉書 卷十八 律曆下 景初曆 推加時",
+      "url": "https://www.shidianguji.com/book/LS0005/chapter/LS0005_389",
+      "witness_grade": "RECEIVED_DIGITAL_TEXT",
+      "atom": "有餘不盡者四之，如日法而一為少，二為半，三為太",
+      "scope": "source-local quarter terminology, not G893 column radix"
+    },
+    {
+      "work": "新唐書 曆志四 開元大衍曆",
+      "url": "https://www.xuoda.com/ls/xts/788.htm",
+      "witness_grade": "RECEIVED_DIGITAL_TEXT",
+      "atom": "凡四分，一為少，三為太",
+      "scope": "independent earlier calendar-style terminology; no G893 technical transfer evidence"
+    },
+    {
+      "work": "元史 卷54 授時曆經上",
+      "url": "https://zh.wikisource.org/wiki/元史/卷054",
+      "witness_grade": "RECEIVED_DIGITAL_TEXT",
+      "atom": "弦策，七日三千八百二十六分四十八秒少",
+      "scope": "similar positional expression, not direct source print unit binding"
+    },
+    {
+      "work": "NIKH 高麗史 立成 modern Korean reading",
+      "url": "https://db.history.go.kr/id/kr_052r_0010_0010_0020_0010",
+      "witness_grade": "MODERN_EDITORIAL_TRANSLATION",
+      "atom": "1초 8625",
+      "scope": "numeric editorial interpretation not an independent historical original"
+    }
+  ],
+  "original_print_prior_source": "docs/research/TIANWEN-13NE-G893-HEADER-NIKH-D16-CORRECTION-R1.json",
+  "hypothesis": {
+    "assume_shao_quarter_yields_editorial_seconds": "1.8625",
+    "assume_seconds_per_display_unit": "100",
+    "assumed_daily_increment_display": "0.018625",
+    "s0_print": "4.9386",
+    "s15_print": "5.2176",
+    "s15_exact_full_precision": "5.217975",
+    "s15_4dec_round_half_up": "5.2180",
+    "predicted_minus_print_at_4dec": "0.0004",
+    "observed_display_daily_step": "0.0186",
+    "observed_source_local_step_check": "4.9386 + 15*0.0186 = 5.2176",
+    "adjudication": "REJECT_FULL_PRECISION_DAILY_ACCUMULATE_THEN_FINAL_FOUR_DECIMAL_ROUNDING_UNDER_EXPLICIT_UNIT_ASSUMPTION_ONLY"
+  },
+  "remaining": [
+    "source-specific historical 少 and 微 unit base",
+    "G893 print production rounding/quantization stage",
+    "NAAJ official 子051-0003 actual sixth item/physical print linkage",
+    "1569 original same-field unit/epoch comparison"
+  ],
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "No G893-vs-Jin/Tang direct lineage inference from shared quarter terminology"
+    ],
+    "unresolved_lineage_questions": [
+      "Whether 少/微 printed terminology reflects same unit in the relevant editions"
+    ]
+  },
+  "invariants": {
+    "sources": 765,
+    "matrix": "222/222",
+    "genealogy_nodes": 252,
+    "genealogy_edges": 238,
+    "issues_open": 11,
+    "g893_final_history_winners": "0/6",
+    "product": "CLOSED",
+    "algorithm_reopens": 0
+  }
+}
