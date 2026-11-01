@@ -1,0 +1,86 @@
+{
+  "schema": "TIANWEN-13OK-JIAOSHI1458-TYPE-ATTRIBUTION-COPY-SCOPE-FIREWALL-R1",
+  "date": "2026-11-01",
+  "issue_id": "TW-OPEN-0005",
+  "predecessor": "docs/research/TIANWEN-13OJ-JIAOSHI-YINGSUO-DUAL-LIMIT-WORKED-EXAMPLE-REPLAY-R1.json",
+  "question": "Do institution-specific bibliographic records agree on metal type used in the 1458 交食推步法 / 交食推步法假令, and does their comparison bind a specific original 盈縮加分 formula page or G893 source-original numeric unit?",
+  "evidence": [
+    {
+      "provider": "Seoul National University Kyujanggak first-party public catalog",
+      "url": "https://kyudb.snu.ac.kr/book/list.do?book_cate=SIC&focus=&mid=GDS",
+      "holding": "交食推步法 / 奎貴67",
+      "catalogued_year": 1458,
+      "catalog_literal": "古活字本(大字는 丙辰字, 中字는 甲寅字)",
+      "claim_scope": "HOLDING_LEVEL_CATALOG_DESCRIPTION_NOT_HUMAN_DIRECT_GLYPH_COLLATION",
+      "original_target_image_acquired": false
+    },
+    {
+      "provider": "Academy of Korean Studies 한국민족문화대백과사전 (scholarly encyclopedia)",
+      "url": "https://encykorea.aks.ac.kr/Article/E0019217",
+      "entry_title": "무인자 / 戊寅字",
+      "entry_note": "1995 authorship; last revision shown 2026-04-14; encyclopedia warns scholarly opinion may differ from institutional position",
+      "specific_work": "交食推步法假令",
+      "recorded_claim": "戊寅字 cast in 1458 for main large characters of 交食推步法假令; 甲寅字 used for smaller annotation text",
+      "claim_scope": "SCHOLARLY_TYPEFAMILY_DESCRIPTION_OF_WORK_NOT_ITEM_SPECIFIC_KYUGWI67_IMPRESSION",
+      "original_target_image_acquired": false
+    }
+  ],
+  "discrepancy": {
+    "surface": "大字 丙辰字 in SNU catalog versus large main-print 戊寅字 in AKS type-history description",
+    "exact_same_title_proven": false,
+    "exact_same_physical_copy_proven": false,
+    "exact_same_impression_proven": false,
+    "contradiction_adjudicated": false,
+    "catalog_error_adjudicated": false,
+    "possible_scope_explanations": [
+      "Cataloged 交食推步法 versus historical account naming 交食推步法假令 may distinguish extent or edition",
+      "Different extant impressions or type-classification levels may explain apparent variance; neither is demonstrated here",
+      "Original-page visual typeform comparison is required before assigning an error to either description"
+    ],
+    "positive": "Two distinct, individually specified publication/type attribution claims can be replayed at their own bibliographic scopes; they must not be silently merged into a single 1458 source-impression identity.",
+    "original_formula_image_sha256": null,
+    "formula_target_page_identified": false,
+    "source_original_G893_shao_micro_unit_proven": false,
+    "next_check": "Use a provider-emitted or authorized source-native 奎貴67 formula leaf (native image URL, page, pixel digest) together with item-specific colophon/typeform evidence; separately recheck G893 original 少 field/radix and limit boundaries. Avoid inferred URL enumeration."
+  },
+  "arithmetic_reuse": {
+    "batch": "13OJ",
+    "upper_day88": "32.4481",
+    "lower_day79": "63.4009",
+    "new_calculated_values": 0,
+    "source_original_1458_formula_collations": 0,
+    "new_six_G893_historical_final_decisions": 0
+  },
+  "authority_firewall": {
+    "not_a_new_original_witness": true,
+    "not_proof_of_direct_historical_copying": true,
+    "not_a_new_graph_edge": true,
+    "not_chart_algorithm_defect": true,
+    "not_historical_source_registry_entry": true
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Same or similar 1458 title/type descriptions cannot establish same printing type of SNU 奎貴67 without its physical page and imprint collated.",
+      "Work-level scholar account cannot override item-level catalog or vice versa without original-copy evidence."
+    ],
+    "unresolved_lineage_questions": [
+      "Does SNU 奎貴67 use 丙辰字 and/or 戊寅字 on the formula target leaf? Are the catalog and type-history statements about different printing extents/physical impressions?",
+      "What is the source-original G893 少/微 and edition-scoped arithmetic?"
+    ]
+  },
+  "counters": {
+    "matrix": "222/222",
+    "registry_sources": 765,
+    "graph_nodes": 252,
+    "graph_edges": 238,
+    "open_issues": 11,
+    "g893_historical_six_final_controls": "0/6",
+    "chart_product": "CLOSED",
+    "algorithm_reopens": 0,
+    "new_registered_historical_sources": 0,
+    "new_source_original_images": 0
+  }
+}
