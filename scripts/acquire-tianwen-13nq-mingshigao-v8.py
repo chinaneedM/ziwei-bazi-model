@@ -81,7 +81,7 @@ def main():
             available[2] = first.read_bytes()
         base_preview = "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1d/Harvard_drs_428231729_%E6%98%8E%E5%8F%B2%E7%A8%BF_v.8.pdf/"
         filename = "Harvard_drs_428231729_%E6%98%8E%E5%8F%B2%E7%A8%BF_v.8.pdf.jpg"
-        for page in (15, 17, 19, 21, 23, 25, 27, 28):
+        for page in (22, 24, 26):
             address = base_preview + "page%d-1920px-" % page + filename
             try:
                 response = s.get(address, timeout=(15, 35))
