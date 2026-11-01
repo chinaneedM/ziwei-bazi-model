@@ -1,0 +1,109 @@
+{
+  "schema": "TIANWEN-13NY-XUAN-1599-V26-J68-P17-DIRECT-QUOTIENT-R1",
+  "date": "2026-11-01",
+  "issue_id": "TW-OPEN-0005",
+  "method": "Direct human visual collation of independently downloaded original NLC Xu An 1599-catalogued print source page, plus exact SHA256-bound source-native embedded JPX; no OCR.",
+  "source_identity": {
+    "work": "邢雲路《古今律曆考》",
+    "holding": "National Library of China 411999015732 / rare book 08938 (Commons source catalogue metadata)",
+    "exact_commons_item": "NLC892-411999015732-116313 古今律曆考 第26冊.pdf",
+    "pdf_original_url": "https://upload.wikimedia.org/wikipedia/commons/d/d8/NLC892-411999015732-116313_%E5%8F%A4%E4%BB%8A%E5%BE%8B%E6%9B%86%E8%80%83_%E7%AC%AC26%E5%86%8A.pdf?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "catalogue_assigned_date": "徐安明萬曆27年[1599] as stated by NLC digital scan metadata; not a verified exact impression date",
+    "official_taiwan_comparator": "NCL 06270 1600 徐安延安刊 official 72 juan 40 ce catalogued, NOT physically the same catalog item as NLC 411999015732",
+    "original_pdf_pages": 36,
+    "original_pdf_bytes": 11026530,
+    "original_pdf_sha256": "07c5807f28bca98427f5f1f589693d2f0a2400e29d7b679081a297a23625a79d",
+    "volume_26_juan67_open_pdf_page": 2,
+    "volume_26_juan68_open_pdf_page": 11,
+    "target_page_pdf_one_based": 17,
+    "original_embedded_image_path": "docs/research/evidence/13ny/native-vol26-p17-1-xref118.jpx.b64.txt",
+    "original_embedded_image_sha256": "f4f2867ffccf889ca4322403c050cbac752f52a0df2b51a74b119553f9c99689",
+    "original_embedded_image_bytes": 314636,
+    "source_rendered_preview": "docs/research/evidence/13ny/direct-vol26-p17.jpg.b64.txt",
+    "source_rendered_preview_sha256": "661347c15a6179548e86dd2f391e66f9b2db719902c584f64f8a313ff8e47aac",
+    "adjacent_native_original_images": [
+      {
+        "pdf_page": 16,
+        "sha256": "062ccddf75b0497f2df79f3a269fff6587a27ca7eab13b0366c6cb9e25560cdb"
+      },
+      {
+        "pdf_page": 18,
+        "sha256": "07249588d7a408010731f460c518f12e70564dcc599d81d70365bbd3b026b697"
+      }
+    ],
+    "original_source_provenance_manifest": "docs/research/evidence/13ny/manifest.json",
+    "exact_image_evidence_manifest": "docs/research/evidence/13ny/vol26-original-direct.json"
+  },
+  "direct_target_original_glyph_readings": [
+    {
+      "locus": "卷68 1599-catalogued original PDF p17 right-hand leaf, upstream",
+      "original": "置泛平差三十七分〇七秒加減泛立差六十九秒餘三十六分三十八秒為定平差",
+      "normalized": "37.07-0.69=36.38",
+      "confidence": "HIGH_SOURCE_NATIVE_PAGE_VISUAL"
+    },
+    {
+      "locus": "卷68 original PDF p17 right-hand leaf, center",
+      "original": "置定平差三十六分三十八秒以段日一十四日八十二除一次得二分四十六秒（有零不用）為日定平差",
+      "displayed_operands": "36分38秒 ÷ 14日82",
+      "original_printed_quotient": "二分四十六秒",
+      "original_note": "有零不用",
+      "confidence": "HIGH_SOURCE_NATIVE_PAGE_VISUAL"
+    },
+    {
+      "locus": "卷68 original PDF p17 left-hand leaf near middle",
+      "original": "置立差三十一分以六因之得一百八十六分為加分立差",
+      "note": "Within this printing's arithmetic and local 微/分 terminology; NOT G893 Yuan 少 radix",
+      "confidence": "HIGH_SOURCE_NATIVE_PAGE_VISUAL"
+    }
+  ],
+  "mathematical_replay": {
+    "decimal_mapping_local_to_print": "36.38 / 14.82",
+    "quotient": "2.454790823211875843...",
+    "floor_two_decimal": "2.45",
+    "round_nearest_two_decimal": "2.45",
+    "printed": "2.46",
+    "variance": "printed minus floor/nearest=+0.01",
+    "interpretation": "DIRECT_ORIGINAL_PRINT_DISPLAYS_VALUE_NOT_DERIVABLE_FROM_DISPLAYED_OPERANDS_UNDER_ORDINARY_TWO_PLACE_FLOOR_OR_NEAREST",
+    "limitation": "Hidden higher-precision inputs, ancient operational conventions, authorial computation origin, and engraving mechanisms are not proved by this observation alone."
+  },
+  "comparison": {
+    "earlier_direct_image": "NLC 411999015732 / catalogue 1599 Xu An system / v26 p17 original",
+    "later_direct_image": "NCL 06273 / catalogue 1608 孫瑋保定刊 / part2 p469 original",
+    "other_direct_image": "NLC CBM1408 j68 / volume19 p17 original",
+    "same_printed_local_quotient": true,
+    "documented_temporal_scope": "Numerical discrepancy now appears in an earlier Xu An-catalogued print image as well as later 1608 Sun Wei-catalogued copy.",
+    "inference_limits": [
+      "NLC 1599 metadata does not prove identical book/edition/copy to Taiwan NCL 06270 1600",
+      "Independent digital sources do not certify independent engraving blocks, archetypes or direct copying",
+      "Earlier attestation does not prove authorial original error or root cause",
+      "This is an instance in 《古今律曆考》, NOT original G893 少 unit value or NAAJ sixth numeric control"
+    ],
+    "historical_g893_final": "0/6",
+    "new_independent_transmission_votes_awarded": 0
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "徐安刊系→1608孫瑋刊系直接抄刻/同版片/相同中间误差的血缘机制，当前尚未经原书版本学证实"
+    ],
+    "unresolved_lineage_questions": [
+      "NLC 1599 vs NCL 1600 徐安系印次、版心及物理副本关系",
+      "徐安原本与1608孫瑋本逐叶板式和目标行异同",
+      "36.38/14.82 printed 2.46 arises from hidden precision or inherited older result?"
+    ]
+  },
+  "next_priority": "Do NOT repeat source-local division or rescan 1608. Check source-original p17 against NCL 06270 official 1600 exact target if accessible, or compare edition colophons/plate layout and higher-precision upstream operands. Continue separate original G893 少 and NAAJ sixth. All algorithm gates remain CLOSED.",
+  "unchanged": {
+    "matrix": "222/222",
+    "external_source_registry_unique": 765,
+    "genealogy_nodes": 252,
+    "genealogy_edges": 238,
+    "unresolved_issues": 11,
+    "g893_original_six_decided": 0,
+    "chart": "CLOSED",
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0
+  }
+}
