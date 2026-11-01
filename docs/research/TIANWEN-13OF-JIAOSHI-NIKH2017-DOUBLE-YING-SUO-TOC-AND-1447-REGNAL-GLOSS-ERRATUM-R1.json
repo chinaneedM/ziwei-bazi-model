@@ -1,0 +1,100 @@
+{
+  "schema": "TIANWEN-13OF-JIAOSHI-NIKH2017-DOUBLE-YING-SUO-TOC-AND-1447-REGNAL-GLOSS-ERRATUM-R1",
+  "date": "2026-11-01",
+  "issue_id": "TW-OPEN-0005",
+  "predecessor": "docs/research/TIANWEN-13OE-JIAOSHI1458-ORIGINAL-FIRST-LEAF-PHOTO-AND-EDITION-CALENDAR-FIREWALL-R1.json",
+  "question": "Can the already registered NIKH 2017 translated/facsimile volume be narrowed to two separate 盈縮加分 contents loci, and does its 1447 Korean regnal gloss conflate 世宗 with 世祖 without transferring that modern indexing error to the 1458 printed original?",
+  "evidence": {
+    "first_party_modern_bibliography": {
+      "provider": "National Institute of Korean History, 한국사연구휘보 제180호 (2018 issue 1)",
+      "url": "https://db.history.go.kr/id/hb_180_01_001315",
+      "source_identity": "『국역 교식추보법』, 남종진 translator, 세종대왕기념사업회, 2017-12, ISBN 9788982750243",
+      "catalog_page_count": 418,
+      "exact_toc_targets": [
+        {
+          "section": "假令上",
+          "topic": "盈縮加分",
+          "raw_catalog_toc_token": "영축가분(盈縮加分) = 68,71,0",
+          "catalog_markers": [
+            68,
+            71,
+            0
+          ]
+        },
+        {
+          "section": "假令下",
+          "topic": "盈縮加分",
+          "raw_catalog_toc_token": "영축가분(盈縮加分) = 140,143,0",
+          "catalog_markers": [
+            140,
+            143,
+            0
+          ]
+        }
+      ],
+      "same_toc_further_marker": "교식추보법 원본 = ,423,0",
+      "page_interpretation_boundary": "These are source-emitted index/contents triples, NOT authenticated original folio numbers, PDF page numbers, the precise original-section start, or a proved same-copy target image; the page count 418 and trailing 423 index marker must not be silently harmonized.",
+      "scanned_2017_target_pages_acquired": false,
+      "original_1458_formula_leaf_acquired": false,
+      "catalog_source_new_to_registry": false
+    },
+    "modern_editorial_regnal_gloss": {
+      "observed_nikh_toc_wording": "정통12년(조선 세조29년, 1447년)",
+      "primary_control": "https://sillok.history.go.kr/id/kda_12902021_003",
+      "primary_control_visible_identity": "世宗實錄, 世宗二十九年 (1447), second month twenty-first day",
+      "independent_chronology_control": "https://encykorea.aks.ac.kr/Article/E0019217",
+      "chronology_control_identity": "1458 = 世祖四年 in Academy of Korean Studies entry on 戊寅字; book printing context.",
+      "classification": "CONFIRMED_MODERN_NIKH_TOC_KOREAN_REGNAL_LABEL_MISMATCH_ONLY",
+      "corrected_scoped_reading": "正統十二年=1447=世宗二十九年, NOT 世祖二十九年",
+      "historical_atom_not_disproved": "正統十二年丁卯八月朔食 / 望食 remains a cited worked-example year; no claim that the original Chinese printed glyph is corrupt.",
+      "printed_original_error_claim": false,
+      "bibliographic_source_identity_unchanged": true
+    },
+    "chronology_firewall": {
+      "calendar_epoch": "1444 / 正統九年甲子 (13OE photographed 用數目錄 first leaf)",
+      "worked_example": "1447 / 正統十二年 / 世宗二十九年 (2017 catalogue)",
+      "catalogue_printing": "1458 奎貴67 specific SNU item; AKS 1459 narrative conflict remains separate",
+      "physical_copy_date": "UNBOUND_IN_THIS_BATCH",
+      "digital_facsimile_date": "2017 bibliography is modern publication, not a 1458 original impression"
+    }
+  },
+  "result": {
+    "positive": "Two actionable same-volume contents targets (假令上 and 假令下) now distinguished, and one independently checked modern catalogue regnal gloss corrected only in an append-only research record.",
+    "source_grade": "FIRST_PARTY_MODERN_BIBLIOGRAPHIC_TOC_PLUS_OFFICIAL_RECEIVED_PRIMARY_CHRONOLOGY",
+    "not_proven": [
+      "The 2017 index triples directly identify original 1458 folios or camera images.",
+      "The volume's 原本 portion is the same physical copy as SNU 奎貴67.",
+      "Either section's formula original glyphs, historical unit/少 radix, G893 quantization or stemmatic identity have been authenticated.",
+      "The modern catalogue error came from any original movable-type printing."
+    ],
+    "decision": "TW-OPEN-0005_REMAINS_OPEN; NO_G893_HISTORICAL_WINNER_OR_GRAPH_EDGE_OR_RUNTIME_CHANGE"
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "The modern 2017 bibliography's date gloss and contents markers cannot certify the original 1458 formula glyph, a physical copy, or a historical descent edge."
+    ],
+    "unresolved_lineage_questions": [
+      "Obtain legally accessible SNU 奎貴67 original formula-bearing folio under source-bound item locator.",
+      "Acquire 2017 facsimile target pages using the two now-specific contents loci and independently identify their exemplar copy before source-original comparison.",
+      "Verify original G893 少 source-local unit and rounding and separately the NAAJ sixth target."
+    ]
+  },
+  "counters": {
+    "matrix": "222/222",
+    "registered_sources": 765,
+    "genealogy_nodes": 252,
+    "genealogy_edges": 238,
+    "issues": 11,
+    "g893_final_historical_winners": "0/6",
+    "new_original_formula_pages": 0,
+    "new_original_historical_witnesses": 0,
+    "new_source_registry_entries": 0,
+    "new_graph_edges": 0,
+    "chart_product": "CLOSED",
+    "algorithm_reopens": 0
+  },
+  "next_priority": "SNU 奎貴67 source-original 盈縮加分 folio (both formula and 少 unit), or lawful 2017 ISBN9788982750243 source-bound facsimile opening using catalogue tokens 68/71 and 140/143; avoid more arithmetic replays until original glyphs are obtained."
+}
