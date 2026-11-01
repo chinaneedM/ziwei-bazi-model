@@ -29,6 +29,6 @@ class Test13CR(unittest.TestCase):
         e=copy.deepcopy(self.e);e["mismatch_firewall"]["third_independent_historical_d16_copy_votes"]=1
         with self.assertRaises(AssertionError):self.check(e=e)
     def test_state_ledger_mismatch(self):
-        s=copy.deepcopy(self.s);s["schema_version"]="1.999.0"
+        s=copy.deepcopy(self.s);s["schema_version"] += "-MUTATED-13CR-NEGATIVE-TEST"
         with self.assertRaises(AssertionError):self.check(s=s)
 if __name__=="__main__":unittest.main()
