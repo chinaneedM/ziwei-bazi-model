@@ -66,6 +66,28 @@ jobs:
               out.write_text(base64.b64encode(buf.getvalue()).decode('ascii')+'\n',encoding='ascii')
               item['contact_sha256']=hashlib.sha256(buf.getvalue()).hexdigest()
               item['sampled_images']=samples
+              # Follow-on bounded full-chapter page atlas for 1599 printed juan 68, without altering initial PDF evidence.
+              if volume==26:
+                  atlas=[]
+                  for start in range(0,doc.page_count,9):
+                      sh=Image.new('RGB',(3*620,3*590),(245,245,245))
+                      d=ImageDraw.Draw(sh)
+                      for j,k in enumerate(range(start,min(start+9,doc.page_count))):
+                          page=doc[k]
+                          factor=min(1.5,570/page.rect.width)
+                          pix=page.get_pixmap(matrix=fitz.Matrix(factor,factor),alpha=False)
+                          raw=pix.tobytes('jpg',jpg_quality=84)
+                          im=Image.open(io.BytesIO(raw)).convert('RGB')
+                          im.thumbnail((600,550))
+                          x=j%3*620;y=j//3*590
+                          sh.paste(im,(x,y+22))
+                          d.text((x+5,y+3),f'1599 j68 PDF p{k+1}',fill=(0,0,0))
+                      outbuf=io.BytesIO()
+                      sh.save(outbuf,format='JPEG',quality=85)
+                      filename=f'vol26-atlas-{start//9+1}.jpg.b64.txt'
+                      (output/filename).write_text(base64.b64encode(outbuf.getvalue()).decode('ascii')+'\\n',encoding='ascii')
+                      atlas.append({'name':filename,'start_pdf_page':start+1,'end_pdf_page':min(start+9,doc.page_count),'sheet_sha256':hashlib.sha256(outbuf.getvalue()).hexdigest()})
+                  (output/'vol26-page-atlas.json').write_text(json.dumps({'schema':'TIANWEN-13NY-NLC1599-V26-ALL-PAGE-ATLAS-R1','original_source_pdf_sha256':item['original_pdf_sha256'],'original_pdf_pages':doc.page_count,'grade':'ALL_SOURCE_PAGES_RASTER_CONTACT_SCREEN_NOT_FULL_NATIVE_LINEWISE_COLLATION','ocr_used':False,'sheets':atlas,'source_absence_proven':False},ensure_ascii=False,indent=2)+'\\n',encoding='utf-8')
               item['original_pdf_archived_in_git']=False
               entries.append(item)
           # Source-API filename-prefix census, NOT a proof the historical physical holding is inaccessible.
