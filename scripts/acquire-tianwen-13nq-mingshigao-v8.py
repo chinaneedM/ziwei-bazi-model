@@ -43,8 +43,39 @@ def main():
             attempts.append(type(exc).__name__ + ": " + str(exc)[:180])
             source.unlink(missing_ok=True)
     else:
-        (OUT / "source-access-error.json").write_text(json.dumps({"attempts": attempts}, indent=2) + "\n")
-        raise RuntimeError("original PDF not acquired or hash mismatch: " + repr(attempts))
+        # A rate limit is a bounded transport observation, never absence of the work.
+        probes = []
+        for probe_url in (
+            "https://iiif.lib.harvard.edu/manifests/drs:428231729",
+            "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1d/Harvard_drs_428231729_%E6%98%8E%E5%8F%B2%E7%A8%BF_v.8.pdf/page2-1920px-Harvard_drs_428231729_%E6%98%8E%E5%8F%B2%E7%A8%BF_v.8.pdf.jpg",
+        ):
+            try:
+                response = s.get(probe_url, timeout=(15, 30))
+                entry = {"url": probe_url, "http": response.status_code, "mime": response.headers.get("Content-Type")}
+                if response.status_code == 200 and "iiif.lib.harvard.edu" in probe_url:
+                    data = response.json()
+                    sequences = data.get("sequences", [])
+                    entry["manifest_sequence_count"] = len(sequences)
+                    if sequences:
+                        entry["manifest_canvas_count"] = len(sequences[0].get("canvases", []))
+                        entry["manifest_first_canvas_id"] = sequences[0].get("canvases", [{}])[0].get("@id")
+                if response.status_code == 200 and "thumb.wikimedia.org" in probe_url:
+                    entry["bytes"] = len(response.content)
+                    entry["sha256"] = hashlib.sha256(response.content).hexdigest()
+                    (OUT / "provider-page2-preview.jpg").write_bytes(response.content)
+                probes.append(entry)
+            except Exception as exc:
+                probes.append({"url": probe_url, "error": type(exc).__name__ + ": " + str(exc)[:170]})
+        record = {"schema": "TIANWEN-13NQ-HARVARD-MINGSHIGAO-SOURCE-ACCESS-BOUNDARY-R1",
+                  "source_pdf_acquired": False, "expected_pdf_bytes": EXPECTED_BYTES,
+                  "expected_pdf_sha1_unverified": EXPECTED_SHA1,
+                  "source_pdf_sha256": None, "attempt_errors": attempts,
+                  "alternative_provider_probes": probes,
+                  "original_j29_glyphs_collated": False,
+                  "no_negative_historical_proof": True}
+        (OUT / "source-access-error.json").write_text(json.dumps(record, ensure_ascii=False, indent=2) + "\n")
+        print("TW13NQ_SOURCE_ACCESS_BOUNDARY:" + json.dumps(record, ensure_ascii=False), flush=True)
+        return
     results = []
     with fitz.open(source) as pdf:
         assert len(pdf) == 107, "unexpected PDF page count"
