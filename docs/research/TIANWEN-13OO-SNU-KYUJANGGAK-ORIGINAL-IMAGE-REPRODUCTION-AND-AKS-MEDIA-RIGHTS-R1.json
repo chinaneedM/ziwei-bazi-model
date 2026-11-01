@@ -1,0 +1,91 @@
+{
+  "schema": "TIANWEN-13OO-SNU-KYUJANGGAK-ORIGINAL-IMAGE-REPRODUCTION-AND-AKS-MEDIA-RIGHTS-R1",
+  "date": "2026-11-01",
+  "issue_id": "TW-OPEN-0005",
+  "predecessor": "docs/research/TIANWEN-13ON-AKS-FIRSTPARTY-ORIGINAL-BOOK-PHOTOS-AND-1444-EPOCH-FIREWALL-R1.json",
+  "question": "Which first-party lawful access/reproduction paths actually apply to the original 奎貴67 盈縮加分 folios and the separate AKS encyclopedia photo gallery?",
+  "first_party_sources": [
+    {
+      "provider": "Seoul National University Kyujanggak",
+      "url": "https://kyu.snu.ac.kr/news/faq/",
+      "kind": "Institutional FAQ / image consultation rights",
+      "direct_observation": "Public original images may be used with SNU Kyujanggak attribution; images not publicly released may be requested through a reproduction application.",
+      "scope": "General institute-level access route, NOT proof specific 奎貴67 image is downloadable, copyable or approved."
+    },
+    {
+      "provider": "Seoul National University Kyujanggak",
+      "url": "https://kyudb.snu.ac.kr/book/list.do?book_cate=SIC&focus=&mid=GDS",
+      "kind": "First-party specific collection catalog",
+      "direct_observation": "Scientific-documents list row 9 identifies 交食推步法 / 奎貴67 / 李純之·金石悌 / catalog 1458 / 古活字本 大字丙辰字 中字甲寅字, with 原文 image and text controls.",
+      "scope": "Catalog-level object and publicly advertised controls; exact folio image and native bytes not obtained."
+    },
+    {
+      "provider": "Academy of Korean Studies encyclopedia",
+      "url": "https://encykorea.aks.ac.kr/Article/E0005505",
+      "kind": "Official media gallery and download UI",
+      "direct_observation": "Gallery has three prior 13ON photo UUIDs and a media download form requesting name, purpose, detail and attribution confirmation.",
+      "scope": "Form UI presence does not prove unrestricted raw image download, complete source inventory or physical-copy identity."
+    },
+    {
+      "provider": "Academy of Korean Studies encyclopedia",
+      "url": "https://encykorea.aks.ac.kr/Guide/ContentUse",
+      "kind": "Official image reuse rights",
+      "direct_observation": "Free reuse is scoped to institute-controlled works and individually public-license-marked media; unmarked third-party images require rightsholder permission, which AKS states it cannot grant. Editorial inquiry address encykorea@aks.ac.kr.",
+      "scope": "General rights policy; the three E0005505 images' individual license-mark status is NOT adjudicated by this reading."
+    }
+  ],
+  "provenance_firewall": [
+    "SNU Kyujanggak 奎貴67 holding != unbound AKS-hosted photographed book physical copy.",
+    "Official gallery download form != consent, account access, reproduction approval, individual media license or full manuscript scan.",
+    "Repository has NO actual obtained upper/lower original 盈縮加分 folio from this batch, and no target native image hash.",
+    "1458 SNU catalog claim, 1459 AKS work-level claim and 1444 mathematical epoch stay separate; conflicting 丙辰字/戊寅字 typography not resolved.",
+    "Historical G893 six final values still 0/6; received-text arithmetic matches cannot replace original unit / printing precision evidence."
+  ],
+  "access_priority": [
+    {
+      "step": 1,
+      "target": "SNU source-emitted original-image viewer for SIC 奎貴67, exact upper/lower 盈縮加分 folios",
+      "condition": "Use only actual item-specific links; no guessed page identifiers or authentication bypass."
+    },
+    {
+      "step": 2,
+      "target": "SNU official reproduction application for the two target folios",
+      "condition": "Only with explicit user-provided authorization/contact if required; do not claim submission, fee, approval or delivery."
+    },
+    {
+      "step": 3,
+      "target": "AKS encyclopedia photo metadata and photographer/holding identification",
+      "condition": "Consult official editorial channel separately if needed; individual-image rights and physical-copy linkage must be established."
+    },
+    {
+      "step": 4,
+      "target": "2017 국역 교식추보법 physical facsimile section",
+      "condition": "Use only if authentic original page, edition/impression and item bindings can be independently verified."
+    }
+  ],
+  "evidence_grade": "FIRST_PARTY_INSTITUTIONAL_REPRODUCTION_POLICY_AND_RIGHTS_ROUTE_ONLY",
+  "source_original_target_folios_acquired": 0,
+  "institutional_requests_submitted": 0,
+  "licenses_inferred": false,
+  "adjudication": "A verified SNU reproduction route exists for unpublished images in general, and AKS declares a narrower photo license regime. This operationally narrows acquisition paths, not a new historical text witness or adjudication of target formula/type/dates.",
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "AKS-gallery hosting or official media download UI is not a provenance edge to SNU 奎貴67."
+    ],
+    "unresolved_lineage_questions": [
+      "Can actual SNU 奎貴67 folio images establish copy/print type and upper/lower original 盈縮加分?"
+    ]
+  },
+  "counters": {
+    "state_version": "1.1025.0",
+    "matrix": "222/222",
+    "sources": 765,
+    "graph": "252/238",
+    "omission_issues": 11,
+    "g893_historic_final": "0/6",
+    "algorithm_reopens": 0
+  }
+}
