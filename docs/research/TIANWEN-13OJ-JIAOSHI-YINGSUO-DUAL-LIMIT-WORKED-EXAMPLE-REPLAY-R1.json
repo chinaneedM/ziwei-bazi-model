@@ -1,0 +1,112 @@
+{
+  "schema": "TIANWEN-13OJ-JIAOSHI-YINGSUO-DUAL-LIMIT-WORKED-EXAMPLE-REPLAY-R1",
+  "date": "2026-11-01",
+  "issue_id": "TW-OPEN-0005",
+  "predecessor": "docs/research/TIANWEN-13OD-JIAOSHI1458-G893-SOLAR-QUADRATIC-REPLAY-R1.json",
+  "question": "Does the same received 交食推步法 source prescribe two separate coefficient branches in 盈縮加分, each recoverable exactly against its own 1447 丁卯 eclipse worked example? Does the G893 eight-row agreement license applying one branch globally?",
+  "source_scope": {
+    "bibliographic_holding": "SNU Kyujanggak 奎貴67 1458 catalog, original formula folio still not acquired",
+    "catalog": "https://kyudb.snu.ac.kr/book/list.do?book_cate=SIC&focus=&mid=GDS",
+    "received_upper": "https://zh.wikisource.org/wiki/交食推步法/假令上",
+    "received_lower": "https://zh.wikisource.org/wiki/交食推步法/假令下",
+    "evidence_class": "RECEIVED_PUBLIC_TRANSCRIPTION_WITH_INTERNAL_WORKED_EXAMPLES_NOT_1458_ORIGINAL_PHYSICAL_GLYPH",
+    "original_book_image_sha256": null,
+    "original_target_formula_folio_acquired": false
+  },
+  "arithmetic_convention": {
+    "representation": "Numerical values expressed as 1/10000 of the displayed 分-form field, strictly a calculation position, not a claim about the ancient 少/微 radix.",
+    "recurrence": "M(n)=T−n(B+C*n), using integers only; first product n*C appears as the source intermediate 秒, n*(B+n*C) as intermediate 分; branch controls cannot be merged.",
+    "existing_13OD": "93 coefficient branch is identical to prior 13OD model for G893 8 observed source-printed paired rows; no fresh original G893 pixel reread in this batch."
+  },
+  "independent_branch_checks": [
+    {
+      "limit": "縮初限 / also receives 縮初盈末 alternate coefficients in same sentence",
+      "received_text_section": "假令上 §盈縮加分",
+      "source_literals": [
+        "八十一微",
+        "四分四十二秒八十一微",
+        "四百八十四分八十四秒七十三微",
+        "八十八日",
+        "七十一秒二八",
+        "四百五十二分三九九二",
+        "三十二分四四八一"
+      ],
+      "day": 88,
+      "T": 4848473,
+      "B": 44281,
+      "C": 81,
+      "intermediate_curvature_product": 7128,
+      "intermediate_linear_plus_curvature": 51409,
+      "intermediate_whole_product": 4523992,
+      "output_scaled": 324481,
+      "output_formatted": "32.4481",
+      "exact_source_worked_example": true
+    },
+    {
+      "limit": "縮末限 / also receives 九十三微 default coefficients in same sentence",
+      "received_text_section": "假令下 §盈縮加分",
+      "source_literals": [
+        "九十三微",
+        "四分九十二秒九十三微",
+        "五百一十〇分八十五秒六十九微",
+        "七十九日",
+        "七十三秒四七",
+        "四百四十七分四五六〇",
+        "六十三分四〇〇九"
+      ],
+      "day": 79,
+      "T": 5108569,
+      "B": 49293,
+      "C": 93,
+      "intermediate_curvature_product": 7347,
+      "intermediate_linear_plus_curvature": 56640,
+      "intermediate_whole_product": 4474560,
+      "output_scaled": 634009,
+      "output_formatted": "63.4009",
+      "exact_source_worked_example": true
+    }
+  ],
+  "negative_controls": {
+    "wrong_93_branch_applied_to_n88_scaled": 50593,
+    "wrong_81_branch_applied_to_n79_scaled": 844753,
+    "meaning": "Source-defined limit selection is mechanically material. Correct arithmetic of one branch does not justify substituting it for the other."
+  },
+  "terminology_scope": {
+    "distinct_source_sections": [
+      "盈縮加分",
+      "盈縮差",
+      "加減差"
+    ],
+    "avoid_conflation": "Source explicitly separates the solar 盈縮加分 working term from subsequent 盈縮差 and eclipse/conjunction 加減差 section. A matching solar numeric lane does not automatically prove the other two algorithms or their lineage."
+  },
+  "adjudication": {
+    "verified": "Two internally source-received published worked examples, day88 and day79, reproduce every local intermediate and terminal four-place number with two different exact integer coefficient branches.",
+    "does_not_verify": [
+      "1458 original source glyph or page/image provenance",
+      "Independent physical witness or edition/impression relation to G893",
+      "G893 historical 少/微 radix and 1569 same-field mapping",
+      "Any original table's entire limit boundary or quantization policy",
+      "Direct historical copying or any of G893 six final historical controls",
+      "Runtime algorithm defect"
+    ],
+    "g893_final_historical_winners": "0/6",
+    "issue_status": "OPEN",
+    "algorithm_reopen_authorized": false,
+    "new_registered_historical_sources": 0,
+    "new_original_formula_pages": 0,
+    "new_genealogy_edges": 0
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Two internally reproducible received-text limit branches are not an additional original witness and cannot establish common copy, printing blocks, direct historical descent, or whole G893 table equivalence."
+    ],
+    "unresolved_lineage_questions": [
+      "Find original 1458 奎貴67 盈縮加分 glyphs for BOTH source branches and inspect original book folio/edition relation.",
+      "Inspect G893 original 少/微 and printed limit fields before judging transferability or quantization."
+    ]
+  },
+  "next_action": "Preserve the two branch-specific received examples. Prioritize a legitimate source-emitted original 奎貴67 target image and G893 original limit/少 glyph, not repeating another generic source-catalog search."
+}
