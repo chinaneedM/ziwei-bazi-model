@@ -1,0 +1,137 @@
+{
+  "schema": "TIANWEN-13OA-SEJONG-CHILJEONGSAN-SHAO-TAI-QUARTER-REPLAY-R1",
+  "date": "2026-11-01",
+  "issue_id": "TW-OPEN-0005",
+  "inquiry": "Within a near-contemporary Korean Shoushi-related technical source, can 太/半/少 fractional positions be demonstrated by exact internal arithmetic without importing the semantics mechanically into G893?",
+  "primary_textual_locator": {
+    "provider": "National Institute of Korean History — official Annals of Joseon Dynasty",
+    "source_class": "FIRST_PARTY_OFFICIAL_HISTORICAL_TRANSCRIPTION_NOT_PHYSICAL_PAGE_IMAGE",
+    "work": "世宗實錄 卷156 七政算內外篇 內篇 上卷",
+    "direct_nodes": [
+      {
+        "section": "天行諸率",
+        "url": "https://sillok.history.go.kr/id/wda_500120",
+        "physical_page_label": "太白山史庫本 第60冊 第156卷 第1張 A面",
+        "source_atoms": [
+          "周天分; 三百六十五萬, 二千五百七十五分",
+          "周天度; 三百六十五度, 二十五分, 七十五秒",
+          "半周天; 一百八十二度, 六十二分, 八十七秒半",
+          "周天象限; 九十一度, 三十一分, 四十三秒太"
+        ]
+      },
+      {
+        "section": "日行諸率",
+        "url": "https://sillok.history.go.kr/id/wda_500130",
+        "physical_page_label": "太白山史庫本 第60冊 第156卷 第1張 B面",
+        "source_atoms": [
+          "歲實; 三百六十五萬, 二千四百二十五分",
+          "歲周; 三百六十五日, 二千四百二十五分",
+          "半歲周; 一百八十二日, 六千二百一十二分半",
+          "歲象限; 九十一度, 三十一分, 〇六秒少"
+        ]
+      },
+      {
+        "section": "七政算內外篇 source-introduction",
+        "url": "https://sillok.history.go.kr/id/wda_500",
+        "source_atom": "又得太陰太陽通軌於中朝, 其法小與此異, 稍加櫽括爲內篇",
+        "scope": "Historical compilation claims Shoushi and Tonggui-related work; not physical direct copying proof"
+      }
+    ],
+    "image_review": "No source-original leaf image was acquired or glyph-collated in this batch; the provider transcriptions have exact chapter URLs and folio labels but no original image SHA.",
+    "print_date_firewall": "The historical composition/annals narrative and the specific surviving Taebaeksan archive copy/impression date are not equivalent; no date of physical leaf asserted."
+  },
+  "exact_integer_fraction_checks": [
+    {
+      "control": "周天象限",
+      "base_raw_fraction_units": 3652575,
+      "divide_by": 4,
+      "integer_quotient": 913143,
+      "remainder_quarters": 3,
+      "output": "九十一度三十一分四十三秒太",
+      "fraction_semantics": "太=3/4 of last named 百分制秒/least-place unit",
+      "status": "MATCH"
+    },
+    {
+      "control": "半周天",
+      "base_raw_fraction_units": 3652575,
+      "divide_by": 2,
+      "integer_quotient": 1826287,
+      "remainder_halves": 1,
+      "output": "一百八十二度六十二分八十七秒半",
+      "fraction_semantics": "半=1/2 of last named 秒",
+      "status": "MATCH"
+    },
+    {
+      "control": "歲象限",
+      "base_raw_fraction_units": 3652425,
+      "divide_by": 4,
+      "integer_quotient": 913106,
+      "remainder_quarters": 1,
+      "output": "九十一度三十一分〇六秒少",
+      "fraction_semantics": "少=1/4 of last named 秒 in its source-local printed numeral",
+      "status": "MATCH"
+    },
+    {
+      "control": "半歲周",
+      "base_raw_fraction_units": 3652425,
+      "divide_by": 2,
+      "integer_quotient": 1826212,
+      "remainder_halves": 1,
+      "output": "一百八十二日六千二百一十二分半",
+      "fraction_semantics": "半=1/2 of last stated source-local fraction-of-day unit",
+      "status": "MATCH"
+    }
+  ],
+  "interpretation": {
+    "positive": "The same NIKH official historical transcription contains two internally self-verifying quarters and two independently self-verifying halves. 太 and 少 have source-local 3/4 and 1/4 fractional positional semantics with base-100 display decomposition.",
+    "material_improvement_over_13NF": "The 13NF Jin/Tang quarter semantics are now independently reinforced in the Joseon technical curriculum closely associated with Shoushi/Tonggui reception, not just in much earlier general nomenclature.",
+    "exact_scoped_limit": "These calculations do NOT prove the distinct G893 physical table's 日差加一秒八十六少 suffix is attached to the same base unit or handled with the same precision and rounding stage, nor that the official Sillok transcription reproduces every physical character.",
+    "notation_warning": "The source prints 歲象限 with 度 even though adjacent 歲周 is in 日. Retain this literal notation; do not silently infer identical quantity dimensions from matching suffixes.",
+    "original_g893_status": "G893 source-original header/first rows already observed earlier; no new G893 target numeric decision in this batch",
+    "original_six_historical_winners": "0/6",
+    "proposed_runtime_rule": null,
+    "algorithm_reopen_authorized": false
+  },
+  "relation_to_other_sources": [
+    {
+      "source": "G893 奎貴893 / GK00893_00",
+      "status": "RELATED_COURT_TECHNICAL_CONTEXT_ONLY",
+      "equivalence": "UNRESOLVED_NO_DIRECT_SCOPED_GLYPH_OR_UNIT_BRIDGE"
+    },
+    {
+      "source": "NIKH 高麗史 modern Korean G893-like table 1초 8625",
+      "status": "SECONDARY_EDITORIAL_NUMERIC_INTERPRETATION",
+      "equivalence": "CONSISTENT_WITH_QUARTER_HYPOTHESIS_NOT_G893_PHYSICAL_PROOF"
+    },
+    {
+      "source": "13NF 晋书/新唐书 太半少 generic",
+      "status": "SUPPORTS_WIDER_FRACTION_TERMINOLOGY",
+      "equivalence": "NOT_AUTHORIAL_LINEAGE"
+    }
+  ],
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "No G893 ← 七政算 direct copying or identical 少-unit-base edge is allowed from mathematical synonymy or historical co-context."
+    ],
+    "unresolved_lineage_questions": [
+      "Determine original-G893 local base and fraction stage from source-original adjacent operations, not by projection from another work.",
+      "Verify source-native 七政算 leaf image to upgrade official transcription to direct original-glyph authority if operationally useful."
+    ]
+  },
+  "source_registry_decision": "NO_NEW_ACTIVE_SOURCE_ENTRY_FROM_TRANSCRIPTION_CROSSWALK: this is a scoped official-transcription corroborator, not a new independent G893 physical text witness; root/ext source counts remain unchanged pending a distinct registered source-intake policy.",
+  "unchanged": {
+    "active_sources": 765,
+    "matrix": "222/222",
+    "genealogy_nodes": 252,
+    "genealogy_edges": 238,
+    "open_research_issues": 11,
+    "g893_original_historical_winners": 0,
+    "product": "CLOSED",
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0
+  },
+  "next_priority": "With quarter/half local meaning demonstrated, do not repeat early terminology surveys; seek actual G893 source-original same-column unit/rounding algorithm or an independent original edition showing 日差加一秒八十六少, plus NAAJ sixth fascicle. NCL 06270 target j68 can resume only with an authenticated image."
+}
