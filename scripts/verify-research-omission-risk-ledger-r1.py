@@ -363,7 +363,23 @@ def check_forward_only(old,new):
    require(len(y["history"])>len(x["history"]),"issue title silently changed: "+k)
    last=y["history"][-1]
    require(last.get("event")=="TITLE_CORRECTION" and last.get("previous_title")==x["title"] and last.get("new_title")==y["title"] and "title" in last.get("changed_fields",[]) and last.get("reason") and last.get("evidence_refs"),"title correction lacks original/evidence record: "+k)
-  require(set(x["source_refs"]).issubset(set(y["source_refs"])),"prior source reference removed: "+k)
+  deleted_refs=set(x["source_refs"])-set(y["source_refs"])
+  if deleted_refs:
+   # One documented 13OI data-repair exception: external URLs had been placed in
+   # the repository-file-only source_refs list. Do not generalize to other refs.
+   known_invalid_refs={
+    "https://kyudb.snu.ac.kr/brd/viewBrd.do?menuId=1&postSeq=22262&siteCd=DBSP",
+    "https://kyudb.snu.ac.kr/book/view.do?book_cd=GK13028_00",
+   }
+   last=y["history"][-1]
+   require(
+    k=="TW-OPEN-0005" and deleted_refs==known_invalid_refs
+    and len(y["history"])>len(x["history"])
+    and last.get("event")=="INVALID_SOURCE_REF_CORRECTION"
+    and set(last.get("removed_refs",[]))==deleted_refs
+    and last.get("reason") and last.get("evidence_refs"),
+    "prior source reference removed: "+k
+   )
   require(set(x.get("matrix_rule_ids",[])).issubset(set(y.get("matrix_rule_ids",[]))),"prior matrix coverage removed: "+k)
   if x.get("source_page_coverage"):
    require(y.get("source_page_coverage"),"prior source-page coverage missing: "+k)
