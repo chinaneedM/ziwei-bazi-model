@@ -1,0 +1,60 @@
+{
+  "schema": "TIANWEN-13OQ-1458-PREFACE-RECEIVED-CHRONOLOGY-AND-LICHENG-SCOPE-R1",
+  "date": "2026-11-01",
+  "issue_id": "TW-OPEN-0005",
+  "predecessor": "docs/research/TIANWEN-13OP-KYU67-EXACT-FOLIO-INQUIRY-AND-TYPE-COLLATION-GATE-R1.json",
+  "question": "Does the received 交食推步法序 give a dated textual work bridge and explicit 立成 reference, without authenticating the surviving SNU print or 奎貴893 object?",
+  "dated_received_preface": {
+    "source": "Wikisource, fixed received-text revision, NOT a photographed original page",
+    "url": "https://zh.wikisource.org/w/index.php?title=%E4%BA%A4%E9%A3%9F%E6%8E%A8%E6%AD%A5%E6%B3%95/%E5%BA%8F&oldid=2388332",
+    "source_revision_date": "2024-04-12",
+    "received_signature": "天順二年正月日嘉靖大夫禮曹參判脩文殿提學臣李純之奉敎序",
+    "received_signature_year": 1458,
+    "source_phrase": "盖授時曆經立成，諸數浩繁，不便於觀覽",
+    "operational_phrase": "又於立成推演其數，作爲新術",
+    "additional_scope": "序文还声称对于盈縮差、遲疾差、加減差等，用不查立成而直接推求的方法；这属于收到的文字陈述，不是原图核读或完整算法来源证明",
+    "assessment": "Source-transcribed preface *asserts* a 1458 dated authorial paratext and a work/method-level 立成 relationship; no original folio, dated print, or specific GK00893_00 physical table identity is established"
+  },
+  "chronology_firewall": {
+    "official_1457_commission": "https://sillok.history.go.kr/id/kga_10312024_002",
+    "received_preface_1458": "DATED_BY_RECEIVED_SIGNATURE_NOT_PHYSICAL_FOLIO",
+    "snu_kyu67_catalog_1458": "https://kyudb.snu.ac.kr/book/list.do?book_cate=SIC&focus=&mid=GDS",
+    "aks_work_level_year_1459": "https://encykorea.aks.ac.kr/Article/E0005505",
+    "conclusion": "1457 commission, received 1458 preface, 1458 SNU catalog, and 1459 AKS work entry name different date/evidence layers; nothing proves two impressions or adjudicates disputed 丙辰字 vs 戊寅字"
+  },
+  "restricted_inference": [
+    "Received preface / modern community transcription is not the original 1458 source page",
+    "Work-level 授時曆經立成 mention is not the same as binding the exact 奎貴893/GK00893_00 physical copy, solar column, 少/微 radix, or copied G893 six numeric values",
+    "Textual reference to a historical method does not prove direct dependence of a surviving edition/printing on a known extant copy",
+    "1458 received authorial preface date must not be conflated with physical-copy, print/impression or digitization dates",
+    "Original 假令上 and 假令下 盈縮加分 folios, original preface image and typeform remain unacquired"
+  ],
+  "next_action": "Use SNU Kyujanggak official item/viewer or an explicitly authorized original-folio reproduction inquiry already prepared in 13OP; identify exact source page/copy and hash both original 盈縮加分 folios before any stronger collation",
+  "original_folio_images_acquired": 0,
+  "institutional_request_submitted": false,
+  "new_external_registry_entries": 0,
+  "g893_historical_final": "0/6",
+  "chart_algorithm_reopen": false,
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Received work-level mention 授時曆經立成 cannot be promoted to direct textual-copy/edition dependency or identity with present 奎貴893"
+    ],
+    "unresolved_lineage_questions": [
+      "Which physical original 交食推步法序 preface supports the dated signature?",
+      "Does actual 奎貴67 upper/lower source text and typeform agree across physical impressions?",
+      "Does G893 native 少/微 unit and corresponding column match across independent original witnesses?"
+    ]
+  },
+  "counts": {
+    "state_version": "1.1028.0",
+    "matrix": "222/222",
+    "sources": 765,
+    "graph": "252/238",
+    "omission_issues": 11,
+    "product": "CLOSED",
+    "algorithm_reopens": 0
+  }
+}
