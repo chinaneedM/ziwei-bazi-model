@@ -50,6 +50,23 @@ jobs:
                   draw.text((x+5,y+5),f'PDF p{number}',fill=(0,0,0))
               buf=io.BytesIO();sheet.save(buf,format='JPEG',quality=86)
               (out/f'locator-{start//12+1}.jpg.b64.txt').write_text(base64.b64encode(buf.getvalue()).decode('ascii')+'\n',encoding='ascii')
+          # Target the suspected j68 vicinity only; page identity and glyph readings remain ungraded until direct human review.
+          direct_pages=[385,395,405,414,424,433,443,453]
+          native=[]
+          for number in direct_pages:
+              pg=doc[number-1]
+              px=pg.get_pixmap(matrix=fitz.Matrix(min(6,1900/pg.rect.width),min(6,1900/pg.rect.width)),alpha=False)
+              jpg=px.tobytes('jpg',jpg_quality=89)
+              (out/f'direct-{number}.jpg.b64.txt').write_text(base64.b64encode(jpg).decode('ascii')+'\\n',encoding='ascii')
+              source_images=[]
+              for idx,z in enumerate(pg.get_images(full=True)):
+                  embedded=doc.extract_image(z[0]);dat=embedded['image']
+                  fn=f'native-{number}-{idx+1}-xref{z[0]}.{embedded["ext"]}'
+                  (out/fn).write_bytes(dat)
+                  source_images.append({'file':fn,'sha256':hashlib.sha256(dat).hexdigest(),'bytes':len(dat)})
+              native.append({'pdf_page':number,'render_sha256':hashlib.sha256(jpg).hexdigest(),'native_images':source_images})
+          report['bounded_direct_page_images']=native
+          report['bounded_direct_images_grade']='HASHED_NATIVE_SOURCE_IMAGES_NOT_YET_COLLATED'
           report['contact_sheets']= (len(samples)+11)//12
           (out/'manifest.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
           print(json.dumps(report,ensure_ascii=False,indent=2))
