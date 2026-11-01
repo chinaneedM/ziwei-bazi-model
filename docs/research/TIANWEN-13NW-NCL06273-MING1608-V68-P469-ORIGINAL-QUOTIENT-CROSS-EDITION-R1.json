@@ -1,0 +1,103 @@
+{
+  "schema": "TIANWEN-13NW-NCL06273-MING1608-V68-P469-ORIGINAL-QUOTIENT-CROSS-EDITION-R1",
+  "date": "2026-11-01",
+  "issue_id": "TW-OPEN-0005",
+  "source_status": "TWO_CATALOGUED_MING_PRINT_SCANS_DIRECTLY_READ_SAME_TARGET_NUMERIC_SEQUENCE_NOT_AUTOMATICALLY_TWO_INDEPENDENT_TEXTUAL_BRANCHES",
+  "method": "Direct visual examination of source-native image previews without OCR; original PDF bytes and original embedded image bytes SHA bound; exact page and disjoint source keys preserved",
+  "source_a_prior_13nv": {
+    "catalogue_object": "NLC892-CBM1408-371938, 古今律曆考 第19冊, 卷六十八",
+    "original_pdf_sha256": "0f34ca5bcb474b9a38ece20c40eb8c468d1671fe6209cec140b20d8c9350e3fe",
+    "one_based_pdf_page": 17,
+    "original_embedded_image_sha256": "7afadaf1aa5ab87415d581a5b8d00a93bf9774cb510ffa09997ec4997a31fa33",
+    "evidence_path": "docs/research/evidence/13nv/embedded-17-1-xref53.jpx",
+    "original_direct_collation_doc": "docs/research/TIANWEN-13NV-NLC-CBM1408-V19-J68-DIRECT-ORIGINAL-QUOTIENT-GLYPHS-R1.json"
+  },
+  "source_b_new_13nw": {
+    "catalogue_object": "NCL 06273, 1608 孫瑋保定刊《古今律曆考》, public Commons file second part",
+    "catalogue_claim_boundary": "Edition/date labels are catalogue metadata; exact copy collation with NLC not independently established",
+    "commons_source_title": "File:NCL-06273 2 古今律曆考.pdf",
+    "source_url": "https://upload.wikimedia.org/wikipedia/commons/0/05/NCL-06273_2_%E5%8F%A4%E4%BB%8A%E5%BE%8B%E6%9B%86%E8%80%83.pdf?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "original_pdf_bytes": 48561584,
+    "original_pdf_pages": 625,
+    "original_pdf_sha256": "4c6ec588e2fa7a13db0187b7ce8630fbfa7ec86ac47f2c8120e0f9a6b3dcce78",
+    "commons_sha1": "263af9dd401644adca6477b0c76e0e581ef0fb77",
+    "one_based_pdf_page": 469,
+    "original_embedded_image_path": "docs/research/evidence/13nw/native-469-1-xref1871.jpeg",
+    "original_embedded_image_sha256": "9ee797b6bf44fe41444821e8f753cf00636fff9fbec3b46f3487c96bdf7894d1",
+    "source_embedded_bytes": 81738,
+    "human_preview_path": "docs/research/evidence/13nw/direct-469.jpg.b64.txt",
+    "human_preview_jpg_sha256": "e6b55ddb882312f4a808fbc4655177b5e0bca12647f0e944344de7c918e71f81",
+    "source_manifest": "docs/research/evidence/13nw/manifest.json",
+    "upstream_and_downstream_context_original_pdfs": [
+      467,
+      468,
+      470,
+      471
+    ],
+    "chapter_boundary": "卷六十九 appears at NCL PDF p487, so this is within 卷六十八",
+    "original_pdf_is_archived_in_git": false,
+    "direct_original_image_is_archived_in_git": true
+  },
+  "original_b_p469_loci": [
+    {
+      "kind": "upstream_derivation",
+      "source": "NCL PDF p469 right leaf early vertical columns",
+      "critical_visible_original": "置泛平差三十七分〇七秒 加減泛立差六十九秒 餘三十六分三十八秒為定平差",
+      "simplified_precision": "37分07秒 - 69秒 = 36分38秒",
+      "interpretation": "same-source printed prior arithmetic for the displayed 定平差; 〇 is zero glyph, manuscript punctuation added"
+    },
+    {
+      "kind": "target_same_source_print",
+      "source": "NCL PDF p469 right leaf, center-left",
+      "critical_visible_original": "置定平差三十六分三十八秒以段日一十四日八十二除一次得二分四十六秒（有零不用）為日定平差",
+      "field_reading": "36.38分 / 14.82日 → 2.46分",
+      "interpretation": "A direct original print in 1608 catalogued source, independently scanned from NLC copy"
+    },
+    {
+      "kind": "next_field_print",
+      "source": "NCL PDF p469 right leaf adjacent",
+      "critical_visible_original": "置泛立差六十九秒以段日一十四日八十二除二次得三十一分（有零不用）為日立差（分即微）",
+      "interpretation": "A local unit-label annotation for this derived lunar-solar table; NOT a proof of G893 Yuan 少=微"
+    },
+    {
+      "kind": "downstream_print",
+      "source": "NCL PDF p469 left leaf middle columns",
+      "critical_visible_original": "置立差三十一分以六因之得一百八十六分為加分立差；置平差二分四十六秒倍之得四分九十二秒再加加分立差一秒八十六微共得四分九十三秒八十六微為平立合差",
+      "interpretation": "NCL p469 corroborates locally printed successor arithmetic and 4分93秒86微 final"
+    }
+  ],
+  "comparison": {
+    "target_field_readover": "NLC j68 p17 and NCL 06273 1608 p469 both show 36分38秒÷14日82→2分46秒 with 有零不用",
+    "reading_agreement_direct_image_attested": true,
+    "quantity_division": "36.38/14.82=2.4547908232118758...分",
+    "rounding_if_using_displayed_operands_only": "floor to 2 decimal=2.45分; nearest to 2 decimal=2.45分; printed=2.46分",
+    "second_copy_same_discrepancy_visible": true,
+    "original_upstream_37_07_minus_0_69": "37.07 - 0.69 = 36.38",
+    "does_not_prove_source_math_original_author_error": true,
+    "precision_and_intermediary_potentially_unprinted": true,
+    "manuscript_print_relationship_unknown": true,
+    "physically_distinct_catalogued_scan_objects": 2,
+    "independent_textual_witness_votes_awarded": 0,
+    "graph_lineage_edges_added": 0,
+    "original_g893_six_control_winners": "0/6"
+  },
+  "evidence_boundary": [
+    "The NLC and NCL catalogued digital files have different source identifiers and original-image hashes, but their printing plate genealogy has not been proven independent; identical characters may reflect shared blocks or copying.",
+    "Earlier claim that target quotient followed NCL p481 corrected: p481-p486 are later j68 paragraphs; exact quotient is PDF p469; p487 begins j69.",
+    "NCL 06271 fragment (卷1-26) cannot supply卷68 original. NCL 06270 / 06272 full alternate original leaves are not collated.",
+    "This historical passage does not identify G893 元《授时历立成》 unit 少, decimal scale, rounding rule, NAAJ sixth original or any chart algorithm defect.",
+    "No new source registry entry, stemma node/edge promotion or G893 six-group finalist is made without further physical transmission proof."
+  ],
+  "next_priority": "Compare another genuinely separate printed/engraved edition's j68 p469 equivalent (e.g. full NCL 06270 or 06272) or reconstruct high-precision pre-rounded operand from early manuscript evidence. Do not repeat source-local division and do not promote G893 少.",
+  "counters": {
+    "source_registry": 765,
+    "matrix": "222/222",
+    "genealogy_nodes": 252,
+    "genealogy_edges": 238,
+    "omission_open_issues": 11,
+    "g893_final": "0/6",
+    "deterministic_chart": "CLOSED",
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0
+  }
+}
