@@ -92,7 +92,12 @@ def main():
                     continue
                 body = response.content
                 if not (body.startswith(b"\\xff\\xd8") and 10000 < len(body) < 3000000):
-                    record.setdefault("preview_access_errors", []).append({"page": page, "error": "invalid JPEG or unexpected size"})
+                    record.setdefault("preview_access_errors", []).append({
+                        "page": page, "error": "invalid JPEG or unexpected size",
+                        "mime": response.headers.get("Content-Type"),
+                        "bytes": len(body),
+                        "prefix_hex": body[:35].hex()
+                    })
                     continue
                 available[page] = body
             except Exception as exc:
