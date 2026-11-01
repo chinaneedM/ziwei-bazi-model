@@ -1,0 +1,63 @@
+{
+  "schema": "TIANWEN-13NP-HARVARD-MINGSHIGAO-V9-P2-PRINTED-HEADING-BOUNDARY-R1",
+  "dated": "2026-11-01",
+  "linked_open_issue": "TW-OPEN-0005",
+  "predecessor": "docs/research/TIANWEN-13NO-HARVARD-MINGSHIGAO-V8-P2-DIRECT-PREVIEW-HEADING-R1.json",
+  "source_identity": {
+    "institution": "Harvard-Yenching Library",
+    "catalog": "https://id.lib.harvard.edu/alma/990080200010203941/catalog",
+    "v8": {
+      "drs": "428231729",
+      "commons": "https://commons.wikimedia.org/wiki/File:Harvard_drs_428231729_%E6%98%8E%E5%8F%B2%E7%A8%BF_v.8.pdf",
+      "preview_page2": "https://commons.wikimedia.org/w/index.php?page=2&title=File:Harvard_drs_428231729_明史稿_v.8.pdf",
+      "cataloged_pages": 107
+    },
+    "v9": {
+      "drs": "428231743",
+      "commons": "https://commons.wikimedia.org/wiki/File:Harvard_drs_428231743_%E6%98%8E%E5%8F%B2%E7%A8%BF_v.9.pdf",
+      "preview_page2": "https://commons.wikimedia.org/w/index.php?page=2&title=File:Harvard_drs_428231743_明史稿_v.9.pdf",
+      "preview_1920px": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7f/Harvard_drs_428231743_%E6%98%8E%E5%8F%B2%E7%A8%BF_v.9.pdf/page2-1920px-Harvard_drs_428231743_%E6%98%8E%E5%8F%B2%E7%A8%BF_v.9.pdf.jpg",
+      "cataloged_pages": 76,
+      "provider_listed_size_bytes": 77984621,
+      "provider_listed_sha1": "28e71acb1826f7afba613427f666c8e966ba031b",
+      "sha1_recomputed_against_source_pdf": false
+    }
+  },
+  "preview_classification": "DIRECT_PUBLIC_RENDERED_PDF_PAGE_PREVIEW_HEADING_ONLY_NOT_HASH_BOUND_NATIVE_SOURCE_OR_TARGET",
+  "bounded_original_printed_heading_observations": [
+    {
+      "volume": "v8",
+      "pdf_page_one_based": 2,
+      "printed_heading": "志第九 / 曆三上 / 大統曆法",
+      "prior_evidence": "13NO",
+      "does_not_attest_j29": true
+    },
+    {
+      "volume": "v9",
+      "pdf_page_one_based": 2,
+      "printed_heading": "志第十四 / 曆五下",
+      "new_preview_visual_read": true,
+      "does_not_attest_j29": true
+    }
+  ],
+  "inference": "The adjacent scan labels differ: v8 starts at a printed 志第九 heading while v9 starts at 志第十四. Prioritize finding printed 志第十 / 曆三下 within v8's interior; do not claim j29 has been located in v8, or that absent page-level evidence proves any exclusion in v9. File volume ordinals are not literary juan numbers.",
+  "excluded_claims": [
+    "Public page preview is not source-native PDF or hash-bound full-resolution original target.",
+    "Cataloged PDF checksum and file size were NOT independently verified by downloading bytes.",
+    "Not a source-page original reading of 31微×6, 4分93秒86微, 92/93 dispute, or historical 少 radix.",
+    "Neither copy independence nor same-edition/same-physical-copy identity with Shidian NA03560 is proved.",
+    "No negative proof from an unexamined 107-page v8 interior; no new lineage or stemmatic edge."
+  ],
+  "follow_up": "Obtain actual v8 printed 志第十 / 曆三下 page from original/Harvard IIIF or source PDF, bind source-native byte hash and separate glyph ROIs, then collate target intermediate/final numerals. Independently keep G893 少/rounding and NAAJ 子051-0003 sixth original targets open.",
+  "counts_after": {
+    "matrix": "222/222",
+    "active_external_sources": 765,
+    "graph_nodes": 252,
+    "graph_edges": 238,
+    "open_research_issues": 11,
+    "original_g893_historical_final_winners": "0/6",
+    "algorithm_reopens": 0,
+    "chart_product": "CLOSED"
+  },
+  "transmission_impact": "NONE: preview boundary only; no copy-to-copy or rule-to-rule transmission edge adjudication"
+}
