@@ -1,0 +1,73 @@
+name: research-tianwen-13nx-ncl-06272-original-locator
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths: [.github/workflows/research-tianwen-13nx-ncl-06272-original-locator.yml]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  locate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install source PDF renderer
+        run: python -m pip install 'pymupdf>=1.24,<2' 'pillow>=10,<13'
+      - name: Inspect NCL 06272 part 2 original and hash sampled source pages
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import base64, hashlib, io, json, pathlib, urllib.request
+          import fitz
+          from PIL import Image, ImageDraw
+          out=pathlib.Path('docs/research/evidence/13nx')
+          out.mkdir(parents=True,exist_ok=True)
+          url='https://upload.wikimedia.org/wikipedia/commons/0/01/NCL-06272_2_%E5%8F%A4%E4%BB%8A%E5%BE%8B%E6%9B%86%E8%80%83.pdf'
+          req=urllib.request.Request(url,headers={'User-Agent':'TianwenHistoricalCollation/1.0 (https://github.com/chinaneedM/ziwei-bazi-model)'})
+          with urllib.request.urlopen(req,timeout=180) as response:
+              raw=response.read(170_000_000)
+          assert raw.startswith(b'%PDF-'), 'not a source PDF'
+          assert len(raw)==137534391, f'unexpected Commons PDF byte count {len(raw)}'
+          doc=fitz.open(stream=raw,filetype='pdf')
+          n=doc.page_count
+          indexes=sorted(set([0,n-1]+[min(n-1,round(k*(n-1)/59)) for k in range(60)]))
+          report={'schema':'TIANWEN-13NX-NCL06272-ORIGINAL-PAGE-LOCATOR-R1','source_title':'File:NCL-06272 2 古今律曆考.pdf','url':url,'catalogue_identity':'NCL 06272 source; edition/physical independence not yet proven','pdf_sha256':hashlib.sha256(raw).hexdigest(),'pdf_bytes':len(raw),'pdf_pages':n,'sample_pdf_pages_1based':[i+1 for i in indexes],'method':'Source-native PDF raster samples, no OCR, NO glyph or genealogy adjudication','glyphs_read':False,'physical_witness_votes_awarded':0,'g893_six_control_winners':'0/6'}
+          samples=[]
+          for i in indexes:
+              page=doc[i]
+              px=page.get_pixmap(matrix=fitz.Matrix(.65,.65),alpha=False)
+              im=Image.open(io.BytesIO(px.tobytes('png'))).convert('RGB')
+              im.thumbnail((310,255))
+              samples.append((i+1,im))
+          for start in range(0,len(samples),12):
+              sheet=Image.new('RGB',(4*330,3*290),(244,244,244))
+              draw=ImageDraw.Draw(sheet)
+              for j,(number,im) in enumerate(samples[start:start+12]):
+                  x=(j%4)*330; y=(j//4)*290
+                  sheet.paste(im,(x,y+26))
+                  draw.text((x+5,y+5),f'PDF p{number}',fill=(0,0,0))
+              buf=io.BytesIO();sheet.save(buf,format='JPEG',quality=86)
+              (out/f'locator-{start//12+1}.jpg.b64.txt').write_text(base64.b64encode(buf.getvalue()).decode('ascii')+'\n',encoding='ascii')
+          report['contact_sheets']= (len(samples)+11)//12
+          (out/'manifest.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print(json.dumps(report,ensure_ascii=False,indent=2))
+          PY
+      - name: Publish immutable locator evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/research/evidence/13nx/
+          git diff --cached --quiet && exit 0
+          git commit -m 'evidence(13NX): hash NCL 06272 original and page atlas'
+          git push origin HEAD:refs/heads/agent/fusion-chart-core-r1-20260822
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: tianwen-13nx-ncl06272-source-locator
+          path: docs/research/evidence/13nx/
+          if-no-files-found: warn
+          retention-days: 14
