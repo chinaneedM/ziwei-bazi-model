@@ -51,7 +51,7 @@ jobs:
               buf=io.BytesIO();sheet.save(buf,format='JPEG',quality=86)
               (out/f'locator-{start//12+1}.jpg.b64.txt').write_text(base64.b64encode(buf.getvalue()).decode('ascii')+'\n',encoding='ascii')
           # Target the suspected j68 vicinity only; page identity and glyph readings remain ungraded until direct human review.
-          direct_pages=[385,395,405,414,424,433,443,453]
+          direct_pages=[385,395,405,414,424,433,443,453,462,472,482,491,501,510,520,530]
           native=[]
           for number in direct_pages:
               pg=doc[number-1]
