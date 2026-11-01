@@ -1,0 +1,96 @@
+name: research-tianwen-13nw-ncl-1608-physical-edition
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths: [.github/workflows/research-tianwen-13nw-ncl-1608-physical-edition.yml]
+  workflow_dispatch:
+permissions: {contents: write}
+jobs:
+  locate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 14
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install PDF reader
+        run: python -m pip install 'pymupdf>=1.24,<2' 'pillow>=10,<13'
+      - name: Locate actual independent source scans and sample target-part images
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import base64, hashlib, io, json, pathlib, urllib.parse, urllib.request
+          import fitz
+          from PIL import Image, ImageDraw
+          out=pathlib.Path('docs/research/evidence/13nw')
+          out.mkdir(parents=True,exist_ok=True)
+          titles=['File:NCL-06273 2 古今律曆考.pdf','File:NCL-06273 1 古今律曆考.pdf','File:NCL-06272 2 古今律曆考.pdf','File:NCL-06271 古今律曆考.pdf']
+          query=urllib.parse.urlencode({'action':'query','format':'json','prop':'imageinfo','iiprop':'url|size|sha1','titles':'|'.join(titles)})
+          url='https://commons.wikimedia.org/w/api.php?'+query
+          req=urllib.request.Request(url,headers={'User-Agent':'TianwenHistoricalCollation/1.0 (https://github.com/chinaneedM/ziwei-bazi-model; citation evidence)'})
+          with urllib.request.urlopen(req,timeout=55) as resp:
+              ans=json.load(resp)
+          entries=[]
+          for x in ans.get('query',{}).get('pages',{}).values():
+              z={'title':x.get('title'),'exists':'missing' not in x}
+              if x.get('imageinfo'):
+                  info=x['imageinfo'][0]
+                  z.update({'size':info.get('size'),'sha1':info.get('sha1'),'url':info.get('url')})
+              entries.append(z)
+          report={'date':'2026-11-01','purpose':'Check independent NCL Ming editions against NLC CBM1408 printed source; do not award independent vote before glyph collation','commons_file_status':entries,'native_image_collation':False,'new_physical_votes':0}
+          target=next((e for e in entries if e.get('title')=='File:NCL-06273 2 古今律曆考.pdf' and e.get('url')),None)
+          if target:
+              request=urllib.request.Request(target['url'],headers={'User-Agent':'TianwenHistoricalCollation/1.0 (https://github.com/chinaneedM/ziwei-bazi-model)'})
+              with urllib.request.urlopen(request,timeout=150) as response:
+                  data=response.read(170_000_000)
+              assert data[:5]==b'%PDF-' and len(data)==target['size'],(len(data),target['size'])
+              report['target_pdf']={'title':target['title'],'bytes':len(data),'sha256':hashlib.sha256(data).hexdigest(),'commons_sha1':target.get('sha1')}
+              doc=fitz.open(stream=data,filetype='pdf')
+              count=doc.page_count
+              report['target_pdf']['pages']=count
+              indices=sorted(set([0,count-1]+[min(count-1,round(i*(count-1)/40)) for i in range(41)]))
+              report['sampled_pdf_pages_1based']=[i+1 for i in indices]
+              thumbs=[]
+              for pageidx in indices:
+                  page=doc[pageidx]
+                  pix=page.get_pixmap(matrix=fitz.Matrix(.65,.65),alpha=False)
+                  im=Image.open(io.BytesIO(pix.tobytes('png'))).convert('RGB')
+                  im.thumbnail((340,245))
+                  thumbs.append((pageidx+1,im))
+              for part in range(0,len(thumbs),12):
+                  arr=thumbs[part:part+12]
+                  sheet=Image.new('RGB',(4*355,3*270),(243,243,243))
+                  draw=ImageDraw.Draw(sheet)
+                  for j,(number,im) in enumerate(arr):
+                      x=(j%4)*355
+                      y=(j//4)*270
+                      sheet.paste(im,(x,y+24))
+                      draw.text((x+8,y+6),f'PDF page {number}',fill=(0,0,0))
+                  buf=io.BytesIO()
+                  sheet.save(buf,format='JPEG',quality=80)
+                  fn=out/f'contact-{part//12+1}.jpg'
+                  fn.write_bytes(buf.getvalue())
+                  (out/f'contact-{part//12+1}.jpg.b64.txt').write_text(base64.b64encode(buf.getvalue()).decode('ascii')+'\n',encoding='ascii')
+              report['contact_sheet_count']=(len(thumbs)+11)//12
+              report['extraction_note']='Contact images show spaced samples for folio localization ONLY, not target numeric glyph confirmation; PDF source itself is not mirrored to Git.'
+          else:
+              report['extraction_note']='NCL 06273 part 2 Commons original URL unavailable; no original PDF obtained or glyphs read.'
+          (out/'manifest.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print(json.dumps(report,ensure_ascii=False,indent=2))
+          PY
+      - name: Commit scoped source locator evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git config user.name 'github-actions[bot]'
+          git add docs/research/evidence/13nw/
+          git diff --cached --quiet && exit 0
+          git commit -m 'evidence(13NW): probe NCL 1608 original Commons parts and source page grid'
+          git push origin HEAD:refs/heads/agent/fusion-chart-core-r1-20260822
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: tianwen-13nw-ncl-1608-source-probe
+          path: docs/research/evidence/13nw/
+          if-no-files-found: warn
+          retention-days: 14
