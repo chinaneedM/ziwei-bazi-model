@@ -19,7 +19,7 @@ jobs:
         run: |
           set -euo pipefail
           python - <<'PY'
-          import hashlib, json, pathlib, urllib.parse, urllib.request, fitz
+          import base64, hashlib, json, pathlib, urllib.parse, urllib.request, fitz
           out=pathlib.Path('docs/research/evidence/13nv')
           out.mkdir(parents=True,exist_ok=True)
           filename='NLC892-CBM1408-371938_古今律曆考_七十二卷_第19冊.pdf'
@@ -39,6 +39,11 @@ jobs:
               for j,x in enumerate(page.get_images(full=True)):
                   obj=doc.extract_image(x[0])
                   (out/f'embedded-{pno}-{j+1}-xref{x[0]}.{obj["ext"]}').write_bytes(obj['image'])
+          for pno in (16,17):
+              pix=doc[pno-1].get_pixmap(matrix=fitz.Matrix(2,2),alpha=False)
+              preview=pix.tobytes('jpg',jpg_quality=90)
+              (out/f'review-{pno}.jpg.b64.txt').write_text(base64.b64encode(preview).decode('ascii')+'\n',encoding='ascii')
+          (out/'manifest.json').unlink(missing_ok=True)
           files=[{'path':p.name,'bytes':p.stat().st_size,'sha256':hashlib.sha256(p.read_bytes()).hexdigest()} for p in sorted(out.iterdir()) if p.is_file()]
           manifest={'schema':'TIANWEN-13NV-NLC-CBM1408-V19-SOURCE-PAGE-INTAKE-R1',
                     'source_url':url,'source_pdf_bytes':len(pdfbytes),
