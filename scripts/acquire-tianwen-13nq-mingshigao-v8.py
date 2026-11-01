@@ -161,7 +161,7 @@ def main():
               "source_is_new_independent_physical_witness": False}
     (OUT / "source-meta.json").write_text(json.dumps(record, ensure_ascii=False, indent=2)+"\n", encoding="utf-8")
     print("TW13NQ_RESULT_META:"+json.dumps(record, ensure_ascii=False), flush=True)
-    source.unlink(missing_ok=True)  # artifact contains bounded atlas and source hashes, not 98 MB PDF.
+    # Retain the exact hash-verified PDF in the short-lived Actions artifact for native page extraction.
 
 
 if __name__ == "__main__":
