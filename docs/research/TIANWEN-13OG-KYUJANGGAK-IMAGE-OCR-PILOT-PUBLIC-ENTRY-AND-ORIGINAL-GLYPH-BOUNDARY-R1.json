@@ -1,0 +1,107 @@
+{
+  "schema": "TIANWEN-13OG-KYUJANGGAK-IMAGE-OCR-PILOT-PUBLIC-ENTRY-AND-ORIGINAL-GLYPH-BOUNDARY-R1",
+  "date": "2026-11-01",
+  "issue_id": "TW-OPEN-0005",
+  "question": "Is a specific public searchable image index for SNU Kyujanggak 奎貴67 交食推步法 available, beyond the 13OE catalog and the 13OF modern translation contents, and can it yield an original 盈縮加分 source folio yet?",
+  "evidence": {
+    "institutional_collection_catalog": {
+      "provider": "SNU Kyujanggak Institute for Korean Studies",
+      "url": "https://kyudb.snu.ac.kr/book/list.do?book_cate=SIC03&mid=GDS",
+      "title": "交食推步法",
+      "call_number": "奎貴67",
+      "catalog_year": 1458,
+      "public_ui_indicates": "원문이미지 / 원문텍스트 available icons on item 9",
+      "scope": "Catalog and UI availability, not target image payload; item-specific canonical book ID and original folio still unbound"
+    },
+    "technology_provider_public_home": {
+      "provider": "NuriIDT OCR",
+      "url": "https://ocr.nuriidt.co.kr/",
+      "public_feature": "이미지 검색 서비스",
+      "direct_public_entry": "https://ocr.nuriidt.co.kr/isearch/searchmain.jsp",
+      "page_text": "과학문헌 이미지 검색 시범 서비스. 본 서비스는 서울대학교 규장각한국학연구원의 과학문헌 자료를 적용하였습니다.",
+      "query_constraint": "한자(漢字) 검색만 가능합니다",
+      "candidate_query_literals": [
+        "盈縮加分",
+        "九十三微",
+        "四分九十二秒九十三微"
+      ],
+      "provenance": "Vendor-run image index demonstration using Kyujanggak scientific documents; corpus coverage, persistence and retrieval rights per item NOT certified"
+    },
+    "provider_manual_screenshot": {
+      "provider": "NuriIDT",
+      "pdf": "https://ocr.nuriidt.co.kr/member/nuriidt_ocr_service.pdf",
+      "manual_date": "2023-05",
+      "pdf_zero_based_page": 20,
+      "printed_slide_page": 20,
+      "screenshot_title": "3-1. 이미지 검색_예시",
+      "query_shown": "北方七宿",
+      "visible_search_result_title": "交食推步法 교식추보법",
+      "result_holding_in_screenshot": "奎貴67 (catalog text under same result)",
+      "image_of_book_page_visible": true,
+      "target_image_is_ying_suo_formula": false,
+      "image_hash_available": false,
+      "original_page_file_acquired": false,
+      "screen_category": "SECONDARY_VENDOR_SCREENSHOT_OF_COLLECTION_IMAGE_SEARCH_RESULT_NOT_FIRST_PARTY_RAW_ORIGINAL_BYTES",
+      "limit": "The screenshot demonstrates that some pages of named Kyujanggak work were searchable in the 2023 pilot; does not prove current index completeness, original resolution, all chapter pages, or specific 1458 copy identity."
+    },
+    "external_modern_bibliography": {
+      "provider": "NIKH 2017 bibliography",
+      "url": "https://db.history.go.kr/id/hb_180_01_001315",
+      "prior_batch": "13OF",
+      "original_search_targets": "假令上 盈縮加分 and 假令下 盈縮加分 modern contents tokens, NOT original leaf mapping"
+    },
+    "access_replay": {
+      "public_landing_page_verified": true,
+      "search_query_submitted_to_service": false,
+      "search_hit_for_ying_suo_verified": false,
+      "exact_item_specific_page_url_obtained": false,
+      "source_native_original_glyph_downloaded": false,
+      "source_image_hash": null,
+      "conclusion": "NEW_ACTIONABLE_PUBLIC_ORIGINAL_IMAGE_INDEX_ENTRY_ONLY"
+    }
+  },
+  "historical_claims": {
+    "positive": "Public vendor pilot is demonstrably tied to Kyujanggak scientific-document images and 2023 screenshot shows an actual unrelated 交食推步法 page associated with 奎貴67, making direct glyph-search a specific alternative to unbounded catalog searching.",
+    "unproven": [
+      "Any 盈縮加分 leaf appears in the current pilot index",
+      "Full original image or machine-verifiable folio has been acquired",
+      "The demo screenshot is itself a high-resolution original target formula glyph",
+      "Same exact surviving physical copy between vendor pilot, SNU catalog, and 2017 facsimile",
+      "G893 original 少 radix, unit/rounding, six numerical winners, or direct genealogical copying"
+    ],
+    "must_not_do": [
+      "Invent search POST results, query parameters, page hashes or viewer URL",
+      "Use OCR transcript to override original source glyphs",
+      "Register screenshot of a page as an additional independent physical witness"
+    ],
+    "action": "Search the public pilot for 盈縮加分 and 九十三微 using an interactive browser if accessible, follow an actual source-emitted folio link, bind it to 奎貴67 and retain native image bytes/hash; otherwise use SNU official reproduction route. No new model or duplicate workflow required."
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Vendor demonstration screenshot and first-party catalog coexist but do not prove actual source image provenance at leaf/physical-copy level or historical lineage."
+    ],
+    "unresolved_lineage_questions": [
+      "Is the source-emitted original 1458 奎貴67 盈縮加分 formula-bearing leaf available in the live image pilot?",
+      "Can it be bound by official item ID, original leaf position, pixel/hash and print/copy identity?",
+      "Is the original G893 少 field independent or same-copy transmitted variant?"
+    ]
+  },
+  "counters": {
+    "total_sources": 765,
+    "matrix": "222/222",
+    "graph_nodes": 252,
+    "graph_edges": 238,
+    "open_issues": 11,
+    "g893_final_historical_winners": "0/6",
+    "new_original_formula_pages": 0,
+    "new_original_witnesses": 0,
+    "new_registry_source_entries": 0,
+    "new_graph_edges": 0,
+    "algorithm_reopens": 0,
+    "chart_product": "CLOSED"
+  },
+  "next_priority": "Try the actual public Kyujanggak science image-search pilot for literal 盈縮加分 and 九十三微. Only a source-emitted exact page/image object, direct source glyph review, item identity and captured hash can upgrade grade. Do not keep repeating generic bibliographic discovery."
+}
