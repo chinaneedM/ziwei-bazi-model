@@ -1,0 +1,80 @@
+{
+  "schema": "TIANWEN-13NT-MING-GUJIN-LULIKAO-V68-DIVISION-QC-AND-ORIGINAL-PRINT-LOCATORS-R1",
+  "date": "2026-11-01",
+  "issue_id": "TW-OPEN-0005",
+  "classification": "RECEIVED_QING_SIKU_TEXT_DIVISION_CONTRADICTION_AND_UNREAD_MING_ORIGINAL_TARGET_LOCATORS",
+  "received_witness": {
+    "work": "明邢雲路《古今律曆考》卷六十八《曆原二》",
+    "scope": "Later Qing Siku received text only, NOT original Ming print",
+    "ctext": "https://ctext.org/wiki.pl?chapter=839364&if=gb&remap=gb",
+    "wikisource": "https://zh.wikisource.org/zh-hant/古今律厯考_(四庫全書本)/卷68",
+    "quoted_term": "有零不用",
+    "both_urls_same_received_edition_family": true
+  },
+  "exact_source_local_replay": {
+    "inputs_A": "69秒 / (14.82日)^2",
+    "value_A_seconds": "0.314161298606216569...",
+    "value_A_micro_conditional_base100": "31.4161298606216569...",
+    "received_result_A": "31微",
+    "floor_result_A": "31微",
+    "A_consistent_under_conditional_base100": true,
+    "inputs_B": "36.38分 / 14.82日",
+    "value_B_fen": "2.454790823211875843...",
+    "floor_or_nearest_hundredth_fen": "2.45",
+    "received_result_B_fen": "2.46",
+    "B_consistent_with_displayed_inputs": false,
+    "given_intermediates_downstream": "2*2.46 + 6*(31/10000)=4.9386",
+    "downstream_internal_sum_consistent": true,
+    "conclusion": "The received text expressly drops remainder and yields a compatible 31微 but its adjacent 2.46 quotient does NOT follow from visible 36.38/14.82. Source image or intermediate hidden precision needed; no automatic universal rounding inference."
+  },
+  "primary_original_routes": [
+    {
+      "institution": "National Library of China",
+      "object": "NLC892-CBM1408-371938",
+      "scope": "Ming printed original scan, 19th/20 fascicle, exactly 卷67–69; 65-page PDF 15.9MB. Book object positively identified; target leaf NOT visually read or pixel hashed",
+      "url": "https://commons.wikimedia.org/wiki/File:NLC892-CBM1408-371938_古今律曆考_七十二卷_第19冊.pdf"
+    },
+    {
+      "institution": "National Central Library Taiwan",
+      "object": "06270",
+      "scope": "Official catalog: 明萬曆二十八年1600 徐安延安刊本 七十二卷/40冊; no original target leaf seen",
+      "catalog": "https://rbook.ncl.edu.tw/NCLSearch/Search/SearchDetail?HasImage=&SourceID=1&item=b150777dc6f64192a13df8409e0ff3fcfDcyNTAx0.VqTuk2tSZyF_yFRuzT2MJrnh3LoXzIYbAW6O1JjTMCU_&page="
+    },
+    {
+      "institution": "National Central Library Taiwan",
+      "object": "06273",
+      "scope": "Official catalog: 明萬曆三十六年1608 孫瑋保定刊本 七十二卷附錄/20冊; no original target leaf seen",
+      "catalog": "https://rbook.ncl.edu.tw/NCLSearch/Search/SearchDetail?HasImage=&SourceID=1&item=56e6ed5cbce14fc3a10a312cb8057d23fDcyNTA00.dLZGHJOE0XLZf5cTCQKNqbNDaqqjmxH0Dp0meHcb2Ss_&page="
+    }
+  ],
+  "evidence_boundaries": [
+    "15.9MB Commons PDF page-fetch returned 400 oversized: NO PDF source pages/target glyph hashes obtained. Metadata is a page acquisition lead only.",
+    "The three Ming printed collections are not yet proved independent text/impression lineages; same-title is not same-page collation.",
+    "A later Ming derivation is NOT direct Yuan G893 少/微 original historical unit evidence.",
+    "No original G893 display rounding stage, 1569 NAAJ sixth item or six historical final targets resolved.",
+    "Do not treat CText and Wikisource as independent physical witnesses."
+  ],
+  "prior_controls": [
+    "docs/research/TIANWEN-13NE-G893-HEADER-NIKH-D16-CORRECTION-R1.json",
+    "docs/research/TIANWEN-13NF-SHAO-QUARTER-AND-ROUNDING-CONDITIONAL-GATE-R1.json",
+    "docs/research/TIANWEN-13NS-HARVARD-MINGSHIGAO-V8-P26-93WEI-PRINTED-COLLATION-R1.json"
+  ],
+  "transmission_impact": {
+    "nodes_added": 0,
+    "edges_added": 0,
+    "source_registry_additions": 0,
+    "new_physical_witness_votes": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0,
+    "original_g893_six_final_historical_winners": 0
+  },
+  "invariants": {
+    "root_plus_extension_sources": 765,
+    "matrix": "222/222",
+    "genealogy_nodes": 252,
+    "genealogy_edges": 238,
+    "open_issues": 11,
+    "product": "CLOSED"
+  },
+  "next": "Directly inspect source ORIGINAL 卷68 target leaf in NLC 19th fascicle and independent 1600/1608 prints; bind exact numeral glyphs, source page, image SHA and print identity before interpreting 有零不用; separately obtain original G893 少 digit/radix and exact NAAJ 子051-0003 sixth object."
+}
