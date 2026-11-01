@@ -7135,6 +7135,23 @@
           "previous_next_action": "13NJ CURRENT ACTION: Original 12YM/12YN MingShi printed 93 result remains source-original and Wang NA03560 received 93 survives as unregistered digital DISCOVERY LEAD (13NI activation count 766 corrected to 765 by explicit forward-only registry erratum). The new 13NI shard file is retained but not active manifest. Exact HEAD 13NI CI registry failures driven by invalid status and stale 765 counters; restore 765 without bulk script churn. NEXT G893 historical 少 unit/quantization and NAAJ firstparty 子051-0003 exact sixth. TW-OPEN-0005 OPEN G893 0/6 chart CLOSED.",
           "new_action_context": "Harvard 1723-cataloged Wang draft 80-volume digitized physical facsimile exists; original target juan29 and image glyph not obtained. Prior 13NI and 13NJ correction retained; source total 765 and historical G893 0/6.",
           "evidence_boundary": "NO_DOWNLOADED_SOURCE_BYTES_NO_ORIGINAL_TARGET_PRINT_NO_COPY_IMPRESSION_DATE_AUTHENTICATION_NO_NEW_SOURCE_REGISTRY_VOTE"
+        },
+        {
+          "event": "FORWARD_ONLY_SCOPE_AUDIT_METADATA_CORRECTION",
+          "revision_id": "TW-OPEN-0005-13NL-13NK-CI-AUDIT-REPAIR-20261101",
+          "date": "2026-11-01",
+          "corrects_prior_revision_id": "TW-OPEN-0005-13NK-HARVARD-MINGSHIGAO-20261101",
+          "changed_fields": [
+            "next_action"
+          ],
+          "previous_next_action": "13NJ CURRENT ACTION: Original 12YM/12YN MingShi printed 93 result remains source-original and Wang NA03560 received 93 survives as unregistered digital DISCOVERY LEAD (13NI activation count 766 corrected to 765 by explicit forward-only registry erratum). The new 13NI shard file is retained but not active manifest. Exact HEAD 13NI CI registry failures driven by invalid status and stale 765 counters; restore 765 without bulk script churn. NEXT G893 historical 少 unit/quantization and NAAJ firstparty 子051-0003 exact sixth. TW-OPEN-0005 OPEN G893 0/6 chart CLOSED.",
+          "current_next_action": "13NK CURRENT ACTION: first locate Harvard-Yenching Commons Wang MingShiGao v.8 drs428231729 exact printed juan29/志十 曆三 original source page and hash original glyphs for 31微×6 and 4分93秒86微; if absent inspect adjacent cataloged v.7/v.9 by actual original headings. Treat 1723 as catalog edition label, not verified impression, and do not equate to Shidian NA03560. Independently continue G893 少 original unit/quantization and NAAJ 子051-0003 sixth. TW-OPEN-0005 P0 OPEN 0/6; active registered765, Matrix222/222 graph252/238 11 issues, product CLOSED.",
+          "reason": "13NK changed TW-OPEN-0005 next_action but its forward-only event omitted changed_fields, reason and evidence_refs demanded by the existing --check-parent scope-audit contract. Append an explicit correction; retain the 13NK event and all previous content without rewriting, relaxing or bypassing the verifier.",
+          "evidence_refs": [
+            "docs/research/TIANWEN-13NK-HARVARD-MINGSHIGAO-1723-PRINTED-FACSIMILE-LOCATOR-R1.json",
+            "docs/research/TIANWEN-13NK-HARVARD-MINGSHIGAO-1723-PRINTED-FACSIMILE-LOCATOR-R1.md"
+          ],
+          "verification_boundary": "Single ledger-only retrospective audit metadata fix. No changes to next_action/source refs, original-page status, chart algorithms, source registry or G893 witness votes."
         }
       ],
       "g893_six_control_snapshot": {
@@ -16667,6 +16684,26 @@
       ],
       "discovery_mode": "Direct public Commons file metadata and Harvard-Yenching linked catalog identity for 80-volume Wang MingShiGao printed facsimile candidate; source bytes and target folio not retrieved.",
       "result": "New bounded original-facsimile access lead for TW-OPEN-0005, with 1723 catalog edition distinct from original print-date proof, exact juan29 target and 92/93 unknown; no source activation, no historic winner, keep 13NJ 765; 11 open issues, chart CLOSED."
+    },
+    {
+      "id": "OMISSIONS-13NL-13NK-SCOPE-AUDIT-CI-REPAIR-20261101",
+      "date": "2026-11-01",
+      "state_version": "1.999.0",
+      "reviewed_issue_ids": [
+        "TW-OPEN-0001",
+        "TW-OPEN-0002",
+        "TW-OPEN-0003",
+        "TW-OPEN-0004",
+        "TW-OPEN-0005",
+        "TW-OPEN-0006",
+        "TW-OPEN-0007",
+        "TW-OPEN-0008",
+        "TW-OPEN-0009",
+        "TW-OPEN-0010",
+        "TW-OPEN-0011"
+      ],
+      "discovery_mode": "13NK exact-HEAD Actions job logs (multiple independent workflow failures at scripts/verify-research-omission-risk-ledger-r1.py --check-parent, line439); compare old/new ledger issue fields and append omitted scope audit metadata without rewriting history.",
+      "result": "13NK next_action revision retained; 13NL appends explicit reason, evidence_refs and changed_fields with old/new action; no schema, focus, source registry, genealogy, algorithm or historical evidence delta."
     }
   ],
   "resolution_policy": {
