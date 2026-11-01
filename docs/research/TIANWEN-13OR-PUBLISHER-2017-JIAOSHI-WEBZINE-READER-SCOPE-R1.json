@@ -1,0 +1,73 @@
+{
+  "schema": "TIANWEN-13OR-PUBLISHER-2017-JIAOSHI-WEBZINE-READER-SCOPE-R1",
+  "date": "2026-11-02",
+  "issue_id": "TW-OPEN-0005",
+  "predecessor": "docs/research/TIANWEN-13OQ-1458-PREFACE-RECEIVED-CHRONOLOGY-AND-LICHENG-SCOPE-R1.json",
+  "question": "Is the 2017 translated/facsimile-title lead limited to bibliography, or is there an actual publisher-operated online reader that may allow page-level access without an external copy request?",
+  "first_party_findings": [
+    {
+      "provider": "세종대왕기념사업회 / King Sejong Memorial Society (publisher)",
+      "url": "https://sejongkorea.org/main/sub.html?pageCode=104",
+      "observation": "Publisher's own publication inventory lists 국역 교식추보법, author 李純之 etc, one book, year 2017, in 한국과학기술고전 sequence item 17.",
+      "source_grade": "PUBLISHER_PUBLICATION_INVENTORY_NOT_ORIGINAL_BOOK_FOLIO"
+    },
+    {
+      "provider": "세종대왕기념사업회 mobile publisher catalogue",
+      "url": "https://m.sejongkorea.org/core/mobile/webzine/main.html",
+      "observation": "First-party electronic-book catalogue explicitly emits 国译/국역 교식추보법(199p) as a clickable title.",
+      "source_grade": "PUBLISHER_DIGITAL_READER_ITEM_DISCOVERY"
+    },
+    {
+      "provider": "세종대왕기념사업회 first-party reader",
+      "url": "https://m.sejongkorea.org/core/mobile/webzine/view.html?webzineCode=381",
+      "source_binding": "Clicked the actual publisher catalogue entry; URL contains publisher-issued webzineCode=381, not inferred numeric identifier.",
+      "observation": "Reader page loads and exposes 0 / 199 with previous/next controls and publisher webzine image host. Source-emitted image for initial 0/199 slot resolves to blank.jpg, not an identifiable manuscript leaf.",
+      "source_grade": "FIRST_PARTY_READER_SHELL_VERIFIED_TARGET_PAGE_IMAGES_NOT_ACQUIRED"
+    }
+  ],
+  "historical_facsimile_context": {
+    "NIKH_2017_bibliography": "https://db.history.go.kr/id/hb_180_01_001315",
+    "bibliographic_physical_book_pages": 418,
+    "original_section_toc_token": "교식추보법 원본 = ,423,0",
+    "upper_received_translation_toc": "盈縮加分 / 영축가분 = 68,71,0",
+    "lower_received_translation_toc": "盈縮加分 / 영축가분 = 140,143,0",
+    "scope": "First-party reader count 199 is a browser display count; it cannot be converted to exact printed page or original folio numbering. The appendix TOC token does not establish content presence in the 199-display digital edition."
+  },
+  "authority_limits": [
+    "Verified publisher-run reader URL is NOT evidence that either original upper/lower 盈縮加分 folio has been photographed, downloaded, or directly visually read.",
+    "Verified publisher digital reader is NOT an independent fifteenth-century physical copy, and its unverified reproduced leaves cannot be treated as source original.",
+    "Do not fabricate per-page image URL, alter publisher-issued webzine code, bypass access controls, or turn a JS navigation boundary into a claim of absent pages.",
+    "A catalogue entry for one modern 2017 translation does not resolve 1458 vs 1459 print chronology, original 丙辰字/戊寅字 conflict, or G893 少/微 radix.",
+    "The first-party SNU 奎貴67 / GK00067_00 original viewer and licensed institutional reproduction route from 13OP remain independent acquisition tracks."
+  ],
+  "outcome": "An immediately openable first-party publisher reader route, previously not in the TW-OPEN-0005 research focus, is now verified; leaf-content coverage remains UNDETERMINED and no original target acquired. Prefer source-issued reader navigation before creating more catalog/source access requests.",
+  "next_action": "Inspect the two relevant sections by reader-issued actual next/page navigation and verify whether source-original facsimile appendix is included. If present, bind actual original page image bytes, image SHA256, item and provenance. Otherwise proceed with already prepared, NOT SENT SNU 奎貴67 upper/lower 盈縮加分 institutional inquiry under required authorization.",
+  "original_target_folios_acquired": 0,
+  "images_hashed": 0,
+  "institution_request_sent": false,
+  "publisher_login_attempted": false,
+  "g893_historical_final": "0/6",
+  "source_registry_entries_added": 0,
+  "chart_algorithm_reopen": false,
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "One 2017 publisher-operated webzine viewer is a modern derivative access surface, not evidence of a distinct physical manuscript, print type, or G893 table transmission."
+    ],
+    "unresolved_lineage_questions": [
+      "Does the publisher's electronic edition expose the 2017 original-book facsimile section?",
+      "Which exact SNU-original leaves contain upper/lower 盈縮加分 and can be authenticated to 奎貴67?"
+    ]
+  },
+  "counters": {
+    "state_version": "1.1029.0",
+    "matrix": "222/222",
+    "sources": 765,
+    "graph": "252/238",
+    "issues": 11,
+    "product": "CLOSED",
+    "algorithm_reopens": 0
+  }
+}
