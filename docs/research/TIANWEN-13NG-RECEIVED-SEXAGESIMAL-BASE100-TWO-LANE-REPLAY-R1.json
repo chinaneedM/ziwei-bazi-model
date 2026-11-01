@@ -1,0 +1,103 @@
+{
+  "schema": "TIANWEN-13NG-RECEIVED-BASE100-TWO-LANE-CROSSWALK-R1",
+  "date": "2026-11-01",
+  "issue": "TW-OPEN-0005",
+  "classification": "LATER_RECEIVED_CONSTRUCTIVE_TWO_LANE_FIRST_THREE_DAY_REPLAY_NO_ORIGINAL_UNIT_ADJUDICATION",
+  "source_scopes": [
+    {
+      "work": "授時曆故",
+      "author": "黃宗羲",
+      "edition_status": "LATER_JIAYETANG_RECEIVED_DIGITAL_TEXT",
+      "uri": "https://www.shidianguji.com/book/CADAL02093993/chapter/1laylkszvidk7",
+      "source_passage": "卷二 盈初縮末二曆平立合差術 + 加分定差術",
+      "unit_caution": "Digital text internally has suspicious 三十一分 once despite prior 立差三十一微 and subtract 微",
+      "source_registry_existing_id": "EXT-CTEXT-SHOUSHI-LIGU-JIAYETANG"
+    },
+    {
+      "work": "曆學疑問",
+      "author": "梅文鼎",
+      "edition_status": "LATER_DIGITAL_RECEIVED_TEXT",
+      "uri": "https://www.shidianguji.com/zh/book/CADAL01020098/chapter/1l3fp6m95ko4m",
+      "source_passage": "分有百秒 秒有百微",
+      "unit_caution": "Explains later Shoushi decimal progression, not independently the G893 print 少"
+    },
+    {
+      "work": "明史 卷33",
+      "edition_status": "LATER_RECEIVED_DIGITAL_TEXT",
+      "uri": "https://zh.wikisource.org/wiki/明史/卷033",
+      "source_passage": "立差三十一微 以六因之 得一秒八十六微",
+      "unit_caution": "Secondary historiographical textual corroboration, not separate Ming source manuscript"
+    },
+    {
+      "work": "国立公文書館 2021年度复制物计划",
+      "edition_status": "OFFICIAL_BIBLIOGRAPHIC_TITLE_CALLNUMBER_ONLY",
+      "uri": "https://www.archives.go.jp/news/pdf/20210719.pdf",
+      "source_passage": "page 106/118 子051－0003 回回暦法",
+      "unit_caution": "Not sixth fascicle item, page, print or physical object proof"
+    }
+  ],
+  "assumed_received_decimal_unit": {
+    "fen_to_miao": "100",
+    "miao_to_wei": "100"
+  },
+  "source_inputs": {
+    "li_cha_wei": "31",
+    "ping_cha_fen": "2.46",
+    "ding_ping_ji_cha_fen": "513.32",
+    "step_fen": "0.0186",
+    "g893_source_original_ref": "docs/research/TIANWEN-13NE-G893-HEADER-NIKH-D16-CORRECTION-R1.json"
+  },
+  "constructive_replay": [
+    {
+      "day": 0,
+      "S": "4.9386",
+      "M": "510.8569",
+      "formula_S": "2*2.46+(6*31)/10000",
+      "formula_M": "513.32-2.46-31/10000"
+    },
+    {
+      "day": 1,
+      "S": "4.9572",
+      "M": "505.9183",
+      "formula_S": "S0+0.0186",
+      "formula_M": "M0-S0"
+    },
+    {
+      "day": 2,
+      "S": "4.9758",
+      "M": "500.9611",
+      "formula_S": "S1+0.0186",
+      "formula_M": "M1-S1"
+    }
+  ],
+  "replay_scope": "6 OF 6 LOCAL DISPLAY CELLS (3 days x 2 columns), NOT the separate SIX GLOBAL G893 original-historical adjudication controls",
+  "confirmed": "LATER_RECEIVED_MECHANICAL_SCHEMA_NUMERICALLY_RECONSTRUCTS_G893_FIRST_TWO_LANES",
+  "not_established": [
+    "G893 少 equals later 微",
+    "source-original rounding/precision procedure",
+    "physical edition or direct transmission equality",
+    "NAAJ 子051-0003 exact sixth item identity",
+    "global six historic target witnesses"
+  ],
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Later same-number mechanical agreement is not direct-textual-ancestry proof"
+    ],
+    "unresolved_lineage_questions": [
+      "Was G893 original 少 a fractional residual of 微, and at which display/rounding stage was it discarded or retained?"
+    ]
+  },
+  "invariants": {
+    "historical_source_registry": 765,
+    "matrix": "222/222",
+    "genealogy_nodes": 252,
+    "genealogy_edges": 238,
+    "open_issues": 11,
+    "g893_six_final_winners": 0,
+    "deterministic_product": "CLOSED",
+    "algorithm_reopen": 0
+  }
+}
