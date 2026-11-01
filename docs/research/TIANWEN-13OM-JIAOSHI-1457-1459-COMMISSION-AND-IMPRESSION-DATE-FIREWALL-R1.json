@@ -1,0 +1,102 @@
+{
+  "schema": "TIANWEN-13OM-JIAOSHI-1457-1459-COMMISSION-AND-IMPRESSION-DATE-FIREWALL-R1",
+  "date": "2026-11-01",
+  "issue_id": "TW-OPEN-0005",
+  "predecessor": "docs/research/TIANWEN-13OL-JIAOSHI-ALIAS-AND-BYEONGJIN-TYPE-CONTROL-R1.json",
+  "scope": "Separate court commissioning, technical examples, work-level dating, item-specific bibliographic date and original print date; treat G893 native units independently.",
+  "witnesses": [
+    {
+      "kind": "RECEIVED_ROYAL_ANNALS",
+      "url": "https://sillok.history.go.kr/id/kga_10312024_002",
+      "date": "1457-12-24",
+      "id": "世祖實錄卷10, 世祖三年十二月二十四日甲寅第二條",
+      "original_script": "命禮曹參判李純之、副正金石梯, 議定日月交食推步法。",
+      "positive": "A royal instruction to discuss and settle solar-lunar eclipse method; precise reign/day and names.",
+      "limit": "Not a signed original instruction artifact, completed book, first-print date, page identity, formula text or proof of specific 奎貴67 edition."
+    },
+    {
+      "kind": "INSTITUTIONAL_CATALOG_METADATA",
+      "url": "https://kyudb.snu.ac.kr/book/list.do?book_cate=SIC&focus=&mid=GDS",
+      "holding": "奎貴67",
+      "title": "交食推步法",
+      "printed_year_record": 1458,
+      "large_type": "丙辰字",
+      "medium_type": "甲寅字",
+      "limit": "Copy attribution and catalog year do not establish native image/typeform or exact original folio."
+    },
+    {
+      "kind": "AKS_SCHOLARLY_WORK_LEVEL_ENTRY",
+      "url": "https://encykorea.aks.ac.kr/Article/E0005505",
+      "title": "交食推步法",
+      "year_record": 1459,
+      "note": "This secondary encyclopedia lists a 1459 publication year, distinct from institutional Kyujanggak and several other scholarly 1458 datings. It also describes 1447 eclipse worked examples; these examples are not publication dates.",
+      "limit": "No proof of a separate 1459 printing or SNU catalog error."
+    },
+    {
+      "kind": "AKS_KOSTMA_PRINT_HISTORY",
+      "url": "https://kostma.aks.ac.kr/history_table/history_list3.aspx",
+      "title": "交食推步法假令",
+      "year_record": 1458,
+      "main_type": "戊寅字/交食字",
+      "limit": "Typographic historiography; no direct physical impression/two-print proof."
+    },
+    {
+      "kind": "KCI_2012_COMPARE_1444_1458",
+      "url": "https://www.kci.go.kr/kciportal/landing/article.kci?arti_id=ART001656319",
+      "scope": "2012 scholarly abstract differentiates 1444 七政算內篇丁卯年交食假令 and 1458 交食推步法假令, with eclipse worked examples from 1447.",
+      "limit": "Comparison of historically distinct works, not original 1458 item native-image access."
+    },
+    {
+      "kind": "KCI_2012_FORMULA_FAMILY_SECONDARY",
+      "url": "https://kci.go.kr/kciportal/landing/article.kci?arti_id=ART001701755",
+      "scope": "Modern scholarly study of changes to 盈縮差, 遲疾差, 加減差, sunrise/sunset, and eclipse relative-speed denominator. Does not substitute for original 盈縮加分 coefficients.",
+      "limit": "Do not collapse distinct labels 盈縮加分, 盈縮差, 加減差 into one rule."
+    },
+    {
+      "kind": "MODERN_2017_FACSIMILE_LEAD",
+      "url": "https://db.history.go.kr/id/hb_180_01_001315",
+      "work": "국역 교식추보법, 2017 edition",
+      "scope": "Bibliographic TOC expressly has original/reproduction section 교식추보법 원본, plus both 假令上 and 假令下 盈縮加分 entries.",
+      "limit": "Digital original/facsimile images, printed page position, relation to 奎貴67 and original-page SHA not acquired or independently checked."
+    }
+  ],
+  "adjudication": {
+    "royal_command": "1457-12-24 attested from historical annal text",
+    "snu_item_date": "1458 catalog attribution",
+    "aks_work_date": "1459 scholarly entry, unresolved",
+    "kostma_type_date": "1458 typographic list",
+    "worked_example_date": "1447 eclipse scenario, not printing",
+    "original_formula_page_acquired": false,
+    "original_impression_year_adjudicated": false,
+    "original_formula_sha256": null,
+    "historic_g893_six_final": "0/6",
+    "source_registry_new_entries": 0,
+    "algorithm_reopen": false,
+    "priority": "P0 OPEN",
+    "next_exact_action": "Request provider-authenticated native original 交食推步法 奎貴67 colophon and both 盈縮加分 folios, with permanent page locator and SHA-256; 2017 modern facsimile section may be an alternative acquisition path, but must be bound to physical impression before historical adjudication."
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "1457 court commission is not the 1458 item imprint.",
+      "Conflicting 1458/1459 published years do not establish two printings or an error by themselves.",
+      "1447 worked-example eclipse date cannot be promoted to a composition/printing date.",
+      "Scholarly typographic attribution is not native-resolution examination of original typeforms."
+    ],
+    "unresolved_lineage_questions": [
+      "Which source-original colophon/typeface, if any, fixes 1458 versus 1459 for the exact 奎貴67 physical copy?",
+      "Can original 盈縮加分 literal 少/微 unit glyphs and G893 six controls be collated at the impression level?"
+    ]
+  },
+  "counters": {
+    "state_version": "1.1023.0",
+    "matrix": "222/222",
+    "external_sources": 765,
+    "genealogy": "252 nodes / 238 edges",
+    "issues": 11,
+    "product": "CLOSED",
+    "algorithm_defects": 0
+  }
+}
