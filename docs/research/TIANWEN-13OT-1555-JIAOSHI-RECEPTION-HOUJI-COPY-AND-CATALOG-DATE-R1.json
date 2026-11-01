@@ -1,0 +1,94 @@
+{
+  "schema": "TIANWEN-13OT-1555-JIAOSHI-RECEPTION-HOUJI-COPY-AND-CATALOG-DATE-R1",
+  "date": "2026-11-02",
+  "issue_id": "TW-OPEN-0005",
+  "predecessor": "docs/research/TIANWEN-13OS-JIAOSHI-2017-READER-STATIC-BOUNDARY-AND-JIAOSHI-TYPE-ALIAS-R1.json",
+  "evidence": [
+    {
+      "url": "https://db.history.go.kr/joseon/item/level.do?levelId=jlawb_030_0020_0030_0160_0290",
+      "provider": "NIKH first-party received legal-text transcript",
+      "locator": "經國大典註解 後集 / 禮典 春官 宗伯 / 取才條",
+      "reading": "交食推步假令, 卽推步授時曆法日食月食之假令。",
+      "context": "天文學 取才 exam list contains 交食推步假令",
+      "grade": "RECEIVED_TEXT_NOT_ORIGINAL_FOLIO"
+    },
+    {
+      "url": "https://db.history.go.kr/joseon/item/level.do?levelId=jlawb_030_0020_0030_0160_0280",
+      "provider": "NIKH same received-text edition",
+      "reading": "內篇, 卽授時曆。",
+      "grade": "SAME_RECEIVED_TEXT_NOT_NEW_PHYSICAL_VOTE"
+    },
+    {
+      "url": "https://kyudb.snu.ac.kr/book/view.do?book_cd=GK01271_00",
+      "provider": "SNU Kyujanggak official holding catalog",
+      "holding": "奎貴1271 / GK01271_00",
+      "year": 1555,
+      "printing": "甲寅字",
+      "extent": "1冊(21張)",
+      "scope": "前集 only; does not establish that 後集 交食推步假令 text is in this SNU physical copy",
+      "catalog_conflict": "序:嘉靖三十四年(1539) mismatches its own 1555 publication year; 嘉靖三十四年 is 1555",
+      "grade": "BIBLIOGRAPHIC_NOT_TARGET_FOLIO"
+    },
+    {
+      "url": "https://encykorea.aks.ac.kr/Article/E0002298",
+      "provider": "AKS specialist article",
+      "scope": "1555 前集 preserved at SNU; separate 後集 text and original reported in Japan",
+      "grade": "SECONDARY_VERSION_DISTINCTION"
+    },
+    {
+      "url": "https://oak.go.kr/nl-ir/bitstream/2020.oak/1015/2/02.%20%EA%B5%AD%EB%A6%BD%EC%A4%91%EC%95%85%EB%8F%84%EC%84%9C%EA%B4%80%20%EA%B3%A0%EB%AC%B8%ED%97%8C%20%ED%95%B4%EC%A0%9C%EC%A7%91%282023%29.pdf",
+      "provider": "NLC 2023 institutional study",
+      "scope": "Separates 1555 original 前集 and Japan-reported 後集, and classifies NLC KOL000015903 / 古貴6020-3 as 1706 Jeju woodblock derivative, not same 1555 object. Also correctly glosses 嘉靖三十四年(1555).",
+      "grade": "SECONDARY_INSTITUTIONAL_BIBLIOGRAPHIC_STUDY_PDF_VISUAL_SCREEN_UNAVAILABLE"
+    },
+    {
+      "url": "https://ndlsearch.ndl.go.jp/books/R100000002-I000001203304",
+      "provider": "National Diet Library primary catalog",
+      "holding": "AK2-141-15 / bib 000001203304 / PID 11931031",
+      "object": "1971 学習院東洋文化研究所 学東叢書 第7, 346+2p",
+      "source_scope": "田川孝三蔵刊本の複製; later facsimile not a new 1555 copy",
+      "access": "NDL indicates digital personal-delivery available only to eligible Japanese registered users; no target pages acquired"
+    },
+    {
+      "url": "https://ci.nii.ac.jp/ncid/BN01419314",
+      "provider": "CiNii bibliography",
+      "scope": "1983 Korean derivative of the 1971 Tagawa facsimile route, not a separate ancient witness"
+    }
+  ],
+  "correction": "An official NIKH received transcription of a 1555 administrative astronomy exam glossary directly names 交食推步假令 and 授時曆法, but this is work-level institutional reception only. The quoted text belongs to 後集; SNU GK01271 is 前集. The 1971 Japanese facsimile is a later access route, not original original formula or six-field G893 primary evidence.",
+  "outstanding": [
+    "No original 後集 folio photo for the quoted paragraph.",
+    "No original 奎貴67 假令上/下 盈縮加分 pages or native SHA.",
+    "Neither this 1555 quote nor its later facsimiles proves direct copying from the specific physical 奎貴893/GK00893_00 table.",
+    "Original G893 six controls remain historically unadjudicated (0/6)."
+  ],
+  "next_action": "Prioritize authenticated original 奎貴67 upper/lower 盈縮加分 folios via actual official JS viewer or user-authorized SNU reproduction. Do not substitute SNU 前集 for 後集 and do not bypass NDL access.",
+  "source_registry_entries_added": 0,
+  "graph_nodes_added": 0,
+  "graph_edges_added": 0,
+  "g893_historical_final": "0/6",
+  "chart_algorithm_reopen": false,
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Same title of SNU 前集 and NIKH 後集 does not establish physical passage presence.",
+      "1555 institutional received 授時曆法 does not establish copying from the surviving G893 physical table.",
+      "1971 and 1983 Tagawa reprints are not separate 1555 witnesses."
+    ],
+    "unresolved_lineage_questions": [
+      "Physical 1555 後集 original target page and exact derivative chain.",
+      "奎貴67 upper/lower original original formula and G893 numerical unit."
+    ]
+  },
+  "counters": {
+    "state_version": "1.1031.0",
+    "matrix": "222/222",
+    "sources": 765,
+    "graph": "252/238",
+    "issues": 11,
+    "product": "CLOSED",
+    "algorithm_reopens": 0
+  }
+}
