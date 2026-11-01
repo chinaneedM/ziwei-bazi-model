@@ -91,7 +91,7 @@ def main():
                         break
                     continue
                 body = response.content
-                if not (body.startswith(b"\\xff\\xd8") and 10000 < len(body) < 3000000):
+                if not (body[:2] == bytes.fromhex("ffd8") and 10000 < len(body) < 3000000):
                     record.setdefault("preview_access_errors", []).append({
                         "page": page, "error": "invalid JPEG or unexpected size",
                         "mime": response.headers.get("Content-Type"),
