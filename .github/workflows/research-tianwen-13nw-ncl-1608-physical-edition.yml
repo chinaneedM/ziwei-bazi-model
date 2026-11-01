@@ -70,7 +70,7 @@ jobs:
                   fn=out/f'contact-{part//12+1}.jpg'
                   fn.write_bytes(buf.getvalue())
                   (out/f'contact-{part//12+1}.jpg.b64.txt').write_text(base64.b64encode(buf.getvalue()).decode('ascii')+'\n',encoding='ascii')
-              target_pages=[480,482,484,486]
+              target_pages=[464,466,468,470,472,474,476,478]
               for n in target_pages:
                   if n>count: continue
                   page=doc[n-1]
