@@ -1,0 +1,119 @@
+{
+  "schema": "TIANWEN-13NS-HARVARD-MINGSHIGAO-V8-P26-93WEI-PRINTED-COLLATION-R1",
+  "dated": "2026-11-01",
+  "linked_open_issue": "TW-OPEN-0005",
+  "prior_evidence": "docs/research/TIANWEN-13NR-HARVARD-MINGSHIGAO-V8-HASHED-PDF-J29-PRINTED-HEADING-AND-31WEI-PREVIEW-R1.json",
+  "evidence_grade": "DIRECT_VISUAL_PUBLIC_RENDERED_1920PX_SOURCE_PDF_PAGE_PREVIEW_WITH_HASHED_JPEG_AND_RGB_ROI_NOT_NATIVE_PDF_PAGE_PIXEL",
+  "source": {
+    "holding": "Harvard-Yenching Library, printed Wang Hongxu MingShiGao v8 source family; exact physical impression year unverified",
+    "library_catalog": "https://id.lib.harvard.edu/alma/990080200010203941/catalog",
+    "commons_file": "https://commons.wikimedia.org/wiki/File:Harvard_drs_428231729_%E6%98%8E%E5%8F%B2%E7%A8%BF_v.8.pdf",
+    "original_pdf_sha256_from_prior_successful_run": "f034965c5c1613e1805e455e933c5a6bf08e1bfffe855ca88a54c0a538233ab8",
+    "original_pdf_retained_in_13ns_run": false,
+    "digital_pdf_page_1based": 26,
+    "preview_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1d/Harvard_drs_428231729_%E6%98%8E%E5%8F%B2%E7%A8%BF_v.8.pdf/page26-1920px-Harvard_drs_428231729_%E6%98%8E%E5%8F%B2%E7%A8%BF_v.8.pdf.jpg",
+    "preview_jpeg_bytes": 838014,
+    "preview_jpeg_sha256": "611c9d431be65171ae095629f3d195b897f213a2d635fae4723cc28dc3f80a33",
+    "jpeg_dimensions_pixels": [
+      1920,
+      1506
+    ],
+    "acquisition_run": "https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/41266022774",
+    "acquisition_artifact_id": 13067455508,
+    "preview_acquired_and_independently_hash_replayed": true,
+    "source_native_pdf_page_pixels_acquired": false,
+    "ocr_used": false
+  },
+  "target_rgb_roi": {
+    "full_rule_sequence": {
+      "box_pixels_xyxy": [
+        605,
+        170,
+        870,
+        1400
+      ],
+      "size_px": [
+        265,
+        1230
+      ],
+      "sha256_rgb": "f1c2336c9a604de0f9cad6cbd15f7912b09c929f34c98ab5f3ee7c56f702f835"
+    },
+    "final_sum_literal": {
+      "box_pixels_xyxy": [
+        628,
+        630,
+        718,
+        1430
+      ],
+      "size_px": [
+        90,
+        800
+      ],
+      "sha256_rgb": "ce3f190c2c999cd5a649e8b791de62ee5966509249c943b63bf8c578c7c30f01"
+    },
+    "intermediate_sequence": {
+      "box_pixels_xyxy": [
+        750,
+        260,
+        855,
+        1400
+      ],
+      "size_px": [
+        105,
+        1140
+      ],
+      "sha256_rgb": "90cceb1d2a954a4ac82c9f6a8bfa8a27d8e7e1174767b3d2d766539fd017eb27"
+    }
+  },
+  "observed_printed_text": {
+    "location": "王鴻緒《明史稿》 printed 志第十／曆三下, Harvard digital v8 PDF page26 (source-facsimile public preview)",
+    "actual_printed_final": "得四分九十三秒八十六微為平立合差",
+    "alternate_92_on_this_hashed_preview": "NOT_OBSERVED_AT_THIS_ONE_PRINTED_FINAL_LOCUS",
+    "stage1": "置立差三十一微，以六因之，得一秒八十六微，為加分立差",
+    "stage2": "置平差二分四十六秒，倍之，得四分九十二秒，加入加分立差",
+    "source_text_confidence": "HIGH_FOR_LOCAL_VISIBLE_GLYPHS_NOT_FOR_EDITION_IMPRESSION_STEMMA",
+    "image_review": "Direct visual human/model interpretation of the 1920-px JPEG and separately hashed source-pixel RGB crops; no OCR or received text substituted for glyph reading."
+  },
+  "local_arithmetic_base100": [
+    {
+      "step": "31微×6=186微",
+      "result": "1秒86微"
+    },
+    {
+      "step": "2分46秒×2",
+      "result": "4分92秒"
+    },
+    {
+      "step": "4分92秒+1秒86微",
+      "result": "4分93秒86微",
+      "matches_local_printed_final": true
+    },
+    {
+      "alternative": "4分92秒86微",
+      "difference_from_local_calculation": "-1秒",
+      "matches_local_printed_final": false
+    }
+  ],
+  "scope_boundaries": [
+    "This verifies the source image's 93 final numeral in ONE Wang MingShiGao preview of ONE digitized book, not a universal reading of all MingShi copies or earlier authorial archetype.",
+    "A hash of the 1920-px preview and its pixel ROI is NOT a native full-resolution PDF-page source pixel hash, and the source PDF bytes are not archived by this run.",
+    "Do not assert identity between the Harvard physical copy and Shidian NA03560 received text; digital received text only provides a separate concordance.",
+    "One source image neither contributes a second independent physical witness vote nor demonstrates a direct-copy or lineage edge.",
+    "The received 92/93 contradiction is locally constrained to the printed Harvard numerical passage, not globally closed or proven as a transcription error in every other edition.",
+    "G893 original 少 historical radix/rounding and NAAJ 子051-0003 sixth fascicle remain independently unresolved; matching decimals alone do not equate historical time units or columns."
+  ],
+  "transmission_impact": "NONE: no addition or revision of a graph edge; no physical-copy relationship adjudicated",
+  "source_registry_delta": 0,
+  "physical_witness_vote_delta": 0,
+  "graph_node_delta": 0,
+  "graph_edge_delta": 0,
+  "matrix": "222/222",
+  "active_external_sources": 765,
+  "graph_nodes": 252,
+  "graph_edges": 238,
+  "open_issues": 11,
+  "g893_final_historical_winners": "0/6",
+  "deterministic_chart_product": "CLOSED",
+  "algorithm_reopens": 0,
+  "next_action": "Retain Harvard v8 p26 as hash-scoped original-preview 93 witness. Only seek higher native PDF resolution when needed for glyph doubt or copy/edition corroboration; independently cross-collate original 92 variant where physically found, and prioritize G893 original 少 quantization and NAAJ sixth target without new algorithm changes."
+}
