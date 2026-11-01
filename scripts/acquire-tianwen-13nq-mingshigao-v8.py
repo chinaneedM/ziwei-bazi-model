@@ -73,6 +73,51 @@ def main():
                   "alternative_provider_probes": probes,
                   "original_j29_glyphs_collated": False,
                   "no_negative_historical_proof": True}
+        # Restrict page discovery to a small known Commons preview family.
+        # These are page-rendered public previews, NOT the source PDF or native-page pixels.
+        available = {}
+        first = OUT / "provider-page2-preview.jpg"
+        if first.exists():
+            available[2] = first.read_bytes()
+        base_preview = "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1d/Harvard_drs_428231729_%E6%98%8E%E5%8F%B2%E7%A8%BF_v.8.pdf/"
+        filename = "Harvard_drs_428231729_%E6%98%8E%E5%8F%B2%E7%A8%BF_v.8.pdf.jpg"
+        for page in (15, 28, 41, 54, 67, 80, 93, 106):
+            address = base_preview + "page%d-1920px-" % page + filename
+            try:
+                response = s.get(address, timeout=(15, 35))
+                if response.status_code != 200:
+                    record.setdefault("preview_access_errors", []).append({"page": page, "http": response.status_code})
+                    if response.status_code in (429, 403):
+                        break
+                    continue
+                body = response.content
+                if not (body.startswith(b"\\xff\\xd8") and 10000 < len(body) < 3000000):
+                    record.setdefault("preview_access_errors", []).append({"page": page, "error": "invalid JPEG or unexpected size"})
+                    continue
+                available[page] = body
+            except Exception as exc:
+                record.setdefault("preview_access_errors", []).append({"page": page, "error": type(exc).__name__+": "+str(exc)[:90]})
+                break
+        if available:
+            canvas = Image.new("RGB", (4*400, 3*520), "white")
+            draw = ImageDraw.Draw(canvas)
+            recs = []
+            for pos, (page, data) in enumerate(sorted(available.items())):
+                im = Image.open(io.BytesIO(data)).convert("RGB")
+                im.thumbnail((388, 484))
+                left, top = pos%4*400, pos//4*520
+                canvas.paste(im,(left+(400-im.width)//2,top+6))
+                draw.text((left+8,top+493),"PREVIEW PDF p%d" % page,fill="black")
+                recs.append({"page":page,"source":"COMMONS_PUBLIC_1920PX_RENDERED_PREVIEW_NOT_NATIVE_PDF",
+                            "jpeg_sha256":hashlib.sha256(data).hexdigest(),"jpeg_bytes":len(data)})
+            out=io.BytesIO()
+            canvas.save(out,format="WEBP",quality=68,method=4)
+            data=out.getvalue()
+            (OUT/"preview-sample-contact.webp").write_bytes(data)
+            record["verified_page_previews"]=recs
+            record["preview_atlas_sha256"]=hashlib.sha256(data).hexdigest()
+            record["preview_atlas_no_ocr"]=True
+            print("TW13NQ_PREVIEW_ATLAS_B64:"+base64.b64encode(data).decode("ascii"),flush=True)
         (OUT / "source-access-error.json").write_text(json.dumps(record, ensure_ascii=False, indent=2) + "\n")
         print("TW13NQ_SOURCE_ACCESS_BOUNDARY:" + json.dumps(record, ensure_ascii=False), flush=True)
         return
