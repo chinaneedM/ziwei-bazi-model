@@ -23,6 +23,26 @@ jobs:
           from PIL import Image, ImageDraw
           output=pathlib.Path('docs/research/evidence/13ny')
           output.mkdir(parents=True,exist_ok=True)
+          # Reuse the already acquired immutable PDF page atlas; split its existing evidence into readable bounded rows.
+          if (output/'vol26-page-atlas.json').exists() and not (output/'vol26-row-01-03.jpg.b64.txt').exists():
+              for part in range(1,5):
+                  source=output/f'vol26-atlas-{part}.jpg.b64.txt'
+                  payload=source.read_text(encoding='ascii').strip().removesuffix(chr(92)+'n')
+                  sheet=Image.open(io.BytesIO(base64.b64decode(payload))).convert('RGB')
+                  for row in range(3):
+                      first=(part-1)*9+row*3+1
+                      cropped=sheet.crop((0,row*590,1860,(row+1)*590))
+                      o=io.BytesIO()
+                      cropped.save(o,format='JPEG',quality=83)
+                      fn=output/f'vol26-row-{first:02d}-{first+2:02d}.jpg.b64.txt'
+                      fn.write_text(base64.b64encode(o.getvalue()).decode('ascii')+chr(10),encoding='ascii')
+              manifest=output/'vol26-page-atlas.json'
+              current=manifest.read_text(encoding='utf-8').removesuffix(chr(92)+'n')
+              json.loads(current)
+              manifest.write_text(current.rstrip()+chr(10),encoding='utf-8')
+              print('Reused 1599 PDF atlas; saved 12 GitHub-readable rows and repaired trailing literal newline, no new source fetch')
+              raise SystemExit(0)
+
           ua={'User-Agent':'TianwenHistoricalCollation/1.0 (https://github.com/chinaneedM/ziwei-bazi-model; historical original comparison)'}
           names={26:'NLC892-411999015732-116313 古今律曆考 第26冊.pdf',
                  27:'NLC892-411999015732-116314 古今律曆考 第27冊.pdf',
