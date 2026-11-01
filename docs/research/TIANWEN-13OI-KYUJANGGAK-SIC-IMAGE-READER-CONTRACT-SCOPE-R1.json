@@ -1,0 +1,90 @@
+{
+  "schema": "TIANWEN-13OI-KYUJANGGAK-SIC-IMAGE-READER-CONTRACT-SCOPE-R1",
+  "date": "2026-11-01",
+  "issue_id": "TW-OPEN-0005",
+  "predecessor": "docs/research/TIANWEN-13OH-KYU67-SOURCE-EMITTED-GK00067-IMAGE-OBJECT-LOCATORS-R1.json",
+  "question": "Does the Kyujanggak provider itself expose a replayable original-image reader route, and can any source-documented route be scoped specifically to 奎貴67 without presuming same item_code or folio?",
+  "evidence": {
+    "source_hosted_user_report": {
+      "url": "https://kyudb.snu.ac.kr/brd/viewBrd.do?menuId=1&postSeq=22262&siteCd=DBSP",
+      "provider": "SNU Kyujanggak original-book service",
+      "context": "public 오류신고 issue, authored by a visitor; not an official API specification",
+      "different_item": "承政院日記 奎12788 / GK12788_00 volume 1146",
+      "source_quoted_text_route": "https://kyudb.snu.ac.kr/book/text.do?mid=&item_cd=SJW&book_cd=GK12788_00&vol_no=1146",
+      "source_quoted_renderer_paths": [
+        "https://kyudb.snu.ac.kr/pf01/rendererImg.do?item_cd=SJW&book_cd=GK12788_00&vol_no=1146&page_no=145b",
+        "https://kyudb.snu.ac.kr/pf01/rendererImg.do?item_cd=SJW&book_cd=GK12788_00&vol_no=1146&page_no=146a"
+      ],
+      "strength": "SOURCE_HOSTED_CONCRETE_OTHER_COLLECTION_REQUEST_EXAMPLE_ONLY",
+      "limitations": "User-posted missing-page complaint. No source page authorizes a call to SIC, proves any formula leaf or validates this pattern as an official API contract."
+    },
+    "independent_different_item_detail_control": {
+      "url": "https://kyudb.snu.ac.kr/book/view.do?book_cd=GK13028_00",
+      "item_code": "GK13028_00",
+      "title": "丙申謄錄",
+      "status": "PUBLIC_FIRST_PARTY_DETAIL_PAGE_OBSERVED",
+      "limitation": "Proves book/view.do with a book_cd exists for this other holding, not that GK00067_00 target detail page can be opened by public runner."
+    },
+    "exact_target": {
+      "existing_firstparty_catalog": "https://kyudb.snu.ac.kr/book/list.do?book_cate=SIC&focus=&mid=GDS",
+      "title": "交食推步法",
+      "catalog_call_number": "奎貴67",
+      "source_emitted_image_namespace_from_13OH": "GK00067_00",
+      "public_runner_probes": [
+        {
+          "url": "https://kyudb.snu.ac.kr/book/view.do?book_cd=GK00067_00",
+          "observed": "URL_NOT_ACCESSIBLE_VIA_CURRENT_WEB_TOOL",
+          "http_status": null
+        },
+        {
+          "url": "https://kyudb.snu.ac.kr/book/text.do?mid=&item_cd=SIC&book_cd=GK00067_00",
+          "observed": "URL_NOT_ACCESSIBLE_VIA_CURRENT_WEB_TOOL",
+          "http_status": null
+        }
+      ],
+      "provider_emitted_SIC_specific_viewer_link_verified": false,
+      "native_original_image_acquired": false,
+      "source_original_YING_SUO_formula_glyph_verified": false,
+      "original_image_sha256": null,
+      "warning": "No HTTP404 claim for these two probes. Distinguish public runner blocking from provider availability or a genuine item/image response."
+    }
+  },
+  "adjudication": {
+    "new_positive": "Found provider-hosted, concrete historical reader URL syntax and separate public item detail control; narrows what to request from the official interface without inventing ancient page numbers.",
+    "evidence_grade": "WEB_ACCESS_ROUTE_HINT_ONLY_NOT_ORIGINAL_SOURCE_GLYPH",
+    "unproved": [
+      "The SJW image URL scheme applies to scientific-manuscript category SIC.",
+      "GK00067_00 is the exact backend book_cd or any given folio is present in current renderer.",
+      "Any two sites or scanned objects represent an identical physical impression.",
+      "The 1458 source-original 盈縮加分 coefficients or historical 少/微 unit are now physically verified.",
+      "G893 source-local quantization or any historical final winner is resolved."
+    ],
+    "chart_algorithm_reopen": false
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "A reader URL for a separate SJW item does not prove common edition, item identity, folio layout or transmission with SIC/GK00067_00."
+    ],
+    "unresolved_lineage_questions": [
+      "Acquire exact source-emitted scientific-manuscript item reader link or authorized original 交食推步法 盈縮加分 leaf with native pixels and SHA.",
+      "Compare actual original formula and 少/微 units against G893 independently of cross-collection URL syntax."
+    ]
+  },
+  "counters": {
+    "registry_sources": 765,
+    "matrix_rows": 222,
+    "matrix_audited": 222,
+    "graph_nodes": 252,
+    "graph_edges": 238,
+    "omission_issues": 11,
+    "g893_historical_final_winners": "0/6",
+    "new_original_formula_leaves": 0,
+    "new_source_registry_entries": 0,
+    "chart_product": "CLOSED",
+    "algorithm_reopens": 0
+  },
+  "next_action": "Do not guess folio IDs. Follow actual source-produced SIC item detail/viewer link for 奎貴67 or official reproduction with permission, then native-image hash and exact 盈縮加分 target collation."
+}
