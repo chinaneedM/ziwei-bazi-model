@@ -7152,6 +7152,27 @@
             "docs/research/TIANWEN-13NK-HARVARD-MINGSHIGAO-1723-PRINTED-FACSIMILE-LOCATOR-R1.md"
           ],
           "verification_boundary": "Single ledger-only retrospective audit metadata fix. No changes to next_action/source refs, original-page status, chart algorithms, source registry or G893 witness votes."
+        },
+        {
+          "event": "ISSUE_REVISION",
+          "revision_id": "TW-OPEN-0005-13NK-SOURCE-BOUND-ACTION-CROSSWALK-13NM-20261101",
+          "date": "2026-11-01",
+          "changed_fields": [
+            "next_action"
+          ],
+          "previous_next_action": "13NJ CURRENT ACTION: Original 12YM/12YN MingShi printed 93 result remains source-original and Wang NA03560 received 93 survives as unregistered digital DISCOVERY LEAD (13NI activation count 766 corrected to 765 by explicit forward-only registry erratum). The new 13NI shard file is retained but not active manifest. Exact HEAD 13NI CI registry failures driven by invalid status and stale 765 counters; restore 765 without bulk script churn. NEXT G893 historical 少 unit/quantization and NAAJ firstparty 子051-0003 exact sixth. TW-OPEN-0005 OPEN G893 0/6 chart CLOSED.",
+          "recorded_next_action": "13NK CURRENT ACTION: first locate Harvard-Yenching Commons Wang MingShiGao v.8 drs428231729 exact printed juan29/志十 曆三 original source page and hash original glyphs for 31微×6 and 4分93秒86微; if absent inspect adjacent cataloged v.7/v.9 by actual original headings. Treat 1723 as catalog edition label, not verified impression, and do not equate to Shidian NA03560. Independently continue G893 少 original unit/quantization and NAAJ 子051-0003 sixth. TW-OPEN-0005 P0 OPEN 0/6; active registered765, Matrix222/222 graph252/238 11 issues, product CLOSED.",
+          "reason": "Append crosswalk for the existing 13NK next_action to conform with the pre-existing 13BJ historical source-binding gate: the exact action prefix must be traceable to a cited ISSUE_REVISION event, not only a nonstandard discovery entry. No actual action value changed in 13NM; the earlier 13NK metadata-event and 13NL audit correction remain intact.",
+          "evidence_refs": [
+            "docs/research/TIANWEN-13NK-HARVARD-MINGSHIGAO-1723-PRINTED-FACSIMILE-LOCATOR-R1.json",
+            "docs/research/TIANWEN-13NK-HARVARD-MINGSHIGAO-1723-PRINTED-FACSIMILE-LOCATOR-R1.md"
+          ],
+          "evidence_boundary": "BIBLIOGRAPHIC_DIGITIZED_PHYSICAL_FACSIMILE_ACCESS_ONLY; the existence of a Harvard PDF does not verify 13NK target numerical glyphs, separate witness identity, or historic G893 final controls.",
+          "retrospective_crosswalk_for_revision": "TW-OPEN-0005-13NK-HARVARD-MINGSHIGAO-20261101",
+          "scope_change_at_original_commit": [
+            "next_action"
+          ],
+          "same_action_text_preserved": true
         }
       ],
       "g893_six_control_snapshot": {
@@ -16704,6 +16725,26 @@
       ],
       "discovery_mode": "13NK exact-HEAD Actions job logs (multiple independent workflow failures at scripts/verify-research-omission-risk-ledger-r1.py --check-parent, line439); compare old/new ledger issue fields and append omitted scope audit metadata without rewriting history.",
       "result": "13NK next_action revision retained; 13NL appends explicit reason, evidence_refs and changed_fields with old/new action; no schema, focus, source registry, genealogy, algorithm or historical evidence delta."
+    },
+    {
+      "id": "OMISSIONS-13NM-13NK-ACTION-CROSSWALK-20261101",
+      "date": "2026-11-01",
+      "state_version": "1.999.0",
+      "reviewed_issue_ids": [
+        "TW-OPEN-0001",
+        "TW-OPEN-0002",
+        "TW-OPEN-0003",
+        "TW-OPEN-0004",
+        "TW-OPEN-0005",
+        "TW-OPEN-0006",
+        "TW-OPEN-0007",
+        "TW-OPEN-0008",
+        "TW-OPEN-0009",
+        "TW-OPEN-0010",
+        "TW-OPEN-0011"
+      ],
+      "discovery_mode": "13NL exact-HEAD verify-tianwen-13ml-g893-original-folio-seam run 41261371750 failed 13BJ verifier line113: action prefix 13NK not found in latest standardized ISSUE_REVISION; prior discovery event 13NK and 13NL erratum retained.",
+      "result": "Append source-cited standardized retrospective action crosswalk with revision id beginning 13NK; do not change latest prefix, rule, chart, register, or source physical grade; this reconciles an existing cross-family CI contract without weakening assertions."
     }
   ],
   "resolution_policy": {
