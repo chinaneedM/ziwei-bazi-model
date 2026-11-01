@@ -1,0 +1,84 @@
+{
+  "schema": "TIANWEN-13OL-JIAOSHI-ALIAS-AND-BYEONGJIN-TYPE-CONTROL-R1",
+  "date": "2026-11-01",
+  "issue_id": "TW-OPEN-0005",
+  "predecessor": "docs/research/TIANWEN-13OK-JIAOSHI1458-TYPE-ATTRIBUTION-COPY-SCOPE-FIREWALL-R1.json",
+  "question": "Does independently published scholarship show 交食推步法 and 交食推步法假令 as title/usage variants, and does the Korean type-history literature narrow the plausible SNU 丙辰字 vs AKS 戊寅字 attribution tension?",
+  "source_comparison": [
+    {
+      "provider": "Seoul National University Kyujanggak official catalog",
+      "url": "https://kyudb.snu.ac.kr/book/list.do?book_cate=SIC&focus=&mid=GDS",
+      "holding": "奎貴67",
+      "title": "交食推步法",
+      "publication_year_record": 1458,
+      "metadata": "古活字本(大字는 丙辰字, 中字는 甲寅字)",
+      "grade": "INSTITUTIONAL_HOLDING_METADATA_ONLY",
+      "direct_original_typeform": false
+    },
+    {
+      "provider": "Academy of Korean Studies Encyclopedia / 戊寅字",
+      "url": "https://encykorea.aks.ac.kr/Article/E0019217",
+      "scholarly_account": "1458 cast 戊寅字 for large main characters of 交食推步法假令; 甲寅字 used in medium and small annotation",
+      "grade": "SCHOLARLY_TYPE_HISTORY_NOT_HOLDING_NATIVE_GLYPH",
+      "direct_original_typeform": false
+    },
+    {
+      "provider": "Academy of Korean Studies Encyclopedia / 丙辰字",
+      "url": "https://encykorea.aks.ac.kr/Article/E0023165",
+      "scholarly_account": "1436 lead type 丙辰字 used for 資治通鑑綱目訓義 and account states that no other surviving print of this type had been observed",
+      "grade": "SCHOLARLY_TYPE_HISTORY_NEGATIVE_WITNESS_BOUNDED_TO_AUTHORS_KNOWN_EXTANT_PRINTS",
+      "not_a_global_proof_no_other_copy": true
+    },
+    {
+      "provider": "Lee Ki-won, Journal of Korean Earth Science Society 29(1), 2008, pp.98-115, reviewed printed p.111 discussion and Fig.1 preface",
+      "url": "https://data.kigam.re.kr/ieg/cmmn/downloadFile.do?fileName=J290108.PDF",
+      "relevant_statement": "交食推步假令, also called 交食推步法; preface bears 交食推步法假令; 1458 work is upper/lower eclipse-calculation examples",
+      "grade": "PEER_REVIEWED_SECONDARY_BIBLIOGRAPHIC_NAMING_CONTROL_WITH_PREFACE_FIGURE_NOT_FORMULA_TARGET",
+      "visual_page_checked": true,
+      "original_image_native_bytes_acquired": false
+    }
+  ],
+  "adjudication": {
+    "new_positive": "Title-only distinction between 交食推步法 and 交食推步法假令 is not a sufficient independent-work explanation for type differences: at least one scholarly publication explicitly treats names as related designations. AKS 丙辰字 limited-survival statement adds a second scoped scholarly control for checking SNU catalogue type attribution.",
+    "does_not_prove": [
+      "Every copy listed as 交食推步法 and 交食推步法假令 is identical at impression/physical-copy level.",
+      "SNU first-party catalog type metadata is wrong, or AKS scholars are infallible.",
+      "1458 original formula target 盈縮加分 or typeforms are acquired or re-collated.",
+      "Exact relationship between 1436 丙辰字, 1458 戊寅字 and possible later reuse at 奎貴67.",
+      "Unverified copying or G893 original 少/微 units/quantization or six final historical numeric adjudications."
+    ],
+    "source_original_yingsuo_folio_acquired": false,
+    "source_original_formula_sha256": null,
+    "source_original_typeform_verified": false,
+    "new_historical_witnesses": 0,
+    "new_registry_sources": 0,
+    "new_genealogy_edges": 0,
+    "g893_historical_final_controls": "0/6",
+    "algorithm_reopen": false,
+    "next_gate": "Obtain provider-authenticated 奎貴67 native page and item-specific colophon/typeform; distinguish type identification from original formula glyph and independent G893 printed 少/微 numerical semantics. Do not repeat generic bibliographic searches or promote modern received transcriptions to ancient original."
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Title alias and historical type-family accounts are not proof of a shared physical impression, direct copying, 1458 original formula glyph or print-block lineage."
+    ],
+    "unresolved_lineage_questions": [
+      "Which original typeface is actually present on the specific 奎貴67 source-original target leaves?",
+      "Is the AKS type-family observation about the same impression as SNU catalog item?",
+      "How does G893 native printed 少/微 map to unit radix, if at all?"
+    ]
+  },
+  "counters": {
+    "state_version_after": "1.1022.0",
+    "matrix_rows": 222,
+    "matrix_audited": 222,
+    "registered_external_sources": 765,
+    "graph_nodes": 252,
+    "graph_edges": 238,
+    "research_issues": 11,
+    "algorithm_reopens": 0,
+    "chart_product": "CLOSED"
+  }
+}
