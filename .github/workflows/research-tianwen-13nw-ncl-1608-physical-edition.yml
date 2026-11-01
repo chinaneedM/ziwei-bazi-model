@@ -70,6 +70,15 @@ jobs:
                   fn=out/f'contact-{part//12+1}.jpg'
                   fn.write_bytes(buf.getvalue())
                   (out/f'contact-{part//12+1}.jpg.b64.txt').write_text(base64.b64encode(buf.getvalue()).decode('ascii')+'\n',encoding='ascii')
+              target_pages=[401,431,461,481,501,521,541,561,581,601]
+              for n in target_pages:
+                  if n>count: continue
+                  page=doc[n-1]
+                  pix=page.get_pixmap(matrix=fitz.Matrix(2.3,2.3),alpha=False)
+                  jpg=pix.tobytes('jpg',jpg_quality=87)
+                  (out/f'locator-{n}.jpg.b64.txt').write_text(base64.b64encode(jpg).decode('ascii')+'\n',encoding='ascii')
+              report['locator_target_pages_1based']=target_pages
+              report['locator_note']='Selected original page raster previews are for chapter and physical page identity only; numeric glyphs remain undecided until direct review.'
               report['contact_sheet_count']=(len(thumbs)+11)//12
               report['extraction_note']='Contact images show spaced samples for folio localization ONLY, not target numeric glyph confirmation; PDF source itself is not mirrored to Git.'
           else:
