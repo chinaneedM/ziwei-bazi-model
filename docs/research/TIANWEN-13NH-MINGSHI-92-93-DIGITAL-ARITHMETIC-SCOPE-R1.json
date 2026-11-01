@@ -1,0 +1,78 @@
+{
+  "schema": "TIANWEN-13NH-MINGSHI-92-93-DIGITAL-ARITHMETIC-SCOPE-R1",
+  "date": "2026-11-01",
+  "issue": "TW-OPEN-0005",
+  "classification": "LATER_DIGITAL_RECEIVED_TEXT_INTERNAL_ARITHMETIC_VARIANT_WITHOUT_ORIGINAL_EDITION_COLLATION",
+  "witnessed_scopes": [
+    {
+      "source": "明史 卷33 志第九 歷三",
+      "uri": "https://zh.wikisource.org/zh-hant/明史/卷33",
+      "grade": "COMMUNITY_DIGITAL_TRANSCRIPTION_NOT_PHYSICAL_EDITION",
+      "written_result": "四分九十二秒八十六微",
+      "normalized": "4.9286",
+      "context": "2分46秒倍之=4分92秒；加1秒86微后网页仍作4分92秒86微"
+    },
+    {
+      "source": "梅文鼎 大統歷志 卷三",
+      "uri": "https://www.shidianguji.com/zh/book/SK1539/chapter/1la1487n41uf3",
+      "grade": "LATER_RECEIVED_DIGITAL_TEXT_NOT_DIRECT_ORIGINAL_PRINT",
+      "written_result": "四分九十三秒八十六微",
+      "normalized": "4.9386",
+      "context": "同一平立合差算式；数字文本前文还有其他可疑讹字，不能当作完美物理原本"
+    }
+  ],
+  "arithmetic": {
+    "unit_scope": "LATER_RECEIVED_BASE100_FEN_SECONDS_MICRO_UNITS_ONLY",
+    "ping_cha_fen": "2.46",
+    "li_cha_wei": "31",
+    "li_multiplier": 6,
+    "ping_double": "4.92",
+    "li_six_times": "0.0186",
+    "implied_sum": "4.9386",
+    "digital_variant_92": "4.9286",
+    "difference_fen": "0.0100",
+    "g893_original_print_s0": "4.9386"
+  },
+  "original_anchor": {
+    "source_doc": "docs/research/TIANWEN-13NE-G893-HEADER-NIKH-D16-CORRECTION-R1.json",
+    "source_row_doc": "docs/research/TIANWEN-13NB-G893-001A-D0-D2-DUAL-NUMERIC-LANE-R1.json",
+    "source": "GK00893_00 original photo 001a",
+    "scope": "S0 original header/row previously physically collated; reused, not recaptured"
+  },
+  "conclusions": [
+    "Within this LATER hundredwise computational scheme 4.9386 is the arithmetic-consistent sum and source-original G893 displayed S0",
+    "The specific online 明史 4.9286 clause contradicts its immediately stated addition by 0.01 fen; do not use this web string as an independent historical numeric candidate",
+    "Mei received digital text 4.9386 agrees arithmetically; neither portal's editing history or underlying physical edition has been newly collated",
+    "Cannot determine whether the 4.9286 mismatch originated in 明史 printing, later copy, or current digitization"
+  ],
+  "not_established": [
+    "G893 original 少=late 微",
+    "ancient residual and rounding step",
+    "independent Ming history print variant",
+    "direct G893-Mei transmission",
+    "NAAJ 子051-0003 sixth fascicle firstparty identity",
+    "six global G893 target historical winners"
+  ],
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Online received numeric variants do not imply independent physical lineages"
+    ],
+    "unresolved_lineage_questions": [
+      "Which 明史 or 梅氏 original physical editions read 九十二 versus 九十三?"
+    ]
+  },
+  "invariants": {
+    "registered_sources": 765,
+    "matrix": "222/222",
+    "genealogy_nodes": 252,
+    "genealogy_edges": 238,
+    "open_issues": 11,
+    "g893_six_historical_winners": "0/6",
+    "chart": "CLOSED",
+    "algorithm_reopen": 0,
+    "candidate_collapse": 0
+  }
+}
