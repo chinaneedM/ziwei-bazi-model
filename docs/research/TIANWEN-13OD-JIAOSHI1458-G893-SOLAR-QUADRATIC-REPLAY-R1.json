@@ -1,0 +1,165 @@
+{
+  "schema": "TIANWEN-13OD-JIAOSHI1458-G893-SOLAR-QUADRATIC-REPLAY-R1",
+  "date": "2026-11-01",
+  "issue_id": "TW-OPEN-0005",
+  "question": "Does the source-received 1458 Joseon 交食推步法 盈縮加分 nested calculation reproduce selected G893 first-party solar paired-column numbers exactly, without asserting direct copying or proving 少 source-original radix?",
+  "sources": {
+    "jiaoshi_first_party_catalog": {
+      "provider": "SNU Kyujanggak original catalog",
+      "catalog_identifier": "奎貴67",
+      "work": "交食推步法",
+      "catalogued_year": 1458,
+      "compiler": "李純之·金石悌",
+      "url": "https://kyudb.snu.ac.kr/book/list.do?book_cate=SIC03&mid=GDS",
+      "grade": "DIRECT_FIRST_PARTY_BIBLIOGRAPHIC_HOLDING_IDENTITY_ONLY_NOT_FORMULA_ORIGINAL_PAGE"
+    },
+    "jiaoshi_formula_received": {
+      "work": "交食推步法 假令上",
+      "url": "https://zh.wikisource.org/wiki/交食推步法/假令上",
+      "grade": "PUBLIC_WIKISOURCE_RECEIVED_TRANSCRIPTION_NOT_PHYSICAL_SOURCE_GLYPH",
+      "section": "盈縮加分",
+      "literal_numerical_atoms": [
+        "九十三微",
+        "四分九十二秒九十三微",
+        "五百一十〇分八十五秒六十九微"
+      ],
+      "native_1458_original_page_acquired": false,
+      "original_folio_image_sha256": null,
+      "independent_original_witness_vote": 0,
+      "source_registry_id": "EXT-KYUJANGGAK-JIAOSHI-TUIBUFA-1458"
+    },
+    "g893_first_party_original": {
+      "holding": "SNU Kyujanggak 奎貴893 / GK00893_00",
+      "known_original_pages": [
+        "001a",
+        "002a",
+        "002b"
+      ],
+      "previous_original_source_docs": [
+        "docs/research/TIANWEN-13NC-G893-001A-ROI-SCOPE-CORRECTION-R1.json",
+        "docs/research/TIANWEN-13ND-G893-002A-002B-D13-D14-FOLIO-SEAM-R1.json",
+        "docs/research/TIANWEN-13NE-G893-HEADER-NIKH-D16-CORRECTION-R1.json"
+      ],
+      "source_original_jpegs_reopened_this_batch": false,
+      "previous_source_bound_image_observations_reused": true
+    }
+  },
+  "integer_replay": {
+    "unit": "10^-4 of displayed 分-shaped numeric field; numerical positional convention for arithmetic only",
+    "received_formula_syntax": "置九十三微，以積日乘之，加四分九十二秒九十三微；又以積日乘之，用減五百一十〇分八十五秒六十九微",
+    "nonnarrative_integer_formula": "M_1e4(n)=5108569-n*(49293+93*n); S_1e4(n)=M_1e4(n)-M_1e4(n+1)=49386+186*n",
+    "mathematical_derivation": "M(n)=510.8569 - n(4.9293+0.0093n); S(n)=4.9386+0.0186n",
+    "exact_integer_positions_tested": [
+      {
+        "day": 0,
+        "reported_g893_long_lane": "510.8569",
+        "reported_g893_short_lane": "4.9386",
+        "computed_long_lane": "510.8569",
+        "computed_short_lane": "4.9386",
+        "exact_integer_replay": true,
+        "source_grade_scope": "13NB/13NC earlier first-page observations; narrow 13NB ROI dual-lane sufficiency retracted by 13NC; broader image and NIKH text also relevant"
+      },
+      {
+        "day": 1,
+        "reported_g893_long_lane": "505.9183",
+        "reported_g893_short_lane": "4.9572",
+        "computed_long_lane": "505.9183",
+        "computed_short_lane": "4.9572",
+        "exact_integer_replay": true,
+        "source_grade_scope": "13NB/13NC first-page broad context; full original M-lane narrow ROI qualification remains"
+      },
+      {
+        "day": 2,
+        "reported_g893_long_lane": "500.9611",
+        "reported_g893_short_lane": "4.9758",
+        "computed_long_lane": "500.9611",
+        "computed_short_lane": "4.9758",
+        "exact_integer_replay": true,
+        "source_grade_scope": "13NB/13NC first-page broad context; full original M-lane narrow ROI qualification remains"
+      },
+      {
+        "day": 13,
+        "reported_g893_long_lane": "445.2043",
+        "reported_g893_short_lane": "5.1804",
+        "computed_long_lane": "445.2043",
+        "computed_short_lane": "5.1804",
+        "exact_integer_replay": true,
+        "source_grade_scope": "13ND native original 002a paired fields"
+      },
+      {
+        "day": 14,
+        "reported_g893_long_lane": "440.0239",
+        "reported_g893_short_lane": "5.1990",
+        "computed_long_lane": "440.0239",
+        "computed_short_lane": "5.1990",
+        "exact_integer_replay": true,
+        "source_grade_scope": "13ND native original 002b paired fields"
+      },
+      {
+        "day": 15,
+        "reported_g893_long_lane": "434.8249",
+        "reported_g893_short_lane": "5.2176",
+        "computed_long_lane": "434.8249",
+        "computed_short_lane": "5.2176",
+        "exact_integer_replay": true,
+        "source_grade_scope": "13NE native original 002b / corrected long-column context"
+      },
+      {
+        "day": 16,
+        "reported_g893_long_lane": "429.6073",
+        "reported_g893_short_lane": "5.2362",
+        "computed_long_lane": "429.6073",
+        "computed_short_lane": "5.2362",
+        "exact_integer_replay": true,
+        "source_grade_scope": "13NE native original 002b explicitly contrasted with NIKH editorial 5.1362"
+      },
+      {
+        "day": 17,
+        "reported_g893_long_lane": "424.3711",
+        "reported_g893_short_lane": "5.2548",
+        "computed_long_lane": "424.3711",
+        "computed_short_lane": "5.2548",
+        "exact_integer_replay": true,
+        "source_grade_scope": "13NE native original 002b following-row sequence"
+      }
+    ],
+    "matched_pairs": 8,
+    "invalid_original_roi_warning": "The 13NB three narrow original ROI claims of paired complete M/S columns were explicitly narrowed in 13NC. Keep first three rows as previously reported plus corrected broad-context support, not newly re-certified complete original paired ROIs.",
+    "corroboration_scope": "Exact matching same-position numerical sequences and matching named 盈縮加分 field in received text versus cataloged G893 original, not physically independent proof of common print blocks, equal absolute epoch, or a source-original G893 unit/quantization."
+  },
+  "adjudication": {
+    "new_positive": "Reconstructs reported G893 solar source-long and short numeric lanes through days 0,1,2,13,14,15,16,17 with one source-received 交食推步法 nested quadratic and exact scaled integer arithmetic; this is stronger mechanical concordance than general 少 word resemblance.",
+    "not_proven": [
+      "The source-original 1458 奎貴67 leaf contains these precise words; its physical glyph leaf has not been reviewed.",
+      "G893 少 is equivalent to 微, or quarter of an unambiguously identified source-local smallest unit.",
+      "The received 1458 wording is independent of G893 textual/table transmission or proves direct copying.",
+      "The observed overlap licenses an original impression/edition lineage edge or any of six final historical G893 control winners.",
+      "The formula directly recovers original historical physical-copy quantization beyond the printed four-place rows."
+    ],
+    "existing_full_precision_compound_model": "13NF full-precision accumulation at 0.018625 then single final rounding is rejected only under its explicit assumptions; this new quadratic is a distinct received-text model, not proof of original G893 rounding machinery.",
+    "new_registered_sources": 0,
+    "new_original_images": 0,
+    "new_independent_physical_witnesses": 0,
+    "new_genealogy_edges": 0,
+    "g893_historical_six_final_controls": "0/6",
+    "matrix": "222/222",
+    "registered_sources": 765,
+    "genealogy": "252 nodes / 238 edges",
+    "open_issues": 11,
+    "chart_product": "CLOSED",
+    "algorithm_reopen_authorized": false
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Exact numeric formula overlap between Joseon 交食推步法 received transcription and G893 original does not alone prove direct textual descent, a shared original physical printing or identical 少 quantization."
+    ],
+    "unresolved_lineage_questions": [
+      "Acquire direct original 奎貴67 target-page to validate formula and punctuation at physical-glyph level, and compare against G893 original heading as distinct artifact.",
+      "Identify first-party NAAJ 子051-0003 sixth fascicle source-native physical page/print, and separately G893 local 少 placement/radix and quantization."
+    ]
+  },
+  "next_priority": "Seek source-original 奎貴67 quadratic passage and/or G893 少 subunit/rounding original field; no additional generic same-provider calendar prose, no new runtime algorithm until separate evidence and replay."
+}
