@@ -1,0 +1,154 @@
+{
+  "schema": "TIANWEN-13NE-G893-HEADER-NIKH-D16-CORRECTION-R1",
+  "date": "2026-11-01",
+  "issue": "TW-OPEN-0005",
+  "classification": "ORIGINAL_PRINT_HEADER_FIELD_IDENTITY_BOUND_AND_DIGITAL_TRANSCRIPTION_VARIANT_ORIGINAL_WINS",
+  "source_kyujanggak": {
+    "provider": "Seoul National University Kyujanggak",
+    "identity": "奎貴893 GK00893_00",
+    "artifact_archive": {
+      "workflow_run": 41144025711,
+      "artifact_id": 13019278183,
+      "sha256": "1d8f10da7c27411bf38ad635494a1b9f4e700fb76cb37b2a7541c075a0ca9835"
+    },
+    "image_001a": {
+      "file": "GK00893_00IH_0001_001a.jpg",
+      "sha256": "8b07513ca8aad42ae167a93f22c39f14850c8cd1c345db9ce98c1e0e769226a5",
+      "native_rgb_sha256": "653e1d9d91c754695ac43f96ca86afef44fd8c4b39c5cd1c9e26b475a58d2636",
+      "size": [
+        1150,
+        2000
+      ],
+      "header_roi_xyxy": [
+        500,
+        190,
+        667,
+        1410
+      ],
+      "header_roi_native_rgb_sha256": "dfb6e0d135847c8273b328a7bd375bbe66acae2addc19787a330d61326d4e883"
+    },
+    "image_002b": {
+      "file": "GK00893_00IH_0001_002b.jpg",
+      "sha256": "f9812e8c6a357eb6cd1117bb2af58d816e01030d5b93f34e7094bddb766b2b55",
+      "native_rgb_sha256": "e3eca1b8f979c1de7ccc5e924d2d493288e7764f92e0a77ad96cf26e80c987f7",
+      "size": [
+        1150,
+        2000
+      ],
+      "day16_neighborhood_roi_xyxy": [
+        425,
+        200,
+        760,
+        1460
+      ],
+      "neighborhood_native_rgb_sha256": "de8b7da627249ee43d88174a2b5579b8d8e8730cc95d2c5879d8fc031edb9e05",
+      "day16_short_roi_xyxy": [
+        500,
+        535,
+        592,
+        1140
+      ],
+      "day16_short_native_rgb_sha256": "bc0421c50aa72857be613280babec3ce3de7ab92b947c29292cbdcf691eb272a"
+    },
+    "native_crop_digest_method": "sha256(Pillow Image.open(source JPEG).convert('RGB').crop([x0,y0,x1,y1]).tobytes())"
+  },
+  "government_edition": {
+    "institution": "National Institute of Korean History (NIKH)",
+    "work": "高麗史 卷五十二 志第六 曆三 授時曆立成 太陽冬至前後二象盈初縮末限",
+    "section_id": "kr_052_0010_0010_0020_0010",
+    "hanja_url": "https://db.history.go.kr/goryeo/level.do?levelId=kr_052_0010_0010_0020_0010&types=o",
+    "korean_url": "https://db.history.go.kr/id/kr_052r_0010_0010_0020_0010",
+    "status": "OFFICIAL_SCHOLARLY_EDITED_TEXT_NOT_INDEPENDENT_ORIGINAL_PHYSICAL_WITNESS"
+  },
+  "direct_original_header": {
+    "printed_title": "大陽冬至前後二象盈初縮末限",
+    "five_printed_column_labels_right_to_left": [
+      "積日",
+      "日差加一秒八十六少",
+      "盈縮加分",
+      "盈縮積",
+      "行度"
+    ],
+    "field_bindings": {
+      "S": "日差加一秒八十六少 COLUMN DAILY ENTRY",
+      "M": "盈縮加分",
+      "C": "盈縮積",
+      "G": "行度"
+    },
+    "same_copy_original_header_and_day_rows": true,
+    "original_header_seam_scope": "source-image 001a first folio 1150x2000 original, no OCR"
+  },
+  "firstparty_editing_issue": {
+    "day": 16,
+    "original_print": "五分二三六二",
+    "original_value": "5.2362",
+    "NIKH_hanja_transcription": "五分一三六二",
+    "NIKH_korean_editorial": "5분 13초 62미",
+    "editorial_value": "5.1362",
+    "classification": "NIKH_HANJA_AND_KOREAN_TRANSCRIPTION_SOURCE_CONFLICT_SINGLE_DIGITAL_EDITORIAL_ENTRY_NOT_ORIGINAL_PRINT_VARIANT",
+    "context": [
+      {
+        "day": 15,
+        "S": "5.2176",
+        "M": "434.8249"
+      },
+      {
+        "day": 16,
+        "S": "5.2362",
+        "M": "429.6073"
+      },
+      {
+        "day": 17,
+        "S": "5.2548",
+        "M": "424.3711"
+      }
+    ],
+    "checks": [
+      "5.2362-5.2176=0.0186",
+      "5.2548-5.2362=0.0186",
+      "429.6073-424.3711=5.2362",
+      "434.8249-429.6073=5.2176"
+    ],
+    "negative_of_editorial": [
+      "5.1362-5.2176=-0.0814",
+      "5.2548-5.1362=0.1186"
+    ]
+  },
+  "supplementary_later_edition": {
+    "author": "梅文鼎",
+    "work": "大統厯志 四庫全書本 卷四",
+    "url": "https://www.wenlinshe.com/tw/chapter/skqs_zibu/da-tong-li-zhi/juan-4.html",
+    "note": "Later editorial textual layer explicitly distinguishes daily 盈縮加分, cumulative 盈縮積 and 消息分, corroborating source-local M/S arithmetic, but it is not an authenticated original impression of GK00893_00.",
+    "relevant_phrases_short": [
+      "其一術以三差立算",
+      "布立成法",
+      "相挨兩日盈縮積相減",
+      "相挨兩日加分相減",
+      "消息分"
+    ]
+  },
+  "editorial_unit_boundary": {
+    "kyujanggak_original": "一秒八十六少",
+    "NIKH_hanja": "一秒八十六少",
+    "NIKH_korean": "1초 8625",
+    "meiwending_later_text": "一秒八十六微",
+    "conclusion": "少 and 微 are NOT silently interchangeable. NIKH Korean modern decimal is a translation/interpretation layer; historical 少 fraction, rounding and exact table-generation difference remain not determined solely from 4-decimal day differences. Retain competing unit/radix candidates, no six-item historical winner."
+  },
+  "provenance_boundaries": [
+    "NIKH digital transcription is not a new independently authenticated physical copy of SNU item",
+    "NIKH single erroneous D16 row cannot be used to manufacture a historical alternate plate",
+    "Original G893 print day16 wins only for exact source-impression local day16 text, not a universal reconstruction across all editions",
+    "No firstparty authenticated NAAJ 子051-0003 sixth fascicle or print/image linkage",
+    "No algorithm reopen or result from modern AI prediction"
+  ],
+  "invariants": {
+    "source_registry_total": 765,
+    "matrix_audited": "222/222",
+    "genealogy_nodes": 252,
+    "genealogy_edges": 238,
+    "open_issues": 11,
+    "g893_six_final_winners": 0,
+    "product": "CLOSED",
+    "algorithm_reopens": 0
+  }
+}
