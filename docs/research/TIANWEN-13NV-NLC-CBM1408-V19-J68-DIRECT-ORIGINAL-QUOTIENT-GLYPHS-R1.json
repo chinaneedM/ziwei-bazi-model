@@ -1,0 +1,116 @@
+{
+  "schema": "TIANWEN-13NV-NLC-CBM1408-V19-J68-DIRECT-ORIGINAL-QUOTIENT-GLYPHS-R1",
+  "date": "2026-11-01",
+  "issue_id": "TW-OPEN-0005",
+  "new_evidence_grade": "DIRECT_PROVIDER_PDF_BYTES_SHA256_AND_SOURCE_EMBEDDED_JPX_HASH_WITH_HUMAN_VISUAL_ORIGINAL_PRINTED_GLYPH_COLLATION",
+  "acquisition": {
+    "source": "National Library of China / Commons original Ming print object NLC892-CBM1408-371938 (volume 19, juan 67-69)",
+    "original_pdf_url": "https://upload.wikimedia.org/wikipedia/commons/f/f1/NLC892-CBM1408-371938_%E5%8F%A4%E4%BB%8A%E5%BE%8B%E6%9B%86%E8%80%83_%E4%B8%83%E5%8D%81%E4%BA%8C%E5%8D%B7_%E7%AC%AC19%E5%86%8A.pdf",
+    "pdf_bytes": 16674606,
+    "pdf_sha256": "0f34ca5bcb474b9a38ece20c40eb8c468d1671fe6209cec140b20d8c9350e3fe",
+    "pdf_pages": 65,
+    "provider_public_catalog_scope": "Ming Wanli-era engraved copy attribution as indexed by Commons; precise physical impression year not established",
+    "github_acquisition_workflow": "https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/41273540960",
+    "source_page_16": {
+      "pdf_page_one_based": 16,
+      "embedded": "docs/research/evidence/13nv/embedded-16-1-xref50.jpx",
+      "embedded_sha256": "9828906aaf662a158b59c5ccd1da4553757c1aec8ce77a7e9c9e29c59946e972",
+      "render": "docs/research/evidence/13nv/render-16.png",
+      "render_sha256": "d541fcecd70c048f7e9e8da738b7b453f2cc63d3686c864fa4a942ebc57a9609"
+    },
+    "source_page_17": {
+      "pdf_page_one_based": 17,
+      "embedded": "docs/research/evidence/13nv/embedded-17-1-xref53.jpx",
+      "embedded_sha256": "7afadaf1aa5ab87415d581a5b8d00a93bf9774cb510ffa09997ec4997a31fa33",
+      "render": "docs/research/evidence/13nv/render-17.png",
+      "render_sha256": "e0bd6ed391ab5434f96fe02bae2d6293264c947d16818cb6748f3b6eaca2ea39"
+    },
+    "byte_bound_manifest": "docs/research/evidence/13nv/manifest.json",
+    "original_jpx_files_unchanged": true,
+    "ocr_used": false,
+    "human_original_page_review": true
+  },
+  "direct_human_printed_page_17_collation": [
+    {
+      "locus": "right-leaf near center; 定平差／段日／日定平差 division",
+      "observed": "置定平差三十六分三十八秒以段日一十四日八十二除一次得二分四十六秒〈有零不用〉為日定平差",
+      "critical_glyphs": [
+        "三十六分三十八秒",
+        "一十四日八十二",
+        "二分四十六秒",
+        "有零不用"
+      ],
+      "grade": "DIRECT_PHYSICAL_SCAN_NUMERIC_GLYPHS",
+      "note": "punctuation and angle-brackets are editorial separators; direct line is vertical print"
+    },
+    {
+      "locus": "right-leaf adjacent; 泛立差",
+      "observed": "置泛立差六十九秒以段日一十四日八十二除二次得三十一分〈有零不用〉為日立差〈分即微〉",
+      "critical_glyphs": [
+        "六十九秒",
+        "一十四日八十二",
+        "三十一分",
+        "分即微"
+      ],
+      "grade": "DIRECT_PHYSICAL_SCAN_NUMERIC_GLYPHS"
+    },
+    {
+      "locus": "left-leaf continued; later combined difference",
+      "observed": "置平差二分四十六秒倍之得四分九十二秒再加加分立差一秒八十六微共得四分九十三秒八十六微為平立合差",
+      "critical_glyphs": [
+        "二分四十六秒",
+        "四分九十二秒",
+        "一秒八十六微",
+        "四分九十三秒八十六微"
+      ],
+      "grade": "DIRECT_PHYSICAL_SCAN_NUMERIC_GLYPHS"
+    }
+  ],
+  "exact_displayed_division_replay": {
+    "numerator_fen": "36.38",
+    "denominator_days": "14.82",
+    "computed_quotient_fen": "2.454790823211875843...",
+    "literal_printed_result_fen": "2.46",
+    "floor_to_two_decimal_fen": "2.45",
+    "nearest_hundredth_fen": "2.45",
+    "printed_mismatch_is_directly_attested_in_this_one_ming_scan": true,
+    "is_authorial_arithmetic_error_proven": false,
+    "error_source_class": "UNRESOLVED_ORIGINAL_WORK_CALCULATION_VS_PRINTING_VS_UNSHOWN_PRE_ROUNDING_STAGE",
+    "cannot_promote_to_original_g893_shao_radic_or_rounding": true
+  },
+  "source_scope_adjudication": {
+    "revised_from": "13NT/13NU mismatch was received Qing Siku text only and original target unverified",
+    "revised_to": "This NLC Ming-printed source page independently carries the same displayed 36.38/14.82 → 2.46 and 有零不用 mismatch",
+    "not_asserted": [
+      "every Ming edition contains the reading",
+      "author's autograph/computation contains the error",
+      "later Qing Siku copies this exact physical page directly",
+      "nearby numeric similarity proves G893's 少=微 or one inherited table",
+      "any of six G893 historical target controls is decided",
+      "machine algorithm bug"
+    ],
+    "next_high_value": "Independently collate NCL 06270 / 06273 original 卷68 target glyphs or recover the antecedent high-precision numerator/denominator from source original; separately investigate original G893 少 unit/radix and NAAJ 子051-0003 sixth item"
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [],
+    "unresolved_lineage_questions": [
+      "Relation between NLC original Ming print and Siku received v68 numerics is not proven direct copying",
+      "Taiwan NCL 1600/1608 exact target leaves and original impression relations remain uncollated"
+    ]
+  },
+  "counters": {
+    "matrix": "222/222",
+    "active_sources": 765,
+    "graph_nodes": 252,
+    "graph_edges": 238,
+    "unresolved_issues": 11,
+    "g893_historical_final_winners": "0/6",
+    "product": "CLOSED",
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0,
+    "independent_physical_copy_increment": 0
+  }
+}
