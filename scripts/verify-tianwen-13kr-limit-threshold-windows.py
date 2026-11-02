@@ -57,7 +57,7 @@ def verify(e,state,ledger):
  a=state["historical_audit"];link=ledger["binding"]
  check(state["schema_version"]==a["research_omission_guard"]["reviewed_state_version"]==link["reviewed_state_version"],"state versions")
  check(len(a["current_focus"])==link["source_focus_count"] and a["current_focus"][-1].startswith(link["latest_research_focus_prefix"]+" "),"focus")
- check(a["external_source_registry_total_unique_count"]==765 and state["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED" and state["invariants"]["algorithm_reopen_count"]==0,"product")
+ check((a["external_source_registry_total_unique_count"]>=765 and a["external_source_registry_total_unique_count"]==json.loads((ROOT/"docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json").read_text(encoding="utf-8"))["combined_source_count"]) and state["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED" and state["invariants"]["algorithm_reopen_count"]==0,"product")
  issue=next(i for i in ledger["issues"] if i["id"]==e["issue_id"])
  check(issue["priority"]=="P0" and issue["status"]=="OPEN" and E in issue["source_refs"] and E.replace(".json",".md") in issue["source_refs"],"issue references")
  check(any(v.get("revision_id")=="TW-OPEN-0005-13KR-ROUNDING-FLOOR-20261029" and E in v.get("evidence_refs",[]) for v in issue["history"]),"append only")

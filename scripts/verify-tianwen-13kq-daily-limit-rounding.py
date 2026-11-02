@@ -39,7 +39,7 @@ def verify(e,state,ledger,huang_pdf=None,ming_pdf=None):
  a=state["historical_audit"];review=ledger["binding"]
  require(state["schema_version"]==a["research_omission_guard"]["reviewed_state_version"]==review["reviewed_state_version"],"version")
  require(len(a["current_focus"])==review["source_focus_count"] and a["current_focus"][-1].startswith(review["latest_research_focus_prefix"]+" "),"focus")
- require(a["external_source_registry_total_unique_count"]==765 and state["invariants"]["algorithm_reopen_count"]==0 and state["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED","product")
+ require((a["external_source_registry_total_unique_count"]>=765 and a["external_source_registry_total_unique_count"]==json.loads((ROOT/"docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json").read_text(encoding="utf-8"))["combined_source_count"]) and state["invariants"]["algorithm_reopen_count"]==0 and state["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED","product")
  issue=next(i for i in ledger["issues"] if i["id"]==e["issue_id"])
  require(issue["priority"]=="P0" and issue["status"]=="OPEN" and E in issue["source_refs"] and E.replace(".json",".md") in issue["source_refs"],"risk")
  require(any(i.get("revision_id")=="TW-OPEN-0005-13KQ-820-DAY-RATE-20261029" and E in i.get("evidence_refs",[]) for i in issue["history"]),"append-only event")

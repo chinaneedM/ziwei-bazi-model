@@ -29,7 +29,7 @@ def verify(e,state,ledger,pdf=None):
  h=state["historical_audit"];b=ledger["binding"]
  chk(state["schema_version"]==b["reviewed_state_version"]==h["research_omission_guard"]["reviewed_state_version"],"handoff version")
  chk(b["source_focus_count"]==len(h["current_focus"]) and h["current_focus"][-1].startswith(b["latest_research_focus_prefix"]+" "),"focus")
- chk(h["external_source_registry_total_unique_count"]==765 and state["invariants"]["algorithm_reopen_count"]==0 and state["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED","registry/product")
+ chk((h["external_source_registry_total_unique_count"]>=765 and h["external_source_registry_total_unique_count"]==json.loads((R/"docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json").read_text(encoding="utf-8"))["combined_source_count"]) and state["invariants"]["algorithm_reopen_count"]==0 and state["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED","registry/product")
  issue=next(v for v in ledger["issues"] if v["id"]=="TW-OPEN-0005")
  chk(issue["priority"]=="P0" and issue["status"]=="OPEN" and E in issue["source_refs"] and E.replace(".json",".md") in issue["source_refs"],"open issue references")
  chk(any(v.get("revision_id")=="TW-OPEN-0005-13KM-P75P79-GLYPHS-20261029" and E in v.get("evidence_refs",[]) for v in issue["history"]),"forward source event")

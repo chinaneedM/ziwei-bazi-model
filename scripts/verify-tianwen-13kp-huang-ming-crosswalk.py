@@ -39,7 +39,7 @@ def verify(e,state,ledger,huang_pdf=None,ming_pdf=None):
  astate=state["historical_audit"];binding=ledger["binding"]
  fail(state["schema_version"]==astate["research_omission_guard"]["reviewed_state_version"]==binding["reviewed_state_version"],"version")
  fail(len(astate["current_focus"])==binding["source_focus_count"] and astate["current_focus"][-1].startswith(binding["latest_research_focus_prefix"]+" "),"focus")
- fail(astate["external_source_registry_total_unique_count"]==765 and state["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED" and state["invariants"]["algorithm_reopen_count"]==0,"stable product")
+ fail((astate["external_source_registry_total_unique_count"]>=765 and astate["external_source_registry_total_unique_count"]==json.loads((R/"docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json").read_text(encoding="utf-8"))["combined_source_count"]) and state["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED" and state["invariants"]["algorithm_reopen_count"]==0,"stable product")
  issue=next(k for k in ledger["issues"] if k["id"]==e["issue_id"])
  fail(issue["priority"]=="P0" and issue["status"]=="OPEN" and E in issue["source_refs"] and E.replace(".json",".md") in issue["source_refs"],"issue")
  fail(any(x.get("revision_id")=="TW-OPEN-0005-13KP-HUANG-MING-INDEX-20261029" and E in x.get("evidence_refs",[]) for x in issue["history"]),"append-only revision")

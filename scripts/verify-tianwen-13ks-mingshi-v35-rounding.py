@@ -67,7 +67,7 @@ def verify(e,s,l,r):
     require(s["schema_version"]==s["historical_audit"]["research_omission_guard"]["reviewed_state_version"]==l["binding"]["reviewed_state_version"],"state version synced")
     require(s["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED" and s["invariants"]["algorithm_reopen_count"]==0,"chart invariants")
     h=s["historical_audit"]
-    require(h["external_source_registry_total_unique_count"]==765 and h["row_count"]==h["audited_row_count"]==222,"source and matrix")
+    require((h["external_source_registry_total_unique_count"]>=765 and h["external_source_registry_total_unique_count"]==json.loads((ROOT/"docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json").read_text(encoding="utf-8"))["combined_source_count"]) and h["row_count"]==h["audited_row_count"]==222,"source and matrix")
     require(h["research_omission_guard"]["reviewed_state_version"]==s["schema_version"]==l["binding"]["reviewed_state_version"],"ledger review version")
     require(l["binding"]["source_focus_count"]==len(h["current_focus"]) and h["current_focus"][-1].startswith(l["binding"]["latest_research_focus_prefix"]+" "),"focus count")
     require(any(z.startswith("13KS ") for z in h["current_focus"]),"prior 13KS focus preserved")
