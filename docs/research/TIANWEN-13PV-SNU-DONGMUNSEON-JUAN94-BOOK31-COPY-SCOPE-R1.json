@@ -1,0 +1,84 @@
+{
+  "schema": "TIANWEN-13PV-SNU-DONGMUNSEON-JUAN94-BOOK31-COPY-SCOPE-R1",
+  "date": "2026-11-03",
+  "issue_id": "TW-OPEN-0005",
+  "purpose": "Bind the specific 東文選 卷94 book locator to the SNU Kyujanggak first-party catalog, separate different SNU physical copy groups, and prevent projecting the numbered SNU fascicle map onto other repositories without source-issued evidence.",
+  "first_party_catalogs": [
+    {
+      "provider": "Seoul National University Kyujanggak Institute",
+      "url": "https://kyudb.snu.ac.kr/book/view.do?book_cd=GK01188_01&mid=GDS&target=master",
+      "catalog_key": "GK01188_01",
+      "call_number": "奎1188의1-v.1-45",
+      "catalog_description": "目錄3卷+正文130卷，合45冊；木版本；出版範圍[15世紀末以後]",
+      "source_issued_contents": "正文第30冊=卷91–93；正文第31冊=卷94–95（序）及卷96（說）；正文第32冊=卷97–99",
+      "clarification": "正文冊序号是剔除3冊目錄後的冊次；其對應的館藏全體序号若逐冊連續只是待原件冊標驗證的推算，不是本次直接證明第34個文件或影像。"
+    },
+    {
+      "provider": "Seoul National University Kyujanggak Institute",
+      "url": "https://kyudb.snu.ac.kr/book/view.do?book_cd=GR30918_00",
+      "catalog_key": "GR30918_00",
+      "call_number": "古3422-1F-v.1-46",
+      "catalog_description": "46冊木版本及藏本綜合說明；同頁列出不同藏本的缺佚補寫冊次、藏印、微縮號；不可與奎1188의1視為同一實物",
+      "copy_control": "古3422-1F某些指定卷是補寫，目錄沒有把卷94列在這一補寫名單，仍不能在未閱原頁前宣稱該卷94有何字形或是哪次刊印。"
+    },
+    {
+      "provider": "Seoul National University Kyujanggak Institute",
+      "url": "https://kyudb.snu.ac.kr/book/view.do?book_cd=GK01188_01&mid=GDS&target=master",
+      "catalog_key": "ILSA_FRAGMENT_AS_DESCRIBED_IN_KYU_CATALOG",
+      "call_number": "一簑古 811.08-Se61do-v.1-5",
+      "catalog_description": "五冊殘本，所載卷段依序為卷5–7、40–42、52–54、92–95、105–107；其中卷92–95冊屬卷94的另一實物候選。",
+      "scope": "First-party combined catalog mentions fragment but does not expose a new standalone verified item-level original image, leaf index or glyph."
+    }
+  ],
+  "copy_identity_firewall": [
+    "奎1188의1-v.1-45、古3422-1F-v.1-46、一簑古 811.08-Se61do-v.1-5屬不同SNU藏本/編號描述，不可因共用綜合館目而算成三份原文已讀證據。",
+    "京都RB00028368的卷93–95在其第09冊；SNU奎1188正文第31冊不適用京都的影像頁碼720–806。",
+    "藏書閣K4-84的45冊MF PDF001–045尚無證明其卷94精確冊序；不能直接套用SNU正文第31冊或推算的全冊序號。",
+    "館目記載編纂1478或扉頁/序跋1478不是本批所讀原始物理印本刊年；SNU品目[15世紀末以後]仍是寬年代層。",
+    "官方網頁有影像或複製介面選項不等於本執行環境成功取得免費原始頁面；不得稱已閱圖、已取得字形或已認證實物印次。"
+  ],
+  "target": "東文選卷九十四／交食推步法假令序",
+  "unresolved_original_glyphs": [
+    "定恨／定限",
+    "金石梯／金石悌",
+    "又於立成推演其數",
+    "皆不用立成而直求之"
+  ],
+  "acquisition_status": {
+    "source_issued_volume_to_juan_locator": "POSITIVE_SNU_CATALOG_BODY_BOOK31",
+    "separate_fragment_holding_locator": "POSITIVE_CATALOG_AT_FIVE_BOOK_SCOPE",
+    "original_exact_leaf": "UNREAD",
+    "original_image_bytes": "NOT_ACQUIRED",
+    "original_glyphs": "NOT_COLLATED",
+    "original_image_sha256": "NONE",
+    "paywall_or_account_route_used": false
+  },
+  "decision": {
+    "historical_catalog_localization": "NARROWED",
+    "source_registry_entries_added": 0,
+    "reason_no_registry_delta": "One scoped locator reconciliation is recorded under a preexisting ongoing 13PS–13PU 東文選 research lead; it is not being promoted as a new text witness, exact historical table, or independently image-collated physical original.",
+    "new_original_glyph_votes": 0,
+    "historical_g893_numeric_winners": "0/6",
+    "matrix": "222/222",
+    "sources_total": 766,
+    "graph_nodes": 252,
+    "graph_edges": 238,
+    "unresolved_issues": 11,
+    "algorithm_reopens": 0,
+    "chart": "CLOSED"
+  },
+  "next_action": "Use source-issued open viewer labels for SNU 奎1188 正文第31冊 or the specifically cited 一簑古 卷92–95冊, and Kyoto RB00028368 vol09. Acquire and hash only the exact 卷94〈交食推步法假令序〉 original page. No speculative IIIF IDs, guessed image ordinal, bulk PDF, registration, payment or comparison without original glyphs.",
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "SNU, Kyoto and Jangseogak catalog volume membership does not establish same plate, impression, direct lineage, or agreeing glyphs."
+    ],
+    "open_questions": [
+      "Which SNU source-native exact original leaf bears the target passage?",
+      "Does the SNU ILSA fragment retain a separate exact copy-specific original reading?",
+      "How do Kyoto and Jangseogak target leaf glyphs actually compare?"
+    ]
+  }
+}
