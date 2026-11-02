@@ -1,0 +1,90 @@
+{
+  "schema": "TIANWEN-13PT-DONGMUNSEON-KYOTO-THREE-RECORDS-V94-ORIGINAL-VOLUME-ANCHOR-AND-1711-GRANT-FIREWALL-R1",
+  "date": "2026-11-02",
+  "issue_id": "TW-OPEN-0005",
+  "parent": "docs/research/TIANWEN-13PS-JIAOSHI-PREFACE-DONGMUNSEON-V94-KYOTO-PHYSICAL-ROUTE-AND-1710-1711-DATE-FIREWALL-R1.json",
+  "purpose": "Restrict the freely available Kyoto University Dongmunseon preface target to the provider's exact volume-number page anchor. Compare nearby catalog records and retain distinct dates, printing types and registration-level limits instead of treating catalog entries as physical independent text witnesses.",
+  "source_evidence": [
+    {
+      "authority": "KYOTO_UNIVERSITY_FIRST_PARTY_CATALOG",
+      "id": "RB00028368",
+      "url": "https://rmda.kulib.kyoto-u.ac.jp/item/rb00028368",
+      "catalogued_binding": "14-volume fragment (乙亥字飜刻木版), v09=卷93–95, registration 193640, call 河合文庫/ト/32, 86丁 in volume 09",
+      "provider_volume09_link": "https://rmda.kulib.kyoto-u.ac.jp/item/rb00028368?page=720",
+      "provider_volume10_link": "https://rmda.kulib.kyoto-u.ac.jp/item/rb00028368?page=807",
+      "navigational_interval": "Page ordinal 720 through 806 (inclusive) belongs to the volume09 section because the source-issued next volume starts at 807; exact 卷94 preface leaf within that range has NOT been visually confirmed",
+      "image_evidence_grade": "FIRST_PARTY_ITEM_AND_VOLUME_ANCHOR_ONLY; NO CANVAS_IMAGE_BYTES_OR_DIRECT_GLYPH_SHA"
+    },
+    {
+      "authority": "KYOTO_UNIVERSITY_FIRST_PARTY_CATALOG",
+      "id": "RB00028369",
+      "url": "https://rmda.kulib.kyoto-u.ac.jp/item/rb00028369",
+      "catalogued_binding": "19-volume woodblock fragment, call 河合文庫/ト/32, registration 193640; one listed segment is 卷90–93 and another 卷101–104; 卷94 NOT among the enumerated surviving volume sets",
+      "adjudication": "NOT_TARGET_V94_ROUTE; shared call/registration is not evidence of a distinct physical impression or independent numeric witness"
+    },
+    {
+      "authority": "KYOTO_UNIVERSITY_FIRST_PARTY_CATALOG",
+      "id": "RB00023565",
+      "url": "https://rmda.kulib.kyoto-u.ac.jp/item/rb00023565",
+      "catalogued_binding": "2-volume metal-type 顯宗實録字 fragment, only 卷1–3 and 卷4–5, same call 河合文庫/ト/32 and registration 193640 plus 199687",
+      "original_catalog_transcription": "内賜記: 康熙五十年(1711)七月二十五日内賜行判中樞府事李頤命(1658-1722)東文選一件命除謝恩右承旨臣南 手決",
+      "adjudication": "Original-script catalogue transcription of a 1711 grant note scoped to RB00023565, not collated original note pixels and not proof that RB00028368 volume09 woodblock impression was printed in 1711"
+    },
+    {
+      "authority": "KYOTO_UNIVERSITY_FIRST_PARTY_RELEASE",
+      "url": "https://www.kulib.kyoto-u.ac.jp/bulletin/page/13?new=1&storynum=10&storytopic=rare_materials_exh&title=www.kulib.kyoto-u.ac.jp%3Flang%3Den%3F%3F%3Flang%3Den%3Flang%3Den%3F%3F%3Flang%3Den%3F%3F%3F%3F%3F%3F%3F%3Flang%3Den%3Flang%3Den%3Flang%3Den%3Flang%3Den%3F",
+      "published": "2019-07-30",
+      "observation": "Kyoto announced public release of Kawai holdings and separately listed RB00023565, RB00028368 and RB00028369",
+      "scope": "Three digital catalog records within a shared collection, not a three-copy ancient-voting count"
+    }
+  ],
+  "philological_and_bibliographic_firewalls": [
+    "卷93–95 belongs to RB00028368 vol09, not RB00028369's 卷90–93 set. Presence of a named 卷94 within provider contents establishes a narrow candidate interval, not the actual 交食推步法假令序 folio, completeness, or reading.",
+    "RB00028368 and RB00028369 show 乙亥字飜刻木版, whereas RB00023565 identifies 顯宗實録字 金属活字本: printing technology, coverage and catalog record must not be silently merged.",
+    "RB00023565 internal grant notation 康熙50(1711) is consistent with a dated 1711 presentation event for that registered part, but catalog publication year 1710/粛宗37 conflict remains unresolved and need not date the target RB00028368 woodblock volume.",
+    "Overlapping 河合文庫/ト/32 and 193640 indicate common collection/inventory labels; do not count these three digital records as three independent physical copies, or infer direct copying across the titles.",
+    "Without a source-issued page image, neither the 金石梯/金石悌 nor 定恨/定限 received digital readings can be adjudicated against an original print."
+  ],
+  "replay_and_access": {
+    "direct_original_volume09_page_found": false,
+    "source_issued_volume09_navigation": true,
+    "exact_target_folio_identified": false,
+    "iiif_manifest_json_bytes_read": false,
+    "printed_original_glyphs_reviewed": false,
+    "source_native_sha256_obtained": false,
+    "paid_or_login_required": false,
+    "actual_source_download_attempt": "Web-accessible official HTML and JSON-manifest link confirmed; native image access not obtained in this session; local runtime cannot resolve this public host",
+    "next_source_target": "Open RB00028368 720–806 source-issued vol09 interval in the official viewer, identify named 卷94 交食推步法假令序, and bind exact source-issued image/page to original printed glyph/physical-copy controls without speculative direct image links or new background workflow."
+  },
+  "adjudication": {
+    "stronger_narrowing": "NARROWED_PROVIDER_NAVIGATION_TO_RB00028368_VOL09",
+    "new_original_glyph_grade": false,
+    "new_physical_witness_admitted": false,
+    "new_copy_vote": false,
+    "g893_historical_numeric_final_decisions": "0/6",
+    "g893_shao_wei_rounding": "UNRESOLVED",
+    "kyoto_1710_1711_impression": "UNRESOLVED_CATALOG_CHRONOLOGY",
+    "source_registry_delta": 0,
+    "matrix_rows": "222/222",
+    "source_registry_total": 765,
+    "genealogy_nodes": 252,
+    "genealogy_edges": 238,
+    "open_research_issues": 11,
+    "algorithm_reopen_count": 0,
+    "chart_product": "CLOSED"
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Three source catalog record IDs sharing a call/registration do not establish three independent physical copies",
+      "A 1711 grant note for RB00023565 does not by itself date RB00028368 target woodblock printing or prove direct descent"
+    ],
+    "unresolved_lineage_questions": [
+      "RB00028368 vol09 exact 卷94 original lines, impression and item-specific folio",
+      "Whether shared Kyoto collection accession reflects composite sets and how any printed variants relate",
+      "Independent G893 original precision/radix/carry text"
+    ]
+  }
+}
