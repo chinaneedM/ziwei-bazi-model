@@ -1,0 +1,110 @@
+{
+  "schema": "TIANWEN-13PR-YUANSHI054-TWO-SHAO-UNIT-BASES-AND-TA-QUARTER-POSITIONAL-FIREWALL-R1",
+  "date": "2026-11-02",
+  "issue_id": "TW-OPEN-0005",
+  "parent": "docs/research/TIANWEN-13PQ-YUANSHI-054-SHAO-QUARTER-SECOND-EXACT-REPLAY-AND-G893-UNIT-SCOPE-FIREWALL-R1.json",
+  "purpose": "Strengthen 13PQ by demonstrating that 少 appends to different final numeric positions even within a single received YuanShi chapter: 分少 and 秒少 are not one context-free decimal constant; cross-validate 太 at a third place and preserve the unresolved G893 original radix.",
+  "received_text_sources": [
+    {
+      "url": "https://zh.wikisource.org/wiki/元史/卷054",
+      "grade": "PUBLIC_RECEIVED_TRANSCRIPTION_ONE_TEXTUAL_TRADITION_NOT_EARLY_PHYSICAL_LEAF",
+      "chapter": "元史 卷五十四 曆三 授時曆經上",
+      "sections": [
+        "步氣朔第一",
+        "步日躔第三"
+      ],
+      "loci": [
+        "朔策二十九日五千三百五分九十三秒",
+        "弦策七日三千八百二十六分四十八秒少",
+        "半歲周一百八十二日六千二百一十二分半",
+        "盈初縮末限八十八日九千九十二分少",
+        "縮初盈末限九十三日七千一百二十分少",
+        "周天三百六十五度二十五分七十五秒",
+        "象限九十一度三十一分四十三秒太"
+      ]
+    },
+    {
+      "url": "https://ctext.org/wiki.pl?chapter=303505&if=gb&remap=gb",
+      "grade": "SECOND_DIGITAL_RECEIVED_TRANSCRIPTION_SAME_WORK_NOT_AUTOMATIC_INDEPENDENT_EDITION",
+      "scope": "Confirms matching textual targets; do not count as independent physical copy"
+    },
+    {
+      "url": "https://www.shidianguji.com/zh/book/NGJ89241199901360921981/chapter/1lv5bw76w75lf",
+      "grade": "DIGITAL_BOOK_TEXT_WITH_CATALOG_IDENTIFICATION_NOT_PHYSICAL_PAGE_GLYPH_AUTHENTICATION",
+      "scope": "Parallel reading locator; historical copy/impression glyph independence unproven"
+    }
+  ],
+  "exact_integer_replay": {
+    "arithmetic": "Big-integer equivalent exact base-10 decimal calculation; all normalized values recorded explicitly, no floating rounding or modern timestamp conversion.",
+    "day_grammar": {
+      "day_fractional_fen": "1分 = 0.0001 day in this numeric coordinate",
+      "day_fractional_miao": "1秒 = 0.000001 day in this numeric coordinate",
+      "xian_ce_derived": "29.530593 / 4 = 7.38264825 day",
+      "xian_ce_source": "7日3826分48秒少",
+      "xian_ce_last_unit": "秒",
+      "xian_ce_shao_value_in_days": "0.00000025 = 1/4 of 1秒",
+      "xian_ce_crosscheck": "7+3826/10000+48/1000000+1/4000000 =7.38264825",
+      "half_year_source": "182日6212分半 = 182.62125 day",
+      "ying_initial_source": "88日9092分少 = 88.909225 day",
+      "suo_initial_source": "93日7120分少 = 93.712025 day",
+      "ying_suo_last_unit": "分",
+      "ying_suo_each_shao_value_in_days": "0.000025 = 1/4 of 1分",
+      "half_year_recomposition": "88.909225 + 93.712025 = 182.62125 day",
+      "WRONG_fixed_miao_shao_parse": "88.90920025 + 93.71200025 = 182.62120050 day != 182.62125",
+      "difference_between_suffixed_absolute_units": "(0.000025 day) / (0.00000025 day) = 100",
+      "scope": "Same source uses 少 at two last printed unit positions; neither parsing licenses a general G893 少 base."
+    },
+    "degree_grammar": {
+      "year_circumference_original": "周天365度25分75秒 = 365.2575 degrees",
+      "quadrant_original": "象限91度31分43秒太 = 91.314375 degrees",
+      "exact_arithmetic": "365.2575 / 4 =91.314375",
+      "ta_unit": "太 = 3/4 of here-last-printed 秒 (0.0001 degree)",
+      "normalized": "91+31/100+43/10000+(3/4)/10000=91.314375",
+      "do_not_mix": "Degree-coordinate 秒 here has a different day-normalized magnitude than day-coordinate 秒."
+    },
+    "checks": [
+      "Quarter-lunation exact 7.38264825 with 秒少, PASS",
+      "Sum of both 分少 bounds exact 182.62125 with different fractional base, PASS",
+      "Naive global 少=0.25秒 reading for 分少 fails against half-year constant, PASS negative discriminator",
+      "Quarter of 周天 exact 91.314375 with 秒太, PASS",
+      "Multiple transcriptions of one received work are not independent ancient physical attestations, PASS provenance firewall"
+    ]
+  },
+  "g893_application": {
+    "original_item": "奎貴893 / GK00893_00, G893 original 001a header reviewed in 13NE, 13PP",
+    "literal": "日差加一秒八十六少",
+    "existing_original_solar_short_lane": "G893 0.0186-per-day four-decimal source cells match all six S/M anchors under 13PP",
+    "modern_korean_8625_hypothesis": "0.018625 with per-step 4dp quantization remains mathematically viable but historically unproven",
+    "cannot_infer": "No decision about whether G893's 少 modifies implicit precision after 86, a suppressed 微 digit, or another base until source-local layout/units plus independent original mechanical context are authenticated.",
+    "cross_work_identity": "One shared 少 glyph and similar calendrical arithmetic do not prove identical numerical base, direct textual dependence or a unique G893 source algorithm.",
+    "outcomes": "G893 six source-to-source historical numeric decisions remain 0/6 OPEN; no modern-decimal replacement and no further generic four-place replays"
+  },
+  "confidence_and_provenance": {
+    "grade": "RECEIVED_TEXT_INTERNAL_ARITHMETIC_CONSISTENCY_NOT_ANTIQUE_ORIGINAL_GLYPH",
+    "physical_original_yuanshi_page_reviewed": false,
+    "g893_new_original_pixel_or_roi": false,
+    "physical_witness_delta": 0,
+    "textual_transmission_edge_supported": false,
+    "confining_claim": "The cited received text provides at least two internally verifiable different positional quarter-suffix examples, not a universal 1280s calendrical edition-specific unit dictionary."
+  },
+  "next_material_work": "Obtain *G893 source-specific* 立成/曆經 unit-base or carry/quantization statement, or independently authenticated higher-precision same-field original row that discriminates 0.0186 from intermediate-quantized 0.018625; do not acquire the same six G893 pages again.",
+  "impact": {
+    "state_version": "1.1056.0",
+    "matrix_rows": 222,
+    "audited": 222,
+    "sources_root": 647,
+    "sources_ext": 118,
+    "sources_total": 765,
+    "genealogy_nodes": 252,
+    "genealogy_edges": 238,
+    "issues_open": 11,
+    "g893_final_numeric_controls": "0/6",
+    "source_registry_delta": 0,
+    "matrix_delta": 0,
+    "genealogy_delta": 0,
+    "runtime_delta": 0,
+    "algorithm_reopens": 0,
+    "chart_product": "CLOSED",
+    "transmission_impact": "NONE_SAME_RECEIVED_WORK_CONTEXTUAL_GRAMMAR_TEST_ONLY"
+  }
+}
