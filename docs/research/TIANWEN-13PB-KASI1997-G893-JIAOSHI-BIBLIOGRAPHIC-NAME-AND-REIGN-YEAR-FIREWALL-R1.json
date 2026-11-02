@@ -1,0 +1,114 @@
+{
+  "schema": "TIANWEN-13PB-KASI1997-G893-JIAOSHI-BIBLIOGRAPHIC-NAME-AND-REIGN-YEAR-FIREWALL-R1",
+  "date": "2026-11-02",
+  "issue_id": "TW-OPEN-0005",
+  "predecessor": "docs/research/TIANWEN-13PA-JIAOSHI-1588-1591-JEONJU-INVENTORY-TITLE-CROSSWALK-R1.json",
+  "objective": "Critically collate the previously registered 1997 KASI conference Table 3 bibliographic entries for the two target book titles without treating a modern list as an original physical witness.",
+  "modern_secondary_witness": {
+    "source_registry_id": "EXT-KASI-YU-GYUNG-RO-SEJONG-CALENDAR-PUBLICATION-1997",
+    "title": "Publication of Chil Jung San Nae Oe Pyun by the Great King Sejong",
+    "author": "Yu, Gyung Ro",
+    "context": "1997 International Conference on Astronomy in the Time of King Sejong",
+    "provider": "Korea Astronomy and Space Science Institute",
+    "url": "https://harg.kasi.re.kr/pro_plus/down/199709/199709_33-57.pdf",
+    "printed_page": 55,
+    "pdf_zero_index_page": 22,
+    "direct_visual_page_review": true,
+    "evidence_grade": "DIRECT_PUBLISHED_MODERN_SCHOLARLY_PDF_NOT_DIRECT_ANCIENT_FOLIO"
+  },
+  "direct_printed_table_readings": [
+    {
+      "table": "Table 3",
+      "item": 1,
+      "printed_title": "授時曆立成",
+      "printed_person": "天王拱等",
+      "printed_date_label": "[世宗朝]",
+      "printed_extent": "1冊",
+      "scope": "MODERN_BIBLIOGRAPHIC_LIST_ONLY_NOT_GK00893_00_ORIGINAL_ITEM_BINDING"
+    },
+    {
+      "table": "Table 3",
+      "item": 21,
+      "printed_title": "交食推步法",
+      "printed_person": "李純之, 金石彬",
+      "printed_date_label": "世祖3年 (1459)",
+      "printed_extent": "1冊",
+      "scope": "MODERN_BIBLIOGRAPHIC_LIST_ONLY_NOT_1458_EDITION_OR_FOLIO_PROOF"
+    }
+  ],
+  "first_party_controls": [
+    {
+      "provider": "National Institute of Korean History / 朝鮮王朝實錄",
+      "url": "https://sillok.history.go.kr/search/inspectionMonthList.do?id=wga_103010",
+      "direct_web_text_rechecked": true,
+      "year_equivalences": {
+        "世祖3年": 1457,
+        "世祖4年": 1458,
+        "世祖5年": 1459
+      }
+    },
+    {
+      "provider": "Seoul National University Kyujanggak",
+      "url": "https://kyudb.snu.ac.kr/book/list.do?book_cate=SIC&focus=&mid=GDS",
+      "source_catalog_item": "奎貴67",
+      "printed_author": "李純之·金石悌",
+      "catalog_publication_year": 1458,
+      "source_status": "DIRECT_OFFICIAL_CATALOG_NOT_ORIGINAL_FORMULA_LEAF"
+    },
+    {
+      "provider": "National Institute of Korean History / 世祖實錄 1457 royal commission",
+      "scope": "Earlier 13OM directly verified order names 金石梯, NOT a proven original 1458 title-page author glyph",
+      "evidence": "docs/research/TIANWEN-13OM-JIAOSHI-1457-1459-ROYAL-COMMISSION-PRINT-DATE-FIREWALL-R1.json"
+    }
+  ],
+  "specific_discrepancies": [
+    {
+      "field": "REGNAL_YEAR_EQUIVALENCE",
+      "1997_printed": "世祖3年 (1459)",
+      "first_party_reign_control": "世祖3年=1457; 世祖5年=1459",
+      "adjudication": "INTERNAL_BIBLIOGRAPHIC_DATE_PAIR_INCONSISTENCY_CONFIRMED; original publication/impression year NOT adjudicated"
+    },
+    {
+      "field": "PERSON_NAME_ORIGINAL_SCRIPT",
+      "1997_printed": "金石彬",
+      "snu_catalog": "金石悌",
+      "earlier_nikh_royal_commission": "金石梯",
+      "adjudication": "SOURCE_SPECIFIC_SCRIPT_DIFFERENCE; NOT PROOF OF DISTINCT PERSONS OR A SAFE GLYPH CORRECTION"
+    },
+    {
+      "field": "G893_WORK_IDENTITY",
+      "1997_printed": "授時曆立成 天王拱等 [世宗朝] 1冊",
+      "adjudication": "Modern list does not bind an original edition, physical copy, original column header or current GK00893_00 target numeric cells."
+    }
+  ],
+  "adjudication": {
+    "historiographic_value": "APPEND_ONLY_SECONDARY_BIBLIOGRAPHIC_CORRECTION",
+    "original_ancient_target_folios_newly_obtained": 0,
+    "source_registry_entries_added": 0,
+    "source_registry_total_unique": 765,
+    "matrix_rows": 222,
+    "matrix_audited": 222,
+    "graph_nodes_added": 0,
+    "graph_edges_added": 0,
+    "confirmed_algorithm_defects_added": 0,
+    "historical_g893_six_final": "0/6",
+    "issue_status": "OPEN",
+    "product_status": "CLOSED"
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Table 3 shared listing does not prove 《授時曆立成》 and 《交食推步法》 direct textual inheritance or a shared physical copy.",
+      "金石彬 / 金石悌 / 金石梯 spelling differences alone do not prove separate historical persons.",
+      "The internally inconsistent 世祖3年 (1459) label is not valid proof of a 1459 edition or a two-edition stemma."
+    ],
+    "unresolved_lineage_questions": [
+      "Authentic edition/impression and original named glyphs in SNU 奎貴67 physical item.",
+      "GK00893_00 original 少/微 unit and exact matched column with earliest 1569 witness.",
+      "Direct evidence for six G893 source-specific numeric controls."
+    ]
+  },
+  "next_action": "Search only authenticated free public original leaf/image or provider-emitted item links for 奎貴67 假令上/下 盈縮加分 and 奎貴893 source-original 少/微 and column; retain date/name variants without normalizing. Avoid paid or account workflows."
+}
