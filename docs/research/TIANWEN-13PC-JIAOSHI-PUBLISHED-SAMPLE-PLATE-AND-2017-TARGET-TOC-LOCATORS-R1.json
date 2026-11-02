@@ -1,0 +1,92 @@
+{
+  "schema": "TIANWEN-13PC-JIAOSHI-PUBLISHED-SAMPLE-PLATE-AND-2017-TARGET-TOC-LOCATORS-R1",
+  "date": "2026-11-02",
+  "issue_id": "TW-OPEN-0005",
+  "predecessor": "docs/research/TIANWEN-13PB-KASI1997-G893-JIAOSHI-BIBLIOGRAPHIC-NAME-AND-REIGN-YEAR-FIREWALL-R1.json",
+  "objective": "Bound a newly found open-access academic reproduction of a non-target Jiaoshi page and refine the previously registered 2017 target-chapter contents locators, without treating either as an original target folio.",
+  "witness_2008": {
+    "title": "Early Korean movable type example plate (pdf visual caption No.17 交食推步法 (交食字))",
+    "provider": "Seoul National University S-Space academic repository",
+    "url": "https://s-space.snu.ac.kr/bitstream/10371/63377/1/dbpia1004235.pdf",
+    "observed_context": "Web-retrieved PDF text/visual extraction at image-bearing printed p69 contains caption No.17 交食推步法(交食字); visible extract includes 正統十二年丁卯八月朔食, 天正冬至, 假令求正統十二年丁卯天正冬至者置距籌.",
+    "evidence_grade": "MODERN_PUBLISHED_FACSIMILE_EXCERPT_SEARCH_RENDER_NOT_NATIVE_SOURCE_PIXEL_OR_EXACT_HOLDING",
+    "web_pdf_screenshot_attempt": "PAGE_SCREENSHOT_ROUTE_RETURNED_JAVASCRIPT_REQUIREMENT_HTML_NOT_AUTHENTICATED_PDF_PIXELS",
+    "source_original_folio_bound": false,
+    "publication_plate_not_target": true,
+    "matching_formula": "盈縮加分 NOT SHOWN IN OBSERVED PLATE",
+    "scanned_bytes_sha256": null,
+    "not_inferred": [
+      "identity with 奎貴67 item",
+      "source impression year",
+      "typeface from caption alone",
+      "G893 copy lineage",
+      "full-book coverage"
+    ]
+  },
+  "witness_2017": {
+    "title": "국역 교식추보법 / 國譯 交食推步法",
+    "publisher": "세종대왕기념사업회",
+    "bibliographic_provider": "National Institute of Korean History / 한국사연구휘보 180, item 001315",
+    "url": "https://db.history.go.kr/id/hb_180_01_001315",
+    "publication_date": "2017-12",
+    "isbn": "9788982750243",
+    "source_type": "MODERN_TRANSLATION_WITH_ADVERTISED_ORIGINAL_FACSIMILE_APPENDIX",
+    "target_index_entries": [
+      {
+        "section": "假令上 盈縮加分",
+        "native_toc": "영축가분(盈縮加分) = 68,71,0",
+        "catalog_numeric_fields": [
+          68,
+          71,
+          0
+        ],
+        "interpretation": "INDEX_NUMBERS_AS_PRINTED_IN_TOC_RECORD_NOT_ORIGINAL_LEAF_COORDINATES"
+      },
+      {
+        "section": "假令下 盈縮加分",
+        "native_toc": "영축가분(盈縮加分) = 140,143,0",
+        "catalog_numeric_fields": [
+          140,
+          143,
+          0
+        ],
+        "interpretation": "INDEX_NUMBERS_AS_PRINTED_IN_TOC_RECORD_NOT_ORIGINAL_LEAF_COORDINATES"
+      }
+    ],
+    "original_appendix_toc": "교식추보법 원본 = ,423,0",
+    "original_folio_numbers_directly_bound": false,
+    "edition_or_copy_of_appendix_directly_bound": false,
+    "entire_modern_volume_fulltext_acquired": false,
+    "free_digital_facsimile_download_confirmed": false,
+    "improvement": "Two exact target headings are now reproducibly located in the publisher-edition TOC; these do not locate exact original printed folios or prove original glyphs."
+  },
+  "exclusions": {
+    "previously_known_facsimile_volume_in_13OM": true,
+    "previously_known_AKS_3_gallery_images_in_13ON": true,
+    "source_registry_new_entries": 0,
+    "new_historical_original_folio_count": 0,
+    "direct_target_formula_glyph_count": 0,
+    "target_six_historical_final": "0/6",
+    "matrix": "222/222",
+    "source_union": 765,
+    "genealogy": "252/238",
+    "open_issues": 11,
+    "algorithm_reopens": 0,
+    "product": "CLOSED"
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "A scholarly plate showing 交食推步法 opening procedure is not a complete original impression or proved second independent source.",
+      "2017 modern translated section coordinates are not original 1458/1459 physical folio coordinates."
+    ],
+    "unresolved_lineage_questions": [
+      "Exact source-authenticated original upper/lower 盈縮加分 image bytes and page locators.",
+      "Original GK00893_00 少/微 heading and same-column field identity.",
+      "Physical-copy identity of the 2008 sample and 2017 facsimile appendix, if obtainable without payment/login."
+    ]
+  },
+  "next_action": "Seek free provider-emitted 2017 original appendix complete preview/download or SNU first-party exact 奎貴67 original target folios; otherwise stop repeating modern index searches and prioritize G893 original table images. Do not pay/register or infer source-negative absence."
+}
