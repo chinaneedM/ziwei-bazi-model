@@ -1,0 +1,93 @@
+{
+  "schema": "TIANWEN-13OX-JIAOSHI-1611-1633-MANISAN-INVENTORY-CROSSWALK-R1",
+  "date": "2026-11-02",
+  "issue_id": "TW-OPEN-0005",
+  "previous_evidence": "docs/research/TIANWEN-13OW-13OV-SECONDARY-SOURCE-REGISTRY-ADMISSION-ERRATUM-R1.json",
+  "objective": "Locate historical inventory testimony for 交食推步法 without laundering a 2017 scholarly table into an original 15th-century formula folio or an independent physical-source vote.",
+  "secondary_source": {
+    "author": "안미경 (Ahn Mi-Kyung)",
+    "title_ko": "17세기 실록형지안에 수록된 일반서책 목록에 관한 연구",
+    "title_en": "A Study on the List of General Books Included in Sillok-Hyeongjian in the 17th Century",
+    "journal": "書誌學硏究 (Journal of Bibliography)",
+    "volume": 71,
+    "publication": "2017-09",
+    "pages_printed": "131–168",
+    "url": "https://journal.kci.go.kr/korbiblio/archive/articlePdf?artiId=ART002267236",
+    "access_scope": "FREE_PUBLIC_ACADEMIC_PDF; MODERN_SCHOLARLY_TRANSCRIPTION_OF_HISTORICAL_INVENTORY; NOT_DIRECT_ORIGINAL_REGISTER_IMAGE"
+  },
+  "reviewed_page_loci": [
+    {
+      "event_year": 1611,
+      "archive": "摩尼山史庫 (마니산사고, Manisan archive)",
+      "table": "<표 4> 1611년 마니산사고 실록형지안에 수록된 일반서책",
+      "pdf_zero_index": 17,
+      "printed_page": 148,
+      "row": 15,
+      "work_title": "交食推步法",
+      "transcribed_quantity": "2건",
+      "meaning": "two inventory units as reproduced in the scholarly table; not two identified independent surviving physical copies",
+      "separate_related_title": {
+        "row": 41,
+        "title": "授時曆捷法立成",
+        "transcribed_quantity": "2건",
+        "identity_caution": "A distinct inventory title; not a demonstrated identity with current SNU 奎貴893 / GK00893_00."
+      },
+      "original_inventory_locator_in_paper": "萬曆三十九年辛亥(1611)五月初二日 京畿江華府史庫曝曬形止案 (奎9664); footnote locator, original folio not reviewed"
+    },
+    {
+      "event_year": 1633,
+      "archive": "摩尼山史庫 (마니산사고, Manisan archive)",
+      "table": "<표 6> 1633년 마니산사고 실록형지안에 수록된 일반서책",
+      "pdf_zero_index": 20,
+      "printed_page": 151,
+      "row": 14,
+      "work_title": "交食推步法",
+      "transcribed_quantity": "2건",
+      "meaning": "a later inventory table notice, not a second ancient impression or proof the same two physical books survived",
+      "original_inventory_locator_in_paper": "Original folio and collection identifier not independently obtained in this batch."
+    }
+  ],
+  "philology_and_identity_gates": [
+    "The table's 件/건 is a catalog quantity, not evidence for 2 independent textual recensions or 2 current surviving physical copies.",
+    "1611 and 1633 are register-date scopes, NOT 交食推步法 composition dates, edition imprint dates, or physical-copy dates.",
+    "Equal title and equal quantity across two dated registers cannot establish that the entries refer to the same two copy objects, nor that either is SNU 奎貴67.",
+    "The separate 授時曆捷法立成 title does not identify the specific G893 GK00893_00 object; same-numbered historical inventory books are not current catalog item continuity.",
+    "No ancient register original leaf, original 交食推步法 假令上/下 盈縮加分 folio, original 少/微 radix, or G893 original same-field comparison is newly present.",
+    "The public PDF has been visually checked on PDF pages 18 and 21 (zero indexes 17, 20), not exhaustively collated across every register."
+  ],
+  "bounded_finding": "A 2017 documented bibliographic lead separately attests 交食推步法 as two registered items in the 1611 and 1633 Manisan inventory summaries. This is valuable for locating early custody records; it does not directly attest formula glyphs or independent G893 numerals.",
+  "next_action": "Only when a free first-party original is publicly obtainable, inspect SNU 奎9664 1611 register target leaf and identify 1633 original register, then attempt manuscript-copy/item identity; still prioritize SNU 奎貴67 source-original 假令 upper/lower 盈縮加分 and G893 少/微 field equivalence. No login, fees, paid reproduction, or generic repeated placeholder probes.",
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "1611/1633 inventory equivalence to identical surviving copies NOT PROVEN",
+      "Inventory work title 交食推步法 to specific 奎貴67 impression NOT PROVEN",
+      "1611 separate 授時曆捷法立成 title to G893 GK00893_00 object NOT PROVEN"
+    ],
+    "unresolved_lineage_questions": [
+      "Original 1611 奎9664 historical register folio, 1633 original register physical identifier and copy continuity",
+      "Source-authenticated 奎貴67 假令 target folios and independent early-printed comparator to G893 numerals"
+    ]
+  },
+  "changes": {
+    "source_registry_entries_added": 0,
+    "independent_historical_physical_witness_votes_added": 0,
+    "graph_nodes_added": 0,
+    "graph_edges_added": 0,
+    "matrix_rows_changed": 0,
+    "confirmed_chart_algorithm_defects_added": 0,
+    "chart_algorithm_reopened": false,
+    "g893_six_historical_final_controls": "0/6",
+    "issue_status": "OPEN"
+  },
+  "checkpoint": {
+    "matrix": "222/222",
+    "registered_sources": 765,
+    "graph": "252 nodes / 238 edges",
+    "open_issues": 11,
+    "product": "CLOSED",
+    "algorithm_reopens": 0
+  }
+}
