@@ -1,0 +1,106 @@
+{
+  "schema": "TIANWEN-13PQ-YUANSHI-054-SHAO-QUARTER-SECOND-EXACT-REPLAY-AND-G893-UNIT-SCOPE-FIREWALL-R1",
+  "date": "2026-11-02",
+  "issue_id": "TW-OPEN-0005",
+  "parent": "docs/research/TIANWEN-13PP-G893-SHAO-QUARTER-MICRO-AND-FOUR-PLACE-INTERMEDIATE-QUANTIZATION-GATE-R1.json",
+  "purpose": "Provide a genuine cross-textual, arithmetic-checkable early received use of 少 in a precisely scoped sexagesimal/decimal calendrical unit; prevent that context from being silently equated with G893 one-second-eighty-six-shao.",
+  "witnesses": [
+    {
+      "work": "元史",
+      "chapter": "卷五十四 志第六 曆三 授時曆經上 / 步氣朔第一",
+      "url": "https://zh.wikisource.org/zh-hans/元史/卷054",
+      "grade": "RECEIVED_PUBLIC_TRANSCRIPTION_NOT_AUTHENTICATED_ORIGINAL_PHYSICAL_LEAF",
+      "loci": [
+        "日周一萬",
+        "朔實二十九萬五千三百五分九十三秒",
+        "朔策二十九日五千三百五分九十三秒",
+        "氣策十五日二千一百八十四分三十七秒半",
+        "望策十四日七千六百五十二分九十六秒半",
+        "弦策七日三千八百二十六分四十八秒少",
+        "求弦望及次朔：以弦策累加"
+      ],
+      "textual_scope": "One received YuanShi textual lineage, not a new original facsimile or a second independent G893 copy"
+    },
+    {
+      "work": "元史",
+      "chapter": "卷五十二 志第四 曆一 / 授時曆議上 驗氣",
+      "url": "https://zh.wikisource.org/zh-hans/元史/卷052",
+      "grade": "RECEIVED_PUBLIC_TRANSCRIPTION_SAME_WORK_NOT_INDEPENDENT_PHYSICAL_WITNESS",
+      "locus": "尺寸之下所為分秒太半少之數",
+      "scope": "Terminological coexistence only; not an explicit numerical conversion table"
+    },
+    {
+      "work": "高麗史",
+      "chapter": "卷五十二 G893 日差 original",
+      "url": "https://db.history.go.kr/goryeo/level.do?levelId=kr_052_0010_0010_0020_0010&types=o",
+      "grade": "OFFICIAL_RECEIVED_TRANSCRIPTION_CORROBORATED_BY_PRIOR_13PP_DIRECT_G893_ORIGINAL",
+      "literal": "日差加一秒八十六少",
+      "scope": "Separate ancient expression and source unit; not adjudicated by YuanShi context"
+    },
+    {
+      "work": "高麗史",
+      "chapter": "Modern NIKH Korean rendering",
+      "url": "https://db.history.go.kr/id/kr_052r_0010_0010_0020_0010",
+      "grade": "MODERN_EDITORIAL_TRANSLATION",
+      "literal": "1초 8625",
+      "scope": "Suggestive hypothetical quarter-digit decoding only"
+    }
+  ],
+  "integer_replay": {
+    "scale": "1e-8 day ticks, exact integer arithmetic (no binary float)",
+    "input_lunation": "29.530593 days = 2953059300 ticks",
+    "half_lunation": "2953059300/2=1476529650 ticks = 14.76529650 days",
+    "quarter_lunation": "2953059300/4=738264825 ticks = 7.38264825 days",
+    "printed_wang_parse": "14日7652分96秒半 =14 +7652/10000 +96/1000000 + (1/2)/1000000 =14.7652965",
+    "printed_xian_parse": "7日3826分48秒少 =7 +3826/10000 +48/1000000 + (1/4)/1000000 =7.38264825",
+    "separate_solar_24qi": "365.2425/24 =15.2184375 days =15日2184分37秒半",
+    "assertions": [
+      "朔策/2=望策, exact",
+      "朔策/4=弦策, exact",
+      "歲實/24=氣策, exact",
+      "The 少 appended after 秒 in this YuanShi 4-part lunar quarter calculation operates as 1/4 of that 秒 (a 0.00000025-day component)",
+      "The 半 appended after 秒 in two independent internal arithmetic loci operates as 1/2 of 秒"
+    ],
+    "precision_claim": "Only scoped to these received YuanShi numbers, not a universal historical unit-radix glossary"
+  },
+  "comparison_to_g893": {
+    "original_source": "奎貴893 / GK00893_00, original image 001a, validated in 13PP",
+    "exact_original_header": "日差加一秒八十六少",
+    "observed_operational_four_place_daily_delta": "0.0186 in G893 short-lane numerical 分",
+    "competing_hypothetical_precision": "0.018625 with per-day 4-place quantization remains compatible with its original D0/1/2/15/16/17 printed tables",
+    "cross_text_warning": "元史弦策末级四十八秒少 (48 + 1/4 of 秒) does not specify the radix or parsing of G893 一秒八十六少; the next-to-last omitted unit, implicit 百分位 or historical positional form would have to be established from the actual G893 passage, neighboring columns, and independent same-field printed controls.",
+    "not_proven": [
+      "G893 少 == later 微",
+      "G893 eighty-six-shao exactly 0.018625 of 分",
+      "G893 any specific intermediate quantization or rounding rule",
+      "G893 six cross-edition numerical controls resolved",
+      "Direct textual transmission from 元史 compilation to G893 or vice versa"
+    ],
+    "final_historical_numeric_adjudications": "0/6",
+    "no_new_source_original_glyph_vote": true
+  },
+  "adjudication": {
+    "supported": "RECEIVED_YUANSHI_CONTEXT_SCOPED_SHAO_QUARTER_OF_LAST_SECOND_BY_EXACT_ARITHMETIC",
+    "unavailable": "ORIGINAL_YUANSHI_FOLIO_EDITION_BOUND_GLYPH_COLLATION",
+    "G893_status": "UNRESOLVED_P0",
+    "next": "Seek authentic G893 or comparable independently dated original instruction explicitly defining the base of 少 in its 日差 and unit carry; only use precision fields outside already-tested four-decimal G893 cells to distinguish quantization. Do not repeat same-copy source intake or conflate YuanShi parse with G893."
+  },
+  "impact": {
+    "state_version": "1.1055.0",
+    "matrix_rows": "222/222",
+    "root_sources": 647,
+    "extension_sources": 118,
+    "total_sources": 765,
+    "genealogy_nodes": 252,
+    "genealogy_edges": 238,
+    "issues_open": 11,
+    "new_registry_sources": 0,
+    "new_graph_nodes": 0,
+    "new_graph_edges": 0,
+    "new_matrix_rows": 0,
+    "runtime_delta": 0,
+    "algorithm_reopen_count": 0,
+    "chart_product": "CLOSED",
+    "transmission_impact": "NONE_RECEIVED_CROSS_TEXT_SEMANTIC_CONTROL_NO_DIRECT_LINEAGE"
+  }
+}
