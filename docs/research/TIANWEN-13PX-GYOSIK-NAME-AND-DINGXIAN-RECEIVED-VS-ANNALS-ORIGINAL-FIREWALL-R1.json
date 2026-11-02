@@ -1,0 +1,113 @@
+{
+  "schema": "TIANWEN-13PX-GYOSIK-NAME-AND-DINGXIAN-RECEIVED-VS-ANNALS-ORIGINAL-FIREWALL-R1",
+  "date": "2026-11-03",
+  "issue_id": "TW-OPEN-0005",
+  "purpose": "Triangulate the exact original-script person-name and operative astronomical term across official historical annals received-text, an independently catalogued 1458 technical book and parallel received textual passages. Mark source-specific glyph versus printed-physical-original limits before making Dongmunseon juan94 lineage claims.",
+  "sources": [
+    {
+      "provider": "National Institute of Korean History / Joseon Wangjo Sillok",
+      "url": "https://sillok.history.go.kr/id/kga_10312024_002",
+      "locus": "世祖實錄 卷10 / 世祖三年十二月二十四日甲寅 第二記事 / 太白山史庫本 4冊10卷29張A面; NIKH photocopy 7冊247頁",
+      "received_text": "命禮曹參判李純之、副正金石梯, 議定日月交食推步法",
+      "literal_person": "金石梯",
+      "class": "OFFICIAL_FIRST_PARTY_HISTORICAL_ANNALS_RECEIVED_TRANSCRIPTION_AND_SPECIFIC_ORIGINAL_PAGE_LOCATOR",
+      "physical_original_image": "NOT_ACQUIRED_AND_NOT_GLYPH_VERIFIED",
+      "chronology": "1457-12-24 is the reported royal order DATE, not the physical printing date of the surviving annals copy or the subsequent book"
+    },
+    {
+      "provider": "Seoul National University Kyujanggak / first-party science book list",
+      "url": "https://kyudb.snu.ac.kr/book/list.do?book_cate=SIC&focus=&mid=GDS",
+      "locus": "Korean rare book science category / list item 9",
+      "call_number": "奎貴67",
+      "title": "交食推步法",
+      "catalog_ascribed_compilers": "李純之·金石悌(朝鮮) 受命編",
+      "literal_person": "金石悌",
+      "catalog_record_year": "1458",
+      "catalog_edition": "古活字本(大字는 丙辰字, 中字는 甲寅字)",
+      "class": "FIRST_PARTY_BIBLIOGRAPHIC_PERSON_AUTHORITY_AND_PRINT_LOCATOR_NOT_ORIGINAL_GLYPH",
+      "physical_original_image": "NOT_ACQUIRED"
+    },
+    {
+      "provider": "Wikisource / received 交食推步法 序",
+      "url": "https://zh.wikisource.org/zh-hant/交食推步法/序",
+      "locus": "Author header and preface body; 1458 dated within received text",
+      "received_header_person": "金石悌",
+      "received_body_person": "金石梯",
+      "received_technical_term": "定限行度",
+      "received_technical_sequence": "盈縮差, 遲疾差, 加減差, 日出入分, 晨昏分, 半晝分, 定限行度",
+      "class": "DIGITAL_RECEIVED_TEXT_NOT_1458_BOOK_IMAGE",
+      "note": "The SAME rendered received page has header metadata 悌 and quoted preface main-text 梯; these are distinct textual fields, not evidence of two people."
+    },
+    {
+      "provider": "Wikisource / received 交食推步法 假令下",
+      "url": "https://zh.wikisource.org/wiki/交食推步法/假令下",
+      "locus": "定限行度 calculation heading and numerical procedure",
+      "received_technical_term": "定限行度",
+      "received_operational_clause": "置九微七五，以定限數乘之，加五秒七十一微七五。又以限數乘之",
+      "class": "DIGITAL_RECEIVED_MATHEMATICAL_BODY_NOT_SOURCE_ORIGINAL",
+      "note": "The operative procedure is an independent locus INSIDE the same digitally received work, not an independent physical edition."
+    },
+    {
+      "provider": "Wikisource / received 東文選 卷94 交食推步法假令序",
+      "url": "https://zh.wikisource.org/zh-hant/東文選/卷九十四",
+      "locus": "Received anthology title and verse",
+      "received_person": "金石梯",
+      "received_term": "定恨行度",
+      "class": "DIGITAL_RECEIVED_ANTHOLOGY_NOT_VERIFIED_KYOTO_OR_SNU_ORIGINAL_TARGET"
+    },
+    {
+      "provider": "KCI / scholarly technical study of 交食推步法假令",
+      "url": "https://kci.go.kr/kciportal/landing/article.kci?arti_id=ART001701755",
+      "locus": "Han Young-ho and Lee Eun-hee 2012, 東方學志 159, pp239-290, abstract",
+      "subject": "Six arithmetic topics explicitly include Korean 정한행도, eclipse precision and method reformulation, but Korean homophone cannot on its own decide 限 versus 恨 original Chinese glyph",
+      "class": "MODERN_SECONDARY_MECHANICAL_SEMANTICS_ONLY"
+    }
+  ],
+  "philological_adjudication": {
+    "person": "金石梯 and 金石悌 are attested as DIFFERENT ORIGINAL-SCRIPT RENDERINGS for the same functionally co-described colleague of 李純之 named 김석제 in official annals metadata vs SNU catalog and received preface header/body. Do not split into two historical people merely because the glyph differs; do not automatically normalise the original printing of either text. NIKH annals article reports the royal order at 1457-12-24; the 1458 preface date and SNU catalog year are different temporal layers.",
+    "term": "The received 交食推步法 序 and worked-procedure body both employ 定限行度, with concrete operations on 定限數 and degrees. Received 東文選 juan94 has 定恨行度. The mechanical term is a strong same-concept candidate in received-context philology, while the letter 恨 vs 限 in a specific 1458 printed original / 1710-1711 Kyoto copy / SNU copy remains strictly UNADJUDICATED until original page pixels are reviewed.",
+    "source_status": "ONE official annals transcription + ONE SNU catalog metadata + ONE received technical-work presentation with two loci + ONE received anthology presentation + ONE scholarship abstract. These do not equal five independent historical physical print votes, and do not establish direct copying between books or editions.",
+    "time_firewall": [
+      "1457-12-24 report of royal command",
+      "1458 preface dating in received text",
+      "SNU catalogue 1458 edition attribution",
+      "different secondary 1459 publication statements not adjudicated here",
+      "the physical impression dates and original page pixels not authenticated"
+    ]
+  },
+  "original_folio_routes": {
+    "annals": "Sillok gives 太白山史庫本 4冊10卷29張 A面 as a concrete original-image locus; source original viewer/page not acquired.",
+    "technical": "SNU 奎貴67 catalogue advertises original image/text but exact preface printed image source URL and original bytes are not yet acquired.",
+    "anthology": "Kyoto RB00028368 vol09 and SNU 奎1188 正文第31冊 or 一簑古卷92–95 fragment remain independent copy-specific physical target locators; no exact target leaf SHA."
+  },
+  "decision": {
+    "original_historical_person_glyph_winner": "NONE",
+    "original_historical_dingxian_glyph_winner": "NONE",
+    "registered_external_source_delta": 0,
+    "matrix": "222/222",
+    "source_registry_total": 766,
+    "genealogy_nodes": 252,
+    "genealogy_edges": 238,
+    "g893_six_historical_numeric_final_winners": "0/6",
+    "remaining_issues": 11,
+    "chart_product": "CLOSED",
+    "algorithm_reopens": 0,
+    "new_independent_physical_witness_votes": 0
+  },
+  "next_action": "Prioritize one original printed target of 交食推步法 序 (SNU 奎貴67) or 東文選卷94 (Kyoto vol09 / SNU) and validate source URL, page/folio and exact glyph by original image hash. In parallel pursue G893-specific original fractional base and carry rule. Do not turn received operational semantics into edition-specific original character or append unverified genealogy votes.",
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_unproved": [
+      "金石梯/悌 cannot be counted as two people on separate abstract transcription votes",
+      "定恨/定限 received difference is not proven physical textual lineage or shared original misprint",
+      "official annals and other received presentations are not source-image-independent original printing witnesses"
+    ],
+    "remaining_questions": [
+      "Which printed 1458 奎貴67 preface source-image glyph appears for colleague name and technical term?",
+      "Which original 京都/奎章閣 東文選 卷94 glyphs are actually visible?",
+      "What historical same-field G893 少 unit and precision rule can be proved from direct original?"
+    ]
+  }
+}
