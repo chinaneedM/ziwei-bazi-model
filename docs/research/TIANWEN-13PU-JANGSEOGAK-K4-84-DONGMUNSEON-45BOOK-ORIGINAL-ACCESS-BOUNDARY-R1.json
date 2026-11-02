@@ -1,0 +1,107 @@
+{
+  "schema": "TIANWEN-13PU-JANGSEOGAK-K4-84-DONGMUNSEON-45BOOK-ORIGINAL-ACCESS-BOUNDARY-R1",
+  "date": "2026-11-02",
+  "issue_id": "TW-OPEN-0005",
+  "parent": "docs/research/TIANWEN-13PT-DONGMUNSEON-KYOTO-THREE-RECORDS-V94-ORIGINAL-VOLUME-ANCHOR-AND-1711-GRANT-FIREWALL-R1.json",
+  "purpose": "Admit an independently catalogued Korean physical woodblock Dongmunseon holding as a legitimate bibliographic target for eventual juan94 original-glyph collation, without pretending its public book-PDF links have been read or treating its printing technology as an authenticated 1478 date.",
+  "first_party_materials": [
+    {
+      "provider": "Academy of Korean Studies / Jangseogak Digital Library",
+      "url": "https://jsg.aks.ac.kr/dir/view?dataId=JSG_K4-84",
+      "record_id": "JSG_K4-84",
+      "call_number": "K4-84",
+      "microfilm_number": "MF35-1905~11",
+      "recorded_extent": "133卷 45冊",
+      "printed_work_extent_explanation": "Contents describes 130 main juan; record includes 3 volume catalogue/index material in its extent; book-to-work-juan map for specific juan94 NOT shown.",
+      "copy_type": "木板本 / 乙亥字飜刻 (woodblock printed after/imitating Eulhae movable type)",
+      "material_date": "刊年未詳 (undated extant woodblock holding)",
+      "physical_markings": [
+        "茂朱赤裳山史庫所藏 朝鮮總督府寄贈本",
+        "李王家圖書之章"
+      ],
+      "physical_format": "34.1 X 21.8 cm, half-frame 23.6 X 16.5 cm",
+      "image_route": "Provider document lists 038책 under direct original-image surface; separate MF-PDF links labeled 001–045冊. Not proof of entire book original-photo availability or target exact page.",
+      "evidence_grade": "FIRSTPARTY_CATALOG_PHYSICAL_HOLDING_AND_PUBLIC_MF_IMAGE_LINKS; NOT_TARGET_FOLIO_OR_GLYPH"
+    },
+    {
+      "provider": "Jangseogak official per-book MF PDF links",
+      "id": "MF-032-034",
+      "urls": [
+        "https://jsg.aks.ac.kr/data/serviceFiles/pdf/K4-84_032.pdf",
+        "https://jsg.aks.ac.kr/data/serviceFiles/pdf/K4-84_033.pdf",
+        "https://jsg.aks.ac.kr/data/serviceFiles/pdf/K4-84_034.pdf"
+      ],
+      "observed_pdf_body_sizes_bytes": [
+        38652924,
+        39469189,
+        46467304
+      ],
+      "access": "Provider links returned oversized-resource rejection in current web fetch; original PDF content was not retrieved, parsed or page-screenshot verified.",
+      "negative_scope": "These are candidate nearby book ordinals ONLY, not proof that any of them contains juan94; avoid attributing original target to one of them."
+    },
+    {
+      "provider": "Jangseogak official access policy",
+      "url": "https://jsg.aks.ac.kr/etc/guide",
+      "access": "Free personal scholarly viewing/download described, PDF or page JPG; download interface requests acknowledgement of image-usage conditions; no checkout, account or institutional reuse authorized by current user approval.",
+      "limits": "Publication/organization reuse can need formal approval; no paid/account application undertaken."
+    },
+    {
+      "provider": "Kyoto University Rare Materials Digital Archive (comparison)",
+      "url": "https://rmda.kulib.kyoto-u.ac.jp/item/rb00028368",
+      "item": "RB00028368",
+      "scope": "Vol09 contains 卷93–95 and publicly navigable IIIF manifest. Kyoto source different custody from Jangseogak K4-84, not proven independent editions or image-verified target exemplar."
+    }
+  ],
+  "historical_edition_control": {
+    "record_says": "A Korean bibliographic description reports 1478 乙亥字 first edition, 1482 甲寅字 later edition and post-war woodblock facsimiles of type editions.",
+    "not_equivalent": [
+      "1478 original first movable-type printing",
+      "1482 second movable-type printing",
+      "undated extant Jangseogak K4-84 woodblock holding",
+      "Kyoto RB00028368 undated-on-physical / internally 1710-versus-1711 conflicting bibliographic woodblock"
+    ],
+    "conclusion": "K4-84 being 乙亥字飜刻 does NOT make the physical copy an actual 1478 original or establish identical readings/plate genealogy with Kyoto RB00028368."
+  },
+  "named_target": "東文選 卷九十四 / 交食推步法假令序",
+  "original_glyphs_to_verify": [
+    "定恨 / 定限",
+    "金石梯 / 金石悌",
+    "又於立成推演其數",
+    "皆不用立成而直求之"
+  ],
+  "observed_original_named_target": false,
+  "exact_book_and_page_identified": false,
+  "actual_native_pdf_bytes_acquired": false,
+  "source_issued_image_hash_recorded": false,
+  "decision": {
+    "bibliographic_holding_locator": "CONFIRMED_AT_OFFICIAL_CATALOG_SCOPE",
+    "target_text_page": "UNRESOLVED_NOT_READ",
+    "independent_original_target_witness_count_delta": 0,
+    "source_registry_delta": 1,
+    "source_registry_grade": "BIBLIOGRAPHIC_METADATA_ONLY",
+    "historical_g893_numeric_adjudications": "0/6",
+    "precision_shao_wei": "OPEN",
+    "kyoto_printing_year_conflict": "OPEN",
+    "matrix": "222/222",
+    "external_sources_after": 766,
+    "genealogy_nodes": 252,
+    "genealogy_edges": 238,
+    "issues_total": 11,
+    "algorithm_reopen_count": 0,
+    "chart": "CLOSED"
+  },
+  "next_action": "Prefer the existing free Kyoto vol09 source-native target page and obtain Jangseogak K4-84 exact juan94 book-to-page index through provider-issued labels; acquire only pages needed for independent physical glyph comparison. Do not download all 45 MF PDFs or let oversized PDFs become a claim of successfully reading their text.",
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Shared '乙亥字翻刻' catalogue type across K4-84 and Kyoto RB00028368 does not prove identity of type plates, printing year, direct copying or original text."
+    ],
+    "unresolved_lineage_questions": [
+      "Jangseogak K4-84 juan94 source-issued original-page map and exact glyphs",
+      "Kyoto RB00028368 juan94 target original pixel evidence",
+      "Comparison of actual copy-specific page and woodblock impressions"
+    ]
+  }
+}
