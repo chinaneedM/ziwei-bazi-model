@@ -1,0 +1,78 @@
+{
+  "schema": "TIANWEN-13PY-GYOSIK-PREFACE-2008-PUBLISHED-FIGURE-ACQUISITION-LEAD-R1",
+  "date": "2026-11-03",
+  "issue_id": "TW-OPEN-0005",
+  "parent": "docs/research/TIANWEN-13PX-GYOSIK-NAME-AND-DINGXIAN-RECEIVED-VS-ANNALS-ORIGINAL-FIREWALL-R1.json",
+  "research_question": "Can an independently accessible published photograph of the preface of 交食推步法 identify a legitimate copy-specific original-page access route for 金石梯/悌 and 定限/恨, without mistaking a secondary figure for native original glyph authority?",
+  "acquired_public_bibliographic_evidence": [
+    {
+      "kind": "PUBLISHED_SECONDARY_FIGURE_LOCATOR",
+      "author": "Ki-Won Lee / 이기원",
+      "article_title": "조선시대 관상감의 직제 및 시험 제도에 관한 연구: 천문학 부서를 중심으로",
+      "journal": "Journal of the Korean Earth Science Society / 한국지구과학회지",
+      "year": 2008,
+      "volume": 29,
+      "issue": 1,
+      "pages": "98–115",
+      "doi": "10.5467/jkess.2008.29.1.098",
+      "official_journal_index": "https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART001246377",
+      "public_repository_metadata": "https://data.kigam.re.kr/ieg/user/ltrtreinfo/selectDmstcLtrtreDetail.do?seqNo=7043",
+      "public_pdf": "https://data.kigam.re.kr/ieg/cmmn/downloadFile.do?fileName=J290108.PDF",
+      "exact_locus": "Printed p.111, Fig.1 caption; PDF page 14 when first page is printed p.98",
+      "exact_short_caption": "Fig. 1. The preface part of the book, Gyosikchubobeob (交食推步法).",
+      "evidence_grade": "PUBLIC_PDF_TEXT_VERIFIED_FIGURE_CAPTION; FIGURE_PIXELS_NOT_ACQUIRED_IN_THIS_REVIEW",
+      "paper_prose_at_p111": "Article describes 1458 交食推步假令 as authored by 李純之 and 金石悌 and calls Fig.1 the preface, but this is modern scholarly description, not a native 1458 leaf reading.",
+      "physical_copy_provenance": "NOT_DECLARED_BY_CAPTION; SNU 奎貴67 / other original printed copy not safely identified as figure source"
+    }
+  ],
+  "acquisition_attempts": [
+    {
+      "method": "PUBLIC_WEB_PDF_TEXT_VIEW",
+      "result": "2008 PDF text accessible at KIGAM URL; target caption and neighboring discussion directly located on printed p.111"
+    },
+    {
+      "method": "WEB_PDF_SCREENSHOT_P13",
+      "result": "Screenshot endpoint returned a large HTML document instead of page-image pixels; no photo crop, glyph or image bytes verified"
+    },
+    {
+      "method": "LOCAL_RUNTIME_DIRECT_PDF_GET",
+      "result": "Name resolution unavailable; no local PDF bytes, SHA256 or image crop obtained"
+    },
+    {
+      "method": "ALTERNATIVE_BIBLIOGRAPHIC_CROSSCHECK",
+      "result": "KCI and RISS confirm identity, pages, journal and DOI; not independent physical originals"
+    }
+  ],
+  "adjudication": {
+    "NEW_REPLAYABLE_PUBLIC_FIGURE_LOCATOR": "YES_AT_ARTICLE_PAGE_CAPTION_SCOPE",
+    "SOURCE_ORIGINAL_1458_PREFACE_PIXELS_READ": false,
+    "FIGURE_COPY_HOLDING_EDITION_IDENTIFIED": false,
+    "IMAGE_BYTE_SHA256": null,
+    "ORIGINAL_PERSON_GLYPH_WINNER": "NONE",
+    "ORIGINAL_DINGXIAN_GLYPH_WINNER": "NONE",
+    "MINIMUM_RELATED_SECONDARY_REPRODUCTION_VOTE": "NOT_ADMISSIBLE_AS_INDEPENDENT_ORIGINAL_WITNESS",
+    "ORIGINAL_G893_SHao_WEI_FRACTION_CARRY": "OPEN",
+    "G893_HISTORICAL_NUMERIC_FINAL_DECISIONS": "0/6",
+    "REGISTERED_EXTERNAL_SOURCE_DELTA": 0,
+    "MATRIX_ROWS_AUDITED": "222/222",
+    "REGISTERED_SOURCES_TOTAL": 766,
+    "GENEALOGY_NODES": 252,
+    "GENEALOGY_EDGES": 238,
+    "RESEARCH_ISSUES": 11,
+    "CHART_PRODUCT": "CLOSED",
+    "ALGORITHM_REOPEN_COUNT": 0
+  },
+  "next_source_action": "Acquire only the public KIGAM article PDF p111 figure pixels via a working free reader and identify original book/holding attribution from its neighboring notes; then independently fetch the exact provider-issued original preface leaf of SNU 奎貴67 or 東文選卷94 for source-specific glyph adjudication. Do not infer any historical glyph or copy date from the figure caption alone; no fees, registrations or bulk reproduction.",
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "A 2008 photograph caption called 'preface' does not establish 1458 native original glyphs, identify a physical copy, or prove direct ancestry to the 東文選 anthology."
+    ],
+    "unresolved_lineage_questions": [
+      "Which edition and physical holding supplied the 2008 p111 Fig.1 reproduction?",
+      "Does high-resolution original 1458 奎貴67 preface attest 金石梯/悌 and technical 定限/恨?"
+    ]
+  }
+}
