@@ -1,0 +1,86 @@
+{
+  "schema": "TIANWEN-13PW-SNU-DONGMUNSEON-COPY-SCOPED-MICROFILM-SERIES-R1",
+  "date": "2026-11-03",
+  "issue_id": "TW-OPEN-0005",
+  "purpose": "Preserve first-party SNU microfilm identifiers by their exact holding-specific book ranges, narrowing a public original-image target search without projecting body-book numbering across different copies.",
+  "sources": [
+    {
+      "provider": "SNU Kyujanggak official GR30918_00 catalog",
+      "url": "https://kyudb.snu.ac.kr/book/view.do?book_cd=GR30918_00",
+      "page_section": "상세서지 / M/F번호 / 목차",
+      "observed_catalog_statement": "M/F85-16-253-3(古 3422-1F-v.29-43), M/F80-103-239-4(奎 1188의 1- v.33-42), M/F99-16-37-K(一簑古 811.08-Se61do)",
+      "evidence_grade": "FIRST_PARTY_CATALOG_MICROFILM_RANGE_NOT_TARGET_LEAF"
+    },
+    {
+      "provider": "SNU Kyujanggak official GK01188_01 catalog",
+      "url": "https://kyudb.snu.ac.kr/book/view.do?book_cd=GK01188_01",
+      "page_section": "목차",
+      "observed_catalog_statement": "正文 第31冊:卷94·95 序, 卷96 說",
+      "evidence_grade": "FIRST_PARTY_CATALOG_BODY_BOOK_MAP_NOT_PHYSICAL_SCAN"
+    }
+  ],
+  "copy_scoped_crosswalk": [
+    {
+      "copy": "奎1188의1-v.1-45",
+      "target_catalog_body_book": "正文第31冊",
+      "microfilm": "M/F80-103-239-4",
+      "microfilm_copy_range": "v.33-42",
+      "inference_limit": "If 3 catalog books and 42 body books are physically sequenced without omissions then body31 could align with overall item34; this is an UNVERIFIED ARITHMETIC LOCATOR, not a catalog-issued original-page or reel-frame claim."
+    },
+    {
+      "copy": "古3422-1F-v.1-46",
+      "target_catalog_body_book": "Catalog general contents has 卷94, but book-specific original image/ordinal unconfirmed",
+      "microfilm": "M/F85-16-253-3",
+      "microfilm_copy_range": "v.29-43",
+      "inference_limit": "Do not transfer GK01188-specific overall book ordinal or physical appearance to this separate copy."
+    },
+    {
+      "copy": "一簑古 811.08-Se61do-v.1-5",
+      "target_catalog_body_book": "巻92–95 is one of five fragment books",
+      "microfilm": "M/F99-16-37-K",
+      "microfilm_copy_range": "fragment as a whole, no numbered frame or original leaf",
+      "inference_limit": "No source-issued source image/frame identified. Fragment is not yet an original glyph witness."
+    }
+  ],
+  "external_archive_firewall": "Kyoto RB00028368 vol09 covers 卷93–95 and Jangseogak K4-84 holds a different 45-book object; neither SNU microfilm ordinal, item number nor image location transfers between collections.",
+  "web_access_review": {
+    "first_party_catalog_html": "PUBLICLY_READABLE",
+    "catalog_m_f_strings": "DIRECT_POSITIVE",
+    "original_image_viewer": "JS_INTERFACE_NO_SOURCE_IMAGE_BYTES_FETCHED",
+    "exact_juan94_target_leaf": "NOT_IDENTIFIED",
+    "original_page_sha256": "NONE",
+    "named_glyphs": "UNREAD",
+    "restrictions": "No login, paid reproduction, unverified registration, fabricated URLs, bulk PDF or account workflow used."
+  },
+  "target_readings_unresolved": [
+    "定恨/定限",
+    "金石梯/金石悌",
+    "又於立成推演其數",
+    "皆不用立成而直求之"
+  ],
+  "decision": {
+    "new_source_registry_records": 0,
+    "new_independent_physical_text_votes": 0,
+    "g893_six_historical_numeric_decisions": "0/6",
+    "matrix": "222/222",
+    "sources_total": 766,
+    "graph_nodes": 252,
+    "graph_edges": 238,
+    "issues_total": 11,
+    "chart": "CLOSED",
+    "algorithm_reopens": 0
+  },
+  "next_action": "Use the public source-issued original-image navigation for the exact SNU copy and juan94 target leaf; if a page is reached, record provider item, exact page/frame, original bytes/hash and copy-specific glyph readings. Kyoto vol09 remains a parallel original-first route. Do not infer target-page access from M/F catalog existence.",
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "The three SNU M/F identifiers are distinct source-specific catalog access series, not proof of shared physical printed copy, original text agreement or direct transmission."
+    ],
+    "open_questions": [
+      "Can an anonymously viewable original SNU juan94 page be linked by its source-issued frame?",
+      "Can Kyoto vol09 target page be independently image-collated?"
+    ]
+  }
+}
