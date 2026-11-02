@@ -1,0 +1,69 @@
+{
+  "schema": "TIANWEN-13PE-JIAOSHI-DEMO-ITEM-BINDING-AND-MODERN-TOC-LOWER-HEADING-FIREWALL-R1",
+  "date": "2026-11-02",
+  "issue_id": "TW-OPEN-0005",
+  "parent": "docs/research/TIANWEN-13PD-JIAOSHI-NURIIDT-PUBLIC-OCR-IMAGE-SEARCH-DEMO-LOCATOR-R1.json",
+  "objective": "Precisely bind the catalog-level metadata displayed in a previously identified static vendor OCR demo and isolate an internal contradictory lower-example title in the 2017 Korean translation TOC. Keep source-original and numeric conclusions unchanged.",
+  "evidence_1_vendor_manual": {
+    "primary_web_url": "https://ocr.nuriidt.co.kr/member/nuriidt_ocr_service.pdf",
+    "page_zero_index": 20,
+    "printed_page": 20,
+    "publisher": "누리IDT",
+    "publication_date": "2023-05",
+    "verification": "Direct PDF page screenshot was read in this session (web screenshot, 2026-11-02) rather than only search-result text.",
+    "screenshot_search_keyword": "北方七宿",
+    "screenshot_selected_catalog_hit": {
+      "title": "交食推步法 교식추보법",
+      "call_number_visible": "奎貴67",
+      "year_visible": 1458,
+      "author_metadata": "李純之·金石悌",
+      "catalog_identifier_binding": "VENDOR_SCREENSHOT_SEARCH_HIT_LABELS_THE_RECORD_AS_SNU_CALL_NUMBER_奎貴67"
+    },
+    "physical_folio_grade": "STATIC_VENDOR_DEMO_IMAGE_AND_CATALOG_LABEL_ONLY",
+    "not_demonstrated": [
+      "That displayed low-resolution source preview is an authenticated native byte stream of the exact 1458 physical exemplar",
+      "A target original leaf for 假令上/假令下 盈縮加分",
+      "Any complete original facsimile export or accessible public live keyword result",
+      "A new independently counted ancient witness"
+    ],
+    "correction_to_13pd": "13PD correctly denied a physical-copy/native scan identity; refine its bibliographic granularity: the vendor PDF screenshot itself explicitly labels the shown hit with call number 奎貴67, not merely a same-title search hit. Do not translate this catalog-level match into native folio binding.",
+    "crosscheck": "https://kyudb.snu.ac.kr/book/list.do?book_cate=SIC&focus=&mid=GDS"
+  },
+  "evidence_2_modern_toc": {
+    "first_party_catalog_url": "https://db.history.go.kr/id/hb_180_01_001315",
+    "work": "國譯 交食推步法 / 국역 교식추보법",
+    "publisher": "世宗大王紀念事業會",
+    "date": "2017-12",
+    "isbn": "9788982750243",
+    "observed_upper_example_heading": "正統十二年丁卯八月朔食",
+    "observed_lower_main_heading": "假令下: 正統十二年丁卯八月望食",
+    "observed_lower_terminal_contents_entry": "정통 12년 정묘년 8월 경망 식(食) 거산(距算) 3(正統十二年丁卯八月朔食 距算三) = 189,192,0",
+    "contradiction": "Same lower lunar-eclipse TOC leaf describes 經望 / 望食 in Korean and in its section introduction, yet repeats 朔食 in the terminal parenthetic Han-text label.",
+    "received_text_control": {
+      "url": "https://zh.wikisource.org/zh-hant/交食推步法/假令下",
+      "heading": "正統十二年丁卯八月望食",
+      "source_status": "MODERN_RECEIVED_TRANSCRIPTION_NOT_AN_AUTHENTICATED_ORIGINAL_IMPRESSION"
+    },
+    "adjudication": "APPARENT_MODERN_TOC_EDITORIAL_OR_CATALOG_GLOSS_INCONSISTENCY; original printed leaf not checked. The appendix pagination / index token 189,192,0 is not an ancient folio locator, and the TOC mismatch must not be propagated into source-text or eclipse-type identity.",
+    "provenance_layers": [
+      "The catalogued 1447 正統十二年 丁卯 example event does not date the 1458 compilation/impression.",
+      "The modern 2017 Korean TOC is not a second fifteenth-century manuscript/printed witness.",
+      "No inference that the 1458 original itself printed the observed modern 朔/望 mismatch."
+    ],
+    "target_search_effect": "Prioritize 假令下 望食 and 盈縮加分 separately. Do not use the terminal parenthetical 朔食 as proof that the lower sample is another solar eclipse."
+  },
+  "impact": {
+    "new_historical_original_leaves": 0,
+    "original_target_glyphs": 0,
+    "G893_historical_six_control_winners": "0/6",
+    "historical_matrix": "222/222",
+    "source_registry_total": 765,
+    "genealogy_nodes_edges": "252/238",
+    "unresolved_issues": 11,
+    "confirmed_algorithm_defects": 0,
+    "deterministic_fusion_product": "CLOSED",
+    "algorithm_reopens": 0,
+    "transmission_impact": "NONE"
+  },
+  "next_action": "Target only free provider-emitted native 奎貴67 original 假令上/下 盈縮加分 leaves or GK00893_00 original 少/微 column/unit headings. If live demos cannot provide such bytes anonymously, do not reproduce catalog-only searches or initiate fee/login/copy workflows."
+}
