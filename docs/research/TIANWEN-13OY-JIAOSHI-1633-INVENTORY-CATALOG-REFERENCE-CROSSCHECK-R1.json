@@ -1,0 +1,97 @@
+{
+  "schema": "TIANWEN-13OY-JIAOSHI-1633-INVENTORY-CATALOG-REFERENCE-CROSSCHECK-R1",
+  "date": "2026-11-02",
+  "issue_id": "TW-OPEN-0005",
+  "predecessor": "docs/research/TIANWEN-13OX-JIAOSHI-1611-1633-MANISAN-INVENTORY-CROSSWALK-R1.json",
+  "objective": "Reconcile conflicting published secondary catalog identifiers for 1633 archive register without turning reference lists into authenticated originals.",
+  "records": [
+    {
+      "document_type": "ACADEMIC_RESEARCH_DIRECT_PDF_PAGE_READ",
+      "author": "申炳周 / 신병주 / Shin Byung-ju",
+      "title": "‘實錄形止案’을 통해 본 『조선왕조실록』의 관리체계",
+      "periodical": "國史館論叢 第102輯",
+      "year": 2003,
+      "original_pdf": "https://db.history.go.kr/download.do?fileName=kn_102_0020.pdf&levelId=kn_102_0020",
+      "source_locator": "PDF zero-index 17; printed page 18; bottom footnote 25",
+      "source_reading": "<규9598>, 『崇禎六年癸酉七月二十六日 實錄曝曬形止案』.",
+      "witness_grade": "SECONDARY_SCHOLARLY_CITATION_DIRECTLY_READ_ON_PUBLISHED_PDF; NOT_ORIGINAL_1633_ARCHIVE_REGISTER"
+    },
+    {
+      "document_type": "ACADEMIC_RESEARCH_DIRECT_PDF_PAGE_READ",
+      "author": "안미경 / 安美京 / Ahn Mi-Kyung",
+      "title": "17세기 실록형지안에 수록된 일반서책 목록에 관한 연구",
+      "periodical": "書誌學硏究 第71輯",
+      "year": 2017,
+      "original_pdf": "https://journal.kci.go.kr/korbiblio/archive/articlePdf?artiId=ART002267236",
+      "source_locator": "PDF zero-index 5 / printed page 136, Table 1 row 26",
+      "source_reading": "1633(인조11) 7.26 / 崇禎六年七月二十六日史庫曝曬形止案 / 마니산 / 奎9598",
+      "complementary_loci": [
+        "PDF zero-index 5 / printed page 136, Table 1 row 25: 1611 / 奎9664",
+        "PDF zero-index 17 / printed page 148, Table 4 row 15: 交食推步法 2건",
+        "PDF zero-index 20 / printed page 151, Table 6 row 14: 交食推步法 2건"
+      ],
+      "witness_grade": "SECONDARY_INVENTORY_TRANSCRIPTION_DIRECTLY_READ_ON_PUBLISHED_PDF; NOT_ORIGINAL_REGISTER_FOLIO"
+    },
+    {
+      "document_type": "KCI_PORTAL_BIBLIOGRAPHIC_REFERENCE_LIST_HTML_NOT_ARTICLE_PDF",
+      "author": "이상찬 / Lee Sang-chan",
+      "title": "전주사고본 실록의 보존과 관리",
+      "periodical": "규장각 No.39",
+      "year": 2011,
+      "portal_url": "https://www.kci.go.kr/kciportal/landing/article.kci?arti_id=ART001615289",
+      "source_locator": "KCI portal reference entries numbers 38 and 39 (not independently read from original article PDF)",
+      "source_readings": [
+        "1629 / 崇禎二年己巳四月十五日江華府史庫曝曬形止案 / 奎9443",
+        "1633 / 崇禎六年癸酉七月二十六日史庫曝曬形止案 / 奎9443"
+      ],
+      "conflict": "The two distinct year/title entries both share 奎9443 in this web reference list, whereas 2003 footnote 25 and 2017 Table 1 both name 奎9598 for 1633.",
+      "witness_grade": "SECONDARY_PORTAL_METADATA_ONLY; 2011 ARTICLE ORIGINAL PDF/FOOTNOTE NOT COLLATION_REVIEWED; CANNOT DETERMINE WHETHER ORIGINAL AUTHOR OR PORTAL METADATUM IS IN ERROR"
+    },
+    {
+      "document_type": "SNU_KYUJANGGAK_FIRST_PARTY_SEARCH_LIST",
+      "url": "https://kyudb.snu.ac.kr/book/list.do?book_cate=SIC&focus=&mid=GDS",
+      "source_reading": "交食推步法 / 奎貴67 / 李純之·金石悌 / 1458 / 古活字本; original image/text services advertised",
+      "evidence_boundary": "First-party bibliographic identity for the present 交食推步法 copy only; NOT the original 1611 奎9664 or 1633 奎9598 register pages, and no upper/lower source-native image acquired."
+    }
+  ],
+  "adjudication": {
+    "preferred_provisional_1633_locator": "奎9598",
+    "basis": "Two published specialist PDFs, dated 2003 and 2017, independently print 奎9598 in exact 1633 folio-specific contexts.",
+    "competing_locator": "奎9443",
+    "competing_scope": "KCI web reference list for a 2011 article, also used in 1629 entry; preserve verbatim as disagreement, not silently correct/erase.",
+    "final_identification": "UNRESOLVED_PENDING_SNU_FIRST_PARTY_CATALOG_OR_REGISTER_IMAGE; 奎9598 is a search key, NOT original-folio confirmation.",
+    "original_1611_locator": "奎9664 (2017 Table 1 and 2011 KCI reference no.36)",
+    "original_1611_1633_folio_glyph_reviewed": false,
+    "count_two_books_per_inventory_is_copy_identity": false,
+    "historical_copy_lineage_directly_proven": false,
+    "g893_original_six_decisions": "0/6",
+    "source_registry_records_added": 0,
+    "graph_nodes_added": 0,
+    "graph_edges_added": 0,
+    "chart_algorithms_reopened": 0
+  },
+  "next_action": "Search original source-issued SNU first-party catalog/copy records for precise 1633 奎9598 versus 1629 奎9443 and 1611 奎9664, preferably through public indexed holding pages; if access remains restricted, retain secondary conflict. Higher P0: obtain source-original 奎貴67 假令上/下 盈縮加分 and G893 少/微 same-field table, without payment or account dependency.",
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "KCI web references alone do not override directly printed 2003/2017 specialist PDF folio locators.",
+      "1633 register title match does not prove identical physical copy with present SNU 交食推步法 奎貴67 or G893 奎貴893.",
+      "Two secondary studies identifying 奎9598 are not two independent historical physical registers."
+    ],
+    "unresolved_lineage_questions": [
+      "First-party 1633 register original and comparison of 奎9598 / 奎9443 bibliographic identifiers.",
+      "Original source folio of 1611 奎9664 and printed 奎貴67 upper/lower formula."
+    ]
+  },
+  "checkpoint": {
+    "prior_successful_actions_for_exact_head": "285/285 success at 1a137fbd26ba049efc6587bcd5fa439212f24f8f",
+    "matrix": "222/222",
+    "registered_sources": 765,
+    "graph": "252 nodes/238 edges",
+    "open_issues": 11,
+    "product": "CLOSED",
+    "algorithm_reopens": 0
+  }
+}
