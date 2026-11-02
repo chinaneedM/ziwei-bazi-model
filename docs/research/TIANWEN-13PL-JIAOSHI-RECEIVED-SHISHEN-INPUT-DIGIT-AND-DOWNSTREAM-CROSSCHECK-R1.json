@@ -1,0 +1,95 @@
+{
+  "schema": "TIANWEN-13PL-JIAOSHI-RECEIVED-SHISHEN-INPUT-DIGIT-AND-DOWNSTREAM-CROSSCHECK-R1",
+  "date": "2026-11-02",
+  "issue_id": "TW-OPEN-0005",
+  "parent": "docs/research/TIANWEN-13PK-JIAOSHI-RECEIVED-HALF-YEAR-PRECISION-FORWARD-COLLATION-R1.json",
+  "objective": "Test an independently located source-received digit inconsistency at 食甚入盈縮曆定度 using prior upstream result, later repeated inputs, final recap and a downstream square. No claim about original 1458 glyph.",
+  "witness": {
+    "url": "https://zh.wikisource.org/zh-hant/交食推步法/假令上",
+    "grade": "ONE PUBLIC MODERN DIGITAL RECEIVED TEXT, NOT PHYSICAL KYUGUI67 ORIGINAL",
+    "target_loci": [
+      {
+        "section": "食甚入盈縮曆",
+        "text": "得〈八十八日八一一六一六〉",
+        "numeric": "88.811616",
+        "role": "UPSTREAM_CALCULATED"
+      },
+      {
+        "section": "盈縮曆限",
+        "text": "八十八日八一一六一六",
+        "numeric": "88.811616",
+        "role": "REPEATED_INPUT"
+      },
+      {
+        "section": "食甚入盈縮曆定度",
+        "text": "〈八十八日六一一六一六〉",
+        "numeric": "88.611616",
+        "role": "CONFLICTING_DIGITAL_INPUT"
+      },
+      {
+        "section": "食甚入盈縮曆定度",
+        "text": "〈二度三九三三四〇〉減之，得〈八十六度四一八二七六〉",
+        "numeric": "2.393340;86.418276",
+        "role": "PRINTED_OPERATION_AND_RESULT"
+      },
+      {
+        "section": "日食南北汎差",
+        "text": "〈七千四百六十八度一一八四二六八一二一七六〉",
+        "numeric": "7468.118426812176",
+        "role": "DOWNSTREAM_SQUARE"
+      },
+      {
+        "section": "食甚日晨前夜半盈縮曆初末限",
+        "text": "〈八十八日八一一六一六〉",
+        "numeric": "88.811616",
+        "role": "ANOTHER_REPEATED_INPUT"
+      },
+      {
+        "section": "篇末總表",
+        "text": "食甚入縮曆：八十八日八一一六一六; 食甚入縮曆定度：八十六度四一八二七六",
+        "numeric": "88.811616;86.418276",
+        "role": "SOURCE_RECAP"
+      }
+    ]
+  },
+  "replay": {
+    "scale": "exact integer scaled by 10^6 for input/difference; square scale 10^12",
+    "upstream": "145.279975 - 56.468359 = 88.811616",
+    "consistent": "88.811616 - 2.393340 = 86.418276",
+    "conflicting": "88.611616 - 2.393340 = 86.218276, not printed",
+    "downstream": "86.418276 * 86.418276 = 7468.118426812176, printed",
+    "magnitude": "0.200000 input difference; not an elapsed-time conversion",
+    "method": "integer exact fixed-point; no floating point"
+  },
+  "judgment": {
+    "status": "RECEIVED_TEXT_INTERNAL_NUMERIC_CONTRADICTION",
+    "supported": "One received line's 88.611616 cannot produce its published difference, and upstream, recap, later source re-use and downstream square all favor 88.811616 within that one digital witness.",
+    "unproved": [
+      "Unseen 1458 奎貴67 original line glyph or its typo date",
+      "Any two independent ancient witnesses or direct source genealogy",
+      "G893 old 少/微 columns or six historical original-field winners",
+      "Historical runtime or deterministic chart algorithm defect"
+    ],
+    "ancient_emendation_authorized": false,
+    "source_registration_authorized": false
+  },
+  "impact": {
+    "state_version": "1.1049.0",
+    "matrix_rows": 222,
+    "matrix_audited": 222,
+    "root_sources": 647,
+    "extension_sources": 118,
+    "total_sources": 765,
+    "graph_nodes": 252,
+    "graph_edges": 238,
+    "issues": 11,
+    "g893_historic_final_six": "0/6",
+    "matrix_delta": 0,
+    "source_registry_delta": 0,
+    "graph_delta": 0,
+    "runtime_delta": 0,
+    "algorithm_reopen_count": 0,
+    "product": "CLOSED",
+    "transmission_impact": "NONE_DIGITAL_RECEIVED_TEXT_NOT_ORIGINAL_COPY_STEMMA"
+  }
+}
