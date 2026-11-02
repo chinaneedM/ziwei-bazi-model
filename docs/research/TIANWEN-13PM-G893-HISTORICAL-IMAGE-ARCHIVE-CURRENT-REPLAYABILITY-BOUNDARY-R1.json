@@ -1,0 +1,89 @@
+{
+  "schema": "TIANWEN-13PM-G893-HISTORICAL-IMAGE-ARCHIVE-CURRENT-REPLAYABILITY-BOUNDARY-R1",
+  "date": "2026-11-02",
+  "issue_id": "TW-OPEN-0005",
+  "parent": "docs/research/TIANWEN-13PL-JIAOSHI-RECEIVED-SHISHEN-INPUT-DIGIT-AND-DOWNSTREAM-CROSSCHECK-R1.json",
+  "purpose": "Reconcile a previously positive source-original 204-image historical acquisition with current availability of its associated nonpermanent GitHub Actions artifact, without changing recorded source original glyphs or prematurely re-acquiring the whole book.",
+  "historical_acquisition": {
+    "provider": "Seoul National University Kyujanggak",
+    "catalog_url": "https://kyudb.snu.ac.kr/book/view.do?book_cd=GK00893_00",
+    "physical_catalog_identifier": "奎貴893 / GK00893_00",
+    "run_id": 35324088110,
+    "artifact_id": 10538746764,
+    "artifact_name": "kyudb-g893-shoushi-licheng-complete-physical-r2",
+    "original_pages_reported": 204,
+    "archival_zip_sha256_in_previous_evidence": "ee9ecf1de3bb6abe5678e0f8ec8383ef985051e77d091ee40840756e57081107",
+    "original_page_hash_and_folio_locators_preserved_in": "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json",
+    "source_registry_entry": "EXT-KYUJANGGAK-SHOUSHI-LICHENG-G893",
+    "historical_success_retracted": false
+  },
+  "current_recheck": {
+    "date": "2026-11-02",
+    "action_run": "https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/35324088110",
+    "run_artifact_listing_count": 0,
+    "direct_artifact_download_result": "NOT_FOUND HTTP 404 for prior artifact 10538746764",
+    "conclusion": "EXACT_PRIOR_ARTIFACT_NO_LONGER_FETCHABLE_IN_CURRENT_CONNECTED_GITHUB_SESSION",
+    "artifact_absence_cause": "UNDETERMINED_EXPIRED_OR_DELETED_OR_OTHER; NOT INFERRED",
+    "current_original_bytes_read": 0,
+    "current_target_original_folios_read": 0,
+    "provider_source_image_failure_inferred": false
+  },
+  "same_copy_image_identity": {
+    "status": "KNOWN_HISTORICAL_ALREADY_REGISTERED_NOT_NEW_DISCOVERY",
+    "previously_catalog_emitted_thumbnail_names": [
+      "GK00893_00IH_0001_000a.jpg",
+      "GK00893_00IH_0001_004b.jpg"
+    ],
+    "route_evidence": "docs/research/KYUJANGGAK-G893-IMAGE-ACCESS-TOPOLOGY-R1.json",
+    "grade": "THUMBNAIL_LOCATOR_ONLY_NOT_NEW_TARGET_PHYSICAL_GLYPH"
+  },
+  "six_original_target_pages": [
+    {
+      "id": "VAR-NUM-SOLAR-WINTER-D16-DIFFERENCE",
+      "page": "002b"
+    },
+    {
+      "id": "VAR-NUM-LUNAR-L8-LOSSGAIN",
+      "page": "019b"
+    },
+    {
+      "id": "NORM-LUNAR-L101-CHIJI-DEGREE-POSITIONAL-GROUPING",
+      "page": "032b"
+    },
+    {
+      "id": "VAR-NUM-LUNAR-L114-DAYRATE",
+      "page": "034a"
+    },
+    {
+      "id": "VAR-NUM-LUNAR-L124-JI-XINGDU",
+      "page": "035b"
+    },
+    {
+      "id": "VAR-NUM-LUNAR-L132-LOSSGAIN",
+      "page": "036b"
+    }
+  ],
+  "judgment": {
+    "grade": "ARCHIVAL_ACCESS_REPLAY_BOUNDARY_ONLY",
+    "no_source_original_emendation": true,
+    "do_not_overwrite_12CW_or_12XO_12YI_positive_evidence": true,
+    "do_not_count_thumbnails_as_six_target_pages": true,
+    "next": "Re-acquire only the six source-issued public page bytes or an authorized, independently bound public mirror; compare page SHA, header and exact original numeric column. Defer login/payment/reproduction requests, and do not spend a new 204-page capture run without a verified need."
+  },
+  "impact": {
+    "state_version": "1.1050.0",
+    "source_registry_delta": 0,
+    "matrix_delta": 0,
+    "genealogy_delta": 0,
+    "runtime_delta": 0,
+    "source_total": 765,
+    "matrix_rows": "222/222",
+    "genealogy_nodes": 252,
+    "genealogy_edges": 238,
+    "open_issues": 11,
+    "g893_final_controls": "0/6",
+    "chart_product": "CLOSED",
+    "algorithm_reopen": 0,
+    "transmission_impact": "NONE_ACCESS_BOUNDARY_NOT_NEW_COPY_LINEAGE"
+  }
+}
