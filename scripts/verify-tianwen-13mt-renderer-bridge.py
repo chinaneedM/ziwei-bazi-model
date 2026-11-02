@@ -29,7 +29,10 @@ def check(e,s,l,p,a):
  n=e["nonpromotion"]
  assert n["algorithm_reopens"]==n["g893_cross_original_historical_winners"]==n["lineage_edges_added"]==0
  assert n["product"]==s["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED"
- assert n["registered_sources_total"]==s["historical_audit"]["external_source_registry_total_unique_count"]==765
+ assert n["registered_sources_total"]==765  # immutable 13MT source census at publication
+ ext=json.loads((R/"docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json").read_text(encoding="utf8"))
+ assert ext["combined_source_count"]>=n["registered_sources_total"]
+ assert s["historical_audit"]["external_source_registry_total_unique_count"]==ext["combined_source_count"]
  assert s["schema_version"]==l["binding"]["reviewed_state_version"]==s["historical_audit"]["research_omission_guard"]["reviewed_state_version"]
  assert tuple(map(int,s["schema_version"].split(".")))>=(1,982,0)
  assert len(s["historical_audit"]["current_focus"])==l["binding"]["source_focus_count"]
