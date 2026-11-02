@@ -1,0 +1,77 @@
+{
+  "schema": "TIANWEN-13PH-AKS-GAGAMCHA-TWO-DENOMINATOR-FORMULAS-AND-820-CONSTANT-AUDIT-R1",
+  "date": "2026-11-02",
+  "issue_id": "TW-OPEN-0005",
+  "parent": "docs/research/TIANWEN-13PG-GK03188-JEONGMYO-ECLIPSE-EXAMPLE-CROSSWORK-AND-2012-COMPARATIVE-STUDY-R1.json",
+  "objective": "Locate an openly readable scholarly mechanical contrast for the eclipse correction term 加減差, audit its displayed arithmetic, and keep modern explanatory formulae separate from edition-bound historical folio evidence.",
+  "source": {
+    "url": "https://dh.aks.ac.kr/sillokwiki/index.php/%EA%B0%80%EA%B0%90%EC%B0%A8(%E5%8A%A0%E6%B8%9B%E5%B7%AE)",
+    "provider": "Academy of Korean Studies, Sillokwiki/朝鮮王朝實錄事典",
+    "entry_title": "가감차(加減差)",
+    "named_author": "이은희 / Lee Eun-hee",
+    "public_text_loci": [
+      "§개설 및 내용, formula lines for 칠정산내편 and 대통력통궤",
+      "§개설 및 내용, one-limit mean solar motion explanation",
+      "§참고문헌, 1973 received translation and 2007 monograph"
+    ],
+    "evidence_grade": "MODERN_SCHOLARLY_OPEN_EXPLANATION_FULL_TEXT_NOT_EDITION_ORIGINAL",
+    "source_original_folios_acquired": 0,
+    "same_author_independence": "Lee Eun-hee also coauthored the two 2012 eclipse-calculation papers entered in 13PG. This is further explicit exposition by a previously identified specialist, NOT an independent ancient witness or independent author-vote."
+  },
+  "mechanical_formula_comparison": {
+    "printed_first": "가감차(칠) = (영축차 ± 지질차) × 820분/지질한행도(遲疾限行度)",
+    "printed_second": "가감차(대) = (영축차 ± 지질차) × 820분/(지질한행도 - 820분)",
+    "notation": {
+      "A": "盈縮差 ± 遲疾差, signs and calendar context NOT yet mechanically source-bound",
+      "L": "遲疾限行度 / Moon's motion per 限",
+      "S": "820分 / source's printed approximate Sun-motion component"
+    },
+    "first_interpretive": "A*S/L; attributed in this modern scholarly entry to 七政算內篇 and Shoushi-derived example calculations.",
+    "second_interpretive": "A*S/(L-S); attributed in this modern scholarly entry to 大統曆通軌 and the reformed eclipse correction.",
+    "mechanical_difference": "Denominator L versus lunar-solar relative motion (L-S), NOT a simple alias or multiplication normalization; direct source-original 1458 target formulas remain unreviewed.",
+    "not_proved": [
+      "That the anonymous SNU GK03188_00 [1677+] copy prints either expression unaltered",
+      "That SNU 奎貴67 original upper/lower 假令 uses the exact symbols, literal 820 or same rounding profile",
+      "That 820分 units, sign selection and day-fraction radix carry over to GK00893_00 少/微",
+      "Any relation between these formulae and the six unresolved direct historical G893 numeric control values"
+    ]
+  },
+  "modern_source_arithmetic_warning": {
+    "displayed_scholarly_entry": "Entry gives 27만 5,546분 / 336한 and then writes 820.8분/한, while the operational comparison formula uses 820분.",
+    "independent_decimal_replay": "275546 / 336 = 820.07738095238095238... ; this does NOT equal the displayed 820.8.",
+    "quality_classification": "INTERNAL_ARITHMETIC_OR_TRANSCRIPTION_INCONSISTENCY_IN_MODERN_SCHOLARLY_EXPLANATION_ONLY",
+    "not_authorized": "Do not silently rewrite 820.8 as a verified ancient numeral; do not infer ancient source error, original exact unit or algorithm defect. Retain the printed literals, ask original text and modern source critical check before precision binding."
+  },
+  "adjudication": {
+    "positive": "A precise, source-linked two-denominator comparison is now available for targeted formula-by-formula historical collation.",
+    "scope": "SECONDARY_MECHANICAL_HYPOTHESIS_AND_SOURCE_CRITICISM_ONLY",
+    "historical_formula_confirmed_by_original": false,
+    "source_registry_delta": 0,
+    "matrix_delta": 0,
+    "genealogy_nodes_delta": 0,
+    "genealogy_edges_delta": 0,
+    "algorithm_reopens": 0,
+    "transmission_impact": {
+      "nodes_added_or_strengthened": [],
+      "edges_supported": [],
+      "edges_revised": [],
+      "edges_rejected": [],
+      "status": "NO_CHANGE_SECONDARY_FORMULAE_DO_NOT_PROVE_TEXTUAL_LINEAGE"
+    },
+    "next": "Seek ONLY verifiable free provider-emitted original pages for 奎貴67 假令上/下, GK03188_00 and GK00893_00, binding name/page/image byte identity, radix and unit; no registration, fee or guessed image endpoint."
+  },
+  "impact": {
+    "state_version": "1.1045.0",
+    "root_sources": 647,
+    "extension_sources": 118,
+    "total_sources": 765,
+    "matrix_rows": 222,
+    "matrix_audited": 222,
+    "graph_nodes": 252,
+    "graph_edges": 238,
+    "unresolved_issue_count": 11,
+    "g893_historical_final_controls": "0/6",
+    "chart_product": "CLOSED",
+    "confirmed_algorithm_defects": 0
+  }
+}
