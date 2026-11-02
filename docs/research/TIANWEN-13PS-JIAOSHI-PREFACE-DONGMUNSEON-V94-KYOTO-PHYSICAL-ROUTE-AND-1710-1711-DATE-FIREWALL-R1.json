@@ -1,0 +1,163 @@
+{
+  "schema": "TIANWEN-13PS-JIAOSHI-PREFACE-DONGMUNSEON-V94-KYOTO-ROUTE-AND-DATE-FIREWALL-R1",
+  "date": "2026-11-02",
+  "issue_id": "TW-OPEN-0005",
+  "parent": "docs/research/TIANWEN-13PR-YUANSHI054-TWO-SHAO-UNIT-BASES-AND-TA-QUARTER-POSITIONAL-FIREWALL-R1.json",
+  "purpose": "Recover a source-declared distinction between using extant 立成 numerical material as a basis for the method and computing results without daily table lookups, and identify a legitimately public, physically differentiated Dongmunseon juan94 preface route without upgrading catalog-only text to original glyph or a new physical numerical witness.",
+  "corpus_sources": [
+    {
+      "kind": "RECEIVED_TEXT",
+      "title": "交食推步法/序",
+      "url": "https://zh.wikisource.org/zh-hant/交食推步法/序",
+      "evidence_grade": "DIGITAL_RECEIVED_TRANSCRIPTION_NOT_1458_ORIGINAL_GLYPH",
+      "relevant_literals": [
+        "蓋授時曆經立成，諸數浩繁，不便於觀覽",
+        "先測定我國漢陽北極出地三十八度少弱",
+        "參考其二至晷影，推求得日出入之分",
+        "又於立成推演其數，作為新術",
+        "皆不用立成而直求之"
+      ],
+      "note": "Received preface is self-asserted technical-method history, not physical proof of the source author's date or full formula adoption."
+    },
+    {
+      "kind": "RECEIVED_ANTHOLOGY",
+      "title": "東文選/卷九十四 交食推步法假令序",
+      "url": "https://zh.wikisource.org/zh-hant/東文選/卷九十四",
+      "evidence_grade": "DIFFERENT_RECEIVED_WORK_PRESENTATION_DIGITIZED_TRANSCRIPTION_NOT_DIRECT_PRINTED_FOLIO",
+      "relevant_literals": [
+        "蓋授時歷經立成諸數浩繁",
+        "又於立成。推演其數。作為新術",
+        "皆不用立成而直求之"
+      ],
+      "differences_to_jiaoshi_received": [
+        "句讀與分句 differently normalized",
+        "定恨行度 / 定限行度 visible divergent digital reading",
+        "金石梯 / 金石悌 original-script personal-name variants in the two transcription traditions"
+      ],
+      "scope": "Two textual placements on similar online transcription hosts do not demonstrate two independent original printing witnesses, nor authorize correcting an alleged original typo."
+    },
+    {
+      "kind": "FIRST_PARTY_CATALOG",
+      "institution": "Kyoto University Rare Materials Digital Archive",
+      "title": "東文選",
+      "item_url": "https://rmda.kulib.kyoto-u.ac.jp/item/rb00028368",
+      "item_id": "RB00028368",
+      "call_number": "河合文庫/ト/32",
+      "access": "Open item includes manifest link https://rmda.kulib.kyoto-u.ac.jp/iiif/metadata_manifest/RB00028368/manifest.json and volume buttons; volume 9 appears in this 14-volume incomplete holding with contents Vol.93-95.",
+      "digital_surrogate_record": "作成年度 2018",
+      "physically_cataloged_record": "14冊(零本), 木版本(乙亥字飜刻本), 印「李頤命養叔章」, source includes 卷93-95",
+      "evidence_grade": "DIRECT_FIRST_PARTY_PHYSICAL_HOLDING_AND_PUBLIC_IIIF_MANIFEST_ROUTE_NOT_ACTUAL_V94_PREFACE_PIXELS",
+      "direct_target_juan94_original_glyph_reviewed": false,
+      "physical_target_collation_status": "PENDING_EXACT_CANVAS_IMAGE_AND_LINE_HASH"
+    },
+    {
+      "kind": "FIRST_PARTY_CATALOG",
+      "institution": "Seoul National University Kyujanggak",
+      "title": "東文選",
+      "item_url": "https://kyudb.snu.ac.kr/book/view.do?book_cd=GR30918_00",
+      "call_number": "古3422-1F-v.1-46",
+      "catalogued_work_compilation": "1478",
+      "impression_date_string": "[15世紀 末 以後]",
+      "catalogued_extent": "目錄3卷,130卷,46冊",
+      "catalogued_partial_exemplar": "一簑古811.08-Se61do-v.1-5 includes 卷92-95 in one partial set",
+      "evidence_grade": "FIRST_PARTY_CATALOG_POTENTIAL_ORIGINAL_ANTHOLOGY_VOLUME_NOT_READ_FOLIO",
+      "no_composition_impression_collapse": true
+    },
+    {
+      "kind": "FIRST_PARTY_DATE_CORROBORATION",
+      "institution": "National Institute of Korean History, Joseon Wangjo Sillok",
+      "url": "https://sillok.history.go.kr/search/inspectionDayList.do?id=ksb_137030",
+      "locus": "肅宗37年3月17日 (1711) 清康熙50年",
+      "evidence_grade": "FIRST_PARTY_HISTORICAL_CHRONOLOGY_OF_REGNAL_YEAR_EQUIVALENCE_ONLY"
+    },
+    {
+      "kind": "FIRST_PARTY_DATE_CORROBORATION",
+      "institution": "Palace Museum China",
+      "url": "https://www.dpm.org.cn/court/lineage/226256.html",
+      "locus": "康熙49年=1710;康熙50年=1711",
+      "evidence_grade": "FIRST_PARTY_CURRENT_INSTITUTIONAL_CHRONOLOGY"
+    }
+  ],
+  "preface_philological_test": {
+    "paraphrase": "The preface says that preexisting 授時曆經立成 tables have many numbers, describes deriving a new technique using numerical material, then claims certain computations can be directly performed without consulting the tables. This is consistent with an algebraic shortcut or reformulation of inherited table quantities, not a claim to have no historical numerical dependence on tables.",
+    "separate_claims": [
+      {
+        "kind": "EXPLICIT_TEXTUAL_REFERENCE",
+        "observed": "授時曆經立成 / 又於立成推演其數",
+        "conclusion": "Author-ascribed technical derivation from preexisting 立成 material is directly expressed in modern received preface wording."
+      },
+      {
+        "kind": "METHOD_USAGE_DISTINCTION",
+        "observed": "皆不用立成而直求之",
+        "conclusion": "No daily lookup in specified computational procedures is different from no ancestry of numerical coefficients or source methods."
+      },
+      {
+        "kind": "REGIONAL_CALIBRATION",
+        "observed": "漢陽北極出地三十八度少弱, 二至晷影",
+        "conclusion": "Text explicitly situates part of the claimed innovation in Hanyang site and solstitial observations; no inference that every solar/lunar field uses same local standard."
+      }
+    ],
+    "G893_relation": "The 13OD exact 交食推步法 received quadratic and G893 original 4dp solar S/M agreement is compatible with text-declared derivation but cannot independently establish equal historical 少/微 radix, common original impression, identical computational rounding, or directed 立成 exemplar-copy genealogy.",
+    "direct_copy_relation": "UNPROVEN",
+    "original_g893_source_rule_reopen": false
+  },
+  "kyoto_bibliographic_date_conflict": {
+    "as_recorded_in_same_provider_item": {
+      "publication_year_numeric": 1710,
+      "publication_information_regnal": "粛宗37",
+      "publication_year_japanese_era_field": "康熙49"
+    },
+    "arithmetic_calendar_crosscheck": {
+      "康熙49": 1710,
+      "肅宗37": 1711,
+      "康熙50": 1711
+    },
+    "diagnosis": "SAME_CATALOG_RECORD_INTERNAL_REGNAL_GREGORIAN_PAIR_CONFLICT; specific printed leaf/colophon not reviewed, do not select 1710 or 1711 as definitive object-specific impression year.",
+    "provisional_impression_date": "CATALOG_CONFLICT_1710_VS_1711_UNRESOLVED",
+    "separate_dates": {
+      "work_composition": "東文選 commissioned compilation 1478 according to SNU catalog",
+      "Kyoto_physical_print": "catalog conflict 1710/1711; source imprint not collated",
+      "digital_surrogate": "Kyoto 2018",
+      "target_original_Jiaoshi_preface": "1458 dated received-text preface, source-original physical date not validated from 1710/1711 physical anthology"
+    },
+    "no_confused_dates": true
+  },
+  "next_exact_target": {
+    "first": "Kyoto IIIF public-source manifest choose vol09 (卷93-95) and locate 卷94 交食推步法假令序 original column, capture only exact authorized page(s), source issued URL, image SHA, adjacent page and imprinted title.",
+    "second": "Check the exact SNU GR30918/related partial copy 卷92-95 original if public, without duplicate paper counting; then collate its named prefatory phrases and 金石梯 / 定恨 control.",
+    "parallel": "G893 original 001a 一秒八十六少 and authenticated independent ancient numeric unit/carry instruction remain the only basis for awarding G893 historical decisions; no more repeat 4dp table test.",
+    "no_login_or_paid_requests": true
+  },
+  "status": {
+    "new_original_juan94_page_authenticated": false,
+    "actual_kyoto_manifest_bytes_or_canvases_read": false,
+    "new_physical_witness_proven_as_textual_target": false,
+    "source_registry_delta": 0,
+    "proposed_independent_page": "LOCATED_ACCESS_PATH_NOT_ACQUIRED",
+    "g893_six_final_cross_edition_numeric_decisions": "0/6",
+    "matrix": "222/222",
+    "source_registry_total": 765,
+    "genealogy_nodes": 252,
+    "genealogy_edges": 238,
+    "open_research_issues": 11,
+    "chart_product": "CLOSED",
+    "algorithm_reopen_count": 0
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [
+      "RECEIVED_PREFACE_EXPLICITLY_REFERENCES_SHOUSHI_LICHENG_NUMERIC_MATERIAL_AS_INPUT_TO_NEW_METHOD; textual statement only, not yet physical-glyph graph edge"
+    ],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "CALCULATION_WITHOUT_TABLE_LOOKUPS != NO_TECHNICAL_DEPENDENCE_ON_TABLE_DATA",
+      "The two online received preface placements do not prove different original editions, direct copying, or ancestry of a particular G893 physical copy",
+      "Kyoto catalog volume93-95 presence does not prove the exact preface glyphs are already inspected"
+    ],
+    "unresolved_lineage_questions": [
+      "Acquire original Kyoto volume94 exact printed page of 交食推步法假令序 and check copy-specific word variants",
+      "Reconcile Kyoto 1710/1711 catalog date from original edition colophon/credible independent catalog",
+      "Bind 1458 奎貴67 original quadratic formula/rounding instruction to original pixels and G893 historical numerical bases"
+    ]
+  }
+}
