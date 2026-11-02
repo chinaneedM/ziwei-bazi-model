@@ -1,0 +1,190 @@
+{
+  "schema": "TIANWEN-13PO-G893-TWO-EXACT-ORIGINAL-TARGET-REPLAY-R1",
+  "date": "2026-11-02",
+  "issue_id": "TW-OPEN-0005",
+  "parent": "docs/research/TIANWEN-13PN-G893-ARCHIVED-SOURCE-ORIGINAL-FOUR-OF-SIX-TARGET-BYTE-REPLAY-R1.json",
+  "classification": "PROVIDER_SOURCE_ISSUED_ORIGINAL_JPEG_EXACT_HASH_REACQUISITION_AND_BOUNDED_NATIVE_RGB_REVIEW",
+  "source_identity": {
+    "provider": "Seoul National University Kyujanggak",
+    "book": "授時曆立成",
+    "holding": "奎貴893 / GK00893_00",
+    "catalog": "https://kyudb.snu.ac.kr/book/view.do?book_cd=GK00893_00",
+    "physical_witnesses": 1,
+    "impression_date": "UNRESOLVED_1418_1450"
+  },
+  "acquisition": {
+    "github_run_id": 41457048333,
+    "github_run_url": "https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/41457048333",
+    "github_artifact_id": 13148305028,
+    "artifact_name": "tianwen-13po-g893-two-exact-target-source-pages",
+    "artifact_zip_sha256": "20ae37ae0db2eadf2c911c1959e9591c66804c26bb9a07bc3daea684466018b1",
+    "zip_crc_status": "PASS",
+    "registered_url_identity": "EXACT_SOURCE_PATH_EMITTED_BY_FIRSTPARTY_RENDERER_POST_RESPONSE_AND_COMPARED_TO_OLD_REGISTRY",
+    "images_placed_in_public_repo": false,
+    "provider_source_original_image_count": 2,
+    "source_jpeg_size_px": [
+      1150,
+      2000
+    ],
+    "no_ocr": true,
+    "byte_replay_verified_locally": true
+  },
+  "recovered_exact_pages": [
+    {
+      "page": "032b",
+      "role": "NORM-LUNAR-L101-CHIJI-DEGREE-POSITIONAL-GROUPING",
+      "registered_source": "docs/research/TIANWEN-12XZ-G893-L101-DIRECT-FULL-GLYPH-R1.json",
+      "original_jpeg_sha256": "65457d858a2b2a6c5d04603d4e03430e25e671cbb7f66f6563f9d36798bc300c",
+      "source_jpeg_bytes": 151163,
+      "decoded_rgb_sha256": "bf96f47d9a1fb57fb8894534fad3b8b59e3417af7f188456c23730eb97eb5082",
+      "attempts": [
+        {
+          "attempt": 2,
+          "status": "CONNECTION_RESET"
+        },
+        {
+          "attempt": 2,
+          "status": "EXACT_JPEG_MATCH"
+        }
+      ],
+      "original_glyph_from_preexisting_12xz": "五度二十〇分四八一一二五",
+      "historical_roi_replays": [
+        {
+          "role": "L101_FULL_SOURCE_GLYPH_COLUMN",
+          "rect": [
+            927,
+            747,
+            1010,
+            1750
+          ],
+          "historical_rgb_sha256": "adde837c9095558ed7e835dda9a54cc075f7e319ea969ccd396a03177e7dbc22",
+          "current_result": "PASS"
+        },
+        {
+          "role": "L101_ORIGINAL_DAY_HEADING",
+          "rect": [
+            1006,
+            222,
+            1100,
+            625
+          ],
+          "historical_rgb_sha256": "871dbdfa0851570813681b02b038e3de52747cb68c85d1644f472b994faebc96",
+          "current_result": "PASS"
+        },
+        {
+          "role": "L102_SAME_COPY_COLUMN_LAYOUT",
+          "rect": [
+            622,
+            750,
+            730,
+            1700
+          ],
+          "historical_rgb_sha256": "bb20854d2524bc3324a0b86b4923ce8249cd616069761964ab5b9e4704cf8d87",
+          "current_result": "PASS"
+        }
+      ],
+      "current_new_glyph_interpretation": false
+    },
+    {
+      "page": "034a",
+      "role": "VAR-NUM-LUNAR-L114-DAYRATE",
+      "registered_source": "docs/research/TIANWEN-12XR-G893-L114-DAYRATE-FULL-FIELD-SEPARATION-R1.json",
+      "original_jpeg_sha256": "ac738d1a83ea7f19dc1f83583af6adc90878534beec1727b9076cc1e099c8137",
+      "source_jpeg_bytes": 148833,
+      "decoded_rgb_sha256": "bb2cb5fe2ac43ec57f8c8a0e841c603a9c568924e80a38436b9566c3f60e567f",
+      "attempts": [
+        {
+          "attempt": 1,
+          "status": "EXACT_JPEG_MATCH"
+        }
+      ],
+      "original_glyph_reading_visually_rechecked": "九日三四八九",
+      "adjacent_separate_original_field_from_12xr": "損五分三一二五二五",
+      "current_native_rgb_rois": [
+        {
+          "role": "L114_DAY_HEADING",
+          "rect": [
+            335,
+            210,
+            435,
+            565
+          ],
+          "rgb_sha256": "8298b80680833ce1a43d3a8cadafc2106d9e84f22d8470051785e2953cce1dff"
+        },
+        {
+          "role": "L114_DAY_RATE_FULL",
+          "rect": [
+            428,
+            625,
+            518,
+            1405
+          ],
+          "rgb_sha256": "d208c11334e88f13e3bf3b49dc771436fdc2a78131a7faa6384259c54e559bc7"
+        },
+        {
+          "role": "L114_ADJACENT_LOSS_GAIN",
+          "rect": [
+            318,
+            625,
+            420,
+            1390
+          ],
+          "rgb_sha256": "e34b6923d0686a8a8c701e5782e89ced69b46a56a861fee957524db880ee9885"
+        }
+      ],
+      "source_column_identity": "遲疾曆日率",
+      "cross_edition_numeric_winner_awarded": false
+    }
+  ],
+  "target_six_current_replay": {
+    "inherited_13pn_four_pages": [
+      "002b",
+      "019b",
+      "035b",
+      "036b"
+    ],
+    "new_13po_two_pages": [
+      "032b",
+      "034a"
+    ],
+    "all_named_target_page_ids_now_currently_byte_replayable": [
+      "002b",
+      "019b",
+      "032b",
+      "034a",
+      "035b",
+      "036b"
+    ],
+    "current_target_pages_verified": "6/6",
+    "prior_12cw_204_page_archive_current_download": "UNAVAILABLE_NOT_REVERSED",
+    "only_six_targets_not_full_204_current_replay": true,
+    "source_original_glyph_history_unmodified": true,
+    "historical_cross_edition_numeric_adjudications": "0/6",
+    "new_original_physical_witnesses": 0
+  },
+  "judgment": {
+    "recovered_byte_identity": "EXACT_MATCH_TO_HISTORIC_HOLDING_JPEG_DIGEST",
+    "l101_historic_source_glyph_scope": "CONFIRMED_WITH_THREE_NATIVE_RGB_ROI_HASHES",
+    "l114_historic_source_glyph_scope": "RECHECKED_SOURCE_NATIVE_IMAGE_WITH_SEPARATE_DAY_AND_NUMERIC_LANE_ROIS",
+    "source_unit_radix_original_少_to_received_微": "UNRESOLVED",
+    "same_field_same_unit_same_calendar_epoch_across_independent_editions": "UNPROVEN",
+    "ancient_scribal_error": "NOT_INFERRED",
+    "direct_textual_transmission": "NOT_INFERRED",
+    "no_new_runtime_or_zy_bazi_rule_selection": true,
+    "remaining_next": "Continue source-field alignment and unit/radix from original G893, G894 and edition-bound Ming printed source; do not treat same-copy restoration as independent witness. No new network capture needed just to repeat six exact page hashes."
+  },
+  "impact": {
+    "state_version": "1.1053.0",
+    "matrix_rows": "222/222",
+    "sources_total": 765,
+    "genealogy_nodes": 252,
+    "genealogy_edges": 238,
+    "issue_count": 11,
+    "source_registry_delta": 0,
+    "matrix_delta": 0,
+    "genealogy_delta": 0,
+    "algorithm_reopen": 0,
+    "chart_product": "CLOSED",
+    "transmission_impact": "NONE_EXACT_SAME_COPY_SOURCE_BYTES_RESTORED"
+  }
+}
