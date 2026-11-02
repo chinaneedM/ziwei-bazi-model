@@ -1,0 +1,104 @@
+{
+  "schema": "TIANWEN-13PA-JIAOSHI-1588-1591-JEONJU-INVENTORY-TITLE-CROSSWALK-R1",
+  "date": "2026-11-02",
+  "issue_id": "TW-OPEN-0005",
+  "predecessor": "docs/research/TIANWEN-13OZ-JIAOSHI-1594-HAEJU-TWO-STORAGE-SLOTS-R1.json",
+  "objective": "Scope an earlier Jeonju inventory and a later comparison without silently normalizing titles or copies.",
+  "source": {
+    "author": "申炳周 / Shin Byung-ju",
+    "year": 2003,
+    "title": "‘實錄形止案’을 통해 본 『조선왕조실록』의 관리체계",
+    "publication": "國史館論叢 第102輯",
+    "provider": "National Institute of Korean History",
+    "pdf_url": "https://db.history.go.kr/download.do?fileName=kn_102_0020.pdf&levelId=kn_102_0020",
+    "grade": "DIRECT_REVIEW_OF_MODERN_SCHOLARLY_PDF_PAGES_NOT_ANCIENT_ORIGINAL_REGISTER",
+    "reviewed_printed_pages": [
+      8,
+      9,
+      10,
+      11
+    ],
+    "pdf_zero_index_pages": [
+      7,
+      8,
+      9,
+      10
+    ]
+  },
+  "inventory_readings": [
+    {
+      "year": 1588,
+      "archive": "全州史庫",
+      "secondary_shelfmark": "奎10004",
+      "locator": "printed p8 descriptive citation and p9 Table1 月字櫃",
+      "cabinet": "月字櫃",
+      "title_as_printed": "交食推步",
+      "reported_quantity": "2件2冊",
+      "original_register_folio_acquired": false
+    },
+    {
+      "year": 1591,
+      "archive": "全州史庫",
+      "secondary_shelfmark": "奎10002",
+      "locator": "printed p10 comparison prose",
+      "reported_claim": "The historian states that the book inventory was unchanged from 1588.",
+      "original_item_level_pages_directly_collated": false,
+      "original_register_folio_acquired": false
+    },
+    {
+      "year": 1594,
+      "archive": "黃海道海州史庫",
+      "secondary_shelfmark": "奎10006 (competing secondary 奎10006의1 unresolved)",
+      "locator": "printed p11 and predecessor 13OZ",
+      "title_as_printed": "交食推步法",
+      "storage_slots": [
+        {
+          "cabinet": "天字欄",
+          "reported_quantity": "1冊"
+        },
+        {
+          "cabinet": "玄字欄",
+          "reported_quantity": "1冊"
+        }
+      ],
+      "original_register_folio_acquired": false
+    }
+  ],
+  "scoping": {
+    "earliest_secondary_inventory_attestation_year": 1588,
+    "earlier_title_exact": "交食推步",
+    "later_title_exact": "交食推步法",
+    "identity_of_work_across_title_forms": "UNRESOLVED",
+    "same_physical_copy_1588_1591_1594": "UNPROVEN",
+    "later_inventory_two_copies_same_as_earlier_two": "UNPROVEN",
+    "war_time_transport_item_identity": "UNPROVEN",
+    "independent_original_physical_witnesses_added": 0,
+    "same_2003_article_not_counted_three_times": true,
+    "first_party_snu_archive_registers_not_acquired": true
+  },
+  "adjudication": {
+    "new_source_registry_entries": 0,
+    "new_graph_nodes": 0,
+    "new_graph_edges": 0,
+    "matrix_changes": 0,
+    "algorithm_reopens": 0,
+    "historical_g893_six_final": "0/6",
+    "issue_status": "OPEN"
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "1588 交食推步 is not yet proved an identical work to 1594 交食推步法.",
+      "1588/1591 reported inventory continuity does not authenticate the exact same physical copies in 1594.",
+      "One 2003 historian's PDF is not three independent ancient archival originals."
+    ],
+    "unresolved_lineage_questions": [
+      "Authenticated original 1588 奎10004 and 1591 奎10002 inventory folios and page-level title readings.",
+      "Any item-bound 1588/1591/1594 physical-custody or edition link.",
+      "1458 SNU 奎貴67 original 盈縮加分 upper/lower and G893 source-original 少/微 units."
+    ]
+  },
+  "next_action": "Prioritize free authenticated exact source-original 奎貴67 upper/lower 盈縮加分 and G893 少/微 field; only investigate original Jeonju inventories through provider-emitted free public folio links. No payment, login or speculative object enumeration."
+}
