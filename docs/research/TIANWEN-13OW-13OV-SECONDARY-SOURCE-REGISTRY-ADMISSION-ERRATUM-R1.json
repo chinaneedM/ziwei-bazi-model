@@ -1,0 +1,34 @@
+{
+  "schema": "TIANWEN-13OW-13OV-SECONDARY-SOURCE-REGISTRY-ADMISSION-ERRATUM-R1",
+  "date": "2026-11-02",
+  "corrects_commit": "cdd420623bc852085436881772d274218de36702",
+  "corrects_document": "docs/research/TIANWEN-13OV-JIAOSHI-WIKISOURCE-RECEIVED-NUMERIC-REPLAY-R1.json",
+  "issue_id": "TW-OPEN-0005",
+  "forward_only": true,
+  "retained_valid_fact": "Two public modern Wikisource received-text Jiaoshi Yin-Suo examples are internally decimal-consistent: 88d 32.4481 and 79d 63.4009 分, exact integer replay in 13OV source report; retain this arithmetic only as a non-original, unadmitted research lead.",
+  "withdrawn_claims": [
+    "13OV source ID EXT-WIKISOURCE-JIAOSHI-SHANGXIA-RECEIVED-13OV is NOT admitted to the active external source registry after this forward-only correction.",
+    "The state 1.1033.0 counts root648, union766 describe only the transient 13OV proposal and are superseded; active union returns to 765 and root to 647.",
+    "The two received sections do not increase the independent physical historical witness count."
+  ],
+  "why": "Multiple existing exact-HEAD CI validators hardcode established 647 root and 765 total counts (e.g. 13LE, 13KR, 12WC, 13KV, 12WZ, 13MV). Promoting one low-weight secondary web transcription while preserving baseline product CI would require editing many unrelated historical gates; fails simplicity-first materiality test. Keep durable math evidence without promotion.",
+  "action": "Restore byte-identical last accepted source root registry and extension manifest blobs; append this correction in state focus and omission history; keep TW-OPEN-0005 OPEN; no changes to chart algorithms.",
+  "restored_source_root_git_blob_sha": "ea2ab50479450c39ce3fc7a00ea91cd713bf4a60",
+  "restored_extension_manifest_git_blob_sha": "1721206ef579518b36df45c8a14c44f338587b5a",
+  "corrected_counters": {
+    "matrix": "222/222",
+    "root": 647,
+    "extensions": 118,
+    "total": 765,
+    "graph": "252/238",
+    "issues": 11,
+    "algorithm_reopens": 0
+  },
+  "source_semantics": {
+    "registered_unique_witness_count_added": 0,
+    "authenticated_original_folio_count_added": 0,
+    "received_arithmetic_checks_kept": 2,
+    "recorded_received_arithmetic_page_count": 2
+  },
+  "integrity": "Do not delete, rewrite, or conceal 13OV; forward-only issue and current-state correction explicitly retain both the arithmetic and the admission error."
+}
