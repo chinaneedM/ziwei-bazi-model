@@ -1,0 +1,84 @@
+{
+  "schema": "TIANWEN-13PJ-JIAOSHI-RECEIVED-SHUOWANG-ADD-SUBTRACT-READING-CONTROL-R1",
+  "date": "2026-11-02",
+  "issue_id": "TW-OPEN-0005",
+  "parent": "docs/research/TIANWEN-13PI-JIAOSHI-RECEIVED-82008-FOUR-EXAMPLES-AND-AKS-PRECISION-ERRATUM-R1.json",
+  "objective": "Adjudicate an internal operator/result contradiction in publicly accessible received 交食推步法 假令上 without projecting the correction into an unexamined 1458 physical page.",
+  "source_scope": [
+    {
+      "url": "https://zh.wikisource.org/zh-hant/交食推步法/假令上",
+      "loci": [
+        "正統十二年丁卯八月朔食 > 加減差",
+        "朔望定日",
+        "日食食甚定分",
+        "食甚入盈縮曆"
+      ],
+      "grade": "PUBLIC_RECEIVED_DIGITAL_TEXT_NOT_KYUGUI67_DIRECT_ORIGINAL"
+    },
+    {
+      "url": "https://zh.wikisource.org/zh-hant/交食推步法/假令下",
+      "loci": [
+        "正統十二年丁卯八月望食 > 加減差",
+        "朔望定日"
+      ],
+      "grade": "SAME_WORK_SAME_DIGITAL_HOST_COMPARATIVE_RECEIVED_TEXT_NOT_SECOND_PHYSICAL_WITNESS"
+    }
+  ],
+  "conflict": {
+    "upper_received_instruction": "置丁卯年八月經朔全分〈五十六日四六八三五九〉，以加差〈二千一百八十五分五〇〉減之，得〈五十六日六八六九〇九〉",
+    "surface_operator": "減之",
+    "named_signed_difference": "加差",
+    "published_output": "56.686909",
+    "interpretation": "Arithmetic yields the printed result only if 2185.50 day-parts are ADDED. '減之' cannot be mechanically consistent with the printed output in this received transcription.",
+    "inferred_candidate_reading": "加之",
+    "candidate_grade": "ARITHMETICALLY_SUPPORTED_RECEIVED_READING_NOT_CONFIRMED_ORIGINAL_GLYPH",
+    "ancient_emendation_authorized": false
+  },
+  "replay": {
+    "day_radix": "10000 sub-day parts per day within this received worked-example coordinate",
+    "upper_base": "56.468359",
+    "upper_add_difference": "2185.50 / 10000 = 0.218550",
+    "upper_plus": "56.468359 + 0.218550 = 56.686909 = printed",
+    "upper_minus": "56.468359 - 0.218550 = 56.249809 != printed",
+    "upper_printed_result": "56.686909",
+    "upper_subday_part": "6869.09",
+    "downstream_eclipse_intensity_time": "6869.09 + 609.57 = 7478.66; agrees with received 日食食甚定分",
+    "downstream_ecliptic_argument": "88.532109 + 56.747866 - 56.468359 = 88.811616; agrees with received 食甚入盈縮曆",
+    "lower_base": "11.2336555",
+    "lower_minus": "11.2336555 - 6121.93 / 10000 = 10.6214625 = printed",
+    "lower_operator": "減之",
+    "source_numeric_unit_bridge": "820.08 / 10000 = 0.082008, consistent with earlier received 820.08 multiplier versus 0.082008 solar subtraction in degree-place; this is numeric normalization, not a newly acquired original folio.",
+    "arithmetic_method": "exact base-10 integer/Decimal operations; no floating point rounding criterion used to select operator"
+  },
+  "adjudication": {
+    "supported": "For the specific publicly received upper worked example, addition is compelled by printed result, sign label 加差, upper downstream published outputs, and contrast with lower 減差 worked subtraction.",
+    "not_supported": [
+      "Which character was printed in the original 奎貴67 physical witness",
+      "Whether the contradiction arose in an ancient exemplar, a modern typesetting stage, or Wikisource transcription",
+      "A cross-work mechanistic genealogy from 奎貴67 to GK03188_00 or GK00893_00",
+      "An original-unit/radix or six G893 historical-field winner"
+    ],
+    "source_original_kyugui67_target_folios_acquired": 0,
+    "G893_historical_final_six": "0/6",
+    "registry_delta": 0,
+    "matrix_delta": 0,
+    "genealogy_nodes_delta": 0,
+    "genealogy_edges_delta": 0,
+    "runtime_delta": 0,
+    "algorithm_reopens": 0,
+    "transmission_impact": "NONE_RECEIVED_TEXT_CRITICISM_NOT_DIRECT_TEXTUAL_ANCESTRY",
+    "next": "Secure a free, original source-emitted 1458 奎貴67 朔望定日/加減差 page to check 加/減 glyph; independently prioritize GK00893_00 source-original 少/微 row/column units, and preserve exact scope if access stays blocked."
+  },
+  "impact": {
+    "state_version": "1.1047.0",
+    "matrix_rows": 222,
+    "matrix_audited": 222,
+    "root_registry": 647,
+    "extensions": 118,
+    "total_sources": 765,
+    "graph_nodes": 252,
+    "graph_edges": 238,
+    "open_issues": 11,
+    "chart_product": "CLOSED"
+  }
+}
