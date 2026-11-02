@@ -1,0 +1,95 @@
+{
+  "schema": "TIANWEN-13PK-JIAOSHI-RECEIVED-HALF-YEAR-PRECISION-FORWARD-COLLATION-R1",
+  "date": "2026-11-02",
+  "issue_id": "TW-OPEN-0005",
+  "parent": "docs/research/TIANWEN-13PJ-JIAOSHI-RECEIVED-SHUOWANG-ADD-SUBTRACT-READING-CONTROL-R1.json",
+  "purpose": "Compare source-received 半歲周 values in upper/lower 交食推步法假令 against their own worked values, half of 歲實, and clearly scoped collateral received texts. The original 1458 source page is not acquired; no ancient emendation follows.",
+  "witnesses": [
+    {
+      "url": "https://zh.wikisource.org/zh-hant/交食推步法/假令上",
+      "grade": "DIGITAL_RECEIVED_TEXT_NOT_KYUGUI67_ORIGINAL",
+      "loci": [
+        "用數目錄 歲實三百六十五萬二千四百二十五分; 半歲周一百八十二日六千二百一十二分半",
+        "經朔望入盈縮曆 半歲周一百八十二日六二一二五",
+        "first 盈縮曆限 半歲周一百八十二日六二二五",
+        "later 食甚入盈縮曆 盈縮曆限 半歲周一百八十二日六二一二五"
+      ]
+    },
+    {
+      "url": "https://zh.wikisource.org/zh-hant/交食推步法/假令下",
+      "grade": "SAME_WORK_SAME_DIGITAL_HOST_NOT_INDEPENDENT_PHYSICAL_WITNESS",
+      "loci": [
+        "經朔望入盈縮曆 半歲周一百八十二日六二一二五",
+        "first 盈縮曆限 半歲周一百八十二日六二二五",
+        "later 食甚入盈縮曆 盈縮曆限 半歲周一百八十二日六二一二五"
+      ]
+    },
+    {
+      "url": "https://db.history.go.kr/goryeo/itemLevelKrList.do?itemId=kr&parentId=kr_051_0010_0010_0040&types=o",
+      "grade": "FIRST_PARTY_INSTITUTIONAL_RECEIVED_HISTORICAL_TRANSCRIPTION_NOT_ORIGINAL_IMAGE_CHECKED_THIS_REVIEW",
+      "locus": "高麗史 曆二 / 授時曆經: 歲周 field labels notwithstanding, 182日6212分半 seen in provider-indexed received text; not original image or evidence of exact 1458 typesetting."
+    },
+    {
+      "url": "https://www.shidianguji.com/zh/book/NA06359/chapter/1m64zp2sawv8a",
+      "grade": "LATER_MEI_WENDING_RECEIVED_TEXT_TRANSCRIPTION_NOT_INDEPENDENT_1458_PHYSICAL_WITNESS",
+      "locus": "曆學駢枝卷一 大統曆 步氣朔用數目錄: 歲周3652425分 / 半歲周1826212分半, same numeric half relation but no direct-copy lineage claim."
+    }
+  ],
+  "observed_received_text": {
+    "main_constant": "182.62125 day in decimal normalization",
+    "shorter_conflicting_literal": "一百八十二日六二二五",
+    "shorter_literal_normalized": "182.6225 day",
+    "first_context": "盈縮曆限 first rule statement in BOTH upper and lower digital pages",
+    "other_consistent_contexts": "用數目錄; preceding 經朔望入盈縮曆; subsequent same-rule later passage; worked result in each part",
+    "operator_error_in_prior_13PJ": "Separate earlier received 減之/add-result mismatch; not merged with this numeric anomaly",
+    "original_glyph_confirmed": false,
+    "ancient_transcription_typo_confirmed": false
+  },
+  "integer_decimal_replay": {
+    "year_real": "365.2425",
+    "year_half": "365.2425 / 2 = 182.62125",
+    "upper_initial": "182.62125 - 24.152571 = 158.468679",
+    "upper_sequence": "158.468679 + 20 * 14.7652965 = 453.774609",
+    "upper_correct": "453.774609 - 2 * 182.62125 = 88.532109 (printed)",
+    "upper_short_lit": "453.774609 - 2 * 182.6225 = 88.529609 (not printed)",
+    "lower_sequence": "158.468679 + 21 * 14.7652965 = 468.5399055",
+    "lower_correct": "468.5399055 - 2 * 182.62125 = 103.2974055 (printed)",
+    "lower_short_lit": "468.5399055 - 2 * 182.6225 = 103.2949055 (not printed)",
+    "lower_first_limit_correct": "182.62125 - 103.2974055 = 79.3238445 (printed)",
+    "lower_first_limit_short_lit": "182.6225 - 103.2974055 = 79.3250945 (not printed)",
+    "difference_in_days": "0.00125",
+    "difference_in_si_seconds_if_day_is_86400s": "108",
+    "method": "Exact base-10 Decimal arithmetic; the short literal is replayed as printed, not a hypothesized corrected original."
+  },
+  "judgment": {
+    "status": "RECEIVED_TEXT_INTERNAL_NUMERIC_CONTRADICTION",
+    "what_is_supported": "The digital text's printed computations and explicit half-of-year relation support 182.62125; the same digital upper/lower short literal 182.6225 is not mechanically consistent with printed results. Its repeated occurrence is ONE digital transcription family, not two ancient witnesses.",
+    "what_is_not_supported": [
+      "No authenticated 1458 奎貴67 original target page inspected",
+      "No demonstrated date/stratum of the 182.6225 character sequence",
+      "No proving 1458 physical source misprinted or later editorial error",
+      "No transmission edge from Mei Wending or 高麗史 to this copy merely from matching constant",
+      "No G893 original 少/微 historical column, no six-field adjudication or runtime policy change"
+    ],
+    "next": "Only accept provider-issued free original 奎貴67 upper/lower target folio to collate both 182.62125/182.6225 loci and 13PJ 朔望定日 加/減. In parallel, prioritize G893 original source-number unit/glyph adjudication. Account/login/payment-dependent routes are deferred."
+  },
+  "impact": {
+    "state_version": "1.1048.0",
+    "matrix_rows": 222,
+    "matrix_audited": 222,
+    "root_sources": 647,
+    "extension_sources": 118,
+    "total_sources": 765,
+    "graph_nodes": 252,
+    "graph_edges": 238,
+    "open_issues": 11,
+    "g893_final_controls": "0/6",
+    "source_registry_delta": 0,
+    "graph_delta": 0,
+    "matrix_delta": 0,
+    "runtime_delta": 0,
+    "algorithm_reopen_count": 0,
+    "product": "CLOSED",
+    "transmission_impact": "NONE_UNVERIFIED_ORIGINAL_COPY_LINEAGE"
+  }
+}
