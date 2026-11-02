@@ -43,7 +43,9 @@ def check(e,s,l,p):
  assert "docs/research/TIANWEN-13MS-ZHOU1569-ORIGINAL-SOURCE-ATLAS-AND-NAAJ-HOLDING-R1.json" in issue["source_refs"] and "docs/research/TIANWEN-13MS-ZHOU1569-ORIGINAL-SOURCE-ATLAS-AND-NAAJ-HOLDING-R1.md" in issue["source_refs"]
  assert any(x.get("revision_id")=="TW-OPEN-0005-13MS-ORIGINAL-ATLAS-NAJK-COPY-SCOPE-20261031" for x in issue["history"])
  assert any(x["id"]=="OMISSIONS-13MS-ORIGINAL-ATLAS-BIBLIO-SCOPE-20261031" for x in l["checkpoint_log"])
- assert s["historical_audit"]["external_source_registry_total_unique_count"]==765
+ ext=json.loads((ROOT/"docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json").read_text(encoding="utf8"))
+ assert ext["combined_source_count"]>=765  # 13MS historical lower bound
+ assert s["historical_audit"]["external_source_registry_total_unique_count"]==ext["combined_source_count"]
  return {"status":"PASS","source_pdf_byte_verified":True,"new_rgb_crops":6,"legacy_13mq_rgb_status":"UNRECONCILED","six_historical_winners":0}
 if __name__=="__main__":
  e,s,l,p=(json.loads(q.read_text(encoding="utf-8")) for q in (E,S,L,P))

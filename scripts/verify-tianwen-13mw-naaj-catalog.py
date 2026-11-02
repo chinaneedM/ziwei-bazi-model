@@ -18,7 +18,10 @@ def check(e,s,l):
  assert e["photographer"]["exact_naj_item_level_page"]=="NOT_FOUND_IN_THIS_REVIEW"
  assert all(e["adjudication"].values())
  g=e["guards"]
- assert (g["registered_sources"],g["matrix_rows"],g["matrix_audited"])==(s["historical_audit"]["external_source_registry_total_unique_count"],s["historical_audit"]["row_count"],s["historical_audit"]["audited_row_count"])==(765,222,222)
+ assert (g["registered_sources"],g["matrix_rows"],g["matrix_audited"])==(765,222,222)  # immutable 13MW census
+ ext=json.loads((R/"docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json").read_text(encoding="utf8"))
+ assert ext["combined_source_count"]>=g["registered_sources"]
+ assert (s["historical_audit"]["external_source_registry_total_unique_count"],s["historical_audit"]["row_count"],s["historical_audit"]["audited_row_count"])==(ext["combined_source_count"],222,222)
  assert (g["graph_nodes"],g["graph_edges"],g["open_issues"])==(252,238,11)
  assert all(g[k]==0 for k in ("new_registered_sources","new_physical_copies","new_historical_g893_winners","new_graph_edges","algorithm_reopens"))
  assert g["product"]==s["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED" and g["transmission_impact"]=="NONE"

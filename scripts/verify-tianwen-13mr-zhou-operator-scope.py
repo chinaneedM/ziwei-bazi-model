@@ -31,7 +31,10 @@ def check(e,s,l,p):
  assert c["surviving_1569_physical_impression"]=="UNBOUND" and c["direct_copying"]=="UNPROVEN"
  assert e["guard"]["g893_final_historical_winners"]==e["guard"]["algorithm_reopens"]==0
  assert e["guard"]["product"]==s["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED"
- assert e["guard"]["external_unique_sources"]==s["historical_audit"]["external_source_registry_total_unique_count"]==765
+ assert e["guard"]["external_unique_sources"]==765  # immutable 13MR source census
+ ext=json.loads((R/"docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json").read_text(encoding="utf8"))
+ assert ext["combined_source_count"]>=e["guard"]["external_unique_sources"]
+ assert s["historical_audit"]["external_source_registry_total_unique_count"]==ext["combined_source_count"]
  assert e["guard"]["matrix_rows"]==s["historical_audit"]["row_count"]==222
  assert e["guard"]["matrix_audited"]==s["historical_audit"]["audited_row_count"]==222
  assert e["guard"]["unresolved_issues"]==len(l["issues"])==11

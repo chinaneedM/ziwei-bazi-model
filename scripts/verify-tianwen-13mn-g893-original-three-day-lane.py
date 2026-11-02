@@ -70,7 +70,9 @@ def check(e,s,l):
     assert any(x.get("revision_id")=="TW-OPEN-0005-13MN-DIRECT-ORIGINAL-D15-D17-20261031" for x in issue["history"])
     assert any(x.get("id")=="OMISSIONS-13MN-G893-DIRECT-ORIGINAL-D15-D17-20261031" for x in l["checkpoint_log"])
     assert s["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED"
-    assert s["historical_audit"]["external_source_registry_total_unique_count"]==765
+    ext=json.loads((R/"docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json").read_text(encoding="utf8"))
+    assert ext["combined_source_count"]>=765  # 13MN historical lower bound
+    assert s["historical_audit"]["external_source_registry_total_unique_count"]==ext["combined_source_count"]
     return {"status":"PASS","direct_original_days":[15,16,17],"direct_g893_d16":"5.2362","cross_original_winners":0}
 if __name__=="__main__":
     print(json.dumps(check(json.loads(E.read_text(encoding="utf-8")),json.loads(S.read_text(encoding="utf-8")),json.loads(L.read_text(encoding="utf-8"))),ensure_ascii=False))
