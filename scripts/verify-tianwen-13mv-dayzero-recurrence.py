@@ -34,7 +34,9 @@ def check(e,mu,mr,s,l):
  assert q["product"]==s["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED"
  assert q["day0_is_absolute_calendar_epoch"] is False and q["received_mei_is_not_original_zhou_image"] is True
  assert all(q[k]=="OPEN" for k in ("g893_001a_to_002b_exact_header_unit_epoch","cross_source_unit_radix_epoch","naaj_official_item_impression"))
- assert s["historical_audit"]["external_source_registry_total_unique_count"]==765
+ ext=json.loads((R/"docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json").read_text(encoding="utf8"))
+ assert ext["combined_source_count"]>=765  # 13MV source census is an immutable lower bound
+ assert s["historical_audit"]["external_source_registry_total_unique_count"]==ext["combined_source_count"]
  assert s["historical_audit"]["row_count"]==s["historical_audit"]["audited_row_count"]==222
  assert s["schema_version"]==l["binding"]["reviewed_state_version"]==s["historical_audit"]["research_omission_guard"]["reviewed_state_version"]
  assert tuple(map(int,s["schema_version"].split(".")))>=(1,984,0)

@@ -16,6 +16,10 @@ class DayZeroRecurrence(unittest.TestCase):
   for k in route[:-1]:d=d[k]
   d[route[-1]]=value
   with self.assertRaises(AssertionError):v.check(*a)
+ def test_false_current_registry_total(self):
+  a=copy.deepcopy(self.inputs)
+  a[3]["historical_audit"]["external_source_registry_total_unique_count"]+=1
+  with self.assertRaises(AssertionError):v.check(*a)
  def test_false_zero_day_value(self):
   self.mutate_and_fail(["original_source_local_day_anchor","day0_short"],"4.9387")
  def test_false_day_fifteen(self):
