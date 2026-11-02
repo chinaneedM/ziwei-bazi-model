@@ -1,0 +1,258 @@
+{
+  "schema": "TIANWEN-13PP-G893-SHAO-QUARTER-MICRO-REPLAY-GATE-R1",
+  "date": "2026-11-02",
+  "issue_id": "TW-OPEN-0005",
+  "parent": "docs/research/TIANWEN-13PO-G893-TWO-EXACT-ORIGINAL-SOURCE-PAGES-AND-SIX-TARGET-BYTE-REPLAY-R1.json",
+  "reason": "Distinguish fully carried 1-second-86-and-quarter modern interpretation from the original source table's four-place operational recurrence, without treating modern editorial decimalization as an ancient original unit gloss.",
+  "source_layers": {
+    "original_physical_copy": {
+      "institution": "Seoul National University Kyujanggak",
+      "item": "奎貴893 / GK00893_00",
+      "image_header": "001a",
+      "image_rows": [
+        "001a",
+        "002b"
+      ],
+      "page_jpeg_sha256": {
+        "001a": "8b07513ca8aad42ae167a93f22c39f14850c8cd1c345db9ce98c1e0e769226a5",
+        "002b": "f9812e8c6a357eb6cd1117bb2af58d816e01030d5b93f34e7094bddb766b2b55"
+      },
+      "header_literal": "日差加一秒八十六少",
+      "prior_original_reviews": [
+        "docs/research/TIANWEN-13NA-G893-001A-D0-D2-ORIGINAL-SHORT-LANE-R1.json",
+        "docs/research/TIANWEN-13NE-G893-HEADER-NIKH-D16-CORRECTION-R1.json",
+        "docs/research/TIANWEN-13MN-G893-D15-D17-DIRECT-ORIGINAL-NUMERIC-LANE-R1.json"
+      ],
+      "original_jpegs_rechecked_this_turn": true,
+      "ocr_used": false
+    },
+    "official_received_hanja": {
+      "provider": "National Institute of Korean History",
+      "work": "高麗史 卷52",
+      "url": "https://db.history.go.kr/goryeo/level.do?levelId=kr_052_0010_0010_0020_0010&types=o",
+      "literal": "日差加一秒八十六少",
+      "source_grade": "MODERN_SCHOLARLY_TRANSCRIPTION_NOT_A_NEW_PHYSICAL_G893_WITNESS"
+    },
+    "official_modern_korean": {
+      "url": "https://db.history.go.kr/id/kr_052r_0010_0010_0020_0010",
+      "literal": "일차(日差)에 1초 8625를 더한 값",
+      "interpretation": "One second plus 86 and 25 hundredths of a micro in the normalized decimal layer; operational hypothesis 0.018625 in original short-lane decimal-scale units",
+      "source_grade": "MODERN_EDITORIAL_TRANSLATION_NOT_HISTORICAL_UNIT_AUTHORITY"
+    },
+    "later_received_comparator": {
+      "work": "明史 卷33 and 大統歷志 卷3/4",
+      "received_literal": "一秒八十六微",
+      "role": "DIFFERENT_LATER_TEXTUAL_LAYER_NOT_AUTOMATICALLY_SAME_UNIT_OR_COPY",
+      "prior_doc": "docs/research/TIANWEN-13NE-G893-HEADER-NIKH-D16-CORRECTION-R1.json"
+    },
+    "independently_printed_1569_control": {
+      "source": "周相 1569《大明大統曆法》卷6 historical image",
+      "pdf_url": "https://www.kotenmon.com/cal/arabe/vol6.pdf",
+      "pdf_sha256": "4c006b7ce131902fe33012d42f62cd2bbc2140affa3d5886e0da02966352cb7c",
+      "prior": "docs/research/TIANWEN-13MU-ZHOU1569-G893-D15-D16-THREE-LANE-CROSSWALK-R1.json",
+      "role": "PREVIOUSLY_ADJUDICATED_PRINTED_NUMBER_AGREEMENT_ONLY_NOT_NEW_PHYSICAL_EDITION_VOTE"
+    }
+  },
+  "model_units": {
+    "integer_scale": "ONE_MICROFEN=1E-6 of a numerical 分",
+    "printed_short_and_addend": "four decimal places / numeric 分",
+    "source_initial_short": "4.9386",
+    "source_initial_addend": "510.8569",
+    "hypothesis_A_daily_delta": "0.018600",
+    "hypothesis_B_modern_quarter_delta": "0.018625",
+    "quarter_extra_per_day": "0.000025",
+    "quarter_extra_nomenclature": "ASSUMPTION derived from modern Korean edition, NOT independently authenticated ancient 少/微 definition",
+    "equations": [
+      "S_n=S0+n*delta",
+      "M_n=M0-n*S0-[n(n-1)/2]*delta",
+      "M_(n+1)=M_n-S_n",
+      "S_(n+1)=S_n+delta"
+    ],
+    "comparison_precision": "Exact integer arithmetic in 1e-6 units, not binary floating point"
+  },
+  "source_original_day_anchors": [
+    {
+      "day": 0,
+      "source_original_page": "001a",
+      "observed_source_short": "4.9386",
+      "observed_source_next_addend": "510.8569",
+      "constant_0_0186": {
+        "short": "4.9386",
+        "addend": "510.8569",
+        "short_residual_microfen": 0,
+        "addend_residual_microfen": 0
+      },
+      "unrounded_0_018625": {
+        "short": "4.938600",
+        "addend": "510.856900",
+        "short_residual_microfen": 0,
+        "addend_residual_microfen": 0
+      },
+      "per_step_4dp_quantization_hypothesis": {
+        "short": "4.9386",
+        "addend": "510.8569",
+        "prediction_matches_observed": true
+      }
+    },
+    {
+      "day": 1,
+      "source_original_page": "001a",
+      "observed_source_short": "4.9572",
+      "observed_source_next_addend": "505.9183",
+      "constant_0_0186": {
+        "short": "4.9572",
+        "addend": "505.9183",
+        "short_residual_microfen": 0,
+        "addend_residual_microfen": 0
+      },
+      "unrounded_0_018625": {
+        "short": "4.957225",
+        "addend": "505.918300",
+        "short_residual_microfen": -25,
+        "addend_residual_microfen": 0
+      },
+      "per_step_4dp_quantization_hypothesis": {
+        "short": "4.9572",
+        "addend": "505.9183",
+        "prediction_matches_observed": true
+      }
+    },
+    {
+      "day": 2,
+      "source_original_page": "001a",
+      "observed_source_short": "4.9758",
+      "observed_source_next_addend": "500.9611",
+      "constant_0_0186": {
+        "short": "4.9758",
+        "addend": "500.9611",
+        "short_residual_microfen": 0,
+        "addend_residual_microfen": 0
+      },
+      "unrounded_0_018625": {
+        "short": "4.975850",
+        "addend": "500.961075",
+        "short_residual_microfen": -50,
+        "addend_residual_microfen": 25
+      },
+      "per_step_4dp_quantization_hypothesis": {
+        "short": "4.9758",
+        "addend": "500.9611",
+        "prediction_matches_observed": true
+      }
+    },
+    {
+      "day": 15,
+      "source_original_page": "002b",
+      "observed_source_short": "5.2176",
+      "observed_source_next_addend": "434.8249",
+      "constant_0_0186": {
+        "short": "5.2176",
+        "addend": "434.8249",
+        "short_residual_microfen": 0,
+        "addend_residual_microfen": 0
+      },
+      "unrounded_0_018625": {
+        "short": "5.217975",
+        "addend": "434.822275",
+        "short_residual_microfen": -375,
+        "addend_residual_microfen": 2625
+      },
+      "per_step_4dp_quantization_hypothesis": {
+        "short": "5.2176",
+        "addend": "434.8249",
+        "prediction_matches_observed": true
+      }
+    },
+    {
+      "day": 16,
+      "source_original_page": "002b",
+      "observed_source_short": "5.2362",
+      "observed_source_next_addend": "429.6073",
+      "constant_0_0186": {
+        "short": "5.2362",
+        "addend": "429.6073",
+        "short_residual_microfen": 0,
+        "addend_residual_microfen": 0
+      },
+      "unrounded_0_018625": {
+        "short": "5.236600",
+        "addend": "429.604300",
+        "short_residual_microfen": -400,
+        "addend_residual_microfen": 3000
+      },
+      "per_step_4dp_quantization_hypothesis": {
+        "short": "5.2362",
+        "addend": "429.6073",
+        "prediction_matches_observed": true
+      }
+    },
+    {
+      "day": 17,
+      "source_original_page": "002b",
+      "observed_source_short": "5.2548",
+      "observed_source_next_addend": "424.3711",
+      "constant_0_0186": {
+        "short": "5.2548",
+        "addend": "424.3711",
+        "short_residual_microfen": 0,
+        "addend_residual_microfen": 0
+      },
+      "unrounded_0_018625": {
+        "short": "5.255225",
+        "addend": "424.367700",
+        "short_residual_microfen": -425,
+        "addend_residual_microfen": 3400
+      },
+      "per_step_4dp_quantization_hypothesis": {
+        "short": "5.2548",
+        "addend": "424.3711",
+        "prediction_matches_observed": true
+      }
+    }
+  ],
+  "quantization_scenarios": {
+    "A_literal_four_place_step_0_0186": {
+      "mechanical_status": "ALL_SIX_SOURCE_ORIGINAL_S_AND_M_ANCHORS_MATCH_EXACTLY",
+      "not_proven_full_source_unit_authority": true
+    },
+    "B_full_precision_0_018625_and_output_only_four_decimal": {
+      "mechanical_status": "FAILS_ORIGINAL_DAY15_DAY16_DAY17_S_AND_M",
+      "day15_unrounded_short": "5.217975",
+      "day15_source_printed_short": "5.2176",
+      "day15_unrounded_addend": "434.822275",
+      "day15_source_printed_addend": "434.8249",
+      "day15_abs_short_delta": "0.000375",
+      "day15_abs_addend_delta": "0.002625",
+      "day16_short_delta": "0.000400",
+      "day16_addend_delta": "0.003000",
+      "conclusion": "Uninterrupted full-precision 0.018625 daily accumulation from the observed S0/M0 does NOT produce printed G893 rows under only terminal 4dp representation."
+    },
+    "C_0_018625_with_quantize_every_step_to_four_decimal": {
+      "mechanical_status": "ALSO_MATCHES_ALL_SIX_PRINTED_ANCHORS_AS_A_MATHEMATICAL_HYPOTHESIS",
+      "operation": "After each short-lane addition quantize to 4 decimals before updating next-day addend; 0.018625 then contributes a displayed 0.0186 per step under either truncation or ordinary nearest rounding at four decimals.",
+      "historical_implementation_attested": false,
+      "conclusion": "Cannot adjudicate whether the original 少 denotes extra precision, a text variant, or editorial normalization from these four-place columns alone."
+    }
+  },
+  "negative_inference_firewalls": {
+    "do_not_call_source_shao_an_error": true,
+    "do_not_equate_ancient_shao_with_later_wei": true,
+    "do_not_promote_NIKH_modern_translation_to_ancient_copy": true,
+    "do_not_count_multiple_web_renderings_as_physical_witnesses": true,
+    "do_not_infer_exact_rounding_algorithm_from_six_anchor_matches": true,
+    "do_not_promote_source_original_D16_to_all_editions": true,
+    "g893_cross_edition_six_historical_numeric_decisions": "0/6",
+    "existing_13NE_official_D16_5_1362_transcription_error_remains_scoped": true
+  },
+  "next_material_target": "Seek original 立成/曆經 explicit instruction for per-step precision retention versus rounding, or a separately authenticated table displaying fifth or sixth decimal digits. Contrast source-original D0-D17 and 1569 printed target with exact day and numeric field. Do not repeat these six four-decimal arithmetics without new evidence.",
+  "impact": {
+    "new_primary_source_entries": 0,
+    "matrix_rows_added": 0,
+    "genealogy_nodes_added": 0,
+    "genealogy_edges_added": 0,
+    "algorithm_reopen": 0,
+    "chart_product": "CLOSED",
+    "state_version": "1.1054.0",
+    "historical_winner_delta": 0
+  }
+}
