@@ -47,7 +47,7 @@ def verify(e,prior,state,ledger):
  check(not e["transmission_impact"]["edges_supported"] and not e["transmission_impact"]["edges_revised"],"no lineage")
  h=state["historical_audit"];i=state["invariants"];binding=ledger["binding"]
  check(state["schema_version"]==h["research_omission_guard"]["reviewed_state_version"]==binding["reviewed_state_version"],"state synchronization")
- check(h["external_source_registry_total_unique_count"]==765 and h["row_count"]==h["audited_row_count"]==222 and i["algorithm_reopen_count"]==0 and i["deterministic_fusion_chart_product_r1"]=="CLOSED","closure")
+ check((h["external_source_registry_total_unique_count"]>=765 and h["external_source_registry_total_unique_count"]==json.loads((ROOT/"docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json").read_text(encoding="utf-8"))["combined_source_count"]) and h["row_count"]==h["audited_row_count"]==222 and i["algorithm_reopen_count"]==0 and i["deterministic_fusion_chart_product_r1"]=="CLOSED","closure")
  check(any(x.startswith("13KU ") for x in h["current_focus"]) and any(x.startswith("13KV ") for x in h["current_focus"]),"research continuity")
  check(binding["source_focus_count"]==len(h["current_focus"]) and binding["latest_research_focus_prefix"]==h["current_focus"][-1].split(" ")[0],"current focus")
  issue=next(x for x in ledger["issues"] if x["id"]==e["issue_id"])

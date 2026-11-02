@@ -50,7 +50,7 @@ def verify(e,prior,state,ledger):
  require(state["schema_version"]==ha["research_omission_guard"]["reviewed_state_version"]==bind["reviewed_state_version"],"state review")
  require(bind["source_focus_count"]==len(ha["current_focus"]) and bind["latest_research_focus_prefix"]==ha["current_focus"][-1].split(" ")[0],"focus sync")
  require(any(x.startswith("13KT ") for x in ha["current_focus"]) and any(x.startswith("13KU ") for x in ha["current_focus"]),"forward focus")
- require(ha["external_source_registry_total_unique_count"]==765 and ha["row_count"]==ha["audited_row_count"]==222,"source and matrix")
+ require((ha["external_source_registry_total_unique_count"]>=765 and ha["external_source_registry_total_unique_count"]==json.loads((ROOT/"docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json").read_text(encoding="utf-8"))["combined_source_count"]) and ha["row_count"]==ha["audited_row_count"]==222,"source and matrix")
  require(i["deterministic_fusion_chart_product_r1"]=="CLOSED" and i["algorithm_reopen_count"]==0,"product frozen")
  issue=next(v for v in ledger["issues"] if v["id"]=="TW-OPEN-0005")
  require(issue["priority"]=="P0" and issue["status"]=="OPEN" and E in issue["source_refs"] and E.replace(".json",".md") in issue["source_refs"],"open source refs")

@@ -48,7 +48,7 @@ def verify(e,state,ledger):
  h=state["historical_audit"];i=state["invariants"]
  check(state["schema_version"]==h["research_omission_guard"]["reviewed_state_version"]==ledger["binding"]["reviewed_state_version"],"state sync")
  check(ledger["binding"]["source_focus_count"]==len(h["current_focus"]) and ledger["binding"]["latest_research_focus_prefix"]==h["current_focus"][-1].split(" ")[0],"focus reviewed")
- check(any(z.startswith("13KT ") for z in h["current_focus"]) and h["external_source_registry_total_unique_count"]==765,"focus and source counts")
+ check(any(z.startswith("13KT ") for z in h["current_focus"]) and (h["external_source_registry_total_unique_count"]>=765 and h["external_source_registry_total_unique_count"]==json.loads((ROOT/"docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json").read_text(encoding="utf-8"))["combined_source_count"]),"focus and source counts")
  check(i["deterministic_fusion_chart_product_r1"]=="CLOSED" and i["algorithm_reopen_count"]==0,"product")
  issue=next(j for j in ledger["issues"] if j["id"]=="TW-OPEN-0005")
  check(issue["status"]=="OPEN" and E in issue["source_refs"] and E.replace(".json",".md") in issue["source_refs"],"open issue refs")

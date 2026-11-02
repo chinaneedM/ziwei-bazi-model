@@ -46,7 +46,7 @@ def verify(e,old,v,state,ledger):
  need(state["schema_version"]==h["research_omission_guard"]["reviewed_state_version"]==binding["reviewed_state_version"],"sync")
  need(any(z.startswith("13KU ") for z in h["current_focus"]) and any(z.startswith("13KV ") for z in h["current_focus"]) and any(z.startswith("13KW ") for z in h["current_focus"]),"research forward")
  need(binding["source_focus_count"]==len(h["current_focus"]) and binding["latest_research_focus_prefix"]==h["current_focus"][-1].split(" ")[0],"latest focus")
- need(h["external_source_registry_total_unique_count"]==765 and h["row_count"]==h["audited_row_count"]==222 and i["algorithm_reopen_count"]==0 and i["deterministic_fusion_chart_product_r1"]=="CLOSED","counts chart")
+ need((h["external_source_registry_total_unique_count"]>=765 and h["external_source_registry_total_unique_count"]==json.loads((ROOT/"docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json").read_text(encoding="utf-8"))["combined_source_count"]) and h["row_count"]==h["audited_row_count"]==222 and i["algorithm_reopen_count"]==0 and i["deterministic_fusion_chart_product_r1"]=="CLOSED","counts chart")
  issue=next(x for x in ledger["issues"] if x["id"]=="TW-OPEN-0005")
  need(issue["priority"]=="P0" and issue["status"]=="OPEN" and E in issue["source_refs"] and E.replace(".json",".md") in issue["source_refs"],"issue references")
  need(any(z.get("revision_id")=="TW-OPEN-0005-13KW-SOURCE-ATTRIBUTION-ERRATUM-20261030" and E in z.get("evidence_refs",[]) for z in issue["history"]),"erratum event")
