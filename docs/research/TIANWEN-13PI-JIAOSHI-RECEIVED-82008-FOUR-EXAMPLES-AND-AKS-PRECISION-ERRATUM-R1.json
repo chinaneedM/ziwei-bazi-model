@@ -1,0 +1,130 @@
+{
+  "schema": "TIANWEN-13PI-JIAOSHI-RECEIVED-82008-FOUR-EXAMPLES-AND-AKS-PRECISION-ERRATUM-R1",
+  "date": "2026-11-02",
+  "issue_id": "TW-OPEN-0005",
+  "parent": "docs/research/TIANWEN-13PH-AKS-GAGAMCHA-TWO-DENOMINATOR-FORMULAS-AND-820-CONSTANT-AUDIT-R1.json",
+  "purpose": "Forward-only precision correction: recover full coefficient and conversion from two openly readable received examples, test independently in integer fixed-point arithmetic, and limit previously observed scholarly 820.8 tension to modern commentary.",
+  "sources": [
+    {
+      "url": "https://zh.wikisource.org/zh-hant/交食推步法/假令上",
+      "work": "交食推步法",
+      "section": "假令上 > 正統十二年丁卯八月朔食 > 加減差",
+      "evidence_grade": "PUBLIC_RECEIVED_TEXT_TRANSCRIPTION_NOT_ORIGINAL_FOLIO",
+      "relevant_printed_locus": "八百二十〇分〇八秒; 限行度減去八分二十〇秒〇八微; two worked numbers and their results",
+      "original_print_page_acquired": false
+    },
+    {
+      "url": "https://zh.wikisource.org/zh-hant/交食推步法/假令下",
+      "work": "交食推步法",
+      "section": "假令下 > 正統十二年丁卯八月望食 > 加減差",
+      "evidence_grade": "PUBLIC_RECEIVED_TEXT_TRANSCRIPTION_SAME_DIGITAL_HOST_NOT_SECOND_PHYSICAL_WITNESS",
+      "relevant_printed_locus": "八百二十○分○八秒; 限行度減去八分二十○秒○八微; two worked numbers and their results",
+      "original_print_page_acquired": false
+    },
+    {
+      "url": "https://dh.aks.ac.kr/sillokwiki/index.php/%EA%B0%80%EA%B0%90%EC%B0%A8(%E5%8A%A0%E6%B8%9B%E5%B7%AE)",
+      "work": "가감차(加減差)",
+      "section": "개설 및 내용",
+      "evidence_grade": "MODERN_SPECIALIST_EXPLANATION",
+      "relevant_printed_locus": "Modern formula writes 820, and the same article gives 275546/336 = 820.8; both are less precise or internally conflicting with received full coefficient."
+    }
+  ],
+  "received_formula_scope": {
+    "input_combination": "Sign-sensitive 盈縮差 +/- 遲疾差; source text labels same/different name and additive/subtractive outcome.",
+    "multiplicative_coefficient": "820.08",
+    "coefficient_received_text": "八百二十〇分〇八秒",
+    "subtracted_solar_motion_in_source_degree_place": "0.082008",
+    "subtraction_received_text": "八分二十〇秒〇八微",
+    "relative_denominator": "source 遲疾限行度 - 0.082008 [degree-place transcription normalization]",
+    "formula_for_these_four_positive_examples": "value = positive combined difference * 820.08 / (limit motion - 0.082008)",
+    "arithmetic_precision": "positive result truncated (floor) to two decimal places, not conventional half-up rounding",
+    "caution": "The 820.08 factor and 0.082008 subtrahend are different numeric/unit coordinates. Do not identify them as numerically equal or claim source-original unit glyph authorization."
+  },
+  "worked_examples": [
+    {
+      "sample": "假令上 正例",
+      "source_sum": "4.985262 - 2.392433",
+      "source_sum_value": "2.592829",
+      "source_limit_motion": "1.054930",
+      "source_relative_motion": "0.972922",
+      "source_numerator": "2126.32720632",
+      "printed_result": "2185.50",
+      "computed_raw": "2185.5063471891888558",
+      "sign": "加"
+    },
+    {
+      "sample": "假令上 假如",
+      "source_sum": "4.985262 + 2.222200",
+      "source_sum_value": "7.207462",
+      "source_limit_motion": "1.054930",
+      "source_relative_motion": "0.972922",
+      "source_numerator": "5910.69543696",
+      "printed_result": "6075.19",
+      "computed_raw": "6075.1996942817615389",
+      "sign": "加"
+    },
+    {
+      "sample": "假令下 正例",
+      "source_sum": "2.369153 + 5.345510",
+      "source_sum_value": "7.714663",
+      "source_limit_motion": "1.115446",
+      "source_relative_motion": "1.033438",
+      "source_numerator": "6326.64083304",
+      "printed_result": "6121.93",
+      "computed_raw": "6121.9355520505342362",
+      "sign": "減"
+    },
+    {
+      "sample": "假令下 假如",
+      "source_sum": "5.345510 - 1.112200",
+      "source_sum_value": "4.233310",
+      "source_limit_motion": "1.115446",
+      "source_relative_motion": "1.033438",
+      "source_numerator": "3471.65286480",
+      "printed_result": "3359.32",
+      "computed_raw": "3359.3237957187562292",
+      "sign": "減"
+    }
+  ],
+  "integer_replay": {
+    "check": "For A with six fractional digits, N=A*820.08 has eight fractional digits. Store N*1e8 as an integer and D*1e6 as an integer; integer floor(Nint / Dint) equals truncated result in hundredths.",
+    "assertions": "All four printed two-place outcomes reproduce exactly under 820.08 and the same source-normalized denominator; each source's positive numerator is also exactly A*820.08.",
+    "denominator_upper": "1.054930 - 0.082008 = 0.972922",
+    "denominator_lower": "1.115446 - 0.082008 = 1.033438",
+    "source_original_arithmetic_winners": 0
+  },
+  "aks_forward_erratum": {
+    "earlier_doc": "docs/research/TIANWEN-13PH-AKS-GAGAMCHA-TWO-DENOMINATOR-FORMULAS-AND-820-CONSTANT-AUDIT-R1.json",
+    "preserve_13ph_original": true,
+    "source_displayed_division": "275546/336 = 820.8",
+    "exact_division": "820.07738095238095238...",
+    "two_decimal_rounding": "820.08",
+    "judgment": "AKS 820.8 is an internal displayed arithmetic inconsistency. Independently, received examples use 820.08 and reproduce their four published results. A dropped zero in AKS is plausible but unproven; AKS's broad 820 formula may be intentional low-precision shorthand. Do not treat 820, 820.08 and 820.8 as automatically interchangeable.",
+    "mechanical_independence": "The original two-denominator comparison of 13PH is preserved; this refinement concerns constant precision and source-use scope, not proof of ancient edition variants."
+  },
+  "research_gate": {
+    "source_original_GK03188_00_pages": 0,
+    "source_original_KYUGUI67_upper_lower_pages": 0,
+    "new_GK00893_00_historical_target_winners": 0,
+    "historic_final_six_G893": "0/6",
+    "new_independent_physical_witnesses": 0,
+    "source_registry_delta": 0,
+    "matrix_delta": 0,
+    "genealogy_node_delta": 0,
+    "genealogy_edge_delta": 0,
+    "algorithm_reopens": 0,
+    "chart_product": "CLOSED",
+    "next": "Direct authenticated free source-emitted folios for original editions of 奎貴67/GK03188_00 plus GK00893_00 exact field and radix. Recheck 820.08 original glyph and source units before assigning an edition-level constant."
+  },
+  "impact": {
+    "project_state_version": "1.1046.0",
+    "matrix_rows": 222,
+    "matrix_audited": 222,
+    "root_registry": 647,
+    "extensions": 118,
+    "total_sources": 765,
+    "graph_nodes": 252,
+    "graph_edges": 238,
+    "open_issues": 11
+  }
+}
