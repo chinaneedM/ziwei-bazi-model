@@ -43,7 +43,10 @@ def check(e,s,l,q):
  assert f["full_original_field_unit_radix_epoch_bridge"]==f["independent_lineage"]=="UNPROVEN"
  assert f["G893_six_final_historical_winners"]==f["algorithm_reopen"]==0
  assert f["original_text_correction_asserted"] is False
- assert e["guard"]["registered_sources"]==s["historical_audit"]["external_source_registry_total_unique_count"]==765
+ assert e["guard"]["registered_sources"]==765  # immutable 13MU source census at publication
+ ext=json.loads((R/"docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json").read_text(encoding="utf8"))
+ assert ext["combined_source_count"]>=e["guard"]["registered_sources"]
+ assert s["historical_audit"]["external_source_registry_total_unique_count"]==ext["combined_source_count"]
  assert e["guard"]["product"]==s["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED"
  assert s["schema_version"]==l["binding"]["reviewed_state_version"]==s["historical_audit"]["research_omission_guard"]["reviewed_state_version"]
  assert tuple(map(int,s["schema_version"].split(".")))>=(1,983,0)
