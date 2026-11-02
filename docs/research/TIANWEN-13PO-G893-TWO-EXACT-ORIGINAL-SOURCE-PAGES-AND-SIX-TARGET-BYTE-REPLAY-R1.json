@@ -39,8 +39,10 @@
       "decoded_rgb_sha256": "bf96f47d9a1fb57fb8894534fad3b8b59e3417af7f188456c23730eb97eb5082",
       "attempts": [
         {
-          "attempt": 2,
-          "status": "CONNECTION_RESET"
+          "attempt": 1,
+          "status": "CONNECTION_RESET",
+          "error": "URLError",
+          "details": "[Errno 104] Connection reset by peer"
         },
         {
           "attempt": 2,
@@ -186,5 +188,36 @@
     "algorithm_reopen": 0,
     "chart_product": "CLOSED",
     "transmission_impact": "NONE_EXACT_SAME_COPY_SOURCE_BYTES_RESTORED"
+  },
+  "append_only_metadata_correction": {
+    "id": "13PO-METADATA-RETRY-INDEX-ERRATUM-20261102",
+    "previous_commit": "884ff756c0f664ad48a61f2839bc4e31bae4b0ef",
+    "corrected_record": "recovered_exact_pages[page=032b].attempts",
+    "previous_attempts": [
+      {
+        "attempt": 2,
+        "status": "CONNECTION_RESET"
+      },
+      {
+        "attempt": 2,
+        "status": "EXACT_JPEG_MATCH"
+      }
+    ],
+    "corrected_attempts": [
+      {
+        "attempt": 1,
+        "status": "CONNECTION_RESET",
+        "error": "URLError",
+        "details": "[Errno 104] Connection reset by peer"
+      },
+      {
+        "attempt": 2,
+        "status": "EXACT_JPEG_MATCH"
+      }
+    ],
+    "reason": "Earlier research JSON serialized two entries with attempt=2, while the raw first-party GitHub Actions 13PO receipt records attempt1 as connection reset and attempt2 as PASS. Correct attempt sequencing without changing original SHA, pixels, folios, provenance or adjudications.",
+    "evidence": "GitHub Actions run 41457048333, artifact 13148305028, exact ZIP SHA256 20ae37ae0db2eadf2c911c1959e9591c66804c26bb9a07bc3daea684466018b1, receipt.json (032b attempts)",
+    "new_source_claim": false,
+    "new_numeric_winner": false
   }
 }
