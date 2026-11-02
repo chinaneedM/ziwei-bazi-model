@@ -1,0 +1,79 @@
+{
+  "schema": "TIANWEN-13PD-JIAOSHI-NURIIDT-PUBLIC-OCR-IMAGE-SEARCH-DEMO-LOCATOR-R1",
+  "date": "2026-11-02",
+  "issue_id": "TW-OPEN-0005",
+  "predecessor": "docs/research/TIANWEN-13PC-JIAOSHI-PUBLISHED-SAMPLE-PLATE-AND-2017-TARGET-TOC-LOCATORS-R1.json",
+  "objective": "Review a distinct, publicly advertised, text-indexed source-image search demonstration containing a Jiaoshi bibliographic hit, without upgrading a vendor screenshot to a historical original or performing registration.",
+  "verified_public_urls": {
+    "provider_home": "https://ocr.nuriidt.co.kr/",
+    "image_search_demo": "https://ocr.nuriidt.co.kr/isearch/searchmain.jsp",
+    "user_manual_pdf": "https://ocr.nuriidt.co.kr/member/nuriidt_ocr_service.pdf",
+    "snu_science_catalog": "https://kyudb.snu.ac.kr/book/list.do?book_cate=SIC&focus=&mid=GDS"
+  },
+  "manual_witness": {
+    "publisher": "NuriIDT / 누리IDT",
+    "manual_date": "2023-05",
+    "screenshot_pdf_page_zero_index": 20,
+    "manual_printed_page": 20,
+    "screenshot_example_query": "北方七宿",
+    "screenshot_hit_title": "交食推步法 교식추보법",
+    "screenshot_hit_context": "A first sample hit and an image preview are visibly displayed in the public PDF; this is a static vendor demonstration of a historical-page search, not an independent source original.",
+    "searched_words_match_target": false,
+    "target_heading": "假令上/下 盈縮加分",
+    "direct_target_image_shown": false,
+    "live_target_query_submitted": false,
+    "live_result_image_downloaded": false,
+    "original_image_sha256": null,
+    "original_page_or_folio_id": null,
+    "source_page_grade": "STATIC_2023_VENDOR_DEMO_SCREENSHOT_OF_SEARCH_RESULT_NOT_NATIVE_ORIGINAL",
+    "original_claim_scope": "The public vendor manual says the science-document search demonstration applies materials from Seoul National University Kyujanggak. It shows OCR-highlighted image preview associated with a Jiaoshi result, but a screenshot alone does not establish the underlying image URL, source object, exact physical copy, collation grade, or availability of another target page."
+  },
+  "first_party_catalog_control": {
+    "original_title": "交食推步法",
+    "reported_call_number": "奎貴67",
+    "reported_publication_year": 1458,
+    "reported_author_name": "李純之·金石悌",
+    "catalog_status": "SOURCE_CATALOG_IDENTITY_ONLY",
+    "vendor_demo_is_proven_exact_same_scan": false,
+    "source_original_target_formula_verified": false
+  },
+  "access_boundary": {
+    "anonymous_search_landing_page": "WEB_CRAWLER_READS_PUBLIC_LANDING_AND_INPUT_NO_LOGIN_GUARD_AT_LANDING",
+    "dynamic_keyword_search": "NOT_EXECUTED_OR_READ_AS_ANONYMOUS_LIVE_SEARCH",
+    "authorisation": "No paid subscription, account registration or service terms acceptance used.",
+    "paid_ocr_product_distinguished": "The provider separately displays paid OCR subscription products; these prices cannot be extrapolated to the public demo's availability.",
+    "blocked_test": "Local network runtime DNS resolution failed for ocr.nuriidt.co.kr; browser-rendered keyword result not available in this session.",
+    "search_negative_claim": "NONE; neither nonpresence of matching text nor unavailability of anonymous target images is established"
+  },
+  "comparison_to_prior_work": {
+    "source_not_new_classical_witness": true,
+    "source_not_independent_of_snu_digital_object": "UNKNOWN",
+    "redundant_static_screenshot_with_13ON": "Distinct vendor demo route, but no new authenticated original target; do not count duplicate screenshot as separate copy.",
+    "no_new_numeric_control_or_romanization_adjudication": true
+  },
+  "exclusions": {
+    "new_registry_sources": 0,
+    "new_matrix_rows": 0,
+    "new_graph_nodes_or_edges": 0,
+    "G893_historical_final": "0/6",
+    "matrix": "222/222",
+    "source_union": 765,
+    "genealogy": "252/238",
+    "active_issues": 11,
+    "product": "CLOSED",
+    "algorithm_reopens": 0
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Vendor OCR result screenshot and SNU catalog identity do not establish an independent physical manuscript, original 1458 target formula page, or direct G893 source lineage."
+    ],
+    "unresolved_lineage_questions": [
+      "Whether the anonymous public search demo exposes a provider-emitted image and exact original folio for upper/lower 盈縮加分.",
+      "Whether any demo image can be independently bound to 奎貴67 and original source bytes by stable item/page identifiers."
+    ]
+  },
+  "next_action": "Only if the live public demo returns provider-emitted anonymous source image URLs, test the exact two target keywords and record item/page/hash from the authorized public response. Do not query hidden APIs, manufacture image IDs, register or pay. If no source-original target is available, prioritize the independent GK00893_00 少/微 original table columns; do not repeat generic catalog searches."
+}
