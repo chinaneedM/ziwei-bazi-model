@@ -1,0 +1,89 @@
+{
+  "schema": "TIANWEN-13QB-AKS-GYOSIK-PREFACE-IMAGE-AND-YEAR-SCOPE-R1",
+  "date": "2026-11-03",
+  "issue_id": "TW-OPEN-0005",
+  "parent": "docs/research/TIANWEN-13QA-LEE2008-GYOSIK-FIGURE-1986-BIBLIOGRAPHY-IDENTITY-FIREWALL-R1.json",
+  "objective": "Bound direct public visual access to a historical book-opening illustration without claiming a new original physical witness, and separate compilation, typecasting, publication and source-copy dates.",
+  "sources": [
+    {
+      "provider": "Academy of Korean Studies, Korean Culture Encyclopedia",
+      "url": "https://encykorea.aks.ac.kr/Article/E0005505",
+      "media_urls": [
+        "https://devin.aks.ac.kr/image/694a7c1c-24fd-4e4e-8553-55cd3afbf0b4?preset=page",
+        "https://devin.aks.ac.kr/image/057cd6c3-50f8-482e-a77b-36f434a6afb1?preset=orig",
+        "https://devin.aks.ac.kr/image/31e058a3-f71f-4fd2-bdb4-92b46aed89bf?preset=page"
+      ],
+      "observation": "The public page gallery renders a book opening with the visible heading 交食推步法假令序; a separate page includes 交食推步法假令上 and 用數目錄. A cover image also appears. The gallery does not supply copy-specific original folio metadata to this review.",
+      "grade": "PUBLIC_ILLUSTRATED_PREVIEW_ONLY; NO_NATIVE_FILE_OR_COPY_ID"
+    },
+    {
+      "provider": "SNU Kyujanggak first-party book catalog",
+      "url": "https://kyudb.snu.ac.kr/book/list.do?book_cate=SIC&focus=&mid=GDS",
+      "call_number": "奎貴67",
+      "title": "交食推步法",
+      "edition": "古活字本: large 丙辰字, medium 甲寅字",
+      "year": 1458,
+      "person_name": "李純之·金石悌",
+      "grade": "CATALOG_ONLY_NOT_TARGET_GLYPH"
+    },
+    {
+      "provider": "Academy of Korean Studies encyclopedia text",
+      "url": "https://encykorea.aks.ac.kr/Article/E0005505",
+      "observation": "Entry describes publication in 1459; author 현정준, original 1995, last updated 2023-02-07. This does not source-attribute the gallery photograph.",
+      "grade": "SECONDARY_ENCYCLOPEDIA_YEAR"
+    },
+    {
+      "provider": "Academy of Korean Studies specialist 戊寅字 entry",
+      "url": "https://encykorea.aks.ac.kr/Article/E0019217",
+      "observation": "The metal type was cast in 1458, for printing the large type of 交食推步法假令, and the rare copy is described as held by SNU Kyujanggak. Casting year is not itself physical-copy impression year.",
+      "grade": "SPECIALIST_TYPE_HISTORY_NOT_FOLIO"
+    },
+    {
+      "provider": "National Institute of Korean History 2017 book catalog",
+      "url": "https://db.history.go.kr/id/hb_180_01_001315",
+      "observation": "2017 南宗眞 translation 國譯 交食推步法, ISBN 9788982750243, table of contents lists 交食推步法假令序 and an original-text section labelled 교식추보법 원본; no book or target original image retrieved in this review.",
+      "grade": "MODERN_TOC_ONLY"
+    }
+  ],
+  "checks": {
+    "public_pictorial_preface_title_preview": true,
+    "original_image_bytes_saved": false,
+    "original_image_sha256": null,
+    "actual_physical_copy_bound": false,
+    "original_person_glyph_verified": false,
+    "original_dingxian_glyph_verified": false,
+    "copy_identical_to_2008_fig1": "NOT_PROVEN",
+    "year_1458_1459": "CATALOG_AND_ENCYCLOPEDIA_DISAGREE_OR_USE_DIFFERENT_DATE_SCOPES; NOT_ADJUDICATED",
+    "physical_witnesses_added": 0,
+    "registry_sources_added": 0,
+    "matrix_rows_added": 0,
+    "genealogy_nodes_added": 0,
+    "genealogy_edges_added": 0,
+    "G893_historical_numeric_finals": "0/6",
+    "G893_shao_wei_unit_carry": "OPEN",
+    "algorithm_reopen_count": 0
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Do not identify public AKS illustration with Lee 2008 Fig1 or SNU 奎貴67 original physical copy without an image/copy binding.",
+      "Do not collapse 1458 type-casting, 1458 SNU catalog date and 1459 AKS work publication year into a single verified impression date."
+    ],
+    "unresolved_lineage_questions": [
+      "Which original edition and physical copy underlies the AKS encyclopedia media and Lee 2008 Fig1?",
+      "Does the print tradition differ in person 金石梯/悌 and operation 定限/恨 glyphs?"
+    ]
+  },
+  "next": "Acquire source-issued native-resolution leaf and copy metadata only when publicly available without login/fee. Bind actual folio and image digest before glyph adjudication; inspect independent original of G893 unit/少-微/carry. No guessed URLs, paid or registered acquisitions.",
+  "status": {
+    "matrix": "222/222",
+    "registry": 768,
+    "graph_nodes": 252,
+    "graph_edges": 238,
+    "issues": 11,
+    "chart": "CLOSED",
+    "algorithms_reopened": 0
+  }
+}
