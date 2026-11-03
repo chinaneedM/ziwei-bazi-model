@@ -1,0 +1,160 @@
+{
+  "schema": "TIANWEN-13QK-KYOTO-1672-YUANSHI54-DIRECT-SHAO-POSITIONAL-UNIT-COLLATION-R1",
+  "date": "2026-11-03",
+  "issue_id": "TW-OPEN-0005",
+  "status": "SOURCE_ORIGINAL_PRINTED_GLYPHS_POSITIVE_BUT_G893_ORIGINAL_DECISIONS_OPEN",
+  "precedent": "docs/research/TIANWEN-13QJ-KYOTO-1672-KAISEI-SHOUSHI-LICHENG-TARGET-VOLUME-ROUTE-R1.json",
+  "source": {
+    "provider": "Kyoto University Rare Materials Digital Archive",
+    "item_id": "RB00028639",
+    "catalog_url": "https://rmda.kulib.kyoto-u.ac.jp/item/rb00028639",
+    "physical_holding_scope": "ONE_KYOTO_CATALOGUED_SET_OF_FOUR_BOOKS",
+    "volume": "利 (third book); 元史卷五十四 曆志第六 / 授時暦經巻上",
+    "edition": "寛文12 [1672] Japanese printed Yuan-history received recension (catalogued year, not independently authenticated impression)",
+    "manifest_url": "https://rmda.kulib.kyoto-u.ac.jp/iiif/metadata_manifest/RB00028639/manifest.json",
+    "manifest_sha256": "1a583be6bf88bc67133dee7c0cfccd35b189bccb3c5c60677735e7f041d64043",
+    "manifest_canvas_count": 127,
+    "exact_original_leaf_numbers": "UNBOUND_VIEWER_LABELS_ONLY"
+  },
+  "acquisition": {
+    "workflow": ".github/workflows/acquire-tianwen-13qk-kyoto-shoushi-v3.yml",
+    "commit": "74fddcd8ee6fbb5de576990e03e9d9970b945a3a",
+    "run_id": 41658421796,
+    "run_url": "https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/41658421796",
+    "artifact_id": 13241091646,
+    "artifact_name": "tianwen-13qk-kyoto-rb00028639-vol3",
+    "result": "SUCCESS",
+    "image_count": 35,
+    "canvas_index_interval_inclusive": [
+      65,
+      99
+    ],
+    "volume_03_viewer_labels": [
+      67,
+      97
+    ],
+    "volume_03_source_issued_image_count": 31,
+    "boundaries": "index65/source p66 is preceding book; index97/source p98 begins next fourth book",
+    "image_properties": "JPEG 1600px wide from exact source-issued IIIF services, publicly available, no login",
+    "direct_image_files_not_committed_to_public_repository": true,
+    "local_review": "Downloaded original artifact, visually reviewed high-resolution original pages and native crops; no OCR",
+    "report_page_digests_rehashed_against_local_artifact": true,
+    "manifest_digest_rehashed": true
+  },
+  "direct_original_page_evidence": [
+    {
+      "viewer_page_label": 73,
+      "canvas_zero_based_index": 72,
+      "volume": "03",
+      "source_url": "https://rmda.kulib.kyoto-u.ac.jp/iiif/3/RB00028639%2F03%2FRB00028639_00073_0.ptif/full/1600,/0/default.jpg",
+      "source_jpeg_sha256": "ccf34b39ee29f9397cb4c0adc51d46c7a7c909a8df3d57a489ece8f4265d800a",
+      "pixels": [
+        1600,
+        1159
+      ],
+      "literal_readings": [
+        "朔策二十九日五千三百五分九十三秒",
+        "弦策七日三千八百二十六分四十八秒少"
+      ],
+      "glyph_attested": "秒少",
+      "review": "DIRECT_ORIGINAL_PRINTED_IMAGE_HUMAN_NO_OCR"
+    },
+    {
+      "viewer_page_label": 78,
+      "canvas_zero_based_index": 77,
+      "volume": "03",
+      "source_url": "https://rmda.kulib.kyoto-u.ac.jp/iiif/3/RB00028639%2F03%2FRB00028639_00078_0.ptif/full/1600,/0/default.jpg",
+      "source_jpeg_sha256": "9b4b2b125cb6b05ef0c1fcbdc2a12ed464276a947dba17ff0c56459e9a4af923",
+      "pixels": [
+        1600,
+        1159
+      ],
+      "literal_readings": [
+        "半歲周一百八十二日六千二百一十二分半",
+        "盈初縮末限八十八日九千九十二分少",
+        "縮初盈末限九十三日七千一百二十分少"
+      ],
+      "glyph_attested": "分少 (two distinct loci on same original image)",
+      "review": "DIRECT_ORIGINAL_PRINTED_IMAGE_HUMAN_NO_OCR"
+    }
+  ],
+  "exact_rational_mechanical_replay": {
+    "unit_model": {
+      "day": "1",
+      "fen": "1/10000 day",
+      "miao": "1/1000000 day",
+      "shao": "1/4 of immediately preceding final unit in these source examples",
+      "ban": "1/2 of immediately preceding final unit in this source example"
+    },
+    "moon_quarter": {
+      "received_source_朔策": "29.530593",
+      "source_弦策": "7.38264825",
+      "formula": "(29 + 5305/10000 + 93/1000000)/4 = 7 + 3826/10000 + (48 + 1/4)/1000000",
+      "test": "PASS_EXACT_RATIONAL"
+    },
+    "solar_limits": {
+      "source_盈初縮末限": "88.909225",
+      "source_縮初盈末限": "93.712025",
+      "printed_半歲周": "182.62125",
+      "formula": "(88 + (9092+1/4)/10000) + (93 + (7120+1/4)/10000) = 182 + (6212+1/2)/10000",
+      "test": "PASS_EXACT_RATIONAL"
+    },
+    "positional_shao_dimension": {
+      "miao_shao_days": "0.00000025",
+      "fen_shao_days": "0.000025",
+      "ratio": "100",
+      "conclusion": "SAME_GRAPHIC_SHAO_HAS_LAST_PLACE_RELATIVE_DIMENSION_IN_THIS_EXEMPLAR; NOT_A_UNIVERSAL_FIXED_UNIT"
+    }
+  },
+  "source_identity_and_scope": {
+    "original_1672_japanese_printed_text_directly_visible": true,
+    "original_yuan_dynasty_manuscript_attested": false,
+    "snu_15th_century_g893_original_same_column_precision_verified": false,
+    "snu_gk00067_1458_original_target_verified": false,
+    "new_g893_native_unit_carry_winner": false,
+    "g893_six_historic_final_numeric_winners": "0/6",
+    "independent_original_g893_source_votes_added": 0,
+    "original_physical_book_new_count": 0,
+    "not_a_second_physical_witness_to_13QJ": true,
+    "not_same_as_japanese_merchant_shinkan_edition_without_edition_proof": true,
+    "modern_received_transcription_has_no_additional_physical_votes": true
+  },
+  "source_page_review_revision": {
+    "revision_id": "TW-OPEN-0005-13QK-KYOTO1672-V3-ORIGINAL-SHAO-20261103",
+    "physical_holding": "KYOTO_RB00028639_ONE_CATALOGUED_PHYSICAL_SET",
+    "original_folio_ref": "viewer labels 73 and 78, physical leaf folio numbering unbound",
+    "original_image_sha256": "ccf34b39ee29f9397cb4c0adc51d46c7a7c909a8df3d57a489ece8f4265d800a",
+    "secondary_image_sha256": "9b4b2b125cb6b05ef0c1fcbdc2a12ed464276a947dba17ff0c56459e9a4af923",
+    "original_image_source_url": "https://rmda.kulib.kyoto-u.ac.jp/iiif/3/RB00028639%2F03%2FRB00028639_00073_0.ptif/full/1600,/0/default.jpg",
+    "reviewed_by": "Tianwen manual direct-image philological review; no OCR",
+    "review_date": "2026-11-03",
+    "review_kind": "DIRECT_ORIGINAL_RECEIVED_TEXT_GLYPH",
+    "human_direct_glyph_or_linewise_review": true,
+    "previous_13QJ_registration_snapshot_preserved": true
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "The separate 1672 Kyoto received-Yuan edition cannot be assumed to be a directly copied predecessor of the 15th-century SNU G893 table or the 1458 交食推步法 formula copy."
+    ],
+    "remaining_questions": [
+      "G893 native original same-column 少/微 unit and carry instructions",
+      "SNU 奎貴67 independent original formula page",
+      "Yuan received text versus G893 physical-original transmission relationship"
+    ]
+  },
+  "counts": {
+    "matrix": "222/222",
+    "source_registry_root": 647,
+    "source_registry_extension": 127,
+    "source_registry_unique": 774,
+    "genealogy_nodes": 252,
+    "genealogy_edges": 238,
+    "open_issues": 11,
+    "algorithm_reopens": 0,
+    "deterministic_product": "CLOSED"
+  },
+  "next_gate": "P0 G893 same-physical-copy original solar field precision, unit or carry rule, or SNU 奎貴67 upper/lower 盈縮加分 authentic original folio. Do not re-acquire Kyoto third book or count 35 frames as independent witnesses."
+}
