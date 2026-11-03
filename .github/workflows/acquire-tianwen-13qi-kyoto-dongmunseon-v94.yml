@@ -1,0 +1,156 @@
+name: acquire-tianwen-13qi-kyoto-dongmunseon-v94
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/acquire-tianwen-13qi-kyoto-dongmunseon-v94.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  source-issued-iiif-atlas:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install --quiet pillow
+      - name: Capture bounded public Kyoto RB00028368 volume09 IIIF previews
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/tianwen-13qi-kyoto/previews
+          python - <<'PY'
+          import concurrent.futures
+          import hashlib
+          import io
+          import json
+          import pathlib
+          import urllib.parse
+          import urllib.request
+          from PIL import Image, ImageDraw
+
+          OUT = pathlib.Path("/tmp/tianwen-13qi-kyoto")
+          MANIFEST = "https://rmda.kulib.kyoto-u.ac.jp/iiif/metadata_manifest/RB00028368/manifest.json"
+          ITEM = "https://rmda.kulib.kyoto-u.ac.jp/item/rb00028368?page=720"
+          EXPECTED_HOST = "rmda.kulib.kyoto-u.ac.jp"
+          USER_AGENT = "TIANWEN/13QI evidence-limited research; original source images not republished"
+          # 13PT source-issued vol09 start page=720 and vol10 start=807.
+          # Keep both adjacent indices because viewer page indexing is not yet independently resolved.
+          START, STOP = 719, 808
+
+          def digest(data):
+              return hashlib.sha256(data).hexdigest()
+
+          def fetch(url, cap=2000000, timeout=32):
+              p = urllib.parse.urlsplit(url)
+              if p.scheme != "https" or p.hostname != EXPECTED_HOST or p.username or p.password:
+                  raise ValueError("unapproved provider host/credentials: "+str(p.hostname))
+              request=urllib.request.Request(url,headers={"User-Agent":USER_AGENT})
+              with urllib.request.urlopen(request,timeout=timeout) as res:
+                  if res.status != 200: raise ValueError("non-200 provider response")
+                  final=urllib.parse.urlsplit(res.geturl())
+                  if final.scheme != "https" or final.hostname != EXPECTED_HOST:
+                      raise ValueError("off-provider redirect")
+                  raw=res.read(cap+1)
+                  if len(raw)>cap:raise ValueError("bounded transfer exceeded")
+                  return raw,res.geturl(),res.headers.get("Content-Type","")
+
+          def canvas_image(c):
+              if c.get("images"):
+                  resource=c["images"][0].get("resource",{})
+              else:
+                  pages=c.get("items") or []
+                  annotations=pages[0].get("items") or [] if pages else []
+                  resource=annotations[0].get("body",{}) if annotations else {}
+              svc=resource.get("service")
+              if isinstance(svc,list):svc=svc[0] if svc else {}
+              service_id=(svc.get("@id") or svc.get("id")) if isinstance(svc,dict) else svc
+              if service_id:
+                  return service_id.rstrip("/")+"/full/420,/0/default.jpg", service_id
+              return (resource.get("@id") or resource.get("id")), None
+
+          def canvas_id(c):
+              return c.get("@id") or c.get("id")
+
+          def preview(idx,c):
+              record={"canvas_zero_based_index":idx,"canvas_id":canvas_id(c),"label":str(c.get("label",""))[:150]}
+              url,service=canvas_image(c)
+              record["source_issued_service"]=service
+              record["requested_image_url"]=url
+              if not url:
+                  record["status"]="NO_SOURCE_ISSUED_IMAGE"
+                  return record
+              try:
+                  raw,final,ctype=fetch(url,cap=5000000)
+                  im=Image.open(io.BytesIO(raw))
+                  im.load()
+                  if im.width>1600 or im.height>2600:
+                      raise ValueError("preview response exceeds bounded dimensions")
+                  record.update(status="PREVIEW_CAPTURED",url=final,content_type=ctype,
+                                sha256=digest(raw),pixels=[im.width,im.height],
+                                rgb_sha256=digest(im.convert("RGB").tobytes()))
+                  dest=OUT/"previews"/f"canvas-{idx:04d}.jpg"
+                  dest.write_bytes(raw)
+                  record["local_preview_name"]=dest.name
+              except Exception as exc:
+                  record.update(status="PREVIEW_NOT_ACQUIRED",error=type(exc).__name__+": "+str(exc)[:220])
+              return record
+
+          report={"schema":"TIANWEN-13QI-KYOTO-RB00028368-V09-BOUNDED-IIIF-ATLAS-R1",
+                  "item":ITEM,"manifest_url":MANIFEST,
+                  "target":"卷94 交食推步法假令序",
+                  "scope":"EXACT_PUBLISHED_KYOTO_VOLUME09_CANVAS_NEIGHBORHOOD_ONLY",
+                  "original_glyph_collation_authorized":False,
+                  "source_native_original_pixels_captured":False,
+                  "independent_historical_witness_votes":0,
+                  "ocr_used":False,"image_files":[]}
+          try:
+              raw,url,ctype=fetch(MANIFEST,cap=35000000,timeout=60)
+              (OUT/"manifest.json").write_bytes(raw)
+              data=json.loads(raw.decode("utf-8-sig"))
+              canvases=(data.get("sequences") or [{}])[0].get("canvases") or data.get("items") or []
+              report.update(manifest_sha256=digest(raw),manifest_bytes=len(raw),manifest_final_url=url,
+                            manifest_content_type=ctype,canvas_count=len(canvases),status="MANIFEST_CAPTURED")
+              if not canvases: raise ValueError("no IIIF canvases in source manifest")
+              end=min(STOP,len(canvases)-1)
+              selected=list(range(START,end+1)) if end>=START else []
+              if not selected:raise ValueError("manifest canvas count below source-issued range")
+              report["selected_zero_based_indices"]=[selected[0],selected[-1]]
+              with concurrent.futures.ThreadPoolExecutor(max_workers=5) as pool:
+                  rows=list(pool.map(lambda idx:preview(idx,canvases[idx]),selected))
+              report["image_files"]=rows
+              success=[x for x in rows if x["status"]=="PREVIEW_CAPTURED"]
+              report["preview_count"]=len(success)
+              for group in range(0,len(success),15):
+                  subset=success[group:group+15]
+                  sheet=Image.new("RGB",(5*250,3*350),"white")
+                  draw=ImageDraw.Draw(sheet)
+                  for p,row in enumerate(subset):
+                      im=Image.open(OUT/"previews"/row["local_preview_name"]).convert("RGB")
+                      im.thumbnail((238,315))
+                      x=(p%5)*250;y=(p//5)*350
+                      draw.text((x+4,y+3),"canvas "+str(row["canvas_zero_based_index"]),fill="black")
+                      sheet.paste(im,(x+5,y+26))
+                  sheet.save(OUT/f"contact-{group//15+1:02d}.jpg",quality=86)
+              report["status"]="BOUNDED_PREVIEWS_CAPTURED" if success else "MANIFEST_ONLY_PREVIEW_BLOCKED"
+          except Exception as exc:
+              report["probe_error"]=type(exc).__name__+": "+str(exc)[:400]
+              if report.get("status")!="MANIFEST_CAPTURED":report["status"]="MANIFEST_ACCESS_BOUNDARY"
+              else:report["status"]="CANVAS_ACCESS_BOUNDARY"
+          (OUT/"report.json").write_text(json.dumps(report,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+          print(json.dumps({k:report.get(k) for k in
+             ("status","manifest_sha256","canvas_count","selected_zero_based_indices","preview_count","probe_error")},ensure_ascii=False))
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: tianwen-13qi-kyoto-rb00028368-vol09-preview
+          path: /tmp/tianwen-13qi-kyoto/
+          retention-days: 30
+          if-no-files-found: warn
