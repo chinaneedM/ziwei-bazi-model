@@ -1,0 +1,115 @@
+{
+  "schema": "TIANWEN-13QG-MYEONGGOK-V13-SOLAR-DAYFRACTION-AND-96K-UNIT-SCOPE-R1",
+  "date": "2026-11-03",
+  "issue_id": "TW-OPEN-0005",
+  "kind": "NEW_KOREAN_PRE1721_HISTORICAL_RECEIVED_TEXT_SOLAR_INTERPOLATION_AND_UNIT_DIMENSION_REVIEW",
+  "question": "Does 崔錫鼎《明谷集》卷十三 explain the older solar 盈縮加分 interpolation and 100刻/96刻 conversion, and can either identify G893's native 一秒八十六少 or settle any of its six historical finals?",
+  "source_identity": {
+    "original_script_author": "崔錫鼎 (최석정)",
+    "author_life_span_from_institutional_bibliography": "1646-1715",
+    "work": "明谷集 (also 明谷先生文集)",
+    "received_target": "卷十三 / 書牘 / recurring heading 與李壽翁書; two distinct letters identified by their opening phrases, not one duplicate letter",
+    "received_text_url": "https://zh.wikisource.org/zh-hant/明谷集_(崔錫鼎)/卷十三",
+    "received_text_alt_url": "https://wk.100ke.info/zh-hant/明谷集_(崔錫鼎)/卷十三",
+    "edition_catalogue_url": "https://db.mkstudy.com/opendatabase/itkc/chonggan/book/KYmJ/?refresh_ip_check=1",
+    "institutional_bibliographic_claims": {
+      "collected_and_edited": "Author's son 崔昌大 and students compiled drafts after his death",
+      "first_print": "1721 大邱監營 wooden-block edition, 34卷15冊",
+      "facsimile_basis": "國立中央圖書館 한46-가1170; quoted introduction says some damaged leaves in juan 22-24 were substituted from SNU 奎1077",
+      "target_juan_13_original_leaf_attested": false,
+      "manuscript_date_of_quoted_letters": "UNBOUND; 1721 is the collection print date, not verified letter-composition date",
+      "claim_scope": "PUBLIC_PUBLISHER_INSTITUTIONAL_DERIVED_BIBLIOGRAPHY_FOR_WORK_AND_FACSIMILE_BASE_NOT_DIRECT_TARGET_PAGE_PIXELS"
+    },
+    "access_grade": "LATER_TRANSMITTED_HISTORICAL_TEXT_MODERN_DIGITAL_TRANSCRIPTION_WITH_SEPARATE_INSTITUTIONAL_BIBLIOGRAPHY; ORIGINAL_TARGET_GLYPHS_NOT_COLLATED",
+    "excluded_deduplication": "Wikisource zh and wk mirror are the SAME received-text presentation, not two independent witnesses. The institutional edition description and received transcription do not automatically bind a given letter to an individually inspected 1721 woodblock leaf."
+  },
+  "exact_passage_controls": [
+    {
+      "locator": "卷十三 書牘 與李壽翁書; letter opening 昨書承悉; section 盈縮加分雲者",
+      "witnessed_selective_text": "盈縮加分雲者。卽盈分縮分也。合而名曰盈縮加分。盈縮積雲者。乃加分之積",
+      "interpretation": "Author explicitly distinguishes per-day solar surplus/deficit increment (加分) from accumulated correction (盈縮積), and warns against treating the two solar modes as simultaneous multiplication.",
+      "followup_short_text": "以加分乘之。萬約爲分。加諸盈縮積者",
+      "scope": "SCOPED_SOLAR_DAY_FRACTION_RECEIVED_MECHANICAL_EXPLANATION_NOT_G893_NATIVE_NUMERIC_ORIGINAL"
+    },
+    {
+      "locator": "卷十三 書牘 與李壽翁書; letter opening 日昨伻回",
+      "witnessed_selective_text": "加分是經朔全日剩分。而今有日下若干分。則必以加分乘之。日法除之然後",
+      "interpretation": "Earlier letter distinguishes elapsed-day fractional part, multiplying tabular 加分 and dividing by 日法 before combining with 積分.",
+      "scope": "INTERPOLATION_PROCEDURE_EXPLANATION; DAY_FRACTION_DENOMINATOR_MUST_BE_BOUND_TO_EXACT_FORMULA_NOT_GENERIC_NAME"
+    },
+    {
+      "locator": "卷十三 書牘 與李壽翁書; letter opening 伻回得手覆",
+      "witnessed_selective_text": "盈縮法乘除之理。乃算法異乘同除也",
+      "interpretation": "Late-author correspondence calls the multiplication/division form 異乘同除, giving an example of the arithmetic idea, without establishing formula-source-copy identity.",
+      "scope": "MATH_CONCEPT_RECEIVED_TEXT"
+    },
+    {
+      "locator": "same 伻回得手覆 letter, later paragraph beginning 今以刻法借明之朔實",
+      "witnessed_selective_text": "若以西法九十六刻求之。則先以九十六。乘五十三。得五千。○八十八。復以刻法一百除之。方得五十刻八十八分",
+      "interpretation": "A separate timekeeping denominator translation uses 100刻→96刻. The passage ALSO analogizes this to solar interpolation, but does not say the two numerically different divisions share a historical unit or source page.",
+      "scope": "TIMEKEEPING_DAY_RADIX_NOT_SOLAR_TABLE_SHao_GLYPH_AUTHORITY"
+    }
+  ],
+  "deterministic_mechanical_crosscheck": {
+    "time_96_over_100_examples": [
+      {
+        "input_hundred_ke": 53,
+        "multiplier": 96,
+        "divisor": 100,
+        "expected_ninety_six_ke": "50.88",
+        "calculation": "53*96/100=50.88"
+      },
+      {
+        "input_hundred_ke": 25,
+        "multiplier": 96,
+        "divisor": 100,
+        "expected_ninety_six_ke": "24",
+        "calculation": "25*96/100=24"
+      }
+    ],
+    "later_mingshi_received_formula": {
+      "control_url": "https://skqs.dazhishi.com/show_bzyaoeeqyg.html",
+      "exact_section": "明史卷三十五 志第十一 推盈縮差",
+      "mechanic": "置初末曆小餘; multiply by 立成內所載盈縮加分; divide by 日周一萬; add to 盈縮積",
+      "comparison_grade": "RECEIVED_MECHANICAL_FORMULA_FAMILY_CORRESPONDENCE_ONLY; NOT_DIRECT_TEXTUAL_DEPENDENCE_OR_IDENTICAL_G893_COLUMNS"
+    },
+    "explicit_field_firewall": "The 100/96 ke ratio belongs to timekeeping, while 日周一萬 in later solar-difference procedures is a fractional-day divisor. A passage mentioning both does not license transferring 96/100 to solar fields, or reading source-native G893 一秒八十六少 as 微."
+  },
+  "adjacent_unpromoted_day_boundary": {
+    "source_context": "Another letter in the same volume discusses 子初四刻以上則屬之昨日 and 8大2小刻, but it concerns 授時 calendar and counting conventions, NOT a Ziwei school-specifically attested late-Zi candidate.",
+    "HPA_ZDATE_006_runtime_impact": "NONE; P0 TW-OPEN-0006 stays pending original Ziwei edition evidence and independent time-coordinate formalization."
+  },
+  "results": {
+    "source_registry_additions": 1,
+    "new_original_folio_pages": 0,
+    "new_target_glyph_collations": 0,
+    "new_independent_physical_witnesses": 0,
+    "g893_historical_numeric_final_winners": "0/6",
+    "g893_original_shao_wei": "UNRESOLVED",
+    "matrix": "222/222",
+    "registry_root": 647,
+    "registry_extension_after": 124,
+    "registry_unique_after": 771,
+    "genealogy_nodes": 252,
+    "genealogy_edges": 238,
+    "open_issues": 11,
+    "chart_product": "CLOSED",
+    "algorithm_reopens": 0,
+    "source_scope_conclusion": "HISTORICALLY_INTERESTING_RECEIVED_TEXTUAL_MECHANICAL_BRIDGE_ONLY"
+  },
+  "next_gate": "Find provider-issued, source-original solar G893 same-column 少/微 and radix/carry instructions or actual SNU 奎貴67 upper/lower 盈縮加分 formula folio; alternatively secure an independent genuinely collated woodblock target leaf for 《明谷集》卷十三 if it can clarify textual variants at no cost.",
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "A received 1721 compiled Korean correspondence does not prove textual direct copying from a particular G893 physical copy.",
+      "同名盈縮加分 and shared multiplication/division are a rule-family comparison, not source-specific original solar field identity.",
+      "Adjacent hundred-ke to ninety-six-ke translation is a separate denominator, not a proof that G893 少 means 微 or any disputed historical numerical value."
+    ],
+    "unresolved_lineage_questions": [
+      "Actual printing/folio and independently bound original glyphs for the two specific 《明谷集》卷十三 letters",
+      "Original G893 tabular units and 少/微 carry, plus the missing SNU 奎貴67 formula section"
+    ]
+  }
+}
