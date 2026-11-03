@@ -1,0 +1,147 @@
+{
+  "schema": "TIANWEN-13PZ-GYOSIK-1986-VOLUME5-AND-NURIIDT-IMAGE-SEARCH-ACCESS-BOUNDARY-R1",
+  "date": "2026-11-03",
+  "issue_id": "TW-OPEN-0005",
+  "parent": "docs/research/TIANWEN-13PY-GYOSIK-PREFACE-2008-PUBLISHED-FIGURE-ORIGINAL-GLYPH-ACQUISITION-LEAD-R1.json",
+  "purpose": "Identify a copy-specific modern reproduction volume and a public image-search route to the SNU Kyujanggak science-image database, while separating both from the 1458 physical original and from any source-page image not yet acquired.",
+  "sources": [
+    {
+      "kind": "FIRST_PARTY_AGGREGATED_UNIVERSITY_CATALOG",
+      "provider": "CiNii Books / National Institute of Informatics",
+      "url": "https://ci.nii.ac.jp/ncid/BA65204123",
+      "title": "諸家暦象集 . 交食推歩法",
+      "series": "韓國科學技術史資料大系 天文學篇 ; 5",
+      "editor": "兪景老",
+      "publisher": "驪江出版社",
+      "publication_date": "1986.4",
+      "physical_extent": "597p; 24cm",
+      "holdings": [
+        {
+          "institution": "Kyoto University Institute for Humanistic Sciences",
+          "call_number": "408||K-3036",
+          "local_id": "88079855"
+        },
+        {
+          "institution": "Gifu University Library",
+          "call_number": "402.21||Kan",
+          "local_id": "110746392"
+        },
+        {
+          "institution": "International Research Center for Japanese Studies (Nichibunken)",
+          "call_number": "M||35||Ha 5",
+          "local_id": "00033165"
+        },
+        {
+          "institution": "University of Tokyo General Library",
+          "call_number": "A60:632:5",
+          "local_id": "0010509222"
+        }
+      ],
+      "evidence_grade": "FIRST_PARTY_AGGREGATED_CATALOG_AND_HOLDINGS; NO_DIGITAL_BOOK_BYTES",
+      "interpretation": "One 1986 modern edition with four reported library holdings, not four independent 1458 physical witnesses."
+    },
+    {
+      "kind": "FIRST_PARTY_LIBRARY_CATALOG",
+      "provider": "Nichibunken Library OPAC",
+      "url": "https://toshonin.nichibun.ac.jp/webopac/ctlsrh.do?ncid=BA65204123&search_mode=detail&tab_num=0&locale=en",
+      "record_id": "TW92078958",
+      "call_number": "M/35/Ha 5",
+      "material_id": "000331652",
+      "extent": "5, 4, 597p; 24cm",
+      "access_result": "Public bibliographic record and one local holding shown; no digitized content or image viewer link."
+    },
+    {
+      "kind": "FIRST_PARTY_NATIONAL_CATALOG",
+      "provider": "National Diet Library Search",
+      "url": "https://ndlsearch.ndl.go.jp/books/R100000136-I1970586434928655915",
+      "publication": "驪江出版社, 1986.4",
+      "material_type": "Paper book",
+      "access_result": "Catalog record only; not tagged as internet-readable and no digital original image offered on this record."
+    },
+    {
+      "kind": "SCHOLARLY_CITATION_TO_MODERN_EDITION",
+      "provider": "KCI / Korean Journal of the History of Science",
+      "article": "전용훈, 2022, [기획] 세종 시대 서울 기준 시각법의 성립과 그 의의",
+      "url": "https://www.kci.go.kr/kciportal/landing/article.kci?arti_id=ART002915694",
+      "cited_item": "1986 / 交食推步法假令 '序', 韓國科學技術資料大系: 天文學篇 제5책 / 여강출판사",
+      "evidence_grade": "SECONDARY_SCHOLARLY_BIBLIOGRAPHIC_CITATION; NOT_ORIGINAL_GLYPH"
+    },
+    {
+      "kind": "PUBLIC_IMAGE_SEARCH_DEMO",
+      "provider": "NuriIDT",
+      "url": "https://ocr.nuriidt.co.kr/isearch/searchmain.jsp",
+      "live_page_observation": "Public demo page loads, provides a Chinese-character search field and states it applies SNU Kyujanggak science literature.",
+      "evidence_grade": "PUBLIC_DEMO_INTERFACE_ACCESSIBLE; NO_LIVE_QUERY_SUBMITTED"
+    },
+    {
+      "kind": "PROVIDER_USER_MANUAL",
+      "provider": "NuriIDT",
+      "url": "https://ocr.nuriidt.co.kr/member/nuriidt_ocr_service.pdf",
+      "edition": "2023-05",
+      "relevant_pages": "manual p.20",
+      "demonstration": "The image-search example shows query 北方七宿, five image results, first result titled 交食推步法, with an original-page image panel.",
+      "evidence_grade": "PROVIDER_MANUAL_DEMONSTRATION_SNAPSHOT; NOT_A_CURRENT_LIVE_SEARCH_RESULT"
+    },
+    {
+      "kind": "SCHOLARLY_PUBLISHED_FIGURE",
+      "provider": "Korean Earth Science Society / KIGAM public repository",
+      "url": "https://data.kigam.re.kr/ieg/cmmn/downloadFile.do?fileName=J290108.PDF",
+      "locus": "Ki-Won Lee 2008, printed p.111 Fig.1",
+      "observation": "Caption identifies a photograph of the preface part of 交食推步法; the physical copy and edition behind the photograph remain unidentified."
+    },
+    {
+      "kind": "SNU_FIRST_PARTY_CATALOG_AND_IMAGE_THUMBNAIL_ROUTES",
+      "provider": "Seoul National University Kyujanggak",
+      "catalog": "https://kyudb.snu.ac.kr/book/list.do?book_cate=SIC&focus=&mid=GDS",
+      "call_number": "奎貴67",
+      "cataloged_edition": "1458; 古活字本 (大字 丙辰字, 中字 甲寅字)",
+      "source_issued_thumbnail_routes": [
+        "https://kyudb.snu.ac.kr/thumb/SIC/GK00067_00/GK00067_00_0001/s_GK00067_00IH_0001_000a.jpg",
+        "https://kyudb.snu.ac.kr/thumb/SIC/GK00067_00/GK00067_00_0001/s_GK00067_00IH_0001_004b.jpg"
+      ],
+      "observation": "The two source-issued thumbnail routes returned HTTP 404 in this web session. This does not establish that the underlying original item or another image route is absent."
+    }
+  ],
+  "evidence_chain_adjudication": {
+    "1986_volume5_contains_交食推步法": "CONFIRMED_BY_CINII_TITLE_AND_2022_SCHOLARLY_CITATION",
+    "1986_volume5_is_1458_original": "FALSE; IT IS A MODERN_1986_EDITION",
+    "four_library_holdings_are_four_1458_witnesses": "FALSE; THEY ARE HOLDINGS_OF_ONE_1986_EDITION",
+    "2008_fig1_source_copy_identified": "NO",
+    "NURIIDT_LIVE_DEMO_QUERY_EXECUTED": "NO",
+    "NURIIDT_MANUAL_EXAMPLE_INCLUDES_交食推步法": "YES; 2023 DEMONSTRATION SNAPSHOT ONLY",
+    "NURIIDT_IMAGE_BYTES_OR_SOURCE_PAGE_ACQUIRED": "NO",
+    "SNU_1458_SOURCE_IMAGE_BYTES_OR_HASH_ACQUIRED": "NO",
+    "original_person_glyph_winner": "NONE",
+    "original_dingxian_glyph_winner": "NONE",
+    "G893_historical_numeric_final_decisions": "0/6",
+    "G893_shao_wei_fraction_and_carry": "OPEN"
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Four library holdings of the 1986 edition do not create four 1458 witnesses.",
+      "The 1986 volume's bibliographic citation does not identify the physical copy used for the 2008 Fig.1 photograph.",
+      "The NuriIDT manual's demonstration result is not a new image witness or a live retrieved source page.",
+      "A 404 on two SNU thumbnail URLs does not prove the original item has no accessible image."
+    ],
+    "unresolved_lineage_questions": [
+      "Can the live NuriIDT demo return the exact preface page for 交食推步法 or query terms 金石梯 / 金石悌 / 定限 / 定恨?",
+      "Does the 2008 Fig.1 image reproduce the SNU 奎貴67 original, the 1986 volume5, or another physical copy?",
+      "Can a provider-issued source image or a page in the 1986 volume5 be acquired without login, fee or contact?"
+    ]
+  },
+  "next_source_action": "Use only the already-public NuriIDT demo route to search exact Chinese-character terms if the interactive search can be executed without account or fee; capture the provider-issued result/page identifiers and original image only if exposed. In parallel, retain the 1986 volume5 as a modern bibliographic reproduction lead, not an original witness. Do not contact libraries, request paid copies, register accounts, infer missing URLs or promote the manual screenshot to a live original image.",
+  "status": {
+    "matrix": "222/222",
+    "source_registry_before": 766,
+    "source_registry_after": 768,
+    "genealogy_nodes": 252,
+    "genealogy_edges": 238,
+    "open_research_issues": 11,
+    "G893_final_winners": "0/6",
+    "chart_product": "CLOSED",
+    "algorithm_reopen_count": 0
+  }
+}
