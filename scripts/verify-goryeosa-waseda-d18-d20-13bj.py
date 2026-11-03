@@ -89,7 +89,7 @@ def check(e,be,bg,bh,yz,ledger,state):
  # every subsequent source_refs-only research note. Preserve the old action.
  later_action_revisions=[
     z for z in issue["history"][issue["history"].index(ev)+1:]
-    if z.get("event")=="ISSUE_REVISION" and "next_action" in z.get("changed_fields",[])
+    if z.get("event") in ("ISSUE_REVISION", "SOURCE_PAGE_REVIEW_REVISION") and "next_action" in z.get("changed_fields",[])
  ]
  latest_focus_prefix=ledger["binding"]["latest_research_focus_prefix"]
  if issue["next_action"].startswith("13BJ CURRENT ACTION"):
