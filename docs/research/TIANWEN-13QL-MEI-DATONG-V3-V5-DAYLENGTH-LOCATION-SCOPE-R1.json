@@ -1,0 +1,90 @@
+{
+  "schema": "TIANWEN-13QL-MEI-DATONG-V3-V5-DAYLENGTH-LOCATION-SCOPE-R1",
+  "date": "2026-11-03",
+  "issue_ids": [
+    "TW-OPEN-0007",
+    "TW-OPEN-0005"
+  ],
+  "status": "RECEIVED_QING_TEXT_TWO_DIFFERENT_TABLE_SCOPES_POSITIVE_ORIGINAL_PHYSICAL_FOLIOS_UNBOUND",
+  "research_question": "Do later received tables establish one universal Beijing/Nanjing reference locality for all Yuan-Ming day-length and dawn/dusk constructions?",
+  "source_identification": {
+    "work": "梅文鼎《大統曆志》",
+    "edition_family": "欽定四庫全書本的公開維基文庫收本；不是已認證原刻／實物影像",
+    "wikisource_full": "https://zh.wikisource.org/zh-hant/大統厯志_(四庫全書本)/全覽",
+    "volume3": "https://zh.wikisource.org/zh-hant/大統厯志_(四庫全書本)/卷3",
+    "volume5": "https://zh.wikisource.org/zh-hant/大統厯志_(四庫全書本)/卷5",
+    "independent_received_text_control": "https://www.wenlinshe.com/tw/chapter/skqs_zibu/da-tong-li-zhi/juan-5.html",
+    "physical_copy_identity": "UNBOUND",
+    "work_composition": "QING_MEI_WENDING_LATER_RETROSPECTIVE",
+    "edition_impression": "SIKU_RECENSION_NOT_PHYSICAL_IMPRESSION_AUTHENTICATED",
+    "original_folio_images_acquired": false
+  },
+  "direct_received_passages": [
+    {
+      "volume": 3,
+      "section": "黃道每度晝夜刻立成（後接右厯草所載...）",
+      "short_literal": "乃授時原定大都晷漏",
+      "context": "Mei distinguishes a 黃道每度 daylight/night tally as the earlier Dadu/Yanjing scale; reports summer solstice daylight / winter solstice night max 六十一刻八十四分 and reciprocal min 三十八刻一十六分.",
+      "printed_or_reported_values": {
+        "solstitial_long_ke": "61.84",
+        "solstitial_short_ke": "38.16",
+        "day_night_sum_ke": "100.00"
+      },
+      "chronology_note": "The same passage asserts an attempted Ming 正統己巳 change and a longer 南京軌漏 practice; this is Mei's later historiographical statement, not source-original 1449 clock evidence.",
+      "source_grade": "RECEIVED_LATER_TEXT_NOT_ORIGINAL_FOLIO"
+    },
+    {
+      "volume": 5,
+      "section": "大統歷依授時立成法下／冬至日後每日日出晨分半晝分",
+      "short_literal": "故知為陽城或南京晷刻也",
+      "context": "Mei evaluates a separate 日出入／半晝夜／晨昏 table as below 60/40 solstitial ke, compares 河南府陽城 and 南京 polar-altitude descriptions, and leaves two place candidates instead of proving one origin.",
+      "site_candidates": [
+        "河南府陽城",
+        "南京"
+      ],
+      "place_specific_label_from_source": "北京日出入時刻晝夜長短 is a separately headed later table and cannot by name alone overwrite the preceding place ambiguity.",
+      "source_grade": "RECEIVED_LATER_TEXT_NOT_ORIGINAL_FOLIO"
+    }
+  ],
+  "modern_companion_discovery": {
+    "url": "https://cal.kqh.me/",
+    "kind": "THIRD_PARTY_MODERN_COMPUTATIONAL_COMMENTARY_ONLY_NOT_ORIGINAL_HISTORICAL_WITNESS",
+    "reported_claim": "Its 授時大統可靠性驗證 paragraph differentiates 黃道積度 vs 積日 axes and 大都 vs 應天府 daylength settings across Yuan/SNU/Datong received tables.",
+    "critical_boundary": "The modern compressed claim cannot substitute for Mei v5's explicit 陽城或南京 ambiguity; verify each source's actual first-party original table, axis and geographic standard before selecting a locality."
+  },
+  "adjudication": {
+    "positive": "At least two differently labeled table/regime statements are present in the same later received Mei work; v3's Dadu daylight extrema and v5's candidate southern/central regime must not be silently normalized to one source.",
+    "negative_scope": [
+      "NOT_A_DIRECT_WITNESS_OF_ORIGINAL_YUAN_DADU_CLOCK",
+      "NOT_A_DIRECT_WITNESS_OF_ORIGINAL_MING_PUBLISHED_ALMANAC",
+      "NOT_AN_AUTHENTICATED_QING_FIRST_IMPRESSION",
+      "NOT_PROOF_THAT_YANGCHENG_EQUALS_NANJING",
+      "NOT_A_MECHANICAL_G893_SOLAR_SHAO_WEI_RADIX_OR_CARRY",
+      "NOT_NEW_G893_NUMERIC_HISTORIC_WINNER"
+    ],
+    "numeric_check": "61.84 + 38.16 = 100.00 ke (source-local reported maxima/minima only).",
+    "source_count_policy": "Wikisource/CText/Wenlinshe textual presentations are NOT independent ancient physical votes; register one additional v3/v5 scope record, not three manuscripts.",
+    "unresolved_next_original": "Obtain an original dated printing/physical folio for these Mei v3/v5 lines and the period-local official DaTong TongGui and G893 table originals, then bind exact columns/day axes and physical site; 1447/1449/1450 source-clock anchors stay separately UNRESOLVED."
+  },
+  "transmission_impact": {
+    "nodes_added": 0,
+    "edges_added": 0,
+    "edges_claimed": [],
+    "unproved_edges": [
+      "Mei Qing received interpretation cannot be promoted into direct Ming-to-Qing clock continuation or G893 source lineage."
+    ],
+    "scope": "No graph edits; retain source-scoped alternative place hypotheses."
+  },
+  "counts_after_expected": {
+    "matrix": "222/222",
+    "root_sources": 647,
+    "extension_sources": 128,
+    "total_sources": 775,
+    "genealogy_nodes": 252,
+    "genealogy_edges": 238,
+    "open_issues": 11,
+    "chart": "CLOSED",
+    "algorithm_reopens": 0,
+    "g893_six_numeric_finals": "0/6"
+  }
+}
