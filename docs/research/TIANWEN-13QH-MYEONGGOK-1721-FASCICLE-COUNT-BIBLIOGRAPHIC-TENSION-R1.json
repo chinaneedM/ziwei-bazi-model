@@ -1,0 +1,83 @@
+{
+  "schema": "TIANWEN-13QH-MYEONGGOK-1721-FASCICLE-COUNT-BIBLIOGRAPHIC-TENSION-R1",
+  "date": "2026-11-03",
+  "issue_id": "TW-OPEN-0005",
+  "kind": "FORWARD_ONLY_BIBLIOGRAPHIC_CONTRADICTION_AND_TARGET_COPY_FIREWALL",
+  "research_question": "Does the 34卷15冊 versus 34卷17冊 discrepancy for 崔錫鼎《明谷集》 establish a second historical original or identify the 卷十三 solar formula target folio?",
+  "prior_batch": "docs/research/TIANWEN-13QG-MYEONGGOK-V13-SOLAR-DAYFRACTION-AND-96K-UNIT-SCOPE-R1.json",
+  "distinct_public_bibliographic_descriptions": [
+    {
+      "provider": "韓國文集叢刊DB/MKS",
+      "url": "https://db.mkstudy.com/opendatabase/itkc/chonggan/book/KYmJ/?refresh_ip_check=1",
+      "identified_person": "崔錫鼎",
+      "work": "明谷集",
+      "printed_date_claim": "1721 大邱監營 木板 初刊本",
+      "fascicle_description": "34卷15冊",
+      "printing_plates_claim": "1435板",
+      "identified_facsimile_basis": "國立中央圖書館 한46-가1170",
+      "supplementary_copy_scope": "Only damaged leaves of 卷22至24 replaced from SNU 奎1077; no source-original 卷13 page inspected here",
+      "grade": "PUBLISHER_DERIVED_BIBLIOGRAPHIC_INTRODUCTION_NOT_SOURCE_PAGE_GLYPH"
+    },
+    {
+      "provider": "AKS 한국민족문화대백과사전",
+      "url": "https://encykorea.aks.ac.kr/Article/E0018213",
+      "entry_author": "유명종",
+      "entry_authored_year": 1995,
+      "last_revised": "2023-02-07",
+      "identified_person": "崔錫鼎",
+      "work": "明谷集",
+      "printed_date_claim": "1721 woodblock publication",
+      "fascicle_description": "34卷17冊",
+      "holding_names_scope": "國立中央圖書館、奎章閣、藏書閣, without per-copy item or volume13 page binding",
+      "juan_13_scope": "卷13 書牘 in topic summary, not a target formula original leaf",
+      "grade": "SIGNED_SECONDARY_ENCYCLOPEDIA_BIBLIOGRAPHY_NOT_SOURCE_PAGE_GLYPH"
+    }
+  ],
+  "adjudication": {
+    "same_work_author_and_general_printing_year": "SHARED_DESCRIPTIVE_SCOPE_ONLY",
+    "book_count_disagreement": "34卷15冊_VS_34卷17冊_REQUIRES_ITEM_LEVEL_RECONCILIATION",
+    "plausible_causes_not_yet_decided": [
+      "different physical copy binding or booklet aggregation",
+      "catalogue convention",
+      "encyclopedia or publisher description error",
+      "unspecified re-binding or edition variation"
+    ],
+    "exact_holding_and_item_crosswalk": "UNBOUND",
+    "year_1721_as_target_original_page_impression": "NOT_PROVEN_BY_SECONDARY_BIBLIOGRAPHY",
+    "comparison_is_independent_historical_witness_vote": false,
+    "physical_target_v13_folio_acquired": false,
+    "source_original_glyphs_acquired": false,
+    "prohibit_inference": "Do not infer two original copies or claim 15 vs17 decides 13QG wording, SNU 奎貴67 盈縮加分, G893 少/微 radix/carry or any of six numbers."
+  },
+  "results": {
+    "new_bibliographic_records": 1,
+    "new_original_folios": 0,
+    "new_independent_original_copy_votes": 0,
+    "new_g893_glyph_collations": 0,
+    "g893_historical_numeric_winners": "0/6",
+    "g893_shao_wei": "OPEN",
+    "matrix": "222/222",
+    "registry_root": 647,
+    "registry_extension_after": 125,
+    "registry_unique_after": 772,
+    "genealogy_nodes": 252,
+    "genealogy_edges": 238,
+    "open_issues": 11,
+    "chart_product": "CLOSED",
+    "algorithm_reopens": 0
+  },
+  "next_gate": "Prefer free provider-issued original SNU 奎貴67 盈縮加分 folio or G893 same-column 少/微 native unit/carry original; for Minggok copies, only a specific 1721/other image with original target 卷13 page plus item/copy ID can resolve count and glyph scope. No login, fees, duplicate folio votes, speculative edition winner or chart changes.",
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Two bibliography book counts are not evidence of two separately imaged/collated physical copies.",
+      "Same title and 1721 year do not identify a specific volume13 target folio or prove transmission to G893."
+    ],
+    "unresolved_lineage_questions": [
+      "Whether MKS 34卷15冊 and AKS 34卷17冊 describe distinct arrangements, catalog conventions or an error",
+      "Whether any source-issued original 卷十三 solar letter leaf can be tied to a verified physical copy"
+    ]
+  }
+}
