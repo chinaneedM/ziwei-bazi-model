@@ -1,0 +1,121 @@
+{
+  "schema": "TIANWEN-13QC-13QB-AKS-PHOTO-PRIOR-WITNESS-DEDUPE-AND-G893-SCOPE-ERRATUM-R1",
+  "date": "2026-11-03",
+  "issue_id": "TW-OPEN-0005",
+  "kind": "FORWARD_ONLY_PROVENANCE_SCOPE_ERRATUM",
+  "corrected_prior": "docs/research/TIANWEN-13QB-AKS-GYOSIK-PREFACE-IMAGE-AND-YEAR-SCOPE-R1.json",
+  "reason": "The 13QB research summary presented an AKS preface gallery as a newly found/positive acquisition, but it is an exact repeat of a documented three-UUID gallery observed in prior 13ON. The 1458/1459 and type-casting source-scope discussion likewise predates 13QB. Preserve the 13QB file as audit trail and annotate acquisition/novelty accurately rather than silently revising the old file.",
+  "direct_project_evidence": [
+    {
+      "record": "docs/research/TIANWEN-13ON-AKS-FIRSTPARTY-ORIGINAL-BOOK-PHOTOS-AND-1444-EPOCH-FIREWALL-R1.json",
+      "date": "2026-11-01",
+      "project_state_version": "1.1024.0",
+      "documented_exact_aks_media_uuid": [
+        "057cd6c3-50f8-482e-a77b-36f434a6afb1",
+        "31e058a3-f71f-4fd2-bdb4-92b46aed89bf",
+        "694a7c1c-24fd-4e4e-8553-55cd3afbf0b4"
+      ],
+      "observed": "All three same provider photo objects, including the preface-title opening and the 1444 numerical epoch opening, were visually observed with no full original copy/final numerical adjudication; binary download/hash and specific physical copy binding were already unresolved."
+    },
+    {
+      "record": "docs/research/TIANWEN-13QB-AKS-GYOSIK-PREFACE-IMAGE-AND-YEAR-SCOPE-R1.json",
+      "date": "2026-11-03",
+      "project_state_version": "1.1066.0",
+      "documented_exact_aks_media_uuid": [
+        "694a7c1c-24fd-4e4e-8553-55cd3afbf0b4",
+        "057cd6c3-50f8-482e-a77b-36f434a6afb1",
+        "31e058a3-f71f-4fd2-bdb4-92b46aed89bf"
+      ],
+      "same_uuid_set_as_13ON": true,
+      "distinct_previously_unregistered_gallery_photographs": 0
+    },
+    {
+      "record": "docs/research/TIANWEN-13OM-JIAOSHI-1457-1459-COMMISSION-AND-IMPRESSION-DATE-FIREWALL-R1.json",
+      "date": "2026-11-01",
+      "project_state_version": "1.1023.0",
+      "prior_result": "1457 royal commission, SNU 奎貴67 1458 catalog, AKS work article 1459 and print-type chronology already separated; their discrepancy unresolved."
+    },
+    {
+      "record": "docs/research/TIANWEN-13OP-KYU67-EXACT-FOLIO-INQUIRY-AND-TYPE-COLLATION-GATE-R1.json",
+      "date": "2026-11-01",
+      "project_state_version": "1.1027.0",
+      "prior_result": "Explicit SNU 丙辰字 vs AKS 戊寅字 classification conflict and target upper/lower 盈縮加分 acquisition gate; 2017 translation's original-text TOC was already known, not newly discovered in 13QB."
+    },
+    {
+      "record": "docs/research/TIANWEN-13PT-DONGMUNSEON-KYOTO-THREE-RECORDS-V94-ORIGINAL-VOLUME-ANCHOR-AND-1711-GRANT-FIREWALL-R1.json",
+      "date": "2026-11-02",
+      "prior_result": "Kyoto RB00028368 official volume09 page 720–806 candidate interval for 卷93–95, without exact 卷94 original preface leaf/image or native glyph."
+    },
+    {
+      "record": "docs/research/TIANWEN-13MN-G893-D15-D17-DIRECT-ORIGINAL-NUMERIC-LANE-R1.json",
+      "date": "2026-10-31",
+      "prior_result": "Separate SNU 奎貴893 / GK00893_00 source-original 001a and 002b image hashes plus day15–17 numeric sublane were ALREADY captured. Do not confuse absence of native original images for 奎貴67 with absence of native original images for G893."
+    },
+    {
+      "record": "docs/research/TIANWEN-13MP-G893-1569-ARCHIVE-PIXEL-REPLAY-AND-CROSSSOURCE-SCOPE-R1.json",
+      "date": "2026-10-31",
+      "prior_result": "G893 original source-original numeric short/long lanes and 1569 print short-string match, but shared unit/radix/epoch, both-column equivalence and six historical numerical finals remain unproven."
+    },
+    {
+      "record": "docs/research/TIANWEN-13QA-LEE2008-GYOSIK-FIGURE-1986-BIBLIOGRAPHY-IDENTITY-FIREWALL-R1.json",
+      "date": "2026-11-03",
+      "prior_result": "Distinct valid bibliography disambiguation; unchanged by this correction."
+    }
+  ],
+  "public_provider_crosscheck": [
+    {
+      "kind": "PRIMARY_CATALOG_METADATA",
+      "url": "https://kyudb.snu.ac.kr/book/list.do?book_cate=SIC&focus=&mid=GDS",
+      "holding": "奎貴67",
+      "claim": "1458 publication/catalog date and 丙辰字 large type; unchanged and unadjudicated from physical glyph"
+    },
+    {
+      "kind": "FIRST_PARTY_ENCYCLOPEDIA",
+      "url": "https://encykorea.aks.ac.kr/Article/E0005505",
+      "claim": "The same three public gallery image objects and 1459 publication assertion, not three new original leaf witnesses."
+    },
+    {
+      "kind": "KYOTO_FIRST_PARTY_CATALOG_AND_IIIF_LINK",
+      "url": "https://rmda.kulib.kyoto-u.ac.jp/item/rb00028368?page=720",
+      "claim": "Provider-issued volume09 starting page anchor; original exact 卷94 target glyph still not read."
+    }
+  ],
+  "result": {
+    "correction": "13QB is a supplementary evidence-scope recap and must not be presented or counted as new public gallery image discovery; its other catalog and date assertions were already logged. 13QB image-availability statement is scoped to GK00067 image bytes, not to physically distinct GK00893/G893 where native-original evidence was acquired in 13MN/13MP.",
+    "duplicate_image_uuid_count": 3,
+    "newly_discovered_gallery_images_in_13QB": 0,
+    "new_physical_witnesses": 0,
+    "new_independent_textual_vote": 0,
+    "new_original_target_glyph_collations": 0,
+    "original_G893_001a_002b_pixels_previously_acquired": true,
+    "original_GK00067_shao_wei_formula_native_pages_acquired": false,
+    "dated_publication_dispute_1458_1459": "OPEN_EXISTING_13OM",
+    "person_gold_金石梯_悌": "OPEN",
+    "operation_定恨_限": "OPEN",
+    "G893_historical_six_winners": "0/6",
+    "G893_shao_wei_carry": "OPEN",
+    "matrix_rows": "222/222",
+    "registry_sources": 768,
+    "graph_nodes": 252,
+    "graph_edges": 238,
+    "issues_open": 11,
+    "chart": "CLOSED",
+    "reopened_algorithms": 0
+  },
+  "next_source_gate": "Avoid re-traversing 13ON's same three AKS image UUIDs and previously documented SNU/Kyoto catalogs. For TW-OPEN-0005 first identify genuinely unseen native folio of SNU 奎貴67 upper/lower 盈縮加分 or Kyoto RB00028368 vol09 exact 卷94 交食推步法假令序; to adjudicate G893 instead seek source-specific 少/微 unit and carry text or independently authenticated higher-precision same-field row discriminating hypotheses. Free public provider-issued routes only; no guessing IDs, logins, paid services or new duplicate physical votes.",
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "13QB AKS gallery media may not be counted as a new independent witness because 13ON registered the identical three UUIDs.",
+      "Repeated 1458/1459 year assertions and type-name conflict do not add independent edition/impression proof; they stay 13OM/13OP-scoped.",
+      "Native G893 source image evidence is an independent issue locus, not evidence of source-original GK00067 or 2008 Fig.1 identity."
+    ],
+    "unresolved_lineage_questions": [
+      "SNU 奎貴67 original formula page and physical-copy image binding",
+      "Kyoto RB00028368 vol09 original 卷94 target glyph readings",
+      "G893 first-party unit radix and carry/quantization closure"
+    ]
+  }
+}
