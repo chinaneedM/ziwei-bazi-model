@@ -1,0 +1,94 @@
+{
+  "schema": "TIANWEN-13QJ-KYOTO-1672-KAISEI-SHOUSHI-LICHENG-TARGET-VOLUME-ROUTE-R1",
+  "date": "2026-11-03",
+  "issue_id": "TW-OPEN-0005",
+  "kind": "DIRECT_FIRSTPARTY_ITEM_LEVEL_CATALOG_AND_SOURCE_ISSUED_TARGET_VOLUME_ANCHOR_ONLY",
+  "original_provider": "Kyoto University Rare Materials Digital Archive / 京都大学貴重資料デジタルアーカイブ",
+  "catalog_item": {
+    "item_id": "RB00028639",
+    "title_catalog": "改正授時暦儀 2巻 ; 改正授時暦經 2巻",
+    "record_url": "https://rmda.kulib.kyoto-u.ac.jp/item/rb00028639",
+    "imprint_year_catalog": 1672,
+    "imprint_note": "貞巻末 寛文壬子六月庚寅 書林 壽梓",
+    "call_number": "和/し/023",
+    "registration_numbers": [
+      "122297",
+      "122297A",
+      "122297B",
+      "122297C"
+    ],
+    "holding": "京都大学理学研究科数学教室",
+    "books": 4,
+    "exact_impression_and_copy_history": "Catalog dates work/edition 1672; no separate physical sheet/paper examination or autograph timestamp undertaken",
+    "migration": "京都大学数学教室貴重書ライブラリよりデータ移行(2019)"
+  },
+  "source_issued_manifest": "https://rmda.kulib.kyoto-u.ac.jp/iiif/metadata_manifest/RB00028639/manifest.json",
+  "physical_volume_crosswalk": [
+    {
+      "volume": 1,
+      "book": "元",
+      "source_page_anchor": 1,
+      "source_text": "元史五十二巻 暦志第四 / 授時暦議巻上"
+    },
+    {
+      "volume": 2,
+      "book": "亨",
+      "source_page_anchor": 34,
+      "source_text": "元史五十三巻 暦志第五 / 授時暦議巻下"
+    },
+    {
+      "volume": 3,
+      "book": "利",
+      "source_page_anchor": 67,
+      "source_text": "元史五十四巻 暦志第六 / 授時暦經巻上",
+      "target_relevance": "PRIORITIZE_RECEIVED_SHAO_POSITION_SPECIFIC_ARITHMETIC_LOCUS",
+      "target_page_read": false
+    },
+    {
+      "volume": 4,
+      "book": "貞",
+      "source_page_anchor": 98,
+      "source_text": "元史五十五巻 暦志第七 / 授時暦經巻下"
+    }
+  ],
+  "independent_public_bibliographic_controls": [
+    {
+      "provider": "National Diet Library Search",
+      "url": "https://ndlsearch.ndl.go.jp/books/R100000136-I1971993809767588363",
+      "evidence": "1672 imprint and physical holding described as lacking 利 (元史54) volume; does NOT supply our target original leaf",
+      "holding_equivalence": "UNBOUND"
+    },
+    {
+      "provider": "CiNii Books",
+      "url": "https://ci.nii.ac.jp/ncid/BA58575205",
+      "evidence": "Kyushu University has separate 上/下 of 1672 授時暦經 (元史54/55) in named library record, not yet a direct target-page source",
+      "same_print_blocks": "NOT_VERIFIED"
+    }
+  ],
+  "research_method": "Live source-issued Kyoto official record + direct HTML volume links; no OCR, no speculative image urls, no login/pay/contact. Manifest link confirmed but image bytes and page SHA unavailable in this turn.",
+  "target_page_image_status": "NOT_ACQUIRED",
+  "original_print_target_shao_glyph_status": "UNREAD",
+  "g893_native_source_specific_unit_carry": "OPEN",
+  "g893_historic_six_numeric_winners": "0/6",
+  "lineage_scope": {
+    "one_current_kyoto_catalogued_physical_holding": true,
+    "new_17c_edition_catalog_route": true,
+    "independent_original_g893_witness_votes": 0,
+    "independent_1458_snu_gk00067_votes": 0,
+    "new_genealogy_nodes": 0,
+    "new_genealogy_edges": 0
+  },
+  "next_gate": "Read Kyoto item RB00028639 source-issued public IIIF canvas images beginning exactly within volume 利 (catalog volume03 anchor p67); locate 元史卷五十四 operative 少/微 original glyph and arithmetic. Compare by edition/position with prior received Yuan history examples. Do not use this 1672 printed 元史 edition to infer G893 奎貴893 original column radix or certify six numeric historical choices without G893 source-native evidence.",
+  "counts": {
+    "matrix": "222/222",
+    "root_sources": 647,
+    "extension_before": 126,
+    "extension_after": 127,
+    "total_sources": 774,
+    "genealogy_nodes": 252,
+    "genealogy_edges": 238,
+    "open_risks": 11,
+    "algorithms_reopened": 0,
+    "deterministic_product": "CLOSED"
+  }
+}
