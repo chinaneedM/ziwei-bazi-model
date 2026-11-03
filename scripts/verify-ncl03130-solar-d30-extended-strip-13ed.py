@@ -54,7 +54,7 @@ def check(e,s,l,b,a):
  assert issue["priority"]=="P0" and issue["status"]=="OPEN"
  active_prefix=historical_action_view(issue).split(" ",1)[0]
  assert historical_action_view(issue).startswith(active_prefix+" CURRENT ACTION")
- action_revisions=[q for q in issue["history"] if q.get("event")=="ISSUE_REVISION" and "next_action" in q.get("changed_fields",[])]
+ action_revisions=[q for q in issue["history"] if q.get("event") in ("ISSUE_REVISION", "SOURCE_PAGE_REVIEW_REVISION") and "next_action" in q.get("changed_fields",[])]
  assert action_revisions and action_revisions[-1].get("revision_id","").startswith("TW-OPEN-0005-"+active_prefix+"-")
  assert action_revisions[-1].get("evidence_refs") and any(z.startswith(active_prefix+" ") for z in s["historical_audit"]["current_focus"])
  assert "D30" in historical_action_view(issue) and e["next"].startswith("Review adjacent D26-D36")

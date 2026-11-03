@@ -44,7 +44,7 @@ def check(e,s,l,ed,dz):
  assert issue["priority"]=="P0" and issue["status"]=="OPEN"
  current_family=issue["next_action"].split(" ",1)[0]
  assert issue["next_action"].startswith(current_family+" CURRENT ACTION")
- action_events=[z for z in issue["history"] if z.get("event")=="ISSUE_REVISION" and "next_action" in z.get("changed_fields",[])]
+ action_events=[z for z in issue["history"] if z.get("event") in ("ISSUE_REVISION", "SOURCE_PAGE_REVIEW_REVISION") and "next_action" in z.get("changed_fields",[])]
  assert action_events and action_events[-1].get("revision_id","").startswith("TW-OPEN-0005-"+current_family+"-")
  assert action_events[-1].get("evidence_refs") and any(q.startswith(current_family+" ") for q in s["historical_audit"]["current_focus"])
  assert E in issue["source_refs"] and E.replace(".json",".md") in issue["source_refs"] and obs["numeric_d30"] is None

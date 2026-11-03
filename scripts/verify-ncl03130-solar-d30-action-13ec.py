@@ -30,7 +30,7 @@ def check(e,s,l,a,b):
  assert "D30" in historical_action_view(issue) and e["bounded_unresolved"]["value"] is None
  assert all(z["day"] in (27,28,29) for z in e["established_source_positive"])
  assert set([EA,EB,E,E.replace(".json",".md")]).issubset(set(issue["source_refs"]))
- changes=[h for h in issue["history"] if h.get("event")=="ISSUE_REVISION" and "next_action" in h.get("changed_fields",[])]
+ changes=[h for h in issue["history"] if h.get("event") in ("ISSUE_REVISION", "SOURCE_PAGE_REVIEW_REVISION") and "next_action" in h.get("changed_fields",[])]
  historic=next(h for h in changes if h.get("revision_id")=="TW-OPEN-0005-13EC-NEXT-ACTION-CORRECTION-20261023")
  assert changes[-1]["revision_id"].startswith("TW-OPEN-0005-"+current_prefix+"-")
  assert historic["previous_next_action"].startswith("13DZ CURRENT ACTION")
