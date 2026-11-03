@@ -8,7 +8,7 @@ def load(p): return json.loads(p.read_text(encoding="utf-8"))
 def verified_next_action(issue, state):
  active=issue.get("next_action","")
  prefix=active.split(" ",1)[0]
- revisions=[h for h in issue.get("history",[]) if h.get("event")=="ISSUE_REVISION" and "next_action" in h.get("changed_fields",[])]
+ revisions=[h for h in issue.get("history",[]) if h.get("event") in ("ISSUE_REVISION", "SOURCE_PAGE_REVIEW_REVISION") and "next_action" in h.get("changed_fields",[])]
  if not revisions or not active.startswith(prefix+" CURRENT ACTION"):return False
  last=revisions[-1]
  return (last.get("revision_id","").startswith("TW-OPEN-0005-"+prefix+"-") and bool(last.get("evidence_refs")) and any(x.startswith(prefix+" ") for x in state["historical_audit"]["current_focus"]))
