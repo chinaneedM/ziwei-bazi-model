@@ -64,7 +64,7 @@ def check(e,ledger,state):
  assert "[13BL 2026-10-21 REMAINING NATIVE PIXEL NUMERIC REVIEW]" in issue["missing_evidence"]
  later_revs=[
     z for z in issue["history"][issue["history"].index(h)+1:]
-    if z.get("event")=="ISSUE_REVISION" and "next_action" in z.get("changed_fields",[])]
+    if z.get("event") in ("ISSUE_REVISION", "SOURCE_PAGE_REVIEW_REVISION") and "next_action" in z.get("changed_fields",[])]
  prefix=ledger["binding"]["latest_research_focus_prefix"]
  active=issue["next_action"]
  family=active.split(" CURRENT ACTION",1)[0]
