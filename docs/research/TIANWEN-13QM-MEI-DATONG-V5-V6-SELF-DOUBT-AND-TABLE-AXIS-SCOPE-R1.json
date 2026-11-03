@@ -1,0 +1,119 @@
+{
+  "schema": "TIANWEN-13QM-MEI-DATONG-V5-V6-SELF-DOUBT-AND-TABLE-AXIS-SCOPE-R1",
+  "date": "2026-11-04",
+  "issue_ids": [
+    "TW-OPEN-0007",
+    "TW-OPEN-0005"
+  ],
+  "status": "LATER_RECEIVED_TEXT_AUTHOR_SELF_DOUBT_POSITIVE_PHYSICAL_VOL5_VOL6_LEAF_UNBOUND",
+  "prior_batch": "docs/research/TIANWEN-13QL-MEI-DATONG-V3-V5-DAYLENGTH-LOCATION-SCOPE-R1.json",
+  "question": "Does Mei Wending's later received vol5 Yangcheng-or-Nanjing reading establish a historically certain locality/axis for the cited DaTong daylight and sunrise tables?",
+  "source": {
+    "work": "梅文鼎《大統厯志》",
+    "textual_witness": "Wikisource public received 欽定四庫全書 recension; the same received Mei work as 13QL, NOT an independent original physical book vote",
+    "vol5_url": "https://zh.wikisource.org/zh-hant/大統厯志_(四庫全書本)/卷5",
+    "vol6_url": "https://zh.wikisource.org/zh-hant/大統厯志_(四庫全書本)/卷6",
+    "vol5_section": "大統厯依授時立成法下 / 冬至日後每日日出晨分半晝分",
+    "vol6_section": "釋凡四則 / 存疑 / 第五疑",
+    "historical_original_physical_folio_acquired": false,
+    "printed_impression_dated": false,
+    "text_scope": "LATER_RECEIVED_TEXT_ONLY",
+    "physical_copy_equivalence_with_prior_vol3_vol4_scan": "UNPROVEN"
+  },
+  "direct_received_textual_collation": [
+    {
+      "section": "卷五：立成所載日出入半晝夜晨昏分",
+      "short_literal": "故知為陽城或南京晷刻也",
+      "normalized_statement": "From solstitial daylength and comparisons to regional latitudes, Mei inferred a Yangcheng OR Nanjing possibility; he did not certify one source latitude."
+    },
+    {
+      "section": "卷六：釋凡四則／存疑第五",
+      "short_literal": "然畢竟此所列者據何地為則也",
+      "normalized_statement": "The same author explicitly leaves the source locality of the transmitted daylength table unknown; the extant entry heading lacks county/province attribution. This qualifies vol5's inference, rather than contradicting an authenticated early instrument."
+    },
+    {
+      "section": "卷六：釋凡四則／存疑第五",
+      "short_literal": "立成所載日出入半晝分",
+      "normalized_statement": "Mei contrasts a winter-solstice-to-summer-solstice sequential table organized by 盈縮 without 初末 with a 通軌 sunrise/sunset calculation that appears to have 初末 two-figure framing. Their day/limit axes must not be silently merged."
+    },
+    {
+      "section": "卷六：釋凡四則／存疑結語",
+      "short_literal": "同異出入未敢偏據",
+      "normalized_statement": "Mei explicitly reserves adjudication over transmitted differences, supporting unresolved candidate retention, not assigning one location or a mechanical winner."
+    }
+  ],
+  "independently_identified_facsimile_route": {
+    "index_source": "https://zh.wikisource.org/wiki/Wikisource:古籍資源/Internet_Archive_Scans/清-1",
+    "index_wikitext_edit_view": "https://zh.wikisource.org/w/index.php?action=edit&title=Wikisource:古籍資源/Internet_Archive_Scans/清-1",
+    "index_basis": "Wikisource editor-maintained IA Scans/Qing list explicitly attributes 四庫全書 子部/天文算法類 book to 浙江大學圖書館 and identifies exact volume pairs. Crowdsourced digital locator, NOT holding-level proof of a specific scanned original physical printing.",
+    "enumerated_ids": [
+      {
+        "volume_pair": "卷1~卷2",
+        "ia_id": "06054964.cn"
+      },
+      {
+        "volume_pair": "卷3~卷4",
+        "ia_id": "06054965.cn",
+        "dedup": "KNOWN_PREVIOUSLY_PHYSICALLY_COLLATED_12YS_12YT_12YU"
+      },
+      {
+        "volume_pair": "卷5~卷6",
+        "ia_id": "06054966.cn",
+        "priority": "NEW_RELEVANT_TARGET_LOCATOR"
+      },
+      {
+        "volume_pair": "卷7~卷8",
+        "ia_id": "06057458.cn"
+      }
+    ],
+    "proposed_volume5_6_url": "https://archive.org/download/06054966.cn/06054966.cn.djvu",
+    "direct_archive_bytes_or_http_200_verified": false,
+    "actual_access_observation": "Archive.org details, metadata and download endpoints not accessible via current browser tool; do not reinterpret tool access failure as HTTP404 or file absence.",
+    "original_leaf_number": "UNBOUND",
+    "image_sha256": "UNBOUND",
+    "reproduction_permission": "UNVERIFIED"
+  },
+  "adjudication": {
+    "positive": "The later received same-author vol6 fifth doubt narrows/qualifies vol5's region inference and separately flags a source time-series axis mismatch. Attribution of the transmitted daylength/source clock stays uncertain even within the cited Qing discussion.",
+    "forbidden_inferences": [
+      "VOLUME5_YANGCHENG_OR_NANJING_IS_UNIQUE_CONFIRMED_EARLY_LOCALITY",
+      "VOLUME6_AUTHOR_DOUBT_PROVES_AN_EARLIER_SOURCE_TABLE_FALSE",
+      "SAME_WORK_V5_V6_COUNTS_TWO_INDEPENDENT_PHYSICAL_WITNESSES",
+      "RECEIVED_TEXT_EQUALS_DATED_PRINTED_ORIGINAL_IMAGE",
+      "IA_CATALOG_ID_EQUALS_VERIFIED_PUBLIC_FILE_BYTES",
+      "LATE_MEI_CLOCK_INTERPRETATION_EQUALS_MING_1447_1450_ABSOLUTE_CLOCK_ANCHOR",
+      "SAME_TABLE_NUMERALS_IMPLY_SAME_AXIS_OR_ALGORITHM",
+      "MEI_REGIONAL_AMBIGUITY_SETTLES_G893_SOURCE_SHAO_WEI_CARRY"
+    ],
+    "md_g03_status": "OPEN_BLOCKING_GENERAL_ADAPTER",
+    "g893_historic_six_numerical_winners": "0/6",
+    "algorithm_reopen": 0,
+    "new_independent_physical_source_votes": 0,
+    "new_external_source_registry_entries": 0,
+    "reason_no_new_source_entry": "Existing 13QL EXT-TIANWEN-13QL-MEI-DATONG-V3-V5-PLACE-RECEIVED already registers the SAME received work/recension; v6 is a newly verified passage within it, not a new independent work or physical source."
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "No Mei v5 geographic source hypothesis can be promoted to an authenticated Ming or Yuan direct source-to-region transmission edge.",
+      "No direct genealogical edge from a crowdsourced scan-ID index to a specific physical Qing impression."
+    ],
+    "unresolved_lineage_questions": [
+      "Which source-bound Yuan/Ming 日出入立成 tabular edition or official DaTong TongGui original supplies each day axis and site?",
+      "What provider-issued, copy-bound, permitted original scan folio in the 卷5~卷6 family contains the exact v5/v6 two passages?"
+    ]
+  },
+  "counts_after_expected": {
+    "matrix": "222/222",
+    "root_sources": 647,
+    "extension_sources": 128,
+    "total_sources": 775,
+    "genealogy_nodes": 252,
+    "genealogy_edges": 238,
+    "open_issues": 11,
+    "deterministic_chart": "CLOSED",
+    "algorithm_reopens": 0
+  }
+}
