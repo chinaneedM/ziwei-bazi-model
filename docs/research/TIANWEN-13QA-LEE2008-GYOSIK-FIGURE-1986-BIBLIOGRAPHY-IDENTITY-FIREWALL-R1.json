@@ -1,0 +1,86 @@
+{
+  "schema": "TIANWEN-13QA-LEE2008-GYOSIK-FIGURE-1986-BIBLIOGRAPHY-IDENTITY-FIREWALL-R1",
+  "date": "2026-11-03",
+  "issue_id": "TW-OPEN-0005",
+  "parent": "docs/research/TIANWEN-13PZ-GYOSIK-1986-VOLUME5-AND-NURIIDT-IMAGE-SEARCH-ACCESS-BOUNDARY-R1.json",
+  "question": "What exact 1986 bibliographic work is cited by the 2008 Ki-Won Lee paper's parenthetical citation beside 交食推步假令, and does this reveal the copy photographed as Fig.1?",
+  "evidence": [
+    {
+      "kind": "DIRECT_PUBLISHED_PAPER_BODY_AND_REFERENCES_TEXT",
+      "provider": "KIGAM hosted Korean Earth Science Society PDF",
+      "url": "https://data.kigam.re.kr/ieg/cmmn/downloadFile.do?fileName=J290108.PDF",
+      "bibliographic_identity": "Ki-Won Lee, 2008, Journal of the Korean Earth Science Society 29(1):98-115; DOI 10.5467/jkess.2008.29.1.098",
+      "loci": [
+        "printed p.111: 交食推步假令 body description carries (韓國精神文化硏究院, 1986) and references Fig.1 for the preface; Fig.1 caption names the preface part of 交食推步法",
+        "printed p.115 references: 韓國精神文化硏究院, 1986, 譯註經國大典 註譯編. 天豊印刷株式會社, 서울, 225 p.",
+        "printed p.115 references: 韓國科學史學會, 1983, 諸家曆象集·天文類抄. 韓國科學史學會, 서울, 538 p."
+      ],
+      "grade": "DIRECT_MODERN_PUBLISHED_TEXT_BIBLIOGRAPHY; NOT_1458_ORIGINAL_IMAGE",
+      "note": "The 2008 article's bibliography explicitly resolves its 1986 short citation to an annotated Gyeongguk Daejeon work, not the separate Yeogang 1986 astronomy series volume5. Printed p.111 figure pixels and its photographed physical copy remain unverified in this batch."
+    },
+    {
+      "kind": "INDEPENDENT_MODERN_CATALOG_IDENTITY_CHECK",
+      "provider": "CiNii Books / NII",
+      "url": "https://ge.nii.ac.jp/ncid/BN07016977",
+      "observation": "The 韓國精神文化研究院 譯註經國大典 title is catalogued as a 1985-1986 two-part translation/commentary series; the 1986 註釋篇 is distinguished from 1985 飜譯篇.",
+      "grade": "CATALOG_ONLY_NOT_HISTORICAL_GLYPH"
+    },
+    {
+      "kind": "DISTINCT_1986_VOLUME5_IDENTITY_CONTROL",
+      "provider": "CiNii Books / NII",
+      "url": "https://ci.nii.ac.jp/ncid/BA65204123",
+      "observation": "兪景老 edited 1986 驪江出版社 韓國科學技術史資料大系 天文學篇5 titled 諸家暦象集·交食推歩法 (597p); this is a different bibliographic work and publisher from the 2008 article's 韓國精神文化硏究院 1986 225p law-code reference.",
+      "grade": "MODERN_EDITION_CATALOG_NOT_ORIGINAL_FOLIO"
+    },
+    {
+      "kind": "PUBLIC_IMAGE_SEARCH_ROUTE_RECHECK_BOUNDARY",
+      "provider": "NuriIDT",
+      "url": "https://ocr.nuriidt.co.kr/isearch/searchmain.jsp",
+      "observation": "The public demo search form was identifiable in public GET output, but interactive search submission was not executed in the current tool; no live search result/page source identifier or image bytes were acquired.",
+      "grade": "ACCESS_INTERFACE_ONLY"
+    }
+  ],
+  "adjudication": {
+    "2008_KOREAN_INSTITUTE_1986_CITATION_EQUALS_YEOGANG_1986_VOLUME5": false,
+    "2008_KOREAN_INSTITUTE_1986_CITATION_BIBLIOGRAPHIC_IDENTITY": "譯註經國大典 註譯編, 天豊印刷株式會社, 225p (as given by Lee 2008 bibliography)",
+    "2008_1983_HISTORY_OF_SCIENCE_SOCIETY_VOLUME_IS_1986_VOLUME5": false,
+    "2008_FIG1_PHOTOGRAPH_SOURCE_COPY_IDENTIFIED": false,
+    "2008_FIG1_NATIVE_IMAGE_PIXELS_AND_SHA_ACQUIRED": false,
+    "NURIIDT_LIVE_QUERY_EXECUTED": false,
+    "SNU_1458_ORIGINAL_GLYPH_WINNER": "NONE",
+    "original_person_金石梯_vs_金石悌": "OPEN",
+    "original_定限_vs_定恨": "OPEN",
+    "G893_少_vs_微_unit_carry": "OPEN",
+    "G893_six_original_numeric_historical_finals": "0/6",
+    "physical_copy_witness_delta": 0,
+    "external_registry_source_delta": 0,
+    "genealogy_graph_node_or_edge_delta": 0,
+    "matrix_rule_delta": 0,
+    "algorithm_reopen_count": 0
+  },
+  "scope_rule": "Paper short citation proves only its listed 1986 bibliographic reference; it does not identify the provenance of Fig.1, exclude an otherwise unlisted photographic source, prove an ancient glyph, or establish physical image access. The independent 2022 paper's citation to Yeogang 1986 volume5 remains source-specific and valid within its own scope.",
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Do not infer Lee 2008 Fig.1 photograph comes from 1986 Yeogang astronomy volume5 merely because a nearby citation says (韓國精神文化硏究院, 1986); the cited title is an independent law-code commentary.",
+      "Do not turn 1983 printed edition or any modern reprint into an independent 1458 physical witness."
+    ],
+    "unresolved_lineage_questions": [
+      "What copy and edition supplied the 2008 p111 Fig.1 preface photograph?",
+      "Can a source-native 1458 preface folio or 東文選卷94 exact line be acquired freely for glyph collation?"
+    ]
+  },
+  "next_source_action": "Only a provider-issued freely accessible source-original preface page or precise paper-figure copy attribution can promote original-glyph evidence. NuriIDT live query remains an optional free interactive route, not a documented result. Independently require G893 source-native fractional radix/rounding instruction for historical numeric adjudication. No login, fees, bulk capture or invented image IDs.",
+  "status": {
+    "matrix": "222/222",
+    "source_registry": 768,
+    "genealogy_nodes": 252,
+    "genealogy_edges": 238,
+    "research_issues": 11,
+    "G893_historical_finals": "0/6",
+    "chart_product": "CLOSED",
+    "algorithm_reopen_count": 0
+  }
+}
