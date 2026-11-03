@@ -1,0 +1,89 @@
+{
+  "schema": "TIANWEN-13QN-MEI-CADAL06054966-COMMONS-IMAGEINFO-VERIFIED-429-BOUNDARY-R1",
+  "date": "2026-11-04",
+  "issue_ids": [
+    "TW-OPEN-0007",
+    "TW-OPEN-0005"
+  ],
+  "status": "PUBLIC_EXACT_DIGITAL_FILE_ITEM_METADATA_POSITIVE_ORIGINAL_DJVU_BYTES_HTTP429_ACCESS_BLOCKED_NO_GLYPH",
+  "source": {
+    "catalog_url": "https://commons.wikimedia.org/wiki/Commons:Library_back_up_project/file_list/CADAL/13",
+    "catalog_filename": "CADAL06054966 大統歷志·卷五~卷六.djvu",
+    "work": "梅文鼎《大統歷志》",
+    "volume_pair": "卷五～卷六",
+    "catalog_grade": "PUBLIC_COMMONS_CADAL_DIGITAL_FILE_INDEX",
+    "imageinfo_grade": "FIRSTPARTY_COMMONS_MEDIAWIKI_FILE_ITEM_METADATA",
+    "imageinfo_exact_query": "https://commons.wikimedia.org/w/api.php?action=query&format=json&formatversion=2&titles=File%3ACADAL06054966+%E5%A4%A7%E7%B5%B1%E6%AD%B7%E5%BF%97%C2%B7%E5%8D%B7%E4%BA%94~%E5%8D%B7%E5%85%AD.djvu&prop=imageinfo&iiprop=url%7Csize%7Csha1%7Cmime%7Ctimestamp",
+    "exact_file_exists": true,
+    "file_format": "image/vnd.djvu",
+    "source_claimed_file_size_bytes": 4138002,
+    "source_claimed_file_sha1": "28715c42cb7c71bcfa821b29902c5d4815582282",
+    "mediawiki_upload_timestamp": "2019-12-28T12:10:42Z",
+    "digital_upload_date_is_not_physical_print_date": true,
+    "original_DJVU_bytes_downloaded": false,
+    "download_sha256": null,
+    "source_page_count": null,
+    "source_glyph_pages_collated": 0,
+    "edition_impression_date": "UNVERIFIED",
+    "physical_copy_binding": "UNVERIFIED",
+    "association_with_prior_12YT_CADAL06054965_physical_copy": "NOT_PROVEN"
+  },
+  "acquisition_attempt": {
+    "workflow": ".github/workflows/probe-mei-commons-original-13qn.yml",
+    "script": "scripts/probe-mei-commons-original-13qn.py",
+    "run_id": 41740363826,
+    "run_url": "https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/41740363826",
+    "artifact_id": 13281102751,
+    "artifact_name": "mei-v5-v6-13qn-commons-original-and-atlas",
+    "artifact_zip_sha256": "7ba6706f93614fb6552cf843fd7ba3fecddb669387b0e0f10437e4c64ca85f5b",
+    "artifact_report_json_exact_status": "SOURCE_DOWNLOAD_OR_STRUCTURE_UNVERIFIED",
+    "metadata_query_status": "AVAILABLE",
+    "imageinfo_present": true,
+    "source_download_attempt": "ONE_ORIGINAL_IMAGEINFO_SOURCE_EMITTED_URL",
+    "download_http_status": 429,
+    "download_error": "HTTP Error 429: Too Many Requests (015d12c)",
+    "catalog_list_http_status": "NOT_RECORDED_IN_ACQUISITION",
+    "next_attempt_rule": "RESPECT_PROVIDER_RATE_LIMIT; no immediate retry, endpoint guessing, bypass, login, accounts or paid mirrors; use authorized alternate original source or defer",
+    "original_bytes_available_for_human_review": false,
+    "no_OCR": false
+  },
+  "adjudication": {
+    "positive": "Commons provider's exact file-level metadata confirms that the catalog-listed vol5~6 digital object has a declared DJVU MIME, 4,138,002-byte size and SHA1 28715c42..., enabling future byte-identity verification when provider allows download.",
+    "not_proven": [
+      "NO_DIRECT_ORIGINAL_PAGE_IMAGE_BYTES",
+      "NO_SOURCE_FILE_SHA256",
+      "NO_MANUAL_VOL5_VOL6_PRINTED_GLYPH_COLLATION",
+      "NO_PHYSICAL_COPY_IDENTITY_OR_IMPRESSION_YEAR",
+      "NO_INDEPENDENT_EARLY_COPIED_HISTORICAL_TEXT_VOTE",
+      "NO_SOURCE_ORIGINAL_DADU_YANGCHENG_NANJING_AXIS",
+      "NO_G893_NATIVE_SHAO_WEI_RADIX_CARRY_OR_SIX_HISTORIC_NUMERIC_WINNERS"
+    ],
+    "relationship_to_13QM": "The 13QM v5/v6 received-text conclusion remains a text-only interpretation; this new exact digital surrogate catalog object does not upgrade it to original printed text until the source bytes and target folios are acquired.",
+    "relationship_to_12YT": "Previously verified 06054965 v3~4 original file must not be counted again as this separate v5~6 file or be assumed the identical physical copy.",
+    "md_g03_status": "OPEN_BLOCKING_GENERAL_ADAPTER",
+    "g893_final_numeric_winners": "0/6",
+    "chart_algorithm_reopens": 0
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Commons distinct digital file number is not proof of independent physical printed edition or historical direct copying."
+    ],
+    "unresolved_lineage_questions": [
+      "Obtain permitted firstparty full original v5/v6 digital file, verify 4,138,002 bytes and SHA1, hash target vol5/vol6 printed pages, then bind edition/physical copy independently."
+    ]
+  },
+  "counts_after_expected": {
+    "matrix": "222/222",
+    "root_registry": 647,
+    "extension_registry": 129,
+    "total_sources": 776,
+    "graph_nodes": 252,
+    "graph_edges": 238,
+    "unresolved_issues": 11,
+    "algorithm_reopens": 0,
+    "product": "CLOSED"
+  }
+}
