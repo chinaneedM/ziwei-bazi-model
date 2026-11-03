@@ -20,7 +20,7 @@ jobs:
         with:
           python-version: '3.12'
       - run: python -m pip install --quiet pillow
-      - name: Capture bounded public Kyoto RB00028368 volume09 IIIF previews
+      - name: Capture focused high-resolution Kyoto RB00028368 volume09 candidates
         shell: bash
         run: |
           set -euo pipefail
@@ -42,7 +42,7 @@ jobs:
           USER_AGENT = "TIANWEN/13QI evidence-limited research; original source images not republished"
           # 13PT source-issued vol09 start page=720 and vol10 start=807.
           # Keep both adjacent indices because viewer page indexing is not yet independently resolved.
-          START, STOP = 719, 808
+          START, STOP = 752, 790
 
           def digest(data):
               return hashlib.sha256(data).hexdigest()
@@ -72,7 +72,7 @@ jobs:
               if isinstance(svc,list):svc=svc[0] if svc else {}
               service_id=(svc.get("@id") or svc.get("id")) if isinstance(svc,dict) else svc
               if service_id:
-                  return service_id.rstrip("/")+"/full/420,/0/default.jpg", service_id
+                  return service_id.rstrip("/")+"/full/1600,/0/default.jpg", service_id
               return (resource.get("@id") or resource.get("id")), None
 
           def canvas_id(c):
@@ -87,10 +87,10 @@ jobs:
                   record["status"]="NO_SOURCE_ISSUED_IMAGE"
                   return record
               try:
-                  raw,final,ctype=fetch(url,cap=5000000)
+                  raw,final,ctype=fetch(url,cap=18000000)
                   im=Image.open(io.BytesIO(raw))
                   im.load()
-                  if im.width>1600 or im.height>2600:
+                  if im.width>1800 or im.height>3500:
                       raise ValueError("preview response exceeds bounded dimensions")
                   record.update(status="PREVIEW_CAPTURED",url=final,content_type=ctype,
                                 sha256=digest(raw),pixels=[im.width,im.height],
@@ -105,7 +105,7 @@ jobs:
           report={"schema":"TIANWEN-13QI-KYOTO-RB00028368-V09-BOUNDED-IIIF-ATLAS-R1",
                   "item":ITEM,"manifest_url":MANIFEST,
                   "target":"卷94 交食推步法假令序",
-                  "scope":"EXACT_PUBLISHED_KYOTO_VOLUME09_CANVAS_NEIGHBORHOOD_ONLY",
+                  "scope":"FOCUSED_PUBLIC_PROVIDER_SOURCE_IMAGES_752_790",
                   "original_glyph_collation_authorized":False,
                   "source_native_original_pixels_captured":False,
                   "independent_historical_witness_votes":0,
@@ -150,7 +150,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: tianwen-13qi-kyoto-rb00028368-vol09-preview
+          name: tianwen-13qi-kyoto-rb00028368-vol09-target-hd
           path: /tmp/tianwen-13qi-kyoto/
           retention-days: 30
           if-no-files-found: warn
