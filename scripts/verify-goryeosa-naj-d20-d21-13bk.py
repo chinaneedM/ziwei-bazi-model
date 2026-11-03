@@ -78,7 +78,7 @@ def check(e,bg,bj,yz,ledger,state):
  # A future issue revision is valid only when the new active action agrees
  # with the current handoff focus; older action text cannot be reactivated.
  later_action_revision=any(
-    z.get("event")=="ISSUE_REVISION" and "next_action" in z.get("changed_fields",[])
+    z.get("event") in ("ISSUE_REVISION", "SOURCE_PAGE_REVIEW_REVISION") and "next_action" in z.get("changed_fields",[])
     for z in issue["history"][issue["history"].index(h)+1:])
  latest_focus_prefix=ledger["binding"]["latest_research_focus_prefix"]
  active_action=issue["next_action"]
@@ -89,7 +89,7 @@ def check(e,bg,bj,yz,ledger,state):
  # next_action to an old or invented focus must not pass.
  future_action_revisions=[
     z for z in issue["history"][issue["history"].index(h)+1:]
-    if z.get("event")=="ISSUE_REVISION" and "next_action" in z.get("changed_fields",[])]
+    if z.get("event") in ("ISSUE_REVISION", "SOURCE_PAGE_REVIEW_REVISION") and "next_action" in z.get("changed_fields",[])]
  action_is_evidence_scoped=any(
     ("-"+active_family+"-") in z.get("revision_id","") or
     (not z.get("revision_id") and latest_focus_prefix==active_family)
