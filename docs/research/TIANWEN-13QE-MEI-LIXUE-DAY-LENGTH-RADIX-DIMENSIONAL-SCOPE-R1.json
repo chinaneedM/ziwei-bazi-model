@@ -1,0 +1,62 @@
+{
+  "schema": "TIANWEN-13QE-MEI-LIXUE-DAY-LENGTH-RADIX-DIMENSIONAL-SCOPE-R1",
+  "date": "2026-11-03",
+  "issue_id": "TW-OPEN-0005",
+  "kind": "POSTERIOR_RECEIVED_TEXT_DECIMAL_UNIT_SCOPE_AND_DIMENSIONAL_FIREWALL",
+  "question": "Does late Qing 梅文鼎《曆學疑問》百进位说明 independently resolve the G893 奎貴893 native header 一秒八十六少 or any of six historically disputed finals?",
+  "received_witness": {
+    "work": "清 梅文鼎《曆學疑問》卷一 〈論日法〉; also carried in the received 《歷算全書》卷一 context",
+    "primary_checked_online_text": "https://www.shidianguji.com/zh/book/CADAL01020098/chapter/1l3fp6m95ko4m",
+    "other_contextual_received_text": "https://www.shidianguji.com/zh/book/NA06359/chapter/1m64zougdgfmu",
+    "additional_index_control": "https://ctext.org/wiki.pl?chapter=403999&if=gb",
+    "source_grade": "LATER_QING_RECEIVED_DIGITAL_TRANSCRIPTION_TEXT_NOT_PHYSICAL_SOURCE_SCAN",
+    "firstparty_physical_original_page_bound": false,
+    "physical_impression_or_exemplar_bound": false,
+    "text_unit_span": "《論日法》: 日有百刻；刻有百分；自此再析，则分有百秒，秒有百微，皆以十百为等",
+    "cross_provider_variation": "識典 CADAL01020098 and 《歷算全書》 NA06359 received renderings differ in adjacent OCR/transcription wording (e.g. 递/遍); CText search result gives the same hundredfold hierarchy with older character forms. Do not call these separate ancient imprints or claim word-for-word original collation.",
+    "verification": "The CADAL01020098 public text was directly readable; CText target snippet was located by search but a later direct page open returned HTTP 403, thus CText does not independently authenticate a physical page."
+  },
+  "mechanical_dimensional_analysis": {
+    "late_text_applies_to": "日法/时刻计量层：日→刻→分→秒→微的百进位递析，是后世对授时法的历史说明",
+    "g893_target": "《高麗史》卷52《授時曆立成》太阳冬至前后二象盈初缩末限表，日差、盈缩加分、盈缩积等为按日积生成的不同表栏，不可直接假定等同计日的时刻分秒",
+    "known_original_source": "Already acquired 13MN/13MP SNU GK00893_00 original 001a/002b source-native pixels, including unusual 一秒八十六少 heading and D15/D16/D17 short and long numeric lanes; new later quotation does NOT supersede their image.",
+    "numeric_sanity_check": "Displayed G893 same-copy short sequence D15 5.2176, D16 5.2362, D17 5.2548 yields successive +0.0186; this checks a numeric increment but does not determine whether 少 denotes 微, a subunit, scribal abbreviation, different school convention or physical glyph error.",
+    "forbidden_inferences": [
+      "后世梅文鼎的日法层级=1450年代奎貴893太阳表所有不同字段的原单位",
+      "一个数值差0.0186=原刻少字必可校改为微字",
+      "识典与CText站点=两个独立古本",
+      "后一文本解释百进位=已经证明 G893 同栏古今对照、六组最终裁决、或1458 奎貴67 盈縮加分原叶"
+    ]
+  },
+  "result": {
+    "new_original_folio_acquisitions": 0,
+    "new_independent_physical_witnesses": 0,
+    "new_original_g893_glyph_collations": 0,
+    "new_received_text_source_records": 1,
+    "original_shao_vs_wei_semantic_winner": "UNRESOLVED",
+    "g893_historical_numeric_finals": "0/6",
+    "matrix": "222/222",
+    "registry_root": 647,
+    "registry_extension_after": 122,
+    "registry_unique_after": 769,
+    "genealogy_nodes": 252,
+    "genealogy_edges": 238,
+    "issue_count_open": 11,
+    "chart_product": "CLOSED",
+    "algorithm_reopens": 0
+  },
+  "next_gate": "Prioritize source-native GK00893_00 same-row unit/radix and carry instruction or truly independent old source with exact equivalent column/precision, plus SNU 奎貴67 upper/lower 盈縮加分 original target. General late 日法 hundredfold schema is contextual evidence, not a substitute.",
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Posterior 梅文鼎日法 exposition is not proof of direct transmission from 奎貴893 physical impression.",
+      "Cross-dimension 百進 of 日法 does not automatically normalize G893 solar 盈縮加分 少 to 微."
+    ],
+    "unresolved_lineage_questions": [
+      "Original G893 少 glyph historical technical value and same-field carry/rounding",
+      "G893 and 1458 交食推步法 formula independent print lineage"
+    ]
+  }
+}
