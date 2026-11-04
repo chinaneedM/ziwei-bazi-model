@@ -1,0 +1,67 @@
+{
+  "schema": "TIANWEN-13RU-QIAN-DAXIN-TWO-QUADRANTS-MEI-RECEIVED-TEXT-AND-ARITHMETIC-SCOPE-R1",
+  "date": "2026-11-05",
+  "issue_id": "TW-OPEN-0005",
+  "classification": "LATER_RECEIVED_TEXTUAL_WITNESS_AND_EXACT_DECIMAL_SCOPE_CONTROL_NOT_ORIGINAL_G893_GLYPH",
+  "research_question": "Does a historically transmitted distinction between 歲周象限 and 周天象限 clarify the 13RT Mei summer-gloss discrepancy without silently converting different quantities or claiming an original error?",
+  "source": {
+    "attributed_work": "錢大昕《潛研堂文集》卷十四《答問十一》",
+    "base_text_readable_presentation": "https://www.shidianguji.com/book/SBCK290/chapter/SBCK290_59",
+    "second_presentation_ocr_like": "https://www.shidianguji.com/book/HY5255/chapter/1l1z9p471bs3u",
+    "ctext_sibucongkan_ocr_index": "https://ctext.org/wiki.pl?chapter=985378&if=en&remap=gb",
+    "ctext_edition_catalog": "https://ctext.org/wiki.pl?if=en&res=845382",
+    "scan_collection_locator": "https://commons.wikimedia.org/wiki/Commons:Library_back_up_project/file_list/NLC/%E6%97%A5%E6%9C%AC%E6%B0%B8%E9%9D%92%E6%96%87%E5%BA%AB%E6%8D%90%E8%B4%88%E6%BC%A2%E7%B1%8D",
+    "source_grade": "LATER_RECEIVED_OR_OCR_TEXT; specific source-bound target original folio and original glyphs NOT independently inspected",
+    "physical_impression_and_target_folio": "UNBOUND",
+    "physical_witnesses_added": 0,
+    "new_source_registry_entries": 0,
+    "no_false_independence": "Two digital presentations and an OCR edition index are not counted as two independent historical manuscripts or printed copies."
+  },
+  "passage_scoped_readings": {
+    "first_question": "歲周象限九十一日三一〇六二五；周天象限九十一度三一四三七五；both given as different technical quantities and applications.",
+    "mei_quotation_as_reported_by_qian": "盈初縮末限88.909225 + 盈積2.4014; 縮初盈末限93.712025 - 縮積2.4014; both associated with 歲周一象限 in this later question-and-answer.",
+    "explanation": "Treat stellar/sidereal 周天 and tropical/solstitial 歲周 as distinct historical concepts within this received passage; equal-looking or adjacent numbers do not erase different date/angle unit and epoch scope.",
+    "additional_question": "Same chapter discusses 度分 versus 日分 for 定氣 and quotes a received 元史 algorithm; its reading is late interpretive commentary, NOT authenticated Yuan/Ming period clock-coordinate evidence or license to reopen MD-G03."
+  },
+  "decimal_replay": {
+    "year_quadrant": "365.2425 / 4 = 91.310625",
+    "heaven_quadrant": "365.2575 / 4 = 91.314375",
+    "concepts_gap": "91.314375 - 91.310625 = 0.003750",
+    "summer_gloss_operands": "93.712025 - 2.4014 = 91.310625",
+    "winter_gloss_operands": "88.909225 + 2.4014 = 91.310625",
+    "prior_mei_13rt_source_original_print": "91.320625",
+    "mei_print_minus_arithmetic": "91.320625 - 91.310625 = +0.010000",
+    "arithmetic_status": "EXACT_DECIMAL_VERIFIED",
+    "source_claim_boundary": "This comparison does NOT prove that 錢氏所稱梅氏駢枝 and the inspected CADAL 《大統歷志》卷四 are the same passage, edition, physical copy or an explicitly corrected textual lineage."
+  },
+  "prior_evidence": [
+    "docs/research/TIANWEN-13RT-MEI-CADAL06054965-SOLAR-OPERATION-AND-TABLE-ORIGINAL-R1.json",
+    "docs/research/TIANWEN-13PR-G893-POSITION-SCOPED-SHAO-TA-SOURCE-REPLAY-R1.json"
+  ],
+  "adjudication": {
+    "positive": "A later historically attributed received commentary explicitly distinguishes 91.310625 (歲周, temporal quadrant) from 91.314375 (周天, degree quadrant); its quoted two-operand mechanics independently agree with the former numerical expression.",
+    "open": "Qian original physical target leaf/glyph, precise edition identity, relation between 《駢枝》 and 《大統歷志》 and origin of CADAL 91.320625 are not established.",
+    "no_historical_emendation": true,
+    "no_g893_native_shao_wei_radix_or_carry": true,
+    "six_g893_historical_finals": "0/6",
+    "g893_issue_status": "OPEN",
+    "md_g03_absolute_time_adapter": "OPEN_UNAFFECTED",
+    "matrix_delta": 0,
+    "source_registry_delta": 0,
+    "new_physical_witnesses": 0,
+    "transmission_impact": {
+      "nodes_added_or_strengthened": [],
+      "edges_supported": [],
+      "edges_revised": [],
+      "edges_rejected_or_unproved": [
+        "Qian's later quotation and a shared 91.310625 numeric result do not establish direct copying from the surviving CADAL Mei physical/digital object."
+      ],
+      "unresolved_lineage_questions": [
+        "Identify the edition and original folio of Qian's question-and-answer and of his quoted 梅氏駢枝; then compare with the independently bound Mei scanned glyph 91.320625."
+      ]
+    },
+    "deterministic_chart_product": "CLOSED",
+    "algorithm_reopens": 0
+  },
+  "next_decisive_target": "Original authenticated Qian 《答問十一》 leaf plus named 梅氏《駢枝》 source/folio comparison can adjudicate this particular 0.010000 difference. G893 historical six finals separately require genuinely independent original same-field 少/微 unit/carry instruction or fifth/sixth retained source digit; do not substitute Qian received exegesis."
+}
