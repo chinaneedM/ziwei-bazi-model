@@ -1,0 +1,117 @@
+{
+  "schema": "TIANWEN-13RB-SNU-GK00067-ORIGINAL-D79-WORKED-CARRY-R1",
+  "date": "2026-11-04",
+  "issue_id": "TW-OPEN-0005",
+  "status": "DIRECT_SOURCE_ORIGINAL_WORKED_CASE_DIGITS_AND_SAME_EDITION_MICRO_TO_SECOND_CARRY_POSITIVE",
+  "question": "Can the archived firstparty SNU 奎貴67 original p067a itself bind the prior 13RA 79-day output literal and a native same-edition 微/秒 carry, without projecting that unit into G893 少?",
+  "source": {
+    "institution": "Seoul National University Kyujanggak",
+    "holding": "奎貴67",
+    "work": "交食推步法",
+    "book_cd": "GK00067_00",
+    "official_book_detail": "https://kyudb.snu.ac.kr/book/view.do?book_cd=GK00067_00",
+    "original_page": "067a",
+    "original_jpeg_file_name": "067a.jpg",
+    "original_jpeg_bytes": 197199,
+    "original_jpeg_sha256": "15e89e0df813e8b2946555ef491631152f734e1427923b484da5ca8858cf97e6",
+    "original_native_rgb_sha256": "03addc47c2452fc2cfa2153cb699f9dd37de59bcf1f0e9f9625d9b7217d27a4a",
+    "image_size_px": [
+      1094,
+      2000
+    ],
+    "upstream_GitHub_Actions_run_id": 41832831039,
+    "upstream_GitHub_Actions_artifact_id": 13324440480,
+    "artifact_original_source": "docs/research/TIANWEN-13RA-SNU-GK00067-ORIGINAL-YINGSUO-JIAFEN-FORMULA-R1.json",
+    "original_image_provider": "SNU Kyujanggak ImageServlet via previously bound native viewer",
+    "image_authenticity_reuse": "Same archived original JPEG as 13RA; no new original source, independent physical witness, or provider GET asserted",
+    "ocr_used": false
+  },
+  "manual_native_image_collation": [
+    {
+      "claim": "source-native 79-day micro to seconds conversion",
+      "original_glyph_fragment": "置九十三微 ... 七十九日 ... 得七十三秒四十七微",
+      "native_rgb_roi_bbox": [
+        270,
+        260,
+        420,
+        1130
+      ],
+      "roi_rgb_sha256": "fc49d1ff3cde89bff85e64aff62ab85505002faa747e65fa57ff23da0d6f60ea",
+      "scope": "Disjoint vertical-passage reading together with prior 066b coefficient, exact original 067a JPEG"
+    },
+    {
+      "claim": "source-native worked multiplication",
+      "original_glyph_fragment": "日乘之得四百四十七分四五六〇",
+      "native_rgb_roi_bbox": [
+        175,
+        260,
+        325,
+        1500
+      ],
+      "roi_rgb_sha256": "53f96401cefdde39d542d8111a3fd2e61d82ea557bd903300fa47a8e279aa460",
+      "scope": "Adjacent printed result on original 067a"
+    },
+    {
+      "claim": "source-native worked output literal",
+      "original_glyph_fragment": "得六十三分四〇〇九即縮末限七十九日縮加分",
+      "native_rgb_roi_bbox": [
+        94,
+        260,
+        245,
+        1510
+      ],
+      "roi_rgb_sha256": "dfe2d80bea1924cbf274fce0a43cd2585cf0c75a002c46f678ce133468115ab5",
+      "scope": "Previously 13RA lacked a separate tight ROI binding for this output literal; now original 067a direct positive"
+    }
+  ],
+  "exact_integer_replay": {
+    "unit_scope": "Only SNU GK00067_00 original 067a same-edition and this original worked case; not an asserted ancient universal metric",
+    "n": 79,
+    "source_original_93_micro_times_79": "93 * 79 = 7347 微 = 73 秒 47 微",
+    "same_edition_micro_per_second_positive": "100 微 = 1 秒 in the visible worked example",
+    "add_to_main_constant": "4 分 92 秒 93 微 + 73 秒 47 微 = 5 分 66 秒 40 微",
+    "product": "5.6640 * 79 = 447.4560",
+    "source_main_constant": "510.8569",
+    "subtraction": "510.8569 - 447.4560 = 63.4009",
+    "original_output_literal": "六十三分四〇〇九",
+    "original_output_equals_replay": true,
+    "previous_13RA_conditional_M88": "5.0593",
+    "previous_13QW_G893_original_M88": "5.0593",
+    "explicit_distinction": "The original book prints n79 output; n88 remains conditional formula evaluation, with separately bound G893 original n88 from 13QW."
+  },
+  "adjudication": {
+    "positive": "13RA's previously not tightly source-ROI-bound original n79 output literal is now positively bound to source-original same physical page and three independently hashed native pixel regions; micro/second radix is justified within the Jiaoshi worked example",
+    "does_not_establish": [
+      "G893 少 is synonymous with Jiaoshi 微 at the same native precision",
+      "G893 retains identical intermediate carry or rounding",
+      "Same source epoch, authorial hand, direct copying, stemmatic independence, or a universal G893 M88 winner",
+      "Any of the six legacy G893 D16/L8/L101/L114/L124/L132 historical finals"
+    ],
+    "historical_G893_legacy_six_winners": "0/6",
+    "issue_status": "P0_OPEN",
+    "matrix": "222/222",
+    "source_registry": "647+129=776",
+    "genealogy": "252 nodes / 238 edges",
+    "new_physical_witnesses": 0,
+    "new_registry_entries": 0,
+    "new_graph_edges": 0,
+    "chart_product": "CLOSED",
+    "algorithm_reopens": 0,
+    "next_material_target": "Direct source-native G893 少 glyph meaning/precision/carry and materially earlier independently dated Goryeosa variant witnesses. Do not extrapolate Jiaoshi 微/秒 normalization across books."
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Within-source arithmetic identity does not prove cross-book transmission or equivalence of 少 and 微."
+    ],
+    "unresolved_lineage_questions": [
+      "When and why the G893 5.0593 versus Waseda/NCL 5.0592 original readings diverged",
+      "Whether the two Goryeosa physical witness routes are stemmatically independent",
+      "Precise impression date of the Jiaoshi source given the existing 1458/1459 descriptive tension"
+    ]
+  },
+  "previous_evidence": "docs/research/TIANWEN-13RA-SNU-GK00067-ORIGINAL-YINGSUO-JIAFEN-FORMULA-R1.json",
+  "forward_only_policy": "13RA is unchanged; this separately hashed source-specific 13RB collation upgrades only its prior unbound original n79 output literal."
+}
