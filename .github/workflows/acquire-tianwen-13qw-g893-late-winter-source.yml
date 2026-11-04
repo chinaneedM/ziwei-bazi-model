@@ -21,8 +21,8 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          mkdir -p /tmp/tianwen-13qw
-          cat >/tmp/tianwen-13qw/acquire.mjs <<'JS'
+          mkdir -p /tmp/tianwen-13qw audit/13qw
+          cat >audit/13qw/acquire.mjs <<'JS'
           import puppeteer from 'puppeteer-core';
           import fs from 'node:fs';
           import crypto from 'node:crypto';
@@ -97,7 +97,7 @@ jobs:
           JS
           BROWSER="$(command -v google-chrome || command -v chromium || command -v chromium-browser || true)"
           test -n "$BROWSER"
-          BROWSER="$BROWSER" node /tmp/tianwen-13qw/acquire.mjs
+          BROWSER="$BROWSER" node audit/13qw/acquire.mjs
       - name: Upload source-native bounded research evidence
         if: always()
         uses: actions/upload-artifact@v4
