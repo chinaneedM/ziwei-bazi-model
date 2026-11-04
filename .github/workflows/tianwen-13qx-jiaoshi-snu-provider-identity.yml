@@ -1,0 +1,67 @@
+name: tianwen-13qx-jiaoshi-snu-provider-identity
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/tianwen-13qx-jiaoshi-snu-provider-identity.yml
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  provider-list-identity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up firstparty browser
+        run: npm install --no-save --silent puppeteer-core@24.16.0
+      - name: Resolve provider-issued catalog row only
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p audit/13qx /tmp/tianwen-13qx
+          cat > audit/13qx/probe.mjs <<'JS'
+          import fs from 'node:fs';
+          import crypto from 'node:crypto';
+          import puppeteer from 'puppeteer-core';
+          const out='/tmp/tianwen-13qx';
+          const browser=await puppeteer.launch({headless:true, executablePath:process.env.BROWSER,args:['--no-sandbox','--disable-setuid-sandbox']});
+          const page=await browser.newPage();
+          await page.setUserAgent('Mozilla/5.0 Tianwen-Historical-Source-Firstparty/1.0');
+          const url='https://kyudb.snu.ac.kr/book/list.do?book_cate=SIC04&mid=GDS';
+          const r=await page.goto(url,{waitUntil:'networkidle2',timeout:90000});
+          const html=await page.content();
+          const exact=await page.evaluate(()=>{
+            const name='交食推步法';
+            const arr=[...document.querySelectorAll('a,li,tr,td,div,span,strong,h3,h4')];
+            const matches=arr.filter(x=>x.textContent?.trim()===name).slice(0,15).map(x=>({
+              tag:x.tagName,outer:x.outerHTML.slice(0,1800),
+              parent:x.parentElement?.outerHTML.slice(0,5500),
+              grand:x.parentElement?.parentElement?.outerHTML.slice(0,7500),
+              surrounding_row:x.closest('tr')?.outerHTML.slice(0,8500),
+              around_ancestor:x.closest('li')?.outerHTML.slice(0,8500)
+            }));
+            const rowCandidates=[...document.querySelectorAll('tr,li,.book_list,.bookList,.item')].filter(x=>(x.innerText||'').includes(name)).slice(0,14).map(x=>({tag:x.tagName,className:String(x.className),outer:x.outerHTML.slice(0,8500)}));
+            return {matches,rowCandidates,hasTitle:document.body.innerText.includes(name)};
+          });
+          const t=html.indexOf('交食推步法');
+          const htmlContext=t>=0?html.slice(Math.max(0,t-2200),t+5200):null;
+          const receipt={schema:'TIANWEN-13QX-SNU-JIAOSHI-CATALOG-IDENTITY-PROBE',
+            url,response_status:r?.status()??null,html_sha256:crypto.createHash('sha256').update(html).digest('hex'),
+            exact,html_context:htmlContext,direct_original_image_acquired:false,book_cd_validated:false,
+            conclusion:'CATALOG_DOM_ONLY_NO_GUESSING_OF_BOOK_CD'};
+          fs.writeFileSync(out+'/receipt.json',JSON.stringify(receipt,null,2)+'\n');
+          console.log('JIAOSHI_PROVIDER_ROW_RECEIPT '+JSON.stringify(receipt).slice(0,55000));
+          await browser.close();
+          if(!exact.hasTitle)process.exitCode=3;
+          JS
+          BROWSER="$(command -v google-chrome || command -v chromium || command -v chromium-browser || true)"
+          test -n "$BROWSER"
+          BROWSER="$BROWSER" node audit/13qx/probe.mjs
+      - name: Upload firstparty catalog evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tianwen-13qx-firstparty-jiaoshi-catalog-identity
+          path: /tmp/tianwen-13qx/
+          if-no-files-found: warn
+          retention-days: 14
