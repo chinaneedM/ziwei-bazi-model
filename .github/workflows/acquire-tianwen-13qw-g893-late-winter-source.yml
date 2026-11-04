@@ -1,0 +1,108 @@
+name: acquire-tianwen-13qw-g893-late-winter-source
+
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/acquire-tianwen-13qw-g893-late-winter-source.yml
+  workflow_dispatch:
+
+permissions: {contents: read}
+
+jobs:
+  source-intake:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install source viewer client
+        run: npm install --no-save --silent puppeteer-core@24.16.0
+      - name: Reacquire only five SNU original candidate folios
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/tianwen-13qw
+          cat >/tmp/tianwen-13qw/acquire.mjs <<'JS'
+          import puppeteer from 'puppeteer-core';
+          import fs from 'node:fs';
+          import crypto from 'node:crypto';
+          const dir='/tmp/tianwen-13qw';
+          const book='GK00893_00', vol='0001';
+          const candidates=['008b','009a','009b','010a','010b'];
+          const executablePath=process.env.BROWSER;
+          const browser=await puppeteer.launch({headless:true,executablePath,args:['--no-sandbox','--disable-setuid-sandbox']});
+          const page=await browser.newPage();
+          await page.setUserAgent('Mozilla/5.0 Tianwen-Specific-Source-Audit/1.0');
+          await page.goto('https://kyudb.snu.ac.kr/book/list.do?book_cate=SIC04&mid=GDS',{waitUntil:'networkidle2',timeout:90000});
+          await Promise.all([
+            page.waitForNavigation({waitUntil:'networkidle2',timeout:90000}),
+            page.evaluate(book=>{
+              const f=document.getElementById('frmBookSearchInf');
+              f.querySelector('#book_cd').value=book;
+              f.querySelector('#target').value='master';
+              f.action='/book/view.do'; f.method='post'; f.submit();
+            },book)
+          ]);
+          const pre=new Set(browser.targets().map(t=>t._targetId));
+          await page.evaluate(book=>window.fn_originalImg('SIC',book,'',''),book);
+          let viewer=null;
+          for(let i=0;i<30&&!viewer;i++){
+            await new Promise(r=>setTimeout(r,500));
+            for(const t of browser.targets()) if(t.type()==='page'&&!pre.has(t._targetId)&&t.url().includes('/pf01/rendererImg.do')) {viewer=await t.page();break;}
+          }
+          if(!viewer) throw new Error('Official original viewer did not open');
+          const rows=[];
+          for(const p of candidates){
+            let locator=null;
+            try{
+              locator=await viewer.evaluate(async({book,vol,p})=>{
+                const body=new URLSearchParams({item_cd:'SIC',book_cd:book,vol_no:vol,page_no:p});
+                const r=await fetch('/pf01/pageText.do',{method:'POST',headers:{'content-type':'application/x-www-form-urlencoded; charset=UTF-8'},body});
+                const raw=await r.text(); let j=null; try{j=JSON.parse(raw)}catch{};
+                const div=document.createElement('div');div.innerHTML=j?.ORG?.list||'';
+                return {status:r.status, text:(div.innerText||div.textContent||'').replace(/\s+/g,' ').slice(0,2600)};
+              },{book,vol,p});
+            }catch(e){locator={error:String(e)};}
+            const fn=`${book}IH_${vol}_${p}.jpg`;
+            const sourcePath=`/data01/stream/SIC/IMG/${book}/${book}_${vol}/${fn}`;
+            const url=`https://kyudb.snu.ac.kr/ImageServlet.do?imgFileNm=${encodeURIComponent(fn)}&path=${encodeURIComponent(sourcePath)}`;
+            const imgPage=await browser.newPage();
+            let buf=null, status=null,error=null;
+            for(let attempt=1;attempt<=3;attempt++){
+              try{
+                const resp=await imgPage.goto(url,{waitUntil:'domcontentloaded',timeout:25000});
+                status=resp?.status()??null;
+                if(resp?.ok()){
+                  const candidate=await resp.buffer();
+                  if(candidate.length>5000&&candidate[0]===0xff&&candidate[1]===0xd8){buf=candidate;break;}
+                }
+              }catch(e){error=String(e)}
+              await new Promise(r=>setTimeout(r,600*attempt));
+            }
+            await imgPage.close();
+            const row={page:p,original_provider:'SNU Kyujanggak',holding:'GK00893_00',page_locator_guess_only:true,text_layer_locator_not_glyph_authority:locator,source_url:url,source_jpeg_bytes:buf?.length||0,source_jpeg_sha256:buf?crypto.createHash('sha256').update(buf).digest('hex'):null,status,error};
+            rows.push(row);
+            if(buf) fs.writeFileSync(`${dir}/${p}.jpg`,buf);
+            console.log('ORIGINAL_PAGE_RECEIPT '+JSON.stringify({page:p,bytes:row.source_jpeg_bytes,sha256:row.source_jpeg_sha256,status,error,locator:locator?.text?.slice(0,180)}));
+            if(buf && (p==='009b'||p==='010a')){
+              console.log('ORIGINAL_JPEG_BASE64_BEGIN '+p);
+              const b64=buf.toString('base64');
+              for(let i=0;i<b64.length;i+=3000) console.log('ORIGINAL_JPEG_BASE64 '+p+' '+b64.slice(i,i+3000));
+              console.log('ORIGINAL_JPEG_BASE64_END '+p);
+            }
+          }
+          fs.writeFileSync(dir+'/receipt.json',JSON.stringify({schema:'TIANWEN-13QW-G893-FIVE-PAGE-BOUNDED-FIRSTPARTY-ACQUISITION',source_copy:'SNU Kyujanggak GK00893_00',candidate_pages_are_locator_hypotheses_only:true,source_native_image_authority_only_after_manual_visual_review:true,original_pages:rows},null,2)+'\n');
+          await browser.close();
+          if(!rows.some(x=>x.source_jpeg_sha256))process.exitCode=2;
+          JS
+          BROWSER="$(command -v google-chrome || command -v chromium || command -v chromium-browser || true)"
+          test -n "$BROWSER"
+          BROWSER="$BROWSER" node /tmp/tianwen-13qw/acquire.mjs
+      - name: Upload source-native bounded research evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tianwen-13qw-g893-original-late-winter-candidate-pages
+          path: /tmp/tianwen-13qw/
+          if-no-files-found: warn
+          retention-days: 14
