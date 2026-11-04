@@ -1,0 +1,137 @@
+{
+  "schema": "TIANWEN-13RT-MEI-CADAL06054965-SOLAR-OPERATION-AND-TABLE-ORIGINAL-R1",
+  "date": "2026-11-05",
+  "issue_id": "TW-OPEN-0005",
+  "classification": "DIRECT_SCANNED_GLYPHS_OF_PREVIOUSLY_BOUND_LATER_EXEGETICAL_COPY",
+  "source": {
+    "work": "梅文鼎《大統歷志》卷四",
+    "holding_scope": "Previously recorded Siku-self-labelled digital object CADAL06054965. Exact historical impression, physical shelfmark and stemmatic relationships remain unverified.",
+    "catalog_url": "https://commons.wikimedia.org/w/index.php?curid=85340304",
+    "file_url": "https://upload.wikimedia.org/wikipedia/commons/8/83/CADAL06054965_%E5%A4%A7%E7%B5%B1%E6%AD%B7%E5%BF%97%C2%B7%E5%8D%B7%E4%B8%89~%E5%8D%B7%E5%9B%9B.djvu",
+    "djvu_bytes": 4259929,
+    "djvu_sha256": "195c3ff35ae297b43fad6bb597d46dd046b109bee4c8eae8732fba336adab800",
+    "render_method": "ddjvu -format=ppm -page=N; Pillow RGB crop without resampling; manual original glyph reading without OCR.",
+    "prior_source_reports": [
+      "docs/research/TIANWEN-12YT-MEI-CADAL06054965-ORIGINAL-NUMERIC-THREE-LOCI-R1.json",
+      "docs/research/TIANWEN-12YU-MEI-CADAL06054965-VOLUME-PARATEXT-EDITION-SELF-LABEL-R1.json"
+    ],
+    "new_physical_witnesses": 0
+  },
+  "native_glyph_evidence": [
+    {
+      "digital_page": 76,
+      "render_size": [
+        2322,
+        3143
+      ],
+      "full_render_rgb_sha256": "719d84b7e42c4597892dc2b7e987475b95a44bc762400cdc3e82934fe83cb33c",
+      "native_crop_ltrb": [
+        304,
+        2310,
+        539,
+        2836
+      ],
+      "native_crop_rgb_sha256": "31230693abd3ae2a851c26c7797882eecd17b0b9cde86910fea6b284a3254570",
+      "reading": "行度；置日周一萬，内盈加縮減"
+    },
+    {
+      "digital_page": 88,
+      "render_size": [
+        2271,
+        3102
+      ],
+      "full_render_rgb_sha256": "b42cf6f5b99a435e41f3163daa9425bc6e56386271e14ce8c17953441b19afed",
+      "native_crop_ltrb": [
+        505,
+        309,
+        931,
+        2770
+      ],
+      "native_crop_rgb_sha256": "fd18285fef47286a2e3371a08dbc9cf218f4cdfaca0475bc85485e2ff3e3a807",
+      "reading": "Summer worked end-minus-start differential: 5.9266, 4.4362, remainder 1.4904, divisor 92, resulting ○一六二."
+    },
+    {
+      "digital_page": 99,
+      "render_size": [
+        2284,
+        3116
+      ],
+      "full_render_rgb_sha256": "310aca22b8e7a8297ec16a3ed161baf421cfe05afb579edd9ed6eb7a170f979b",
+      "native_crop_ltrb": [
+        533,
+        315,
+        751,
+        2790
+      ],
+      "native_crop_rgb_sha256": "bdd87050f53d10ee384424ee87268da415a882e848ef643ebb819fb59e333422",
+      "reading": "Summer 八十六日: M 四十四分一二三一; C 二萬三千八百二十四分六四八八; J 初度九九五五八八."
+    },
+    {
+      "digital_page": 100,
+      "render_size": [
+        2315,
+        3120
+      ],
+      "full_render_rgb_sha256": "e62ff45eb604e340c4393254fd4d163b0cd3db8943248cb2334478e15e50dc67",
+      "native_crop_ltrb": [
+        310,
+        333,
+        946,
+        2800
+      ],
+      "native_crop_rgb_sha256": "0d77c0d52aa0f77d78a0575991095b4db505252ab7a0588c69a6cdc5ecb81ede",
+      "reading": "Summer 九十三日 regular M 2.9771, C 24010.5261, J 0.999703. 九十四日 terminal C 24013.5032, J 1.000000. Left gloss prints 九十一度三二〇六二五."
+    },
+    {
+      "digital_page": 101,
+      "render_size": [
+        2359,
+        3097
+      ],
+      "full_render_rgb_sha256": "780d14af036aad51791bea7841cf3fff819c7cdf3897f87ea0a9c93111c1d392",
+      "native_crop_ltrb": [
+        1390,
+        309,
+        1839,
+        2765
+      ],
+      "native_crop_rgb_sha256": "e9681cf7dff00d6e12b14d5388ec8984892028fd4d12fcb0f0587d7ca72a5018",
+      "reading": "布立成法：以其日加分盈加縮減一度，即每日日行度."
+    }
+  ],
+  "replay": {
+    "summer_daily_short_delta_mei": "(5.9266 - 4.4362) / 92 = 0.0162, exact",
+    "summer_c86_mei": "23824.6488, same as 13RR G893 original; Waseda and NCL03130 original readings 22824.6488 remain source-specific.",
+    "summer_c86_neighbor_control": "23774.7125 + 49.9363 = 23824.6488; 23824.6488 + 44.1231 = 23868.7719.",
+    "summer_d93": "J = 1 - trunc6(2.9771/10000) = 0.999703; C93 + M93 = 24013.5032.",
+    "terminal_label_scope": "Mei labels the terminal 九十四日. G893 018a labels the analogous numeric terminal with a second 九十三日 and a separate marker; no numeral normalization or fractional-time assignment.",
+    "quadrant_gloss_arithmetic_variant": {
+      "summer_printed": "91.320625",
+      "summer_from_operands_printed_in_gloss": "93.712025 - 2.4014 = 91.310625",
+      "winter_from_operands_printed_in_gloss": "88.909225 + 2.4014 = 91.310625",
+      "summer_residual_degree": "0.010000",
+      "scope": "Local conflict within the surviving Mei presentation, at the rounded accumulated operand stated in the gloss. Preserve the printed 二 and replay separately. No error origin, epoch or general calendar parameter is inferred."
+    }
+  },
+  "adjudication": {
+    "signed_degree_relation": "Mei gives an explicit later source-native add/subtract instruction and one-unit base; 13RS provides the separate G893 evidence about the six-place display. The quoted Mei clause does not prescribe when to discard digits.",
+    "source_specific_precision": "Mei 0.0162 and G893 summer bare 少 are compatible with the same displayed step, while the independent upstream carry/radix and exact historical identity of 少 and 微 remain unbound.",
+    "transmission_impact": {
+      "nodes_added_or_strengthened": [],
+      "edges_supported": [],
+      "edges_revised": [],
+      "edges_rejected_or_unproved": [
+        "Matching D86 C and table mechanics do not prove direct copying between Mei and G893."
+      ],
+      "unresolved_lineage_questions": [
+        "Identify and date earlier independent same-field sources carrying a unit definition or the otherwise unrepresented digits."
+      ]
+    },
+    "six_g893_historical_finals": "0/6",
+    "g893_risk_status": "OPEN",
+    "chart_product": "CLOSED",
+    "algorithm_reopens": 0,
+    "matrix_delta": 0,
+    "source_registry_delta": 0
+  }
+}
