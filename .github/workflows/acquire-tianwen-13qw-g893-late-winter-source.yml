@@ -98,6 +98,31 @@ jobs:
           BROWSER="$(command -v google-chrome || command -v chromium || command -v chromium-browser || true)"
           test -n "$BROWSER"
           BROWSER="$BROWSER" node audit/13qw/acquire.mjs
+          python -m pip install --quiet "Pillow>=10,<12"
+          python - <<'PY'
+          from PIL import Image
+          from io import BytesIO
+          import hashlib, base64
+          from pathlib import Path
+          p=Path('/tmp/tianwen-13qw/009a.jpg')
+          im=Image.open(p).convert('RGB')
+          print('SOURCE_NATIVE_RGB',im.size,hashlib.sha256(im.tobytes()).hexdigest())
+          rois=[
+              ('D88_PAIR_AND_TERMINAL', (315,250,740,1750)),
+              ('D88_NARROW_M', (540,640,715,1550)),
+              ('D87_PAIR_CONTROL', (725,250,1010,1750)),
+          ]
+          for name,bbox in rois:
+              crop=im.crop(bbox)
+              rgb_hash=hashlib.sha256(crop.tobytes()).hexdigest()
+              crop.save('/tmp/tianwen-13qw/'+name+'.png')
+              out=BytesIO();crop.save(out,format='PNG')
+              z=base64.b64encode(out.getvalue()).decode('ascii')
+              print('SOURCE_ORIGINAL_ROI',name,bbox,rgb_hash,'RGB_UNRESIZED')
+              print('SOURCE_ORIGINAL_ROI_BEGIN',name)
+              for i in range(0,len(z),3000): print('SOURCE_ORIGINAL_ROI_B64',name,z[i:i+3000])
+              print('SOURCE_ORIGINAL_ROI_END',name)
+          PY
       - name: Upload source-native bounded research evidence
         if: always()
         uses: actions/upload-artifact@v4
