@@ -1,0 +1,21 @@
+{
+  "schema": "TIANWEN-13RN-WASEDA1672-SOURCE-STATUS-VALIDATION-ERRATUM-R1",
+  "date": "2026-11-04",
+  "issue_id": "TW-OPEN-0005",
+  "original_report": "docs/research/TIANWEN-13RM-WASEDA-1672-SHOUSHI-LIJING-58CUT-SOURCE-ACCESS-R1.json",
+  "corrected_source_shard": "docs/research/TIANWEN-13RM-WASEDA-1672-NI05-02159-SHOUSHI-LIJING-CATALOG-SOURCE-SHARD-R1.json",
+  "reason": "Preflight direct reading of scripts/verify-historical-source-registry-extensions-r1.py shows source verification_status enum is closed: only RECEIVED_TEXT_VERIFIED, UNVERIFIED_TARGET_LOCATOR_QUARANTINED, ACCESS_BOUNDARY_UNVERIFIED, BIBLIOGRAPHIC_METADATA_ONLY for physical_glyph_authority=false. 13RM had used an unrecognized descriptive enum for an otherwise valid bibliographic-only entry.",
+  "before": "FIRSTPARTY_CATALOG_BOUND_ORIGINAL_IMAGE_PENDING_ACCESS",
+  "after": "BIBLIOGRAPHIC_METADATA_ONLY",
+  "scope": "VALIDATOR_ENUM_NORMALIZATION_ONLY_NO_NEW_FOLIO",
+  "official_catalog": "https://www.wul.waseda.ac.jp/kotenseki/html/ni05/ni05_02159/index.html",
+  "original_image_status": "NOT_ACQUIRED",
+  "original_g893_precision": "STILL_UNRESOLVED",
+  "old_13rm_source_record_preserved_in_parent_commit": "d04f4a112b2d9e71572c15715431829b274c9c94",
+  "source_registry_total": 777,
+  "issues_open": 11,
+  "graph_nodes_delta": 0,
+  "graph_edges_delta": 0,
+  "matrix_delta": 0,
+  "algorithm_reopens": 0
+}
