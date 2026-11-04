@@ -1,0 +1,174 @@
+{
+  "schema": "TIANWEN-13RD-SNU-GK00067-ORIGINAL-PREFACE-DATE-ERRATUM-R1",
+  "date": "2026-11-04",
+  "issue_id": "TW-OPEN-0005",
+  "status": "SOURCE_NATIVE_ORIGINAL_PREFACE_YEAR_TWO_POSITIVE_CATALOG_PARATEXT_YEAR_THREE_CONTRADICTED_AT_TEXT_LITERAL_SCOPE",
+  "question": "Is the prefatory signature on the authentic SNU 奎貴67 physical original 天順二年 or the 天順三年 currently stated by the provider detail and inherited in earlier 13RA evidence? Does this establish the book's exact impression date?",
+  "source_identity": {
+    "provider": "Seoul National University Kyujanggak",
+    "catalog_title": "交食推步法",
+    "call_number": "奎貴67",
+    "source_item_id": "GK00067_00",
+    "official_detail": "https://kyudb.snu.ac.kr/book/view.do?book_cd=GK00067_00",
+    "firstparty_catalog_original_control": "fn_originalImg('item_cd', 'GK00067_00', '', '');return false;",
+    "firstparty_confirmed_in_new_13RD_runner": true,
+    "book_is_same_existing_13RA_physical_item": true,
+    "independent_copy_count_delta": 0
+  },
+  "acquisition": {
+    "workflow_path": ".github/workflows/tianwen-13rd-jiaoshi-original-preface-date.yml",
+    "initial_action_failed_run_id": 41840067774,
+    "initial_failure": "Node ERR_MODULE_NOT_FOUND; script was outside repository node_modules resolution; no original image claim from failed action",
+    "remediation_commit": "b3178a01dc85397196172fde8803ecb0ef085878",
+    "successful_run_id": 41840236930,
+    "successful_artifact_id": 13328019451,
+    "artifact_name": "tianwen-13rd-jiaoshi-original-preface-pages",
+    "artifact_zip_sha256": "5ef4c2f0d8e170f26f20903dfbfabd4f2bcca462dc04866f991853b4229799e3",
+    "zip_crc_check": "PASS",
+    "http_status_all_seven": 200,
+    "pages": [
+      "001b",
+      "002a",
+      "002b",
+      "003a",
+      "003b",
+      "004a",
+      "004b"
+    ],
+    "source_jpeg_count": 7,
+    "no_ocr": true,
+    "original_jpegs_committed_to_public_repo": false,
+    "firstparty_older_13QY_001a_source": "docs/research/TIANWEN-13RA-SNU-GK00067-ORIGINAL-YINGSUO-JIAFEN-FORMULA-R1.json",
+    "same_physical_surrogate_as_13RA": true
+  },
+  "direct_source_original_images": {
+    "preface_first": {
+      "page": "001a",
+      "reused_prior_13QY_original": true,
+      "jpeg_bytes": 216993,
+      "jpeg_sha256": "fdb2ddd98ce8033632d1db9a099e416b623cd3a300e2a036a2e3cd796dfdd4af",
+      "native_rgb_sha256": "18d55b94ee6b02ec6a1bc1c122383d5256e497dddf07d6f1375bbebb98066585",
+      "size_px": [
+        1094,
+        2000
+      ],
+      "positive_original_phrase": "交食推步法假令序；蓋授時曆經立成諸數浩繁 ...",
+      "rgb_roi_xyxy": [
+        410,
+        210,
+        750,
+        1460
+      ],
+      "rgb_roi_sha256": "9c95f3e0f1b16abb15a2d455079d8f9113d841cc0adbdc97e6bce73c061389af",
+      "scope": "Book-level original introduction uses 授時曆經立成 wording, not direct evidence for any particular surviving G893 copy"
+    },
+    "preface_terminal": {
+      "page": "002b",
+      "source_issue": "GK00067_00",
+      "jpeg_bytes": 155155,
+      "jpeg_sha256": "01ffb2c37687875c06ee97413a94ee0976c8b004024a1b34dd8a7c624c4a7e45",
+      "native_rgb_sha256": "e803823916b564e6cbea9ce78ff31b9dcc38f4c99adb4da618dbc3ff6b5556f7",
+      "size_px": [
+        1094,
+        2000
+      ],
+      "date_glyphs": "天順二年正月日",
+      "date_english": "1458-01 lunar-date day unspecified",
+      "source_original_signature_continuation": "嘉靖大夫禮曹參判脩文殿提學臣李純之奉教序",
+      "date_rgb_roi_xyxy": [
+        515,
+        220,
+        620,
+        1450
+      ],
+      "date_rgb_roi_sha256": "78968b1007eeff07b95562e5c2478469f5edb4265eb5e3af57cf98e102dbc2c0",
+      "date_context_rgb_roi_xyxy": [
+        350,
+        220,
+        655,
+        1470
+      ],
+      "date_context_rgb_roi_sha256": "de188978860726322393ee4f75d67ab83d9b87cd43b4e79e375dc860428d4d5a",
+      "no_ocr": true,
+      "human_manual_direct_original_visual_status": "POSITIVE_AND_YEAR_GLYPH_IS_TWO_NOT_THREE"
+    },
+    "additional_folios": [
+      {
+        "page": "001b",
+        "jpeg_sha256": "0a13f11fef80c24d0b5e7930d71c030785a3c943ebe6033cfab82f293bfddde1"
+      },
+      {
+        "page": "002a",
+        "jpeg_sha256": "a2cbdbf05f8a2590a7f4624496837b76db5832f9a8aebc291caa538e1447c95f"
+      },
+      {
+        "page": "003a",
+        "jpeg_sha256": "82ce9478048a1727793ac79269f01683b4a534decb37fe730b38278e8514ce43"
+      },
+      {
+        "page": "003b",
+        "jpeg_sha256": "5a5bbecc78676dc7346cef6d265d6514b54622550417f7e5d0d1c73cbc9984cf"
+      },
+      {
+        "page": "004a",
+        "jpeg_sha256": "ad51ee9f5278d2618c73c5b27ff2faa2963d6d970c6b7b3a5343a14c666ad"
+      },
+      {
+        "page": "004b",
+        "jpeg_sha256": "4f4643eaafca41a99309f74d93efa824245f6eb169d25b767f2e477d0c62df84"
+      }
+    ],
+    "digest_protocol": "sha256(bytes(original JPEG)); sha256(Image.open(jpeg).convert('RGB').tobytes()); SHA256(crop(xyxy).tobytes()) zero-based image coordinates; no scaling for hash"
+  },
+  "previous_witness_contrast": [
+    {
+      "source": "SNU Kyujanggak current firstparty detail as recorded in 13RA",
+      "previous_metadata_atom": "卷首:序…天順三年(1459)正月日…李純之奉敎",
+      "prior_evidence": "docs/research/TIANWEN-13RA-SNU-GK00067-ORIGINAL-YINGSUO-JIAFEN-FORMULA-R1.json",
+      "status": "CONTRADICTED_BY_SAME_ITEM_DIRECT_ORIGINAL_GLYPH_FOR_PREFACE_YEAR_LITERAL",
+      "limit": "This does not demonstrate that SNU's separately listed [世祖4年(1458)] catalog-year attribution is incorrect; it in fact agrees in year with the original preface."
+    },
+    {
+      "source": "Wikisource fixed received preface text 2024-04-12",
+      "url": "https://zh.wikisource.org/w/index.php?title=%E4%BA%A4%E9%A3%9F%E6%8E%A8%E6%AD%A5%E6%B3%95/%E5%BA%8F&oldid=2388332",
+      "received_atom": "天順二年正月日",
+      "prior_evidence": "docs/research/TIANWEN-13OQ-1458-PREFACE-RECEIVED-CHRONOLOGY-AND-LICHENG-SCOPE-R1.json",
+      "status": "CORROBORATES_ORIGINAL_LITERAL_NOT_NEW_PHYSICAL_WITNESS"
+    }
+  ],
+  "precision_firewall": {
+    "authorial_preface_signature_date": "1458 directly source-original positive on this copy",
+    "exact_specific_physical_impression_year": "STILL_UNRESOLVED; preface date is not a print colophon nor independent evidence of the precise impression date",
+    "provider_bibliographic_catalog_year_1458": "DISTINCT_CATALOG_METADATA_STILL_RECORDED",
+    "provider_preface_detail_1459_literal": "TEXTUAL_METADATA_ERRATUM_IN_THIS_SPECIFIC_SOURCE_ITEM_CONTEXT",
+    "physical_copy_dating": "NOT_NEWLY_ESTABLISHED",
+    "digital_surrogate_dating": "UNRESOLVED",
+    "copying_or_stemma_between_G893_and_Jiaoshi": "NOT_ESTABLISHED",
+    "historical_source_position_of_交食推步法_original_formula": "13RA-13RC SOURCE_POSITIVE_UNCHANGED",
+    "g893_source_original_少_micro_carry": "OPEN",
+    "g893_six_historical_numeric_final_winners": "0/6",
+    "matrix": "222/222",
+    "sources": "647+129=776",
+    "graph": "252 nodes / 238 edges",
+    "issues_open": 11,
+    "chart_product": "CLOSED",
+    "algorithm_reopens": 0,
+    "new_graph_nodes": 0,
+    "new_graph_edges": 0,
+    "new_registry_sources": 0
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Original 1458 book preface mentioning 授時曆經立成 is an explicit method/work-level dependency statement, not proof that the writer copied the surviving G893 printed exemplar."
+    ],
+    "unresolved_lineage_questions": [
+      "Locate independently source-original type/edition/print colophon to date this specific physical impression beyond its 1458 original prefatory signature.",
+      "Determine the G893 original source-specific 少 radix/carry and actual higher-precision observation.",
+      "Investigate why SNU metadata contains the 1459 preface-note reading despite the 1458 original physical text; do not invent two impressions."
+    ]
+  },
+  "next_action": "Maintain original-preface 1458 winner for the textual date literal only; identify print colophon/type-bearing physical-original folio if available without account/cost, then return to G893 少/carry or independent source-original Goryeosa variant. No further broad year-web searches, no algorithm changes."
+}
