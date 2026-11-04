@@ -28,7 +28,7 @@ jobs:
           import crypto from 'node:crypto';
           const dir='/tmp/tianwen-13qw';
           const book='GK00893_00', vol='0001';
-          const candidates=['008b','009a','009b','010a','010b'];
+          const candidates=['008b','009a'];
           const executablePath=process.env.BROWSER;
           const browser=await puppeteer.launch({headless:true,executablePath,args:['--no-sandbox','--disable-setuid-sandbox']});
           const page=await browser.newPage();
@@ -84,7 +84,7 @@ jobs:
             rows.push(row);
             if(buf) fs.writeFileSync(`${dir}/${p}.jpg`,buf);
             console.log('ORIGINAL_PAGE_RECEIPT '+JSON.stringify({page:p,bytes:row.source_jpeg_bytes,sha256:row.source_jpeg_sha256,status,error,locator:locator?.text?.slice(0,180)}));
-            if(buf && (p==='009b'||p==='010a')){
+            if(buf && (p==='008b'||p==='009a')){
               console.log('ORIGINAL_JPEG_BASE64_BEGIN '+p);
               const b64=buf.toString('base64');
               for(let i=0;i<b64.length;i+=3000) console.log('ORIGINAL_JPEG_BASE64 '+p+' '+b64.slice(i,i+3000));
