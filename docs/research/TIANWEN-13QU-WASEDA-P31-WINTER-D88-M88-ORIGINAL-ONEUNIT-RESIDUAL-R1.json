@@ -1,0 +1,151 @@
+{
+  "schema": "TIANWEN-13QU-WASEDA-P31-WINTER-D88-ORIGINAL-PRINTED-ONEUNIT-RESIDUAL-R1",
+  "date": "2026-11-04",
+  "issue_id": "TW-OPEN-0005",
+  "research_question": "Does the original Waseda book33 winter-table day88 print physically attest the modern received M88=5.0592 and, in the same original spread, print C88 and terminal C whose local difference requires 5.0593?",
+  "source": {
+    "provider": "Waseda University Library",
+    "source_pdf": "https://archive.wul.waseda.ac.jp/kosho/ri06/ri06_02809/ri06_02809_0033/ri06_02809_0033.pdf",
+    "holding": "RI06-02809 book33",
+    "physical_format": "HISTORICAL_PRINTED_COPY",
+    "specific_impression_date": "UNVERIFIED",
+    "same_physical_source_as_prior": "docs/research/TIANWEN-13QS-WASEDA-P42-SUMMER-D86-ORIGINAL-CUMULATIVE-GLYPH-COLLATION-R1.json",
+    "archive_run_id": 39601924438,
+    "archive_artifact_id": 12346735638,
+    "archive_sha256": "0ce306c099a1ed62dd24a3256ba043062490409bd5d531b543c16f1b00017710",
+    "image_name": "p31-xref94-1.jpg",
+    "image_bytes": 683571,
+    "image_sha256": "c499de6f3030154720f1dd422a26820c4fca233e81b5c56caf5e57906e4283ea",
+    "decoded_rgb_dimensions": [
+      2592,
+      1728
+    ],
+    "rgb_sha256": "0924f540a649b042fea5065087e57dc59982408091752a0977ddcf8bd509d642",
+    "archive_restored_not_refetched_pdf": true
+  },
+  "original_native_roi_contract": {
+    "method": "Manual no-OCR reading of original archived page31 native-decoded JPEG and bounded independent RGB pixel ROIs, SHA-256 of RGB crop.tobytes(); bbox left/top/right/bottom.",
+    "rois": [
+      {
+        "field": "WINTER_DAY88_HEADER",
+        "bbox": [
+          1360,
+          345,
+          1465,
+          660
+        ],
+        "sha256": "9bd8f2367ebb3ae48be8c1121a9165e70d7882a7fab70d912766ef570f22f624",
+        "literal": "八十八日"
+      },
+      {
+        "field": "WINTER_DAY88_M_YINGSUO_JIAFEN",
+        "bbox": [
+          1399,
+          668,
+          1454,
+          1200
+        ],
+        "sha256": "09713c3574006cfdca0e48f080973657db459f9b13631f4d3f6f1350f9067da1",
+        "literal": "五〇五九二",
+        "normalized": "5.0592"
+      },
+      {
+        "field": "WINTER_DAY88_C_YINGSUO_JI",
+        "bbox": [
+          1144,
+          654,
+          1221,
+          1432
+        ],
+        "sha256": "e3afa846801ee1afb409ea37713f3cb094da297f5ec33ecdb23d28cdd015811d",
+        "literal": "二萬四千〇〇九三五六八",
+        "normalized": "24009.3568"
+      },
+      {
+        "field": "WINTER_TERMINAL_HEADING",
+        "bbox": [
+          1020,
+          345,
+          1100,
+          715
+        ],
+        "sha256": "5ec69f4c1c86334f0b21c2f0db3e2ef087a79a45032fbdae7650fc43b4192517",
+        "literal": "八十八日九",
+        "interpretation": "SOURCE_PRINTED_GLHYPH_UNEVALUATED_TERMINAL_MARKER_NOT_AUTOMATIC_88.9_OR_89_DAY_FORMULA"
+      },
+      {
+        "field": "WINTER_TERMINAL_C",
+        "bbox": [
+          953,
+          670,
+          1010,
+          1410
+        ],
+        "sha256": "0bb076b7c9b684ff09a5a01ea36ff0121115df62fbc98df92c4df88d9bfa4a24",
+        "literal": "二萬四千〇一四四一六一",
+        "normalized": "24014.4161"
+      }
+    ],
+    "source_folio_layout": "Winter D88 last row is on right-hand page of the spread; C88 and terminal C are next to the seam on left-hand page. Binding uses exact page original not modern text conversion.",
+    "source_printed_M88_original_positive": true,
+    "source_printed_C88_and_terminal_C_original_positive": true,
+    "source_full_table_or_physical_copy_stemma_collated": false
+  },
+  "exact_integer_diagnostic": {
+    "scale": "1 integer = 0.0001 of the printed numerical column",
+    "original_C88_int": 240093568,
+    "original_terminal_C_int": 240144161,
+    "original_M88_int": 50592,
+    "original_terminal_minus_C88_int": 50593,
+    "observed_original_M88_minus_cumulative_gap_int": -1,
+    "residual_decimal": "-0.0001",
+    "earlier_13QQ_received_prior": "docs/research/TIANWEN-13QQ-G893-RECEIVED-D88-M88-ONE-UNIT-RESIDUAL-AND-TERMINAL-FOLIO-GATE-R1.json",
+    "what_changes": "13QQ was edited/received text only; this newly direct-original copy-specific print confirms the same discrepancy, and original p31 same-spread C88 and endpoint C numerical characters are now source-positive.",
+    "what_does_not_change": [
+      "No ancient authorial archetype or first typo stage adjudicated.",
+      "No G893 same original source GK00893_00 day88 folio or independent SNU 奎貴67 formula collated.",
+      "No inference of historical half-up/floor or 0.018600 versus 0.018625 radix winner.",
+      "No full-table absence claim or proof that terminal 九 represents fractional 88.9 / 89-day model."
+    ]
+  },
+  "interedition_scope": {
+    "waseda_is_different_from_GK00893_00": true,
+    "source_lineage_to_GK00893_00": "UNPROVEN",
+    "same_Waseda_print_as_existing_13BY_and_13QS": true,
+    "new_original_physical_witness_count": 0,
+    "new_source_registry_entries": 0,
+    "transmission_edge_strengthened": false,
+    "received_mirror_as_second_vote": false,
+    "conflicting_winter_D88_original": "NOT_YET_COLLATED_FROM_AN_EARLY_INDEPENDENT_COPY"
+  },
+  "verdict": {
+    "result": "WASEDA_ORIGINAL_WIN_D88_M88_FIVEZERO59TWO_AND_C88_TERMINAL_ONEUNIT_RESIDUAL_DIRECT_GLYPH_POSITIVE",
+    "TW_OPEN_0005": "OPEN_P0",
+    "historical_G893_six_winners": "0/6",
+    "matrix": "222/222",
+    "registry": {
+      "root": 647,
+      "extensions": 129,
+      "total": 776
+    },
+    "genealogy": {
+      "nodes": 252,
+      "edges": 238
+    },
+    "risk_issues": 11,
+    "deterministic_product": "CLOSED",
+    "algorithm_reopen_count": 0,
+    "next_action": "Collate source-original G893 winter last-row M88 and endpoint C if supplied by its authenticated original, or independently documented early Korean/Japanese physical copy; date source and compare Waseda without arithmetic emendation."
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "The Waseda copy and modern received NIKH text agree in a one-unit residual but do not prove where or when this numeral entered transmission, or direct manuscript-to-print copying."
+    ],
+    "unresolved_lineage_questions": [
+      "Does any demonstrably earlier original or source-native SNU 奎貴893 last-winter leaf print 五〇五九二 or 五〇五九三, and what is its exact copy/folio identity?"
+    ]
+  }
+}
