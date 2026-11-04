@@ -18,7 +18,8 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p /tmp/tianwen-13rd
-          cat >/tmp/tianwen-13rd/fetch.mjs <<'JS'
+          mkdir -p audit/13rd
+          cat >audit/13rd/fetch.mjs <<'JS'
           import puppeteer from 'puppeteer-core';
           import fs from 'node:fs';
           import crypto from 'node:crypto';
@@ -61,7 +62,7 @@ jobs:
           JS
           BROWSER="$(command -v google-chrome || command -v chromium || command -v chromium-browser || true)"
           test -n "$BROWSER"
-          BROWSER="$BROWSER" node /tmp/tianwen-13rd/fetch.mjs
+          BROWSER="$BROWSER" node audit/13rd/fetch.mjs
       - if: always()
         uses: actions/upload-artifact@v4
         with:
