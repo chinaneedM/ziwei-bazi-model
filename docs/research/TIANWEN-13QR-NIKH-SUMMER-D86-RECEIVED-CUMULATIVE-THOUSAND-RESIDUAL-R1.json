@@ -1,0 +1,105 @@
+{
+  "schema": "TIANWEN-13QR-NIKH-SUMMER-D86-RECEIVED-CUMULATIVE-THOUSAND-UNIT-RESIDUAL-R1",
+  "date": "2026-11-04",
+  "issue_id": "TW-OPEN-0005",
+  "classification": "SOURCE_SCOPED_RECEIVED_TEXT_SUMMER_D86_CUMULATIVE_THOUSAND_UNIT_RESIDUAL_ORIGINAL_GLYPH_UNVERIFIED",
+  "research_question": "Does the first-party edited transcription of 高麗史卷52 授時曆立成 夏至 table internally satisfy its neighboring 盈縮積/盈縮加分 recurrence at day86, and does this attest the early printed G893 numeral?",
+  "source_1": {
+    "provider": "National Institute of Korean History (NIKH) official edited Goryeosa transcription",
+    "url": "https://db.history.go.kr/id/kr_052_0010_0010_0020_0020",
+    "work": "高麗史卷52 授時曆立成 大陽夏至前後二象縮初盈末限",
+    "grade": "OFFICIAL_MODERN_RECEIVED_TEXT_NOT_SOURCE_NATIVE_ORIGINAL_IMAGE",
+    "target_heading": "盈縮積",
+    "rows": [
+      {
+        "day": 85,
+        "printed_C": "二萬三千七百七四七一二五",
+        "C": "23774.7125",
+        "printed_M": "四十九九三六三",
+        "M": "49.9363"
+      },
+      {
+        "day": 86,
+        "printed_C": "二萬二千八百二四六四八八",
+        "C": "22824.6488",
+        "printed_M": "四十四一二三一",
+        "M": "44.1231"
+      },
+      {
+        "day": 87,
+        "printed_C": "二萬三千八百六八七七一九",
+        "C": "23868.7719",
+        "printed_M": "三十八二九三七",
+        "M": "38.2937"
+      }
+    ],
+    "original_g893_day86_folio_id": null,
+    "original_g893_day86_native_jpeg_sha256": null
+  },
+  "received_mirror_scope": {
+    "provider": "Chinese Wikisource edited/received mirror",
+    "url": "https://zh.wikisource.org/wiki/%E9%AB%98%E9%BA%97%E5%8F%B2/%E5%8D%B7%E4%BA%94%E5%8D%81%E4%BA%8C",
+    "day86_C_literal": "二萬二千八百二四六四八八",
+    "status": "SAME_RECEIVED_TEXT_DUPLICATION_NOT_INDEPENDENT_ANCIENT_WITNESS"
+  },
+  "integer_replay": {
+    "unit": "1 integer = 0.0001 of displayed 盈縮積 or 盈縮加分; arithmetic check ONLY",
+    "reported_C85_int": 237747125,
+    "reported_M85_int": 499363,
+    "reported_C86_int": 228246488,
+    "reported_M86_int": 441231,
+    "reported_C87_int": 238687719,
+    "from_forward_C85_plus_M85_int": 238246488,
+    "from_backward_C87_minus_M86_int": 238246488,
+    "expected_C86": "23824.6488",
+    "received_C86": "22824.6488",
+    "residual_received_minus_expected_int": -10000000,
+    "residual_received_minus_expected": "-1000.0000",
+    "constraints_agree": true,
+    "original_print_proven": false,
+    "not_proven": [
+      "G893 or another old physical source printed 二萬二千八百二四六四八八 rather than 二萬三千八百二四六四八八",
+      "The historical scribe or printer introduced the discrepancy",
+      "The modern received text contains an editorial or digitization error rather than an older received reading",
+      "An unverified exceptional carry/index rule is warranted",
+      "A similar arithmetic pattern in received text adjudicates any of the six native G893 numerical targets"
+    ]
+  },
+  "previous_research_dedup": {
+    "summer_day28_xingdu": "NOT_NEW_DISCOVERY_ALREADY_AUDITED_13DB_13DD_13DE_13DG_13EA",
+    "details": "13DD / 13DE / 13DG / 13EA already bind the unusual 夏至 行度 初度九十九四五四九 to physical-source images across independently named holdings, while relation to the derived 0.964549 remains source- and edition-scoped; this batch registers NO new D28 finding, source count, or source-native witness.",
+    "winter_day88": "13QQ is a distinct winter received M88 0.0001 residual; not the same target cell."
+  },
+  "verdict": {
+    "result": "RECEIVED_TEXT_SUMMER_D86_C_THOUSAND_DISCREPANCY_OPEN_PENDING_ANCIENT_ORIGINAL_COLLATION",
+    "no_ancient_glyph_emendation": true,
+    "no_original_source_page_newly_acquired": true,
+    "source_registry_count_unchanged": true,
+    "g893_six_historical_numeric_winners": "0/6",
+    "next_action": "Fetch and visually collate provider-issued authenticated G893 summer D85-D87 target folio at native resolution and physically independent comparator; verify row heading/field geometry and copy attribution. Separately obtain SNU 奎貴67 original numeric instruction. Do not infer original digit from edited text or arithmetic alone.",
+    "matrix": "222/222",
+    "sources": {
+      "root": 647,
+      "extension": 129,
+      "total": 776
+    },
+    "genealogy": {
+      "nodes": 252,
+      "edges": 238
+    },
+    "issues": 11,
+    "product": "CLOSED",
+    "algorithm_reopen_count": 0
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "NIKH and Wikisource matching D86 received text does not establish two ancient physical witnesses or direct copying of a specific edition."
+    ],
+    "unresolved_lineage_questions": [
+      "What does authenticated G893 original summer D86 C glyph show and which older independent editions carry it?"
+    ]
+  }
+}
