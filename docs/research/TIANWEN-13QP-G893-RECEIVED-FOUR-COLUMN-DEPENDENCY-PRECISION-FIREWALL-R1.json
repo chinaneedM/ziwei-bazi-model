@@ -1,0 +1,166 @@
+{
+  "schema": "TIANWEN-13QP-G893-FOUR-COLUMN-OBSERVATIONAL-DEPENDENCY-R1",
+  "date": "2026-11-04",
+  "issue_id": "TW-OPEN-0005",
+  "classification": "EXACT_INTEGER_DERIVED_RECEIVED_TABLE_COLUMN_CHECK_NO_NEW_ORIGINAL_GLYPH",
+  "research_question": "Can apparent six-digit 行度 and accumulated 盈縮積 in the received G893 table distinguish 0.018600 from 0.018625 where per-step Q4 had made the four-place short/addend lanes identical?",
+  "source_scope": {
+    "direct_original_S_M": "Previously registered Kyujanggak 奎貴893 / GK00893_00 original JPEG 001a sha256 8b07513ca8aad42ae167a93f22c39f14850c8cd1c345db9ce98c1e0e769226a5 and 002b sha256 f9812e8c6a357eb6cd1117bb2af58d816e01030d5b93f34e7094bddb766b2b55, days 0/1/2/15/16/17 already reviewed in 13PP",
+    "received_C_J": "National Institute of Korean History official transcribed 高麗史卷52 授時曆立成 table, NOT new ancient original-photo collations for C/J",
+    "received_url": "https://db.history.go.kr/goryeo/level.do?levelId=kr_052_0010_0010_0020_0010&types=o",
+    "original_g893_printed_C_J_newly_visually_bound": false,
+    "original_physical_witnesses_added": 0,
+    "source_registry_entries_added": 0,
+    "received_day16_short": "5.1362 (known modern transcription discrepancy); original day16 source glyph 5.2362 in 13MN; this check uses original S and does not count discrepancy as newly discovered",
+    "earlier_research": [
+      "docs/research/TIANWEN-13QO-G893-FOUR-PLACE-RECURRENCE-IDENTIFIABILITY-BOUNDARY-R1.json",
+      "docs/research/TIANWEN-13PP-G893-SHAO-QUARTER-MICRO-AND-FOUR-PLACE-INTERMEDIATE-QUANTIZATION-GATE-R1.json",
+      "docs/research/TIANWEN-13MN-G893-D15-D17-DIRECT-ORIGINAL-NUMERIC-LANE-R1.json"
+    ]
+  },
+  "exact_integer_model": {
+    "unit": "S/M/C integer scale 1/10000 of numeric 分, J displayed as 1 degree plus six-decimal fractional degree",
+    "initial_state": {
+      "S_x10000": 49386,
+      "M_x10000": 5108569,
+      "C_x10000": 0
+    },
+    "step": "C[n+1]=C[n]+M[n]; M[n+1]=M[n]-S[n]; S[n+1]=S[n]+186, where this is a CONDITIONAL four-place step model, NOT a historically attested rounding instruction",
+    "degree": "J[n]=1+floor(M_x10000[n]/100)/1,000,000; integer floor is on positive M_x10000; equivalent to displaying 1+M[n]/10000 to six decimal degree places by truncation",
+    "received_row_checks": [
+      {
+        "day": 0,
+        "source_original_S_and_M_13PP": [
+          "4.9386",
+          "510.8569"
+        ],
+        "official_received_C": null,
+        "official_received_J": "1.051085",
+        "replay": {
+          "S": "4.9386",
+          "M": "510.8569",
+          "C": null,
+          "J": "1.051085"
+        },
+        "exact_integer_match": true
+      },
+      {
+        "day": 1,
+        "source_original_S_and_M_13PP": [
+          "4.9572",
+          "505.9183"
+        ],
+        "official_received_C": "510.8569",
+        "official_received_J": "1.050591",
+        "replay": {
+          "S": "4.9572",
+          "M": "505.9183",
+          "C": "510.8569",
+          "J": "1.050591"
+        },
+        "exact_integer_match": true
+      },
+      {
+        "day": 2,
+        "source_original_S_and_M_13PP": [
+          "4.9758",
+          "500.9611"
+        ],
+        "official_received_C": "1016.7752",
+        "official_received_J": "1.050096",
+        "replay": {
+          "S": "4.9758",
+          "M": "500.9611",
+          "C": "1016.7752",
+          "J": "1.050096"
+        },
+        "exact_integer_match": true
+      },
+      {
+        "day": 15,
+        "source_original_S_and_M_13PP": [
+          "5.2176",
+          "434.8249"
+        ],
+        "official_received_C": "7135.8375",
+        "official_received_J": "1.043482",
+        "replay": {
+          "S": "5.2176",
+          "M": "434.8249",
+          "C": "7135.8375",
+          "J": "1.043482"
+        },
+        "exact_integer_match": true
+      },
+      {
+        "day": 16,
+        "source_original_S_and_M_13PP": [
+          "5.2362",
+          "429.6073"
+        ],
+        "official_received_C": "7570.6624",
+        "official_received_J": "1.042960",
+        "replay": {
+          "S": "5.2362",
+          "M": "429.6073",
+          "C": "7570.6624",
+          "J": "1.042960"
+        },
+        "exact_integer_match": true
+      },
+      {
+        "day": 17,
+        "source_original_S_and_M_13PP": [
+          "5.2548",
+          "424.3711"
+        ],
+        "official_received_C": "8000.2697",
+        "official_received_J": "1.042437",
+        "replay": {
+          "S": "5.2548",
+          "M": "424.3711",
+          "C": "8000.2697",
+          "J": "1.042437"
+        },
+        "exact_integer_match": true
+      }
+    ],
+    "rows_checked_count": 6,
+    "received_C_J_matches": true,
+    "direct_original_C_J_glyphs_rechecked": false,
+    "same_received_table_not_independent_physical_witness": true,
+    "non_identifiability_proof": "For δ=0.018600 or 0.018625 under the 13QO conditional per-step Q4 floor or half-up, S[n] and M[n] are identical by induction. If C[n+1]=C[n]+M[n] and J[n]=trunc6(1+M[n]/10000), then C[n] and J[n] are also identical for every n. The longer-looking six-decimal J output is just scale conversion of four-decimal M; it does not supply independent 5th/6th decimal places in the source short-lane increment.",
+    "limits": [
+      "Observed received C/J matching a derived model is NOT original-source proof of the ancient construction, especially before source-native C/J heading/column glyph collation.",
+      "Conditional equivalence does NOT hold if the original source used a nonrecurrent high-precision intermediate, independent sexagesimal unit or independently generated J/C values.",
+      "Original source-specific 少/微 radix, carry, epoch and field identities remain OPEN.",
+      "Do not silently transfer Korean transcribed printed 行度 glyph to the Kyujanggak copy or multiply web presentations into original witnesses."
+    ]
+  },
+  "adjudication": {
+    "positive": "Current six original-S/M anchors and corresponding official received C/J entries are exactly compatible with one deterministic derived four-column model; apparent higher printed precision in received J is not an independent discriminator under that model.",
+    "historical_unit_winner": false,
+    "independent_higher_precision_original_discriminator": false,
+    "next_decisive_target": "Source-issued original same-column G893 instruction/retained-digit numeral or SNU 奎貴67 盈縮加分 original folio with native glyph, page/image digest and verified field mapping. Do not treat received derived 行度 as new independent precision.",
+    "G893_six_historic_numeric_finals": "0/6",
+    "matrix": "222/222",
+    "root_registry": 647,
+    "extension_registry": 129,
+    "genealogy_nodes": 252,
+    "genealogy_edges": 238,
+    "unresolved_issues": 11,
+    "deterministic_product": "CLOSED",
+    "algorithm_reopens": 0
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Six displayed decimal places in a received degree column do not independently prove six-place ancient daily source precision or direct transmission when derivable from a four-place value."
+    ],
+    "unresolved_lineage_questions": [
+      "Direct source-native G893 C/J column identity and the source-specific 少/微 carry/quantization operation remain uncollated."
+    ]
+  }
+}
