@@ -107,7 +107,7 @@ jobs:
           d=Path('/tmp/tianwen-13ro')
           im=Image.open(d/'017a.jpg').convert('RGB')
           if im.size!=(1150,2000): raise RuntimeError('unexpected source dimensions')
-          crops=[('D87_D86_D85_LEFT', (0,230,605,1770)),('D85_D84_D83_RIGHT',(540,230,1150,1770))]
+          crops=[('D87_C_LANE', (140,400,245,1710)),('D86_C_LANE',(333,400,443,1710)),('D85_C_LANE',(528,400,626,1710))]
           for name,bbox in crops:
               cut=im.crop(bbox)
               rgbsha=hashlib.sha256(cut.tobytes()).hexdigest()
