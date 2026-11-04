@@ -1,0 +1,170 @@
+{
+  "schema": "TIANWEN-13RR-G893-SUMMER-D86-DIRECT-NATIVE-CUMULATIVE-CROSSCOPY-R1",
+  "date": "2026-11-05",
+  "issue_id": "TW-OPEN-0005",
+  "classification": "NEW_DIRECT_SOURCE_ORIGINAL_SAME_FIELD_CROSSCOPY_VARIANT_NO_LINEAGE_OR_ALGORITHM_SELECTION",
+  "question": "Does early Kyujanggak G893 source original print received/Waseda/NCL summer day86 C=22824.6488, or 23824.6488 implied by same-source printed day85 arithmetic?",
+  "physical_copy": {
+    "provider": "Seoul National University Kyujanggak",
+    "catalog": "https://kyudb.snu.ac.kr/book/view.do?book_cd=GK00893_00",
+    "holding": "奎貴893 / GK00893_00",
+    "work": "授時曆立成",
+    "edition_scope": "SNU 15th-century first-half Sejong-era 甲寅字; exact 1434 vs 1444 impression disputed",
+    "new_physical_witness_count": 0,
+    "one_previously_registered_copy": true
+  },
+  "image_acquisition": {
+    "source": "first-party original viewer + ImageServlet public JPEG (no login/OCR)",
+    "original_017a_jpeg": {
+      "page": "017a",
+      "size_px": [
+        1150,
+        2000
+      ],
+      "jpeg_bytes": 158271,
+      "jpeg_sha256": "2f151dc678e277e935f947b36744fb6be4e0f99f901a868dacc14d3aa3b303e7"
+    },
+    "neighbor_pages": [
+      {
+        "page": "017b",
+        "jpeg_sha256": "b0af5d8bea5b41e185df7433e0c99ccabe042cd78491772ad14424cd206641d4"
+      },
+      {
+        "page": "018a",
+        "jpeg_sha256": "b9859a2c70a5d77fb945cadc755f4c6ff08d5f8f9090d89a4db533e4b53a4098"
+      }
+    ],
+    "successful_source_runs": [
+      {
+        "batch": "13RO",
+        "run_id": 41924992469,
+        "artifact_id": 13369530686
+      },
+      {
+        "batch": "13RP",
+        "run_id": 41925397988,
+        "artifact_id": 13368263959
+      },
+      {
+        "batch": "13RQ",
+        "run_id": 41925849525,
+        "artifact_id": 13370030646
+      }
+    ],
+    "byte_identity_repeated_3_runs": true,
+    "source_original_all_three_jpegs_saved_to_actions_artifacts_not_public_git": true
+  },
+  "native_rgb_rois": [
+    {
+      "artifact_label": "D87_C_LANE",
+      "correct_physical_column": "SUMMER_DAY86_YINGSUO_CUMULATIVE",
+      "page": "017a",
+      "bbox": [
+        140,
+        400,
+        245,
+        1710
+      ],
+      "rgb_sha256": "0e488ac1ca77fa7064bdaf7345f7f24bc7f6c17dc0b0d4393e88581261edc946",
+      "literal": "二萬三千八百二四六四八八",
+      "normalized": "23824.6488",
+      "visual_grade": "DIRECT_NATIVE_RGB_NO_OCR"
+    },
+    {
+      "artifact_label": "D86_C_LANE",
+      "correct_physical_column": "SUMMER_DAY85_YINGSUO_CUMULATIVE",
+      "page": "017a",
+      "bbox": [
+        333,
+        400,
+        443,
+        1710
+      ],
+      "rgb_sha256": "b90429839107838468d6704672708c83b203435cc52c5dbe122a67b84b1dc281",
+      "literal": "二萬三千七百七四七一二五",
+      "normalized": "23774.7125",
+      "visual_grade": "DIRECT_NATIVE_RGB_NO_OCR"
+    },
+    {
+      "artifact_label": "D85_C_LANE",
+      "correct_physical_column": "SUMMER_DAY84_CUMULATIVE_COLUMN_CONTEXT_NOT_NUMERICALLY_COLLATED",
+      "page": "017a",
+      "bbox": [
+        528,
+        400,
+        626,
+        1710
+      ],
+      "rgb_sha256": "b5f40391d85f255b9328a3a733ed97f520d03d5f4f833f06bbf94d0336f67d8e",
+      "literal": null,
+      "normalized": null,
+      "visual_grade": "BOUNDING_CONTEXT_ONLY_NO_NUMERIC_AWARD"
+    }
+  ],
+  "roi_label_forward_correction": {
+    "original_workflow": "13RQ labels refer to left-side crop position near the next day heading, not an independently validated day identity; source ORIGINAL glyph/ROI SHAs preserved verbatim",
+    "correction": "13RQ D87_C_LANE actually contains day86 C, 13RQ D86_C_LANE actually contains day85 C, 13RQ D85_C_LANE day84 context; original 13RQ step logs are immutable."
+  },
+  "original_neighbor_replay": {
+    "same_page_printed_day85_M": {
+      "literal": "四十九九三六三",
+      "normalized": "49.9363",
+      "evidence": "source-original 017a 13RP native broad crop D87_D86_D85_LEFT; manually viewed with original day header/paired field geometry; no OCR"
+    },
+    "same_page_printed_day86_M": {
+      "literal": "四十四一二三一",
+      "normalized": "44.1231",
+      "evidence": "source-original 017a 13RP broad native crop under 八十六日; not a G893 unit-radix instruction"
+    }
+  },
+  "cross_copy": {
+    "SNU_G893_original_C86": "23824.6488",
+    "Waseda_Goryeosa_original_C86": "22824.6488",
+    "Waseda_prior": "docs/research/TIANWEN-13QS-WASEDA-P42-SUMMER-D86-ORIGINAL-CUMULATIVE-GLYPH-COLLATION-R1.json",
+    "Taiwan_NCL03130_original_C86": "22824.6488",
+    "Taiwan_prior": "docs/research/TIANWEN-13QT-NCL03130-P81-SUMMER-D86-MANUSCRIPT-CUMULATIVE-GLYPH-CROSSHOLDING-R1.json",
+    "official_received_copy_C86": "22824.6488",
+    "official_received_prior": "docs/research/TIANWEN-13QR-NIKH-SUMMER-D86-RECEIVED-CUMULATIVE-THOUSAND-RESIDUAL-R1.json",
+    "source_original_G893_and_other_holding_are_not_same_physical_copy": true,
+    "Waseda_and_Taiwan_not_proven_stemmatically_independent": true,
+    "both_other_holding_errors_cannot_date_emendation": true
+  },
+  "exact_integer_replay": {
+    "display_scale": 10000,
+    "G893_C85_scaled": 237747125,
+    "G893_M85_scaled": 499363,
+    "G893_C86_scaled": 238246488,
+    "other_C86_scaled": 228246488,
+    "source_internal_C85_plus_M85_equals_C86": true,
+    "original_copy_difference_units": 10000000,
+    "difference_normalized": "1000.0000",
+    "one_glyph_thousands_place_discrepancy": true
+  },
+  "epistemic_scope": {
+    "positive": "SNU GK00893_00 original 017a summer D86 cumulative column physically prints 二萬三千八百二四六四八八 and aligns to its original neighboring C85+M85.",
+    "negative": "Waseda printed original/NCL composite manuscript physically show 二萬二千八百二四六四八八, so a tangible cross-copy numerical variant exists. Cannot infer which exact exemplar caused the variant or declare descendant/direct copying from matched error; mathematical repair never overwrites their original glyph.",
+    "G893_header_少_to_微_rational_unit": "OPEN",
+    "ancient_per_step_or_terminal_quantization": "OPEN",
+    "specific_six_legacy_original_historical_numeric_finals": "0/6",
+    "global_historical_impression_winner": "UNRESOLVED",
+    "graph_nodes_added": 0,
+    "graph_edges_added": 0,
+    "source_registry_added": 0,
+    "matrix_delta": 0,
+    "algorithm_reopens": 0,
+    "chart_product": "CLOSED"
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Identical anomalous D86 C in Waseda and NCL does not prove they copied one another or the stage of numeral loss."
+    ],
+    "unresolved_lineage_questions": [
+      "Date and identify an independently bound early exemplum and any marked correction in summer D86 C.",
+      "Acquire original source-specific 奎貴893 少/微 radix, retained precision, or explicit carry before adjudicating six historical targets."
+    ]
+  },
+  "next": "Preserve this local original-glyph variant and avoid naming the arithmetic result a universal textual emendation. Return to P0 G893 少/微 and fifth/sixth-digit source-native carry, not new four-place fits."
+}
