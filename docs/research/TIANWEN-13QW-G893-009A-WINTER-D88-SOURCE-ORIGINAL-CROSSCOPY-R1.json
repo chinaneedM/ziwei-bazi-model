@@ -1,0 +1,161 @@
+{
+  "schema": "TIANWEN-13QW-G893-009A-WINTER-D88-SOURCE-ORIGINAL-CROSSCOPY-R1",
+  "date": "2026-11-04",
+  "issue_id": "TW-OPEN-0005",
+  "question": "Does the physically separate early Kyujanggak G893 source-native 009a winter day88 print the received 5.0592, or the 5.0593 that the inherited received polynomial and local printed cumulative difference imply?",
+  "evidence_type": "FIRST_PARTY_SOURCE_NATIVE_ORIGINAL_FOLIO_VISUAL_COLLATION_AND_EXACT_INTEGER_SOURCE_CROSSCOPY",
+  "original_source": {
+    "institution": "Seoul National University Kyujanggak",
+    "work": "授時曆立成",
+    "holding": "奎貴893 / GK00893_00",
+    "catalog": "https://kyudb.snu.ac.kr/book/view.do?book_cd=GK00893_00",
+    "surviving_impression_date": "INSTITUTIONAL_SEJONG_FIRST_HALF_15C_RANGE_1418_1450_EXACT_YEAR_UNRESOLVED",
+    "page": "009a",
+    "provider_renderer": "ImageServlet.do firstparty public original, via registered original book viewer flow",
+    "jpeg_bytes": 147744,
+    "jpeg_sha256": "2fe486bc5fa1c8feb978367dc67c3d0fdfacfd7a2f3d7820286513276db471b5",
+    "rgb_dimensions": [
+      1150,
+      2000
+    ],
+    "native_rgb_sha256": "d4ef3c1957980eb5411b6ad029e542c4166beac22670ebaa1dd561d91edacee0",
+    "retrievals": [
+      {
+        "run_id": 41829300862,
+        "artifact_id": 13322250947,
+        "page": "009a",
+        "sha_matches": true,
+        "other_original_pages": [
+          "008b",
+          "009b",
+          "010a",
+          "010b"
+        ]
+      },
+      {
+        "run_id": 41829580168,
+        "artifact_id": 13322291278,
+        "page": "009a",
+        "sha_matches": true,
+        "other_original_pages": [
+          "008b"
+        ]
+      },
+      {
+        "run_id": 41829980903,
+        "artifact_id": 13322566584,
+        "page": "009a",
+        "sha_matches": true,
+        "other_original_pages": [
+          "008b"
+        ],
+        "roi_pngs_saved": true
+      }
+    ],
+    "ocr_used": false,
+    "original_jpegs_committed_to_public_git": false,
+    "copy_witnesses_added": 0
+  },
+  "source_original_rois": [
+    {
+      "id": "D88_PAIR_AND_TERMINAL",
+      "bbox": [
+        315,
+        250,
+        740,
+        1750
+      ],
+      "rgb_sha256": "727b40346e0817ba624c67adf080c5d2a3192656445ae071713f44aa5bcc4994",
+      "read_scope": "winter day88 original heading, M/C paired columns, terminal-adjacent strip; original native pixels"
+    },
+    {
+      "id": "D88_NARROW_M",
+      "bbox": [
+        540,
+        640,
+        715,
+        1550
+      ],
+      "rgb_sha256": "7fa380ee641578b70a795b1b658e01bdb75d2323bed539d66d86ea9fe5bb8929",
+      "read_scope": "source-native day88 盈縮加分 narrow vertical numeral column"
+    },
+    {
+      "id": "D87_PAIR_CONTROL",
+      "bbox": [
+        725,
+        250,
+        1010,
+        1750
+      ],
+      "rgb_sha256": "9aa3b98f1035443f4f0da2d19b88444e93b3fe31",
+      "read_scope": "day87/day86 adjacent column headings and number-lane geometry"
+    }
+  ],
+  "bound_folio_visual": {
+    "winter_day_headings": [
+      "八十六日",
+      "八十七日",
+      "八十八日"
+    ],
+    "original_winter_day88_m_glyph": "五分〇五九三",
+    "original_winter_day88_m_normalized": "5.0593",
+    "day88_c_original_adjacent_column_normalized": "24009.3568",
+    "terminal_c_original_adjacent_column_normalized": "24014.4161",
+    "terminal_headline_fraction": "VISIBLE_TERMINAL_MARKER_NOT_DECIMALIZED_OR_UNIT_ADJUDICATED",
+    "left_new_table_heading": "太陽夏至前後二象縮初盈末限",
+    "continuation_check": "Original provider page 009b begins subsequent table at 初日, confirming 009a winter-to-summer page-family boundary",
+    "important_note": "This is a direct same-physical-G893 folio finding, not a new independently numbered physical copy or manuscript stemma; source M88 reading based on specific native ROI, no OCR."
+  },
+  "compare_existing_physical_source_images": [
+    {
+      "source": "早稻田《高麗史》卷52 physical printed source p31",
+      "prior": "docs/research/TIANWEN-13QU-WASEDA-P31-WINTER-D88-M88-ORIGINAL-ONEUNIT-RESIDUAL-R1.json",
+      "m88_original": "5.0592",
+      "c88_original": "24009.3568",
+      "terminal_c_original": "24014.4161",
+      "source_reopened_this_batch": false
+    },
+    {
+      "source": "台湾国图 NCL 03130 catalogued composite manuscript source p73",
+      "prior": "docs/research/TIANWEN-13QV-NCL03130-P73-WINTER-D88-ORIGINAL-CROSSHOLDING-ONEUNIT-R1.json",
+      "m88_original": "5.0592",
+      "c88_original": "24009.3568",
+      "terminal_c_original": "24014.4161",
+      "source_reopened_this_batch": false,
+      "juan52_leaf_stratum": "UNRESOLVED"
+    }
+  ],
+  "exact_integer_comparison": {
+    "integer_scale": 10000,
+    "g893_original_day88_m_scaled": 50593,
+    "waseda_original_day88_m_scaled": 50592,
+    "ncl_original_day88_m_scaled": 50592,
+    "common_c88_scaled": 240093568,
+    "common_terminal_c_scaled": 240144161,
+    "source_local_c_gap_scaled": 50593,
+    "source_original_g893_vs_waseda_m_delta_scaled": 1,
+    "source_original_g893_vs_ncl_m_delta_scaled": 1,
+    "received_13OD_polynomial_m88_scaled": 50593,
+    "received_polynomial_prior": "docs/research/TIANWEN-13OD-JIAOSHI1458-G893-SOLAR-QUADRATIC-REPLAY-R1.json",
+    "check": "G893 M88=5.0593 equals Cterminal-C88=5.0593 and previously received-formula output. Waseda and NCL M88=5.0592 is one fourth-place unit lower. Received formula and printed-cumulative constraints are related arithmetic, not two independent early original witness votes."
+  },
+  "adjudication": {
+    "positive": "EXACT_ORIGINAL_FOLIO_CROSSCOPY_M88_VARIANT_G893_5_0593_VS_TWO_GORYEOSA_ROUTES_5_0592",
+    "significance": "Physical G893 print displays the arithmetically concordant day88 M value and is not simply another modern transcription of received Goryeosa; source-original three-route digit contrast is now directly observed.",
+    "limits": [
+      "Cannot infer when the Goryeosa 5.0592 arose or whether Waseda and NCL are stemmatically independent.",
+      "Do not call either value a universally correct archetypal reading or alter the received historical text by arithmetic alone.",
+      "The 1458 奎貴67 source-original formula leaf and G893 ancient 少/微 radix and carry remain uncollated.",
+      "G893 six old legacy D16/L8/L101/L114/L124/L132 cross-edition historical final adjudications remain 0/6; D88 is an added contextual cross-witness control, not one of those six.",
+      "An already catalogued and physically counted G893 witness is not a new source-registry or genealogy-node vote."
+    ],
+    "issue_status": "P0_OPEN",
+    "matrix": "222/222",
+    "source_registry": "647+129=776",
+    "genealogy": "252/238",
+    "historical_winner_count_for_legacy_six": 0,
+    "algorithm_reopens": 0,
+    "chart_product": "CLOSED"
+  },
+  "next_material_target": "Independent exact-dated preexisting original for the Goryeosa D88 reading, the 1458 奎貴67 source-original coefficient folio, and authentic G893 少/微 source local precision/carry. Do not infer a copying direction or chart algorithm change from this single four-place variant."
+}
