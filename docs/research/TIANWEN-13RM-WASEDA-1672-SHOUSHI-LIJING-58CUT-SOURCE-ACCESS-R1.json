@@ -1,0 +1,81 @@
+{
+  "schema": "TIANWEN-13RM-WASEDA-1672-SHOUSHI-LIJING-CATALOG-58CUT-ACCESS-R1",
+  "date": "2026-11-04",
+  "issue_id": "TW-OPEN-0005",
+  "purpose": "Test an otherwise unregistered public, edition-scoped, original-page acquisition route for the older Shoushi jing text while preserving the G893 specific source-unit/precision firewall.",
+  "firstparty_catalog": {
+    "provider": "Waseda University Library",
+    "call_number": "ニ05 02159",
+    "title": "授時暦経. 巻上,下",
+    "authors": "宋濂・王禕 等修; 黄汝良・周如砥 重校刊",
+    "imprint_catalog": "[京都] 梅花堂文内, 寛文12[1672]",
+    "physical_description": "1冊; 28cm",
+    "catalog_url": "https://www.wul.waseda.ac.jp/kotenseki/html/ni05/ni05_02159/index.html",
+    "catalog_notes": [
+      "題簽を欠く",
+      "墨書入あり / 朱書入あり",
+      "和装",
+      "印記:篠碕蔵書"
+    ],
+    "work_level_identity": "元史系授時暦経(上・下), NOT the extant Korean SNU 奎貴893 授時曆立成 physical copy",
+    "exact_impression_date_of_extant_copy": "NOT_PROVEN_BEYOND_CATALOG_IMPRINT"
+  },
+  "firstparty_archive": {
+    "index": "https://archive.wul.waseda.ac.jp/kosho/ni05/ni05_02159/",
+    "page_directory": "https://archive.wul.waseda.ac.jp/kosho/ni05/ni05_02159/ni05_02159.html",
+    "pdf": "https://archive.wul.waseda.ac.jp/kosho/ni05/ni05_02159/ni05_02159.pdf",
+    "indexed_plate_cuts": 58,
+    "index_grade": "OFFICIAL_HTML_PAGE_MENU_ONLY",
+    "source_images_acquired": 0
+  },
+  "current_anonymous_replay": {
+    "catalog": "READABLE_200",
+    "public_archive_index": "READABLE_200",
+    "html_page_menu": "READABLE_200_58_INDEXED_LINKS",
+    "web_pdf": "CONTENT_LENGTH_LIMIT_AT_APPROX_41MB_IN_CURRENT_WEB_FETCH_NOT_PROVIDER_DENIAL",
+    "web_tested_jpeg_pages": [
+      "p0004",
+      "p0024",
+      "p0044"
+    ],
+    "web_jpeg_result": "503_SERVICE_UNAVAILABLE_IN_THIS_WEB_FETCH_ENVIRONMENT",
+    "container_download": "PDF_AND_PAGE24_DOWNLOAD_FAILED_CAUSE_UNDETERMINED",
+    "jpeg_original_bytes_read": 0,
+    "pixel_or_source_image_sha256": "UNAVAILABLE",
+    "target_original_text_read": false,
+    "whole_book_absence_inferred": false,
+    "do_not_cycle_equivalent_transport_retries": true
+  },
+  "identity_firewalls": {
+    "distinct_from_GK00893_00": true,
+    "distinct_from_GK00067_00": true,
+    "related_Kyoto_1672_catalog_witness": "13QJ Kyoto University 改正授時暦經 1672; exact shared plate/copy or text identity NOT proved",
+    "earlier_copies_or_stemma": "UNPROVEN",
+    "original_shao_or_wei_glpyh": "UNREAD",
+    "fifth_sixth_digit": "UNREAD",
+    "G893_source_radix": "UNRESOLVED",
+    "G893_source_intermediate_carry": "UNRESOLVED",
+    "six_G893_historical_final_numeric_winners": "0/6"
+  },
+  "adjudication": {
+    "positive": "Official independently identified Waseda Kanbun12/1672 Kyoto-imprint physical holding and 58-plate public source-issued directory; new provider/holding-level locator not previously in project source registry.",
+    "negative": "No printed target leaf reviewed, no new original G893 unit, no early stemmatic independence, no carrier for runtime rule selection. Three 503 returns are environment-scoped, not negative evidence for page existence.",
+    "next": "Only revisit if authorized public bytes become genuinely retrievable; target the precise 少/微/precision page and original figure with source-issued page, digest and glyph ROI. Prioritize actual early G893 precision/carry evidence over secondary 1672 duplicates."
+  },
+  "impact": {
+    "source_registry_root": 647,
+    "source_registry_extension_after": 130,
+    "combined_sources_after": 777,
+    "new_catalog_source_entries": 1,
+    "new_original_pages": 0,
+    "new_physical_G893_witnesses": 0,
+    "new_graph_nodes": 0,
+    "new_graph_edges": 0,
+    "matrix_rows": "222/222",
+    "issues_open_or_blocked": 11,
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "chart_product": "CLOSED",
+    "transmission_impact": "NONE_NO_DIRECT_RULE_OR_LINEAGE_EDGE"
+  }
+}
