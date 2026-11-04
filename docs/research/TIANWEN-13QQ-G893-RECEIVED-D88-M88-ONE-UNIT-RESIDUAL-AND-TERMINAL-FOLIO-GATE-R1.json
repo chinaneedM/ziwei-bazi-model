@@ -1,0 +1,139 @@
+{
+  "schema": "TIANWEN-13QQ-G893-D88-SOURCE-RECEIVED-ONE-UNIT-RESIDUAL-R1",
+  "date": "2026-11-04",
+  "issue_id": "TW-OPEN-0005",
+  "classification": "SOURCE_SCOPED_RECEIVED_TEXT_DIGIT_RESIDUAL_ORIGINAL_GLYPH_UNVERIFIED",
+  "research_question": "Is the firstparty NIKH received 高麗史卷52 冬至 table day88 盈縮加分 printed five-zero-five-nine-two internally consistent with the directly corroborated G893 four-place day-step grid and its received terminal accumulator?",
+  "source_1": {
+    "provider": "National Institute of Korean History (NIKH) official edited transcription",
+    "url": "https://db.history.go.kr/goryeo/level.do?levelId=kr_052_0010_0010_0020_0010&types=o",
+    "work": "高麗史卷52 授時曆立成 大陽冬至前後二象盈初縮末限",
+    "grade": "OFFICIAL_MODERN_RECEIVED_TEXT_NOT_SOURCE_NATIVE_ORIGINAL_IMAGE",
+    "row_87": {
+      "heading": "八十七日",
+      "S_literal": "六分五五六八",
+      "M_literal": "一十一六一六一",
+      "C_literal": "二萬三千九百九十七七四〇七"
+    },
+    "row_88": {
+      "heading": "八十八日",
+      "S_literal": "六分五七五四",
+      "M_literal": "五〇五九二",
+      "M_normalized": "5.0592",
+      "C_literal": "二萬四千〇〇九三五六八"
+    },
+    "terminal": {
+      "heading": "八十八日〖九〗",
+      "S_literal": "六分五九四〇",
+      "M_literal": "空",
+      "C_literal": "二萬四千〇一四四一六一",
+      "J_literal": "一度"
+    },
+    "heading_terminal_brackets": "〖九〗 is a literal display notation in the current received NIKH page, NOT authenticated as the original impression's glyph or punctuation",
+    "original_g893_day88_jpeg_sha256": null,
+    "original_g893_day88_folio_id": null
+  },
+  "received_mirror_scope": {
+    "provider": "Wikisource received transcription mirrored at wk.100ke.info",
+    "url": "https://wk.100ke.info/wiki/%E9%AB%98%E9%BA%97%E5%8F%B2/%E5%8D%B7%E4%BA%94%E5%8D%81%E4%BA%8C",
+    "day88_M_literal": "五〇五九二",
+    "terminal_brackets": "八十八日〈九〉",
+    "warning": "Same received-text lineage not authenticated independent ancient physical witness; do not increase source registry or lineage count"
+  },
+  "independent_earlier_original_scope": {
+    "physical_object": "Waseda RI06-02809 book33 original page 31 (separate physical copy)",
+    "source_pdf": "https://archive.wul.waseda.ac.jp/kosho/ri06/ri06_02809/ri06_02809_0033/ri06_02809_0033.pdf",
+    "original_page31_jpeg_sha256": "c499de6f3030154720f1dd422a26820c4fca233e81b5c56caf5e57906e4283ea",
+    "prior_review": "docs/research/TIANWEN-13BY-GORYEOSA-WASEDA-P31-WINTER-D88-SUMMER-NEW-TITLE-R1.json",
+    "printed_last_winter_day": "八十八日",
+    "following_heading": "大陽夏至前後二象縮初盈末限",
+    "current_reinspection_of_original_image": false,
+    "no_proven_same_numeric_cell_or_shared_stemma": true,
+    "scope": "Pre-existing Waseda section-seam original positive, NOT a newly collated G893 D88 original digit or a source for received endpoint 九"
+  },
+  "integer_replay": {
+    "scale": "1 integer = 0.0001 of the normalized printed numerical 分; mathematical diagnostic ONLY",
+    "initial": {
+      "S": 49386,
+      "M": 5108569,
+      "C": 0
+    },
+    "recurrence": "C[n+1]=C[n]+M[n]; M[n+1]=M[n]-S[n]; S[n+1]=S[n]+186",
+    "last_four_rows": [
+      {
+        "day": 86,
+        "S": "6.5382",
+        "M": "18.1543",
+        "C": "23979.5864"
+      },
+      {
+        "day": 87,
+        "S": "6.5568",
+        "M": "11.6161",
+        "C": "23997.7407"
+      },
+      {
+        "day": 88,
+        "S": "6.5754",
+        "M": "5.0593",
+        "C": "24009.3568"
+      },
+      {
+        "day": 89,
+        "S": "6.5940",
+        "M": "-1.5161",
+        "C": "24014.4161",
+        "M_is_analytic_not_printed": true
+      }
+    ],
+    "received_day87_M": "11.6161",
+    "received_day87_S": "6.5568",
+    "expected_day88_M_from_day87": "5.0593",
+    "received_day88_M": "5.0592",
+    "residual_received_minus_step": "-0.0001",
+    "received_day88_C": "24009.3568",
+    "received_terminal_C": "24014.4161",
+    "received_terminal_minus_received_day88_C": "5.0593",
+    "received_day88_M_plus_received_day88_C": "24014.4160",
+    "strict_source_column_inconsistency": "The edited-text M88=5.0592 is 1 unit of 1e-4 below both the exact day87 one-step result and the difference between printed C_terminal and C88.",
+    "not_proven": [
+      "G893 original D88 printed glyph is 五〇五九二 or 五〇五九三",
+      "The original scribe made a copy or print error",
+      "NIKH modern transcription is wrong",
+      "The source used half-up/round-down/other carry at a specifically attested position",
+      "Terminal 八十八日〖九〗 is historically equal to a decimal 88.9, 88.909225, or a full 89-day computation",
+      "M88 residual establishes 少/微 unit"
+    ]
+  },
+  "verdict": {
+    "result": "RECEIVED_TEXT_D88_M_CELL_DISCREPANCY_OPEN_PENDING_ORIGINAL_PAGE",
+    "previously_drafted_13QQ_unpublished_error": "The prior chat's unpublished draft mistakenly substituted arithmetic expectation 5.0593 for firstparty received literal 五〇五九二; this source correction MUST precede any committed 13QQ result. Previous draft was NOT pushed.",
+    "no_fabricated_original_glyph": true,
+    "action": "First source-issued GK00893_00 winter table late leaf D87-D88/end and SNU 奎貴67 independent original 盈縮加分; hash native original pages and compare printed cells, headings and carry explicitly. No account/payment/guessed folio or manual endpoint coercion.",
+    "g893_six_historical_numeric_winners": "0/6",
+    "matrix": "222/222",
+    "sources": {
+      "root": 647,
+      "extension": 129,
+      "total": 776
+    },
+    "genealogy": {
+      "nodes": 252,
+      "edges": 238
+    },
+    "issues": 11,
+    "product": "CLOSED",
+    "algorithm_reopen_count": 0
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Same received-text website duplication does not establish independent physical-original support or any direct transmission of M88=5.0592."
+    ],
+    "unresolved_lineage_questions": [
+      "Determine source-native digit and section endpoint on independently bound G893 original late winter leaf; do not infer from neighboring edition geometry."
+    ]
+  }
+}
