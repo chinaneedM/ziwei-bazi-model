@@ -1,0 +1,120 @@
+{
+  "schema": "TIANWEN-13RE-SHAO-CONTEXTUAL-FEN-QUARTER-LIMIT-PAIR-R1",
+  "date": "2026-11-04",
+  "issue_id": "TW-OPEN-0005",
+  "classification": "RECEIVED_TEXT_SCOPE_BOUND_FEN_SHAO_FRACTION_EXACT_INTEGER_SUPPORTED_ORIGINAL_G893_PRECISION_NOT_AWARDED",
+  "question": "Does 少 attached to 分 in the paired solar 盈初縮末限/縮初盈末限 denote 1/4 of 分 rather than 1/4 of 秒 within that received numerical context, and can this determine the different G893 '日差加一秒八十六少' micro/carry rule?",
+  "source_scope": [
+    {
+      "work": "元史",
+      "chapter": "卷054 步日躔第三",
+      "url": "https://zh.wikisource.org/wiki/元史/卷054",
+      "grade": "RECEIVED_PUBLIC_TEXT_EDITION_GLYPH_UNVERIFIED",
+      "literal_pair": [
+        "半歲周 一百八十二日六千二百一十二分半",
+        "盈初縮末限 八十八日九千九十二分少",
+        "縮初盈末限 九十三日七千一百二十分少"
+      ],
+      "note": "One internally self-consistent received technical context; not a source-original folio or independent physical stemmatic vote"
+    },
+    {
+      "work": "高麗史",
+      "chapter": "卷051 授時曆經上 步日躔第三",
+      "url": "https://db.history.go.kr/goryeo/itemLevelKrList.do?parentId=kr_051_0010_0010_0040&types=o",
+      "grade": "NIKH_FIRSTPARTY_EDITED_TRANSCRIPTION_NO_NEW_NATIVE_IMAGE",
+      "literal_pair": [
+        "盈初縮末限 八十八日九千◯九十二分少",
+        "縮初盈末限 九十三日七千一百二十分少"
+      ],
+      "note": "Provider displays accompanying label 歲周 in this web excerpt, with other original-bracket corrections elsewhere; exact folio and 1/4-unit glyph authority are not claimed"
+    },
+    {
+      "work": "朝鮮王朝實錄",
+      "chapter": "世宗實錄 附錄 日行諸率 (official online transcription)",
+      "url": "https://sillok.history.go.kr/popup/viewer.do?id=wda_500130&reSearchWords=&reSearchWords_ime=&type=view",
+      "grade": "FIRSTPARTY_ONLINE_RENDERED_TEXT_NOT_INDEPENDENT_NATIVE_FOLIO_COLLATION",
+      "literal_pair": [
+        "半歲周 一百八十二日六千二百一十二分半",
+        "盈初縮末限 八十八日九千九十二分少",
+        "縮初盈末限 九十三日七千一百二十分少"
+      ],
+      "note": "Co-occurrence and textual agreement do not prove direct copying, an independent radix, or the original source glyphs"
+    },
+    {
+      "work": "交食推步法",
+      "chapter": "假令上 用數目錄",
+      "url": "https://zh.wikisource.org/wiki/交食推步法/假令上",
+      "grade": "RECEIVED_PUBLIC_TEXT; THE_SNU_GK00067_00_PHYSICAL_OBJECT_IS_VERIFIED_ELSEWHERE_BUT_THIS_TARGET_FOLIO_NOT_DIRECTLY_REOPENED",
+      "literal_pair": [
+        "半歲周 一百八十二日六千二百一十二分半",
+        "盈初縮末限 八十八日九千〇九十二分少",
+        "縮初盈末限 九十三日七千一百二十〇分少"
+      ],
+      "original_work_context": "docs/research/TIANWEN-13RD-SNU-GK00067-ORIGINAL-PREFACE-1458-CATALOG-1459-ERRATUM-R1.json",
+      "note": "Original prefatory 1458 signature is independently verified, but this received technical line is NOT now awarded same-item direct original page evidence"
+    }
+  ],
+  "exact_integer_replay": {
+    "arithmetic_only": true,
+    "precision": "integer ticks of 0.00000001 day; one 分=10000 ticks, one 秒=100 ticks",
+    "annual_year_365_2425_day_ticks": 36524250000,
+    "half_year_182_day_6212_fen_half_fen_ticks": 18262125000,
+    "first_limit_88_day_9092_fen_quarter_fen_ticks": 8890922500,
+    "second_limit_93_day_7120_fen_quarter_fen_ticks": 9371202500,
+    "sum_ticks": 18262125000,
+    "residual_ticks": 0,
+    "contextual_parsing": "In this paired-limit arithmetic 少 following 分 contributes 1/4 of 分=2500 ticks, and 半 following 分 contributes 1/2 of 分=5000 ticks.",
+    "counterfactual_if_each_shao_were_quarter_miao_ticks": 18262120050,
+    "counterfactual_residual_ticks": 4950,
+    "counterfactual_conclusion": "Quarter-of-秒 at the two 分少 suffixes fails the same-text half-year identity by 0.00004950 day."
+  },
+  "same_tradition_notation_control": {
+    "source": "元史/卷054 and prior 13PQ",
+    "prior_doc": "docs/research/TIANWEN-13PQ-YUANSHI-054-SHAO-QUARTER-SECOND-EXACT-REPLAY-AND-G893-UNIT-SCOPE-FIREWALL-R1.json",
+    "literal": "弦策 七日三千八百二十六分四十八秒少",
+    "local_parse": "7.38264825 day; here 少 attaches to 秒 (1/4 秒=25 ticks), not to 分",
+    "exact_ticks": 738264825,
+    "inference": "少 is a fractional suffix whose *referenced named unit* is context-sensitive; a fixed decimal conversion for every historical bare 少 is not supported."
+  },
+  "g893_compatibility_firewall": {
+    "original": "GK00893_00 G893 original 001a: 日差加一秒八十六少; original glyph positive in 13PP",
+    "prior": "docs/research/TIANWEN-13PP-G893-SHAO-QUARTER-MICRO-AND-FOUR-PLACE-INTERMEDIATE-QUANTIZATION-GATE-R1.json",
+    "distinct_formula": "SNU 奎貴67 original formula 13RA/13RB uses 微 on an independent passage; its formula is source-positive but is not a proven G893 少 radix",
+    "direct_g893_86_shao_unit_parse": "UNRESOLVED; a naked 十八十六少 after 秒 is not the same explicit 分少 or 秒少 grammar",
+    "original_g893_intermediate_precision_and_carry": "UNRESOLVED",
+    "original_g893_direct_fractional_six_digit_field": "UNBOUND",
+    "other_issue_six_historic_numeric_winners": 0,
+    "no_new_physical_source_votes": true,
+    "no_new_registry_source": true,
+    "no_new_graph_edge": true,
+    "no_algorithm_reopen": true
+  },
+  "adjudication": {
+    "positive": "WITHIN_THE_RECEIVED_PAIRED_SOLAR_LIMIT_NUMBERS_SHAO_QUARTER_OF_FEN_IS_EXACT",
+    "negative": "NOT_A_SOURCE_ORIGINAL_G893_SHAO_TO_WEI_BRIDGE_AND_NOT_A_FINAL_PRECISION_RULE",
+    "next_material_target": "Seek source-original 同页 半歲周/兩限 reciprocal numbers in an authenticated early impression, plus G893 original explanatory unit/carry instruction or a distinguishable fifth/sixth retained digit. If absent keep G893 少/微 OPEN, avoid arithmetic-only repetitions."
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Parallel received-text agreement of 元史/高麗史/世宗實錄/交食推步法 paired limits is not proof of direct textual copying or a common surviving physical exemplar; no new graph edge."
+    ],
+    "unresolved_lineage_questions": [
+      "Find source-native exact physical leaves for the paired limits before any literal-glyph promotion.",
+      "Resolve G893 少 vs 1458 Jiaoshi 微 and unit carry with independent higher-precision original evidence."
+    ]
+  },
+  "impact": {
+    "matrix_rows": 222,
+    "audited": 222,
+    "source_registry_root": 647,
+    "source_registry_extensions": 129,
+    "genealogy_nodes": 252,
+    "genealogy_edges": 238,
+    "issues": 11,
+    "chart_product": "CLOSED",
+    "algorithm_reopens": 0
+  }
+}
