@@ -1,0 +1,205 @@
+{
+  "schema": "TIANWEN-13RL-GK00067-NATIVE-ORIGINAL-PRECISION-ROI-R1",
+  "date": "2026-11-04",
+  "issue_id": "TW-OPEN-0005",
+  "research_goal": "Verify native-resolution original glyphs and SHA-bound ROI for same 1458-preface Kyujanggak Jiaoshi item, separate positional 分少 source identity from six-digit 度外 precision discard instruction, without projecting either to surviving G893 original bare 少 field.",
+  "source_identity": {
+    "provider": "Seoul National University Kyujanggak",
+    "title": "交食推步法",
+    "call_number": "奎貴67",
+    "book_cd": "GK00067_00",
+    "official_detail": "https://kyudb.snu.ac.kr/book/view.do?book_cd=GK00067_00",
+    "source_original_preface_date": "天順二年正月日 (1458); 13RD source-original signature",
+    "exact_impression_year": "UNRESOLVED",
+    "physical_holding_count": 1,
+    "firstparty_original_control": "Official source catalog row fn_originalImg validated in all source Actions",
+    "same_book_as_prior_13RA_13RH": true
+  },
+  "acquisition_and_replay": {
+    "13RG": {
+      "run_id": 41847378101,
+      "artifact_id": 13331223092,
+      "original_folios": "012a-017b",
+      "source_pages": 12,
+      "all_http_200": true,
+      "zip_crc": "PASS",
+      "per_image_sha256_rechecked_against_source_receipt": true
+    },
+    "13RI": {
+      "run_id": 41850315804,
+      "artifact_id": 13334876363,
+      "original_folios": "018a-023b",
+      "source_pages": 12,
+      "all_http_200": true,
+      "zip_crc": "PASS",
+      "per_image_sha256_rechecked_against_source_receipt": true
+    },
+    "13RJ": {
+      "run_id": 41850958178,
+      "artifact_id": 13335885843,
+      "original_folios": "068b-074a",
+      "source_pages": 12,
+      "all_http_200": true,
+      "zip_crc": "PASS",
+      "per_image_sha256_rechecked_against_source_receipt": true,
+      "scope": "different later original source pages: solar/turn computations, NOT full-book negative evidence for target phrase"
+    },
+    "13RK": {
+      "run_id": 41851570723,
+      "artifact_id": 13336221234,
+      "original_folios": "024a-026b",
+      "source_pages": 6,
+      "all_http_200": true,
+      "zip_crc": "PASS",
+      "per_image_sha256_rechecked_against_source_receipt": true,
+      "scope": "adjacent boundary after 023a, no extra target phrase award"
+    },
+    "local_verification": "Connector-returned GitHub Actions original JPG ZIP materialized into same-turn ephemeral runtime; ZIP CRC, receipt JPEG SHA-256 and PIL RGB SHA-256 independently rechecked; no OCR; target native-resolution cropped without resampling; no original images committed to public git."
+  },
+  "original_native_loci": [
+    {
+      "page": "016b",
+      "source_original_jpeg_sha256": "0e56159738116d968ae2c04fb22896053e4149a5e4bf95d31038be60ea480ffb",
+      "rgb_source_sha256": "052c42b0dc5f5209f5d1d62eefe01b7deacda59aeb7007b61d321d8dcaa86a80",
+      "source_url": "https://kyudb.snu.ac.kr/ImageServlet.do?imgFileNm=GK00067_00IH_0001_016b.jpg&path=%2Fdata01%2Fstream%2FSIC%2FIMG%2FGK00067_00%2FGK00067_00_0001%2FGK00067_00IH_0001_016b.jpg",
+      "image_size_px": [
+        1094,
+        2000
+      ],
+      "review": "DIRECT_NATIVE_RESOLUTION_NO_OCR",
+      "original_text_positive": [
+        "半歲周 一百八十二日六千二百一十二分半",
+        "盈初縮末限 八十八日九千〇九十二分少",
+        "縮初盈末限 九十三日七千一百二十〇分少"
+      ],
+      "native_crops": [
+        {
+          "label": "HALF_YEAR",
+          "bbox_xyxy": [
+            670,
+            215,
+            768,
+            1615
+          ],
+          "rgb_sha256": "35251b066b9d287b7dd646e4165139e9cc3e7543e9c15c4cd0baef9b762ffbc6"
+        },
+        {
+          "label": "FIRST_LIMIT_FEN_SHAO",
+          "bbox_xyxy": [
+            571,
+            215,
+            668,
+            1595
+          ],
+          "rgb_sha256": "b4bca8ce197e34761a2e6f89f99b63dbbbc49ad8e2762982d1390511bd73768c"
+        },
+        {
+          "label": "SECOND_LIMIT_FEN_SHAO",
+          "bbox_xyxy": [
+            475,
+            215,
+            573,
+            1595
+          ],
+          "rgb_sha256": "21019563103b48dff69d8e319402806922672d9d9c88dab92bcf364ec2e1efde"
+        }
+      ],
+      "revision_scope": "This upgrades prior 13RH contact-sheet-only image-level original to independently native-resolution glyph-lane SHA-hash binding, SAME original source and SAME physical book."
+    },
+    {
+      "page": "023a",
+      "source_original_jpeg_sha256": "10ca7b575e2ec0224ed10aa4133cecc82c3f148e7c3ba2e1019dae22c36313a1",
+      "rgb_source_sha256": "27cbf77cfb7c1742cfa3b0d2054a7e6ab17ae34666cecdd82f5e1703a22effc7",
+      "source_url": "https://kyudb.snu.ac.kr/ImageServlet.do?imgFileNm=GK00067_00IH_0001_023a.jpg&path=%2Fdata01%2Fstream%2FSIC%2FIMG%2FGK00067_00%2FGK00067_00_0001%2FGK00067_00IH_0001_023a.jpg",
+      "image_size_px": [
+        1094,
+        2000
+      ],
+      "review": "DIRECT_NATIVE_RESOLUTION_NO_OCR",
+      "source_section": "經朔望入盈縮曆 / 盈縮差 technical calculation",
+      "original_text_positive": [
+        "置入限分以盈縮加分乘之萬約為分以加盈縮積萬約為度不滿為分秒",
+        "得二度三九二四三三",
+        "度外六位已下棄之，後同"
+      ],
+      "native_crops": [
+        {
+          "label": "SIX_PLACE_RESULT_AND_SMALL_PRINT_DISCARD_INSTRUCTION",
+          "bbox_xyxy": [
+            0,
+            220,
+            163,
+            1675
+          ],
+          "rgb_sha256": "88dcd13d7b70094000234d497f73a38896b0bc85066a68128d3c181255162474"
+        },
+        {
+          "label": "EXAMPLE_ADJACENT_COLUMN",
+          "bbox_xyxy": [
+            40,
+            195,
+            410,
+            1710
+          ],
+          "rgb_sha256": "ea5d679a68653aebbcf0b05c57653c170745fa59f7475e7019318086483ee777"
+        }
+      ],
+      "precision_scope": "Original printed output in degree field has six following digits 392433; small original text gives local beyond-six-place discard direction. This does not establish that all original solar fields or G893 table carry 6 digits, nor an algorithm for per-step versus terminal 4dp quantization."
+    }
+  ],
+  "local_mechanical_control": {
+    "paired_limit_day_ticks_precision": "1e-8 day",
+    "fraction_of_fen_in_same_016b_context": true,
+    "halfyear": 18262125000,
+    "first_limit": 8890922500,
+    "second_limit": 9371202500,
+    "residual": 0,
+    "degree_output": "2.392433",
+    "degree_fractional_digits": 6,
+    "degree_precision_rule": "Field-local degree result and original cut-off wording, not transferable to G893 4-place table"
+  },
+  "independently_received_control": {
+    "source": "交食推步法/假令上 public received text",
+    "url": "https://zh.wikisource.org/wiki/交食推步法/假令上",
+    "role": "Textual contrast only: same six-place 2.392433 and degree discard wording, NOT independent printed source glyph vote"
+  },
+  "source_bound_negative_controls": {
+    "rj": "Previously new source-original 068b–074a pages did not demonstrate G893 original conversion; no whole-work absence conclusion",
+    "rk": "Source-original 024a–026b adjacent pages continue 經朔望入轉/遲疾曆 context; not independent historical copy or proof six-place rule applies to unrelated fields"
+  },
+  "g893_firewall": {
+    "G893_physical_item": "奎貴893/GK00893_00 distinct surviving copy",
+    "G893_native_wording": "日差加一秒八十六少 (13PP original 001a)",
+    "Jiaoshi_original_micro_formula": "Same GK00067_00 original 066b–068a 微 coefficients 13RA–13RC",
+    "six_place_original_degree_discard_is_g893_four_place_rounding": false,
+    "G893_SHAO_to_WEI_native_equivalence": "UNPROVEN",
+    "G893_original_intermediate_carry": "UNRESOLVED",
+    "G893_original_fifth_or_sixth_printed_digit": "UNBOUND",
+    "G893_six_legacy_cross_original_numeric_finals": "0/6",
+    "new_physical_witnesses": 0,
+    "new_source_registry_entries": 0,
+    "graph_nodes_added": 0,
+    "graph_edges_added": 0,
+    "matrix_changes": 0,
+    "algorithm_reopens": 0,
+    "prediction_reopened": false,
+    "product": "CLOSED"
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Same source's positional 分少 plus six-place degree output cannot establish G893 bare 少 radix, textual direct copying, or uniform precision policy."
+    ],
+    "unresolved_lineage_questions": [
+      "Authentic original G893 table carry, 5th/6th retained place or independent dated early witness remains needed.",
+      "Exact original impression date for SNU GK00067_00 not resolved by original 1458 preface."
+    ]
+  },
+  "adjudication": {
+    "positive": "Native 016b same-leaf Fen-Shao positional quarter identity and 023a degree-specific six-place output/discard rule both FIRSTPARTY SOURCE ORIGINAL POSITIVE with byte and pixel ROI hashes.",
+    "negative": "NOT A GLOBAL G893 PRECISION RULE, NOT SIX HISTORIC G893 NUMERIC WINNERS, NOT TWO INDEPENDENT PHYSICAL BOOKS.",
+    "next": "Focus original GK00893_00 own same-column instruction/retained digits, or early independent printed copy with distinguishable precision; do not extend another same-book section without discriminating target."
+  }
+}
