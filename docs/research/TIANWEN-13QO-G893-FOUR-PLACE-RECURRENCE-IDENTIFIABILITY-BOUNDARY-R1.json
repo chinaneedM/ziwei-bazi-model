@@ -1,0 +1,113 @@
+{
+  "schema": "TIANWEN-13QO-G893-FOUR-PLACE-RECURRENCE-IDENTIFIABILITY-BOUNDARY-R1",
+  "date": "2026-11-04",
+  "issue_id": "TW-OPEN-0005",
+  "parent": "docs/research/TIANWEN-13PP-G893-SHAO-QUARTER-MICRO-AND-FOUR-PLACE-INTERMEDIATE-QUANTIZATION-GATE-R1.json",
+  "classification": "EXACT_RATIONAL_MATHEMATICAL_IDENTIFIABILITY_PROOF_NO_NEW_HISTORICAL_SOURCE",
+  "research_question": "Can more four-decimal rows alone decide G893 printed 少 versus a modern 0.018625 fractional reading, if the original construction quantized after each recurrence step?",
+  "existing_source_scope": {
+    "original_holding": "SNU Kyujanggak 奎貴893 / GK00893_00, same original physical copy only",
+    "source_original_pages": [
+      "001a",
+      "002b"
+    ],
+    "original_page_sha256": {
+      "001a": "8b07513ca8aad42ae167a93f22c39f14850c8cd1c345db9ce98c1e0e769226a5",
+      "002b": "f9812e8c6a357eb6cd1117bb2af58d816e01030d5b93f34e7094bddb766b2b55"
+    },
+    "original_historical_rows_previously_direct_read": [
+      0,
+      1,
+      2,
+      15,
+      16,
+      17
+    ],
+    "no_new_pages_downloaded": true,
+    "historical_printed_quantization_rule_attested": false,
+    "editor_interpreted_delta": "0.018625; later official modern Korean normalization, NOT original-source unit proof"
+  },
+  "exact_arithmetic": {
+    "scale": "integer 1/10000 of printed 分; delta represented as integer 1/1000000 of 分 for six-place demonstrations",
+    "starting_short_4dp_integer": 49386,
+    "starting_addend_4dp_integer": 5108569,
+    "recurrence": "M[n+1]=M[n]-S[n]; S[n+1]=Q4(S[n]+delta), with the 4dp M lane already exact under subtraction",
+    "alternative_daily_delta_microfen": [
+      18600,
+      18625
+    ],
+    "rounders": {
+      "FLOOR": {
+        "definition": "Q4(x)=floor(10000*x)/10000 (positive short-lane x)",
+        "indistinguishable_delta_interval": "[0.018600, 0.018700)",
+        "exact_integer_microfen_range": "[18600, 18700)"
+      },
+      "HALF_UP": {
+        "definition": "Q4(x)=floor(10000*x + 1/2)/10000 (positive short-lane x)",
+        "indistinguishable_delta_interval": "[0.018550, 0.018650)",
+        "exact_integer_microfen_range": "[18550, 18650)"
+      }
+    },
+    "symbolic_proof": "If S[n] is an integer multiple of 0.0001, Q4(S[n]+delta)=S[n]+Q4(delta) for either stated positive-lane quantizer. Every delta in the stated interval yields Q4(delta)=0.0186. Thus S[n+1] is identical by induction from shared S0, and M[n+1] is identical from shared M0 and identical S[n]. No number of additional rows of exactly these two 4dp recurrence lanes can identify the hidden delta under these CONDITIONAL per-step rounding models.",
+    "integer_replay": "Start S=49386, M=5108569. For each day: next_M=M-S; next_S=S+floor(delta_micro/100) under FLOOR, or next_S=S+floor((delta_micro+50)/100) under HALF_UP. All integers exact.",
+    "checked_days": [
+      0,
+      1,
+      2,
+      15,
+      16,
+      17,
+      40,
+      80
+    ],
+    "checked_hypotheses": [
+      "FLOOR 0.018600",
+      "FLOOR 0.018625",
+      "HALF_UP 0.018600",
+      "HALF_UP 0.018625"
+    ],
+    "replay_all_equal_through_day80": true,
+    "checks": {
+      "source_observed_day17": {
+        "short_4dp": "5.2548",
+        "addend_4dp": "424.3711"
+      },
+      "synthetic_extrapolation_day80_not_an_original_glyph": {
+        "short_4dp": "6.4266",
+        "addend_4dp": "56.9929"
+      },
+      "near_boundary_controls": "Nearest half-up at 0.018650 selects 0.0187, at 0.018550 selects 0.0186. Floor at 0.018700 selects 0.0187, at 0.018600 selects 0.0186."
+    }
+  },
+  "adjudication": {
+    "positive": "CONDITIONAL NON-IDENTIFIABILITY: Full additional same-step, same-two-lane, 4dp source rows cannot distinguish 0.018600 from 0.018625 if the source actually quantized each step as modeled.",
+    "not_proven": [
+      "THE_HISTORICAL_SOURCE_USED_PER_STEP_FLOOR",
+      "THE_HISTORICAL_SOURCE_USED_PER_STEP_HALF_UP",
+      "THE_PRINTED_SHAO_IS_A_MICRO_QUARTER",
+      "G893_NATIVE_PRECISION_OR_CARRY",
+      "SNU_KYUGUI67_ORIGINAL_YING_SUO_JIAFEN_TEXT",
+      "GENERAL_EQUIVALENCE_ACROSS_OTHER_TABLES_OR_CALENDAR_REGIMES"
+    ],
+    "limits": "The theorem does not constrain a different full-precision construction, a non-recurrent independently generated field, 5th/6th-place source numerals, or an authenticated instruction that exposes retained precision. It does not convert digit equivalence into source lineage.",
+    "required_decisive_next": "Obtain actual same-column original source instructions on 少/微 radix or intermediate retention/carry, a source-printed 5th/6th place, or an independently authenticated 奎貴67 盈縮加分 folio. Avoid repeating longer same-model 4dp rows as though they alone could settle the unit.",
+    "G893_historical_cross_edition_numeric_final": "0/6",
+    "chart_product": "CLOSED",
+    "algorithm_reopen_count": 0,
+    "source_registry_delta": 0,
+    "matrix_row_delta": 0,
+    "genealogy_node_delta": 0,
+    "genealogy_edge_delta": 0
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Identical source-printed 4dp recurrence rows do not prove equal unseen sub-4dp daily increments or direct copying."
+    ],
+    "unresolved_lineage_questions": [
+      "Find exact copy/folio/column original rounding and source-unit evidence before inferring G893-to-received-交食推步法 technical lineage."
+    ]
+  }
+}
