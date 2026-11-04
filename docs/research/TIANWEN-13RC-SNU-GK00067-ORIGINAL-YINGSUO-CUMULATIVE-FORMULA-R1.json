@@ -1,0 +1,178 @@
+{
+  "schema": "TIANWEN-13RC-SNU-GK00067-ORIGINAL-YINGSUO-CUMULATIVE-FORMULA-R1",
+  "date": "2026-11-04",
+  "issue_id": "TW-OPEN-0005",
+  "status": "SAME_PHYSICAL_SOURCE_ORIGINAL_YINGSUO_JI_TWO_BRANCH_FORMULA_AND_D79_RESULT_POSITIVE_WITH_CROSSWORK_LIMITS",
+  "question": "Does the already-archived official SNU 奎貴67 original immediately following 13RB contain a source-native 盈縮積 formula and an explicit n79 output, and how precisely do its independent-looking M/C printed formula expressions relate to G893's original n88 numerals?",
+  "physical_source": {
+    "provider": "Seoul National University Kyujanggak",
+    "title": "交食推步法",
+    "holding": "奎貴67",
+    "book_cd": "GK00067_00",
+    "detail": "https://kyudb.snu.ac.kr/book/view.do?book_cd=GK00067_00",
+    "source_original_archive": {
+      "github_actions_run": 41832831039,
+      "github_actions_artifact_id": 13324440480,
+      "artifact_name": "tianwen-13ra-jiaoshi-yingsuo-source-original-images",
+      "same_physical_surrogate_as_13RA_13RB": true,
+      "number_new_physical_witnesses": 0
+    },
+    "pages": [
+      {
+        "page": "067b",
+        "original_jpeg_file": "067b.jpg",
+        "image_px": [
+          1094,
+          2000
+        ],
+        "jpeg_bytes": 208785,
+        "jpeg_sha256": "f59150c66524d11bad515bf592174e7738bef9c665626ff5d0d4612d05ae4508",
+        "rgb_sha256": "87ae919c0db17f31eb787cd86ee3d73f610aca43eece48d134479f988216c8e9"
+      },
+      {
+        "page": "068a",
+        "original_jpeg_file": "068a.jpg",
+        "image_px": [
+          1094,
+          2000
+        ],
+        "jpeg_bytes": 206745,
+        "jpeg_sha256": "8c04ca44748afc19dda9cc12bd6f64a285e6024290d1fea4511f217716e12d19",
+        "rgb_sha256": "288a0e59a601170e424062c4c2a65015933df0a34bfc4108f5b9b068d9432014"
+      }
+    ],
+    "no_ocr": true,
+    "sha_method": "Pillow Image.open(original JPEG).convert('RGB'); SHA256 of original JPEG bytes and separately full RGB bytes; bbox ROI hash uses crop(xyxy).tobytes() without resampling",
+    "edition_dates": "The previously documented provider 1458 catalog vs 1459 preface distinction remains unresolved; no new impression date assigned."
+  },
+  "independently_scoped_manual_original_rgb_rois": [
+    {
+      "id": "C_FORMULA_MAIN_AND_ALTERNATE",
+      "page": "067b",
+      "bbox_xyxy": [
+        385,
+        180,
+        1045,
+        1850
+      ],
+      "rgb_sha256": "dbd7f421d1538a5b4ee6ceb558909f91dca7a9c87b4e7ae27bdbb53b1fcd36b8",
+      "visually_read": "New heading 盈縮積, main 置三十一微...加二分四十六秒...用減五百一十三分三十二秒...再以積日乘之, and scoped 縮初盈末 alternate 二十七微 / 二分二十一秒 / 四百八十七分六秒"
+    },
+    {
+      "id": "DAY79_INTERMEDIATE",
+      "page": "067b",
+      "bbox_xyxy": [
+        10,
+        200,
+        610,
+        1830
+      ],
+      "rgb_sha256": "9ba93d72172852141a5f6f32df7bc068751b449c8a085b74046144cf9d20872d",
+      "visually_read": "Original example 置三十一微以積日七十九日乘之, obtains 二十四秒四十九微; + 二分四十六秒, next accumulation 二百一十三分六八七一; subtract from 五百一十三分三十二秒 to 二百九十九分六三二九, with folio continuation"
+    },
+    {
+      "id": "DAY79_ORIGINAL_C_LITERAL",
+      "page": "068a",
+      "bbox_xyxy": [
+        760,
+        185,
+        1075,
+        1720
+      ],
+      "rgb_sha256": "c16e7ad40d4534b3948f6ebf72425b4046d97c32add8947239952dd591952b73",
+      "visually_read": "Original continuation 乘以積日...得二萬三千六百七十〇分九九九一; 即縮末限七十九日縮積"
+    },
+    {
+      "id": "WAN_YUE_OPERATION",
+      "page": "068a",
+      "bbox_xyxy": [
+        265,
+        185,
+        800,
+        1850
+      ],
+      "rgb_sha256": "ebcd790095ed64aa6e0a209463dcf4da174c7ee84faa546aff49bfa9ed0b353c",
+      "visually_read": "Subsequent distinct original operation 置入限分以盈縮加分乘之萬約為分以加盈縮積萬約為度不滿為分秒即盈縮差; do not conflate final degree conversion with native historical G893 table rounding"
+    }
+  ],
+  "source_original_formula_branches": {
+    "main_winter_盈初縮末": {
+      "native_formula": "置三十一微，以積日乘之，加二分四十六秒，又以積日乘之，用減五百一十三分三十二秒，再以積日乘之，得盈縮積",
+      "C_scaled": "n*(5133200 - n*(24600+31*n))",
+      "M_scaled": "5108569 - n*(49293+93*n)",
+      "M_previous_primary_original": "docs/research/TIANWEN-13RA-SNU-GK00067-ORIGINAL-YINGSUO-JIAFEN-FORMULA-R1.json",
+      "C78_scaled": 236012088,
+      "C79_scaled": 236709991,
+      "C80_scaled": 237344000,
+      "C88_scaled": 240093568,
+      "source_original_n79_C_literal": "二萬三千六百七十〇分九九九一",
+      "source_original_n79_C_decimal": "23670.9991",
+      "conditionally_computed_n88_C_decimal": "24009.3568",
+      "independently_original_G893_n88_C_decimal": "24009.3568",
+      "G893_source": "docs/research/TIANWEN-13QW-G893-009A-WINTER-D88-SOURCE-ORIGINAL-CROSSCOPY-R1.json",
+      "G893_n88_M_original": "5.0593",
+      "M_source_13RB_n79": "63.4009"
+    },
+    "alternate_縮初盈末": {
+      "native_coefficients": "二十七微; 二分二十一秒; 四百八十七分六秒",
+      "C_scaled": "n*(4870600 - n*(22100+27*n))",
+      "M_scaled": "4848473 - n*(44281+81*n)",
+      "qualification": "Separate season/limit candidate; not interchangeable with 79-day main-worked-case or G893 winter D88."
+    }
+  },
+  "exact_integer_mechanical_replay": {
+    "scale": "10000 displayed 4-place positional 分; exact integer mathematical normalization, not an automatic equivalence of G893 少 and Jiaoshi 微",
+    "main_n79_step1": "31*79=2449 micro = 24 seconds 49 micro",
+    "main_n79_step2": "(2.4600+0.2449)*79=213.6871",
+    "main_n79_step3": "513.3200-213.6871=299.6329",
+    "main_n79_step4": "299.6329*79=23670.9991",
+    "main_n88": "n=88 -> C=24009.3568; source G893 original 009a C88=24009.3568",
+    "both_branches_finite_difference_identity": "For each branch, C_scaled(n+1)-C_scaled(n)=M_scaled(n), algebraically exact over integers.",
+    "mechanical_scan": "n=0..88 inclusive, both main and alternate branch exact-integer identities all pass (89 positions per branch). This is derived algebra/calculation, NOT separately source-printed rows or independent witness votes.",
+    "main_identity_expansion": "C(n+1)-C(n) = 5133200 - 24600*(2n+1) -31*(3n^2+3n+1) = 5108569 - 49293n -93n^2 = M(n), all expressions scaled integers.",
+    "alternate_identity_expansion": "C_alt(n+1)-C_alt(n) = 4870600 - 22100*(2n+1) -27*(3n^2+3n+1) = 4848473 - 44281n -81n^2 = M_alt(n).",
+    "has_original_C89_day_marker_interpreted": false,
+    "precision_asserted_for_foreign_book": false
+  },
+  "evidence_gates": {
+    "new_primary_source_leaf_collation": true,
+    "new_original_Jiaoshi_C_formula": true,
+    "new_original_Jiaoshi_C79_literal": true,
+    "source_original_C88_numeric_glpyh_from_G893_new_this_batch": false,
+    "G893_native_shao_unit_radix_proven": false,
+    "exact_historic_G893_carry_rounding_proven": false,
+    "two_source_same_absolute_epoch_proven": false,
+    "crossbook_direct_copying_proven": false,
+    "stemmatic_independence_proven": false,
+    "legacy_six_G893_historical_final_winners": "0/6",
+    "matrix": "222/222",
+    "registry_root": 647,
+    "registry_extensions": 129,
+    "registry_union": 776,
+    "genealogy_nodes": 252,
+    "genealogy_edges": 238,
+    "issues_open": 11,
+    "product": "CLOSED",
+    "algorithms_reopened": 0,
+    "negative_scope": "Exact original source formula/number match can strengthen cross-book mechanical concordance but cannot prove G893 source-native 少-to-微 rule, an authorial copying path, or a historically unique archetype."
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Same source-native SNU original formula pair and original G893 C88 number do not prove direct copying or shared print blocks; numerical identity is not a new physical witness."
+    ],
+    "unresolved_lineage_questions": [
+      "Find original copy-specific G893 少 fractional-radix/precision and carry instructions before projecting Jiaoshi 微 arithmetic.",
+      "Resolve 1458 catalog vs 1459 preface exact impression status.",
+      "Obtain independently dated Goryeosa winter D88 and six legacy target originals to determine variants without source-count voting."
+    ]
+  },
+  "prior_documents": [
+    "docs/research/TIANWEN-13RA-SNU-GK00067-ORIGINAL-YINGSUO-JIAFEN-FORMULA-R1.json",
+    "docs/research/TIANWEN-13RB-SNU-GK00067-ORIGINAL-D79-WORKED-CARRY-R1.json",
+    "docs/research/TIANWEN-13QW-G893-009A-WINTER-D88-SOURCE-ORIGINAL-CROSSCOPY-R1.json"
+  ],
+  "next_action": "Continue source-authenticated G893 少/微 precision and fractional carry, or independently dated physical original variants; no repeat same-book arithmetic unless it materially resolves a new question, no algorithm reopen without separate gate."
+}
