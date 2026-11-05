@@ -1,0 +1,114 @@
+{
+  "schema": "TIANWEN-13SD-G893-PER-DAY-M-QUANTIZATION-STAGE-FIREWALL-R1",
+  "date": "2026-11-05",
+  "issue_id": "TW-OPEN-0005",
+  "classification": "PREVIOUSLY_AUTHENTICATED_ONE_COPY_28_ORIGINAL_M_ROWS_EXACT_INTEGER_HYPOTHESIS_EXCLUSION_NO_ANCIENT_ROUNDING_ATTRIBUTION",
+  "question": "Does quantizing 盈縮加分 M to four decimals after EACH day, while retaining the candidate extra 1/4 last micro in the unquantized 日差 short increment S, also reproduce the two-season original G893 M values?",
+  "source": {
+    "physical": "Kyujanggak 奎貴893 GK00893_00 (one physical copy only)",
+    "source_original": "docs/research/TIANWEN-13RS-G893-ORIGINAL-TWO-SEASON-SOLAR-DEGREE-PRECISION-R1.json",
+    "source_original_git_blob_sha": "3cdb9811a9d86c09addea9f03aaf9a582acdf3a1",
+    "precursor": "docs/research/TIANWEN-13SB-G893-TWO-SEASON-SHORT-INCREMENT-PRECISION-GATE-R1.json",
+    "original_source_rows": 28,
+    "source_original_images_reopened_in_session": [
+      {
+        "page": "001a",
+        "sha256": "8b07513ca8aad42ae167a93f22c39f14850c8cd1c345db9ce98c1e0e769226a5"
+      },
+      {
+        "page": "002b",
+        "sha256": "f9812e8c6a357eb6cd1117bb2af58d816e01030d5b93f34e7094bddb766b2b55"
+      }
+    ],
+    "reopened_archive_artifact_id": 13019278183,
+    "archive_origin": "Previously registered 13MI original-source Action artifact; images verified again by SHA-256",
+    "new_physical_witnesses": 0
+  },
+  "integer_model": {
+    "M_four_decimal_units": 10000,
+    "internal_units_per_M_four_decimal_unit": 100,
+    "initial_winter": {
+      "M4": 5108569,
+      "S4": 49386,
+      "d_micro": 18625
+    },
+    "initial_summer": {
+      "M4": 4848473,
+      "S4": 44362,
+      "d_micro": 16225
+    },
+    "equation": "M_micro[0]=M4[0]*100; S_micro[0]=S4[0]*100; M_micro[n+1]=100*Q((M_micro[n]-S_micro[n])/100); S_micro[n+1]=S_micro[n]+d_micro; Q=positive FLOOR or HALF_UP. Record original-source M4[n] at sampled days.",
+    "hypothesis": "Retain the hypothetical high-precision quarter-micro tail in S without daily S4 truncation; round only M at every daily transition (not just at final sample).",
+    "rounding_placement_warning": "13SB per-step S4 quantization and this per-step M4 quantization are materially different models. The phrase 'quantize every day' cannot identify which variable or when.",
+    "test_file": "tests/test_tianwen_13sd_g893_per_day_m_quantization.py"
+  },
+  "results": {
+    "winter": {
+      "FLOOR": {
+        "match_count": 2,
+        "mismatch_count": 9,
+        "first_mismatch": {
+          "day": 2,
+          "printed": 5009611,
+          "simulated": 5009610
+        },
+        "sample_count": 11
+      },
+      "HALF_UP": {
+        "match_count": 3,
+        "mismatch_count": 8,
+        "first_mismatch": {
+          "day": 14,
+          "printed": 4400239,
+          "simulated": 4400218
+        },
+        "sample_count": 11
+      }
+    },
+    "summer": {
+      "FLOOR": {
+        "match_count": 2,
+        "mismatch_count": 15,
+        "first_mismatch": {
+          "day": 2,
+          "printed": 4759587,
+          "simulated": 4759586
+        },
+        "sample_count": 17
+      },
+      "HALF_UP": {
+        "match_count": 4,
+        "mismatch_count": 13,
+        "first_mismatch": {
+          "day": 4,
+          "printed": 4670053,
+          "simulated": 4670052
+        },
+        "sample_count": 17
+      }
+    }
+  },
+  "comparison": {
+    "winter_floor_match": "2/11",
+    "winter_half_up_match": "3/11",
+    "summer_floor_match": "2/17",
+    "summer_half_up_match": "4/17",
+    "conclusion": "Both fully specified retained-tail models with per-day M4-only quantization contradict the 28 sampled source-original M observations in both seasons. Excludes only these operationally specified models; not all possible intermediate carrying/rounding schemes.",
+    "preserved_survivor": "13SB shows that quantizing the short-increment S to S4 at each transition can mask hypothetical trailing micro digits in 28/28 pairs; retained-tail M-only rounding does not. This is a contrast of test-defined algorithms, not evidence for a historical winner."
+  },
+  "firewall": {
+    "G893_direct_short_fifth_sixth_digit": false,
+    "G893_original_native_shao_wei_radix_or_carry_instruction": false,
+    "same_copy_derived_J_not_independent_high_digit": true,
+    "historic_numeric_finals": 0,
+    "six_control_decisions": "0/6",
+    "TW_OPEN_0005": "OPEN",
+    "chart_product": "CLOSED",
+    "algorithm_reopens": 0,
+    "source_registry_delta": 0,
+    "matrix_delta": 0,
+    "genealogy_delta": 0
+  },
+  "transmission_impact": "NONE_SAME_COPY_MECHANICAL_REPLAY_NO_NEW_LINEAGE",
+  "next": "Seek original-source G893 short 日差 retained fifth/sixth digit or contemporaneous same-field 少/微 unit/carry instruction. Do not infer historical quantization from mathematical filtering of this one copy."
+}
