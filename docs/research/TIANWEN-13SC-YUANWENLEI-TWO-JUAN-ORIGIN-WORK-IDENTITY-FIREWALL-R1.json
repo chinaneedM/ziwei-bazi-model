@@ -1,0 +1,87 @@
+{
+  "schema": "TIANWEN-13SC-YUANWENLEI-TWO-JUAN-ORIGIN-WORK-IDENTITY-FIREWALL-R1",
+  "date": "2026-11-05",
+  "issue_id": "TW-OPEN-0005",
+  "classification": "TWO_YUAN_AUTHORIAL_PASSAGES_IN_ONE_LATER_SIKU_RECEIVED_DIGITAL_TRANSCRIPTION_NOT_ORIGINAL_PHYSICAL_PAGE",
+  "question": "Does early recorded Shoushi 立成 work extent and redaction stage permit equating the original submitted work, G893 surviving 15c Korean copy, G894 different work, and later Japanese same-title tables?",
+  "received_witness": {
+    "work": "元文類 / 國朝文類",
+    "compiler": "蘇天爵",
+    "received_edition": "欽定四庫全書本 digital transcription, exact physical copy/impression unbound",
+    "url_juan16": "https://wk.100ke.info/wiki/元文類_(四庫全書本)/卷16",
+    "url_juan50": "https://wk.100ke.info/wiki/元文類_(四庫全書本)/卷50",
+    "textual_grade": "RECEIVED_DIGITAL_TRANSCRIPTION_OF_EARLIER_AUTHORED_TEXT_NOT_PAGE_IMAGE",
+    "original_scan_locator_only": [
+      "Wikimedia Commons Category:元文類 lists CADAL06052372 元文類·卷十四~卷十六.djvu; target original page/index NOT inspected",
+      "Wikimedia Commons Category:元文類 lists CADAL06052384 元文類·卷四十八~卷五十.djvu; target original page/index NOT inspected"
+    ],
+    "original_page_bytes_read": false,
+    "original_page_sha256_verified": false,
+    "ocr_used_for_original_glyph_claims": false,
+    "physical_witness_votes_added": 0
+  },
+  "textual_passages": [
+    {
+      "author": "楊桓",
+      "title": "進授時厯經厯議表",
+      "locus": "元文類卷十六 表",
+      "received_literal": "所有授時厯經三巻立成二巻轉神注式一十三巻厯議三巻已繕寫成二十一册隨表上進",
+      "reported_components_juan": {
+        "授時厯經": 3,
+        "立成": 2,
+        "轉神注式": 13,
+        "厯議": 3
+      },
+      "reported_total_copies_ce": 21,
+      "integer_sum_check": 21,
+      "mechanical_scope": "Source-received work inventory and report of presentation; 冊 and 卷 are distinct bibliographic dimensions; cannot bind a particular surviving G893 leaf."
+    },
+    {
+      "author": "齊履謙",
+      "title": "知太史院事郭公行狀",
+      "locus": "元文類卷五十 行狀",
+      "received_loci": [
+        "十九年太史王公卒時厯雖頒然其推步之式與夫立成之數尚皆未有定槀",
+        "公於是比次篇類整齊分抄裁為推步七巻立成二巻厯議擬槀三巻轉神選擇二巻上中下三厯註式十二巻二十三年繼為太史令遂上表奏進"
+      ],
+      "chronological_layer": "至元十九年=1282 reported unfinished compiled tables; 至元二十三年=1286 reported presentation; contextual dates are claims of received authored text, not authenticated leaf composition or physical-copy dating",
+      "inventory_warning": "This second account names a different component grouping (推步7,立成2,曆議擬稿3,轉神選擇2,上中下三曆註式12); do not force this into 楊桓's 3+2+13+3=21 component scheme."
+    }
+  ],
+  "bounded_interpretation": {
+    "positive": "Two distinct early authorial accounts preserved in one later received anthology each REPORT a 立成二卷 work; one explicitly differentiates an earlier unsettled numerical manuscript stage from subsequent compilation and presentation.",
+    "non_equivalence": [
+      "The one surviving G893 Kyujanggak 奎貴893 catalogued 1冊 102張 is NOT proved identical to original two-卷 submitted 立成; 一冊 cannot be equated to 一卷.",
+      "No exact original Yuan source leaves were collated. Different author passages are not two physically independent print witnesses.",
+      "G894 七政算內篇 and 1673 Ogawa Japanese six-卷 table are separate work/version branches, not automatic same-copy evidence.",
+      "The 元文類 received text has no native G893 solar 日差少／微 fifth/sixth digit, radix, quantization/carry instruction or numerical six-control adjudication.",
+      "Do not infer text-composition date equals edition/impression/copy/digital-surrogate date."
+    ],
+    "scope": "WORK_IDENTITY_AND_TEXTUAL_REDACTION_CHRONOLOGY_ONLY_NO_NUMERIC_G893_GLYPH_ADJUDICATION"
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "立成二卷 in a received earlier authorial inventory cannot prove copy identity or direct lineage to G893/other later similarly named works."
+    ],
+    "unresolved_lineage_questions": [
+      "Authenticate edition-specific original page of 元文類卷16/50, then determine whether any material work-to-copy bridge exists.",
+      "Primary G893 short 日差 original fifth/sixth place or same-field 少/微 radix/carry is still missing."
+    ]
+  },
+  "impact": {
+    "historical_g893_six_final_winners": 0,
+    "new_original_g893_image_count": 0,
+    "new_physically_independent_numeric_witnesses": 0,
+    "new_source_registry_entries": 1,
+    "source_registry_entry_grade": "RECEIVED_TEXT_VERIFIED_NO_PHYSICAL_GLYPH_AUTHORITY",
+    "matrix_rows_delta": 0,
+    "genealogy_nodes_delta": 0,
+    "genealogy_edges_delta": 0,
+    "algorithm_reopens": 0,
+    "deterministic_chart_product": "CLOSED"
+  },
+  "next": "Keep TW-OPEN-0005 P0 OPEN. Prioritize authenticated G893 original short-lane retained extra digits or period same-field carry/unit instruction; do not turn a two-juan bibliographic report into a G893 numeric reading."
+}
