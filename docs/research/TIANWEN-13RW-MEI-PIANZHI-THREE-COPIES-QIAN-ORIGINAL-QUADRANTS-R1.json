@@ -349,5 +349,18 @@
     "risk_issue": "OPEN",
     "chart_product": "CLOSED",
     "algorithm_reopens": 0
+  },
+  "registry_attestation_followup": {
+    "date": "2026-11-05",
+    "prior_source_shard_blob": "dcf8318ae40258f922f82f22b61beb7c87b85bb9",
+    "prior_manifest_blob": "72f4c088c95068bd20af3463d594c1b082a1a451",
+    "failed_gate": "verify-historical-source-registry-extensions-r1.py: physical glyph authority requires page-level attestation",
+    "action": "Provide each source a separate witness document with matching page/source hashes in the form required by the existing gate. The original glyph reads and their grades are preserved.",
+    "witness_documents": [
+      "docs/research/TIANWEN-13RW-WASEDA-NI05-01614-PAGE-ATTESTATION-R1.json",
+      "docs/research/TIANWEN-13RW-CADAL01020105-PAGE-ATTESTATION-R1.json",
+      "docs/research/TIANWEN-13RW-CADAL06052455-PAGE-ATTESTATION-R1.json",
+      "docs/research/TIANWEN-13RW-CADAL01025252-PAGE-ATTESTATION-R1.json"
+    ]
   }
 }
