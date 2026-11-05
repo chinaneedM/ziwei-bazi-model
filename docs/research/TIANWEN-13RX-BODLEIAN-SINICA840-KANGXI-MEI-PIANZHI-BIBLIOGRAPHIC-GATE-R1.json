@@ -1,0 +1,93 @@
+{
+  "schema": "TIANWEN-13RX-BODLEIAN-SINICA840-KANGXI-MEI-PIANZHI-BIBLIOGRAPHIC-GATE-R1",
+  "date": "2026-11-05",
+  "issue_id": "TW-OPEN-0005",
+  "classification": "INSTITUTIONAL_LEGACY_CATALOG_COMPONENT_IMPRINT_SCOPE_NO_TARGET_ORIGINAL_GLYPH",
+  "research_question": "Does an institutionally identifiable pre-1723 printed-component locator for Mei's named 《曆學駢枝》 survive independently of the 13RW manuscript/1859/Siku image objects, without treating catalog dating or sample images as a directly collated historic numeral?",
+  "institutional_crosswalk": {
+    "university_announcement": "https://www.chinacentre.ox.ac.uk/article/east-asian-manuscripts-and-rare-books-catalogue",
+    "current_catalog": "https://east-asian.bodleian.ox.ac.uk/",
+    "official_claim": "University of Oxford China Centre identifies the current Bodleian East Asian Manuscripts and Rare Books catalogue as the successor of its earlier Chinese and Manchu Serica catalogues.",
+    "current_catalog_item": "NOT_OPENED_OR_ITEM_IDENTIFIED; current catalogue root timed out in this review.",
+    "legacy_catalog": "https://serica.ie/SericaProject/data/558-568.html",
+    "legacy_entry_locator": "子部 -- 天文算法類 -- 合刻; Sinica 840",
+    "sample_image_viewer": "https://a35.ie/image-oxchi.php?id=s01471.jpg:s01472.jpg:s01473.jpg:s01474.jpg:s01475.jpg:s01476.jpg:s01477.jpg:s01478.jpg",
+    "sample_viewer_scope": "Eight sample filenames emitted by the catalog's 書影 link; the exact 《曆學駢枝》 volume-four seasonal target leaf, or any digit, was NOT directly viewed."
+  },
+  "physical_catalog": {
+    "shelfmark": "Sinica 840",
+    "item_title": "曆算全書 : 存十種 / (清)梅文鼎撰",
+    "record_total": "線裝12冊 ; 24公分",
+    "owner_seal_as_catalogued": "敬亭",
+    "assembly": "COMPOSITE_WITH_MULTIPLE_LISTED_COMPONENT_PRINTING_GROUPS",
+    "component_groups": [
+      {
+        "group": "SIX_TITLES",
+        "catalogue_imprint": "清雍正元年[1723]柏鄉魏荔彤編刊《兼濟堂纂刻梅勿菴先生曆算全書》本",
+        "titles": [
+          "三角法舉要 五卷",
+          "勾股闡微 四卷",
+          "弧三角舉要 五卷",
+          "塹堵測量 二卷",
+          "方圓冪積 一卷",
+          "幾何補編 殘三卷"
+        ]
+      },
+      {
+        "group": "THREE_TITLES",
+        "catalogue_imprint": "清康熙中刊本",
+        "titles": [
+          "環中黍尺 五卷",
+          "曆學駢枝 四卷",
+          "交食蒙求訂補 二卷附一卷"
+        ]
+      },
+      {
+        "group": "ONE_TITLE",
+        "catalogue_imprint": "清康熙中刊《梅氏曆算叢書》本",
+        "titles": [
+          "方程論 六卷"
+        ]
+      }
+    ],
+    "chronology_boundary": "The catalogued Kangxi-period classification applies to its listed components, not every component and not the date of later physical binding or the exact impression of any target leaf. Six other works have a 1723 imprint. The holdings may be a later assembled volume set."
+  },
+  "relation_to_previously_authenticated_sources": {
+    "13RW": "docs/research/TIANWEN-13RW-MEI-PIANZHI-THREE-COPIES-QIAN-ORIGINAL-QUADRANTS-R1.json",
+    "13RT": "docs/research/TIANWEN-13RT-MEI-CADAL06054965-SOLAR-OPERATION-AND-TABLE-ORIGINAL-R1.json",
+    "13RW_direct_pianzhi_gloss": "Three other scan objects show 91.310625 in both seasonal glosses.",
+    "13RT_distinct_work_literal": "One 《大統歷志》 printed original has summer 91.320625 versus gloss operand arithmetic 91.310625.",
+    "comparison": "This catalog describes a promising distinct, earlier-labelled component in a mixed-volume Sinica 840 holding; none of its specific printed glyphs has been collated here."
+  },
+  "checked_access": {
+    "legacy_catalog_read": true,
+    "university_announcement_read": true,
+    "current_firstparty_item_access": "ROOT_TIMEOUT_NO_EXACT_ITEM_VERIFICATION",
+    "exact_original_juan4_target_folio_read": false,
+    "new_source_image_bytes": 0,
+    "new_source_native_page_hashes": 0,
+    "new_target_original_glyphs": 0,
+    "physical_copy_ancestry_verified": false,
+    "edition_impression_verified": false,
+    "note": "An institutional successor announcement is a catalog provenance control. The old entry remains bibliographic evidence, not an original-pixel witness."
+  },
+  "adjudication": {
+    "positive": "Catalogued Sinica 840 separates a 《曆學駢枝》 four-juan Kangxi-period component from six 1723 compilational components; its legacy Serica provenance is linked to Oxford's Bodleian catalogue succession statement.",
+    "not_inferred": [
+      "1723 dating for the four-juan Kangxi component",
+      "exact historical impression or manuscript/edition descent",
+      "the printed value 91.310625 or 91.320625 on an unread leaf",
+      "an original G893 少/微 unit, carry, or fifth/sixth digit",
+      "a new independent numeric or stemmatic vote"
+    ],
+    "source_registry_delta": 0,
+    "matrix_delta": 0,
+    "genealogy_nodes_delta": 0,
+    "genealogy_edges_delta": 0,
+    "six_g893_historical_finals": "0/6",
+    "risk_issue": "OPEN",
+    "chart_product": "CLOSED",
+    "algorithm_reopens": 0
+  },
+  "next_action": "FIRST pursue original G893 same-field 少/微 radix/carry or independently retained fifth/sixth place. SECOND obtain a source-issued original image of Sinica 840 《曆學駢枝》卷四 winter/summer numeric gloss with exact leaf identifier, authorized access, file/page hashes, and physical date controls; then compare to 13RW and 13RT without auto-emending either."
+}
