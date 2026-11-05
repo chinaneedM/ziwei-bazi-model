@@ -1,24 +1,54 @@
-name: research-tianwen-13rw-djvu-reader
+name: research-tianwen-13rw-qian-fascicles
 on:
   push:
     branches: [agent/tianwen-13rw-mei-qian-original-probe]
 permissions:
   contents: read
 jobs:
-  tools:
-    runs-on: ubuntu-24.04
-    timeout-minutes: 8
+  acquire:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
     steps:
-      - name: Acquire Ubuntu DjVu decoder packages and vertical locator model
+      - name: Fetch public Wikimedia source files with per-file byte and hash receipt
+        shell: python
         run: |
-          set -euo pipefail
-          sudo apt-get update -qq
-          mkdir viewer-debs
-          cd viewer-debs
-          apt-get download djvulibre-bin libdjvulibre21 tesseract-ocr-chi-tra-vert
-          sha256sum *.deb > SHA256SUMS
-      - uses: actions/upload-artifact@v4
+          import hashlib
+          import json
+          import subprocess
+          from pathlib import Path
+          from urllib.parse import quote
+
+          output = Path("originals")
+          output.mkdir()
+          sources = {
+              f"qian-{item}": f"CADAL{item:08d}_潛研堂全書·潛研堂文集.djvu"
+              for item in range(1025250, 1025255)
+          }
+          receipt = []
+          for name, filename in sources.items():
+              key = hashlib.md5(filename.encode()).hexdigest()
+              url = f"https://upload.wikimedia.org/wikipedia/commons/{key[0]}/{key[:2]}/{quote(filename)}"
+              path = output / (name + Path(filename).suffix)
+              run = subprocess.run([
+                  "curl", "--fail", "--silent", "--show-error", "--location",
+                  "--retry", "1", "--connect-timeout", "10", "--max-time", "55",
+                  "--max-filesize", "85000000", "--user-agent", "Tianwen source collation (GitHub repository chinaneedM/ziwei-bazi-model)",
+                  "--write-out", "%{http_code}", "--output", str(path), url,
+              ], capture_output=True, text=True)
+              entry = {"id": name, "url": url, "http_status": run.stdout, "exit": run.returncode}
+              data = path.read_bytes() if path.is_file() else b""
+              magic = b"%PDF-" if path.suffix == ".pdf" else b"AT&TFORM"
+              if run.returncode == 0 and data.startswith(magic):
+                  entry.update(bytes=len(data), sha1=hashlib.sha1(data).hexdigest(),
+                               sha256=hashlib.sha256(data).hexdigest(), file=path.name)
+              else:
+                  path.unlink(missing_ok=True)
+              receipt.append(entry)
+          (output / "receipt.json").write_text(json.dumps(receipt, indent=2) + "\n")
+          print(json.dumps(receipt, indent=2))
+      - name: Keep reproducible source receipts and public source bytes
+        uses: actions/upload-artifact@v4
         with:
-          name: tianwen-13rw-djvu-reader
-          path: viewer-debs/
+          name: tianwen-13rw-qian-fascicles
+          path: originals/
           retention-days: 7
