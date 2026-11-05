@@ -1,0 +1,57 @@
+name: research-tianwen-13rw-public-originals
+on:
+  push:
+    branches: [agent/tianwen-13rw-mei-qian-original-probe]
+permissions:
+  contents: read
+jobs:
+  acquire:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Fetch public Wikimedia source files with per-file byte and hash receipt
+        shell: python
+        run: |
+          import hashlib
+          import json
+          import subprocess
+          from pathlib import Path
+          from urllib.parse import quote
+
+          output = Path("originals")
+          output.mkdir()
+          sources = {
+              "mei-1859": "CADAL01020105_歷算全書·曆學駢枝歷算全書·平立定三差詳說.djvu",
+              "mei-siku": "CADAL06052455_歷算全書·卷二十三~二十四.djvu",
+              "mei-waseda-17": "WUL-ni05_01614_兼濟堂纂刻梅勿菴先生曆算全書_17.pdf",
+              "mei-waseda-18": "WUL-ni05_01614_兼濟堂纂刻梅勿菴先生曆算全書_18.pdf",
+              "qian-cadal": "CADAL01025249_潛研堂全書·潛研堂文集.djvu",
+          }
+          receipt = []
+          for name, filename in sources.items():
+              key = hashlib.md5(filename.encode()).hexdigest()
+              url = f"https://upload.wikimedia.org/wikipedia/commons/{key[0]}/{key[:2]}/{quote(filename)}"
+              path = output / (name + Path(filename).suffix)
+              run = subprocess.run([
+                  "curl", "--fail", "--silent", "--show-error", "--location",
+                  "--retry", "1", "--connect-timeout", "10", "--max-time", "55",
+                  "--max-filesize", "85000000", "--user-agent", "Tianwen source collation (GitHub repository chinaneedM/ziwei-bazi-model)",
+                  "--write-out", "%{http_code}", "--output", str(path), url,
+              ], capture_output=True, text=True)
+              entry = {"id": name, "url": url, "http_status": run.stdout, "exit": run.returncode}
+              data = path.read_bytes() if path.is_file() else b""
+              magic = b"%PDF-" if path.suffix == ".pdf" else b"AT&TFORM"
+              if run.returncode == 0 and data.startswith(magic):
+                  entry.update(bytes=len(data), sha1=hashlib.sha1(data).hexdigest(),
+                               sha256=hashlib.sha256(data).hexdigest(), file=path.name)
+              else:
+                  path.unlink(missing_ok=True)
+              receipt.append(entry)
+          (output / "receipt.json").write_text(json.dumps(receipt, indent=2) + "\n")
+          print(json.dumps(receipt, indent=2))
+      - name: Keep reproducible source receipts and public source bytes
+        uses: actions/upload-artifact@v4
+        with:
+          name: tianwen-13rw-public-originals
+          path: originals/
+          retention-days: 7
