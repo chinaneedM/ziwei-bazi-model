@@ -1,0 +1,95 @@
+{
+  "schema": "TIANWEN-13RY-MEI-PIANZHI-KANGXI-1662-PREFACE-COMPOSITE-EDITION-CHRONOLOGY-R1",
+  "date": "2026-11-05",
+  "issue_id": "TW-OPEN-0005",
+  "classification": "SCHOLARLY_COMPONENT_CHRONOLOGY_AND_INSTITUTIONAL_DIGITAL_LOCATOR_NO_G893_TARGET_GLYPH",
+  "research_question": "Do edition catalogs and scholarly review establish earlier textual or component chronology for 《曆學駢枝》 independently of the 1723 mixed collected edition, and do newly accessible 1711 Japanese derivative images resolve G893's native same-column 少/微 digits?",
+  "prior_records": [
+    "docs/research/TIANWEN-13RX-BODLEIAN-SINICA840-KANGXI-MEI-PIANZHI-BIBLIOGRAPHIC-GATE-R1.json",
+    "docs/research/TIANWEN-13RW-MEI-PIANZHI-THREE-COPIES-QIAN-ORIGINAL-QUADRANTS-R1.json",
+    "docs/research/TIANWEN-13RT-MEI-CADAL06054965-SOLAR-OPERATION-AND-TABLE-ORIGINAL-R1.json"
+  ],
+  "evidence": [
+    {
+      "provider": "History of Science Society of Japan / J-STAGE",
+      "title": "小林龍彦〈紅葉山文庫に収蔵される梅文鼎の著作について〉",
+      "url": "https://www.jstage.jst.go.jp/article/jhsj/41/221/41_26/_pdf",
+      "publication": "科学史研究 41 (2002), printed pp.26 ff.",
+      "directly_looked_at": "PDF printed p27 (zero-based PDF p1), Table 1 and Table 2; printed p28 (zero-based PDF p2) composite/1662 chronology discussion",
+      "class": "SECONDARY_SPECIALIST_SCHOLARSHIP_FROM_DIRECTLY_VIEWED_PRINTED_PDF",
+      "bound_findings": [
+        "Table 1 distinguishes the un-dated 紅葉山文庫《曆學全書》eight-work composite, a Kangxi-period 《梅勿庵算書》 group and 雍正元年(1723)《曆算全書》 as distinct bibliographic assemblages.",
+        "Table 2 separately records 《曆學駢枝》 with 康熙元年(1662) associated with its bibliographic/preliminary date and names the prefatory author; this does NOT authenticate the exact impression date of a particular surviving leaf.",
+        "The article argues for post-1706 composite assemblage chronology by comparison of works and associated dated pieces, rather than assigning a single component date to every work."
+      ],
+      "scope_limit": "The article's identified published comparisons are secondary scholarship. The present review has not independently inspected original 1662 preface leaves in the source holding; no precise ancient first printing or 1723 textual descent is asserted."
+    },
+    {
+      "provider": "CiNii Books / National Institute of Informatics",
+      "url": "https://ci.nii.ac.jp/author/DA10450466",
+      "indexed_specific_description": "暦學駢枝 4巻 / (清)梅文鼎訂疏 / [出版者不明] 康熙元 [1662] 叙 / 巻1-2, 巻3-4",
+      "class": "BIBLIOGRAPHIC_SEARCH_RESULT_PRELIMINARY_NOT_COMPONENT_PHYSICAL_ITEM",
+      "limitation": "The exact individual NCID/holding and original preface leaf were NOT bound by an opened item page. An indexed '叙' date is not a verified print/physical-copy date; this locator is not stemmatic voting."
+    },
+    {
+      "provider": "Serica legacy Bodleian catalog with Oxford University successor announcement",
+      "catalog_url": "https://serica.ie/SericaProject/data/558-568.html",
+      "official_successor_url": "https://www.chinacentre.ox.ac.uk/article/east-asian-manuscripts-and-rare-books-catalogue",
+      "shelfmark": "Sinica 840",
+      "direct_catalog_finding": "The 12-volume mixed 《曆算全書》 item labels its three-component group 《環中黍尺》, 《曆學駢枝》4卷, 《交食蒙求訂補》 as 康熙中刊本, separately from six 1723 compiled components.",
+      "class": "LEGACY_CATALOG_COMPONENT_DATE_NOT_ORIGINAL_GLYPH",
+      "limitation": "Historical component date scope still requires its own target leaf collation; public sample-image filenames do not constitute an authenticated printed winter/summer numeric result."
+    },
+    {
+      "provider": "Nagoya University Library / NIJL Public IIIF",
+      "firstparty_record": "https://da.adm.thers.ac.jp/item/n004-20251112-07947",
+      "source_manifest": "https://kokusho.nijl.ac.jp/biblio/100301532/manifest",
+      "source_record_id": "NUDA2025-224",
+      "doi": "10.20730/100301532",
+      "work": "亀谷和竹《授時暦経諺解》, volume5-7 inner titles 《授時暦経立成》",
+      "catalog_date": "正徳元年1711刊; 宝永六年1709 author preface (not same temporal layer)",
+      "physical_scope": "名古屋大学附属図書館, call mark 449.3-Ka, 6 bound books / 7 textual volumes, 193 leaves",
+      "manifest_direct_read": "IIIF Presentation 2 manifest successfully opened as JSON; 219 numbered sc:Canvas entries, labeled 1 through 219; image services source-issued for NAGO-10083.",
+      "class": "FIRSTPARTY_METADATA_AND_SOURCE_ISSUED_IIIF_IMAGE_MENU_ONLY",
+      "limitation": "Zero original JPEG bytes obtained or locally hash verified and no source leaf manually collated. This 1711 explanatory Japanese work is not a physical G893 plate, nor a copied early original proven by title alone. It is DEPRIORITIZED relative to explicit G893 precision evidence."
+    }
+  ],
+  "chronology_firewall": {
+    "work_or_preface": "The 1662 Kangxi-1 bibliographic date is bound to introductory/work-level evidence only until an original leaf or publisher colophon can prove a stronger claim.",
+    "component_edition": "The Sinica 840 Kangxi '刊本' classification is explicitly component-specific, not a timestamp for all 12 bound volumes.",
+    "aggregate_edition": "1723 雍正元年《兼濟堂纂刻梅勿菴先生曆算全書》 is a separate later compilation/publication layer.",
+    "physical_copy": "The exact printed layer, composite assembly date and historical copy history of Sinica 840 and any alternative 1662-labeled item remain unverified.",
+    "textual_identity": "Same title plus date does not prove corresponding 91.310625 or 91.320625 native glyphs or copying direction.",
+    "independent_g893_numeric_vote": 0
+  },
+  "adjudication": {
+    "positive": "Identified specialist original-PDF discussion explicitly separating Mei component and composite dates; corroborated a bibliographic 1662 introductory date, Oxford's Kangxi component classification and a separate publicly image-indexed 1711 Japanese later commentary work.",
+    "no_new_direct_g893_shao_wei_or_carry": true,
+    "no_authenticated_new_mei_original_target_page": true,
+    "no_new_historical_numeric_winner": true,
+    "six_g893_historical_finals": "0/6",
+    "mei_pianzhi_13rw_both_seasons": "91.310625 in three previously collated scanned objects",
+    "mei_datong_13rt_summer": "91.320625 in previously collated distinct work",
+    "mei_local_discrepancy": "0.010000; not resolved by this chronology record",
+    "source_registry_delta": 0,
+    "matrix_delta": 0,
+    "genealogy_nodes_delta": 0,
+    "genealogy_edges_delta": 0,
+    "risk_issue": "OPEN",
+    "chart_product": "CLOSED",
+    "algorithm_reopens": 0,
+    "transmission_impact": {
+      "nodes_added_or_strengthened": [],
+      "edges_supported": [],
+      "edges_revised": [],
+      "edges_rejected_or_unproved": [
+        "No print-lineage edge is added between the Kangxi component, 1723 collected edition, later Waseda/Nagoya sources, and the separate earlier SNU 奎貴893 source based on a preface or catalog date."
+      ],
+      "unresolved_lineage_questions": [
+        "Locate original Kangxi-era 《曆學駢枝》卷四 dated/physical target leaves to inspect 91.310625 versus 91.320625 without inferring edition year from a preface.",
+        "Find authentic G893 native same-field 少/微 radix or carry/fifth-sixth digit."
+      ]
+    }
+  },
+  "priority_next": "TW-OPEN-0005 P0: direct source-original G893 same-field day-difference unit or independently retained high-precision digit FIRST. Avoid repeating independent late-book catalog browsing; Oxford Sinica 840 original 《駢枝》 target only if licensed/public target images or exact original physical identity can be acquired. The Nagoya 1711 digital explanatory work is lower priority until actual relevant original pages are located."
+}
