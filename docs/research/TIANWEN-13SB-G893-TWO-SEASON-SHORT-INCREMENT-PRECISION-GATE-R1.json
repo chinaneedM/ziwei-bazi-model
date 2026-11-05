@@ -1,0 +1,124 @@
+{
+  "schema": "TIANWEN-13SB-G893-TWO-SEASON-SHORT-INCREMENT-PRECISION-GATE-R1",
+  "date": "2026-11-05",
+  "issue_id": "TW-OPEN-0005",
+  "classification": "REPLAY_OF_PREVIOUSLY_AUTHENTICATED_SOURCE_ORIGINAL_ROWS_CONDITIONAL_MECHANICAL_EXCLUSION_NOT_UNIT_PHILOLOGY",
+  "source_grade": "PREVIOUSLY_AUTHENTICATED_ORIGINAL_13RS_NO_NEW_IMAGE",
+  "input_original_review_doc": "docs/research/TIANWEN-13RS-G893-ORIGINAL-TWO-SEASON-SOLAR-DEGREE-PRECISION-R1.json",
+  "input_original_review_git_blob_sha": "3cdb9811a9d86c09addea9f03aaf9a582acdf3a1",
+  "source_identity": "SNU Kyujanggak 奎貴893 / GK00893_00 ONE already-registered physical copy; same source images as 13RS; no original JPEG redownloaded or visually re-examined in 13SB",
+  "question": "Do both original winter and summer printed M and derived J fields distinguish quarter-微 higher-precision daily increments from the displayed fixed increments, and does end-only quantization work?",
+  "columns": "Original 13RS 盈縮加分 M has four decimal places in printed 分; original 行度 J has six decimal places in degree; 13RS binds each row to original JPEG page and SHA-256.",
+  "integer_model": {
+    "M_scale": 10000,
+    "J_scale": 1000000,
+    "short_increment_scale": 1000000,
+    "season_parameters": {
+      "winter": {
+        "base_m": 5108569,
+        "base_s": 49386,
+        "printed_delta_micro": 18600,
+        "hypothesis_delta_micro": 18625,
+        "sign": 1
+      },
+      "summer": {
+        "base_m": 4848473,
+        "base_s": 44362,
+        "printed_delta_micro": 16200,
+        "hypothesis_delta_micro": 16225,
+        "sign": -1
+      }
+    },
+    "source_conditional_recurrence": "At each day n: M[n+1]=M[n]-S[n]; S[n+1]=Q4(S[n]+d); source report's J[n]=1+sign*floor(M[n]_4dp_int/100)/1000000, where winter sign=+ and summer sign=-.",
+    "rounders": {
+      "FLOOR": "Q4 maps d_micro to floor(d_micro/100) printed 4dp integer units",
+      "HALF_UP": "Q4 maps d_micro to floor((d_micro+50)/100) printed 4dp integer units, for positive short-lane increment"
+    },
+    "closed_form_printed_M": "M[n]_4dp=base_M - n*base_S - step4*n*(n-1)/2 with step4=186(winter) or162(summer), each an integer 1/10000 printed 分.",
+    "full_carry_terminal_only": "M[n]_micro=100*base_M - 100*n*base_S - d_micro*n*(n-1)/2; quantize M only at the final day with positive half-up 4dp (MICRO/100). This is a hypothetical model, not a historical prescription.",
+    "underlying_ancient_unit_claim": false
+  },
+  "verification": {
+    "source_rows": 28,
+    "winter_rows": 11,
+    "summer_rows": 17,
+    "original_M_and_J_replay_passes_per_model": 28,
+    "compared_models": [
+      "WINTER_FLOOR_PRINTED",
+      "WINTER_FLOOR_QUARTER_HYPOTHESIS",
+      "WINTER_HALF_UP_PRINTED",
+      "WINTER_HALF_UP_QUARTER_HYPOTHESIS",
+      "SUMMER_FLOOR_PRINTED",
+      "SUMMER_FLOOR_QUARTER_HYPOTHESIS",
+      "SUMMER_HALF_UP_PRINTED",
+      "SUMMER_HALF_UP_QUARTER_HYPOTHESIS"
+    ],
+    "all_original_row_pairs_pass_under_per_step_Q4": true,
+    "highlights": [
+      {
+        "season": "winter",
+        "day": 15,
+        "original_M": "434.8249",
+        "hypothetical_terminal_four_dp": "434.8223"
+      },
+      {
+        "season": "winter",
+        "day": 88,
+        "original_M": "5.0593",
+        "hypothetical_terminal_four_dp": "4.9636"
+      },
+      {
+        "season": "summer",
+        "day": 4,
+        "original_M": "467.0053",
+        "hypothetical_terminal_four_dp": "467.0052"
+      },
+      {
+        "season": "summer",
+        "day": 93,
+        "original_M": "2.9771",
+        "hypothetical_terminal_four_dp": "2.8702"
+      }
+    ],
+    "source_original_pages": [
+      "001a",
+      "002b",
+      "009a",
+      "009b",
+      "017a",
+      "017b",
+      "018a"
+    ],
+    "test_file": "tests/test_tianwen_13sb_g893_two_season_precision.py"
+  },
+  "inference": {
+    "positive": "The 28 previously original-bound winter and summer M/J pairs replay from displayed 4dp M under exact integer rules. Under CONDITIONAL per-step Q4, adding a 1/4 last-micro hypothesis to the short increment is observationally indistinguishable from the 4dp increments for both seasons.",
+    "excluded": "For both seasons the explicitly tested high-precision quarter increment with NO intermediate short-lane quantization, and only terminal half-up 4dp M presentation, disagrees with original later-day M. This excludes that defined numerical model; it does not exclude all possible ancient algorithms or rounding placements.",
+    "limits": [
+      "Historical Q4 stage, floor versus half-up, and exact meaning of bare 少 remain unproven by these digits.",
+      "The 6dp source J is a derived magnitude of M at displayed precision, not a fifth/sixth short-increment digit.",
+      "All 28 rows belong to ONE G893 physical copy; no new primary source, independent witness, physical images or numerical finals were acquired.",
+      "This cannot be used to infer that G893 silently copied 奎貴67 or any later received Japanese, Korean or Qing text.",
+      "No historical six-control numeric adjudication, no change to a source original glyph, chart algorithm, runtime candidate or source count."
+    ]
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "The two season apparent agreement under conditional Q4 cannot prove the same retained ancient 少/微 radix or any direct textual ancestry."
+    ],
+    "unresolved_lineage_questions": [
+      "Acquire an authenticated G893 same-field original 少/微 placement/carry instruction or an independently retained fifth/sixth short increment position."
+    ]
+  },
+  "historical_g893_six_final_winners": 0,
+  "ancient_unit_or_rounding_instruction_proven": false,
+  "new_original_source_count": 0,
+  "new_registrations": 0,
+  "genealogy_graph_delta": 0,
+  "algorithm_reopens": 0,
+  "deterministic_chart_product": "CLOSED",
+  "next": "Do not repeat four-decimal tables or treat derived J digits as hidden high precision; seek original high-resolution unit/carry instruction or independently authenticated extra short-increment digits."
+}
