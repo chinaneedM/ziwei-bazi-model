@@ -1,0 +1,87 @@
+{
+  "schema": "TIANWEN-13SA-NAOJ-JAPANESE-SHOUSHI-HALFDAY-TABLE-MECHANICAL-NONIDENTITY-R1",
+  "date": "2026-11-05",
+  "issue_id": "TW-OPEN-0005",
+  "classification": "MODERN_INSTITUTIONAL_COMPARATIVE_OPERATIONAL_WITNESS_NOT_SOURCE_ORIGINAL_G893_NUMERIC_GLYPH",
+  "research_question": "Do the later Japanese Ogawa and Seki-labelled Shoushi table systems admit unqualified same-table numeric transfer, particularly for the half-day/timekeeping lane, and does this establish anything about original G893 solar short-lane precision?",
+  "source": {
+    "provider": "国立天文台 暦計算室 (National Astronomical Observatory of Japan, Calendar and Ephemeris Computation Office)",
+    "title": "暦Wiki／昼夜の刻数／半昼夜分",
+    "url": "https://eco.mtk.nao.ac.jp/koyomi/wiki/C3EBCCEBA4CEB9EFBFF42FC8BEC3EBCCEBCAAC.html",
+    "published_site_metadata": "Last-modified: 2026-08-06 20:24:44, as displayed in site's footer",
+    "reviewed": "2026-11-05",
+    "source_kind": "FIRST_PARTY_INSTITUTIONAL_MODERN_TECHNICAL_COMPARISON_NOT_ORIGINAL_17TH_CENTURY_FOLIO",
+    "directly_read": "Table in section 半昼夜分 (table lines 24-32) and sections 授時暦/大統暦 and 関孝和 (lines 49-69), linked provenance references.",
+    "source_issued_underlying_links": [
+      {
+        "case": "Seki",
+        "label": "授時暦経立成",
+        "url": "https://kokusho.nijl.ac.jp/biblio/100330512/27",
+        "status": "SOURCE_ISSUED_DIGITAL_VIEWER_LOCATOR_NO_IMAGE_BYTES_BOUND"
+      },
+      {
+        "case": "Ogawa",
+        "label": "大元授時暦立成",
+        "url": "https://library.nao.ac.jp/kichou/archive/0161/kmview.html?page=57",
+        "status": "SOURCE_ISSUED_DIGITAL_VIEWER_LOCATOR_NO_IMAGE_BYTES_BOUND"
+      }
+    ]
+  },
+  "reported_values": [
+    {
+      "table": "授時暦",
+      "basis": "大都(北京)",
+      "winter_half_day": "1907.96",
+      "method": "弧背術など; 毎度 概ねtanδで比例",
+      "classification": "NAOJ_MODERN_TABLE_SUMMARY"
+    },
+    {
+      "table": "小川正意《大元授時暦立成》",
+      "basis": "NOT_SPECIFIED_IN_COMPARISON_ROW",
+      "winter_half_day": "2000.00",
+      "method": "20/30刻に固定; 毎度 概ねλの2次式",
+      "classification": "NAOJ_MODERN_TABLE_SUMMARY"
+    },
+    {
+      "table": "関孝和《授時暦経立成》",
+      "basis": "江戸",
+      "winter_half_day": "1985.58",
+      "method": "独自の方法; 毎度 δで比例",
+      "classification": "NAOJ_MODERN_TABLE_SUMMARY"
+    }
+  ],
+  "coordinate_contract": {
+    "unit": "NAOJ page specifies 1日=100刻=10000分, 半昼分+半夜分=5000分. Values in its winter half-day comparison are in these named 分, not solar 盈縮加分 field units.",
+    "calendar_axis": "This comparison pertains to seasonal day/night length calibration, NOT the daily solar 盈縮消息/行度 short-lane printed by SNU G893.",
+    "site_and_method": "Ogawa's source site unspecified in the NAOJ table. Seki's stated basis 江戸; original Shoushi labelled 大都. Numerical difference cannot by itself decompose geographic calibration from computational method.",
+    "physical": "The reference points to Seki NIJL and Ogawa NAOJ public viewer routes but does not prove either is the Tohoku call mark 7/31645/1 or the 1789 Jingu donated physical copy described in 13RZ.",
+    "dated_layer": "Institutional site updated 2026 is a modern retrospective calculation, not a 17th-century source-glyph collation, Seki autograph verification, or Japanese 1673 first-impression certification."
+  },
+  "adjudication": {
+    "positive": "The modern national observatory comparison explicitly records distinct winter half-day field magnitudes and distinct per-degree computational descriptions for Ogawa and Seki labelled branches; unqualified numerical identity across these later works is unsafe.",
+    "scope": "A modern derivative comparison only; no ancient target source-native pixels obtained or original 1458/1459 SNU G893 precise radix/carry/adjudication.",
+    "new_historical_G893_numeric_winner": 0,
+    "six_historical_G893_finals": "0/6",
+    "source_registry_delta": 0,
+    "matrix_delta": 0,
+    "genealogy_nodes_delta": 0,
+    "genealogy_edges_delta": 0,
+    "TW_OPEN_0005": "OPEN",
+    "product": "CLOSED",
+    "algorithm_reopens": 0,
+    "candidate_collapse_count": 0,
+    "transmission_impact": {
+      "nodes_added_or_strengthened": [],
+      "edges_supported": [],
+      "edges_revised": [],
+      "edges_rejected_or_unproved": [
+        "The 1673 Ogawa and 1681-labelled Seki solar/half-day values cannot be conflated based on shared 曆經立成 title or generic method. No proof of direct copying, physical witness identity, or independent original G893 solar-header vote."
+      ],
+      "unresolved_lineage_questions": [
+        "Authenticate exact Seki NIJL source original half-day printed target and Ogawa original corresponding page before classifying a specific historical copying divergence.",
+        "Acquire G893 original same-field native 少/微 radix/carry or retained fifth/sixth digit; NAOJ half-day comparison does not answer it."
+      ]
+    }
+  },
+  "priority_next": "TW-OPEN-0005 remains priority P0: source-native original G893 solar short-lane 少/微 precision/carry or independently retained fifth/sixth digit, NOT any more generic Japanese table bibliography. Tohoku 7/31645/1 remains only potential original numerical collation route and must not be asserted reviewed absent target pixels."
+}
