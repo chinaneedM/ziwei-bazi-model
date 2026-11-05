@@ -4814,6 +4814,40 @@
       "first_explicit_graph_batch": "12UX_SUPPLEMENTAL_UNDER_12QE_OPEN",
       "target_page_collated": false,
       "access_2009_copying_limit_not_current_permission": true
+    },
+    {
+      "node_id": "WORK-MEI-LIXUE-PIANZHI",
+      "node_type": "TEXT_WORK",
+      "label": "梅文鼎《曆學駢枝》",
+      "work_composition_date": "QING_AUTHORIAL_WORK; EXACT_DATE_UNBOUND",
+      "edition_impression_date": null,
+      "physical_copy_date": null,
+      "digital_surrogate_date": null,
+      "evidence": [
+        "EXT-WASEDA-NI05-01614-MEI-PIANZHI-V4-13RW",
+        "EXT-COMMONS-CADAL01020105-MEI-PIANZHI-V4-13RW",
+        "EXT-COMMONS-CADAL06052455-MEI-PIANZHI-V4-13RW",
+        "docs/research/TIANWEN-13RW-MEI-PIANZHI-THREE-COPIES-QIAN-ORIGINAL-QUADRANTS-R1.json"
+      ],
+      "first_explicit_graph_batch": "13RW"
+    },
+    {
+      "node_id": "PASSAGE-QIAN-QIANYANTANG-V14-DAWEN11-QUADRANTS",
+      "node_type": "PASSAGE",
+      "label": "錢大昕《潛研堂文集》卷十四〈答問十一〉授時術兩象限問答",
+      "work_composition_date": "QING_AUTHORIAL_PASSAGE; EXACT_DATE_UNBOUND",
+      "edition_impression_date": null,
+      "physical_copy_date": null,
+      "digital_surrogate_date": null,
+      "evidence": [
+        "EXT-COMMONS-CADAL01025252-QIAN-QIANTANG-V14-13RW",
+        "docs/research/TIANWEN-13RW-MEI-PIANZHI-THREE-COPIES-QIAN-ORIGINAL-QUADRANTS-R1.json"
+      ],
+      "first_explicit_graph_batch": "13RW",
+      "source_digital_pages": [
+        69,
+        70
+      ]
     }
   ],
   "edges": [
@@ -8461,6 +8495,21 @@
       ],
       "scope_note": "Confirmed museum holding of a Qing printed miniature form; not exact imprint-year or printing-block identification, no proof that it is the original 1827/1869 edition, no juan20 target glyphs and no current copying permission.",
       "adjudication_batch": "12UX_SUPPLEMENTAL_UNDER_12QE_OPEN"
+    },
+    {
+      "edge_id": "TG-E0239",
+      "from": "PASSAGE-QIAN-QIANYANTANG-V14-DAWEN11-QUADRANTS",
+      "to": "WORK-MEI-LIXUE-PIANZHI",
+      "relation": "EXPLICITLY_CITES",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_FOR_WORK_LEVEL_NAMING_ONLY",
+      "evidence_class": "DIRECT_SOURCE_IMAGE_LOCAL_GLYPH",
+      "evidence": [
+        "EXT-COMMONS-CADAL01025252-QIAN-QIANTANG-V14-13RW",
+        "docs/research/TIANWEN-13RW-MEI-PIANZHI-THREE-COPIES-QIAN-ORIGINAL-QUADRANTS-R1.json"
+      ],
+      "scope_note": "The target is the named work. The cited historical impression or physical exemplar, mutual descent of the collation copies, and an authorial correction of 《大統歷志》 remain unbound.",
+      "adjudication_batch": "13RW"
     }
   ],
   "lineage_hypotheses": [
@@ -9472,5 +9521,5 @@
     "first_explicit_seed_batch": "BATCH-12-ZIWEI-SISHI-QIHOU-JINGTAI6-TONGSHU-TABLE-CONTROL-CH",
     "future_material_batches_require_transmission_impact": true
   },
-  "updated_at": "2026-10-13"
+  "updated_at": "2026-11-05"
 }

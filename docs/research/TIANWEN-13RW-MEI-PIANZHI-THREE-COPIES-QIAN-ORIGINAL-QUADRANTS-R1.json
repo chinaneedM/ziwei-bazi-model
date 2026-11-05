@@ -1,0 +1,353 @@
+{
+  "schema": "TIANWEN-13RW-MEI-PIANZHI-THREE-COPIES-QIAN-ORIGINAL-QUADRANTS-R1",
+  "date": "2026-11-05",
+  "issue_id": "TW-OPEN-0005",
+  "classification": "DIRECT_ORIGINAL_GLYPHS_AND_EXPLICIT_WORK_LEVEL_CITATION",
+  "research_question": "What do source images of both seasonal glosses in Mei’s named 《曆學駢枝》 work actually read, and does Qian’s own printed passage cite that work and separate the two technical quadrants?",
+  "related_batches": [
+    "docs/research/TIANWEN-13RV-MEI-PIANZHI-QIAN-1723-1859-SOURCE-ORIGINAL-LOCATOR-GATE-R1.json",
+    "docs/research/TIANWEN-13RT-MEI-CADAL06054965-SOLAR-OPERATION-AND-TABLE-ORIGINAL-R1.json",
+    "docs/research/TIANWEN-13RU-QIAN-DAXIN-TWO-QUADRANTS-MEI-RECEIVED-TEXT-AND-ARITHMETIC-SCOPE-R1.json"
+  ],
+  "acquisition": {
+    "initial_public_capture": {
+      "run_id": 41964050948,
+      "artifact_id": 13387285192,
+      "archive_sha256": "4becb50e93b166ba5f14cba2c90293e915efdbdb96536e1dfba18708d0eb2106",
+      "files": [
+        {
+          "id": "mei-1859",
+          "url": "https://upload.wikimedia.org/wikipedia/commons/9/97/CADAL01020105_%E6%AD%B7%E7%AE%97%E5%85%A8%E6%9B%B8%C2%B7%E6%9B%86%E5%AD%B8%E9%A7%A2%E6%9E%9D%E6%AD%B7%E7%AE%97%E5%85%A8%E6%9B%B8%C2%B7%E5%B9%B3%E7%AB%8B%E5%AE%9A%E4%B8%89%E5%B7%AE%E8%A9%B3%E8%AA%AA.djvu",
+          "http_status": "200",
+          "exit": 0,
+          "bytes": 17987262,
+          "sha1": "183d30051f0fb08e9475e7de6f5dfa6b9db21ad6",
+          "sha256": "c276677adbec2493f8dc0470c78189f7fd5436d542945bfcdf92165bfcc626c9",
+          "file": "mei-1859.djvu"
+        },
+        {
+          "id": "mei-siku",
+          "url": "https://upload.wikimedia.org/wikipedia/commons/9/9f/CADAL06052455_%E6%AD%B7%E7%AE%97%E5%85%A8%E6%9B%B8%C2%B7%E5%8D%B7%E4%BA%8C%E5%8D%81%E4%B8%89~%E4%BA%8C%E5%8D%81%E5%9B%9B.djvu",
+          "http_status": "200",
+          "exit": 0,
+          "bytes": 5992135,
+          "sha1": "646b2da7be2f9ba2449ee349edf5a75e3eaefbdf",
+          "sha256": "0ddb4f566b0edad9a9f6f44c5f8e863555fa7c1b8d6ba685db52bcf3f5b9f89d",
+          "file": "mei-siku.djvu"
+        },
+        {
+          "id": "mei-waseda-17",
+          "url": "https://upload.wikimedia.org/wikipedia/commons/7/78/WUL-ni05_01614_%E5%85%BC%E6%BF%9F%E5%A0%82%E7%BA%82%E5%88%BB%E6%A2%85%E5%8B%BF%E8%8F%B4%E5%85%88%E7%94%9F%E6%9B%86%E7%AE%97%E5%85%A8%E6%9B%B8_17.pdf",
+          "http_status": "200",
+          "exit": 0,
+          "bytes": 28547380,
+          "sha1": "8cd051e791e9cb2769fd66ff271320ef5f0a97c6",
+          "sha256": "dfd78535d9ccbbfaf192d93afad1d80a6996f7f37aae99884bc3e8d9ace5171e",
+          "file": "mei-waseda-17.pdf"
+        },
+        {
+          "id": "mei-waseda-18",
+          "url": "https://upload.wikimedia.org/wikipedia/commons/3/30/WUL-ni05_01614_%E5%85%BC%E6%BF%9F%E5%A0%82%E7%BA%82%E5%88%BB%E6%A2%85%E5%8B%BF%E8%8F%B4%E5%85%88%E7%94%9F%E6%9B%86%E7%AE%97%E5%85%A8%E6%9B%B8_18.pdf",
+          "http_status": "200",
+          "exit": 0,
+          "bytes": 18262880,
+          "sha1": "ca7c8136c7b1724b11523a57e4c3065f6824fff0",
+          "sha256": "e793e9744603dc76ac6c9586629b15533a08a3b54bcea0d4929b2a078b97cefb",
+          "file": "mei-waseda-18.pdf"
+        },
+        {
+          "id": "qian-cadal",
+          "url": "https://upload.wikimedia.org/wikipedia/commons/8/87/CADAL01025249_%E6%BD%9B%E7%A0%94%E5%A0%82%E5%85%A8%E6%9B%B8%C2%B7%E6%BD%9B%E7%A0%94%E5%A0%82%E6%96%87%E9%9B%86.djvu",
+          "http_status": "200",
+          "exit": 0,
+          "bytes": 7954930,
+          "sha1": "93d194845277857b11b4e366ea47836665972f2e",
+          "sha256": "3be03915cc6f74dfeda4e488be9bc7f0a96a8a86f184efbf05f91b7ea16a3803",
+          "file": "qian-cadal.djvu"
+        }
+      ]
+    },
+    "qian_catalog_series_capture": {
+      "run_id": 41964477879,
+      "artifact_id": 13386917385,
+      "archive_sha256": "b8a9dbc43a7993ccdf335e2d288eea600991f2234547ea8e34e3b7182cfd9798",
+      "catalog_list": "https://commons.wikimedia.org/wiki/Commons:Library_back_up_project/file_list/CADAL/01",
+      "target_file": {
+        "id": "qian-1025252",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/2/2a/CADAL01025252_%E6%BD%9B%E7%A0%94%E5%A0%82%E5%85%A8%E6%9B%B8%C2%B7%E6%BD%9B%E7%A0%94%E5%A0%82%E6%96%87%E9%9B%86.djvu",
+        "http_status": "200",
+        "exit": 0,
+        "bytes": 10334318,
+        "sha1": "da720bb5760504f8ee72d1c9ecb967567c2d4cf6",
+        "sha256": "656b1778b4d1102faf826ec46ad9473538fc1d250f0fda6c76212773e4d672d3",
+        "file": "qian-1025252.djvu"
+      }
+    },
+    "decoder": {
+      "tool": "DjVuLibre 3.5.28; ddjvu -format=ppm -page=N at native size; PyMuPDF extract_image(xref) for the Waseda JPEGs",
+      "package_receipt_run_id": 41964183949,
+      "package_receipt_artifact_id": 13387390275,
+      "roi": "Pillow RGB conversion and rectangular crop without resampling, SHA-256 over RGB pixel bytes. JPEG file SHA is recorded separately."
+    },
+    "integrity": "All ten source files verified against the receipt size, SHA-1 and SHA-256 after validating both downloaded ZIP SHA-256 digests and entry CRCs. The CADAL06052455 file SHA-1 independently agrees with 13RV’s provider metadata.",
+    "transcription_method": "Manual review of native source pixels. OCR was used solely to locate the Qian pages in the correct fascicle. No target reading was supplied by OCR.",
+    "local_scope": "A download or a low-resolution browse earns no glyph grade. Six Mei gloss loci and the two Qian pages below were directly reviewed."
+  },
+  "mei": {
+    "work": "梅文鼎《曆學駢枝》",
+    "juan": 4,
+    "section": "盈縮曆立成，冬至／夏至數表末各附一段",
+    "heading_control": "Waseda PDF pp25–26 identify 卷四 and 盈縮曆立成. CADAL01020105 p49 identifies the same work and winter table. CADAL06052455 table is internally marked 欽定四庫全書 and 卷二十四.",
+    "registry_crosswalk": {
+      "mei-waseda-18": "EXT-WASEDA-NI05-01614-MEI-PIANZHI-V4-13RW",
+      "mei-1859": "EXT-COMMONS-CADAL01020105-MEI-PIANZHI-V4-13RW",
+      "mei-siku": "EXT-COMMONS-CADAL06052455-MEI-PIANZHI-V4-13RW"
+    },
+    "native_loci": [
+      {
+        "source_id": "mei-waseda-18",
+        "digital_page": 30,
+        "season": "winter",
+        "native_dimensions": [
+          2592,
+          1728
+        ],
+        "native_rgb_sha256": "b492d86ebe3f9ba3c35bc6e102c080dbeee8f8c0e9d365bb245e8cf7c6da4410",
+        "native_crop_ltrb": [
+          364,
+          352,
+          460,
+          1515
+        ],
+        "native_crop_rgb_sha256": "819f77d304c57b43b889a73cf54da3034476d41e44113315b179e937b9f82f6c",
+        "literal_result": "九十一度三一〇六二五",
+        "numeric_result": "91.310625",
+        "printed_quadrant": "周歲一象限",
+        "embedded_image_xref": 91,
+        "embedded_jpeg_sha256": "bd6240e4bf645d710ebaca4151075e5573f15a554f924bd37ef102539a480e1a"
+      },
+      {
+        "source_id": "mei-waseda-18",
+        "digital_page": 35,
+        "season": "summer",
+        "native_dimensions": [
+          2592,
+          1728
+        ],
+        "native_rgb_sha256": "f6121150e919cf67d4ccb388c708217fcde9a7edfaaf07db3060ed1cbaa35c4b",
+        "native_crop_ltrb": [
+          965,
+          302,
+          1070,
+          1515
+        ],
+        "native_crop_rgb_sha256": "277efe2388468fd60da4ea9f4e13d81407ef153007ff9689d8b11bad6dcbf1c2",
+        "literal_result": "九十一度三一〇六二五",
+        "numeric_result": "91.310625",
+        "printed_quadrant": "周歲一象限",
+        "embedded_image_xref": 106,
+        "embedded_jpeg_sha256": "fc5b3bdd4a94a265c4c3e90a64dc0073cd3e0ff83f0d2e48397613f1ba543cd9"
+      },
+      {
+        "source_id": "mei-1859",
+        "digital_page": 57,
+        "season": "winter",
+        "native_dimensions": [
+          4296,
+          6064
+        ],
+        "native_rgb_sha256": "7ac5c76b77af6accd4bac539a9106479b9cefe7b32b65befba0eb34e81739ca8",
+        "native_crop_ltrb": [
+          580,
+          1040,
+          861,
+          5350
+        ],
+        "native_crop_rgb_sha256": "95380d2e4bd7a7e6029b65b7e5a52f775a74a291d1bb7b3f2fc88c8c35c5cb7e",
+        "literal_result": "九十一度三一〇六二五",
+        "numeric_result": "91.310625",
+        "printed_quadrant": "周歲一象限"
+      },
+      {
+        "source_id": "mei-1859",
+        "digital_page": 67,
+        "season": "summer",
+        "native_dimensions": [
+          4296,
+          6064
+        ],
+        "native_rgb_sha256": "98ec3857a335e49574ee08641d5fc3409b41c80f99e75337eacd74c857fae067",
+        "native_crop_ltrb": [
+          3000,
+          1030,
+          3332,
+          5350
+        ],
+        "native_crop_rgb_sha256": "30d6458478032673f7e02ea6360d3f3c57e755df45e335ff490a37fe78222111",
+        "literal_result": "九十一度三一〇六二五",
+        "numeric_result": "91.310625",
+        "printed_quadrant": "周歲一象限"
+      },
+      {
+        "source_id": "mei-siku",
+        "digital_page": 85,
+        "season": "winter",
+        "native_dimensions": [
+          2301,
+          3096
+        ],
+        "native_rgb_sha256": "a328e19c60f33a6edd703d702644137bc42e2978338ab24262c10a1fd66ea940",
+        "native_crop_ltrb": [
+          1330,
+          403,
+          1565,
+          2770
+        ],
+        "native_crop_rgb_sha256": "aa841e19ebc543700a0f4397b0ae671a521c4dc35dc04caced7444031d6ff3e1",
+        "literal_result": "九十一度三一〇六二五",
+        "numeric_result": "91.310625",
+        "printed_quadrant": "周歲一象限"
+      },
+      {
+        "source_id": "mei-siku",
+        "digital_page": 98,
+        "season": "summer",
+        "native_dimensions": [
+          2299,
+          3082
+        ],
+        "native_rgb_sha256": "c6f03b14a6a4faa9dd26ea4505f0f9ea85be3152a6ae55c6ef59d20d5aa853bd",
+        "native_crop_ltrb": [
+          310,
+          405,
+          545,
+          2738
+        ],
+        "native_crop_rgb_sha256": "caf0f06e212bf4a747f72933d5aa81a379fb2041a001dd87343e9e63d5df9927",
+        "literal_result": "九十一度三一〇六二五",
+        "numeric_result": "91.310625",
+        "printed_quadrant": "周歲一象限"
+      }
+    ],
+    "source_local_operations": {
+      "winter": "本限 88.909225 度，加入盈積度 2.4014 度，合周歲一象限 91.310625 度",
+      "summer": "本限 93.712025 度，減去縮積度 2.4014 度，合周歲一象限 91.310625 度"
+    },
+    "exact_replay": {
+      "integer_scale": 1000000,
+      "winter": [
+        88909225,
+        2401400,
+        91310625
+      ],
+      "summer": [
+        93712025,
+        -2401400,
+        91310625
+      ],
+      "distinct_13rt_datong_summer_value": 91320625,
+      "datong_print_minus_replay": 10000
+    },
+    "scope": "The three scanned objects have matching target glyphs. Waseda vol17 and vol18 belong to the same holding. Their mutual stemmatic independence, the exact model for the Waseda target line, and the exact impression of each printed source are unproved."
+  },
+  "qian": {
+    "work": "錢大昕《潛研堂文集》卷十四〈答問十一〉",
+    "source_registry_id": "EXT-COMMONS-CADAL01025252-QIAN-QIANTANG-V14-13RW",
+    "native_loci": [
+      {
+        "digital_page": 69,
+        "role": "two-quadrant question",
+        "native_dimensions": [
+          3312,
+          4939
+        ],
+        "native_rgb_sha256": "407e6db1e42d4f5f167f5b4793e8fef7deec7b1002cc3ab280c82e6b8762e8bd",
+        "native_crop_ltrb": [
+          1370,
+          310,
+          1958,
+          4640
+        ],
+        "native_crop_rgb_sha256": "a89e539ddc3ce7d70373b9df8641bdf36a8a3a25910d2f3b0f1cc17e6828790c"
+      },
+      {
+        "digital_page": 69,
+        "role": "attribution and first operand",
+        "native_dimensions": [
+          3312,
+          4939
+        ],
+        "native_rgb_sha256": "407e6db1e42d4f5f167f5b4793e8fef7deec7b1002cc3ab280c82e6b8762e8bd",
+        "native_crop_ltrb": [
+          240,
+          310,
+          810,
+          4640
+        ],
+        "native_crop_rgb_sha256": "f333f55e21db523a5917425195fc2a3cf3b52d3f5c16cd20b59c69650782e21c"
+      },
+      {
+        "digital_page": 70,
+        "role": "continued first operand and second operation",
+        "native_dimensions": [
+          3312,
+          4939
+        ],
+        "native_rgb_sha256": "be64e9f34127cc1cecc94f91b6fc4c469d7fe423f263280d6527b4b1e03b42ad",
+        "native_crop_ltrb": [
+          2440,
+          345,
+          3098,
+          4700
+        ],
+        "native_crop_rgb_sha256": "3f7b3e0554473cea64142d544d61e19f53d7b92487a4619debf8f7c053587c40"
+      }
+    ],
+    "direct_readings": {
+      "year_quadrant": "周歲之象限九十一日三一〇六二五",
+      "heaven_quadrant": "周天之象限九十一度三一四三七五",
+      "explicit_attribution": "及觀梅氏駢枝",
+      "quote_limit_degrees": [
+        "88.909225",
+        "93.712025"
+      ],
+      "quote_correction_degrees": "2.4014",
+      "quote_result_scope": "The quotation says each operation yields one 周歲 quadrant; its numeric result is stated separately in the question using 日.",
+      "carry_across_images": "The final digits of the first 盈積 amount continue onto digital p70, which also contains the second operation. The p70 running title identifies 卷十四 and 十九. The adjacent p69 physical leaf number is not independently asserted."
+    },
+    "precision": "The difference of the written magnitudes is 0.003750. The quantities have separately printed units and technical roles, so the difference alone is not a time or angle conversion.",
+    "forward_locator_correction": {
+      "prior": "13RV documented Shidian’s CADAL01025249 OCR association",
+      "direct": "CADAL01025252 DjVu pp69–70 are the source-image coordinates actually authenticated here",
+      "scope": "Retain the former as an online OCR locator. Do not assign its catalogue identifier to the native pages or conflate the CText/Sibu Congkan index with this physical object."
+    }
+  },
+  "adjudication": {
+    "established": "Both seasonal 91.310625 readings in three 《曆學駢枝》 scan objects, plus Qian’s own work-level citation and distinction between 日 and 度.",
+    "unresolved": "Cause of the +0.010000 discrepancy in the separately authored 《大統歷志》 summer gloss, exact imprint or source copy Qian consulted, 1723 original target leaf, and G893 source-native 少/微 radix, carry or fifth/sixth digits.",
+    "transmission_impact": {
+      "nodes_added_or_strengthened": [
+        "WORK-MEI-LIXUE-PIANZHI",
+        "PASSAGE-QIAN-QIANYANTANG-V14-DAWEN11-QUADRANTS"
+      ],
+      "edges_supported": [
+        "TG-E0239"
+      ],
+      "edges_revised": [],
+      "edges_rejected_or_unproved": [
+        "Exact exemplar consulted by Qian, copy-to-copy descent, stemmatic independence, and an authorial correction of 《大統歷志》 remain unproved."
+      ],
+      "unresolved_lineage_questions": [
+        "Can an authenticated 1723 target leaf or another 《大統歷志》 impression locate the source of the summer variant?"
+      ]
+    },
+    "source_registry_delta": 4,
+    "matrix_delta": 0,
+    "genealogy_nodes_delta": 2,
+    "genealogy_edges_delta": 1,
+    "six_historical_g893_finals": "0/6",
+    "risk_issue": "OPEN",
+    "chart_product": "CLOSED",
+    "algorithm_reopens": 0
+  }
+}
