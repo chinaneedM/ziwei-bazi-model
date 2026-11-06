@@ -17,7 +17,7 @@ class Test13EC(unittest.TestCase):
   x=copy.deepcopy(self.l);z=next(i for i in x["issues"] if i["id"]=="TW-OPEN-0005");z["next_action"]=next(h for h in z["history"] if h.get("revision_id")=="TW-OPEN-0005-13EC-NEXT-ACTION-CORRECTION-20261023")["previous_next_action"]
   with self.assertRaises(AssertionError):self.runcheck(l=x)
  def test_no_evidence_refs(self):
-  x=copy.deepcopy(self.l);z=next(i for i in x["issues"] if i["id"]=="TW-OPEN-0005");z["history"][-1]["evidence_refs"]=[]
+  x=copy.deepcopy(self.l);z=next(i for i in x["issues"] if i["id"]=="TW-OPEN-0005");[h for h in z["history"] if h.get("event") in ("ISSUE_REVISION","SOURCE_PAGE_REVIEW_REVISION") and "next_action" in h.get("changed_fields",[])][-1]["evidence_refs"]=[]
   with self.assertRaises(AssertionError):self.runcheck(l=x)
  def test_vote_spoof(self):
   x=copy.deepcopy(self.e);x["new_independent_physical_votes"]=1
