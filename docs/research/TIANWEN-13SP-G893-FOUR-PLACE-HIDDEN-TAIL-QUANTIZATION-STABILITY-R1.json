@@ -1,0 +1,101 @@
+{
+  "schema": "TIANWEN-13SP-G893-FOUR-PLACE-HIDDEN-TAIL-QUANTIZATION-STABILITY-R1",
+  "date": "2026-11-06",
+  "issue_id": "TW-OPEN-0005",
+  "classification": "CONDITIONAL_EXCLUSION_OF_SUB_FOURTH_PLACE_HIDDEN_M_TAIL_UNDER_DAILY_INDEPENDENT_MICRODEGREE_QUANTIZATION_NOT_AN_HISTORICAL_RADIX_ADJUDICATION",
+  "question": "Can unprinted fifth-or-finer decimal digits in each solar 盈縮加分 M, compatible with correctly truncated or nearest-rounded published four decimals, bridge the +20 microdegree summer post-table prose residual under independent daily microdegree quantization?",
+  "original_source_inputs": [
+    {
+      "path": "docs/research/TIANWEN-13SM-G893-COMPLETE-SOLAR-DAILY-DIFFERENCE-AND-DEGREE-R1.json",
+      "git_blob_sha": "54596cbbd74c8a7df3497ad7de49381dd98a6e49",
+      "scope": "Same Kyujanggak GK00893_00 original; all 183 ordinary 行度 and 181 numeric 日差 cells; displayed four-place recurrence."
+    },
+    {
+      "path": "docs/research/TIANWEN-13SK-G893-ORIGINAL-SOLAR-POST-TABLE-TOTALS-R1.json",
+      "git_blob_sha": "4260d3d688b256cab600104f2b8dcfa47e99e272",
+      "scope": "Four direct original six-place prose totals on G893 018a/018b."
+    },
+    {
+      "path": "docs/research/TIANWEN-13SN-G893-SOLAR-PER-DAY-ROUNDING-ENVELOPE-R1.json",
+      "git_blob_sha": "88c17b7a84fb6685da29d906f9f0baba61143cf7",
+      "scope": "Original four-place M recurrence and all possible independent floor/ceil microdegree choices; this batch strengthens only the bounded hidden-tail exclusion."
+    }
+  ],
+  "assumptions": [
+    "M4[d] = M4_initial - d*S4_initial - step4*d*(d-1)/2, d from 0 to ordinary terminal, integer units of 0.0001 numerical fen (not a historical definition of 少). This is a model derived from the previously observed printed short values; it is NOT a newly collated complete M-column.",
+    "For each day, an unprinted true numerical M[d] has the SAME four decimal digits M4[d] by either truncation toward zero of positive M or conventional nearest rounding. Therefore the union interval is [M4[d]-0.5, M4[d]+1) in integer M4 units. No broader upstream/model difference is allowed within this narrow test.",
+    "Convert the positive M magnitude to microdegrees by q[d]=floor(M[d]/100) or ceil(M[d]/100), independently chosen per day. Winter daily degree is 1,000,000+q[d], summer 1,000,000-q[d]. This includes ordinary daily floor/ceil and nearest choices, but NOT a distinct high-precision aggregate or operation before M quantization.",
+    "For skip-initial prose control replace only the day-zero signed correction by zero, as in 13SK/13SN. Neither the original sense of 休 nor the ancient internal algorithm is thereby settled."
+  ],
+  "integer_proof": {
+    "scale": "100 four-place fen units equal one microdegree of correction; the fractional remainder is M4[d] % 100",
+    "interval": "For either allowed print policy, M[d] lies in [M4[d]-0.5, M4[d]+1). For every one of 183 reconstructed daily M4 values, remainder modulo 100 is strictly between 0 and 100. Consequently floor(M[d]/100)=floor(M4[d]/100) and ceil(M[d]/100)=ceil(M4[d]/100) over the entire interval; no per-day integer microdegree quantizer can change.",
+    "replay_pseudocode": "for d in range(N): m=M0-d*S0-step*d*(d-1)//2; r=m%100; assert 0<r<100; qlo=m//100; qhi=(m+99)//100; full_min/full_max=sum(1000000+sign*q); skip_initial=sum(...) with d0 correction replaced by 0",
+    "season_results": [
+      {
+        "season": "winter",
+        "days": 89,
+        "M4_initial": 5108569,
+        "S4_initial": 49386,
+        "step4": 186,
+        "sign": 1,
+        "source_full_microdegree": 91401427,
+        "source_skip_microdegree": 91350342,
+        "M4_end": 50593,
+        "remainder_mod_100_min": 3,
+        "remainder_mod_100_max": 99,
+        "exact_multiple_count": 0,
+        "bounds_full_microdegree": [
+          91401400,
+          91401489
+        ],
+        "bounds_skip_initial_microdegree": [
+          91350315,
+          91350403
+        ],
+        "source_minus_max_full": -62,
+        "source_minus_max_skip": -61
+      },
+      {
+        "season": "summer",
+        "days": 94,
+        "M4_initial": 4848473,
+        "S4_initial": 44362,
+        "step4": 162,
+        "sign": -1,
+        "source_full_microdegree": 91598717,
+        "source_skip_microdegree": 91647201,
+        "M4_end": 29771,
+        "remainder_mod_100_min": 1,
+        "remainder_mod_100_max": 93,
+        "exact_multiple_count": 0,
+        "bounds_full_microdegree": [
+          91598603,
+          91598697
+        ],
+        "bounds_skip_initial_microdegree": [
+          91647088,
+          91647181
+        ],
+        "source_minus_max_full": 20,
+        "source_minus_max_skip": 20
+      }
+    ]
+  },
+  "adjudication": {
+    "excluded": "Adding only sub-fourth-place hidden tails consistent with four-place truncation or nearest rounding to every daily M cannot change even a single daily floor/ceil microdegree option, so the previous 13SN summer upper bounds remain absolute within this model. Both summer originals exceed them by 20 microdegrees.",
+    "not_excluded": "Hidden upstream differences large enough to alter the four-place M itself, nonlocal carry before each M is printed, sub-daily/nonlinear arithmetic, independent high-precision aggregate, transmitted prose numeral variants, or an original period-specific definition of 少/微.",
+    "evidence_grade": "PURE_INTEGER_REPLAY_OF_PRIOR_ORIGINAL_IMAGE_BOUND_VALUES_NO_NEW_ORIGINAL_IMAGE_OR_HISTORICAL_WITNESS",
+    "direct_original_pages_added": 0,
+    "independent_physical_witnesses_added": 0,
+    "G893_historic_numeric_finals": "0/6",
+    "G893_shao_wei_unit": "OPEN",
+    "matrix_delta": 0,
+    "source_registry_delta": 0,
+    "genealogy_graph_delta": 0,
+    "chart_product": "CLOSED",
+    "algorithm_reopens": 0
+  },
+  "transmission_impact": "NONE_MATHEMATICAL_CONDITIONAL_ONLY",
+  "next": "Seek independent authentic original same-field unit/carry or a source of the six-place post-table aggregates, rather than assuming omitted fifth/sixth digits in otherwise identical four-place daily M. Preserve TW-OPEN-0005 P0 OPEN and six historic original-target winners 0/6."
+}
