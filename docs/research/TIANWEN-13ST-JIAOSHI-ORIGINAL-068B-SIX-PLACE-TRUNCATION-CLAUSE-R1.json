@@ -1,0 +1,87 @@
+{
+  "schema": "TIANWEN-13ST-JIAOSHI-ORIGINAL-068B-SIX-PLACE-TRUNCATION-CLAUSE-R1",
+  "date": "2026-11-06",
+  "issue_id": "TW-OPEN-0005",
+  "classification": "POSITIVE_PREVIOUSLY_ACQUIRED_SOURCE_ORIGINAL_SIX_PLACE_DEGREE_DISCARD_CLAUSE_SOURCE_OPERATION_SCOPED_NOT_G893_AGGREGATE",
+  "question": "Does the directly scanned 068b leaf of SNU 交食推步法 give an authentic six-fractional-place degree-output discard instruction and worked numeric check, and can it be promoted to G893 solar seasonal prose without same-field evidence?",
+  "source": {
+    "provider": "Seoul National University Kyujanggak",
+    "work": "交食推步法",
+    "call_number": "奎貴67",
+    "book_cd": "GK00067_00",
+    "book_detail": "https://kyudb.snu.ac.kr/book/view.do?book_cd=GK00067_00",
+    "original_leaf": "068b",
+    "original_leaf_url": "https://kyudb.snu.ac.kr/ImageServlet.do?imgFileNm=GK00067_00IH_0001_068b.jpg&path=%2Fdata01%2Fstream%2FSIC%2FIMG%2FGK00067_00%2FGK00067_00_0001%2FGK00067_00IH_0001_068b.jpg",
+    "original_jpeg_sha256": "df572e0fc2a10d3f6221af90008aac65972ecd85cb49367834163b0c3646671e",
+    "original_jpeg_bytes": 219132,
+    "image_px": [
+      1094,
+      2000
+    ],
+    "original_rgb_sha256": "ce35f18a1eae844bf9230125ec0d0d6136ac29217ddaf9b2290569028a5a7b5d",
+    "native_rgb_roi": {
+      "bbox_xyxy": [
+        806,
+        200,
+        917,
+        1425
+      ],
+      "sha256": "66b4b7d53a2aa82c941a2826fb1a0642265dfb9f6460ef296c31d8e59ebb8a93",
+      "method": "Pillow RGB crop bytes, no resampling"
+    },
+    "archive": {
+      "research_batch": "13RA",
+      "github_actions_run": 41832831039,
+      "github_actions_artifact_id": 13324440480,
+      "artifact_name": "tianwen-13ra-jiaoshi-yingsuo-source-original-images",
+      "already_acquired_copy": true
+    },
+    "adjacent_original_068a_jpeg_sha256": "8c04ca44748afc19dda9cc12bd6f64a285e6024290d1fea4511f217716e12d19",
+    "physical_edition_date": "Provider [1458] print descriptor and separately 1459 preface note not silently unified; actual impression unresolved",
+    "original_physical_witness_count_added": 0
+  },
+  "direct_original_collation": {
+    "leaf_068b": "得二度三六九一五三，度外六位已下棄之，後同。The original 068b vertical text directly shows a six-fractional-place degree-discard instruction after the worked 縮差 output and before the next 經朔望入轉 heading.",
+    "numeric_literal": "二度三六九一五三",
+    "numeric_normalization": "2.369153",
+    "instruction_scope": "Local 交食推步法 縮差 conversion from intermediate positional 分/秒 to displayed degrees; explicit final six-place discard, not a universal ancient computation, not the independent G893 solar prose step.",
+    "reading_method": "Human visual collation of provider-native RGB original JPEG, 3x display crops, no OCR",
+    "philology_note": "Read 度外六位已下棄之 from bounded original vertical column; the six places refer to positions after 度 here. Do not mechanically normalize older G893 少 or this work's 微 without field and unit evidence."
+  },
+  "exact_worked_arithmetic": {
+    "starting_day_fraction": "3238.445",
+    "source_068a_m": "63.4009",
+    "unrounded_multiplication": "205320.3276005",
+    "printed_068a_intermediate": "205320.32",
+    "converted_addend": "20.5320",
+    "source_068a_cumulative": "23670.9991",
+    "additive_total": "23691.5311",
+    "degree_value_before_final_display": "2.36915311",
+    "source_display_six_places": "2.369153",
+    "source_local_six_place_truncation_consistent": true,
+    "alternative_final_half_up_also_same_display": true,
+    "caution": "The explicit 棄之 wording evidences discarding, but the seventh fractional degree digit here is 1; this worked numeral alone cannot separate truncation from half-up."
+  },
+  "boundaries": {
+    "same_copy_original_reanalysis_only": true,
+    "new_original_leaf_source_identity": false,
+    "added_source_registry_records": 0,
+    "added_independent_historical_witness_votes": 0,
+    "added_genealogy_nodes": 0,
+    "added_genealogy_edges": 0,
+    "matrix_rows_changed": 0,
+    "source_G893_has_matching_native_sixplace_operation": false,
+    "source_G893_historic_six_decisions": "0/6",
+    "issue_status": "P0_OPEN",
+    "chart_product": "CLOSED",
+    "algorithm_reopened": 0,
+    "prohibited_inference": "This source-original native degree-output quantizer cannot be transplanted to G893 original solar prose or imported as the radix/carry law of 少/微 without a same-field, same-epoch source-native bridge."
+  },
+  "transmission_impact": "NONE_NEW_LOCAL_OPERATION_WITHOUT_PROVEN_CROSSWORK_TRANSMISSION_EDGE",
+  "prior_related_original_analyses": [
+    "docs/research/TIANWEN-13RA-SNU-GK00067-ORIGINAL-YINGSUO-JIAFEN-FORMULA-R1.json",
+    "docs/research/TIANWEN-13RC-SNU-GK00067-ORIGINAL-YINGSUO-CUMULATIVE-FORMULA-R1.json",
+    "docs/research/TIANWEN-13SS-G893-FRACTIONAL-SEASON-LIMIT-CUBIC-AGGREGATE-GATE-R1.json"
+  ],
+  "next": "Seek G893 original same-solar-aggregate generation or a genuinely source-native 少/微 precision/carry instruction. For future cross-work alignment, independently verify epoch, accumulation field, conversion stage, decimal-position policy and physical lineage; do not repeat hypothetical BSB 4dp agreement."
+}
