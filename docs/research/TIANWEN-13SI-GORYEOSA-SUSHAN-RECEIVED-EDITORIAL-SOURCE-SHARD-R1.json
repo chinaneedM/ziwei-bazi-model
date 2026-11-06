@@ -11,7 +11,7 @@
       "source_role": "RECEIVED_EDITORIAL_PREFACE_TEXT_CONTROL_NOT_SOLAR_TABLE_OR_G893_ORIGINAL",
       "quality_notes": "Only digital received wording; lexical phrase 非當時所用 and closure 作曆志 contrasted with later 《修山集》. No physical original or linewise leaf hash, not an independent solar G893 physical vote.",
       "physical_glyph_authority": false,
-      "verification_status": "RECEIVED_DIGITAL_TEXT_SOURCE_SCOPE_ONLY",
+      "verification_status": "RECEIVED_TEXT_VERIFIED",
       "access_date": "2026-11-06",
       "evidence": "docs/research/TIANWEN-13SI-GORYEOSA-SUSHAN-RECEIVED-EDITORIAL-LAYER-COLLATION-R1.json"
     },
@@ -24,9 +24,15 @@
       "source_role": "RECEIVED_LATER_RENARRATION_ATTRIBUTION_AND_WORDING_CONTROL_NOT_G893_ORIGINAL",
       "quality_notes": "Received wording 非今時所用 and subsequent 嗚呼/皇明以來 commentary compared against 《高麗史》卷五十. SKKU online copy is not an independent ancient text vote. No source-original image or verified physical date.",
       "physical_glyph_authority": false,
-      "verification_status": "RECEIVED_DIGITAL_TEXT_SOURCE_SCOPE_ONLY",
+      "verification_status": "RECEIVED_TEXT_VERIFIED",
       "access_date": "2026-11-06",
       "evidence": "docs/research/TIANWEN-13SI-GORYEOSA-SUSHAN-RECEIVED-EDITORIAL-LAYER-COLLATION-R1.json"
     }
-  ]
+  ],
+  "forward_only_erratum": {
+    "date": "2026-11-06",
+    "original_13si_shard_blob_sha": "2affb3870d465f99d7b82fb0e455157c620c5292",
+    "scope": "Verifier-enumerated status token only; all received-wording, source role, no-physical-image, no-independent-witness restrictions and source IDs unchanged.",
+    "cause": "Historical-source-registry verifier recognizes RECEIVED_TEXT_VERIFIED, not ad hoc RECEIVED_DIGITAL_TEXT_SOURCE_SCOPE_ONLY."
+  }
 }

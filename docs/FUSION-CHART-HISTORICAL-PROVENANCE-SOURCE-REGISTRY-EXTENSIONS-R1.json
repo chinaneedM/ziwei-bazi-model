@@ -1,6 +1,6 @@
 {
   "schema": "FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1",
-  "schema_version": "1.86.0",
+  "schema_version": "1.86.1",
   "date": "2026-11-06",
   "root_registry": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json",
   "root_registry_blob_sha": "ea2ab50479450c39ce3fc7a00ea91cd713bf4a60",
@@ -503,7 +503,7 @@
     {
       "path": "docs/research/TIANWEN-13SI-GORYEOSA-SUSHAN-RECEIVED-EDITORIAL-SOURCE-SHARD-R1.json",
       "schema": "TIANWEN-13SI-GORYEOSA-SUSHAN-RECEIVED-EDITORIAL-SOURCE-SHARD-R1",
-      "blob_sha": "2affb3870d465f99d7b82fb0e455157c620c5292",
+      "blob_sha": "1211228d25c723c5486d49211da78828545f45f5",
       "source_count": 2
     }
   ],
@@ -707,5 +707,11 @@
     "docs/research/TIANWEN-13RW-CADAL06052455-PAGE-ATTESTATION-R1.json",
     "docs/research/TIANWEN-13RW-CADAL01025252-PAGE-ATTESTATION-R1.json"
   ],
-  "additional_research_evidence_13si": "docs/research/TIANWEN-13SI-GORYEOSA-SUSHAN-RECEIVED-EDITORIAL-LAYER-COLLATION-R1.json"
+  "additional_research_evidence_13si": "docs/research/TIANWEN-13SI-GORYEOSA-SUSHAN-RECEIVED-EDITORIAL-LAYER-COLLATION-R1.json",
+  "forward_only_status_erratum_13si": {
+    "date": "2026-11-06",
+    "original_shard_blob_sha": "2affb3870d465f99d7b82fb0e455157c620c5292",
+    "new_shard_blob_sha": "1211228d25c723c5486d49211da78828545f45f5",
+    "reason": "Replace ad-hoc receipt status by verifier-recognized RECEIVED_TEXT_VERIFIED without increasing source count, implied original glyph authority, or graph edge."
+  }
 }
