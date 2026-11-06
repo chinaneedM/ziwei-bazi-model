@@ -1,0 +1,121 @@
+{
+  "schema": "TIANWEN-13SN-G893-SOLAR-PER-DAY-ROUNDING-ENVELOPE-R1",
+  "date": "2026-11-06",
+  "issue_id": "TW-OPEN-0005",
+  "evidence_grade": "ANALYTIC_REPLAY_OF_PREVIOUSLY_AUTHENTICATED_ORIGINAL_ROWS_PLUS_RECEIVED_TEXT_LOCATORS_NO_NEW_PHYSICAL_AUTOPSY",
+  "question": "Can any independent per-day floor/ceil selection of the reconstructed four-place M value bridge all four source-printed six-place solar totals?",
+  "inputs": [
+    {
+      "path": "docs/research/TIANWEN-13SM-G893-COMPLETE-SOLAR-DAILY-DIFFERENCE-AND-DEGREE-R1.json",
+      "git_blob_sha": "54596cbbd74c8a7df3497ad7de49381dd98a6e49",
+      "scope": "One physical G893 copy; original S/J row collation, 181 numeric S and 183 ordinary J"
+    },
+    {
+      "path": "docs/research/TIANWEN-13SK-G893-ORIGINAL-SOLAR-POST-TABLE-TOTALS-R1.json",
+      "git_blob_sha": "4260d3d688b256cab600104f2b8dcfa47e99e272",
+      "scope": "Four source-original six-place prose totals; separate Waseda comparison"
+    },
+    {
+      "path": "docs/research/TIANWEN-13SB-G893-TWO-SEASON-SHORT-INCREMENT-PRECISION-GATE-R1.json",
+      "git_blob_sha": "565fdf866afe3821ba04eff5cedf752424cd79f5",
+      "scope": "Earlier narrow retained-tail hypotheses; not generalized by this batch"
+    }
+  ],
+  "model": {
+    "M4_formula": "M4[d] = M4[0] - d*S4[0] - step4*d*(d-1)/2, in printed 1/10000 分 units; d=0 is 初日",
+    "per_day_quantization_family": "For each reconstructed positive M4[d], independently choose q[d] between floor(M4[d]/100) and ceil(M4[d]/100), both inclusive, integer microdegrees. J_micro[d] = 1000000 + sign*q[d]. Choices may vary arbitrarily by day; this encompasses daily floor, daily ceiling, and nearest rounding of this same M4.",
+    "baseline": "The 13SM original J cells reproduce J_micro[d]=1000000+sign*floor(M4[d]/100) for both seasons. This does not establish the original historical computation of M/C or a carry rule.",
+    "full_total": "sum(J_micro[d]) over all ordinary D0...Dterminal",
+    "skip_initial_total": "1000000 + sum(J_micro[d]) over ordinary D1...Dterminal; the initial day is replaced with a plain degree, as an explicitly conditional arithmetic normalization of 13SK's observed full-minus-skip pairs.",
+    "exclusion_scope": "If historical totals used a distinct intermediate higher-precision M, another carry unit, hidden input, rounding before accumulation or an inherited aggregate, these bounds do not apply."
+  },
+  "bounds": {
+    "winter": {
+      "day_count": 89,
+      "sign": 1,
+      "S4_initial": 49386,
+      "M4_initial": 5108569,
+      "step4": 186,
+      "M4_mod_100_nonzero_count": 89,
+      "full_allowable_microdegrees": [
+        91401400,
+        91401489
+      ],
+      "skip_allowable_microdegrees": [
+        91350315,
+        91350403
+      ],
+      "original_full_microdegrees": 91401427,
+      "original_skip_microdegrees": 91350342,
+      "full_inside": true,
+      "skip_inside": true
+    },
+    "summer": {
+      "day_count": 94,
+      "sign": -1,
+      "S4_initial": 44362,
+      "M4_initial": 4848473,
+      "step4": 162,
+      "M4_mod_100_nonzero_count": 94,
+      "full_allowable_microdegrees": [
+        91598603,
+        91598697
+      ],
+      "skip_allowable_microdegrees": [
+        91647088,
+        91647181
+      ],
+      "original_full_microdegrees": 91598717,
+      "original_skip_microdegrees": 91647201,
+      "full_inside": false,
+      "skip_inside": false,
+      "full_above_upper_microdegrees": 20,
+      "skip_above_upper_microdegrees": 20
+    }
+  },
+  "received_text_locator_controls": [
+    {
+      "work": "《高麗史》卷52《授時曆立成》",
+      "provider": "National Institute of Korean History modern received text",
+      "url": "https://db.history.go.kr/goryeo/level.do?levelId=kr_052_0010_0010_0020_0010&types=o",
+      "recorded_heading": "日差加一秒八十六少",
+      "source_grade": "RECEIVED_DIGITAL_TRANSCRIPTION_NOT_AN_ADDITIONAL_ORIGINAL_FOLIO",
+      "caution": "May index a historical wording; its 少 cannot be assigned a numerical radix or equated to another work's 微 solely by numeric agreement"
+    },
+    {
+      "work": "《明史》卷33《凡布立成》",
+      "provider": "later received historical-text transcription",
+      "url": "https://skqs.dazhishi.com/show_ondxxzzrdg.html",
+      "recorded_phrase": "置立差三十一微，以六因之，得一秒八十六微",
+      "source_grade": "LATER_RECEIVED_TEXT_NOT_CURRENTLY_IMAGE_BOUND",
+      "caution": "Different textual layer and formula representation; similar 1.86 numerals neither establish direct borrowing nor identify a G893 少/微 carry"
+    }
+  ],
+  "adjudication": {
+    "positive": "For the explicit unchanged four-place M4 day model, all ordinary S/J observations replay, and ANY per-day integer microdegree selection between the floor and ceiling of each daily M4 contribution is bounded by the intervals above.",
+    "excluded": "The summer source prose total exceeds the maximum day-sum for BOTH full and skip-initial models by 20 microdegrees. No combination of daily floor/ceiling/nearest choices applied only to the same reconstructed M4 can produce it; hence this entire conditional family cannot explain all four original prose totals.",
+    "not_excluded": "Separate upstream retained precision, different operation/rounding order, independent prose aggregation or transmitted numbers not computed as a sum of printed daily J, and historical unit values not securely established.",
+    "textual_firewall": "Both received transcriptions are discovery/lexical controls only, not a direct original-source 少/微 radix decision or proof of textual lineage.",
+    "original_g893_shao_wei_carry": "OPEN",
+    "historical_numeric_finals": "0/6",
+    "source_registry_delta": 0,
+    "matrix_delta": 0,
+    "genealogy_delta": 0,
+    "algorithm_reopens": 0,
+    "deterministic_chart_product": "CLOSED"
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "A numeric interval failure does not prove that the original six-place prose totals were copied or arose from another edition.",
+      "A received 少 versus 微 wording contrast is not an identity or transmission edge."
+    ],
+    "unresolved_lineage_questions": [
+      "Find a physically and chronologically bound original same-field 少/微 rule with unit/carry or independently retained higher-precision input.",
+      "Identify which source or working algorithm generated the four prose aggregates."
+    ]
+  },
+  "next": "Do not repeat four-place S/J collation or try ad-hoc daily J rounding to close the +20 summer residual. Prioritize a separate authenticated original same-field carry/retained input, maintaining G893 six historical finals 0/6 OPEN."
+}
