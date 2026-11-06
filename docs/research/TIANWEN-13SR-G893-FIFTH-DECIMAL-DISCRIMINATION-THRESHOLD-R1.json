@@ -1,0 +1,314 @@
+{
+  "schema": "TIANWEN-13SR-G893-FIFTH-DECIMAL-DISCRIMINATION-THRESHOLD-R1",
+  "date": "2026-11-06",
+  "issue_id": "TW-OPEN-0005",
+  "classification": "PURE_INTEGER_PRECISION_TARGET_GATE_FOR_FUTURE_ORIGINAL_SOURCE_ACQUISITION_NO_NEW_PHYSICAL_SOURCE",
+  "question": "What is the least number of fractional-degree decimal places at which a genuinely independent, physically source-bound seasonal aggregate would distinguish the two existing G893 six-place candidate families, when the candidate source may independently truncate-positive or round-half-up?",
+  "sources_already_bound": [
+    {
+      "path": "docs/research/TIANWEN-13SQ-MINGSHI-FOUR-PLACE-SOLAR-AGGREGATE-NONIDENTIFIABILITY-R1.json",
+      "git_blob_sha": "1d0380dc279f74ed41dc8480071ed41e822ae5a0",
+      "scope": "Existing two G893 data families, last J, and BSB c539 4-place comparisons; row/day correspondence remained conditional"
+    },
+    {
+      "path": "docs/research/TIANWEN-13SK-G893-ORIGINAL-SOLAR-POST-TABLE-TOTALS-R1.json",
+      "git_blob_sha": "4260d3d688b256cab600104f2b8dcfa47e99e272",
+      "scope": "Source-original G893 018a/b four six-place prose totals"
+    },
+    {
+      "path": "docs/research/TIANWEN-13SM-G893-COMPLETE-SOLAR-DAILY-DIFFERENCE-AND-DEGREE-R1.json",
+      "git_blob_sha": "54596cbbd74c8a7df3497ad7de49381dd98a6e49",
+      "scope": "Source-original G893 all 183 ordinary J and initial/last J controls"
+    }
+  ],
+  "proof_scope": {
+    "arithmetic": "Integer microdegrees (one million per degree). Each 3dp/4dp/5dp/6dp displayed candidate uses either floor(u/10^(6-dp)) for positive total or floor((u+10^(6-dp)/2)/10^(6-dp)) for half-up. For each family permit either comparator independently, so disjoint output sets are a stronger condition than choosing a shared policy.",
+    "conditions": [
+      "Two family values are exactly the previously source-bound six-place G893 prose and displayed 183-J sums; 88/93-day neighboring values are those full totals minus the exact previously printed last J.",
+      "A sought future independently dated/copy-bound witness genuinely reports the same season, same epoch, same accumulation field and same elapsed-day windows.",
+      "Its output can be modeled by positive truncation or round-half-up directly applied to one of these two candidate six-place family values; different internal recalculation, pre-display carries, source transmission variants or other quantizers are outside scope.",
+      "No assumption that a historical author actually used either quantizer, or that the MingShi source descends from G893."
+    ]
+  },
+  "four_row_exact_integer_certificates": [
+    {
+      "season": "winter",
+      "duration": "88_elapsed_days",
+      "prose_microdegrees": 90400922,
+      "printed_j_sum_microdegrees": 90400895,
+      "prose_6dp": "90.400922",
+      "printed_6dp": "90.400895",
+      "gap_microdegrees": 27,
+      "comparators": {
+        "3dp": {
+          "prose_possible": {
+            "TRUNCATE_POSITIVE": "90.400",
+            "ROUND_HALF_UP": "90.401"
+          },
+          "printed_j_possible": {
+            "TRUNCATE_POSITIVE": "90.400",
+            "ROUND_HALF_UP": "90.401"
+          },
+          "shared_possible_outputs": [
+            "90.400",
+            "90.401"
+          ],
+          "can_discriminate_without_choosing_of_two_rounders": false
+        },
+        "4dp": {
+          "prose_possible": {
+            "TRUNCATE_POSITIVE": "90.4009",
+            "ROUND_HALF_UP": "90.4009"
+          },
+          "printed_j_possible": {
+            "TRUNCATE_POSITIVE": "90.4008",
+            "ROUND_HALF_UP": "90.4009"
+          },
+          "shared_possible_outputs": [
+            "90.4009"
+          ],
+          "can_discriminate_without_choosing_of_two_rounders": false
+        },
+        "5dp": {
+          "prose_possible": {
+            "TRUNCATE_POSITIVE": "90.40092",
+            "ROUND_HALF_UP": "90.40092"
+          },
+          "printed_j_possible": {
+            "TRUNCATE_POSITIVE": "90.40089",
+            "ROUND_HALF_UP": "90.40090"
+          },
+          "shared_possible_outputs": [],
+          "can_discriminate_without_choosing_of_two_rounders": true
+        },
+        "6dp": {
+          "prose_possible": {
+            "TRUNCATE_POSITIVE": "90.400922",
+            "ROUND_HALF_UP": "90.400922"
+          },
+          "printed_j_possible": {
+            "TRUNCATE_POSITIVE": "90.400895",
+            "ROUND_HALF_UP": "90.400895"
+          },
+          "shared_possible_outputs": [],
+          "can_discriminate_without_choosing_of_two_rounders": true
+        }
+      }
+    },
+    {
+      "season": "winter",
+      "duration": "89_elapsed_days",
+      "prose_microdegrees": 91401427,
+      "printed_j_sum_microdegrees": 91401400,
+      "prose_6dp": "91.401427",
+      "printed_6dp": "91.401400",
+      "gap_microdegrees": 27,
+      "comparators": {
+        "3dp": {
+          "prose_possible": {
+            "TRUNCATE_POSITIVE": "91.401",
+            "ROUND_HALF_UP": "91.401"
+          },
+          "printed_j_possible": {
+            "TRUNCATE_POSITIVE": "91.401",
+            "ROUND_HALF_UP": "91.401"
+          },
+          "shared_possible_outputs": [
+            "91.401"
+          ],
+          "can_discriminate_without_choosing_of_two_rounders": false
+        },
+        "4dp": {
+          "prose_possible": {
+            "TRUNCATE_POSITIVE": "91.4014",
+            "ROUND_HALF_UP": "91.4014"
+          },
+          "printed_j_possible": {
+            "TRUNCATE_POSITIVE": "91.4014",
+            "ROUND_HALF_UP": "91.4014"
+          },
+          "shared_possible_outputs": [
+            "91.4014"
+          ],
+          "can_discriminate_without_choosing_of_two_rounders": false
+        },
+        "5dp": {
+          "prose_possible": {
+            "TRUNCATE_POSITIVE": "91.40142",
+            "ROUND_HALF_UP": "91.40143"
+          },
+          "printed_j_possible": {
+            "TRUNCATE_POSITIVE": "91.40140",
+            "ROUND_HALF_UP": "91.40140"
+          },
+          "shared_possible_outputs": [],
+          "can_discriminate_without_choosing_of_two_rounders": true
+        },
+        "6dp": {
+          "prose_possible": {
+            "TRUNCATE_POSITIVE": "91.401427",
+            "ROUND_HALF_UP": "91.401427"
+          },
+          "printed_j_possible": {
+            "TRUNCATE_POSITIVE": "91.401400",
+            "ROUND_HALF_UP": "91.401400"
+          },
+          "shared_possible_outputs": [],
+          "can_discriminate_without_choosing_of_two_rounders": true
+        }
+      }
+    },
+    {
+      "season": "summer",
+      "duration": "93_elapsed_days",
+      "prose_microdegrees": 90599014,
+      "printed_j_sum_microdegrees": 90598994,
+      "prose_6dp": "90.599014",
+      "printed_6dp": "90.598994",
+      "gap_microdegrees": 20,
+      "comparators": {
+        "3dp": {
+          "prose_possible": {
+            "TRUNCATE_POSITIVE": "90.599",
+            "ROUND_HALF_UP": "90.599"
+          },
+          "printed_j_possible": {
+            "TRUNCATE_POSITIVE": "90.598",
+            "ROUND_HALF_UP": "90.599"
+          },
+          "shared_possible_outputs": [
+            "90.599"
+          ],
+          "can_discriminate_without_choosing_of_two_rounders": false
+        },
+        "4dp": {
+          "prose_possible": {
+            "TRUNCATE_POSITIVE": "90.5990",
+            "ROUND_HALF_UP": "90.5990"
+          },
+          "printed_j_possible": {
+            "TRUNCATE_POSITIVE": "90.5989",
+            "ROUND_HALF_UP": "90.5990"
+          },
+          "shared_possible_outputs": [
+            "90.5990"
+          ],
+          "can_discriminate_without_choosing_of_two_rounders": false
+        },
+        "5dp": {
+          "prose_possible": {
+            "TRUNCATE_POSITIVE": "90.59901",
+            "ROUND_HALF_UP": "90.59901"
+          },
+          "printed_j_possible": {
+            "TRUNCATE_POSITIVE": "90.59899",
+            "ROUND_HALF_UP": "90.59899"
+          },
+          "shared_possible_outputs": [],
+          "can_discriminate_without_choosing_of_two_rounders": true
+        },
+        "6dp": {
+          "prose_possible": {
+            "TRUNCATE_POSITIVE": "90.599014",
+            "ROUND_HALF_UP": "90.599014"
+          },
+          "printed_j_possible": {
+            "TRUNCATE_POSITIVE": "90.598994",
+            "ROUND_HALF_UP": "90.598994"
+          },
+          "shared_possible_outputs": [],
+          "can_discriminate_without_choosing_of_two_rounders": true
+        }
+      }
+    },
+    {
+      "season": "summer",
+      "duration": "94_elapsed_days",
+      "prose_microdegrees": 91598717,
+      "printed_j_sum_microdegrees": 91598697,
+      "prose_6dp": "91.598717",
+      "printed_6dp": "91.598697",
+      "gap_microdegrees": 20,
+      "comparators": {
+        "3dp": {
+          "prose_possible": {
+            "TRUNCATE_POSITIVE": "91.598",
+            "ROUND_HALF_UP": "91.599"
+          },
+          "printed_j_possible": {
+            "TRUNCATE_POSITIVE": "91.598",
+            "ROUND_HALF_UP": "91.599"
+          },
+          "shared_possible_outputs": [
+            "91.598",
+            "91.599"
+          ],
+          "can_discriminate_without_choosing_of_two_rounders": false
+        },
+        "4dp": {
+          "prose_possible": {
+            "TRUNCATE_POSITIVE": "91.5987",
+            "ROUND_HALF_UP": "91.5987"
+          },
+          "printed_j_possible": {
+            "TRUNCATE_POSITIVE": "91.5986",
+            "ROUND_HALF_UP": "91.5987"
+          },
+          "shared_possible_outputs": [
+            "91.5987"
+          ],
+          "can_discriminate_without_choosing_of_two_rounders": false
+        },
+        "5dp": {
+          "prose_possible": {
+            "TRUNCATE_POSITIVE": "91.59871",
+            "ROUND_HALF_UP": "91.59872"
+          },
+          "printed_j_possible": {
+            "TRUNCATE_POSITIVE": "91.59869",
+            "ROUND_HALF_UP": "91.59870"
+          },
+          "shared_possible_outputs": [],
+          "can_discriminate_without_choosing_of_two_rounders": true
+        },
+        "6dp": {
+          "prose_possible": {
+            "TRUNCATE_POSITIVE": "91.598717",
+            "ROUND_HALF_UP": "91.598717"
+          },
+          "printed_j_possible": {
+            "TRUNCATE_POSITIVE": "91.598697",
+            "ROUND_HALF_UP": "91.598697"
+          },
+          "shared_possible_outputs": [],
+          "can_discriminate_without_choosing_of_two_rounders": true
+        }
+      }
+    }
+  ],
+  "decision": {
+    "three_fractional_places": "Every row has at least one common output under the specified two-rounder family.",
+    "four_fractional_places": "All four rows admit a shared possible rendering; known BSB MingShi four-place values are therefore insufficient by themselves (reaffirms 13SQ).",
+    "five_fractional_places": "In all four rows the sets of possible outputs for the two competing families are disjoint, even when each is independently allowed positive truncation or round-half-up.",
+    "minimum_discriminating_decimal_places_within_this_model": 5,
+    "actionable_target": "Prefer independently proven early/original SAME-FIELD and SAME-DAY-WINDOW witnesses with >=5 fractional degree digits (or a direct primary high-precision aggregate-generation or period-carry instruction). Another 4dp witness alone cannot discriminate the two six-place families within these quantizer assumptions.",
+    "does_not_prove": [
+      "G893_SHao_OR_Wei_RADIX",
+      "G893_ACTUAL_AGGREGATE_GENERATION",
+      "FIVE_PLACE_EARLY_WITNESS_EXISTS",
+      "MINGSHI_EXACT_DAY_WINDOW_IDENTITY",
+      "DIRECT_COPY_G893_TO_ANY_LATER_SOURCE",
+      "EVERY_POSSIBLE_HISTORICAL_ROUNDING_CONVENTION"
+    ],
+    "independent_original_pages_added": 0,
+    "registry_delta": 0,
+    "matrix_delta": 0,
+    "genealogy_graph_delta": 0,
+    "historical_six_final_decisions": "0/6",
+    "issue_status": "P0_OPEN",
+    "deterministic_chart_product": "CLOSED",
+    "algorithm_reopens": 0
+  },
+  "transmission_impact": "NONE_CONDITIONAL_NUMERIC_SOURCE_SELECTION_ONLY",
+  "next": "Use the five-place-or-better discriminator only to select new original historical source targets; actual field/unit/day/edition and source-local carry still require primary page proof before any ancient numeric adjudication."
+}
