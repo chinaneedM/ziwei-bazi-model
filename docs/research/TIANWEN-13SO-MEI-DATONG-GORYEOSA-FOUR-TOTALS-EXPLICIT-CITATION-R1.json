@@ -1,0 +1,88 @@
+{
+  "schema": "TIANWEN-13SO-MEI-DATONG-GORYEOSA-FOUR-TOTALS-EXPLICIT-CITATION-R1",
+  "date": "2026-11-06",
+  "issue_id": "TW-OPEN-0005",
+  "classification": "RECEIVED_QING_EXPLICIT_CITATION_OF_GORYEOSA_TABLE_END_NOT_AN_ADDITIONAL_INDEPENDENT_SOURCE_OR_ORIGINAL_PRECISION_DECISION",
+  "question": "Are four six-place solar prose totals reproduced in Mei Wending's received Datong Lizhi v4 independent historical precision controls, or an explicitly attributed later reception of the Goryeosa table?",
+  "source": {
+    "work": "梅文鼎《大統厯志》卷四〈立成〉",
+    "received_edition": "《欽定四庫全書》收本文字；here the transmitted wording is verified through public received transcriptions, not separately through an imaged historical edition leaf",
+    "urls": [
+      "https://zh.wikisource.org/zh-hant/大統厯志_(四庫全書本)/卷4",
+      "https://ctext.org/wiki.pl?chapter=900071&if=en&remap=gb"
+    ],
+    "source_registry_id": "EXT-WIKISOURCE-DATONG-LIZHI-V4",
+    "source_grade": "RECEIVED_TRANSCRIPTION_ALREADY_REGISTERED_NO_NEW_SOURCE_WITNESS",
+    "explicit_reference_original_script": "髙麗史厯志扵授時厯經後載有日行盈縮月行遲疾五星盈縮立成俱同遂不細鈔惟盈縮立成後有語二條今錄於此",
+    "citation_scope": "The wording explicitly names 高麗史 as the textual source for the following two clauses, while stating that its full tables are not copied. It does not reveal the actual physical 高麗史 exemplar consulted or authorize a Qing edition as independent contemporaneous G893 precision evidence.",
+    "date_firewall": "Mei authorial work, Qing Siku compilation/received edition, the physical Siku copy, and digital received transcription are separate levels. No new original page was retrieved and native glyphs at this reference locus were not image-verified in 13SO.",
+    "prior_original_image_bound_Mei_neighbor": {
+      "path": "docs/research/TIANWEN-13RT-MEI-CADAL06054965-SOLAR-OPERATION-AND-TABLE-ORIGINAL-R1.json",
+      "git_blob_sha": "a32cd0321b37b1904cce458c9c8b8fc65f556f5b",
+      "scope": "Previously original-imaged solar operation / rows / 91.320625 source glyph; *not* a claim that the explicit 高麗史 citation sentence was collated from an original folio."
+    }
+  },
+  "numerical_comparison": {
+    "early_source": {
+      "holding": "SNU Kyujanggak 奎貴893 / GK00893_00",
+      "source": "docs/research/TIANWEN-13SK-G893-ORIGINAL-SOLAR-POST-TABLE-TOTALS-R1.json",
+      "git_blob_sha": "4260d3d688b256cab600104f2b8dcfa47e99e272",
+      "grade": "EARLIER_ORIGINAL_SAME_COPY_FOUR_PROSE_TOTALS_DIRECT_IMAGE_COLLATED"
+    },
+    "ordered_season_type": [
+      "winter_full",
+      "winter_skip_initial",
+      "summer_full",
+      "summer_skip_initial"
+    ],
+    "G893_direct_original_total_microdegrees": [
+      91401427,
+      91350342,
+      91598717,
+      91647201
+    ],
+    "Mei_received_quoted_total_microdegrees": [
+      91401427,
+      91350342,
+      91598717,
+      91647201
+    ],
+    "exact_pair_matches": 4,
+    "independent_historical_numeric_witnesses_added": 0,
+    "clarification": "A later author's explicit attribution and four equal copied numerals are four work-level textual matches but not four statistically independent numerical verifications. They cannot identify G893 S/J 5th/6th-place retained input or source-native 少/微 carry.",
+    "distinct_Mei_local_quadrant": {
+      "source": "13RT previously direct-image attested 《大統厯志》卷四 solar gloss",
+      "winter_degree": "91.310625",
+      "summer_printed_degree": "91.320625",
+      "summer_arithmetic_from_its_displayed_operands": "93.712025 - 2.401400 = 91.310625",
+      "local_residual_degree": "0.010000",
+      "scope": "These Mei one-quadrant glosses are a distinct calculation from the four Goryeosa prose total quotation; never substitute one for another. Existing 13RT original glyph erratum remains in force."
+    }
+  },
+  "adjudication": {
+    "positive": "EXPLICIT_RECEIVED_TEXT_CITES_GORYEOSA_AND_REPRODUCES_FOUR_TABLE_END_TOTALS",
+    "negative": "Not an independent antique original, not a complete copied daily numeric table, not evidence that the named author's physical historical copy is identified, not a recovered G893 solar retained precision/少微 carry rule, and not a new historical winner.",
+    "historical_shao_wei": "OPEN",
+    "G893_six_historic_finals": "0/6",
+    "source_registry_delta": 0,
+    "matrix_delta": 0,
+    "genealogy_graph_delta": 0,
+    "chart_algorithm_reopen_count": 0,
+    "chart_product": "CLOSED"
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "The four equal totals reproduced with an explicit 高麗史 reference cannot be counted as a new physically independent solar-table witness.",
+      "Received explicit citation may warrant a work-level EXPLICITLY_CITES edge only after exact source physical text, edition/copy layers and graph node identity are bound; no graph shortcut is published from a digital transcription alone."
+    ],
+    "unresolved_lineage_questions": [
+      "Which physical 高麗史 copy or received intermediary did the Mei text refer to?",
+      "Does a directly imaged historical 《大統厯志》 edition preserve the named citation and all four totals?",
+      "What original independent same-field rule or retained input explains the +27/+20 microdegree differences from the G893 printed daily degree sums?"
+    ]
+  },
+  "next": "Keep TW-OPEN-0005 P0 and 0/6. Seek authenticated *independent earlier same-field* precision or carry rule; do not repeat source registry addition for existing Mei work and do not treat four quoted totals as independent original precision votes. Imaging Mei citation can be considered only if it will materially adjudicate textual dependence or an edition variant."
+}
