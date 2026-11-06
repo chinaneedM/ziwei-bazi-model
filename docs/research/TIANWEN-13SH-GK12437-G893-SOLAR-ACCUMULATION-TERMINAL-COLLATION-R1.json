@@ -1,0 +1,371 @@
+{
+  "schema": "TIANWEN-13SH-GK12437-G893-SOLAR-ACCUMULATION-TERMINAL-COLLATION-R1",
+  "date": "2026-11-06",
+  "issue_id": "TW-OPEN-0005",
+  "question": "Does the Sejong-period Datong Ritonggui original expose solar 日差 precision or a same-field carry instruction, and which G893 fields can it actually corroborate?",
+  "prior_evidence": {
+    "12PD": {
+      "path": "docs/research/MING-DATONG-GK12437-QISHUO-LOCALITY-OPERATOR-AUDIT-R1.json",
+      "git_blob_sha": "a962b59420f289981ac53226053d83d59db8653f"
+    },
+    "13RS": {
+      "path": "docs/research/TIANWEN-13RS-G893-ORIGINAL-TWO-SEASON-SOLAR-DEGREE-PRECISION-R1.json",
+      "git_blob_sha": "3cdb9811a9d86c09addea9f03aaf9a582acdf3a1"
+    },
+    "13SF": {
+      "path": "docs/research/TIANWEN-13SF-G893-SOLAR-ENDPOINT-SHORT-LANE-AND-GORYEOSA-PRINT-VARIANTS-R1.json",
+      "git_blob_sha": "297128d11d79488da45c5290e3ba7a004d81e20d"
+    },
+    "13SG": {
+      "path": "docs/research/TIANWEN-13SG-G893-SOLAR-INTERIOR-DAILY-DIFFERENCE-PRECISION-R1.json",
+      "git_blob_sha": "513ea845963dfd1b60228403623e2b3b22555351"
+    }
+  },
+  "source_page_review_revision": {
+    "revision_id": "TW-OPEN-0005-13SH-GK12437-G893-SOLAR-ENDS-20261106",
+    "physical_holding": "SNU Kyujanggak 奎貴12437 / GK12437_00",
+    "original_folio_ref": "006a, 010a, 014b",
+    "original_image_sha256": "7020091a16a7a8de6986e4478700c4c50ad47099717eb06411794e70e4197d5b",
+    "original_image_source_url": "https://kyudb.snu.ac.kr/ImageServlet.do?imgFileNm=GK12437_00IH_0001_006a.jpg&path=%2Fdata01%2Fstream%2FSIC%2FIMG%2FGK12437_00%2FGK12437_00_0001%2FGK12437_00IH_0001_006a.jpg",
+    "reviewed_by": "Tianwen manual native-resolution review without OCR",
+    "review_date": "2026-11-06",
+    "review_kind": "DIRECT_ORIGINAL_CROSS_COPY_BOUNDED_SOLAR_FIELD_COLLATION",
+    "human_direct_glyph_or_linewise_review": true
+  },
+  "holdings": {
+    "GK12437": {
+      "title": "大統曆日通軌",
+      "catalog_url": "https://kyudb.snu.ac.kr/book/view.do?book_cd=GK12437_00",
+      "attribution_as_catalogued": "李純之·金淡(朝鮮) 受命校正",
+      "edition_as_catalogued": "甲寅字; 15世紀 前半(世宗 年間:1418-1450)",
+      "exact_impression_date": null,
+      "registry_id": "EXT-KYUDB-DATONGLI-RITONGGUI-GK12437-PHYSICAL"
+    },
+    "G893": {
+      "title": "授時曆立成",
+      "catalog_url": "https://kyudb.snu.ac.kr/book/view.do?book_cd=GK00893_00",
+      "registry_id": "EXT-KYUJANGGAK-SHOUSHI-LICHENG-G893"
+    }
+  },
+  "source_images": {
+    "GK12437-006a": {
+      "provider_folio": "006a",
+      "original_image_url": "https://kyudb.snu.ac.kr/ImageServlet.do?imgFileNm=GK12437_00IH_0001_006a.jpg&path=%2Fdata01%2Fstream%2FSIC%2FIMG%2FGK12437_00%2FGK12437_00_0001%2FGK12437_00IH_0001_006a.jpg",
+      "jpeg_sha256": "7020091a16a7a8de6986e4478700c4c50ad47099717eb06411794e70e4197d5b",
+      "image_size": [
+        2160,
+        3671
+      ],
+      "rgb_bounds_ltrb": [
+        930,
+        455,
+        2110,
+        2930
+      ],
+      "native_rgb_sha256": "003c6e481c6a98b1e9500c6e6bf84d0962854cf6e4fd4be935dd8296cd25a249"
+    },
+    "GK12437-010a": {
+      "provider_folio": "010a",
+      "original_image_url": "https://kyudb.snu.ac.kr/ImageServlet.do?imgFileNm=GK12437_00IH_0001_010a.jpg&path=%2Fdata01%2Fstream%2FSIC%2FIMG%2FGK12437_00%2FGK12437_00_0001%2FGK12437_00IH_0001_010a.jpg",
+      "jpeg_sha256": "4b0c670d585631643ef6311bec8d2459e40935ab3c362519ed6f25009bf41cdb",
+      "image_size": [
+        2160,
+        3671
+      ],
+      "rgb_bounds_ltrb": [
+        45,
+        435,
+        2080,
+        3240
+      ],
+      "native_rgb_sha256": "de67969b8a47a76b9e74ed6b2c94d437da190990724b047416735b6f9f79b665"
+    },
+    "GK12437-014b": {
+      "provider_folio": "014b",
+      "original_image_url": "https://kyudb.snu.ac.kr/ImageServlet.do?imgFileNm=GK12437_00IH_0001_014b.jpg&path=%2Fdata01%2Fstream%2FSIC%2FIMG%2FGK12437_00%2FGK12437_00_0001%2FGK12437_00IH_0001_014b.jpg",
+      "jpeg_sha256": "699b7b01b17fbe4f0b7a472ba0a6bb7c9de1b11acecf11add74243c346bf2f4e",
+      "image_size": [
+        2160,
+        3671
+      ],
+      "rgb_bounds_ltrb": [
+        1450,
+        455,
+        2050,
+        3230
+      ],
+      "native_rgb_sha256": "20eb9bb38f8797a1852b7faddfef76e0f87eb0178b57bc5feb2948ce32bd3233"
+    },
+    "G893-001a": {
+      "provider_folio": "001a",
+      "original_image_url": "https://kyudb.snu.ac.kr/ImageServlet.do?imgFileNm=GK00893_00IH_0001_001a.jpg&path=%2Fdata01%2Fstream%2FSIC%2FIMG%2FGK00893_00%2FGK00893_00_0001%2FGK00893_00IH_0001_001a.jpg",
+      "jpeg_sha256": "8b07513ca8aad42ae167a93f22c39f14850c8cd1c345db9ce98c1e0e769226a5",
+      "image_size": [
+        1150,
+        2000
+      ],
+      "rgb_bounds_ltrb": [
+        10,
+        265,
+        1150,
+        1790
+      ],
+      "native_rgb_sha256": "0b30356393c31a835304b2606089779186777283af0f5adc229c2e4273ca4dc1"
+    },
+    "G893-009a": {
+      "provider_folio": "009a",
+      "original_image_url": "https://kyudb.snu.ac.kr/ImageServlet.do?imgFileNm=GK00893_00IH_0001_009a.jpg&path=%2Fdata01%2Fstream%2FSIC%2FIMG%2FGK00893_00%2FGK00893_00_0001%2FGK00893_00IH_0001_009a.jpg",
+      "jpeg_sha256": "2fe486bc5fa1c8feb978367dc67c3d0fdfacfd7a2f3d7820286513276db471b5",
+      "image_size": [
+        1150,
+        2000
+      ],
+      "rgb_bounds_ltrb": [
+        30,
+        265,
+        870,
+        1800
+      ],
+      "native_rgb_sha256": "5e68208337defee2934e9fefe2b8e08bffb3c90baa8c97b44a9eff69acc9a50d"
+    },
+    "G893-009b": {
+      "provider_folio": "009b",
+      "original_image_url": "https://kyudb.snu.ac.kr/ImageServlet.do?imgFileNm=GK00893_00IH_0001_009b.jpg&path=%2Fdata01%2Fstream%2FSIC%2FIMG%2FGK00893_00%2FGK00893_00_0001%2FGK00893_00IH_0001_009b.jpg",
+      "jpeg_sha256": "52f5a065315facc08ddc827e19a25e7459905981ebcee450ceab268e260dcb2b",
+      "image_size": [
+        1150,
+        2000
+      ],
+      "rgb_bounds_ltrb": [
+        50,
+        265,
+        1140,
+        1770
+      ],
+      "native_rgb_sha256": "81d081beb53af631490830ebaa8f03138d5cada5f17a3237ca89f13198b21e74"
+    },
+    "G893-018a": {
+      "provider_folio": "018a",
+      "original_image_url": "https://kyudb.snu.ac.kr/ImageServlet.do?imgFileNm=GK00893_00IH_0001_018a.jpg&path=%2Fdata01%2Fstream%2FSIC%2FIMG%2FGK00893_00%2FGK00893_00_0001%2FGK00893_00IH_0001_018a.jpg",
+      "jpeg_sha256": "b9859a2c70a5d77fb945cadc755f4c6ff08d5f8f9090d89a4db533e4b53a4098",
+      "image_size": [
+        1150,
+        2000
+      ],
+      "rgb_bounds_ltrb": [
+        50,
+        265,
+        1140,
+        1790
+      ],
+      "native_rgb_sha256": "021e6a8c03432322d00c25da87842583501f53ff296d581207e262c01d3f06fd"
+    }
+  },
+  "method": "Read seven provider-original JPEGs from two separately catalogued physical copies. Compared the winter and summer starts and terminal rows. Crops preserve day headings, ruling and neighboring columns. Compared printed numerical magnitudes as fixed integers and retained the source glyphs. C0 remains a printed empty marker.",
+  "headers": {
+    "GK12437": {
+      "winter": {
+        "page": "GK12437-006a",
+        "day_index": "積日",
+        "data_fields": [
+          "盈縮加分",
+          "盈縮積度"
+        ]
+      },
+      "summer": {
+        "page": "GK12437-010a",
+        "day_index": "積日",
+        "data_fields": [
+          "盈縮加分",
+          "盈縮積"
+        ]
+      }
+    },
+    "G893": {
+      "winter": {
+        "pages": [
+          "G893-001a"
+        ],
+        "data_fields": [
+          "日差",
+          "盈縮加分",
+          "盈縮積",
+          "行度"
+        ]
+      },
+      "summer": {
+        "pages": [
+          "G893-009a",
+          "G893-009b"
+        ],
+        "data_fields": [
+          "日差",
+          "盈縮加分",
+          "盈縮積",
+          "行度"
+        ]
+      }
+    },
+    "scope": "GK12437 has no separate 日差 or 行度 field in either inspected seasonal head. Its winter 積度 field and summer 積 field are mapped to G893 C only at the confirmed printed positions and through the local cumulative operation. The values are printed with 分. The character 度 in the winter column label does not identify G893 independent 行度."
+  },
+  "transcription_units": "M4 and C4 are integer units of 0.0001 of the printed fen. Day 0 represents 初日.",
+  "season_start": {
+    "winter": {
+      "pages": {
+        "GK12437": "GK12437-006a",
+        "G893": "G893-001a"
+      },
+      "GK12437": {
+        "M4": [
+          5108569,
+          5059183,
+          5009611
+        ],
+        "C4": [
+          null,
+          5108569,
+          10167752
+        ],
+        "day_0_C_literal": "空分"
+      },
+      "G893": {
+        "M4": [
+          5108569,
+          5059183,
+          5009611
+        ],
+        "C4": [
+          null,
+          5108569,
+          10167752
+        ],
+        "day_0_C_literal": "空"
+      }
+    },
+    "summer": {
+      "pages": {
+        "GK12437": "GK12437-010a",
+        "G893": "G893-009b"
+      },
+      "GK12437": {
+        "M4": [
+          4848473,
+          4804111,
+          4759587
+        ],
+        "C4": [
+          null,
+          4848473,
+          9652584
+        ],
+        "day_0_C_literal": "空分"
+      },
+      "G893": {
+        "M4": [
+          4848473,
+          4804111,
+          4759587
+        ],
+        "C4": [
+          null,
+          4848473,
+          9652584
+        ],
+        "day_0_C_literal": "空"
+      }
+    }
+  },
+  "season_end": {
+    "winter": {
+      "GK12437": {
+        "page": "GK12437-010a",
+        "ordinary": {
+          "day": 88,
+          "M4": 50593,
+          "C4": 240093568
+        },
+        "terminal": {
+          "header_literal": "八十九日",
+          "M_position_literal": "空",
+          "C4": 240144161
+        }
+      },
+      "G893": {
+        "page": "G893-009a",
+        "ordinary": {
+          "day": 88,
+          "M4": 50593,
+          "C4": 240093568
+        },
+        "terminal": {
+          "header_literal": "八十八日",
+          "header_small_glyphs_right_to_left": "九一",
+          "M_position_literal": "空",
+          "C4": 240144161
+        }
+      }
+    },
+    "summer": {
+      "GK12437": {
+        "page": "GK12437-014b",
+        "ordinary": {
+          "day": 93,
+          "M4": 29771,
+          "C4": 240105261
+        },
+        "terminal": {
+          "header_literal": "九十四日",
+          "M_position_literal": "五七十一分",
+          "M_position_numeric": null,
+          "C4": 240135032
+        }
+      },
+      "G893": {
+        "page": "G893-018a",
+        "ordinary": {
+          "day": 93,
+          "M4": 29771,
+          "C4": 240105261
+        },
+        "terminal": {
+          "header_literal": "九十三日",
+          "header_small_glyphs_right_to_left": "七一",
+          "M_position_literal": "空",
+          "C4": 240135032
+        }
+      }
+    }
+  },
+  "adjudication": {
+    "paired_numeric_matches": {
+      "M4": "8/8",
+      "C4": "8/8"
+    },
+    "winter_terminal_delta_fen": "5.0593",
+    "summer_terminal_delta_fen": "2.9771",
+    "terminal_alignment": "The same numeric C terminal appears on explicit day 89/94 in GK12437 and under marked day 88/93 in G893. In each copy C terminal minus C last ordinary equals the last ordinary M. This aligns the two numerical rows and does not supply a mechanical interpretation of the marked headers.",
+    "summer_anomaly": "The five glyphs 五七十一分 appear in the right subcolumn of the final GK12437 summer day, beside the C numeral. The read is recorded at the M position by geometry. Meaning and numeric parsing remain unresolved. The observed C recurrence uses the preceding M, so it does not constrain the use of the terminal inscription.",
+    "limit": "These two table heads expose no additional short-field place or native 少／微 carry instruction. No whole-volume absence, direct copying, equivalent complete table, or common immediate exemplar is established.",
+    "historic_numeric_finals": "0/6",
+    "TW_OPEN_0005": "OPEN",
+    "new_registry_entries": 0,
+    "chart_product": "CLOSED",
+    "algorithm_reopens": 0
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [
+      "PHYSICAL-COPY-KYUDB-RITONGGUI-GK12437-15C-GABINJA",
+      "PHYSICAL-COPY-KYUDB-G893-SHOUSHI-LICHENG-15C-GABINJA"
+    ],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Direct copying in either direction and complete solar table equivalence are unproved; common M/C fields coexist with unequal field inventory and terminal headings."
+    ],
+    "unresolved_lineage_questions": [
+      "Shared exemplar versus other transmission path",
+      "Meaning of the GK12437 summer terminal inscription and its relation, if any, to the G893 day marker"
+    ]
+  },
+  "next": "Seek an authenticated original with a retained higher-place solar 日差 reading or an explicit period same-field 少／微 value or carry. Compare the GK12437 terminal inscription only when a second physical Datong witness or explicit source instruction is available."
+}
