@@ -1,0 +1,150 @@
+{
+  "schema": "TIANWEN-13SU-JIAOSHI-FRACTIONAL-DAY-NATIVE-INTERPOLATION-VS-G893-PROSE-R1",
+  "date": "2026-11-06",
+  "issue_id": "TW-OPEN-0005",
+  "classification": "CONDITIONAL_SOURCE_NATIVE_LINEAR_FRACTION_INTERPOLATION_EXCLUSION_NOT_G893_ORIGINAL_OPERATION",
+  "question": "Does the separately original-photographed Jiaoshi 置入限分 × 盈縮加分 plus 盈縮積, rather than 13SS continuous cubic C(n+f), reconstruct original G893 six-place solar seasonal prose if we hypothetically supply the unrelated Kyoto YuanShi seasonal limit fractions?",
+  "source_bindings": [
+    {
+      "path": "docs/research/TIANWEN-13QK-KYOTO-1672-YUANSHI54-DIRECT-SHAO-POSITIONAL-UNIT-COLLATION-R1.json",
+      "sha": "d16d19aebdbe364b0804576bea4e23d8086e340a",
+      "scope": "Original Kyoto received YuanShi seasonal limit inputs 88.909225 / 93.712025; hypothetical cross-work only"
+    },
+    {
+      "path": "docs/research/TIANWEN-13RC-SNU-GK00067-ORIGINAL-YINGSUO-CUMULATIVE-FORMULA-R1.json",
+      "sha": "3e67e4cc0896ff10da0ee9a20d2b06a95e440c65",
+      "scope": "Original Jiaoshi C/M branch equations and 067b/068a source-local fractional procedure"
+    },
+    {
+      "path": "docs/research/TIANWEN-13ST-JIAOSHI-ORIGINAL-068B-SIX-PLACE-TRUNCATION-CLAUSE-R1.json",
+      "sha": "0fd5b110c2160a954b77c3d7355eec0312d75bff",
+      "scope": "Already acquired original 068a/068b 79-day worked fraction and six-place discard instruction; no newly obtained original"
+    },
+    {
+      "path": "docs/research/TIANWEN-13SK-G893-ORIGINAL-SOLAR-POST-TABLE-TOTALS-R1.json",
+      "sha": "4260d3d688b256cab600104f2b8dcfa47e99e272",
+      "scope": "G893 source-original six-place post-table winter/summer full and skip"
+    },
+    {
+      "path": "docs/research/TIANWEN-13SQ-MINGSHI-FOUR-PLACE-SOLAR-AGGREGATE-NONIDENTIFIABILITY-R1.json",
+      "sha": "1d0380dc279f74ed41dc8480071ed41e822ae5a0",
+      "scope": "BSB MingShi four-place preceding/full windows, matching epoch conditional"
+    },
+    {
+      "path": "docs/research/TIANWEN-13SS-G893-FRACTIONAL-SEASON-LIMIT-CUBIC-AGGREGATE-GATE-R1.json",
+      "sha": "aeb91179411053e5276c9ab9b3635ae697b0cf60",
+      "scope": "Previously tested different continuous C(n+f) cross-work mathematical model"
+    }
+  ],
+  "source_original_context": "Source-original SNU 交食推步法 068a: 置入限分，以盈縮加分乘之，萬約為分；以加盈縮積，萬約為度; 068b gives a six-degree-place discard clause. Native 79d+3238.445/10000d, M79=63.4009 fen, C79=23670.9991 fen -> raw extra20.53203276005 fen; displayed 20.5320; total2.36915311 degree before six-place result2.369153. New model is conditional crossbook transfer only.",
+  "original_image_bindings": {
+    "Jiaoshi_068a_sha256": "8c04ca44748afc19dda9cc12bd6f64a285e6024290d1fea4511f217716e12d19",
+    "Jiaoshi_068b_sha256": "df572e0fc2a10d3f6221af90008aac65972ecd85cb49367834163b0c3646671e",
+    "new_original_images": 0
+  },
+  "arithmetic_certificate": "For x=n+F/10^6, use exact integer C=n*(A-n*(B+L*n)) and M=A−B*(2n+1)−L*(3n²+3n+1), both scaled 10^8 degree. Source-native interpolant is C(n)+(F/10^6)*M(n), not C(n+F/10^6). Hypothetical total is (89 or 94)±[C*10^6+F*M]/10^14. Computation uses exact BigInt, no floating point. Separately test optional intermediate quantization to four fractional fen places; no assumption this is G893 original stage.",
+  "exact_result_rows": [
+    {
+      "season": "WINTER",
+      "integer_day_n": 88,
+      "fraction_numerator_over_million": 909225,
+      "source_formula_coefficients": {
+        "A": 5133200,
+        "B": 24600,
+        "L": 31
+      },
+      "integer_cumulative_C_scaled_1e8": "240093568",
+      "integer_daily_increment_M_scaled_1e8": "50593",
+      "interpolated_correction_numerator_over_1e14": "240139568420425",
+      "interpolated_degree_correction": "2.40139568420425",
+      "hypothetical_total_degree_exact": "91.40139568420425",
+      "G893_original_prose_total": "91.401427",
+      "original_prose_minus_model_microdegrees": "31.31579575",
+      "hypothetical_skip_first_day_degree": "91.35031068420425",
+      "G893_original_prose_skip": "91.350342",
+      "hypothetical_preceding_day_degree": "90.40089068420425",
+      "BSB_original_fourplace_preceding": "90.4009",
+      "BSB_original_fourplace_full": "91.4014",
+      "fourplace_full_positive_truncate": "91.4013",
+      "fourplace_full_half_up": "91.4014",
+      "fourplace_preceding_positive_truncate": "90.4008",
+      "fourplace_preceding_half_up": "90.4009",
+      "fiveplace_full_positive_truncate": "91.40139",
+      "fiveplace_full_half_up": "91.40140",
+      "sixplace_full_positive_truncate": "91.401395",
+      "sixplace_full_half_up": "91.401396",
+      "hypothetical_quantize_fraction_times_M_in_fen_to_4_places": {
+        "unquantized_fen": "4.6000420425",
+        "floor_fen": "4.6000",
+        "half_up_fen": "4.6000",
+        "total_degree_floor_fen": "91.40139568000000",
+        "total_degree_half_up_fen": "91.40139568000000",
+        "cannot_match_G893_sixplace_under_final_floor_or_half_up": true
+      },
+      "prior_13SS_continuous_fractional_cubic_degree": "91.40142279129474601036265625",
+      "source_original_same_field_and_epoch_bridge": false
+    },
+    {
+      "season": "SUMMER",
+      "integer_day_n": 93,
+      "fraction_numerator_over_million": 712025,
+      "source_formula_coefficients": {
+        "A": 4870600,
+        "B": 22100,
+        "L": 27
+      },
+      "integer_cumulative_C_scaled_1e8": "240105261",
+      "integer_daily_increment_M_scaled_1e8": "29771",
+      "interpolated_correction_numerator_over_1e14": "240126458696275",
+      "interpolated_degree_correction": "2.40126458696275",
+      "hypothetical_total_degree_exact": "91.59873541303725",
+      "G893_original_prose_total": "91.598717",
+      "original_prose_minus_model_microdegrees": "-18.41303725",
+      "hypothetical_skip_first_day_degree": "91.64721941303725",
+      "G893_original_prose_skip": "91.647201",
+      "hypothetical_preceding_day_degree": "90.59903241303725",
+      "BSB_original_fourplace_preceding": "90.5990",
+      "BSB_original_fourplace_full": "91.5987",
+      "fourplace_full_positive_truncate": "91.5987",
+      "fourplace_full_half_up": "91.5987",
+      "fourplace_preceding_positive_truncate": "90.5990",
+      "fourplace_preceding_half_up": "90.5990",
+      "fiveplace_full_positive_truncate": "91.59873",
+      "fiveplace_full_half_up": "91.59874",
+      "sixplace_full_positive_truncate": "91.598735",
+      "sixplace_full_half_up": "91.598735",
+      "hypothetical_quantize_fraction_times_M_in_fen_to_4_places": {
+        "unquantized_fen": "2.1197696275",
+        "floor_fen": "2.1197",
+        "half_up_fen": "2.1198",
+        "total_degree_floor_fen": "91.59873542000000",
+        "total_degree_half_up_fen": "91.59873541000000",
+        "cannot_match_G893_sixplace_under_final_floor_or_half_up": true
+      },
+      "prior_13SS_continuous_fractional_cubic_degree": "91.59867455715248374270421875",
+      "source_original_same_field_and_epoch_bridge": false
+    }
+  ],
+  "decision": {
+    "prose_six_place_matches": 0,
+    "winter_prose_minus_interpolant_microdegrees": "31.31579575",
+    "summer_prose_minus_interpolant_microdegrees": "-18.41303725",
+    "BSB_fourplace_source_original_full_preceding_matches_under_conditional_half_up": "4/4",
+    "conditional_5dp_full_discrimination_between_this_model_and_G893_prose": true,
+    "universal_5dp_sufficiency_claim": false,
+    "interpretation": "This fourth constructed candidate fits the later BSB four-place displays yet cannot generate G893 original six-place totals. A source-native interpolation instruction in a distinct historical work does not prove direct application, common epoch or transfer to G893.",
+    "native_G893_solar_shao_or_wei_carry_proven": false,
+    "source_crosswork_identity_proven": false,
+    "G893_historical_six_final_controls": "0/6",
+    "P0_issue_status": "OPEN",
+    "new_physical_witnesses": 0,
+    "new_registry_source_ids": 0,
+    "new_matrix_rows": 0,
+    "new_genealogy_nodes": 0,
+    "new_genealogy_edges": 0,
+    "chart_algorithm_reopens": 0,
+    "deterministic_chart_state": "CLOSED"
+  },
+  "transmission_impact": "NONE_NO_PROVEN_INTERWORK_OR_G893_OPERATOR_TRANSFER",
+  "next": "Seek G893 original same-field six-place solar aggregate-generation or original precision/carry; avoid further low-resolution four-place similarities without new source proof."
+}
