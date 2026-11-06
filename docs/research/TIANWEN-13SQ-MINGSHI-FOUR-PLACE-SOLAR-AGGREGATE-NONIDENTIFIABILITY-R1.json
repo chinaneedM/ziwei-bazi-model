@@ -1,0 +1,209 @@
+{
+  "schema": "TIANWEN-13SQ-MINGSHI-FOUR-PLACE-SOLAR-AGGREGATE-NONIDENTIFIABILITY-R1",
+  "date": "2026-11-06",
+  "issue_id": "TW-OPEN-0005",
+  "classification": "EXACT_CROSS_SOURCE_FOUR_PLACE_COARSENING_NONIDENTIFIABILITY_OF_G893_PROSE_VS_PRINTED_J_DAY_SUM_NO_NEW_ORIGINAL_WITNESS",
+  "question": "Can four original-imaged four-place 明史卷三十五 seasonal 行積度 numbers distinguish the already source-bound G893 six-place post-table prose totals from summing its separately source-bound ordinary printed 行度, using the explicitly conditional matching window?",
+  "source_dependencies": [
+    {
+      "path": "docs/research/TIANWEN-13MH-BSB-J35-51-IMAGE-REPLAY-C539-FOUR-FIELD-COLLATION-R1.json",
+      "git_blob_sha": "9bdbb6135b013fcf29f34f2163425e1f9d30860f",
+      "source": "Bayerische Staatsbibliothek bsb11166691 c539 source-issued image; 1800px JPEG SHA256 a9ac8e878b9823c89087b9a9be9147406c289c755f6b0dfd38dbd6e43d80d2f7",
+      "scope": "Original photographed 4dp source row: 88d=90.4009,89d=91.4014,93d=90.5990,94d=91.5987. Exact 1739 physical impression unbound."
+    },
+    {
+      "path": "docs/research/TIANWEN-13SK-G893-ORIGINAL-SOLAR-POST-TABLE-TOTALS-R1.json",
+      "git_blob_sha": "4260d3d688b256cab600104f2b8dcfa47e99e272",
+      "source": "Same Kyujanggak GK00893_00 018a/018b direct original with four 6dp prose values",
+      "scope": "Winter full91.401427; summer full91.598717; 休初日 total source-scoped."
+    },
+    {
+      "path": "docs/research/TIANWEN-13SM-G893-COMPLETE-SOLAR-DAILY-DIFFERENCE-AND-DEGREE-R1.json",
+      "git_blob_sha": "54596cbbd74c8a7df3497ad7de49381dd98a6e49",
+      "source": "Same G893 copy native 35 JPEGs 181 日差 and all 183 ordinary 行度 source-original full collation",
+      "scope": "Six-place sums winter91.401400 summer91.598697; last J winter1.000505 summer0.999703."
+    },
+    {
+      "path": "docs/research/TIANWEN-13SP-G893-FOUR-PLACE-HIDDEN-TAIL-QUANTIZATION-STABILITY-R1.json",
+      "git_blob_sha": "e1d44ae973b52726c91317720cc3c491d71e59d2",
+      "scope": "Previous strict daily-M4 ceiling and floor boundary; not retested as a new source."
+    },
+    {
+      "path": "docs/research/TIANWEN-13QO-G893-FOUR-PLACE-RECURRENCE-IDENTIFIABILITY-BOUNDARY-R1.json",
+      "git_blob_sha": "fbfc96ad0c4ab88e54b1cdbaa623c47a67909f72",
+      "scope": "Prior recurrence-lane nonidentifiability differs from this four-place source-aggregate comparison."
+    }
+  ],
+  "method_and_firewall": {
+    "microdegree_scale": "All arithmetic carried in exact integer 0.000001 degree; BSB four decimal output compares integer floor((micro+50)/100) for round-half-up; integer floor(micro/100) for truncate-positive. No floating-point or inferred ancient 少/微 definition.",
+    "hypothetical_alignment": "Treat BSB quoted 88/89 and 93/94 elapsed-day rows as G893 ordinary D0...D87/D88 and D0...D92/D93 only FOR THIS TEST; the same table coordinate and unit identity across copies are NOT original-source-proven.",
+    "reconstruction": "For each season and each competing six-place full total, subtract the previously directly printed last ordinary G893 J to obtain the preceding 88- or 93-day sum; then compare both resulting pair totals to BSB c539 four-place glyphs.",
+    "nonindependence": "The two G893 six-place sequences are both from ONE G893 physical copy, not two independent ancient witnesses. BSB c539 is a distinct later received source object of another textual family; numerical compatibility alone does not prove an independent original mechanical calculation or a direct textual transmission edge.",
+    "chronology": "G893 scan, BSB photographed 明史 source copy, textual work/edition and modern digital transcription remain distinct; the exact BSB impression date was not verified."
+  },
+  "input_microdegrees": {
+    "winter": {
+      "prose_full": 91401427,
+      "printed_daily_sum_full": 91401400,
+      "last_printed_J": 1000505,
+      "ming_early": 904009,
+      "ming_late": 914014
+    },
+    "summer": {
+      "prose_full": 91598717,
+      "printed_daily_sum_full": 91598697,
+      "last_printed_J": 999703,
+      "ming_early": 905990,
+      "ming_late": 915987
+    }
+  },
+  "eight_exact_replay_rows": [
+    {
+      "season": "winter",
+      "model": "G893_PROSE",
+      "duration": "one_day_before_full",
+      "raw_microdegrees": 90400922,
+      "raw_fixed_6dp": "90.400922",
+      "bsb_fixed_4dp": "90.4009",
+      "floor_4dp": "90.4009",
+      "half_up_4dp": "90.4009",
+      "half_up_matches_BSB": true,
+      "floor_matches_BSB": true
+    },
+    {
+      "season": "winter",
+      "model": "G893_PROSE",
+      "duration": "full_window",
+      "raw_microdegrees": 91401427,
+      "raw_fixed_6dp": "91.401427",
+      "bsb_fixed_4dp": "91.4014",
+      "floor_4dp": "91.4014",
+      "half_up_4dp": "91.4014",
+      "half_up_matches_BSB": true,
+      "floor_matches_BSB": true
+    },
+    {
+      "season": "winter",
+      "model": "G893_PRINTED_J_SUM",
+      "duration": "one_day_before_full",
+      "raw_microdegrees": 90400895,
+      "raw_fixed_6dp": "90.400895",
+      "bsb_fixed_4dp": "90.4009",
+      "floor_4dp": "90.4008",
+      "half_up_4dp": "90.4009",
+      "half_up_matches_BSB": true,
+      "floor_matches_BSB": false
+    },
+    {
+      "season": "winter",
+      "model": "G893_PRINTED_J_SUM",
+      "duration": "full_window",
+      "raw_microdegrees": 91401400,
+      "raw_fixed_6dp": "91.401400",
+      "bsb_fixed_4dp": "91.4014",
+      "floor_4dp": "91.4014",
+      "half_up_4dp": "91.4014",
+      "half_up_matches_BSB": true,
+      "floor_matches_BSB": true
+    },
+    {
+      "season": "summer",
+      "model": "G893_PROSE",
+      "duration": "one_day_before_full",
+      "raw_microdegrees": 90599014,
+      "raw_fixed_6dp": "90.599014",
+      "bsb_fixed_4dp": "90.5990",
+      "floor_4dp": "90.5990",
+      "half_up_4dp": "90.5990",
+      "half_up_matches_BSB": true,
+      "floor_matches_BSB": true
+    },
+    {
+      "season": "summer",
+      "model": "G893_PROSE",
+      "duration": "full_window",
+      "raw_microdegrees": 91598717,
+      "raw_fixed_6dp": "91.598717",
+      "bsb_fixed_4dp": "91.5987",
+      "floor_4dp": "91.5987",
+      "half_up_4dp": "91.5987",
+      "half_up_matches_BSB": true,
+      "floor_matches_BSB": true
+    },
+    {
+      "season": "summer",
+      "model": "G893_PRINTED_J_SUM",
+      "duration": "one_day_before_full",
+      "raw_microdegrees": 90598994,
+      "raw_fixed_6dp": "90.598994",
+      "bsb_fixed_4dp": "90.5990",
+      "floor_4dp": "90.5989",
+      "half_up_4dp": "90.5990",
+      "half_up_matches_BSB": true,
+      "floor_matches_BSB": false
+    },
+    {
+      "season": "summer",
+      "model": "G893_PRINTED_J_SUM",
+      "duration": "full_window",
+      "raw_microdegrees": 91598697,
+      "raw_fixed_6dp": "91.598697",
+      "bsb_fixed_4dp": "91.5987",
+      "floor_4dp": "91.5986",
+      "half_up_4dp": "91.5987",
+      "half_up_matches_BSB": true,
+      "floor_matches_BSB": false
+    }
+  ],
+  "certificates": {
+    "g893_six_place_full_residuals_observed_prose_minus_printed_J": {
+      "winter": 27,
+      "summer": 20
+    },
+    "BSB_4dp_four_observations": {
+      "winter_88_days": "90.4009",
+      "winter_89_days": "91.4014",
+      "summer_93_days": "90.5990",
+      "summer_94_days": "91.5987"
+    },
+    "per_model_BSB_4of4_half_up_match": true,
+    "per_model_truncate_match_count": {
+      "G893_PROSE": 4,
+      "G893_PRINTED_J_SUM": 1
+    },
+    "conditional_nonidentifiability": "When independently coarsened to FOUR decimal degree places by half-up at the total, BOTH distinct existing six-place G893 data families produce all FOUR BSB original source values. Thus these four lower precision numbers alone cannot decide whether the six-place prose totals arose from printed daily J sums or from a separate higher-precision route.",
+    "other_rounder_matters": "Simple truncation of six-place prose gives 4/4 BSB matches; truncation of printed daily J sums gives only 1/4. This difference rules out only that explicitly fixed truncation comparator, NOT the latter family under round-half-up or the actual historical BSB printing mechanism."
+  },
+  "adjudication": {
+    "positive": "4-of-4 exact double fit under round-half-up; period BSB four-place controls are precision-insufficient for a six-place origin decision even with a matching hypothetical elapsed-day window.",
+    "not_proven": [
+      "BSB_COMPUTED_FOUR_VALUES_FROM_G893_PROSE",
+      "BSB_COMPUTED_FOUR_VALUES_BY_SUMMING_G893_PRINTED_J",
+      "ANY_HISTORICAL_ROUND_HALF_UP_OPERATION",
+      "G893_NATIVE_SHAO_WEI_CARRY_OR_UPSTREAM_HIGH_PRECISION",
+      "G893_TO_MINGSHI_DIRECT_COPY_OR_INDEPENDENT_ANCIENT_VALIDATION",
+      "EQUIVALENCE_OF_DAY_INDEX_OR_SOLAR_CALENDAR_EPOCH"
+    ],
+    "TW_OPEN_0005": "P0 OPEN",
+    "G893_six_historic_final_numeric_controls": "0/6",
+    "new_source_original_pages": 0,
+    "new_independent_physical_witnesses": 0,
+    "source_registry_delta": 0,
+    "matrix_delta": 0,
+    "genealogy_graph_delta": 0,
+    "chart_product": "CLOSED",
+    "chart_algorithm_reopens": 0
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Numerically matching 4dp 明史 accumulations do not distinguish either six-place G893 calculation path and cannot be treated as a new independent source for the G893 prose aggregate or its 少/微 radix."
+    ],
+    "unresolved_lineage_questions": [
+      "What physical 15th-century or earlier same-field original exposes carry/precision and how, if at all, were six-place post-table values generated?"
+    ]
+  },
+  "next": "Seek original G893 same-field native 少/微 carry or genuinely independent earlier higher precision/aggregate source. Do not re-collate 13SM J/S or count later rounded-four-place matches as six-place precision witnesses."
+}
