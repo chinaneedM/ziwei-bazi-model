@@ -1,0 +1,70 @@
+{
+  "schema": "TIANWEN-13SI-GORYEOSA-SUSHAN-RECEIVED-EDITORIAL-LAYER-COLLATION-R1",
+  "date": "2026-11-06",
+  "issue_id": "TW-OPEN-0005",
+  "purpose": "Bound a modern received-text quotation boundary and one lexical variant without promoting it into a G893 source-original numeral or source-level stemma.",
+  "source_loci": {
+    "goryeosa": {
+      "work": "高麗史",
+      "juan": "卷五十",
+      "section": "曆一 序",
+      "url": "https://zh.wikisource.org/zh/%E9%AB%98%E9%BA%97%E5%8F%B2/%E5%8D%B7%E4%BA%94%E5%8D%81",
+      "witness_grade": "MODERN_RECEIVED_DIGITAL_TRANSCRIPTION",
+      "physical_leaf": null,
+      "source_native_image_sha256": null
+    },
+    "sushan": {
+      "work": "修山集",
+      "attributed_author_in_received_index": "李種徽",
+      "juan": "卷之十三",
+      "section": "東史志／高麗史志／曆志",
+      "url": "https://zh.wikisource.org/wiki/%E4%BF%AE%E5%B1%B1%E9%9B%86/%E5%8D%B7%E4%B9%8B%E5%8D%81%E4%B8%89",
+      "received_site_date_label": "1803 (not original printing verification)",
+      "witness_grade": "MODERN_RECEIVED_DIGITAL_TRANSCRIPTION",
+      "physical_leaf": null,
+      "source_native_image_sha256": null
+    },
+    "sushan_parallel_site": {
+      "url": "https://ygc.skku.edu/ygc/sub.do?dataid=H_shi_DSS_0030_0020_0020",
+      "witness_grade": "MODERN_EDUCATIONAL_REPUBLICATION_OF_SUSHAN_PASSAGE_NOT_ANOTHER_PHYSICAL_COPY",
+      "physical_leaf": null
+    }
+  },
+  "collation": {
+    "common_opening": "史臣鄭麟趾曰 / 夫治曆明時 [quotation framing is source-specific and not a whole-paragraph authorship grant]",
+    "lexical_pair": {
+      "goryeosa": "非當時所用",
+      "sushan": "非今時所用",
+      "status": "RECEIVED_TEXT_VARIANT_NOT_PHYSICALLY_ADJUDICATED"
+    },
+    "shared_narrative": {
+      "goryeosa": "其全書又未可見",
+      "sushan": "其全書又未可見"
+    },
+    "divergence_at_end": {
+      "goryeosa": "附授時於其後，作曆志",
+      "sushan": "附授時於其後。嗚呼",
+      "status": "SUSHAN_CONTINUES_WITH_LATER_EDITORIAL_REFLECTION"
+    },
+    "later_sushan_only_anchor": "皇明以來，交通西洋，曆法益明",
+    "goryeosa_receives_later_anchor": false,
+    "interpretation": "The post-嗚呼 remarks belong to the later Sushan received passage, not to the received Goryeosa vol.50 prefatory text. Same historic subject and quoted opening do not make one witness or authorize attributing the entire Sushan passage to 鄭麟趾.",
+    "note": "The older transmitted-text incompleteness remark is historiographic context, not proof that GK00893_00 itself has a corrupt 日差 cell or a certain 少/微 radix."
+  },
+  "evidence_gate": {
+    "new_physically_authenticated_original_folios": 0,
+    "new_same_field_solar_short_digits": 0,
+    "new_period_same_field_shao_wei_carry_rules": 0,
+    "independent_original_votes": 0,
+    "six_historical_numeric_finals": "0/6",
+    "source_registry_new_entries": 2,
+    "transmission_edges_established": 0,
+    "text_copying_direction": "UNPROVEN",
+    "chart_product": "CLOSED",
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0,
+    "matrix_rows_changed": 0,
+    "omitted_risk_issues_closed": 0
+  },
+  "next": "Seek an authenticated G893-period same-field 少／微 unit/carry instruction or original 日差 fifth/sixth digit. Obtain physical-leaf images of 《高麗史》卷五十 and 《修山集》卷十三 before any edition-level lexical adjudication; do not equate the latter's Western-astronomy commentary with original fifteenth-century authorship."
+}
