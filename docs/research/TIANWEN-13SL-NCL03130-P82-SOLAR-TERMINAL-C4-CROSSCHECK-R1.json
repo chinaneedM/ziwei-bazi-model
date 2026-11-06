@@ -1,0 +1,110 @@
+{
+  "schema": "TIANWEN-13SL-NCL03130-P82-SOLAR-TERMINAL-C4-CROSSCHECK-R1",
+  "date": "2026-11-06",
+  "issue_id": "TW-OPEN-0005",
+  "question": "Does a third catalogued holding agree with the 13SK corrected Waseda summer marked terminal C4, and which adjacent prose totals remain visible?",
+  "source": {
+    "holding": "Taiwan National Central Library, shelfmark 208 03130",
+    "work": "高麗史卷五十二 / 授時曆立成",
+    "catalog_context": "https://catalog.digitalarchives.tw/item/00/08/64/27.html",
+    "digital_surrogate": "https://commons.wikimedia.org/wiki/File:NCL-03130_09_%E9%AB%98%E9%BA%97%E5%8F%B2.pdf",
+    "physical_layer": "Composite manuscript catalogued 清初葉舊鈔光緒間錢塘丁氏補鈔本. The date or copying layer of this exact leaf remains unresolved.",
+    "archive": {
+      "run_id": 39933256047,
+      "artifact_id": 12492163818,
+      "zip_sha256": "4681f52aecfe1c7564d56869acb87211b7f20b7414cb2dfff156da9d2c2475a8",
+      "member": "original-p082.png",
+      "png_sha256": "4b8efc11d9ce84e9025f8115533cafb4a6a33e2653e33f548b1d85c9487c6ed7",
+      "image_size": [
+        1095,
+        737
+      ],
+      "full_rgb_sha256": "3f12d2d3112340638b119137623e1f19541d3a91b0576b1e79d7e68abdc43408"
+    },
+    "method": "Manually read unresampled source RGB after ZIP and member verification. No OCR."
+  },
+  "folium": {
+    "pdf_page_1based": 82,
+    "terminal_roi": {
+      "bbox_ltrb": [
+        574,
+        140,
+        764,
+        671
+      ],
+      "rgb_sha256": "6827857c26519e462d747e2031e58e17d584dfc23da43e4ccef983ae9db0eb9a",
+      "visible_controls": [
+        "Two adjacent 九十三日 headings",
+        "Two 空 entries in the left-hand 九十三日 group",
+        "Within the same left-hand group, accumulated amount next to 一度"
+      ],
+      "literal_marked_C": "二萬四千〇一十三五〇二二",
+      "normalized_C4": 240135022
+    },
+    "prose_roi": {
+      "bbox_ltrb": [
+        308,
+        135,
+        570,
+        675
+      ],
+      "rgb_sha256": "b78156f9adf291cfcdab0cdc61914bebf4ec09e42d5fbc2f16ecea148789b0ff",
+      "observations": [
+        {
+          "locus": "winter full",
+          "total_microdegrees": 91401427
+        },
+        {
+          "locus": "winter 休初日",
+          "total_microdegrees": null,
+          "note": "Final numeral column partly obscured at the gutter. No full-value attestation assigned."
+        },
+        {
+          "locus": "summer full",
+          "total_microdegrees": 91598717
+        },
+        {
+          "locus": "summer 休初日",
+          "total_microdegrees": 91647201
+        }
+      ]
+    }
+  },
+  "prior_evidence": {
+    "ncl_page_layout": {
+      "path": "docs/research/TIANWEN-13DW-NCL03130-SUMMER-P82-P86-LANE-FIELD-FIREWALL-R1.json",
+      "git_blob_sha": "d8ed25ce104d6263f9adaa60200570498c402c97"
+    },
+    "ncl_d86": {
+      "path": "docs/research/TIANWEN-13QT-NCL03130-P81-SUMMER-D86-MANUSCRIPT-CUMULATIVE-GLYPH-CROSSHOLDING-R1.json",
+      "git_blob_sha": "578f0c65f3436b739bef2dd83d11bb6943ff5c78"
+    },
+    "g893_and_waseda": {
+      "path": "docs/research/TIANWEN-13SK-G893-ORIGINAL-SOLAR-POST-TABLE-TOTALS-R1.json",
+      "git_blob_sha": "4260d3d688b256cab600104f2b8dcfa47e99e272"
+    }
+  },
+  "comparison": {
+    "unit": "C4 = integer encoding of four displayed decimal places",
+    "G893_C4": 240135032,
+    "Waseda_C4": 240135022,
+    "NCL_C4": 240135022,
+    "NCL_minus_G893_C4": -10,
+    "NCL_minus_Waseda_C4": 0,
+    "historical_winner": "OPEN",
+    "legacy_G893_controls": "0/6",
+    "rule": "The NCL manuscript matches the Waseda terminal variant at a second separated C locus after the earlier D86 match, and three readable prose totals match both holdings. This is a bounded textual correspondence between distinct physical holdings. Neither a direct copy edge nor independent descent is established. Preserve both terminal readings and keep same-field 少／微 carry and higher 日差 places open."
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Shared terminal and D86 C readings do not establish independent stemmatic votes or copying direction."
+    ],
+    "unresolved_lineage_questions": [
+      "Whether the NCL and Waseda copies share an exemplar or a later correction layer, and which layer supplied this NCL leaf."
+    ]
+  },
+  "next": "Prioritize an authenticated same-field carry instruction or a fifth/sixth 日差 digit. Keep total and terminal C as separate evidence fields."
+}
