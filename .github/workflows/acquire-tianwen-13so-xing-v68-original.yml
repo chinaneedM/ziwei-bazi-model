@@ -1,0 +1,67 @@
+name: acquire-tianwen-13so-xing-v68-original
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/acquire-tianwen-13so-xing-v68-original.yml
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  acquire:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python -m pip install 'requests>=2.32,<3' 'Pillow>=10,<12' 'pymupdf>=1.24,<1.27'
+      - name: Acquire licensed public original, hash and render page atlas without OCR
+        shell: bash
+        run: |
+          python - <<'PY'
+          import base64, hashlib, io, json, pathlib, requests, fitz
+          from PIL import Image, ImageDraw
+          out=pathlib.Path('/tmp/tianwen-13so')
+          out.mkdir(parents=True,exist_ok=True)
+          url='https://upload.wikimedia.org/wikipedia/commons/f/f1/NLC892-CBM1408-371938_%E5%8F%A4%E4%BB%8A%E5%BE%8B%E6%9B%86%E8%80%83_%E4%B8%83%E5%8D%81%E4%BA%8C%E5%8D%B7_%E7%AC%AC19%E5%86%8A.pdf'
+          r=requests.get(url,headers={'User-Agent':'Tianwen-Research/1.0 (public historical facsimile study)'},timeout=90)
+          r.raise_for_status()
+          data=r.content
+          assert data[:4]==b'%PDF' and len(data)>1000000, 'source original expected PDF'
+          pdf=out/'original.pdf'
+          pdf.write_bytes(data)
+          doc=fitz.open(stream=data,filetype='pdf')
+          assert len(doc)==65, f'unexpected source page count {len(doc)}'
+          manifest={'source_url':url,'source_bytes':len(data),'source_sha256':hashlib.sha256(data).hexdigest(),'page_count':len(doc),'pages':[]}
+          tiles=[]
+          for index,page in enumerate(doc):
+              pix=page.get_pixmap(matrix=fitz.Matrix(1.45,1.45),colorspace=fitz.csRGB,alpha=False)
+              img=Image.frombytes('RGB',[pix.width,pix.height],pix.samples)
+              png=out/f'page-{index+1:02d}.png'
+              img.save(png)
+              entry={'page_1based':index+1,'png_sha256':hashlib.sha256(png.read_bytes()).hexdigest(),'pixels':[img.width,img.height]}
+              manifest['pages'].append(entry)
+              tile=img.copy()
+              tile.thumbnail((330,420))
+              tiles.append(tile)
+          for block in range(0,len(tiles),20):
+              group=tiles[block:block+20]
+              atlas=Image.new('RGB',(4*354,5*446),'white')
+              pen=ImageDraw.Draw(atlas)
+              for j,img in enumerate(group):
+                  x=(j%4)*354+12; y=(j//4)*446+14
+                  pen.text((x,y),f'PDF PAGE {block+j+1:02d}',fill='black')
+                  atlas.paste(img,(x,y+20))
+              path=out/f'atlas-{block//20+1:02d}.jpg'
+              atlas.save(path,'JPEG',quality=67,optimize=True)
+              encoded=base64.b64encode(path.read_bytes()).decode('ascii')
+              print(f'TIANWEN13SO_ATLAS_{block//20+1:02d}_BASE64={encoded}')
+          (out/'manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n',encoding='utf8')
+          print('TIANWEN13SO_SUMMARY='+json.dumps({k:v for k,v in manifest.items() if k!='pages'},ensure_ascii=False))
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: tianwen-13so-xing-v68-original-and-atlas
+          path: /tmp/tianwen-13so/
+          if-no-files-found: error
+          retention-days: 30
