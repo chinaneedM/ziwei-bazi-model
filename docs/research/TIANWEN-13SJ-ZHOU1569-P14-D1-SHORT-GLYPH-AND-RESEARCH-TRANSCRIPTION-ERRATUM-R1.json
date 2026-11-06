@@ -1,0 +1,160 @@
+{
+  "schema": "TIANWEN-13SJ-ZHOU1569-P14-D1-SHORT-GLYPH-AND-RESEARCH-TRANSCRIPTION-ERRATUM-R1",
+  "date": "2026-11-06",
+  "issue_id": "TW-OPEN-0005",
+  "question": "Does Zhou Xiang 1569 public vol6 PDF page14 actually print day1 九五七二 as normalized by 13MY/13NA, or 九五二七 in the source-original photo?",
+  "grade": "DIRECT_ARCHIVED_ORIGINAL_PDF_SOURCE_BYTES_REPLAY_AND_NATIVE_PIXEL_MANUAL_GLYPH_CORRECTION_NO_OCR",
+  "source": {
+    "work": "周相《大明大統曆法》卷六",
+    "public_pdf": "https://www.kotenmon.com/cal/arabe/vol6.pdf",
+    "source_archive_run_id": 41144025711,
+    "source_archive_artifact_id": 13019278183,
+    "source_archive_zip_sha256": "1d8f10da7c27411bf38ad635494a1b9f4e700fb76cb37b2a7541c075a0ca9835",
+    "pdf_sha256": "4c006b7ce131902fe33012d42f62cd2bbc2140affa3d5886e0da02966352cb7c",
+    "pdf_bytes": 4936040,
+    "pdf_pages": 45,
+    "rendered_pdf_page_one_based": 14,
+    "render_contract": "PyMuPDF Page(index=13).get_pixmap(Matrix(3,3),colorspace=RGB,alpha=False); source PDF bytes SHA verified. Native PDF raster is the authority; 3x render and ROI retain displayed glyph positions; no OCR.",
+    "render_size": [
+      2526,
+      1786
+    ],
+    "render_rgb_sha256": "1470ce72be784002ddb023f207c6525cdbe759cb26f896892de584120717a372",
+    "render_source_is_original_digitized_photographic_print": true,
+    "date_controls": {
+      "source_printed_title": "太陽冬至前後立成卷第二",
+      "original_calendar_epoch": "REQUIRES_SEPARATE_BINDING",
+      "exact_physical_impression_year": "UNRESOLVED",
+      "web_pdf_facsimile_release": "2019-REPORTED_IN_PRIOR_13MI",
+      "source_work_attribution": "Zhou Xiang 1569-reprint route previously catalogued, not independently dated from this page alone"
+    }
+  },
+  "original_native_roi_attestations": {
+    "day0_short": {
+      "bbox_ltrb": [
+        865,
+        385,
+        975,
+        650
+      ],
+      "rgb_sha256": "e953770f03d679277abb395697e7d83fa288b09cf5ba698f52770d86920dad9a",
+      "day_heading": "初日",
+      "observed_literal": "四分九三八六",
+      "normalized_source_local": "4.9386"
+    },
+    "day1_short": {
+      "bbox_ltrb": [
+        775,
+        385,
+        865,
+        650
+      ],
+      "rgb_sha256": "1bc206a3489a77a09e8887434a41747d47e2ee4c60de726f45e971f54386b5b4",
+      "day_heading": "一日",
+      "observed_literal": "九五二七",
+      "prefix_carry": "四分",
+      "normalized_source_local": "4.9527",
+      "glyph_note": "The last two visible numeral glyphs are 二 followed by 七, not 七 followed by 二; compare same-page zero, one, two and neighboring characters without arithmetic normalizing the source literal."
+    },
+    "day2_short": {
+      "bbox_ltrb": [
+        690,
+        385,
+        775,
+        650
+      ],
+      "rgb_sha256": "63acd5019eab5b511e536440dd99e0c08cef5b2808ef3440c44fdd86cdf5b75b",
+      "day_heading": "二日",
+      "observed_literal": "九七五八",
+      "prefix_carry": "四分",
+      "normalized_source_local": "4.9758"
+    },
+    "broad_three_day_control": {
+      "bbox_ltrb": [
+        675,
+        265,
+        975,
+        1310
+      ],
+      "rgb_sha256": "34493e7de282a79f7f5c98e533915294fac853f859690aac42699f5711087ea0",
+      "scope": "Three date headings, two adjacent numerical field strips and same-leaf context, not three independent material witnesses"
+    }
+  },
+  "independent_same_topic_original_comparator": {
+    "holding": "SNU Kyujanggak GK00893_00/001a",
+    "prior_evidence": "docs/research/TIANWEN-13NA-G893-001A-D0-D2-ORIGINAL-SHORT-LANE-R1.json",
+    "source_original_jpeg_sha256": "8b07513ca8aad42ae167a93f22c39f14850c8cd1c345db9ce98c1e0e769226a5",
+    "source_original_rgb_sha256": "653e1d9d91c754695ac43f96ca86afef44fd8c4b39c5cd1c9e26b475a58d2636",
+    "d0": "4.9386",
+    "d1": "4.9572",
+    "d2": "4.9758",
+    "d1_original_literal": "四分九五七二",
+    "copy_relationship": "NOT_PROVED"
+  },
+  "prior_research_correction": {
+    "prior_13my": "docs/research/TIANWEN-13MY-ZHOU1569-D0-D18-BOUNDED-SHORT-LANE-R1.json",
+    "prior_13na": "docs/research/TIANWEN-13NA-G893-001A-D0-D2-ORIGINAL-SHORT-LANE-R1.json",
+    "prior_13my_reported_zhou_d1": "4.9572",
+    "prior_13my_reported_all_adjacent_steps_equal": true,
+    "prior_13na_three_printed_number_values_agree": true,
+    "effective_zhou_p14_original_d1": "4.9527",
+    "effective_13my_status": "FORWARD_ONLY_SOURCE_GLYPH_CORRECTION_D1_ONLY",
+    "effective_13na_status": "G893_001A_SOURCE_LITERAL_REMAINS_VALID; ZHOU_THREE_PRINTED_NUMBER_VALUES_AGREE_CONCLUSION_RETRACTED_FOR_D1_ONLY",
+    "previous_files_preserved": true,
+    "old_reading_must_not_be_silently_edited": true
+  },
+  "exact_integer_replay": {
+    "scale": 10000,
+    "zhou_original_S4": [
+      49386,
+      49527,
+      49758
+    ],
+    "zhou_adjacent_increments_S4": [
+      141,
+      231
+    ],
+    "expected_four_place_step_S4": 186,
+    "g893_original_S4": [
+      49386,
+      49572,
+      49758
+    ],
+    "g893_adjacent_increments_S4": [
+      186,
+      186
+    ],
+    "zhou_observed_d1_minus_g893_d1_S4": -45,
+    "zhou_printed_d2_minus_d0_S4": 372,
+    "arithmetic_supports_comparator_d1_but_does_not_rewrite_zhou_glyph": true
+  },
+  "adjudication": {
+    "positive": "The 13MY source-local D1 decimal transcription should be 4.9527 for the photographed Zhou PDF p14 as currently directly legible, not 4.9572. The previously stated 13MY 19/19 constant short-step replay is not literal-source-exact on its own D1.",
+    "conditional": "The surrounding Zhou displayed values plus the independent G893 001a day1 printed 4.9572 support a likely numeral-order error in the Zhou displayed table, but its historical origin, compositor, manuscript ancestry and original impression cannot be determined.",
+    "limits": "Source-local glyph correction is not permission to normalize the original printed text in place, prove direct copying, equate historical field radix/epoch, or adjudicate any of six legacy historical G893 cross-edition numeric targets.",
+    "physical_originals_newly_acquired": 0,
+    "source_registry_delta": 0,
+    "genealogy_nodes_added": 0,
+    "genealogy_edges_added": 0,
+    "six_historic_G893_finals": "0/6",
+    "matrix_rows_changed": 0,
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0,
+    "product": "CLOSED",
+    "risk_issues_closed": 0
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "The observed D1 opposition is edition/source scoped; copying direction and origin of transposed glyphs are not proved."
+    ],
+    "unresolved_lineage_questions": [
+      "Source edition and copy identity for photographed Zhou text",
+      "Physical earlier witness D1 reading to determine whether Zhou is compositorial, received, or exemplar-line variation",
+      "G893 original same-field 少／微 precision/carry remains distinct and unbound"
+    ]
+  },
+  "next": "Prioritize original G893 same-field 少／微 unit/carry or a physical fifth/sixth 日差 digit. Only pursue Zhou D1 error genealogy if an independently physically bound early impression or adjacent worked rule resolves it; avoid duplicate four-digit replays."
+}
