@@ -22,6 +22,6 @@ class Test13EF(unittest.TestCase):
   z["next_action"]=next(h for h in z["history"] if h.get("revision_id")=="TW-OPEN-0005-13EF-P73-ORIGINAL-TECHNICAL-HEADINGS-20261023")["previous_next_action"]
   with self.assertRaises(AssertionError):self.go(l=l)
  def test_missing_evidence_links_rejected(self):
-  l=copy.deepcopy(self.l);l["issues"][4]["history"][-1]["evidence_refs"]=[]
+  l=copy.deepcopy(self.l);[h for h in l["issues"][4]["history"] if h.get("event") in ("ISSUE_REVISION","SOURCE_PAGE_REVIEW_REVISION") and "next_action" in h.get("changed_fields",[])][-1]["evidence_refs"]=[]
   with self.assertRaises(AssertionError):self.go(l=l)
 if __name__=="__main__":unittest.main()
