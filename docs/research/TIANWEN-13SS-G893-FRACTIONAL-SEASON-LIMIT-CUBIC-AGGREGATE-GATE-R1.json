@@ -1,0 +1,165 @@
+{
+  "schema": "TIANWEN-13SS-G893-FRACTIONAL-SEASON-LIMIT-CUBIC-AGGREGATE-GATE-R1",
+  "date": "2026-11-06",
+  "issue_id": "TW-OPEN-0005",
+  "classification": "CROSS_SOURCE_HYPOTHETICAL_FRACTIONAL_LIMIT_CUBIC_EXCLUSION_EXACT_RATIONAL_REPLAY_NO_NEW_SOURCE_OR_HISTORIC_OPERATION",
+  "question": "Could combining the separately original-photographed 《元史》 seasonal fractional-day limits with a separately original-photographed 《交食推步法》 cumulative cubic and an integer 89/94 daily count mechanically generate G893's printed six-place seasonal prose, or is the later four-place MingShi resemblance non-discriminating for this third source-derived mathematical family?",
+  "source_bindings": [
+    {
+      "path": "docs/research/TIANWEN-13QK-KYOTO-1672-YUANSHI54-DIRECT-SHAO-POSITIONAL-UNIT-COLLATION-R1.json",
+      "git_blob_sha": "d16d19aebdbe364b0804576bea4e23d8086e340a",
+      "source": "Kyoto University RB00028639 1672-catalogued Japanese Yuan-history received print image p78 (viewer label)",
+      "page_jpeg_sha256": "9b4b2b125cb6b05ef0c1fcbdc2a12ed464276a947dba17ff0c56459e9a4af923",
+      "scope": "Its directly printed fractionally described seasonal limits 88.909225 and 93.712025, where 少 is positional quarter in this particular example"
+    },
+    {
+      "path": "docs/research/TIANWEN-13RC-SNU-GK00067-ORIGINAL-YINGSUO-CUMULATIVE-FORMULA-R1.json",
+      "git_blob_sha": "3e67e4cc0896ff10da0ee9a20d2b06a95e440c65",
+      "source": "SNU Kyujanggak GK00067_00 交食推步法 original 067b/068a images",
+      "page_067b_jpeg_sha256": "f59150c66524d11bad515bf592174e7738bef9c665626ff5d0d4612d05ae4508",
+      "scope": "Source formula branches n*(5133200−n*(24600+31n)) and n*(4870600−n*(22100+27n)), normalized by 10^8 into degree-valued C. Its source d79 cross-check is ORIGINAL but no instruction to evaluate at G893 prose season limits is printed."
+    },
+    {
+      "path": "docs/research/TIANWEN-13SK-G893-ORIGINAL-SOLAR-POST-TABLE-TOTALS-R1.json",
+      "git_blob_sha": "4260d3d688b256cab600104f2b8dcfa47e99e272",
+      "scope": "Source-original G893 four six-place prose values and initial-day differences"
+    },
+    {
+      "path": "docs/research/TIANWEN-13SQ-MINGSHI-FOUR-PLACE-SOLAR-AGGREGATE-NONIDENTIFIABILITY-R1.json",
+      "git_blob_sha": "1d0380dc279f74ed41dc8480071ed41e822ae5a0",
+      "scope": "Previously source-bound BSB four-place accumulated values and G893 final J for hypothetical preceding-day matching"
+    },
+    {
+      "path": "docs/research/TIANWEN-13SR-G893-FIFTH-DECIMAL-DISCRIMINATION-THRESHOLD-R1.json",
+      "git_blob_sha": "740e31411428d806b68416f2c5a0206c352cba47",
+      "scope": "The previous five-digit sufficiency statement explicitly applies ONLY to TWO six-place G893 families, not all conceivable cross-work precision generators"
+    }
+  ],
+  "explicit_assumptions": [
+    "Treat independently printed seasonal limits 88.909225/93.712025 from one later original source as hypothetical x inputs to the independent SNU source-original cubic: NO printed direct instruction establishes this cross-work operation.",
+    "Use full ordinary-day integer baselines 89 and 94, adding/subtracting the cubic degree correction respectively; independently substitute day-zero correction for skip-initial and last original printed J for BSB preceding-day controls.",
+    "Normalize cubic numerical coefficients exactly as in 13RC. Evaluate in rational arithmetic with x integer-scaled by 10^6 and denominator 10^26; never use floating point to decide any digit.",
+    "Compare positive truncation and half-up ONLY at the final output; historical rounding placement, 少/微 radix and source-day indexing remain unproven.",
+    "The Kyoto 1672 received Yuan-history print, earlier SNU Jiaoshi source image, G893 original and BSB MingShi source are separate books. Similarity in a four-decimal result cannot imply direct copying or same original formula."
+  ],
+  "proof_arithmetic": "For x=n/10^6 and A,B,L integer, C(x)=[A*n*10^12 − B*n^2*10^6 − L*n^3]/10^26 degrees. Predicted microdegree full=[(89 or 94) ± C(x)]*10^6. All positive truncation and round-half-up displays are integer division.",
+  "exact_result_rows": [
+    {
+      "season": "winter",
+      "source_fractional_day_value_exact": "88.909225",
+      "coefficients_C_degree": {
+        "A": 5133200,
+        "B": 24600,
+        "L": 31,
+        "formula": "C(x)=x*(A-B*x-L*x^2)/100000000; A/B/L are source-normalized finite polynomial coefficients, not proof of G893 rounding/units"
+      },
+      "exact_C_degree_first_12_places": "2.401422791294",
+      "hypothetical_integer_day_base": 89,
+      "signed_C": 1,
+      "model_full_degree_first_12_places": "91.401422791294",
+      "model_full_to_4dp": {
+        "positive_truncate": "91.4014",
+        "round_half_up": "91.4014"
+      },
+      "model_full_to_5dp": {
+        "positive_truncate": "91.40142",
+        "round_half_up": "91.40142"
+      },
+      "model_full_to_6dp": {
+        "positive_truncate": "91.401422",
+        "round_half_up": "91.401423"
+      },
+      "model_before_last_day_4dp": {
+        "positive_truncate": "90.4009",
+        "round_half_up": "90.4009"
+      },
+      "model_skip_initial_6dp": {
+        "positive_truncate": "91.350337",
+        "round_half_up": "91.350338"
+      },
+      "direct_G893_prose_full_6dp": "91.401427",
+      "direct_G893_prose_skip_6dp": "91.350342",
+      "original_G893_printed_J_sum_6dp": "91.401400",
+      "bsb_later_original_4dp": {
+        "before_last_day": "90.4009",
+        "full": "91.4014"
+      },
+      "full_model_matches_BSB_HALFUP": true,
+      "full_model_any_sixplace_output_matches_prose": false,
+      "prose_minus_model_microdegrees_decimal6": "4.208705",
+      "full_model_vs_prose_5dp_overlap": true,
+      "conditional_skip_same_residual": true
+    },
+    {
+      "season": "summer",
+      "source_fractional_day_value_exact": "93.712025",
+      "coefficients_C_degree": {
+        "A": 4870600,
+        "B": 22100,
+        "L": 27,
+        "formula": "C(x)=x*(A-B*x-L*x^2)/100000000; A/B/L are source-normalized finite polynomial coefficients, not proof of G893 rounding/units"
+      },
+      "exact_C_degree_first_12_places": "2.401325442847",
+      "hypothetical_integer_day_base": 94,
+      "signed_C": -1,
+      "model_full_degree_first_12_places": "91.598674557152",
+      "model_full_to_4dp": {
+        "positive_truncate": "91.5986",
+        "round_half_up": "91.5987"
+      },
+      "model_full_to_5dp": {
+        "positive_truncate": "91.59867",
+        "round_half_up": "91.59867"
+      },
+      "model_full_to_6dp": {
+        "positive_truncate": "91.598674",
+        "round_half_up": "91.598675"
+      },
+      "model_before_last_day_4dp": {
+        "positive_truncate": "90.5989",
+        "round_half_up": "90.5990"
+      },
+      "model_skip_initial_6dp": {
+        "positive_truncate": "91.647158",
+        "round_half_up": "91.647159"
+      },
+      "direct_G893_prose_full_6dp": "91.598717",
+      "direct_G893_prose_skip_6dp": "91.647201",
+      "original_G893_printed_J_sum_6dp": "91.598697",
+      "bsb_later_original_4dp": {
+        "before_last_day": "90.5990",
+        "full": "91.5987"
+      },
+      "full_model_matches_BSB_HALFUP": true,
+      "full_model_any_sixplace_output_matches_prose": false,
+      "prose_minus_model_microdegrees_decimal6": "42.442847",
+      "full_model_vs_prose_5dp_overlap": false,
+      "conditional_skip_same_residual": true
+    }
+  ],
+  "adjudication": {
+    "positive": "A THIRD cross-source conditional numerical family matches all four BSB four-decimal readings under HALF_UP after removing the separately original-bound terminal J where applicable, yet neither six-place G893 prose full result is any allowed six-decimal display of this constructed model.",
+    "winter_prose_minus_model_microdegrees": "4.208705...",
+    "summer_prose_minus_model_microdegrees": "42.442847...",
+    "scope_correction": "13SR five decimal places discriminate its TWO stated candidate G893 six-place families for four windows. After introducing this THIRD hypothetical cubic-at-fractional-limit family, the winter full 5dp possible output sets overlap with the G893 prose family (91.40142), while summer 5dp sets do not. Thus 5dp is NOT a universal sufficient threshold for every conceivable model; six-place source evidence or an original carry/generation instruction still matters.",
+    "not_proven": [
+      "THIS_CROSSBOOK_FRACTIONAL_LIMIT_CUBIC_WAS_HISTORICALLY_PERFORMED",
+      "ANCIENT_OPERATOR_ROUNDING_PLACEMENT",
+      "G893_NATIVE_SHAO_OR_WEI_RADIX",
+      "REAL_WINTER_OR_SUMMER_SOURCE_OF_G893_PROSE",
+      "MINGSHI_SOURCE_EPOCH_SAME_AS_G893",
+      "PHYSICAL_COPY_OR_EDITION_TRANSMISSION_EDGE"
+    ],
+    "new_original_images": 0,
+    "independent_witnesses_added": 0,
+    "registry_delta": 0,
+    "matrix_delta": 0,
+    "genealogy_graph_delta": 0,
+    "chart_algorithm_reopen_count": 0,
+    "deterministic_product": "CLOSED",
+    "historic_G893_six_controls": "0/6",
+    "TW_OPEN_0005": "P0_OPEN"
+  },
+  "transmission_impact": "NONE_NO_NEW_ORIGINAL_OR_LINEAGE_EVIDENCE",
+  "next": "Prioritize source-original same-field, same-epoch six-place solar accumulated totals or an authentic high-precision aggregate-generation/carry instruction. Do not treat a fifth-decimal match as universally sufficient and do not reopen G893 historic finals based on this cross-work hypothetical model."
+}
