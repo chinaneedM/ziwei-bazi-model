@@ -1,0 +1,130 @@
+{
+  "schema": "TIANWEN-13SV-KYOTO-1672-YUANSHI54-SOLAR-YOUSHU-DIRECT-ORIGINAL-R1",
+  "date": "2026-11-06",
+  "issue_id": "TW-OPEN-0005",
+  "classification": "DIRECT_1672_RECEIVED_YUANSHI_SAME_SOLAR_FIELD_INTERPOLATION_OPERATOR_ORIGINAL_PHOTO_NOT_G893_NATIVE_PRECISION",
+  "question": "Does the already acquired original Kyoto University 1672 received YuanShi54 print physically contain the second solar 盈縮 interpolation method, and what does that verify independently of later Jiaoshi wording and of G893 source-native six-place totals?",
+  "source": {
+    "provider": "Kyoto University Rare Materials Digital Archive",
+    "catalog_item": "RB00028639",
+    "catalog_url": "https://rmda.kulib.kyoto-u.ac.jp/item/rb00028639",
+    "printed_work": "改正授時暦經 卷上 / 元史卷五十四 曆志第六, volume 利 (3rd book)",
+    "edition_date_scope": "1672 寛文12 Japanese printed recension CATALOG_DATE only; exact impression date, underlying historical exemplar, 14th-century YuanShi original and relation to G893 unproven",
+    "prior_acquisition": "docs/research/TIANWEN-13QK-KYOTO-1672-YUANSHI54-DIRECT-SHAO-POSITIONAL-UNIT-COLLATION-R1.json",
+    "github_actions_run": 41658421796,
+    "artifact_id": 13241091646,
+    "artifact_name": "tianwen-13qk-kyoto-rb00028639-vol3",
+    "artifact_reused": true,
+    "new_original_image_fetches": 0,
+    "new_physical_copy_votes": 0
+  },
+  "original_pages": [
+    {
+      "viewer_label": "77",
+      "canvas_zero_index": 76,
+      "jpeg_filename": "originals/canvas-0076.jpg",
+      "jpeg_sha256": "cb1c8316d605b80f3ba5f59e4fb24eeb2c66e643ba65d32b13e434db53304aca",
+      "rgb_sha256": "9c5276b8c3795aa6c900a70b5a4f1d8a08f71440e24052c63deb70a7ddd45bd1",
+      "role": "Same original photographed volume, 步日躔第三 section-heading context; not an additional independent source"
+    },
+    {
+      "viewer_label": "78",
+      "canvas_zero_index": 77,
+      "source_url": "https://rmda.kulib.kyoto-u.ac.jp/iiif/3/RB00028639%2F03%2FRB00028639_00078_0.ptif/full/1600,/0/default.jpg",
+      "jpeg_filename": "originals/canvas-0077.jpg",
+      "jpeg_sha256": "9b4b2b125cb6b05ef0c1fcbdc2a12ed464276a947dba17ff0c56459e9a4af923",
+      "rgb_sha256": "36a9f870fe790102c1513489c98856b52bec236bbeffbc25c4928f519476fb7b",
+      "source_image_pixels": [
+        1600,
+        1159
+      ],
+      "native_rgb_rois": [
+        {
+          "name": "second_operator_left_columns",
+          "bbox_xyxy": [
+            25,
+            160,
+            370,
+            1020
+          ],
+          "sha256": "e44e3417e13257a5921899a0efede4cde3cb394746e7af691851438292671636"
+        },
+        {
+          "name": "first_operator_cubic_context",
+          "bbox_xyxy": [
+            250,
+            145,
+            710,
+            1030
+          ],
+          "sha256": "ca1f8d934aa45409a132a01f39d2231b2aee11ee8dcae0735f6928a1049b1165"
+        }
+      ],
+      "review_method": "Manual visual reading of prearchived provider-native 1600px JPEG, no OCR; Pillow RGB exact crops without resampling",
+      "role": "Same photograph contains 求盈縮差 and the 2nd 又術 plus preceding cubic branch, no new physical witness"
+    }
+  ],
+  "direct_original_glyphs": {
+    "section": "步日躔第三（preceding source image p77）／求盈縮差（p78）",
+    "second_method": "又術，置入限分，以其日盈縮分乘之，萬約為分，以加其下盈縮積，萬約為度，不滿為分秒，亦得所求盈縮差。",
+    "first_method_context": "The same p78 prints initial 盈縮 polynomial with winter 立差三十一 / 平差二萬四千六百 / 定差五百一十三萬三千二百, summer 立差二十七 / 平差二萬二千一百 / 定差四百八十七萬六百, and 滿億為度，不滿退除為分秒. Scope: source-local two named calculation methods for solar 盈縮差, not a directly printed G893 six-place table generator.",
+    "verbatim_scope_note": "Punctuation is modern editorial punctuation; vertically printed source glyph content is directly visible. Do not mistake this later physical YuanShi printed recension for an original 1280s draft or independent 15th-century G893 source.",
+    "same_field_operator_attested_in_this_copy": true,
+    "original_complete_daily_solar_M_C_table_attested_in_this_copy": false,
+    "g893_same_copy_precision_or_carry_attested": false
+  },
+  "replay_and_prior_evidence": {
+    "earlier_13su_model": "C(n) + [source-conditional fractional-day f]*M(n), where M(n)=C(n+1)-C(n) under 13RC/13SU source-reconstructed daily M; this print directly supports the alternative operator's WORDING and solar field, not the retained precision of its absent daily M/C table or application to 15th-century G893.",
+    "source_original_kyoto_fraction_limits_prior_13qk": {
+      "winter": "88.909225",
+      "summer": "93.712025",
+      "sha_document": "docs/research/TIANWEN-13QK-KYOTO-1672-YUANSHI54-DIRECT-SHAO-POSITIONAL-UNIT-COLLATION-R1.json"
+    },
+    "same_equations_conditional_replay_from_13su": {
+      "winter": "91.40139568420425",
+      "summer": "91.59873541303725",
+      "G893_winter_prose": "91.401427",
+      "G893_summer_prose": "91.598717",
+      "winter_prose_minus_model_microdegrees": "31.31579575",
+      "summer_prose_minus_model_microdegrees": "-18.41303725"
+    },
+    "operational_proof_boundary": "The direct original printed YuanShi54 same solar-field 又術 corrects the source-scope characterization that interpolation is attested only in 交食推步法; however absent its own complete daily data and original G893 rule/carry, using the reconstructed M(n) to adjudicate G893 final six-place totals remains CONDITIONAL. No six-place 0/6 closure follows.",
+    "no_new_numeric_winner": true
+  },
+  "adjudication": {
+    "positive": "SOURCE_ORIGINAL_1672_RECEIVED_YUANSHI54_SOLAR_ALTERNATIVE_INTERPOLATION_OPERATOR_DIRECT_GLYPHS",
+    "negative": [
+      "NOT_ORIGINAL_14TH_CENTURY_YUANSHI_AUTOGRAPH",
+      "NOT_EVIDENCE_OF_DIRECT_TEXTUAL_COPY_TO_G893",
+      "NOT_G893_15TH_CENTURY_SOURCE_NATIVE_SOLAR_SHAO_WEI_CARRY",
+      "NOT_AN_AUTHENTICATED_DAILY_TABLE_RETENTION_OR_SIX_PLACE_QUANTIZATION_RULE",
+      "NOT_A_NEW_INDEPENDENT_PHYSICAL_COPY"
+    ],
+    "historical_G893_six_finals": "0/6",
+    "issue_status": "P0_OPEN",
+    "matrix": "222/222",
+    "source_registry_root": 647,
+    "source_registry_extensions": 138,
+    "source_registry_total": 785,
+    "genealogy_nodes": 254,
+    "genealogy_edges": 239,
+    "source_registry_delta": 0,
+    "matrix_delta": 0,
+    "genealogy_delta": 0,
+    "chart_product": "CLOSED",
+    "algorithm_reopens": 0
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Same-field wording in later printed YuanShi54 does not establish direct 1672-to-15th-century copying (chronologically impossible as written), nor identity of the unobserved underlying ancient 14th-century exemplar and the G893 solar six-place calculation."
+    ],
+    "remaining_lineage_questions": [
+      "Identify the historical YuanShi solar 立成 daily precision and whether any earlier manuscript/printing bridges the 15th-century G893 physical copy",
+      "Recover G893 original specific 少/微 carry/aggregate-generation rather than borrowing a later received YuanShi operator."
+    ]
+  },
+  "next": "Seek first-party, exact-copy G893 source-original solar aggregate/carry/precision or independent early same-field six-place witness. Prior 13SU arithmetic remains a conditional counterexample at six places; do not count this source as a new physical witness or historical final."
+}
