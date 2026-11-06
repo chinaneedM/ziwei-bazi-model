@@ -1,0 +1,339 @@
+{
+  "schema": "TIANWEN-13SG-G893-SOLAR-INTERIOR-DAILY-DIFFERENCE-PRECISION-R1",
+  "date": "2026-11-06",
+  "issue_id": "TW-OPEN-0005",
+  "question": "Do selected non-endpoint G893 日差 cells print more than four places, and can their direct readings distinguish four-place propagation from end-only rendering of the 13SB/13SD hypothetical higher-precision step?",
+  "provider_catalog_url": "https://kyudb.snu.ac.kr/book/view.do?book_cd=GK00893_00",
+  "prior_evidence": {
+    "13RS": {
+      "path": "docs/research/TIANWEN-13RS-G893-ORIGINAL-TWO-SEASON-SOLAR-DEGREE-PRECISION-R1.json",
+      "git_blob_sha": "3cdb9811a9d86c09addea9f03aaf9a582acdf3a1"
+    },
+    "13SD": {
+      "path": "docs/research/TIANWEN-13SD-G893-PER-DAY-M-QUANTIZATION-STAGE-FIREWALL-R1.json",
+      "git_blob_sha": "506ef47608be318405b6598d750c7a6ac8d6d03d"
+    },
+    "13SF": {
+      "path": "docs/research/TIANWEN-13SF-G893-SOLAR-ENDPOINT-SHORT-LANE-AND-GORYEOSA-PRINT-VARIANTS-R1.json",
+      "git_blob_sha": "297128d11d79488da45c5290e3ba7a004d81e20d"
+    }
+  },
+  "source_page_review_revision": {
+    "revision_id": "TW-OPEN-0005-13SG-G893-INTERIOR-DAILY-DIFFERENCE-20261106",
+    "physical_holding": "SNU Kyujanggak 奎貴893 / GK00893_00",
+    "original_folio_ref": "004a, 004b, 006a, 006b, 007a, 007b, 012a, 012b, 015a, 015b",
+    "original_image_sha256": "b8bc0e086c996129542d23b46271e399f55c5a4eafd200d86f8b1f6f4803a98b",
+    "original_image_source_url": "https://kyudb.snu.ac.kr/ImageServlet.do?imgFileNm=GK00893_00IH_0001_004a.jpg&path=%2Fdata01%2Fstream%2FSIC%2FIMG%2FGK00893_00%2FGK00893_00_0001%2FGK00893_00IH_0001_004a.jpg",
+    "reviewed_by": "Tianwen manual native-resolution review without OCR",
+    "review_date": "2026-11-06",
+    "review_kind": "DIRECT_ORIGINAL_BOUNDED_INTERIOR_NUMERIC_FIELD_COLLATION",
+    "human_direct_glyph_or_linewise_review": true
+  },
+  "review_method": "Fetched ten public Kyujanggak JPEGs for the same catalogued copy. Identified day headings and the right subcolumn of each 日差 / 盈縮加分 pair on full-page context views, then read each short numeral in native RGB without OCR. Faint show-through and neighboring subcolumns were separated by layout. Each recorded S4 cell directly prints a whole-fen digit, 分 and exactly four numeral places, including explicit circles for zeros. The recorded bounds bind both day headers and the numeric column geometry. Scope is the sampled cells of this one copy.",
+  "original_pages": {
+    "004a": {
+      "season": "winter",
+      "first_day": 31,
+      "image_url": "https://kyudb.snu.ac.kr/ImageServlet.do?imgFileNm=GK00893_00IH_0001_004a.jpg&path=%2Fdata01%2Fstream%2FSIC%2FIMG%2FGK00893_00%2FGK00893_00_0001%2FGK00893_00IH_0001_004a.jpg",
+      "jpeg_sha256": "b8bc0e086c996129542d23b46271e399f55c5a4eafd200d86f8b1f6f4803a98b",
+      "image_size": [
+        1150,
+        2000
+      ],
+      "rgb_table_bounds_ltrb": [
+        0,
+        265,
+        1150,
+        1785
+      ],
+      "rgb_table_sha256": "2e7621c8ca73a20bbf99e4f96d4ef583c207e26835751bb8474b116279d7b0d9",
+      "S4_right_to_left": [
+        55152,
+        55338,
+        55524,
+        55710,
+        55896
+      ]
+    },
+    "004b": {
+      "season": "winter",
+      "first_day": 36,
+      "image_url": "https://kyudb.snu.ac.kr/ImageServlet.do?imgFileNm=GK00893_00IH_0001_004b.jpg&path=%2Fdata01%2Fstream%2FSIC%2FIMG%2FGK00893_00%2FGK00893_00_0001%2FGK00893_00IH_0001_004b.jpg",
+      "jpeg_sha256": "8e4f04dd8c8d7943ed2cef19d8b33e7e4f91f47f421bd770ae1b75230ca0ad7b",
+      "image_size": [
+        1150,
+        2000
+      ],
+      "rgb_table_bounds_ltrb": [
+        0,
+        265,
+        1150,
+        1785
+      ],
+      "rgb_table_sha256": "559c8d61ed7a49e815e948b4c356c5e39915f3670f1849c05894676de60b756d",
+      "S4_right_to_left": [
+        56082,
+        56268,
+        56454,
+        56640,
+        56826,
+        57012
+      ]
+    },
+    "006a": {
+      "season": "winter",
+      "first_day": 53,
+      "image_url": "https://kyudb.snu.ac.kr/ImageServlet.do?imgFileNm=GK00893_00IH_0001_006a.jpg&path=%2Fdata01%2Fstream%2FSIC%2FIMG%2FGK00893_00%2FGK00893_00_0001%2FGK00893_00IH_0001_006a.jpg",
+      "jpeg_sha256": "f67d9fbea6597a0650825a925fd06f16c84ef9592c3134950fce74aedc8b6f27",
+      "image_size": [
+        1150,
+        2000
+      ],
+      "rgb_table_bounds_ltrb": [
+        0,
+        265,
+        1150,
+        1785
+      ],
+      "rgb_table_sha256": "dcd385911af1cc84b5306d076f2af4bae00d88b0301c7aa952b1aac6de09779a",
+      "S4_right_to_left": [
+        59244,
+        59430,
+        59616,
+        59802,
+        59988
+      ]
+    },
+    "006b": {
+      "season": "winter",
+      "first_day": 58,
+      "image_url": "https://kyudb.snu.ac.kr/ImageServlet.do?imgFileNm=GK00893_00IH_0001_006b.jpg&path=%2Fdata01%2Fstream%2FSIC%2FIMG%2FGK00893_00%2FGK00893_00_0001%2FGK00893_00IH_0001_006b.jpg",
+      "jpeg_sha256": "e46768ba618bd124a25771667fa88ddb5e98b66503d74acc815f39d2f32ad5af",
+      "image_size": [
+        1150,
+        2000
+      ],
+      "rgb_table_bounds_ltrb": [
+        0,
+        265,
+        1150,
+        1785
+      ],
+      "rgb_table_sha256": "bc78572cfa28b7b1ac141862ddff65d93b80c217c3dc0f95862e8da8f7123a7a",
+      "S4_right_to_left": [
+        60174,
+        60360,
+        60546,
+        60732,
+        60918,
+        61104
+      ]
+    },
+    "007a": {
+      "season": "winter",
+      "first_day": 64,
+      "image_url": "https://kyudb.snu.ac.kr/ImageServlet.do?imgFileNm=GK00893_00IH_0001_007a.jpg&path=%2Fdata01%2Fstream%2FSIC%2FIMG%2FGK00893_00%2FGK00893_00_0001%2FGK00893_00IH_0001_007a.jpg",
+      "jpeg_sha256": "ff898e4ec009349e80dc81069b6b3ad24a183e7828c6b8ed5c3d7c671be3b37d",
+      "image_size": [
+        1150,
+        2000
+      ],
+      "rgb_table_bounds_ltrb": [
+        0,
+        265,
+        1150,
+        1785
+      ],
+      "rgb_table_sha256": "5604a3bbb6d19bfda4b39e33ba4bf68c7477df0058d367eabbab7e75bdf269fb",
+      "S4_right_to_left": [
+        61290,
+        61476,
+        61662,
+        61848,
+        62034
+      ]
+    },
+    "007b": {
+      "season": "winter",
+      "first_day": 69,
+      "image_url": "https://kyudb.snu.ac.kr/ImageServlet.do?imgFileNm=GK00893_00IH_0001_007b.jpg&path=%2Fdata01%2Fstream%2FSIC%2FIMG%2FGK00893_00%2FGK00893_00_0001%2FGK00893_00IH_0001_007b.jpg",
+      "jpeg_sha256": "dba1bb18ec12cc2635ba1baf98efa91cb6406dc6fcc64ad7bb7c3690395ff15c",
+      "image_size": [
+        1150,
+        2000
+      ],
+      "rgb_table_bounds_ltrb": [
+        0,
+        265,
+        1150,
+        1785
+      ],
+      "rgb_table_sha256": "03e918abbff1c25f63552640687c18d4fa70f17931a719ce9d21288c33d2ae6d",
+      "S4_right_to_left": [
+        62220,
+        62406,
+        62592,
+        62778,
+        62964,
+        63150
+      ]
+    },
+    "012a": {
+      "season": "summer",
+      "first_day": 27,
+      "image_url": "https://kyudb.snu.ac.kr/ImageServlet.do?imgFileNm=GK00893_00IH_0001_012a.jpg&path=%2Fdata01%2Fstream%2FSIC%2FIMG%2FGK00893_00%2FGK00893_00_0001%2FGK00893_00IH_0001_012a.jpg",
+      "jpeg_sha256": "d64415f2a42f2ac710a560225779ebefd604919f0ce3c5eb7cc28a8be3bf30c1",
+      "image_size": [
+        1150,
+        2000
+      ],
+      "rgb_table_bounds_ltrb": [
+        0,
+        265,
+        1150,
+        1785
+      ],
+      "rgb_table_sha256": "b80cb24b2597da95d23ac3d6057c53fc7b83833258f322d235160d83a831308f",
+      "S4_right_to_left": [
+        48736,
+        48898,
+        49060,
+        49222,
+        49384,
+        49546
+      ]
+    },
+    "012b": {
+      "season": "summer",
+      "first_day": 33,
+      "image_url": "https://kyudb.snu.ac.kr/ImageServlet.do?imgFileNm=GK00893_00IH_0001_012b.jpg&path=%2Fdata01%2Fstream%2FSIC%2FIMG%2FGK00893_00%2FGK00893_00_0001%2FGK00893_00IH_0001_012b.jpg",
+      "jpeg_sha256": "ab68f1bb94edbe1d59514aae49fc6a0e83afb862cdde2d1f39941a869b8d0051",
+      "image_size": [
+        1150,
+        2000
+      ],
+      "rgb_table_bounds_ltrb": [
+        0,
+        265,
+        1150,
+        1785
+      ],
+      "rgb_table_sha256": "f604a9bb2090bc78a1f28bb2fcccad907a35274cec31cb479c3b825752e400c6",
+      "S4_right_to_left": [
+        49708,
+        49870,
+        50032,
+        50194,
+        50356
+      ]
+    },
+    "015a": {
+      "season": "summer",
+      "first_day": 60,
+      "image_url": "https://kyudb.snu.ac.kr/ImageServlet.do?imgFileNm=GK00893_00IH_0001_015a.jpg&path=%2Fdata01%2Fstream%2FSIC%2FIMG%2FGK00893_00%2FGK00893_00_0001%2FGK00893_00IH_0001_015a.jpg",
+      "jpeg_sha256": "0d84e289144ff4693c5c9c3256d637819127cd1c6a8618da0f7d3a42c4d3c165",
+      "image_size": [
+        1150,
+        2000
+      ],
+      "rgb_table_bounds_ltrb": [
+        0,
+        265,
+        1150,
+        1785
+      ],
+      "rgb_table_sha256": "420f58145ff969e39b984bf34b1fb374426ed97891ba4e4a08f534bc9cb8bfb5",
+      "S4_right_to_left": [
+        54082,
+        54244,
+        54406,
+        54568,
+        54730,
+        54892
+      ]
+    },
+    "015b": {
+      "season": "summer",
+      "first_day": 66,
+      "image_url": "https://kyudb.snu.ac.kr/ImageServlet.do?imgFileNm=GK00893_00IH_0001_015b.jpg&path=%2Fdata01%2Fstream%2FSIC%2FIMG%2FGK00893_00%2FGK00893_00_0001%2FGK00893_00IH_0001_015b.jpg",
+      "jpeg_sha256": "4fc7dfc971583ce111299f06d488bc9273771d8e0e094049a0dc3e3fee52bb3e",
+      "image_size": [
+        1150,
+        2000
+      ],
+      "rgb_table_bounds_ltrb": [
+        0,
+        265,
+        1150,
+        1785
+      ],
+      "rgb_table_sha256": "1538275c4b8941ebe18d0791f0338123596d26ef27646fa55a5f461c186575f6",
+      "S4_right_to_left": [
+        55054,
+        55216,
+        55378,
+        55540,
+        55702
+      ]
+    }
+  },
+  "observed_whole_fen_carries": [
+    {
+      "season": "winter",
+      "from_page": "006a",
+      "from_day": 57,
+      "from_S4": 59988,
+      "to_page": "006b",
+      "to_day": 58,
+      "to_S4": 60174
+    },
+    {
+      "season": "summer",
+      "from_page": "012b",
+      "from_day": 34,
+      "from_S4": 49870,
+      "to_page": "012b",
+      "to_day": 35,
+      "to_S4": 50032
+    }
+  ],
+  "exact_replay": {
+    "units": "S4 is integer units of 0.0001 fen. Microfen is 0.000001 fen.",
+    "season_models": {
+      "winter": {
+        "day_0_S4": 49386,
+        "displayed_step_S4": 186,
+        "hypothetical_step_microfen": 18625,
+        "sample_count": 33
+      },
+      "summer": {
+        "day_0_S4": 44362,
+        "displayed_step_S4": 162,
+        "hypothetical_step_microfen": 16225,
+        "sample_count": 22
+      }
+    },
+    "displayed_model": "S4[n] = S4[0] + n * step_S4; day-zero controls come from the original initial readings used in 13SD.",
+    "end_only_model": "Q4(S4[0] * 100 + n * hypothetical_step_microfen) with positive FLOOR or HALF_UP; the higher-precision step is a hypothesis inherited from 13SB/13SD.",
+    "daily_S_model": "Q4(S4[n] * 100 + hypothetical_step_microfen) at each step. FLOOR and HALF_UP both remove the hypothetical 25-microfen excess each day.",
+    "matches_out_of_55": {
+      "displayed_model": 55,
+      "end_only_FLOOR": 0,
+      "end_only_HALF_UP": 0,
+      "daily_S_FLOOR": 55,
+      "daily_S_HALF_UP": 55
+    }
+  },
+  "adjudication": {
+    "positive": "The two cross-unit sequences attest arithmetic carry at one whole fen in the printed short values. The 55 cells provide direct short-field observations for the model comparison, independent of using 盈縮加分 or 行度 as a proxy, but all belong to one physical copy.",
+    "limit": "The bounded sample does not attest fifth or sixth short-field places, the value or carry threshold of 少 or 微, an ancient quantization rule, or full-volume absence. It rules out only the named end-only models with fixed initial value and step. The daily short-field quantization models remain observationally equivalent here.",
+    "TW_OPEN_0005": "OPEN",
+    "historic_numeric_finals": "0/6",
+    "new_physical_witnesses": 0,
+    "new_source_registry_entries": 0,
+    "transmission_impact": "NONE_SAME_COPY_NUMERIC_FIELD_ONLY",
+    "chart_product": "CLOSED",
+    "algorithm_reopens": 0
+  },
+  "next": "Prioritize an authenticated period same-field instruction giving the 少／微 value or carry, or a physical solar short-field witness with retained fifth/sixth digits. Further sampling of the same four-place layout has lower priority unless there is a distinct higher-precision locator."
+}
