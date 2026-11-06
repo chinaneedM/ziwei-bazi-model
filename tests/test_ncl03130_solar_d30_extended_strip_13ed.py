@@ -20,6 +20,6 @@ class Test13ED(unittest.TestCase):
   l=copy.deepcopy(self.l);z=next(z for z in l["issues"] if z["id"]=="TW-OPEN-0005");z["next_action"]=next(h for h in z["history"] if h.get("revision_id")=="TW-OPEN-0005-13ED-EXTENDED-ORIGINAL-STRIP-20261023")["previous_next_action"]
   with self.assertRaises(AssertionError):self.go(l=l)
  def test_forward_action_reference_required(self):
-  l=copy.deepcopy(self.l);z=next(z for z in l["issues"] if z["id"]=="TW-OPEN-0005");z["history"][-1]["evidence_refs"]=[]
+  l=copy.deepcopy(self.l);z=next(z for z in l["issues"] if z["id"]=="TW-OPEN-0005");[h for h in z["history"] if h.get("event") in ("ISSUE_REVISION","SOURCE_PAGE_REVIEW_REVISION") and "next_action" in h.get("changed_fields",[])][-1]["evidence_refs"]=[]
   with self.assertRaises(AssertionError):self.go(l=l)
 if __name__=="__main__":unittest.main()
