@@ -1,0 +1,356 @@
+{
+  "schema": "TIANWEN-13SK-G893-ORIGINAL-SOLAR-POST-TABLE-TOTALS-R1",
+  "date": "2026-11-06",
+  "issue_id": "TW-OPEN-0005",
+  "question": "Do the four original post-table 行分 totals retain independent precision that determines the G893 daily solar 日差 carry or its fifth/sixth places?",
+  "source": {
+    "holding": "SNU Kyujanggak 奎貴893 / GK00893_00",
+    "catalog_url": "https://kyudb.snu.ac.kr/book/view.do?book_cd=GK00893_00",
+    "registered_source_id": "EXT-KYUJANGGAK-SHOUSHI-LICHENG-G893",
+    "scope": "One previously registered physical copy; exact impression year unresolved.",
+    "image_size_px": [
+      1150,
+      2000
+    ],
+    "review": "Direct manual native RGB collation, no OCR. JPEGs re-acquired and matched prior SHA-256s; ROI hashes calculated on decoded RGB without resampling.",
+    "images": [
+      {
+        "folio": "001a",
+        "url": "https://kyudb.snu.ac.kr/ImageServlet.do?imgFileNm=GK00893_00IH_0001_001a.jpg&path=%2Fdata01%2Fstream%2FSIC%2FIMG%2FGK00893_00%2FGK00893_00_0001%2FGK00893_00IH_0001_001a.jpg",
+        "jpeg_sha256": "8b07513ca8aad42ae167a93f22c39f14850c8cd1c345db9ce98c1e0e769226a5",
+        "bbox_ltrb": [
+          435,
+          271,
+          646,
+          1508
+        ],
+        "rgb_sha256": "beeb90f2e7147282618e578840a74e8a3bfc3bb8ae0fdf10718f0700da8b617d",
+        "reading": "Winter 初日: 日差 四分九三八六, 盈縮加分 五百一十〇分八五六九, 行度 一度〇五一〇八五."
+      },
+      {
+        "folio": "009b",
+        "url": "https://kyudb.snu.ac.kr/ImageServlet.do?imgFileNm=GK00893_00IH_0001_009b.jpg&path=%2Fdata01%2Fstream%2FSIC%2FIMG%2FGK00893_00%2FGK00893_00_0001%2FGK00893_00IH_0001_009b.jpg",
+        "jpeg_sha256": "52f5a065315facc08ddc827e19a25e7459905981ebcee450ceab268e260dcb2b",
+        "bbox_ltrb": [
+          802,
+          267,
+          998,
+          1508
+        ],
+        "rgb_sha256": "763f25f7ff42aba422071c771f218520cabac831bd6a7183ef7a7cb1a48d4c92",
+        "reading": "Summer 初日: 日差 四分四三六二, 盈縮加分 四百八十四分八四七三, 行度 初度九十五分一五一六."
+      },
+      {
+        "folio": "018a",
+        "url": "https://kyudb.snu.ac.kr/ImageServlet.do?imgFileNm=GK00893_00IH_0001_018a.jpg&path=%2Fdata01%2Fstream%2FSIC%2FIMG%2FGK00893_00%2FGK00893_00_0001%2FGK00893_00IH_0001_018a.jpg",
+        "jpeg_sha256": "b9859a2c70a5d77fb945cadc755f4c6ff08d5f8f9090d89a4db533e4b53a4098",
+        "bbox_ltrb": [
+          0,
+          262,
+          824,
+          1830
+        ],
+        "rgb_sha256": "93032d32deb4e57ab7c39a0fda1420915b8c199aa2d3617134d9b5da15de1779",
+        "reading": "Post-table prose after marked 九十三日. Three complete totals; fourth clause continues on 018b."
+      },
+      {
+        "folio": "018b",
+        "url": "https://kyudb.snu.ac.kr/ImageServlet.do?imgFileNm=GK00893_00IH_0001_018b.jpg&path=%2Fdata01%2Fstream%2FSIC%2FIMG%2FGK00893_00%2FGK00893_00_0001%2FGK00893_00IH_0001_018b.jpg",
+        "jpeg_sha256": "4decd1801d832ba5b471b047dd84cca487245038622a589b48552a0fb43ab83a",
+        "bbox_ltrb": [
+          990,
+          274,
+          1110,
+          1515
+        ],
+        "rgb_sha256": "ab27cd495ea1938849c8906d929c9beef240b8826f5737e4041725d36b47f0d5",
+        "reading": "Finishes 九十一度六四七二〇一，此盈末春分, before 大陰限數遲疾度."
+      }
+    ]
+  },
+  "post_table_original_totals": [
+    {
+      "season": "winter",
+      "start": "初日",
+      "end_day": 88,
+      "folio": "018a",
+      "literal_number": "九十一度四〇一四二七",
+      "total_microdegrees": 91401427,
+      "following_label": "此盈初冬至"
+    },
+    {
+      "season": "winter",
+      "start": "休初日行分自一日",
+      "end_day": 88,
+      "folio": "018a",
+      "literal_number": "九十一度三五〇三四二",
+      "total_microdegrees": 91350342,
+      "following_label": "此縮末秋分"
+    },
+    {
+      "season": "summer",
+      "start": "初日",
+      "end_day": 93,
+      "folio": "018a",
+      "literal_number": "九十一度五九八七一七",
+      "total_microdegrees": 91598717,
+      "following_label": "此縮初夏至"
+    },
+    {
+      "season": "summer",
+      "start": "休初日行分自一日",
+      "end_day": 93,
+      "folio": "018a→018b",
+      "literal_number": "九十一度六四七二〇一",
+      "total_microdegrees": 91647201,
+      "following_label": "此盈末春分"
+    }
+  ],
+  "same_copy_replay": {
+    "unit": "One integer microdegree = 0.000001 degree. S4/M4 encode the printed decimal in units of 0.0001 of its numerical 分, with no extra unit assumption for 少.",
+    "scope": "Four model totals are compared to the four prose totals. The numeric comparison for the skip-initial case holds the full window baseline fixed and removes only the signed initial-day deviation from one degree. This is inferred from the exact observed pairs, not an explicit definition of the word 休.",
+    "prior_row_relation": {
+      "path": "docs/research/TIANWEN-13RS-G893-ORIGINAL-TWO-SEASON-SOLAR-DEGREE-PRECISION-R1.json",
+      "git_blob_sha": "3cdb9811a9d86c09addea9f03aaf9a582acdf3a1",
+      "samples": 28
+    },
+    "prior_terminal_control": {
+      "path": "docs/research/TIANWEN-13SH-GK12437-G893-SOLAR-ACCUMULATION-TERMINAL-COLLATION-R1.json",
+      "git_blob_sha": "0fc0ff7af7e8d666e08a14c20d2fb4cbbf0468d0",
+      "scope": "The marked terminal C4 agrees with the full recurrence M4 sum in each season. It does not by itself attest every daily glyph."
+    },
+    "model": "M4(d) = M4(0) - d*S4(0) - d*(d-1)/2*step4. Daily magnitude truncation sums floor(M4/100) then applies season sign. The aggregate model instead sums the untruncated M4 then converts. The quarter-tail comparator replaces step4 with step4+0.25 and carries its full precision until the sum.",
+    "residual_convention": "observed minus model, in microdegrees",
+    "seasons": {
+      "winter": {
+        "sign": 1,
+        "end_day": 88,
+        "S4_initial": 49386,
+        "M4_initial": 5108569,
+        "step4": 186,
+        "J_initial_microdegrees": 1051085,
+        "marked_C4": 240144161,
+        "printed_full_minus_skip": 51085,
+        "daily_truncation": [
+          91401400,
+          91350315
+        ],
+        "daily_nearest_magnitude": [
+          91401442,
+          91350356
+        ],
+        "unrounded_aggregate": [
+          "91401441.61",
+          "91350355.92"
+        ],
+        "unrounded_quarter_tail_aggregate": [
+          "91401157.70",
+          "91350072.01"
+        ],
+        "daily_truncation_residual": [
+          27,
+          27
+        ]
+      },
+      "summer": {
+        "sign": -1,
+        "end_day": 93,
+        "S4_initial": 44362,
+        "M4_initial": 4848473,
+        "step4": 162,
+        "J_initial_microdegrees": 951516,
+        "marked_C4": 240135032,
+        "printed_full_minus_skip": -48484,
+        "daily_truncation": [
+          91598697,
+          91647181
+        ],
+        "daily_nearest_magnitude": [
+          91598650,
+          91647135
+        ],
+        "unrounded_aggregate": [
+          "91598649.68",
+          "91647134.41"
+        ],
+        "unrounded_quarter_tail_aggregate": [
+          "91598984.79",
+          "91647469.52"
+        ],
+        "daily_truncation_residual": [
+          20,
+          20
+        ]
+      }
+    }
+  },
+  "adjudication": {
+    "positive": "Each printed full-minus-skip pair equals the same-copy printed initial 行度 minus one degree, exactly. The four prose totals are a separate same-copy check on aggregate calculations.",
+    "conditional_exclusions": "Under the stated baseline, recurrence and anchors, neither daily truncation, daily nearest magnitude, an unrounded aggregate with the four-place step, nor a fully carried +0.000025 daily step followed by six-place rendering reproduces the four prose totals. They cannot identify the actual source procedure.",
+    "limit": "Daily truncation residuals are +27 and +20 microdegrees. The 28 directly sampled J cells do not constitute a census of 183 ordinary winter/summer J cells. Differences may arise in uncollated cells or in the source of the prose aggregates. Do not use these sums to supply new digits to 日差 or resolve 少／微. A model that discards the extra quarter-place before propagating the daily short value remains indistinguishable at that stage.",
+    "new_physical_witnesses": 0,
+    "source_registry_delta": 0,
+    "historical_G893_finals": "0/6",
+    "matrix_delta": 0,
+    "algorithm_reopens": 0,
+    "product": "CLOSED"
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Same-copy agreement at the initial-day increment does not establish how the prose totals were compiled or transmitted.",
+      "Identical G893 and Waseda prose totals do not entail identical terminal C4 entries or independent textual ancestry."
+    ],
+    "unresolved_lineage_questions": [
+      "Whether the prose totals sum the actual printed 行度 columns or depend on a separate computation or exemplar."
+    ]
+  },
+  "next": "Prioritize an original same-field 少／微 unit or independently printed fifth/sixth 日差 place. To localize the new aggregate residuals, collate the remaining original 行度 cells before treating the prose totals as sums of the printed column. Compare another separately bound original of the Waseda-side textual family only if it exposes the exact marked summer C field.",
+  "cross_copy": {
+    "holding": "Waseda University Library ri06_02809, book 33, 高麗史卷五十二",
+    "provider_pdf": "https://archive.wul.waseda.ac.jp/kosho/ri06/ri06_02809/ri06_02809_0033/ri06_02809_0033.pdf",
+    "pdf_sha256_as_previously_bound": "28ebfeb34191f45715bc449d27da61fe04fb05eb45e84dd00cf569699f46225f",
+    "artifact": {
+      "run_id": 39601924438,
+      "id": 12346735638,
+      "verified_zip_sha256": "0ce306c099a1ed62dd24a3256ba043062490409bd5d531b543c16f1b00017710"
+    },
+    "primary_page": {
+      "page": 43,
+      "xref": 130,
+      "jpeg_sha256": "7fce99dc3d9bbacada8744773d656b105d254206769301457e7c1105c136eb5a",
+      "totals_bbox_ltrb": [
+        340,
+        300,
+        1660,
+        1520
+      ],
+      "totals_rgb_sha256": "87ddbcf65811d129b1b392a83a3b777cf68d0c64a5f5e8408c5ace7eea84c523",
+      "terminal_context_bbox_ltrb": [
+        1570,
+        360,
+        1840,
+        1440
+      ],
+      "terminal_context_rgb_sha256": "b50e9e8fa16331e5eaf7517bdd1510bf2be3b25500ff451bfd11994695f22d64"
+    },
+    "repeat_capture": {
+      "page": 44,
+      "xref": 133,
+      "jpeg_sha256": "09dcf033326803c6b59bd174a9220a6bfa0a680e349e1cdd842b659caa12b0c7",
+      "terminal_bbox_ltrb": [
+        1585,
+        665,
+        1654,
+        1425
+      ],
+      "terminal_rgb_sha256": "c957292f66c5b95afe387e7010ac8491a2f2f64bcb8977b12b70293a254d39ba",
+      "physical_vote_increment": 0
+    },
+    "earlier_source_boundaries": {
+      "path": "docs/research/TIANWEN-13BZ-GORYEOSA-WASEDA-SUMMER-D91-D93-AND-EXPLANATORY-TERMINUS-R1.json",
+      "git_blob_sha": "c2f5d72036f335e8fae1076ba722f94911415691"
+    },
+    "prose_totals_microdegrees_in_same_order": [
+      91401427,
+      91350342,
+      91598717,
+      91647201
+    ],
+    "terminal_C4_erratum": {
+      "previous_evidence": "docs/research/TIANWEN-13SF-G893-SOLAR-ENDPOINT-SHORT-LANE-AND-GORYEOSA-PRINT-VARIANTS-R1.json",
+      "previous_git_blob_sha": "297128d11d79488da45c5290e3ba7a004d81e20d",
+      "previous_Waseda_C4": 240135032,
+      "observed_Waseda_literal": "二萬四千〇一十三五〇二二",
+      "observed_Waseda_C4": 240135022,
+      "observed_G893_literal": "二萬四千〇一十三分五〇三二",
+      "observed_G893_C4": 240135032,
+      "G893_context_bbox_ltrb": [
+        680,
+        268,
+        923,
+        1778
+      ],
+      "G893_context_rgb_sha256": "d97af41044bb2337242bc87f7c1439dc2306a0fda4caa68bce5795554c327c13",
+      "Waseda_printed_C4_minus_G893_C4": -10,
+      "Waseda_ordinary_D93_C4": 240105261,
+      "Waseda_ordinary_D93_M4": 29771,
+      "Waseda_marked_C4_minus_adjacent_C4_plus_M4": -10,
+      "scope": "Only the 13SF Waseda summer marked C4 attestation is superseded. The adjacent ordinary D93 C4/M4 still arithmetically predict 240135032. The original terminal glyph stays 240135022. Error origin, date, exemplar and transmission direction are unresolved."
+    },
+    "adjudication": "The four identical six-place prose totals coexist with different summer marked terminal C4 glyphs. The Waseda reproduction is a previously registered distinct holding. Identical prose numbers do not establish independent stemmatic votes, exact same table, or direction of copying."
+  },
+  "zhou_13sj_follow_through": {
+    "scope": "Adjacent worked comparison inside the same Zhou photographic PDF, separate from the G893 post-table totals.",
+    "source_pdf": "https://www.kotenmon.com/cal/arabe/vol6.pdf",
+    "pdf_sha256": "4c006b7ce131902fe33012d42f62cd2bbc2140affa3d5886e0da02966352cb7c",
+    "page": 14,
+    "render_rgb_sha256": "1470ce72be784002ddb023f207c6525cdbe759cb26f896892de584120717a372",
+    "prior_13sj": {
+      "path": "docs/research/TIANWEN-13SJ-ZHOU1569-P14-D1-SHORT-GLYPH-AND-RESEARCH-TRANSCRIPTION-ERRATUM-R1.json",
+      "git_blob_sha": "9234e0990d00c30168153cbc5d28f22d86bb8a9c"
+    },
+    "new_native_roi_evidence": [
+      {
+        "field": "S, D0–D3",
+        "bbox_ltrb": [
+          657,
+          374,
+          1025,
+          671
+        ],
+        "rgb_sha256": "014d43f0e79a7ea162ebbaae8fe85b6f50f45653cea68eb82c3cc7f0976eba1f"
+      },
+      {
+        "field": "M, D0–D3",
+        "bbox_ltrb": [
+          657,
+          670,
+          1019,
+          1068
+        ],
+        "rgb_sha256": "f398539d7ce71a9adda4ff86153d187691fa36c57b508a9c67a57891cd8123e1"
+      },
+      {
+        "field": "C, D1–D3",
+        "bbox_ltrb": [
+          640,
+          1068,
+          924,
+          1668
+        ],
+        "rgb_sha256": "f799a7645fa586ce4b4952a6b7c5a491284eccbc065a7caa70a8c003f2a2c80c"
+      }
+    ],
+    "M4_D0_to_D3": [
+      5108569,
+      5059183,
+      5009611,
+      4959853
+    ],
+    "C4_D1_to_D3": [
+      5108569,
+      10167752,
+      15177363
+    ],
+    "printed_S4_D0_to_D2": [
+      49386,
+      49527,
+      49758
+    ],
+    "derived_S4_D0_to_D2": [
+      49386,
+      49572,
+      49758
+    ],
+    "printed_D1_minus_derived_S4": -45,
+    "scope_of_prior_claim_correction": {
+      "path": "docs/research/TIANWEN-13MV-ZHOU1569-DAYZERO-THREE-LANE-RECURRENCE-R1.json",
+      "git_blob_sha": "e88511e8f36876160105f64922c46c7c4d253355",
+      "result": "The prior 13MV day-1 normalized short value 4.9572 remains the implied value of the adjacent printed M and C columns, while the short glyph is 4.9527. The previous short-step assertion includes D1 only as reconstruction. D15–D16 scope is unaffected."
+    },
+    "limit": "Within this photographed copy, D1 is a disagreement of printed fields. The surviving table does not identify whether the source error entered the exemplar, engraving, printing or later handling. This does not decide G893 units."
+  }
+}
