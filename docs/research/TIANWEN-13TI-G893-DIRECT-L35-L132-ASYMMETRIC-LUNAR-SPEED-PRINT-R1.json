@@ -1,0 +1,160 @@
+{
+  "schema": "TIANWEN-13TI-G893-DIRECT-L35-L132-ASYMMETRIC-LUNAR-SPEED-PRINT-R1",
+  "date": "2026-11-07",
+  "issue_id": "TW-OPEN-0005",
+  "authority_scope": "SOURCE_ORIGINAL_SAME_PHYSICAL_COPY_TWO_LOCAL_SPEED_GLYPH_READS_WITH_SOURCE_BYTE_HASH; NO_NEW_ANCESTRY_OR_NATIVE_ALGORITHM",
+  "start": {
+    "remote_branch": "agent/fusion-chart-core-r1-20260822",
+    "read_head": "5ff1399b2390032991b286dfd2ffef56ea7edab7",
+    "state_version": "1.1143.0",
+    "workflow_probe_commits": [
+      "2ffc4e38f064558d1da71b4e85d17eb1c8ac4199",
+      "f9fa1abb34ed32209d00ca98b1c1d888a98b4a8a"
+    ],
+    "source_reacquisition_run_id": 42369187450,
+    "source_reacquisition_job_id": 128393573912,
+    "source_reacquisition_run_url": "https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/42369187450",
+    "source_probe_status": "COMPLETED_SUCCESS_WITH_TWO_BYTES_SHA256_MATCHED"
+  },
+  "references": {
+    "prior_discriminator": "docs/research/TIANWEN-13TH-G893-L35-L132-DISCRIMINATING-MING1569-AND-TIANGEN-CONTROL-R1.json",
+    "g893_original_loss_gain": "docs/research/TIANWEN-12YC-G893-L8-L159-L35-L132-ORIGINAL-PAIR-GLYPH-COLLATION-R1.json",
+    "ming1569_source_table": "docs/research/MING-DATONG-1569-CHIJI-FULL-NUMERIC-RECONSTRUCTION-R1.json",
+    "provider_catalog": "https://kyudb.snu.ac.kr/book/view.do?book_cd=GK00893_00",
+    "provider_copy_id": "奎貴893 / GK00893_00",
+    "physical_copies_counted": 1,
+    "source_page_header": "018b",
+    "header_original_jpeg_sha256": "4decd1801d832ba5b471b047dd84cca487245038622a589b48552a0fb43ab83a"
+  },
+  "method": {
+    "image_reacquisition": "Exact public SNU/Kyudb first-party browser viewer bootstrap followed by ImageServlet for two source-identified JPEGs; existing full-book archive hashes independently reused for exact-byte identity",
+    "image_validation": "SHA256(original delivered JPEG bytes) equals repository archived 12YC same-copy SHA; Pillow RGB crop sha256 over raw RGB bytes; no OCR, no enhancement used as primary glyph authority",
+    "source_units": "1 source print four-place 行度 degree = 0.0001 degree unit; same original Q printed seven fen eight-eight-six-zero-seven-five corresponds to 0.07886075 degrees under existing source-scoped normalization",
+    "caution": "Original physical copy same across two pages, not two independent historical witnesses; each reading scoped to original print, not the historical generator or ancestor."
+  },
+  "direct_source_reads": [
+    {
+      "limit": 35,
+      "page_id": "023b",
+      "field": "疾行度",
+      "column_context": "益側; corresponding 018b 遲疾行度 heading",
+      "original_printed_literal": "一度一七五一",
+      "normalized_degree": "1.1751",
+      "source_q_literal": "益七分八八六〇七五",
+      "source_q_degree": "0.07886075",
+      "original_jpeg_bytes": 139128,
+      "original_jpeg_sha256": "f5f732a4db9636ab563af47a5c8332e1f00eed1e587cc138d150da53f557d94f",
+      "roi_rect_px": [
+        690,
+        210,
+        1150,
+        1780
+      ],
+      "roi_rgb_sha256": "03cb8f79bb7ebe725d3cd1af8908e1fe66a166c2d5a79a09b6bbcdb2f86b83ca",
+      "roi_jpeg_sha256": "0218159de989069656c69041773d8c322187ff005920624c49eb2387c1c90762",
+      "read_confidence": "HIGH_SOURCE_ORIGINAL_VISIBLE_FOUR_PLACE"
+    },
+    {
+      "limit": 132,
+      "page_id": "036b",
+      "field": "遲行度",
+      "column_context": "損側; corresponding 018b 遲疾行度 heading",
+      "original_printed_literal": "一度一七五二",
+      "normalized_degree": "1.1752",
+      "source_q_literal": "損七分八八六〇七五",
+      "source_q_degree": "0.07886075",
+      "original_jpeg_bytes": 137459,
+      "original_jpeg_sha256": "8acb0c32bcdd0be8827bc2851f089bf5d73a2378c3b7ffcfa80eeaf725d1dd84",
+      "roi_rect_px": [
+        290,
+        210,
+        800,
+        1780
+      ],
+      "roi_rgb_sha256": "fdbebb7923a56ea5a4e2da6fd732a8cccc115969305b9e154a1cc5256cf8a74c",
+      "roi_jpeg_sha256": "528fd2ebf5820c02ab481945bd215ee400ccaad5f8d656022fc82c22623a41b0",
+      "read_confidence": "HIGH_SOURCE_ORIGINAL_VISIBLE_FOUR_PLACE"
+    }
+  ],
+  "discrepancy": {
+    "limit_pair_sum": 167,
+    "equal_abs_original_q": true,
+    "opposite_signs": true,
+    "original_g893_1e4_pair": [
+      11751,
+      11752
+    ],
+    "original_pair_difference_1e4": 1,
+    "other_printed_speed_lanes_not_claimed_complete": true,
+    "source_native_mechanism_for_unequal_pair": "UNRESOLVED",
+    "comment": "Any single global model f(mean+identically printed Q) with a uniform quantizer necessarily predicts equal higher-speed figures for these two loci; observed original prints are unequal. Hidden non-printed precision, row-specific stage/carry, copy error, or historical computational difference remain independent hypotheses."
+  },
+  "conditional_comparison": {
+    "models": [
+      {
+        "name": "NOMINAL_820_CEIL",
+        "mean_fraction": "87699/80000",
+        "predicted_pair_1e4": [
+          11751,
+          11751
+        ],
+        "matches_g893_two_original_loci": 1
+      },
+      {
+        "name": "HALF_TURN_168_TRUNCATE",
+        "mean_fraction": "98232149/89600000",
+        "predicted_pair_1e4": [
+          11752,
+          11752
+        ],
+        "matches_g893_two_original_loci": 1
+      },
+      {
+        "name": "TIANGEN_109633975_TRUNCATE_CONDITIONAL",
+        "mean_fraction": "4385359/4000000",
+        "predicted_pair_1e4": [
+          11752,
+          11752
+        ],
+        "matches_g893_two_original_loci": 1
+      }
+    ],
+    "ming1569_source_original_pair_1e4": [
+      11751,
+      11751
+    ],
+    "ming_source_xingdu_original_pdf_zero_based_pages": [
+      34,
+      39
+    ],
+    "ming_source_model_336_cells": {
+      "NOMINAL_820_CEIL": 334,
+      "HALF_TURN_168_TRUNCATE": 326,
+      "TIANGEN_109633975_TRUNCATE_CONDITIONAL": 332
+    },
+    "conclusion": "G893 two direct source speed readings exclude an unqualified fixed-mean-and-identical-Q globally symmetric reproduction by each of the three tested model/quantizer pairs. The independent Ming 1569 printed pair agrees at both positions with nominal+CEIL, but direct G893 original does NOT print the same two-cell pair."
+  },
+  "accounting": {
+    "new_direct_source_speed_fields": 2,
+    "new_source_reacquired_original_pages": 2,
+    "additional_physical_witnesses": 0,
+    "source_registry_delta": 0,
+    "genealogy_node_delta": 0,
+    "genealogy_edge_delta": 0,
+    "original_six_named_control_complete_fields": "5/6",
+    "cross_witness_historical_final_decisions": "0/6",
+    "historical_matrix": "222/222",
+    "source_registry_union": 786,
+    "open_issues": 11,
+    "algorithm_reopens": 0,
+    "chart_product": "CLOSED"
+  },
+  "epistemic_firewall": [
+    "Same physical source: no multiplication of witness votes.",
+    "Original glyph / source print facts do not identify source-native mean, carry, row special, or the cause of the mismatch.",
+    "Do not retroactively edit 13TH's explicit NOT_YET_COLLATED historical snapshot; 13TI is the forward addendum.",
+    "Later Mei received 天根 institutional attribution is not authenticated as original G893 or Ming office generator.",
+    "Do not conflate the source-original G893 pair with two equal Ming1569 original 1.1751 readings."
+  ],
+  "next": "Investigate same-copy G893 neighboring L34/L36/L131/L133 source speed and Q only where discrimination is meaningful, verify 018b printed column header for lane ownership; look for source-native mean/carry/rounding text in original rather than arbitrary new fitted constants. Keep TW-OPEN-0005 OPEN and the six historical finals at zero."
+}
