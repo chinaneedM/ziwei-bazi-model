@@ -1,0 +1,202 @@
+{
+  "schema": "TIANWEN-13TQ-XING-NATIVE-PIXELS-AND-BOUNDED-MICRO-SUFFIX-R1",
+  "date": "2026-11-07",
+  "issue_id": "TW-OPEN-0005",
+  "question": "Can actual embedded source pixels, rather than a reduced JPEG render, yield new edition-scoped literal evidence at Xing L35/L132 without importing a G893 number or modern radix?",
+  "startup": {
+    "live_head": "2e5cea879420d1c6f57490aeea16ee45323140e4",
+    "live_tree": "af03d90a31a633f9f04b0dcc5f32c15195d7aa9c",
+    "exact_head_actions_reviewed": 285,
+    "initial_action_result": "284 completed-success; clean-training-system in_progress; no failed action observed",
+    "reviewed_issues": 11,
+    "p0_issues": [
+      "TW-OPEN-0001",
+      "TW-OPEN-0002",
+      "TW-OPEN-0005",
+      "TW-OPEN-0006",
+      "TW-OPEN-0007"
+    ]
+  },
+  "evidence_grade": "DIRECT_VISUAL_REVIEW_OF_NATIVE_EMBEDDED_IMAGE_PIXELS; TWO_BOUNDED_LITERAL_SUBSTRINGS; NOT_FULL_FIELD_NUMERIC_ADJUDICATION",
+  "source": {
+    "source_id": "EXT-TIANWEN-13TK-NLC-CBM1408-XINGYUNLU-V45-DIRECT-ORIGINAL",
+    "work": "邢雲路《古今律曆考》卷四十五〈授時立成〉",
+    "url": "https://commons.wikimedia.org/wiki/File:NLC892-CBM1408-371933_古今律曆考_七十二卷_第14冊.pdf",
+    "direct_public_pdf_url": "https://upload.wikimedia.org/wikipedia/commons/5/5a/NLC892-CBM1408-371933_%E5%8F%A4%E4%BB%8A%E5%BE%8B%E6%9B%86%E8%80%83_%E4%B8%83%E5%8D%81%E4%BA%8C%E5%8D%B7_%E7%AC%AC14%E5%86%8A.pdf",
+    "pdf_sha256": "95b264e0447fb612a4b389b4b44e8f9871f9d0417b6893699fd37fe589cb23f3",
+    "pdf_bytes": 18807026,
+    "pdf_pages": 74,
+    "physical_copy_proxy": "NLC892-CBM1408-371933, 卷43-45，第14冊",
+    "exact_impression_date_bound": false,
+    "same_copy_as_13tk": true
+  },
+  "acquisition": {
+    "workflow": ".github/workflows/tianwen-13tk-xing-v45-original-probe.yml",
+    "initial_native_run_id": 42386196263,
+    "initial_native_job_id": 128443993885,
+    "initial_native_run_conclusion": "success",
+    "initial_log_retrieval_boundary": "Full native image base64 made job-log connector transport close twice; no glyph conclusion was drawn from this inaccessible log. Subsequent bounded log and full-page artifact supersede that delivery method only.",
+    "successful_run_id": 42386370726,
+    "successful_job_id": 128444519028,
+    "head_sha": "27375b4b14067da887d89a030d7c938e39e78c42",
+    "artifact_id": 13579244730,
+    "artifact_name": "xing-13tq-native-source-pages",
+    "artifact_zip_bytes": 5441865,
+    "artifact_zip_sha256": "06d9b0652f96d13d1ac1ca25f6e1fe5e9eac1731e0ca3c5d7d02a1690a2cadea",
+    "artifact_retention_days": 90,
+    "permanent_recovery": "Re-run the checked-in anonymous original-image extraction workflow using the SHA-bound public PDF; artifact availability is time limited.",
+    "method": "PyMuPDF extract_image(xref), Pillow decode to grayscale, lossless PNG; no OCR, sharpening, AI restoration or resized image used for pixel hashes. Nearest-neighbor enlargement used for visual inspection only."
+  },
+  "native_source_pages": [
+    {
+      "page_one_based": 64,
+      "image_index": 0,
+      "xref": 194,
+      "width": 1738,
+      "height": 1481,
+      "ext": "jpx",
+      "bytes": 257520,
+      "raw_sha256": "94adae8c2b98c38b30502a39007e1dde56be5b9a89384609e07733048dcfcf3e",
+      "gray_pixel_sha256": "4e26754772d9ce775623b18bb37c9c65a445ee9153df8b6ad16e1fd0a8663be2",
+      "artifact_entry": "p64-image0.png",
+      "artifact_png_sha256": "159217e44d77ab3b2380ed38183934b29caa7f8cc52aa1b05e35dc384950acd6"
+    },
+    {
+      "page_one_based": 66,
+      "image_index": 0,
+      "xref": 200,
+      "width": 1738,
+      "height": 1481,
+      "ext": "jpx",
+      "bytes": 257506,
+      "raw_sha256": "56b9b0c0885cadb7ce0395fe6b0c29ce7d9b5b32d3795aef059f786cccc11966",
+      "gray_pixel_sha256": "ef0a5e2f175c3af7c21c15e65f11d56f1821ba8d717d78caf6a666e422c9c384",
+      "artifact_entry": "p66-image0.png",
+      "artifact_png_sha256": "6d4690d8b783c4605b1412c6329631e88877f410b1c5ae28de01f18937e562e5"
+    },
+    {
+      "page_one_based": 71,
+      "image_index": 0,
+      "xref": 215,
+      "width": 1738,
+      "height": 1481,
+      "ext": "jpx",
+      "bytes": 257454,
+      "raw_sha256": "eb51ebe66e30d256086e866e6db0412f67c112b5f4060c587cf5549e1b775c8a",
+      "gray_pixel_sha256": "97cfc72a1885aac2f43f3c482208b01bdb0ab88933e9a8219916d4046df9b98f",
+      "artifact_entry": "p71-image0.png",
+      "artifact_png_sha256": "35133d7ecf3d882e1cc932962db2f8c87354d3d749cbfc56fe8acf353c4a02b6"
+    },
+    {
+      "page_one_based": 73,
+      "image_index": 0,
+      "xref": 221,
+      "width": 1738,
+      "height": 1481,
+      "ext": "jpx",
+      "bytes": 257507,
+      "raw_sha256": "c7dd456a71361bfbc5fdb3e4754a1e50a947c01bec0d8813b2163a6f72209c72",
+      "gray_pixel_sha256": "de60b50ac116b054a07ca36f63e4188f2d592b51b6dcd77b6dc8b96c6a0ac558",
+      "artifact_entry": "p73-image0.png",
+      "artifact_png_sha256": "433c579a8afac8c63837584105e16ed58e511c17e1676b012ffc049448b44714"
+    }
+  ],
+  "resolution_comparison": {
+    "prior_render_px": [
+      1002,
+      854
+    ],
+    "actual_embedded_image_px": [
+      1738,
+      1481
+    ],
+    "optical_detail_claim": "Native original pixels recovered from same PDF; no new scan, enhanced optical resolution or new independent physical copy."
+  },
+  "direct_original_readings": [
+    {
+      "pdf_page_one_based": 66,
+      "limit": 35,
+      "row_header_literal": "三十五限",
+      "source_local_lane": "lower 遲度",
+      "header_rect_px": [
+        1125,
+        190,
+        1226,
+        410
+      ],
+      "header_gray_pixel_sha256": "d65d436854600fff8a2dd44b1b3d4028bf207b6fb04e33fce74a53c9a2578885",
+      "numeric_segment_rect_px": [
+        1125,
+        935,
+        1226,
+        1397
+      ],
+      "numeric_segment_gray_pixel_sha256": "36154ebfe897ee3914d0bb2820a9e6726046654eb843dbf58d532e5439fca297",
+      "bounded_visible_segment": "七四八微〇五九六七",
+      "scope": "PARTIAL_LITERAL_SUBSTRING_ONLY; prefix, radix and complete field not certified",
+      "normalized_numeric_value": null,
+      "g893_same_field_identity": null,
+      "human_visual_review": true,
+      "ocr_used": false
+    },
+    {
+      "pdf_page_one_based": 71,
+      "limit": 132,
+      "row_header_literal": "一百三十二限",
+      "source_local_lane": "upper 疾度",
+      "header_rect_px": [
+        475,
+        190,
+        577,
+        400
+      ],
+      "header_gray_pixel_sha256": "9090e50d9e8de6bf4e1db442d56ef97bb8fb82c18d94f120c4bf6dce51f7c06b",
+      "numeric_segment_rect_px": [
+        475,
+        487,
+        577,
+        842
+      ],
+      "numeric_segment_gray_pixel_sha256": "a9909023dc8c49e409a04efce30261abd99faebb0113dc48f63e90fbd3862544",
+      "bounded_visible_segment": "七四八微〇五九七六",
+      "scope": "PARTIAL_LITERAL_SUBSTRING_ONLY; prefix, radix and complete field not certified",
+      "normalized_numeric_value": null,
+      "g893_same_field_identity": null,
+      "human_visual_review": true,
+      "ocr_used": false
+    }
+  ],
+  "adjudication": {
+    "source_local_positive": "L35 lower and L132 upper each visibly contain 七四八微〇五九, followed respectively by 六七 and 七六. This is a literal suffix-order difference in the same physical surrogate.",
+    "what_is_not_inferred": "This does not establish equal whole-field operands, a transposition error, the meaning/radix of 微, raw speed versus reciprocal coefficient, ancient quantization, or correspondence to G893 1.1751/1.1752.",
+    "new_bounded_literal_segments": 2,
+    "new_complete_numeric_fields": 0,
+    "new_registered_sources": 0,
+    "new_independent_physical_copies": 0,
+    "g893_named_fields": "5/6",
+    "g893_historical_finals": "0/6",
+    "tw_open_0005": "P0 OPEN",
+    "matrix": "222/222",
+    "source_union": 787,
+    "genealogy_nodes": 254,
+    "genealogy_edges": 239,
+    "open_issues": 11,
+    "deterministic_chart": "CLOSED",
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0
+  },
+  "historical_preservation": [
+    "13TK/13TL/13TN/13TO/13TP snapshots remain unchanged; their unread status was correct for their own review scope.",
+    "Source page64 retains the original table-family heading and page73 retains the original terminal 820 rule; no new full-page linewise collation claimed.",
+    "Degree prefix, complete L35/L132 decimal values, ancient 微 unit and rounding/field crosswalk remain OPEN. No numeral supplied from G893, 1569 print or received text."
+  ],
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "explicit_non_edges": [
+      "Native pixel recovery and matching literal substrings do not prove copying, original error, independent edition lineage or G893 field identity."
+    ]
+  },
+  "next": "Use the now-archived native complete pages to bind the full numeric prefix and the two original header roles to the terminal 820 operator; then authenticate unit/radix with an original same-field instruction before any decimal comparison. Preserve both directly seen suffix orders. Stop repeating reduced-render or received-text-only 820 corroboration."
+}
