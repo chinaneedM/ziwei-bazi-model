@@ -1,0 +1,250 @@
+{
+  "schema": "TIANWEN-13TF-KYOTO-ORIGINAL-LUNAR-MEAN-PERIOD-AND-LIMIT-SCALE-FIREWALL-R1",
+  "date": "2026-11-07",
+  "issue_id": "TW-OPEN-0005",
+  "classification": "DIRECT_1672_ORIGINAL_LUNAR_DAILY_MEAN_AND_PERIOD; NOMINAL_LIMIT_DAYRATE_AND_PERIOD_SCALES_MUST_REMAIN_SEPARATE",
+  "question": "Which 13TE lunar operands are now physically verified, and can either a day-rate table slope or a uniform full-period division replace the nominal 820 limit in the prior paired-motion reconstruction?",
+  "startup": {
+    "remote_head": "7f12fbf557ad89fc58dac562e046c801b4974cd8",
+    "remote_tree": "41b4e4d427036f374411dab9c6d6d4b2cfc704c5",
+    "exact_head_actions": "113/113 completed success; both REST pages read",
+    "state_version_read": "1.1140.0",
+    "ledger_review": "11 unresolved issues, 5 P0 (0001/0002 blocked source access; 0005/0006/0007 open). This snapshot is not a global research completion claim."
+  },
+  "source": {
+    "source_id": "EXT-TIANWEN-13QJ-KYOTO-RB00028639-1672-YUANSHI54-VOL3",
+    "provider": "Kyoto University Rare Materials Digital Archive",
+    "catalog_url": "https://rmda.kulib.kyoto-u.ac.jp/item/rb00028639",
+    "work": "改正授時暦經 卷上 / 元史卷五十四 曆志第六 / 步月離第四",
+    "copy_scope": "ONE existing four-book holding, volume 利; catalogue 寛文12 [1672]. Underlying Yuan-era exemplar, exact physical impression and direct descent to G893 remain unproven.",
+    "manifest_url": "https://rmda.kulib.kyoto-u.ac.jp/iiif/metadata_manifest/RB00028639/manifest.json",
+    "manifest_sha256": "1a583be6bf88bc67133dee7c0cfccd35b189bccb3c5c60677735e7f041d64043",
+    "manifest_binding": "127 source-issued canvases; manifest bytes match the immutable 13QK binding.",
+    "image": {
+      "page": 88,
+      "sha256": "0f86eb225d326270db4b60d1ad873b479945f1da05eb913d264d9f674fe57849",
+      "url": "https://rmda.kulib.kyoto-u.ac.jp/iiif/3/RB00028639%2F03%2FRB00028639_00088_0.ptif/full/1600,/0/default.jpg",
+      "bytes": 317105,
+      "label": {
+        "ja": [
+          "88"
+        ]
+      },
+      "canvas_zero_index": 87,
+      "pixels": [
+        1600,
+        1159
+      ],
+      "native_rgb_sha256": "f545ead280313d872dee151dd4b725efb025747e116cfff10eb54c18735dcee0",
+      "rois": [
+        {
+          "name": "lunar_mean",
+          "bbox": [
+            465,
+            175,
+            625,
+            1010
+          ],
+          "rgb_sha256": "1c5102be0c41c4de0cfaaa192439333339a79457d86b8b73d7cbc2e9f318dcba"
+        },
+        {
+          "name": "period_and_limits",
+          "bbox": [
+            800,
+            170,
+            1165,
+            1060
+          ],
+          "rgb_sha256": "ceffbd0178f6fd149d41100b03061777796dba2dec6276dba2d203cf5d0b02ca"
+        }
+      ]
+    },
+    "acquisition": "Fresh public source-issued 1600px JPEG retrieval in this session; p88 was already within the 13QK acquired neighborhood, artifact13241091646. No new physical copy or independent vote.",
+    "review": "Direct visual image and native RGB crop review without OCR. Viewer page88 is a digital sequence locator; original printed folio numbering has not been separately bound."
+  },
+  "direct_original_readings": [
+    {
+      "location": "p88 left half, lunar constants, rightmost column",
+      "text": "月平行十三度三十六分八十七秒半",
+      "parsed_degree_per_day": "13.36875"
+    },
+    {
+      "location": "p88 right half, below 步月離第四",
+      "text": "轉終二十七日五千五百四十六分",
+      "parsed_day": "27.5546"
+    },
+    {
+      "location": "same page, following column",
+      "text": "轉中十三日七千七百七十三分",
+      "parsed_day": "13.7773"
+    },
+    {
+      "location": "p88 right half last column / left half first two columns",
+      "text": "初限八十四；中限一百六十八；周限三百三十六",
+      "parsed_limits": [
+        84,
+        168,
+        336
+      ]
+    }
+  ],
+  "original_quantities": {
+    "daily_lunar_mean_degree": "13.36875",
+    "turn_period_day": "27.5546",
+    "half_turn_day": "13.7773",
+    "initial_limit": 84,
+    "middle_limit": 168,
+    "cycle_limits": 336
+  },
+  "ming_original_context": {
+    "source_id": "EXT-KOTENMON-DAMING-DATONG-1569",
+    "url": "https://www.kotenmon.com/cal/arabe/vol6.pdf",
+    "pdf_sha256": "4c006b7ce131902fe33012d42f62cd2bbc2140affa3d5886e0da02966352cb7c",
+    "archive_id": 13019278183,
+    "archive_zip_sha256": "1d8f10da7c27411bf38ad635494a1b9f4e700fb76cb37b2a7541c075a0ca9835",
+    "archive_rehashed_this_session": true,
+    "original_context": [
+      {
+        "pdf_page": 25,
+        "xref": 100,
+        "jpeg_sha256": "25b71d576a49cdc230f5999310acf698077bfc5a56325637d14cc148409c028c",
+        "literal_atom": "以八百二十除之",
+        "function": "推遲疾差度分法 residual interpolation divisor",
+        "file": "1569-25.jpg",
+        "dimensions": [
+          936,
+          702
+        ],
+        "rgb_sha256": "52860bcae033505a2b3a5285a6ebb63b59a7fcd90a84063286df6dc15812907f",
+        "rois": [
+          {
+            "name": "interpolation_820",
+            "bbox": [
+              676,
+              475,
+              728,
+              695
+            ],
+            "rgb_sha256": "f751288b37f9ae3b3beb10b4646935e918e7a7b2918f01b1b7cf5504c05ce4b1"
+          }
+        ]
+      },
+      {
+        "pdf_page": 33,
+        "xref": 132,
+        "jpeg_sha256": "ef613d192d1920ec9adf8b3d3b14181a885e512ce71d343103c600d88bbc1371",
+        "literal_atom": "以八百二十乘之",
+        "function": "推加減差分法 multiplier before the original corresponding line-speed divisor",
+        "file": "1569-33.jpg",
+        "dimensions": [
+          931,
+          710
+        ],
+        "rgb_sha256": "0c55c9cf86d8ccac017e78ed474b10f20331f1e396ecb4c2de3474f8b6828b18",
+        "rois": [
+          {
+            "name": "multiplier_820",
+            "bbox": [
+              320,
+              340,
+              363,
+              600
+            ],
+            "rgb_sha256": "3df77d181c1936033be23d7b6751e2fa38b6053fb0e8285e0c29eb84f0fe2b49"
+          }
+        ]
+      }
+    ],
+    "prior_scope": "These two nominal820 operations are ALREADY interpreted in MING-DATONG-1569-INTERPOLATION-REPLAY-R1.json. Their original page bytes have been independently rechecked here. Neither says that the G893 or the 1569 line-speed mean must be generated by multiplying daily lunar mean by820/10000. Do not turn an interpolation divisor into a proven mean-generation instruction."
+  },
+  "paired_original_reference": "docs/research/TIANWEN-13TD-G893-PAIRED-LUNAR-MOTION-MEAN-AND-CARRY-CANDIDATES-R1.json",
+  "day_rate_reference": "docs/research/TIANWEN-13TC-G893-LUNAR-DAYRATE-ORIGINAL-QUANTIZATION-WINDOW-R1.json",
+  "conditional_replays": [
+    {
+      "name": "NOMINAL_820",
+      "day_fraction": "41/500",
+      "mean_rational": "87699/80000",
+      "mean_decimal_approx": "1.0962375",
+      "matches_out_of_10": {
+        "CEIL": 10,
+        "HALF_UP": 4
+      }
+    },
+    {
+      "name": "DAY_TABLE_SLOPE_820_08",
+      "day_fraction": "10251/125000",
+      "mean_rational": "21926889/20000000",
+      "mean_decimal_approx": "1.09634445",
+      "matches_out_of_10": {
+        "CEIL": 0,
+        "HALF_UP": 6
+      }
+    },
+    {
+      "name": "UNIFORM_ORIGINAL_PERIOD",
+      "day_fraction": "137773/1680000",
+      "mean_rational": "98232149/89600000",
+      "mean_decimal_approx": "1.0963409486607143",
+      "matches_out_of_10": {
+        "CEIL": 0,
+        "HALF_UP": 6
+      }
+    }
+  ],
+  "replay_scope": "Keep 13TD original L122..126 Q values and both motion columns fixed. Change ONLY the mean input. CEIL denotes positive sub-second upward display, HALF_UP nearest four-decimal display. Nominal820 remains compatible10/10 under CEIL; replacing it by either the day-rate-compatible820.08 slope or uniform27.5546/336 gives CEIL0/10 and HALF_UP6/10. These bounded counterexamples do NOT disprove other original methods, stage rounding, or historical parameter changes.",
+  "day_rate_crosscheck": {
+    "assumption": "Zero-origin constant-step floor at printed 1e-4 day units ONLY, as in13TC; additive phase and nonuniform stages not identified.",
+    "original_anchor_limits": [
+      6,
+      7,
+      8,
+      9,
+      112,
+      113,
+      114,
+      115
+    ],
+    "original_printed_scaled_days": [
+      4920,
+      5740,
+      6560,
+      7380,
+      91848,
+      92669,
+      93489,
+      94309
+    ],
+    "admissible_step_units": "[92669/113,91849/112)",
+    "slope820_08": "INSIDE",
+    "uniform_turn_period_scaled_step": "137773/168",
+    "uniform_turn_period_step": "OUTSIDE_BELOW_LOWER_BOUND",
+    "meaning": "The physical periodic constants do not license a uniform-period generator for the observed original day-rate column. This is a distinct conditional test from the angular motion mean."
+  },
+  "adjudication": {
+    "positive": "13TE daily lunar mean operand is now directly attested by a bound original printed page of the already registered later Japanese YuanShi recension; period and limits are also directly attested on that same page.",
+    "g893_native_mean_or_quantizer_proven": false,
+    "g893_historical_six_finals": "0/6",
+    "issue_status": "P0 OPEN",
+    "new_physical_copies": 0,
+    "source_registry_delta": 0,
+    "source_registry_total": 786,
+    "matrix": "222/222",
+    "genealogy": "254 nodes /239 edges",
+    "open_issues": 11,
+    "product": "CLOSED",
+    "algorithm_reopens": 0,
+    "scope_limit": "No G893 solar 少/微 unit, intermediate carry, same-epoch high-place aggregate, or direct textual descent is established. Original p88 attests the daily mean, NOT a printed1.09623750 limit mean or820/10000 mean-generation rule. Preserve13TE as received-text arithmetic history and13TD constructed-nearest alternative under its differing premise."
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Same daily mean in a later1672 printed recension does not prove direct G893 inheritance or unmodified source-native quantization."
+    ],
+    "remaining_lineage_questions": [
+      "Which original G893 or earlier same-field source explicitly binds the mean-generation operand and carry?"
+    ]
+  },
+  "next": "Authenticate a G893 or earlier same-field printed limit-mean/generation or carry clause, or an independent high-place solar angular aggregate. Avoid replacing nominal820 by table slope820.08 or full-period averaging without a source-specific generator; these substitutions have now been explicitly tested against the original paired cells."
+}
