@@ -1,0 +1,141 @@
+{
+  "schema": "TIANWEN-13TK-XINGYUNLU-MING-V45-DIRECT-ORIGINAL-LIMIT-LOCATORS-R1",
+  "date": "2026-11-07",
+  "issue_id": "TW-OPEN-0005",
+  "source_claim": "DIRECT_PDF_ORIGINAL_MING_WANLI_BROAD_DATED_SOURCE_AND_TARGET_ROW_FIELD_LAYOUT_ONLY; TARGET_LAST_PLACE_NUMERIC_VALUES_UNREAD",
+  "question": "Can a separately held Ming Wanli printed Xing Yunlu GJLLK juan45 source independently locate L35 and L132 near original solar/lunar construction tables, with precise source/file/page scope, before any four-place Ji/Chi adjudication?",
+  "startup": {
+    "remote_head_at_start": "e1664b4f9512f1e054826205a2ae0226603c6343",
+    "initial_exact_head_actions": "112/113 completed-success, 1 clean-training-system in-progress, 0 failed",
+    "new_probe_commits": [
+      "3470c9cf1d9432763466b85e861abe5dbf96f7c1",
+      "65f97ca2deeaf25761044bac958d22225c4d6ef1",
+      "8a75a6cdcbe4ddcddb609bb326269e5e4470e82a",
+      "4a42a4b4c258803c386fdaee52d31de4d26e60dc"
+    ]
+  },
+  "witness": {
+    "source_url": "https://commons.wikimedia.org/wiki/File:NLC892-CBM1408-371933_古今律曆考_七十二卷_第14冊.pdf",
+    "direct_public_pdf_url": "https://upload.wikimedia.org/wikipedia/commons/5/5a/NLC892-CBM1408-371933_%E5%8F%A4%E4%BB%8A%E5%BE%8B%E6%9B%86%E8%80%83_%E4%B8%83%E5%8D%81%E4%BA%8C%E5%8D%B7_%E7%AC%AC14%E5%86%8A.pdf",
+    "source_sha256": "95b264e0447fb612a4b389b4b44e8f9871f9d0417b6893699fd37fe589cb23f3",
+    "source_bytes": 18807026,
+    "pdf_pages": 74,
+    "work": "邢雲路《古今律曆考》",
+    "physical_copy_proxy_id": "NLC892-CBM1408-371933, 卷43-45，第14冊",
+    "provider": "National Library of China item via Wikimedia Commons public-domain scan",
+    "edition_impression_date_bound": false,
+    "physical_copy_catalog_identity_bound": false,
+    "catalog_level_date": "明萬曆 broadly 1573-1620; not securely the 1608 NCL copy",
+    "manually_collated_pages": [
+      {
+        "page": 66,
+        "page_zero_based": 65,
+        "sha256": "9021e1e2a762b19854f071263f7b7e2cae0e2f3a08e28278aac5a7e645dd1721",
+        "sha_method": "SHA-256 JPEG grayscale full-page 2.4x PDF-render, 74-quality optimized; not raw page image binary",
+        "target": "三十五限",
+        "row_header_original_glyphs": "三十五限",
+        "row_header_confirmed": true,
+        "lane_heading": "疾度 / 遲度 fields, distinct from preceding 累積遲疾度 table",
+        "last_four_place_numeric_target": "NOT_ADJUDICATED",
+        "pixel_window_rect": [
+          510,
+          105,
+          785,
+          825
+        ],
+        "window_jpeg_sha256": "75fcca479fbca7d445509dd2c40da0c5597b7234e22ce6a52b1a10b5f1ec7541"
+      },
+      {
+        "page": 71,
+        "page_zero_based": 70,
+        "sha256": "9a3a4285720ccebac6613202df2d32b6d10e077f894d6509343ba41467741acc",
+        "sha_method": "SHA-256 JPEG grayscale full-page 2.4x PDF-render, 74-quality optimized; not raw page image binary",
+        "target": "一百三十二限",
+        "row_header_original_glyphs": "一百三十二限",
+        "row_header_confirmed": true,
+        "lane_heading": "疾度 / 遲度 fields, distinct from preceding 累積遲疾度 table",
+        "last_four_place_numeric_target": "NOT_ADJUDICATED",
+        "pixel_window_rect": [
+          170,
+          105,
+          460,
+          825
+        ],
+        "window_jpeg_sha256": "ac28d18eded1cc3c856142938131a45a7e1cdb7d5b253c74d5eeb3439a08f6c9"
+      }
+    ]
+  },
+  "source_probe": {
+    "runs": [
+      {
+        "id": 42372818401,
+        "job": 128404255600,
+        "result": "SUCCESS_SOURCE_PDF_AND_74_PAGE_ATLAS"
+      },
+      {
+        "id": 42373028337,
+        "job": 128404868756,
+        "result": "SUCCESS_ORIGINAL_PAGE_RENDERS"
+      },
+      {
+        "id": 42373282093,
+        "job": 128405616709,
+        "result": "SUCCESS_L35_PAGE_ADDED"
+      },
+      {
+        "id": 42373443684,
+        "job": 128406102050,
+        "result": "SUCCESS_L35_L132_NATIVE_COLUMN_WINDOWS"
+      }
+    ],
+    "all_source_pdf_sha256_repeated_same": true,
+    "method": "Anonymous public PDF byte acquisition; PyMuPDF full-page grayscale page rendering and Pillow uncropped/row-neighbor windows. No OCR and no unregistered image substitution.",
+    "full_scan_separately_archived_in_git": false,
+    "reason": "Do not commit large public-domain source scans to Git; source URLs and page/byte hashes plus reproducible action runs suffice as a recovery route."
+  },
+  "historical_comparison": {
+    "earlier_g893": "docs/research/TIANWEN-13TJ-G893-THREE-ADJACENT-PAIRED-LUNAR-MOTION-COLLATION-R1.json",
+    "original_G893_L35_Ji": "1.1751",
+    "original_G893_L132_Chi": "1.1752",
+    "independent_Ming_1569_L35_Ji": "1.1751",
+    "independent_Ming_1569_L132_Chi": "1.1751",
+    "new_Xing_source_L35_Ji": "UNDECIDED_ORIGINAL_LAST_PLACE",
+    "new_Xing_source_L132_Chi": "UNDECIDED_ORIGINAL_LAST_PLACE",
+    "caution": "Original source shown under 疾度/遲度 with separate historical decimal radix: do NOT import source row 35/132 Ji/Chi, Q or 1.175x from G893, 1569 or modern digital witnesses. The current native windows verify row header and field class only."
+  },
+  "unresolved": [
+    "Does Xing printed L35 corresponding high-motion lane read 1.1751 or 1.1752 or a different figure?",
+    "Does Xing printed L132 corresponding high-motion lane read 1.1751 or 1.1752 or a different figure?",
+    "Are Xing print's exact impression, source dependency, or physical-copy metadata sufficiently bound to establish independence of numeric text?",
+    "Does any source-native mean/carry/quantizer operation explain the earlier G893 L35/L132 asymmetry?"
+  ],
+  "adjudication": {
+    "new_public_original_pdf_recovered": 1,
+    "new_distinct_registered_source": 1,
+    "source_native_target_row_headers_recovered": 2,
+    "new_certified_target_four_place_values": 0,
+    "new_early_independent_g893_15c_originals": 0,
+    "g893_named_control_fields": "5/6",
+    "g893_historical_finals": "0/6",
+    "TW_OPEN_0005": "P0 OPEN",
+    "matrix": "222/222",
+    "root_registry_count": 647,
+    "extension_source_count_after": 140,
+    "source_union_after": 787,
+    "genealogy_nodes": 254,
+    "genealogy_edges": 239,
+    "open_issues": 11,
+    "deterministic_chart": "CLOSED",
+    "algorithm_reopens": 0
+  },
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "explicit_non_edges": [
+      "Work title 授時立成 and a homologous L35/L132 layout do not prove direct copying from G893 into Xing or vice versa.",
+      "A Ming Wanli broad-dated digitized surrogate is a separate source object, not proof of print in 1608 or a second 15th-century physical witness."
+    ]
+  },
+  "next": "Obtain/inspect source-native higher-resolution targeted print at PDF 0-based pp65/70 including column headings, original numeral radix and all 4 places. Publish a separate direct glyph addendum if legible; otherwise preserve L35/L132 as unread, and continue parallel G893 native carry/rounding instruction research. No algebraic fill from known G893 or 1569 numerals."
+}
