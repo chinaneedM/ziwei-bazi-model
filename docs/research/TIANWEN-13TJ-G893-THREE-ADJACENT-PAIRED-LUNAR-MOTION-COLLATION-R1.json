@@ -1,0 +1,382 @@
+{
+  "schema": "TIANWEN-13TJ-G893-THREE-ADJACENT-PAIRED-LUNAR-MOTION-COLLATION-R1",
+  "date": "2026-11-07",
+  "issue_id": "TW-OPEN-0005",
+  "classification": "DIRECT_ORIGINAL_SAME_COPY_SIX_LIMIT_FULL_LUNAR_MOTION_COLUMN_COLLATION; ONE_LOCAL_SYMMETRY_EXCEPTION; GENERATOR_UNRESOLVED",
+  "question": "Does 13TI's G893 L35/L132 higher-motion 0.0001-degree asymmetry recur immediately at original symmetric neighbors 34/133 and 36/131?",
+  "startup": {
+    "remote_head_at_start": "ebb3be195f1f607084104a1cdc8f15566a4be87c",
+    "remote_tree_at_start": "e4bf7c161e39dd5c350d1f865fc950cf4d50ff35",
+    "read_state_version": "1.1144.0",
+    "exact_head_check_statuses": "30/30 success",
+    "omission_review": "11 unresolved risks, P0 TW-OPEN-0001/0002 access-blocked and TW-OPEN-0005/0006/0007 open",
+    "pre_evidence_probe_commits": [
+      "96a848783ed684aba58d16b07957c53660d8c578",
+      "668f61c0cfc148bc2f1f5f81523bf6d05653b026"
+    ]
+  },
+  "original_source": {
+    "source_id": "EXT-KYUJANGGAK-SHOUSHI-LICHENG-G893",
+    "physical_copy": "GK00893_00 / 奎貴893",
+    "provider": "Seoul National University Kyujanggak first-party image service",
+    "catalog_url": "https://kyudb.snu.ac.kr/book/view.do?book_cd=GK00893_00",
+    "same_copy_only": true,
+    "header_page_id": "018b",
+    "header_jpeg_sha256": "4decd1801d832ba5b471b047dd84cca487245038622a589b48552a0fb43ab83a",
+    "review_runs": [
+      {
+        "run_id": 42370151366,
+        "job_id": 128396411310,
+        "purpose": "FIRST_PARTY_SOURCE_REACQUISITION_AND_WIDE_NATIVE_PAGE_WINDOWS",
+        "status": "SUCCESS"
+      },
+      {
+        "run_id": 42370390446,
+        "job_id": 128397127878,
+        "purpose": "SECOND_FIRST_PARTY_HASH_RECHECK_AND_SIX_LIMIT_SPECIFIC_SOURCE_RGB_ROIS",
+        "status": "SUCCESS"
+      }
+    ],
+    "original_jpeg_pages": [
+      {
+        "page": "023a",
+        "jpeg_bytes": 137182,
+        "sha256": "03e4e627f2a170503361d15119b0b417b7d146482657346645b34794c24ac436",
+        "hash_verification": "REACQUIRED_IDENTICAL_IN_TWO_CONSECUTIVE_DIRECT_FIRST_PARTY_RUNS"
+      },
+      {
+        "page": "023b",
+        "jpeg_bytes": 139128,
+        "sha256": "f5f732a4db9636ab563af47a5c8332e1f00eed1e587cc138d150da53f557d94f",
+        "hash_verification": "MATCHES_HISTORICAL_12YC_ARCHIVED_ORIGINAL_AND_THIS_SESSION"
+      },
+      {
+        "page": "036b",
+        "jpeg_bytes": 137459,
+        "sha256": "8acb0c32bcdd0be8827bc2851f089bf5d73a2378c3b7ffcfa80eeaf725d1dd84",
+        "hash_verification": "MATCHES_HISTORICAL_12YC_ARCHIVED_ORIGINAL_AND_THIS_SESSION"
+      }
+    ],
+    "crop_hash_method": "Pillow Image.open(BytesIO(verified_source_original_jpeg)).convert('RGB').crop((left,top,right,bottom)).tobytes() SHA256; independently hashed JPEG render also archived in logs; no OCR"
+  },
+  "original_source_scoped_rows": [
+    {
+      "limit": 34,
+      "page": "023a",
+      "rect": [
+        60,
+        180,
+        420,
+        1780
+      ],
+      "rgb": "c300f3fbc11ed1bc476a9bf54d9943f1c4a9b198b6a070e4cdc3774c5e81515c",
+      "crop_sha": "0e018553243eb5f3eaac338ce648f272ec11c33d64910b698a9065797ad9bb87",
+      "sign": "益",
+      "q": "八分〇一〇五二五",
+      "q_degree": "0.08010525",
+      "chi": "1.0162",
+      "ji": "1.1764",
+      "original_q_literal": "益八分〇一〇五二五",
+      "original_chi_degree": "1.0162",
+      "original_ji_degree": "1.1764",
+      "physical_copy": "GK00893_00 / 奎貴893",
+      "jpeg_sha256": "03e4e627f2a170503361d15119b0b417b7d146482657346645b34794c24ac436",
+      "source_literal_scope": "DIRECT_ORIGINAL_VISIBLE_LINE_LIMIT_Q_AND_CHI_JI_FOUR_PLACE_GLYPHS"
+    },
+    {
+      "limit": 35,
+      "page": "023b",
+      "rect": [
+        755,
+        180,
+        1145,
+        1780
+      ],
+      "rgb": "5c67e55f4bc8d48064c6a64be50ee56621b59c2cc27224f7fdf655f1be542fa8",
+      "crop_sha": "81ec3dcfd7b771b0f8394d755ac94338092841c6f338959f59207c365d29b002",
+      "sign": "益",
+      "q": "七分八八六〇七五",
+      "q_degree": "0.07886075",
+      "chi": "1.0174",
+      "ji": "1.1751",
+      "original_q_literal": "益七分八八六〇七五",
+      "original_chi_degree": "1.0174",
+      "original_ji_degree": "1.1751",
+      "physical_copy": "GK00893_00 / 奎貴893",
+      "jpeg_sha256": "f5f732a4db9636ab563af47a5c8332e1f00eed1e587cc138d150da53f557d94f",
+      "source_literal_scope": "DIRECT_ORIGINAL_VISIBLE_LINE_LIMIT_Q_AND_CHI_JI_FOUR_PLACE_GLYPHS"
+    },
+    {
+      "limit": 36,
+      "page": "023b",
+      "rect": [
+        460,
+        180,
+        815,
+        1780
+      ],
+      "rgb": "bc6ed1db7453d067d1340f537f065657d091df19e97d5afdf273ebe400fdd728",
+      "crop_sha": "bffdd53c5a98c4594d0e67ee332a35b41e9cbfb01026087618da8864f01e0aee",
+      "sign": "益",
+      "q": "七分七五九六七五",
+      "q_degree": "0.07759675",
+      "chi": "1.0187",
+      "ji": "1.1739",
+      "original_q_literal": "益七分七五九六七五",
+      "original_chi_degree": "1.0187",
+      "original_ji_degree": "1.1739",
+      "physical_copy": "GK00893_00 / 奎貴893",
+      "jpeg_sha256": "f5f732a4db9636ab563af47a5c8332e1f00eed1e587cc138d150da53f557d94f",
+      "source_literal_scope": "DIRECT_ORIGINAL_VISIBLE_LINE_LIMIT_Q_AND_CHI_JI_FOUR_PLACE_GLYPHS"
+    },
+    {
+      "limit": 131,
+      "page": "036b",
+      "rect": [
+        605,
+        180,
+        930,
+        1780
+      ],
+      "rgb": "f044ed6ad90b91186a75539f1f781f8f18beefea28f602d1e8546548cacb8b6d",
+      "crop_sha": "7102e8b500b91103d8145ed9f61c4c99b99c14e57526f8969a5424adc69c92dd",
+      "sign": "損",
+      "q": "七分七五九六七五",
+      "q_degree": "0.07759675",
+      "chi": "1.1739",
+      "ji": "1.0187",
+      "original_q_literal": "損七分七五九六七五",
+      "original_chi_degree": "1.1739",
+      "original_ji_degree": "1.0187",
+      "physical_copy": "GK00893_00 / 奎貴893",
+      "jpeg_sha256": "8acb0c32bcdd0be8827bc2851f089bf5d73a2378c3b7ffcfa80eeaf725d1dd84",
+      "source_literal_scope": "DIRECT_ORIGINAL_VISIBLE_LINE_LIMIT_Q_AND_CHI_JI_FOUR_PLACE_GLYPHS"
+    },
+    {
+      "limit": 132,
+      "page": "036b",
+      "rect": [
+        300,
+        180,
+        640,
+        1780
+      ],
+      "rgb": "79aedddb93674b738790ba940c5d5fca8bab830602f3241da70472562c182cb6",
+      "crop_sha": "34af40b32f8737a39e8d5fe15719925c2ededde8ba3e837ea98324a9ca0d9f90",
+      "sign": "損",
+      "q": "七分八八六〇七五",
+      "q_degree": "0.07886075",
+      "chi": "1.1752",
+      "ji": "1.0174",
+      "original_q_literal": "損七分八八六〇七五",
+      "original_chi_degree": "1.1752",
+      "original_ji_degree": "1.0174",
+      "physical_copy": "GK00893_00 / 奎貴893",
+      "jpeg_sha256": "8acb0c32bcdd0be8827bc2851f089bf5d73a2378c3b7ffcfa80eeaf725d1dd84",
+      "source_literal_scope": "DIRECT_ORIGINAL_VISIBLE_LINE_LIMIT_Q_AND_CHI_JI_FOUR_PLACE_GLYPHS"
+    },
+    {
+      "limit": 133,
+      "page": "036b",
+      "rect": [
+        0,
+        180,
+        350,
+        1780
+      ],
+      "rgb": "3aed5f3a3e357b974fd28c066c2566ba9b3cb262099843b2bc0cebbb5c338591",
+      "crop_sha": "ae31ab5df4937a55ee451623ce1d46a47b06c50fd6296a187235923feb1b6a36",
+      "sign": "損",
+      "q": "八分〇一〇五二五",
+      "q_degree": "0.08010525",
+      "chi": "1.1764",
+      "ji": "1.0162",
+      "original_q_literal": "損八分〇一〇五二五",
+      "original_chi_degree": "1.1764",
+      "original_ji_degree": "1.0162",
+      "physical_copy": "GK00893_00 / 奎貴893",
+      "jpeg_sha256": "8acb0c32bcdd0be8827bc2851f089bf5d73a2378c3b7ffcfa80eeaf725d1dd84",
+      "source_literal_scope": "DIRECT_ORIGINAL_VISIBLE_LINE_LIMIT_Q_AND_CHI_JI_FOUR_PLACE_GLYPHS"
+    }
+  ],
+  "paired_symmetry_review": [
+    {
+      "limits": [
+        34,
+        133
+      ],
+      "q_degree": "0.08010525",
+      "speed_min": [
+        "1.0162",
+        "1.0162"
+      ],
+      "speed_max": [
+        "1.1764",
+        "1.1764"
+      ],
+      "symmetric_both_columns": true
+    },
+    {
+      "limits": [
+        35,
+        132
+      ],
+      "q_degree": "0.07886075",
+      "speed_min": [
+        "1.0174",
+        "1.0174"
+      ],
+      "speed_max": [
+        "1.1751",
+        "1.1752"
+      ],
+      "symmetric_both_columns": false
+    },
+    {
+      "limits": [
+        36,
+        131
+      ],
+      "q_degree": "0.07759675",
+      "speed_min": [
+        "1.0187",
+        "1.0187"
+      ],
+      "speed_max": [
+        "1.1739",
+        "1.1739"
+      ],
+      "symmetric_both_columns": true
+    }
+  ],
+  "source_internal_result": {
+    "matched_symmetric_pair_count": 2,
+    "checked_symmetric_pair_count": 3,
+    "exception_pair": [
+      35,
+      132
+    ],
+    "exception_lane": "HIGHER_MOTION_SPEED_ONLY",
+    "slow_speed_pair_all_match": true,
+    "higher_speed_original_l35": "1.1751",
+    "higher_speed_original_l132": "1.1752",
+    "last_place_difference_degree": "0.0001",
+    "line35_q_equals_line132_abs_q": true,
+    "interpretation": "Local paired symmetry is preserved on both immediate adjacent pairs; the center checked pair has a one-print-unit deviation only in higher-motion lane. The precise cause cannot be proved from the six rows."
+  },
+  "cross_source_controls": {
+    "ming_original_doc": "docs/research/MING-DATONG-1569-CHIJI-FULL-NUMERIC-RECONSTRUCTION-R1.json",
+    "ming_print_six_rows": [
+      {
+        "limit": 34,
+        "chi": "1.0162",
+        "ji": "1.1764"
+      },
+      {
+        "limit": 35,
+        "chi": "1.0174",
+        "ji": "1.1751"
+      },
+      {
+        "limit": 36,
+        "chi": "1.0187",
+        "ji": "1.1739"
+      },
+      {
+        "limit": 131,
+        "chi": "1.1739",
+        "ji": "1.0187"
+      },
+      {
+        "limit": 132,
+        "chi": "1.1751",
+        "ji": "1.0174"
+      },
+      {
+        "limit": 133,
+        "chi": "1.1764",
+        "ji": "1.0162"
+      }
+    ],
+    "ming1569_source_replay_scope": "same six corresponding original printed numeric lanes; distinct original source, historical bibliographic relation not established",
+    "three_previously_scoped_models": [
+      {
+        "name": "NOMINAL_820_CEIL",
+        "mean_fraction": "87699/80000",
+        "quantizer": "CEIL",
+        "matches_out_of_12": 11,
+        "only_mismatch": {
+          "limit": 132,
+          "lane": "chi",
+          "predicted_1e4": 11751,
+          "original_g893_1e4": 11752
+        }
+      },
+      {
+        "name": "HALF_TURN_168_TRUNCATE",
+        "mean_fraction": "98232149/89600000",
+        "quantizer": "TRUNCATE",
+        "matches_out_of_12": 11,
+        "only_mismatch": {
+          "limit": 35,
+          "lane": "ji",
+          "predicted_1e4": 11752,
+          "original_g893_1e4": 11751
+        }
+      },
+      {
+        "name": "TIANGEN_109633975_TRUNCATE_CONDITIONAL",
+        "mean_fraction": "4385359/4000000",
+        "quantizer": "TRUNCATE",
+        "matches_out_of_12": 11,
+        "only_mismatch": {
+          "limit": 35,
+          "lane": "ji",
+          "predicted_1e4": 11752,
+          "original_g893_1e4": 11751
+        }
+      }
+    ],
+    "conditional_replay_scope": "12 direct G893 printed speed cells, each one fourth-place degree; models replay exact Fraction(mean +/- original Q) with quantizer and match 11/12, no native-generator status",
+    "method": "For 益, Chi=mean-Q and Ji=mean+Q; for 損, Chi=mean+Q and Ji=mean-Q; final source printed 4dp; no forced stage/hidden precision"
+  },
+  "adjudication": {
+    "historical_original_facts": "G893 adjacent 34/133 and 36/131 both paired speed lanes equal; 35/132 lower lane equal and higher lane differs by one fourth-place unit",
+    "hypotheses_open": [
+      "ISOLATED_PRINT_OR_TRANSCRIPTION_VARIANT",
+      "ROW_SPECIFIC_OR_DIFFERENT_STAGE_QUANTIZATION",
+      "UNPRINTED_PRECISION_OR_OTHER_CALCULATION_RULE"
+    ],
+    "what_is_not_proved": [
+      "A G893 copying mistake",
+      "Ming1569 direct derivation from G893",
+      "Universal CEIL/TRUNCATE selection for original G893",
+      "New independent physical witness or historical six-control final closure"
+    ],
+    "new_original_source_bound_lunar_speed_rows": 4,
+    "original_source_rows_rechecked_from_13TI": 2,
+    "original_jpeg_pages_seen_this_batch": 3,
+    "additional_physical_witnesses": 0,
+    "source_registry_additions": 0,
+    "genealogy_nodes_additions": 0,
+    "genealogy_edges_additions": 0,
+    "historical_matrix": "222/222",
+    "source_union": 786,
+    "genealogy": "254/239",
+    "open_issues": 11,
+    "g893_named_control_fields": "5/6",
+    "g893_cross_witness_final_adjudications": "0/6",
+    "chart_product": "CLOSED",
+    "algorithm_reopens": 0,
+    "next": "Prioritize source-native G893 mean/carry/quantizer passage or independent early exact L35/L132 original witness; nearby paired symmetry now bounded and replayed, avoid extending non-discriminating neighboring range without a new hypothesis."
+  },
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "explicit_non_edges": [
+      "Same-copy paired numeric congruence across six loci is not direct copying or historical transmission evidence.",
+      "Ming1569 independently prints a symmetric L35/L132 higher-speed pair, whereas G893 prints an asymmetric pair; this does not infer which copy is ancestral or defective."
+    ]
+  }
+}
