@@ -1,0 +1,87 @@
+{
+  "schema": "TIANWEN-13TP-YUANSHI-RECEIVED-DUAL-820-STAGE-AND-XING-ORIGINAL-OPERATOR-R1",
+  "date": "2026-11-07",
+  "issue_id": "TW-OPEN-0005",
+  "question": "Does received Yuan Shi vol.54 use 820 in two different stages, and does the time-conversion stage clarify—without proving numeric field identity—the freshly collated source-original Xing Yunlu vol.45 820/遲行度 捷法?",
+  "evidence_grade": "CROSS_WORK_RECEIVED_TEXT_ALGEBRAIC_ROLE-CHECK_AGAINST_PREVIOUSLY_AUTHENTICATED_MING_PRINT_ORIGINAL; NO_NEW_YUAN_PRINT_ORIGINAL_OR_G893_NUMERIC_GLYPH",
+  "witnesses": [
+    {
+      "work": "《元史》卷五十四〈授時曆經上〉",
+      "passage": "求遲疾差·又術",
+      "url": "https://zh.wikisource.org/wiki/%E5%85%83%E5%8F%B2/%E5%8D%B7054",
+      "received_exact_clauses": [
+        "置遲疾曆日及分，以遲疾曆日率減之，餘以其下損益分乘之，如八百二十而一，益加損減其下遲疾度，亦為所求遲疾差。"
+      ],
+      "source_scope": "Received digital historical text, no original Yuan-era leaf/edition identity bound."
+    },
+    {
+      "work": "《元史》卷五十四〈授時曆經上〉",
+      "passage": "求朔弦望定日",
+      "url": "https://zh.wikisource.org/wiki/%E5%85%83%E5%8F%B2/%E5%8D%B7054",
+      "received_exact_clauses": [
+        "以經朔弦望盈縮差與遲疾差，同名相從，異名相消",
+        "以八百二十乘之，以所入遲疾限下行度除之，即為加減差",
+        "以加減經朔弦望日及分，即定朔弦望日及分"
+      ],
+      "source_scope": "Received-text operational statement, not a G893 original table or original contemporaneous evidence."
+    },
+    {
+      "work": "《元史》四庫本卷五十四",
+      "passage": "求遲疾差／求朔弦望定日",
+      "url": "https://wk.100ke.info/zh-hant/%E5%85%83%E5%8F%B2_%28%E5%9B%9B%E5%BA%AB%E5%85%A8%E6%9B%B8%E6%9C%AC%29/%E5%8D%B7054",
+      "source_scope": "Corroborative received digital recension; not counted as an independent physical original or separate manuscript vote."
+    },
+    {
+      "work": "邢雲路《古今律曆考》卷四十五〈授時立成〉",
+      "passage": "terminal 太陰限度／遲疾行度／遲疾捷法 168-limit table",
+      "original_image_record": "docs/research/TIANWEN-13TO-XING-MING-ORIGINAL-820-INVERSE-RATE-RULE-R1.json",
+      "source_original_pdf_sha256": "95b264e0447fb612a4b389b4b44e8f9871f9d0417b6893699fd37fe589cb23f3",
+      "source_original_page_pdf_1based": 73,
+      "source_original_exact": "右置八百二十以遲行度而一為捷法",
+      "scope": "Authentic printed Ming-era original image for Xing's clause, but not an original YuanShi/G893 image."
+    }
+  ],
+  "mechanical_role_crosswalk": {
+    "stage_A_received_yuanshi": "rate residual × 損益分 ÷ 820; result added/subtracted to base 遲疾度; 820 is DIVISOR in an interpolation route.",
+    "stage_B_received_yuanshi": "combined signed 盈縮差/遲疾差 × 820 ÷ current 遲疾限下行度 = 朔弦望 time adjustment; 820 is MULTIPLIER in a different stage.",
+    "stage_B_ming_print_xing": "遲疾捷法 = 820 ÷ 遲行度; a source-original reciprocal coefficient that is consistent at the algebraic-dependency level with the received Yuan Shi time-adjustment multiplier.",
+    "algebraic_dependency_only": "If an edition-bound numerator E and a matching row rate R are established, then E × (820/R) = (E × 820)/R. This equality does NOT authenticate any value, stage-specific quantizer, radix or particular Xing/G893 lane.",
+    "non_equivalence": "The YuanShi source calls its denominator 所入遲疾限下行度 while Xing prints 遲行度. Similar operator structure alone cannot prove those table fields, units, precision, limit indexing or rounding stages are identical.",
+    "distinct_xing_first_table": "Xing's original first-table gloss divides accumulated degree difference by 日率 for 損益捷法; do not collapse it into either role of 820 merely because both appear in the same broad lunar family."
+  },
+  "adjudication": {
+    "new_source_original_pages": 0,
+    "new_independent_original_copies": 0,
+    "new_registered_sources": 0,
+    "new_original_g893_six_results": 0,
+    "new_g893_l35_l132_digit_decisions": 0,
+    "historical_finals": "0/6",
+    "named_controls": "5/6",
+    "tw_open_0005": "P0 OPEN",
+    "matrix": "222/222",
+    "external_source_union": 787,
+    "genealogy_nodes": 254,
+    "genealogy_edges": 239,
+    "open_issue_count": 11,
+    "deterministic_chart": "CLOSED",
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0,
+    "upgrade": "SOURCE_ROLE_DISAMBIGUATION_FROM_RECEIVED_YUANSHI_PLUS_AUTHENTICATED_XING_MING_SOURCE, NOT HISTORICAL_G893_NUMERIC_ORIGIN"
+  },
+  "negative_boundaries": [
+    "Two digital interfaces for YuanShi are not two independent original old-print witnesses.",
+    "Algebraic equivalence at the reciprocal-coefficient level is not proof of actual operand equality, printed-output agreement, source-to-source copying or direct Yuan-to-Ming lineage.",
+    "YuanShi received-text subtraction/division has not been authenticated on a Yuan-era original physical page; no original glyph grade upgrade.",
+    "No source-native micro radix, quantizer, carry instruction, raw lunar Ji/Chi speed identity or new G893 six final numbers are established.",
+    "Earlier 13TO same NLC/Wikimedia print original image remains the only original Xing authority used here; no new registered source or physical witness."
+  ],
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "explicit_non_edges": [
+      "Algebraically parallel reciprocal operations across received YuanShi and Ming Xing do not establish edition-stemma descent or G893 same-field speed values."
+    ]
+  },
+  "next": "Prioritize source-original 15th–16th century same-field Ji/Chi 行度 or an authenticated ancient 微/carry/rounding instruction on G893/Xing's exact numeric lane. A further received-text 820 paraphrase alone cannot close TW-OPEN-0005."
+}
