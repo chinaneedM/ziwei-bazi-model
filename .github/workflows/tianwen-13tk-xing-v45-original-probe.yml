@@ -1,0 +1,56 @@
+name: probe-tianwen-13tk-xing-v45-original
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths: [.github/workflows/tianwen-13tk-xing-v45-original-probe.yml]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  first-party-scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install PDF renderer
+        run: python -m pip install --disable-pip-version-check PyMuPDF Pillow
+      - name: Fetch public-domain 1608-candidate Ming source and generate unlabeled-by-content page atlas
+        run: |
+          python - <<'PY'
+          import base64, hashlib, io, json, urllib.request
+          from pathlib import Path
+          import fitz
+          from PIL import Image, ImageOps, ImageDraw
+          url = "https://upload.wikimedia.org/wikipedia/commons/5/5a/NLC892-CBM1408-371933_%E5%8F%A4%E4%BB%8A%E5%BE%8B%E6%9B%86%E8%80%83_%E4%B8%83%E5%8D%81%E4%BA%8C%E5%8D%B7_%E7%AC%AC14%E5%86%8A.pdf"
+          req = urllib.request.Request(url, headers={"User-Agent": "Tianwen-Historical-Research/1.0 (public-domain source verification)"})
+          with urllib.request.urlopen(req, timeout=65) as resp:
+              data = resp.read(30000000)
+              print("HTTP", resp.status, "type", resp.headers.get("Content-Type"), "bytes", len(data))
+          assert data[:5] == b"%PDF-" and 1000000 < len(data) < 30000000, "Unexpected PDF payload"
+          Path("xing-14.pdf").write_bytes(data)
+          doc = fitz.open(stream=data, filetype="pdf")
+          assert 55 <= len(doc) <= 90, "Expected historical scan fascicle length"
+          print("SOURCE", json.dumps({"catalog_work": "邢雲路《古今律曆考》", "public_page_id": "NLC892-CBM1408-371933", "book": 14, "bibliographic_volumes": [43,44,45], "pdf_pages": len(doc), "byte_sha256": hashlib.sha256(data).hexdigest(), "source": url}, ensure_ascii=False))
+          cells=[]
+          for page_idx in range(len(doc)):
+              pix=doc[page_idx].get_pixmap(matrix=fitz.Matrix(0.39,0.39), colorspace=fitz.csGRAY, alpha=False)
+              im=Image.frombytes("L", [pix.width,pix.height], pix.samples).convert("RGB")
+              im.thumbnail((220,230))
+              cell=Image.new("RGB",(238,258),"white")
+              cell.paste(im,((238-im.width)//2,19))
+              ImageDraw.Draw(cell).text((6,4),f"PDF p{page_idx} (1-based {page_idx+1})",fill="black")
+              cells.append(cell)
+          for part in range(2):
+              subset=cells[part*38:(part+1)*38]
+              ncol=5;nrow=(len(subset)+ncol-1)//ncol
+              atlas=Image.new("RGB",(238*ncol,258*nrow),"white")
+              for i,im in enumerate(subset): atlas.paste(im,((i%ncol)*238,(i//ncol)*258))
+              buf=io.BytesIO();atlas.save(buf,format="JPEG",quality=52,optimize=True)
+              payload=buf.getvalue()
+              print("ATLAS",json.dumps({"part":part,"start_page_zero_based":part*38,"count":len(subset),"jpeg_sha256":hashlib.sha256(payload).hexdigest(),"jpeg_bytes":len(payload)}))
+              b64=base64.b64encode(payload).decode("ascii")
+              for i in range(0,len(b64),3000): print(f"IMAGE_PART_{part}|{i//3000:04d}|{b64[i:i+3000]}")
+          PY
