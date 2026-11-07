@@ -1,0 +1,87 @@
+{
+  "schema": "TIANWEN-13SY-XINGYUNLU-V65-MING-SHOUSHI-INTERPOLATION-CRITIQUE-IMAGE-GATE-R1",
+  "date": "2026-11-07",
+  "issue_id": "TW-OPEN-0005",
+  "classification": "MING_LATE_SAME_TOPIC_CRITIQUE_RECEIVED_TEXT_PLUS_PHYSICAL_VOLUME_LOCATOR_NOT_DIRECT_ORIGINAL_TARGET_GLYPH",
+  "question": "Does a later Ming authored critique identify the competing Shoushi solar interpolation methods, and may it define source-original G893 short-lane precision or cumulative generation?",
+  "provider_physical_locator": {
+    "work": "邢雲路《古今律曆考》卷六十五《辯授時曆之失》",
+    "collection": "National Library of China old-print surrogate NLC892-CBM1408-371937 / 第18冊 / CBM1408",
+    "commons_file": "https://commons.wikimedia.org/wiki/File:NLC892-CBM1408-371937_%E5%8F%A4%E4%BB%8A%E5%BE%8B%E6%9B%86%E8%80%83_%E4%B8%83%E5%8D%81%E4%BA%8C%E5%8D%B7_%E7%AC%AC18%E5%86%8A.pdf",
+    "impression_scope": "明萬曆[1573-1620] catalog range only; exact impression and text-variant stemma unresolved",
+    "physical_set_scope": "The same NLC CBM1408 work has a separately already-registered volume1 (371920) in the project; volume18 is NOT a second independent copy of that NLC physical set",
+    "pages_in_pdf": 79,
+    "public_metadata_file_size_bytes": 20135970,
+    "original_volume_heading_preview": "https://commons.wikimedia.org/w/index.php?page=47&title=File:NLC892-CBM1408-371937_古今律曆考_七十二卷_第18冊.pdf",
+    "heading_preview_observation": "Commons page=47 is physical spread PDF page48 (1-based), showing 古今律曆考卷六十五; no exact solar interpolation target text is read from this thumbnail",
+    "inspected_web_pdf_preview_pages_zero_based": [
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52,
+      53
+    ],
+    "access_failure": "Full original PDF 20,135,970 bytes exceeds this web reader's content-length limit; screenshot API cannot accept the error response. No downloaded original PDF bytes, original-page SHA256, native RGB ROI or reliable target-glyph authentication.",
+    "target_folio_page_range": "NOT_EXACTLY_BOUND_AT_SOURCE_ORIGINAL_RESOLUTION"
+  },
+  "received_text": {
+    "shidian_url": "https://www.shidianguji.com/zh/book/SK1520/chapter/1l94yktaexogf",
+    "wikisource_url": "https://zh.wikisource.org/zh-hant/古今律厯考_(四庫全書本)/卷65",
+    "ctext_ocr_locator": "https://ctext.org/wiki.pl?chapter=280120&if=gb",
+    "shidian_short_atoms": [
+      "授時求盈縮遲疾差，立二術",
+      "一術不拘整日半日畸零時刻，以平立差三乘之爲密",
+      "一術則用加分損益積度，乃以二日對減之餘，乘時刻之零數",
+      "則分秒有不合爲疏也"
+    ],
+    "authority": "LATER_RECEIVED_SIKU_TEXT_NOT_DIRECT_MING_TARGET_GLYPH",
+    "interpretation": "Late-Ming author criticizes linear day-to-day interpolation of fractional-time increments versus a more precise polynomial 三乘 route; this is his explicitly stated precision evaluation, NOT historical proof that all Yuan production used either route or that the specific G893 printed prose was produced by either model.",
+    "digitization_firewall": "Wikisource and Shidian agreeing wording are received-text access paths, not independently digitized Ming physical target witnesses. CText automatic extraction is visibly error-prone and is a locator only."
+  },
+  "relation_to_current_research": {
+    "prior_originals": [
+      "docs/research/TIANWEN-13SV-KYOTO-1672-YUANSHI54-SOLAR-YOUSHU-DIRECT-ORIGINAL-R1.json",
+      "docs/research/TIANWEN-13SU-JIAOSHI-FRACTIONAL-DAY-NATIVE-INTERPOLATION-VS-G893-PROSE-R1.json",
+      "docs/research/TIANWEN-13SK-G893-ORIGINAL-SOLAR-POST-TABLE-TOTALS-R1.json",
+      "docs/research/ZIWEI-XINGYUNLU-DATONG-ENDPOINT-BINDING-R1.json"
+    ],
+    "field_scope": "Xing commentary spans 盈縮 AND 遲疾 and criticizes alternative procedures; without an original Ming page target at high resolution it does not bind a G893 solar aggregate algorithm or local unit.",
+    "new_original_same_field_numerical_witnesses": 0,
+    "g893_six_historical_finals": "0/6",
+    "native_shao_wei_radix_carry_proved": false,
+    "G893_full_winter_source_prose": "91.401427",
+    "G893_full_summer_source_prose": "91.598717",
+    "prose_values_are_existing_controls_not_new_this_batch": true,
+    "forward_only": "No previously authenticated G893 glyph, recovered six-place total, issue result or prior research report is revised."
+  },
+  "adjudication": {
+    "new_source_registry_entry_count": 0,
+    "new_transmission_nodes": 0,
+    "new_transmission_edges": 0,
+    "reason_no_registry_addition": "Existing same physical NLC CBM1408 work/set is already registered at volume1, while the volume18 target original glyph is not yet secured; keep a separate research-acquisition locator rather than claiming a new independent source or appending a low-confidence vote.",
+    "matrix": "222/222",
+    "registry_sources": 786,
+    "graph_nodes": 254,
+    "graph_edges": 239,
+    "omission_open_issues": 11,
+    "issue_status": "P0 OPEN",
+    "six_historical_target_adjudications": "0/6",
+    "product": "CLOSED",
+    "algorithm_reopens": 0,
+    "candidate_collapse": 0
+  },
+  "transmission_impact": {
+    "new_edges": [],
+    "unproved": [
+      "Late-Ming author critical view -> original G893 production method",
+      "NLC volume1 and volume18 -> independent textual witnesses",
+      "Later Siku received text -> precisely transcribed target Ming leaf",
+      "三乘 vs day-interpolation precision difference -> source-native G893 少/微 unit or six-place carry"
+    ]
+  },
+  "next": "For priority TW-OPEN-0005 seek source-original G893 same-field carry/generation or independent same-epoch six-place solar aggregate. For the separate authorial-critique question obtain the NLC vol18 original target leaf at native/resolution and hash before any target-glyph verdict; do not downgrade G893 source evidence based on Xing Yunlu's later polemic."
+}
