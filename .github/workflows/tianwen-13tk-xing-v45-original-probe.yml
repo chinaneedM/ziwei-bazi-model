@@ -61,4 +61,16 @@ jobs:
               print("SOURCE_PAGE",json.dumps({"page_zero_based":page_no,"pdf_page_one_based":page_no+1,"render_jpeg_sha256":hashlib.sha256(payload).hexdigest(),"pixel_shape":[pix.width,pix.height],"jpeg_bytes":len(payload)}))
               b64=base64.b64encode(payload).decode("ascii")
               for i in range(0,len(b64),3000): print(f"SOURCE_PAGE_{page_no}|{i//3000:04d}|{b64[i:i+3000]}")
+          # Targeted original-pixel strips: source column coordinates are exploratory,
+          # not declared glyph readings. Keep neighboring columns for row ownership.
+          for page_no, rect in [(65,(510,105,785,825)), (70,(170,105,460,825))]:
+              pix=doc[page_no].get_pixmap(matrix=fitz.Matrix(2.4,2.4),colorspace=fitz.csGRAY,alpha=False)
+              page_image=Image.frombytes("L",[pix.width,pix.height],pix.samples)
+              crop=page_image.crop(rect)
+              crop=crop.resize((crop.width*2,crop.height*2),resample=Image.Resampling.NEAREST)
+              out=io.BytesIO();crop.save(out,format="JPEG",quality=79,optimize=True)
+              payload=out.getvalue()
+              print("COLUMN_WINDOW",json.dumps({"page_zero_based":page_no,"rect_in_render_px":rect,"render_jpeg_sha256":hashlib.sha256(payload).hexdigest(),"jpeg_bytes":len(payload)}))
+              b64=base64.b64encode(payload).decode("ascii")
+              for i in range(0,len(b64),3000): print(f"COLUMN_WINDOW_{page_no}|{i//3000:04d}|{b64[i:i+3000]}")
           PY
