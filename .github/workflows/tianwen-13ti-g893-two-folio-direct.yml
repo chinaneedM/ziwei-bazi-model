@@ -40,7 +40,7 @@ jobs:
           import crypto from 'node:crypto';
           const book='GK00893_00', vol='0001';
           const expected={
-            '023a':null,
+            '023a':'03e4e627f2a170503361d15119b0b417b7d146482657346645b34794c24ac436',
             '023b':'f5f732a4db9636ab563af47a5c8332e1f00eed1e587cc138d150da53f557d94f',
             '036b':'8acb0c32bcdd0be8827bc2851f089bf5d73a2378c3b7ffcfa80eeaf725d1dd84'
           };
@@ -98,22 +98,29 @@ jobs:
             }
           }finally{await browser.close();}
           JS
-      - name: Emit full source-original page windows for adjacent limits
+      - name: Emit six exact limit-sized original cropped source panels
         shell: bash
         run: |
           python - <<'PY'
           from PIL import Image
           from io import BytesIO
           import hashlib,base64
-          for folio,rect in [('023a',(0,150,1150,1790)),('023b',(0,150,1150,1790)),('036b',(0,150,1150,1790))]:
+          for label,folio,rect in [
+              ('L34','023a',(60,180,420,1780)),
+              ('L35','023b',(755,180,1145,1780)),
+              ('L36','023b',(460,180,815,1780)),
+              ('L131','036b',(605,180,930,1780)),
+              ('L132','036b',(300,180,640,1780)),
+              ('L133','036b',(0,180,350,1780))
+          ]:
               im=Image.open('/tmp/tianwen-original-'+folio+'.jpg').convert('RGB')
               assert im.size==(1150,2000),(folio,im.size)
               raw=im.crop(rect)
               pixel_sha=hashlib.sha256(raw.tobytes()).hexdigest()
               buf=BytesIO();raw.save(buf,format='JPEG',quality=83,subsampling=0)
               out=buf.getvalue()
-              print('SOURCE_CROP',folio,'rect',rect,'rgb_sha256',pixel_sha,'crop_jpeg_sha256',hashlib.sha256(out).hexdigest(),'bytes',len(out),flush=True)
+              print('SOURCE_CROP',label,folio,'rect',rect,'rgb_sha256',pixel_sha,'crop_jpeg_sha256',hashlib.sha256(out).hexdigest(),'bytes',len(out),flush=True)
               b64=base64.b64encode(out).decode()
               for i in range(0,len(b64),1600):
-                  print(f'TIANWEN_G893_CROP_{folio}_{i//1600:04d}={b64[i:i+1600]}',flush=True)
+                  print(f'TIANWEN_G893_CROP_{label}_{i//1600:04d}={b64[i:i+1600]}',flush=True)
           PY
