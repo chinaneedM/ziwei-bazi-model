@@ -1,0 +1,101 @@
+{
+  "schema": "TIANWEN-13TM-XING-RECEIVED-V44-V45-TWO-JIEFA-OPERATOR-CROSSWALK-R1",
+  "date": "2026-11-07",
+  "issue_id": "TW-OPEN-0005",
+  "question": "Does the received-text cross-juan operation context distinguish Xing Yunlu's two jiefa coefficients and accumulated chiji degree from raw G893 per-limit lunar high speed, before assigning units to the already archived Ming original L35/L132 columns?",
+  "evidence_grade": "PUBLIC_LATER_SIKU_RECEIVED_TEXT_EXACT_CLAUSE_AND_ALGORITHM_CROSSWALK_ONLY; NO_NEW_MING_PRINT_ORIGINAL_FOLIO_OR_DIGITS",
+  "input_original": {
+    "prior_ming_original": "docs/research/TIANWEN-13TK-XINGYUNLU-MING-V45-DIRECT-ORIGINAL-LIMIT-LOCATORS-R1.json",
+    "prior_micro_unit_gate": "docs/research/TIANWEN-13TL-XING-MING-PRINT-MICRO-UNIT-AND-LANE-IDENTITY-GATE-R1.json",
+    "ming_original_pdf_sha256": "95b264e0447fb612a4b389b4b44e8f9871f9d0417b6893699fd37fe589cb23f3",
+    "ming_native_page_anchors": "PDF pp66/71, L35/L132; source-row heading and segmented 微 notation only; no new native image captured"
+  },
+  "received_text_locations": [
+    {
+      "work": "邢雲路《古今律曆考》卷四十四〈歷法九〉",
+      "section": "推平交入限遲疾歷 / 推平交加減定差",
+      "url": "https://www.shidianguji.com/zh/book/SK1520/chapter/1laz2gdrx1lir",
+      "exact_clauses": [
+        "置平交入轉遲疾歷限數下遲疾歷日率減之為實，以損益捷法乘之，得數加減遲疾度全分，得平交入限遲疾度分。",
+        "置平交入限遲疾度，以限下遲疾捷法乘之，遲為加差，疾為減差。"
+      ],
+      "scope": "Later received digital representation, not independently imaged Ming printed original."
+    },
+    {
+      "work": "邢雲路《古今律曆考》卷四十五〈授時立成〉",
+      "section": "太陰限度遲疾日率分損益捷法／損益分／遲疾度 and following two commentary clauses",
+      "url": "https://zh.wikisource.org/zh-hant/%E5%8F%A4%E4%BB%8A%E5%BE%8B%E5%8E%AF%E8%80%83_(%E5%9B%9B%E5%BA%AB%E5%85%A8%E6%9B%B8%E6%9C%AC)/%E5%8D%B745",
+      "exact_clauses": [
+        "太隂限度遲疾日率分損益捷法損　益　分　遲　疾　度",
+        "右遲疾積度相減為損益損益以日率而一為捷法",
+        "右置八百二十以遲行度而一為捷法"
+      ],
+      "scope": "Wikisource later Siku received page, table images replaced by placeholders; two modern websites are not counted as separate physical copies."
+    }
+  ],
+  "mechanical_roles": [
+    {
+      "role": "損益捷法",
+      "received_juan44_consumer": "Residual from entry limit-rate minus printed rate multiplied by 損益捷法 then added/subtracted from base 遲疾度; yields interpolated 遲疾度.",
+      "received_juan45_construction": "Difference of adjacent 遲疾積度 divided by corresponding 日率; the table unit and exact row-level operand to be verified."
+    },
+    {
+      "role": "遲疾捷法",
+      "received_juan44_consumer": "Multiply interpolated 遲疾度 by limit-level 遲疾捷法 to obtain a time correction with 遲 add and 疾 subtract.",
+      "received_juan45_construction": "820 divided by 遲行度 in the later table's commentary; not automatically same as original four-place Ji/Chi printed speed."
+    },
+    {
+      "role": "遲疾積度／遲疾度",
+      "received_juan44_consumer": "Cumulative/adjusted distance used by interpolation",
+      "not_identical_by_label_to": "single-limit 疾/遲行度 or G893 four-place high speed"
+    }
+  ],
+  "formal_dependence_only": [
+    "delta_rate = target_limit_rate - base_limit_rate",
+    "adjusted_chiji_degree = base_chiji_degree ± delta_rate * sunyi_jiefa",
+    "time_correction = adjusted_chiji_degree * chiji_jiefa"
+  ],
+  "formal_scope": "These are dependency relations in the received language, not adjudicated scales, unit conversions, rounding stages or native print glyphs.",
+  "g893_comparator": {
+    "source": "docs/research/TIANWEN-13TJ-G893-THREE-ADJACENT-PAIRED-LUNAR-MOTION-COLLATION-R1.json",
+    "source_native_l35_ji": "1.1751",
+    "source_native_l132_chi": "1.1752",
+    "original_q_both": "0.07886075",
+    "meaning": "Direct earlier G893 printed lunar high-speed 4dp; NOT equated to either Xing jiefa coefficient."
+  },
+  "adjudication": {
+    "new_original_page": 0,
+    "new_original_copy": 0,
+    "new_independent_witness": 0,
+    "new_external_registry_source": 0,
+    "new_g893_historical_final": 0,
+    "open_issues": 11,
+    "matrix": "222/222",
+    "sources_union": 787,
+    "genealogy_nodes": 254,
+    "genealogy_edges": 239,
+    "deterministic_chart": "CLOSED",
+    "algorithm_reopens": 0,
+    "two_coefficient_roles": "RECEIVED_TEXT_OPERATORS_DISTINCT",
+    "native_l35_l132_field_identity": "UNRESOLVED",
+    "radix_and_micro": "UNRESOLVED",
+    "ming_native_last_digit": "UNREAD",
+    "transmission_genealogy": "NO_NEW_EDGE"
+  },
+  "negative_boundaries": [
+    "The two online Siku received presentations are text interfaces, not two independent historic source copies.",
+    "This cross-juan semantic bridge is not a first-party physical folio collation of the Ming NLC print.",
+    "The source-native PDF image has not been newly downloaded or re-rendered in 13TM; prior 13TK/13TL page hashes remain the only original-image scope.",
+    "The visible native 微 does not itself establish a degree-radix or a four-place G893 output unit.",
+    "No claim of original Xing numerical agreement/disagreement, ancient copy error, native rounding instruction, manuscript descent or algorithm change."
+  ],
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "explicit_non_edges": [
+      "Two distinct later-received algorithmic coefficient names cannot establish that Xing's native L35/L132 table values are numerically identical to G893 printed high-speed 1.1751/1.1752."
+    ]
+  },
+  "next": "On already SHA-bound source-original Xing PDF pp66/71, bind the specific original table header, source-native 微 radix and same-row column identity to Juan44/45 received operator roles; only if the exact native object is raw high-speed 行度 do direct last-place comparisons. Otherwise pursue independent source-native 15th–16th century Chi/Ji high-speed print or original G893 carry mechanism."
+}
