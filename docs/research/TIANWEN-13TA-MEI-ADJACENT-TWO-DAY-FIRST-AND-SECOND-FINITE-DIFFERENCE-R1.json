@@ -1,0 +1,123 @@
+{
+  "schema": "TIANWEN-13TA-MEI-ADJACENT-TWO-DAY-FIRST-AND-SECOND-FINITE-DIFFERENCE-R1",
+  "date": "2026-11-07",
+  "issue_id": "TW-OPEN-0005",
+  "classification": "QING_LATER_RECEIVED_EXPLICIT_ADJACENT_DAILY_TABLE_DIFFERENCES_CORROBORATES_13SZ_SEMANTIC_BUT_NO_G893_SOURCE_GENERATION_PROOF",
+  "question": "Does an independently attributed later commentator explicitly say 相挨兩日 (adjacent daily rows), and which of the two finite differences is applied to which solar table field?",
+  "source": {
+    "author": "梅文鼎",
+    "work": "《大統厯志》卷四〈立成〉中的〈布立成法〉",
+    "received_text_url": "https://zh.wikisource.org/zh-hant/大統厯志_(四庫全書本)/卷4",
+    "received_page": "卷四，布立成法段，Wikisource rendered L131",
+    "registry_source_id": "EXT-WIKISOURCE-DATONG-LIZHI-V4",
+    "witness_grade": "LATER_QING_SIKU_RECEIVED_TRANSCRIPTION_NOT_NEW_ORIGINAL_PRINT",
+    "two_distinct_source_atoms": [
+      {
+        "atom": "相挨兩日盈縮積相減",
+        "output_field": "每日盈縮加分",
+        "operator": "first_forward_difference_of_daily_cumulative_C"
+      },
+      {
+        "atom": "相挨兩日加分相減",
+        "output_field": "每日消息分",
+        "operator": "forward_decrement_of_daily_addend_M"
+      }
+    ],
+    "context_atom": "各以其日平差立差求到每日盈縮積",
+    "interpretation": "The text calls for two neighboring tabulated daily rows, not an elapsed two-whole-day interpolation interval. Its first operator obtains M from adjacent C; the second obtains daily message S from neighboring M. This is a Qing retrospective explanation, not literal provenance of the G893 source-original printing process.",
+    "independence_caution": "Different author/work from Xing and Huang later received texts; NOT a new independent Yuan/G893 physical or numeric witness.",
+    "previous_source_same_work_original": "docs/research/TIANWEN-13RT-MEI-CADAL06054965-SOLAR-OPERATION-AND-TABLE-ORIGINAL-R1.json",
+    "previous_original_scope": "The authenticated CADAL06054965 page101 native ROI attested the solar J-row add/subtract wording, not the exact 相挨兩日 characters. This batch has NOT inspected that exact original physical target glyph; keep lexical collation grade RECEIVED_ONLY.",
+    "previous_received_Mei_research": "docs/research/TIANWEN-13SO-MEI-DATONG-GORYEOSA-FOUR-TOTALS-EXPLICIT-CITATION-R1.json",
+    "previous_13SZ": "docs/research/TIANWEN-13SZ-TWO-DAY-ENDPOINT-VS-TWO-DAY-INTERVAL-PHILOLOGY-R1.json"
+  },
+  "source_scoped_mechanical_certificate": {
+    "scale": "Existing 13SU G893-Jiaoshi comparative polynomial C and M are integer multiples of 10^-8 degree. These are SOURCE-ALIGNED ALGEBRAIC REPLAYS of previously read four-place table displays, not newly verified six-place original historical calculations.",
+    "C_formula": "C(n)=n*(A-n*(B+L*n))",
+    "M_formula": "M(n)=C(n+1)-C(n)=A-B*(2*n+1)-L*(3*n*n+3*n+1)",
+    "S_formula": "S(n)=M(n)-M(n+1)",
+    "rows": [
+      {
+        "season": "winter",
+        "A": 5133200,
+        "B": 24600,
+        "L": 31,
+        "C0": 0,
+        "C1": 5108569,
+        "C2": 10167752,
+        "M0": 5108569,
+        "M1": 5059183,
+        "M2": 5009611,
+        "S0": 49386,
+        "S1": 49572,
+        "S_step": 186,
+        "first_diff_checks": "2/2",
+        "second_diff_checks": "2/2"
+      },
+      {
+        "season": "summer",
+        "A": 4870600,
+        "B": 22100,
+        "L": 27,
+        "C0": 0,
+        "C1": 4848473,
+        "C2": 9652584,
+        "M0": 4848473,
+        "M1": 4804111,
+        "M2": 4759587,
+        "S0": 44362,
+        "S1": 44524,
+        "S_step": 162,
+        "first_diff_checks": "2/2",
+        "second_diff_checks": "2/2"
+      }
+    ],
+    "checks": "Each season C1-C0=M0, C2-C1=M1, M0-M1=S0, M1-M2=S1 and S1-S0=6*L. Exact integer checks 10/10 on prior source-scaled coefficients.",
+    "scope_exclusion": "The identity and Mei's later instruction do not settle whether G893's own manuscript/scribe retained hidden digits, source-original 少 radix, per-step quantization, or an independent prose total-generator."
+  },
+  "original_access_boundaries": {
+    "ming_Xing_NLC_v18": "NLC892-CBM1408-371937 20,135,970-byte Commons public PDF metadata and earlier heading preview are registered 13SY; current web fetch refused file due size, local runtime network cannot resolve host and downloader cannot materialize this URL; no PDF bytes, native page RGB, SHA256 or targeted Ming glyph obtained. This retrieval limit is environment-specific, not source absence.",
+    "meis_original_line": "Previously archived CADAL06054965 source page 101 has a different native phrase crop; do not upgrade this batch's 相挨 text to DIRECT_SOURCE_GLYPH without a separately bound native original ROI."
+  },
+  "adjudication": {
+    "positive": "Later Qing received Mei text explicitly disambiguates the two adjacent-daily-row finite differences, and the existing exact C/M/S numerical model satisfies both source-described operations in both seasonal lanes.",
+    "not_proven": [
+      "Ming Xing original 二日 glyph",
+      "Huang original 一日 or 二日 glyph",
+      "G893 original source algorithm used Mei's explanation",
+      "independent ancient G893 precise carry/rounding",
+      "source original six-place aggregate generation",
+      "same-physical-copy or direct historical genealogy from Mei to G893"
+    ],
+    "new_original_images": 0,
+    "new_physical_witnesses": 0,
+    "new_historical_numeric_votes": 0,
+    "G893_six_historic_finals": "0/6",
+    "issue_status": "TW-OPEN-0005 P0 OPEN",
+    "source_registry_delta": 0,
+    "matrix_delta": 0,
+    "genealogy_nodes_delta": 0,
+    "genealogy_edges_delta": 0,
+    "issue_count": 11,
+    "matrix": "222/222",
+    "registry": "647+139=786",
+    "genealogy": "254 nodes / 239 edges",
+    "chart": "CLOSED",
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Qing retrospective mechanical gloss is not a demonstrated primary G893 production instruction",
+      "Digital readout agreement across authors is not a proof of direct copying or identity of physical print"
+    ],
+    "remaining_questions": [
+      "Identify original G893 source native high-precision 日差/少/微 carry or original six-place cumulative generator",
+      "Acquire original exact 二日 versus 一日 text glyph only if it materially informs the primary G893 gate"
+    ]
+  },
+  "next": "P0 remains source-authenticated G893 same-field numerator/carry/retained higher precision or genuinely independent earlier >=5-place same-window witness; do not repeat now-closed bounded adjacent-daily lexical model absent stronger original evidence."
+}
