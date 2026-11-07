@@ -1,0 +1,292 @@
+{
+  "schema": "TIANWEN-13TH-G893-L35-L132-DISCRIMINATING-MING1569-AND-TIANGEN-CONTROL-R1",
+  "date": "2026-11-07",
+  "issue_id": "TW-OPEN-0005",
+  "classification": "SOURCE_ORIGINAL_MING1569_336_CELL_DISCRIMINATION_AND_G893_TWO_FOLIO_PENDING_TARGET; LATER_QING_TIANGEN_SECRETBOOK_LABEL_IS_NOT_EARLY_ORIGINAL",
+  "question": "Which already original-collated source fields separate the 13TG two candidate mean/quantizer pairs, and does the later Mei text's separately labeled 天根 constant create a third distinct received proposal?",
+  "startup": {
+    "live_head": "e7a98cd21746fd2ad37ff0fe2b9f1ef018efbd2d",
+    "live_tree": "4f93f413439eb4343f63b0f78459eeb9651dffc8",
+    "exact_head_actions": "284/285 success, one clean-training-system full unittest in progress at startup; no failed run",
+    "read_state_version": "1.1142.0",
+    "reviewed_open_issue_ids": [
+      "TW-OPEN-0001",
+      "TW-OPEN-0002",
+      "TW-OPEN-0003",
+      "TW-OPEN-0004",
+      "TW-OPEN-0005",
+      "TW-OPEN-0006",
+      "TW-OPEN-0007",
+      "TW-OPEN-0008",
+      "TW-OPEN-0009",
+      "TW-OPEN-0010",
+      "TW-OPEN-0011"
+    ],
+    "P0_statuses": [
+      [
+        "TW-OPEN-0001",
+        "BLOCKED_SOURCE_ACCESS"
+      ],
+      [
+        "TW-OPEN-0002",
+        "BLOCKED_SOURCE_ACCESS"
+      ],
+      [
+        "TW-OPEN-0005",
+        "OPEN"
+      ],
+      [
+        "TW-OPEN-0006",
+        "OPEN"
+      ],
+      [
+        "TW-OPEN-0007",
+        "OPEN"
+      ]
+    ],
+    "source_registries": "647 original root + 139 extensions = 786; 84 shards previously audited; no source additions"
+  },
+  "historical_sources": {
+    "ming_original": {
+      "source_id": "EXT-KOTENMON-DAMING-DATONG-1569",
+      "url": "https://www.kotenmon.com/cal/arabe/vol6.pdf",
+      "pdf_sha256": "4c006b7ce131902fe33012d42f62cd2bbc2140affa3d5886e0da02966352cb7c",
+      "normalized_primary_table": "docs/research/MING-DATONG-1569-CHIJI-FULL-NUMERIC-RECONSTRUCTION-R1.json",
+      "source_table_blob_sha": "99b3d7f1f11dcc3a9dec5e183fd79cf2d5351281",
+      "primary_chiji_numeric_rows": 169,
+      "primary_xingdu_numeric_rows": 169,
+      "comparable_nonterminal_limits": 168,
+      "verified_primary_collation_scope": "169 direct original collated source rows each table, terminal 168 empty speed; 336 same-edition four-place Chi/Ji printed cells available",
+      "source_bound_special_center": "82/85 explicit source-reconstruction special movement overrides; do not disprove Ming standing model from two generic-only mismatches"
+    },
+    "g893_original_same_copy": {
+      "source_id": "EXT-KYUJANGGAK-SHOUSHI-LICHENG-G893",
+      "copy": "GK00893_00 ONE PHYSICAL COPY",
+      "source_12yc": "docs/research/TIANWEN-12YC-G893-L8-L159-L35-L132-ORIGINAL-PAIR-GLYPH-COLLATION-R1.json",
+      "source_blob_sha": "212b3adea70a44ec37f512c0ba4ad348b5af4ae8",
+      "original_l35_jpeg_sha256": "f5f732a4db9636ab563af47a5c8332e1f00eed1e587cc138d150da53f557d94f",
+      "original_l132_jpeg_sha256": "8acb0c32bcdd0be8827bc2851f089bf5d73a2378c3b7ffcfa80eeaf725d1dd84",
+      "target_l35_url": "https://kyudb.snu.ac.kr/ImageServlet.do?imgFileNm=GK00893_00IH_0001_023b.jpg&path=%2Fdata01%2Fstream%2FSIC%2FIMG%2FGK00893_00%2FGK00893_00_0001%2FGK00893_00IH_0001_023b.jpg",
+      "target_l132_url": "https://kyudb.snu.ac.kr/ImageServlet.do?imgFileNm=GK00893_00IH_0001_036b.jpg&path=%2Fdata01%2Fstream%2FSIC%2FIMG%2FGK00893_00%2FGK00893_00_0001%2FGK00893_00IH_0001_036b.jpg",
+      "original_read_scope": "Both original source images and their loss/gain numerals are already bound, but their differentiating 1.175x four-place speed fields have NOT been directly collated as a new original target. Never promote a prediction or 1569 cell as a G893 reading."
+    },
+    "mei_received": {
+      "work": "梅文鼎《大統厯志》卷四",
+      "received_url": "https://zh.wikisource.org/wiki/大統厯志_(四庫全書本)/卷4",
+      "other_received_url": "https://ctext.org/wiki.pl?chapter=900071&if=en",
+      "grade": "RECEIVED_SIKU_DIGITAL_TEXT_AND_PARALLEL_TRANSCRIPTION; ORIGINAL_TIANGEN_TARGET_FOLIO_NOT_COLLATION_VERIFIED",
+      "section": "欽天監秘本／遲疾行度之法",
+      "critical_passage": "歌曰天根一度○九分六三三九七五齊",
+      "normalized_candidate_mean": "1.09633975",
+      "printed_claim_not_established": "欽天監秘本 is a label reproduced within Mei's later received text; it does not identify an independently authenticated Ming office original, its precise date, exemplar, direct G893 ancestry or rounding instruction.",
+      "sign_words": "八十三限前皆益疾加遲減；八十四限後皆損疾減遲加",
+      "quantizer_assumption": "Truncation was selected solely as an explicit conditional numerical test by comparison to Mei's nearby alternative; the 天根 verse itself does not specify it.",
+      "prior_source_13tg": "docs/research/TIANWEN-13TG-MEI-RECEIVED-TWO-LUNAR-LIMIT-MEAN-ROUNDING-BRIDGES-R1.json"
+    }
+  },
+  "exact_full_primary_replay": {
+    "scope": "168 nonterminal limits × two original primary Ming 1569 lunar motion columns = 336 independently source-collated printed cells, exact rational arithmetic, no float",
+    "models": [
+      {
+        "name": "NOMINAL_820_CEIL",
+        "mean_fraction": "87699/80000",
+        "quantizer": "CEIL",
+        "authority": "LATER_MEI_RECEIVED_NOMINAL_OPERATOR_AND_SOURCE_SCOPED_MING1569_RECONSTRUCTION",
+        "matches_out_of": 336,
+        "matches": 334,
+        "central_exceptions": [
+          {
+            "limit": 82,
+            "lane": "chi",
+            "predicted_1e4": 10959,
+            "original_1569_1e4": 10960
+          },
+          {
+            "limit": 85,
+            "lane": "ji",
+            "predicted_1e4": 10959,
+            "original_1569_1e4": 10960
+          }
+        ],
+        "other_disagreements": [],
+        "source_aligned_noncentral_matched": 332
+      },
+      {
+        "name": "HALF_TURN_168_TRUNCATE",
+        "mean_fraction": "98232149/89600000",
+        "quantizer": "TRUNCATE",
+        "authority": "LATER_MEI_RECEIVED_ALTERNATIVE_WITH_TRUNCATION",
+        "matches_out_of": 336,
+        "matches": 326,
+        "central_exceptions": [
+          {
+            "limit": 82,
+            "lane": "chi",
+            "predicted_1e4": 10959,
+            "original_1569_1e4": 10960
+          },
+          {
+            "limit": 85,
+            "lane": "ji",
+            "predicted_1e4": 10959,
+            "original_1569_1e4": 10960
+          }
+        ],
+        "other_disagreements": [
+          {
+            "limit": 26,
+            "lane": "ji",
+            "predicted_1e4": 11857,
+            "original_1569_1e4": 11856
+          },
+          {
+            "limit": 35,
+            "lane": "ji",
+            "predicted_1e4": 11752,
+            "original_1569_1e4": 11751
+          },
+          {
+            "limit": 61,
+            "lane": "ji",
+            "predicted_1e4": 11360,
+            "original_1569_1e4": 11359
+          },
+          {
+            "limit": 67,
+            "lane": "chi",
+            "predicted_1e4": 10676,
+            "original_1569_1e4": 10675
+          },
+          {
+            "limit": 100,
+            "lane": "ji",
+            "predicted_1e4": 10676,
+            "original_1569_1e4": 10675
+          },
+          {
+            "limit": 106,
+            "lane": "chi",
+            "predicted_1e4": 11360,
+            "original_1569_1e4": 11359
+          },
+          {
+            "limit": 132,
+            "lane": "chi",
+            "predicted_1e4": 11752,
+            "original_1569_1e4": 11751
+          },
+          {
+            "limit": 141,
+            "lane": "chi",
+            "predicted_1e4": 11857,
+            "original_1569_1e4": 11856
+          }
+        ],
+        "source_aligned_noncentral_matched": 324
+      },
+      {
+        "name": "TIANGEN_109633975_TRUNCATE_CONDITIONAL",
+        "mean_fraction": "4385359/4000000",
+        "quantizer": "TRUNCATE",
+        "authority": "LATER_MEI_RECEIVED_QLM_SECRETBOOK_LABEL_CONSTANT; TRUNCATION_IS_EXPLORATORY_NOT_SPECIFIED_BY_TIANGEN_VERSE",
+        "matches_out_of": 336,
+        "matches": 332,
+        "central_exceptions": [
+          {
+            "limit": 82,
+            "lane": "chi",
+            "predicted_1e4": 10959,
+            "original_1569_1e4": 10960
+          },
+          {
+            "limit": 85,
+            "lane": "ji",
+            "predicted_1e4": 10959,
+            "original_1569_1e4": 10960
+          }
+        ],
+        "other_disagreements": [
+          {
+            "limit": 35,
+            "lane": "ji",
+            "predicted_1e4": 11752,
+            "original_1569_1e4": 11751
+          },
+          {
+            "limit": 132,
+            "lane": "chi",
+            "predicted_1e4": 11752,
+            "original_1569_1e4": 11751
+          }
+        ],
+        "source_aligned_noncentral_matched": 330
+      }
+    ],
+    "method": "Apply normalized originally printed Q in 1e-8 degree, 益 half Chi=mean−Q Ji=mean+Q and 損 half swap, quantize resulting speed to printed 1e-4 degree; do not assume any model matches the source's explicitly special center or proves original G893 generator."
+  },
+  "paired_original_discriminators": [
+    {
+      "limit": 35,
+      "copy_original_page": "023b",
+      "original_g893_q_glyphs": "益七分八八六〇七五",
+      "original_g893_q_normalized_degree": "0.07886075",
+      "differentiating_lane": "ji",
+      "original_ming1569_lanes": {
+        "chi": "1.0174",
+        "ji": "1.1751"
+      },
+      "original_ming1569_xingdu_pdf_page_zero_index": 34,
+      "model_predictions_1e4": {
+        "NOMINAL_820_CEIL": 11751,
+        "HALF_TURN_168_TRUNCATE": 11752,
+        "TIANGEN_109633975_TRUNCATE_CONDITIONAL": 11752
+      },
+      "g893_differentiating_lane_direct_original_read": "NOT_YET_COLLATED"
+    },
+    {
+      "limit": 132,
+      "copy_original_page": "036b",
+      "original_g893_q_glyphs": "損七分八八六〇七五",
+      "original_g893_q_normalized_degree": "0.07886075",
+      "differentiating_lane": "chi",
+      "original_ming1569_lanes": {
+        "chi": "1.1751",
+        "ji": "1.0174"
+      },
+      "original_ming1569_xingdu_pdf_page_zero_index": 39,
+      "model_predictions_1e4": {
+        "NOMINAL_820_CEIL": 11751,
+        "HALF_TURN_168_TRUNCATE": 11752,
+        "TIANGEN_109633975_TRUNCATE_CONDITIONAL": 11752
+      },
+      "g893_differentiating_lane_direct_original_read": "NOT_YET_COLLATED"
+    }
+  ],
+  "adjudication": {
+    "ming1569_same_copy_numerical_result": "Ordinary-row 1569 printed comparison favors the standing nominal-mean+CEIL reconstruction; later mean/truncation pairs have source-original counterexamples at 35 and132 (and other rows). The 82/85 center pairs are explicitly source special cases, not a refutation of the standing Ming reconstruction.",
+    "g893_result": "Only the G893 Q magnitude and signs at L35/L132 have direct source-image binding, NOT the corresponding Chi/Ji literal glyph; native G893 generator and quantizer remain OPEN.",
+    "new_direct_source_page_collations": 0,
+    "external_source_registry_delta": 0,
+    "new_physical_witnesses": 0,
+    "genealogy_nodes_delta": 0,
+    "genealogy_edges_delta": 0,
+    "original_six_historical_final_controls": "0/6",
+    "matrix": "222/222",
+    "registry_total": 786,
+    "genealogy": "254 nodes /239 edges",
+    "unresolved_research_issues": 11,
+    "algorithm_reopens": 0,
+    "chart_product": "CLOSED",
+    "next": "On already source-bound G893 p023b and p036b, collate the original four-place JI at L35 and CHI at L132, including exact page JPEG SHA and independent ROI hashes; 1.1751 vs1.1752 would discriminate these specific three tested formula/quantizer pairs, not identify a unique historical algorithm. Cross-check 1569 original page34 and39 zero-based; then seek source-native operator/carry and higher-place solar original."
+  },
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "explicit_non_edges": [
+      "Later Mei's quoted 欽天監秘本 is NOT established to be a surviving Ming institutional original or direct antecedent of SNU G893.",
+      "1569 Ming original 1.1751 pair does not by itself establish the as-yet-unread original G893 four-place speed cells."
+    ]
+  },
+  "next": "Target G893 original 023b/036b paired 1.1751-vs-1.1752 printed Chi/Ji glyphs first; avoid further broad non-discriminating 10-row fitting, and preserve original-source vs later-received chronology."
+}
