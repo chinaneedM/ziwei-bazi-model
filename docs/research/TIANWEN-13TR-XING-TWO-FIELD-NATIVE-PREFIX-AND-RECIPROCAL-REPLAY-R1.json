@@ -1,0 +1,453 @@
+{
+  "schema": "TIANWEN-13TR-XING-TWO-FIELD-NATIVE-PREFIX-AND-RECIPROCAL-REPLAY-R1",
+  "date": "2026-11-08",
+  "issue_id": "TW-OPEN-0005",
+  "question": "Do the source-original paired 行度/捷法 headers and newly read leading digits support a two-field segmentation of the formerly unparsed 微-containing streams, and what exact local counterexamples survive a conditional reciprocal replay?",
+  "startup": {
+    "live_head": "28e67bf8a8df69ba2799bd2aa464ee43f08f68e9",
+    "live_tree": "74e9fc29f9eedb91875f0a540a76cb10e169ae72",
+    "exact_head_actions": "285/285 completed-success",
+    "all_11_issues_reviewed": true,
+    "p0_issues": [
+      "TW-OPEN-0001",
+      "TW-OPEN-0002",
+      "TW-OPEN-0005",
+      "TW-OPEN-0006",
+      "TW-OPEN-0007"
+    ],
+    "prior_state_version": "1.1152.0"
+  },
+  "evidence_grade": "SOURCE_ORIGINAL_LITERAL_STREAMS_AND_HEADER_REINSPECTION; CONDITIONAL_FIELD_SEGMENTATION_WITH_EXACT_ARITHMETIC; NOT_AUTHENTICATED_NATIVE_MICRO_RADIX_OR_G893_GENERATOR",
+  "source": {
+    "source_id": "EXT-TIANWEN-13TK-NLC-CBM1408-XINGYUNLU-V45-DIRECT-ORIGINAL",
+    "work": "邢雲路《古今律曆考》卷四十五〈授時立成〉",
+    "url": "https://commons.wikimedia.org/wiki/File:NLC892-CBM1408-371933_古今律曆考_七十二卷_第14冊.pdf",
+    "direct_public_pdf_url": "https://upload.wikimedia.org/wikipedia/commons/5/5a/NLC892-CBM1408-371933_%E5%8F%A4%E4%BB%8A%E5%BE%8B%E6%9B%86%E8%80%83_%E4%B8%83%E5%8D%81%E4%BA%8C%E5%8D%B7_%E7%AC%AC14%E5%86%8A.pdf",
+    "pdf_sha256": "95b264e0447fb612a4b389b4b44e8f9871f9d0417b6893699fd37fe589cb23f3",
+    "pdf_bytes": 18807026,
+    "pdf_pages": 74,
+    "physical_copy_proxy": "NLC892-CBM1408-371933, 卷43-45，第14冊",
+    "exact_impression_date_bound": false,
+    "same_copy_as_13tk": true
+  },
+  "acquisition_reused": {
+    "workflow": ".github/workflows/tianwen-13tk-xing-v45-original-probe.yml",
+    "initial_native_run_id": 42386196263,
+    "initial_native_job_id": 128443993885,
+    "initial_native_run_conclusion": "success",
+    "initial_log_retrieval_boundary": "Full native image base64 made job-log connector transport close twice; no glyph conclusion was drawn from this inaccessible log. Subsequent bounded log and full-page artifact supersede that delivery method only.",
+    "successful_run_id": 42386370726,
+    "successful_job_id": 128444519028,
+    "head_sha": "27375b4b14067da887d89a030d7c938e39e78c42",
+    "artifact_id": 13579244730,
+    "artifact_name": "xing-13tq-native-source-pages",
+    "artifact_zip_bytes": 5441865,
+    "artifact_zip_sha256": "06d9b0652f96d13d1ac1ca25f6e1fe5e9eac1731e0ca3c5d7d02a1690a2cadea",
+    "artifact_retention_days": 90,
+    "permanent_recovery": "Re-run the checked-in anonymous original-image extraction workflow using the SHA-bound public PDF; artifact availability is time limited.",
+    "method": "PyMuPDF extract_image(xref), Pillow decode to grayscale, lossless PNG; no OCR, sharpening, AI restoration or resized image used for pixel hashes. Nearest-neighbor enlargement used for visual inspection only."
+  },
+  "source_native_pages_rehashed": [
+    {
+      "page_one_based": 64,
+      "image_index": 0,
+      "xref": 194,
+      "width": 1738,
+      "height": 1481,
+      "ext": "jpx",
+      "bytes": 257520,
+      "raw_sha256": "94adae8c2b98c38b30502a39007e1dde56be5b9a89384609e07733048dcfcf3e",
+      "gray_pixel_sha256": "4e26754772d9ce775623b18bb37c9c65a445ee9153df8b6ad16e1fd0a8663be2",
+      "artifact_entry": "p64-image0.png",
+      "artifact_png_sha256": "159217e44d77ab3b2380ed38183934b29caa7f8cc52aa1b05e35dc384950acd6"
+    },
+    {
+      "page_one_based": 66,
+      "image_index": 0,
+      "xref": 200,
+      "width": 1738,
+      "height": 1481,
+      "ext": "jpx",
+      "bytes": 257506,
+      "raw_sha256": "56b9b0c0885cadb7ce0395fe6b0c29ce7d9b5b32d3795aef059f786cccc11966",
+      "gray_pixel_sha256": "ef0a5e2f175c3af7c21c15e65f11d56f1821ba8d717d78caf6a666e422c9c384",
+      "artifact_entry": "p66-image0.png",
+      "artifact_png_sha256": "6d4690d8b783c4605b1412c6329631e88877f410b1c5ae28de01f18937e562e5"
+    },
+    {
+      "page_one_based": 71,
+      "image_index": 0,
+      "xref": 215,
+      "width": 1738,
+      "height": 1481,
+      "ext": "jpx",
+      "bytes": 257454,
+      "raw_sha256": "eb51ebe66e30d256086e866e6db0412f67c112b5f4060c587cf5549e1b775c8a",
+      "gray_pixel_sha256": "97cfc72a1885aac2f43f3c482208b01bdb0ab88933e9a8219916d4046df9b98f",
+      "artifact_entry": "p71-image0.png",
+      "artifact_png_sha256": "35133d7ecf3d882e1cc932962db2f8c87354d3d749cbfc56fe8acf353c4a02b6"
+    },
+    {
+      "page_one_based": 73,
+      "image_index": 0,
+      "xref": 221,
+      "width": 1738,
+      "height": 1481,
+      "ext": "jpx",
+      "bytes": 257507,
+      "raw_sha256": "c7dd456a71361bfbc5fdb3e4754a1e50a947c01bec0d8813b2163a6f72209c72",
+      "gray_pixel_sha256": "de60b50ac116b054a07ca36f63e4188f2d592b51b6dcd77b6dc8b96c6a0ac558",
+      "artifact_entry": "p73-image0.png",
+      "artifact_png_sha256": "433c579a8afac8c63837584105e16ed58e511c17e1676b012ffc049448b44714"
+    }
+  ],
+  "source_original_header": {
+    "pdf_page_one_based": 64,
+    "rect_px": [
+      1150,
+      190,
+      1250,
+      1395
+    ],
+    "gray_pixel_sha256": "2ed5e5e71eb42815511c8d964e3e8cc5879ff86d98a93621bf1c6a723b1a6e8d",
+    "upper_native_words": [
+      "太陰限度",
+      "疾曆行度",
+      "疾曆捷法"
+    ],
+    "lower_native_words": [
+      "遲曆行度",
+      "遲曆捷法"
+    ],
+    "reading": "The table header names BOTH 行度 and 捷法 in the upper/lower lanes; do not assume an entire printed numeral stream is one angular value. This refines the broad table-family title used in13TN without rewriting it."
+  },
+  "existing_original_operator": {
+    "evidence": "docs/research/TIANWEN-13TO-XING-MING-ORIGINAL-820-INVERSE-RATE-RULE-R1.json",
+    "pdf_page_one_based": 73,
+    "literal": "右置八百二十以遲行度而一為捷法",
+    "original_formula_reviewed_again": true
+  },
+  "model_definition": {
+    "source_literal_first": true,
+    "segmentation_hypothesis": "After the leading 疾/遲一度 and FOUR fractional digit glyphs, treat the next digit plus 微 and the following FIVE digits as a separate coefficient stream. Each stream is preserved in full before this hypothesis is tested.",
+    "normalization_hypothesis": "Let r be the degree-prefix four-place integer (e.g.11764). Let c/100000 be a candidate numerical reading of 六微九七〇四一 as6.97041. Test c/100000 approximately82000/r, equivalently100*(candidate degree value)*(candidate coefficient)=820. The factor100 and role/radix of 微 are EXPLICIT MODEL ASSUMPTIONS, not independently attested source-native units.",
+    "rounding_candidates": [
+      "FLOOR_TO_5_DECIMALS",
+      "NEAREST_HALF_UP_TO_5_DECIMALS",
+      "CEILING_TO_5_DECIMALS"
+    ],
+    "no_parameter_fit": "Fixed printed rate integers and constant82000; no altered mean, fitted phase, invented source operands or backfilled glyphs. All mismatches retained.",
+    "degree_prefix_display": "四位 degree prefix may be displayed as r/10000 in a modern comparison only under this declared field split. It is not a new historical unit proof.",
+    "scale_non_identifiability": {
+      "candidate_A": "Use degree-prefix value R=r/10000, and a coefficient scaled as J=100*c/100000. Then R*J is approximately820.",
+      "candidate_B": "Use an operator input scaled as R=100*r/10000, and coefficient J=c/100000. Then R*J is likewise approximately820.",
+      "scope": "The exact same product can allocate the factor100 to different operator/representation conversions. This bounded numerical fit cannot determine the source-native meaning of 微 or locate the conversion stage."
+    }
+  },
+  "original_literal_rows": [
+    {
+      "pdf_page_one_based": 66,
+      "limit": 34,
+      "lane": "JI",
+      "native_rect_px": [
+        1238,
+        390,
+        1327,
+        839
+      ],
+      "native_gray_pixel_sha256": "eb372c2d7960f344a5f0336311ebb2dc07e50a692b0aad05fdd74546c730b440",
+      "literal_stream": "疾一度一七六四六微九七〇四一",
+      "candidate_field_split": {
+        "degree_prefix_literal": "疾一度一七六四",
+        "jiefa_literal": "六微九七〇四一",
+        "rate_four_place_integer": 11764,
+        "jiefa_coefficient_in_1e5_ticks": 697041
+      },
+      "grade": "DIRECT_ORIGINAL_GLYPHS; FIELD_SPLIT_AND_DECIMAL_SCALING_ARE_EXPLICIT_CONDITIONAL_MODEL",
+      "conditional_replay": {
+        "quotient_exact_num_den": [
+          20500,
+          2941
+        ],
+        "floor_1e5_ticks": 697041,
+        "nearest_half_up_1e5_ticks": 697042,
+        "ceiling_1e5_ticks": 697042,
+        "printed_minus_floor_ticks": 0,
+        "floor_match": true,
+        "nearest_match": false,
+        "ceiling_match": false
+      }
+    },
+    {
+      "pdf_page_one_based": 66,
+      "limit": 34,
+      "lane": "CHI",
+      "native_rect_px": [
+        1238,
+        839,
+        1327,
+        1397
+      ],
+      "native_gray_pixel_sha256": "0adc8a2a2cf07f4e9d2541478a79cb0c11b89176b03128681d72f5f08d9f1293",
+      "literal_stream": "遲一度〇一六二八微〇六九二七",
+      "candidate_field_split": {
+        "degree_prefix_literal": "遲一度〇一六二",
+        "jiefa_literal": "八微〇六九二七",
+        "rate_four_place_integer": 10162,
+        "jiefa_coefficient_in_1e5_ticks": 806927
+      },
+      "grade": "DIRECT_ORIGINAL_GLYPHS; FIELD_SPLIT_AND_DECIMAL_SCALING_ARE_EXPLICIT_CONDITIONAL_MODEL",
+      "conditional_replay": {
+        "quotient_exact_num_den": [
+          41000,
+          5081
+        ],
+        "floor_1e5_ticks": 806927,
+        "nearest_half_up_1e5_ticks": 806928,
+        "ceiling_1e5_ticks": 806928,
+        "printed_minus_floor_ticks": 0,
+        "floor_match": true,
+        "nearest_match": false,
+        "ceiling_match": false
+      }
+    },
+    {
+      "pdf_page_one_based": 66,
+      "limit": 35,
+      "lane": "JI",
+      "native_rect_px": [
+        1130,
+        390,
+        1227,
+        839
+      ],
+      "native_gray_pixel_sha256": "261aebf2f14e16f7853c72f59d691129c0c58d1907aebbad70835cbd9e070b43",
+      "literal_stream": "疾一度一七五二六微九七五三〇",
+      "candidate_field_split": {
+        "degree_prefix_literal": "疾一度一七五二",
+        "jiefa_literal": "六微九七五三〇",
+        "rate_four_place_integer": 11752,
+        "jiefa_coefficient_in_1e5_ticks": 697530
+      },
+      "grade": "DIRECT_ORIGINAL_GLYPHS; FIELD_SPLIT_AND_DECIMAL_SCALING_ARE_EXPLICIT_CONDITIONAL_MODEL",
+      "conditional_replay": {
+        "quotient_exact_num_den": [
+          10250,
+          1469
+        ],
+        "floor_1e5_ticks": 697753,
+        "nearest_half_up_1e5_ticks": 697754,
+        "ceiling_1e5_ticks": 697754,
+        "printed_minus_floor_ticks": -223,
+        "floor_match": false,
+        "nearest_match": false,
+        "ceiling_match": false
+      },
+      "glyph_reading_limits": "Degree-prefix 一七五二 and coefficient prefix 六微九七五 directly visible; terminal 三〇 is fainter and retained as a provisional full-stream reading. The counterexample does not depend on those last two glyphs.",
+      "robust_coefficient_interval_in_1e5_ticks": [
+        697500,
+        697599
+      ]
+    },
+    {
+      "pdf_page_one_based": 66,
+      "limit": 35,
+      "lane": "CHI",
+      "native_rect_px": [
+        1130,
+        839,
+        1227,
+        1397
+      ],
+      "native_gray_pixel_sha256": "7a71db8885d4c9edca643e48447b8a6c62ec58ef900de2c257265997500c4f87",
+      "literal_stream": "遲一度〇一七四八微〇五九六七",
+      "candidate_field_split": {
+        "degree_prefix_literal": "遲一度〇一七四",
+        "jiefa_literal": "八微〇五九六七",
+        "rate_four_place_integer": 10174,
+        "jiefa_coefficient_in_1e5_ticks": 805967
+      },
+      "grade": "DIRECT_ORIGINAL_GLYPHS; FIELD_SPLIT_AND_DECIMAL_SCALING_ARE_EXPLICIT_CONDITIONAL_MODEL",
+      "conditional_replay": {
+        "quotient_exact_num_den": [
+          41000,
+          5087
+        ],
+        "floor_1e5_ticks": 805976,
+        "nearest_half_up_1e5_ticks": 805976,
+        "ceiling_1e5_ticks": 805977,
+        "printed_minus_floor_ticks": -9,
+        "floor_match": false,
+        "nearest_match": false,
+        "ceiling_match": false
+      }
+    },
+    {
+      "pdf_page_one_based": 66,
+      "limit": 36,
+      "lane": "JI",
+      "native_rect_px": [
+        1040,
+        390,
+        1138,
+        839
+      ],
+      "native_gray_pixel_sha256": "2819e6d2c3adaf30067fa50de0e065898e1f764445eed82f3521130a4039b8db",
+      "literal_stream": "疾一度一七三九六微九八五二六",
+      "candidate_field_split": {
+        "degree_prefix_literal": "疾一度一七三九",
+        "jiefa_literal": "六微九八五二六",
+        "rate_four_place_integer": 11739,
+        "jiefa_coefficient_in_1e5_ticks": 698526
+      },
+      "grade": "DIRECT_ORIGINAL_GLYPHS; FIELD_SPLIT_AND_DECIMAL_SCALING_ARE_EXPLICIT_CONDITIONAL_MODEL",
+      "conditional_replay": {
+        "quotient_exact_num_den": [
+          82000,
+          11739
+        ],
+        "floor_1e5_ticks": 698526,
+        "nearest_half_up_1e5_ticks": 698526,
+        "ceiling_1e5_ticks": 698527,
+        "printed_minus_floor_ticks": 0,
+        "floor_match": true,
+        "nearest_match": true,
+        "ceiling_match": false
+      }
+    },
+    {
+      "pdf_page_one_based": 66,
+      "limit": 36,
+      "lane": "CHI",
+      "native_rect_px": [
+        1040,
+        839,
+        1138,
+        1397
+      ],
+      "native_gray_pixel_sha256": "e75d0444c85dc3d5c6b21dd932be4f3d6f12a9198543dadc6af0bc496b8cae47",
+      "literal_stream": "遲一度〇一八七八微〇四九四七",
+      "candidate_field_split": {
+        "degree_prefix_literal": "遲一度〇一八七",
+        "jiefa_literal": "八微〇四九四七",
+        "rate_four_place_integer": 10187,
+        "jiefa_coefficient_in_1e5_ticks": 804947
+      },
+      "grade": "DIRECT_ORIGINAL_GLYPHS; FIELD_SPLIT_AND_DECIMAL_SCALING_ARE_EXPLICIT_CONDITIONAL_MODEL",
+      "conditional_replay": {
+        "quotient_exact_num_den": [
+          82000,
+          10187
+        ],
+        "floor_1e5_ticks": 804947,
+        "nearest_half_up_1e5_ticks": 804947,
+        "ceiling_1e5_ticks": 804948,
+        "printed_minus_floor_ticks": 0,
+        "floor_match": true,
+        "nearest_match": true,
+        "ceiling_match": false
+      }
+    },
+    {
+      "pdf_page_one_based": 71,
+      "limit": 132,
+      "lane": "JI",
+      "native_rect_px": [
+        475,
+        390,
+        577,
+        842
+      ],
+      "native_gray_pixel_sha256": "b84c2b4594b7958e70a0ec85014297f252dbf831696bbda94e7dbc52a55fb5a7",
+      "literal_stream": "疾一度〇一七四八微〇五九七六",
+      "candidate_field_split": {
+        "degree_prefix_literal": "疾一度〇一七四",
+        "jiefa_literal": "八微〇五九七六",
+        "rate_four_place_integer": 10174,
+        "jiefa_coefficient_in_1e5_ticks": 805976
+      },
+      "grade": "DIRECT_ORIGINAL_GLYPHS; FIELD_SPLIT_AND_DECIMAL_SCALING_ARE_EXPLICIT_CONDITIONAL_MODEL",
+      "conditional_replay": {
+        "quotient_exact_num_den": [
+          41000,
+          5087
+        ],
+        "floor_1e5_ticks": 805976,
+        "nearest_half_up_1e5_ticks": 805976,
+        "ceiling_1e5_ticks": 805977,
+        "printed_minus_floor_ticks": 0,
+        "floor_match": true,
+        "nearest_match": true,
+        "ceiling_match": false
+      }
+    }
+  ],
+  "bounded_replay_result": {
+    "rows": 7,
+    "floor_matches": 5,
+    "nearest_matches": 3,
+    "ceiling_matches": 0,
+    "unrepaired_exceptions": [
+      {
+        "limit": 35,
+        "lane": "JI",
+        "printed_coefficient_literal": "六微九七五三〇",
+        "printed_minus_floor_ticks": -223
+      },
+      {
+        "limit": 35,
+        "lane": "CHI",
+        "printed_coefficient_literal": "八微〇五九六七",
+        "printed_minus_floor_ticks": -9
+      }
+    ],
+    "interpretation": "Five source streams conform exactly to the fixed reciprocal/FLOOR hypothesis. Both L35 streams are counterexamples. This supports the proposed two-field boundary locally, but disproves claiming all seven printed streams uniformly satisfy it. Neither exception is repaired or conclusively attributed to a typo; no universal historical rounding instruction inferred.",
+    "L35_high_robust_to_two_faint_terminal_digits": "Even treating the two fainter terminal coefficient glyphs as unknown, source-visible 六微九七五□□ maps conditionally to697500..697599 ticks, excluding the inverse prediction697753. Do not use the provisional terminal pair to repair or disprove the print."
+  },
+  "g893_comparison_scope": {
+    "evidence": "docs/research/TIANWEN-13TJ-G893-THREE-ADJACENT-PAIRED-LUNAR-MOTION-COLLATION-R1.json",
+    "original_g893_l35_ji_literal": "一度一七五一",
+    "new_xing_l35_ji_degree_prefix_under_field_split": "一度一七五二",
+    "source_local_difference": "The read prefix glyphs differ at the fourth fractional digit. Source-local modern display is1.1751 versus candidate1.1752. This is a bounded printed-prefix comparison, not a historical generator, unit-equivalence or stemmatic winner.",
+    "xing_l132_lower_high_motion_prefix": "NOT_AWARDED: worn leading fractional glyphs in this batch; inverse prediction must not fill the damaged print.",
+    "xing_l132_lower_visible_suffix_only": "六微九七七五三",
+    "independent_early_g893_same_field_winner": "UNRESOLVED"
+  },
+  "adjudication": {
+    "new_original_literal_streams_reviewed": 7,
+    "source_specific_candidate_field_split": "SUPPORTED_LOCALLY_BY_PAIRED_ORIGINAL_HEADER_AND5_OF7_EXACT_RECIPROCAL_REPLAYS",
+    "native_micro_radix_and_carry": "UNRESOLVED",
+    "source_typo_attribution": "UNRESOLVED",
+    "g893_generator_or_carry": "UNRESOLVED",
+    "new_original_source_downloads": 0,
+    "new_physical_witnesses": 0,
+    "new_registered_sources": 0,
+    "g893_named_fields": "5/6",
+    "g893_historical_finals": "0/6",
+    "tw_open_0005": "P0 OPEN",
+    "matrix": "222/222",
+    "source_union": 787,
+    "genealogy_nodes": 254,
+    "genealogy_edges": 239,
+    "open_issues": 11,
+    "deterministic_chart": "CLOSED",
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0
+  },
+  "negative_boundaries": [
+    "13TQ bounded suffix strings remain unchanged and are recovered as substrings of the new full streams.",
+    "Do not treat 微 as an authenticated angular decimal delimiter or automatically extend the assumed scaling to G893 solar 少/微.",
+    "Do not call every mismatch a transmission error; a conditional arithmetic model and a worn glyph cannot determine a unique ancient rounding/printing cause.",
+    "Native prefix and coefficient fields are separately modeled; the model does not prove shared mean, same table generation or direct copying from/to G893 or1569.",
+    "No numeric reconstruction of the worn L132 lower degree prefix, no manuscript-original acquisition, no source-count or ancestry inflation."
+  ],
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "explicit_non_edges": [
+      "A different source-original L35 prefix plus locally compatible reciprocal arithmetic does not prove direct descent, a unique pre-G893 reading or cause of the G893 asymmetry."
+    ]
+  },
+  "next": "Prioritize a clear independent early original of the exact four-place 行度 plus its 捷法, or an explicit same-field original unit/decimal rule and L35 generation/carry instruction. Do not repeat nondiscriminating received820 paraphrases, inverse-fill the damaged L132 prefix, or silently repair the two original L35 counterexamples."
+}
