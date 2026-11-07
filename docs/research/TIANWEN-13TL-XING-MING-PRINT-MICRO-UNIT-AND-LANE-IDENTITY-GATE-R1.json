@@ -1,0 +1,79 @@
+{
+  "schema": "TIANWEN-13TL-XING-MING-PRINT-MICRO-UNIT-AND-LANE-IDENTITY-GATE-R1",
+  "date": "2026-11-07",
+  "issue_id": "TW-OPEN-0005",
+  "evidence_grade": "DIRECT_REINSPECTION_OF_ALREADY_SOURCE_HASH_BOUND_MING_PRINT_PIXEL_WINDOWS; NO_NEW_SOURCE_OBJECT",
+  "question": "Do the newly located Xing Yunlu Ming-print limit-35 and limit-132 printed columns establish the same numerical field and unit/radix as original G893 speed 1.1751 versus 1.1752, or only a visual limit and lane label crosswalk?",
+  "input_original": {
+    "prior_intake": "docs/research/TIANWEN-13TK-XINGYUNLU-MING-V45-DIRECT-ORIGINAL-LIMIT-LOCATORS-R1.json",
+    "prior_compare": "docs/research/TIANWEN-13TJ-G893-THREE-ADJACENT-PAIRED-LUNAR-MOTION-COLLATION-R1.json",
+    "physical_copy_proxy": "NLC892-CBM1408-371933 / 14th fascicle, Ming Wanli broad date only",
+    "pdf_sha256": "95b264e0447fb612a4b389b4b44e8f9871f9d0417b6893699fd37fe589cb23f3",
+    "original_bytes": 18807026,
+    "prior_workflow_run": 42373443684,
+    "prior_workflow_job": 128406102050,
+    "recovery": "Reassembled existing GitHub Actions logged JPEG image slices for the two already-archived source page and neighboring column-window renderings; no OCR, no new retrieval, no pixel interpolation claimed as source detail."
+  },
+  "image_reinspection": [
+    {
+      "pdf_page_one_based": 66,
+      "page_index_zero_based": 65,
+      "original_jpeg_render_sha256": "9021e1e2a762b19854f071263f7b7e2cae0e2f3a08e28278aac5a7e645dd1721",
+      "neighbor_window_jpeg_sha256": "75fcca479fbca7d445509dd2c40da0c5597b7234e22ce6a52b1a10b5f1ec7541",
+      "limit_header": "三十五限",
+      "lane_labels": "疾度／遲度",
+      "unit_observation": "The numbers in both printed lanes are segmented around the source-native character 微; the number is not a plain four-Arabic-decimal output.",
+      "certified_four_place_value": "UNREAD",
+      "reading_scope": "Visible field labels and unit-marking only; no normalized printed magnitude or last-place inference."
+    },
+    {
+      "pdf_page_one_based": 71,
+      "page_index_zero_based": 70,
+      "original_jpeg_render_sha256": "9a3a4285720ccebac6613202df2d32b6d10e077f894d6509343ba41467741acc",
+      "neighbor_window_jpeg_sha256": "ac28d18eded1cc3c856142938131a45a7e1cdb7d5b253c74d5eeb3439a08f6c9",
+      "limit_header": "一百三十二限",
+      "lane_labels": "疾度／遲度",
+      "unit_observation": "The same source-native 微 unit-marking occurs within printed numeric lanes; column direction and field semantics require independent mapping.",
+      "certified_four_place_value": "UNREAD",
+      "reading_scope": "Visible field labels and unit-marking only; no normalized printed magnitude or last-place inference."
+    }
+  ],
+  "source_field_identity_gate": {
+    "exact_issue": "Visible matching ordinal limits and 疾度／遲度 lane names are not proof of identity with G893's high-motion Chi/Ji 1.1751/1.1752 field, its scale, or its four-place quantization.",
+    "source_native_units": "The printed 微 segmentation must be interpreted in edition- and column-specific mechanical context before comparing digits; no decimal normalization is authorized from an inferred conversion.",
+    "prior_g893_original": "Same physical G893 source p023b L35 Ji=1.1751, p036b L132 Chi=1.1752, both same Q magnitude0.07886075; local six-row check already completed in 13TJ.",
+    "independent_ming1569": "L35/L132 both high-speed 1.1751 in the independently collated 1569 original, but no proven direct textual or computational ancestry from Xing.",
+    "status": "FIELD_AND_RADIX_EQUIVALENCE_NOT_PROVED",
+    "priority": "Recover native table heading plus column rule and numerical unit bridge; only then compare exact printed four-place values at both loci. Do not equate matching limit numbers or inject G893 values into Xing."
+  },
+  "negative_boundaries": [
+    "No newly deciphered numeric last place, no source-native rounding or carry instruction.",
+    "No claim the visual unit 微 is equivalent to G893 fourth decimal; specific scale remains unresolved.",
+    "No new independent original, print year, physical-copy stemma, or genealogical edge.",
+    "Reinspection of already-archived enlarged JPEG windows adds no pixel detail to the upstream PDF."
+  ],
+  "adjudication": {
+    "new_source_count": 0,
+    "new_original_copy_count": 0,
+    "new_numeric_final_adjudications": 0,
+    "g893_named_control_fields": "5/6",
+    "g893_historical_finals": "0/6",
+    "matrix": "222/222",
+    "source_union": 787,
+    "genealogy_nodes": 254,
+    "genealogy_edges": 239,
+    "open_research_issues": 11,
+    "tw_open_0005": "P0 OPEN",
+    "deterministic_product": "CLOSED",
+    "algorithm_reopens": 0
+  },
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "explicit_non_edges": [
+      "The presence of ordinal 35/132 and 疾度/遲度 column labels in another Ming print cannot on its own establish the identical numeric field, shared rounding rule, or direct G893-to-Xing textual descent."
+    ]
+  },
+  "next": "Read source-native original column header and its field construction rule before exact numeric collation. Seek a 15th- to 16th-century independent print with explicit Chi/Ji 行度 at L35/L132. Keep exact Xing 微-separated numeric cells unadjudicated until identity/radix are proved."
+}
