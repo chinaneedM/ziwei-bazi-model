@@ -1,0 +1,288 @@
+{
+  "schema": "TIANWEN-13TG-MEI-RECEIVED-TWO-LUNAR-LIMIT-MEAN-ROUNDING-BRIDGES-R1",
+  "date": "2026-11-07",
+  "issue_id": "TW-OPEN-0005",
+  "classification": "LATER_QING_RECEIVED_DUAL_LIMIT_MEAN_AND_OPPOSITE_FINAL_QUANTIZERS_BOTH_FIT_TEN_G893_ORIGINAL_CELLS; G893_NATIVE_WINNER_UNPROVEN",
+  "question": "Does a source-attested later received half-turn/168 formula with its own sub-second truncation (rather than the 13TF ceiling/nearest controls) reproduce the ten direct G893 Ji/Chi cells, and can it distinguish the original historical generator?",
+  "startup": {
+    "live_head": "ee7e3bfb12c8a30fa4346622c156fafb8b3b1a44",
+    "live_tree": "e44ad78f996627de86328be13a5c33ca98a352df",
+    "exact_head_actions": "285/285 completed success across REST pages 1-3",
+    "state_version": "1.1141.0",
+    "research_omission_review": "11 issues open/blocked, five P0: 0001/0002 source access blocked; 0005/0006/0007 unresolved; no global completeness claim"
+  },
+  "received_witnesses": [
+    {
+      "work": "梅文鼎《大統厯志》",
+      "chapter": "卷四〈太陰限數遲疾度／布立成法〉",
+      "received_url": "https://ctext.org/wiki.pl?chapter=900071&if=en",
+      "grade": "LATER_QING_RECEIVED_DIGITAL_TEXT_NOT_TARGET_ORIGINAL_GLYPH",
+      "passages": [
+        {
+          "method": "NOMINAL_820",
+          "critical_words": "置月平行一十三度三六八七五，以每限日行分八百二十分……又以萬約之……一度○九六二三七五",
+          "quantization_words": "數止秒秒以下有零數不拘多少俱收為秒",
+          "operands": {
+            "daily_mean_degree": "13.36875",
+            "nominal_day_fraction": "820/10000",
+            "printed_limit_mean": "1.0962375"
+          },
+          "conditional_display_interpretation": "ROUND_UP_TO_SOURCE_PRINTED_SECOND_AFTER_APPLYING_Q; source does not independently bind G893 staging"
+        },
+        {
+          "method": "HALF_TURN_168",
+          "critical_words": "又法置小轉中一十三日七七七三……一百八十四度一八五二七九三七五……以一百六十八限為法除之得一度○九六三四○九四",
+          "quantization_words": "數止秒秒以下棄不用",
+          "operands": {
+            "half_turn_days": "13.7773",
+            "daily_mean_degree": "13.36875",
+            "limits": 168,
+            "printed_limit_mean": "1.09634094"
+          },
+          "conditional_display_interpretation": "TRUNCATE_SUB_SECOND_AFTER_APPLYING_Q; printed mean itself is an eight-place display"
+        }
+      ],
+      "received_text_evidence": "Both methods and their nonidentical final digit rules appear together in the one later transmitted chapter; not two ancient originals. The word 此法較親 may qualify an authorial preference but its exact editorial punctuation and target physical glyph remain unchecked."
+    },
+    {
+      "work": "梅文鼎《歷算全書》",
+      "chapter": "卷二十四《曆學駢枝》卷四〈求每限月平行度法〉",
+      "received_url": "https://ctext.org/wiki.pl?chapter=277510&if=en",
+      "comparator_url": "https://www.shidianguji.com/zh/book/NA06359/chapter/1m3o2r0bbsugi",
+      "grade": "LATER_QING_RECEIVED_DIGITAL_TEXT_NOT_NEW_PHYSICAL_COPY_VOTE",
+      "critical_words": "置小轉中十三日七七七三以每日月平行度十三度三六八七五乘之……以一百六十八限除之得一度○九六三四○九四",
+      "related_context": "Immediately preceding 布立成法 says 數止秒秒以下不用; digital received prose confirms a truncation operation but original-page exact target glyph has not been independently re-collated.",
+      "copy_note": "13RW directly collated three original copies for a DIFFERENT solar quadrant locus; do not silently promote those acquisitions to an original-glyph attestation for this lunar target text."
+    }
+  ],
+  "exact_arithmetic": {
+    "daily_mean": "13.36875",
+    "nominal_day_fraction": "820/10000",
+    "nominal_limit_mean_fraction": "87699/80000",
+    "nominal_limit_mean_decimal": "1.09623750",
+    "half_turn_days": "13.7773",
+    "half_turn_product": "184.185279375",
+    "half_turn_limit_count": 168,
+    "half_turn_limit_mean_fraction": "98232149/89600000",
+    "half_turn_mean_8dp_truncated": "1.09634094",
+    "interpretive_note": "Computations are exact fractions; four-place Ji/Chi quantization applies after adding/subtracting the printed original Q, not a claim of source-native calculation staging."
+  },
+  "original_comparator": {
+    "reference": "docs/research/TIANWEN-13TD-G893-PAIRED-LUNAR-MOTION-MEAN-AND-CARRY-CANDIDATES-R1.json",
+    "snu_physical_copy": "GK00893_00",
+    "limits": [
+      122,
+      123,
+      124,
+      125,
+      126
+    ],
+    "cells": 10,
+    "source_scale": "Q in original-normalized 1e-8 degree; Ji and Chi in 1e-4 degree",
+    "original_target_finals": "0/6",
+    "original_images_reused": true,
+    "new_original_page": false
+  },
+  "conditional_models": [
+    {
+      "name": "NOMINAL_820_CEIL",
+      "mean_fraction": "87699/80000",
+      "final_four_place_rule": "CEIL",
+      "received_context": "DATONG_LIZHI_V4_FIRST_METHOD",
+      "predicted_limit_ji_chi": [
+        [
+          122,
+          10309,
+          11616
+        ],
+        [
+          123,
+          10295,
+          11631
+        ],
+        [
+          124,
+          10281,
+          11645
+        ],
+        [
+          125,
+          10267,
+          11659
+        ],
+        [
+          126,
+          10253,
+          11673
+        ]
+      ],
+      "matches_out_of_10": 10
+    },
+    {
+      "name": "NOMINAL_820_TRUNCATE_CONTROL",
+      "mean_fraction": "87699/80000",
+      "final_four_place_rule": "TRUNCATE",
+      "received_context": "CONTRARY_TEST_ONLY",
+      "predicted_limit_ji_chi": [
+        [
+          122,
+          10308,
+          11615
+        ],
+        [
+          123,
+          10294,
+          11630
+        ],
+        [
+          124,
+          10280,
+          11644
+        ],
+        [
+          125,
+          10266,
+          11658
+        ],
+        [
+          126,
+          10252,
+          11672
+        ]
+      ],
+      "matches_out_of_10": 0
+    },
+    {
+      "name": "HALF_TURN_168_CEIL_CONTROL",
+      "mean_fraction": "98232149/89600000",
+      "final_four_place_rule": "CEIL",
+      "received_context": "CONTRARY_TEST_ONLY",
+      "predicted_limit_ji_chi": [
+        [
+          122,
+          10310,
+          11617
+        ],
+        [
+          123,
+          10296,
+          11632
+        ],
+        [
+          124,
+          10282,
+          11646
+        ],
+        [
+          125,
+          10268,
+          11660
+        ],
+        [
+          126,
+          10254,
+          11674
+        ]
+      ],
+      "matches_out_of_10": 0
+    },
+    {
+      "name": "HALF_TURN_168_HALF_UP_CONTROL",
+      "mean_fraction": "98232149/89600000",
+      "final_four_place_rule": "HALF_UP",
+      "received_context": "CONTRARY_TEST_ONLY",
+      "predicted_limit_ji_chi": [
+        [
+          122,
+          10310,
+          11617
+        ],
+        [
+          123,
+          10296,
+          11631
+        ],
+        [
+          124,
+          10281,
+          11645
+        ],
+        [
+          125,
+          10267,
+          11659
+        ],
+        [
+          126,
+          10254,
+          11673
+        ]
+      ],
+      "matches_out_of_10": 6
+    },
+    {
+      "name": "HALF_TURN_168_TRUNCATE",
+      "mean_fraction": "98232149/89600000",
+      "final_four_place_rule": "TRUNCATE",
+      "received_context": "DATONG_LIZHI_V4_SECOND_METHOD_AND_LISUAN_V24",
+      "predicted_limit_ji_chi": [
+        [
+          122,
+          10309,
+          11616
+        ],
+        [
+          123,
+          10295,
+          11631
+        ],
+        [
+          124,
+          10281,
+          11645
+        ],
+        [
+          125,
+          10267,
+          11659
+        ],
+        [
+          126,
+          10253,
+          11673
+        ]
+      ],
+      "matches_out_of_10": 10
+    }
+  ],
+  "adjudication": {
+    "breakthrough": "The half-turn/168 mean had CEIL0/10 and HALF_UP6/10 in13TF; applying the actually paired later received TRUNCATE rule yields10/10. Nominal820 paired with later received CEIL likewise yields10/10. Consequently original ten G893 cells do not identify a unique generator/quantizer.",
+    "source_scope": "Two later Mei work-level texts are not independent early/G893 original page witnesses. A received explanation of a compatible model is not direct proof of actual G893 historical practice. Received wording may encode staging different from the deliberately simple final quantizer replay.",
+    "g893_native_limit_mean_proven": false,
+    "g893_native_rounder_proven": false,
+    "g893_six_historical_finals": "0/6",
+    "issue_status": "P0 OPEN",
+    "new_original_physical_witnesses": 0,
+    "new_registry_entries": 0,
+    "source_registry_total": 786,
+    "matrix": "222/222",
+    "genealogy": "254 nodes / 239 edges",
+    "unresolved_issues": 11,
+    "confirmed_chart_defects": 0,
+    "algorithm_reopens": 0,
+    "product": "CLOSED",
+    "resolution_requirement": "Authenticated G893 or earlier same-field mean-generation/quantization stage or independent high-precision aggregate showing a differentiating result. Do not select a historical winner merely by in-sample ten-cell agreement."
+  },
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "non_edges": [
+      "Shared later work-level rules and compatible ten-cell numerical output do not prove direct copying into G893 or identify its original quantizer."
+    ],
+    "remaining_lineage_questions": [
+      "Which original G893 limit-mean/generator and at what stage was sub-second carry or truncation applied?"
+    ]
+  },
+  "next": "Prioritize an original G893 (or earlier independent same-field) generator/carry clause or differentiating high-place solar aggregate; this new two-model 10/10 ambiguity makes further same-row fitting insufficient."
+}
