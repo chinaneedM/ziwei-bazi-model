@@ -1,0 +1,187 @@
+{
+  "schema": "TIANWEN-13TB-ZHOU1569-SAME-COPY-SOLAR-INTERPOLATION-ENDPOINT-GATE-R1",
+  "date": "2026-11-07",
+  "issue_id": "TW-OPEN-0005",
+  "classification": "ONE_EXISTING_MING_PRINT_SUPPLIES_LIMITS_OPERATOR_AND_ENDPOINT_ROWS; G893_AGGREGATE_TRANSFER_REMAINS_CONDITIONAL",
+  "question": "Can the prior cross-work 13SU solar correction be reconstructed from one authenticated Ming print, without transferring Jiaoshi coefficients or Kyoto YuanShi limits into it?",
+  "source": {
+    "source_id": "EXT-KOTENMON-DAMING-DATONG-1569",
+    "work": "周相《大明大統曆法》卷六公開影像",
+    "edition_scope": "隆慶三年1569 reprint attribution; computational epoch1477 and digital surrogate2019 are separate; no new physical impression identification",
+    "url": "https://www.kotenmon.com/cal/arabe/vol6.pdf",
+    "pdf_sha256": "4c006b7ce131902fe33012d42f62cd2bbc2140affa3d5886e0da02966352cb7c",
+    "pages": 45,
+    "archive": {
+      "run_id": 41144025711,
+      "artifact_id": 13019278183,
+      "zip_sha256": "1d8f10da7c27411bf38ad635494a1b9f4e700fb76cb37b2a7541c075a0ca9835",
+      "original_acquisition_reused": true
+    },
+    "review": "Manual source-image reading, no OCR. JPEG extracted without resampling from the PDF image XObjects using PyMuPDF; RGB hashes and boxes use native dimensions. Enlargements aid viewing only. Folio/page binding is the public PDF sequence, not independently read original foliation.",
+    "image_bindings": [
+      {
+        "pdf_page_1based": 14,
+        "pdf_xref": 56,
+        "jpeg_sha256": "4499bdafb05d98153f737b0384064165c2581586c3dbaf8efd0b7a1d0cba42d4",
+        "size_px": [
+          1001,
+          745
+        ],
+        "native_rgb_sha256": "b72ccfd858c2d0f75b2e60b8bc1d118c0ce3bcf7741db3b672efe13ea30279d5",
+        "bbox_ltrb": [
+          515,
+          18,
+          966,
+          730
+        ],
+        "roi_rgb_sha256": "c770d0b5995e6ff2864b65f8ab4998710beee0340f1cf5ea7e40ded739df4756"
+      },
+      {
+        "pdf_page_1based": 18,
+        "pdf_xref": 72,
+        "jpeg_sha256": "fd141f832988a86c6fca921c5321ddf9933abbfe45c9aaa5f4a8b8d45abef6a5",
+        "size_px": [
+          1023,
+          763
+        ],
+        "native_rgb_sha256": "562808ad0e5a8f7b48250dc4e83336d690ff677272446afab100e1e566d56bf9",
+        "bbox_ltrb": [
+          278,
+          15,
+          400,
+          748
+        ],
+        "roi_rgb_sha256": "a7cc6220024fe024a452c516585e29e28640109633b233885c40571a296635f7"
+      },
+      {
+        "pdf_page_1based": 23,
+        "pdf_xref": 92,
+        "jpeg_sha256": "dd19fd667b9d0938e83bca5d6209b780c653f4c7fe0b36814f8e2d34dbeb2032",
+        "size_px": [
+          984,
+          741
+        ],
+        "native_rgb_sha256": "790084645d08c78cb429e0565ff8c4fe92a597ddf5aa3ed1bf1b5819749c80f5",
+        "bbox_ltrb": [
+          55,
+          17,
+          170,
+          735
+        ],
+        "roi_rgb_sha256": "42dd88f38fe2d1887dfa592d19f4b0c24e7e330e052d55ab1e6279d59c69a0d2"
+      }
+    ]
+  },
+  "original_method": {
+    "page": 14,
+    "heading": "推盈縮差度分法",
+    "short_atoms": [
+      "去其大餘日",
+      "今以分秒為實",
+      "積日下盈縮加分乘之",
+      "復加其下盈縮積度全分"
+    ],
+    "scope": "The printed procedure uses the fractional remainder, the corresponding daily addend and accumulated correction. It does not instruct evaluation of continuous C(n+f). No final six-place rounding/discard clause is asserted from this page.",
+    "original_limit_strings": [
+      "八十八日九千〇九十二分二十五秒",
+      "九十三日七千一百二十〇分二十五秒"
+    ],
+    "normalized_day_limits": [
+      "88.909225",
+      "93.712025"
+    ],
+    "radix_bridge": "Existing source-local fixed-point reconstruction MING-DATONG-1569-YINGSUO-FULL-NUMERIC-RECONSTRUCTION-R1: day remainder/10000, source numeric fen/10000 gives degrees. This is the 1569 source bridge only, not G893 少=微.",
+    "original_endpoint_fields": [
+      {
+        "page": 18,
+        "day": 88,
+        "M_fen": "5.0593",
+        "C_fen": "24009.3568",
+        "next_support_day": 89,
+        "next_C_fen": "24014.4161"
+      },
+      {
+        "page": 23,
+        "day": 93,
+        "M_fen": "2.9771",
+        "C_fen": "24010.5261",
+        "next_support_day": 94,
+        "next_C_fen": "24013.5032"
+      }
+    ],
+    "abbreviation_boundary": "The last columns abbreviate previously established ten-thousands/thousands. Normalized C strings use the full printed table context and existing source-local reconstruction; they are not verbatim uninterrupted glyph strings in the narrow endpoint boxes."
+  },
+  "exact_replay": {
+    "operation": "I=(C_scaled*1000000+F*M_scaled)/10^14 degrees",
+    "rows": [
+      {
+        "season": "winter",
+        "n": 88,
+        "fraction_numerator_over_million": 909225,
+        "C_scaled_1e8": 240093568,
+        "M_scaled_1e8": 50593,
+        "normalized_C_fen": "24009.3568",
+        "normalized_M_fen": "5.0593",
+        "interpolated_correction_numerator_over_1e14": 240139568420425,
+        "interpolated_degree_correction": "2.40139568420425",
+        "comparison_integer_baseline": 89,
+        "comparison_sign": 1,
+        "hypothetical_G893_full_degree": "91.40139568420425",
+        "G893_source_prose_microdegree": 91401427,
+        "prose_minus_model_microdegree": "31.31579575000000"
+      },
+      {
+        "season": "summer",
+        "n": 93,
+        "fraction_numerator_over_million": 712025,
+        "C_scaled_1e8": 240105261,
+        "M_scaled_1e8": 29771,
+        "normalized_C_fen": "24010.5261",
+        "normalized_M_fen": "2.9771",
+        "interpolated_correction_numerator_over_1e14": 240126458696275,
+        "interpolated_degree_correction": "2.40126458696275",
+        "comparison_integer_baseline": 94,
+        "comparison_sign": -1,
+        "hypothetical_G893_full_degree": "91.59873541303725",
+        "G893_source_prose_microdegree": 91598717,
+        "prose_minus_model_microdegree": "-18.41303725000000"
+      }
+    ],
+    "single_copy_result": "The same 1569 PDF supplies both seasonal limit inputs, the original interpolation operator and endpoint C/M values. Both corrections exactly equal the prior 13SU cross-work mathematical predictions.",
+    "G893_comparison_boundary": "89+I and 94-I are hypothetical mappings to G893 full-degree aggregate windows, not a 1569 printed aggregate calculation. The explicit G893 full totals remain 91.401427/91.598717; the mismatches survive positive truncation or half-up final six-place rendering.",
+    "precision_boundary": "Six fractional places in a time/day input are not six-place angular output precision. Original displayed fen precision and an exact modern rational replay do not certify ancient retained intermediates or G893 prose generation."
+  },
+  "prior_evidence": [
+    "docs/research/MING-DATONG-1569-YINGSUO-FULL-NUMERIC-RECONSTRUCTION-R1.json",
+    "docs/research/TIANWEN-13SU-JIAOSHI-FRACTIONAL-DAY-NATIVE-INTERPOLATION-VS-G893-PROSE-R1.json",
+    "docs/research/TIANWEN-13SK-G893-ORIGINAL-SOLAR-POST-TABLE-TOTALS-R1.json",
+    "docs/research/TIANWEN-13SV-KYOTO-1672-YUANSHI54-SOLAR-YOUSHU-DIRECT-ORIGINAL-R1.json"
+  ],
+  "adjudication": {
+    "new_source_registry_entries": 0,
+    "new_physical_copies": 0,
+    "new_G893_six_place_numeric_witnesses": 0,
+    "g893_native_shao_wei_carry": "OPEN",
+    "historical_finals": "0/6",
+    "matrix": "222/222",
+    "registry": 786,
+    "genealogy_nodes": 254,
+    "genealogy_edges": 239,
+    "open_issues": 11,
+    "product": "CLOSED",
+    "algorithm_reopens": 0
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "A Ming single-copy procedural witness is not proof that G893 used it or that the G893 aggregate prose was generated from its daily table.",
+      "Numeric equality with 13SU does not establish direct copying between the 1569 print, Jiaoshi and Kyoto YuanShi."
+    ],
+    "remaining_questions": [
+      "G893 source-native same-field retained precision/carry or genuinely independent original aggregate generator remains needed."
+    ]
+  },
+  "next": "Seek direct G893 carry/generation or an independent original angular aggregate at five-plus/six places. The 1569 single-copy interpolation alternative has now been screened; do not repeat cross-work operator/limit confirmations as fresh G893 progress."
+}
