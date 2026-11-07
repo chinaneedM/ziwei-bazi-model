@@ -1,0 +1,337 @@
+{
+  "schema": "TIANWEN-13TD-G893-PAIRED-LUNAR-MOTION-MEAN-AND-CARRY-CANDIDATES-R1",
+  "date": "2026-11-07",
+  "issue_id": "TW-OPEN-0005",
+  "classification": "SOURCE_ORIGINAL_TEN_PAIRED_MOTION_CELLS_FIT_EXISTING_MING_CEILING_MODEL_BUT_MEAN_QUANTIZER_NOT_UNIQUE",
+  "question": "Does the 13KD L122 nearest-rounding counterexample survive the already source-scoped Ming mean/ceil model when BOTH original G893 motion columns are checked?",
+  "source": {
+    "id": "EXT-KYUJANGGAK-SHOUSHI-LICHENG-G893",
+    "copy": "SNU 奎貴893/GK00893_00 one already registered physical copy, exact impression unresolved",
+    "archives": [
+      {
+        "id": 12857907515,
+        "zip_sha256": "a3e619a2a67f5590ae4f9b95665105d91bd0fa54a9382465e66db8cf534311ef"
+      },
+      {
+        "id": 12860796453,
+        "zip_sha256": "c4da23f3165404d25e582a12ee1f7d756ae949c81311bf22b5403736aa62c14b"
+      }
+    ],
+    "images": [
+      {
+        "page": "035a",
+        "jpeg_sha256": "efbad3841aac3bc9f2c755a584464f1e6902930b3fb75550b961659fe84fa544",
+        "native_rgb_sha256": "f3bbdea1a50f3d6faa44ba6e5c6a466c372ca02c7c4c4e421871245c00ac6acc",
+        "pixels": [
+          1150,
+          2000
+        ],
+        "source_url": "https://kyudb.snu.ac.kr/ImageServlet.do?imgFileNm=GK00893_00IH_0001_035a.jpg&path=%2Fdata01%2Fstream%2FSIC%2FIMG%2FGK00893_00%2FGK00893_00_0001%2FGK00893_00IH_0001_035a.jpg"
+      },
+      {
+        "page": "035b",
+        "jpeg_sha256": "06b5a0ba80c5604576f84b59fc1017b5b0822920e737ef5c96a66b2d82d9e02c",
+        "native_rgb_sha256": "613db4915e867a996e1a0e84a3d9150465093f4f73a026464fe8a0755c79b92b",
+        "pixels": [
+          1150,
+          2000
+        ],
+        "source_url": "https://kyudb.snu.ac.kr/ImageServlet.do?imgFileNm=GK00893_00IH_0001_035b.jpg&path=%2Fdata01%2Fstream%2FSIC%2FIMG%2FGK00893_00%2FGK00893_00_0001%2FGK00893_00IH_0001_035b.jpg"
+      },
+      {
+        "page": "036a",
+        "jpeg_sha256": "6406455df8be50f4081e1bdb8c2ed85c754d7d5d54039643e7d77ec7a0816d40",
+        "native_rgb_sha256": "75d80c7244681eb72d17dc31523ebfeadcabcc7570a9d449d94d8d129d10973f",
+        "pixels": [
+          1150,
+          2000
+        ],
+        "source_url": "https://kyudb.snu.ac.kr/ImageServlet.do?imgFileNm=GK00893_00IH_0001_036a.jpg&path=%2Fdata01%2Fstream%2FSIC%2FIMG%2FGK00893_00%2FGK00893_00_0001%2FGK00893_00IH_0001_036a.jpg"
+      }
+    ],
+    "method": "Manual native original JPEG review without OCR. First directly confirm printed 疾曆限行度 and 遲曆限行度 in original018b, then same-table page/day geometry; no new original source object.",
+    "header_018b_sha256": "4decd1801d832ba5b471b047dd84cca487245038622a589b48552a0fb43ab83a",
+    "L126_seam": "035b ends after L126 疾曆限行度1.0253. Its 遲曆限行度1.1673 continues as rightmost numeric column of036a before the first new limit127. Full adjoining pages are retained as context; do not attribute this tail to127."
+  },
+  "original_rows": [
+    {
+      "limit": 122,
+      "loss_gain_magnitude_scaled_1e8_degree": 6534325,
+      "ji_scaled_1e4_degree": 10309,
+      "chi_scaled_1e4_degree": 11616,
+      "page": "035a",
+      "paired_or_ji_bbox_ltrb": [
+        75,
+        740,
+        211,
+        1430
+      ],
+      "roi_rgb_sha256": "e95384be282c4251910cc0d422c01299f14529ae9d98ffbe5c5579ce252c798c"
+    },
+    {
+      "limit": 123,
+      "loss_gain_magnitude_scaled_1e8_degree": 6678275,
+      "ji_scaled_1e4_degree": 10295,
+      "chi_scaled_1e4_degree": 11631,
+      "page": "035b",
+      "paired_or_ji_bbox_ltrb": [
+        845,
+        745,
+        963,
+        1430
+      ],
+      "roi_rgb_sha256": "3ddbd247067c14ab423ff2fc5e9157caa288a399e6cf16f09e5906408183a508"
+    },
+    {
+      "limit": 124,
+      "loss_gain_magnitude_scaled_1e8_degree": 6820275,
+      "ji_scaled_1e4_degree": 10281,
+      "chi_scaled_1e4_degree": 11645,
+      "page": "035b",
+      "paired_or_ji_bbox_ltrb": [
+        552,
+        745,
+        686,
+        1430
+      ],
+      "roi_rgb_sha256": "34034d3e2ddbb25e95e9b997bcc76cff9a297abfed7da768d1aad2a7d65e44c4"
+    },
+    {
+      "limit": 125,
+      "loss_gain_magnitude_scaled_1e8_degree": 6960325,
+      "ji_scaled_1e4_degree": 10267,
+      "chi_scaled_1e4_degree": 11659,
+      "page": "035b",
+      "paired_or_ji_bbox_ltrb": [
+        273,
+        745,
+        414,
+        1430
+      ],
+      "roi_rgb_sha256": "2a112b607e2b454c712a6de516ac24549e19f2fc4d080813917f18aaf8b24c9c"
+    },
+    {
+      "limit": 126,
+      "loss_gain_magnitude_scaled_1e8_degree": 7098425,
+      "ji_scaled_1e4_degree": 10253,
+      "chi_scaled_1e4_degree": 11673,
+      "page": "035b",
+      "paired_or_ji_bbox_ltrb": [
+        45,
+        740,
+        120,
+        1330
+      ],
+      "roi_rgb_sha256": "27de447fede4edeeceaff72ade047458be305ae40877a4c3f671ce4f98ab8b4b",
+      "chi_continues_on_page": "036a",
+      "chi_continuation_bbox_ltrb": [
+        1050,
+        735,
+        1126,
+        1330
+      ],
+      "chi_continuation_rgb_sha256": "6632fe195d62acb85385d25921ea21a5d98163f219d5c11eea209e1480a090c4"
+    }
+  ],
+  "normalization": "Q is printed 損益分 normalized by the existing base100 degree/fen candidate; integer1e-8 degree. J/C have explicit original 度 and four trailing places. Values are same-field comparison coordinates, not a newly proved universal G893 radix or solar 少/微 unit.",
+  "prior_counterexample": {
+    "evidence": "docs/research/TIANWEN-13KD-G893-MINGSHI-RECEIVED-RECURRENCE-UNIT-BRIDGE-R1.json",
+    "retained": true,
+    "old_model": "mean1.0963 minus Q with ordinary four-place nearest gives L1221.0310, source G8931.0309. This bounded counterexample remains true. It never proved all possible mean/quantizer models fail."
+  },
+  "ming_comparator": {
+    "source_id": "EXT-KOTENMON-DAMING-DATONG-1569",
+    "pdf_sha256": "4c006b7ce131902fe33012d42f62cd2bbc2140affa3d5886e0da02966352cb7c",
+    "page": 39,
+    "xref": 156,
+    "jpeg_sha256": "0d53b979e9c09be80ef2858450718ef3a82516cc56bd686f77fb2d56c2a4586e",
+    "bbox_ltrb": [
+      20,
+      15,
+      468,
+      290
+    ],
+    "roi_rgb_sha256": "d413412f4e6196b2b52781aba7de222516cbe4834e23b5328579a92239a6388f",
+    "all_selected_motion_cells_match_G893": "10/10",
+    "preexisting_mechanical_reconstruction": "docs/research/MING-DATONG-1569-CHIJI-FULL-NUMERIC-RECONSTRUCTION-R1.json",
+    "mean_source": "Its fixed_point_model.mean_lunar_motion_per_limit_degree1.09623750 and nonzero sub-second carry model; these are PREVIOUSLY ACCEPTED MING RECONSTRUCTION PARAMETERS, not a newly read G893 printed mean or newly read carry instruction.",
+    "candidate_formula": "Ji=ceil_4dp(1.0962375-Q); Chi=ceil_4dp(1.0962375+Q), only this loss half and selected limits122..126."
+  },
+  "exact_candidate_models": [
+    {
+      "name": "MING_SOURCE_RECONSTRUCTION_CEIL",
+      "mean_degree": "87699/80000",
+      "rounder": "CEIL",
+      "predicted_limit_ji_chi": [
+        [
+          122,
+          10309,
+          11616
+        ],
+        [
+          123,
+          10295,
+          11631
+        ],
+        [
+          124,
+          10281,
+          11645
+        ],
+        [
+          125,
+          10267,
+          11659
+        ],
+        [
+          126,
+          10253,
+          11673
+        ]
+      ],
+      "matches_out_of_10": 10
+    },
+    {
+      "name": "MING_MEAN_NEAREST",
+      "mean_degree": "87699/80000",
+      "rounder": "HALF_UP",
+      "predicted_limit_ji_chi": [
+        [
+          122,
+          10309,
+          11616
+        ],
+        [
+          123,
+          10295,
+          11630
+        ],
+        [
+          124,
+          10280,
+          11644
+        ],
+        [
+          125,
+          10266,
+          11658
+        ],
+        [
+          126,
+          10253,
+          11672
+        ]
+      ],
+      "matches_out_of_10": 4
+    },
+    {
+      "name": "LEGACY_ROUNDED_MEAN_NEAREST",
+      "mean_degree": "10963/10000",
+      "rounder": "HALF_UP",
+      "predicted_limit_ji_chi": [
+        [
+          122,
+          10310,
+          11616
+        ],
+        [
+          123,
+          10295,
+          11631
+        ],
+        [
+          124,
+          10281,
+          11645
+        ],
+        [
+          125,
+          10267,
+          11659
+        ],
+        [
+          126,
+          10253,
+          11673
+        ]
+      ],
+      "matches_out_of_10": 9
+    },
+    {
+      "name": "CONSTRUCTED_UNPRINTED_ALTERNATIVE_NEAREST",
+      "mean_degree": "27407/25000",
+      "rounder": "HALF_UP",
+      "predicted_limit_ji_chi": [
+        [
+          122,
+          10309,
+          11616
+        ],
+        [
+          123,
+          10295,
+          11631
+        ],
+        [
+          124,
+          10281,
+          11645
+        ],
+        [
+          125,
+          10267,
+          11659
+        ],
+        [
+          126,
+          10253,
+          11673
+        ]
+      ],
+      "matches_out_of_10": 10
+    }
+  ],
+  "identifiability": {
+    "ceil_mean_interval_open_lower_closed_upper": [
+      "4384869/4000000",
+      "4384973/4000000"
+    ],
+    "nearest_mean_interval_closed_lower_open_upper": [
+      "4385069/4000000",
+      "4385173/4000000"
+    ],
+    "ceil_contains_ming_mean": true,
+    "constructed_nearest_mean_decimal": "1.09628",
+    "constructed_nearest_is_historical_source": false,
+    "conclusion": "Ming mean+ceil fits10/10, but a mathematically constructed different mean1.09628+nearest also fits10/10. Paired field agreement alone cannot identify the actual G893 mean or rounding instruction. Do not falsely promote ceiling to the unique historical winner."
+  },
+  "adjudication": {
+    "new_registry_entries": 0,
+    "new_physical_witnesses": 0,
+    "g893_six_historical_finals": "0/6",
+    "matrix": "222/222",
+    "registry": 786,
+    "graph": "254/239",
+    "open_issues": 11,
+    "issue_status": "P0 OPEN",
+    "product": "CLOSED",
+    "algorithm_reopens": 0
+  },
+  "prior_evidence": [
+    "docs/research/TIANWEN-13KC-G893-SAME-COPY-FIVE-ROW-ORIGINAL-COLLATION-R1.json",
+    "docs/research/TIANWEN-13KD-G893-MINGSHI-RECEIVED-RECURRENCE-UNIT-BRIDGE-R1.json",
+    "docs/research/MING-DATONG-1569-CHIJI-FULL-NUMERIC-RECONSTRUCTION-R1.json"
+  ],
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "G893 motion agrees with this Ming standing table, but direct copying, shared epoch, original mean and actual carry are unproved."
+    ],
+    "remaining_questions": [
+      "Source-authenticated G893 mean-motion operand or an explicit same-field quantization instruction is needed to break the demonstrated two-model ambiguity."
+    ]
+  },
+  "next": "Seek original G893 or independent same-field mean-motion/carry instruction. Preserve the positive10-cell Ming-model compatibility and the explicit nearest-model counterexample; do not repeat generic rounding speculation or transplant lunar carry to solar prose."
+}
