@@ -1,4 +1,4 @@
-name: Tianwen G893 two-folio original discriminator
+name: Tianwen G893 adjacent folio original discriminator 13TJ
 
 on:
   push:
@@ -24,14 +24,14 @@ jobs:
         run: |
           gh api -X POST "repos/$GITHUB_REPOSITORY/statuses/$GITHUB_SHA" \
             -f state=success \
-            -f context="tianwen/13ti-run-locator-$GITHUB_RUN_ID" \
+            -f context="tianwen/13tj-run-locator-$GITHUB_RUN_ID" \
             -f description="Run locator only; not source verification" \
             -f target_url="https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
       - name: Install existing archive browser dependency
         run: |
           npm install --no-save --silent puppeteer-core@24.16.0
           python -m pip install --quiet pillow
-      - name: Fetch public original 023b and 036b with existing provider viewer flow
+      - name: Fetch same-copy 023a, 023b and 036b originals for neighbor-glyph collation
         shell: bash
         run: |
           node --input-type=module <<'JS'
@@ -40,6 +40,7 @@ jobs:
           import crypto from 'node:crypto';
           const book='GK00893_00', vol='0001';
           const expected={
+            '023a':null,
             '023b':'f5f732a4db9636ab563af47a5c8332e1f00eed1e587cc138d150da53f557d94f',
             '036b':'8acb0c32bcdd0be8827bc2851f089bf5d73a2378c3b7ffcfa80eeaf725d1dd84'
           };
@@ -92,24 +93,24 @@ jobs:
               if(!buf)throw Error('No JPEG from original provider '+folio+' status '+status);
               const hash=crypto.createHash('sha256').update(buf).digest('hex');
               console.log('ORIGINAL_JPEG',folio,'bytes',buf.length,'sha256',hash,'match_previously_archived',hash===sha);
-              if(hash!==sha)throw Error('Source image hash mismatch: '+folio);
+              if(sha && hash!==sha)throw Error('Source image hash mismatch: '+folio);
               fs.writeFileSync('/tmp/tianwen-original-'+folio+'.jpg',buf);
             }
           }finally{await browser.close();}
           JS
-      - name: Emit two minimal target-column research crops for direct human glyph check
+      - name: Emit full source-original page windows for adjacent limits
         shell: bash
         run: |
           python - <<'PY'
           from PIL import Image
           from io import BytesIO
           import hashlib,base64
-          for folio,rect in [('023b',(690,210,1150,1780)),('036b',(290,210,800,1780))]:
+          for folio,rect in [('023a',(0,150,1150,1790)),('023b',(0,150,1150,1790)),('036b',(0,150,1150,1790))]:
               im=Image.open('/tmp/tianwen-original-'+folio+'.jpg').convert('RGB')
               assert im.size==(1150,2000),(folio,im.size)
               raw=im.crop(rect)
               pixel_sha=hashlib.sha256(raw.tobytes()).hexdigest()
-              buf=BytesIO();raw.save(buf,format='JPEG',quality=91,subsampling=0)
+              buf=BytesIO();raw.save(buf,format='JPEG',quality=83,subsampling=0)
               out=buf.getvalue()
               print('SOURCE_CROP',folio,'rect',rect,'rgb_sha256',pixel_sha,'crop_jpeg_sha256',hashlib.sha256(out).hexdigest(),'bytes',len(out),flush=True)
               b64=base64.b64encode(out).decode()
