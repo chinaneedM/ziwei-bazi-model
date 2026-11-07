@@ -10,6 +10,7 @@ on:
 
 permissions:
   contents: read
+  statuses: write
 
 jobs:
   original-two-folio:
@@ -17,6 +18,15 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
+      - name: Publish minimal workflow run locator
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh api -X POST "repos/$GITHUB_REPOSITORY/statuses/$GITHUB_SHA" \
+            -f state=success \
+            -f context="tianwen/13ti-run-locator-$GITHUB_RUN_ID" \
+            -f description="Run locator only; not source verification" \
+            -f target_url="https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
       - name: Install existing archive browser dependency
         run: |
           npm install --no-save --silent puppeteer-core@24.16.0
