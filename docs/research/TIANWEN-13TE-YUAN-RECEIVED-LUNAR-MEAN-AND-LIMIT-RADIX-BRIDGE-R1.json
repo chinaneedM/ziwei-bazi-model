@@ -1,0 +1,148 @@
+{
+  "schema": "TIANWEN-13TE-YUAN-RECEIVED-LUNAR-MEAN-AND-LIMIT-RADIX-BRIDGE-R1",
+  "date": "2026-11-07",
+  "issue_id": "TW-OPEN-0005",
+  "classification": "RECEIVED_YUAN_DAILY_LUNAR_MEAN_TIMES_LATER_RECEIVED_LIMIT_RADIX_MATCHES_EXISTING_MING_MODEL_EXACTLY_WITHOUT_G893_NATIVE_OPERATOR_PROOF",
+  "question": "Can the already model-fit 13TD mean 1.09623750 be independently grounded in received historical operands without misidentifying the original G893 quantizer?",
+  "source_scope": [
+    {
+      "id": "EXT-WIKISOURCE-YUANSHI-V54-SHOUSHI-QICE",
+      "work": "《元史》卷五十四《授時曆經上》〈步月離第四〉",
+      "url": "https://zh.wikisource.org/zh-hans/元史/卷054",
+      "received_text": "月平行，十三度三十六分八十七秒半",
+      "parsed_daily_mean_degree": "13.36875",
+      "grade": "RECEIVED_TEXT_NOT_NEW_PHYSICAL_G893_ORIGINAL",
+      "scope": "Daily lunar mean only; 12限20分 in same work must not be silently equated to a source-native exact 820 fractional-day operand."
+    },
+    {
+      "id": "EXT-CTEXT-SHOUSHI-LIGU-JIAYETANG",
+      "work": "《授時曆故》卷四〈月離曆〉，黃宗羲後出收本文字",
+      "url": "https://www.shidianguji.com/book/CADAL02093993/chapter/1laylkzccub7j",
+      "received_text": [
+        "日法萬分限法八百二十分",
+        "月平行十三度三十六分八十七秒半",
+        "限平行度一百○九分六十三秒",
+        "以限法八百二十分乘月平行百約之"
+      ],
+      "grade": "LATER_RECEIVED_TEXT_DIGITAL_TRANSCRIPTION_NOT_PHYSICAL_GLYPH_VERIFICATION",
+      "scope": "Explicit scale bridge and a 4-place displayed mean; not original G893 or unique quantization/carry evidence."
+    },
+    {
+      "id": "EXT-WIKISOURCE-MINGSHI-V35-DATONG-TIME",
+      "work": "《明史》卷三十五《大統曆法》〈步月離〉",
+      "url": "https://zh.wikisource.org/zh-hant/明史/卷35",
+      "received_text": [
+        "月平行度一十三度三十六分八十七秒半",
+        "限平行度一度○九分六十二秒"
+      ],
+      "grade": "RECEIVED_TEXT_NOT_EARLY_G893_ORIGINAL",
+      "scope": "Displayed 1.0962 value, compatible with truncating the 1.09623750 arithmetic product at four decimals; historical truncation instruction unproven."
+    }
+  ],
+  "fixed_point_derivation": {
+    "daily_mean_degree": "13.36875",
+    "limit_day_fraction": "820/10000",
+    "normalized_formula": "(1336875/100000) * (820/10000) = 87699/80000 = 1.09623750 degrees/limit",
+    "mean_degree_rational": "87699/80000",
+    "mean_scaled_1e8_degree": 109623750,
+    "ming_model_parameter_previous_batch": "docs/research/TIANWEN-13TD-G893-PAIRED-LUNAR-MOTION-MEAN-AND-CARRY-CANDIDATES-R1.json",
+    "interpretation": "Exact arithmetic identity between two LATER RECEIVED parameter statements and the pre-existing Ming reconstruction parameter. Yuan text daily mean and later Huang limit scale are distinct evidence grades. Their combination does not directly certify original G893 implementation."
+  },
+  "display_precision_comparison": {
+    "exact_mean_degree": "1.09623750",
+    "ming_shi_received_display_4dp": "1.0962",
+    "compatible_with": "TRUNCATE_TO_FOUR_PLACES",
+    "huang_received_display_4dp": "1.0963",
+    "compatible_with_2": "CEIL_TO_FOUR_PLACES_OR_OTHER_UPWARD_DISPLAY",
+    "scope_firewall": "These are separately received textual displays, not source-original G893 quantization instructions; their differing displayed digits alone are not an established ancient-copy textual variant or an historical algorithmic conflict."
+  },
+  "prior_same_copy_original_replay": {
+    "original_copy": "SNU G893 GK00893_00",
+    "prior_doc": "docs/research/TIANWEN-13TD-G893-PAIRED-LUNAR-MOTION-MEAN-AND-CARRY-CANDIDATES-R1.json",
+    "unit": "ji and chi scaled by 1e4 degree; loss_gain magnitude by 1e8 degree",
+    "candidate_formula": "Ji=CEIL_4DP(1.0962375-Q); Chi=CEIL_4DP(1.0962375+Q)",
+    "exact_integer_rows": [
+      {
+        "limit": 122,
+        "source_ji": 10309,
+        "source_chi": 11616,
+        "computed_ji_ceil": 10309,
+        "computed_chi_ceil": 11616,
+        "computed_ji_nearest": 10309,
+        "computed_chi_nearest": 11616
+      },
+      {
+        "limit": 123,
+        "source_ji": 10295,
+        "source_chi": 11631,
+        "computed_ji_ceil": 10295,
+        "computed_chi_ceil": 11631,
+        "computed_ji_nearest": 10295,
+        "computed_chi_nearest": 11630
+      },
+      {
+        "limit": 124,
+        "source_ji": 10281,
+        "source_chi": 11645,
+        "computed_ji_ceil": 10281,
+        "computed_chi_ceil": 11645,
+        "computed_ji_nearest": 10280,
+        "computed_chi_nearest": 11644
+      },
+      {
+        "limit": 125,
+        "source_ji": 10267,
+        "source_chi": 11659,
+        "computed_ji_ceil": 10267,
+        "computed_chi_ceil": 11659,
+        "computed_ji_nearest": 10266,
+        "computed_chi_nearest": 11658
+      },
+      {
+        "limit": 126,
+        "source_ji": 10253,
+        "source_chi": 11673,
+        "computed_ji_ceil": 10253,
+        "computed_chi_ceil": 11673,
+        "computed_ji_nearest": 10253,
+        "computed_chi_nearest": 11672
+      }
+    ],
+    "ceil_matches_out_of_10": 10,
+    "nearest_matches_out_of_10": 4
+  },
+  "counterexample_control": {
+    "invented_mean": "1.09628",
+    "invented_rounded_method": "HALF_UP_NEAREST",
+    "prior_10_of_10_fit_remains_true": true,
+    "conditional_test": "If the exact received daily mean and 820/10000 fraction are ASSUMED to be the unmodified G893 pre-rounding mean, the invented mean is ruled out as an input value. That premise has NOT been authenticated for the original G893 computation.",
+    "unresolved": "A different original carried phase, per-stage rounding, display path or mean operand remains possible; 13TD constructiveness proves ten displayed cells alone do not identify full historical mechanics.",
+    "no_cross_domain_transfer": "Lunar motion exact arithmetic cannot establish G893 solar 少/微 or six-place solar aggregate carry."
+  },
+  "adjudication": {
+    "new_physical_originals": 0,
+    "new_registry_entries": 0,
+    "new_genealogy_nodes_or_edges": 0,
+    "new_original_g893_target_final_decisions": 0,
+    "g893_historical_six_finals": "0/6",
+    "matrix": "222/222",
+    "external_registry": 786,
+    "graph": "254 nodes / 239 edges",
+    "open_issues": 11,
+    "issue_status": "P0 OPEN",
+    "product": "CLOSED",
+    "algorithm_reopens": 0
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Received textual agreement of lunar daily mean and later limit radix does not certify direct transmission or G893's physical-copy quantizer."
+    ],
+    "remaining_questions": [
+      "Obtain authenticated original G893 operand, explicit carry/rounding step or independently printed full precision lunar line-speed; also seek source-original high-place solar aggregate."
+    ]
+  },
+  "next": "Prioritize source-original G893 full-precision mean operand, intermediate carry or contemporaneous same-field quantization instruction. Keep 13TD ten-cell CEIL compatibility and constructed nearest alternative under differing premises; do not promote a unique G893 historical algorithm or alter the CLOSED chart product."
+}
