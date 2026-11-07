@@ -66,6 +66,16 @@ jobs:
                   print("NATIVE_PNG",json.dumps({"page_one_based":page_no+1,"image_index":image_index,"png_sha256":hashlib.sha256(payload).hexdigest(),"png_bytes":len(payload)}))
                   b64=base64.b64encode(payload).decode("ascii")
                   for i in range(0,len(b64),3000): print(f"NATIVE_{page_no}_{image_index}|{i//3000:04d}|{b64[i:i+3000]}")
+          # 13TT: reuse the already registered13NV fascicle19 for the
+          # source-native angular radix examples in volume69. Artifact only;
+          # the historical13NV page files and manifest remain untouched.
+          url19 = "https://upload.wikimedia.org/wikipedia/commons/f/f1/NLC892-CBM1408-371938_%E5%8F%A4%E4%BB%8A%E5%BE%8B%E6%9B%86%E8%80%83_%E4%B8%83%E5%8D%81%E4%BA%8C%E5%8D%B7_%E7%AC%AC19%E5%86%8A.pdf"
+          req19 = urllib.request.Request(url19, headers={"User-Agent": "Tianwen-Historical-Research/1.0 (public-domain source verification)"})
+          with urllib.request.urlopen(req19, timeout=65) as resp19:
+              data19=resp19.read(24000000)
+          assert len(data19)==16674606 and hashlib.sha256(data19).hexdigest()=="0f34ca5bcb474b9a38ece20c40eb8c468d1671fe6209cec140b20d8c9350e3fe", "Registered fascicle19 PDF changed"
+          Path("native-evidence/source19.pdf").write_bytes(data19)
+          print("SOURCE19",json.dumps({"url":url19,"bytes":len(data19),"sha256":hashlib.sha256(data19).hexdigest(),"pages":len(fitz.open(stream=data19,filetype="pdf"))}))
           PY
       - name: Preserve native source evidence
         uses: actions/upload-artifact@v4
