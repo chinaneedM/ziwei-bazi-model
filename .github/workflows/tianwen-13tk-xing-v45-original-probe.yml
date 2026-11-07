@@ -34,45 +34,6 @@ jobs:
           doc = fitz.open(stream=data, filetype="pdf")
           assert 55 <= len(doc) <= 90, "Expected historical scan fascicle length"
           print("SOURCE", json.dumps({"catalog_work": "邢雲路《古今律曆考》", "public_page_id": "NLC892-CBM1408-371933", "book": 14, "bibliographic_volumes": [43,44,45], "pdf_pages": len(doc), "byte_sha256": hashlib.sha256(data).hexdigest(), "source": url}, ensure_ascii=False))
-          cells=[]
-          for page_idx in range(len(doc)):
-              pix=doc[page_idx].get_pixmap(matrix=fitz.Matrix(0.39,0.39), colorspace=fitz.csGRAY, alpha=False)
-              im=Image.frombytes("L", [pix.width,pix.height], pix.samples).convert("RGB")
-              im.thumbnail((220,230))
-              cell=Image.new("RGB",(238,258),"white")
-              cell.paste(im,((238-im.width)//2,19))
-              ImageDraw.Draw(cell).text((6,4),f"PDF p{page_idx} (1-based {page_idx+1})",fill="black")
-              cells.append(cell)
-          for part in range(2):
-              subset=cells[part*38:(part+1)*38]
-              ncol=5;nrow=(len(subset)+ncol-1)//ncol
-              atlas=Image.new("RGB",(238*ncol,258*nrow),"white")
-              for i,im in enumerate(subset): atlas.paste(im,((i%ncol)*238,(i//ncol)*258))
-              buf=io.BytesIO();atlas.save(buf,format="JPEG",quality=52,optimize=True)
-              payload=buf.getvalue()
-              print("ATLAS",json.dumps({"part":part,"start_page_zero_based":part*38,"count":len(subset),"jpeg_sha256":hashlib.sha256(payload).hexdigest(),"jpeg_bytes":len(payload)}))
-              b64=base64.b64encode(payload).decode("ascii")
-              for i in range(0,len(b64),3000): print(f"IMAGE_PART_{part}|{i//3000:04d}|{b64[i:i+3000]}")
-          for page_no in [53,55,57,61,63,65,67,70,71,72,73]:
-              pix=doc[page_no].get_pixmap(matrix=fitz.Matrix(2.4,2.4),colorspace=fitz.csGRAY,alpha=False)
-              im=Image.frombytes("L",[pix.width,pix.height],pix.samples)
-              out=io.BytesIO();im.save(out,format="JPEG",quality=74,optimize=True)
-              payload=out.getvalue()
-              print("SOURCE_PAGE",json.dumps({"page_zero_based":page_no,"pdf_page_one_based":page_no+1,"render_jpeg_sha256":hashlib.sha256(payload).hexdigest(),"pixel_shape":[pix.width,pix.height],"jpeg_bytes":len(payload)}))
-              b64=base64.b64encode(payload).decode("ascii")
-              for i in range(0,len(b64),3000): print(f"SOURCE_PAGE_{page_no}|{i//3000:04d}|{b64[i:i+3000]}")
-          # Targeted original-pixel strips: source column coordinates are exploratory,
-          # not declared glyph readings. Keep neighboring columns for row ownership.
-          for page_no, rect in [(65,(510,105,785,825)), (70,(170,105,460,825))]:
-              pix=doc[page_no].get_pixmap(matrix=fitz.Matrix(2.4,2.4),colorspace=fitz.csGRAY,alpha=False)
-              page_image=Image.frombytes("L",[pix.width,pix.height],pix.samples)
-              crop=page_image.crop(rect)
-              crop=crop.resize((crop.width*2,crop.height*2),resample=Image.Resampling.NEAREST)
-              out=io.BytesIO();crop.save(out,format="JPEG",quality=79,optimize=True)
-              payload=out.getvalue()
-              print("COLUMN_WINDOW",json.dumps({"page_zero_based":page_no,"rect_in_render_px":rect,"render_jpeg_sha256":hashlib.sha256(payload).hexdigest(),"jpeg_bytes":len(payload)}))
-              b64=base64.b64encode(payload).decode("ascii")
-              for i in range(0,len(b64),3000): print(f"COLUMN_WINDOW_{page_no}|{i//3000:04d}|{b64[i:i+3000]}")
           # 13TQ: inspect actual embedded-image resolution, avoiding another
           # low-resolution JPEG render as evidence for the last-place glyphs.
           for page_no in [63,65,70,72]:
@@ -85,11 +46,26 @@ jobs:
                   raw=extracted["image"]
                   native=Image.open(io.BytesIO(raw)).convert("L")
                   print("NATIVE_IMAGE",json.dumps({"page_one_based":page_no+1,"image_index":image_index,"xref":xref,"width":native.width,"height":native.height,"ext":extracted["ext"],"bytes":len(raw),"raw_sha256":hashlib.sha256(raw).hexdigest(),"gray_pixel_sha256":hashlib.sha256(native.tobytes()).hexdigest()}))
-                  # Full source image is retained in its original decoded size.
-                  # Lossless PNG preserves glyph pixels; no sharpening or OCR.
-                  out=io.BytesIO();native.save(out,format="PNG")
+                  # Keep native full pages in an artifact; log only narrow
+                  # original-pixel target columns to avoid oversized responses.
+                  Path("native-evidence").mkdir(exist_ok=True)
+                  native.save(f"native-evidence/p{page_no+1}-image{image_index}.png")
+                  if page_no not in (65,70): continue
+                  # Source column positions are mapped from the archived 1002x854
+                  # whole-spread render; full native pages permit independent replay.
+                  ref=(650,110,705,805) if page_no==65 else (270,110,327,805)
+                  rect=tuple(round(v*native.width/1002) if k%2==0 else round(v*native.height/854) for k,v in enumerate(ref))
+                  crop=native.crop(rect)
+                  print("NATIVE_CROP",json.dumps({"page_one_based":page_no+1,"xref":xref,"rect_px":rect,"gray_pixel_sha256":hashlib.sha256(crop.tobytes()).hexdigest()}))
+                  out=io.BytesIO();crop.save(out,format="PNG")
                   payload=out.getvalue()
                   print("NATIVE_PNG",json.dumps({"page_one_based":page_no+1,"image_index":image_index,"png_sha256":hashlib.sha256(payload).hexdigest(),"png_bytes":len(payload)}))
                   b64=base64.b64encode(payload).decode("ascii")
                   for i in range(0,len(b64),3000): print(f"NATIVE_{page_no}_{image_index}|{i//3000:04d}|{b64[i:i+3000]}")
           PY
+      - name: Preserve native source evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: xing-13tq-native-source-pages
+          path: native-evidence/
+          retention-days: 90
