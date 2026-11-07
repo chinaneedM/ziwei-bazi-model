@@ -1,0 +1,625 @@
+{
+  "schema": "TIANWEN-13TC-G893-LUNAR-DAYRATE-ORIGINAL-QUANTIZATION-WINDOW-R1",
+  "date": "2026-11-07",
+  "issue_id": "TW-OPEN-0005",
+  "classification": "BOUNDED_ORIGINAL_SAME_FIELD_LUNAR_DAY_ANCHOR_MODEL_DISCRIMINATION_NOT_SOLAR_CARRY_OR_HISTORICAL_UNIQUE_GENERATOR",
+  "question": "Which zero-origin constant-step display families survive eight directly read G893 lunar day-rate cells, including legacy L114? Does the original 1569 table agree in this exact field?",
+  "source": {
+    "id": "EXT-KYUJANGGAK-SHOUSHI-LICHENG-G893",
+    "holding": "SNU 奎貴893 / GK00893_00, one previously registered copy",
+    "impression_scope": "1418-1450 provider range, exact impression unresolved",
+    "header": "018b 大陰限數遲疾度 / 遲疾曆日率",
+    "header_jpeg_sha256": "4decd1801d832ba5b471b047dd84cca487245038622a589b48552a0fb43ab83a",
+    "header_bbox_ltrb": [
+      848,
+      735,
+      916,
+      1190
+    ],
+    "header_roi_rgb_sha256": "2d6696b7e13a04607ee6931947ccb443e8fe29177e4c677b784fe41160070513",
+    "images": [
+      {
+        "page": "019b",
+        "url": "https://kyudb.snu.ac.kr/ImageServlet.do?imgFileNm=GK00893_00IH_0001_019b.jpg&path=%2Fdata01%2Fstream%2FSIC%2FIMG%2FGK00893_00%2FGK00893_00_0001%2FGK00893_00IH_0001_019b.jpg",
+        "sha256": "05d6a658664475540333965079363e476c58f708819636f5137558b05a35bcda",
+        "size_px": [
+          1150,
+          2000
+        ],
+        "native_rgb_sha256": "02c84c07c2c059da686c468291c01c722845df4f6cbd38b7ef7d519b4dd1be94"
+      },
+      {
+        "page": "034a",
+        "url": "https://kyudb.snu.ac.kr/ImageServlet.do?imgFileNm=GK00893_00IH_0001_034a.jpg&path=%2Fdata01%2Fstream%2FSIC%2FIMG%2FGK00893_00%2FGK00893_00_0001%2FGK00893_00IH_0001_034a.jpg",
+        "sha256": "ac738d1a83ea7f19dc1f83583af6adc90878534beec1727b9076cc1e099c8137",
+        "size_px": [
+          1150,
+          2000
+        ],
+        "native_rgb_sha256": "bb2cb5fe2ac43ec57f8c8a0e841c603a9c568924e80a38436b9566c3f60e567f"
+      }
+    ],
+    "archives": [
+      {
+        "artifact_id": 12857907515,
+        "run_id": 40783073316,
+        "zip_sha256": "a3e619a2a67f5590ae4f9b95665105d91bd0fa54a9382465e66db8cf534311ef"
+      },
+      {
+        "artifact_id": 13148305028,
+        "run_id": 41457048333,
+        "zip_sha256": "20ae37ae0db2eadf2c911c1959e9591c66804c26bb9a07bc3daea684466018b1"
+      }
+    ],
+    "review_method": "Manual full native JPEG and contextual table header review without OCR; SHA256 of decoded RGB crops, no image bytes in public repository. Nearby 損益分 digits are not appended to the day-rate field. Original source pages were already acquired; this is new bounded field review of the same copies."
+  },
+  "original_rows": [
+    {
+      "limit": 6,
+      "page": "019b",
+      "literal_dayrate": "〇日四九二〇",
+      "normalized_1e4_day_integer": 4920,
+      "heading_bbox_ltrb": [
+        910,
+        275,
+        1025,
+        450
+      ],
+      "heading_rgb_sha256": "df0f41233adce31854371296416280777670b161e4ceca44083c2927c85a9d0f",
+      "dayrate_bbox_ltrb": [
+        945,
+        760,
+        1015,
+        1270
+      ],
+      "dayrate_rgb_sha256": "353f4d20bac886cdb32d2027cf5754f6621d7204231b08d614f008920cd5eccc"
+    },
+    {
+      "limit": 7,
+      "page": "019b",
+      "literal_dayrate": "〇日五七四〇",
+      "normalized_1e4_day_integer": 5740,
+      "heading_bbox_ltrb": [
+        630,
+        275,
+        745,
+        450
+      ],
+      "heading_rgb_sha256": "722c9a8c9e572e01a5d930ec4f224cf98cd45a592a328593b971417df626b266",
+      "dayrate_bbox_ltrb": [
+        657,
+        760,
+        727,
+        1270
+      ],
+      "dayrate_rgb_sha256": "7daf0cccb836e79e858bfda558a9241c1532cdbe065bd87b6c59ce063e764f97"
+    },
+    {
+      "limit": 8,
+      "page": "019b",
+      "literal_dayrate": "〇日六五六〇",
+      "normalized_1e4_day_integer": 6560,
+      "heading_bbox_ltrb": [
+        340,
+        275,
+        455,
+        450
+      ],
+      "heading_rgb_sha256": "22d882742bae7ff81676319d8b1c9f6353c50301104488fca48ffd9e7b4fe4b6",
+      "dayrate_bbox_ltrb": [
+        367,
+        760,
+        437,
+        1270
+      ],
+      "dayrate_rgb_sha256": "fd910723f3a07053284d971122af662235ce0e2f79071c1a5d2837509149b426"
+    },
+    {
+      "limit": 9,
+      "page": "019b",
+      "literal_dayrate": "〇日七三八〇",
+      "normalized_1e4_day_integer": 7380,
+      "heading_bbox_ltrb": [
+        50,
+        275,
+        165,
+        450
+      ],
+      "heading_rgb_sha256": "dbffb4d700f3747147834279ef09c3480e7fdb214f3dcc2e8f4b05f51aa9f855",
+      "dayrate_bbox_ltrb": [
+        75,
+        760,
+        145,
+        1270
+      ],
+      "dayrate_rgb_sha256": "2685d90266cc340b4240e2db9cc14e032b9772dfcfc4616f4b33ce77e1429ac6"
+    },
+    {
+      "limit": 112,
+      "page": "034a",
+      "literal_dayrate": "九日一八四八",
+      "normalized_1e4_day_integer": 91848,
+      "heading_bbox_ltrb": [
+        1010,
+        260,
+        1145,
+        650
+      ],
+      "heading_rgb_sha256": "05a14696856bb96a10d47c9935e0312671635109435cbacba521c02e5fd3f0ee",
+      "dayrate_bbox_ltrb": [
+        1070,
+        735,
+        1138,
+        1270
+      ],
+      "dayrate_rgb_sha256": "724ec9762c1c8067cb1c8835316ad20b50de2c9071d5ff7370deb5a04d740849"
+    },
+    {
+      "limit": 113,
+      "page": "034a",
+      "literal_dayrate": "九日二六六九",
+      "normalized_1e4_day_integer": 92669,
+      "heading_bbox_ltrb": [
+        720,
+        260,
+        855,
+        650
+      ],
+      "heading_rgb_sha256": "cd8fadc050745d3e55bc94cce2b6bade41476f6fc7db246d8c4e2e51d55aa6eb",
+      "dayrate_bbox_ltrb": [
+        790,
+        735,
+        852,
+        1270
+      ],
+      "dayrate_rgb_sha256": "3928137dda6c2ee102705b1d5754893e7fe094933fd6323bf5f189d51f8bb6eb"
+    },
+    {
+      "limit": 114,
+      "page": "034a",
+      "literal_dayrate": "九日三四八九",
+      "normalized_1e4_day_integer": 93489,
+      "heading_bbox_ltrb": [
+        425,
+        260,
+        560,
+        650
+      ],
+      "heading_rgb_sha256": "6243d914defa8ba2b7378d6b9faed1badad6291fdc127dd4196c91d047aff2f3",
+      "dayrate_bbox_ltrb": [
+        480,
+        735,
+        535,
+        1270
+      ],
+      "dayrate_rgb_sha256": "129116aea991965e289dcf721349157029ec1d942d965b9f6dacfffd484eca94"
+    },
+    {
+      "limit": 115,
+      "page": "034a",
+      "literal_dayrate": "九日四三〇九",
+      "normalized_1e4_day_integer": 94309,
+      "heading_bbox_ltrb": [
+        125,
+        260,
+        260,
+        650
+      ],
+      "heading_rgb_sha256": "7331705b51239f613a56f3cdbccb290ead1a82b29ed7ea9a2cebf6129765210d",
+      "dayrate_bbox_ltrb": [
+        200,
+        735,
+        280,
+        1270
+      ],
+      "dayrate_rgb_sha256": "f150c0b5f29ebe601c50ba9a90c8379bf85a815110dc30c7ba02b3b244b49f8d"
+    }
+  ],
+  "normalization": {
+    "coordinate": "integer units of 10^-4 of the explicitly printed 日; four trailing positional digits only",
+    "example": "九日三四八九 -> 9*10000+3489=93489",
+    "scope": "A local displayed day-anchor coordinate, not modern SI seconds, angular units or certification of G893 solar 少/微 radix."
+  },
+  "exact_models": {
+    "FLOOR_82008_OVER_100": {
+      "rows": [
+        {
+          "limit": 6,
+          "observed": 4920,
+          "predicted": 4920,
+          "residual": 0
+        },
+        {
+          "limit": 7,
+          "observed": 5740,
+          "predicted": 5740,
+          "residual": 0
+        },
+        {
+          "limit": 8,
+          "observed": 6560,
+          "predicted": 6560,
+          "residual": 0
+        },
+        {
+          "limit": 9,
+          "observed": 7380,
+          "predicted": 7380,
+          "residual": 0
+        },
+        {
+          "limit": 112,
+          "observed": 91848,
+          "predicted": 91848,
+          "residual": 0
+        },
+        {
+          "limit": 113,
+          "observed": 92669,
+          "predicted": 92669,
+          "residual": 0
+        },
+        {
+          "limit": 114,
+          "observed": 93489,
+          "predicted": 93489,
+          "residual": 0
+        },
+        {
+          "limit": 115,
+          "observed": 94309,
+          "predicted": 94309,
+          "residual": 0
+        }
+      ],
+      "match_count": 8
+    },
+    "HALF_UP_82008_OVER_100": {
+      "rows": [
+        {
+          "limit": 6,
+          "observed": 4920,
+          "predicted": 4920,
+          "residual": 0
+        },
+        {
+          "limit": 7,
+          "observed": 5740,
+          "predicted": 5741,
+          "residual": -1
+        },
+        {
+          "limit": 8,
+          "observed": 6560,
+          "predicted": 6561,
+          "residual": -1
+        },
+        {
+          "limit": 9,
+          "observed": 7380,
+          "predicted": 7381,
+          "residual": -1
+        },
+        {
+          "limit": 112,
+          "observed": 91848,
+          "predicted": 91849,
+          "residual": -1
+        },
+        {
+          "limit": 113,
+          "observed": 92669,
+          "predicted": 92669,
+          "residual": 0
+        },
+        {
+          "limit": 114,
+          "observed": 93489,
+          "predicted": 93489,
+          "residual": 0
+        },
+        {
+          "limit": 115,
+          "observed": 94309,
+          "predicted": 94309,
+          "residual": 0
+        }
+      ],
+      "match_count": 4
+    },
+    "FLOOR_137773_OVER_168": {
+      "rows": [
+        {
+          "limit": 6,
+          "observed": 4920,
+          "predicted": 4920,
+          "residual": 0
+        },
+        {
+          "limit": 7,
+          "observed": 5740,
+          "predicted": 5740,
+          "residual": 0
+        },
+        {
+          "limit": 8,
+          "observed": 6560,
+          "predicted": 6560,
+          "residual": 0
+        },
+        {
+          "limit": 9,
+          "observed": 7380,
+          "predicted": 7380,
+          "residual": 0
+        },
+        {
+          "limit": 112,
+          "observed": 91848,
+          "predicted": 91848,
+          "residual": 0
+        },
+        {
+          "limit": 113,
+          "observed": 92669,
+          "predicted": 92668,
+          "residual": 1
+        },
+        {
+          "limit": 114,
+          "observed": 93489,
+          "predicted": 93488,
+          "residual": 1
+        },
+        {
+          "limit": 115,
+          "observed": 94309,
+          "predicted": 94308,
+          "residual": 1
+        }
+      ],
+      "match_count": 5
+    },
+    "HALF_UP_137773_OVER_168": {
+      "rows": [
+        {
+          "limit": 6,
+          "observed": 4920,
+          "predicted": 4920,
+          "residual": 0
+        },
+        {
+          "limit": 7,
+          "observed": 5740,
+          "predicted": 5741,
+          "residual": -1
+        },
+        {
+          "limit": 8,
+          "observed": 6560,
+          "predicted": 6561,
+          "residual": -1
+        },
+        {
+          "limit": 9,
+          "observed": 7380,
+          "predicted": 7381,
+          "residual": -1
+        },
+        {
+          "limit": 112,
+          "observed": 91848,
+          "predicted": 91849,
+          "residual": -1
+        },
+        {
+          "limit": 113,
+          "observed": 92669,
+          "predicted": 92669,
+          "residual": 0
+        },
+        {
+          "limit": 114,
+          "observed": 93489,
+          "predicted": 93489,
+          "residual": 0
+        },
+        {
+          "limit": 115,
+          "observed": 94309,
+          "predicted": 94309,
+          "residual": 0
+        }
+      ],
+      "match_count": 4
+    },
+    "FLOOR_STEP_820": {
+      "rows": [
+        {
+          "limit": 6,
+          "observed": 4920,
+          "predicted": 4920,
+          "residual": 0
+        },
+        {
+          "limit": 7,
+          "observed": 5740,
+          "predicted": 5740,
+          "residual": 0
+        },
+        {
+          "limit": 8,
+          "observed": 6560,
+          "predicted": 6560,
+          "residual": 0
+        },
+        {
+          "limit": 9,
+          "observed": 7380,
+          "predicted": 7380,
+          "residual": 0
+        },
+        {
+          "limit": 112,
+          "observed": 91848,
+          "predicted": 91840,
+          "residual": 8
+        },
+        {
+          "limit": 113,
+          "observed": 92669,
+          "predicted": 92660,
+          "residual": 9
+        },
+        {
+          "limit": 114,
+          "observed": 93489,
+          "predicted": 93480,
+          "residual": 9
+        },
+        {
+          "limit": 115,
+          "observed": 94309,
+          "predicted": 94300,
+          "residual": 9
+        }
+      ],
+      "match_count": 4
+    }
+  },
+  "constant_step_identifiability": {
+    "hypothesis": "Each observed integer is floor(n*a), zero origin, one common exact a; no per-step rounding. This is an explicitly conditional model family, not a newly read historical instruction.",
+    "floor_slope_interval_inclusive_lower_exclusive_upper": [
+      "92669/113",
+      "91849/112"
+    ],
+    "lower_attained_at_limit": 113,
+    "upper_attained_at_limit": 112,
+    "contains_82008_over_100": true,
+    "unique_slope_identified": false,
+    "nearest_zero_origin_required_interval": [
+      "185337/226",
+      "14761/18"
+    ],
+    "nearest_interval_empty": true,
+    "nearest_lower_attained_at_limit": 113,
+    "nearest_upper_attained_at_limit": 9,
+    "caution": "Allowing an arbitrary additive phase/intercept changes the family: floor(n*a) can be written as floor(n*a-1/2+1/2). Therefore no general ban on ancient nearest rounding, upstream hidden precision or phase-corrected procedures follows from the zero-origin rejection."
+  },
+  "original_1569_comparison": {
+    "source_id": "EXT-KOTENMON-DAMING-DATONG-1569",
+    "url": "https://www.kotenmon.com/cal/arabe/vol6.pdf",
+    "pdf_sha256": "4c006b7ce131902fe33012d42f62cd2bbc2140affa3d5886e0da02966352cb7c",
+    "artifact_id": 13019278183,
+    "zip_sha256": "1d8f10da7c27411bf38ad635494a1b9f4e700fb76cb37b2a7541c075a0ca9835",
+    "image_bindings": [
+      {
+        "pdf_page_1based": 25,
+        "xref": 100,
+        "jpeg_sha256": "25b71d576a49cdc230f5999310acf698077bfc5a56325637d14cc148409c028c",
+        "size_px": [
+          936,
+          702
+        ],
+        "bbox_ltrb": [
+          20,
+          15,
+          414,
+          300
+        ],
+        "roi_rgb_sha256": "8223695757a0ecb0307ad7aa178c78a3438a00937bb8929b2edb089011dea3d1"
+      },
+      {
+        "pdf_page_1based": 26,
+        "xref": 104,
+        "jpeg_sha256": "6dc8f7573f439e971965f4c7dd2d81cbf7b8d25c9b10202ce6a053b2ac6a6380",
+        "size_px": [
+          955,
+          727
+        ],
+        "bbox_ltrb": [
+          705,
+          15,
+          945,
+          280
+        ],
+        "roi_rgb_sha256": "8ca07bebf0584b3e844392137d41703c2cd7f14de0d004f165bd7ad510fef30c"
+      },
+      {
+        "pdf_page_1based": 30,
+        "xref": 120,
+        "jpeg_sha256": "e501dd79435f9dab54b3d9cf044e3f7a186122dc116a61f1609676f26f89d914",
+        "size_px": [
+          953,
+          723
+        ],
+        "bbox_ltrb": [
+          80,
+          15,
+          345,
+          270
+        ],
+        "roi_rgb_sha256": "7fd610b9d4f107fe653c2e7d6879bcba870cf50e80097fe72451b4c722d41313"
+      }
+    ],
+    "printed_field": "遲疾日率分",
+    "same_selected_eight_integers": [
+      4920,
+      5740,
+      6560,
+      7380,
+      91848,
+      92669,
+      93489,
+      94309
+    ],
+    "matches": "8/8",
+    "scope": "The Ming table abbreviates leading day counts until they change; the full table context and existing source reconstruction retain the inherited day. Direct same-field agreement does not prove same epoch, copy, author or direct copying. No total has been substituted for a row.",
+    "prior_reconstruction": "docs/research/MING-DATONG-1569-CHIJI-DAY-RATE-COLUMN-R1.json"
+  },
+  "L114_result": {
+    "original": "九日三四八九",
+    "same_source_neighbor_check": "112->113:821, 113->114:820, 114->115:820 integer displayed day units; these are compatible with cumulative floor of a fractional step rather than repeated addition of truncated 820.",
+    "conditional_replay": "floor(114*82008/100)=93489",
+    "reading_92489_rejected_as_this_G893_cell": true,
+    "prior_digital_erratum_not_reopened": true,
+    "legacy_cross_edition_final_awarded": false
+  },
+  "boundaries": [
+    "Only 8 selected G893 rows were manually collated in this field; no full 168-row census is claimed.",
+    "137773/168 evenly redistributes a PRINTED rounded half-turn endpoint. Its failure does not exclude a higher precision half-turn such as the hypothetical137773.44/168=820.08.",
+    "Lunar day-rate quantization cannot be transplanted into G893 solar 日差 or angular prose aggregates.",
+    "No unique original arithmetic procedure, native 少/微 unit identity, independent source date or direct genealogy is established."
+  ],
+  "adjudication": {
+    "source_registry_delta": 0,
+    "new_physical_witnesses": 0,
+    "g893_six_historical_finals": "0/6",
+    "issue_status": "P0 OPEN",
+    "matrix": "222/222",
+    "registry": 786,
+    "graph_nodes": 254,
+    "graph_edges": 239,
+    "open_issues": 11,
+    "product": "CLOSED",
+    "algorithm_reopens": 0
+  },
+  "prior_evidence": [
+    "docs/research/TIANWEN-12XR-G893-L114-DAYRATE-FULL-FIELD-SEPARATION-R1.json",
+    "docs/research/TIANWEN-13PO-G893-TWO-EXACT-ORIGINAL-SOURCE-PAGES-AND-SIX-TARGET-BYTE-REPLAY-R1.json",
+    "docs/research/TIANWEN-13KD-G893-MINGSHI-RECEIVED-RECURRENCE-UNIT-BRIDGE-R1.json",
+    "docs/research/MING-DATONG-1569-CHIJI-DAY-RATE-COLUMN-R1.json"
+  ],
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Eight same-field numeric agreements are not direct G893->1569 copying evidence."
+    ],
+    "remaining_questions": [
+      "Obtain source-local instructions or more discriminating original lunar day-rate/carry controls before assigning a unique historical generator; solar native unit/carry and independent high-place angular aggregates remain open."
+    ]
+  },
+  "next": "Do not re-collate these same eight day anchors or use their quantizer as solar carry. Prioritize original lunar line-speed generation/carry to explain 13KD L122 nearest-rounding failure, or original solar same-field aggregate precision."
+}
