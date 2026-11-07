@@ -23135,6 +23135,31 @@
       "source_runs": [
         42381593253
       ]
+    },
+    {
+      "id": "OMISSIONS-13TO-ALL-ISSUES-RECOVERY-ERRATUM-20261107",
+      "date": "2026-11-07",
+      "state_version": "1.1150.0",
+      "reviewed_issue_ids": [
+        "TW-OPEN-0001",
+        "TW-OPEN-0002",
+        "TW-OPEN-0003",
+        "TW-OPEN-0004",
+        "TW-OPEN-0005",
+        "TW-OPEN-0006",
+        "TW-OPEN-0007",
+        "TW-OPEN-0008",
+        "TW-OPEN-0009",
+        "TW-OPEN-0010",
+        "TW-OPEN-0011"
+      ],
+      "discovery_mode": "Correct CI-detected checklist omission in 13TO checkpoint: original 13TO evidence reviewed all 11 ledger issues at startup, but the checkpoint erroneously serialized only P0 subset (5). Preserve the earlier faulty checkpoint and append this complete recovery checkpoint.",
+      "result": "11/11 registered issues now in latest checked snapshot; historical adjudication unchanged, no additional originals/source count/graph/algorithm changes. Correction to research handoff bookkeeping only.",
+      "evidence_refs": [
+        "docs/research/TIANWEN-13TO-XING-MING-ORIGINAL-820-INVERSE-RATE-RULE-R1.json"
+      ],
+      "correction_of": "OMISSIONS-13TO-20261107",
+      "ci_failure_run_id": 42381953252
     }
   ],
   "resolution_policy": {
