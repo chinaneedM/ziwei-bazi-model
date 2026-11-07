@@ -1,0 +1,114 @@
+{
+  "schema": "TIANWEN-13TO-XING-MING-ORIGINAL-820-INVERSE-RATE-RULE-R1",
+  "date": "2026-11-07",
+  "issue_id": "TW-OPEN-0005",
+  "question": "Does the surviving source-native Ming printed final folio itself give the 820/遲行度 operator for the later 太陰限度／遲疾行度／遲疾捷法 table, independently of later Siku received text?",
+  "evidence_grade": "DIRECT_VISUAL_INSPECTION_OF_FIRST_PARTY_REACQUIRED_BYTE_IDENTICAL_MING_PRINT_PDF_AT_NEWLY_EXPOSED_TERMINAL_PAGES; SOURCE_LOCAL_FORMULA_ONLY",
+  "source": {
+    "source_id": "EXT-TIANWEN-13TK-NLC-CBM1408-XINGYUNLU-V45-DIRECT-ORIGINAL",
+    "work": "邢雲路《古今律曆考》卷四十五〈授時立成〉",
+    "holding_proxy": "NLC892-CBM1408-371933; Wikimedia public-domain fascicle 14/20. Exact physical impression date/copy pedigree remain UNBOUND",
+    "url": "https://commons.wikimedia.org/wiki/File:NLC892-CBM1408-371933_古今律曆考_七十二卷_第14冊.pdf",
+    "pdf_sha256": "95b264e0447fb612a4b389b4b44e8f9871f9d0417b6893699fd37fe589cb23f3",
+    "pdf_bytes": 18807026,
+    "pdf_pages": 74,
+    "archived_actions": {
+      "head_commit": "2e4d5ba11552ecb477442cd6bc6103de961f5ee6",
+      "run_id": 42381593253,
+      "job_id": 128430167184,
+      "conclusion": "success",
+      "log_marker": "SOURCE_PAGE_<zero-based>|<chunk>|<base64 JPEG>",
+      "render_matrix": "2.4 x 2.4 grayscale",
+      "page_provenance": [
+        {
+          "pdf_page_one_based": 72,
+          "page_zero_based": 71,
+          "render_jpeg_sha256": "d439895e6f12a962c22b19ba80506aa5395b2080ae5f4b917ac6985a37e9fbc0",
+          "pixel_shape": [
+            1002,
+            854
+          ],
+          "grade": "FULL_PAGE_VISUAL_CONTEXT"
+        },
+        {
+          "pdf_page_one_based": 73,
+          "page_zero_based": 72,
+          "render_jpeg_sha256": "b612041dc8013c0192e2d66d6aa116b18b37474b659ae21b30d484cc567f3770",
+          "pixel_shape": [
+            1002,
+            854
+          ],
+          "grade": "DIRECT_PRINTED_FORMULA_GLYPH_AT_LAST_TABLE_PAGE"
+        },
+        {
+          "pdf_page_one_based": 74,
+          "page_zero_based": 73,
+          "render_jpeg_sha256": "133b957b5c8e4feac74a121aab1e310d03b89c9402b61f6035721856607d9324",
+          "pixel_shape": [
+            1002,
+            854
+          ],
+          "grade": "DIRECT_PRINTED_VOLUME_END"
+        }
+      ]
+    },
+    "original_print_readings": [
+      {
+        "page_one_based": 73,
+        "source_ordinal": "after terminal 一百六十八限 with its 空 cells",
+        "clause_no_modern_punctuation": "右置八百二十以遲行度而一為捷法",
+        "status": "DIRECT_SOURCE_ORIGINAL_POSITIVE",
+        "proof": "Visible right-to-left vertical text column in left half of PDF p73 (zero72). The 820 line is source-local to the preceding 168-limit 太陰限度／遲疾行度／遲疾捷法 table; not a later electronic interpolation."
+      },
+      {
+        "page_one_based": 74,
+        "clause_no_modern_punctuation": "古今律曆考卷四十五畢",
+        "status": "DIRECT_SOURCE_ORIGINAL_POSITIVE",
+        "proof": "End-of-volume colophon visible in source-native terminal page."
+      }
+    ],
+    "prior_original_binding": "docs/research/TIANWEN-13TN-XING-MING-ORIGINAL-TABLE-BOUNDARY-AND-HEADER-R1.json",
+    "prior_received_operator_crosswalk": "docs/research/TIANWEN-13TM-XING-RECEIVED-V44-V45-TWO-JIEFA-OPERATOR-CROSSWALK-R1.json"
+  },
+  "mechanical_interpretation": {
+    "native_formula_syntax": "置八百二十，以遲行度而一，為捷法；'而一' is division in this table context",
+    "formal_expression": "遲疾捷法 = 820 / 遲行度 (with original numeric radix, scaling, and rounding still unresolved)",
+    "dimensional_caution": "The original demonstrates a coefficient constructed as fixed 820 divided by a rate/degree-like field; it does not prove a directly equal 4dp high-speed cell. Conversion to a time correction is supported separately by later received Juan44 explanatory operation, not read here as an original Juan44 instruction.",
+    "earlier_first_table_operation": "Original PDF p64 first-table bridge: 右遲疾積度相減為損益...以日率而一為捷法; distinct original operation from this second table's 820/遲行度."
+  },
+  "adjudication": {
+    "new_source_native_original_formula_clauses": 1,
+    "new_source_native_original_volume_end_clauses": 1,
+    "new_pdf_bytes_source_same_sha": true,
+    "new_independent_physical_witnesses": 0,
+    "new_registry_sources": 0,
+    "new_native_l35_l132_numeric_adjudications": 0,
+    "new_g893_historical_finals": 0,
+    "g893_historical_finals": "0/6",
+    "g893_named_controls": "5/6",
+    "tw_open_0005": "P0 OPEN",
+    "matrix": "222/222",
+    "source_union": 787,
+    "genealogy_nodes": 254,
+    "genealogy_edges": 239,
+    "open_issues": 11,
+    "deterministic_chart": "CLOSED",
+    "algorithm_reopens": 0
+  },
+  "negative_boundaries": [
+    "The PDF SHA is identical to 13TK/13TN: re-fetch and three new page renders expose a previously unreviewed formula folio, not a new independent source or physical witness.",
+    "No numerical decoding of the old 2.4x L35/L132 微-containing printed rows in this batch; target printed last digits and radix are not resolved.",
+    "Source-native original v45 formula does not alone equate Xing's source fields to G893 original high-speed Ji1.1751/Chi1.1752; do not normalize units or choose a preferred numeral.",
+    "Received Juan44/Mei commentary may clarify dependencies but cannot silently inherit the grade of the newly visually confirmed original v45 formula.",
+    "Do not claim exact Ming impression date, source-to-source copying, full-original folio collation, historic six-case closure or deterministic chart algorithm defect."
+  ],
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "explicit_non_edges": [
+      "Same-copy formula 820/遲行度 is an original mechanically distinct operator, not an attested transmission edge or direct numeric equality with G893 four-place Chi/Ji."
+    ]
+  },
+  "next": "Inspect if Xing original table's 遲行度 and companion 微 numerals have a source-native radix/carry rule that can be authenticated without importing later conventions; if not, seek a truly independent early same-field G893-equivalent 4dp Ji/Chi original. Preserve TW-OPEN-0005 P0 OPEN."
+}
