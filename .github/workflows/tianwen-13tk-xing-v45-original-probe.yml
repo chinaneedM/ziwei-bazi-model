@@ -30,7 +30,11 @@ jobs:
               data = resp.read(30000000)
               print("HTTP", resp.status, "type", resp.headers.get("Content-Type"), "bytes", len(data))
           assert data[:5] == b"%PDF-" and 1000000 < len(data) < 30000000, "Unexpected PDF payload"
-          Path("xing-14.pdf").write_bytes(data)
+          # 13TS: retain the complete registered source once, so subsequent
+          # same-copy page inspections do not require another acquisition run.
+          assert hashlib.sha256(data).hexdigest() == "95b264e0447fb612a4b389b4b44e8f9871f9d0417b6893699fd37fe589cb23f3", "Registered original PDF changed"
+          Path("native-evidence").mkdir(exist_ok=True)
+          Path("native-evidence/source.pdf").write_bytes(data)
           doc = fitz.open(stream=data, filetype="pdf")
           assert 55 <= len(doc) <= 90, "Expected historical scan fascicle length"
           print("SOURCE", json.dumps({"catalog_work": "邢雲路《古今律曆考》", "public_page_id": "NLC892-CBM1408-371933", "book": 14, "bibliographic_volumes": [43,44,45], "pdf_pages": len(doc), "byte_sha256": hashlib.sha256(data).hexdigest(), "source": url}, ensure_ascii=False))
