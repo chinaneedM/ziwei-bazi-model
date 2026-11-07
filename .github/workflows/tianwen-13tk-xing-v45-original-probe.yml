@@ -53,7 +53,7 @@ jobs:
               print("ATLAS",json.dumps({"part":part,"start_page_zero_based":part*38,"count":len(subset),"jpeg_sha256":hashlib.sha256(payload).hexdigest(),"jpeg_bytes":len(payload)}))
               b64=base64.b64encode(payload).decode("ascii")
               for i in range(0,len(b64),3000): print(f"IMAGE_PART_{part}|{i//3000:04d}|{b64[i:i+3000]}")
-          for page_no in [53,55,57,61,63,67,70]:
+          for page_no in [53,55,57,61,63,65,67,70]:
               pix=doc[page_no].get_pixmap(matrix=fitz.Matrix(2.4,2.4),colorspace=fitz.csGRAY,alpha=False)
               im=Image.frombytes("L",[pix.width,pix.height],pix.samples)
               out=io.BytesIO();im.save(out,format="JPEG",quality=74,optimize=True)
