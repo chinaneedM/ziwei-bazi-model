@@ -1,0 +1,106 @@
+{
+  "schema": "TIANWEN-13TN-XING-MING-ORIGINAL-TABLE-BOUNDARY-AND-HEADER-R1",
+  "date": "2026-11-07",
+  "issue_id": "TW-OPEN-0005",
+  "question": "Can an already SHA-bound original Ming Xing Yunlu table page independently bind the row-35 and row-132 微-segmented 疾度/遲度 columns to their source-native table title rather than relying only on the Siku-received text's field labels?",
+  "evidence_grade": "DIRECT_VISUAL_REINSPECTION_OF_RECONSTRUCTED_EXISTING_GITHUB_ACTIONS_SOURCE_RENDER_OF_MING_PRINT; NO_NEW_ORIGINAL_DOWNLOAD_OR_PIXEL_DETAIL",
+  "original": {
+    "source_id": "EXT-TIANWEN-13TK-NLC-CBM1408-XINGYUNLU-V45-DIRECT-ORIGINAL",
+    "work": "邢雲路《古今律曆考》卷四十五〈授時立成〉",
+    "holding_proxy": "NLC892-CBM1408-371933, volume 14 / printed in broadly Ming Wanli period; exact impression and physical copy identity beyond this locator UNBOUND",
+    "file_url": "https://commons.wikimedia.org/wiki/File:NLC892-CBM1408-371933_古今律曆考_七十二卷_第14冊.pdf",
+    "pdf_sha256": "95b264e0447fb612a4b389b4b44e8f9871f9d0417b6893699fd37fe589cb23f3",
+    "pdf_bytes": 18807026,
+    "source_page_count": 74,
+    "archived_render_job": {
+      "run_id": 42373443684,
+      "job_id": 128406102050,
+      "log_marker": "SOURCE_PAGE_<page_index>|<chunk>|<base64 JPEG>",
+      "method": "Reassembled source JPEG chunks directly from the previously successful 13TK job log. Visual reinspection only; source-native pixels are those generated in the old workflow at 2.4x, no claimed greater optical resolution."
+    },
+    "page_transition": {
+      "pdf_page_one_based": 64,
+      "page_zero_based": 63,
+      "render_jpeg_sha256": "1aecf227e793ad49a3d20305ee5889f46adeacabd7f5fbdaccbd453eaf18f3d8",
+      "pixel_shape": [
+        1002,
+        854
+      ],
+      "source_native_visible_layout": [
+        "Earlier table reaches 百六十八限 on the same original spread before a separate commentary/heading boundary.",
+        "Visible source-native bridge: 右遲疾積度相減為損益，損益以日率而一為捷法; punctuation is modern for explanation, not claimed as original.",
+        "Following source-native new table title: 太陰限度 / 遲疾行度 / 遲疾捷法.",
+        "New table restarts at 初限 and is followed on subsequent folios by named limit rows."
+      ],
+      "reading_grade": "DIRECT_TITLE_AND_TABLE_TRANSITION_GLYPH_REVIEW; NOT_COMPLETE_PAGE_LINE_BY_LINE_COLLATION"
+    },
+    "original_target_pages": [
+      {
+        "pdf_page_one_based": 66,
+        "page_zero_based": 65,
+        "limit": 35,
+        "full_page_jpeg_sha256": "9021e1e2a762b19854f071263f7b7e2cae0e2f3a08e28278aac5a7e645dd1721",
+        "target_neighbor_jpeg_sha256": "75fcca479fbca7d445509dd2c40da0c5597b7234e22ce6a52b1a10b5f1ec7541",
+        "source_original_row_header": "三十五限",
+        "visible_subcolumns": "疾度／遲度, with 微 within printed numeric expressions",
+        "exact_degree_decimal": "NOT_PARSED",
+        "last_numeral": "NOT_ADJUDICATED"
+      },
+      {
+        "pdf_page_one_based": 71,
+        "page_zero_based": 70,
+        "limit": 132,
+        "full_page_jpeg_sha256": "9a3a4285720ccebac6613202df2d32b6d10e077f894d6509343ba41467741acc",
+        "target_neighbor_jpeg_sha256": "ac28d18eded1cc3c856142938131a45a7e1cdb7d5b253c74d5eeb3439a08f6c9",
+        "source_original_row_header": "一百三十二限",
+        "visible_subcolumns": "疾度／遲度, with 微 within printed numeric expressions",
+        "exact_degree_decimal": "NOT_PARSED",
+        "last_numeral": "NOT_ADJUDICATED"
+      }
+    ]
+  },
+  "distinct_semantic_layers": {
+    "source_original_print": "Shows a concrete boundary from previous cumulative/損益 table to a new 太陰限度／遲疾行度／遲疾捷法 table. Thus L35 and L132 are source-locally in the new family, not the preceding cumulative table.",
+    "independent_received_operator_bridge": "docs/research/TIANWEN-13TM-XING-RECEIVED-V44-V45-TWO-JIEFA-OPERATOR-CROSSWALK-R1.json",
+    "prior_source_native_l35_l132": "docs/research/TIANWEN-13TK-XINGYUNLU-MING-V45-DIRECT-ORIGINAL-LIMIT-LOCATORS-R1.json",
+    "direct_g893_comparator": "docs/research/TIANWEN-13TJ-G893-THREE-ADJACENT-PAIRED-LUNAR-MOTION-COLLATION-R1.json",
+    "field_identity_advance": "ORIGINAL_TABLE_TITLE_AND_TABLE_TRANSITION_NOW_PHYSICALLY_BOUND; 13TL's previous unverified title aspect narrowed.",
+    "still_unbound": "Which source-native Xing numeric slot corresponds mechanically and by degree/time scale to the G893 4dp Ji/Chi line speed; proper 微 radix and its carry/rounding; last-digit native Xing L35/L132; original-to-original source ancestry."
+  },
+  "adjudication": {
+    "authenticated_new_table_heading": true,
+    "original_source_specific_transition": true,
+    "g893_l35_ji_4dp": "1.1751",
+    "g893_l132_chi_4dp": "1.1752",
+    "g893_Q_both": "0.07886075",
+    "newly_read_xing_numeric_last_digits": 0,
+    "new_independent_original_copies": 0,
+    "new_external_registry_sources": 0,
+    "six_named_controls": "5/6",
+    "six_historical_finals": "0/6",
+    "tw_open_0005": "P0 OPEN",
+    "matrix": "222/222",
+    "source_union": 787,
+    "genealogy_nodes": 254,
+    "genealogy_edges": 239,
+    "open_issues": 11,
+    "deterministic_product": "CLOSED",
+    "algorithm_reopens": 0
+  },
+  "negative_boundaries": [
+    "Rebuilding existing archive log chunks is not an independent retrieval, new optical resolution, or new physical witness.",
+    "Original title 遲疾行度 is a table-family heading; it does not by itself prove numerical identity with G893's source-native four-place high-speed Chi/Ji.",
+    "The printed 微 delimiter is visible but a field-specific radix/quantizer is not established by title alone.",
+    "Received Juan44/45 explanatory formulas are a separate textual evidence grade from this original Ming printed folio; they do not substitute for original formula visual collation.",
+    "No numeric last-place restoration, typo claim, manuscript genealogy or change to chart algorithm."
+  ],
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "explicit_non_edges": [
+      "Source-native Xing table-family title and matching limit ordinal alone do not demonstrate the same arithmetic value as the G893 four-place source-original speed or any direct transmission relationship."
+    ]
+  },
+  "next": "Reinspect original Ming source print at the specific late-page explanatory line 右置八百二十以遲行度而一為捷法 and the L35/L132 subcolumn headings/radix in the same copy before interpreting numeric 微; alternatively search authentic independent early same-field G893-locus speed print. Do not silently import decimal values or assert a unique G893 carry scheme."
+}
