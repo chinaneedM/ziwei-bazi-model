@@ -1,0 +1,107 @@
+{
+  "schema": "TIANWEN-13SZ-TWO-DAY-ENDPOINT-VS-TWO-DAY-INTERVAL-PHILOLOGY-R1",
+  "date": "2026-11-07",
+  "issue_id": "TW-OPEN-0005",
+  "classification": "RECEIVED_TEXT_ONE_VS_TWO_DAY_OCR_LAYER_AND_EXACT_ADJACENT_DAY_IDENTITY_NOT_G893_ORIGINAL_GENERATOR",
+  "question": "Does 二日對減 in the later Ming commentary necessarily mean a two-day interval, and does the one/two-character online divergence prove different historical printings?",
+  "source_scope": [
+    {
+      "work": "邢雲路《古今律曆考》卷六十五《辯授時曆之失》",
+      "provider": "Wikisource Siku received text",
+      "url": "https://zh.wikisource.org/zh/%E5%8F%A4%E4%BB%8A%E5%BE%8B%E5%8E%AF%E8%80%83_%28%E5%9B%9B%E5%BA%AB%E5%85%A8%E6%9B%B8%E6%9C%AC%29/%E5%8D%B765",
+      "text_locus": "二日對減之餘乘時刻之零數",
+      "status": "LATER_RECEIVED_TEXT; not original Ming folio glyph"
+    },
+    {
+      "work": "黃宗羲《授時曆故》卷一",
+      "provider": "Shidian CADAL02093993 received electronic text",
+      "url": "https://www.shidianguji.com/book/CADAL02093993/chapter/1laylkszvidk7",
+      "text_locus": "此以二日對減之餘乘時刻之零數",
+      "line_window": "web display lines 722-730",
+      "status": "RECEIVED_OCR_LIKE_TEXT; page not visually rebound to an authenticated JIAYETANG original folio"
+    },
+    {
+      "work": "黃宗羲《授時曆故》",
+      "provider": "CText public OCR-like output",
+      "url": "https://ctext.org/wiki.pl?chapter=3047289&if=gb",
+      "text_locus": "此以一日對減之餘乘時刻之零數",
+      "status": "AUTOMATIC_TEXT_LAYER_READOUT_ONLY; not an authenticated physically printed variant"
+    },
+    {
+      "work": "《元史》卷54 授時曆經 same solar-field 又術",
+      "provider": "Kyoto RB00028639 volume3 original as previously authenticated in 13SV",
+      "prior_original_doc": "docs/research/TIANWEN-13SV-KYOTO-1672-YUANSHI54-SOLAR-YOUSHU-DIRECT-ORIGINAL-R1.json",
+      "prior_math_doc": "docs/research/TIANWEN-13SU-JIAOSHI-FRACTIONAL-DAY-NATIVE-INTERPOLATION-VS-G893-PROSE-R1.json",
+      "original_text_locus": "置入限分，以其日盈縮分乘之，萬約為分，以加其下盈縮積",
+      "status": "PREEXISTING_SAME_FIELD_LATER_RECEIVED_ORIGINAL_PRINT; does not identify G893 input precision or source production"
+    }
+  ],
+  "term_adjudication": {
+    "one_vs_two_online_reading": "Shidian and Xing received presentations both display 二日; CText OCR-like presentation displays 一日. This demonstrates web transcription instability. No physically bound edition target glyph is yet available to prove that either book has a historical variant.",
+    "two_day_meaning": "二日對減 can refer to subtraction of the two tabular values indexed at adjacent days, which have a one-day separation. 二日 here does NOT, on its own, warrant a mechanically assumed two-full-day elapsed interval.",
+    "not_proven": "This bounded compatibility does not prove original Yuan punctuation, Xing-to-Huang direct borrowing, same physical recension, the exact historical endpoint indexing convention, or G893 table production and carried precision.",
+    "prior_13SY_wording_correction": "Replace any reading of 'two-day linear fractional-time interpolation' as a two-whole-day span with the narrower 'two adjacent daily endpoint values' interpretation when applying the already documented received alternative operator. Preserve 13SY research record; do not silently rewrite it."
+  },
+  "exact_integer_certificate": {
+    "scale": "C and M are already registered integer scaled 10^8 degree in 13SU. The coefficient-based difference is an exact identity, not newly obtained source-original numerics.",
+    "cubic": "C(n)=n*(A-n*(B+L*n))",
+    "daily_increment": "M(n)=A-B*(2n+1)-L*(3n*n+3n+1)",
+    "identity": "C(n+1)-C(n)=M(n)",
+    "rows": [
+      {
+        "season": "winter",
+        "n": 88,
+        "A": 5133200,
+        "B": 24600,
+        "L": 31,
+        "Cn": 240093568,
+        "Cn1": 240144161,
+        "difference": 50593,
+        "Mn": 50593,
+        "integer_check": true
+      },
+      {
+        "season": "summer",
+        "n": 93,
+        "A": 4870600,
+        "B": 22100,
+        "L": 27,
+        "Cn": 240105261,
+        "Cn1": 240135032,
+        "difference": 29771,
+        "Mn": 29771,
+        "integer_check": true
+      }
+    ],
+    "conditional_interpolation": "C(n)+f*M(n)=(1-f)*C(n)+f*C(n+1), where 0<=f<1. This is the exact algebra of consecutive-day tabular endpoints in the 13SU model; source-native ancient quantization and G893 epoch/carry remain unproved.",
+    "scale_caution": "Do not treat these integers as a newly read G893 source original or a historical standalone definition of 少."
+  },
+  "decision": {
+    "g893_native_少_微_radix_carry_resolved": false,
+    "g893_original_sixplace_generation_resolved": false,
+    "new_original_g893_numeric_votes": 0,
+    "new_source_registry_entries": 0,
+    "new_genealogy_nodes": 0,
+    "new_genealogy_edges": 0,
+    "matrix": "222/222",
+    "registry_total": 786,
+    "genealogy": "254 nodes / 239 edges",
+    "risk_issues": 11,
+    "issue_status": "P0 OPEN",
+    "six_historical_finals": "0/6",
+    "deterministic_chart": "CLOSED",
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0,
+    "new_public_original_target_folio_captured": false
+  },
+  "transmission_impact": {
+    "nodes": [],
+    "edges": [],
+    "unproved": [
+      "Ming Xing vs Qing Huang same reading does not prove direct borrowing",
+      "CText OCR-like 一 vs Shidian 二 does not prove material-version disagreement",
+      "Adjacency algebra does not prove G893 adopted the received formula"
+    ]
+  },
+  "next": "Keep TW-OPEN-0005 highest-value gate at original G893 same solar field six-place aggregate-generation/carry or independently identified early precise text. For an adjudicable 一/二 historical textual variant, first bind the exact corresponding original Xing and Huang physical folio; received online copies alone cannot close it."
+}
