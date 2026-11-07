@@ -17,7 +17,7 @@ jobs:
           python-version: '3.12'
       - name: Install PDF renderer
         run: python -m pip install --disable-pip-version-check PyMuPDF Pillow
-      - name: Fetch public-domain 1608-candidate Ming source and generate unlabeled-by-content page atlas
+      - name: Fetch registered Ming scan and generate source page controls
         run: |
           python - <<'PY'
           import base64, hashlib, io, json, urllib.request
@@ -73,4 +73,23 @@ jobs:
               print("COLUMN_WINDOW",json.dumps({"page_zero_based":page_no,"rect_in_render_px":rect,"render_jpeg_sha256":hashlib.sha256(payload).hexdigest(),"jpeg_bytes":len(payload)}))
               b64=base64.b64encode(payload).decode("ascii")
               for i in range(0,len(b64),3000): print(f"COLUMN_WINDOW_{page_no}|{i//3000:04d}|{b64[i:i+3000]}")
+          # 13TQ: inspect actual embedded-image resolution, avoiding another
+          # low-resolution JPEG render as evidence for the last-place glyphs.
+          for page_no in [63,65,70,72]:
+              page=doc[page_no]
+              infos=page.get_images(full=True)
+              print("NATIVE_PAGE_IMAGES",json.dumps({"page_one_based":page_no+1,"images":[list(x[:9]) for x in infos]}))
+              for image_index, info in enumerate(infos):
+                  xref=info[0]
+                  extracted=doc.extract_image(xref)
+                  raw=extracted["image"]
+                  native=Image.open(io.BytesIO(raw)).convert("L")
+                  print("NATIVE_IMAGE",json.dumps({"page_one_based":page_no+1,"image_index":image_index,"xref":xref,"width":native.width,"height":native.height,"ext":extracted["ext"],"bytes":len(raw),"raw_sha256":hashlib.sha256(raw).hexdigest(),"gray_pixel_sha256":hashlib.sha256(native.tobytes()).hexdigest()}))
+                  # Full source image is retained in its original decoded size.
+                  # Lossless PNG preserves glyph pixels; no sharpening or OCR.
+                  out=io.BytesIO();native.save(out,format="PNG")
+                  payload=out.getvalue()
+                  print("NATIVE_PNG",json.dumps({"page_one_based":page_no+1,"image_index":image_index,"png_sha256":hashlib.sha256(payload).hexdigest(),"png_bytes":len(payload)}))
+                  b64=base64.b64encode(payload).decode("ascii")
+                  for i in range(0,len(b64),3000): print(f"NATIVE_{page_no}_{image_index}|{i//3000:04d}|{b64[i:i+3000]}")
           PY
