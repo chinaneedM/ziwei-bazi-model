@@ -1,0 +1,197 @@
+{
+  "schema": "TIANWEN-13UN-G892-L34-L36-ORIGINAL-COEFFICIENT-PREFIX-COLLATION-R1",
+  "date": "2026-11-08",
+  "issue_id": "TW-OPEN-0005",
+  "starting_remote": {
+    "head": "bbd5a3be5a08b9200b7e77babc7020e6156e58bf",
+    "tree": "996e341405357b8e572d84299ee067e8be9680fd",
+    "state_version": "1.1171.0",
+    "exact_head_actions": "285/285 completed-success on all three 100/100/85 run pages"
+  },
+  "evidence_grade": "DIRECT_G892_SOURCE_ORIGINAL_BOUNDED_GLYPH_COLLATION; INDEPENDENT_XING_SOURCE_ORIGINAL_GLYPHS_REUSED; CROSS_WITNESS_FOUR_GLYPH_PREFIX_COMPARISON_ONLY",
+  "source_g892": {
+    "provider": "Seoul National University Kyujanggak",
+    "book_cd": "GK00892_00",
+    "title": "授時曆捷法立成",
+    "original_folio": "034a",
+    "original_jpeg_sha256": "7898e39d45a84839ccb6dd261de6177a07c3b55fe4ed0743cca6c4fc36d4f5eb",
+    "original_jpeg_dimensions_px": [
+      2204,
+      3743
+    ],
+    "single_physical_holding": true,
+    "source_original_acquisition_run": 42475943929,
+    "archive_artifact_id": 13615008884,
+    "archive_sha256": "f3020e061207344cdfb8dc3467bd4c2dafb097af2cabb32e2494da6f1e7feb69",
+    "archive_entry": "pages/034a.jpg",
+    "image_source_locator": "https://kyudb.snu.ac.kr/ImageServlet.do?imgFileNm=GK00892_00IH_0001_034a.jpg&path=/data01/stream/SIC/IMG/GK00892_00/GK00892_00_0001/GK00892_00IH_0001_034a.jpg",
+    "controlling_source_evidence": "docs/research/TIANWEN-13UM-G892-KE-PER-DEGREE-CONSUMER-AND-L32-NATIVE-UNIT-R1.json",
+    "independent_image_capture": "docs/research/TIANWEN-13UL-G892-COMPLETE-96-IMAGE-CAPTURE-AND-044B-HASH-ERRATUM-R1.json",
+    "table_title": "加減刻立成",
+    "source_right_header": "疾限行度",
+    "source_left_header": "遲限行度",
+    "native_rgb_context_rois": [
+      {
+        "id": "G892-13UN-L34",
+        "limit": 34,
+        "xyxy": [
+          450,
+          480,
+          635,
+          1760
+        ],
+        "roi_dimensions_px": [
+          185,
+          1280
+        ],
+        "sha256_rgb_pixel_bytes": "9f5b5f7ddfc9ff938c3199c888b3e580e4382cbb6a56e520ac0ad039c80e9066",
+        "literal": "三十四限: 右六九六九; 左八〇六九"
+      },
+      {
+        "id": "G892-13UN-L35",
+        "limit": 35,
+        "xyxy": [
+          450,
+          1900,
+          635,
+          3200
+        ],
+        "roi_dimensions_px": [
+          185,
+          1300
+        ],
+        "sha256_rgb_pixel_bytes": "c0239bc994a546d9a598006d3409daa86814c7801fbc3956340eec8dbb39b8e9",
+        "literal": "三十五限: 右六九七七; 左八〇五九"
+      },
+      {
+        "id": "G892-13UN-L36",
+        "limit": 36,
+        "xyxy": [
+          270,
+          480,
+          455,
+          1760
+        ],
+        "roi_dimensions_px": [
+          185,
+          1280
+        ],
+        "sha256_rgb_pixel_bytes": "70b0419f83c36695cc30528888439476af5a6d796a8054446d92003443633d1d",
+        "literal": "三十六限: 右六九八五; 左八〇四九"
+      }
+    ],
+    "pixel_hash_method": "SHA256(Image.open(archived_original_JPEG).convert('RGB').crop(xyxy).tobytes()), native source image pixels unresized; optional visual enlargement is not used for hash",
+    "method": "Downloaded the existing first-party GitHub Actions ZIP, verified full ZIP SHA and registered 034a JPEG SHA, manually read bounded three source-native regions without OCR or generated restoration. Does not claim complete row/table collation."
+  },
+  "source_xing": {
+    "work": "邢雲路《古今律曆考》卷四十五〈授時立成〉",
+    "holding": "NLC892-CBM1408-371933 第14冊",
+    "pdf_page_one_based": 66,
+    "pdf_sha256": "95b264e0447fb612a4b389b4b44e8f9871f9d0417b6893699fd37fe589cb23f3",
+    "embedded_image_xref": 200,
+    "original_raw_image_sha256": "56b9b0c0885cadb7ce0395fe6b0c29ce7d9b5b32d3795aef059f786cccc11966",
+    "controlling_prior_glyph_record": "docs/research/TIANWEN-13TR-XING-TWO-FIELD-NATIVE-PREFIX-AND-RECIPROCAL-REPLAY-R1.json",
+    "further_reciprocal_scope": "docs/research/TIANWEN-13TX-XING-L35-HIDDEN-PRECISION-INTERVAL-DISCRIMINATION-R1.json",
+    "headers": "疾曆行度/疾曆捷法; 遲曆行度/遲曆捷法",
+    "original_glyphs_not_reacquired": true
+  },
+  "bounded_cross_witness_comparison": {
+    "comparison_rule": "Align by printed 限 ordinal and visually assigned 疾/遲 paired lane; compare only the first four printed numeral glyphs of Xing's 捷法 sequence after omitting the internal 微 notation, with four original G892 numeral glyphs. This is a glyph-string-prefix comparison, not historical decimal normalization, mathematical equation, source/edition independence proof or field-identity certification.",
+    "rows": [
+      {
+        "limit": 34,
+        "g892_folio": "034a",
+        "original_visual_context": "upper band",
+        "g892_right_ji": "六九六九",
+        "g892_left_chi": "八〇六九",
+        "xing_ji": "六微九七〇四一",
+        "xing_chi": "八微〇六九二七",
+        "xing_ji_first_four": "六九七〇",
+        "xing_chi_first_four": "八〇六九",
+        "same_prefix_ji": false,
+        "same_prefix_chi": true
+      },
+      {
+        "limit": 35,
+        "g892_folio": "034a",
+        "original_visual_context": "lower band",
+        "g892_right_ji": "六九七七",
+        "g892_left_chi": "八〇五九",
+        "xing_ji": "六微九七五三〇",
+        "xing_chi": "八微〇五九六七",
+        "xing_ji_first_four": "六九七五",
+        "xing_chi_first_four": "八〇五九",
+        "same_prefix_ji": false,
+        "same_prefix_chi": true
+      },
+      {
+        "limit": 36,
+        "g892_folio": "034a",
+        "original_visual_context": "next upper band",
+        "g892_right_ji": "六九八五",
+        "g892_left_chi": "八〇四九",
+        "xing_ji": "六微九八五二六",
+        "xing_chi": "八微〇四九四七",
+        "xing_ji_first_four": "六九八五",
+        "xing_chi_first_four": "八〇四九",
+        "same_prefix_ji": true,
+        "same_prefix_chi": true
+      }
+    ],
+    "total_compared_cells": 6,
+    "matching_four_glyph_prefixes": 4,
+    "discordant_four_glyph_prefixes": 2,
+    "discordant_cells": [
+      {
+        "limit": 34,
+        "lane": "疾/right",
+        "g892": "六九六九",
+        "xing_prefix": "六九七〇"
+      },
+      {
+        "limit": 35,
+        "lane": "疾/right",
+        "g892": "六九七七",
+        "xing_prefix": "六九七五"
+      }
+    ],
+    "all_three_chi_prefixes_match": true,
+    "one_of_three_ji_prefixes_match": true
+  },
+  "interpretation": {
+    "directly_supported": "One existing G892 original folio independently preserves six bounded paired numeral strings at printed limits 34-36, and comparison with an already authenticated Xing original gives a 4/6 four-glyph visual prefix agreement without numerical interpolation.",
+    "does_not_certify": [
+      "Equivalence of source-native field, phase, limit numbering epoch or initial/terminal source coordinate between G892 and Xing",
+      "Equivalence of G892 four-glyph compact values with Xing five-decimal 微 coefficients; G892 terminal digits, full radix, carry and quantizer remain unknown",
+      "Proof that the two divergent JI prefixes are errors in either edition, or proof of a common generator or direct stemmatic descent",
+      "Any of six G893 original historical target numeric finals, or closure of TW-OPEN-0005",
+      "Algorithm reopen, new candidate collapsing, or any change to deterministic fusion chart product"
+    ],
+    "source_specific_l32": "13UM remains controlling for native L32 example 六刻九十五分四十秒每一度; cannot project L32 zero-padding or operand semantics into L34-L36 without source original support."
+  },
+  "status": {
+    "tw_open_0005": "P0_OPEN",
+    "g893_historical_finals": "0/6",
+    "g893_named_fields": "5/6",
+    "matrix": "222/222",
+    "external_registered_sources": 789,
+    "physical_witness_increment": 0,
+    "new_source_registry_entries": 0,
+    "genealogy": "254 nodes / 239 edges",
+    "open_or_blocked_issues": 11,
+    "deterministic_product": "CLOSED",
+    "algorithm_reopen_count": 0
+  },
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "rejected_or_unproved": [
+      "4/6 four-glyph numeric prefix agreement across two independently catalogued texts is not an attested direct copying chain or proof of an identical calculation table."
+    ],
+    "unresolved_lineage_questions": [
+      "Need source-native coefficient construction, limit-coordinate alignment, and exact original definitions for 微 and units before cross-table mechanical or stemmatic equivalence."
+    ]
+  },
+  "next": "Review first-party G892 pre-033b construction text for explicit generation formula, limit/ke endpoint alignment and radix; then reconcile L34/L35 differences with separately authenticated original source witnesses. Avoid selecting a G893 historic six-control winner."
+}
