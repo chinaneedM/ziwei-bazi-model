@@ -55,6 +55,8 @@ jobs:
               }
             }
             if(!viewer)throw new Error('official image viewer did not open');
+            receipt.viewer_dialogs=[];
+            viewer.on('dialog',async d=>{receipt.viewer_dialogs.push({type:d.type(),message:d.message().slice(0,350)});checkpoint('viewer dialog dismissed');await d.dismiss();});
             await viewer.waitForNetworkIdle({idleTime:1200,timeout:30000}).catch(()=>{});
             const diag=await bounded('read official 96-page index',()=>viewer.evaluate(()=>{
               const anchors=Array.from(document.querySelectorAll('a[onclick]'));
@@ -73,7 +75,9 @@ jobs:
             for(const folio of selected){
               if(!all.includes(folio)){receipt.errors.push(folio+': not in provider page list');continue;}
               try{
-                const ok=await bounded('click '+folio,()=>viewer.evaluate(folio=>{
+                const ok=await bounded('select '+folio,()=>viewer.evaluate(folio=>{
+                  const current=document.getElementById('simage')?.getAttribute('src')||'';
+                  if(current.includes('GK00892_00IH_0001_'+folio+'.jpg'))return true;
                   const node=Array.from(document.querySelectorAll('a[onclick]')).find(x=>(x.getAttribute('onclick')||'').includes('fn_goPageJumpWithMokIdxClear')&&(x.textContent||'').trim()===folio);
                   if(!node)return false;node.click();return true;
                 },folio));

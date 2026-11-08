@@ -1,0 +1,157 @@
+{
+  "schema": "TIANWEN-13UK-G892-ORIGINAL-CHUMOXIAN-FOLD-AND-CAPTURE-RECOVERY-R1",
+  "date": "2026-11-08",
+  "issue_id": "TW-OPEN-0005",
+  "starting_remote": {
+    "head": "58c9124451c211e8b2b162f8110c75af4d67f131",
+    "tree": "131330c050803fd16acf3b46f03fd77a1c19f577",
+    "state_version": "1.1168.0",
+    "exact_head_ci": "285/285 success after the remaining full unittest/workbench run42472225139 completed"
+  },
+  "source": {
+    "provider": "Seoul National University Kyujanggak",
+    "book_cd": "GK00892_00",
+    "call_number": "奎貴892",
+    "title": "授時曆捷法立成",
+    "catalog_url": "https://kyudb.snu.ac.kr/book/view.do?book_cd=GK00892_00",
+    "same_previously_registered_holding": true,
+    "formal_registry_tier_unchanged": "BIBLIOGRAPHIC_METADATA_ONLY; bounded original glyph evidence is separately hash-bound here",
+    "original_acquisition_run_id": 42459702061,
+    "original_artifact_id": 13609163055,
+    "same_artifact_jpeg_hashes_rechecked": "13/13",
+    "original_prior_registration": "docs/research/TIANWEN-13UC-G892-SOURCE-INDEXED-FOLIOS-TABLE-HEADING-AND-1346-PREFACE-R1.json"
+  },
+  "direct_original_rule": {
+    "folio": "033a",
+    "source_url": "https://kyudb.snu.ac.kr/ImageServlet.do?imgFileNm=GK00892_00IH_0001_033a.jpg&path=/data01/stream/SIC/IMG/GK00892_00/GK00892_00_0001/GK00892_00IH_0001_033a.jpg",
+    "jpeg_sha256": "4d1561cb8f2d93455bac56087a90219079c0d3cf66fd93cc48bf5420fd7f1812",
+    "jpeg_bytes": 415251,
+    "source_px": [
+      2204,
+      3743
+    ],
+    "roi_xyxy": [
+      210,
+      500,
+      850,
+      3370
+    ],
+    "roi_px": [
+      640,
+      2870
+    ],
+    "roi_rgb_sha256": "f51801f44d8a17bc4e2a0ba8ee58f13e2236b7c82f2607938c5d1daa39fc8485",
+    "roi_hash_method": "SHA256 of Image.open(original JPEG).convert(RGB).crop(xyxy).tobytes(), unresized native pixels; not encoded PNG hash",
+    "columns_right_to_left": [
+      "求初末限者入轉遲日在象限六日八十八刻八",
+      "十六分半已下為初限若在已上者反減轉中十",
+      "三日七十七刻七十三分餘為末限"
+    ],
+    "joined_literal": "求初末限者入轉遲日在象限六日八十八刻八十六分半已下為初限若在已上者反減轉中十三日七十七刻七十三分餘為末限",
+    "direct_manual_no_ocr": true,
+    "previous_033a_image_acquisition_is_not_previous_rule_collation": true
+  },
+  "philology_and_operator": {
+    "operand_literal": "入轉遲日",
+    "threshold_literal": "象限六日八十八刻八十六分半",
+    "reflection_constant_literal": "轉中十三日七十七刻七十三分",
+    "branch_literals": [
+      "已下為初限",
+      "若在已上者反減轉中",
+      "餘為末限"
+    ],
+    "interpretation": "Input is classified against 象限; the lower-side quantity is 初限, and the upper side is interpreted as H-t (subtract input t from 轉中 H) to obtain the 末限 remainder. This is a source-specific astronomical folding instruction, not the general arithmetic mnemonics of 043a–044b.",
+    "boundary": "Original 已下/已上 phrases overlap literally at equality; preserve them rather than silently assign a runtime tie-break. Under the conditional H=2Q model, either arithmetic branch returns Q at equality, but label precedence remains unadjudicated.",
+    "serial_margin_scope": "Relationship to the marginal 初限/二限/... serial annotations and exact ke endpoints is NOT_YET_MAPPED; no uniform limit length is inferred.",
+    "unit_scope": "Source writes day/ke/fen time quantities here. No equality with G893 angular 分, 少/微, Xing coefficients, original carry or rounding is certified."
+  },
+  "conditional_replay": {
+    "grade": "MODERN_EXACT_DECIMAL_MODEL_NOT_NATIVE_WORKED_EXAMPLE",
+    "explicit_assumptions": [
+      "100 ke/day",
+      "100 fen/ke",
+      "半 is one-half fen"
+    ],
+    "quarter_fen": "68886.5",
+    "half_period_fen": "137773",
+    "twice_quarter_equals_half_period": true,
+    "examples": [
+      {
+        "input": "6 days",
+        "input_fen": "60000",
+        "branch": "lower",
+        "result_fen": "60000"
+      },
+      {
+        "input": "7 days",
+        "input_fen": "70000",
+        "branch": "upper",
+        "operation": "137773 - 70000",
+        "result_fen": "67773",
+        "compound_result_under_model": "6 days 77 ke 73 fen"
+      },
+      {
+        "input": "printed 象限",
+        "input_fen": "68886.5",
+        "branch": "either at literal overlap",
+        "result_fen": "68886.5"
+      }
+    ],
+    "does_not_certify_historical_radix_carry_or_speed_generator": true
+  },
+  "complete_image_acquisition_recovery": {
+    "whole_96_image_capture_status": "NOT_COMPLETE",
+    "first_attempt": {
+      "commit": "9f2eb9ed6821633b60bc80fdf149db0a4d7f98f1",
+      "run_id": 42473060364,
+      "conclusion": "cancelled by 12-minute job limit",
+      "usable_original_files": 0,
+      "artifact_count": 0,
+      "source_absence_proven": false
+    },
+    "bounded_retry": {
+      "commit": "c12a06ebdb95afb58a3b94c90b33ebd5fc978159",
+      "run_id": 42475418892,
+      "conclusion": "failure",
+      "artifact_id": 13614803397,
+      "receipt_sha256": "2990b6b200ef98c94ed5ba14efb176fa2d79770e53d39dd31a418488ab7d215b",
+      "artifact_zip_sha256": "139c7eaeff552a875231371eb7a0e75033ce372667d512973e816c9a0c20c2dc",
+      "official_index_count": 96,
+      "usable_original_files": 0,
+      "exact_error": [
+        "000a: Error: click 000a bounded timeout"
+      ],
+      "last_confirmed_stage": "current cover 000a re-selection did not settle; cause beyond this stage is not yet established"
+    },
+    "repair_published_with_this_record": "Reuse an already displayed source-image URL instead of redundantly selecting the same folio; record and dismiss source viewer dialogs; never accept prompts. Keep 96-link bound, stage/JPEG read timeouts, per-page checkpoint and fail-closed completion predicate. New live run must pass before claiming complete source capture.",
+    "source_access_scope": "This is a viewer-interaction acquisition defect, not evidence the historical pages are absent or the previously captured originals are invalid."
+  },
+  "adjudication": {
+    "033a_source_native_initial_terminal_fold": "DIRECT_ORIGINAL_POSITIVE_WITH_BOUND_GLYPH_AND_OPERATOR_SCOPE",
+    "exact_marginal_limit_ke_column_mapping": "UNRESOLVED",
+    "g892_g893_xing_same_field": "UNPROVEN",
+    "g893_historical_finals": "0/6",
+    "g893_named_fields": "5/6",
+    "issue_status": "P0 OPEN",
+    "matrix": "222/222",
+    "source_union": 789,
+    "genealogy": "254 nodes / 239 edges",
+    "unresolved_issues": 11,
+    "chart": "CLOSED",
+    "algorithm_reopens": 0,
+    "new_registered_sources": 0,
+    "new_independent_witnesses": 0
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "One G892 source-local folding instruction does not prove textual or numeric descent to/from G893 or Xing."
+    ],
+    "unresolved_lineage_questions": [
+      "Authenticate precise original numeric column and limit-endpoint ownership before cross-source comparisons."
+    ]
+  },
+  "next": "Inspect the corrected acquisition run and reconcile source availability before any new search; complete capture cannot be inferred from official index count. Continue source-local usage/column/serial-endpoint mapping using original 033a instruction and archived pages; preserve conditional radix and equality-label uncertainties."
+}
