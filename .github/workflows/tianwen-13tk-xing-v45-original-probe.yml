@@ -76,6 +76,16 @@ jobs:
           assert len(data19)==16674606 and hashlib.sha256(data19).hexdigest()=="0f34ca5bcb474b9a38ece20c40eb8c468d1671fe6209cec140b20d8c9350e3fe", "Registered fascicle19 PDF changed"
           Path("native-evidence/source19.pdf").write_bytes(data19)
           print("SOURCE19",json.dumps({"url":url19,"bytes":len(data19),"sha256":hashlib.sha256(data19).hexdigest(),"pages":len(fitz.open(stream=data19,filetype="pdf"))}))
+          # 13TV: original Ming-print fascicle15, volume49 worked lunar
+          # 820/r numeric example. Public source only, original text unjudged.
+          url15 = "https://upload.wikimedia.org/wikipedia/commons/5/56/NLC892-CBM1408-371934_%E5%8F%A4%E4%BB%8A%E5%BE%8B%E6%9B%86%E8%80%83_%E4%B8%83%E5%8D%81%E4%BA%8C%E5%8D%B7_%E7%AC%AC15%E5%86%8A.pdf"
+          req15 = urllib.request.Request(url15, headers={"User-Agent": "Tianwen-Historical-Research/1.0 (public-domain source verification)"})
+          with urllib.request.urlopen(req15, timeout=65) as resp15:
+              data15=resp15.read(26000000)
+          doc15=fitz.open(stream=data15,filetype="pdf")
+          assert data15[:5]==b"%PDF-" and 20000000<len(data15)<23000000 and len(doc15)==84, "Fascicle15 source unexpectedly changed"
+          Path("native-evidence/source15.pdf").write_bytes(data15)
+          print("SOURCE15",json.dumps({"url":url15,"bytes":len(data15),"sha256":hashlib.sha256(data15).hexdigest(),"pages":len(doc15),"catalog_volumes":[46,47,48,49,50]},ensure_ascii=False))
           PY
       - name: Preserve native source evidence
         uses: actions/upload-artifact@v4
