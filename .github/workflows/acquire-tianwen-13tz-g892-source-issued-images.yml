@@ -79,7 +79,19 @@ jobs:
                   report.page_text_locator_only.push({folio,...a,grade:'PROVIDER_TEXT_LAYER_NOT_ORIGINAL_GLYPH'});
                 }catch(e){report.access_errors.push('pageText '+folio+': '+String(e).slice(0,160));}
               }
-              const sourceImageURLs=[...new Set(seen.map(x=>x.url))].filter(x=>x.startsWith('https://kyudb.snu.ac.kr/')&&x.includes('GK00892_00IH_0001_')&&x.includes('/ImageServlet.do')).slice(0,2);
+              report.viewer_navigation_controls=await viewer.evaluate(()=>Array.from(document.querySelectorAll('select')).map(x=>({id:x.id,name:x.name,option_count:x.options.length,first_options:Array.from(x.options).slice(0,6).map(o=>({text:o.text,value:o.value})),last_options:Array.from(x.options).slice(-3).map(o=>({text:o.text,value:o.value}))})).slice(0,15));
+              const originalIssued=[...new Set(seen.map(x=>x.url))].filter(x=>x.startsWith('https://kyudb.snu.ac.kr/')&&x.includes('GK00892_00IH_0001_')&&x.includes('/ImageServlet.do'));
+              const issuedFirst=originalIssued.find(x=>x.includes('GK00892_00IH_0001_000a.jpg'));
+              const sourceImageURLs=issuedFirst?[issuedFirst]:[];
+              const issuedName=exact.map(x=>new URL(x).searchParams.get('img')).find(x=>x==='GK00892_00IH_0001_004b.jpg');
+              if(issuedFirst && issuedName){
+                const a=new URL(issuedFirst), base=a.searchParams.get('path');
+                if(a.searchParams.get('imgFileNm')==='GK00892_00IH_0001_000a.jpg' && base?.endsWith('/GK00892_00IH_0001_000a.jpg')){
+                  a.searchParams.set('imgFileNm',issuedName);
+                  a.searchParams.set('path',base.replace(/GK00892_00IH_0001_000a.jpg$/,issuedName));
+                  sourceImageURLs.push(a.href);
+                }
+              }
               for(const [i,url] of sourceImageURLs.entries()){
                 const ip=await browser.newPage();
                 try{
