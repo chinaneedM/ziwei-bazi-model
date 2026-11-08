@@ -1,0 +1,120 @@
+{
+  "schema": "TIANWEN-13TX-XING-L35-HIDDEN-PRECISION-INTERVAL-DISCRIMINATION-R1",
+  "date": "2026-11-08",
+  "issue_id": "TW-OPEN-0005",
+  "question": "Can extra unpublished precision in source-original four-place motion rates, with no other algorithm changes, explain both L35 printed reciprocal-coefficient deviations?",
+  "starting_remote": {
+    "head": "c11af5fe5810931d31ed7ce9a1f3fc8314acb2fa",
+    "tree": "b7d8de346c2bfb729950cbdf9767b06ff9561181",
+    "state_version": "1.1157.0",
+    "exact_head_actions_snapshot": "284/285 completed success, one 20-minute-limited full test run cancelled; exact-head rerun of job128612003939 requested; no test assertion failure in cancellation log"
+  },
+  "evidence": {
+    "source": "邢雲路《古今律曆考》卷四十五〈授時立成〉，既登记的 NLC892-CBM1408-371933 第14册 PDF66 原印",
+    "registered_pdf_sha256": "95b264e0447fb612a4b389b4b44e8f9871f9d0417b6893699fd37fe589cb23f3",
+    "page_one_based": 66,
+    "embedded_xref": 200,
+    "source_image_raw_sha256": "56b9b0c0885cadb7ce0395fe6b0c29ce7d9b5b32d3795aef059f786cccc11966",
+    "prior_original_glyph_record": "docs/research/TIANWEN-13TR-XING-TWO-FIELD-NATIVE-PREFIX-AND-RECIPROCAL-REPLAY-R1.json",
+    "adjacent_original_control_record": "docs/research/TIANWEN-13TW-XING-V45-L33-L37-L38-NATIVE-RECIPROCAL-BRACKETS-R1.json",
+    "reused_existing_original_without_new_download": true
+  },
+  "test_model": {
+    "hypothesis_only": true,
+    "source_original_unit_equivalence_confirmed": false,
+    "original_rate_display_four_fractional_digits_assumed": true,
+    "printed_jiefa_five_fractional_digits_assumed": true,
+    "conditional_expression": "q=82000/r, with r as four-place angular-prefix integer; jiefa tick c = floor(100000*q)",
+    "inverse_exact_inequality": "c <= 8200000000/r_true < c+1 implies 8200000000/(c+1) < r_true <= 8200000000/c",
+    "round_to_four_place_allowed_r_true": "[r_printed-0.5,r_printed+0.5)",
+    "truncate_to_four_place_allowed_r_true": "[r_printed,r_printed+1)",
+    "other_fractional_radices_or_separate_operands": "NOT_TESTED"
+  },
+  "original_l35_both_lanes": [
+    {
+      "lane": "JI",
+      "limit": 35,
+      "original_crop_gray_sha256": "261aebf2f14e16f7853c72f59d691129c0c58d1907aebbad70835cbd9e070b43",
+      "native_printed_rate": "疾一度一七五二",
+      "rate_four_place_integer": 11752,
+      "native_printed_jiefa": "六微九七五三〇",
+      "printed_jiefa_ticks": 697530,
+      "hidden_rate_required": {
+        "lower_exclusive_fraction": "8200000000/697531",
+        "upper_inclusive_fraction": "8200000000/697530",
+        "lower_decimal": "11755.749923659306898",
+        "upper_decimal": "11755.766777056183963",
+        "offset_from_printed_rate_ticks": "(3.7499236593,3.7667770562]"
+      },
+      "round_to_four_place_input_interval": "[11751.5,11752.5)",
+      "truncate_to_four_place_input_interval": "[11752,11753)",
+      "compatible_with_either_small_hidden_fifth_digit_model": false,
+      "robust_visible_coefficient_prefix": {
+        "native": "六微九七五□□",
+        "possible_coeff_tick_interval": [
+          697500,
+          697599
+        ],
+        "required_hidden_rate_union": "(8200000000/697600,8200000000/697500]",
+        "rate_lower_decimal": "11754.58715596330275",
+        "rate_upper_decimal": "11756.27240143369176",
+        "minimum_offset_ticks": "2.5871559633",
+        "compatible_even_if_last_two_coefficient_glyphs_unknown": false
+      }
+    },
+    {
+      "lane": "CHI",
+      "limit": 35,
+      "original_crop_gray_sha256": "7a71db8885d4c9edca643e48447b8a6c62ec58ef900de2c257265997500c4f87",
+      "native_printed_rate": "遲一度〇一七四",
+      "rate_four_place_integer": 10174,
+      "native_printed_jiefa": "八微〇五九六七",
+      "printed_jiefa_ticks": 805967,
+      "hidden_rate_required": {
+        "lower_exclusive_fraction": "8200000000/805968",
+        "upper_inclusive_fraction": "8200000000/805967",
+        "lower_decimal": "10174.101205010620769",
+        "upper_decimal": "10174.113828481811290",
+        "offset_from_printed_rate_ticks": "(0.1012050106,0.1138284819]"
+      },
+      "round_to_four_place_input_interval": "[10173.5,10174.5)",
+      "truncate_to_four_place_input_interval": "[10174,10175)",
+      "compatible_with_either_small_hidden_fifth_digit_model": true
+    }
+  ],
+  "adjudication": {
+    "ji_row": "REJECT_SIMPLE_EXTRA_UNPRINTED_DIGITS_IN_THE_SAME_FOUR_PLACE_RATE_UNDER_DECLARED_RECIPROCAL_MODEL; REQUIRED_RATE_OFFSET_EXCEEDS_2.58_TICKS_EVEN_WITH_TWO_FAINT_COEFFICIENT_SUFFIX_GLYPHS_UNKNOWN",
+    "chi_row": "UNPRINTED_FINER_RATE_DIGITS_REMAIN_POSSIBLE_UNDER_SAME_DECLARED_MODEL; NOT_PROVED_ACTUAL_HISTORICAL_CAUSE",
+    "both_original_l35_source_glyphs_preserved": true,
+    "prefix_robustness_scope": "Visible JI 六微九七五□□ irrespective of two faint terminal glyphs",
+    "source_typographic_error_attribution": "UNPROVED",
+    "ancient_micro_radix_carry": "UNRESOLVED",
+    "actual_g893_generator": "UNRESOLVED",
+    "g893_named_fields": "5/6",
+    "g893_historical_finals": "0/6",
+    "tw_open_0005": "P0 OPEN",
+    "matrix": "222/222",
+    "registered_source_union": 787,
+    "genealogy": "254 nodes / 239 edges",
+    "open_issues": 11,
+    "deterministic_chart": "CLOSED",
+    "algorithm_reopens": 0,
+    "new_physical_witnesses": 0,
+    "new_source_glyphs": 0
+  },
+  "negative_guards": [
+    "The inference distinguishes only one very specific latent-precision model under the previously declared factor100 and FLOOR5 normalization; it is not a source-documented unit/carry instruction.",
+    "A large JI discrepancy could still arise from a different underlying operand, transcription/printing damage, distinct table source, changed operation or other not-yet-authenticated mechanism; none is selected as historical truth.",
+    "The CHI-compatible tiny input offset is only an existence interval, not proof that the printer used hidden fifth digits.",
+    "No 13TR/13TW source-original reading has been revised, no G893 six-item final awarded and no new genealogy edge inferred."
+  ],
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "unresolved_lineage_questions": [
+      "Whether Ming table 35 has a distinct precursor/printed variant cannot be decided from a same-copy arithmetic inversion alone."
+    ]
+  },
+  "next": "Compare exact L35 same-field figures in an independently sourced early original; alternatively obtain a source-original definition of 微/rate precision or input scaling. Do not treat hidden digits as a universal repair of both printed L35 exceptions."
+}
