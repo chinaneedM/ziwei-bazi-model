@@ -1,0 +1,231 @@
+{
+  "schema": "TIANWEN-13US-XING-L35-LANE-SCOPED-HIDDEN-RATE-PRECISION-BRACKETS-R1",
+  "date": "2026-11-08",
+  "issue_id": "TW-OPEN-0005",
+  "starting_remote": {
+    "head": "e56c971b04149795fda3a4e19e5811ebb01bd328",
+    "tree": "7ff0f89a6b1831eaded622f81a8f44f6ea07759c",
+    "state_version": "1.1176.0",
+    "exact_head_actions": "285/285 completed-success (verified before this batch)"
+  },
+  "question": "Under source-native lane wording and strictly conditional decimal normalization, can a hidden higher-precision rate whose four-place display remains unchanged yield the two original Xing L35 coefficient glyph streams? Does the source phrase actually license an exact 820 reciprocal for both 疾 and 遲 lanes?",
+  "primary_text_provenance": {
+    "source": "NLC892-CBM1408-371933 邢雲路《古今律曆考》卷45 NLC printed source, Commons public domain digital surrogate, vol14 PDF",
+    "original_pdf_sha256": "95b264e0447fb612a4b389b4b44e8f9871f9d0417b6893699fd37fe589cb23f3",
+    "original_p66_gray_pixel_sha256": "ef0a5e2f175c3af7c21c15e65f11d56f1821ba8d717d78caf6a666e422c9c384",
+    "original_p73_gray_pixel_sha256": "de60b50ac116b054a07ca36f63e4188f2d592b51b6dcd77b6dc8b96c6a0ac558",
+    "original_p73_literal": "右置八百二十以遲行度而一為捷法",
+    "original_p64_headers": [
+      "疾曆行度",
+      "疾曆捷法",
+      "遲曆行度",
+      "遲曆捷法"
+    ],
+    "source_reuse_docs": [
+      "docs/research/TIANWEN-13TO-XING-MING-ORIGINAL-820-INVERSE-RATE-RULE-R1.json",
+      "docs/research/TIANWEN-13TR-XING-TWO-FIELD-NATIVE-PREFIX-AND-RECIPROCAL-REPLAY-R1.json",
+      "docs/research/TIANWEN-13UQ-G892-XING-L33-L38-CHI-LANE-DIRECT-GLYPHS-AND-TWO-LANE-PRECISION-CONTROL-R1.json",
+      "docs/research/TIANWEN-13UR-XING-L33-L38-TWO-LANE-INTERNAL-RECIPROCAL-AND-L35-INTEGER-GAP-R1.json"
+    ],
+    "original_copy_and_edition_provenance": "Not further authenticated; original photographic/OCR scans previously registered, no new page download or native-pixel review in this batch",
+    "new_original_image_captures": 0,
+    "new_glyph_reads": 0,
+    "new_source_registry_entries": 0
+  },
+  "philology_scope": {
+    "source_original_noun_literal": "遲行度",
+    "source_native_820_divisor_expression": "Explicitly names 遲; applying the identical operator to 疾 is an UNPROVED extension, even though two parallel headers and numeric coincidences exist.",
+    "no_automatic_lane_equivalence": true,
+    "reference_crosswalk": "13TM separates 損益捷法 from 遲疾捷法; neither is equal to a raw motion value by name alone."
+  },
+  "math_assumptions_and_exact_interval": {
+    "model_only": "NOT SOURCE-NATIVE RADIX PROOF. Let displayed four-place rate be integer r0, printed five-place coefficient be integer c, N=8200000000. For hidden real rate R (same 1e4 rate-index scale) use F(R)=N/R. Operator FLOOR: c<=F(R)<c+1, so R belongs to (N/(c+1),N/c]. Operator HALF_UP: c-0.5<=F(R)<c+0.5, so R belongs to (2N/(2c+1),2N/(2c-1)].",
+    "rate_display_four_digits_assumption": "TRUNCATE R to r0 implies r0<=R<r0+1; NEAREST R to r0 implies r0-1/2<=R<r0+1/2. Both are hypothetical display rules.",
+    "not_inference_of_native_miao_rational": "Printed native 微/秒 place-value, carry and intermediate scale remain unresolved.",
+    "decimal_approximation_policy": "Approximation fields are for readability; exact rational numerator/denominator determine all interval and intersection tests."
+  },
+  "l35_source_original_glyphs_and_latent_precision_tests": [
+    {
+      "lane": "遲",
+      "limit": 35,
+      "printed_r": 10174,
+      "printed_c": 805967,
+      "original_rate_glyphs": "遲一度〇一七四",
+      "original_factor_glyphs": "八微〇五九六七",
+      "formula_scope": "SOURCE_NATIVE_LITERAL_APPLIES_TO_CHI_SIDE_WORDING",
+      "model_printed_rate_floor_c": 805976,
+      "model_difference": -9,
+      "brackets": [
+        {
+          "operator": "FLOOR",
+          "hidden_r_admissible_interval_exact": {
+            "lower_open": {
+              "num": 8200000000,
+              "den": 805968,
+              "approx": 10174.10120501062
+            },
+            "upper_closed": {
+              "num": 8200000000,
+              "den": 805967,
+              "approx": 10174.113828481812
+            }
+          },
+          "display_input_if_rate_truncated_to_four_places": {
+            "lower_inclusive": 10174,
+            "upper_exclusive": 10175,
+            "intersects": true
+          },
+          "display_input_if_rate_nearest_rounded_to_four_places": {
+            "lower_inclusive": 10173.5,
+            "upper_exclusive": 10174.5,
+            "intersects": true
+          }
+        },
+        {
+          "operator": "NEAREST_HALF_UP",
+          "hidden_r_admissible_interval_exact": {
+            "lower_open": {
+              "num": 16400000000,
+              "den": 1611935,
+              "approx": 10174.1075167423
+            },
+            "upper_closed": {
+              "num": 16400000000,
+              "den": 1611933,
+              "approx": 10174.120140229154
+            }
+          },
+          "display_input_if_rate_truncated_to_four_places": {
+            "lower_inclusive": 10174,
+            "upper_exclusive": 10175,
+            "intersects": true
+          },
+          "display_input_if_rate_nearest_rounded_to_four_places": {
+            "lower_inclusive": 10173.5,
+            "upper_exclusive": 10174.5,
+            "intersects": true
+          }
+        }
+      ]
+    },
+    {
+      "lane": "疾",
+      "limit": 35,
+      "printed_r": 11752,
+      "printed_c": 697530,
+      "original_rate_glyphs": "疾一度一七五二",
+      "original_factor_glyphs": "六微九七五三〇",
+      "formula_scope": "CROSS_LANE_HYPOTHESIS_ONLY_NOT_SOURCE_NATIVE_OPERATOR",
+      "model_printed_rate_floor_c": 697753,
+      "model_difference": -223,
+      "brackets": [
+        {
+          "operator": "FLOOR",
+          "hidden_r_admissible_interval_exact": {
+            "lower_open": {
+              "num": 8200000000,
+              "den": 697531,
+              "approx": 11755.749923659307
+            },
+            "upper_closed": {
+              "num": 8200000000,
+              "den": 697530,
+              "approx": 11755.766777056184
+            }
+          },
+          "display_input_if_rate_truncated_to_four_places": {
+            "lower_inclusive": 11752,
+            "upper_exclusive": 11753,
+            "intersects": false
+          },
+          "display_input_if_rate_nearest_rounded_to_four_places": {
+            "lower_inclusive": 11751.5,
+            "upper_exclusive": 11752.5,
+            "intersects": false
+          }
+        },
+        {
+          "operator": "NEAREST_HALF_UP",
+          "hidden_r_admissible_interval_exact": {
+            "lower_open": {
+              "num": 16400000000,
+              "den": 1395061,
+              "approx": 11755.758350351705
+            },
+            "upper_closed": {
+              "num": 16400000000,
+              "den": 1395059,
+              "approx": 11755.775203772744
+            }
+          },
+          "display_input_if_rate_truncated_to_four_places": {
+            "lower_inclusive": 11752,
+            "upper_exclusive": 11753,
+            "intersects": false
+          },
+          "display_input_if_rate_nearest_rounded_to_four_places": {
+            "lower_inclusive": 11751.5,
+            "upper_exclusive": 11752.5,
+            "intersects": false
+          }
+        }
+      ]
+    }
+  ],
+  "robustness_to_l35_ji_two_faint_final_glyphs": {
+    "lane": "疾",
+    "limit": 35,
+    "original_visible_prefix": "六微九七五",
+    "unread_last_two_test": "ALLOW_EVERY_INTEGER c IN [697500,697599] WITHOUT USING THE TWO FAINT TERMINAL GLYPHS",
+    "c_min": 697500,
+    "c_max": 697599,
+    "lower_possible_real_rate_floor": {
+      "num": 8200000000,
+      "den": 697600,
+      "approx": 11754.587155963303
+    },
+    "upper_possible_real_rate_floor": {
+      "num": 8200000000,
+      "den": 697500,
+      "approx": 11756.27240143369
+    },
+    "lower_possible_real_rate_nearest": {
+      "num": 16400000000,
+      "den": 1395199,
+      "approx": 11754.595580988806
+    },
+    "upper_possible_real_rate_nearest": {
+      "num": 16400000000,
+      "den": 1394999,
+      "approx": 11756.280828875146
+    },
+    "overlaps_rate_display_truncation_range_11752_to_11753": false,
+    "overlaps_rate_display_nearest_range_11751_5_to_11752_5": false
+  },
+  "decision": {
+    "chi": "Under declared hypothetical N/R normalization, the L35 遲 printed c=805967 admits hidden R approximately 10174.101205–10174.113829 if coefficient FLOOR (or 10174.107517–10174.120141 if HALF_UP). Both lie within the same four-digit displayed r0=10174 whether rate display was truncated or nearest rounded. Thus prior integer-only failure does NOT exclude hidden precision for the late lane.",
+    "ji": "Under the SAME UNPROVEN cross-lane model, L35 疾 c=697530 requires R approximately 11755.749924–11755.766778 for coefficient FLOOR (or 11755.758351–11755.775204 if HALF_UP), outside the printed r0=11752 four-place display interval for either truncation or nearest rounding. Even unknown two faint c terminal glyphs (697500..697599) cannot restore overlap. This rejects only the single shared operand-plus-four-digit display explanation; the source original 820 clause did not explicitly authorize this JI construction.",
+    "source_error_conclusion": "NONE: no physical printing error or ancestral arithmetic defect established. Other operators, distinct generator, limit/phase, column convention, edition variants or re-collation may change the model.",
+    "g893_historical_six_final_values": "0/6",
+    "g893_named_fields": "5/6",
+    "tw_open_0005": "P0 OPEN",
+    "matrix": "222/222",
+    "sources": 789,
+    "graph": "254 nodes / 239 edges",
+    "issues": 11,
+    "deterministic_chart": "CLOSED",
+    "algorithm_reopens": 0
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "A conditional 820 reciprocal pattern in both lanes is not direct textual proof that the original 遲-specific instruction generates 疾 coefficients, nor that Xing inherited G892 mechanics."
+    ],
+    "unresolved_lineage_questions": [
+      "Identify a source-original 疾-lane constructor/operand and numerical scale before any cross-lane historical adjudication."
+    ]
+  },
+  "next": "Re-collate Xing original L35 疾/遲 coefficient and rate glyphs directly at archive-native resolution; investigate source-native separate 疾 constructor and 遲 input/display precision/carry; separately align G892 limit/epoch. Do not vote G893 six historical target finals."
+}
