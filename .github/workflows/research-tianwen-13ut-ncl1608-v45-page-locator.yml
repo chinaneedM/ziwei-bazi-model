@@ -118,6 +118,19 @@ jobs:
               (out/name).write_bytes(raw)
               print('PART2_DIRECT_NATIVE',json.dumps({'pdf_page':one,'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest()}))
               print('PART2_NATIVE_B64_'+str(one)+'='+base64.b64encode(raw).decode('ascii'))
+              if one==88:
+                  # Printed dual-lane v45 L30–L47. Only this source-native
+                  # image may decide the L35 glyphs; no OCR or inpainting.
+                  native=Image.open(io.BytesIO(raw)).convert('RGB')
+                  w,h=native.size
+                  rectangle=(round(.39*w),round(.17*h),round(.66*w),round(.96*h))
+                  crop=native.crop(rectangle)
+                  enlarged=crop.resize((crop.width*4,crop.height*4),Image.Resampling.NEAREST)
+                  buf=io.BytesIO();enlarged.save(buf,format='PNG')
+                  payload=buf.getvalue()
+                  print('L35_NATIVE_PIXEL_PROVENANCE',json.dumps({'pdf_page':one,'full_original_px':[w,h],'native_rect':rectangle,'native_pixel_sha256':hashlib.sha256(crop.tobytes()).hexdigest(),'nearest4x_png_sha256':hashlib.sha256(payload).hexdigest(),'nearest_is_visual_only':True}))
+                  print('L35_NEAREST4X_B64='+base64.b64encode(payload).decode('ascii'))
+
           (out/'source-manifest.json').write_text(json.dumps(detail,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
           PY
       - name: Save original source window for direct visual follow-up
