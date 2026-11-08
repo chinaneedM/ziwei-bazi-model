@@ -53,8 +53,13 @@ jobs:
             }
             if(!viewer)throw new Error('official image viewer did not open');
             await viewer.waitForNetworkIdle({idleTime:1200,timeout:30000}).catch(()=>{});
-            const all=await viewer.evaluate(()=>Array.from(document.querySelectorAll('a[onclick]'))
-              .map(a=>{const s=a.getAttribute('onclick')||'';const m=s.match(/^fn_goPageJumpWithMokIdxClear\('([0-9]{3}[ab])'\);?$/);return m?m[1]:null;}).filter(Boolean));
+            const diag=await viewer.evaluate(()=>{
+              const anchors=Array.from(document.querySelectorAll('a[onclick]'));
+              const indexed=anchors.filter(a=>(a.getAttribute('onclick')||'').includes('fn_goPageJumpWithMokIdxClear'));
+              return {count_all:anchors.length,count_indexed:indexed.length,raw_sample:indexed.slice(0,6).map(a=>({text:a.textContent,onclick:a.getAttribute('onclick')})),ids:indexed.map(a=>(a.textContent||'').trim()).filter(x=>/^[0-9]{3}[ab]$/.test(x))};
+            });
+            receipt.viewer_index_diagnostics={count_all:diag.count_all,count_indexed:diag.count_indexed,raw_sample:diag.raw_sample};
+            const all=diag.ids;
             receipt.page_index=all;
             receipt.page_index_count=all.length;
             receipt.page_index_first=all[0]||null;
@@ -64,8 +69,7 @@ jobs:
               if(!all.includes(folio)){receipt.errors.push(folio+': not in provider page list');continue;}
               try{
                 const ok=await viewer.evaluate(folio=>{
-                  const q="fn_goPageJumpWithMokIdxClear('"+folio+"');";
-                  const node=Array.from(document.querySelectorAll('a[onclick]')).find(x=>(x.getAttribute('onclick')||'')===q);
+                  const node=Array.from(document.querySelectorAll('a[onclick]')).find(x=>(x.getAttribute('onclick')||'').includes('fn_goPageJumpWithMokIdxClear')&&(x.textContent||'').trim()===folio);
                   if(!node)return false;node.click();return true;
                 },folio);
                 if(!ok){receipt.errors.push(folio+': clickable UI node absent');continue;}
