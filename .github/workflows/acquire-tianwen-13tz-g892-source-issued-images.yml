@@ -80,6 +80,17 @@ jobs:
                 }catch(e){report.access_errors.push('pageText '+folio+': '+String(e).slice(0,160));}
               }
               report.viewer_navigation_controls=await viewer.evaluate(()=>Array.from(document.querySelectorAll('select')).map(x=>({id:x.id,name:x.name,option_count:x.options.length,first_options:Array.from(x.options).slice(0,6).map(o=>({text:o.text,value:o.value})),last_options:Array.from(x.options).slice(-3).map(o=>({text:o.text,value:o.value}))})).slice(0,15));
+              report.viewer_dom_navigation_diagnostics=await viewer.evaluate(()=>({
+                title:document.title,
+                page_url:location.href,
+                buttons:Array.from(document.querySelectorAll('button,input[type=button],input[type=submit],a')).filter(x=>x.getAttribute('onclick')||x.getAttribute('title')||x.getAttribute('aria-label')||x.getAttribute('id')).slice(0,90).map(x=>({tag:x.tagName,id:x.id,cls:String(x.className).slice(0,100),title:x.getAttribute('title'),aria:x.getAttribute('aria-label'),text:(x.innerText||x.value||'').trim().slice(0,55),onclick:(x.getAttribute('onclick')||'').slice(0,150)})),
+                images:Array.from(document.images).slice(0,30).map(x=>({id:x.id,cls:String(x.className).slice(0,80),src:(x.getAttribute('src')||'').slice(0,190),alt:(x.getAttribute('alt')||'').slice(0,80)})),
+                inputs:Array.from(document.querySelectorAll('input')).slice(0,40).map(x=>({id:x.id,name:x.name,type:x.type,value:(x.type==='text'?x.value:'').slice(0,60)})),
+                viewer_functions:Object.keys(window).filter(k=>/page|folio|next|prev|move|img|image|thumb|original|viewer/i.test(k) && typeof window[k]==='function').slice(0,70),
+                scripts:Array.from(document.scripts).filter(x=>x.src).slice(0,30).map(x=>x.src),
+                anchors:Array.from(document.querySelectorAll('a[href]')).filter(x=>/page|img|photo|next|prev|\d{3}[ab]/i.test(x.href+' '+x.textContent)).slice(0,20).map(x=>({href:x.href,text:x.textContent.trim().slice(0,50)}))
+              }));
+
               const originalIssued=[...new Set(seen.map(x=>x.url))].filter(x=>x.startsWith('https://kyudb.snu.ac.kr/')&&x.includes('GK00892_00IH_0001_')&&x.includes('/ImageServlet.do'));
               const issuedFirst=originalIssued.find(x=>x.includes('GK00892_00IH_0001_000a.jpg'));
               const sourceImageURLs=issuedFirst?[issuedFirst]:[];
