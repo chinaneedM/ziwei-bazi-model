@@ -109,7 +109,7 @@ jobs:
               print('PART2_ATLAS',json.dumps({'file':name,'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest()}))
               print('PART2_ATLAS_B64_'+str(k//12+1)+'='+base64.b64encode(raw).decode('ascii'))
           # Native original no-OCR page probes for the likely 45th-juan window.
-          for one in [60,80,100,120,140,160,180]:
+          for one in [76,77,78,79,80,100]:
               pg=book2[one-1]
               imginfo=pg.get_images(full=True)
               assert imginfo
