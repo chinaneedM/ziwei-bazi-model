@@ -1,0 +1,132 @@
+name: acquire-tianwen-13ua-g892-source-indexed-heading-window
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/acquire-tianwen-13ua-g892-source-indexed-heading-window.yml
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  original-indexed-pages:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install known viewer and image dependencies
+        run: |
+          npm install --no-save --silent puppeteer-core@24.16.0
+          python -m pip install --quiet pillow
+      - name: Follow only official G892 viewer's own page-index links
+        shell: bash
+        run: |
+          mkdir -p artifacts/g892-13ua/pages
+          node --input-type=module <<'JS'
+          import puppeteer from 'puppeteer-core';
+          import fs from 'node:fs';
+          import crypto from 'node:crypto';
+          const root='artifacts/g892-13ua', book='GK00892_00';
+          const selected=['000b','001a','001b','002a','002b','003a','003b','004a','005a','005b','006a','006b'];
+          const hash=b=>crypto.createHash('sha256').update(b).digest('hex');
+          const receipt={schema:'TIANWEN-13UA-G892-SOURCE-INDEXED-HEADING-WINDOW-R1',date:'2026-11-08',book_cd:book,official_url:'https://kyudb.snu.ac.kr/book/view.do?book_cd='+book,scope:'Provider-indexed bounded early folio window only; not a full-volume linewise collation',selected_folios:selected,page_index:[],downloaded:[],errors:[],ocr_used:false};
+          const browser=await puppeteer.launch({headless:true,executablePath:process.env.CHROME||'/usr/bin/google-chrome',args:['--no-sandbox','--disable-setuid-sandbox']});
+          try{
+            const p=await browser.newPage();
+            await p.setUserAgent('Mozilla/5.0 Tianwen-Bounded-Original-Source-Collation/1.0');
+            await p.goto('https://kyudb.snu.ac.kr/book/list.do?book_cate=SIC04&mid=GDS',{waitUntil:'networkidle2',timeout:90000});
+            await Promise.all([
+              p.waitForNavigation({waitUntil:'networkidle2',timeout:90000}),
+              p.evaluate(book=>{
+                const f=document.getElementById('frmBookSearchInf');
+                f.querySelector('#book_cd').value=book;
+                f.querySelector('#target').value='master';
+                f.action='/book/view.do';f.method='post';f.submit();
+              },book)
+            ]);
+            const prior=new Set(browser.targets().map(t=>t._targetId));
+            await p.evaluate(book=>window.fn_originalImg('SIC',book,'',''),book);
+            let viewer=null;
+            for(let i=0;i<40&&!viewer;i++){
+              await new Promise(r=>setTimeout(r,500));
+              for(const t of browser.targets()){
+                if(t.type()==='page'&&!prior.has(t._targetId)&&t.url().includes('/pf01/rendererImg.do')){viewer=await t.page();break;}
+              }
+            }
+            if(!viewer)throw new Error('official image viewer did not open');
+            await viewer.waitForNetworkIdle({idleTime:1200,timeout:30000}).catch(()=>{});
+            const all=await viewer.evaluate(()=>Array.from(document.querySelectorAll('a[onclick]'))
+              .map(a=>{const s=a.getAttribute('onclick')||'';const m=s.match(/^fn_goPageJumpWithMokIdxClear\('([0-9]{3}[ab])'\);?$/);return m?m[1]:null;}).filter(Boolean));
+            receipt.page_index=all;
+            receipt.page_index_count=all.length;
+            receipt.page_index_first=all[0]||null;
+            receipt.page_index_last=all.at(-1)||null;
+            if(new Set(all).size!==all.length)throw Error('duplicate viewer page index');
+            for(const folio of selected){
+              if(!all.includes(folio)){receipt.errors.push(folio+': not in provider page list');continue;}
+              try{
+                const ok=await viewer.evaluate(folio=>{
+                  const q="fn_goPageJumpWithMokIdxClear('"+folio+"');";
+                  const node=Array.from(document.querySelectorAll('a[onclick]')).find(x=>(x.getAttribute('onclick')||'')===q);
+                  if(!node)return false;node.click();return true;
+                },folio);
+                if(!ok){receipt.errors.push(folio+': clickable UI node absent');continue;}
+                await viewer.waitForFunction(folio=>{
+                  const src=document.getElementById('simage')?.getAttribute('src')||'';
+                  return src.includes('GK00892_00IH_0001_'+folio+'.jpg');
+                },{timeout:12000},folio);
+                const src=await viewer.evaluate(()=>new URL(document.getElementById('simage').getAttribute('src'),location.href).href);
+                const u=new URL(src);
+                const file='GK00892_00IH_0001_'+folio+'.jpg';
+                if(u.hostname!=='kyudb.snu.ac.kr'||u.pathname!=='/ImageServlet.do'||u.searchParams.get('imgFileNm')!==file||!u.searchParams.get('path')?.endsWith('/'+file))throw Error('unexpected original source URL');
+                const img=await browser.newPage();
+                try{
+                  const response=await img.goto(src,{waitUntil:'domcontentloaded',timeout:25000});
+                  const bytes=response?.ok()?await response.buffer():null;
+                  if(!bytes||bytes.length<5000||bytes[0]!==255||bytes[1]!==216)throw Error('non-JPEG provider response HTTP '+response?.status());
+                  fs.writeFileSync(root+'/pages/'+folio+'.jpg',bytes);
+                  receipt.downloaded.push({folio,source_url:src,bytes:bytes.length,sha256:hash(bytes),http:response.status(),path:'pages/'+folio+'.jpg',review_grade:'DIRECT_SOURCE_JPEG_UNCOLLATED'});
+                }finally{await img.close();}
+              }catch(e){receipt.errors.push(folio+': '+String(e).slice(0,220));}
+            }
+          }catch(e){receipt.errors.push('viewer '+String(e).slice(0,350));}
+          finally{
+            receipt.downloaded_count=receipt.downloaded.length;
+            fs.writeFileSync(root+'/receipt.json',JSON.stringify(receipt,null,2)+'\n');
+            console.log(JSON.stringify({page_index_count:receipt.page_index_count,first:receipt.page_index_first,last:receipt.page_index_last,selected_count:selected.length,downloaded_count:receipt.downloaded_count,folios:receipt.downloaded.map(x=>x.folio),errors:receipt.errors},null,2));
+            await browser.close();
+          }
+          JS
+      - name: Create bounded viewing contact sheet
+        if: always()
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from PIL import Image,ImageDraw
+          root=Path('artifacts/g892-13ua')
+          if not (root/'receipt.json').exists():raise SystemExit(0)
+          r=json.loads((root/'receipt.json').read_text())
+          items=r['downloaded']
+          tiles=[]
+          for x in items:
+              im=Image.open(root/x['path']).convert('RGB')
+              x['image_px']=list(im.size)
+              im.thumbnail((280,475))
+              tile=Image.new('RGB',(300,515),'white')
+              tile.paste(im,((300-im.width)//2,10))
+              ImageDraw.Draw(tile).text((12,487),x['folio'],fill='black')
+              tiles.append(tile)
+          if tiles:
+              cols=4;rows=(len(tiles)+3)//4
+              sheet=Image.new('RGB',(cols*300,rows*515),'white')
+              for i,tile in enumerate(tiles):sheet.paste(tile,((i%cols)*300,(i//cols)*515))
+              sheet.save(root/'source-indexed-contact.jpg',quality=92)
+          (root/'receipt.json').write_text(json.dumps(r,ensure_ascii=False,indent=2)+'\n')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: tianwen-13ua-g892-source-indexed-heading-window
+          path: artifacts/g892-13ua/
+          retention-days: 30
+          if-no-files-found: warn
