@@ -1,0 +1,25 @@
+{
+  "schema": "TIANWEN-13UD-G892-SOURCE-REGISTRY-CI-SCOPE-ERRATUM-R1",
+  "date": "2026-11-08",
+  "research_issue": "TW-OPEN-0005",
+  "prior_commit": "8d5b279a69b97af5409245b0b867c9b63e5e6298",
+  "prior_research_doc": "docs/research/TIANWEN-13UC-G892-SOURCE-INDEXED-FOLIOS-TABLE-HEADING-AND-1346-PREFACE-R1.json",
+  "same_source_record": "docs/research/TIANWEN-13UC-G892-DIRECT-ORIGINAL-SOURCE-SHARD-R1.json",
+  "initial_exact_head_actions": "Source registry verifier failed: physical glyph authority requires direct source-image status",
+  "verifier": "scripts/verify-historical-source-registry-extensions-r1.py",
+  "adjudication": {
+    "actual_35_original_jpegs_verified_and_textual_glyphs_reviewed": true,
+    "retain_022b_original_heading": "入轉遲疾差度",
+    "retain_046a_original_date": "至正六年十一月日",
+    "machine_source_registry_whole_source_attestation_supplied": false,
+    "initial_formal_registry_physical_glyph_authority": true,
+    "corrected_formal_registry_physical_glyph_authority": false,
+    "corrected_registry_verification_status": "BIBLIOGRAPHIC_METADATA_ONLY",
+    "source_count_or_physical_witness_gain_from_correction": 0,
+    "independent_g893_six_final_decision_gain": 0,
+    "algorithm_reopens": 0
+  },
+  "reason": "Existing CI guard requires direct-image source SHA, decimal page-index map, and a witness object satisfying its historical edition/copy limits; don't fabricate those fields or weaken common verifier. The full per-JPEG SHA records and direct bounded visual collation remain research-level original evidence, not a formal blanket registry glyph authority.",
+  "forward_only": true,
+  "next": "If formal original-glyph source registration is needed later, introduce a correctly scoped original-JPEG native attestation model with explicit single-page versus whole-volume semantics and tests rather than misrepresent physical-copy catalog binding."
+}
