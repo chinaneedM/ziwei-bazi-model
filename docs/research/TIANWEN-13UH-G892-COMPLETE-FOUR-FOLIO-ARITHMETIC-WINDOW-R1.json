@@ -1,0 +1,170 @@
+{
+  "schema": "TIANWEN-13UH-G892-COMPLETE-FOUR-FOLIO-ARITHMETIC-WINDOW-R1",
+  "date": "2026-11-08",
+  "issue_id": "TW-OPEN-0005",
+  "scope_question": "Do the two previously missing native original GK00892_00 folios 043b and 044a bridge the 算法 appendix to celestial table-specific 限/刻 conversion, four-place lunar speed rounding or 平定立三差? Contrast original print content with modern historiographic attribution without overclaim.",
+  "starting_remote": {
+    "head": "21f71b35ebb8da2be38a459527f8f5422d11fa88",
+    "tree": "046bbecbf1d5f30bb36ce4ca811ff8e551f28d06",
+    "prior": "13UG published a bounded 043a/044b partial appendix control and NIKH historiography scope; 13UH closes the two internal missing folios 043b/044a, not a whole-book or whole-table mathematical audit"
+  },
+  "official_source": {
+    "provider": "Seoul National University Kyujanggak",
+    "book_cd": "GK00892_00",
+    "call_number": "奎貴892",
+    "catalog_title": "授時曆捷法立成",
+    "source_item_url": "https://kyudb.snu.ac.kr/book/view.do?book_cd=GK00892_00",
+    "holding_count": 1,
+    "viewed_edition": "Catalogue 甲寅字 / printed copy exact year unresolved",
+    "source_registry_authority_tier": "BIBLIOGRAPHIC_METADATA_ONLY per 13UD; source-specific original page SHA and visual glyph attestations independent"
+  },
+  "acquisition": {
+    "method": "Minimal extension of existing .github/workflows/acquire-tianwen-13ua-g892-source-indexed-heading-window.yml selected folios by appending 043b, 044a. Browser navigated first-party official viewer emitted 96 page-index links and clicked exact folios; it did not fabricate identifiers or bypass access controls.",
+    "workflow_trigger_commit": "21f71b35ebb8da2be38a459527f8f5422d11fa88",
+    "run_id": 42469953616,
+    "run_result": "success",
+    "artifact_id": 13613371493,
+    "artifact_name": "tianwen-13ua-g892-source-indexed-heading-window",
+    "all_provider_indexed_page_count": 96,
+    "pages_downloaded": 12,
+    "failed": 0,
+    "added_target_pages": [
+      "043b",
+      "044a"
+    ],
+    "original_image_format": "JPEG",
+    "newly_retrieved_same_physical_copy_count": 2,
+    "new_independent_physical_witness_count": 0,
+    "original_pages_uploaded_to_public_git": false,
+    "replay_verification": "Locally extracted 12 JPEGs and independently SHA256-rehashed every image against signed-by-file receipt, 12/12 match, source-original 043a and 044b repeated byte-identically to 13UC; no OCR used for any glyph reading."
+  },
+  "source_native_originals": [
+    {
+      "folio": "043a",
+      "source_url": "https://kyudb.snu.ac.kr/ImageServlet.do?imgFileNm=GK00892_00IH_0001_043a.jpg&path=/data01/stream/SIC/IMG/GK00892_00/GK00892_00_0001/GK00892_00IH_0001_043a.jpg",
+      "sha256": "2cd1abeea4a3ae1849ff50303d094e7c85dc21ebd59ed9fa79687d94571304be",
+      "bytes": 399445,
+      "dimensions_px": [
+        2204,
+        3743
+      ],
+      "direct_native_manual_no_ocr_glyphs": [
+        "算法",
+        "留頭乘法",
+        "飛歸除法",
+        "因法"
+      ],
+      "source_scope": "PREVIOUS_13UG_SOURCE_NATIVE_HEADING_AND_ARITHMETIC_EXPLANATION"
+    },
+    {
+      "folio": "043b",
+      "source_url": "https://kyudb.snu.ac.kr/ImageServlet.do?imgFileNm=GK00892_00IH_0001_043b.jpg&path=/data01/stream/SIC/IMG/GK00892_00/GK00892_00_0001/GK00892_00IH_0001_043b.jpg",
+      "sha256": "2f34537d904b6b006dcb04bf93c4f020314004d98459a07c26a3b3dbc1f9f87c",
+      "bytes": 385086,
+      "dimensions_px": [
+        2204,
+        3743
+      ],
+      "direct_native_manual_no_ocr_glyphs": [
+        "加法",
+        "定數同因法",
+        "半法",
+        "折半與再折",
+        "飛歸除法歌",
+        "一歸",
+        "二歸",
+        "三歸",
+        "四歸"
+      ],
+      "source_scope": "NEW_13UH_DIRECT_SOURCE_PRINTED_MULTIPLICATION_ADDITION_HALVING_AND_DIVISION_MNEMONICS; NO_ASTRO_TABLE_OPERAND"
+    },
+    {
+      "folio": "044a",
+      "source_url": "https://kyudb.snu.ac.kr/ImageServlet.do?imgFileNm=GK00892_00IH_0001_044a.jpg&path=/data01/stream/SIC/IMG/GK00892_00/GK00892_00_0001/GK00892_00IH_0001_044a.jpg",
+      "sha256": "3a5527f668563ddbb071fdd56c91fecd76cdfcceaa0762287ead2846f0e2ce44",
+      "bytes": 391285,
+      "dimensions_px": [
+        2204,
+        3743
+      ],
+      "direct_native_manual_no_ocr_glyphs": [
+        "五歸",
+        "六歸",
+        "七歸",
+        "八歸",
+        "見五無除作九五",
+        "見六無除作九六",
+        "見七無除作九七"
+      ],
+      "source_scope": "NEW_13UH_DIRECT_SOURCE_PRINTED_DIVISION_RECITATION_CONTINUATION; NO_ASTRO_SPECIFIC_RATE_OR_CARRY"
+    },
+    {
+      "folio": "044b",
+      "source_url": "https://kyudb.snu.ac.kr/ImageServlet.do?imgFileNm=GK00892_00IH_0001_044b.jpg&path=/data01/stream/SIC/IMG/GK00892_00/GK00892_00_0001/GK00892_00IH_0001_044b.jpg",
+      "sha256": "739aad8a5002ea4129b41bc060b1739779cce69f384aec7737b33b7e3e8c176",
+      "bytes": 328117,
+      "dimensions_px": [
+        2204,
+        3743
+      ],
+      "direct_native_manual_no_ocr_glyphs": [
+        "九歸隨身下",
+        "見八無除作九八",
+        "逢九進成十"
+      ],
+      "source_scope": "PREVIOUS_13UG_SAME_COPY_END_OF_NINE_QUOTIENT_VERSES_WITH_MAINLY_EMPTY_COLUMNS_AFTER"
+    }
+  ],
+  "printed_sequence_scope": {
+    "preceding_042a": "授時曆經終, from previously verified 13UC source original",
+    "preceding_042b": "Mostly unprinted ruled columns at bounded original 042b image, no algorithm heading in reviewed side",
+    "four_folios": "043a 算法 headings -> 043b addition/halving/division -> 044a fifth through eighth quotient mnemonic -> 044b ninth quotient mnemonic then mostly blank printed columns",
+    "subsequent_045a": "大元至元授時曆經改錄序 from previously verified 13UC original",
+    "adjudication": "FOUR_CONTIGUOUS_FOLIO_SOURCE_NATIVE_MNEMONIC_SECTION_COVERED; NO_TITLED_ASTRONOMICAL_TABLE_SPECIFIC_FORMULA_IN_REVIEWED_WINDOW",
+    "whole_book_negative_conclusion_authorized": false
+  },
+  "later_scholarship_firewall": {
+    "institution": "National Institute of Korean History",
+    "url": "https://db.history.go.kr/id/oh_008_0030_0010_0010",
+    "scholarship_claim": "平定立三差 內算法, 1343 publication",
+    "status": "SECONDARY_SCHOLARLY_MECHANICAL_ATTRIBUTION_UNBOUND_TO_G892_ORIGINAL_043A_TO_044B",
+    "original_text_1346": "Original GK00892_00 046a 至正六年十一月日 (1346) is a prefatory text-level date, not current physical-copy impression year; do not force match/typo with 1343 survey or 1444 later secondary impression note."
+  },
+  "adjudication": {
+    "original_arithmetic_window_coverage": "POSITIVE_CONTIGUOUS_043A_043B_044A_044B",
+    "general_arithmetic_literacy": "SUPPORTED_BY_NATIVE_GLYPHS",
+    "same_window_平定立三差_explicit_rule": "NOT_OBSERVED_IN_BOUND_FOUR_FOLIOS; UNINSPECTED_BOOK_SEGMENTS_NOT_NEGATIVE_EVIDENCE",
+    "exact_g892_限_to_刻_ratio": "UNRESOLVED",
+    "g892_astronomical_limit_rate_units_rounding": "UNRESOLVED",
+    "g892_exact_numeric_same_field_with_g893_and_xing_v45": "UNPROVEN",
+    "g893_historical_final_adjudications": "0/6",
+    "g893_named_fields": "5/6",
+    "tw_open_0005": "P0 OPEN",
+    "historical_matrix": "222/222",
+    "external_source_registry": "647 root + 142 extension = 789",
+    "genealogy": "254 nodes / 239 edges",
+    "open_issue_count": 11,
+    "deterministic_chart": "CLOSED",
+    "algorithm_reopens": 0,
+    "added_registry_sources": 0,
+    "added_independent_physical_witnesses": 0
+  },
+  "non_inferences": [
+    "Arithmetic mnemonic e.g. 半法 is a general halving instruction and not a legitimate source for lunar day-rate limit length or G893 last-place rounding.",
+    "A source-original section titled 算法 does not mean all its content is astronomical interpolation; modern scholarship's 平定立三差 cannot be back-inserted into an original that is not imaged to say it.",
+    "A bounded four-folio appendix with no astrophysical formula is not a whole-book negative or proof that 姜保 did not elsewhere use 平定立三差.",
+    "Different dates 1343 (secondary publication), 1346 (preface original), 1418–1450 (catalog edition band) are not a single dated artifact."
+  ],
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Current original 043a–044b appendix proves general arithmetic mnemonic form, not a source-native operational bridge to G893 / Xing original 167-limit computation or an independently reproduced Ping Ding Li three-difference mathematical implementation."
+    ],
+    "unresolved_lineage_questions": [
+      "Look for limit/ke phase transition and table-specific numerical columns in G892 022b-027a or other source-native directions; source-native unit/carry and independent early witness must precede G893/Xing comparison."
+    ]
+  },
+  "next": "Stop treating 043a-044b 算法 mnemonic as a promising hidden original astro carry instruction. Return to original G892 source-numbered 行度/限/刻 table field and unit coordinates (022b–027a) or a directly labeled primary astronomical calculation instruction; target source-issued pages and exact numeric operands only. No new historical winners."
+}
