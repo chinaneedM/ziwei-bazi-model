@@ -1,0 +1,127 @@
+{
+  "schema": "TIANWEN-13UE-G892-DAY-KE-AXIS-FOLIO-SEAM-BOUNDARY-R1",
+  "date": "2026-11-08",
+  "issue_id": "TW-OPEN-0005",
+  "research_question": "Does the original GK00892_00 入轉遲疾差度 table print a day/ke axis across folio seams, rather than unrelated days, limits or cross-work fields?",
+  "source": {
+    "provider": "Seoul National University Kyujanggak",
+    "book_cd": "GK00892_00",
+    "physical_copy": "奎貴892, one source original already registered in 13TY/13UC",
+    "official_item_url": "https://kyudb.snu.ac.kr/book/view.do?book_cd=GK00892_00",
+    "image_dimensions": [
+      2204,
+      3743
+    ],
+    "source_specific_original_glyphs_not_blanket_registry_authority": true,
+    "prior_evidence": "docs/research/TIANWEN-13UC-G892-SOURCE-INDEXED-FOLIOS-TABLE-HEADING-AND-1346-PREFACE-R1.json",
+    "formal_registry_tier_correction": "docs/research/TIANWEN-13UD-G892-SOURCE-REGISTRY-CI-SCOPE-ERRATUM-R1.json"
+  },
+  "acquisition_replay": {
+    "method": "Downloaded pre-existing successful first-party GitHub Actions artifacts, extracted original JPEGs, compared their SHA-256 with unchanged 13UC registered receipt values, manually read source image at native scale, no OCR",
+    "artifact_ids": [
+      13608607621,
+      13609163055,
+      13609391918
+    ],
+    "source_original_pages_newly_acquired": 0,
+    "source_original_same_copy": true,
+    "pdf_whole_source_attestation_claimed": false
+  },
+  "original_page_collation": [
+    {
+      "folio": "022a",
+      "sha256": "cd24b8a8bc96a3089122e14bd29fbbd5a0bca50b03d8a289ef206e90903db295",
+      "literal": "九十一日／九十二日／九十三日／九十四日",
+      "scope": "PRECEDING_TABLE_END; DO_NOT_MERGE_NUMERIC_LANES_INTO_NEW_SECTION"
+    },
+    {
+      "folio": "022b",
+      "sha256": "a7ed6c8087e29e49bb42b27ffcf07849f14dc5443a88f9b48eef2fc630afbce5",
+      "literal": "入轉遲疾差度；初日；一刻、二刻、三刻、四刻、五刻、六刻、七刻、八刻、九刻；一十、二十",
+      "scope": "NEW_TABLE_HEADING_AND_INITIAL_DAY_AND_FIRST_TWO_TENS",
+      "native_crop_bbox_xyxy": [
+        1300,
+        520,
+        2180,
+        1650
+      ],
+      "crop_format": "PNG",
+      "crop_sha256": "cfd3e523604adc8a4c5032858b4ace843fb6cc87f94b687eda06a53df6874e6a"
+    },
+    {
+      "folio": "023a",
+      "sha256": "8400ab4c21dd730008b7f3ea7ee358f9e3e0896d02a7dc561c003ae12f3dda3d",
+      "literal": "三十；四十；五十",
+      "scope": "SAME_TABLE_DECADE_HEADERS_AFTER_022B",
+      "native_crop_bbox_xyxy": [
+        350,
+        510,
+        1960,
+        1380
+      ],
+      "crop_format": "PNG",
+      "crop_sha256": "4c02217dab2f47f2fd18e3ef33990c8d547075ab83489cb3b6e0be4a4bf0a4c6"
+    },
+    {
+      "folio": "023b",
+      "sha256": "2d4f75b0ff2b4a6998b7f1459be41fe9582002675cb831e69024a0d515430dbf",
+      "literal": "六十；七十；八十；九十",
+      "scope": "SAME_TABLE_CONTINUATION; NO DAY SUFFIX ON THESE HEADERS",
+      "native_crop_bbox_xyxy": [
+        80,
+        500,
+        2090,
+        1300
+      ],
+      "crop_format": "PNG",
+      "crop_sha256": "f987977e0b4d248d8f43c786059c748f21df53e99864ff74d11c814eba29a84c"
+    },
+    {
+      "folio": "024a",
+      "sha256": "6063243df1cbcded8f3771257d76fc7fc4b132c2fb1d27bc86788c741e980e50",
+      "literal": "一日；一刻、二刻、三刻、四刻、五刻、六刻、七刻、八刻、九刻；一十",
+      "scope": "NEXT_DAY_DAY_HEADER_AFTER_PRIOR_NINETY_DECADE; SHOWS_DAY_RESET_AND_KE_DECADE_LOOP",
+      "native_crop_bbox_xyxy": [
+        800,
+        510,
+        1940,
+        1560
+      ],
+      "crop_format": "PNG",
+      "crop_sha256": "bdc36b531ead43cd1f27848b7b67d4b1e98b87f8a8b3e53052c8b0270396edc7"
+    }
+  ],
+  "adjudication": {
+    "direct_source_printed_axis": "初日 -> 一刻..九刻 -> 一十、二十、三十、四十、五十、六十、七十、八十、九十 -> 一日 -> 一刻..",
+    "local_index_interpretation": "SOURCE_TABLE_SUPPORTS_100_KE_PER_DAY_LOCAL_AXIS; DECADES_ARE_KE_TENS_NOT_TENTH_TO_NINETIETH_DAYS",
+    "separate_marginal_xian_labels": "PRESENT_BUT_NOT_YET_MAPPED_TO_XING_167_LIMITS",
+    "individual_numeric_columns_and_radix": "NOT_YET_COLLATED",
+    "g892_same_field_as_g893_xing_v45_l35": "UNPROVEN",
+    "g893_original_six_final_decisions": "0/6",
+    "g893_named_original_fields": "5/6",
+    "new_independent_original_copy_or_registry_source": 0,
+    "source_registry_combined_count": 789,
+    "matrix": "222/222",
+    "graph": "254 nodes / 239 edges",
+    "unresolved_issues": 11,
+    "deterministic_chart": "CLOSED",
+    "algorithm_reopens": 0
+  },
+  "source_level_firewalls": [
+    "'一十'...'九十' are paired with 初日/一日 and 刻 labels in THIS TABLE; this does not independently establish G893 少/微 radix, civil-hour conversion or the original Xing limit numbering.",
+    "The source also prints 限 annotations, but their coordinates/values and equivalence to Xing's 167 limits have not been reconstructed.",
+    "This is an additional bounded direct-image visual reading of an existing copy, not a second historical witness, source-registration tier upgrade, generator proof or 6-item winner."
+  ],
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "An aligned day/ke axis in G892 is not evidence of direct numeric-field identity or copying between G892, G893 and Xing v45."
+    ],
+    "unresolved_lineage_questions": [
+      "Find original column/unit instructions and comparable same-field L35/L132 independent print before a cross-work mechanical equality can be tested."
+    ]
+  },
+  "next": "Verify exact G892 限 margin anchors and associated numeric columns against the printed day/ke coordinate, then seek G893 original same-field unit/carry and an independent early Xing L35 row. Preserve all differing original glyphs and unproved unit scales."
+}
