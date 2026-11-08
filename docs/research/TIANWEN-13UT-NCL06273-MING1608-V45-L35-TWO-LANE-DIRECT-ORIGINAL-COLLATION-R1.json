@@ -1,0 +1,140 @@
+{
+  "schema": "TIANWEN-13UT-NCL06273-MING1608-V45-L35-TWO-LANE-DIRECT-ORIGINAL-COLLATION-R1",
+  "date": "2026-11-08",
+  "issue_id": "TW-OPEN-0005",
+  "aim": "Independently visually collate original-printed Xing Yunlu 古今律曆考 v45 L35 疾/遲 rate and 捷法 streams across NLC and Taiwan NCL copies, without inferring a common textual generator, decimal radix or 820-on-疾 equivalence.",
+  "provenance": {
+    "prior_source_a": {
+      "catalog_object": "NLC892-CBM1408-371933 邢雲路《古今律曆考》卷45, fascicle14",
+      "source_url": "https://upload.wikimedia.org/wikipedia/commons/5/5a/NLC892-CBM1408-371933_%E5%8F%A4%E4%BB%8A%E5%BE%8B%E6%9B%86%E8%80%83_%E4%B8%83%E5%8D%81%E4%BA%8C%E5%8D%B7_%E7%AC%AC14%E5%86%8A.pdf",
+      "original_pdf_sha256": "95b264e0447fb612a4b389b4b44e8f9871f9d0417b6893699fd37fe589cb23f3",
+      "printed_juan": 45,
+      "source_pdf_page_one_based": 66,
+      "original_gray_full_image_sha256": "ef0a5e2f175c3af7c21c15e65f11d56f1821ba8d717d78caf6a666e422c9c384",
+      "source_glyph_record": "docs/research/TIANWEN-13TR-XING-TWO-FIELD-NATIVE-PREFIX-AND-RECIPROCAL-REPLAY-R1.json",
+      "caveat": "Earlier physically catalogued Ming-printed scan; exact printing-date and engraving genealogy not newly authenticated."
+    },
+    "source_b": {
+      "catalog_object": "Taiwan National Central Library NCL 06273, catalogued 1608 孫瑋保定刊《古今律曆考》",
+      "accession_already_researched": "docs/research/TIANWEN-13NW-NCL06273-MING1608-V68-P469-ORIGINAL-QUOTIENT-CROSS-EDITION-R1.json",
+      "part_one": {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/2/25/NCL-06273_1_%E5%8F%A4%E4%BB%8A%E5%BE%8B%E6%9B%86%E8%80%83.pdf",
+        "bytes": 83125556,
+        "pages": 1000,
+        "original_pdf_sha256": "e378c1c9538274622e3138af7a466bbe96a4c43aeeb57be2e5e4dca419d21440",
+        "observed_p990": "Volume 41/42 boundary, NOT target v45; excluded from numeric collation"
+      },
+      "part_two": {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/0/05/NCL-06273_2_%E5%8F%A4%E4%BB%8A%E5%BE%8B%E6%9B%86%E8%80%83.pdf",
+        "bytes": 48561584,
+        "pages": 625,
+        "original_pdf_sha256": "4c6ec588e2fa7a13db0187b7ce8630fbfa7ec86ac47f2c8120e0f9a6b3dcce78",
+        "reuse_existing_13nw_exact_pdf_sha": true,
+        "first_table_source_page": 76,
+        "first_table_not_target_page": 78,
+        "second_168_limit_table_header_source_page": 86,
+        "target_limit35_second_table_source_page": 88,
+        "juan46_opens_page": 100,
+        "page86_native_embedded_jpeg_sha256": "8de8d77a2e88eb81290130f42b17f0e391a8a36680335949a977427b4a65b9a1",
+        "page88_native_embedded_image_pixels": [
+          842,
+          563
+        ],
+        "page88_native_embedded_jpeg_sha256": "abb937c517b5ebc6c5f525b10cf9e8cd59447d94be9010a3511dd7db9921b422",
+        "l35_context_native_pixel_crop_rect": [
+          328,
+          96,
+          556,
+          540
+        ],
+        "l35_context_native_rgb_pixel_sha256": "0c42531fb2c8b1cddd503c30a2c522a5ad0d4f4f1630286ac5fe497d6e9146d3",
+        "l35_context_nearest4x_visual_only_png_sha256": "12a568cbb28b886f747ade213cd138113d6b10b8bb099c3864eda40cfd3b3429"
+      },
+      "source_scope_caution": "Part1 and part2 belong to ONE NCL 06273 catalogued physical holding, already known from 13NW. Image URLs, archive item identity, image hashes and direct prints are positive; historical plate/copy linkage with NLC is not established."
+    }
+  },
+  "review": {
+    "acquisition_workflow": ".github/workflows/research-tianwen-13ut-ncl1608-v45-page-locator.yml",
+    "last_success_workflow_run": "https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/42491614726",
+    "last_success_workflow_job_id": 128765017087,
+    "artifact_id": 13622200705,
+    "artifact_name": "tianwen-13ut-ncl1608-v45-source-page-window",
+    "artifact_retention_days": 30,
+    "method": "Original embedded 842x563 JPEG p88 visually read with native-area RGB SHA binding, nearest-neighbor x4 enlargement for display only. No OCR, AI restoration, invented source characters or extrapolated math-as-glyphs.",
+    "source_p88_second_table_heading": "太陰限度／疾曆行度／疾曆捷法／遲曆行度／遲曆捷法; original p86 heading establishes second table field identity, unlike p78 first 損益 table.",
+    "dual_lane_l35": [
+      {
+        "lane": "疾",
+        "limit": 35,
+        "ncl_original_rate_glyphs": "疾一度一七五二",
+        "ncl_original_jiefa_glyphs": "六微九七五三〇",
+        "previous_nlc_p66_same_printed_stream": true,
+        "conditional_printed_rate_1e4_integer": 11752,
+        "conditional_printed_coefficient_1e5_integer": 697530,
+        "floor_820_normalized_model_1e5": 697753,
+        "printed_minus_floor": -223,
+        "scope": "Original visible characters; splitting 1e4/1e5 and applying 820 divided by 疾 is only a HYPOTHESIS, not source-native text authority"
+      },
+      {
+        "lane": "遲",
+        "limit": 35,
+        "ncl_original_rate_glyphs": "遲一度〇一七四",
+        "ncl_original_jiefa_glyphs": "八微〇五九六七",
+        "previous_nlc_p66_same_printed_stream": true,
+        "conditional_printed_rate_1e4_integer": 10174,
+        "conditional_printed_coefficient_1e5_integer": 805967,
+        "floor_820_normalized_model_1e5": 805976,
+        "printed_minus_floor": -9,
+        "scope": "Original p73 NLC says 右置八百二十以遲行度而一為捷法, but native display, carry, and pre-rounded rates remain unresolved"
+      }
+    ],
+    "adjacent_controls": {
+      "l34": {
+        "ji": "疾一度一七六四／六微九七〇四一",
+        "chi": "遲一度〇一六二／八微〇六九二七"
+      },
+      "l36": {
+        "ji": "疾一度一七三九／六微九八五二六",
+        "chi": "遲一度〇一八七／八微〇四九四七"
+      },
+      "status": "Source-visible paired local ordinal controls; listed for page row-mapping only, not a 168-limit full-table collation"
+    }
+  },
+  "adjudication": {
+    "physically_distinct_scanned_objects": 2,
+    "cross_original_l35_lanes_with_matching_reported_printed_glyphs": 2,
+    "printing_plate_genealogy_independence": "UNRESOLVED",
+    "independent_textual_votes_awarded": 0,
+    "new_physical_catalogued_holding_count": 0,
+    "registry_sources_added": 0,
+    "stemma_nodes_added": 0,
+    "stemma_edges_added": 0,
+    "scope": "Existing NLC p66 L35 strings corroborated by another catalogued source-original page, reducing single-image transcription uncertainty. Equal strings do NOT prove direct copying, plate identity, authorial correct/incorrect arithmetic, source-native coefficient construction or G893 exact field/unit equality.",
+    "six_g893_historical_cross_edition_final_decisions": "0/6",
+    "g893_named_controls": "5/6",
+    "issue_status": "P0 OPEN",
+    "chart_product": "CLOSED",
+    "algorithm_reopens": 0
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "NLC CBM1408 v45 and NCL 06273 v45 aligned L35 numerics do not establish independent text lineages, same engraving blocks, direct exemplar copying or common original G892/G893 generator."
+    ],
+    "unresolved_lineage_questions": [
+      "Establish NLC/NCL printing genealogy only from edition-level material or colophon evidence, not same L35 numbers."
+    ]
+  },
+  "next_priority": "Source-native 疾 column constructor/operand, 遲 intermediate hidden rate/carry; independent earlier 1600 徐安 edition v45 target page if public; G892 native coefficient constructor and limit epoch mapping. No six-control G893 verdict without direct equivalent fields and native units.",
+  "counters": {
+    "matrix_total": 222,
+    "matrix_audited": 222,
+    "source_registry_union": 789,
+    "transmission_graph_nodes": 254,
+    "transmission_graph_edges": 239,
+    "open_omission_issues": 11,
+    "confirmed_chart_algorithm_defects": 0
+  }
+}
