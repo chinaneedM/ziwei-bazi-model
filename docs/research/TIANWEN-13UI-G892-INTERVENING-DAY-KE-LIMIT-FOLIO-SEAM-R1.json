@@ -1,0 +1,198 @@
+{
+  "schema": "TIANWEN-13UI-G892-INTERVENING-DAY-KE-LIMIT-FOLIO-SEAM-R1",
+  "date": "2026-11-08",
+  "issue_id": "TW-OPEN-0005",
+  "problem": "Does direct first-party physical print fill the missing G892 folios 024b–026b and independently confirm uninterrupted local day/ke headings plus marginal 限 labels across 一日→二日→三日 without inventing a constant xian-to-ke conversion?",
+  "starting_remote": {
+    "head": "1df497c6919015f63f00f71f768fb5be0a1595c8",
+    "tree": "5b179e9b9ac57aee9569dbc24b535558fb951b6d",
+    "previous": "13UH complete four-folio general arithmetic mnemonic appendix; 13UF had bounded 022b–024a and spaced 027a but intervening 024b–026b was not collated."
+  },
+  "source": {
+    "provider": "Seoul National University Kyujanggak",
+    "catalog_url": "https://kyudb.snu.ac.kr/book/view.do?book_cd=GK00892_00",
+    "book_cd": "GK00892_00",
+    "call_number": "奎貴892",
+    "work_title": "授時曆捷法立成",
+    "single_historical_source_copy": true,
+    "formal_registry_tier": "BIBLIOGRAPHIC_METADATA_ONLY, with individual source-native original JPEG SHA and bounded manual glyph attestations",
+    "source_image_resolution": [
+      2204,
+      3743
+    ]
+  },
+  "acquisition": {
+    "mechanism": "Reused existing 13UA Puppeteer-firstparty viewer workflow; appended provider-indexed 024a,024b,025a,025b,026a,026b,027a. Each issued image filename came from official clickable page index; no invented identifiers, account, payment or bypass.",
+    "workflow_modification_commit": "1df497c6919015f63f00f71f768fb5be0a1595c8",
+    "run_id": 42470496416,
+    "run_status": "SUCCESS",
+    "artifact_id": 13613331667,
+    "artifact_name": "tianwen-13ua-g892-source-indexed-heading-window",
+    "page_index_count": 96,
+    "images_acquired": 19,
+    "errors": [],
+    "local_sha256_match_count": 19,
+    "local_sha256_mismatch_count": 0,
+    "extra_unpreviously_reviewed_target_pages": [
+      "024b",
+      "025a",
+      "025b",
+      "026a",
+      "026b"
+    ],
+    "source_copy_count_gain": 0,
+    "registry_source_count_gain": 0,
+    "independent_witness_gain": 0,
+    "ocr_used": false,
+    "original_images_uploaded_to_public_git": false
+  },
+  "direct_original_folios": [
+    {
+      "folio": "024a",
+      "sha256": "6063243df1cbcded8f3771257d76fc7fc4b132c2fb1d27bc86788c741e980e50",
+      "bytes": 352937,
+      "px": [
+        2204,
+        3743
+      ],
+      "source_image_url": "https://kyudb.snu.ac.kr/ImageServlet.do?imgFileNm=GK00892_00IH_0001_024a.jpg&path=/data01/stream/SIC/IMG/GK00892_00/GK00892_00_0001/GK00892_00IH_0001_024a.jpg",
+      "source_native_visible_heading": "一日, single-digit 刻 and 一十",
+      "direct_manual_no_ocr_scope": "Pre-existing 13UE/F direct source-original day reset and continuing marginal 限十一"
+    },
+    {
+      "folio": "024b",
+      "sha256": "be467e2eaaa6d69f16ec750cf44eb185f80ad6c6ef9b9e774f4d096389806b59",
+      "bytes": 361513,
+      "px": [
+        2204,
+        3743
+      ],
+      "source_image_url": "https://kyudb.snu.ac.kr/ImageServlet.do?imgFileNm=GK00892_00IH_0001_024b.jpg&path=/data01/stream/SIC/IMG/GK00892_00/GK00892_00_0001/GK00892_00IH_0001_024b.jpg",
+      "source_native_visible_heading": "二十、三十、四十、五十",
+      "direct_manual_no_ocr_scope": "New directly collated same-table four ke-tens headings, numeric lanes and several marginal 限十... continuation markers, without exact limit/ke boundary mapping"
+    },
+    {
+      "folio": "025a",
+      "sha256": "f281e26064e347e8209157ef5ecabe9a641bd2758fd22d27f8c105e29d28f1f9",
+      "bytes": 362407,
+      "px": [
+        2204,
+        3743
+      ],
+      "source_image_url": "https://kyudb.snu.ac.kr/ImageServlet.do?imgFileNm=GK00892_00IH_0001_025a.jpg&path=/data01/stream/SIC/IMG/GK00892_00/GK00892_00_0001/GK00892_00IH_0001_025a.jpg",
+      "source_native_visible_heading": "六十、七十、八十",
+      "direct_manual_no_ocr_scope": "New directly collated same-table ke headings, numeric columns and margin 限 symbols, not a source-native uniform limit length"
+    },
+    {
+      "folio": "025b",
+      "sha256": "4d9aa95485fbebe2b1bee4244cde8f472fa4396a9d709783a5c604740a109c8b",
+      "bytes": 377572,
+      "px": [
+        2204,
+        3743
+      ],
+      "source_image_url": "https://kyudb.snu.ac.kr/ImageServlet.do?imgFileNm=GK00892_00IH_0001_025b.jpg&path=/data01/stream/SIC/IMG/GK00892_00/GK00892_00_0001/GK00892_00IH_0001_025b.jpg",
+      "source_native_visible_heading": "九十；二日；单刻、五刻至九刻、一十",
+      "direct_manual_no_ocr_scope": "New same-copy explicit day-header transition from first day through 九十 to 二日 with local ke labels and continued marginal 限, not a new document section or a fixed historical computation formula"
+    },
+    {
+      "folio": "026a",
+      "sha256": "001502dfe3bb03a2a9bd440dd9a9acd9fc354895bd74694972c3e431984d8ef0",
+      "bytes": 361277,
+      "px": [
+        2204,
+        3743
+      ],
+      "source_image_url": "https://kyudb.snu.ac.kr/ImageServlet.do?imgFileNm=GK00892_00IH_0001_026a.jpg&path=/data01/stream/SIC/IMG/GK00892_00/GK00892_00_0001/GK00892_00IH_0001_026a.jpg",
+      "source_native_visible_heading": "二十、三十、四十",
+      "direct_manual_no_ocr_scope": "New source original follows 二日 heading with successive tens and marginal limit markers"
+    },
+    {
+      "folio": "026b",
+      "sha256": "77bc61669f180e6e638923368513ac34b1d26e6e13ca0abdd1a6cb13e9b34708",
+      "bytes": 356374,
+      "px": [
+        2204,
+        3743
+      ],
+      "source_image_url": "https://kyudb.snu.ac.kr/ImageServlet.do?imgFileNm=GK00892_00IH_0001_026b.jpg&path=/data01/stream/SIC/IMG/GK00892_00/GK00892_00_0001/GK00892_00IH_0001_026b.jpg",
+      "source_native_visible_heading": "五十、六十、七十、八十",
+      "direct_manual_no_ocr_scope": "New original same-table ke-tens before second day-to-third transition; marginal 限 notes continue"
+    },
+    {
+      "folio": "027a",
+      "sha256": "babdddb854eb72c6eb68c9a2128796c2f10a83436f643793ee659a72d1d71675",
+      "bytes": 379464,
+      "px": [
+        2204,
+        3743
+      ],
+      "source_image_url": "https://kyudb.snu.ac.kr/ImageServlet.do?imgFileNm=GK00892_00IH_0001_027a.jpg&path=/data01/stream/SIC/IMG/GK00892_00/GK00892_00_0001/GK00892_00IH_0001_027a.jpg",
+      "source_native_visible_heading": "九十；三日；local single-ke and 一十",
+      "direct_manual_no_ocr_scope": "Earlier 13UB 027a SHA byte-identical, now directly connected by five intervening source pages showing middle 二日 heading; source-local serial continuity, not same-field with G893"
+    }
+  ],
+  "combined_table_axis": {
+    "pre_existing_022b": "初日 + 一刻..九刻 / 一十、二十",
+    "pre_existing_023a": "三十、四十、五十",
+    "pre_existing_023b": "六十、七十、八十、九十",
+    "this_replay": "024a 一日 local-ke restart -> 024b 二十..五十 -> 025a 六十..八十 -> 025b 九十 then 二日 local-ke restart -> 026a 二十..四十 -> 026b 五十..八十 -> 027a 九十 then 三日 local-ke restart",
+    "day_header_sequence": [
+      "初日",
+      "一日",
+      "二日",
+      "三日"
+    ],
+    "continuous_original_folio_window": [
+      "022b",
+      "023a",
+      "023b",
+      "024a",
+      "024b",
+      "025a",
+      "025b",
+      "026a",
+      "026b",
+      "027a"
+    ],
+    "chapter_header": "入轉遲疾差度, firstparty original 022b",
+    "counted_folios_in_window": 10
+  },
+  "adjudication": {
+    "original_intervening_folios": "ACQUIRED_DIRECT_ORIGINAL_AND_SHA_BOUND",
+    "day_ke_spanning_two_resets": "SUPPORTED_SOURCE_NATIVE_FOLIO_CONTINUITY",
+    "source_local_100_ke_per_day_axis": "SUPPORTED_AS_TABLE_LABEL_STRUCTURE_NOT_ABSOLUTE_TIME_OR_NOMINAL_LUNAR_LIMIT_LENGTH",
+    "marginal_xian_markers": "CONTINUE_ACROSS_NEW_DAY_HEADERS_NOT_SAME_AS_KE_NUMBERING",
+    "exact_limit_boundary_coordinates_to_ke_values": "NOT_FULLY_COLLATED",
+    "exact_source_numeric_lanes_and_units": "NOT_COLLATED",
+    "uniform_xian_length": "NOT_TESTED_OR_PROVEN",
+    "g892_g893_xing_same_numeric_field": "UNPROVEN",
+    "g893_historical_six_numeric_finals": "0/6",
+    "g893_named_fields": "5/6",
+    "tw_open_0005": "P0 OPEN",
+    "matrix": "222/222",
+    "registered_sources": "647 + 142 = 789",
+    "genealogy": "254 nodes / 239 edges",
+    "unresolved_issues": 11,
+    "chart": "CLOSED",
+    "algorithm_reopens": 0
+  },
+  "non_inferences": [
+    "Local 初日/一日/二日/三日 and ke headings in a Korean source-original table do not by themselves identify an exact lunar day coordinate, decimal radix or unit link to G893, Xing v45 or 1569.",
+    "Repeated source marginal 限 notices and apparent progression do not establish equal-width limits or a 100-ke-to-168-limit conversion. Numeric row boundaries and source operand labels still require full position-to-row mapping.",
+    "Five new images originate in the same physical historical copy, and reuse an existing registered provider item; do not count each folio or each artifact as independent ancient witness.",
+    "Original 043a–044b 算法 remains an independent generic arithmetic appendix; it does not automatically explain the numerical table's interpolation or historical rounding."
+  ],
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Longer same-book continuous G892 axis does not prove source descent, complete same-column identity, or a historical limit rate imported from Xing v45/G893."
+    ],
+    "unresolved_lineage_questions": [
+      "Which printed numeric lanes encode xian-to-ke crossing and whether a source-native worked example states an operator/denominator distinct from generic 算法 verses?"
+    ]
+  },
+  "next": "Use the already SHA-bound original contiguous 022b–027a images to establish exact vertical column pairing of marginal 限 and day/ke row and numerical radices at a small set of clearly positioned crossings; do not assume every 限 is exactly an equal number of 刻. Prefer an original explanatory formula or worked example before G893/Xing equality."
+}
