@@ -1,0 +1,108 @@
+name: acquire-tianwen-13tz-g892-source-issued-images
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/acquire-tianwen-13tz-g892-source-issued-images.yml
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  first-party-probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install existing Kyudb browser dependency
+        run: npm install --no-save --silent puppeteer-core@24.16.0
+      - name: Reuse source-emitted G892 image identifiers, no guessed pages
+        shell: bash
+        run: |
+          mkdir -p artifacts/g892-13tz/images
+          node --input-type=module <<'JS'
+          import puppeteer from 'puppeteer-core';
+          import fs from 'node:fs';
+          import crypto from 'node:crypto';
+          const dir='artifacts/g892-13tz', book='GK00892_00';
+          const sha=b=>crypto.createHash('sha256').update(b).digest('hex');
+          const browser=await puppeteer.launch({headless:true,executablePath:process.env.CHROME||'/usr/bin/google-chrome',args:['--no-sandbox','--disable-setuid-sandbox']});
+          const report={schema:'TIANWEN-13TZ-G892-SOURCE-ISSUED-IMAGE-PROBE-R1',date:'2026-11-08',book_cd:book,entry_url:'https://kyudb.snu.ac.kr/book/view.do?book_cd='+book,viewer_opened:false,source_emitted_images:[],source_original_responses:[],page_text_locator_only:[],access_errors:[],glyph_collation_performed:false,source_original_numeric_awards:0,independent_historical_witness_awards:0};
+          try {
+            const p=await browser.newPage();
+            await p.setUserAgent('Mozilla/5.0 Tianwen-ReadOnly-Source-Audit/1.0');
+            await p.goto('https://kyudb.snu.ac.kr/book/list.do?book_cate=SIC04&mid=GDS',{waitUntil:'networkidle2',timeout:90000});
+            await Promise.all([
+              p.waitForNavigation({waitUntil:'networkidle2',timeout:90000}),
+              p.evaluate(book=>{
+                const f=document.getElementById('frmBookSearchInf');
+                f.querySelector('#book_cd').value=book;
+                f.querySelector('#target').value='master';
+                f.action='/book/view.do';f.method='post';f.submit();
+              },book)
+            ]);
+            const emitted=await p.evaluate(()=>Array.from(document.querySelectorAll('img[src]')).map(x=>new URL(x.getAttribute('src'),location.href).href).filter(x=>x.includes('/ThumbServlet.do')&&x.includes('GK00892_00')));
+            const expected=['GK00892_00IH_0001_000a.jpg','GK00892_00IH_0001_004b.jpg'];
+            const exact=emitted.filter(u=>expected.some(k=>u.includes(k)));
+            report.source_emitted_images=exact;
+            if(exact.length===0)report.access_errors.push('The two source-emitted thumbnail filenames were not found in live catalog DOM');
+            for(const [i,url] of exact.entries()){
+              const ip=await browser.newPage();
+              try{
+                const r=await ip.goto(url,{waitUntil:'domcontentloaded',timeout:25000});
+                const b=r?.ok()?await r.buffer():null;
+                const entry={source_url:url,http:r?.status()??null,content_type:r?.headers()?.['content-type']??null,bytes:b?.length??0,sha256:b?sha(b):null,source_grade:'CATALOG_THUMBNAIL_ONLY_UNCOLLATED'};
+                if(b && b.length>2000 && b[0]===255 && b[1]===216){const path='images/thumb-'+i+'.jpg';fs.writeFileSync(dir+'/'+path,b);entry.local_file=path;}
+                report.source_original_responses.push(entry);
+              }catch(e){report.access_errors.push('thumb '+i+': '+String(e).slice(0,160));}
+              await ip.close();
+            }
+            const before=new Set(browser.targets().map(t=>t._targetId));
+            await p.evaluate(book=>window.fn_originalImg('SIC',book,'',''),book);
+            let viewer=null;
+            for(let i=0;i<30&&!viewer;i++){
+              await new Promise(r=>setTimeout(r,500));
+              for(const t of browser.targets())if(t.type()==='page'&&!before.has(t._targetId)&&t.url().includes('/pf01/rendererImg.do')){viewer=await t.page();break;}
+            }
+            if(viewer){
+              report.viewer_opened=true;report.viewer_url=viewer.url();
+              const seen=[];
+              viewer.on('response',r=>{const u=r.url();if(u.includes('ImageServlet.do')&&u.includes(book))seen.push({url:u,http:r.status(),content_type:r.headers()['content-type']??null});});
+              await viewer.waitForNetworkIdle({idleTime:1200,timeout:25000}).catch(()=>{});
+              report.source_emitted_full_image_requests=seen;
+              for(const folio of ['000a','004b']){
+                try {
+                  const a=await viewer.evaluate(async({book,folio})=>{
+                    const r=await fetch('/pf01/pageText.do',{method:'POST',headers:{'content-type':'application/x-www-form-urlencoded; charset=UTF-8'},body:new URLSearchParams({item_cd:'SIC',book_cd:book,vol_no:'0001',page_no:folio})});
+                    const s=await r.text();let j;try{j=JSON.parse(s)}catch{j=null}
+                    const d=document.createElement('div');d.innerHTML=j?.ORG?.list||'';
+                    return {status:r.status,bytes:s.length,text:(d.innerText||d.textContent||'').replace(/\\s+/g,' ').slice(0,1800)};
+                  },{book,folio});
+                  report.page_text_locator_only.push({folio,...a,grade:'PROVIDER_TEXT_LAYER_NOT_ORIGINAL_GLYPH'});
+                }catch(e){report.access_errors.push('pageText '+folio+': '+String(e).slice(0,160));}
+              }
+              const sourceImageURLs=[...new Set(seen.map(x=>x.url))].filter(x=>x.startsWith('https://kyudb.snu.ac.kr/')&&x.includes('GK00892_00IH_0001_')&&x.includes('/ImageServlet.do')).slice(0,2);
+              for(const [i,url] of sourceImageURLs.entries()){
+                const ip=await browser.newPage();
+                try{
+                  const r=await ip.goto(url,{waitUntil:'domcontentloaded',timeout:25000});
+                  const b=r?.ok()?await r.buffer():null;
+                  const entry={source_url:url,http:r?.status()??null,content_type:r?.headers()?.['content-type']??null,bytes:b?.length??0,sha256:b?sha(b):null,source_grade:'FIRSTPARTY_ORIGINAL_IMAGE_BYTES_UNCOLLATED'};
+                  if(b&&b.length>5000&&b[0]===255&&b[1]===216){const path='images/source-'+i+'.jpg';fs.writeFileSync(dir+'/'+path,b);entry.local_file=path;}
+                  report.source_original_responses.push(entry);
+                }catch(e){report.access_errors.push('source-image '+i+': '+String(e).slice(0,160));}
+                await ip.close();
+              }
+            }else report.access_errors.push('First-party original-image viewer not resolved from live catalog');
+          }catch(e){report.access_errors.push('fatal: '+String(e).slice(0,300));}
+          finally {
+            fs.writeFileSync(dir+'/receipt.json',JSON.stringify(report,null,2)+'\n');
+            console.log(JSON.stringify({viewer_opened:report.viewer_opened,thumbs_source_emitted:report.source_emitted_images.length,original_gets:report.source_original_responses.map(x=>({http:x.http,bytes:x.bytes,grade:x.source_grade})),errors:report.access_errors},null,2));
+            await browser.close();
+          }
+          JS
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: tianwen-13tz-g892-source-issued-image-probe
+          path: artifacts/g892-13tz/
+          retention-days: 30
+          if-no-files-found: error
