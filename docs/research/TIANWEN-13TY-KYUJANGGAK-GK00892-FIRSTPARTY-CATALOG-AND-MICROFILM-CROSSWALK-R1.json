@@ -1,0 +1,96 @@
+{
+  "schema": "TIANWEN-13TY-KYUJANGGAK-GK00892-FIRSTPARTY-CATALOG-AND-MICROFILM-CROSSWALK-R1",
+  "date": "2026-11-08",
+  "issue_id": "TW-OPEN-0005",
+  "question": "Does the Kyujanggak institutional item page provide an exact present-day catalog identity and authorized-image lead for Kang Bo's 捷法立成, and what chronology/physical-copy/field controls remain unresolved?",
+  "first_party_catalog": {
+    "provider": "SNU Kyujanggak Institute for Korean Studies / 규장각한국학연구원",
+    "official_item_url": "https://kyudb.snu.ac.kr/book/view.do?book_cd=GK00892_00",
+    "book_cd": "GK00892_00",
+    "call_number": "奎貴892",
+    "original_title": "授時曆捷法立成",
+    "reported_compiler": "姜保(高麗) 編",
+    "reported_object_extent": "1冊(46張)",
+    "reported_print_type": "甲寅字",
+    "catalog_date_band": "15世紀 前半(世宗 年間:1418-1450)",
+    "reported_format": "四周單邊, 半葉匡郭 27.8×19.7cm, 11行 19字 注雙行",
+    "current_institutional_microfilm_number": "M/F66-1-1-A",
+    "visible_contents_labels": [
+      "冬至日",
+      "入轉遲疾日",
+      "冬至前後盈初縮末限",
+      "夏至前後縮初盈末限",
+      "入轉遲疾差度",
+      "加減刻立成",
+      "時刻立成"
+    ],
+    "catalog_has_original_image_section": true,
+    "historical_source_glyphs_reviewed": false,
+    "actual_original_image_pdf_jpeg_bytes_acquired": false,
+    "confirmed_exact_impression_year": false,
+    "identity_grade": "DIRECT_OFFICIAL_CATALOG_ITEM_NOT_DIRECT_HISTORICAL_TABLE_GLYPH"
+  },
+  "existing_1966_crosswalk": {
+    "earlier_research": "docs/research/TIANWEN-13SW-SNU1966-KANGBO-JIEFA-MICROFILM-LOCATOR-CHRONOLOGY-R1.json",
+    "registered_prior_source_id": "EXT-TIANWEN-13SW-SNU1966-KANGBO-JIEFA-MICROFILM-INDEX",
+    "matched_literal_film_number": "66-1-1-A",
+    "matched_title": "授時曆捷法立成",
+    "matched_compiler": "姜保",
+    "historic_1966_inventory_extent": "1冊 / 48 frames / 13 feet",
+    "current_catalog_extent": "1冊 / 46 historical leaves",
+    "adjudication": "The official current Kyujanggak catalog and the 1966 SNU microfilm inventory share a concrete film identifier, title and compiler. Frame count and historical-leaf count are different measurement types; do not infer error or count two medieval source witnesses.",
+    "current_reel_or_public_page_access_proven": false
+  },
+  "chronology_guard": {
+    "catalog_display_short_literal": "至正八年(1316)",
+    "era_year_expected_common_era": "1348 CE for 元順帝至正八年",
+    "confirmation": "ChineseCalendar year table 1348 is 元順帝至正八年, consistent with basic era chronology",
+    "external_comparator_url": "https://ytliu0.github.io/ChineseCalendar/table_period_chinese.html?period=yuan",
+    "issue": "OFFICIAL_CATALOG_INLINE_ERA_TO_CE_MISMATCH",
+    "neither_original_colophon_directly_reviewed_nor_1316_corrected": true,
+    "note": "The site text is also abbreviated and context may be compressed. Record the literal source display and its arithmetic incompatibility without diagnosing the originating scribal/catalog mechanism or rewriting an uninspected ancient leaf.",
+    "colophon_date_is_not_current_impression_date": true
+  },
+  "work_and_copy_firewall": {
+    "distinct_institutional_work_and_call_number": "王恂等《授時曆立成》=GK00893_00 / 奎貴893; 姜保《授時曆捷法立成》=GK00892_00 / 奎貴892",
+    "g893_official_url": "https://kyudb.snu.ac.kr/book/view.do?book_cd=GK00893_00",
+    "printed_age_or_microfilm_same_edition_as_g893_proven": false,
+    "old_1941_reported_shelfmark": "奎20981",
+    "old_1941_report_unified_with_current_892": false,
+    "potential_relevant_table_head": "入轉遲疾差度",
+    "same_field_as_Xing_L35_or_G893_proven": false,
+    "medieval_original_digit_or_sha_wei_carry_decision": "NONE"
+  },
+  "new_source_registration": {
+    "source_id": "EXT-TIANWEN-13TY-KYUJANGGAK-GK00892-FIRSTPARTY-CATALOG",
+    "shard": "docs/research/TIANWEN-13TY-GK00892-FIRSTPARTY-CATALOG-SOURCE-SHARD-R1.json",
+    "registry_root_sources_unchanged": 647,
+    "registry_extension_sources_after": 141,
+    "registry_total_after": 788,
+    "register_as_bibliographic_only": true,
+    "independent_historical_numeric_witnesses_added": 0
+  },
+  "adjudication": {
+    "current_catalog_identity_positive": true,
+    "direct_ancient_image_positive": false,
+    "g893_named_fields": "5/6",
+    "g893_historical_finals": "0/6",
+    "tw_open_0005": "P0 OPEN",
+    "matrix": "222/222",
+    "graph_nodes": 254,
+    "graph_edges": 239,
+    "open_issues": 11,
+    "deterministic_chart": "CLOSED",
+    "algorithm_reopens": 0
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "M/F66-1-1-A crosswalk establishes institutional inventory continuity only, not a historic original textual dependency or shared numeric field with G893.",
+      "G892 and G893 neighboring call numbers and shared 甲寅字 description do not prove shared table or copy."
+    ]
+  },
+  "next": "Seek a legitimately public direct original image within the item page's documented original-image offering and an explicit relevant source-native row/unit, without invented image identifiers, registration/payment or repeating rate-limited downloads. Reconcile displayed 至正八年(1316) only after source-original colophon or a source-identified catalog correction becomes available."
+}
