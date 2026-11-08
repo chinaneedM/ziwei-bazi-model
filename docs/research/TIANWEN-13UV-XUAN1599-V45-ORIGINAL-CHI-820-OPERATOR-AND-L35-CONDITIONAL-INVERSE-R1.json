@@ -1,0 +1,137 @@
+{
+  "schema": "TIANWEN-13UV-XUAN1599-V45-ORIGINAL-CHI-820-OPERATOR-AND-L35-CONDITIONAL-INVERSE-R1",
+  "date": "2026-11-08",
+  "issue_id": "TW-OPEN-0005",
+  "question": "Does the Xu-An catalogue-labelled 1599 original v45 p21 explicitly assign the 820 reciprocal operator to 疾 or 遲, and can the source-original L35 variants be explained by one conditional four-place-rate/five-place-coefficient 820 model?",
+  "epistemic_firewall": "SOURCE_GLYPHS_ARE_OBSERVED; MODERN_RADIX_AND_CROSS_LANE_RECIPROCAL_ARE_DECLARED_HYPOTHESES; NO_HISTORICAL_ARITHMETIC_OR_ERROR_VERDICT",
+  "same_catalogued_holding_as_prior": "docs/research/TIANWEN-13UU-NLC-XUAN1599-V45-L35-DUAL-LANE-ORIGINAL-EDITION-COLLATION-R1.json",
+  "primary_print": {
+    "catalogued_holding": "NLC892-411999015732 / no.08938 第19冊; catalogue-labelled 徐安萬曆27年[1599], not independent physical colophon authentication",
+    "source_pdf_sha256": "b5b11ebcb4a7922898ff5f68eae3d31ed8317d92d55f3990fcb4ab7414664520",
+    "original_page_21": {
+      "pdf_page_one_based": 21,
+      "native_embedded_jpx_sha256": "b7ade4ad155bd8b8df507062fa825770c71bf2909177a1607d7ff24a8a86e1d5",
+      "native_image_size_px": [
+        4299,
+        3677
+      ],
+      "source_native_rgb_roi_rect_xyxy": [
+        905,
+        610,
+        1380,
+        3310
+      ],
+      "source_native_rgb_roi_sha256": "c0c41292f1d26aac9afee8c32cf77579797e88cfc69700d7218a624a891e7d84",
+      "direct_no_ocr_literal": "右置八百二十以遲行度而一為捷法",
+      "scope": "At the terminal part of the 168-limit 疾/遲 numeric table in this volume; literal explicitly specifies 遲. It does not prove an analogous 疾 operator or global uniform precision."
+    },
+    "original_page_14": {
+      "pdf_page_one_based": 14,
+      "native_embedded_jpx_sha256": "113b62b54eeb01806540cbe780f66d7fec33f05b56e2ecc72bc6187ec42e815d",
+      "native_image_size_px": [
+        4299,
+        3628
+      ],
+      "source_native_rgb_l35_roi_rect_xyxy": [
+        2820,
+        430,
+        3080,
+        3330
+      ],
+      "source_native_rgb_l35_roi_sha256": "48c4d8a85c4e83e5176141151968b0089c8f047749cdf850c38be0593dd47050",
+      "direct_1599_L35_ji": "疾度一七五三／六微九七五三三",
+      "direct_1599_L35_chi": "遲度〇一七四／八微〇五九六七"
+    },
+    "artifact": {
+      "workflow_run_id": 42493585818,
+      "workflow_run_url": "https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/42493585818",
+      "artifact_id": 13622736172,
+      "artifact_retention_days": 30
+    }
+  },
+  "cross_print": {
+    "later_source": "docs/research/TIANWEN-13UT-NCL06273-MING1608-V45-L35-TWO-LANE-DIRECT-ORIGINAL-COLLATION-R1.json",
+    "later_printed_ji_rate": "一七五二",
+    "later_printed_ji_coefficient": "六微九七五三〇",
+    "later_printed_chi_rate": "〇一七四",
+    "later_printed_chi_coefficient": "八微〇五九六七",
+    "qualitative": "The earlier catalogued source and 1608 source agree in the printed 遲 rate/coefficient pair at L35; the reported 疾 pair differs at rate terminal and coefficient terminal. Do not infer identical block, independent print stems or an authorial correction."
+  },
+  "numeric_model": {
+    "hypothesis": "Compare printed rate as integer r in 1e4 units and candidate coefficient as integer c in 1e5 units; apply hypothetical floor(8200000000 / r). Ancient source radix, printed 微 role and whether 820 rule extends to 疾 remain unproved.",
+    "original_text_supported_lane": "遲",
+    "cross_lane_ji_model_status": "UNATTESTED_EXTRAPOLATION_ONLY",
+    "scale_numerator_integer": 8200000000,
+    "exact_results": [
+      {
+        "source": "NLC_XUAN_CATALOGUED_1599",
+        "lane": "疾",
+        "limit": 35,
+        "printed_rate_four_place_integer": 11753,
+        "printed_coefficient_five_place_integer": 697533,
+        "conditional_floor_scaled_820_divided_by_rate": 697694,
+        "printed_minus_conditional_floor": -161,
+        "hidden_rate_if_coefficient_is_floor": {
+          "lower_exclusive": "8200000000/697534",
+          "upper_inclusive": "8200000000/697533",
+          "approx_lower": 11755.699363758613,
+          "approx_upper": 11755.716217010522
+        }
+      },
+      {
+        "source": "NCL_06273_CATALOGUED_1608",
+        "lane": "疾",
+        "limit": 35,
+        "printed_rate_four_place_integer": 11752,
+        "printed_coefficient_five_place_integer": 697530,
+        "conditional_floor_scaled_820_divided_by_rate": 697753,
+        "printed_minus_conditional_floor": -223,
+        "hidden_rate_if_coefficient_is_floor": {
+          "lower_exclusive": "8200000000/697531",
+          "upper_inclusive": "8200000000/697530",
+          "approx_lower": 11755.749923659307,
+          "approx_upper": 11755.766777056184
+        }
+      },
+      {
+        "source": "BOTH_PRINTED_SOURCES",
+        "lane": "遲",
+        "limit": 35,
+        "printed_rate_four_place_integer": 10174,
+        "printed_coefficient_five_place_integer": 805967,
+        "conditional_floor_scaled_820_divided_by_rate": 805976,
+        "printed_minus_conditional_floor": -9,
+        "hidden_rate_if_coefficient_is_floor": {
+          "lower_exclusive": "8200000000/805968",
+          "upper_inclusive": "8200000000/805967",
+          "approx_lower": 10174.10120501062,
+          "approx_upper": 10174.113828481812
+        }
+      }
+    ],
+    "deduction": "Under this explicitly artificial fixed printed-rate reciprocal, 1599 疾 L35 mismatch is -161 coefficient ticks, 1608 疾 L35 is -223, and shared 遲 L35 -9. For 遲 c=805967 the exact hypothetical pre-printed divisor interval (N/805968, N/805967] lies within the printed r=10174 truncation or nearest integer display bin; for 疾 both printed c values require hidden r around 11755.7, beyond r=11753 and r=11752 bins under either simple display rule.",
+    "forbiddance": "Neither a 1599 nor a 1608 疾 numerical mismatch is a demonstrated original arithmetic mistake; source says 遲. Hidden intermediate precision, copy-specific glyphs, mixed unit system, and construction are open. Differences in printed c cannot be declared emendation without independently authenticating plate/imprint and operator."
+  },
+  "transmission_impact": {
+    "new_nodes": [],
+    "new_edges": [],
+    "established": "Original Xu-An catalogue-labelled 1599 v45 p21 directly prints the 遲-scoped 820 operator; earlier separately catalogued NLC CBM1408 v45 p73 was recorded with the same wording in 13TO. The NCL06273 1608 L35 table is aligned numerically at the named glyphs but no separate 1608 original operator page was newly inspected in this batch.",
+    "not_established": "Common engraving block, direct exemplar copying, source-native 疾 formula, G892/G893 same field, ancient unit/radix/carry, or six G893 historic final decisions."
+  },
+  "source_count_delta": 0,
+  "graph_nodes_delta": 0,
+  "graph_edges_delta": 0,
+  "matrix_rows_delta": 0,
+  "counters": {
+    "matrix": "222/222",
+    "sources": 789,
+    "graph_nodes": 254,
+    "graph_edges": 239,
+    "omission_issues": 11,
+    "g893_named_controls": "5/6",
+    "g893_historic_finals": "0/6",
+    "chart_product": "CLOSED",
+    "algorithm_reopens": 0
+  },
+  "next_priority": "Seek an independent original printed 疾-specific generation/precision instruction or early source-based table-construction intermediate; do not extend the 遲-only 820 operator to 疾 by numerical fit. Investigate printing plate/colophon chronology separately."
+}
