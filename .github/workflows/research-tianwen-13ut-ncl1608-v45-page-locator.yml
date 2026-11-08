@@ -66,6 +66,16 @@ jobs:
                   name='p'+str(one)+'-image'+str(idx)+'-xref'+str(xref)+'.'+original['ext']
                   (out/name).write_bytes(raw)
                   print('ORIGINAL_EMBEDDED',json.dumps({'pdf_page':one,'xref':xref,'file':name,'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest()}))
+          # Original-pixel bounded human collation probes only. Reuse source
+          # bytes and do NOT OCR, sharpen or infer words from the previews.
+          for one in [940,960,980,990,1000]:
+              pg=pdf[one-1]
+              images=pg.get_images(full=True)
+              assert images,('no native image',one)
+              original=pdf.extract_image(images[0][0])
+              raw=original['image']
+              print('DIRECT_NATIVE_SOURCE',json.dumps({'pdf_page':one,'xref':images[0][0],'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest(),'format':original['ext']}))
+              print('DIRECT_NATIVE_B64_'+str(one)+'='+base64.b64encode(raw).decode('ascii'))
           (out/'source-manifest.json').write_text(json.dumps(detail,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
           PY
       - name: Save original source window for direct visual follow-up
