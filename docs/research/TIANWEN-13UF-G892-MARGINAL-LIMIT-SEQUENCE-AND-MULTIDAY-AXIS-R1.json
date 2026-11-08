@@ -1,0 +1,119 @@
+{
+  "schema": "TIANWEN-13UF-G892-MARGINAL-LIMIT-SEQUENCE-AND-MULTIDAY-AXIS-R1",
+  "date": "2026-11-08",
+  "issue_id": "TW-OPEN-0005",
+  "problem": "Can the source-original G892 marginal 限 markings be shown to form a separate serial sequence across a day-header transition, without presuming their exact rate, source-unit or a mapping to Xing v45's limits?",
+  "starting_remote": {
+    "head": "a163d0fb139a25dad1557bc3a3509ef903363da7",
+    "tree": "75a855d52ee37928498627bca3b8d1fdb6f0eb45",
+    "parent_repair": "13UE missing research_omission_guard reviewed-state synchronization corrected in a163d0f; 13UE original image hashes and bounded day/ke result unchanged",
+    "ci_of_immediate_prior_parent": "285 actions triggered on repaired a163d0f; 284 success and one in progress at observation time; no failure seen"
+  },
+  "original_evidence": {
+    "provider": "Seoul National University Kyujanggak",
+    "book_cd": "GK00892_00",
+    "catalog_call_number": "奎貴892",
+    "source_copy_count": 1,
+    "source_item_url": "https://kyudb.snu.ac.kr/book/view.do?book_cd=GK00892_00",
+    "source_acquisition": "Already downloaded original JPEGs, successfully recorded at 13UA-UC via first-party page-emitted Kyudb filenames, same copy, no new source or authentication",
+    "prior_hash_ledger": "docs/research/TIANWEN-13UC-G892-SOURCE-INDEXED-FOLIOS-TABLE-HEADING-AND-1346-PREFACE-R1.json",
+    "prior_day_ke_boundary": "docs/research/TIANWEN-13UE-G892-DAY-KE-AXIS-FOLIO-SEAM-BOUNDARY-R1.json",
+    "source_original_page_sha256_verified": true,
+    "ocr_for_glyphs": false,
+    "original_page_coverage": "BOUNDED_FIVE_FOLIOS_AND_SPACED_D3_CONTROL_NOT_FULL_TABLE"
+  },
+  "bounded_folio_reviews": [
+    {
+      "folio": "022b",
+      "sha256": "a7ed6c8087e29e49bb42b27ffcf07849f14dc5443a88f9b48eef2fc630afbce5",
+      "original_title": "入轉遲疾差度",
+      "source_day_header": "初日",
+      "ke_heading_scope": "一刻至九刻、一十、二十",
+      "marginal_limit_labels_confirmed": [
+        "初限",
+        "二限"
+      ],
+      "reading": "限 headings are printed in distinct narrow margin lanes beside numeric columns, not as another day heading or the same glyph as 刻",
+      "scope": "ORIGINAL_GLYPH_AND_COLUMN_PLACEMENT_ONLY"
+    },
+    {
+      "folio": "023a",
+      "sha256": "8400ab4c21dd730008b7f3ea7ee358f9e3e0896d02a7dc561c003ae12f3dda3d",
+      "ke_heading_scope": "三十、四十、五十",
+      "marginal_limit_labels_confirmed": [
+        "三限",
+        "四限",
+        "五限",
+        "六限"
+      ],
+      "scope": "SAME_TABLE_SEQUENTIAL_MARGIN_MARKERS_IN_THE_KE_TENS_PANEL; EXACT_KE_ROW_FOR_EACH_BOUNDARY_UNBOUND"
+    },
+    {
+      "folio": "023b",
+      "sha256": "2d4f75b0ff2b4a6998b7f1459be41fe9582002675cb831e69024a0d515430dbf",
+      "ke_heading_scope": "六十、七十、八十、九十",
+      "marginal_limit_labels_confirmed": [
+        "七限",
+        "八限",
+        "九限",
+        "十限"
+      ],
+      "scope": "FOLIO_CONTINUATION_OF_MARGINAL_LIMIT_SEQUENCE_AND_KE_TENS_NOT_DAY_TENS"
+    },
+    {
+      "folio": "024a",
+      "sha256": "6063243df1cbcded8f3771257d76fc7fc4b132c2fb1d27bc86788c741e980e50",
+      "source_day_header": "一日",
+      "ke_heading_scope": "再起一刻至九刻及一十",
+      "marginal_limit_control": "限十一 (adjacent to new-day section); later two-digit 限 markers visible, not fully mechanically indexed",
+      "scope": "DAY_RESETS_KE_BUT_PRINTED_LIMIT_ORDINAL_DOES_NOT_RESET_TO_初限"
+    },
+    {
+      "folio": "027a",
+      "sha256": "babdddb854eb72c6eb68c9a2128796c2f10a83436f643793ee659a72d1d71675",
+      "source_day_header": "三日",
+      "ke_heading_scope": "九十 from preceding section, then 三日/五刻至九刻/一十",
+      "scope": "SPACED_CONTROL_SHOWING_LATER_REPEATED_DAY_HEADING_AND_KE_TENS; 024B_TO_026B_NOT_COLLATED"
+    }
+  ],
+  "conclusion": {
+    "local_day_ke_axis": "SUPPORTED_BY_13UE_AND_MULTIDAY_027A_CONTROL",
+    "marginal_limit_ordinals": "DIRECT_SOURCE_NATIVE_BOUNDED_SEQUENCE_初限_TO_十限_AND_POST一日_限十一",
+    "ke_vs_limit": "SEPARATE_PRINTED_AXES_OR_MARGINAL_ANNOTATION; NOT_SYNONYMS",
+    "limit_ordinal_can_continue_over_day_header": true,
+    "exact_limit_to_ke_boundary_coordinate": "OPEN_NOT_SOURCE_ROW_MAPPED",
+    "limit_length_uniformity": "NOT_TESTED",
+    "original_decimal_precision": "NOT_COLLATED",
+    "same_units_or_limit_id_to_xing_v45": "UNPROVEN",
+    "same_numeric_field_to_g893": "UNPROVEN",
+    "g893_historical_final_numeric_decisions": "0/6",
+    "g893_named_source_fields": "5/6",
+    "tw_open_0005": "P0 OPEN",
+    "source_count_gain": 0,
+    "independent_physical_witness_gain": 0,
+    "registry_authority_tier_unchanged": "BIBLIOGRAPHIC_METADATA_ONLY",
+    "matrix": "222/222",
+    "graph": "254 nodes / 239 edges",
+    "open_issues": 11,
+    "algorithm_reopens": 0,
+    "chart": "CLOSED"
+  },
+  "non_inferences": [
+    "These four closely adjacent originals do NOT show an exact uniform ke count per 限. A photographed marginal label is not a native formula for the length, precision, quantizer, radix or carry of the lunar/sun calculation.",
+    "An ordinal word 限 in G892 cannot be equated with an unrelated Xing v45 or G893 limit number without original parameter and same-field alignment; similarly do not use nominal source chronology to imply direct transmission.",
+    "Third-day sample 027a confirms another day label but does not close the missing folios' exact same-column continuity or certify a full-table numerical generator.",
+    "The G892 13UC registry remains formally bibliography/locator only despite source-specific directly imaged glyph evidence, per 13UD; this research does not secretly upgrade it."
+  ],
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Original G892 same-locus term 限 and original Ming Xing v45 限 cannot yet be treated as mechanistically identical across printed table families."
+    ],
+    "unresolved_lineage_questions": [
+      "Source-native G892 instructions identifying 限 to 刻 phase and numeric columns, then independent original Xing/G893 same-field comparison."
+    ]
+  },
+  "next": "Read additional G892 native folios with explicit mathematical instructions for 限/刻/carry, or independently collate identical numeric rows with the Xing v45 original. Do not infer uniform 限 length from sparse margin positions."
+}
