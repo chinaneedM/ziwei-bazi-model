@@ -1,0 +1,102 @@
+{
+  "schema": "TIANWEN-13UU-NLC-XUAN1599-V45-L35-DUAL-LANE-ORIGINAL-EDITION-COLLATION-R1",
+  "date": "2026-11-08",
+  "issue_id": "TW-OPEN-0005",
+  "question": "Does the earlier NLC Xu-An catalogued 1599 physical accession print the same Xing Yunlu v45 limit35 疾/遲 rate+捷法 glyphs as the separately scanned 1608 NCL 06273 and NLC CBM1408 v45 sources?",
+  "evidence_grade": "SOURCE_ORIGINAL_DIRECT_MANUAL_NO_OCR; EDITION_LABEL_CATALOGUED; PLATE_AND_COPY_RELATION_UNRESOLVED; ARITHMETIC_HYPOTHESES_NOT_HISTORICAL_VERDICTS",
+  "source": {
+    "work": "邢雲路《古今律曆考》卷四十五",
+    "catalogued_holding": "NLC892-411999015732 / no.08938, 第19冊 卷45–47",
+    "catalogued_print_label": "徐安明萬曆二十七年[1599]刊; this is a catalogue edition label, not independently authenticated imprint-date from colophon",
+    "original_pdf_url": "https://upload.wikimedia.org/wikipedia/commons/c/c4/NLC892-411999015732-116218_%E5%8F%A4%E4%BB%8A%E5%BE%8B%E6%9B%86%E8%80%83_%E7%AC%AC19%E5%86%8A.pdf",
+    "original_pdf_bytes": 18385517,
+    "original_pdf_pages": 59,
+    "original_pdf_sha256": "b5b11ebcb4a7922898ff5f68eae3d31ed8317d92d55f3990fcb4ab7414664520",
+    "known_same_physical_accession_prior_registration": "13NY NLC892-411999015732 第26冊 卷68; another fascicle of an already catalogued accession, NOT a new source-registry item",
+    "original_second_table_start_page_one_based": 12,
+    "original_target_pdf_page_one_based": 14,
+    "source_p14_native_image_file": "p14-image0.jpx",
+    "source_p14_native_jpx_sha256": "113b62b54eeb01806540cbe780f66d7fec33f05b56e2ecc72bc6187ec42e815d",
+    "original_p14_image_pixel_dimensions": [
+      4299,
+      3628
+    ],
+    "original_p14_L35_context_rgb_bbox_xyxy": [
+      2820,
+      430,
+      3080,
+      3330
+    ],
+    "original_p14_L35_context_rgb_pixel_sha256": "48c4d8a85c4e83e5176141151968b0089c8f047749cdf850c38be0593dd47050",
+    "p14_context_notes": "Original vertical column headed 三十五限, with both 疾度 and 遲度 in the same column. Adjacent 三十四限/三十六限 preserved for row-index validation. Crop is from unresized native JPX decoded RGB.",
+    "no_ocr": true
+  },
+  "acquisition": {
+    "workflow": ".github/workflows/research-tianwen-13uu-xuan1599-v45-source-window.yml",
+    "workflow_commit": "319a0669471fd2eaca2efb19710f5217b2fe6383",
+    "run_url": "https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/42493585818",
+    "conclusion": "success",
+    "artifact_id": 13622736172,
+    "artifact_name": "tianwen-13uu-xuan1599-v45-source-window",
+    "artifact_retention_days": 30,
+    "original_image_window": "p01–p22 in artifact, atlas PDF p1–p30; source-native JPX not transcribed with OCR",
+    "no_restricted_images_pushed_to_public_repo": true
+  },
+  "direct_manual_reading": {
+    "p12_heading_scope": "Original second table header visibly includes 太陰限行度, 疾曆行度/疾曆捷法 and 遲曆行度/遲曆捷法; do not confuse earlier first table.",
+    "target_1599_l35": {
+      "printed_limit": "三十五限",
+      "ji_literal": "疾度一七五三六微九七五三三",
+      "ji_candidate_rate_glyphs": "一七五三",
+      "ji_candidate_jiefa_glyphs": "六微九七五三三",
+      "chi_literal": "遲度〇一七四八微〇五九六七",
+      "chi_candidate_rate_glyphs": "〇一七四",
+      "chi_candidate_jiefa_glyphs": "八微〇五九六七",
+      "status": "DIRECT_VISUAL_READING_UNRESIZED_ORIGINAL_WITH_LOCAL_ROW_ANCHOR",
+      "note": "The digit distinction near 疾 rate fourth place and coefficient tail is retained as a source-specific 1599 reading; not normalized to 1608 by expected arithmetic."
+    },
+    "control_l34_1599_ji": "疾度一七六四六微九七〇四一",
+    "control_l36_1599_ji": "疾度一七三九六微九八五二六",
+    "comparison_1608_NCL06273_l35": {
+      "source_record": "docs/research/TIANWEN-13UT-NCL06273-MING1608-V45-L35-TWO-LANE-DIRECT-ORIGINAL-COLLATION-R1.json",
+      "ji_rate": "一七五二",
+      "ji_jiefa": "六微九七五三〇",
+      "chi_rate": "〇一七四",
+      "chi_jiefa": "八微〇五九六七"
+    },
+    "observation": "1599 labelled Xu An source visibly differs from 1608 NCL reported L35 疾 rate terminal (三 vs 二) and 疾 捷法 terminal (三 vs 〇), while the 遲 printed rate+捷法 strings concur. These are apparent original glyph differences bounded to these source pages; exact historical printing-plate ancestry is not proven. Older NLC CBM1408 p66 concurs with 1608 at reported 疾 L35; do not assume which is authorial."
+  },
+  "adjudication": {
+    "named_earlier_catalogued_edition_original_acquired": true,
+    "new_catalogued_physical_holding_in_source_registry": 0,
+    "independent_plate_or_impression_vote": 0,
+    "same_edition_or_direct_copy_relation_to_NLC_CBM1408": "UNRESOLVED",
+    "identical_physical_copy_as_NCL06270_1600": "UNPROVEN",
+    "original_JI_820_operator": "UNPROVEN; source phrase previously authenticated specifically says 遲, not 疾",
+    "original_CHI_820_operator": "SOURCE_LITERAL_EXISTS; full arithmetic precision/radix/carry still unresolved",
+    "original_fractional_radix_and_微_mapping": "UNPROVEN",
+    "source_original_variants_do_not_select_error_or_truth": true,
+    "six_g893_historical_final_verdicts": "0/6",
+    "g893_named_controls": "5/6",
+    "issue_status": "P0 OPEN",
+    "chart_product": "CLOSED",
+    "algorithm_reopens": 0,
+    "source_registry_unique_count": 789,
+    "historical_matrix": "222/222",
+    "genealogy_graph_nodes": 254,
+    "genealogy_graph_edges": 239,
+    "open_issues": 11
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Shared layout and nearby numerals are not proof of direct copying or independent plate lineages among NLC Xu-An labelled 1599, NLC CBM1408 and NCL 06273 catalogued 1608 prints."
+    ],
+    "unresolved_lineage_questions": [
+      "Physically authenticate colophons, blocks, recensions and specific manuscript/print chronology before labeling L35 original variants as independent editorial decisions."
+    ]
+  },
+  "next_priority": "Independent native source operator for 疾, source-native 少/微 numerical radix and precision/carry in the same section, independently printed earlier Xu An target and plate/colophon identity; do not force G893 six target final decisions."
+}
