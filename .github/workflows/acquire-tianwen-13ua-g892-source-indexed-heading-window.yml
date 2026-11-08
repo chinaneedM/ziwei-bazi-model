@@ -25,9 +25,9 @@ jobs:
           import fs from 'node:fs';
           import crypto from 'node:crypto';
           const root='artifacts/g892-13ua', book='GK00892_00';
-          const selected=['000b','001a','001b','002a','002b','003a','003b','004a','005a','005b','006a','006b'];
+          const selected=['009a','012a','015a','018a','021a','024a','027a','030a','033a','036a','039a','042a','045a'];
           const hash=b=>crypto.createHash('sha256').update(b).digest('hex');
-          const receipt={schema:'TIANWEN-13UA-G892-SOURCE-INDEXED-HEADING-WINDOW-R1',date:'2026-11-08',book_cd:book,official_url:'https://kyudb.snu.ac.kr/book/view.do?book_cd='+book,scope:'Provider-indexed bounded early folio window only; not a full-volume linewise collation',selected_folios:selected,page_index:[],downloaded:[],errors:[],ocr_used:false};
+          const receipt={schema:'TIANWEN-13UA-G892-SOURCE-INDEXED-HEADING-WINDOW-R1',date:'2026-11-08',book_cd:book,official_url:'https://kyudb.snu.ac.kr/book/view.do?book_cd='+book,scope:'Provider-indexed bounded distributed middle/late folio heading sample; not a full-volume linewise collation',selected_folios:selected,page_index:[],downloaded:[],errors:[],ocr_used:false};
           const browser=await puppeteer.launch({headless:true,executablePath:process.env.CHROME||'/usr/bin/google-chrome',args:['--no-sandbox','--disable-setuid-sandbox']});
           try{
             const p=await browser.newPage();
