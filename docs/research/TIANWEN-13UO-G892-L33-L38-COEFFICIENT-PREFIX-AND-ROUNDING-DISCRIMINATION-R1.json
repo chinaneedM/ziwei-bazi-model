@@ -1,0 +1,316 @@
+{
+  "schema": "TIANWEN-13UO-G892-L33-L38-COEFFICIENT-PREFIX-AND-ROUNDING-DISCRIMINATION-R1",
+  "date": "2026-11-08",
+  "issue_id": "TW-OPEN-0005",
+  "starting_remote": {
+    "head": "fa77eae3a257b74adcb8722cee3e057e88fb7b03",
+    "tree": "7d42bdd31fc426603184b9036b3b833f5b40777e",
+    "state_version": "1.1172.0",
+    "latest_research_focus": "13UN",
+    "exact_head_ci_at_start": "112 completed-success of 113; clean-training-system full unittest still in progress at review"
+  },
+  "method": "Manually reviewed three additional native-image original G892034a regions without OCR; reused verified original JPG and earlier three native crops from13UN; reused separately original-attested Xing L33/L34/L35/L36/L37/L38 printed characters from13TW and13TR. Comparison is G892 four glyphs against first four Xing 捷法 numeral glyphs, stripping interior 微 from Xing only, by printed 限 label and provisional 疾 lane association. The explicit numerical coarsening is CONDITIONAL; it does not identify original radial/subunit conventions or lineage.",
+  "source_g892": {
+    "provider": "Seoul National University Kyujanggak",
+    "holding": "GK00892_00 / 奎貴892",
+    "title": "授時曆捷法立成",
+    "original_folio": "034a",
+    "original_jpeg_sha256": "7898e39d45a84839ccb6dd261de6177a07c3b55fe4ed0743cca6c4fc36d4f5eb",
+    "source_original_dimensions_px": [
+      2204,
+      3743
+    ],
+    "archive": "GH Actions run42475943929 artifact13615008884 / pages/034a.jpg",
+    "archive_sha256": "f3020e061207344cdfb8dc3467bd4c2dafb097af2cabb32e2494da6f1e7feb69",
+    "native_original_image_url": "https://kyudb.snu.ac.kr/ImageServlet.do?imgFileNm=GK00892_00IH_0001_034a.jpg&path=/data01/stream/SIC/IMG/GK00892_00/GK00892_00_0001/GK00892_00IH_0001_034a.jpg",
+    "image_integrity_reverified_on_2026_11_08": true,
+    "new_native_region_hashes_method": "SHA256(Image.open(source_original_jpeg).convert('RGB').crop([x1,y1,x2,y2]).tobytes()); no resizing for hash",
+    "new_region_crops": [
+      {
+        "limit": 33,
+        "xyxy": [
+          635,
+          1900,
+          820,
+          3200
+        ],
+        "dimensions_px": [
+          185,
+          1300
+        ],
+        "rgb_sha256": "215b680d0420e8297570146ba37553a6d57e5f64bf75e85b6af8249cc8101645",
+        "original_direct_right": "六九六三",
+        "original_direct_left": "八〇七九"
+      },
+      {
+        "limit": 37,
+        "xyxy": [
+          270,
+          1900,
+          455,
+          3200
+        ],
+        "dimensions_px": [
+          185,
+          1300
+        ],
+        "rgb_sha256": "41826cd80da557e6dd7f210c43940d8b63fefdee63276230d3f39b53abc3a0ae",
+        "original_direct_right": "六九九三",
+        "original_direct_left": "八〇三九"
+      },
+      {
+        "limit": 38,
+        "xyxy": [
+          80,
+          480,
+          265,
+          1760
+        ],
+        "dimensions_px": [
+          185,
+          1280
+        ],
+        "rgb_sha256": "40c257f5a74b2c383550f87fe8dcafa59ab60d3ec16ec44e451491bffb262a85",
+        "original_direct_right": "七〇〇一",
+        "original_direct_left": "八〇二八"
+      }
+    ],
+    "existing_three_region_hashes_verified_again": "docs/research/TIANWEN-13UN-G892-L34-L36-ORIGINAL-COEFFICIENT-PREFIX-COLLATION-R1.json",
+    "same_single_physical_holding": true,
+    "additional_original_image_acquisitions": 0,
+    "full_96_folio_linewise_collation_completed": false
+  },
+  "source_xing": {
+    "work": "邢雲路《古今律曆考》卷四十五〈授時立成〉",
+    "holding": "NLC892-CBM1408-371933 第14冊",
+    "original_pdf_sha256": "95b264e0447fb612a4b389b4b44e8f9871f9d0417b6893699fd37fe589cb23f3",
+    "source_pdf_page_one_based": 66,
+    "original_embedded_image_xref": 200,
+    "original_attestations": [
+      "docs/research/TIANWEN-13TR-XING-TWO-FIELD-NATIVE-PREFIX-AND-RECIPROCAL-REPLAY-R1.json",
+      "docs/research/TIANWEN-13TW-XING-V45-L33-L37-L38-NATIVE-RECIPROCAL-BRACKETS-R1.json"
+    ],
+    "no_additional_xing_source_image_acquisition": true,
+    "source_native_decimal_scale_and_micro_unit_equivalence_to_g892": "UNPROVEN"
+  },
+  "six_adjacent_original_ji_lane_comparisons": [
+    {
+      "limit": 33,
+      "folio": "034a",
+      "right_ji_compact": "六九六三",
+      "left_chi_compact": "八〇七九",
+      "roi_xyxy": [
+        635,
+        1900,
+        820,
+        3200
+      ],
+      "roi_rgb_sha256": "215b680d0420e8297570146ba37553a6d57e5f64bf75e85b6af8249cc8101645",
+      "xing_native_print": "三十三限 疾度一七七六六微九六三三一",
+      "xing_jiefa_literal": "六微九六三三一",
+      "xing_integer_1e5": 696331,
+      "xi_first_four_compact": "六九六三",
+      "first_four_glyph_equal": true,
+      "under_explicit_decimal_model": {
+        "g892_milli_tick": 6963,
+        "xing_jiefa_1e5_tick": 696331,
+        "xing_floor_to_1e3_tick": 6963,
+        "xing_half_up_to_1e3_tick": 6963,
+        "g892_minus_floor_tick": 0,
+        "g892_minus_half_up_tick": 0,
+        "floor_match": true,
+        "half_up_match": true
+      }
+    },
+    {
+      "limit": 34,
+      "folio": "034a",
+      "right_ji_compact": "六九六九",
+      "left_chi_compact": "八〇六九",
+      "roi_xyxy": [
+        450,
+        480,
+        635,
+        1760
+      ],
+      "roi_rgb_sha256": "9f5b5f7ddfc9ff938c3199c888b3e580e4382cbb6a56e520ac0ad039c80e9066",
+      "xing_native_print": "疾一度一七六四六微九七〇四一",
+      "xing_jiefa_literal": "六微九七〇四一",
+      "xing_integer_1e5": 697041,
+      "xi_first_four_compact": "六九七〇",
+      "first_four_glyph_equal": false,
+      "under_explicit_decimal_model": {
+        "g892_milli_tick": 6969,
+        "xing_jiefa_1e5_tick": 697041,
+        "xing_floor_to_1e3_tick": 6970,
+        "xing_half_up_to_1e3_tick": 6970,
+        "g892_minus_floor_tick": -1,
+        "g892_minus_half_up_tick": -1,
+        "floor_match": false,
+        "half_up_match": false
+      }
+    },
+    {
+      "limit": 35,
+      "folio": "034a",
+      "right_ji_compact": "六九七七",
+      "left_chi_compact": "八〇五九",
+      "roi_xyxy": [
+        450,
+        1900,
+        635,
+        3200
+      ],
+      "roi_rgb_sha256": "c0239bc994a546d9a598006d3409daa86814c7801fbc3956340eec8dbb39b8e9",
+      "xing_native_print": "疾一度一七五二六微九七五三〇",
+      "xing_jiefa_literal": "六微九七五三〇",
+      "xing_integer_1e5": 697530,
+      "xi_first_four_compact": "六九七五",
+      "first_four_glyph_equal": false,
+      "under_explicit_decimal_model": {
+        "g892_milli_tick": 6977,
+        "xing_jiefa_1e5_tick": 697530,
+        "xing_floor_to_1e3_tick": 6975,
+        "xing_half_up_to_1e3_tick": 6975,
+        "g892_minus_floor_tick": 2,
+        "g892_minus_half_up_tick": 2,
+        "floor_match": false,
+        "half_up_match": false
+      }
+    },
+    {
+      "limit": 36,
+      "folio": "034a",
+      "right_ji_compact": "六九八五",
+      "left_chi_compact": "八〇四九",
+      "roi_xyxy": [
+        270,
+        480,
+        455,
+        1760
+      ],
+      "roi_rgb_sha256": "70b0419f83c36695cc30528888439476af5a6d796a8054446d92003443633d1d",
+      "xing_native_print": "疾一度一七三九六微九八五二六",
+      "xing_jiefa_literal": "六微九八五二六",
+      "xing_integer_1e5": 698526,
+      "xi_first_four_compact": "六九八五",
+      "first_four_glyph_equal": true,
+      "under_explicit_decimal_model": {
+        "g892_milli_tick": 6985,
+        "xing_jiefa_1e5_tick": 698526,
+        "xing_floor_to_1e3_tick": 6985,
+        "xing_half_up_to_1e3_tick": 6985,
+        "g892_minus_floor_tick": 0,
+        "g892_minus_half_up_tick": 0,
+        "floor_match": true,
+        "half_up_match": true
+      }
+    },
+    {
+      "limit": 37,
+      "folio": "034a",
+      "right_ji_compact": "六九九三",
+      "left_chi_compact": "八〇三九",
+      "roi_xyxy": [
+        270,
+        1900,
+        455,
+        3200
+      ],
+      "roi_rgb_sha256": "41826cd80da557e6dd7f210c43940d8b63fefdee63276230d3f39b53abc3a0ae",
+      "xing_native_print": "三十七限 疾度一七二六六微九九三〇〇",
+      "xing_jiefa_literal": "六微九九三〇〇",
+      "xing_integer_1e5": 699300,
+      "xi_first_four_compact": "六九九三",
+      "first_four_glyph_equal": true,
+      "under_explicit_decimal_model": {
+        "g892_milli_tick": 6993,
+        "xing_jiefa_1e5_tick": 699300,
+        "xing_floor_to_1e3_tick": 6993,
+        "xing_half_up_to_1e3_tick": 6993,
+        "g892_minus_floor_tick": 0,
+        "g892_minus_half_up_tick": 0,
+        "floor_match": true,
+        "half_up_match": true
+      }
+    },
+    {
+      "limit": 38,
+      "folio": "034a",
+      "right_ji_compact": "七〇〇一",
+      "left_chi_compact": "八〇二八",
+      "roi_xyxy": [
+        80,
+        480,
+        265,
+        1760
+      ],
+      "roi_rgb_sha256": "40c257f5a74b2c383550f87fe8dcafa59ab60d3ec16ec44e451491bffb262a85",
+      "xing_native_print": "三十八限 疾度一七一三七微〇〇〇七六",
+      "xing_jiefa_literal": "七微〇〇〇七六",
+      "xing_integer_1e5": 700076,
+      "xi_first_four_compact": "七〇〇〇",
+      "first_four_glyph_equal": false,
+      "under_explicit_decimal_model": {
+        "g892_milli_tick": 7001,
+        "xing_jiefa_1e5_tick": 700076,
+        "xing_floor_to_1e3_tick": 7000,
+        "xing_half_up_to_1e3_tick": 7001,
+        "g892_minus_floor_tick": 1,
+        "g892_minus_half_up_tick": 0,
+        "floor_match": false,
+        "half_up_match": true
+      }
+    }
+  ],
+  "conditional_replay": {
+    "explicit_unproved_assumptions": [
+      "Read each G892 four-digit compact glyph stream as a candidate factor expressed in decimal 0.001 units, using the source-specific original L32 6刻95分40秒 example only as a dimensional cue, not a global printed-cell rule",
+      "Read Xing 疾捷法 six-numeral-glyph stream (one leading digit and five fraction digit glyphs) as 1e-5 ticks, with 微 position ignored for numerical comparison",
+      "Treat G892 and Xing same-ordinal 疾 lanes as comparable time-per-degree coefficients, with no underlying source-operational proof of same original epoch, column ownership or unit conversion",
+      "Compare two artificial precision reductions of Xing printed coefficient to 1e-3: FLOOR and NEAREST_HALF_UP (not Xing inverse-820 generator)"
+    ],
+    "algorithm_exact_integer_only": "For Xing five-decimal tick c, FLOOR_1e3=floor(c/100); NEAREST_HALF_UP_1e3=floor((c+50)/100). Compare to provisional G892 four-glyph base10 milli-tick. No parameter fitted.",
+    "same_first_four_glyph_prefix_count": 3,
+    "different_prefix_limits": [
+      34,
+      35,
+      38
+    ],
+    "floor_matches": 3,
+    "nearest_half_up_matches": 4,
+    "source_original_rounded_value_claim": "NONE",
+    "global_truncate_rule_for_both_original_tables": "REJECTED_UNDER_DECLARED_MODEL_AT_L34_L35_L38",
+    "global_nearest_rule_for_both_original_tables": "REJECTED_UNDER_DECLARED_MODEL_AT_L34_L35",
+    "specific_L38_distinction": "G892 七〇〇一 differs from Xing's visible 七〇〇〇 prefix but equals nearest-1e3 of Xing print7.00076; floor-1e3 gives7.000. Neither establishes historical rounding practice."
+  },
+  "adjudication": {
+    "new_direct_original_g892_glyph_cells": "3 additional right/left paired native regions (L33,37,38), plus previously registered L34-36",
+    "six_ji_four_glyph_matches": 3,
+    "six_ji_four_glyph_disagreements": 3,
+    "prior_chi_three_prefixes_unchanged": "3/3 at L34–L36; no new Xing CHI L33/L37/L38 comparison",
+    "cross_text_same_field_identity": "UNRESOLVED",
+    "source_native_micro_radix_and_construction": "UNRESOLVED",
+    "earlier_g892_day_ke_and_numbered_limit_alignment": "UNRESOLVED",
+    "original_g893_six_historical_numeric_finals": "0/6",
+    "original_g893_named_fields": "5/6",
+    "issue_status": "P0_OPEN",
+    "matrix": "222/222",
+    "sources": 789,
+    "graph": "254 nodes / 239 edges",
+    "unresolved_issues": 11,
+    "deterministic_product": "CLOSED",
+    "algorithm_reopens": 0,
+    "new_ancient_witnesses": 0,
+    "new_source_registry_entries": 0
+  },
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "unproved": [
+      "Matching 3/6 six-ordinal 疾 four-character prefixes and divergent L34/L35/L38 are data-level collation only. Neither same epoch/field identity nor G892->Xing copying nor ancient numerical correctness is established."
+    ]
+  },
+  "next": "Seek a genuinely original G892 same-book coefficient construction or 820/限 rate and source-native compact-digit place-value operator. Then align numerical limit coordinates to G892 022b–033a day/刻 table and independent G893 original numeric controls; do not promote conditional coarsening to historical winner."
+}
