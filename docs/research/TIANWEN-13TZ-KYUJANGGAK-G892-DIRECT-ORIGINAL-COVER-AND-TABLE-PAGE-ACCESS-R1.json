@@ -1,0 +1,102 @@
+{
+  "schema": "TIANWEN-13TZ-KYUJANGGAK-G892-DIRECT-ORIGINAL-COVER-AND-TABLE-PAGE-ACCESS-R1",
+  "date": "2026-11-08",
+  "issue_id": "TW-OPEN-0005",
+  "prior_batch": "docs/research/TIANWEN-13TY-KYUJANGGAK-GK00892-FIRSTPARTY-CATALOG-AND-MICROFILM-CROSSWALK-R1.json",
+  "research_question": "Can anonymously accessible first-party Kyujanggak GK00892 original image bytes actually be acquired, and do source-emitted terminal pages prove more than item identity and a bounded tabular witness?",
+  "official_item": {
+    "url": "https://kyudb.snu.ac.kr/book/view.do?book_cd=GK00892_00",
+    "book_cd": "GK00892_00",
+    "call_number": "奎貴892",
+    "catalog_work_title": "授時曆捷法立成",
+    "compiler": "姜保",
+    "provider": "Seoul National University Kyujanggak",
+    "catalog_extent": "1冊(46張)",
+    "source_family": "Same item as 13TY, distinct from GK00893_00 / 奎貴893"
+  },
+  "source_acquisition": {
+    "initial_probe": {
+      "commit": "e0c933c0d3f150d15af19b63081e79f59922174d",
+      "workflow_run_id": 42453389042,
+      "artifact_id": 13606527170,
+      "status": "SUCCESS",
+      "source_original_count": 1
+    },
+    "controlling_probe": {
+      "commit": "ff26f7709c4849b700a68c920ef34e3207e2ad45",
+      "workflow_run_id": 42453550517,
+      "artifact_id": 13606791655,
+      "status": "SUCCESS",
+      "artifact_name": "tianwen-13tz-g892-source-issued-image-probe",
+      "source_original_count": 2
+    },
+    "access_mode": "Anonymous first-party library UI and source-emitted page filenames; no registration, authentication, guessed item code, payment, or access-control bypass",
+    "source_emitted_cover_thumbnail": "https://kyudb.snu.ac.kr/ThumbServlet.do?item_cd=SIC&book_cd=GK00892_00&vol_no=&img=GK00892_00IH_0001_000a.jpg&cover=1",
+    "source_emitted_terminal_thumbnail": "https://kyudb.snu.ac.kr/ThumbServlet.do?item_cd=SIC&book_cd=GK00892_00&vol_no=&img=GK00892_00IH_0001_004b.jpg&cover=",
+    "viewer_opened": true,
+    "viewer_volume_selector": [
+      "0001"
+    ],
+    "viewer_page_text_requests_http_200_empty": true,
+    "original_images": [
+      {
+        "folio": "000a",
+        "full_source_url": "https://kyudb.snu.ac.kr/ImageServlet.do?imgFileNm=GK00892_00IH_0001_000a.jpg&path=/data01/stream/SIC/IMG/GK00892_00/GK00892_00_0001/GK00892_00IH_0001_000a.jpg",
+        "http_status": 200,
+        "bytes": 406959,
+        "sha256": "445b574761ca508fb0fbad67e4ff92e1d47f583dc2190acc7d54b7d4289e2415",
+        "direct_manual_no_ocr_review": "Orange physical book cover and library label; 奎貴892 number can be recognized in the bound cover labeling, strengthening same-item original-to-catalog binding. No numeric table or colophon.",
+        "source_scope": "ORIGINAL_COVER_AND_HOLDING_LABEL_ONLY"
+      },
+      {
+        "folio": "004b",
+        "full_source_url": "https://kyudb.snu.ac.kr/ImageServlet.do?imgFileNm=GK00892_00IH_0001_004b.jpg&path=%2Fdata01%2Fstream%2FSIC%2FIMG%2FGK00892_00%2FGK00892_00_0001%2FGK00892_00IH_0001_004b.jpg",
+        "http_status": 200,
+        "bytes": 396077,
+        "sha256": "6a9ba4f1762903d9858730ecde00c742ef62cca66a0c5195d0b08f9201056cd1",
+        "direct_manual_no_ocr_review": "Original vertically ruled numerical table with Chinese numerals and zero circles; source column header and full table title not present within this bounded terminal page panel. No numerical column-to-G893/Xing L35 identity or source-native unit established.",
+        "source_scope": "ORIGINAL_TABULAR_GLYPHS_PRESENT_FIELD_AND_UNIT_UNCOLLATED"
+      }
+    ],
+    "original_images_stored_in_public_repo": false,
+    "artifact_access": "GitHub Actions artifact retained for bounded interval; this JSON is the permanent URL/SHA/size/folio record, not a claim original JPEG bytes are permanently stored in git."
+  },
+  "verification_grades": {
+    "catalog_original_copy_binding": "DIRECT_FIRSTPARTY_ORIGINAL_COVER_LABEL_AND_CATALOG_ID",
+    "original_page_004b": "DIRECT_FIRSTPARTY_ORIGINAL_TABLE_PAGE_NO_FIELD_OR_UNIT_ADJUDICATION",
+    "source_original_numeric_locus_g893_six": "NOT_ACQUIRED",
+    "original_g892_full_46_leaf_census": "NOT_PERFORMED",
+    "same_microfilm_and_edition_as_g893": "UNPROVED",
+    "catalog_1316_1348_mismatch": "UNCHANGED_UNRESOLVED_NO_DIRECT_COLOPHON"
+  },
+  "no_inferences": [
+    "G892 cover plus tabular terminal page does not prove a shared numerical table or generator with G893, a same-field comparison to Xing v45 L35, ancient 微 radix, rounding, or 少/微 equivalence.",
+    "The pageText 200 response with empty payload is not absence evidence for ancient printed text.",
+    "One library item and two pages are not two historical physical witnesses. A separate registered G892 catalog source is not added again.",
+    "Source page 004b numerals are not inserted into six G893 control finals; source-original field matching is absent."
+  ],
+  "accounting": {
+    "matrix": "222/222",
+    "external_source_root": 647,
+    "external_source_extension": 141,
+    "external_source_union": 788,
+    "graph_nodes": 254,
+    "graph_edges": 239,
+    "open_research_issues": 11,
+    "original_g893_fields_named": "5/6",
+    "g893_six_historical_final": "0/6",
+    "confirmed_chart_algorithm_defects": 0,
+    "algorithm_reopens": 0,
+    "product": "CLOSED"
+  },
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "unproved": [
+      "Same call-number series and single screenshot do not prove G892↔G893 historical copying or shared precision model."
+    ],
+    "new_independent_historical_witnesses": 0
+  },
+  "next": "Recover a provider-issued bounded folio heading/legend adjacent to the acquired original tabular page, or the exact original column headed 入轉遲疾差度; certify page SHA, field, unit and row position before any L35 comparison. Avoid invented identifiers, rate-limited downloads, user logins and fees; if title/unit cannot be bound, retain OPEN."
+}
