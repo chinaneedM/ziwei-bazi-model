@@ -1,0 +1,318 @@
+{
+  "schema": "TIANWEN-13UQ-G892-XING-L33-L38-CHI-LANE-DIRECT-GLYPHS-AND-TWO-LANE-PRECISION-CONTROL-R1",
+  "date": "2026-11-08",
+  "issue_id": "TW-OPEN-0005",
+  "starting_remote": {
+    "head": "ef427468c22aeaf5f3d88e57c15f7200c5ee398b",
+    "tree": "501259fd298aed3cb4ac610ec6b560aba9b74fe2",
+    "state_version": "1.1174.0",
+    "actions": "285/285 completed-success at startup"
+  },
+  "question": "Do the previously uncollated Xing original L33/L37/L38 遲-lane rate and 捷法 glyphs agree with G892 original left lane and is a single cross-copy decimal truncation/nearest precision rule consistent with both phases over L33-L38?",
+  "method": "Direct manually read bounded original Xing p66 grayscale pixel regions without OCR. Verify independently archived 13TQ source-image original ZIP SHA, PNG grayscale hash and prior 13TW crop SHA; cross-check G892034a original ZIP and JPEG hashes against prior 13UL/13UO. Reuse already original-collated L34–36 Xing rows; compare exact integer arithmetic only under declared candidate cross-text unit and limit alignment. No image synthesis, transcription filling from inverse rates, new source identity or genealogy inference.",
+  "evidence_reuse": {
+    "g892_source": "Kyujanggak GK00892_00 授時曆捷法立成 034a native JPEG; archive run42475943929 artifact13615008884",
+    "g892_archive_zip_sha256": "f3020e061207344cdfb8dc3467bd4c2dafb097af2cabb32e2494da6f1e7feb69",
+    "g892_original_034a_sha256": "7898e39d45a84839ccb6dd261de6177a07c3b55fe4ed0743cca6c4fc36d4f5eb",
+    "g892_original_left_lane_literals": "13UO+13UN source-original 034a L33-L38 independent ROI SHA records; all six right/left original pairs preserved",
+    "xing_source": "NLC892-CBM1408-371933 《古今律曆考》卷45 source PDF p66, embedded original source xref200",
+    "xing_original_pdf_sha256": "95b264e0447fb612a4b389b4b44e8f9871f9d0417b6893699fd37fe589cb23f3",
+    "xing_original_image_raw_sha256": "56b9b0c0885cadb7ce0395fe6b0c29ce7d9b5b32d3795aef059f786cccc11966",
+    "xing_source_gray_full_image_sha256": "ef0a5e2f175c3af7c21c15e65f11d56f1821ba8d717d78caf6a666e422c9c384",
+    "xing_reused_source_artifact": "GitHub Actions run42386370726 artifact13579244730, four source-image PNGs",
+    "xing_archive_zip_sha256": "06d9b0652f96d13d1ac1ca25f6e1fe5e9eac1731e0ca3c5d7d02a1690a2cadea",
+    "xing_embedded_page66_png_sha256": "6d4690d8b783c4605b1412c6329631e88877f410b1c5ae28de01f18937e562e5",
+    "source_original_new_roi_hash_rule": "SHA-256 of Image.open(archived_p66_image).convert('L').crop(rect).tobytes(); all at native resolution, no resizing",
+    "direct_new_glyphs_count": 3,
+    "additional_original_image_acquisitions": 0,
+    "new_external_source_registry_entries": 0,
+    "new_physical_copies": 0
+  },
+  "new_xing_source_original_chi_rows": [
+    {
+      "limit": 33,
+      "xing_rate_native": "遲度〇一五〇",
+      "xing_jiefa_native": "八微〇七八八一",
+      "rate_r": 10150,
+      "jiefa_c": 807881,
+      "roi": [
+        1325,
+        760,
+        1420,
+        1430
+      ],
+      "roi_gray_sha256": "0b28579ca7614b63c96e8e95bbba0ad378ff514baa7fe23247b4a850c2bf64e2"
+    },
+    {
+      "limit": 37,
+      "xing_rate_native": "遲度〇二〇〇",
+      "xing_jiefa_native": "八微〇三九二一",
+      "rate_r": 10200,
+      "jiefa_c": 803921,
+      "roi": [
+        940,
+        760,
+        1040,
+        1430
+      ],
+      "roi_gray_sha256": "adc3d48b6736064f74a267173467c3405dd3636c3019787505f0d1d99127756f"
+    },
+    {
+      "limit": 38,
+      "xing_rate_native": "遲度〇二一三",
+      "xing_jiefa_native": "八微〇二八九八",
+      "rate_r": 10213,
+      "jiefa_c": 802898,
+      "roi": [
+        850,
+        760,
+        944,
+        1430
+      ],
+      "roi_gray_sha256": "4294347eaf293e59ea811463b34f1b073e3d1aeb3b391800e0ba3ae7c1504689"
+    }
+  ],
+  "all_six_chi_lane_rows": [
+    {
+      "limit": 33,
+      "source_g892_glyphs": "八〇七九",
+      "g892_candidate_coarse_tick": 8079,
+      "source_xing_chi": {
+        "rate": "遲度〇一五〇",
+        "jiefa": "八微〇七八八一"
+      },
+      "original_review_grade": "DIRECT_SOURCE_ORIGINAL_REVIEW_THIS_BATCH",
+      "xing_native_gray_pixel_roi": {
+        "rect": [
+          1325,
+          760,
+          1420,
+          1430
+        ],
+        "gray_sha256": "0b28579ca7614b63c96e8e95bbba0ad378ff514baa7fe23247b4a850c2bf64e2"
+      },
+      "xing_source_rate_four_digit_integer": 10150,
+      "xing_source_printed_coefficient_1e5": 807881,
+      "printed_coefficient_floor_1e3": 8078,
+      "printed_coefficient_nearest_1e3": 8079,
+      "model_inverse_floor_1e5": 807881,
+      "model_inverse_floor_1e3": 8078,
+      "model_inverse_nearest_1e3": 8079,
+      "printed_minus_inverse_1e5": 0,
+      "matches_printed_floor": false,
+      "matches_printed_nearest": true,
+      "matches_rate_inverse_floor": false,
+      "matches_rate_inverse_nearest": true
+    },
+    {
+      "limit": 34,
+      "source_g892_glyphs": "八〇六九",
+      "g892_candidate_coarse_tick": 8069,
+      "source_xing_chi": {
+        "full_stream": "遲一度〇一六二八微〇六九二七"
+      },
+      "original_review_grade": "PREVIOUS_DIRECT_ORIGINAL_GLYPH_REUSED",
+      "xing_native_gray_pixel_roi": {
+        "rect": [
+          1238,
+          839,
+          1327,
+          1397
+        ],
+        "gray_sha256": "0adc8a2a2cf07f4e9d2541478a79cb0c11b89176b03128681d72f5f08d9f1293"
+      },
+      "xing_source_rate_four_digit_integer": 10162,
+      "xing_source_printed_coefficient_1e5": 806927,
+      "printed_coefficient_floor_1e3": 8069,
+      "printed_coefficient_nearest_1e3": 8069,
+      "model_inverse_floor_1e5": 806927,
+      "model_inverse_floor_1e3": 8069,
+      "model_inverse_nearest_1e3": 8069,
+      "printed_minus_inverse_1e5": 0,
+      "matches_printed_floor": true,
+      "matches_printed_nearest": true,
+      "matches_rate_inverse_floor": true,
+      "matches_rate_inverse_nearest": true
+    },
+    {
+      "limit": 35,
+      "source_g892_glyphs": "八〇五九",
+      "g892_candidate_coarse_tick": 8059,
+      "source_xing_chi": {
+        "full_stream": "遲一度〇一七四八微〇五九六七"
+      },
+      "original_review_grade": "PREVIOUS_DIRECT_ORIGINAL_GLYPH_REUSED",
+      "xing_native_gray_pixel_roi": {
+        "rect": [
+          1130,
+          839,
+          1227,
+          1397
+        ],
+        "gray_sha256": "7a71db8885d4c9edca643e48447b8a6c62ec58ef900de2c257265997500c4f87"
+      },
+      "xing_source_rate_four_digit_integer": 10174,
+      "xing_source_printed_coefficient_1e5": 805967,
+      "printed_coefficient_floor_1e3": 8059,
+      "printed_coefficient_nearest_1e3": 8060,
+      "model_inverse_floor_1e5": 805976,
+      "model_inverse_floor_1e3": 8059,
+      "model_inverse_nearest_1e3": 8060,
+      "printed_minus_inverse_1e5": -9,
+      "matches_printed_floor": true,
+      "matches_printed_nearest": false,
+      "matches_rate_inverse_floor": true,
+      "matches_rate_inverse_nearest": false
+    },
+    {
+      "limit": 36,
+      "source_g892_glyphs": "八〇四九",
+      "g892_candidate_coarse_tick": 8049,
+      "source_xing_chi": {
+        "full_stream": "遲一度〇一八七八微〇四九四七"
+      },
+      "original_review_grade": "PREVIOUS_DIRECT_ORIGINAL_GLYPH_REUSED",
+      "xing_native_gray_pixel_roi": {
+        "rect": [
+          1040,
+          839,
+          1138,
+          1397
+        ],
+        "gray_sha256": "e75d0444c85dc3d5c6b21dd932be4f3d6f12a9198543dadc6af0bc496b8cae47"
+      },
+      "xing_source_rate_four_digit_integer": 10187,
+      "xing_source_printed_coefficient_1e5": 804947,
+      "printed_coefficient_floor_1e3": 8049,
+      "printed_coefficient_nearest_1e3": 8049,
+      "model_inverse_floor_1e5": 804947,
+      "model_inverse_floor_1e3": 8049,
+      "model_inverse_nearest_1e3": 8049,
+      "printed_minus_inverse_1e5": 0,
+      "matches_printed_floor": true,
+      "matches_printed_nearest": true,
+      "matches_rate_inverse_floor": true,
+      "matches_rate_inverse_nearest": true
+    },
+    {
+      "limit": 37,
+      "source_g892_glyphs": "八〇三九",
+      "g892_candidate_coarse_tick": 8039,
+      "source_xing_chi": {
+        "rate": "遲度〇二〇〇",
+        "jiefa": "八微〇三九二一"
+      },
+      "original_review_grade": "DIRECT_SOURCE_ORIGINAL_REVIEW_THIS_BATCH",
+      "xing_native_gray_pixel_roi": {
+        "rect": [
+          940,
+          760,
+          1040,
+          1430
+        ],
+        "gray_sha256": "adc3d48b6736064f74a267173467c3405dd3636c3019787505f0d1d99127756f"
+      },
+      "xing_source_rate_four_digit_integer": 10200,
+      "xing_source_printed_coefficient_1e5": 803921,
+      "printed_coefficient_floor_1e3": 8039,
+      "printed_coefficient_nearest_1e3": 8039,
+      "model_inverse_floor_1e5": 803921,
+      "model_inverse_floor_1e3": 8039,
+      "model_inverse_nearest_1e3": 8039,
+      "printed_minus_inverse_1e5": 0,
+      "matches_printed_floor": true,
+      "matches_printed_nearest": true,
+      "matches_rate_inverse_floor": true,
+      "matches_rate_inverse_nearest": true
+    },
+    {
+      "limit": 38,
+      "source_g892_glyphs": "八〇二八",
+      "g892_candidate_coarse_tick": 8028,
+      "source_xing_chi": {
+        "rate": "遲度〇二一三",
+        "jiefa": "八微〇二八九八"
+      },
+      "original_review_grade": "DIRECT_SOURCE_ORIGINAL_REVIEW_THIS_BATCH",
+      "xing_native_gray_pixel_roi": {
+        "rect": [
+          850,
+          760,
+          944,
+          1430
+        ],
+        "gray_sha256": "4294347eaf293e59ea811463b34f1b073e3d1aeb3b391800e0ba3ae7c1504689"
+      },
+      "xing_source_rate_four_digit_integer": 10213,
+      "xing_source_printed_coefficient_1e5": 802898,
+      "printed_coefficient_floor_1e3": 8028,
+      "printed_coefficient_nearest_1e3": 8029,
+      "model_inverse_floor_1e5": 802898,
+      "model_inverse_floor_1e3": 8028,
+      "model_inverse_nearest_1e3": 8029,
+      "printed_minus_inverse_1e5": 0,
+      "matches_printed_floor": true,
+      "matches_printed_nearest": false,
+      "matches_rate_inverse_floor": true,
+      "matches_rate_inverse_nearest": false
+    }
+  ],
+  "declared_conditional_model": {
+    "assumptions": [
+      "Read G892 four compact original glyphs on left '遲' lane as candidate milli-ticks, not a proven universal source-native place-value/carry convention",
+      "Read Xing original '遲度〇####' as four-place fractional rate denominator integer r=10000+#### and original '八微#####' as five-place coefficient integer c in 1e-5 ticks, as previously explicitly conditional field split",
+      "Provisional same printed limit ordinal L33–L38 and '遲' side; no independent same epoch/column/time unit proof",
+      "Check printed factor floor and nearest to 1e-3 plus separate hypothetical H=82000/r source Xing-specific 820, normalizing factor100 unproven for G892"
+    ],
+    "integer_ops": [
+      "printed_floor=floor(c/100)",
+      "printed_nearest_half_up=floor((c+50)/100)",
+      "source_rate_inverse_1e5=floor(8200000000/r)",
+      "inverse_floor_1e3=floor(inverse_1e5/100)",
+      "inverse_nearest_1e3=floor((inverse_1e5+50)/100)"
+    ],
+    "results": {
+      "chi_six_printed_floor": 5,
+      "chi_six_printed_nearest": 4,
+      "chi_six_rate_inverse_floor": 5,
+      "chi_six_rate_inverse_nearest": 4,
+      "twelve_both_lanes_printed_floor": 8,
+      "twelve_both_lanes_printed_nearest": 8,
+      "twelve_both_lanes_rate_inverse_floor": 9,
+      "twelve_both_lanes_rate_inverse_nearest": 8
+    },
+    "oppositely_discriminating_CHI_original_pair": "L33: G892 八〇七九 versus Xing 八微〇七八八一 = model 8.079 vs 8.07881, FLOOR fails and HALF_UP matches; L38: G892 八〇二八 versus Xing 八微〇二八九八 = model 8.028 vs 8.02898, FLOOR matches and HALF_UP fails. Therefore neither single precision coarsening mode explains BOTH same-lane cells under declared candidate alignment.",
+    "L35_local_sensitivity": "Xing original L35 遲 printed8.05967 vs its own printed rate10174 inverse candidate8.05976 (-9 1e5 ticks). Both reduce by floor to G8928.059, but both differ under nearest to 1e3; do not call it a source typo.",
+    "original_rate_to_G892_yet_unverified": "No proof G892 source used Xing's same four-place operand or Xing's printed coefficient rather than a distinct independently rounded intermediate."
+  },
+  "adjudication": {
+    "direct_xing_original_3_new_glyph_pairs": "SOURCE_ORIGINAL_NATIVE_GRAY_ROI_VERIFIED",
+    "full_six_chi_original_glyph_control": "3 new plus 3 previously registered L34-L36",
+    "both_lanes_total_numbered_limit_cells_compared": "12 (six 疾 and six 遲) under conditional model",
+    "universal_truncation_candidate": "REJECTED_UNDER_DECLARED_CROSS_SOURCE_MODEL",
+    "universal_nearest_candidate": "REJECTED_UNDER_DECLARED_CROSS_SOURCE_MODEL",
+    "ancient_print_error_decision": "NONE",
+    "source_native_micro_radix_and_carry": "UNRESOLVED",
+    "G892_coefficient_generator": "UNRESOLVED",
+    "xian_ke_endpoint_mapping": "UNRESOLVED",
+    "same_epoch_or_lineage": "UNRESOLVED",
+    "six_G893_historical_final_controls": "0/6",
+    "G893_named_fields": "5/6",
+    "TW_OPEN_0005": "P0 OPEN",
+    "matrix": "222/222",
+    "sources": 789,
+    "graph": "254 nodes / 239 edges",
+    "open_issues": 11,
+    "chart": "CLOSED",
+    "algorithm_reopens": 0
+  },
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "unproved": [
+      "Two contrasting original CHI coarsening cases are not proof of source transmission, compiler intent, independent numerical parentage or a shared table constructor."
+    ]
+  },
+  "next": "Prioritize source-native G892 numerical digit scale, the coefficient constructor/operator and full xian-ke phase endpoint/epoch. Use newly bounded CHI original glyphs only as numerical contradiction controls, not as a replacement for authenticated G893 six historical finals."
+}
