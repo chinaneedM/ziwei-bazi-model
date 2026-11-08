@@ -1,0 +1,112 @@
+{
+  "schema": "TIANWEN-13TV-XING-V49-RECEIVED-820-WORKED-EXAMPLE-AND-ORIGINAL-429-BOUNDARY-R1",
+  "date": "2026-11-08",
+  "issue_id": "TW-OPEN-0005",
+  "question": "Does the later received Xing volume49 worked 820/r example reveal a local display quantizer, and was its Ming original page acquired for an edition-scoped comparison with volume45 jiefa?",
+  "startup": {
+    "live_head": "0e31f7fc906f0519083cb056aaae19dd6588d990",
+    "live_tree": "dfdd9772cdf6309e770fa47dc56839408f4f3607",
+    "previous_research": "13TU",
+    "unresolved_issue_count": 11,
+    "p0_issues": [
+      "TW-OPEN-0001",
+      "TW-OPEN-0002",
+      "TW-OPEN-0005",
+      "TW-OPEN-0006",
+      "TW-OPEN-0007"
+    ]
+  },
+  "received_text": {
+    "work": "《古今律厯考》卷四十九（四庫全書本）",
+    "url": "https://zh.wikisource.org/zh-hant/古今律厯考_(四庫全書本)/卷49",
+    "evidence_grade": "RECEIVED_DIGITAL_TEXT_ONLY_NOT_ORIGINAL_PRINT",
+    "scope": "求加減差 worked example",
+    "printed_operand_strings": [
+      "餘二度一四五八七二",
+      "以率法八百二十分乘之",
+      "以遲行度一度一五二六而一",
+      "得一千五百二十六分六四"
+    ],
+    "conditional_decimal_operands": {
+      "difference": "2.145872",
+      "rate": "820",
+      "denominator": "1.1526",
+      "display_result": "1526.64"
+    },
+    "numerical_replay": {
+      "exact_expression": "2.145872*820/1.1526",
+      "decimal_quotient": "1526.648481693562380704494187...",
+      "floor_2_decimal_places": "1526.64",
+      "half_up_2_decimal_places": "1526.65",
+      "local_printed_result_matches_floor": true,
+      "local_printed_result_matches_half_up": false
+    },
+    "alternate_scaling_example": {
+      "expression": "(820/1.1526)/100",
+      "approximate_coefficient": "7.11435016484469894...",
+      "hypothesis": "The table's coefficient family might use a factor-100 display conversion before the worked consumer; this is a conditional arithmetic bridge only, not an original source-native symbol mapping."
+    }
+  },
+  "original_candidate": {
+    "source_page": "https://commons.wikimedia.org/wiki/File:NLC892-CBM1408-371934_古今律曆考_七十二卷_第15冊.pdf",
+    "catalog_identifier": "NLC892-CBM1408-371934",
+    "fascicle": 15,
+    "volumes": [
+      46,
+      47,
+      48,
+      49,
+      50
+    ],
+    "catalog_extent_pages": 84,
+    "catalog_publication_date_scope": "明萬曆[1573-1620] (broad provider label, not exact impression date)",
+    "exact_physical_copy_relation_to_fascicle14": "UNPROVED",
+    "original_pdf_acquired": false,
+    "original_page_glyph_collated": false
+  },
+  "bounded_access_failure": {
+    "commit": "0e31f7fc906f0519083cb056aaae19dd6588d990",
+    "workflow": ".github/workflows/tianwen-13tk-xing-v45-original-probe.yml",
+    "run_id": 42441101399,
+    "job_id": 128610310395,
+    "conclusion": "failure",
+    "stage": "HTTP GET Wikimedia source fascicle15 after two earlier registered scans",
+    "error": "HTTP 429 Too Many Requests",
+    "source15_bytes_saved": false,
+    "source15_sha256_known": false,
+    "bounded_conclusion": "ANONYMOUS_ACQUISITION_RATE_LIMITED_IN_THIS_RUN, not source absence or physical-content evidence",
+    "recovery": "Revert the 13TV downloader addition to avoid repeated rate-limited hits; keep old 13TT registered-acquisition workflow intact."
+  },
+  "decisive_boundaries": [
+    "A later Siku electronic transcription plus exact Decimal replay is not original Ming print; no original vol49 unit or rounding rule may be promoted.",
+    "The local printed 1526.64 agrees with truncation of displayed operands, but hidden intermediate precision or text transmission are not excluded; no source-wide round/quantizer winner.",
+    "Matching symbol 八百二十 and division by 遲行度 does not prove original volume45 table coefficient and later volume49 worked procedure share the same unshifted numerical representation.",
+    "This does not repair the two independently retained volume45 L35 original reciprocal mismatches, determine 微 radix, or the G893 少/微 six historic finals.",
+    "The 429 is an execution access condition and cannot support original glyph absence or a permanent source restriction."
+  ],
+  "adjudication": {
+    "new_original_glyphs": 0,
+    "new_independent_source_copies": 0,
+    "new_registered_sources": 0,
+    "source_registry_total": 787,
+    "graph_nodes": 254,
+    "graph_edges": 239,
+    "new_graph_edges": 0,
+    "g893_historical_finals": "0/6",
+    "g893_named_fields": "5/6",
+    "tw_open_0005": "P0 OPEN",
+    "matrix": "222/222",
+    "open_issues": 11,
+    "deterministic_chart": "CLOSED",
+    "algorithm_reopens": 0
+  },
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "explicit_non_edges": [
+      "Same title across received Siku volume49 and Ming original volume45 does not establish field/precision identity without volume49 original or a source-native proof."
+    ]
+  },
+  "next": "Locate a rate-limit-free source-authorized original volume49 worked page or a genuine independent same-field early print; until then seek native volume45 unit/radix definitions in already retained original. Do not repeat the 429 route automatically."
+}
