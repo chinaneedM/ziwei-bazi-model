@@ -25,9 +25,9 @@ jobs:
           import fs from 'node:fs';
           import crypto from 'node:crypto';
           const root='artifacts/g892-13ua', book='GK00892_00';
-          const selected=['009a','012a','015a','018a','021a','024a','027a','030a','033a','036a','039a','042a','045a'];
+          const selected=['022a','022b','023a','023b','042b','043a','044b','045b','046a','046b'];
           const hash=b=>crypto.createHash('sha256').update(b).digest('hex');
-          const receipt={schema:'TIANWEN-13UA-G892-SOURCE-INDEXED-HEADING-WINDOW-R1',date:'2026-11-08',book_cd:book,official_url:'https://kyudb.snu.ac.kr/book/view.do?book_cd='+book,scope:'Provider-indexed bounded distributed middle/late folio heading sample; not a full-volume linewise collation',selected_folios:selected,page_index:[],downloaded:[],errors:[],ocr_used:false};
+          const receipt={schema:'TIANWEN-13UA-G892-SOURCE-INDEXED-HEADING-WINDOW-R1',date:'2026-11-08',book_cd:book,official_url:'https://kyudb.snu.ac.kr/book/view.do?book_cd='+book,scope:'Provider-indexed 022a-023b transition and 042b-046b annex/colophon window; not whole-book linewise collation',selected_folios:selected,page_index:[],downloaded:[],errors:[],ocr_used:false};
           const browser=await puppeteer.launch({headless:true,executablePath:process.env.CHROME||'/usr/bin/google-chrome',args:['--no-sandbox','--disable-setuid-sandbox']});
           try{
             const p=await browser.newPage();
