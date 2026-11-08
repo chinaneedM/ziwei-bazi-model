@@ -1,0 +1,118 @@
+{
+  "schema": "TIANWEN-13TU-XING-V69-MING-ORIGINAL-MICRO-DISCARD-SCOPE-R1",
+  "date": "2026-11-08",
+  "issue_id": "TW-OPEN-0005",
+  "question": "What can the same registered original Ming-print fascicle19 attest about micro-level remainder treatment, and does that license a common radix/carry rule for Xing volume45 Jiefa or G893 solar/lunar tables?",
+  "startup": {
+    "verified_remote_head": "e6314ddb7120baa7e5faaecb09c9d34b46010090",
+    "verified_remote_tree": "57cc460ac28e6a302cbabb17ce52aa5b3815ed9a",
+    "exact_head_actions": "21/21 returned exact-head workflow runs completed-success, including 13TT original-recovery run 42426497342",
+    "p0_unresolved_issues": [
+      "TW-OPEN-0001",
+      "TW-OPEN-0002",
+      "TW-OPEN-0005",
+      "TW-OPEN-0006",
+      "TW-OPEN-0007"
+    ],
+    "all_11_issue_records_reviewed": true,
+    "state_version_before": "1.1154.0"
+  },
+  "source": {
+    "work": "邢雲路《古今律曆考》",
+    "fascicle": 19,
+    "physical_copy_proxy": "NLC892-CBM1408-371938, 第19冊",
+    "same_registered_copy_as": "docs/research/TIANWEN-13NV-* (existing fascicle19 source)",
+    "public_url": "https://commons.wikimedia.org/wiki/File:NLC892-CBM1408-371938_古今律曆考_七十二卷_第19冊.pdf",
+    "source_pdf_sha256": "0f34ca5bcb474b9a38ece20c40eb8c468d1671fe6209cec140b20d8c9350e3fe",
+    "source_pdf_bytes": 16674606,
+    "source_pdf_pages": 65,
+    "exact_impression_date_authenticated": false
+  },
+  "acquisition": {
+    "workflow": ".github/workflows/tianwen-13tk-xing-v45-original-probe.yml",
+    "head_sha": "e6314ddb7120baa7e5faaecb09c9d34b46010090",
+    "run_id": 42426497342,
+    "job_id": 128565786563,
+    "artifact_id": 13595666995,
+    "artifact_name": "xing-13tq-native-source-pages",
+    "artifact_entry": "source19.pdf",
+    "artifact_expired_at_review": false,
+    "hash_locked_public_source": true,
+    "local_sha256_matches_registered": true
+  },
+  "original_page_controls": [
+    {
+      "pdf_page_one_based": 35,
+      "section_role": "original volume boundary",
+      "xref": 107,
+      "raw_stream_sha256": "45fccd7e518c89d050a021963ffb7c0cf041c216f935a74395c10bf62e0c48c7",
+      "image_pixels": [
+        1725,
+        1492
+      ],
+      "decoded_grayscale_sha256": "96faec522c4c156c77cd187125fe4ee57911badb054d0ee325da5612ac53950f",
+      "literal": "古今律曆考卷六十九",
+      "grade": "DIRECT_NATIVE_ORIGINAL_VISUAL"
+    },
+    {
+      "pdf_page_one_based": 36,
+      "section_role": "volume69 worked geometric arc problem/result",
+      "xref": 110,
+      "raw_stream_sha256": "257933a84bf9700e4e175f8c814e113e3f761aa771d938e9547313744ef72653",
+      "image_pixels": [
+        1725,
+        1492
+      ],
+      "decoded_grayscale_sha256": "4dfe7afb6b6b8f76dc604eadb21d9cb9aa4215e1c77b75656736dd7509dd42dd",
+      "literal": "答曰八十二秒微以下不用",
+      "grade": "DIRECT_NATIVE_ORIGINAL_VISUAL; CONTEXT_BOUND_RESULT_QUANTIZATION"
+    },
+    {
+      "pdf_page_one_based": 17,
+      "section_role": "volume68 earlier source-original worked rate control (previously studied in13NV)",
+      "xref": 53,
+      "raw_stream_sha256": "7afadaf1aa5ab87415d581a5b8d00a93bf9774cb510ffa09997ec4997a31fa33",
+      "image_pixels": [
+        1738,
+        1480
+      ],
+      "decoded_grayscale_sha256": "e5b65634681c3e308ebbb3a9652a2dcf365e21e93399fb283e83e36926ddb672",
+      "literal": "除二次得三十一分有零不用爲立差",
+      "grade": "SAME_COPY_REVIEW_OF_EARLIER_WORKED_EXAMPLE; NOT_NEW_WITNESS"
+    }
+  ],
+  "positive_scope": "The volume69 direct original worked answer explicitly suppresses digits below 秒, using 微以下不用 in a geometric result. This is positive evidence that a remainder cutoff is described in that local worked computation, not generic evidence for a universal Ming/元 table-native micro radix or a round/truncate mode for all numerical fields.",
+  "limitations": [
+    "The word 微 in a volume69 worked geometric result is not mechanically identified with the distinct volume45 printed 捷法 stream (integer + 微 + five glyphs).",
+    "Source-local 微以下不用 does not determine whether source volume45 reciprocal-coefficient digits are radix10, radix100 or an operator input/output scaling convention.",
+    "No G893 六组 original numeric values, original 少 radix/carry, or Xing L35 printed reciprocal exceptions are repaired.",
+    "Fascicle19 and fascicle14 are distinct fascicles/catalog proxies within a named work; do not silently treat volume69 method as original volume45 method, infer same impression date, or count a new independent physical witness.",
+    "Contact sheets were navigation only, not exhaustive 65-page line-by-line collation. No OCR or automated reconstructed glyphs were used for these target original-page readings."
+  ],
+  "bounded_adjudication": {
+    "new_direct_original_page36_micro_cutoff": true,
+    "new_direct_radix_equivalence": false,
+    "new_g893_historical_finals": 0,
+    "g893_historical_finals": "0/6",
+    "g893_named_fields": "5/6",
+    "tw_open_0005": "P0 OPEN",
+    "matrix": "222/222",
+    "sources_registered_union": 787,
+    "source_or_physical_witness_increment": 0,
+    "genealogy_nodes": 254,
+    "genealogy_edges": 239,
+    "genealogy_edge_added": false,
+    "open_issues": 11,
+    "deterministic_chart": "CLOSED",
+    "algorithm_reopens": 0
+  },
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "explicit_non_edges": [
+      "Same work title or micro terminology across volume69/volume45/G893 does not establish shared algorithm or direct transmission."
+    ]
+  },
+  "next": "Seek an explicit source-original native unit/scale definition in the volume45 construction-to-consumer chain, or an independent early same-field L35 original; keep the micro discard of volume69 as scoped supporting vocabulary only."
+}
