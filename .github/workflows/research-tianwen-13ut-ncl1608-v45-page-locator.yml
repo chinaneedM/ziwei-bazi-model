@@ -76,6 +76,48 @@ jobs:
               raw=original['image']
               print('DIRECT_NATIVE_SOURCE',json.dumps({'pdf_page':one,'xref':images[0][0],'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest(),'format':original['ext']}))
               print('DIRECT_NATIVE_B64_'+str(one)+'='+base64.b64encode(raw).decode('ascii'))
+          # 13UT scope refinement: part-one p990 is around the juan41/42
+          # seam; the specific v45 table should be sought in the SAME
+          # accession's registered part-two, not in another invented copy.
+          url2='https://upload.wikimedia.org/wikipedia/commons/0/05/NCL-06273_2_%E5%8F%A4%E4%BB%8A%E5%BE%8B%E6%9B%86%E8%80%83.pdf'
+          request2=urllib.request.Request(url2,headers={'User-Agent':'TianwenHistoricalCollation/1.0 (https://github.com/chinaneedM/ziwei-bazi-model; public domain scan)'})
+          with urllib.request.urlopen(request2,timeout=150) as response:
+              bytes2=response.read(80_000_000)
+              assert response.status==200
+          assert hashlib.sha256(bytes2).hexdigest()=='4c6ec588e2fa7a13db0187b7ce8630fbfa7ec86ac47f2c8120e0f9a6b3dcce78','13NW original part2 hash mismatch'
+          book2=fitz.open(stream=bytes2,filetype='pdf')
+          assert len(book2)==625
+          print('PART2_REGISTERED_SOURCE',json.dumps({'url':url2,'bytes':len(bytes2),'sha256':hashlib.sha256(bytes2).hexdigest(),'pdf_pages':len(book2),'catalogued_holding':'NCL06273 already 13NW','independent_witness_increment':0}))
+          sample2=[1,20,40,60,80,100,120,140,160,180,200,220,240]
+          thumbnails=[]
+          for one in sample2:
+              px=book2[one-1].get_pixmap(matrix=fitz.Matrix(.85,.85),alpha=False)
+              im=Image.open(io.BytesIO(px.tobytes('png'))).convert('RGB')
+              im.thumbnail((380,335))
+              thumbnails.append((one,im))
+          for k in range(0,len(thumbnails),12):
+              block=thumbnails[k:k+12]
+              canvas=Image.new('RGB',(4*400,3*360),'white');paint=ImageDraw.Draw(canvas)
+              for idx,(one,im) in enumerate(block):
+                  x=(idx%4)*400;y=(idx//4)*360
+                  paint.text((x+5,y+5),'PART2 PDF '+str(one),fill='black')
+                  canvas.paste(im,(x,y+22))
+              buf=io.BytesIO();canvas.save(buf,format='JPEG',quality=75,optimize=True)
+              raw=buf.getvalue()
+              name='part2-atlas-'+str(k//12+1)+'.jpg'
+              (out/name).write_bytes(raw)
+              print('PART2_ATLAS',json.dumps({'file':name,'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest()}))
+              print('PART2_ATLAS_B64_'+str(k//12+1)+'='+base64.b64encode(raw).decode('ascii'))
+          # Native original no-OCR page probes for the likely 45th-juan window.
+          for one in [60,80,100,120,140,160,180]:
+              pg=book2[one-1]
+              imginfo=pg.get_images(full=True)
+              assert imginfo
+              raw=book2.extract_image(imginfo[0][0])['image']
+              name='part2-p'+str(one)+'.jpg'
+              (out/name).write_bytes(raw)
+              print('PART2_DIRECT_NATIVE',json.dumps({'pdf_page':one,'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest()}))
+              print('PART2_NATIVE_B64_'+str(one)+'='+base64.b64encode(raw).decode('ascii'))
           (out/'source-manifest.json').write_text(json.dumps(detail,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
           PY
       - name: Save original source window for direct visual follow-up
