@@ -1,0 +1,242 @@
+{
+  "schema": "TIANWEN-13UP-G892-XING-SIX-LIMIT-INVERSE-RATE-TRIANGULATION-R1",
+  "date": "2026-11-08",
+  "issue_id": "TW-OPEN-0005",
+  "starting_remote": {
+    "head": "ee7684bfc26459fc2d75bf41aeba2f7790468483",
+    "tree": "a49307cb347a9cb0d1a03a652180cd3bcf8e4b15",
+    "state_version": "1.1173.0",
+    "exact_head_actions": "285/285 completed-success, checked pages 100/100/85"
+  },
+  "question": "Do source-original G892 L33-L38 coarse coefficient glyphs agree more strongly with Xing's independently printed four-place rate passed through an explicit hypothetical inverse operator than with Xing's separately printed five-place 捷法; and can a single reduction method explain all six?",
+  "evidence_reused": {
+    "g892": "Kyujanggak GK00892_00 original 034a JPEG SHA256 7898e39d45a84839ccb6dd261de6177a07c3b55fe4ed0743cca6c4fc36d4f5eb",
+    "xing": "NLC892-CBM1408-371933 《古今律曆考》卷45 original PDF page66 SHA256 95b264e0447fb612a4b389b4b44e8f9871f9d0417b6893699fd37fe589cb23f3",
+    "g892_literal_and_RGB_hashes": "docs/research/TIANWEN-13UO-G892-L33-L38-COEFFICIENT-PREFIX-AND-ROUNDING-DISCRIMINATION-R1.json",
+    "xing_original_L34_L35_L36": "docs/research/TIANWEN-13TR-XING-TWO-FIELD-NATIVE-PREFIX-AND-RECIPROCAL-REPLAY-R1.json",
+    "xing_original_L33_L37_L38": "docs/research/TIANWEN-13TW-XING-V45-L33-L37-L38-NATIVE-RECIPROCAL-BRACKETS-R1.json",
+    "source_original_820_phrase": "13TR records independent Xing original source page73 phrase 右置八百二十以遲行度而一為捷法; it is an Xing-source instruction, NOT a proved G892 coefficient constructor",
+    "no_new_source_downloads": true,
+    "no_new_historical_glyph_reads": true,
+    "no_new_independent_physical_witnesses": true
+  },
+  "method": {
+    "evidence_grade": "SOURCE_ORIGINAL_GLYPH_VALUES_REUSED; CONDITIONAL_INTEGER_ARITHMETIC_ONLY; G892_GENERATOR_UNPROVED",
+    "assumptions": [
+      "Use the prior explicitly CONDITIONAL Xing field split: 1.#### motion prefix encoded as r=10000+four digit fractional part; the printed 捷法 coefficient encoded as integer c in 1e-5 units, removing original 微 only for model arithmetic",
+      "Use prior G892 source-specific L32 example only as a candidate four-glyph decimal 1e-3 coefficient interpretation for L33-L38; this is not a source-original all-row radix instruction",
+      "Align Xing and G892 by matching printed limit ordinal and provisional 疾-side lane. Do not infer same epoch, time base, original velocity operand, common table generator or lineage",
+      "Test H(r)=82000/r and decimal reductions FLOOR_1e3 and NEAREST_HALF_UP_1e3; treat the number 820 as source-attested for Xing only, and the factor100 as a conditional normalized-unit assumption"
+    ],
+    "integer_only": [
+      "H_floor_1e5=floor(8200000000/r)",
+      "H_floor_1e3=floor(82000000/r)",
+      "H_nearest_1e3=floor((2*82000000+r)/(2*r))",
+      "Xing_print_floor_1e3=floor(c/100); Xing_print_nearest_1e3=floor((c+50)/100)",
+      "For each target k G892 milli-ticks and positive four-place-rate integer r, FLOOR inverse needs 82000000/(k+1) < r <= 82000000/k; NEAREST_HALF_UP inverse needs 164000000/(2*k+1) < r <= 164000000/(2*k-1). Integer candidate sets are enumerated locally around each source-printed r, no free parameter fitted"
+    ]
+  },
+  "six_original_printed_limit_pairs_and_conditional_replays": [
+    {
+      "limit": 33,
+      "g892_compact_original": "六九六三",
+      "g892_milli_ticks_conditional": 6963,
+      "xing_ji_original_print": "三十三限 疾度一七七六六微九六三三一",
+      "xing_printed_rate_four_place_ticks": 11776,
+      "xing_printed_jiefa_1e5_ticks": 696331,
+      "xing_printed_jiefa_floor_to_1e3": 6963,
+      "xing_printed_jiefa_nearest_to_1e3": 6963,
+      "hypothetical_inverse_floor_to_1e5": 696331,
+      "hypothetical_inverse_floor_to_1e3": 6963,
+      "hypothetical_inverse_nearest_to_1e3": 6963,
+      "xing_printed_minus_hypothetical_inverse_1e5": 0,
+      "g892_matches_printed_floor": true,
+      "g892_matches_printed_nearest": true,
+      "g892_matches_hypothetical_inverse_floor": true,
+      "g892_matches_hypothetical_inverse_nearest": true,
+      "hypothetical_source_rate_integer_candidates_for_g892_floor": [
+        11775,
+        11776
+      ],
+      "hypothetical_source_rate_integer_candidates_for_g892_nearest": [
+        11776,
+        11777
+      ]
+    },
+    {
+      "limit": 34,
+      "g892_compact_original": "六九六九",
+      "g892_milli_ticks_conditional": 6969,
+      "xing_ji_original_print": "疾一度一七六四六微九七〇四一",
+      "xing_printed_rate_four_place_ticks": 11764,
+      "xing_printed_jiefa_1e5_ticks": 697041,
+      "xing_printed_jiefa_floor_to_1e3": 6970,
+      "xing_printed_jiefa_nearest_to_1e3": 6970,
+      "hypothetical_inverse_floor_to_1e5": 697041,
+      "hypothetical_inverse_floor_to_1e3": 6970,
+      "hypothetical_inverse_nearest_to_1e3": 6970,
+      "xing_printed_minus_hypothetical_inverse_1e5": 0,
+      "g892_matches_printed_floor": false,
+      "g892_matches_printed_nearest": false,
+      "g892_matches_hypothetical_inverse_floor": false,
+      "g892_matches_hypothetical_inverse_nearest": false,
+      "hypothetical_source_rate_integer_candidates_for_g892_floor": [
+        11765,
+        11766
+      ],
+      "hypothetical_source_rate_integer_candidates_for_g892_nearest": [
+        11766,
+        11767
+      ]
+    },
+    {
+      "limit": 35,
+      "g892_compact_original": "六九七七",
+      "g892_milli_ticks_conditional": 6977,
+      "xing_ji_original_print": "疾一度一七五二六微九七五三〇",
+      "xing_printed_rate_four_place_ticks": 11752,
+      "xing_printed_jiefa_1e5_ticks": 697530,
+      "xing_printed_jiefa_floor_to_1e3": 6975,
+      "xing_printed_jiefa_nearest_to_1e3": 6975,
+      "hypothetical_inverse_floor_to_1e5": 697753,
+      "hypothetical_inverse_floor_to_1e3": 6977,
+      "hypothetical_inverse_nearest_to_1e3": 6978,
+      "xing_printed_minus_hypothetical_inverse_1e5": -223,
+      "g892_matches_printed_floor": false,
+      "g892_matches_printed_nearest": false,
+      "g892_matches_hypothetical_inverse_floor": true,
+      "g892_matches_hypothetical_inverse_nearest": false,
+      "hypothetical_source_rate_integer_candidates_for_g892_floor": [
+        11752
+      ],
+      "hypothetical_source_rate_integer_candidates_for_g892_nearest": [
+        11753
+      ]
+    },
+    {
+      "limit": 36,
+      "g892_compact_original": "六九八五",
+      "g892_milli_ticks_conditional": 6985,
+      "xing_ji_original_print": "疾一度一七三九六微九八五二六",
+      "xing_printed_rate_four_place_ticks": 11739,
+      "xing_printed_jiefa_1e5_ticks": 698526,
+      "xing_printed_jiefa_floor_to_1e3": 6985,
+      "xing_printed_jiefa_nearest_to_1e3": 6985,
+      "hypothetical_inverse_floor_to_1e5": 698526,
+      "hypothetical_inverse_floor_to_1e3": 6985,
+      "hypothetical_inverse_nearest_to_1e3": 6985,
+      "xing_printed_minus_hypothetical_inverse_1e5": 0,
+      "g892_matches_printed_floor": true,
+      "g892_matches_printed_nearest": true,
+      "g892_matches_hypothetical_inverse_floor": true,
+      "g892_matches_hypothetical_inverse_nearest": true,
+      "hypothetical_source_rate_integer_candidates_for_g892_floor": [
+        11738,
+        11739
+      ],
+      "hypothetical_source_rate_integer_candidates_for_g892_nearest": [
+        11739,
+        11740
+      ]
+    },
+    {
+      "limit": 37,
+      "g892_compact_original": "六九九三",
+      "g892_milli_ticks_conditional": 6993,
+      "xing_ji_original_print": "三十七限 疾度一七二六六微九九三〇〇",
+      "xing_printed_rate_four_place_ticks": 11726,
+      "xing_printed_jiefa_1e5_ticks": 699300,
+      "xing_printed_jiefa_floor_to_1e3": 6993,
+      "xing_printed_jiefa_nearest_to_1e3": 6993,
+      "hypothetical_inverse_floor_to_1e5": 699300,
+      "hypothetical_inverse_floor_to_1e3": 6993,
+      "hypothetical_inverse_nearest_to_1e3": 6993,
+      "xing_printed_minus_hypothetical_inverse_1e5": 0,
+      "g892_matches_printed_floor": true,
+      "g892_matches_printed_nearest": true,
+      "g892_matches_hypothetical_inverse_floor": true,
+      "g892_matches_hypothetical_inverse_nearest": true,
+      "hypothetical_source_rate_integer_candidates_for_g892_floor": [
+        11725,
+        11726
+      ],
+      "hypothetical_source_rate_integer_candidates_for_g892_nearest": [
+        11726
+      ]
+    },
+    {
+      "limit": 38,
+      "g892_compact_original": "七〇〇一",
+      "g892_milli_ticks_conditional": 7001,
+      "xing_ji_original_print": "三十八限 疾度一七一三七微〇〇〇七六",
+      "xing_printed_rate_four_place_ticks": 11713,
+      "xing_printed_jiefa_1e5_ticks": 700076,
+      "xing_printed_jiefa_floor_to_1e3": 7000,
+      "xing_printed_jiefa_nearest_to_1e3": 7001,
+      "hypothetical_inverse_floor_to_1e5": 700076,
+      "hypothetical_inverse_floor_to_1e3": 7000,
+      "hypothetical_inverse_nearest_to_1e3": 7001,
+      "xing_printed_minus_hypothetical_inverse_1e5": 0,
+      "g892_matches_printed_floor": false,
+      "g892_matches_printed_nearest": true,
+      "g892_matches_hypothetical_inverse_floor": false,
+      "g892_matches_hypothetical_inverse_nearest": true,
+      "hypothetical_source_rate_integer_candidates_for_g892_floor": [
+        11711,
+        11712
+      ],
+      "hypothetical_source_rate_integer_candidates_for_g892_nearest": [
+        11712,
+        11713
+      ]
+    }
+  ],
+  "exact_replay": {
+    "rows": 6,
+    "g892_matches_xing_printed_floor": 3,
+    "g892_matches_xing_printed_nearest": 4,
+    "g892_matches_inverse_from_xing_printed_rate_floor": 4,
+    "g892_matches_inverse_from_xing_printed_rate_nearest": 4,
+    "l35_interpretation": "At L35, original G892 compact 六九七七 means candidate 6.977; Xing original rate 一度一七五二 gives candidate 82000/11752=6.977535..., whose floor-to-1e3 is 6.977. Xing separately PRINTS 捷法 六微九七五三〇 (candidate 6.97530), which differs from its rate-derived floor-to-1e5 6.97753 by -223 ticks. This is a conditional three-way numerical observation, not a physical-copy or historical-error ruling.",
+    "l34_rate_sensitivity": "At L34 G892 candidate 6.969 cannot result from the SAME exact Xing printed 11764 under either tested coarse inverse reduction: integer r=11765 or11766 would work for floor; r=11766 or11767 for nearest. These are hypothetical allowed operand ranges, not attested alternate print.",
+    "l38_rate_sensitivity": "At L38 G892 candidate7.001 agrees with nearest, not floor, of Xing printed rate11713; Xing own printed coefficient7.00076 behaves analogously under the candidate nearest-to-1e3 reduction.",
+    "assertion_results": {
+      "L35_source_g892_matches_inverse_floor": true,
+      "L35_source_g892_disagrees_xing_printed_coarsening": true,
+      "L35_xing_printed_coefficient_gap_1e5": -223,
+      "L34_requires_rate_shift_for_either_floor_or_nearest": true,
+      "universal_formula_with_given_xing_rate_fails_for_floor": true,
+      "universal_formula_with_given_xing_rate_fails_for_nearest": true
+    },
+    "all_six_explained_by_one_shared_inverse_and_rounding_rule": false,
+    "implications": "The L35 cross-text mismatch cannot be assigned solely to global G892 coarse rounding of Xing's PRINTED coefficient. At least one additional source-scoped distinction remains (operand, printing/entry, generator, radix, mapping or line alignment). None is independently selected as the cause."
+  },
+  "adjudication": {
+    "source_original_g892_coefficient_constructor": "UNRESOLVED",
+    "source_native_miao_micro_radix_and_carry": "UNRESOLVED",
+    "g892_day_ke_marginal_limit_endpoint_alignment": "UNRESOLVED",
+    "cross_text_field_limit_epoch_identity": "UNRESOLVED",
+    "independent_g893_historical_six_final_values": "0/6",
+    "independently_named_g893_fields": "5/6",
+    "tw_open_0005": "P0 OPEN",
+    "source_union": 789,
+    "matrix": "222/222",
+    "graph": "254 nodes / 239 edges",
+    "open_issues": 11,
+    "product": "CLOSED",
+    "algorithm_reopens": 0,
+    "evidence_confidence": "CONDITIONAL_EXACT_ARITHMETIC; NOT A NEW HISTORICAL RULE OR G893 FINAL"
+  },
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "A bounded six-row numeric inverse fit is not an independent original G892 generator attestation and cannot establish G892-to-Xing textual or arithmetic descent."
+    ],
+    "unresolved_lineage_questions": [
+      "Find G892 original-rate/820 operator/limit coordinate instruction or an independently dated comparable copy before connecting coefficient mechanisms."
+    ]
+  },
+  "next": "Prioritize original G892 per-row input/limit or native coefficient construction proof, then check independent G893 original numeric controls. Do not infer local source error at Xing L35 or G892 L34/L38 from conditional arithmetic."
+}
