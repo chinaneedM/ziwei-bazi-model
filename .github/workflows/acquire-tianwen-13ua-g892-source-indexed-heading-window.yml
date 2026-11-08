@@ -25,9 +25,9 @@ jobs:
           import fs from 'node:fs';
           import crypto from 'node:crypto';
           const root='artifacts/g892-13ua', book='GK00892_00';
-          const selected=['022a','022b','023a','023b','042b','043a','043b','044a','044b','045b','046a','046b'];
+          const selected=['022a','022b','023a','023b','024a','024b','025a','025b','026a','026b','027a','042b','043a','043b','044a','044b','045b','046a','046b'];
           const hash=b=>crypto.createHash('sha256').update(b).digest('hex');
-          const receipt={schema:'TIANWEN-13UA-G892-SOURCE-INDEXED-HEADING-WINDOW-R1',date:'2026-11-08',book_cd:book,official_url:'https://kyudb.snu.ac.kr/book/view.do?book_cd='+book,scope:'Provider-indexed 022a-023b transition and 042b-046b annex/colophon window, including 13UH gap 043b and 044a; not whole-book linewise collation',selected_folios:selected,page_index:[],downloaded:[],errors:[],ocr_used:false};
+          const receipt={schema:'TIANWEN-13UA-G892-SOURCE-INDEXED-HEADING-WINDOW-R1',date:'2026-11-08',book_cd:book,official_url:'https://kyudb.snu.ac.kr/book/view.do?book_cd='+book,scope:'Provider-indexed 022a-027a day/ke/limit seam including 13UI missing 024b-026b and 042b-046b appendix including 13UH 043b/044a; not whole-book linewise collation',selected_folios:selected,page_index:[],downloaded:[],errors:[],ocr_used:false};
           const browser=await puppeteer.launch({headless:true,executablePath:process.env.CHROME||'/usr/bin/google-chrome',args:['--no-sandbox','--disable-setuid-sandbox']});
           try{
             const p=await browser.newPage();
