@@ -1,0 +1,168 @@
+{
+  "schema": "TIANWEN-13UJ-G892-DUAL-KE-COLUMN-GEOMETRY-AND-CI-RECOVERY-R1",
+  "date": "2026-11-08",
+  "issue_id": "TW-OPEN-0005",
+  "starting_remote": {
+    "head": "951aae71067124fd86e5ead4ad67830438057dab",
+    "tree": "c300894dcded7f17cd23bb9998bbf89e76021fce",
+    "state_version": "1.1167.0"
+  },
+  "source": {
+    "provider": "Seoul National University Kyujanggak",
+    "book_cd": "GK00892_00",
+    "call_number": "奎貴892",
+    "title": "授時曆捷法立成",
+    "catalog_url": "https://kyudb.snu.ac.kr/book/view.do?book_cd=GK00892_00",
+    "single_previously_registered_physical_holding": true,
+    "formal_registry_tier_unchanged": "BIBLIOGRAPHIC_METADATA_ONLY; bounded direct original glyph evidence separately held here",
+    "previous_evidence": "docs/research/TIANWEN-13UI-G892-INTERVENING-DAY-KE-LIMIT-FOLIO-SEAM-R1.json"
+  },
+  "acquisition_reuse": {
+    "run_id": 42470496416,
+    "artifact_id": 13613331667,
+    "artifact_name": "tianwen-13ua-g892-source-indexed-heading-window",
+    "artifact_zip_sha256": "421f33b0939cd5e53e36de937e362f10ad5f9bdb76d620ac63de7ad161d7ac5f",
+    "original_jpegs_rehashed": 19,
+    "original_jpeg_hash_matches": 19,
+    "hash_mismatches": 0,
+    "new_provider_downloads": 0,
+    "ocr_used": false,
+    "images_uploaded_to_public_git": false,
+    "roi_hash_method": "SHA256 of Pillow Image.open(original JPEG).convert(RGB).crop((left,top,right,bottom)).tobytes(); source pixels unresized; right/bottom exclusive; not encoded PNG hash"
+  },
+  "native_original_geometry_reviews": [
+    {
+      "id": "G892-13UJ-INITIAL",
+      "folio": "022b",
+      "original_jpeg_sha256": "a7ed6c8087e29e49bb42b27ffcf07849f14dc5443a88f9b48eef2fc630afbce5",
+      "original_jpeg_bytes": 352743,
+      "original_image_size": [
+        2204,
+        3743
+      ],
+      "source_url": "https://kyudb.snu.ac.kr/ImageServlet.do?imgFileNm=GK00892_00IH_0001_022b.jpg&path=/data01/stream/SIC/IMG/GK00892_00/GK00892_00_0001/GK00892_00IH_0001_022b.jpg",
+      "roi_xyxy": [
+        1000,
+        1590,
+        1950,
+        2010
+      ],
+      "roi_size": [
+        950,
+        420
+      ],
+      "roi_rgb_sha256": "3c88ba776f56bec9bab76fb1104fc8163cb0e75766c7470294745ab9773a7b7e",
+      "direct_visible_ke_labels": [
+        "一刻",
+        "六刻"
+      ],
+      "direct_visible_marker": "初限",
+      "review_scope": "Native unresized RGB source crop; marker and both ke-label columns visible in one horizontal band. This records glyph and column geometry only, not which label is the historical limit endpoint."
+    },
+    {
+      "id": "G892-13UJ-ELEVEN",
+      "folio": "024a",
+      "original_jpeg_sha256": "6063243df1cbcded8f3771257d76fc7fc4b132c2fb1d27bc86788c741e980e50",
+      "original_jpeg_bytes": 352937,
+      "original_image_size": [
+        2204,
+        3743
+      ],
+      "source_url": "https://kyudb.snu.ac.kr/ImageServlet.do?imgFileNm=GK00892_00IH_0001_024a.jpg&path=/data01/stream/SIC/IMG/GK00892_00/GK00892_00_0001/GK00892_00IH_0001_024a.jpg",
+      "roi_xyxy": [
+        1000,
+        1550,
+        2070,
+        1980
+      ],
+      "roi_size": [
+        1070,
+        430
+      ],
+      "roi_rgb_sha256": "ba106a3c73a56ecb344d5ab22b2661238f5a1c9ede1612c69f29c6e4298866aa",
+      "direct_visible_ke_labels": [
+        "一刻",
+        "六刻"
+      ],
+      "direct_visible_marker": "限十一 (printed two-column arrangement)",
+      "review_scope": "Native unresized RGB source crop; marker and both ke-label columns visible in one horizontal band. This records glyph and column geometry only, not which label is the historical limit endpoint."
+    },
+    {
+      "id": "G892-13UJ-TWELVE",
+      "folio": "024a",
+      "original_jpeg_sha256": "6063243df1cbcded8f3771257d76fc7fc4b132c2fb1d27bc86788c741e980e50",
+      "original_jpeg_bytes": 352937,
+      "original_image_size": [
+        2204,
+        3743
+      ],
+      "source_url": "https://kyudb.snu.ac.kr/ImageServlet.do?imgFileNm=GK00892_00IH_0001_024a.jpg&path=/data01/stream/SIC/IMG/GK00892_00/GK00892_00_0001/GK00892_00IH_0001_024a.jpg",
+      "roi_xyxy": [
+        1000,
+        2870,
+        2070,
+        3340
+      ],
+      "roi_size": [
+        1070,
+        470
+      ],
+      "roi_rgb_sha256": "1f6d1e0e67470ff7c4ffb912c64f108849c7e7267c1c94f6ad088ba72d030fa4",
+      "direct_visible_ke_labels": [
+        "四刻",
+        "九刻"
+      ],
+      "direct_visible_marker": "限十二 (printed two-column arrangement)",
+      "review_scope": "Native unresized RGB source crop; marker and both ke-label columns visible in one horizontal band. This records glyph and column geometry only, not which label is the historical limit endpoint."
+    }
+  ],
+  "direct_result": [
+    "On original 022b, 一刻 and 六刻 occupy different vertical columns in the same horizontal band as the 初限 annotation. Original 024a repeats 一刻/六刻 in a band containing the printed eleven-limit annotation, and 四刻/九刻 in a band containing the twelve-limit annotation.",
+    "Therefore a marker y-coordinate alone cannot identify its ke coordinate: the same horizontal band contains two distinct printed ke labels. Left/right lane ownership and the numeric cell relation must be independently established before assigning a limit to a day/ke value.",
+    "These three source-native RGB bindings strengthen the original layout evidence beyond 13UI general day-seam continuity. They deliberately do not decide whether the initial marker belongs to one刻, six刻, an interval boundary, or another adjacent numeric lane; those are unresolved interpretations, not certified source readings."
+  ],
+  "exact_head_ci_recovery": {
+    "workflow": "verify-tianwen-13hb-source-photo-d14",
+    "run_id": 42471172665,
+    "failed_attempt": 1,
+    "failed_job_id": 128702011541,
+    "failed_step": "Verify previously source-declared official photo4 pixels",
+    "error": "urllib.error.URLError: <urlopen error timed out>; source fetch exhausted existing bounded retry. Metadata verifier, 8 direct-glyph tests, and 9 transport retry tests had passed.",
+    "action": "Rerun failed jobs once using existing unchanged workflow and source URL; no weakened hash/transport gate.",
+    "recovered_attempt": 2,
+    "recovered_status": "completed",
+    "recovered_conclusion": "success",
+    "recovered_head": "951aae71067124fd86e5ead4ad67830438057dab"
+  },
+  "adjudication": {
+    "same_height_is_unique_ke_coordinate": "DISPROVEN_BY_DIRECT_DUAL_LABEL_LAYOUT",
+    "three_exact_rgb_contexts": "DIRECT_SOURCE_ORIGINAL_GLYPH_AND_COLUMN_GEOMETRY_BOUND",
+    "limit_to_ke_endpoint_assignment": "UNRESOLVED",
+    "numeric_lane_unit_radix_and_carry": "UNRESOLVED",
+    "g892_g893_xing_same_numeric_field": "UNPROVEN",
+    "uniform_limit_length": "NOT_ADJUDICATED",
+    "g893_historical_finals": "0/6",
+    "g893_named_fields": "5/6",
+    "issue_status": "P0 OPEN",
+    "new_registered_sources": 0,
+    "new_independent_witnesses": 0,
+    "matrix": "222/222",
+    "source_union": 789,
+    "genealogy": "254 nodes / 239 edges",
+    "unresolved_issues": 11,
+    "chart": "CLOSED",
+    "algorithm_reopens": 0
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "G892 marginal xian position does not establish numerical equivalence with G893/Xing or prove any transmission edge."
+    ],
+    "unresolved_lineage_questions": [
+      "Source-native table column/operand correspondence and the historical limit-endpoint convention remain unproved."
+    ]
+  },
+  "next": "Resolve source-native column ownership using complete printed headings, a source-specific reading instruction/worked example, or unambiguous numeric-lane continuity. Do not assign 初限=一刻/六刻, fit a uniform limit length, or compare G893/Xing speeds from y-only proximity. Reuse original archived images; no further day-heading acquisition needed for this bounded window."
+}
