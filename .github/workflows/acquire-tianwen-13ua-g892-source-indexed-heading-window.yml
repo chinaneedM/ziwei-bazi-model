@@ -28,12 +28,15 @@ jobs:
           const selected=[]; // Filled only from the official viewer's complete, bounded 96-link index.
           const hash=b=>crypto.createHash('sha256').update(b).digest('hex');
           const receipt={schema:'TIANWEN-13UA-G892-SOURCE-INDEXED-HEADING-WINDOW-R1',date:'2026-11-08',book_cd:book,official_url:'https://kyudb.snu.ac.kr/book/view.do?book_cd='+book,scope:'13UK complete provider-indexed G892 original image acquisition (96 viewer labels, including covers and 999a/b); image acquisition only, not whole-book glyph or linewise collation',selected_folios:selected,page_index:[],downloaded:[],errors:[],ocr_used:false};
-          const browser=await puppeteer.launch({headless:true,executablePath:process.env.CHROME||'/usr/bin/google-chrome',args:['--no-sandbox','--disable-setuid-sandbox']});
+          const checkpoint=stage=>{receipt.stage=stage;receipt.downloaded_count=receipt.downloaded.length;fs.writeFileSync(root+'/receipt.json',JSON.stringify(receipt,null,2)+'\n');console.log(JSON.stringify({stage,downloaded:receipt.downloaded.length,errors:receipt.errors.length}));};
+          const bounded=async(label,fn,ms=90000)=>{checkpoint(label);let timer;try{return await Promise.race([fn(),new Promise((_,reject)=>{timer=setTimeout(()=>reject(Error(label+' bounded timeout')),ms);})]);}finally{clearTimeout(timer);}};
+          let browser;
           try{
-            const p=await browser.newPage();
+          browser=await bounded('launch browser',()=>puppeteer.launch({headless:true,executablePath:process.env.CHROME||'/usr/bin/google-chrome',args:['--no-sandbox','--disable-setuid-sandbox']}));
+            const p=await bounded('open catalog page',()=>browser.newPage());
             await p.setUserAgent('Mozilla/5.0 Tianwen-Bounded-Original-Source-Collation/1.0');
-            await p.goto('https://kyudb.snu.ac.kr/book/list.do?book_cate=SIC04&mid=GDS',{waitUntil:'networkidle2',timeout:90000});
-            await Promise.all([
+            await bounded('catalog list navigation',()=>p.goto('https://kyudb.snu.ac.kr/book/list.do?book_cate=SIC04&mid=GDS',{waitUntil:'networkidle2',timeout:90000}));
+            await bounded('catalog item navigation',()=>Promise.all([
               p.waitForNavigation({waitUntil:'networkidle2',timeout:90000}),
               p.evaluate(book=>{
                 const f=document.getElementById('frmBookSearchInf');
@@ -41,9 +44,9 @@ jobs:
                 f.querySelector('#target').value='master';
                 f.action='/book/view.do';f.method='post';f.submit();
               },book)
-            ]);
+            ]));
             const prior=new Set(browser.targets().map(t=>t._targetId));
-            await p.evaluate(book=>window.fn_originalImg('SIC',book,'',''),book);
+            await bounded('open source viewer',()=>p.evaluate(book=>window.fn_originalImg('SIC',book,'',''),book));
             let viewer=null;
             for(let i=0;i<40&&!viewer;i++){
               await new Promise(r=>setTimeout(r,500));
@@ -53,11 +56,11 @@ jobs:
             }
             if(!viewer)throw new Error('official image viewer did not open');
             await viewer.waitForNetworkIdle({idleTime:1200,timeout:30000}).catch(()=>{});
-            const diag=await viewer.evaluate(()=>{
+            const diag=await bounded('read official 96-page index',()=>viewer.evaluate(()=>{
               const anchors=Array.from(document.querySelectorAll('a[onclick]'));
               const indexed=anchors.filter(a=>(a.getAttribute('onclick')||'').includes('fn_goPageJumpWithMokIdxClear'));
               return {count_all:anchors.length,count_indexed:indexed.length,raw_sample:indexed.slice(0,6).map(a=>({text:a.textContent,onclick:a.getAttribute('onclick')})),ids:indexed.map(a=>(a.textContent||'').trim()).filter(x=>/^[0-9]{3}[ab]$/.test(x))};
-            });
+            }));
             receipt.viewer_index_diagnostics={count_all:diag.count_all,count_indexed:diag.count_indexed,raw_sample:diag.raw_sample};
             const all=diag.ids;
             receipt.page_index=all;
@@ -70,35 +73,37 @@ jobs:
             for(const folio of selected){
               if(!all.includes(folio)){receipt.errors.push(folio+': not in provider page list');continue;}
               try{
-                const ok=await viewer.evaluate(folio=>{
+                const ok=await bounded('click '+folio,()=>viewer.evaluate(folio=>{
                   const node=Array.from(document.querySelectorAll('a[onclick]')).find(x=>(x.getAttribute('onclick')||'').includes('fn_goPageJumpWithMokIdxClear')&&(x.textContent||'').trim()===folio);
                   if(!node)return false;node.click();return true;
-                },folio);
+                },folio));
                 if(!ok){receipt.errors.push(folio+': clickable UI node absent');continue;}
                 await viewer.waitForFunction(folio=>{
                   const src=document.getElementById('simage')?.getAttribute('src')||'';
                   return src.includes('GK00892_00IH_0001_'+folio+'.jpg');
                 },{timeout:12000},folio);
-                const src=await viewer.evaluate(()=>new URL(document.getElementById('simage').getAttribute('src'),location.href).href);
+                const src=await bounded('read emitted URL '+folio,()=>viewer.evaluate(()=>new URL(document.getElementById('simage').getAttribute('src'),location.href).href));
                 const u=new URL(src);
                 const file='GK00892_00IH_0001_'+folio+'.jpg';
                 if(u.hostname!=='kyudb.snu.ac.kr'||u.pathname!=='/ImageServlet.do'||u.searchParams.get('imgFileNm')!==file||!u.searchParams.get('path')?.endsWith('/'+file))throw Error('unexpected original source URL');
-                const img=await browser.newPage();
+                const img=await bounded('open original page '+folio,()=>browser.newPage());
                 try{
-                  const response=await img.goto(src,{waitUntil:'domcontentloaded',timeout:25000});
-                  const bytes=response?.ok()?await response.buffer():null;
+                  const response=await bounded('navigate original '+folio,()=>img.goto(src,{waitUntil:'domcontentloaded',timeout:25000}),30000);
+                  const bytes=response?.ok()?await bounded('read JPEG bytes '+folio,()=>response.buffer(),30000):null;
                   if(!bytes||bytes.length<5000||bytes[0]!==255||bytes[1]!==216)throw Error('non-JPEG provider response HTTP '+response?.status());
                   fs.writeFileSync(root+'/pages/'+folio+'.jpg',bytes);
                   receipt.downloaded.push({folio,source_url:src,bytes:bytes.length,sha256:hash(bytes),http:response.status(),path:'pages/'+folio+'.jpg',review_grade:'DIRECT_SOURCE_JPEG_UNCOLLATED'});
-                }finally{await img.close();}
-              }catch(e){receipt.errors.push(folio+': '+String(e).slice(0,220));}
+                  checkpoint('captured '+folio);
+                }finally{await bounded('close original page '+folio,()=>img.close(),5000).catch(()=>{});}
+              }catch(e){receipt.errors.push(folio+': '+String(e).slice(0,220));checkpoint('folio failure '+folio);break;}
             }
           }catch(e){receipt.errors.push('viewer '+String(e).slice(0,350));}
           finally{
             receipt.downloaded_count=receipt.downloaded.length;
             fs.writeFileSync(root+'/receipt.json',JSON.stringify(receipt,null,2)+'\n');
             console.log(JSON.stringify({page_index_count:receipt.page_index_count,first:receipt.page_index_first,last:receipt.page_index_last,selected_count:selected.length,downloaded_count:receipt.downloaded_count,folios:receipt.downloaded.map(x=>x.folio),errors:receipt.errors},null,2));
-            await browser.close();
+            if(browser)await bounded('close browser',()=>browser.close(),5000).catch(()=>{});
+            checkpoint('capture stopped');
           }
           JS
       - name: Create viewing contact sheet and verify full capture
