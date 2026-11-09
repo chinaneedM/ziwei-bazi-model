@@ -1,0 +1,87 @@
+{
+  "schema": "TIANWEN-13VO-CHNMUSEUM-MING-XING-HOLDING-AND-THUMBNAIL-R1",
+  "date": "2026-11-10",
+  "issue_id": "TW-OPEN-0005",
+  "evidence_grade": "DIRECT_MUSEUM_HOLDING_AND_PUBLIC_THUMBNAIL__IMPRINT_AND_TARGET_FOLIO_UNVERIFIED",
+  "prior_evidence": [
+    "docs/research/TIANWEN-13VM-XUAN-JUAN45-NANJING-TWO-FACSIMILE-LOCATORS-R1.json",
+    "docs/research/TIANWEN-13VN-XUAN-JIAKU-LOC-MICROFILM-607-608-FRAME-BOUNDS-R1.json"
+  ],
+  "museum": {
+    "institution": "中国国家博物馆",
+    "collection_overview": "https://www.chnmuseum.cn/portals/0/web/zt/cangpin/colletionlist.html",
+    "public_display": "https://www.chnmuseum.cn/portals/0/web/zt/cangpin/colletionlistdetail.html?id=1",
+    "display_page": 2,
+    "first_party_frontend": "https://www.chnmuseum.cn/portals/0/web/zt/cangpin/js/cangpin.js?v=2",
+    "data_url": "https://www.chnmuseum.cn/portals/0/web/zt/cangpin/json/cangpin/cangpin_1.js",
+    "data_http_status": 200,
+    "data_bytes": 89715,
+    "data_sha256": "647ee1e879b6c87838232ff7594a3fe6c0da46552dc55412baf19a13d554050c",
+    "row_ordinal_one_based": 131,
+    "catalogue_record": {
+      "id": "248964",
+      "survey_number": "1101012180003610017229",
+      "title": "古今律历考",
+      "era": "明(1368~1644)"
+    },
+    "replay": "Open phase 1, jump to display page 2, and identify the exact title or survey number in the first public catalogue data file. This first-party record gives a broad dynasty label. It gives neither an imprint statement nor fascicle/juan extent.",
+    "image": {
+      "url": "https://www.chnmuseum.cn/portals/0/web/zt/cangpin/image/1/1101012180003610017229.jpg",
+      "http_status": 200,
+      "bytes": 5865,
+      "pixel_width": 99,
+      "pixel_height": 150,
+      "sha256": "b112666ec5e263db447e594d4fc43a7b2fa47a3154818aff586d2047d353fb14",
+      "observed": "The catalogue emits this JPEG, and the same published thumbnail is used for the list view and hover. Visual inspection shows an opened book with vertical text. Native pixels do not support a reliable imprint, juan, folio or target glyph reading.",
+      "new_target_folio": false
+    }
+  },
+  "catalogue_crosswalk": {
+    "secondary_locator": {
+      "url": "https://m.guoxuedashi.com/shumu/gj-1856259df.html",
+      "observed": "Public search index attributes the National Museum holding to the 1599 Xu An edition, citing 中國古籍總目. The destination showed a human-verification page in this channel; the named primary catalogue passage was not acquired.",
+      "status": "EDITION_HYPOTHESIS_ONLY"
+    },
+    "museum_2021_census": {
+      "publisher": "國家圖書館出版社",
+      "url": "https://www.nlcpress.com/ProductView.aspx?Id=11557",
+      "isbn": "9787501372690",
+      "observed": "Publisher describes a 7,845-entry census catalogue, whose ancient-book registration numbers begin 110000-0182. The museum's movable-cultural-property number 1101012180003610017229 must not be converted into the ancient-book registration series by assumption.",
+      "anonymous_public_download": {
+        "mechanism": "Replay the published ASP.NET Booktext postback from the product page.",
+        "http_status": 200,
+        "content_type": "application/octet-stream",
+        "bytes": 3961,
+        "encoding": "GB18030-compatible",
+        "sha256": "e5e1c0ef14ffd83f3f2ee56e7d67c06104595544202599414fbe9eae8b975966",
+        "result": "The response is the product description, contents summary and preface. It does not contain the individual census entry. The separate catalogue attachment label had no href."
+      }
+    },
+    "next_binding": "Seek the exact catalogue record, including shelfmark, edition and extant juan, or a provider-issued legible page set. Match the museum survey number at item level; a title match or broad era cannot certify the 1599 imprint."
+  },
+  "adjudication": {
+    "museum_holding_record_verified": true,
+    "provider_thumbnail_verified": true,
+    "authenticated_early_xu_an_imprint": false,
+    "juan45_present_in_this_copy": null,
+    "new_original_target_pages": 0,
+    "independent_plate_votes_added": 0,
+    "issue_status": "P0 OPEN",
+    "g893_named_controls": "5/6",
+    "g893_historical_final_verdicts": "0/6"
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Survey record 1101012180003610017229 is the specific 1599 Xu An entry described by the secondary index.",
+      "The museum thumbnail supplies a juan 45 target folio."
+    ],
+    "unresolved_lineage_questions": [
+      "Which imprint and exact extent are catalogued for the museum copy?",
+      "Can a provider-issued juan 45 image from that copy supply an independently legible L132 and an original 疾 coefficient operator?"
+    ]
+  },
+  "next_action": "Use the exact National Museum survey number to seek an open item-level imprint and juan 45 image. Continue parallel paths through the 13VM facsimiles, 13VN microfilms, NCL06270 and SYSU. Verify the exact target folio, L132 final 二/三, and original 疾 construction including radix and carry before adjudicating."
+}
