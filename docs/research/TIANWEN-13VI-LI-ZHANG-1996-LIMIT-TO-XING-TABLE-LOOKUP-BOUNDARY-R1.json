@@ -1,0 +1,98 @@
+{
+  "schema": "TIANWEN-13VI-LI-ZHANG-1996-LIMIT-TO-XING-TABLE-LOOKUP-BOUNDARY-R1",
+  "date": "2026-11-09",
+  "issue_id": "TW-OPEN-0005",
+  "classification": "ALREADY_REGISTERED_1996_SECONDARY_SCHOLARLY_SOURCE_LOOKUP_INDEX_PROPOSAL_NOT_AN_ANCIENT_SOURCE_GLYPH_OR_NATIVE_GENERATOR",
+  "research_question": "What exact late-limit table-lookup adjustment do Li Yong and Zhang Peiyu's 1996 modern Shoushi calculation propose for Xing Yunlu juan45, and why must that not be promoted into the G893/Xu-An primary-source number or limit/radix?",
+  "source": {
+    "registered_source_id": "EXT-SHAO-LI-ZHANG-REAL-NEW-MOON-1996",
+    "title": "中国古历定朔推步综述",
+    "authors": [
+      "李勇",
+      "张培瑜"
+    ],
+    "publication": "天文学进展 14(1), 1996, printed pp.66-76",
+    "publisher_issue_page": "https://www.shao.cas.cn/twxjz/wzll/199601/",
+    "publisher_hosted_pdf": "https://www.shao.cas.cn/twxjz/wzll/199601/199601sp/202308/P020230823504692501891.pdf",
+    "target": "§3.4, printed p.74, immediately after equations (26)-(27), before §3.5",
+    "evidence_grade": "PUBLISHER_HOSTED_PDF_SEARCH_EXTRACT_AND_FIRST_PARTY_ISSUE_BIBLIOGRAPHY_NO_NEW_NATIVE_PAGE_SHA_OR_ANCIENT_FOLIO",
+    "pdf_original_bytes_downloaded_this_batch": false,
+    "screenshot_result": "UNAVAILABLE_REMOTE_PDF_FETCH_502; SOURCE_NATIVE_PIXEL_COLLATION_NOT_CLAIMED",
+    "existing_source_registry_entry_preserved": true
+  },
+  "mechanical_source_scoped_observations": [
+    "The modern paper defines 0.0820 day per lunar limit, writes V(t-prime) as a modern per-limit lunar motion reconstruction and explicitly calls 81-86 limit intervals abnormal. This is the paper's analytical model, not a source-original Ming instruction.",
+    "For Xing Yunlu juan45 lookup, the paper treats the argument as the initial limit and states a conversion from a terminal-limit number m to 168-m.",
+    "It separately warns that the late half, limits 86-168, needs an extra +1 during table lookup, connecting terminal limit 168 to the opposite first-limit value.",
+    "The paper explicitly says Shoushi did not provide the target '入遲疾限下行度' value/algorithm directly; the authors infer it from a Ming Datong reconstruction and/or look it up in Xing's printed table. This is not a native Xu-An 疾 constructor."
+  ],
+  "conditional_lookup_replay": {
+    "definitions": "ONLY for paper-defined terminal m in [86,168]; base initial r=168-m, table lookup k=r+1=169-m; do NOT map source-printed G893 or Xu-An numbered columns to this m without independent source-original index mapping.",
+    "examples": [
+      {
+        "terminal_m": 86,
+        "base_reverse": 82,
+        "late_lookup_index": 83
+      },
+      {
+        "terminal_m": 132,
+        "base_reverse": 36,
+        "late_lookup_index": 37
+      },
+      {
+        "terminal_m": 168,
+        "base_reverse": 0,
+        "late_lookup_index": 1
+      }
+    ],
+    "algebra": "k=(168-m)+1=169-m, conditional on the paper's late-limit definition",
+    "separate_existing_candidate": "Previously investigated 167-n arises in a different n/limit convention and original G893 recurrence comparisons. Equality of an output number under an unstated index relabeling is not proof the definitions or print headings are identical.",
+    "boundary_warning": "The paper's 81-86 exceptional sector and early/late table indexing must be preserved. Do not apply +1 globally, infer a 0-index/1-index winner, or replace any original column glyph with formula output."
+  },
+  "cross_source_evidence_boundary": {
+    "previous_original_source": "docs/research/TIANWEN-13VG-XUAN1599-L132-NATIVE-TERMINAL-GLYPH-RECOVERY-SCOPE-R1.json",
+    "previous_later_catalog": "docs/research/TIANWEN-13VH-JIFUCONGSHU-QING-JUAN45-BIBLIOGRAPHIC-AND-ACCESS-BOUNDARY-R1.json",
+    "previous_received_index": "13KP/13KD/13KE/13KN research and physical/source bounded split",
+    "original_xuan_l132_last_digit": "UNRESOLVED_二_OR_三",
+    "source_native_xuan_ji_operator": "UNRESOLVED",
+    "g893_historical_numeric_final_verdicts": "0/6",
+    "same_field_g893_xing_alignment": "UNRESOLVED",
+    "modern_model_as_historical_ancestor": "NOT_AUTHORIZED",
+    "new_early_original_glyphs": 0,
+    "new_historical_printing_plate_votes": 0,
+    "new_registered_sources": 0,
+    "new_genealogy_nodes": 0,
+    "new_genealogy_edges": 0,
+    "algorithm_reopen": false
+  },
+  "scholarly_value": "Adds a precise already-registered scholarly check that endpoint folding and late-half table lookup offset are separate operations, preventing a false direct equivalence between 167-n, 168-m, and raw 168-limit headings.",
+  "unresolved_questions": [
+    "Directly verify exact early Xu-An or independent Ming juan45 source-original printed first/last-limit headings and paired original 疾 rate/intermediate.",
+    "Determine from direct original G893 table headers whether its index n is convertible into the modern paper's terminal m, including 81-86 transition.",
+    "Determine ancient unit/radix/carry and physical impression/plate independence; a modern synthetic offset or table lookup cannot settle them."
+  ],
+  "adjudication": {
+    "matrix_audited": "222/222",
+    "registry_unique": 789,
+    "genealogy_nodes": 254,
+    "genealogy_edges": 239,
+    "open_omission_issues": 11,
+    "p0_issue": "TW-OPEN-0005_OPEN",
+    "g893_named": "5/6",
+    "g893_historical_final": "0/6",
+    "deterministic_product": "CLOSED",
+    "algorithm_reopens": 0
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "A modern 1996 lookup-index interpretation does not prove an ancient direct G893-to-Xu-An field identity or printing-plate transmission."
+    ],
+    "unresolved_lineage_questions": [
+      "Which independently authenticated ancient print, if any, has an exact index-conversion instruction and source-original high-precision 疾 constructor?"
+    ]
+  },
+  "next_action": "Seek independently legible, authenticated early Xu-An juan45 L132 and/or a direct original 疾-specific generator, and compare exact physical source columns before testing any cross-work 168/167 indexing hypothesis. Do not re-register the 1996 article or add source votes."
+}
