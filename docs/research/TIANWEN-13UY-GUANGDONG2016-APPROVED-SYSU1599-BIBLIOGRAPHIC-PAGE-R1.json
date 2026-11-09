@@ -1,0 +1,68 @@
+{
+  "schema": "TIANWEN-13UY-GUANGDONG2016-APPROVED-SYSU1599-BIBLIOGRAPHIC-PAGE-R1",
+  "date": "2026-11-09",
+  "issue_id": "TW-OPEN-0005",
+  "question": "Does the formally published Guangdong second provincial rare-book catalogue directly confirm the previously recommendation-index-only SYSU Xu-An 1599 bibliographic entry, and what remains unresolved at the object and original-page levels?",
+  "evidence_grade": "DIRECT_OFFICIAL_GOVERNMENT_APPROVED_LIST_PDF_PAGE_VISUAL_READ; BIBLIOGRAPHIC_HOLDING_ONLY; NO_ORIGINAL_BOOK_FOLIO_OR_PLATE",
+  "previous_report": "docs/research/TIANWEN-13UX-XUAN1599-FACSIMILE-SYSU-AND-XUAN1600-HOLDING-SCOPE-R1.json",
+  "source": {
+    "issuer": "广东省人民政府",
+    "source_type": "Officially published second Guangdong provincial rare-book list (approved list, not recommendation stage)",
+    "document_title": "广东省人民政府关于公布第二批广东省珍贵古籍名录的通知",
+    "document_number": "粤府〔2016〕51号",
+    "annex": "附件2：第二批广东省珍贵古籍名录（766部）",
+    "official_pdf_url": "https://www.gd.gov.cn/GD_ZWGKRESOURCES/P020160606330423754620.pdf",
+    "official_gazette_pdf_url": "https://www.gd.gov.cn/attachment/0/433/433167/3365247.pdf",
+    "reviewed_pdf_page_one_based": 36,
+    "reviewed_pdf_page_zero_based": 35,
+    "visible_printed_page_number": "38",
+    "entry_number": 437,
+    "transcription": "古今律历考七十二卷 （明）邢云路撰 明万历二十七年（1599）徐安刻本 中山大学图书馆",
+    "reading_method": "Official document PDF visual screenshot of the list page; manually scoped to entry 437, no OCR and no image-byte SHA claimed",
+    "independent_pdf_file_sha256": null,
+    "original_book_folio_or_colophon": null
+  },
+  "verified_narrow_upgrade": {
+    "former_13ux_grade": "Search-indexed Guangdong pre-approval recommendation PDF row 437; original recommendation PDF fetch/screenshot unavailable at that time",
+    "current_grade": "Published provincial-approved list itself read at the entry-specific PDF page; province-level recognition and named collecting institution confirmed as bibliography",
+    "new_conclusion": "The previous 'recommendation only / approval unproven' limitation can be narrowed for this bibliographic entry; it is on the officially published list.",
+    "does_not_supersede": "The older recommendation PDF's direct 404/access-boundary observation remains historically true for that earlier route; no older report rewritten.",
+    "source_specific_scope": "This is a catalogue designation of 徐安1599 in SYSU collection, not physical colophon/plate authentication or a machine rule."
+  },
+  "still_unresolved": [
+    "SYSU exact catalogue record, shelfmark/barcode, actual physical volumes, v45 target folio/image bytes and permitted reproduction path",
+    "Whether SYSU printed sheets share a plate, exemplar or impression chronology with existing NLC892-411999015732 labelled 1599 or NCL06270 labelled 1600",
+    "Native original 疾度-specific 捷法 constructor and intermediate radix/微/carry precision",
+    "Damaged Xu-An1599 original v45 limit132 printed rate glyph; it cannot be inverse-filled",
+    "G892 and G893 source-specific field, limit-epoch and unit bridges; six G893 historic final verdicts remain 0/6"
+  ],
+  "comparison_control": {
+    "existing_1599_source": "NLC892-411999015732 第19册; same previously registered holding, direct L35/132 image already assessed",
+    "existing_1600_source": "Taiwan NCL06270 徐安1600 catalogued copy; no plate identity inferred",
+    "same_title_is_not_same_copy": true,
+    "approved_catalogue_is_not_original_folio": true,
+    "additional_original_impression_votes": 0
+  },
+  "transmission_impact": {
+    "new_nodes": [],
+    "new_edges": [],
+    "revised_edges": [],
+    "rejected_edges": [],
+    "unresolved_lineage_questions": [
+      "Exact SYSU object/folio and plate-family relationships to NLC1599/NCL1600 remain unverified"
+    ]
+  },
+  "counters": {
+    "historical_matrix": "222/222",
+    "source_registry_union": 789,
+    "genealogy_nodes": 254,
+    "genealogy_edges": 239,
+    "unresolved_issues": 11,
+    "g893_named_controls": "5/6",
+    "g893_historical_final_verdicts": "0/6",
+    "original_page_glyphs_new": 0,
+    "algorithm_reopens": 0,
+    "deterministic_chart_product": "CLOSED"
+  },
+  "next_action": "Seek source-issued SYSU exact item and source-native v45 folio without an account/fee requirement; separately test native 疾 coefficient construction, original L132 legibility, and physically authenticated plate/colophon genealogy. Do not infer algorithm or change product."
+}
