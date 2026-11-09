@@ -1,0 +1,67 @@
+{
+  "schema": "TIANWEN-13VL-HUANG-SHOUSHI-SHLIB-QING-MANUSCRIPT-FACSIMILE-CATALOG-R1",
+  "date": "2026-11-09",
+  "issue_id": "TW-OPEN-0005",
+  "classification": "FIRST_PARTY_FACSIMILE_PROGRAM_BIBLIOGRAPHIC_WITNESS; TARGET_FOLIO_NOT_ACQUIRED",
+  "research_question": "Is there a physically scoped Qing manuscript of Huang Zongxi's 授時曆故 distinct in catalog identity from the 1923 Jiayetang print, suitable as a later collation target for the 810/820 digital-text conflict?",
+  "first_party_publisher_catalog": {
+    "institution": "山東大學全球漢籍合璧工程 / 國際漢學研究中心",
+    "catalog_title": "《子海珍本編·大陸卷》第二輯",
+    "catalog_published": "2020-05-25",
+    "url": "https://hanjihebi.sdu.edu.cn/info/1068/1259.htm",
+    "parallel_same_institution_page": "https://zhyhb.sdu.edu.cn/info/1116/2246.htm",
+    "exact_list_entry": "《授時曆故》四卷，（清）黄宗羲撰。據上海圖書館藏清鈔本影印（清宋景昌跋，曹元忠校，王大隆跋）。",
+    "bibliographic_claim": "Official research-program catalogue explicitly identifies a Shanghai Library Qing manuscript as the source of a modern facsimile and names collation/postscript layers.",
+    "edition_limits": [
+      "清鈔本 is an edition-type/date-period descriptor, not a precise copy date.",
+      "宋景昌跋、曹元忠校、王大隆跋 are catalogued paratext/collation attributions, not evidence that their particular target-page readings were checked.",
+      "The two Shandong University URLs are parallel presentations of one institutional catalogue, NOT two independent physical witnesses.",
+      "No official statement here of which exact set volume/page carries the target; no free page scan or actual manuscript PDF bytes obtained."
+    ]
+  },
+  "relationship_to_prior": {
+    "prior_batch": "docs/research/TIANWEN-13VK-HUANG-JIAYE-1923-1982-CATALOG-AND-ACCESS-BOUNDARY-R1.json",
+    "different_catalogued_holding": "SHLIB QING MANUSCRIPT vs NICHIBUNKEN 1923 JIAYETANG PRINT",
+    "same_work_not_proven_same_recension": "A common title or later facsimile does not establish direct copying, independent text transmission, or the exact historical word forms.",
+    "digital_text_disagreement": "13VJ CText OCR 八百一十分 versus Shidian received 八百二十分 remains DIGITAL TEXT ONLY; this new Qing manuscript catalog provides no original-page vote.",
+    "early_original_gate": "It does not supersede authenticated early Xu-An juan45 L132 and original 疾 construction as the highest-priority source targets."
+  },
+  "new_evidence_grade": "DIRECT_FIRST_PARTY_PUBLISHER_BIBLIOGRAPHIC_HOLDING_DESCRIPTION_ONLY",
+  "not_obtained": [
+    "Original Qing manuscript target folio",
+    "Facsimile volume/page and image SHA",
+    "Any 810/820 manuscript glyph",
+    "Any independent Yuan/Ming G893/Xu-An numeric vote",
+    "Any source-native 疾 operator, radix or carry"
+  ],
+  "source_registry_policy": "NOT added to historical source registry as an original image/textual witness; no source count increment, pending precise copy/page authentication.",
+  "adjudication": {
+    "tw_open_0005": "P0 OPEN",
+    "g893_named": "5/6",
+    "g893_historical_final": "0/6",
+    "matrix": "222/222",
+    "source_registry_union": 789,
+    "genealogy_nodes": 254,
+    "genealogy_edges": 239,
+    "omission_issues": 11,
+    "deterministic_chart": "CLOSED",
+    "algorithm_reopens": 0,
+    "new_original_images": 0,
+    "new_source_registry_entries": 0,
+    "new_independent_original_witnesses": 0,
+    "new_graph_edges": 0
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "The Qing Shanghai manuscript and Jiayetang 1923 printed holding are distinct catalogued objects; no manuscript-to-print descent can yet be inferred."
+    ],
+    "unresolved_lineage_questions": [
+      "Which exact Qing manuscript folio contains Huang's 820/810 rate words, and what reading does the physical hand attest?",
+      "Does the Qing manuscript's text actually differ from the later Jiayetang print?"
+    ]
+  },
+  "next_action": "Prioritize an independently legible authenticated early Xu-An juan45 L132 and a source-original 疾 coefficient constructor. If and only if a public lawful free route for the Shanghai Qing manuscript's exact target facsimile page appears, compare its 810/820 reading with Jiayetang; do not pay, register or infer lineage."
+}
