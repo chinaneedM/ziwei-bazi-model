@@ -1,0 +1,141 @@
+{
+  "schema": "TIANWEN-13VG-XUAN1599-L132-NATIVE-TERMINAL-GLYPH-RECOVERY-SCOPE-R1",
+  "date": "2026-11-09",
+  "issue_id": "TW-OPEN-0005",
+  "classification": "SHA_BOUND_REACQUISITION_OF_SAME_SOURCE_NATIVE_ORIGINAL_TERMINAL_ROI; AMBIGUOUS_GLYPH_NOT_AWARDED",
+  "question": "Can an exactly recovered higher-resolution original Xu-An-labelled NLC v45 p19 terminal glyph independently determine L132 遲行度 final digit 二 versus 三, without reverse-fitting from its 捷法 or borrowing a later Sun Wei column?",
+  "acquisition": {
+    "source": "NLC892-411999015732 no.08938 第19冊, catalogue-labelled 徐安1599, physical target impression unverified",
+    "same_acquisition_as": "docs/research/TIANWEN-13UU-NLC-XUAN1599-V45-L35-DUAL-LANE-ORIGINAL-EDITION-COLLATION-R1.json",
+    "source_pdf_url": "https://upload.wikimedia.org/wikipedia/commons/c/c4/NLC892-411999015732-116218_%E5%8F%A4%E4%BB%8A%E5%BE%8B%E6%9B%86%E8%80%83_%E7%AC%AC19%E5%86%8A.pdf",
+    "source_pdf_sha256_previously_verified_not_redownloaded": "b5b11ebcb4a7922898ff5f68eae3d31ed8317d92d55f3990fcb4ab7414664520",
+    "existing_workflow_run": 42493585818,
+    "existing_artifact_id": 13622736172,
+    "downloaded_artifact_name": "tianwen-13uu-xuan1599-v45-source-window",
+    "downloaded_zip_bytes": 7663518,
+    "zip_sha256_reverified_this_session": "f1a51048b8ee6e48fe1aa8e951d9962b3c9028fb4e43da60ea7ca57c0d77eb68",
+    "zip_crc_check": "ALL_MEMBERS_PASS",
+    "recovery_grade": "REACQUIRED_PRIOR_VERIFIED_ORIGINAL_IMAGE, NOT_NEW_PHYSICAL_WITNESS",
+    "new_pdf_download": false,
+    "independent_printing_plate_vote": false
+  },
+  "native_images": [
+    {
+      "source_member": "p19-image0.jpx",
+      "pdf_page_one_based": 19,
+      "image_dimensions_px": [
+        4299,
+        3677
+      ],
+      "source_jpx_sha256_reverified": "ed0d0ad8e2ac5b9464a0fbc1d7f1b748c96f6774f1ad35feec7d260d9e4adf4f",
+      "target_limit": 132,
+      "lane": "遲",
+      "roi_records": [
+        {
+          "role": "RATE_AND_NEIGHBOR_FIELD",
+          "rgb_rect_xyxy": [
+            1155,
+            2090,
+            1340,
+            2850
+          ],
+          "rgb_sha256": "e359681015bc3a0c49c2648d16c7bfdfc6885f0f55c49c126265bb09c444602f"
+        },
+        {
+          "role": "TERMINAL_STROKE_CONTEXT",
+          "rgb_rect_xyxy": [
+            1170,
+            2480,
+            1325,
+            2730
+          ],
+          "rgb_sha256": "ce1cb68784d92d6ae784be7d585819497f197fd32ec2a77d840657a45f71a8c6"
+        }
+      ]
+    },
+    {
+      "source_member": "p14-image0.jpx",
+      "pdf_page_one_based": 14,
+      "image_dimensions_px": [
+        4299,
+        3628
+      ],
+      "source_jpx_sha256_reverified": "113b62b54eeb01806540cbe780f66d7fec33f05b56e2ecc72bc6187ec42e815d",
+      "target_limit": 35,
+      "lane": "疾",
+      "roi_records": [
+        {
+          "role": "SOURCE_LOCAL_COMPARISON_RATE",
+          "rgb_rect_xyxy": [
+            2850,
+            700,
+            3070,
+            1550
+          ],
+          "rgb_sha256": "c28fe4435a7b1dd9d756b6b866b6c81a82469e0fd1cfb0d252e2d5072d56f333"
+        },
+        {
+          "role": "SOURCE_LOCAL_COMPARISON_LAST_STROKES",
+          "rgb_rect_xyxy": [
+            2860,
+            1270,
+            3070,
+            1510
+          ],
+          "rgb_sha256": "7688bcc1ff06ae7ffa36b590be75ced562ab63e4e296d9e6f27df025da52e72e"
+        }
+      ]
+    }
+  ],
+  "manual_read": {
+    "method": "Extract unmodified source-native JPX bytes from the SHA-verified existing workflow ZIP; decode to RGB and hash row-major native RGB bytes. Inspect source-native crops, with nearest-neighbor visual zoom used only for display; no OCR, AI enhancement, reconstructed strokes, arithmetic substitution or image resampling for the hashes.",
+    "target_column_anchor": "Original p19 vertical printed header 一百三十二限; target is 遲度 immediately above its associated 六微九七七五三 coefficient, with adjacent p19 headings retained to anchor column identity.",
+    "l132_reliable_visible_rate_prefix": "遲度一七五",
+    "l132_terminal_digit_candidates": [
+      "二",
+      "三"
+    ],
+    "l132_terminal_digit_award": "UNRESOLVED",
+    "reason": "The compact final rate glyph shares touching/overprinted horizontal strokes and localized ink/border noise. A same-source comparison to the clearer p14 L35 rate does not isolate sufficient independent stroke evidence for a reliable 二/三 adjudication.",
+    "l132_coefficient_direct_previous_evidence": "六微九七七五三",
+    "l35_ji_direct_previous_reading": "疾度一七五三／六微九七五三三",
+    "scope": "New source-bound terminal-local ROI hashes refine the exact visual locus. They do not revise or upgrade the earlier unawarded original last digit, authenticate printing-plate identity, or establish a historical source-native micro radix/carry."
+  },
+  "negative_controls": [
+    "Reacquired same zip/source is zero added physical copies and zero independent votes.",
+    "Do not infer original terminal 二 from L132 printed coefficient 697753 matching a hypothetical 820 reciprocal of 1.1752; 820 operator in original is explicitly 遲-scoped, but ancient digit scale/precision not bound.",
+    "Do not infer original terminal 三 from L35 print reading or symmetrical equal printed rate; local coefficient streams visibly differ.",
+    "Do not borrow NCL06272/06273 1608 L132 rate to fill this damaged Xu-An-column glyph.",
+    "Pixel hashes are reproducibility anchors, not a machine optical reading or a restoration of obscured strokes.",
+    "A 1599 catalog label and 1600 prefatory colophon from other fascicles are not proof of impression date for the p19 table leaf."
+  ],
+  "result": {
+    "new_original_image": false,
+    "new_native_terminal_roi_hashes": 4,
+    "source_registry_changes": 0,
+    "genealogy_changes": 0,
+    "matrix_rows_audited": "222/222",
+    "source_union": 789,
+    "genealogy_nodes": 254,
+    "genealogy_edges": 239,
+    "issues": 11,
+    "g893_named_controls": "5/6",
+    "g893_historical_final_verdicts": "0/6",
+    "tw_open_0005": "P0 OPEN",
+    "deterministic_chart_product": "CLOSED",
+    "algorithm_reopens": 0
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Same-copy reinspection of visually overlapping strokes cannot prove 1599 Xu-An vs 1608 Sun-Wei direct copying, original edition superiority, or a source-native numerical correction."
+    ],
+    "unresolved_lineage_questions": [
+      "Can a genuinely independent, authenticated Xu-An juan45 L132 original reveal the damaged last glyph?",
+      "Which direct early operator text establishes the 疾 coefficient construction and source-native carry/precision?"
+    ]
+  },
+  "next_action": "Avoid further duplicate inspection of this fixed same-source ROI without genuinely better acquisition; prioritize independently legible authenticated Xu-An L132, original 疾-specific construction/intermediate precision, and physical printing-block comparison."
+}
