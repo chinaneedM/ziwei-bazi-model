@@ -1,0 +1,97 @@
+{
+  "schema": "TIANWEN-13VF-MEI-PIANZHI-LATE-RECEIVED-EIGHT-ZI-ALIGNMENT-FIREWALL-R1",
+  "date": "2026-11-09",
+  "issue_id": "TW-OPEN-0005",
+  "classification": "LATER_QING_RECEIVED_PHILOLOGY_OF_CALCULATING_PLACES_NOT_SOURCE_NATIVE_YUAN_MING_PRECISION",
+  "question": "Does the later received Mei Wending exposition use 八子/九子 as calculation-place alignment rather than as a guarantee of eight/nine existing numeric digits, and can this safely delimit what may be inferred about lunar 疾/遲 and 820?",
+  "method": "Direct reading of a public received-text page and explicit comparison with already SHA-bound original Ming print and prior Yuan received-text observations; no new source-original image, OCR-derived original glyph, or physical edition authentication.",
+  "received_source": {
+    "work": "梅文鼎《曆學駢枝》卷一, site displays broader 《曆學全書》",
+    "provider": "識典古籍 public received transcription",
+    "url": "https://www.shidianguji.com/zh/book/NA06359/chapter/1m64zp2sawv8a",
+    "page_identity": "NA06359 chapter 1m64zp2sawv8a",
+    "loci": [
+      {
+        "heading": "推盈縮差法 and adjacent arithmetic explanation",
+        "anchor": "八子／九子",
+        "bounded_literal": "非言得數有八子、九子也",
+        "direct_implication": "八/九子 placement is not an assertion that the arithmetic result actually contains that many nonzero or significant digits"
+      },
+      {
+        "heading": "same explanatory paragraph",
+        "anchor": "solar-to-lunar bridge",
+        "bounded_literal": "遲疾曆同",
+        "direct_implication": "Author explicitly applies positional-place interpretation to the lunar calculation family"
+      },
+      {
+        "heading": "推遲疾差法",
+        "anchor": "remainder times 損益分 divided by 八百二十分",
+        "bounded_literal": "取所定八子爲度位",
+        "direct_implication": "The eight-place alignment occurs in the interpolation operation before addition/subtraction with per-limit accumulated distance"
+      },
+      {
+        "heading": "推加減差法",
+        "anchor": "combine two motion differences then use 820 and per-limit motion rate",
+        "direct_implication": "The later exposition discusses a distinct angular-distance-to-time conversion stage"
+      }
+    ],
+    "evidence_grade": "LATER_RECEIVED_DIGITAL_TEXT; TARGET_PHYSICAL_LEAF_NOT_COLLATION_VERIFIED",
+    "textual_warning": "Public transcription contains visibly noisy characters and uncertain punctuation elsewhere on the page. Treat only the short local legible clauses as bounded received readings. Do not copy the corrupt connective as an authenticated original glyph.",
+    "edition_warning": "No precise edition/physical copy/printing plate for this particular page is bound. Earlier 13RW collation of different Mei solar quadrant pages cannot be transferred to this locus."
+  },
+  "already_bound_context": [
+    {
+      "evidence": "docs/research/TIANWEN-13UV-XUAN1599-V45-ORIGINAL-CHI-820-OPERATOR-AND-L35-CONDITIONAL-INVERSE-R1.json",
+      "fact": "Xu-An labelled 1599 original juan45 p21 scopes the 820 reciprocal literal specifically to 遲行度, not an attested independent 疾 constructor."
+    },
+    {
+      "evidence": "docs/research/TIANWEN-13TP-YUANSHI-RECEIVED-DUAL-820-STAGE-AND-XING-ORIGINAL-OPERATOR-R1.json",
+      "fact": "Received YuanShi uses 820 as divisor in a motion interpolation and multiplier in a later time-conversion operation; shared number is not shared row operation or precision."
+    },
+    {
+      "evidence": "docs/research/TIANWEN-13VE-NCL06272-NCL06273-XING-L35-L132-ORIGINAL-RATE-COEFFICIENT-R1.json",
+      "fact": "The 1608 Sun-Wei source prints exchanged matching L35/L132 compact rates but differing coefficients. Bounded print comparison, not a mechanical-error verdict."
+    }
+  ],
+  "new_bounded_deduction": [
+    "Under Mei's received positional explanation, an instruction to set 八子/九子 cannot by itself prove an eight-/nine-digit source input, arithmetic guard-digit count, or a numeric rounding direction.",
+    "Because the received text explicitly mentions 遲疾曆同, this guard applies to interpreting lunar terminology at the generic positional-arithmetic level, without authenticating the earlier Xu-An or G893 printer's use.",
+    "The two distinct 820 operations and explicit Ming 遲-only denominator forbid filling a missing 疾 formula from this later 八子 language."
+  ],
+  "forbidden_inferences": [
+    "Do not assert 8/9 genuine source-native fractional places from 八子/九子.",
+    "Do not retroactively treat received Qing explanations as Yuan G892/G893 original folio instructions.",
+    "Do not infer a Xu-An 1599 original 疾 generator, its hidden precision or normalized 微 radix.",
+    "Do not repair Xu-An illegible L132 rate with the Sun-Wei printed rate or inverse arithmetic.",
+    "Do not identify a printing error or give G893 six final historical verdicts based on received position words."
+  ],
+  "adjudication": {
+    "new_source_original_target_pages": 0,
+    "new_independent_edition_or_plate_votes": 0,
+    "new_registered_historical_sources": 0,
+    "source_registry_union": 789,
+    "matrix_rows_audited": "222/222",
+    "genealogy_nodes": 254,
+    "genealogy_edges": 239,
+    "omission_issues": 11,
+    "g893_named_controls": "5/6",
+    "g893_historical_final_verdicts": "0/6",
+    "tw_open_0005": "P0 OPEN",
+    "deterministic_chart_product": "CLOSED",
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "A later received explanation of arithmetic places is not evidence of direct Qing-to-Yuan ancestry, common physical plate, or the exact G893 printed source procedure."
+    ],
+    "unresolved_lineage_questions": [
+      "Which exact native place/radix/carry conventions produced the G893 target high digits and the asymmetric Xu-An/Sun-Wei L35/L132 coefficients?",
+      "Can an independently readable Xu-An L132 and an original 疾-specific construction rule be tied to an authenticated printing?"
+    ]
+  },
+  "next_action": "Prioritize a direct authenticated Xu-An L132 rate glyph, a source-original 疾 coefficient construction or intermediate precision, and matched physical-block evidence. Do not repeat arithmetic inversion from unproved field identity."
+}
