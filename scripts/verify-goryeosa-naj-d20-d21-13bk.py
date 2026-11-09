@@ -90,10 +90,13 @@ def check(e,bg,bj,yz,ledger,state):
  future_action_revisions=[
     z for z in issue["history"][issue["history"].index(h)+1:]
     if z.get("event") in ("ISSUE_REVISION", "SOURCE_PAGE_REVIEW_REVISION") and "next_action" in z.get("changed_fields",[])]
- action_is_evidence_scoped=any(
-    ("-"+active_family+"-") in z.get("revision_id","") or
-    (not z.get("revision_id") and latest_focus_prefix==active_family)
-    for z in future_action_revisions)
+ # Only the latest action-changing revision authorizes the live action.
+ # An older untagged revision must not authorize a forged future focus.
+ last_action_revision=future_action_revisions[-1] if future_action_revisions else {}
+ last_revision_id=last_action_revision.get("revision_id","")
+ action_is_evidence_scoped=(
+    ("-"+active_family+"-") in last_revision_id if last_revision_id
+    else bool(future_action_revisions) and latest_focus_prefix==active_family)
  assert active_action.startswith("13BK CURRENT ACTION") or (
     later_action_revision and latest_focus_prefix!="13BK"
     and active_action.startswith(active_family+" CURRENT ACTION")
