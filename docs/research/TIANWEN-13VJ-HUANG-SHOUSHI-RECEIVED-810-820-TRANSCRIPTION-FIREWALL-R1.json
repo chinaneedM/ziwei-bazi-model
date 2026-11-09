@@ -1,0 +1,66 @@
+{
+  "schema": "TIANWEN-13VJ-HUANG-SHOUSHI-RECEIVED-810-820-TRANSCRIPTION-FIREWALL-R1",
+  "date": "2026-11-09",
+  "issue_id": "TW-OPEN-0005",
+  "classification": "ALREADY_REGISTERED_LATER_EXPLANATORY_SOURCE_DIGITAL_TEXT_CONFLICT_NOT_HISTORICAL_NUMERIC_VARIANT_OR_PRIMARY_GLYPH",
+  "question": "Does the registered CText 《授時曆故》 digital citation actually attest 八百二十 at its displayed 損益捷法 locus, and may a conflicting digitized transcription be treated as a historical source variant?",
+  "readings": [
+    {
+      "source": "CText 《授時曆故》 民國嘉業堂本 digital OCR/received transcription",
+      "registered_id": "EXT-CTEXT-SHOUSHI-LIGU-JIAYETANG",
+      "url": "https://ctext.org/wiki.pl?chapter=282975&if=gb",
+      "locus": "求遲疾差; adjacent 率法/損益捷法 and 遲疾日率 passages",
+      "observed_web_search_text": "置損益分以日率八百一十分而一",
+      "other_local_observation": "同一公開文字還在附近顯示 八百一十分, and visibly garbled characters such as 麻/慨/雌/酬; exact 810 cannot be upgraded to historical original.",
+      "grade": "LOW_CONFIDENCE_OCR_TRANSCRIPTION_NOT_DIRECT_FACSIMILE"
+    },
+    {
+      "source": "識典古籍《授時曆故》黃宗羲, page-level received text",
+      "url": "https://www.shidianguji.com/zh/mid-page/7555620464333225994",
+      "locus": "置損益分...損益捷法; 求遲疾厤限...日率",
+      "observed_text": "置損益分以日率八百二十分而一; 置所得限以日率八百二十分○八秒乘之",
+      "grade": "RECEIVED_DIGITAL_TEXT_NOT_NATIVE_PHYSICAL_GLYPH_NOT_INDEPENDENT_PRINT_VOTE"
+    },
+    {
+      "source": "Earlier directly reviewed Xing Yunlu Ming-format Juan45 end original",
+      "evidence": "docs/research/TIANWEN-13UV-XUAN1599-V45-ORIGINAL-CHI-820-OPERATOR-AND-L35-CONDITIONAL-INVERSE-R1.json",
+      "observation": "右置八百二十以遲行度而一為捷法",
+      "grade": "PREVIOUSLY_REGISTERED_SOURCE_ORIGINAL_OTHER_WORK_AND_OTHER_OPERATION"
+    }
+  ],
+  "provenance_correction": "The pre-existing root source registry note for EXT-CTEXT-SHOUSHI-LIGU-JIAYETANG describes the explanatory source using 820, but the now-retrieved CText OCR search passage visibly says 810. This forward-only exception records the mismatch rather than silently rewriting that historical registry note, treating OCR output as antique evidence, or assuming the Shidian transcription shares a particular physical copy with CText.",
+  "mechanical_scope": "Huang's later 損益分÷日率 捷法 and Xing's 遲行度 inverse 820÷rate are not the same operation merely because both use a displayed 820; neither supplies an original 疾-specific 1599/1600 constructor or native 微 radix/carry.",
+  "unresolved": [
+    "Obtain a physical original or high-resolution source-native facsimile of the precise Huang 《授時曆故》 locus to adjudicate whether 810 is simply OCR corruption.",
+    "An original Huang line would still be a later retrospective explanatory witness, not independent early Xu-An L132 or original G893 six-control evidence.",
+    "Prioritize early independent Xu-An juan45 L132 and authentic premodern 疾 constructor; do not use either later webpage to fill the unread 二/三."
+  ],
+  "new_original_images": 0,
+  "new_historical_witness_votes": 0,
+  "new_registry_sources": 0,
+  "new_genealogy_nodes": 0,
+  "new_genealogy_edges": 0,
+  "g893_historical_final_verdicts": "0/6",
+  "adjudication": {
+    "tw_open_0005": "P0 OPEN",
+    "matrix": "222/222",
+    "source_union": 789,
+    "genealogy_nodes": 254,
+    "genealogy_edges": 239,
+    "omission_issues": 11,
+    "chart_product": "CLOSED",
+    "algorithm_reopens": 0
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Differences between two digital transcriptions are not an authenticated edition/print variation, and agreeing 820 strings in distinct operations do not prove a shared historical constructor."
+    ],
+    "unresolved_lineage_questions": [
+      "Which original printed Huang witness underlies each text and does its native glyph read 二 or 一 at the 820/810 locus?"
+    ]
+  },
+  "next_action": "Do not treat CText 810 as an ancient independent source variant. Keep P0 focused on authenticated independently legible Xu-An L132 and source-original 疾-specific constructor/precision."
+}
