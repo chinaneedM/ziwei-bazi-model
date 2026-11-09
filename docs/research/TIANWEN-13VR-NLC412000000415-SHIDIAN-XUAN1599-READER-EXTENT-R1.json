@@ -1,0 +1,179 @@
+{
+  "schema": "TIANWEN-13VR-NLC412000000415-SHIDIAN-XUAN1599-READER-EXTENT-R1",
+  "date": "2026-11-10",
+  "issue_id": "TW-OPEN-0005",
+  "evidence_grade": "PUBLIC_SHIDIAN_READER_CATALOG_EXTENT_AND_PROVIDER_ATTRIBUTION_ONLY",
+  "prior_evidence": [
+    "docs/research/TIANWEN-13VB-NLC412000000415-NINE-FILE-PUBLIC-INDEX-ACCESS-LEAD-R1.json"
+  ],
+  "accession_link": {
+    "common_accession_string": "412000000415",
+    "backup_first_fascicle_id": "NLC892-412000000415-163845",
+    "reader_book_id": "NGJ892412000000415163845",
+    "backup_file_list": "https://commons.wikimedia.org/wiki/Commons:Library_back_up_project/file_list/NLC/%E6%95%B8%E5%AD%97%E5%8F%A4%E7%B1%8D/13",
+    "direct_observation": "Reader book ID contains the exact accession and first fascicle file identifier components from 13VB. The reader metadata attributes both the library and image source to 國家圖書館 and labels the edition 徐安明萬曆27年刻本.",
+    "boundary": "The public reader does not emit a physical NLC shelfmark or an official NLC catalogue record URL. Individual backup PDFs, their page ranges and their exact relationship to the reader were not independently verified."
+  },
+  "provider_metadata": {
+    "title": "古今律曆考",
+    "edition": "徐安明萬曆27年刻本",
+    "edition_dynasty": "明",
+    "image_source": "國家圖書館",
+    "library": "國家圖書館",
+    "image_source_url": "",
+    "total_reader_pages": 975,
+    "method": "Parse the source-emitted window._ROUTER_DATA JSON, loaderData['__session/(lang$)/book/$'].bookInfo, and cross-check its catalog.chapters on two separately requested chapter URLs.",
+    "responses": [
+      {
+        "url": "https://www.shidianguji.com/book/NGJ892412000000415163845/chapter/1lqib7u5arksq",
+        "chapter": "卷十六",
+        "html_bytes": 534852,
+        "sha256": "bc7c59832f28ce5d48cb7c881da71bfc0a31c60314841475e320d7423f121cb6"
+      },
+      {
+        "url": "https://www.shidianguji.com/book/NGJ892412000000415163845/chapter/1lqib80ufo0lm",
+        "chapter": "卷二十五",
+        "html_bytes": 543776,
+        "sha256": "a940bb29d53d4e54b7ed3a9a7d4131533267a2dcb34a8559121fa1f2acb549e5"
+      }
+    ],
+    "chapter_tuple_fields": [
+      "provider_chapter_name",
+      "reader_start_page",
+      "reader_end_page_without_subchapter"
+    ],
+    "chapter_ranges": [
+      [
+        "卷首",
+        1,
+        27
+      ],
+      [
+        "卷一",
+        28,
+        71
+      ],
+      [
+        "卷二",
+        72,
+        141
+      ],
+      [
+        "卷三",
+        142,
+        179
+      ],
+      [
+        "卷四",
+        180,
+        219
+      ],
+      [
+        "卷五",
+        220,
+        277
+      ],
+      [
+        "卷六",
+        278,
+        331
+      ],
+      [
+        "卷七",
+        332,
+        377
+      ],
+      [
+        "卷八",
+        378,
+        449
+      ],
+      [
+        "卷九",
+        450,
+        499
+      ],
+      [
+        "卷十",
+        500,
+        525
+      ],
+      [
+        "卷十一",
+        526,
+        573
+      ],
+      [
+        "卷十二",
+        574,
+        603
+      ],
+      [
+        "卷十三",
+        604,
+        629
+      ],
+      [
+        "卷十四",
+        630,
+        665
+      ],
+      [
+        "卷十五",
+        666,
+        689
+      ],
+      [
+        "卷十六",
+        690,
+        763
+      ],
+      [
+        "卷二十二",
+        764,
+        805
+      ],
+      [
+        "卷二十三",
+        806,
+        859
+      ],
+      [
+        "卷二十四",
+        860,
+        921
+      ],
+      [
+        "卷二十五",
+        922,
+        975
+      ]
+    ],
+    "navigation_control": {
+      "last_present_chapter": "卷二十五",
+      "last_chapter_page_end": 975,
+      "last_chapter_has_next_article_link": false,
+      "positive_control": "卷十六 exposes 下一篇 linking to 卷二十二 (chapter 1lqib7vwa8t8p)."
+    },
+    "sha256_scope": "Hashes identify observed HTML response bytes. Dynamic HTML can change. Replay stable metadata and chapter assertions on current public responses."
+  },
+  "adjudication": {
+    "reader_volume_45_available": false,
+    "independent_original_volume_45_in_this_holdings_family": "UNVERIFIED",
+    "conclusion": "Exclude the specific Shidian public reader as a juan45 image route. Its catalog covers juan1–16 and juan22–25 plus the opening matter. Do not infer the physical holding or all nine backup PDFs lack juan45 from this reader alone.",
+    "original_target_pages_acquired": 0,
+    "independent_plate_votes_added": 0,
+    "source_registry_entries_added": 0,
+    "genealogy_edges_added": 0,
+    "issue_status": "P0 OPEN",
+    "g893_named_controls": "5/6",
+    "g893_historical_final_verdicts": "0/6",
+    "matrix": "222/222",
+    "sources": 789,
+    "graph_nodes": 254,
+    "graph_edges": 239,
+    "open_issues": 11,
+    "deterministic_chart": "CLOSED"
+  },
+  "next_action": "Keep Zhejiang Library 善002648, National Museum 1101012180003610017229, 13VM/13VN, NCL06270 and SYSU as live juan45 paths. Revisit NLC412000000415 only if a specific source-emitted backup-file extent or separate first-party holding record supplies additional coverage."
+}
