@@ -1,0 +1,105 @@
+{
+  "schema": "TIANWEN-13VM-XUAN-JUAN45-NANJING-TWO-FACSIMILE-LOCATORS-R1",
+  "date": "2026-11-09",
+  "issue_id": "TW-OPEN-0005",
+  "evidence_grade": "DIRECT_LIBRARY_FACSIMILE_CATALOGUE__TARGET_FOLIO_UNOBTAINED",
+  "catalogue": {
+    "provider": "南京图书馆 馆藏新印丛书综合目录",
+    "homepage": "https://cszmjs.wyyli.cn/",
+    "search_endpoint": "https://cszmjs.wyyli.cn/s",
+    "method": "POST",
+    "fields": {
+      "m": 19,
+      "f": "bName",
+      "k": "古今律曆考"
+    },
+    "http_status": 200,
+    "returned_rows": 4,
+    "response_sha256": "f9f5d28e55c754be390f705419551874e0257fe33d1d65ddf392da228c05a368",
+    "author_control": {
+      "fields": {
+        "m": 19,
+        "f": "Author",
+        "k": "邢雲路"
+      },
+      "http_status": 200,
+      "returned_rows": 9,
+      "response_sha256": "4c82a3bde97983fa905a9eba00d3106cbe36976eadaefdd6289531caf901d464",
+      "result": "Both exact facsimile records recur in the separate author search."
+    },
+    "variant_control": {
+      "fields": {
+        "m": 19,
+        "f": "bName",
+        "k": "古今律歷考"
+      },
+      "http_status": 200,
+      "returned_rows": 1,
+      "response_sha256": "9c07cfa325bef2088050e4fc87c4a24ab2ea5d76339f83be4e47da8e2753a8cc",
+      "result": "Only the Wenyuange Siku facsimile was returned under this spelling."
+    },
+    "response_scope": "Digests describe the captured anonymous HTML responses. Rows give printed holdings and no leaf images."
+  },
+  "target_locators": [
+    {
+      "series": "四庫提要著錄叢書",
+      "publication": "2010 北京出版社影印",
+      "series_volume": "子部 019",
+      "catalogued_title": "古今律曆考七十二卷",
+      "catalogued_base": "北京圖書館藏明萬曆二十七年徐安刻本",
+      "call_number": "Z833/036-子:019",
+      "location": "四楼国学馆",
+      "boundary": "No base accession or leaf was shown. Do not equate it with the already collated NLC 411999015732 scan or infer independence from it."
+    },
+    {
+      "series": "原國立北平圖書館甲庫善本叢書",
+      "publication": "2013 國家圖書館出版社影印",
+      "series_volumes": "506–507",
+      "catalogued_title": "古今律曆考 七十二卷",
+      "catalogued_base": "明萬曆二十八年徐安刻本",
+      "call_number": "Z121.7/017",
+      "location": "四楼国学馆",
+      "corroboration": {
+        "url": "https://www.haijiaoshi.com/archives/913",
+        "catalogue_row": 1234,
+        "response_sha256": "ecf66f2cec85fa07ca8c3ad0dc85f3c3a3306034e80a99137706ef5cb434f4ba"
+      },
+      "boundary": "Juan 45 is not yet localized to either series volume. The entry does not name a film reel/frame or prove identity with the NPM physical holding."
+    }
+  ],
+  "scope_controls": {
+    "jia_ku_publishing_chain": {
+      "url": "https://www.nlcpress.com/Info.aspx?Id=104",
+      "response_sha256": "fe71dc921a995e0d996111c3610735f6bec5bcbded4894d3d1f6aa173a16b994",
+      "interpretation": "Publisher-hosted production account describes 2600 titles reproduced from Library of Congress microfilms, 20 from mainland NLC holdings and one composite. Collection-level predominance does not identify the film or source for this title; the account also documents omitted frames and legibility limits."
+    },
+    "npm_comparator": {
+      "url": "https://catalog.digitalarchives.tw/item/00/12/87/a5.html",
+      "prior_evidence": "docs/research/TIANWEN-13VA-NPM-PINGTU011915-011934-XUAN1600-HOLDING-AND-DIGITIZATION-R1.json",
+      "interpretation": "The 1600 NPM 平圖011915–011934 holding is compatible with the Jia Ku locator. Matching title and edition and the Jia Ku collection history are insufficient to assert the same physical exemplar without item-level provenance or images."
+    },
+    "excluded_catalogue_rows": "The Wenjinge and Wenyuange Siku rows describe later manuscript sources. The 1993 scientific-classics item is explicitly an excerpt from a Wanli print, with its exact juan coverage and physical base unverified."
+  },
+  "adjudication": {
+    "new_original_target_pages": 0,
+    "independent_plate_votes_added": 0,
+    "g893_named_controls": "5/6",
+    "g893_historical_final_verdicts": "0/6",
+    "issue_status": "P0 OPEN"
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "2010 facsimile = NLC 411999015732",
+      "2013 facsimile base = NPM 平圖011915–011934",
+      "Two separately published facsimiles = two independent historical plate votes"
+    ],
+    "unresolved_lineage_questions": [
+      "Which item-level accession, reel or base copy underlies each facsimile?",
+      "Where is juan 45 in the 2013 facsimile, and are its L132 terminal strokes readable?"
+    ]
+  },
+  "next_action": "Seek lawfully open juan 45 pages from the two named facsimiles, the Taiwan NCL 06270 holding, or the SYSU holding. Verify base copy, page sequence, L132 terminal strokes and original 疾 constructor including radix and carry before awarding any reading. The public catalogue searches and secondary table of contents supplied no exact target-page bytes or verified free remote delivery."
+}
