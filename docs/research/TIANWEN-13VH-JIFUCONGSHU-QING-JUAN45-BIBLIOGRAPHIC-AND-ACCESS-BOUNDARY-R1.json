@@ -1,0 +1,99 @@
+{
+  "schema": "TIANWEN-13VH-JIFUCONGSHU-QING-JUAN45-BIBLIOGRAPHIC-AND-ACCESS-BOUNDARY-R1",
+  "date": "2026-11-09",
+  "issue_id": "TW-OPEN-0005",
+  "classification": "LATER_QING_REPRINT_JUAN45_CATALOG_CROSSWALK_AND_REMOTE_ACCESS_BOUNDARY_NOT_EARLY_ORIGINAL_GLYPH",
+  "research_question": "Is a separately catalogued later Qing printed 古今律厤考卷45 accessible as a bounded comparator for L35/L132, and what can be inferred about its print-block identity relative to Xu-An 1599/1600?",
+  "direct_bibliographic_evidence": [
+    {
+      "provider": "CiNii/NII record BB0592844X",
+      "url": "https://ci.nii.ac.jp/ncid/BB0592844X",
+      "holding": "University of Tokyo, Institute for Advanced Studies on Asia, catalog entry for 畿輔叢書",
+      "edition_label": "[定州王氏] [光緒間]",
+      "target_volume": "古今律厤考卷45-50",
+      "catalog_call_number": "叢;郡邑::21 6402151234",
+      "copy_extent": "14冊",
+      "catalog_layout": "10行22字, 四周単辺, 細黒口, 内匡郭16.9x11.8cm",
+      "evidence_grade": "FIRST_PARTY_AGGREGATED_BIBLIOGRAPHIC_RECORD_ONLY_NO_TARGET_FOLIO"
+    },
+    {
+      "provider": "CiNii/NII record BA69778281",
+      "url": "https://ci.nii.ac.jp/ncid/BA69778281.amp?l=en",
+      "holding": "University of Tsukuba Library",
+      "edition_label": "畿輔叢書, carved/printed edition; exact impression date UNVERIFIED",
+      "target_volume": "巻42-45",
+      "catalog_call_number": "テ120-1 100769030376",
+      "copy_extent": "2帙14冊",
+      "catalog_layout": "10行22字, 四周単辺有界, 内匡廓17.0x11.8cm",
+      "evidence_grade": "FIRST_PARTY_AGGREGATED_BIBLIOGRAPHIC_RECORD_ONLY_NO_TARGET_FOLIO"
+    },
+    {
+      "provider": "Taiwan NCL rare-book catalog",
+      "url": "https://rbook.ncl.edu.tw/NCLSearch/Search/SearchDetail?HasImage=&SourceID=1&item=b150777dc6f64192a13df8409e0ff3fcfDcyNTAx0.VqTuk2tSZyF_yFRuzT2MJrnh3LoXzIYbAW6O1JjTMCU_&page=",
+      "holding": "NCL 06270 Xu-An edition (previously known source, comparator not new registration)",
+      "edition_label": "明萬曆庚子(1600)延安知府徐安刊本",
+      "catalog_layout": "9行18字, 單欄",
+      "evidence_grade": "FIRST_PARTY_BIBLIOGRAPHIC_LAYOUT_COMPARISON_ONLY"
+    }
+  ],
+  "public_digital_leads": [
+    {
+      "provider": "HathiTrust catalog",
+      "url": "https://catalog.hathitrust.org/Record/100058564",
+      "record": "畿輔叢書(目) 初編 / 清王灝輯 / Published 淸光緒5",
+      "note": "Catalog displays many Keio University entries as Full view; sampled viewer https://babel.hathitrust.org/cgi/pt?id=keio.10811051706 returned HTTP403 in this reading environment. No exact item ID or image for the 42-45 or 45-50 target fascicle was established.",
+      "status": "CATALOG_ACCESSIBLE_TARGET_VOLUME_IMAGE_NOT_ACQUIRED"
+    },
+    {
+      "provider": "Shuge community index",
+      "url": "https://www.shuge.org/meet/topic/81751/",
+      "record": "Community list includes 古今律厤考 卷卌二至卌五.pdf, attributed to a Keio/HathiTrust-derived 畿輔叢書 set; provides Aliyun shared-drive link",
+      "note": "Secondary user-posted list and claimed 1879/1913 printing chronology are NOT physical/impression certification. No source PDF bytes, original image hashes, or source-emitted open download for target volume acquired. Account-dependent sharing route deferred.",
+      "status": "SECONDARY_FILENAME_LOCATOR_ONLY_NO_DIGITAL_ORIGINAL"
+    }
+  ],
+  "bounded_findings": [
+    "CiNii catalogued late-Qing 畿輔叢書 print layout (10 lines x 22 characters) differs from first-party Xu-An/NCL 06270 catalog layout (9 lines x 18 characters); do not treat the late print as the same printing block or the damaged early rate glyph.",
+    "Tokyo and Tsukuba records identify two named holdings and two differently grouped target fascicles. Neither catalog proves their physical copies share a printing plate, nor supplies original L132 glyph, native source SHA, or page number.",
+    "HathiTrust's collection record is not itself an image-to-fascicle crosswalk; 403 on one linked volume is a local access observation, not proof that no other open target image exists.",
+    "Shuge's community index is a useful later-print locator, not an authenticated original-page reading or an independently dated early edition."
+  ],
+  "independent_source_original_glyphs_acquired": 0,
+  "new_target_original_image_sha256": null,
+  "new_verified_early_edition_or_printing_plate_votes": 0,
+  "numeric_awards": 0,
+  "no_new_registered_historical_source_count": 789,
+  "no_genealogy_edge_added": true,
+  "prohibited_promotions": [
+    "No L132 二/三 resolution or source-native 疾 constructor",
+    "No new Xu-An edition/copy or independent early block vote",
+    "No G893 native unit/radix/carry or historical six-control decision",
+    "No assertion that HathiTrust or Shuge image has been inspected or downloaded",
+    "No assumption that Shuge's suggested 1913 impression date applies to Tokyo/Tsukuba copy"
+  ],
+  "adjudication": {
+    "matrix_rows_audited": "222/222",
+    "source_union": 789,
+    "genealogy_nodes": 254,
+    "genealogy_edges": 239,
+    "omission_issues": 11,
+    "g893_named_controls": "5/6",
+    "g893_historical_final_verdicts": "0/6",
+    "tw_open_0005": "P0 OPEN",
+    "deterministic_chart_product": "CLOSED",
+    "algorithm_reopens": 0,
+    "candidate_collapses": 0
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "A late-Qing reprint catalog cannot establish plate identity with Xu-An 1599/1600 or substitute for an original glyph."
+    ],
+    "unresolved_lineage_questions": [
+      "If authentic source-native late-Qing target pages become available freely, which readings and mise-en-page variants are visible, and do they provide only a later reception comparator?"
+    ]
+  },
+  "next_action": "Keep P0 focused on independently legible authenticated Xu-An original juan45 L132 or first-party 疾-specific constructor/intermediate precision. Treat Jifu Congshu late-Qing catalog leads as lower-priority, no-login optional cross-print comparators, never backfill original rates."
+}
