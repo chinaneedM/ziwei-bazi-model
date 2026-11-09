@@ -1,0 +1,106 @@
+{
+  "schema": "TIANWEN-13VP-ZJLIB-TWO-XUAN1599-HOLDINGS-JUAN45-SCOPE-R1",
+  "date": "2026-11-10",
+  "issue_id": "TW-OPEN-0005",
+  "evidence_grade": "DIRECT_LIBRARY_HOLDING_DETAIL_AND_SURVIVING_JUAN_BOUNDARY__TARGET_IMAGE_UNOBTAINED",
+  "prior_evidence": [
+    "docs/research/TIANWEN-13VO-CHNMUSEUM-MING-XING-HOLDING-AND-THUMBNAIL-R1.json",
+    "docs/research/TIANWEN-13VM-XUAN-JUAN45-NANJING-TWO-FACSIMILE-LOCATORS-R1.json"
+  ],
+  "provider": {
+    "institution": "浙江圖書館",
+    "portal": "https://history.zjlib.cn/",
+    "catalogue_name": "联合目录",
+    "search": {
+      "url": "https://history.zjlib.cn/app/universal-search/1/more?searchField=&searchKey=%E5%8F%A4%E4%BB%8A%E5%BE%8B%E5%8E%86%E8%80%83&searchId=21719&wfwfid=2120&entryType=2&websiteId=73953&pageId=115745&uid=1&realEngineInstanceId=null",
+      "http_status": 200,
+      "returned_records": 2,
+      "response_sha256": "aa8a9bf0e3c93dc351c66b5cb9e1966bbabea4088eb445a83309b2902df2b02e"
+    },
+    "method": "Read the returned first-party result data, then replay the site's ordinary public details link for each emitted record ID. Extract the detail HTML's resDatails fields. No authentication or internal host requests."
+  },
+  "holdings": [
+    {
+      "id": "6152cf95ed82374dbc8afc44",
+      "url": "https://history.zjlib.cn/app/universal-search/resource/6152cf95ed82374dbc8afc44/details?wfwfid=2120&searchId=21719&params=&pageId=115745&classifyId=&classifyName=",
+      "http_status": 200,
+      "response_sha256": "d6c9f46963aced3aa9fb58caa1dead3412cd81801bd744087be015d5edb59c22",
+      "catalogue_title": "古今律曆考七十二卷",
+      "catalogue_author": "（明）邢雲路撰",
+      "catalogue_imprint": "明萬曆二十七年（1599）徐安刻本",
+      "fascicles": 16,
+      "call_number": "SBC0796",
+      "other_number": "330000-1701-0041339",
+      "extant_juan": "存三十八卷（一至三十八）",
+      "juan45_scope": "EXCLUDED_BY_EXPLICIT_EXTANT_JUAN_FIELD"
+    },
+    {
+      "id": "6152cd26ed82374dbc8a9974",
+      "url": "https://history.zjlib.cn/app/universal-search/resource/6152cd26ed82374dbc8a9974/details?wfwfid=2120&searchId=21719&params=&pageId=115745&classifyId=&classifyName=",
+      "http_status": 200,
+      "response_sha256": "bb3c56486eee2602da5164c8df11b44f6e938e556ec87bde8b737adb2344cb47",
+      "catalogue_title": "古今律曆考七十二卷",
+      "catalogue_author": "（明）邢雲路撰",
+      "catalogue_imprint": "明萬曆二十七年（1599）徐安刻本",
+      "fascicles": 24,
+      "call_number": "善002648",
+      "other_number": "330000-1701-0003166",
+      "extant_juan": null,
+      "juan45_scope": "POTENTIAL_TARGET__SURVIVING_JUAN_UNSPECIFIED_IN_DETAIL"
+    }
+  ],
+  "public_image_search": {
+    "name": "古籍影像",
+    "queries": [
+      {
+        "term": "古今律历考",
+        "url": "https://history.zjlib.cn/app/universal-search/1/more?searchField=&searchKey=%E5%8F%A4%E4%BB%8A%E5%BE%8B%E5%8E%86%E8%80%83&searchId=24016&wfwfid=2120&entryType=2&websiteId=73953&pageId=115745&uid=1&realEngineInstanceId=null",
+        "http_status": 200,
+        "returned_records": 0,
+        "response_sha256": "a4fd8157a1a78e80a6bf569f8ce200d147857d6ccbb117da7e7080c7e1446b95"
+      },
+      {
+        "term": "古今律曆考",
+        "url": "https://history.zjlib.cn/app/universal-search/1/more?searchField=&searchKey=%E5%8F%A4%E4%BB%8A%E5%BE%8B%E6%9B%86%E8%80%83&searchId=24016&wfwfid=2120&entryType=2&websiteId=73953&pageId=115745&uid=1&realEngineInstanceId=null",
+        "http_status": 200,
+        "returned_records": 0,
+        "response_sha256": "e7d97c08c4a51ea0d85acee099322719f91c9066abcf6b53a28ee7298e94dd50"
+      }
+    ],
+    "positive_control": {
+      "term": "四书遇",
+      "url": "https://history.zjlib.cn/app/universal-search/1/more?searchField=&searchKey=%E5%9B%9B%E4%B9%A6%E9%81%87&searchId=24016&wfwfid=2120&entryType=2&websiteId=73953&pageId=115745&uid=1&realEngineInstanceId=null",
+      "http_status": 200,
+      "total_results": 51,
+      "matching_title": "四書遇不分卷",
+      "matching_id": "68c942f10e68043916e23375",
+      "response_sha256": "4fecaa307620f8a95b68753a23ac236285a931b496e7c54800789d6b96863d20"
+    },
+    "boundary": "Neither exact title spelling returned a result in this published image-search scope. Neither matching catalogue detail supplied a public reader or original folio. This is a bounded search observation, not a claim that Zhejiang Library has no digital images for this work."
+  },
+  "adjudication": {
+    "distinct_catalogue_records": 2,
+    "records_excluded_for_juan45": 1,
+    "records_with_juan45_confirmed": 0,
+    "new_original_target_pages": 0,
+    "independent_plate_votes_added": 0,
+    "issue_status": "P0 OPEN",
+    "g893_named_controls": "5/6",
+    "g893_historical_final_verdicts": "0/6"
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "The 72-juan title of SBC0796 implies that juan 45 survives in that holding.",
+      "The 24-fascicle record proves all 72 juan survive or supplies a plate vote.",
+      "Matching 1599 catalogue imprint descriptions establish identical blocks or an independently dated impression."
+    ],
+    "unresolved_lineage_questions": [
+      "Verify juan and leaf extent for 善002648 and, if present, acquire its juan 45 images from a lawful public or verified free route.",
+      "Compare any acquired L132 leaf to the already collated NLC 411999015732 and other early printed sources before making plate-level inferences."
+    ]
+  },
+  "next_action": "Prioritize an exact original leaf from 浙江圖書館 善002648 if its juan 45 coverage and a free route can be established. Retain the National Museum, early facsimile/microfilm, NCL06270 and SYSU routes. Verify an independently legible L132 final 二/三 and original 疾 construction with radix and carry."
+}
