@@ -1,0 +1,105 @@
+{
+  "schema": "TIANWEN-13VQ-XING-V49-ORIGINAL-820-WORKED-EXAMPLE-R1",
+  "date": "2026-11-10",
+  "issue_id": "TW-OPEN-0005",
+  "evidence_grade": "SOURCE_NATIVE_MING_PRINT_FASCICLE15_VOL49_WORKED_EXAMPLE_ONLY",
+  "prior_evidence": [
+    "docs/research/TIANWEN-13TV-XING-V49-RECEIVED-820-WORKED-EXAMPLE-AND-ORIGINAL-429-BOUNDARY-R1.json",
+    "docs/research/TIANWEN-13VP-ZJLIB-TWO-XUAN1599-HOLDINGS-JUAN45-SCOPE-R1.json"
+  ],
+  "source": {
+    "file_description": "https://commons.wikimedia.org/wiki/File:NLC892-CBM1408-371934_古今律曆考_七十二卷_第15冊.pdf",
+    "direct_pdf": "https://upload.wikimedia.org/wikipedia/commons/5/56/NLC892-CBM1408-371934_%E5%8F%A4%E4%BB%8A%E5%BE%8B%E6%9B%86%E8%80%83_%E4%B8%83%E5%8D%81%E4%BA%8C%E5%8D%B7_%E7%AC%AC15%E5%86%8A.pdf",
+    "catalog_identifier": "NLC892-CBM1408-371934",
+    "imprint_scope": "Provider labels 明萬曆 [1573–1620]. No narrower impression date or independently established relation to fascicle 14 is asserted here.",
+    "fascicle": 15,
+    "volumes": [
+      46,
+      47,
+      48,
+      49,
+      50
+    ],
+    "pdf_bytes": 21239582,
+    "pdf_pages": 84,
+    "sha256": "cdb482f6bfb5e07b45ea6703bc7117b4e862a98df4e9daca38802bc3c820c20c",
+    "volume_49_opener_pdf_page": 53,
+    "acquisition_boundary": "The anonymous public file was acquired in this session. This supersedes only the prior acquisition gap and preserves the earlier 429 as an observed execution outcome.",
+    "page_images": {
+      "extraction": "pdfimages -f 60 -l 61 -j -jp2 input.pdf prefix",
+      "page_numbering": "1-based PDF pages, not printed folio numbers",
+      "dimensions": [
+        1713,
+        1473
+      ],
+      "page_60_sha256": "c594a7b0e6b217f1b4fb9cadaf0cabd9b7aab5263a9fa4d48af8ddd5473c8f19",
+      "page_61_sha256": "8f9ed82ab6d474d89c0bd1fbf57c4a65b4ff86bce6725b8ffcd67f344f33e564"
+    }
+  },
+  "original_collation": {
+    "worked_example_locator": "PDF p60 left leaf, right-to-left under 求加減差. The result crosses the last two operand/result columns on the same leaf.",
+    "printed_operands": [
+      "四度五四六二八五",
+      "二度四〇〇四一三",
+      "餘二度一四五八七二",
+      "以率法八百二十分乘之",
+      "得一千七百五十九分六一五〇四",
+      "以遲行度一度一五二六而一",
+      "得一千五百二十六分六四為加差"
+    ],
+    "zero_glyph_normalization": "Printed open zero circle transcribed as 〇.",
+    "consumers": [
+      {
+        "locator": "PDF p61 right leaf, 求定朔 continuation",
+        "input": "一萬三五一二五八",
+        "reused_addition": "一千五百二六六四",
+        "output": "一萬五千〇三九二二"
+      },
+      {
+        "locator": "PDF p61 left leaf, 求定入遲曆",
+        "input": "九日五三三四五八",
+        "reused_addition": "一千五百二六六四",
+        "output": "九日六八六一二二"
+      }
+    ],
+    "comparison": "The Ming scan agrees with the four numerical operands/result recorded from the Siku electronic text in 13TV and additionally pins the intermediate product and both next-page consumers in the scanned print."
+  },
+  "decimal_replay": {
+    "subtraction": "4.546285 - 2.400413 = 2.145872",
+    "multiplication": "2.145872 * 820 = 1759.615040",
+    "division": "1759.61504 / 1.1526 = 1526.648481693562380704494187…",
+    "floor_2": "1526.64",
+    "half_up_2": "1526.65",
+    "local_normalized_consumers": [
+      "13512.58 + 1526.64 = 15039.22",
+      "9.533458 + 0.152664 = 9.686122"
+    ],
+    "supported": "The recorded 加差 matches dropping digits beyond two decimal places from the quotient of the displayed operands, and that displayed value is consumed twice. Each consumer replay uses its own explicitly recorded normalization.",
+    "unproved": "A universal quantizer, rounding with undisplayed precision, transfer of either consumer's normalization to juan45, cross-fascicle identity, and the original 疾 rate construction, radix and carry."
+  },
+  "adjudication": {
+    "original_non_target_pdf_pages_collated": 2,
+    "new_juan45_target_pages": 0,
+    "new_independent_juan45_plate_votes": 0,
+    "new_source_registry_entries": 0,
+    "issue_status": "P0 OPEN",
+    "g893_named_controls": "5/6",
+    "g893_historical_final_verdicts": "0/6",
+    "matrix": "222/222",
+    "source_registry_total": 789,
+    "graph_nodes": 254,
+    "graph_edges": 239,
+    "open_issues": 11,
+    "deterministic_chart": "CLOSED",
+    "algorithm_reopens": 0
+  },
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_added": [],
+    "edges_revised": [],
+    "explicit_non_edges": [
+      "Juan49 遲 worked example and its consumers do not establish the units, arithmetic or field identity of juan45 疾."
+    ]
+  },
+  "next_action": "Confirm the extent of Zhejiang Library 善002648, retain 13VO and 13VM/13VN recovery paths, and prioritize a legible juan45 independent early witness for L132 and the original 疾 construction, radix and carry. Use juan49 only as a bounded 遲 arithmetic control."
+}
