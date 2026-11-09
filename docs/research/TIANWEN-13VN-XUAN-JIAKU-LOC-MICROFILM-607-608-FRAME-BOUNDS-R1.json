@@ -1,0 +1,89 @@
+{
+  "schema": "TIANWEN-13VN-XUAN-JIAKU-LOC-MICROFILM-607-608-FRAME-BOUNDS-R1",
+  "date": "2026-11-09",
+  "issue_id": "TW-OPEN-0005",
+  "evidence_grade": "DIRECT_ARCHIVAL_REEL_AND_CONTENTS_CATALOGUE__TARGET_FRAME_UNOBTAINED",
+  "prior_evidence": [
+    "docs/research/TIANWEN-13VM-XUAN-JUAN45-NANJING-TWO-FACSIMILE-LOCATORS-R1.json",
+    "docs/research/TIANWEN-13VA-NPM-PINGTU011915-011934-XUAN1600-HOLDING-AND-DIGITIZATION-R1.json"
+  ],
+  "cambridge": {
+    "collection_url": "https://www.lib.cam.ac.uk/collections/departments/chinese-collections/chinese-collections-physical-format/chinese-microforms",
+    "title_index": {
+      "url": "https://web.archive.org/web/20151206220541/http://www.lib.cam.ac.uk/mulu/a11063tit.html",
+      "response_sha256": "e2477dc032a5e9fe2d6d1c27f6390e431c08fcd8c849099223caf83f5d0ae55c"
+    },
+    "classmark_index": {
+      "url": "https://web.archive.org/web/20151206220541/http://www.lib.cam.ac.uk/mulu/a11063class.html",
+      "response_sha256": "2d1181f0e566bee223023b920e1dff26af212afed4bacac3767ec59197fc5633"
+    },
+    "capture": "Both archived Cambridge HTML indexes returned HTTP 200. Decode original HTML as GB18030; both indexes give title, 72 juan, Xing Yunlu, Wanli print, old catalogue p135 and 607(2)–608. These are two indexes to one collection, not two independent microfilms or historical copies.",
+    "classmark": "Microfilm.A.607(2)–608",
+    "public_access": "No open frame image identified. Cambridge's free research scan service is restricted to eligible University members, and requires institutional email and a request. Service: https://www.lib.cam.ac.uk/search-and-find/zero-contact-services/scan-deliver/special-collections"
+  },
+  "japan_ndl": {
+    "collection_guide": "https://ndlsearch.ndl.go.jp/rnavi/plan/post_1201",
+    "collection_classmark": "YD-75",
+    "holdings": [
+      {
+        "reel": 607,
+        "contents_item": 2,
+        "frames": [
+          787,
+          1148
+        ],
+        "item_id": "1201700783507",
+        "ndl_bib_id": "027977974",
+        "url": "https://ndlsearch.ndl.go.jp/books/R100000002-I027977974",
+        "response_sha256": "a9b3d60e73af6c3b2c978327fc816d4818da4b93f3737a2fba13ae912311b843",
+        "adjacent_control": "Frames 1–786 are 聖宋景祐乾象新書. Read full contents in the public HTML's embedded page data; the visible preview truncates after the next frame range."
+      },
+      {
+        "reel": 608,
+        "frames": [
+          1,
+          1119
+        ],
+        "item_id": "1201700783513",
+        "ndl_bib_id": "027977975",
+        "url": "https://ndlsearch.ndl.go.jp/books/R100000002-I027977975",
+        "response_sha256": "dd0ccabd99d852821f3e9d8da03d363ea32244296aaf9afde0c76c69aed3da33"
+      }
+    ],
+    "contents_identity": "Both public item detail responses HTTP 200. Contents list 古今律曆考 七十二卷, 邢雲路, 萬曆刊, 20冊. The two catalogue spans sum to 1481 listed frames if inclusive; that is not a verified count of extant or legible original leaves.",
+    "public_access": "No open frame image identified. The collection guide directs use to the Tokyo Main Library with a reel number. Generic remote copying is fee-based (https://www.ndl.go.jp/copy/remote/overseas); no free item-specific delivery or copy application established."
+  },
+  "taiwan_ncl": {
+    "search_form": "https://rbook.ncl.edu.tw/NCLSearch/Search/Index/0",
+    "probes": [
+      "Title-only positive control 古今律曆考",
+      "古今律曆考 AND 美國國會圖書館拍攝微",
+      "古今律曆考 AND 國圖代管原平圖古籍微片"
+    ],
+    "result": "First-party search form loaded. The exact public multipart submissions timed out without result bytes, including the title-only control. Two alternate form-encoded requests returned the search shell, not results. No negative catalogue or digitization claim is supported."
+  },
+  "scope": {
+    "physical_crosswalk": "Cambridge cites old rare-book catalogue p135; the NPM record for 平圖011915–011934 cites the same p135 and describes a 20-fascicle 1600 Xu-An print. That strengthens the same-copy candidate. Reel title and counts alone do not show a source label, seals or physical leaf, and the 2013 facsimile lacks an item-specific frame citation in the checked catalogue.",
+    "juncture": "No juan division appears in either reel record. Do not extrapolate juan 45 from frame counts, assume film sequence or treat the two reel ranges as independent witnesses."
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "The archived Cambridge catalogue, the NDL reel records and the 2013 facsimile are independent early exemplars.",
+      "The NPM physical copy and the 2013 facsimile are definitively tied to these exact frames."
+    ],
+    "unresolved_lineage_questions": [
+      "Bind exact juan 45 frames to the filmed copy and compare seals or frame labels against NPM or the 2013 facsimile."
+    ]
+  },
+  "result": {
+    "target_frames_obtained": 0,
+    "independent_plate_votes_added": 0,
+    "issue_status": "P0 OPEN",
+    "g893_named_controls": "5/6",
+    "g893_historical_final_verdicts": "0/6"
+  },
+  "next_action": "Seek a public image or legally free delivery specifically for juan 45 within the bounded reels or named facsimiles. Parallel original paths are NCL06270 and SYSU. Until the source frame is available, keep L132 final 二/三 and the original 疾 constructor with radix/carry open."
+}
