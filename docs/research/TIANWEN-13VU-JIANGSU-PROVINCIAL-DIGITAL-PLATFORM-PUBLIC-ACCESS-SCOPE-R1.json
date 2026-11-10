@@ -1,0 +1,107 @@
+{
+  "schema": "TIANWEN-13VU-JIANGSU-PROVINCIAL-DIGITAL-PLATFORM-PUBLIC-ACCESS-SCOPE-R1",
+  "date": "2026-11-10",
+  "issue_id": "TW-OPEN-0005",
+  "question": "Does Jiangsu Provincial Ancient Books Digital Resource Integration Platform establish a lawful, anonymous original-image route for Wuxi 02911 (Ming1608) or Yangzhou 02273 (Xu-An1599 supplemented), specifically original juan45?",
+  "inherited_exact_witnesses": [
+    "Wuxi Government-approved fifth-batch item 02911: Xing 72 juan, Ming1608 Zhang Chongli and Wang Guozhen printed edition, Wuxi Library; no surviving-juan statement",
+    "Yangzhou third-batch item 02273: Xu-An1599 with supplementary leaves, text known only from secondary republication; provincial original appendix .doc item text not directly read",
+    "NCL06273 Sun Wei1608 is not proven the same plates as Wuxi's Zhang/Wang attribution"
+  ],
+  "sources": [
+    {
+      "id": "JIANGSU-DIGITAL-SUZHOU-UNIVERSITY-2024",
+      "provider": "Soochow University Library, institutional resource guide",
+      "url": "https://library.suda.edu.cn/5a/6e/c4858a612974/page.htm",
+      "date": "2024-12-25",
+      "direct_scope": "Reports a December 2024 platform launch, 5035 works/24644 fascicles of Nanjing Library original-image resources; 'Jiangsu ancient-book holdings catalogue' then contains only Classics (经部); states guest access as a usage description.",
+      "grade": "INSTITUTIONAL_SERVICE_DESCRIPTION_NOT_ITEM_LEVEL_ORIGINAL"
+    },
+    {
+      "id": "JIANGSU-DIGITAL-IMNU-2026",
+      "provider": "Inner Mongolia Normal University Library, institutional guide",
+      "url": "https://lib.imnu.edu.cn/info/1097/11776.htm",
+      "date": "2026-06-29",
+      "direct_scope": "Reports 5035 works/24644 fascicles of Nanjing Library images, and describes free access requiring registration/login; catalogue thematic coverage then includes Classics (经部).",
+      "grade": "INSTITUTIONAL_SERVICE_DESCRIPTION_NOT_ITEM_LEVEL_ORIGINAL"
+    },
+    {
+      "id": "JIANGSU-DIGITAL-SDXD-2026",
+      "provider": "SDXD institutional library guide",
+      "url": "https://tsg.sdxd.edu.cn/detail/20260119181717zicdhhozg2tcsoeg7x.html",
+      "date": "2026-01-19",
+      "direct_scope": "Describes open browsing without prior registration; 5035 works/24644 fascicles and 104807 catalog entries. This conflicts at access-detail level with other university guides, not proof that any named Xing title is available.",
+      "grade": "INSTITUTIONAL_SERVICE_DESCRIPTION_NOT_ITEM_LEVEL_ORIGINAL"
+    },
+    {
+      "id": "JIANGSU-GOVERNMENT-2012-ORIGINAL-NOTICE",
+      "provider": "Jiangsu Provincial People's Government",
+      "url": "https://www.jiangsu.gov.cn/art/2012/7/7/art_46143_2542406.html",
+      "date": "2012-07-07",
+      "direct_scope": "Confirms Su Zheng Fa [2012] No. 86 approval of 249 items and links original .doc appendix; web text extraction rejects .doc as unsupported application/msword and does not validate item 02273 text.",
+      "grade": "FIRST_PARTY_NOTICE_ONLY__INDIVIDUAL_ITEM_UNREAD"
+    },
+    {
+      "id": "JIANGSU-GOVERNMENT-2022-WUXI02911",
+      "provider": "Jiangsu Provincial People's Government",
+      "url": "https://www.jiangsu.gov.cn/art/2022/1/27/art_84418_10333785.html",
+      "date": "2022-01-27",
+      "direct_scope": "Direct first-party item 02911 bibliographic lead, no exact Wuxi shelfmark, copy extent or original juan45 scan.",
+      "grade": "FIRST_PARTY_BIBLIOGRAPHIC_ITEM_ONLY"
+    }
+  ],
+  "checks": [
+    {
+      "target": "Wuxi 02911 original juan45",
+      "result": "UNVERIFIED",
+      "explanation": "Platform service descriptions name Nanjing Library's 5035 scanned works and cannot establish Wuxi's individual target is hosted."
+    },
+    {
+      "target": "Yangzhou 02273 Xu-An supplemented juan45",
+      "result": "UNVERIFIED",
+      "explanation": "No verified first-party appendix item text, surviving leaf inventory or image; 'supplemented' cannot be dated uniformly."
+    },
+    {
+      "target": "Anonymous image access",
+      "result": "CONFLICTING_SECONDARY_DESCRIPTIONS",
+      "explanation": "One institutional guide says guest browsing, another says registration; no authenticated target file/image was obtained. No registration or user action attempted."
+    },
+    {
+      "target": "Jiangsu holdings catalog search for Xing in 子部",
+      "result": "NOT_ESTABLISHED_BY_SERVICE_DESCRIPTIONS",
+      "explanation": "The '江苏省古籍存藏目录' subdatabase in cited platform descriptions covers 经部 only. Do not construe a prospective negative search there as evidence the 子部 title is absent from holdings."
+    },
+    {
+      "target": "2012 Yangzhou government .doc appendix",
+      "result": "SOURCE_DOCUMENT_NOT_PARSED",
+      "explanation": "Official HTML confirms attachment, but application/msword cannot be read in the current web reader; secondary item text remains secondary, not promoted to first-party original."
+    }
+  ],
+  "result": {
+    "new_exact_original_juan45_images": 0,
+    "new_numeric_glyph_decisions": 0,
+    "new_independent_plate_votes": 0,
+    "g893_named_controls": "5/6",
+    "g893_historical_finals": "0/6",
+    "matrix": "222/222",
+    "registered_sources": 789,
+    "graph_nodes": 254,
+    "graph_edges": 239,
+    "open_issues": 11,
+    "deterministic_chart": "CLOSED",
+    "algorithm_reopens": 0
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Digital-service platform availability or catalogue item counts cannot be used as a transmission connection among Wuxi, Yangzhou and NCL06273 physical printed witnesses."
+    ],
+    "unresolved_lineage_questions": [
+      "Need authenticated Xu-An early original juan45 L132 二/三 and native 疾 construction with radix/carry, with dated print plate and actual leaf context.",
+      "Need Wuxi 02911 surviving-juan/shelfmark from direct holding inventory, plus Yangzhou 02273 original appendix and replacement-leaf scope."
+    ]
+  },
+  "next_action": "Prioritize item-bound, openly accessible original Xu-An juan45 (Zhejiang 善002648, NCL06270, SYSU, museum and documented facsimile/film routes). Seek Wuxi exact holdings census record and Yangzhou government original appendix only if publicly readable. Do not make account-based provincial platform an acquisition dependency."
+}
