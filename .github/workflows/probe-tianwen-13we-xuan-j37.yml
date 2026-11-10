@@ -26,11 +26,11 @@ jobs:
           assert actual=='58e05a6b5b802fc54bdeabb57758bee41057d4c02e95475adcc1d06a3b4edb20', actual
           print('SOURCE_SHA256|'+actual,flush=True)
           doc=fitz.open(stream=source,filetype='pdf')
-          for p in [23,24,25,26,27,28,29,30]:
-              page=doc[p-1];scale=min(2800/page.rect.width,2800/page.rect.height)
+          for p in [24,25,26,27,28,29,30]:
+              page=doc[p-1];scale=min(1350/page.rect.width,1350/page.rect.height)
               pm=page.get_pixmap(matrix=fitz.Matrix(scale,scale),alpha=False)
               im=Image.frombytes('RGB',(pm.width,pm.height),pm.samples)
-              buf=io.BytesIO();im.save(buf,'JPEG',quality=80,optimize=True)
+              buf=io.BytesIO();im.save(buf,'JPEG',quality=65,optimize=True)
               data=buf.getvalue()
               print('PAGE_SHA|'+str(p)+'|'+hashlib.sha256(data).hexdigest()+'|'+str(len(data))+'|'+str(pm.width)+'x'+str(pm.height),flush=True)
               b64=base64.b64encode(data).decode()
