@@ -1,0 +1,101 @@
+{
+  "schema": "TIANWEN-13VX-MEI-LISUAN-V21-DUAL-LANE-820-PLACE-VALUE-SCOPE-R1",
+  "date": "2026-11-10",
+  "issue_id": "TW-OPEN-0005",
+  "question": "Does the already-registered later received Mei Wending Lisuanshu vol21 text explicitly separate the 820 interpolation divisor from the dual-lane time-correction multiplier and explain place-value positioning, without granting Xu-An original Ji generator, radix/carry or G893 six-final adjudication?",
+  "existing_registered_source": {
+    "source_id": "EXT-CTEXT-LISUAN-QUANSHU-V21",
+    "registry": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json",
+    "url": "https://ctext.org/wiki.pl?chapter=848934&if=gb",
+    "identity": "梅文鼎《歷算全書》卷二十一《曆學駢枝》, later Siku received digital text",
+    "no_new_registry_entry": true
+  },
+  "evidence_surfaces": [
+    {
+      "role": "TARGET_RECEIVED_TEXT",
+      "url": "https://ctext.org/wiki.pl?chapter=848934&if=gb",
+      "scope": "Search-indexed CText textual lines 119-127; direct browser open in current research returned HTTP403, so not an acquired original source-page image, not a native book scan and not a verified physical glyph.",
+      "grade": "RECEIVED_DIGITAL_TEXT_SEARCH_INDEX_ONLY"
+    },
+    {
+      "role": "RECEIVED_WORK_SECTION_IDENTITY",
+      "url": "https://www.shidianguji.com/book/SK1538/chapter/1la133v6l2h42",
+      "scope": "A public Shidian received segment directly identifies《歷算全書》卷二十一 / 梅文鼎 / 《歷學駢枝》卷一, but this first segment does not include the target time-adjustment clause.",
+      "grade": "RECEIVED_TEXT_WORK_AND_CHAPTER_IDENTITY_ONLY"
+    },
+    {
+      "role": "SEPARATE_PRINT_EDITION_CATALOG_CONTROL",
+      "url": "https://www.loc.gov/item/2007557832/",
+      "scope": "Library of Congress catalogue identifies a 雍正元年(1723) title-leaf for《兼濟堂纂刻梅勿菴先生曆算全書》. No vol21 target original leaf was acquired and no identity between that original print and the Siku received-text base is asserted.",
+      "grade": "FIRST_PARTY_BIBLIOGRAPHIC_SEPARATE_PRINT_ONLY"
+    }
+  ],
+  "bounded_received_readings": [
+    {
+      "text_location": "CText v21《推遲疾差法》 indexed lines120-125",
+      "operator": "residual 遲疾曆 − current 限下日率, times 損益分, divided by 820; additive/subtractive relation to 遲疾積度",
+      "role": "INTERPOLATION_STAGE__820_DIVISOR",
+      "not_a": "source-original full construction of the specific Xu-An v45 疾 reciprocal coefficient"
+    },
+    {
+      "text_location": "CText v21《推加減差法》 indexed lines126-127",
+      "exact_short_clause": "遲用遲行度疾用疾行度",
+      "operator": "combined signed 盈縮差 / 遲疾差 multiplied by 820, then divided by the explicitly lane-selected 行度",
+      "role": "TIME_CORRECTION_STAGE__820_MULTIPLIER__DUAL_LANE_DENOMINATOR",
+      "not_a": "proof that Xing v45's source-original printed column/radix is mechanically identical"
+    },
+    {
+      "text_location": "CText v21 indexed lines124-127",
+      "operator": "珠算定位 uses 定子, 去子, and the outcome position depends on explicit chosen units; arithmetic placement is explained in a post-Ming received exposition",
+      "role": "LATER_PLACE_VALUE_AND_TRUNCATION_EXEGESIS",
+      "not_a": "a historical Xu-An1599/G892/G893 exact carry or rounding prescription"
+    }
+  ],
+  "triangulation": [
+    {
+      "prior": "docs/research/TIANWEN-13TP-YUANSHI-RECEIVED-DUAL-820-STAGE-AND-XING-ORIGINAL-OPERATOR-R1.json",
+      "contribution": "Earlier YuanShi received text had two 820 stages, but its second denominator was generic 所入遲疾限下行度; Mei's later text explicitly names the conditional 遲/疾 denominator."
+    },
+    {
+      "prior": "docs/research/TIANWEN-13TO-XING-MING-ORIGINAL-820-INVERSE-RATE-RULE-R1.json",
+      "contribution": "An independently previously SHA-bound Ming original Xing v45 terminal operator says 820 divided by 遲行度, not both lanes; later Mei dual-lane explanation cannot overwrite that original print."
+    },
+    {
+      "prior": "docs/research/TIANWEN-13VE-NCL06272-NCL06273-XING-L35-L132-ORIGINAL-RATE-COEFFICIENT-R1.json",
+      "contribution": "Original photographed L35/L132 swapped rate suffixes with differing coefficient streams remain nonreconstructible from one common displayed-rate function; new later prose does not solve column precision."
+    }
+  ],
+  "adjudication": {
+    "evidence_upgrade": "LATER_RECEIVED_MATHEMATICAL_EXEGESIS_WITH_EXPLICIT_DUAL_LANE_DIVISOR_AND_PLACE_VALUE; NOT_EARLY_PRINT_SOURCE_ORIGINAL",
+    "target_original_pdf_acquired": false,
+    "mei_v21_original_page_acquired": false,
+    "new_source_registry_entries": 0,
+    "new_original_printing_plate_votes": 0,
+    "new_xuan_l132_terminal_digit_decisions": 0,
+    "xu_an_early_jicalc_constructor_proved": false,
+    "g893_native_radix_or_carry_proved": false,
+    "g893_named_controls": "5/6",
+    "g893_historical_finals": "0/6",
+    "matrix": "222/222",
+    "source_registry_total": 789,
+    "genealogy_nodes": 254,
+    "genealogy_edges": 239,
+    "open_issues": 11,
+    "tw_open_0005": "P0 OPEN",
+    "deterministic_product": "CLOSED",
+    "algorithm_reopens": 0
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Mei's later explicit conditional operator does not prove direct Xu-An1599/G892/G893 borrowing, corresponding source-native numeric unit, same original printing plate, or the target 132 terminal glyph."
+    ],
+    "unresolved_lineage_questions": [
+      "Does an independently readable early Xu-An v45 L132 supply the terminal 二/三?",
+      "Is there an earlier, source-native 疾-specific reciprocal coefficient constructor and authenticated place-value/precision/carry statement for this exact lane?"
+    ]
+  },
+  "next_action": "Prioritize legible authenticated early Xu-An juan45 L132, original 疾 specific rate/constructor and printed plate context; retain NCL06270, 浙江善002648 and SYSU original holdings; do not use Mei received 定子 exegesis to backfill original target numbers."
+}
