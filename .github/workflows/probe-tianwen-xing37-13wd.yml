@@ -34,26 +34,15 @@ jobs:
           doc=fitz.open(stream=src,filetype="pdf")
           assert len(doc)==86,("page count mismatch",len(doc))
           print("SOURCE_VERIFIED",json.dumps({"source_url":url,"original_sha1":sha1,"original_sha256":sha256,"bytes":len(src),"pages":len(doc),"scope":"Original PDF bytes and contact sheets only; no OCR/no numeric adjudication"},ensure_ascii=False))
-          for start,end in [(0,29),(30,59),(60,85)]:
-              thumbs=[]
-              for zero_page in range(start,end+1):
-                  p=doc[zero_page]
-                  pix=p.get_pixmap(matrix=fitz.Matrix(0.65,0.65),alpha=False)
-                  im=Image.frombytes("RGB",[pix.width,pix.height],pix.samples)
-                  im.thumbnail((220,285))
-                  white=Image.new("RGB",(235,315),"white")
-                  white.paste(im,((235-im.width)//2,16))
-                  ImageDraw.Draw(white).text((10,294),"PDF page "+str(zero_page+1),fill="black")
-                  thumbs.append(white)
-              sheet=Image.new("RGB",(235*5,315*math.ceil(len(thumbs)/5)),"white")
-              for i,im in enumerate(thumbs):
-                  sheet.paste(im,((i%5)*235,(i//5)*315))
+          for p in [25,34,59,64,65,69,73,77,79,81,83,84,85,86]:
+              pix=doc[p-1].get_pixmap(matrix=fitz.Matrix(2.6,2.6),alpha=False)
+              im=Image.frombytes("RGB",[pix.width,pix.height],pix.samples)
               out=io.BytesIO()
-              sheet.save(out,format="JPEG",quality=68,optimize=True)
-              b=out.getvalue()
-              print("ATLAS_BEGIN",json.dumps({"start_pdf_page":start+1,"end_pdf_page":end+1,"jpeg_sha256":hashlib.sha256(b).hexdigest(),"shape":[sheet.width,sheet.height],"bytes":len(b)}))
-              s=base64.b64encode(b).decode()
-              for ix in range(0,len(s),3000):
-                  print(f"ATLAS_PART_{start+1}|{ix//3000:04d}|{s[ix:ix+3000]}")
-              print("ATLAS_END",start+1)
+              im.save(out,format="JPEG",quality=74,optimize=True)
+              data=out.getvalue()
+              print("TARGET_BEGIN",json.dumps({"pdf_page":p,"jpeg_sha256":hashlib.sha256(data).hexdigest(),"pixel_shape":[im.width,im.height],"bytes":len(data)}))
+              b=base64.b64encode(data).decode()
+              for ix in range(0,len(b),3000):
+                  print(f"TARGET_PART_{p}|{ix//3000:04d}|{b[ix:ix+3000]}")
+              print("TARGET_END",p)
           PY
