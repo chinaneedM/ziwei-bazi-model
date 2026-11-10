@@ -1,0 +1,59 @@
+name: tianwen-13wd-xing-juan37-original-source-probe
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths: [.github/workflows/probe-tianwen-xing37-13wd.yml]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  source-probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Retrieve public original NLC volume 12 and render source-bounded atlas
+        run: |
+          python -m pip install -q pymupdf pillow
+          python - <<'PY'
+          import urllib.request, urllib.parse, hashlib, io, base64, json, math
+          import fitz
+          from PIL import Image, ImageOps, ImageDraw
+          fn="NLC892-CBM1408-371931_古今律曆考_七十二卷_第12冊.pdf"
+          url="https://upload.wikimedia.org/wikipedia/commons/3/31/"+urllib.parse.quote(fn)
+          req=urllib.request.Request(url,headers={"User-Agent":"Tianwen-Source-Provenance-Audit/1.0 (public scholarly verification)"})
+          try:
+              with urllib.request.urlopen(req,timeout=100) as response:
+                  src=response.read()
+          except Exception as e:
+              print("SOURCE_ACCESS_FAILURE",repr(e))
+              raise
+          sha1=hashlib.sha1(src).hexdigest()
+          sha256=hashlib.sha256(src).hexdigest()
+          assert sha1=="7588241dc26f32c93765bfa9717e689b14525460",("sha1 mismatch",sha1)
+          assert len(src)==21651216,("source bytes mismatch",len(src))
+          doc=fitz.open(stream=src,filetype="pdf")
+          assert len(doc)==86,("page count mismatch",len(doc))
+          print("SOURCE_VERIFIED",json.dumps({"source_url":url,"original_sha1":sha1,"original_sha256":sha256,"bytes":len(src),"pages":len(doc),"scope":"Original PDF bytes and contact sheets only; no OCR/no numeric adjudication"},ensure_ascii=False))
+          for start,end in [(0,29),(30,59),(60,85)]:
+              thumbs=[]
+              for zero_page in range(start,end+1):
+                  p=doc[zero_page]
+                  pix=p.get_pixmap(matrix=fitz.Matrix(0.65,0.65),alpha=False)
+                  im=Image.frombytes("RGB",[pix.width,pix.height],pix.samples)
+                  im.thumbnail((220,285))
+                  white=Image.new("RGB",(235,315),"white")
+                  white.paste(im,((235-im.width)//2,16))
+                  ImageDraw.Draw(white).text((10,294),"PDF page "+str(zero_page+1),fill="black")
+                  thumbs.append(white)
+              sheet=Image.new("RGB",(235*5,315*math.ceil(len(thumbs)/5)),"white")
+              for i,im in enumerate(thumbs):
+                  sheet.paste(im,((i%5)*235,(i//5)*315))
+              out=io.BytesIO()
+              sheet.save(out,format="JPEG",quality=68,optimize=True)
+              b=out.getvalue()
+              print("ATLAS_BEGIN",json.dumps({"start_pdf_page":start+1,"end_pdf_page":end+1,"jpeg_sha256":hashlib.sha256(b).hexdigest(),"shape":[sheet.width,sheet.height],"bytes":len(b)}))
+              s=base64.b64encode(b).decode()
+              for ix in range(0,len(s),3000):
+                  print(f"ATLAS_PART_{start+1}|{ix//3000:04d}|{s[ix:ix+3000]}")
+              print("ATLAS_END",start+1)
+          PY
