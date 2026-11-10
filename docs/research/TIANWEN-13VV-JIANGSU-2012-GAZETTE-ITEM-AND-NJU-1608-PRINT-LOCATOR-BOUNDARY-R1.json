@@ -1,0 +1,110 @@
+{
+  "schema": "TIANWEN-13VV-JIANGSU-2012-GAZETTE-ITEM-AND-NJU-1608-PRINT-LOCATOR-BOUNDARY-R1",
+  "date": "2026-11-10",
+  "issue_id": "TW-OPEN-0005",
+  "question": "Does a further official 2012 Jiangsu government gazette index or a Nanjing University 1608 Zhang Chongli 40-fascicle catalogue locator promote Yangzhou/Wuxi juan45 to authenticated original evidence or prove a print-stemma relation?",
+  "evidence_grade": "FIRST_PARTY_OFFICIAL_GAZETTE_INDEX_TO_DOCUMENT_NOT_ITEM_TEXT; SECONDARY_NJU_EXACT_TITLE_EDITION_HOLDING_LOCATOR; FIRST_PARTY_NJU_CATALOG_SERVICE_ACCESS_POLICY; ZERO_ORIGINAL_PRINT_LEAF",
+  "sources": [
+    {
+      "id": "JIANGSU-GAZETTE-2012-ISSUE23-FIRSTPARTY-INDEX",
+      "provider": "江苏省人民政府政府公报",
+      "url": "https://www.js.gov.cn/col/col46746/index.html",
+      "source_grade": "DIRECT_FIRST_PARTY_GAZETTE_CONTENTS_INDEX",
+      "direct_claim": "2012年第二十三期政府公报目录省政府文件一栏明确列有《省政府关于公布第三批江苏省珍贵古籍名录的通知》并链接到 art_46746_2649485.html.",
+      "limit": "The issue index authenticates publication within an official gazette but neither the 249-row appendix nor item 02273 is displayed on this index page."
+    },
+    {
+      "id": "JIANGSU-GAZETTE-2012-ISSUE23-ARTICLE-ACCESS-BOUNDARY",
+      "provider": "江苏省人民政府政府公报",
+      "url": "https://www.js.gov.cn/art/2012/6/29/art_46746_2649485.html",
+      "source_grade": "FIRST_PARTY_LINK_TARGET_NOT_READ_ROBOTS_DENIED",
+      "direct_claim": "Official issue23 index links this article URL, but the document viewer returned Fetch denied by robots.txt for the direct target.",
+      "limit": "Official link existence and document title are verified; the article content and individual 02273 row cannot be cited as directly collated official text."
+    },
+    {
+      "id": "JIANGSU-2012-APPROVAL-FIRSTPARTY-DOC-ATTACHMENT",
+      "provider": "江苏省人民政府",
+      "url": "https://www.jiangsu.gov.cn/art/2012/7/7/art_46143_2542406.html",
+      "source_grade": "FIRST_PARTY_NOTICE_ONLY; APPENDIX_BYTES_UNREAD",
+      "direct_claim": "Independent official government notice verifies 苏政发〔2012〕86号, approval of 249 items and links an original .doc appendix.",
+      "limit": "The .doc target has application/msword content type unsupported by the web reading channel. An attempted separate download failed; no file bytes or line-level government appendix evidence was acquired."
+    },
+    {
+      "id": "JIANGSU-2012-SECONDARY-YANGZHOU-ROW02273",
+      "provider": "法搜再版页面（非江苏省政府）",
+      "url": "https://www.fsou.net/html/text/lar/174050/17405043_5.html",
+      "source_grade": "SECONDARY_REPRODUCED_ENTRY_UNVERIFIED_OFFICIAL_APPENDIX",
+      "direct_claim": "The reproduced row reads 02273 古今律历考七十二卷 （明）邢云路撰 明万历二十七年（1599）徐安刻本（有补配） 扬州市图书馆.",
+      "limit": "The original government appendix item row remains uncollated; supplementation leaf scope and juan45 survival unverified."
+    },
+    {
+      "id": "NJU-ZHANG1608-SECONDARY-BIBLIOGRAPHIC-CANDIDATE",
+      "provider": "国学大师古籍馆藏线索（非南京大学一方）",
+      "url": "https://m.guoxuedashi.com/shumu/gj-2907240qn.html",
+      "source_grade": "SECONDARY_CATALOG_LOCATOR_NO_FIRSTPARTY_ITEM",
+      "direct_claim": "Lists 《古今律歷考:72卷》 attributed to (明)邢雲路編, 明萬歷戊申[1608]張崇禮刻本, 40冊, holding 南京大學圖書館.",
+      "limit": "No Nanjing University library item ID, call number, physical edition description or printed juan45 leaf is reproduced; cannot treat it as a confirmed distinct block or numerical witness."
+    },
+    {
+      "id": "NJU-FIRSTPARTY-ANCIENT-BOOK-SERVICE",
+      "provider": "南京大学图书馆",
+      "url": "https://lib.nju.edu.cn/tszy/nyxz.htm",
+      "source_grade": "FIRST_PARTY_PLATFORM_DISCOVERY_AND_ACCESS_POLICY_ONLY",
+      "direct_claim": "The 南雍撷珍 first-party page reports near 30,000 ancient-book catalogue entries with anonymous catalogue lookup and requires campus unified login for image viewing.",
+      "limit": "Its public landing page does not itself identify any Xing item; catalogue web app at gjtc.nju.edu.cn returned no static searchable item content through the text reader. No login or credential workflow was attempted."
+    },
+    {
+      "id": "WUXI-GOVERNMENT-2022-ITEM02911-RETAINED",
+      "provider": "江苏省人民政府",
+      "url": "https://www.jiangsu.gov.cn/art/2022/1/27/art_84418_10333785.html",
+      "source_grade": "PREVIOUSLY_REGISTERED_FIRST_PARTY_EXACT_ITEM",
+      "direct_claim": "Wuxi Library item02911 directly lists Ming1608 张崇礼/王国桢 72 juan, as in 13VT.",
+      "limit": "No surviving-juan count, Wuxi exact shelfmark or original target page."
+    },
+    {
+      "id": "TAIWAN-NCL-SUN1608-RETAINED",
+      "provider": "台湾国家图书馆",
+      "url": "https://rbook.ncl.edu.tw/NCLSearch/Search/SearchDetail?HasImage=&SourceID=1&item=56e6ed5cbce14fc3a10a312cb8057d23fDcyNTA00.dLZGHJOE0XLZf5cTCQKNqbNDaqqjmxH0Dp0meHcb2Ss_&page=",
+      "source_grade": "PREVIOUS_FIRSTPARTY_BIBLIOGRAPHY_AND_EXISTING_DIRECT_PRINT_CONTROL",
+      "direct_claim": "Book no06273 is catalogued Ming1608 孫瑋保定刊本, 20 fascicles and 9×18 text layout; prior 13UT/13VE already bound native original glyph loci.",
+      "limit": "Shared imprint year does not equate Wuxi Zhang/Wang, candidate NJU Zhang 40 fascicles and NCL Sun Wei plates or demonstrate print independence."
+    }
+  ],
+  "comparison": {
+    "yangzhou": "OFFICIAL_ISSUE_AND_NOTICE_PROVE_DOCUMENT_PUBLICATION_ONLY; ROW02273_SECONDARY_UNTIL_ORIGINAL_TEXT_READ",
+    "wuxi": "FIRST_PARTY_2022_ITEM; EXTACT_SHELF_AND_JUAN45_UNVERIFIED",
+    "nju": "SECONDARY_1608_ZHANG40_FASCICLE_CANDIDATE_NOT_PROMOTED",
+    "taiwan_ncl": "ALREADY_COLLATED_1608_SUN20_FASCICLE; NO_NEW_IMAGE_VOTE",
+    "edition_relationship": "NO_PLATE_OR_COPY_IDENTITY_OR_INDEPENDENCE_PROVEN"
+  },
+  "result": {
+    "new_exact_juan45_original_images": 0,
+    "new_independent_early_plate_votes": 0,
+    "new_g893_six_control_historical_finals": 0,
+    "g893_named_controls": "5/6",
+    "g893_historical_finals": "0/6",
+    "matrix": "222/222",
+    "historical_sources": 789,
+    "genealogy_nodes": 254,
+    "genealogy_edges": 239,
+    "open_issues": 11,
+    "issue_status": "TW-OPEN-0005 P0 OPEN",
+    "deterministic_chart": "CLOSED",
+    "algorithm_reopens": 0
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Official 2012 gazette table-of-contents listing is not direct proof of the secondary reproduced Yangzhou 02273 line, and its reported 1599 print with supplemented leaves is not a physical original-juan45 target until leaves are identified.",
+      "Nanjing University secondary 1608 Zhang 40-fascicle holding cannot be equated to Wuxi Zhang/Wang 1608 or NCL Sun Wei 1608 print blocks, or counted as independent reading merely because the catalogue printer and book counts differ."
+    ],
+    "unresolved_lineage_questions": [
+      "Obtain openly readable first-party 2012 Yangzhou 02273 item text and supplement volume/leaf scope.",
+      "Resolve Nanjing University 1608 Zhang candidate to first-party item/call number and source-original juan45 only through authorized public access.",
+      "Independently read Xu-An L132 二/三 and source-native 疾 constructor/radix/carry, not via backwards computation."
+    ]
+  },
+  "next_action": "Maintain original Xu-An juan45 L132 and 疾 constructor as top priority (Zhejiang 善002648, NCL06270, SYSU, existing NLC source families). Revisit Nanjing University item only if anonymously exposed catalogue record establishes real holding and juan45 survival; do not request login. Yangzhou row02273 remains secondary pending original appendix. No algorithm changes."
+}
