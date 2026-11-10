@@ -1,0 +1,103 @@
+{
+  "schema": "TIANWEN-13WG-XING-J45-P66-RIGHT-SIDE-L35-DIRECT-ORIGINAL-REVIEW-R1",
+  "date": "2026-11-10",
+  "issue_id": "TW-OPEN-0005",
+  "question": "Does an exact source-bound right-side crop of Xing NLC-CBM1408 original juan45 second limit table PDF p66 recover the L35 ordinal missed by 13WF's left-side crop, and does this change numeric or lineage decisions?",
+  "classification": "SAME_PREVIOUSLY_REGISTERED_ORIGINAL_PDF_SHA256_VERIFIED_RIGHT_SIDE_DIRECT_VISUAL_NO_OCR; SOURCE_FIELD_LOCATOR_ONLY; NOT_NEW_NUMERIC_FINAL",
+  "prior_evidence": "docs/research/TIANWEN-13WF-XING-J45-ORIGINAL-EMBEDDED-NATIVE-PIXEL-REVIEW-R1.json",
+  "source": {
+    "accession": "NLC892-CBM1408-371933 / 邢雲路《古今律曆考》七十二卷 第14冊 / 同一已登记纸本扫描来源",
+    "public_source_page": "https://commons.wikimedia.org/wiki/File:NLC892-CBM1408-371933_古今律曆考_七十二卷_第14冊.pdf",
+    "pdf_sha256": "95b264e0447fb612a4b389b4b44e8f9871f9d0417b6893699fd37fe589cb23f3",
+    "pdf_bytes": 18807026,
+    "pdf_pages": 74,
+    "target_pdf_page_one_based": 66,
+    "prior_p66_embedded_jpx_sha256": "56b9b0c0885cadb7ce0395fe6b0c29ce7d9b5b32d3795aef059f786cccc11966",
+    "prior_p66_native_dimensions_px": [
+      1738,
+      1481
+    ],
+    "original_impression_and_plate": "NOT_REAUTHENTICATED"
+  },
+  "replay": {
+    "github_actions_run_id": 42844917172,
+    "github_actions_job_id": 129929725668,
+    "url": "https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/42844917172",
+    "conclusion": "success",
+    "anonymous_acquisition": true,
+    "source_pdf_sha256_asserted": true,
+    "pdf_page_count_asserted": true,
+    "method": "Original source PDF p66 6x render, right-side ONLY (no OCR), source crop manually viewed; rendered pixels do not add original optical detail",
+    "render_dimensions_px": [
+      2503,
+      2133
+    ],
+    "crop_bbox_render_px": [
+      1101,
+      0,
+      2503,
+      2133
+    ],
+    "crop_dimensions_px": [
+      1402,
+      2133
+    ],
+    "crop_jpeg_sha256": "3856ad0761b17972ec642cd32e13202194dbb04bf6fc56971e717b9a9badb29d",
+    "crop_jpeg_bytes": 572050
+  },
+  "direct_visual_observations": [
+    {
+      "target": "SECOND_TABLE_L35",
+      "observation": "The right-side source-PDF crop directly displays printed 三十五限, between neighbouring 三十四限 and 三十六限, correcting 13WF's left crop omission.",
+      "grade": "DIRECT_SOURCE_PRINT_ORDINAL_LOCATOR_ONLY"
+    },
+    {
+      "target": "SOURCE_FIELD_POSITION",
+      "observation": "The same printed L35 vertical band visibly contains the 疾度 / 遲度 labels and adjacent printed numeric fragments; individual multi-place target values and last digits were not fully adjudicated or compared across printings.",
+      "grade": "DIRECT_SOURCE_PRINT_FIELD_LOCATOR_NOT_NUMERIC_DECISION"
+    }
+  ],
+  "adjudication": {
+    "previous_p66_l35_crop_gap": "CLOSED_FOR_TARGET_ORDINAL_AND_FIELD_LOCATOR_ONLY",
+    "original_l35_complete_numeric_collation": "UNAWARDED",
+    "xuan_j45_p19_l132_damaged_two_or_three": "UNAWARDED",
+    "independent_xuan_print_or_plate": "UNPROVEN",
+    "original_ji_specific_jiefa_coefficient": "UNRESOLVED",
+    "original_shao_wei_radix_and_carry": "UNRESOLVED",
+    "g893_exact_value_unit_and_field_identity": "UNRESOLVED",
+    "g893_named_controls": "5/6",
+    "g893_historical_finals": "0/6",
+    "new_original_pdf_accessions": 0,
+    "new_registered_sources": 0,
+    "new_independent_printing_plates": 0,
+    "new_genealogy_nodes": 0,
+    "new_genealogy_edges": 0,
+    "chart_algorithm_reopens": 0,
+    "matrix": "222/222",
+    "source_registry_count": 789,
+    "graph_nodes": 254,
+    "graph_edges": 239,
+    "omission_issues_open": 11,
+    "product": "CLOSED",
+    "tw_open_0005": "P0 OPEN"
+  },
+  "limitations": [
+    "Sixfold rasterization improves inspectability only; native source JPEG2000 image remains 1738×1481 and no new optical information has been acquired.",
+    "Xing original table-B L35 visible row and column do not decide whether the Xu-An L132 final glyph prints 二 or 三.",
+    "Same CBM1408 source file as 13WF; no independent physical-copy, print-plate, stemma or numerically identical G893 field is established.",
+    "No OCR, no original image bytes or page crops added to the public repository."
+  ],
+  "next_action": "Prioritize a genuinely independent, legible original Xu-An second-table L132 printed terminal 二/三 and the source-specific 疾捷法 coefficient, 少/微 radix/carry, and G893 exact same-field historical crosscheck. Do not repeat now-closed p66 L35 ordinal crop.",
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Right-side p66 re-crop and earlier left crop represent the SAME Xing CBM1408 original scan, not independent copies or plate votes."
+    ],
+    "unresolved_lineage_questions": [
+      "Can a physically independent Xu-An original j45 table-B L132 target folio resolve the damaged digit and printing-plate identity?"
+    ]
+  },
+  "workflow_cleanup": "One-shot research workflow removed together with publication of this evidence; successful run and logs remain accessible."
+}
