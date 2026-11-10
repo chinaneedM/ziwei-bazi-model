@@ -1,0 +1,74 @@
+{
+  "schema": "TIANWEN-13WI-TOHOKU-13VD-13WH-CROSS-BATCH-MANIFEST-ERRATUM-R1",
+  "date": "2026-11-11",
+  "issue_id": "TW-OPEN-0005",
+  "correction_type": "FORWARD_ONLY_PRIOR_COMMITTED_EVIDENCE_RECONCILIATION",
+  "question": "Did 13WH inadvertently present pre-existing Tohoku 13VD catalog/IIIF access evidence as a newly unresolved acquisition gap?",
+  "earlier_evidence": {
+    "source_doc": "docs/research/TIANWEN-13VD-TOHOKU-XING-JUAN45-OPAC-IIIF-ACCESS-R1.json",
+    "first_party_item": "https://touda.tohoku.ac.jp/collection/database/library/10020000012307",
+    "source_html_sha256": "2524a24d4f4a164ffede21923060c7646d36df6c7b64545f86d042e052150bbe",
+    "original_provider_record_id": "10020000012307",
+    "provider_opac_bibid": "TT22217970",
+    "first_party_shelfmark": "藤原文/3233",
+    "cinii_ncid": "BD03732496",
+    "cinii_juan44_45_item": "01793901104",
+    "opac_matching_identifier": "TT22217970",
+    "exact_iiif_manifest": "https://touda.tohoku.ac.jp/collection/iiif/metadata/10020000012307/manifest.json",
+    "previously_acquired_manifest_sha256": "3d378feb5dc35c2fc94b3543cd2e44b84cdca320bd18ff38ca82283483c817ef",
+    "previously_acquired_ordered_canvases": 1683,
+    "reel_canvas_counts": {
+      "h02301": 1141,
+      "h02401": 542
+    },
+    "prior_bounded_image_attempts": {
+      "sampled_exact_target_image_endpoints": 8,
+      "sampled_target_info_endpoints": 8,
+      "sampled_target_thumbnail_endpoints": 3,
+      "all_sampled_status": "HTTP_404",
+      "unrelated_same_provider_positive_image_http": "HTTP_200"
+    },
+    "prior_result": "Manifest acquisition and shared catalog bibliographic identifier were already documented in 13VD; no original target leaf was obtained."
+  },
+  "later_evidence": {
+    "source_doc": "docs/research/TIANWEN-13WH-TOHOKU-XING-J45-INDEPENDENT-HOLDING-AND-IMAGE-ACCESS-BOUNDARY-R1.json",
+    "observation": "13WH rechecked the same record with 32-count institutional and 45-count CiNii descriptions; it did not retrieve the target manifest during its own bounded web retrieval.",
+    "correction_scope": "The no-manifest result is specific to the 13WH retrieval, NOT a historical claim that the manifest was never previously acquired. Calling this a new Tohoku holding/first Tohoku lead obscures 13VD's existing exact item and catalog bridge.",
+    "retained": "13WH's current-session retrieval limitation and absence of a newly legible original folio remain true as scoped observations."
+  },
+  "adjudication": {
+    "new_tohoku_holding_in_13WH": "DUPLICATE_OF_SAME_FIRST_PARTY_10020000012307_ALREADY_RECORDED_IN_13VD",
+    "previously_retrieved_iiif_manifest": "POSITIVE_13VD_PRIOR_EVIDENCE; DO_NOT_MISCLASSIFY_AS_UNACQUIRED",
+    "matching_opac_bibliographic_identifier": "POSITIVE_13VD_TT22217970_FOR_BOTH_LINK_ROUTES",
+    "fascicle_count_32_vs_45": "STILL_UNRESOLVED; 32 AND 45 ARE_CATALOG_DESCRIPTION_LEVELS_NOT_PROVED_PHYSICAL_COPY_EQUIVALENCE",
+    "same_physical_copy_or_printing_plate": "NOT_PROVEN_BY_BIBLIOGRAPHIC_LINKS",
+    "original_j45_second_limit_L132_digit": "NOT_ACQUIRED",
+    "original_ji_specific_jiefa_and_shao_wei_carry": "UNRESOLVED",
+    "g893_exact_same_field_historical_numeric_controls": "0/6",
+    "g893_named_control_locators": "5/6",
+    "new_external_source_count": 0,
+    "new_graph_nodes": 0,
+    "new_graph_edges": 0,
+    "matrix": "222/222",
+    "source_union_count": 789,
+    "graph_nodes": 254,
+    "graph_edges": 239,
+    "open_omission_issues": 11,
+    "chart_product": "CLOSED",
+    "algorithm_reopens": 0
+  },
+  "next_action": "Do not repeat Tohoku catalog/manifest discovery or count it as a new source. Reopen Tohoku image acquisition only on a verified source-emitted functioning target image endpoint; meanwhile prioritize source-original NCL06270, SYSU or another legitimate public independent juan45 B L132 二/三 and 疾-specific coefficient/少微 carry/G893 unit-field controls.",
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "13WH's Tohoku item is not a new separate institutional witness against 13VD's identical item ID.",
+      "The shared TT22217970 bibliographic identifier does not prove same physical printing plate or cure 32-versus-45 fascicle count."
+    ],
+    "unresolved_lineage_questions": [
+      "Original Tohoku target-image functionality and juan45 limit 132 field remain unverified.",
+      "Tohoku versus NLC Xing/Xu-An printing plate relation and historical G893 field identity remain open."
+    ]
+  }
+}
