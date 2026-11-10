@@ -71,6 +71,21 @@ jobs:
             s=base64.b64encode(atlas).decode("ascii")
             for n in range(0,len(s),5000):print(f"ATLAS_PART {n//5000:04d} {s[n:n+5000]}")
             print("ATLAS_END")
+            for pdf_number in (23,26,27,28,37,38,39,40,41,42):
+              p=document[pdf_number-1]
+              scale=2700/p.rect.width
+              px=p.get_pixmap(matrix=fitz.Matrix(scale,scale),alpha=False)
+              frame=Image.frombytes("RGB",(px.width,px.height),px.samples)
+              framebuf=io.BytesIO()
+              frame.save(framebuf,format="JPEG",quality=78,optimize=True)
+              detail=framebuf.getvalue()
+              digest=hashlib.sha256(detail).hexdigest()
+              print(f"DETAIL_BEGIN {pdf_number} {len(detail)} {digest} {frame.width}x{frame.height}")
+              payload=base64.b64encode(detail).decode("ascii")
+              for off in range(0,len(payload),5000):
+                print(f"DETAIL_PART {pdf_number:02d} {off//5000:04d} {payload[off:off+5000]}")
+              print(f"DETAIL_END {pdf_number}")
+
           except Exception as ex:
             record["error"]=str(ex)[:350]
           pathlib.Path("evidence/result.json").write_text(json.dumps(record,ensure_ascii=False,indent=2)+"\n")
