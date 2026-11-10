@@ -12,12 +12,14 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
-      - name: Verify original public PDF and print bounded native page previews
+      - name: Verify source and visually locate bounded original pages
         shell: bash
         run: |
           set -euo pipefail
-          python3 - <<'PY'
-          import urllib.request,hashlib,os
+          python3 -m venv /tmp/fitzvenv
+          /tmp/fitzvenv/bin/python -m pip -q install pymupdf
+          /tmp/fitzvenv/bin/python - <<'PY'
+          import urllib.request,hashlib,base64,fitz,io
           u="https://upload.wikimedia.org/wikipedia/commons/f/fc/NCL-06272_1_%E5%8F%A4%E4%BB%8A%E5%BE%8B%E6%9B%86%E8%80%83.pdf"
           req=urllib.request.Request(u,headers={"User-Agent":"TianwenSourceResearch/1.0 (noncommercial scholarly verification)"})
           h=hashlib.sha256(); n=0
@@ -28,14 +30,12 @@ jobs:
               if n>265000000:raise RuntimeError("Unexpected content size >265MB")
               h.update(chunk);out.write(chunk)
           print("PDF_SOURCE_BYTES",n,"PDF_SOURCE_SHA256",h.hexdigest(),flush=True)
+          d=fitz.open("/tmp/ncl06272-p1.pdf")
+          print("SOURCE_PDF_PAGES",len(d),flush=True)
+          for p in [1,250,500,650,775,900,995]:
+            page=d[p-1]
+            pix=page.get_pixmap(matrix=fitz.Matrix(0.7,0.7),alpha=False)
+            raw=pix.tobytes("jpeg",jpg_quality=54)
+            print("PAGE_PREVIEW_META",p,"px",pix.width,pix.height,"bytes",len(raw),"sha256",hashlib.sha256(raw).hexdigest(),flush=True)
+            print("PAGE_PREVIEW_B64",p,base64.b64encode(raw).decode("ascii"),flush=True)
           PY
-          pdfinfo /tmp/ncl06272-p1.pdf | grep -E 'Pages:|Page size:|PDF version:|File size:'
-          for p in 1 250 500 650 775 900 995; do
-            pdftoppm -f "$p" -l "$p" -singlefile -scale-to 920 -jpeg -jpegopt quality=65 /tmp/ncl06272-p1.pdf "/tmp/ncl13wj-page-$p" >/dev/null 2>&1
-            python3 - "$p" <<'PY'
-          import sys,base64,hashlib,os
-          p=sys.argv[1]; raw=open("/tmp/ncl13wj-page-"+p+".jpg","rb").read()
-          print("PAGE_PREVIEW_META",p,len(raw),hashlib.sha256(raw).hexdigest(),flush=True)
-          print("PAGE_PREVIEW_B64",p,base64.b64encode(raw).decode(),flush=True)
-          PY
-          done
