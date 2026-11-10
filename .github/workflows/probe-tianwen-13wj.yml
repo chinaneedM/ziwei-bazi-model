@@ -41,11 +41,11 @@ jobs:
           print("PDF_SOURCE_BYTES",n,"PDF_SOURCE_SHA256",h.hexdigest(),flush=True)
           d=fitz.open("/tmp/ncl06272-p2.pdf")
           print("SOURCE_PDF_PAGES",len(d),flush=True)
-          for p in [1,15,30,45,60,75,90,105,120,135,150,165,180,195,210,225,240]:
+          for p in [16,20,25,30,35,40,45,50,53,55,57,59,60,61,62,63,65,68,70,72]:
             if p>len(d):continue
             pg=d[p-1]
-            pix=pg.get_pixmap(matrix=fitz.Matrix(0.7,0.7),alpha=False)
-            raw=pix.tobytes("jpeg",jpg_quality=54)
+            pix=pg.get_pixmap(matrix=fitz.Matrix(1.15,1.15),alpha=False)
+            raw=pix.tobytes("jpeg",jpg_quality=73)
             print("PAGE_PREVIEW_META",p,"px",pix.width,pix.height,"bytes",len(raw),"sha256",hashlib.sha256(raw).hexdigest(),flush=True)
             print("PAGE_PREVIEW_B64",p,base64.b64encode(raw).decode("ascii"),flush=True)
           PY
