@@ -1,0 +1,168 @@
+{
+  "schema": "TIANWEN-13WD-XING-MING-J37-ORIGINAL-CHIJI-820-DUAL-OPERATOR-BOUNDARY-R1",
+  "date": "2026-11-10",
+  "issue_id": "TW-OPEN-0005",
+  "question": "Does Xing Yunlu's source-original Ming NLC CBM1408 juan37 distinguish the 820 divisor in 遲疾差 interpolation from the 820 multiplier and branch-specific 限下行度 divisor in 定朔加減差, without supplying the missing Xu-An L132 printed digit, original 疾-specific 捷法 construction or rounding/radix equivalence?",
+  "classification": "NEW_SHA256_VERIFIED_SOURCE_ORIGINAL_PDF_FASCICLE; DIRECT_VISUAL_ORIGINAL_J37_P63_P64_OPERATOR_SCOPE; NO_OCR_NO_NUMERIC_AWARD",
+  "original": {
+    "collection": "NLC892-CBM1408, Xing Yunlu 古今律曆考 七十二卷, 第12冊 (same accession family as previously audited NLC CBM1408 第14冊)",
+    "catalogue_declared_juan": [
+      "34",
+      "35",
+      "36",
+      "37"
+    ],
+    "publication_description": "明萬曆刻本; precise physical impression, shared blocks and independence not authenticated",
+    "commons_file_page": "https://commons.wikimedia.org/wiki/File:NLC892-CBM1408-371931_古今律曆考_七十二卷_第12冊.pdf",
+    "pdf_sha1": "7588241dc26f32c93765bfa9717e689b14525460",
+    "pdf_sha256": "ee278e31465c3459888be274fb97fe948963a5378861d6a04a7b8150684b8b2e",
+    "pdf_bytes": 21651216,
+    "pdf_pages": 86,
+    "source_issued_sha1_confirmed": true,
+    "workflow_source_intake": {
+      "run_id": 42826439771,
+      "job_id": 129864880646,
+      "source_page_atlas_all_86": true,
+      "downloaded_from": "upload.wikimedia.org public original, anonymous"
+    },
+    "original_folio_review_runs": [
+      {
+        "run_id": 42826701079,
+        "job_id": 129865781874,
+        "focus_pages": [
+          59,
+          64,
+          65,
+          69,
+          73,
+          77,
+          79,
+          81,
+          83,
+          84,
+          85,
+          86
+        ]
+      },
+      {
+        "run_id": 42826994111,
+        "job_id": 129866797708,
+        "focus_pages": [
+          54,
+          55,
+          56,
+          57,
+          58,
+          60,
+          61,
+          62,
+          63
+        ]
+      }
+    ],
+    "original_document_page_bounds": "PDF p60 juxtaposes the end of juan36 and heading of juan37; p61 displays 步月離 basic constants; p86 closes juan37. These are bound to this fascicle, not the separate j45 limit table.",
+    "source_image_method": "Original 86-page PDF acquired with exact SHA1/bytes and visually reviewed in no-OCR contact sheets and direct source-PDF 2.6x rendered JPEG spreads. JPEG SHA256 binds the viewed derivative; original PDF SHA256 binds the original bytes."
+  },
+  "source_original_observations": [
+    {
+      "scope": "JUAN37_GROUNDING",
+      "pdf_page_one_based": 60,
+      "render_jpeg_sha256": "4fe5027829be255eb8c489c9d4d94a76810f7ae2941c5f3211a6476f58275566",
+      "printed_anchor": "卷三十六 ending adjacent to 古今律曆考卷三十七",
+      "grade": "DIRECT_SOURCE_ORIGINAL_JUAN_SEAM",
+      "boundary": "Page image is a spread, not two independent source witnesses."
+    },
+    {
+      "scope": "JUAN37_TURN_CYCLE_AND_LIMITS",
+      "pdf_page_one_based": 61,
+      "render_jpeg_sha256": "214a2ffbb2903af5d9e1e62d6f86c562ec74d7691a5a67e4fb3f84252a98eda6",
+      "printed_anchor": "初限八十四、中限一百六十八、轉差、弦策等月離數值常數",
+      "grade": "DIRECT_SOURCE_ORIGINAL_CONTEXT_LOCATOR",
+      "boundary": "Context is juan37's procedure, not the juan45 second table nor G893 source-value adjudication."
+    },
+    {
+      "scope": "JUAN37_CHIJI_DIFFERENCE_POLYNOMIAL_AND_TABLE_OPENING",
+      "pdf_page_one_based": 63,
+      "render_jpeg_sha256": "50d4ca30005915df6ff39194abf04653a15a2193d7c0a76472151278c507a9fe",
+      "printed_anchor": "求遲疾差；置遲疾歷日及分以十二限二十分乘之在初限已下為初限已上覆減中限...",
+      "grade": "DIRECT_SOURCE_ORIGINAL_METHOD_HEADING_AND_INITIAL_PROCEDURE",
+      "boundary": "This is a procedural line on a scan; no new full original table numeric column identity or radix/carry conclusion."
+    },
+    {
+      "scope": "JUAN37_820_DIVISOR_IN_ALTERNATIVE_DIFFERENCE_METHOD",
+      "pdf_page_one_based": 64,
+      "render_jpeg_sha256": "de1f3a8e316afd15d927ebc85994fc2e4519d0c4472dcc8d7ec7ed695aeab2e9",
+      "printed_anchor": "又術置遲疾歷日及分以遲疾歷日率減之...以其下損益分乘之如八百二十而一...即遲疾差",
+      "operation_source_scope": "820 operates as the DIVISOR of the alternative 損益 interpolation, not a general original 疾捷法 coefficient generator.",
+      "grade": "DIRECT_ORIGINAL_OPERATOR_LANE_BOUNDED",
+      "boundary": "Does not prove how original 疾捷法 numerator was generated or the granularity of 少/微 in other table families."
+    },
+    {
+      "scope": "JUAN37_820_MULTIPLIER_AND_CHIJI_LIMIT_DIVISOR_FOR_DINGSHUO",
+      "pdf_page_one_based": 64,
+      "render_jpeg_sha256": "de1f3a8e316afd15d927ebc85994fc2e4519d0c4472dcc8d7ec7ed695aeab2e9",
+      "printed_anchor": "求朔弦望定日...以八百二十乘之以所入遲疾限下行度除之即為加減差",
+      "operation_source_scope": "820 is the MULTIPLIER followed by division using the attained 遲/疾 限下行度, a different pipeline from the alternative 遲疾差 interpolation's 820 DIVISOR.",
+      "grade": "DIRECT_ORIGINAL_DUAL_BRANCH_OPERATOR_SCOPE",
+      "boundary": "The language names a branch-dependent divisor, but neither prints a source-original 疾捷法 numerator constructor in this line nor establishes row-specific original units, rounding rule, G893 4-decimal field equality or Xuan↔Xing printing-plate independence."
+    },
+    {
+      "scope": "JUAN37_CLOSE",
+      "pdf_page_one_based": 86,
+      "render_jpeg_sha256": "7517f6f083948cd21c50fe72232575df1d6c1818b2a7810e465bb145c44d6eb9",
+      "printed_anchor": "古今律曆考卷三十七畢",
+      "grade": "DIRECT_SOURCE_ORIGINAL_JUAN_TERMINAL",
+      "boundary": "Book identity is anchored, not a claim that every p60–86 line was collated."
+    }
+  ],
+  "received_text_control": {
+    "url": "https://zh.wikisource.org/wiki/古今律厯考_(四庫全書本)/卷37",
+    "category": "LATER_RECEIVED_DIGITAL_TRANSCRIPTION_NOT_AN_INDEPENDENT_ORIGINAL",
+    "control": "Received chapter text presents both 820 roles and branch-dependent 限下行度; original scans independently visually support the scoped clauses in this CBM1408 copy, not equivalence of editions or exact original G893 numeric fields."
+  },
+  "change_from_13WC": "A newly downloaded and SHA256-bound additional fascicle of the SAME CBM1408 accession provides original primary-image evidence for two distinct 820 operation roles and branch-dependent 限下行度 in juan37; 13WC was limited to original juan45 structural table and row crosswalk.",
+  "adjudication": {
+    "source_original_additional_fascicle_acquisition": 1,
+    "source_original_juan37_820_dual_operation_lanes": "POSITIVE_SOURCE_SCOPED",
+    "original_juan37_chiji_branch_dependent_divisor": "POSITIVE_SOURCE_SCOPED",
+    "direct_original_ji_specific_jiefa_coefficient_constructor": "UNRESOLVED",
+    "original_xuan_l132_damaged_terminal": "UNAWARDED_TWO_OR_THREE",
+    "xuan_xing_juan45_second_table_same_field_equivalence": "UNRESOLVED",
+    "original_shao_wei_radix_and_carry": "UNRESOLVED",
+    "g893_six_named_controls": "5/6",
+    "g893_historical_finals": "0/6",
+    "new_source_registry_entries": 0,
+    "new_physical_print_plate_votes": 0,
+    "new_genealogy_nodes": 0,
+    "new_genealogy_edges": 0,
+    "tw_open_0005": "P0 OPEN",
+    "matrix": "222/222",
+    "sources": 789,
+    "genealogy_nodes": 254,
+    "genealogy_edges": 239,
+    "open_issues": 11,
+    "chart_product": "CLOSED",
+    "algorithm_reopens": 0
+  },
+  "limitations": [
+    "The j37 original method describes a general 遲/疾 branch-dependent 限下行度 divisor, not an authenticated specific 疾 捷法 table-construction algorithm.",
+    "820's divisor role in 損益 interpolation and multiplier role in 定朔 correction must never be conflated.",
+    "This is another file/fascicle within NLC-CBM1408, not a proven new independently transmitted physical print.",
+    "The print's numerals under printed j45 L132, original 疾 numerator, 少/微 radix/carry, G893 matched value fields and independently legible Xu-An 二/三 remain unawarded.",
+    "No OCR was used; selected folio images were directly reviewed but all 86 pages were not exhaustively text-collated.",
+    "Wikisource's Qing Siku received transcription is a reading cross-check only and not the same original printing plate."
+  ],
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "An additional fascicle in the existing NLC-CBM1408 accession cannot serve as an independent edition/plate vote for the existing CBM1408 juan45 source."
+    ],
+    "unresolved_lineage_questions": [
+      "Whether Xuan1599 and Xing1608 are independently printed/edited at the j45 target",
+      "Whether a directly legible source-native Xu-An L132 and original 疾捷法 builder and 少/微 standards can adjudicate G893 fields"
+    ]
+  },
+  "next_action": "Pursue exact source-original 疾捷法 construction/radix/carry and an independently legible Xu-An j45 second-table L132 二/三. Keep j37's two 820 operations distinct and source-specific; do not lift this branch-dependent formula into G893 final values or reopen deterministic chart."
+}
