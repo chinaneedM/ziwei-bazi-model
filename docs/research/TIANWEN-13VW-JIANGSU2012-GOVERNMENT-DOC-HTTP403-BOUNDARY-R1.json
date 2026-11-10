@@ -1,0 +1,67 @@
+{
+  "schema": "TIANWEN-13VW-JIANGSU2012-GOVERNMENT-DOC-HTTP403-BOUNDARY-R1",
+  "date": "2026-11-10",
+  "issue_id": "TW-OPEN-0005",
+  "question": "Can a genuine anonymous GitHub Actions runner acquire and text-extract the first-party Jiangsu 2012 No.86 public DOC appendix to authenticate Yangzhou entry 02273?",
+  "original_publication": {
+    "issuer": "江苏省人民政府",
+    "notice_url": "https://www.jiangsu.gov.cn/art/2012/7/7/art_46143_2542406.html",
+    "notice_date": "2012-06-29",
+    "document_id": "苏政发〔2012〕86号",
+    "named_attachment": "苏政发〔2012〕86号.doc",
+    "exact_source_link": "https://www.jiangsu.gov.cn/xxgk/webpic/W0201303/W020130325/W020130325350307810899.doc",
+    "source_grade": "OFFICIAL_NOTICE_AND_ATTACHMENT_URL_ONLY_NOT_READ_ATTACHMENT_OR_02273_ROW"
+  },
+  "public_probe": {
+    "method": "A one-time anonymous GitHub Actions runner used Python urllib.request to fetch only the exact official attachment URL, with 45-second timeout, 15MB maximum, same official host and Office-container header gates. Extraction would have run antiword after confirmed source acquisition, but acquisition failed first.",
+    "workflow_run": 42755614022,
+    "workflow_url": "https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/42755614022",
+    "job_id": 129629171980,
+    "artifact_id": 13734674349,
+    "artifact_name": "tianwen-13vw-jiangsu-2012-official-doc-probe",
+    "logged_source_download": {
+      "status": "NOT_ACQUIRED",
+      "error": "HTTP Error 403: Forbidden",
+      "target": "02273",
+      "source_bytes_read": 0,
+      "source_sha256": null
+    },
+    "workflow_execution_status": "SUCCESS_PROBE_EXECUTION_NOT_SUCCESSFUL_SOURCE_ACQUISITION",
+    "evidence_boundary": "403 was observed from the GitHub-hosted runner at 2026-11-10T04:24:02Z. It is an execution-route access denial, not proof that the source is absent or that row 02273 is false.",
+    "temporary_workflow_history": "Introduced in commit 87c27820769e239be095bbe421ba3051b90c3019; removed from the tree after one completed probe to avoid permanent duplicate GitHub Actions overhead. The run, logs and metadata artifact remain durable."
+  },
+  "prior_secondary_item": {
+    "url": "https://www.fsou.net/html/text/lar/174050/17405043_5.html",
+    "reported": "02273 古今律历考七十二卷 / 明万历二十七年(1599)徐安刻本(有补配) / 扬州市图书馆",
+    "grade": "SECONDARY_REPRODUCTION_UNPROMOTED",
+    "unresolved": "No verified government appendix item text, independently source-bound 02273 row, supplemented-juan/leaf inventory, or Xu-An original printed juan45 target."
+  },
+  "result": {
+    "first_party_official_DOC_bytes_acquired": false,
+    "first_party_appendix_item_02273_text_collated": false,
+    "new_juan45_original_pages": 0,
+    "independent_plate_votes_added": 0,
+    "g893_named_controls": "5/6",
+    "g893_historical_finals": "0/6",
+    "historical_matrix": "222/222",
+    "registered_sources": 789,
+    "genealogy_nodes": 254,
+    "genealogy_edges": 239,
+    "omission_issues": 11,
+    "issue_status": "TW-OPEN-0005 P0 OPEN",
+    "deterministic_product": "CLOSED",
+    "algorithm_reopens": 0
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "A public attachment link plus a successful probe workflow cannot be treated as row-level original text after the source request returned HTTP 403."
+    ],
+    "unresolved_lineage_questions": [
+      "Recover the original Jiangsu DOC text through a verified anonymous public route, if one becomes available; still confirm juan45 and supplemented leaves separately."
+    ]
+  },
+  "next_action": "Prioritize an independently readable Xu-An original juan45 L132 last digit 二/三 and a source-original 疾 generator with units/radix/carry. Zhejiang 善002648, NCL06270 and SYSU candidates remain open. Stop retrying the denied 2012 DOC route without a material source-access change; no registration, paid route, numeric fill, or algorithm reopen."
+}
