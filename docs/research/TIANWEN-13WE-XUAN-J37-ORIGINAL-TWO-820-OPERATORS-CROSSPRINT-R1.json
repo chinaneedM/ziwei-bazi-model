@@ -1,0 +1,122 @@
+{
+  "schema": "TIANWEN-13WE-XUAN-J37-ORIGINAL-TWO-820-OPERATORS-CROSSPRINT-R1",
+  "date": "2026-11-10",
+  "issue_id": "TW-OPEN-0005",
+  "question": "Does the publicly accessible original Xu-An NLC08938 juan37 separately print the same two 820 arithmetic roles as Xing's previously reviewed original NLC-CBM1408 juan37, without interpreting either as a G893 historical numeric final or an original ji-jiefa formula?",
+  "classification": "SHA256_AUTHENTICATED_PUBLIC_ORIGINAL_FASCICLE_DIRECT_NO_OCR_VISUAL_COLLATION; CROSS_ACCESSION_OPERATOR_SCOPE_ONLY",
+  "original": {
+    "accession": "NLC892-411999015732 / 善08938, 古今律曆考 第16冊, Xu-An print-line catalogued 1599; actual physical copy impression/printing plate not newly authenticated",
+    "public_source_page": "https://commons.wikimedia.org/wiki/File:NLC892-411999015732-116171_古今律曆考_第16冊.pdf",
+    "public_direct_pdf": "https://upload.wikimedia.org/wikipedia/commons/1/16/NLC892-411999015732-116171_%E5%8F%A4%E4%BB%8A%E5%BE%8B%E6%9B%86%E8%80%83_%E7%AC%AC16%E5%86%8A.pdf",
+    "pdf_sha1": "6105d81d786463916cd37514d3bd5424b3eb3613",
+    "pdf_sha256": "58e05a6b5b802fc54bdeabb57758bee41057d4c02e95475adcc1d06a3b4edb20",
+    "pdf_bytes": 21091340,
+    "pdf_pages": 67,
+    "original_accession_status": "SAME_EXISTING_NLC08938_ACCESSION_AS_PRIOR_J45_FASCICLE19_NOT_NEW_PHYSICAL_COPY",
+    "image_method": "GitHub Actions anonymous original PDF download; PyMuPDF render to 1350px source-proportioned JPEG, no OCR; first-pass 67 page contact sheets used to localize, p24–30 directly visually reviewed; JPEG render digests are derivative controls, not original pixel hashes",
+    "archive_runs": [
+      {
+        "run_id": 42834333794,
+        "job_id": 129892398845,
+        "grade": "SHA_VERIFIED_67_PAGE_CONTACT_ATLAS"
+      },
+      {
+        "run_id": 42834837718,
+        "job_id": 129894170083,
+        "grade": "SHA_VERIFIED_SOURCE_J37_P24_TO_P30_DIRECT_JPEG_VISUAL_REVIEW"
+      }
+    ]
+  },
+  "direct_original_page_observations": [
+    {
+      "pdf_page_one_based": 24,
+      "render_jpeg_sha256": "d384b4bebb7da310cd26951e1a8c65b4caa58bad4521ad099e110d9aac684fca",
+      "reading": "Right original leaf ends 古今律曆考卷三十六畢; left original leaf begins 古今律曆考卷三十七 / 曆法二",
+      "grade": "ORIGINAL_JUAN_BOUNDARY"
+    },
+    {
+      "pdf_page_one_based": 26,
+      "render_jpeg_sha256": "0c01dd34d06c6d10886ffeae1d49d9dab17da46592e26dca77d9fc34b3def370",
+      "reading": "遲疾轉定及積度 source-original limit-index table starts; separate from juan45's distinct two table families",
+      "grade": "ORIGINAL_LOCAL_TABULAR_CONTEXT"
+    },
+    {
+      "pdf_page_one_based": 27,
+      "render_jpeg_sha256": "765c261384938f3db30a95db6afcf5f465f3c8d3ad360170f859210cc0c95648",
+      "reading": "Late local rows followed by 求遲疾差 heading with the 初末限 calculation, preceding the p28 又術 interpolation",
+      "grade": "ORIGINAL_FORMULA_SECTION_CONTEXT"
+    },
+    {
+      "pdf_page_one_based": 28,
+      "render_jpeg_sha256": "5818a63f66271c9de8fbf392825f4d784c1eccadacf3116f498bcb3b282cedeb",
+      "reading": "Right leaf: 又術...損益分乘之如八百二十而一...即遲疾差; same spread next 求朔弦望定日 contains 以八百二十乘之; left leaf continues 入遲疾限下行度除之即為加減差",
+      "grade": "DIRECT_TWO_820_OPERATORS_AND_BRANCH_DEPENDENT_DIVISOR_IN_ONE_ORIGINAL_SPREAD"
+    }
+  ],
+  "operator_scope": [
+    {
+      "name": "ALTERNATIVE_CHIJI_DIFFERENCE_INTERPOLATION",
+      "source_print_short": "損益分乘之如八百二十而一",
+      "role_of_820": "DIVISOR",
+      "result": "遲疾差",
+      "source_location": "PDF p28 right leaf"
+    },
+    {
+      "name": "DINGSHUO_CORRECTION_AFTER_CHIJI_DIFFERENCE",
+      "source_print_short": "以八百二十乘之以所入遲疾限下行度除之",
+      "role_of_820": "MULTIPLIER_THEN_LIMIT_SPECIFIC_MOVEMENT_DIVISOR",
+      "result": "朔弦望加減差",
+      "source_location": "PDF p28 right-to-left leaf continuation"
+    }
+  ],
+  "prior_comparator": {
+    "source": "NLC892-CBM1408/371931, Xing Yunlu 古今律曆考 第12冊 juan37",
+    "prior_evidence": "docs/research/TIANWEN-13WD-XING-MING-J37-ORIGINAL-CHIJI-820-DUAL-OPERATOR-BOUNDARY-R1.json",
+    "original_pdf_sha256": "ee278e31465c3459888be274fb97fe948963a5378861d6a04a7b8150684b8b2e",
+    "original_operator_pdf_page_one_based": 64,
+    "original_operator_render_jpeg_sha256": "de1f3a8e316afd15d927ebc85994fc2e4519d0c4472dcc8d7ec7ed695aeab2e9",
+    "comparison": "Xu-An p28 and Xing p64 show the same two different 820 arithmetic roles and named 遲疾限下行度 divisor in their own scanned printed source pages. This is source-original cross-accession wording corroboration, NOT independent-plate certification, same-physical-copy identity or numeric source-table equivalence."
+  },
+  "adjudication": {
+    "original_xuan_juan37_operator_lanes": "POSITIVE_SOURCE_SCOPED",
+    "cross_accession_two_820_operator_wording": "CORROBORATED_WITH_XING_J37",
+    "same_or_independent_printing_plates": "UNVERIFIED",
+    "original_ji_specific_jiefa_coefficient_constructor": "UNRESOLVED",
+    "original_juan45_table_B_l132_terminal_two_or_three": "UNAWARDED",
+    "original_shao_wei_radix_and_carry": "UNRESOLVED",
+    "g893_exact_same_numeric_field_identity": "UNRESOLVED",
+    "new_source_original_fascicle_downloads": 1,
+    "new_registered_historical_sources": 0,
+    "new_independent_plate_votes": 0,
+    "new_g893_historical_numeric_finals": 0,
+    "g893_six_named_controls": "5/6",
+    "g893_historical_finals": "0/6",
+    "tw_open_0005": "P0 OPEN",
+    "matrix": "222/222",
+    "external_sources": 789,
+    "genealogy_nodes": 254,
+    "genealogy_edges": 239,
+    "omission_issues_open": 11,
+    "deterministic_product": "CLOSED",
+    "algorithm_reopens": 0
+  },
+  "limitations": [
+    "Both source originals are different catalogued acquisition routes, but their printing-plate independence, exact impression dates and direct stemmatic relationship are not authenticated.",
+    "Xu-An juan37 original p24–30 and first-pass contact atlas are not a 67-page exhaustive line-by-line collation.",
+    "The two 820 roles are separate procedural operators; neither directly establishes juan45 second table's 疾-specific 捷法 coefficient construction or a universal precision/rounding rule.",
+    "No second-table L132 二/三 final, G893 matching degree/time field, source-original 少/微 carry or six-control historical final is awarded.",
+    "No new original PDF bytes or scan crops are published into GitHub; retain only source URL, public GitHub workflow IDs and digest-bound derived evidence."
+  ],
+  "next_action": "Focus on independent legible Xu-An juan45 second-table L132 damaged 二/三 and a directly printed 疾 捷法 numerator/denominator plus 少/微 radix/carry at matching fields. Avoid recollating the now-confirmed juan37 820 operator distinction; preserve TW-OPEN-0005 P0 OPEN.",
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Same original juan37 operator wording in NLC08938 and NLC-CBM1408 does not prove direct text copying, independent printing plates, or numeric identity with original G893 table fields."
+    ],
+    "unresolved_lineage_questions": [
+      "Are Xu-An and Xing juan37/45 target leaves copied from a common printing block or from separately edited plates?"
+    ]
+  }
+}
