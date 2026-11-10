@@ -12,29 +12,39 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
-      - name: Verify source and visually locate bounded original pages
+      - name: Verify exact part-two public PDF and original page range
         shell: bash
         run: |
           set -euo pipefail
           python3 -m venv /tmp/fitzvenv
           /tmp/fitzvenv/bin/python -m pip -q install pymupdf
           /tmp/fitzvenv/bin/python - <<'PY'
-          import urllib.request,hashlib,base64,fitz,io
-          u="https://upload.wikimedia.org/wikipedia/commons/f/fc/NCL-06272_1_%E5%8F%A4%E4%BB%8A%E5%BE%8B%E6%9B%86%E8%80%83.pdf"
+          import urllib.request,urllib.error,hashlib,base64,fitz
+          u="https://upload.wikimedia.org/wikipedia/commons/0/01/NCL-06272_2_%E5%8F%A4%E4%BB%8A%E5%BE%8B%E6%9B%86%E8%80%83.pdf"
           req=urllib.request.Request(u,headers={"User-Agent":"TianwenSourceResearch/1.0 (noncommercial scholarly verification)"})
-          h=hashlib.sha256(); n=0
-          with urllib.request.urlopen(req,timeout=160) as src,open("/tmp/ncl06272-p1.pdf","wb") as out:
-            print("HTTP_STATUS",src.status,flush=True)
-            for chunk in iter(lambda:src.read(1024*1024),b""):
-              n+=len(chunk)
-              if n>265000000:raise RuntimeError("Unexpected content size >265MB")
-              h.update(chunk);out.write(chunk)
+          try:
+            with urllib.request.urlopen(urllib.request.Request(u,method="HEAD",headers={"User-Agent":"TianwenSourceResearch/1.0"}),timeout=60) as r:
+              print("PART2_HEAD_HTTP_STATUS",r.status,"CONTENT_LENGTH",r.headers.get("Content-Length"),flush=True)
+          except urllib.error.HTTPError as e:
+            print("PART2_HEAD_HTTP_ERROR",e.code,flush=True)
+          h=hashlib.sha256();n=0
+          try:
+            with urllib.request.urlopen(req,timeout=180) as src,open("/tmp/ncl06272-p2.pdf","wb") as out:
+              print("PART2_GET_HTTP_STATUS",src.status,flush=True)
+              for chunk in iter(lambda:src.read(1024*1024),b""):
+                n+=len(chunk)
+                if n>450000000:raise RuntimeError("Source larger than bounded budget 450MB")
+                h.update(chunk);out.write(chunk)
+          except urllib.error.HTTPError as e:
+            print("PART2_GET_HTTP_ERROR",e.code,flush=True)
+            raise SystemExit(0)
           print("PDF_SOURCE_BYTES",n,"PDF_SOURCE_SHA256",h.hexdigest(),flush=True)
-          d=fitz.open("/tmp/ncl06272-p1.pdf")
+          d=fitz.open("/tmp/ncl06272-p2.pdf")
           print("SOURCE_PDF_PAGES",len(d),flush=True)
-          for p in [1,250,500,650,775,900,995]:
-            page=d[p-1]
-            pix=page.get_pixmap(matrix=fitz.Matrix(0.7,0.7),alpha=False)
+          for p in [1,75,150,250,400,600,800,995]:
+            if p>len(d):continue
+            pg=d[p-1]
+            pix=pg.get_pixmap(matrix=fitz.Matrix(0.7,0.7),alpha=False)
             raw=pix.tobytes("jpeg",jpg_quality=54)
             print("PAGE_PREVIEW_META",p,"px",pix.width,pix.height,"bytes",len(raw),"sha256",hashlib.sha256(raw).hexdigest(),flush=True)
             print("PAGE_PREVIEW_B64",p,base64.b64encode(raw).decode("ascii"),flush=True)
