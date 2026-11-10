@@ -1,0 +1,125 @@
+{
+  "schema": "TIANWEN-13WB-NLC08938-J45-TWO-LIMIT-TABLES-ORIGINAL-L35-L132-SOURCE-SCOPE-R1",
+  "date": "2026-11-10",
+  "issue_id": "TW-OPEN-0005",
+  "preceding_batch": "13WA",
+  "purpose": "Close the previously uninspected original juan45 page-location subtask by same-PDF positive, source-native visual controls; preserve exact table-family, unit, precision and physical plate gates.",
+  "source": {
+    "accession": "NLC 411999015732 / 善08938; Commons fascicle19 / 116218; one already registered accession, not new independent physical or plate vote",
+    "original_url": "https://commons.wikimedia.org/wiki/File:NLC892-411999015732-116218_古今律曆考_第19冊.pdf",
+    "file_sha256": "b5b11ebcb4a7922898ff5f68eae3d31ed8317d92d55f3990fcb4ab7414664520",
+    "file_bytes": 18385517,
+    "pdf_pages": 59,
+    "native_render_reference": "PyMuPDF source PDF rendered at 4600 px full spread width, source-scaled JPEG crops with SHA256; the original PDF bytes were not newly registered or uploaded into repo",
+    "original_impression_date": "NOT_RECONFIRMED_FROM_THESE_TARGET_PAGES",
+    "independent_plate": "NOT_PROVEN"
+  },
+  "archived_runner": [
+    {
+      "run_id": 42802336955,
+      "job_id": 129782755308,
+      "grade": "COMPLETE_JUAN45_PDF_P02_TO_P21_CONTACT_SHEETS_NO_OCR",
+      "conclusion": "success"
+    },
+    {
+      "run_id": 42802975732,
+      "job_id": 129784919093,
+      "grade": "SOURCE_NATIVE_TARGET_CROPS_AND_SECTION_BOUNDARY_NO_OCR",
+      "conclusion": "success"
+    }
+  ],
+  "positive_original_page_observations": [
+    {
+      "pdf_page": 2,
+      "original_side": "left",
+      "render_jpeg_sha256": "6e20c2d8b5f842cf4883b941113cc9f55ec83e1c91714bddf4ea341964ca36fc",
+      "observed": "古今律曆考卷四十五 and 太陰限度 header; first limit-numbered table starts at 初限 with 遲疾/損益/捷法 columns",
+      "grade": "ORIGINAL_PRINTED_SECTION_AND_FIELD_BOUNDARY"
+    },
+    {
+      "pdf_page": 4,
+      "original_side": "left",
+      "render_jpeg_sha256": "7b4615bef0f855552612d7bbf09f943334cd8795a8af7750c47cb18eb004e10a",
+      "observed": "First table has source printed 三十五限 amidst 三十..三十八限; digit rows visible under table-A positions, not a final numeric award",
+      "grade": "ORIGINAL_PRINTED_TABLE_A_LIMIT35_LOCATOR"
+    },
+    {
+      "pdf_page": 10,
+      "original_side": "right",
+      "render_jpeg_sha256": "f4c1f7f8f973df9dc4652a4486a5d579602226cfee6b9fad8117aa2e644145b5",
+      "observed": "First table includes source printed 一百三十二限 amidst 一百二十九..一百三十七限; no table-A to table-B value equivalence assumption",
+      "grade": "ORIGINAL_PRINTED_TABLE_A_LIMIT132_LOCATOR"
+    },
+    {
+      "pdf_page": 12,
+      "original_side": "both",
+      "render_jpeg_sha256": "0689ced477c5c5d23863e7626bb28d27a6c54ebf598aef548c49d7893fc8cdff",
+      "observed": "First limit table terminates and a separate second 太陰限度／遲疾-related table restarts at 初限. Visible bridge text reads 右遲疾積度相減為損益 損益以日率而一為捷法; source-local text, not G893 unit/quantizer instruction",
+      "grade": "ORIGINAL_PRINTED_TABLE_FAMILY_SEAM_AND_PROSE"
+    },
+    {
+      "pdf_page": 14,
+      "original_side": "right",
+      "render_jpeg_sha256": "40a653e3b17f3c287c1f6ab9f4b8cc539cada783ed4209ea73bf57f655ec7f30",
+      "observed": "Second limit table directly prints 三十五限 within 三十..三十八限 and source fields 疾度 and 遲度; exact digit-to-field and precision dispute remains separate",
+      "grade": "ORIGINAL_PRINTED_TABLE_B_LIMIT35_LOCATOR"
+    },
+    {
+      "pdf_page": 19,
+      "original_side": "left",
+      "render_jpeg_sha256": "c83fb5a8f23545398ad37c485e3b716e74df00341cd4e8e8ccc27f57875b81ef",
+      "observed": "Second table directly prints 一百三十二限 in the 一百二十九..一百三十七限 band with 疾度 and 遲度 fields; source line visually present but terminal glyph, radix/carry and other-source equivalence NOT_AWARDED",
+      "grade": "ORIGINAL_PRINTED_TABLE_B_LIMIT132_LOCATOR"
+    },
+    {
+      "pdf_page": 21,
+      "original_side": "both",
+      "render_jpeg_sha256": "6dc96323673d6fe560074f5e9857f18a8db62151f72b01c21b7f26ba2c108f66",
+      "observed": "Second table continues through its upper-limit rows; nearby original line explicitly reads 右置八百二十以遲行度而一為捷法. This is an 遲-scoped local instruction, NOT a source-original 疾 coefficient generator or general rounding rule",
+      "grade": "ORIGINAL_PRINTED_LOCAL_LATE_TABLE_AND_820_DENOMINATOR_SCOPE"
+    }
+  ],
+  "adjudication": {
+    "juan45_lunar_limit_table_present": true,
+    "source_native_two_table_families_separately_located": true,
+    "table_a_limit35_pdf_page": 4,
+    "table_a_limit132_pdf_page": 10,
+    "table_b_limit35_pdf_page": 14,
+    "table_b_limit132_pdf_page": 19,
+    "source_native_printed_820_chapter_line_pdf_page": 21,
+    "juan46_day_rows_p24_p40_still_excluded": true,
+    "new_source_registry_entries": 0,
+    "new_physical_printing_plate_votes": 0,
+    "new_g893_historical_finals": 0,
+    "g893_named_controls": "5/6",
+    "g893_historical_finals": "0/6",
+    "tw_open_0005": "P0 OPEN",
+    "matrix": "222/222",
+    "sources": 789,
+    "genealogy_nodes": 254,
+    "genealogy_edges": 239,
+    "issues_open": 11,
+    "chart_product": "CLOSED",
+    "algorithm_reopens": 0
+  },
+  "limits": [
+    "Two printed tables in ONE source PDF are not two independent historical witnesses and must never be source-counted as separate editions or print plates.",
+    "Original section/table/row coordinates are positive; no full 20-page line-by-line numeric transcription has been performed. Specific final 二/三 and 少/微 unit/radix/carry were not awarded.",
+    "The printed local 820÷遲行度 instruction does not prove a corresponding original 疾 numerator or denominator, rounding standard, or a G893 exact field identity.",
+    "First and second tables both contain 35/132 限; identical ordinal alone must not drive numeric field matching between table families or editions.",
+    "No original source image or PDF bytes are embedded in repository; only SHA-bound derived evidence and public source URL retained."
+  ],
+  "next_action": "Independently collate the source-native table B L35/L132 precision with Xing NLC CBM1408 and NCL06270/06272/06273 at exact matching field headers; resolve whether the 13VG damaged L132 二/三 belongs to the same 源项 and evaluate original 疾 coefficient construction plus 少/微 radix/carry. Remain P0 OPEN and G893 final0/6.",
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Same NLC08938 PDF has two separately numbered 限 table families; no second physical witness, parent-plate dependency or direct G893 field-equivalence edge is proven."
+    ],
+    "unresolved_lineage_questions": [
+      "Are Xu-An and Xing limit-B source fields materially homologous in original prints?",
+      "Is NLC08938 L132 legibly and independently printed from other Xu-An source or same plate?"
+    ]
+  }
+}
