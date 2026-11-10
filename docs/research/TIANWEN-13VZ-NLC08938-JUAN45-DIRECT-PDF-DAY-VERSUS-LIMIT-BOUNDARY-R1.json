@@ -1,0 +1,138 @@
+{
+  "schema": "TIANWEN-13VZ-NLC08938-JUAN45-DIRECT-PDF-DAY-VERSUS-LIMIT-BOUNDARY-R1",
+  "date": "2026-11-10",
+  "issue_id": "TW-OPEN-0005",
+  "reason_for_batch": "Acquire exact publicly listed juan45-bearing Xu-An catalogued PDF and distinguish the visible 日-indexed table from independently recorded 限-indexed target before awarding any disputed glyph",
+  "source_binding": {
+    "existing_accession": "National Library of China 411999015732, 善08938; same already known accession; Commons file 116218 第19冊",
+    "public_file": "https://commons.wikimedia.org/wiki/File:NLC892-411999015732-116218_%E5%8F%A4%E4%BB%8A%E5%BE%8B%E6%9B%86%E8%80%83_%E7%AC%AC19%E5%86%8A.pdf",
+    "public_original_url": "https://upload.wikimedia.org/wikipedia/commons/c/c4/NLC892-411999015732-116218_%E5%8F%A4%E4%BB%8A%E5%BE%8B%E6%9B%86%E8%80%83_%E7%AC%AC19%E5%86%8A.pdf",
+    "http_status": 200,
+    "content_type": "application/pdf",
+    "pdf_bytes": 18385517,
+    "pdf_pages": 59,
+    "pdf_sha256": "b5b11ebcb4a7922898ff5f68eae3d31ed8317d92d55f3990fcb4ab7414664520",
+    "identical_digest_across_reacquisitions": true,
+    "first_party_physical_impression_1599_1600": "NOT_ADJUDICATED; catalogued 1599 is not a direct physical print date, compare prior 13UZ dated 1599 and 1600 paratext",
+    "independent_edition_or_plate": "NOT_PROVEN"
+  },
+  "archived_public_runner_evidence": [
+    {
+      "run_id": 42792023749,
+      "job_id": 129747578288,
+      "grade": "PUBLIC_FULL_PDF_BYTE_ACQUISITION_AND_59_PAGE_ATLAS",
+      "conclusion": "success",
+      "artifact_id": 13752170506
+    },
+    {
+      "run_id": 42792357717,
+      "job_id": 129748708805,
+      "grade": "PUBLIC_PDF_2700PX_SELECTED_PAGES",
+      "conclusion": "success",
+      "pages": [
+        23,
+        26,
+        27,
+        28,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42
+      ]
+    },
+    {
+      "run_id": 42792774160,
+      "job_id": 129750158256,
+      "grade": "PUBLIC_PDF_4200PX_SELECTED_PAGES",
+      "conclusion": "success",
+      "pages": [
+        22,
+        24,
+        25,
+        40,
+        43
+      ]
+    }
+  ],
+  "source_page_bindings": [
+    {
+      "pdf_page_one_based": 22,
+      "render_width_px": 4200,
+      "render_jpeg_sha256": "f24d1b547fc6c945ebf295db40b2447281dde9f82f0487a6e32d8d0bb8efb0f9",
+      "observation": "Opening of the continuous 日-labelled table and juan45 running header visible, not a direct source-native 限 table header"
+    },
+    {
+      "pdf_page_one_based": 24,
+      "render_width_px": 4200,
+      "render_jpeg_sha256": "92593de1f11b04698cd6c61fd351d17579d859142a7f73d310ea566c15e236e5",
+      "observation": "Same table includes source-printed 三十五日; does not print 三十五限 at that ordinal"
+    },
+    {
+      "pdf_page_one_based": 40,
+      "render_width_px": 4200,
+      "render_jpeg_sha256": "0d1c7d1616c5163ededa80ecbcd76d6ded41a376c451d0ca740194030931c6a4",
+      "observation": "Same continuous table includes source-printed 一百三十二日 on the right-hand side; printed numeral columns are visible but their exact role relative to original 限 table is not demonstrated"
+    },
+    {
+      "pdf_page_one_based": 43,
+      "render_width_px": 4200,
+      "render_jpeg_sha256": "87e66ecac940e52dcbd4a82117839799c5d46f716c639bac3b3c10607f4e0d7c",
+      "observation": "Day-sequence table transition into prose on this image; this bounded review does not exhaustively establish omission of a limit-indexed table elsewhere"
+    }
+  ],
+  "comparison_to_existing_exact_target": {
+    "prior_doc": "docs/research/TIANWEN-13TN-XING-MING-ORIGINAL-TABLE-BOUNDARY-AND-HEADER-R1.json",
+    "prior_source": "NLC892-CBM1408-371933, another catalogued digital source",
+    "prior_original_table_identity": "太陰限度 / 遲疾行度 / 遲疾捷法; marked 初限..一百六十八限, original PDF p64 transition and target p66 三十五限 / p71 一百三十二限",
+    "current_original_table_observed_index_suffix": "日",
+    "source_native_l35_limit_number_awarded": false,
+    "source_native_l132_limit_number_awarded": false,
+    "source_native_l132_terminal_二_or_三_awarded": false,
+    "possible_later_mechanical_correspondence": "UNRESOLVED: a numerically indexed 日 row is not equated to a 限 row absent explicit source field/time unit/radix and table boundary mapping",
+    "same_text_same_plates": "UNPROVEN"
+  },
+  "adjudication": {
+    "new_original_pdf_acquisitions": 1,
+    "new_original_pdf_pages_bound": 59,
+    "selected_original_pdf_body_pages_visually_inspected": 4,
+    "named_day_index_positive_controls": 2,
+    "new_original_limit_index_glyph_awards": 0,
+    "new_g893_historical_finals": 0,
+    "g893_named_controls": "5/6",
+    "g893_historical_finals": "0/6",
+    "new_source_registry_entries": 0,
+    "new_independent_physical_printing_plate_votes": 0,
+    "source_registry_total": 789,
+    "matrix": "222/222",
+    "genealogy_nodes": 254,
+    "genealogy_edges": 239,
+    "open_issues": 11,
+    "tw_open_0005": "P0 OPEN",
+    "chart_product": "CLOSED",
+    "algorithm_reopens": 0
+  },
+  "negative_evidence_boundaries": [
+    "PDF bytes, source SHA, page count and source page numbers are verifiable; the on-run PDF was discarded before artifact upload and restricted original images were not posted to the repository.",
+    "Public digital scan can be directly inspected, but same accession 411999015732 is not a new independently authenticated physical witness.",
+    "日 is directly visible at p24/p40. Do not promote these numerals to the independently inspected p66/p71 限 table of CBM1408; wrong day/limit field identity would contaminate all six final numerical controls.",
+    "The present visual sample does not establish the full absence of another relevant table or excerpt across all 59 PDF pages. This is not exhaustive native folio text collation.",
+    "Do not derive a fixed historical divisor, rounding prescription, G893 field, or source-original 疾 lane numerator from the two isolated 日 row numbers.",
+    "A successful GitHub Actions probe is a transport/render success, not validation of historical number, source lineage or chart algorithm."
+  ],
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "No source genealogical edge from a same-book title/catalogue imprint, and no mapping from 日 35/132 to 限 35/132 without direct unit/column/entry comparison."
+    ],
+    "unresolved_lineage_questions": [
+      "Where exactly is the source-native 限-indexed second table in this Xu-An-catalogued copy, if extant?",
+      "What original printed 履日/入限, 疾行度, 820 捷法, and 少/微 source semantics connect the two numeric coordinate systems?",
+      "Which, if any, observed physical text lines share printing blocks with other NLC and Taiwan NCL catalogue families?"
+    ]
+  },
+  "next_action": "First establish explicit original-book page/section and numerical field mapping of the 日-indexed 35/132 and 限-indexed 35/132 controls, checking native last-pages and table transitions before attempting a glyph vote. Prioritize authenticated Xu-An juan45 limit-table image, source-native 疾 coefficients/radix/carry and physical plate comparison; TW-OPEN-0005 remains P0 OPEN."
+}
