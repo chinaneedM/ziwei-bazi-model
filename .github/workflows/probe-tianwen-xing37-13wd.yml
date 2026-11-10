@@ -34,7 +34,7 @@ jobs:
           doc=fitz.open(stream=src,filetype="pdf")
           assert len(doc)==86,("page count mismatch",len(doc))
           print("SOURCE_VERIFIED",json.dumps({"source_url":url,"original_sha1":sha1,"original_sha256":sha256,"bytes":len(src),"pages":len(doc),"scope":"Original PDF bytes and contact sheets only; no OCR/no numeric adjudication"},ensure_ascii=False))
-          for p in [25,34,59,64,65,69,73,77,79,81,83,84,85,86]:
+          for p in [54,55,56,57,58,60,61,62,63]:
               pix=doc[p-1].get_pixmap(matrix=fitz.Matrix(2.6,2.6),alpha=False)
               im=Image.frombytes("RGB",[pix.width,pix.height],pix.samples)
               out=io.BytesIO()
