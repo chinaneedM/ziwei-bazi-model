@@ -71,9 +71,9 @@ jobs:
             s=base64.b64encode(atlas).decode("ascii")
             for n in range(0,len(s),5000):print(f"ATLAS_PART {n//5000:04d} {s[n:n+5000]}")
             print("ATLAS_END")
-            for pdf_number in (23,26,27,28,37,38,39,40,41,42):
+            for pdf_number in (22,24,25,40,43):
               p=document[pdf_number-1]
-              scale=2700/p.rect.width
+              scale=4200/p.rect.width
               px=p.get_pixmap(matrix=fitz.Matrix(scale,scale),alpha=False)
               frame=Image.frombytes("RGB",(px.width,px.height),px.samples)
               framebuf=io.BytesIO()
