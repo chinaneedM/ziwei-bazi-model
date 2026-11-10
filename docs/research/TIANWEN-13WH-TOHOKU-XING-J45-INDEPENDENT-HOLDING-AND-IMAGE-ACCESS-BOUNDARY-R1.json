@@ -1,0 +1,93 @@
+{
+  "schema": "TIANWEN-13WH-TOHOKU-XING-J45-INDEPENDENT-HOLDING-AND-IMAGE-ACCESS-BOUNDARY-R1",
+  "date": "2026-11-10",
+  "issue_id": "TW-OPEN-0005",
+  "question": "Is there a newly traceable Tohoku University original physical holding of Xing Yunlu's Gujin lüli kao with a public image inventory that may eventually collate juan45 second lunar limit-table L132, and can the 32-book institutional item be identified with the 45-book union catalog item?",
+  "classification": "OFFICIAL_INSTITUTIONAL_CATALOG_OBJECT_AND_IMAGE_COUNT_POSITIVE; TARGET_FOLIO_NOT_ACQUIRED; PHYSICAL_COPY_AND_PRINTING_PLATE_CROSSWALK_UNRESOLVED; NOT_HISTORICAL_NUMERIC_EVIDENCE",
+  "discovery": {
+    "tohoku_first_party": {
+      "item_title": "古今律暦考 72巻",
+      "provider": "Tohoku University Main Library, Fujiwara collection / 和算資料",
+      "item_url": "https://touda.tohoku.ac.jp/collection/database/library/10020000012307",
+      "portal_url": "https://touda.tohoku.ac.jp/portal/item/10020000012307",
+      "record_id": "10020000012307",
+      "department_id": "TT22217970",
+      "call_number": "藤原文/3233",
+      "former_owner": "藤原松三郎",
+      "catalog_quantity": 32,
+      "catalog_image_count": 1683,
+      "catalog_image_type": "MONOCHROME",
+      "catalog_media": "microfilm h02301,h02401 also listed",
+      "catalog_date_label": "萬暦39 [1611] 序",
+      "observational_grade": "FIRST_PARTY_CATALOG_AND_IMAGE_INVENTORY_ONLY_NO_TARGET_FOLIO_GLYPH"
+    },
+    "cinii_union_catalog": {
+      "url": "https://ci.nii.ac.jp/ncid/BD03732496",
+      "ncid": "BD03732496",
+      "holding_institution": "Tohoku University Main Library",
+      "catalog_quantity": 45,
+      "target_work_volumes": "卷44-45",
+      "target_volume_registration_number": "01793901104",
+      "catalog_date_label": "萬暦39 [1611] 序",
+      "dating_note": "CiNii states its publication-year estimate derives from 太一書自序 萬暦辛亥邢雲路識太一文; separately quotes a 卷72末 萬暦三十六年 colophon. These are textual dates, not direct proof the currently held printing or copy was made in 1611.",
+      "catalog_grade": "UNION_CATALOG_REGISTRATION_ONLY_NO_PHYSICAL_TARGET_GLYPH"
+    }
+  },
+  "bounded_public_image_access": {
+    "tohoku_item_page_announces_1683_images": true,
+    "tohoku_item_page_emits_machine_readable_manifest_uri_in_retrieved_text": false,
+    "tested_documented_same_collection_metadata_manifest_pattern": "https://touda.tohoku.ac.jp/collection/iiif/metadata/10020000012307/manifest.json",
+    "test_result": "NOT_ACCESSIBLE_IN_THIS_WEB_RETRIEVAL; HTTP_STATUS_AND_UNDERLYING_OBJECT_AVAILABILITY_NOT_ADJUDICATED",
+    "separate_known_good_control": "https://touda.tohoku.ac.jp/collection/iiif/metadata/10020000008207/manifest.json",
+    "control_result": "PUBLIC_JSON_RETRIEVABLE_FOR_DIFFERENT_EXACT_ITEM; CANNOT_INFER_THIS_TARGET_ITEM_HAS_SAME_IMAGE_DELIVERY",
+    "cinii_opac_exact_link": "https://opac.library.tohoku.ac.jp/opac/opac_openurl/?ncid=BD03732496",
+    "opac_web_observation": "HTTP_403_FROM_THIS_RETRIEVAL_ENVIRONMENT; DOES_NOT_PROVE_LIBRARY_DENIAL_OR_ITEM_ABSENCE",
+    "enumeration_or_login_attempts": 0,
+    "fees_or_purchase": 0
+  },
+  "adjudication": {
+    "independently_cataloged_tohoku_holding_locator": "POSITIVE_AT_FIRST_PARTY_ITEM_LEVEL",
+    "tohoku_32_to_cinii_45_same_physical_copy": "UNRESOLVED",
+    "tohoku_original_printing_plate_independence_from_nlc08938_or_cbm1408": "UNPROVEN",
+    "tohoku_juan45_l132_direct_original_page_and_terminal_digit": "NOT_OBTAINED",
+    "tohoku_exact_image_or_pdf_sha256": "NOT_OBTAINED",
+    "original_disease_branch_jiefa_coefficient": "UNRESOLVED",
+    "historical_shao_wei_radix_and_carry": "UNRESOLVED",
+    "g893_exact_same_field_unit_value_match": "UNRESOLVED",
+    "g893_named_controls": "5/6",
+    "g893_historical_finals": "0/6",
+    "registered_external_sources_added": 0,
+    "genealogy_nodes_added": 0,
+    "genealogy_edges_added": 0,
+    "historical_matrix": "222/222",
+    "external_source_registry_union_count": 789,
+    "genealogy_nodes": 254,
+    "genealogy_edges": 239,
+    "omission_issues_open": 11,
+    "tw_open_0005": "P0 OPEN",
+    "deterministic_chart_product": "CLOSED",
+    "algorithm_reopens": 0
+  },
+  "limitations": [
+    "Tohoku's first-party 32-book archive inventory and CiNii's 45-book union listing cannot be silently counted as two physical copies or silently merged into one. The accession-level crosswalk and printing plates remain unverified.",
+    "Cataloged 1683 monochrome images do not prove the named juan45 target leaf is present, readable, downloadable or publicly licensed for reuse. No original target image was observed.",
+    "The 1611 label explicitly concerns a preface/text date; not proof of printing, impression, or physical-copy dates. 1608 colophon likewise has a separate identity.",
+    "A working IIIF route for a different Tohoku item cannot authorize synthetic target image URLs or brute-force enumeration.",
+    "This is a newly documented target-access lead within existing TW-OPEN-0005, not a new independent historical numeric witness; it does not revise the existing G893 original decisions."
+  ],
+  "next_action": "Follow a first-party source-emitted Tohoku item image/viewer/manifest link or a legitimate verified-free route to the exact 卷44-45 holding 01793901104, bind the juan45 second limit table L132 original image to its physical copy, record SHA and complete source field before adjudicating 二/三. Also pursue original 疾捷法 and 少/微 carry and G893 same-field unit identity. No fees, registration, guessed asset IDs, fabricated numeric awards or automatic chart reopen.",
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "32-book Tohoku Fujiwara metadata and 45-book CiNii union catalog metadata do not yet establish same-copy or different-copy identity.",
+      "1611 preface date does not prove original impression or the physical-copy date.",
+      "Different institutional holding identity alone does not prove printing-plate independence or direct source genealogy."
+    ],
+    "unresolved_lineage_questions": [
+      "Does Tohoku Fujiwara/3233 correspond to the CiNii BD03732496 volume 44-45 registration 01793901104, and if not, what are their actual physical identities?",
+      "Which exact original printing plate and its juan45 limit132 field, if any, are delivered by the official 1683-image digitization?"
+    ]
+  }
+}
