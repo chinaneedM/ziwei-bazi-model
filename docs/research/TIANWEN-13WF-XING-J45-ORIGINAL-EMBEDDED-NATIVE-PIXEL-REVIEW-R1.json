@@ -1,0 +1,129 @@
+{
+  "schema": "TIANWEN-13WF-XING-J45-ORIGINAL-EMBEDDED-NATIVE-PIXEL-REVIEW-R1",
+  "date": "2026-11-10",
+  "issue_id": "TW-OPEN-0005",
+  "question": "What are the actual embedded original-image pixel dimensions at Xing NLC-CBM1408 juan45 table-B p66 L35 / p71 L132, and which precise target is visible in fresh no-OCR crops? Does this justify source-original numeric, plate, unit or G893 final awards?",
+  "classification": "SHA256_VERIFIED_EXISTING_REGISTERED_SOURCE_PDF; EXTRACTED_NATIVE_JPX_GEOMETRY_AND_DERIVATIVE_6X_DIRECT_VISUAL; NO_NEW_PHYSICAL_SOURCE_AND_NO_OCR",
+  "source": {
+    "accession": "NLC892-CBM1408-371933, 古今律曆考 七十二卷 第14冊, same previously registered Xing accession",
+    "public_source_page": "https://commons.wikimedia.org/wiki/File:NLC892-CBM1408-371933_古今律曆考_七十二卷_第14冊.pdf",
+    "pdf_sha256": "95b264e0447fb612a4b389b4b44e8f9871f9d0417b6893699fd37fe589cb23f3",
+    "pdf_bytes": 18807026,
+    "pdf_pages": 74,
+    "original_impression": "NOT_REAUTHENTICATED",
+    "independent_printing_plate": "NOT_PROVEN",
+    "prior_source_crosswalk": "docs/research/TIANWEN-13WC-XUAN-XING-ORIGINAL-J45-DUAL-TABLE-STRUCTURAL-CROSSWALK-R1.json"
+  },
+  "replay": {
+    "github_actions_run_id": 42839233280,
+    "github_actions_job_id": 129909637386,
+    "run_url": "https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/42839233280",
+    "github_actions_conclusion": "success",
+    "source_digest_checked_in_workflow": true,
+    "source_pdf_page_count_checked": true,
+    "visual_method": "Original PDF embedded JPX raster examined through PyMuPDF image metadata and 6x page render; JPEG source crops reassembled from action logs and visually viewed, no OCR",
+    "source_images_published_in_repository": false
+  },
+  "page_reviews": [
+    {
+      "pdf_page_one_based": 66,
+      "target": "SECOND_TABLE_LIMIT35",
+      "embedded_source_jpx": {
+        "xref": 200,
+        "width_px": 1738,
+        "height_px": 1481,
+        "sha256": "56b9b0c0885cadb7ce0395fe6b0c29ce7d9b5b32d3795aef059f786cccc11966"
+      },
+      "derived_render": {
+        "matrix_scale": 6,
+        "full_px": [
+          2503,
+          2133
+        ],
+        "crop_bbox_px": [
+          0,
+          0,
+          1401,
+          2133
+        ],
+        "jpeg_sha256": "f519e4ace5821dc8a853cf4e690523f58b76a6349b2228266fde32b6a8f4e7ce",
+        "jpeg_bytes": 635564
+      },
+      "visual_observation": "New LEFT-side crop contains adjacent printed limits approximately 39–47, with 38 on the right boundary; the specified L35 target is OUTSIDE this crop. The page's embedded pixel geometry is source-confirmed but this crop does not newly adjudicate L35's specific digits.",
+      "grade": "NATIVE_PIXEL_GEOMETRY_POSITIVE; TARGET_LIMIT35_CROP_INCOMPLETE"
+    },
+    {
+      "pdf_page_one_based": 71,
+      "target": "SECOND_TABLE_LIMIT132",
+      "embedded_source_jpx": {
+        "xref": 215,
+        "width_px": 1738,
+        "height_px": 1481,
+        "sha256": "eb51ebe66e30d256086e866e6db0412f67c112b5f4060c587cf5549e1b775c8a"
+      },
+      "derived_render": {
+        "matrix_scale": 6,
+        "full_px": [
+          2503,
+          2133
+        ],
+        "crop_bbox_px": [
+          0,
+          0,
+          1401,
+          2133
+        ],
+        "jpeg_sha256": "4912a327f1a4de9c7355981a1858fbc790f16d597c48173fc56af8d1b301c521",
+        "jpeg_bytes": 698409
+      },
+      "visual_observation": "Source-original left leaf directly shows 一百三十二限 within neighboring limit sequence and adjacent 疾度 / 遲度 source-value fields. Fine digits are not asserted as independently adjudicated, and this is NOT the damaged Xu-An p19 terminal glyph.",
+      "grade": "DIRECT_SOURCE_ORIGINAL_LIMIT132_AND_FIELD_LOCATOR_ONLY"
+    }
+  ],
+  "cross_source_scope": "Xu-An NLC08938 j45 second table p19 L132 originally visually reviewed separately under 13WB/13WC remains terminal 二/三 ambiguous; no independent Xu-An impression acquired. Xing p71 is not a substitute for Xu-An ink or proof of shared versus independent plates.",
+  "adjudication": {
+    "original_pdf_exact_sha256_and_page_count": "POSITIVE",
+    "embedded_page_pixel_geometry": "POSITIVE_BOTH_PAGES",
+    "new_limit35_specific_crop_reading": "NOT_PERFORMED_LEFT_CROP_MISSES_TARGET",
+    "xing_limit132_printed_ordinal_and_field_locator": "POSITIVE_ORIGINAL_PAGE_SCOPED",
+    "damaged_xuan_limit132_terminal_two_or_three": "UNAWARDED",
+    "same_or_independent_plates": "UNRESOLVED",
+    "original_ji_specific_jiefa_coefficient": "UNRESOLVED",
+    "original_shao_wei_radix_and_carry": "UNRESOLVED",
+    "g893_matching_historical_numeric_field": "UNRESOLVED",
+    "new_original_pdf_accessions": 0,
+    "new_registered_sources": 0,
+    "new_independent_plates": 0,
+    "new_historical_numeric_finals": 0,
+    "g893_named_controls": "5/6",
+    "g893_historical_finals": "0/6",
+    "tw_open_0005": "P0 OPEN",
+    "matrix": "222/222",
+    "external_sources": 789,
+    "genealogy_nodes": 254,
+    "genealogy_edges": 239,
+    "omission_issues_open": 11,
+    "deterministic_product": "CLOSED",
+    "algorithm_reopens": 0
+  },
+  "limitations": [
+    "Rendering a 1738x1481 embedded JPX source as a 2503x2133 image DOES NOT create new native printed pixel information; the source JPEG2000 payload's image quality is authoritative for available detail.",
+    "New p66 left crop misses exact L35, so do not count it as a new numeric/glyph audit despite correct source-original page identity.",
+    "One source PDF with two image objects remains one accession and cannot provide two independent source votes.",
+    "Visual source printing of L132 in Xing cannot restore Xu-An's damaged final digit or prove G893 table equivalence, rounding, precision and 少/微 semantics.",
+    "No original image bytes or restricted facsimile page crops have been committed publicly."
+  ],
+  "next_action": "Avoid another generic upscaled render. For the already identified p66 L35 target use the correct right-side SOURCE pixel region only if an exact digit matters. Prioritize genuinely independent legible Xu-An juan45 table-B L132 二/三, direct original 疾 捷法 coefficient construction, source-bound 少/微 radix/carry and exact historical G893 field correspondence. TW-OPEN-0005 remains P0 OPEN and numeric finals stay 0/6.",
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Distinct p66/p71 JPX images within the same CBM1408 accession do not prove multiple independently printed sources, plate difference or direct text transmission."
+    ],
+    "unresolved_lineage_questions": [
+      "Can an independently identifiable Xu-An original printing plate independently establish damaged j45 L132 and the same exact table-value field?"
+    ]
+  },
+  "workflow_cleanup": "Temporary repository probe workflow removed in the same publication commit; the successful 13WF Actions run remains a replay locator."
+}
