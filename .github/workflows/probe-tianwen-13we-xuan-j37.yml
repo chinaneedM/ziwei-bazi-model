@@ -1,0 +1,47 @@
+name: probe-tianwen-13we-xuan-j37
+on:
+  push:
+    branches:
+      - agent/fusion-chart-core-r1-20260822
+    paths:
+      - .github/workflows/probe-tianwen-13we-xuan-j37.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  inspect-original:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Fetch Xu-An original fascicle and emit source-page contact sheets
+        run: |
+          python -m pip install -q pymupdf pillow
+          python - <<'PY'
+          import io, urllib.request, hashlib, base64
+          import fitz
+          from PIL import Image, ImageDraw
+          url = 'https://upload.wikimedia.org/wikipedia/commons/1/16/NLC892-411999015732-116171_%E5%8F%A4%E4%BB%8A%E5%BE%8B%E6%9B%86%E8%80%83_%E7%AC%AC16%E5%86%8A.pdf'
+          request = urllib.request.Request(url, headers={'User-Agent':'Tianwen-Source-Collation/1.0 (public-domain source)'})
+          source = urllib.request.urlopen(request, timeout=120).read()
+          print('SOURCE|size='+str(len(source))+'|sha1='+hashlib.sha1(source).hexdigest()+'|sha256='+hashlib.sha256(source).hexdigest(),flush=True)
+          doc = fitz.open(stream=source,filetype='pdf')
+          print('PDF_PAGES|'+str(len(doc)),flush=True)
+          for start in range(0,len(doc),20):
+              cell_w,cell_h=510,460
+              atlas=Image.new('RGB',(4*cell_w,5*cell_h),(244,244,244))
+              draw=ImageDraw.Draw(atlas)
+              for index in range(start,min(start+20,len(doc))):
+                  page=doc[index]
+                  scale=min(475/page.rect.width,405/page.rect.height)
+                  pm=page.get_pixmap(matrix=fitz.Matrix(scale,scale),alpha=False)
+                  im=Image.frombytes('RGB',(pm.width,pm.height),pm.samples)
+                  pos=index-start
+                  x=(pos%4)*cell_w;y=(pos//4)*cell_h
+                  draw.text((x+10,y+8),'PDF p'+str(index+1),fill=(0,0,0))
+                  atlas.paste(im,(x+12,y+28))
+              stream=io.BytesIO();atlas.save(stream,format='JPEG',quality=70,optimize=True)
+              dat=stream.getvalue()
+              print('ATLAS_SHA|'+str(start+1)+'|'+str(min(start+20,len(doc)))+'|'+hashlib.sha256(dat).hexdigest()+'|'+str(len(dat)),flush=True)
+              b64=base64.b64encode(dat).decode()
+              for j in range(0,len(b64),1800):print('ATLAS_B64|'+str(start+1)+'|'+str(j//1800)+'|'+b64[j:j+1800])
+          PY
