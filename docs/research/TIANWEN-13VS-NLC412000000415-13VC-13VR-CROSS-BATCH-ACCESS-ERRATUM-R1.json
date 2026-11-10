@@ -1,0 +1,82 @@
+{
+  "schema": "TIANWEN-13VS-NLC412000000415-13VC-13VR-CROSS-BATCH-ACCESS-ERRATUM-R1",
+  "date": "2026-11-10",
+  "issue_id": "TW-OPEN-0005",
+  "question": "Did 13VR inadvertently downgrade the previously authenticated public nine-PDF acquisition by citing 13VB but omitting intervening 13VC, and what exactly can be corrected without creating a spurious target witness?",
+  "evidence_grade": "REPOSITORY_INTERNAL_CROSS_BATCH_PRIOR_EVIDENCE_RECONCILIATION__NO_NEW_EXTERNAL_ORIGINAL_PAGE",
+  "evidence_crosscheck": [
+    {
+      "batch": "13VB",
+      "document": "docs/research/TIANWEN-13VB-NLC412000000415-NINE-FILE-PUBLIC-INDEX-ACCESS-LEAD-R1.json",
+      "grade_at_that_time": "SECONDARY_FILE_LIST_ONLY",
+      "retrieved_original_pdfs": 0,
+      "meaning": "Correct for 13VB's own acquisition date, superseded by 13VC for public series bytes."
+    },
+    {
+      "batch": "13VC",
+      "document": "docs/research/TIANWEN-13VC-NLC412000000415-A00441-NINE-PDF-JUAN45-EXCLUSION-R1.json",
+      "repository_blob_sha": "b6c0421413f9750f1fffc3fdd680f81ced13f7ec",
+      "accession": "NLC892-412000000415",
+      "catalogue_from_commons": "A00441; 徐安1599; 存20卷1–16及22–25",
+      "pdf_count": 9,
+      "total_pdf_pages": 515,
+      "source_native_boundaries_visually_reviewed": 18,
+      "pdf_file_sha256_recorded": 9,
+      "juan45_scope": "EXCLUDED_FROM_ALL_NINE_PUBLIC_PDFS",
+      "first_party_nlc_item_validated": false,
+      "physical_copy_or_plate_independence_proven": false
+    },
+    {
+      "batch": "13VR",
+      "document": "docs/research/TIANWEN-13VR-NLC412000000415-SHIDIAN-XUAN1599-READER-EXTENT-R1.json",
+      "repository_blob_sha": "f1398056a38e00722db87b02f0e58d31c1f1c11d",
+      "reader_id": "NGJ892412000000415163845",
+      "source_attribution": "國家圖書館 / 徐安明萬曆27年刻本",
+      "reader_pages": 975,
+      "chapters": 21,
+      "extant_reader_juan": "卷1–16、22–25和卷首",
+      "juan45_scope": "EXCLUDED_FROM_THIS_READER"
+    }
+  ],
+  "identified_record_defect": {
+    "exact_overstatement": "13VR's statement that 'nine backup file contents remain unverified' and its reliance only on 13VB are stale as at the repository's 13VC evidence.",
+    "corrected_scope": "The complete named nine-PDF public backup series was already downloaded and file-SHA-256 recorded in 13VC; its PDF page counts and 18 selected source-native start/end headings were checked, supporting exclusion of juan45 from that defined public series. The Shidian reader was separately scoped in 13VR.",
+    "preserved_true_limit": "The NLC first-party item detail, any additional unlisted holding/juan beyond this series, exact physical-copy/impression/plate relationships, and byte-level identity between Shidian reader pages and Commons PDFs were not resolved.",
+    "pagination_firewall": "The 515 PDF pages and 975 Shidian reader pages are not interchangeable page-address spaces. Matching title/accession/volume coverage does not authorize equal page-to-page image hashes or an independent-witness count.",
+    "prior_reports_preserved": "13VB, 13VC and 13VR remain in place with their original date-scoped observations; this append-only document is the governing reconciliation."
+  },
+  "adjudication": {
+    "file_inventory_retrieval_gap_for_named_nine_pdfs": "CLOSED_BY_PRIOR_13VC",
+    "juan45_access_via_named_nine_pdfs": "EXCLUDED_BY_13VC",
+    "juan45_access_via_specific_shidian_reader": "EXCLUDED_BY_13VR",
+    "all_other_nlc_holding_or_original_juan45": "UNRESOLVED",
+    "original_target_pages_new": 0,
+    "independent_plate_votes_new": 0,
+    "registered_sources_added": 0,
+    "graph_nodes_added": 0,
+    "graph_edges_added": 0,
+    "issue_status": "TW-OPEN-0005 P0 OPEN",
+    "g893_named_controls": "5/6",
+    "g893_historical_final_verdicts": "0/6",
+    "matrix": "222/222",
+    "source_union": 789,
+    "genealogy_nodes": 254,
+    "genealogy_edges": 239,
+    "open_issues": 11,
+    "deterministic_chart": "CLOSED",
+    "algorithm_reopens": 0
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Same accession and matching volume coverage prove neither Shidian-page-to-PDF byte identity nor an independent physical copy or printing plate."
+    ],
+    "unresolved_lineage_questions": [
+      "Whether the Shidian reader and nine Commons PDFs are derivatives of the exact same scanned physical object is not established by a per-leaf cross-hash.",
+      "Whether any independently authenticated additional NLC holding has juan45 remains open."
+    ]
+  },
+  "next_action": "Do not revisit the already-excluded nine Commons backup PDFs or the specific Shidian reader merely because 13VR omitted 13VC; reopen these only upon genuinely new item/range evidence. Prioritize Zhejiang Library 善002648 juan45 survival, independent original Xu-An L132 glyph and 疾 construction/radix/carry, alongside National Museum, NCL06270, SYSU and verified facsimile/microfilm targets."
+}
