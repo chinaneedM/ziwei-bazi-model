@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 12
     steps:
-      - name: Acquire public original and source-page overview (no OCR)
+      - name: Original source cropped target page high-resolution rendering (no OCR)
         shell: bash
         run: |
           set -euo pipefail
@@ -21,57 +21,43 @@ jobs:
           python - <<'PYCODE'
           import base64,hashlib,io,json,pathlib,urllib.parse,urllib.request
           import fitz
-          from PIL import Image,ImageOps,ImageDraw
+          from PIL import Image
           fn="NLC892-411999015732-116218_古今律曆考_第19冊.pdf"
           url="https://upload.wikimedia.org/wikipedia/commons/c/c4/"+urllib.parse.quote(fn)
           req=urllib.request.Request(url,headers={"User-Agent":"TianwenHistoricalSourceCollation/1.0 (public academic verification)"})
-          rec={"url":url,"status":"SOURCE_NOT_ACQUIRED","scope":"ONLY_PDF_PAGES_2_TO_21_JUAN45_CONTACT_SHEETS_NO_OCR_NO_TEXT_CLAIM"}
           with urllib.request.urlopen(req,timeout=120) as response:
               data=response.read(25000000)
-              rec["http_status"]=response.status
-              rec["source_final_url"]=response.url
-          rec["sha256"]=hashlib.sha256(data).hexdigest()
-          rec["bytes"]=len(data)
-          if not data.startswith(b"%PDF-") or rec["sha256"]!="b5b11ebcb4a7922898ff5f68eae3d31ed8317d92d55f3990fcb4ab7414664520":
-              raise ValueError("Source fingerprint differs; no source-page claim")
+          sha=hashlib.sha256(data).hexdigest()
+          if sha!="b5b11ebcb4a7922898ff5f68eae3d31ed8317d92d55f3990fcb4ab7414664520":
+              raise ValueError("Source PDF mismatch")
           doc=fitz.open(stream=data,filetype="pdf")
           if len(doc)!=59:raise ValueError("Page-count mismatch")
-          rec["status"]="SOURCE_HASH_VERIFIED_AND_CONTACT_SHEETS_RENDERED"
-          rec["page_count"]=len(doc)
-          groups=[[2,3,4,5],[6,7,8,9],[10,11,12,13],[14,15,16,17],[18,19,20,21],[22]]
-          rec["sheets"]=[]
-          for si,pages in enumerate(groups):
-              images=[]
-              for page_num in pages:
-                  page=doc[page_num-1]
-                  scale=1300/page.rect.width
-                  pix=page.get_pixmap(matrix=fitz.Matrix(scale,scale),alpha=False)
-                  im=Image.frombytes("RGB",(pix.width,pix.height),pix.samples)
-                  images.append((page_num,im))
-              cols=2
-              w=1350; h=max(im.height for _,im in images)+54
-              rows=(len(images)+cols-1)//cols
-              sheet=Image.new("RGB",(cols*w,rows*h),(249,249,249))
-              draw=ImageDraw.Draw(sheet)
-              for i,(page_num,im) in enumerate(images):
-                  x=i%cols*w;y=i//cols*h
-                  draw.text((x+22,y+16),"NLC08938 source PDF page "+str(page_num),fill=(0,0,0))
-                  sheet.paste(im,(x+25,y+47))
-              buf=io.BytesIO();sheet.save(buf,"JPEG",quality=74,optimize=True)
-              payload=buf.getvalue()
-              meta={"sheet":si,"pages":pages,"jpeg_bytes":len(payload),"sha256":hashlib.sha256(payload).hexdigest(),"preview_size":[sheet.width,sheet.height]}
-              rec["sheets"].append(meta)
-              print("SHEET_BEGIN",json.dumps(meta,ensure_ascii=False))
-              encoded=base64.b64encode(payload).decode("ascii")
-              for start in range(0,len(encoded),6000):
-                  print("SHEET_PART",si,start//6000,encoded[start:start+6000])
-              print("SHEET_END",si)
-          pathlib.Path("evidence/report.json").write_text(json.dumps(rec,ensure_ascii=False,indent=2)+"\n")
-          print("SOURCE_RESULT",json.dumps({k:v for k,v in rec.items() if k!="sheets"},ensure_ascii=False))
+          records=[]
+          selected=[(2,"left","heading"),(4,"left","tableA_L35"),(10,"right","tableA_L132"),(12,"both","two_tables_seam"),(14,"right","tableB_L35"),(19,"left","tableB_L132"),(21,"both","second_table_end")]
+          for p,side,target in selected:
+              pg=doc[p-1]
+              pix=pg.get_pixmap(matrix=fitz.Matrix(4600/pg.rect.width,4600/pg.rect.width),alpha=False)
+              image=Image.frombytes("RGB",(pix.width,pix.height),pix.samples)
+              w,h=image.size
+              if side=="left":crop=(0,0,round(w*0.55),h)
+              elif side=="right":crop=(round(w*0.45),0,w,h)
+              else:crop=(0,0,w,h)
+              image=image.crop(crop)
+              stream=io.BytesIO();image.save(stream,"JPEG",quality=82,optimize=True)
+              data_image=stream.getvalue()
+              rec={"pdf_page":p,"side":side,"target":target,"full_render_px":[w,h],"crop_bbox_px":crop,"cropped_px":[image.width,image.height],"jpeg_sha256":hashlib.sha256(data_image).hexdigest(),"jpeg_bytes":len(data_image)}
+              records.append(rec)
+              encoded=base64.b64encode(data_image).decode("ascii")
+              print("DETAIL_BEGIN",json.dumps(rec,ensure_ascii=False))
+              for offset in range(0,len(encoded),6000):print("DETAIL_PART",p,offset//6000,encoded[offset:offset+6000])
+              print("DETAIL_END",p)
+          info={"source_pdf_sha256":sha,"source_pdf_pages":59,"selected_views":records,"scope":"Source-native crops for human visual review, NO_OCR, NO_NUMERIC_AWARD"}
+          pathlib.Path("evidence/manifest.json").write_text(json.dumps(info,ensure_ascii=False,indent=2)+"\n")
+          print("SOURCE_RESULT",json.dumps({k:v for k,v in info.items() if k!="selected_views"},ensure_ascii=False))
           PYCODE
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: tianwen-13wb-original-juan45-page-overview-manifest
-          path: evidence/report.json
+          name: tianwen-13wb-original-juan45-target-crop-manifest
+          path: evidence/manifest.json
           if-no-files-found: warn
