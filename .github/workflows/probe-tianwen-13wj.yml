@@ -1,0 +1,41 @@
+name: probe-tianwen-13wj-ncl06272-source-original
+on:
+  push:
+    branches:
+      - agent/probe-tianwen-13wj-ncl06272-20261111
+    paths:
+      - .github/workflows/probe-tianwen-13wj.yml
+permissions:
+  contents: read
+jobs:
+  bounded-source-original:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Verify original public PDF and print bounded native page previews
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import urllib.request,hashlib,os
+          u="https://upload.wikimedia.org/wikipedia/commons/f/fc/NCL-06272_1_%E5%8F%A4%E4%BB%8A%E5%BE%8B%E6%9B%86%E8%80%83.pdf"
+          req=urllib.request.Request(u,headers={"User-Agent":"TianwenSourceResearch/1.0 (noncommercial scholarly verification)"})
+          h=hashlib.sha256(); n=0
+          with urllib.request.urlopen(req,timeout=160) as src,open("/tmp/ncl06272-p1.pdf","wb") as out:
+            print("HTTP_STATUS",src.status,flush=True)
+            for chunk in iter(lambda:src.read(1024*1024),b""):
+              n+=len(chunk)
+              if n>265000000:raise RuntimeError("Unexpected content size >265MB")
+              h.update(chunk);out.write(chunk)
+          print("PDF_SOURCE_BYTES",n,"PDF_SOURCE_SHA256",h.hexdigest(),flush=True)
+          PY
+          pdfinfo /tmp/ncl06272-p1.pdf | grep -E 'Pages:|Page size:|PDF version:|File size:'
+          for p in 1 250 500 650 775 900 995; do
+            pdftoppm -f "$p" -l "$p" -singlefile -scale-to 920 -jpeg -jpegopt quality=65 /tmp/ncl06272-p1.pdf "/tmp/ncl13wj-page-$p" >/dev/null 2>&1
+            python3 - "$p" <<'PY'
+          import sys,base64,hashlib,os
+          p=sys.argv[1]; raw=open("/tmp/ncl13wj-page-"+p+".jpg","rb").read()
+          print("PAGE_PREVIEW_META",p,len(raw),hashlib.sha256(raw).hexdigest(),flush=True)
+          print("PAGE_PREVIEW_B64",p,base64.b64encode(raw).decode(),flush=True)
+          PY
+          done
