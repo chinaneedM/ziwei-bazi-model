@@ -1,0 +1,109 @@
+{
+  "schema": "TIANWEN-13WC-XUAN-XING-ORIGINAL-J45-DUAL-TABLE-STRUCTURAL-CROSSWALK-R1",
+  "date": "2026-11-10",
+  "issue_id": "TW-OPEN-0005",
+  "question": "Do original source-native prints represented by NLC08938 Xu-An and NLC CBM1408 Xing bind the same second-table limit family and original L35/L132 ordinal/field locators, without fabricating numeric equality, independent plates or original precision/carry?",
+  "classification": "DIRECT_VISUAL_CROSS-ACCESSION_STRUCTURAL_LOCATOR_CROSSWALK_OF_ALREADY_SHA_BOUND_ORIGINAL_IMAGES; NO_NEW_SOURCE_OR_NUMERIC_AWARD",
+  "sources": [
+    {
+      "id": "NLC08938-XUAN-FASC19",
+      "holding_locator": "NLC892-411999015732 / 善08938 / Commons volume19",
+      "source_pdf_sha256": "b5b11ebcb4a7922898ff5f68eae3d31ed8317d92d55f3990fcb4ab7414664520",
+      "source_pdf_pages": 59,
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC892-411999015732-116218_古今律曆考_第19冊.pdf",
+      "prior_batch": "13WB",
+      "prior_evidence": "docs/research/TIANWEN-13WB-NLC08938-J45-TWO-LIMIT-TABLES-ORIGINAL-L35-L132-SOURCE-SCOPE-R1.json",
+      "archived_native_crop_run": 42802975732,
+      "archived_native_crop_job": 129784919093,
+      "view": "source PDF rendered and archived as up-to-4600px-wide original visual crops; no OCR",
+      "original_impression_and_plate_status": "UNVERIFIED"
+    },
+    {
+      "id": "NLC-CBM1408-XING-V14",
+      "holding_locator": "NLC892-CBM1408-371933 / Commons volume14",
+      "source_pdf_sha256": "95b264e0447fb612a4b389b4b44e8f9871f9d0417b6893699fd37fe589cb23f3",
+      "source_pdf_pages": 74,
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC892-CBM1408-371933_古今律曆考_七十二卷_第14冊.pdf",
+      "prior_batch": "13TN",
+      "prior_evidence": "docs/research/TIANWEN-13TN-XING-MING-ORIGINAL-TABLE-BOUNDARY-AND-HEADER-R1.json",
+      "archived_native_crop_run": 42373443684,
+      "archived_native_crop_job": 128406102050,
+      "view": "prior 2.4x original-PDF rendered full spreads, approximately 1002 x 854px, less optical detail than Xu-An",
+      "original_impression_and_plate_status": "UNVERIFIED"
+    }
+  ],
+  "original_to_original_alignment": [
+    {
+      "scope": "SEAM_FIRST_FAMILY_END_SECOND_FAMILY_BEGIN",
+      "xuan_pdf_page_one_based": 12,
+      "xuan_render_jpeg_sha256": "0689ced477c5c5d23863e7626bb28d27a6c54ebf598aef548c49d7893fc8cdff",
+      "xing_pdf_page_one_based": 64,
+      "xing_render_jpeg_sha256": "1aecf227e793ad49a3d20305ee5889f46adeacabd7f5fbdaccbd453eaf18f3d8",
+      "source_observation": "Both archived original spreads show preceding 168-limit family closing, then bridge 右遲疾積度相減為損益...以日率而一為捷法, then separately numbered 太陰限度 / 遲疾-related second table reopens at 初限. Source printing distinguishes table families; this is not an equivalence of their arithmetic columns.",
+      "grade": "DIRECT_ORIGINAL_SECTION_AND_TABLE_FAMILY_CORRESPONDENCE"
+    },
+    {
+      "scope": "SECOND_TABLE_L35_LIMIT_AND_CHI_JI_FIELD_POSITION",
+      "xuan_pdf_page_one_based": 14,
+      "xuan_render_jpeg_sha256": "40a653e3b17f3c287c1f6ab9f4b8cc539cada783ed4209ea73bf57f655ec7f30",
+      "xing_pdf_page_one_based": 66,
+      "xing_render_jpeg_sha256": "9021e1e2a762b19854f071263f7b7e2cae0e2f3a08e28278aac5a7e645dd1721",
+      "source_observation": "Both original source pages display second-table 三十五限 within neighbouring 限 ordinal sequence, and 疾度 / 遲度 field labels or values. Row/table-family locator is source-positive in each, not an independently awarded last numeral or radix.",
+      "grade": "DIRECT_ORIGINAL_SECOND_TABLE_ORDINAL_FIELD_LOCATOR"
+    },
+    {
+      "scope": "SECOND_TABLE_L132_LIMIT_AND_CHI_JI_FIELD_POSITION",
+      "xuan_pdf_page_one_based": 19,
+      "xuan_render_jpeg_sha256": "c83fb5a8f23545398ad37c485e3b716e74df00341cd4e8e8ccc27f57875b81ef",
+      "xing_pdf_page_one_based": 71,
+      "xing_render_jpeg_sha256": "9a3a4285720ccebac6613202df2d32b6d10e077f894d6509343ba41467741acc",
+      "source_observation": "Both original source pages display second-table 一百三十二限 in a neighbouring source-numbered band and printed 疾度 / 遲度 fields. Xing rendering is materially lower resolution; Xu-An terminal 遲度 二/三 remains unawarded under 13VG native-pixel control.",
+      "grade": "DIRECT_ORIGINAL_SECOND_TABLE_ORDINAL_FIELD_LOCATOR_NOT_NUMERIC_COLLATION"
+    }
+  ],
+  "adjudication": {
+    "second_limit_table_structure_in_two_registered_original_scan_routes": "POSITIVE_SOURCE_SCOPED",
+    "structural_table_family_and_target_limit_locator": "CROSSWALKED",
+    "same_printing_plate_or_independent_plate": "UNPROVED",
+    "original_printed_numeric_equality_or_comparable_precision": "UNADJUDICATED",
+    "independent_xuan_l132_terminal_digit": "UNAWARDED_TWO_OR_THREE",
+    "original_ji_coefficient_constructor": "UNRESOLVED",
+    "historical_minor_units_radix_carry": "UNRESOLVED",
+    "g893_matching_four_decimal_field_equivalence": "UNRESOLVED",
+    "new_original_source_downloads": 0,
+    "new_source_registry_entries": 0,
+    "new_independent_plate_votes": 0,
+    "new_final_g893_historical_numeric_decisions": 0,
+    "g893_six_named_controls": "5/6",
+    "g893_historical_finals": "0/6",
+    "tw_open_0005": "P0 OPEN",
+    "matrix": "222/222",
+    "sources": 789,
+    "genealogy_nodes": 254,
+    "genealogy_edges": 239,
+    "open_issues": 11,
+    "chart_product": "CLOSED",
+    "algorithm_reopens": 0
+  },
+  "limitations": [
+    "New work compares existing images from two archived workflows and catalog-accession routes; it is NOT new physical acquisition or new independent print-plate evidence.",
+    "The original Xu-An p12/p14/p19 renders and Xing p64/p66/p71 renders differ greatly in optical resolution; a similar table heading and same printed 限 does NOT establish comparable original digit reading or exact last-place precision.",
+    "13VG source-native p19 L132 遲度 terminal 二/三 remains optically ambiguous; identical row coordinates or fitting 820-related coefficients do not repair damaged ink.",
+    "The table-B title/field terminology and ordinal structure alone cannot prove historical G893 Chi/Ji source field identity, unit, decimal quantizer or direct transmission.",
+    "No full table line-by-line or cross-edition independent high-resolution digit-by-digit collation was performed; no negative evidence about source absence can be derived.",
+    "Original Xu-An p21 右置八百二十以遲行度而一為捷法 is source-local 遲-scoped, not a demonstrated 疾 constructor."
+  ],
+  "next_action": "Acquire or reconstruct source-native high resolution original Xing p71 L132 field cells (and p66 L35), compare exact source-original header-to-value links with Xu-An at equal optical grade; seek genuinely independent authenticated Xu-An L132 printed glyph/plate and original 疾 constructor and 少/微 radix/carry; preserve separate historical G893 001a fields and six zero finals.",
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Cross-accession second-table and L35/L132 structural similarity does not prove same printing plate, direct text copying, independent transmission, source-native numeric identity, or G893 field equivalence."
+    ],
+    "unresolved_lineage_questions": [
+      "Are NLC08938 and CBM1408 copies or plates independent?",
+      "Can a genuine independent Xu-An impression or higher-resolution Xing target establish L132 damaged digit and field-specific precision?"
+    ]
+  }
+}
