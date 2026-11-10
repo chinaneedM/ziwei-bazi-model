@@ -1,0 +1,80 @@
+{
+  "schema": "TIANWEN-13WA-NLC08938-J45-J46-J47-ORIGINAL-FOLIO-SEAM-ERRATUM-R1",
+  "date": "2026-11-10",
+  "issue_id": "TW-OPEN-0005",
+  "preceding_batch": "13VZ",
+  "purpose": "Forward-only correction of a juan misattribution in the preceding original scan review: PDF p24/p40 day-indexed entries are within juan46, not juan45; preserve old assertions and their evidentiary scope.",
+  "original_source": {
+    "accession": "NLC 411999015732 / 善08938, Commons 第19冊 / source file 116218; SAME previously registered source and physical-lineage candidate",
+    "pdf_url": "https://commons.wikimedia.org/wiki/File:NLC892-411999015732-116218_古今律曆考_第19冊.pdf",
+    "pdf_sha256": "b5b11ebcb4a7922898ff5f68eae3d31ed8317d92d55f3990fcb4ab7414664520",
+    "pdf_bytes": 18385517,
+    "pdf_pages": 59,
+    "source_reconstruction": "Direct visual reinspection of archived same-PDF source-render JPEG base64 chunks in GitHub Actions job 129750158256, run 42792774160; same copy, not new original acquisition.",
+    "original_printing_plate_identity": "UNADJUDICATED"
+  },
+  "original_folio_seams": [
+    {
+      "pdf_page_one_based": 22,
+      "render_jpeg_sha256": "f24d1b547fc6c945ebf295db40b2447281dde9f82f0487a6e32d8d0bb8efb0f9",
+      "reading": "On adjoining leaves the original prints 古今律曆考卷四十五畢 and begins 古今律曆考卷四十六; the new section is calendar/timekeeping, with original headings 冬至後盈, 晨分, 日出分, 半晝分, 日入分, 昏分.",
+      "grade": "DIRECT_NATIVE_RENDER_JUAN_SEAM_AND_SECTION_LABEL_VISUAL_REVIEW"
+    },
+    {
+      "pdf_page_one_based": 24,
+      "render_jpeg_sha256": "92593de1f11b04698cd6c61fd351d17579d859142a7f73d310ea566c15e236e5",
+      "reading": "The original table contains 三十五日 within the juan46 section bracketed by original p22 and p43; not a source-original juan45 limit 35.",
+      "grade": "DIRECT_SAME_PDF_DAY_ROW_REVIEW_AND_JUAN_BOUNDARY_CROSSWALK"
+    },
+    {
+      "pdf_page_one_based": 40,
+      "render_jpeg_sha256": "0d1c7d1616c5163ededa80ecbcd76d6ded41a376c451d0ca740194030931c6a4",
+      "reading": "The original table contains 一百三十二日 within the same juan46 run; not a source-original juan45 limit 132.",
+      "grade": "DIRECT_SAME_PDF_DAY_ROW_REVIEW_AND_JUAN_BOUNDARY_CROSSWALK"
+    },
+    {
+      "pdf_page_one_based": 43,
+      "render_jpeg_sha256": "87e66ecac940e52dcbd4a82117839799c5d46f716c639bac3b3c10607f4e0d7c",
+      "reading": "Original juxtaposed colophon 古今律曆考卷四十六畢 and start 古今律曆考卷四十七. Juxtaposed p22 and p43 close the intervening p24/p40 within juan46.",
+      "grade": "DIRECT_NATIVE_RENDER_JUAN_SEAM_VISUAL_REVIEW"
+    }
+  ],
+  "forward_only_erratum": {
+    "earlier_document": "docs/research/TIANWEN-13VZ-NLC08938-JUAN45-DIRECT-PDF-DAY-VERSUS-LIMIT-BOUNDARY-R1.json",
+    "prior_claim_preserved": "13VZ correctly observed original p24 三十五日 and p40 一百三十二日 and conservatively refused to equate them to 限; it did not bind their correct in-book juan.",
+    "corrected_claim": "Those photographed day headings belong to juan46, not juan45. Their source-family mismatch is stronger than 日-versus-限 alone: a different juan and apparent calendar sunrise/daylength table, not a demonstrated lunar-motion 遲疾 or G893 field.",
+    "original_j45_unreviewed_scope": "PDF p02–p21 visually appear as text on 59-page navigation atlas; NO exhaustive source-native line-by-line j45 collation or definitive absence proof was done. The PDF volume45-to46 transition is page22; exact original 限 table location, if any, remains OPEN.",
+    "identity_controls": "NLC08938 same PDF/source, not an independent Xu-An printing plate, not a duplicate external-source registry witness.",
+    "historical_glyph_numeric_award": "NONE",
+    "algorithm_effect": "NONE"
+  },
+  "quantitative_state": {
+    "matrix": "222/222",
+    "source_registry_union": 789,
+    "graph_nodes": 254,
+    "graph_edges": 239,
+    "research_issues_open": 11,
+    "g893_named_controls": "5/6",
+    "g893_historical_finals": "0/6",
+    "tw_open_0005": "P0 OPEN",
+    "chart_product": "CLOSED",
+    "algorithm_reopens": 0,
+    "new_original_pdfs": 0,
+    "new_source_registry_entries": 0,
+    "new_physical_edition_votes": 0,
+    "new_historical_numeric_finals": 0
+  },
+  "next_action": "Reinspect original juan45-only PDF pages 2–21 at native source quality for title, lunar/table labels and any exact 35/132 限 targets; do not infer absence from atlas. Then independently source an authenticated Xu-An 限-indexed target or direct 疾 coefficient/radix/carry and compare with the independently published Xing juan45 table. No G893 number award without same-field proof.",
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "A juan46 calendrical 日 series is NOT source-original evidence for the juan45 lunar 限 table, regardless of 35/132 numeric coincidences."
+    ],
+    "unresolved_lineage_questions": [
+      "Does an original limit-specific lunar table survive in the j45-only part of this PDF?",
+      "Are independently held early Xu-An and Xing prints of the lunar table demonstrably textually or materially related?"
+    ]
+  }
+}
