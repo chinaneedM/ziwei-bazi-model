@@ -1,0 +1,73 @@
+name: probe-tianwen-13vw-jiangsu-official-doc
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths:
+      - .github/workflows/probe-tianwen-13vw-jiangsu-official-doc.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  inspect-public-appendix:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Acquire official document and check exact item
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p evidence
+          python - <<'PYCODE'
+          import hashlib, json, pathlib, urllib.request
+          url = 'https://www.jiangsu.gov.cn/xxgk/webpic/W0201303/W020130325/W020130325350307810899.doc'
+          record = {'url': url, 'target': '02273', 'status': 'NOT_ACQUIRED'}
+          try:
+              req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+              with urllib.request.urlopen(req, timeout=45) as response:
+                  data = response.read(15000001)
+                  record.update({'http_status': response.status, 'final_url': response.url,
+                                 'content_type': response.headers.get('Content-Type'),
+                                 'bytes': len(data), 'sha256': hashlib.sha256(data).hexdigest()})
+                  if len(data) > 15000000 or not response.url.startswith('https://www.jiangsu.gov.cn/'):
+                      raise ValueError('Size or official-origin gate rejected')
+                  if not (data.startswith(bytes.fromhex('D0CF11E0A1B11AE1')) or data.startswith(b'PK')):
+                      raise ValueError('Not an Office container')
+                  pathlib.Path('evidence/official.doc').write_bytes(data)
+                  record['status'] = 'OFFICIAL_BYTES_ACQUIRED'
+          except Exception as e:
+              record['error'] = str(e)[:300]
+          pathlib.Path('evidence/probe.json').write_text(json.dumps(record, ensure_ascii=False, indent=2) + '\n')
+          print('SOURCE_DOWNLOAD', json.dumps(record, ensure_ascii=False))
+          PYCODE
+          if [ -s evidence/official.doc ]; then
+            if ! command -v antiword >/dev/null 2>&1; then
+              sudo apt-get update -qq && sudo apt-get install -y -qq antiword
+            fi
+            if antiword -m UTF-8.txt -t evidence/official.doc > evidence/extracted.txt 2> evidence/antiword.err; then
+              python - <<'PYCODE'
+          import json, pathlib, re
+          raw = pathlib.Path('evidence/extracted.txt').read_text(encoding='utf-8', errors='replace')
+          norm = re.sub(r'[\s\u3000]+', ' ', raw)
+          hits = []
+          for needle in ('02273', '０２２７３', '古今律历考', '古今律曆考'):
+              for match in list(re.finditer(re.escape(needle), norm))[:3]:
+                  hits.append({'term': needle, 'context': norm[max(0,match.start()-100):match.end()+190]})
+          dest = pathlib.Path('evidence/probe.json')
+          record = json.loads(dest.read_text())
+          record['extraction'] = 'antiword UTF-8, text only, page/layout unverified'
+          record['item_02273_detected'] = any(x['term'] in ('02273','０２２７３') for x in hits)
+          record['hits'] = hits
+          dest.write_text(json.dumps(record,ensure_ascii=False,indent=2) + '\n')
+          print('OFFICIAL_ITEM_TEXT',json.dumps({'found':record['item_02273_detected'],'hits':hits[:8]},ensure_ascii=False))
+          PYCODE
+            else
+              echo "Official DOC acquired, but antiword text extraction failed."
+            fi
+          fi
+          rm -f evidence/official.doc evidence/extracted.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: tianwen-13vw-jiangsu-2012-official-doc-probe
+          path: evidence/probe.json
+          if-no-files-found: warn
