@@ -1,0 +1,114 @@
+{
+  "schema": "TIANWEN-13WL-NCL06272-L35-L132-CROSS-LANE-HIDDEN-PRECISION-EXISTENCE-R1",
+  "date": "2026-11-11",
+  "issue_id": "TW-OPEN-0005",
+  "classification": "PURELY_CONDITIONAL_CROSS_LANE_NUMERICAL_EXISTENCE_TEST_REUSING_13VE_ORIGINALS_NO_NEW_SOURCE_OR_HISTORICAL_OPERATOR_ADJUDICATION",
+  "question": "Does the disagreement of NCL06272 L35 vs L132 printed coefficient at equal displayed four-place rate alone logically force two different historic coefficient constructors?",
+  "reuse": {
+    "prior_l35_hidden_precision_13US": "docs/research/TIANWEN-13US-XING-L35-LANE-SCOPED-HIDDEN-RATE-PRECISION-BRACKETS-R1.json",
+    "ncl06272_prior_direct_images_13VE": "docs/research/TIANWEN-13VE-NCL06272-NCL06273-XING-L35-L132-ORIGINAL-RATE-COEFFICIENT-R1.json",
+    "novelty_erratum_13WK": "docs/research/TIANWEN-13WK-NCL06272-13NX-13VE-13WJ-PRIOR-COLLATION-ERRATUM-R1.json",
+    "original_pdf_sha256": "6fa54ca272ad7bceb7bb7301680df32565b1dae3930a293693df4465c1b18d30",
+    "new_original_images": 0,
+    "new_native_glyph_reads": 0,
+    "new_sources": 0,
+    "new_plate_votes": 0
+  },
+  "model_assumptions": {
+    "historical_authority": false,
+    "numerator_N": "8200000000",
+    "source_scope": "N inherited only as the already-conditional modern 13US/13UR normalizer; the literal j45 820 prescription names 遲行度 and DOES NOT authorize using the same operator for 疾. This is a logical counterexample about inference, not a historically selected rule.",
+    "output_coefficient": "floor(N/R), with R a hypothetical real rate kept internally at higher precision than displayed printed integer r",
+    "displayed_four_place_rate": "floor(R)=r; assumes source displayed rate is truncated to the chosen normalized integer scale",
+    "source_native_radix": "UNPROVED",
+    "source_native_rounding": "UNPROVED",
+    "shared_chi_and_ji_constructor": "UNPROVED"
+  },
+  "exact_rational_replay": {
+    "rows": [
+      {
+        "limit": 35,
+        "lane": "遲",
+        "printed_rate": 10174,
+        "printed_coefficient": 805967,
+        "source_page": 53,
+        "source_image_sha256": "7907dd5efa6de35ff8ded8e619ec35998603b38585bcd10be98b7e0eee442b9c",
+        "hidden_numerator": "10174105",
+        "hidden_denominator": "1000",
+        "model_on_printed_integer_rate": "805976",
+        "model_difference": -9,
+        "inverse_rate_interval_for_floor_coeff": {
+          "lower_open": {
+            "numerator": "8200000000",
+            "denominator": "805968"
+          },
+          "upper_closed": {
+            "numerator": "8200000000",
+            "denominator": "805967"
+          }
+        },
+        "hypothetical_hidden_R_exact": {
+          "numerator": "10174105",
+          "denominator": "1000"
+        },
+        "hypothetical_display_floor": "10174",
+        "hypothetical_coefficient_floor": "805967",
+        "exact_replay_pass": true
+      },
+      {
+        "limit": 132,
+        "lane": "疾",
+        "printed_rate": 10174,
+        "printed_coefficient": 805976,
+        "source_page": 58,
+        "source_image_sha256": "aeba3eeb1ea8978de1961f3ad87a7bdb4ebc8b6ffb3b1e3f329d3014a30d10a4",
+        "hidden_numerator": "101740001",
+        "hidden_denominator": "10000",
+        "model_on_printed_integer_rate": "805976",
+        "model_difference": 0,
+        "inverse_rate_interval_for_floor_coeff": {
+          "lower_open": {
+            "numerator": "8200000000",
+            "denominator": "805977"
+          },
+          "upper_closed": {
+            "numerator": "8200000000",
+            "denominator": "805976"
+          }
+        },
+        "hypothetical_hidden_R_exact": {
+          "numerator": "101740001",
+          "denominator": "10000"
+        },
+        "hypothetical_display_floor": "10174",
+        "hypothetical_coefficient_floor": "805976",
+        "exact_replay_pass": true
+      }
+    ],
+    "mathematical_relation": "For printed coefficient c under floor(N/R), the exact admissible interval is N/(c+1) < R <= N/c; additionally printed integer rate r requires r <= R < r+1 under the conditional truncating display. Both interval intersections are nonempty, as the exact rational worked R examples prove.",
+    "conclusion": "The two reported rates 10174 with coefficients 805967 and 805976 can be generated simultaneously by the same abstract floor reciprocal using distinct unprinted rates. Different printed coefficients therefore do not, by themselves, entail historically distinct constructors.",
+    "not_concluded": [
+      "The printed source actually used floor truncation or retained the proposed hidden precision.",
+      "The same 820 reciprocal was historically used for 疾 as well as 遲.",
+      "The original 疾 numerator, units, 少/微 radix, carry, epoch, or G892/G893 field mapping are resolved.",
+      "The Xu-An L132 damaged 二/三 glyph can be reconstructed from these synthetic rates.",
+      "The 06272 and 06273 printing plates are independent or identical."
+    ]
+  },
+  "separation_from_13US": "13US already demonstrated L35 遲 hidden precision feasibility, while this batch adds only a source-bound L132 reversed-direction printed-rate comparison and an exact simultaneous two-row counterexample. Do not re-report 13US as a novel discovery.",
+  "source_grade": "EXACT_RATIONAL_COMPUTATION_OVER_PREVIOUSLY_COLLATOR_REGISTERED_PRINT_GLYPHS_NO_ADDITIONAL_SOURCE",
+  "decision": {
+    "tw_open_0005": "P0 OPEN",
+    "g893_named": "5/6",
+    "g893_historical_finals": "0/6",
+    "matrix": "222/222",
+    "registry_entries": 790,
+    "graph_nodes": 254,
+    "graph_edges": 239,
+    "omission_issues": 11,
+    "chart_product": "CLOSED",
+    "algorithm_reopens": 0
+  },
+  "next_action": "New original source needed: authenticate independent Xu-An j45 L132 terminal and exact source-native 疾-specific coefficient constructor, intermediate precision, 少/微 carry and G893 unit/field identity. Do not turn this existence proof into an ancient calendar implementation.",
+  "transmission_impact": "NONE"
+}
