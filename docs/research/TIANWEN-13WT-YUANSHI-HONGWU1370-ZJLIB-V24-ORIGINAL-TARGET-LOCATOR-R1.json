@@ -1,0 +1,75 @@
+{
+  "schema": "TIANWEN-13WT-YUANSHI-HONGWU1370-ZJLIB-V24-ORIGINAL-TARGET-LOCATOR-R1",
+  "date": "2026-11-11",
+  "issue_id": "TW-OPEN-0005",
+  "classification": "FIRST_PARTY_OFFICIAL_RARE_BOOK_EDITION_CATALOG_AND_THIRD_PARTY_TARGET_FASCICLE_INDEX; ORIGINAL_TARGET_FOLIO_UNREAD",
+  "question": "Is a dated early printed Yuan-shi witness for the source-local 1111萬 constant locatable independently of Yang Zan's manuscript and later received digital transcriptions?",
+  "first_party_official_catalog": {
+    "title": "第二批国家珍贵古籍名录",
+    "publication_date_in_pdf": "2009-05-22",
+    "host": "National Library of China / nlc.cn (first-party hosted official list)",
+    "pdf_url": "https://www.nlc.cn/migrated/pcab.nlc.cn/gjml/gjzggj/201412/P020141219553102863516.pdf",
+    "printed_page": 118,
+    "pdf_page_zero_based": 120,
+    "entry": "03581",
+    "original_entry_scope": "元史二百十卷目录二卷, 宋濂等, 明洪武三年(1370)内府刻本, 浙江图书馆",
+    "adjacent_controls": [
+      "03582 武汉大学图书馆: 1370内府刻/1530–1531南京国子监递修本",
+      "03583 芷兰斋: 1370内府刻/1530–1531南京国子监递修本",
+      "03584 青岛市博物馆: 1370内府刻/嘉靖万历南京国子监递修本"
+    ],
+    "evidence_grade": "OFFICIAL_BIBLIOGRAPHIC_AND_EDITION_IDENTITY_ONLY",
+    "edition_date_scope": "The 1370 claim is the official catalog's classification, not a newly inspected colophon on the target leaf.",
+    "evidence_review": "Text extract located item03581; PDF original displayed page 118 (zero-page120) directly reviewed for matching identifiers and holdings."
+  },
+  "public_fascicle_inventory": {
+    "inventory_url": "https://commons.wikimedia.org/wiki/Commons:Library_back_up_project/file_list/ZJLib/03",
+    "work_prefix": "ZJLib-631aa101504e722bfaf23b12",
+    "exact_index_string": "File:ZJLib-631aa101504e722bfaf23b12-24 元史二百十卷目錄十卷 第24冊.pdf：元史志卷第五；元史志卷第六",
+    "volume_locator": 24,
+    "target_work_section": "《元史》卷五十四 / 志第六 / 授時曆經上 / 求遲疾差",
+    "cross_section_control": "The j54 historical numbering is 本紀47+志第六, so this volume's 志第六 is the exact expected target by editorial numbering, but no source image has yet confirmed the target passage.",
+    "same_inventory_series_siblings": [
+      "第23冊:志第三下及志第四",
+      "第25冊:志第七及志第八"
+    ],
+    "image_file_locator_grade": "INDEXED_VOLUME_FILENAME_ONLY, NOT TARGET_PAGE_COLLATION",
+    "title_variance": "Official National Rare-Book entry says 目录二卷, whereas Commons backup work filename uses 目錄十卷. Preserve as metadata mismatch; do not silently equate bibliographic title counts.",
+    "original_digital_file_url_constructed_from_index_filename": "https://upload.wikimedia.org/wikipedia/commons/2/2a/ZJLib-631aa101504e722bfaf23b12-24_%E5%85%83%E5%8F%B2%E4%BA%8C%E7%99%BE%E5%8D%81%E5%8D%B7%E7%9B%AE%E9%8C%84%E5%8D%81%E5%8D%B7_%E7%AC%AC24%E5%86%8A.pdf",
+    "access_observation": "Web PDF fetch reported CONTENT_LENGTH_TOO_LARGE 61834354 bytes. This verifies a source endpoint response, not complete original bytes, page count, image integrity, SHA, or the printed target glyph.",
+    "original_sha256": null,
+    "original_pdf_downloaded": false,
+    "source_page_visually_reviewed": false
+  },
+  "relation_to_existing_evidence": {
+    "prior": "docs/research/TIANWEN-13WS-YANGZAN-CONSTANT-RECEIVED-TEXT-NINE-SECOND-CONTROL-R1.json",
+    "manuscript_original": "Existing Yang Zan 13WP/13WR p52 and p56 disagree on 定差 literal; prior arithmetic selects smaller operative magnitude in conditional 70-limit test.",
+    "received_text_existing_claim": "Existing 13WS cites received digital 《元史》卷54 用減定差一千一百一十一萬; this is only a digital textual claim, not a direct 1370 print-glyph reading.",
+    "expected_target": "Does Zhejiang Library's edition-classified 1370 copy at 志第六 / 求遲疾差 print 定差一千一百一十一萬 or another variant?",
+    "false_independence_guards": [
+      "Bibliographic classification, an indexed Commons filename, and a later Wikisource transcription are three evidence grades, not three physical witness votes.",
+      "The public inventory's Zhejiang volume is not yet item-level crosslinked via identical page or ownership marks to official catalog item03581; treat same-holding identity as HIGH_PRIORITY_CANDIDATE pending page/holding binding.",
+      "No original scan, folio, raw PDF SHA, plate identity or typography was examined, hence no direct early glyph award and no genealogy edge.",
+      "Published Yuan史 work date 1370 and today's digitized copy metadata must not be conflated with a physically verified 1370 impression at the target leaf.",
+      "This source can test the Yang Zan constant phrase, but cannot by itself solve Xu-An juan45 table-B L132 damaged glyph, native 疾 捷法 constructor, 少微 carry or G893 same-field six numerical targets."
+    ]
+  },
+  "next": "Use the openly identified complete original 61,834,354-byte Wikimedia/ZJLib volume24 through a supported authorized large-file retrieval, SHA-256 seal the actual PDF; map 志第六 and source folio, visually inspect exact 求遲疾差 / 定差 literal with native crops, then compare with manuscript p52/p56 without automatic direct-lineage claims. If the original remains inaccessible, leave CATALOG_SOURCE_TARGET_REGISTERED / ORIGINAL_GLYPH_OPEN and prioritize independent Xu-An j45 original.",
+  "safeguards": {
+    "matrix": "222/222",
+    "sources": 790,
+    "graph_nodes": 254,
+    "graph_edges": 239,
+    "omission_issues": 11,
+    "tw_open_0005": "P0_OPEN",
+    "g893_named": "5/6",
+    "g893_historical_finals": "0/6",
+    "new_original_glyph_awards": 0,
+    "new_physical_votes": 0,
+    "new_registry_records": 0,
+    "new_graph_edges": 0,
+    "algorithm_reopens": 0,
+    "deterministic_product": "CLOSED"
+  },
+  "transmission_impact": "NONE"
+}
