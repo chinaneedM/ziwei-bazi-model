@@ -1,0 +1,116 @@
+{
+  "schema": "TIANWEN-13WS-YANGZAN-CONSTANT-RECEIVED-TEXT-NINE-SECOND-CONTROL-R1",
+  "date": "2026-11-11",
+  "issue_id": "TW-OPEN-0005",
+  "classification": "DERIVED_EXACT_LOCAL_ARITHMETIC_CONSTRAINT_PLUS_UNHASHED_RECEIVED_DIGITAL_TEXT_CONTROLS; NO_NEW_ORIGINAL_GLYPH_OR_EDITIONAL_ADJUDICATION",
+  "question": "Does the manuscript's independent verbal comparison 多九秒有奇 reject an operative ordinary-positional reading of the p56 larger 定差, and do received texts preserve the lower constant without establishing direct textual descent?",
+  "prerequisites": {
+    "originals_already_captured": "docs/research/TIANWEN-13WR-YANGZAN-JI-CONSTANT-INTRAMANUSCRIPT-CONFLICT-R1.json",
+    "two_method_exact_replay": "docs/research/TIANWEN-13WQ-YANGZAN-JI-70LIMIT-ORIGINAL-TWO-METHOD-EXACT-ARITHMETIC-R1.json",
+    "same_registered_manuscript": "EXT-SHIDIAN-YANGZAN-XIANZHONGLU-MING-MS",
+    "source_url": "https://www.shidianguji.com/zh/book/NGJ89241199901864074070/chapter/1lmbc0ddu2g4r",
+    "page_original_bindings": [
+      {
+        "page": 52,
+        "full_png_sha256": "853e464036d8c956d46bcc76332d10478918a7dbd638e20ea79ce807fd951d7a",
+        "literal": "定差一千一百一十一萬"
+      },
+      {
+        "page": 55,
+        "full_png_sha256": "b9cecb6a0d20c260c0b6235cd585c9832c08bbc8635ea83a7b5dc7add05bf643",
+        "literal": "共得五度二十八分八十〇一十六微 (numerical segmentation still conditional)"
+      },
+      {
+        "page": 56,
+        "full_png_sha256": "9a354e1c6291e324dcfcdc38b0cf74e4008cf31ca5cdebfb75eb443d31fc006e",
+        "literal_constant": "定差一萬一千一百一十一萬",
+        "literal_comparison": "又以二法參較不用定局者多九秒有奇"
+      }
+    ],
+    "physical_acquisition": "Already obtained in 13WP GHA 42959205492 artifact 13828721367; not reacquired or newly re-read in 13WS",
+    "new_original_image_count": 0,
+    "new_physical_copy_count": 0
+  },
+  "exact_conditional_replay": {
+    "assumption": "In this finite 70-limit source-local calculation only: positional 萬 values, decimal t=70.15, 1度=10000秒, and p55 displayed table-result candidate 5.288016 from 13WQ; source-native universal unit/radix/carry NOT thereby certified",
+    "source_p56_pre_constant_intermediate": "(325 * 70.15 + 28100) * 70.15 = 3570547.3125",
+    "p52_positional_constant": "11110000",
+    "p56_positional_literal_constant": "111110000",
+    "smaller_constant_remainder": "11110000 - 3570547.3125 = 7539452.6875",
+    "larger_constant_remainder": "111110000 - 3570547.3125 = 107539452.6875",
+    "source_p56_printed_remainder": "7539452.6875",
+    "smaller_constant_direct_result": "7539452.6875 * 70.15 / 100000000 = 5.28892606028125",
+    "larger_constant_direct_result": "107539452.6875 * 70.15 / 100000000 = 75.43892606028125",
+    "p55_source_table_candidate": "5.288016",
+    "smaller_constant_comparison_seconds": "(5.28892606028125 - 5.288016)*10000 = 9.1006028125",
+    "larger_constant_comparison_seconds": "(75.43892606028125 - 5.288016)*10000 = 701509.1006028125",
+    "difference_in_comparison_seconds": "701509.1006028125 - 9.1006028125 = 701500",
+    "source_p56_verbal_comparison": "不用定局者多九秒有奇",
+    "finding": "The p56 printed remainder AND separately printed comparison-phrase both select the smaller operative constant under the declared local place model. The p56 larger literal cannot be used as a normal positional operand for that same worked example. This does not prove how or when the extra leading 萬 phrase entered the manuscript."
+  },
+  "received_digital_text_controls": [
+    {
+      "title": "《元史》卷五十四《求遲疾差》",
+      "url": "https://ctext.org/wiki.pl?chapter=303505&if=gb",
+      "location": "digital article line 91 at retrieval",
+      "reading": "用減定差一千一百一十一萬",
+      "evidence_grade": "RECEIVED_ONLINE_TRANSCRIPTION_NOT_ORIGINAL_PAGE",
+      "access_date": "2026-11-11",
+      "scope": "Lower written constant in this specific current digital text; edition/impression and original image unbound"
+    },
+    {
+      "title": "《高麗史》卷五十一 志曆二《求遲疾差》",
+      "url": "https://db.history.go.kr/goryeo/level.do?levelId=kr_051_0010_0010_0050_0060&types=o",
+      "location": "National Institute of Korean History historical database, original Hanja-text display",
+      "reading": "用減定差一千一百一十一萬",
+      "evidence_grade": "INSTITUTIONAL_RECEIVED_DIGITAL_TRANSCRIPTION_NOT_SOURCE_IMAGE",
+      "access_date": "2026-11-11",
+      "scope": "Current official transcription only; Korean physical manuscript, date and independent plate not inspected in this batch"
+    },
+    {
+      "title": "邢雲路《古今律曆考》卷三十七《求遲疾差》",
+      "url": "https://ctext.org/wiki.pl?chapter=91378&if=gb",
+      "location": "CText digital line 12",
+      "reading": "用減定差一千一百一十一萬",
+      "evidence_grade": "RECEIVED_ONLINE_TRANSCRIPTION_NOT_ORIGINAL_PAGE",
+      "access_date": "2026-11-11",
+      "scope": "Same numerical string in later textual route, not a source-original Xu-An j45 coefficient operator"
+    },
+    {
+      "title": "梅文鼎《曆算全書》卷二十四《遲疾曆三差法》",
+      "url": "https://ctext.org/wiki.pl?chapter=277510&if=en",
+      "location": "CText digital lines 26-28",
+      "reading": "立差三百二十五／平差二萬八千一百／定差一千一百一十一萬",
+      "evidence_grade": "LATER_RECEIVED_ONLINE_TRANSCRIPTION_NOT_ORIGINAL_PAGE",
+      "access_date": "2026-11-11",
+      "scope": "Later explanatory reception only, no independent early printed glyph"
+    }
+  ],
+  "philological_and_transmission_firewall": [
+    "Different online hostnames and agreement on one constant do not establish four independent historical exemplars or direct textual ancestry.",
+    "The 13WR original manuscript p56 still literally contains 一萬一千一百一十一萬; the new result is a scoped contradiction under ordinary positional reading, not permission to silently delete the leading 一萬.",
+    "The 13WQ p55 table-result segmentation and base-100 minute/second mapping remain conditional. No original Xu-An 1599 table-B L132 二/三, source-native 疾-specific coefficient constructor, 少/微 carry or G893 matching field has been recovered.",
+    "Cross-text transcription controls do not add source registry records, source-image hashes, physical-copy/plate votes or graph edges; possible shared upstream source is unproved.",
+    "No universal ancient calendar quantization, chart algorithm or numerical final is inferred from this local case."
+  ],
+  "adjudication": {
+    "positive": "Within the declared local arithmetic model, the p56 larger operative magnitude contradicts two separately written outcomes: the printed intermediate remainder and the verbal 九秒有奇 comparison; three received traditional rules and a later commentary route currently display the smaller literal.",
+    "unproved": [
+      "The manuscript's historical scribal fault or original antecedent",
+      "Independent original Xu-An L132 terminal glyph",
+      "疾 coefficient generator and historical native numeric radix/carry",
+      "Any of six G893 historical final numerical adjudications"
+    ],
+    "status": "TW-OPEN-0005_P0_OPEN",
+    "named_g893_controls": "5/6",
+    "historical_final_verdicts": "0/6",
+    "matrix": "222/222",
+    "sources": 790,
+    "genealogy": "254 nodes / 239 edges",
+    "open_issues": 11,
+    "product": "DETERMINISTIC_FUSION_CHART_PRODUCT_R1=CLOSED",
+    "algorithm_reopens": 0
+  },
+  "next": "Prioritize an independently legible original Xu-An juan45 table-B L132 二/三 and source-original 疾 constructor / 少微 carry. Seek a separate authenticated Yang Zan edition constant only if a genuinely public target page exists; do not repeat unchanged p52/p56 reading.",
+  "transmission_impact": "NONE"
+}
