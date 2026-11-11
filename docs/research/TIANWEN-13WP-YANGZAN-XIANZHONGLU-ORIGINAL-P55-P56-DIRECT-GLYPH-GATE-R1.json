@@ -1,0 +1,126 @@
+{
+  "schema": "TIANWEN-13WP-YANGZAN-XIANZHONGLU-ORIGINAL-P55-P56-DIRECT-GLYPH-GATE-R1",
+  "date": "2026-11-11",
+  "issue_id": "TW-OPEN-0005",
+  "classification": "DIRECT_ORIGINAL_EXISTING_MANUSCRIPT_LOCAL_GLYPH_POSITIVE_AND_OCR_CORRECTION_NO_CROSS_SOURCE_FORMULA_AWARD",
+  "source_binding": {
+    "registered_source_id": "EXT-SHIDIAN-YANGZAN-XIANZHONGLU-MING-MS",
+    "work": "《閑中錄前集》",
+    "catalogued_author": "楊瓚",
+    "provider": "识典古籍",
+    "book_id": "NGJ89241199901864074070",
+    "chapter_id": "1lmbc0ddu2g4r",
+    "chapter_page_range": [
+      6,
+      123
+    ],
+    "url": "https://www.shidianguji.com/zh/book/NGJ89241199901864074070/chapter/1lmbc0ddu2g4r",
+    "source_scope": "One already registered National Library of China manuscript digital surrogate; provider calls it 明抄本, precise physical copy date and composition date not proven",
+    "prior_ocr_only_locator": "docs/research/TIANWEN-13WO-YANGZAN-XIANZHONGLU-JI-820-RECEIVED-WORKED-EXAMPLE-LEAD-R1.json",
+    "prior_different_original_passage": "docs/research/ZIWEI-YANGZAN-XIANZHONGLU-BEIJING-PRECISION-PHYSICAL-COLLATION-R1.json",
+    "workflow": ".github/workflows/audit-tianwen-13wp-yangzan-original-target-pages.yml",
+    "successful_run_id": 42959205492,
+    "successful_run_url": "https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/42959205492",
+    "artifact_id": 13828721367,
+    "artifact_name": "tianwen-13wp-yangzan-original-target-pages",
+    "artifact_sha256": "d99b11f2ca300b319974aa116792ca456c46c717f361bfed6ff341335a9bc436",
+    "candidate_pages_acquired_in_run": [
+      50,
+      65
+    ],
+    "candidate_page_count": 16,
+    "all_candidate_png_http_200": true,
+    "original_matched_manuscript_pages": [
+      55,
+      56
+    ],
+    "image_processing": "Direct unaided manual visual review of original 1200px-width PNG pages, no OCR used as glyph authority; crop checksums are SHA256 of raw cropped RGB bytes, not encoded PNG bytes",
+    "new_independent_physical_witnesses": 0,
+    "new_registry_sources": 0
+  },
+  "native_target_pages": [
+    {
+      "digital_page_number": 55,
+      "page_id": "7575481384165752884",
+      "native_size_px": [
+        1200,
+        2177
+      ],
+      "full_png_sha256": "b9cecb6a0d20c260c0b6235cd585c9832c08bbc8635ea83a7b5dc7add05bf643",
+      "rgb_crop_box_xyxy": [
+        100,
+        350,
+        790,
+        1850
+      ],
+      "rgb_crop_sha256": "d8a4c4423569a01490fc79b478093a03d647de8aae7c77b6ea0755f24fb66fcb",
+      "bounded_direct_positive_readings": [
+        "依定局求遲疾差",
+        "餘九十五分",
+        "如八百二十而一",
+        "得二十六秒六十六微殘零弃之"
+      ],
+      "unawarded_readings": [
+        "precise rate increment and pre-division subtotal complex 少/微 positions",
+        "full final sum with all digit/column bindings"
+      ]
+    },
+    {
+      "digital_page_number": 56,
+      "page_id": "7575481384165769268",
+      "native_size_px": [
+        1200,
+        2179
+      ],
+      "full_png_sha256": "9a354e1c6291e324dcfcdc38b0cf74e4008cf31ca5cdebfb75eb443d31fc006e",
+      "rgb_crop_box_xyxy": [
+        90,
+        350,
+        600,
+        1850
+      ],
+      "rgb_crop_sha256": "c91b68a1dd54325f54727eb33b6b46f46d7c9f0c6ad4499d9c712fb4a31fcbc7",
+      "bounded_direct_positive_readings": [
+        "又以二法參較不用定局者多九秒有奇"
+      ],
+      "unawarded_readings": [
+        "exact two-method numeric final and disputed 13WO computer transcription glyphs outside bounded clause"
+      ]
+    }
+  ],
+  "forward_only_received_text_erratum": {
+    "affected_prior_doc": "docs/research/TIANWEN-13WO-YANGZAN-XIANZHONGLU-JI-820-RECEIVED-WORKED-EXAMPLE-LEAD-R1.json",
+    "original_received_ocr_form": "九秘有奇",
+    "now_direct_original_form": "九秒有奇",
+    "adjudication": "OCR-only machine representation misread 秒 as 秘; physical source positive is limited to p56, not a new source family or a cross-version ruling",
+    "preserve_prior_doc_unchanged": true
+  },
+  "interpretation": {
+    "manuscript_specific_instruction": "Original p55 directly supports this passage's 820 divisor and 殘零弃之 (discard residual) in a 疾-labelled worked example; p56 directly compares two methods",
+    "earlier_exact_replay_status": "13WO 95×2.301825/820 remains mathematical conditional arithmetic; the exact original increment glyph, native unit scales, historic rounding scope and final have NOT been independently awarded by this batch",
+    "cannot_equate_to": [
+      "Xu-An juan45 疾 捷法 coefficient constructor",
+      "universal source-native truncation or numerical radix/少微 bridge",
+      "NCL06272/NCL06273 plate independence",
+      "G893 source-original six target adjudications"
+    ]
+  },
+  "remaining_open": [
+    "Verify full original p55/p56 bound multi-column subtotal, rate increment, unit/radix and two-method final if image supports it",
+    "Independently retrieve direct original Xu-An juan45 table-B L132 二/三 last-place and actual 疾 constructor",
+    "Resolve historical G892/G893 same-field alignment and six source-scoped final cases without double counting one physical copy"
+  ],
+  "state_snapshot": {
+    "issue": "TW-OPEN-0005 P0 OPEN",
+    "g893_named": "5/6",
+    "g893_historical_final": "0/6",
+    "matrix": "222/222",
+    "sources": 790,
+    "graph_nodes": 254,
+    "graph_edges": 239,
+    "issues": 11,
+    "chart": "CLOSED",
+    "algorithm_reopens": 0
+  },
+  "transmission_impact": "NONE"
+}
