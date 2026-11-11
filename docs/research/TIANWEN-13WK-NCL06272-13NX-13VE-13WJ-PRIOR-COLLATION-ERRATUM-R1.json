@@ -1,0 +1,97 @@
+{
+  "schema": "TIANWEN-13WK-NCL06272-13NX-13VE-13WJ-PRIOR-COLLATION-ERRATUM-R1",
+  "date": "2026-11-11",
+  "issue_id": "TW-OPEN-0005",
+  "correction_type": "FORWARD_ONLY_PRIOR_SOURCE_AND_NUMERIC_ROW_DUPLICATE_RECONCILIATION",
+  "question": "Does 13WJ first acquire NCL06272 original PDF and first locate/read j45 second-table L35/L132?",
+  "evidence_chain": [
+    {
+      "batch": "13NX",
+      "date": "2026-11-01",
+      "doc": "docs/research/TIANWEN-13NX-NCL06272-1608-SOURCE-PAGE-BOUNDED-REVIEW-R1.json",
+      "observation": "Already acquired 568-page, 137534391-byte NCL06272 part2 original with SHA256 6fa54ca272ad7bceb7bb7301680df32565b1dae3930a293693df4465c1b18d30; first bounded review sampled other pages, not j45 p53/p58."
+    },
+    {
+      "batch": "13VE",
+      "date": "2026-11-09",
+      "doc": "docs/research/TIANWEN-13VE-NCL06272-NCL06273-XING-L35-L132-ORIGINAL-RATE-COEFFICIENT-R1.json",
+      "observation": "Already directly reviewed original j45 second-table L35 p53 and L132 p58, bound to exact original embedded image SHA256 and native ROIs, and read local rate/coefficient glyphs.",
+      "page53_embedded_sha256": "7907dd5efa6de35ff8ded8e619ec35998603b38585bcd10be98b7e0eee442b9c",
+      "page58_embedded_sha256": "aeba3eeb1ea8978de1961f3ad87a7bdb4ebc8b6ffb3b1e3f329d3014a30d10a4",
+      "original_pdf_sha256": "6fa54ca272ad7bceb7bb7301680df32565b1dae3930a293693df4465c1b18d30"
+    },
+    {
+      "batch": "13WJ",
+      "date": "2026-11-11",
+      "doc": "docs/research/TIANWEN-13WJ-NCL06272-J45-DIRECT-ORIGINAL-L35-L132-SOURCE-SCOPE-R1.json",
+      "observation": "Reacquired the identical original PDF, identical embedded page SHA256 on p53/p58. New positive j44/j45/j46 volume seam checks and new metadata registry entry are real, but neither original access nor L35/L132 numeric-target collation is first-time work.",
+      "original_pdf_sha256": "6fa54ca272ad7bceb7bb7301680df32565b1dae3930a293693df4465c1b18d30",
+      "page53_embedded_sha256": "7907dd5efa6de35ff8ded8e619ec35998603b38585bcd10be98b7e0eee442b9c",
+      "page58_embedded_sha256": "aeba3eeb1ea8978de1961f3ad87a7bdb4ebc8b6ffb3b1e3f329d3014a30d10a4"
+    }
+  ],
+  "corrected_result": {
+    "first_13WJ_acquisition_of_this_original_PDF": false,
+    "first_13WJ_native_L35_L132_row_collation": false,
+    "source_pdf_first_known_batch": "13NX",
+    "original_row_first_direct_collation_batch": "13VE",
+    "prior_13VE_printed_glyphs": [
+      {
+        "limit": 35,
+        "lane": "疾",
+        "rate": "七五二",
+        "coefficient_prefix": "六微九七五三",
+        "last_digit": "UNAWARDED"
+      },
+      {
+        "limit": 35,
+        "lane": "遲",
+        "rate": "〇一七四",
+        "coefficient": "八微〇五九六七"
+      },
+      {
+        "limit": 132,
+        "lane": "疾",
+        "rate": "〇一七四",
+        "coefficient": "八微〇五九七六"
+      },
+      {
+        "limit": 132,
+        "lane": "遲",
+        "rate": "七五二",
+        "coefficient": "六微九七七五三"
+      }
+    ],
+    "registry_entry_new_in_13WJ": true,
+    "source_shard": "docs/research/TIANWEN-13WJ-NCL06272-1608-ORIGINAL-J45-SOURCE-SHARD-R1.json",
+    "registry_source_id": "EXT-TIANWEN-13WJ-NCL06272-SUNWEI1608-J45-DIRECT-ORIGINAL",
+    "registry_interpretation": "647 root + 143 extension = 790 registry entries; the 13WJ entry documents a previously known source PDF, not a novel physical witness or independent printing plate.",
+    "genuine_13WJ_increment": "Additional SHA-bound juan44/45/46 page seams and section-boundary scope, plus first formal registry metadata for this PDF.",
+    "supercession": "The novelty and previously-uncollated assertions in 13WJ current focus, omission checkpoint, issue revision reason and evidence JSON are superseded only on first-access/first-row scope; retain those historical records unchanged and do not erase 13VE numeric readings. 13WJ's inability to certify new last digits in its own pass is not proof that 13VE had no earlier positive local glyphs.",
+    "remaining_uncertainties": "Xu-An L132 damaged 二/三, native 疾捷法 coefficient construction, 少/微 radix/carry, G893 same-field units and exact historic six decisions; 06272/06273 engraving genealogy."
+  },
+  "scope": {
+    "source_registry_records": 790,
+    "graph_nodes": 254,
+    "graph_edges": 239,
+    "matrix": "222/222",
+    "tw_open_0005": "P0 OPEN",
+    "g893_named_controls": "5/6",
+    "g893_historical_finals": "0/6",
+    "new_plate_votes": 0,
+    "chart_product": "CLOSED",
+    "algorithm_reopens": 0
+  },
+  "next_action": "Reuse committed 13NX/13VE originals rather than reacquire NCL06272. Target independently authenticated Xu-An 1600/NCL06270 j45 L132 original and direct historical 疾 constructor/carry/units. Do not infer cross-edition votes from same-source SHA.",
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Same NCL06272 original scan and source page hashes appearing in two research batches do not establish a second original or print-plate vote."
+    ],
+    "unresolved_lineage_questions": [
+      "Are 06272 and 06273 based on the same original printing blocks?"
+    ]
+  }
+}
