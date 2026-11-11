@@ -33,61 +33,36 @@ jobs:
           grep -n -E '求遲疾差|定差|求迟疾差' original/pdf-text.txt | head -40 > original/text-matches.txt || true
           echo 'MACHINE_TEXT_MATCHES_ARE_NOT_PHYSICAL_GLYPH_AUTHORITY'
           cat original/text-matches.txt
-      - name: Prepare bounded no-OCR visual first-pass atlas
+      - name: Render original source PDF pages 107-114 at source-legible scale
         shell: bash
         run: |
           set -euo pipefail
-          python3 -m pip install -q 'Pillow>=10,<12'
-          pages=$(pdfinfo original/v24.pdf | awk '/^Pages:/ {print $2}')
-          test "$pages" -gt 40 && test "$pages" -lt 300
-          mkdir -p atlas/sheets atlas/thumbs
-          pdftoppm -f 1 -l "$pages" -scale-to 420 -jpeg -jpegopt quality=73 original/v24.pdf atlas/thumbs/p >/dev/null 2>&1
-          python3 - <<'PY'
-          import hashlib, json, pathlib, re
-          from PIL import Image, ImageOps, ImageDraw
-          out=pathlib.Path('atlas'); files=sorted((out/'thumbs').glob('p-*.jpg'),key=lambda p:int(p.stem.rsplit('-',1)[1]))
-          assert files
-          manifest={'source':'ZJLib-631aa101504e722bfaf23b12-24','pdf_sha256':pathlib.Path('original/pdf-sha256.txt').read_text().split()[0],
-                    'pdf_pages':len(files),'atlas_grade':'BOUNDED_PAGE_OVERVIEW_ONLY_NOT_TARGET_GLYPH','pages':[]}
-          width,height,cols,rows=260,375,4,5
-          for st in range(0,len(files),20):
-              sheet=Image.new('RGB',(width*cols,height*rows),'#eeeeee')
-              draw=ImageDraw.Draw(sheet)
-              for j,p in enumerate(files[st:st+20]):
-                  n=int(p.stem.rsplit('-',1)[1]); im=Image.open(p).convert('RGB')
-                  im.thumbnail((245,335))
-                  x=(j%cols)*width+(width-im.width)//2
-                  y=(j//cols)*height+30
-                  sheet.paste(im,(x,y))
-                  draw.text(((j%cols)*width+8,(j//cols)*height+5),f'PDF page {n}',fill='#111111')
-                  manifest['pages'].append({'pdf_page':n,'thumb_sha256':hashlib.sha256(p.read_bytes()).hexdigest()})
-              sheet.save(out/'sheets'/f'atlas-{st//20+1:02d}.jpg',quality=76,optimize=True)
-          (out/'manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
-          print('SOURCE_PDF_SHA256='+manifest['pdf_sha256'])
-          print('SOURCE_PDF_PAGES='+str(manifest['pdf_pages']))
-          print('ATLAS_SHEETS='+str((len(files)+19)//20))
-          print('OCR_USED=false; PAGE_PRESENCE_DOES_NOT_PROVE_TARGET_GLYPH')
-          PY
-          sha256sum atlas/sheets/*.jpg > atlas/sheet-sha256.txt
-      - name: Emit compact atlas previews for research review
+          mkdir -p target
+          pdftoppm -f 107 -l 114 -scale-to 1450 -jpeg -jpegopt quality=84 -r 150 original/v24.pdf target/p
+          test "$(find target -name 'p-*.jpg' | wc -l)" -eq 8
+          sha256sum target/p-*.jpg > target/page-sha256.txt
+          printf 'PDF_ORIGINAL_SHA256='
+          awk '{print $1}' original/pdf-sha256.txt
+          printf 'TARGET_RENDERED_PAGES=107-114; OCR_USED=false; TARGET_GLYPH_UNAWARDED_PENDING_MANUAL_REVIEW\n'
+          cat target/page-sha256.txt
+      - name: Emit exact-page source JPEGs for direct manual glyph review
         shell: bash
         run: |
           set -euo pipefail
-          for f in atlas/sheets/*.jpg; do
-            printf 'TW13WV_ATLAS_START %s\n' "$(basename "$f")"
+          for f in target/p-*.jpg; do
+            printf 'TW13WV_SOURCE_PAGE_START %s\n' "$(basename "$f")"
             base64 -w 3200 "$f"
-            printf '\nTW13WV_ATLAS_END\n'
+            printf '\nTW13WV_SOURCE_PAGE_END\n'
           done
       - uses: actions/upload-artifact@v4
         with:
-          name: tianwen-13wv-zjlib-yuanshi-v24-overview-original-hash
+          name: tianwen-13wv-zjlib-yuanshi-v24-target-p107-p114-original
           path: |
             original/pdf-sha256.txt
             original/pdf-sha1.txt
             original/pdfinfo.txt
             original/text-matches.txt
-            atlas/manifest.json
-            atlas/sheet-sha256.txt
-            atlas/sheets/
+            target/page-sha256.txt
+            target/p-*.jpg
           if-no-files-found: error
           retention-days: 30
