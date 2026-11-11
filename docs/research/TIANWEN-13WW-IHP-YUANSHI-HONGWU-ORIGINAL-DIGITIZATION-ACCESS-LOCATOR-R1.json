@@ -1,0 +1,72 @@
+{
+  "schema": "TIANWEN-13WW-IHP-YUANSHI-HONGWU-ORIGINAL-DIGITIZATION-ACCESS-LOCATOR-R1",
+  "date": "2026-11-11",
+  "issue_id": "TW-OPEN-0005",
+  "classification": "FIRST_PARTY_INSTITUTIONAL_TWO_DISTINCT_CATALOG_OBJECTS_AND_DIGITIZATION_STATUS; ORIGINAL_J54_FOLIO_AND_PRINTED_GLYPH_NOT_ACQUIRED",
+  "prior": "docs/research/TIANWEN-13WV-ZJLIB-YUANSHI-V24-DIRECT-ORIGINAL-P108-P109-CONSTANT-GLYPH-R1.json",
+  "question": "Is there a different catalogued 1370-family physical YuanShi print for independent inspection of juan54 求遲疾差 1111萬, and what is its presently evidenced online access grade?",
+  "first_party_fsn_catalog": {
+    "provider": "中央研究院歷史語言研究所傅斯年圖書館數位典藏計畫",
+    "exact_category": "史部 - 紀傳類 / 數位化現況清單",
+    "url": "https://dap.ihp.sinica.edu.tw/digitization/17/",
+    "list_records": [
+      {
+        "barcode": "113052",
+        "title": "元史 二百十卷",
+        "attribution": "(明)宋濂, (明)王禕等撰",
+        "catalog_version": "明洪武三年(1370)刊明嘉靖十年(1531)南監修補本",
+        "reported_status": "(待重製影像)",
+        "evidence_grade": "FIRST_PARTY_PHYSICAL_CATALOG_AND_IMAGE-REPRODUCTION-STATUS_ONLY"
+      },
+      {
+        "barcode": "120797",
+        "title": "元史 二百十卷",
+        "attribution": "(明)宋濂, (明)王禕等撰",
+        "catalog_version": "明洪武三年(1370)刊本",
+        "reported_status": "已數位化",
+        "evidence_grade": "FIRST_PARTY_PHYSICAL_CATALOG_AND_DIGITIZATION_STATUS_ONLY"
+      }
+    ],
+    "catalogue_claim_scope": "Two separately numbered IHP catalogue objects, not two independently read original juan54 leaves and not proof of independent carving blocks.",
+    "item_specific_juan54_survival": "NOT_CHECKED_AGAINST_ORIGINAL_LEAF_OR_EXPLICIT_SURVIVING_JUAN_INVENTORY",
+    "physical_impression_year_for_either_object": "NOT_PROVEN_BY_THE_1370_EDITION_LABEL",
+    "original_juan54_pages_or_image_sha256": null
+  },
+  "access_check": {
+    "db_description_url": "https://dap.ihp.sinica.edu.tw/database/1/",
+    "anonymous_catalog_search_url": "https://ihparchive.ihp.sinica.edu.tw/ihpkmc/ihpkm_op?!!FUNC330=",
+    "anonymous_search_page_observed": "Public rare-book database search form returned; no item-specific barcode 120797 j54 page/image was obtained in this pass.",
+    "first_party_policy_url": "https://lib.ihp.sinica.edu.tw/1-4.php",
+    "policy": "First-party library page distinguishes on-site or approved scan/print requests and user-account/application paths; status 已數位化 is NOT proof that item-specific original leaf image is anonymously viewable or licensed for redistribution.",
+    "no_login_or_payment_attempted": true,
+    "no_image_download_or_ocr": true,
+    "date_scope": "2026-11-11 bounded public-entry/access review; no claim that online image is unavailable to every researcher"
+  },
+  "cross_source_controls": {
+    "prior_zjlib_v24": "One different scanned Zhejiang source's j54 printed constant 1111萬 is direct 13WV source-local evidence only.",
+    "other_known_candidate": "National Library of China A01173 surviving j53–60 according to 13WU specialist locator; no new direct original leaf.",
+    "two_ihp_barcode_records": "Do not equate either item with Zhejiang 善000022, NLC A01173, the 13WV Wikimedia PDF or each other without physical source and print identity.",
+    "possible_edition_versus_print": "The 113052 description explicitly records southern-imperial-academy repair; do not grant it 1370 untouched plate or independent ancient wording from title alone.",
+    "source_count_policy": "ONE newly registered first-party institutional list page, with TWO catalogue objects; ZERO source-native original glyph votes; ZERO genealogy edges."
+  },
+  "adjudication": {
+    "new_first_party_bibliographic_url": 1,
+    "new_catalogued_barcodes": 2,
+    "new_direct_original_j54_folios": 0,
+    "new_target_1111wan_glyph_votes": 0,
+    "new_independently_verified_printing_plates": 0,
+    "new_g893_historical_finals": 0,
+    "g893_named_controls": "5/6",
+    "g893_historical_finals": "0/6",
+    "tw_open_0005": "P0 OPEN",
+    "matrix": "222/222",
+    "sources_after_registry": 792,
+    "graph_nodes": 254,
+    "graph_edges": 239,
+    "tracked_issues": 11,
+    "deterministic_chart_product": "CLOSED",
+    "algorithm_reopens": 0
+  },
+  "next_action": "If there is a lawfully public item-specific route, first bind 120797 to the exact IHP catalogue object and actual surviving juan54 section, folio/image bytes, SHA256 and original 定差 glyph; compare with the already bound ZJLib scanned leaf, then separately audit 113052 repaired-leaf scope. Do not request account, paid reproduction, or third-party authorization without user action. Highest unresolved target remains independent Xu-An juan45 B L132 二/三 original and source-specific 疾 捷法 with 少/微 carry; G893 six finals remain 0/6.",
+  "transmission_impact": "NONE; NEW_POTENTIAL_EXEMPLAR_LOCATOR_ONLY; NO_DIRECT_OR_INDEPENDENT_PLATE_EDGE"
+}
