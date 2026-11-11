@@ -1,0 +1,91 @@
+{
+  "schema": "TIANWEN-13XA-HARVARD-MINGSHI-J35-P9-DATONG-DENOMINATOR-DIRECT-ORIGINAL-R1",
+  "date": "2026-11-11",
+  "issue_id": "TW-OPEN-0005",
+  "classification": "DIRECT_SOURCE_NATIVE_HARVARD_PRINTED_MINGSHI_J35_DENOMINATOR_GLYPH; PHYSICAL_IMPRESSION_UNBOUND; NOT_ORIGINAL_MING_DATONG_PROGRAM_OR_G893_NUMERIC_AWARD",
+  "prior_received_scope": "docs/research/TIANWEN-13WZ-MINGSHI-DATONG-V35-DENOMINATOR-RECEIVED-TEXT-GATE-R1.json",
+  "source": {
+    "work": "《明史》卷三十五 志第十一《曆五·大統曆法三上·步氣朔》",
+    "digital_volume": "Harvard drs 428231199 明史 v.11.pdf",
+    "catalog_manifest": "https://iiif.lib.harvard.edu/manifests/view/drs:428231199",
+    "source_url": "https://upload.wikimedia.org/wikipedia/commons/d/de/Harvard_drs_428231199_%E6%98%8E%E5%8F%B2_v.11.pdf",
+    "source_pdf_sha256": "36a2a99461d9d16a71e203d95ffa6cac189f1bbab94295de51ed6d3b60bd649b",
+    "source_pdf_bytes": 70809419,
+    "source_pdf_pages": 74,
+    "file_integrity": "Recovered existing library archive and independently recomputed original PDF SHA256; matched prior 13KT/13KY record",
+    "same_digital_source_as_prior_13KT_13KY": true,
+    "new_distinct_physical_witness_count": 0,
+    "actual_historical_impression_date": "UNBOUND",
+    "harvard_physical_copy_printing_block_identity": "UNBOUND"
+  },
+  "original_page": {
+    "pdf_page_1_based": 9,
+    "pdf_page_zero_index": 8,
+    "render": "PyMuPDF get_pixmap Matrix(1,1) RGB alpha=False, native pixels, manually visually read; NO OCR",
+    "native_rgb_size": [
+      1800,
+      1551
+    ],
+    "full_page_rgb_sha256": "9078906ef067886b1bd2fc98c069fd90861cad795d50204c31c930f0b8605fef",
+    "denominator_roi_xyxy": [
+      415,
+      145,
+      745,
+      1440
+    ],
+    "denominator_roi_rgb_sha256": "043b95aab6be9edfd76ccefc803eefacbc7a536bc0f109c6618a2fc7f59888cb",
+    "denominator_roi_size": [
+      330,
+      1295
+    ],
+    "denominator_roi_png_sha256": "daf732319000d52a3f786dcfce22a8c1074b45ccbbd82f5c326a0e7c77adb648",
+    "heading": "推加減差",
+    "printed_clause": "各以八百二十分乘之為實再以遲疾限行度內減去八百二十分為定限度為法法除實為加減差",
+    "operator": "遲疾限行度內減去八百二十分為定限度",
+    "reading_grade": "DIRECT_SOURCE_NATIVE_PRINTED_PAGE_PIXELS_SHA_BOUND_NO_OCR"
+  },
+  "comparison": {
+    "mingshi_previous_13wz_grade": "RECEIVED_DIGITAL_TEXT_ONLY",
+    "mingshi_current_grade": "HARVARD_V11_PRINTED_ORIGINAL_PAGE_POSITIVE_AT_THIS_LOCUS",
+    "prior_received_siku_clause": "再以遲疾限行度內減去八百二十分為定限度",
+    "harvard_print_corresponds_to_prior_siku_received_clause": true,
+    "ordinary_wikisource_malformed_text": "八百於二十分",
+    "ordinary_wikisource_malformed_於_not_present_in_this_harvard_original": true,
+    "source_scope": "Harvard MingShi j35 printed 820-subtraction construction differs in literal operand from already source-original Xing juan37, which divides by 所入遲疾限下行度. Different source-labelled programs; same-unit equivalence or original Ming Datong authorial rule NOT proved."
+  },
+  "adjudication": {
+    "mingshi_exact_original_denominator_locus": "DIRECT_ORIGINAL_HARVARD_V11_P9_CONFIRMED",
+    "historical_ming_datong_original_authorial_intent": "UNAWARDED_LATER_QING_HISTORIOGRAPHY",
+    "independent_original_mingshi_print_editions_new": 0,
+    "new_external_sources": 0,
+    "graph_nodes_added": 0,
+    "graph_edges_added": 0,
+    "mingshi_vs_yuanshi_implementation_equivalence": "UNRESOLVED",
+    "xu_an_juan45_table_b_l132_last_glyph": "UNRESOLVED",
+    "original_ji_shortcut_constructor": "UNRESOLVED",
+    "original_shao_wei_carry": "UNRESOLVED",
+    "g893_named_controls": "5/6",
+    "g893_historical_final_verdicts": "0/6",
+    "tw_open_0005": "P0 OPEN",
+    "matrix": "222/222",
+    "sources": 794,
+    "graph_nodes": 254,
+    "graph_edges": 239,
+    "omission_issues": 11,
+    "chart_product": "CLOSED",
+    "algorithm_reopens": 0
+  },
+  "next_action": "Prioritize independent source-native Xu-An juan45 table-B L132 final 二/三, original 疾捷法 coefficient constructor and 少/微 radix/carry; optionally collate BSB bsb11166691 j35 as another digital source with its own original ROI and hash, without multiplying physical/plate votes.",
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Original Qing MingShi j35 denominator line differs from Xing/授時 operator wording; neither direct copying nor original Ming era arithmetic practice nor field-unit equivalence is proven."
+    ],
+    "unresolved_lineage_questions": [
+      "Which earlier Ming Datong original table or operational document attests 820 subtraction?",
+      "Can Harvard MingShi volume and other impressions be separately authenticated at plate and copy level?"
+    ]
+  }
+}
