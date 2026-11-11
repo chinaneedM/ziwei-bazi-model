@@ -1,0 +1,97 @@
+{
+  "schema": "TIANWEN-13WY-XING-J37-MODERN-SSID-OCR-ANOMALY-R1",
+  "date": "2026-11-11",
+  "issue_id": "TW-OPEN-0005",
+  "classification": "NEW_PUBLIC_MODERN_SCAN_SEARCH_TEXT_NUMERIC_CONFLICT_QUARANTINED; PRINTED_GLYPH_UNREAD; ZERO_HISTORICAL_VOTES",
+  "question": "Does a searchable PDF's 1221萬 string prove an original Xing Yunlu volume37 textual variant against direct YuanShi j54 1111萬 and later received Xing text?",
+  "source_candidate": {
+    "source_grade": "MODERN_COMMERCIAL_PRESS_SCAN_METADATA_AND_UNVERIFIED_MACHINE_EXTRACTED_TEXT",
+    "commons_file_page": "https://commons.wikimedia.org/wiki/File:SSID-12902876_古今律歷考_6.pdf",
+    "pdf_url": "https://upload.wikimedia.org/wikipedia/commons/9/91/SSID-12902876_%E5%8F%A4%E4%BB%8A%E5%BE%8B%E6%AD%B7%E8%80%83_6.pdf",
+    "filename": "SSID-12902876 古今律歷考 6.pdf",
+    "work": "邢雲路《古今律曆考》, digitized modern printed book, volume 6",
+    "commons_publisher_field": "北京：商务印书馆",
+    "catalogued_impression_date": "NOT_ESTABLISHED_BY_THIS_FILE_RECORD",
+    "source_file_size_bytes_from_commons": 17889003,
+    "source_pdf_pages_from_commons": 104,
+    "commons_file_sha1": "5721eade9f1ebd0831827eb892e394540969d867",
+    "source_pdf_sha256": "NOT_OBTAINED",
+    "source_pdf_page_one_based_for_target": "NOT_BOUND; printed book page 591 is not independently matched to a PDF page",
+    "target": "卷三十七〈求遲疾差〉定差常数",
+    "search_extracted_literal": "用減定差一千二百二十一萬",
+    "evidence_surface": "Public search/text extraction of an image-based PDF only; several neighboring OCR words are obviously corrupt, including 遲疾麻 and 初未限. Not the page image or printer's verified literal.",
+    "direct_page_image_visually_collated": false,
+    "full_pdf_screenshot_attempt": "FAILED_TOOL_CONTENT_LENGTH_LIMIT_AT_17,889,003_BYTES; does not prove original unavailable elsewhere",
+    "historical_printing_plate_or_copy_bound": false
+  },
+  "comparators": [
+    {
+      "work": "《古今律曆考》卷三十七, later Siku received digital text",
+      "url": "https://ctext.org/wiki.pl?chapter=91378&if=gb",
+      "digit_literal": "一千一百一十一萬",
+      "grade": "RECEIVED_DIGITAL_TEXT_ONLY; no new native original image",
+      "claim": "Only a competing digital textual display, not a second historical printed glyph vote."
+    },
+    {
+      "work": "《元史》卷54, Zhejiang 80-fascicle Ming-family print, source-original j54",
+      "evidence_doc": "docs/research/TIANWEN-13WV-ZJLIB-YUANSHI-V24-DIRECT-ORIGINAL-P108-P109-CONSTANT-GLYPH-R1.json",
+      "original_pdf_sha256": "0b3f1fc79cb169175d4f056d9e59fdf34e39187b031c011092006277fe2cadbb",
+      "printed_pdf_page_one_based": 109,
+      "glyph": "用減定差一千一百一十一萬",
+      "grade": "PREVIOUSLY_VERIFIED_DIRECT_SOURCE_IMAGE_OTHER_WORK; does not adjudicate modern SSID's unread printed page or prove a stemma."
+    },
+    {
+      "work": "邢雲路 original Ming-family j37, CBM1408 fascicle12",
+      "evidence_doc": "docs/research/TIANWEN-13WD-XING-MING-J37-ORIGINAL-CHIJI-820-DUAL-OPERATOR-BOUNDARY-R1.json",
+      "original_pdf_sha256": "ee278e31465c3459888be274fb97fe948963a5378861d6a04a7b8150684b8b2e",
+      "source_original_pages": [
+        63,
+        64
+      ],
+      "direct_verified_scope": "Procedure, two 820 stage roles; the exact constant glyph was NOT awarded in that batch",
+      "grade": "DO_NOT_BACKFILL_MING_PRINT_CONSTANT_BY_RECEIVED_TEXT"
+    }
+  ],
+  "adjudication": {
+    "new_direct_source_native_glyphs": 0,
+    "proven_historical_constant_variant": false,
+    "modern_pdf_search_display_conflict": true,
+    "ocr_error_proven": false,
+    "modern_edition_printing_error_proven": false,
+    "independent_early_printing_plate_votes": 0,
+    "modern_book_independent_historical_source_entry_added": 0,
+    "original_xuan_j45_B_l132_terminal_two_or_three": "UNAWARDED",
+    "source_original_ji_jiefa_constructor": "UNRESOLVED",
+    "shao_wei_radix_carry": "UNRESOLVED",
+    "g893_named_controls": "5/6",
+    "g893_historical_finals": "0/6",
+    "tw_open_0005": "P0 OPEN",
+    "matrix": "222/222",
+    "source_registry_total": 794,
+    "graph_nodes": 254,
+    "graph_edges": 239,
+    "omission_issues": 11,
+    "deterministic_product": "CLOSED",
+    "algorithm_reopens": 0
+  },
+  "negative_controls": [
+    "An automatically extracted search string cannot be promoted to a source-native printed numeral or accepted as an historical edition variant.",
+    "Commons's source SHA-1 and page count are metadata, not a verified SHA-256 of bytes acquired in this session.",
+    "An independently collated YuanShi original from another work does not establish the printed Xing original digit or prove direct copying.",
+    "Even a verified 20th-century typeset 1221萬 would require scoped printing-history analysis and cannot retroactively become a Ming/G893 glyph.",
+    "Do not spend more archival effort on this modern OCR candidate ahead of unresolved P0 original Xu-An table-B L132 and 疾-specific algorithm."
+  ],
+  "next_action": "Only revisit the modern commercial printing at exact PDF/native page and visual glyph if an item/page source is easily available; primary next work remains independently legible Xu-An j45 table-B L132 二/三, early source-native 疾 coefficient constructor and 少/微 radix/carry, with original page/image SHA, physical-copy/plate and field matching. Preserve six G893 finals at 0/6.",
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Modern SSID search-extracted 1221萬 does not attest an ancient variant or independent impression, and it does not disprove the separately read YuanShi 1111萬 original."
+    ],
+    "unresolved_lineage_questions": [
+      "Whether the modern commercial book itself actually printed 1221萬, or its PDF search/OCR misrecognized a different numeral, remains untested.",
+      "How original Ming Xing juan37 and Ming/Yuan juan54 textual constants relate at physical plate level is unproved."
+    ]
+  }
+}
