@@ -1,0 +1,153 @@
+{
+  "schema": "TIANWEN-13WQ-YANGZAN-JI-70LIMIT-ORIGINAL-TWO-METHOD-EXACT-ARITHMETIC-R1",
+  "date": "2026-11-11",
+  "issue_id": "TW-OPEN-0005",
+  "classification": "SAME_REGISTERED_MANUSCRIPT_DIRECT_ORIGINAL_LOCAL_NUMERIC_REPLAY_WITH_SOURCE_GLYPH_GATES_NO_GENERAL_ALGORITHM_PROMOTION",
+  "question": "Do the already SHA-bound original manuscript p55/p56 70-limit numbers admit a self-consistent fixed-decimal worked-example replay, and what portion of the two-method difference is supported?",
+  "source": {
+    "registered_id": "EXT-SHIDIAN-YANGZAN-XIANZHONGLU-MING-MS",
+    "book": "楊瓚《閑中錄前集》",
+    "book_id": "NGJ89241199901864074070",
+    "chapter_id": "1lmbc0ddu2g4r",
+    "source_url": "https://www.shidianguji.com/zh/book/NGJ89241199901864074070/chapter/1lmbc0ddu2g4r",
+    "same_existing_physical_witness": true,
+    "page_55": {
+      "page_id": "7575481384165752884",
+      "sha256_full_png": "b9cecb6a0d20c260c0b6235cd585c9832c08bbc8635ea83a7b5dc7add05bf643",
+      "native_dimensions": [
+        1200,
+        2177
+      ],
+      "roi_xyxy": [
+        100,
+        350,
+        790,
+        1850
+      ],
+      "roi_rgb_sha256": "d8a4c4423569a01490fc79b478093a03d647de8aae7c77b6ea0755f24fb66fcb"
+    },
+    "page_56": {
+      "page_id": "7575481384165769268",
+      "sha256_full_png": "9a354e1c6291e324dcfcdc38b0cf74e4008cf31ca5cdebfb75eb443d31fc006e",
+      "native_dimensions": [
+        1200,
+        2179
+      ],
+      "roi_xyxy": [
+        90,
+        350,
+        600,
+        1850
+      ],
+      "roi_rgb_sha256": "c91b68a1dd54325f54727eb33b6b46f46d7c9f0c6ad4499d9c712fb4a31fcbc7"
+    },
+    "acquisition_run": 42959205492,
+    "artifact_id": 13828721367,
+    "prior_original_document": "docs/research/TIANWEN-13WP-YANGZAN-XIANZHONGLU-ORIGINAL-P55-P56-DIRECT-GLYPH-GATE-R1.json",
+    "method": "Manual direct visual collation of the same original native PNG pages, exact finite-decimal arithmetic; no OCR as glyph authority and no newly acquired physical copy."
+  },
+  "manual_bounded_original_readings": {
+    "p55": [
+      "假令疾曆五日七千五百分",
+      "置疾曆五日七千五百分減去定局七十限下日率五日七千四百〇五分餘九十五分",
+      "益分二分三十〇一十八微少",
+      "得二百一十八分六十七秒三十三微太",
+      "如八百二十而一為分",
+      "得二十六秒六十六微殘零弃之",
+      "益加其下遲疾差",
+      "共得五度二十八分八十〇一十六微"
+    ],
+    "p56": [
+      "置立差三百二十五分",
+      "以限七十〇一十五分乘之得二萬二千七百九十八分七十五秒",
+      "加入平差二萬八千一百分共得五萬〇八百九十八分七十五秒",
+      "又以初限乘之得三百五十七萬〇五百四十七分三十一秒二十五微",
+      "七百五十三萬九千四百五十二分六十八秒七十五微",
+      "再以初限乘之得五億二千八百八十九萬二千六百〇六分〇二秒八十一微少",
+      "滿億為度得五度二十八分八十九秒二十六微〇六〇二八一",
+      "又以二法參較不用定局者多九秒有奇"
+    ],
+    "scope_caveat": "Individual vertical column place-marking, the precise unambiguous printed 定差 constant and the last sub-微 digits of the final displayed result still require a separate glyph/number-format audit. These readings are not a fully published diplomatic transcription."
+  },
+  "scoped_decimal_interpolation": {
+    "assumed_base": "100 seconds/分 and 100 微/秒, with one 少=1/4 微 and one 太=3/4 微 for this exact instance; this is locally arithmetically tested, not a universal source-native unit mapping",
+    "residual": "7500-7405=95",
+    "rate_literal": "二分三十〇一十八微少",
+    "rate_conditional_decimal": "2.301825",
+    "product": "95 * 2.301825 = 218.673375",
+    "product_literal": "二百一十八分六十七秒三十三微太",
+    "division": "218.673375 / 820 = 0.266674847560975609756097560975609...",
+    "truncate_at_two_base100_fraction_places": "0.2666",
+    "divided_literal": "二十六秒六十六微殘零弃之",
+    "interpretation": "Source p55 explicitly discards the positive residual in THIS interpolation; no universal rounding prescription or ancient Xu-An coefficient constructor is inferred."
+  },
+  "scoped_decimal_direct_method": {
+    "assumed_limit": "70.15",
+    "printed_limit": "七十〇一十五分",
+    "printed_initial_difference": "立差三百二十五分",
+    "printed_flat_difference": "平差二萬八千一百分",
+    "steps": [
+      {
+        "operation": "325 * 70.15",
+        "exact": "22798.75",
+        "source_positive": "二萬二千七百九十八分七十五秒"
+      },
+      {
+        "operation": "22798.75 + 28100",
+        "exact": "50898.75",
+        "source_positive": "五萬〇八百九十八分七十五秒"
+      },
+      {
+        "operation": "50898.75 * 70.15",
+        "exact": "3570547.3125",
+        "source_positive": "三百五十七萬〇五百四十七分三十一秒二十五微"
+      },
+      {
+        "operation": "11110000 - 3570547.3125",
+        "exact": "7539452.6875",
+        "source_positive": "七百五十三萬九千四百五十二分六十八秒七十五微",
+        "constant_status": "11110000 is arithmetically inferred from visible intermediate; exact source graphic segmentation of 定差 remains unawarded"
+      },
+      {
+        "operation": "7539452.6875 * 70.15",
+        "exact": "528892606.028125",
+        "source_positive": "五億二千八百八十九萬二千六百〇六分〇二秒八十一微少"
+      },
+      {
+        "operation": "528892606.028125 / 100000000",
+        "exact": "5.28892606028125",
+        "source_positive_prefix": "五度二十八分八十九秒二十六微〇六〇二八一",
+        "tail_status": "Printed output's omitted quarter-微-derived small tail not awarded as an original decimal expansion."
+      }
+    ],
+    "model_note": "The internal arithmetic exactly matches the printed intermediate strings under this scoped numerical mapping. It is not proof that the same constructor generated another edition or field."
+  },
+  "two_method_comparison": {
+    "table_source_literal": "五度二十八分八十〇一十六微",
+    "table_normalized_candidate": "5.288016",
+    "direct_exact_model": "5.28892606028125",
+    "difference_degree_if_table_candidate": "0.00091006028125",
+    "difference_seconds_if_10000_seconds_per_degree": "9.1006028125",
+    "source_text_result": "不用定局者多九秒有奇",
+    "assessment": "Conditional 9.1006028125秒 is compatible with direct-original '多九秒有奇'. Printed 〇 place segmentation and universal conversion remain unverified; this is not a final historical value vote."
+  },
+  "no_promotion": [
+    "Not an independent new physical witness or new original page acquisition; reuse 13WP images.",
+    "Not Xu-An j45 table-B 疾捷法 or its inverse coefficient generator.",
+    "Does not determine G893/G892 same unit/column, exact source-native historical radix for all tables, native glyph 二/三 at L132, full six historic finals.",
+    "No algorithm reopen, no Matrix/registry/graph increment, no lineage edge from numerical resemblance."
+  ],
+  "next": "Priority TW-OPEN-0005 remains original Xu-An 1599-labelled juan45 B L132 damaged 二/三, true 疾-side coefficient constructor and source-native 少/微 carrying. Any next local 70-limit work should separately resolve 〇 segmentation and source printed 定差 before treating full printed output as historical exact.",
+  "snapshot": {
+    "matrix": "222/222",
+    "sources": 790,
+    "graph_nodes": 254,
+    "graph_edges": 239,
+    "issues": 11,
+    "g893_named": "5/6",
+    "g893_historical_finals": "0/6",
+    "product": "CLOSED",
+    "algorithm_reopens": 0
+  },
+  "transmission_impact": "NONE"
+}
