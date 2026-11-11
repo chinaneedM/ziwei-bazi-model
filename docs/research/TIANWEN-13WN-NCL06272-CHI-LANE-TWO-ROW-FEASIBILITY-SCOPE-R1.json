@@ -1,0 +1,117 @@
+{
+  "schema": "TIANWEN-13WN-NCL06272-CHI-LANE-TWO-ROW-FEASIBILITY-SCOPE-R1",
+  "date": "2026-11-11",
+  "issue_id": "TW-OPEN-0005",
+  "classification": "FORWARD_ONLY_SCOPE_CLARIFICATION_EXACT_RATIONAL_SOURCE_SUPPORTED_CHI_LANE_CONDITIONAL_FEASIBILITY_NO_HISTORICAL_FORMULA_SELECTION",
+  "question": "Does the stronger 13WM all-four-row common-numerator contradiction also invalidate the source-original 遲-only 820 reciprocal construction for the two NCL06272 table-B 遲 cells?",
+  "scope_sources": {
+    "source_original_collation": "docs/research/TIANWEN-13VE-NCL06272-NCL06273-XING-L35-L132-ORIGINAL-RATE-COEFFICIENT-R1.json",
+    "source_formula_and_page_seam": "docs/research/TIANWEN-13WJ-NCL06272-J45-DIRECT-ORIGINAL-L35-L132-SOURCE-SCOPE-R1.json",
+    "prior_two_low_speed_cross_lane_existence": "docs/research/TIANWEN-13WL-NCL06272-L35-L132-CROSS-LANE-HIDDEN-PRECISION-EXISTENCE-R1.json",
+    "prior_four_row_conditional_rejection": "docs/research/TIANWEN-13WM-NCL06272-FOUR-ROW-SHARED-N-INFEASIBILITY-R1.json",
+    "pdf_sha256": "6fa54ca272ad7bceb7bb7301680df32565b1dae3930a293693df4465c1b18d30",
+    "catalogued_holding": "NCL06272, 1608 Sun Wei print family, physical impression/plate independence not proven",
+    "original_scoped_instruction": "NCL06272 juan45 source p60: 右置八百二十以遲行度而一為捷法",
+    "source_limited_lanes": "Only the two printed 遲 cells at limit 35 and limit 132; no 疾-side construction assumed or adjudicated",
+    "new_original_images": 0,
+    "new_glyph_reads": 0,
+    "new_registered_sources": 0,
+    "new_independent_plate_votes": 0
+  },
+  "conditional_model": {
+    "historical_authority": false,
+    "normalized_numerator": "8200000000",
+    "numerator_note": "The conversion of printed 八百二十 into N=8200000000 and of source printed fields into integer rate/coefficient scales is a declared conditional modern normalization, NOT an attested ancient 少/微 radix.",
+    "coefficient_rule": "floor(N/R); N fixed across the two 遲 cells; hidden R may differ per source row and retain unprinted fractional places",
+    "rate_display_rule": "floor(R) (the chosen examples also satisfy nearest-integer display, but the historical printing rule remains unknown)",
+    "exact_examples": [
+      {
+        "limit": 35,
+        "lane": "遲",
+        "source_pdf_page": 53,
+        "source_embedded_image_sha256": "7907dd5efa6de35ff8ded8e619ec35998603b38585bcd10be98b7e0eee442b9c",
+        "printed_normalized_rate": 10174,
+        "printed_normalized_coefficient": 805967,
+        "hypothetical_hidden_R": {
+          "numerator": "10174105",
+          "denominator": "1000"
+        },
+        "printed_rate_replay_floor": 10174,
+        "coefficient_replay_floor": 805967,
+        "matches": true,
+        "admissible_hidden_R_interval": {
+          "lower_open": {
+            "numerator": "8200000000",
+            "denominator": "805968"
+          },
+          "upper_closed": {
+            "numerator": "8200000000",
+            "denominator": "805967"
+          }
+        }
+      },
+      {
+        "limit": 132,
+        "lane": "遲",
+        "source_pdf_page": 58,
+        "source_embedded_image_sha256": "aeba3eeb1ea8978de1961f3ad87a7bdb4ebc8b6ffb3b1e3f329d3014a30d10a",
+        "printed_normalized_rate": 11752,
+        "printed_normalized_coefficient": 697753,
+        "hypothetical_hidden_R": {
+          "numerator": "117520001",
+          "denominator": "10000"
+        },
+        "printed_rate_replay_floor": 11752,
+        "coefficient_replay_floor": 697753,
+        "matches": true,
+        "admissible_hidden_R_interval": {
+          "lower_open": {
+            "numerator": "8200000000",
+            "denominator": "697754"
+          },
+          "upper_closed": {
+            "numerator": "8200000000",
+            "denominator": "697753"
+          }
+        }
+      }
+    ],
+    "shared_N_floor_rate_display_admissible_intersection": {
+      "lower_inclusive": "8199993256",
+      "upper_exclusive": "8200702762",
+      "N_8200000000_in_intersection": true,
+      "interpretation": "Each 遲 row permits a shared N within its own non-exact projected interval; their intersection is nonempty. Exact rational examples with fixed N further prove feasibility."
+    },
+    "shared_N_nearest_rate_display_admissible_intersection_for_2N": {
+      "lower_inclusive": "16399288759",
+      "upper_exclusive": "16400642832",
+      "twice_N_8200000000_in_intersection": true
+    },
+    "replay_method": "Integer BigInt divisions and inequalities without float rounding, assumed damaged glyph completions, OCR, extra scan or ancient formula back-fitting"
+  },
+  "conclusion": {
+    "source_scoped_chi_two_row_conditional_feasibility": true,
+    "prior_13WM_four_row_unified_model_rejection_preserved": true,
+    "precise_reconciliation": "13WM rejects forcing the same numerator and floor inverse on BOTH 疾 and 遲; it DOES NOT refute the originally printed 遲-specific 820 reciprocal instruction. With N=8200000000, the two already collated 遲 cells have exact admissible hidden-R witnesses. 13WL separately proves a cross-lane low-rate two-cell existence; that remains a different, narrower logical claim.",
+    "cannot_conclude": [
+      "That these illustrative hidden rates were historically stored, that the historical source truncated rather than rounded, or that its literal 八百二十 maps to this modern scaled numerator.",
+      "That a 疾-side constructor equals this 遲 reciprocal or that 13WM's 疾 mismatch is a manuscript error.",
+      "That NCL06272 and NCL06273 share or differ in original plates, or that Xu-An damaged 二/三 is now legible.",
+      "That G893/G892 has matching ancient rate units, original 少/微 carry, or any of six independent historical final awards."
+    ]
+  },
+  "state_snapshot": {
+    "tw_open_0005": "P0 OPEN",
+    "g893_named_controls": "5/6",
+    "g893_historical_finals": "0/6",
+    "matrix": "222/222",
+    "sources": 790,
+    "graph_nodes": 254,
+    "graph_edges": 239,
+    "issues": 11,
+    "chart": "CLOSED",
+    "algorithm_reopens": 0
+  },
+  "next_action": "Highest priority remains original independent Xu-An second-limit-table L132 二/三 and source-specific 疾 捷法 construction plus 少/微 radix/carry. Avoid extrapolating a uniform two-lane operator from a source-attested 遲-only instruction.",
+  "transmission_impact": "NONE"
+}
