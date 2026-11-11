@@ -1,0 +1,92 @@
+{
+  "schema": "TIANWEN-13WR-YANGZAN-JI-CONSTANT-INTRAMANUSCRIPT-CONFLICT-R1",
+  "date": "2026-11-11",
+  "issue_id": "TW-OPEN-0005",
+  "classification": "DIRECT_ORIGINAL_SAME_MANUSCRIPT_TWO_PAGE_CONSTANT_READING_ARITHMETIC_CONFLICT_NOT_EDITIONAL_ADJUDICATION",
+  "question": "Does the same Yang Zan manuscript write mutually discordant decimal magnitudes for the 定差 constant across its definition and its 70-limit worked example?",
+  "source": {
+    "registered_id": "EXT-SHIDIAN-YANGZAN-XIANZHONGLU-MING-MS",
+    "title": "楊瓚《閑中錄前集》",
+    "book_id": "NGJ89241199901864074070",
+    "chapter_id": "1lmbc0ddu2g4r",
+    "source_url": "https://www.shidianguji.com/zh/book/NGJ89241199901864074070/chapter/1lmbc0ddu2g4r",
+    "same_physical_witness_as": "13WP/13WQ",
+    "acquisition_run": 42959205492,
+    "artifact_id": 13828721367,
+    "provider_original_pages": [
+      {
+        "page": 52,
+        "page_id": "7575481384165703732",
+        "sha256_full_png": "853e464036d8c956d46bcc76332d10478918a7dbd638e20ea79ce807fd951d7a",
+        "native_resolution": [
+          1200,
+          2144
+        ],
+        "section": "求初限損益分 定差定義段"
+      },
+      {
+        "page": 56,
+        "page_id": "7575481384165769268",
+        "sha256_full_png": "9a354e1c6291e324dcfcdc38b0cf74e4008cf31ca5cdebfb75eb443d31fc006e",
+        "native_resolution": [
+          1200,
+          2179
+        ],
+        "section": "不用定局徑求遲疾差 七十限例"
+      }
+    ],
+    "review_method": "Manual right-to-left source-column visual reading of original full-resolution PNGs, supported by display enlargement without treating enlargement as new native pixels; no OCR promotion."
+  },
+  "direct_original_colllation": {
+    "p52_literal": "置定差一千一百一十一萬內減去立平二差",
+    "p52_printed_remainder": "一千一百〇八萬一千五百七十五分",
+    "p56_literal": "用此以減定差一萬一千一百一十一萬",
+    "p56_printed_remainder": "七百五十三萬九千四百五十二分六十八秒七十五微",
+    "transcription_scope": "Character-by-character bounded vertical columns; full-page diplomatic transcription not claimed. p56 leading 一萬 visible in this same manuscript copy."
+  },
+  "arithmetic": {
+    "decimal_place_value_assumption": "Ordinary base-ten Chinese 萬/千/百/十 positional reading; subsequent fixed decimal steps use exactly the local 13WQ conditional base100 分秒微 model.",
+    "p52_constant": "11110000",
+    "p52_initial_check": "11110000 - (325 + 28100) = 11081575",
+    "p56_literal_constant": "111110000",
+    "intermediate": "(325*70.15 + 28100)*70.15 = 3570547.3125",
+    "p52_constant_p56_computed_remainder": "11110000 - 3570547.3125 = 7539452.6875",
+    "p56_literal_computed_remainder": "111110000 - 3570547.3125 = 107539452.6875",
+    "p56_printed_remainder_if_positional": "7539452.6875",
+    "difference": "100000000",
+    "p52_consistent_final": "7539452.6875*70.15/100000000 = 5.28892606028125",
+    "p56_literal_final": "107539452.6875*70.15/100000000 = 75.43892606028125",
+    "logical_result": "The p56 displayed remainder and example agree with the p52 1111萬 numeric constant, but not with the literal p56 11111萬 reading."
+  },
+  "adjudication": {
+    "positive": "Original manuscript has a source-internal constant-expression mismatch at page52 versus page56, independently checked by page-bound arithmetic; p52 reading additionally fits the original initial-limit example.",
+    "possible_explanations": [
+      "A copied extra leading 一萬 in the p56 constant string",
+      "An unusual punctuation/numeric grouping in manuscript usage that would require separately sourced evidence"
+    ],
+    "not_proven": [
+      "Where in transmission any error occurred",
+      "Which historical exemplar contained the prior reading",
+      "Any general base100 少/微 carry or Xu-An/G893 coefficient generator"
+    ],
+    "action": "Preserve both original strings, prefer 11110000 only for this explicitly conditional local arithmetic reconstruction, and leave cross-edition textual emendation unresolved."
+  },
+  "guardrails": {
+    "G893_named_targets": "5/6",
+    "G893_historical_final_adjudications": "0/6",
+    "TW_OPEN_0005": "P0_OPEN",
+    "matrix": "222/222",
+    "active_source_records": 790,
+    "graph_nodes": 254,
+    "graph_edges": 239,
+    "open_issues": 11,
+    "product": "CLOSED",
+    "confirmed_chart_algorithm_defects": 0,
+    "algorithm_reopens": 0,
+    "source_registry_delta": 0,
+    "genealogy_graph_delta": 0,
+    "independent_physical_witness_delta": 0
+  },
+  "next": "Seek independently authenticated Xu-An juan45 second-limit B L132 damaged 二/三 and 疾-specific coefficient constructor/radix/carry; an independent dated manuscript/print of the same Yang Zan constant phrase could resolve local textual ancestry. No same-field G893 result promoted.",
+  "transmission_impact": "NONE"
+}
