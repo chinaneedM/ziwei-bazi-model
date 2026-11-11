@@ -1,0 +1,115 @@
+{
+  "schema": "TIANWEN-13WU-YUANSHI-HONGWU-ZJLIB-NLC-PRINT-IDENTITY-CROSSWALK-R1",
+  "date": "2026-11-11",
+  "issue_id": "TW-OPEN-0005",
+  "classification": "SCHOLARLY_AUTHOR_PRINT_IMPRESSION_AND_EXEMPLAR_LOCATOR_CROSSWALK; NO_NEW_ORIGINAL_FOLIO_OR_TARGET_GLYPH",
+  "prior": "docs/research/TIANWEN-13WT-YUANSHI-HONGWU1370-ZJLIB-V24-ORIGINAL-TARGET-LOCATOR-R1.json",
+  "question": "Which physical original copies could independently test the received YuanShi j54 1111萬 literal, and does 1370 edition classification imply 1370 physical impression?",
+  "sources": [
+    {
+      "type": "SCHOLARLY_AUTHOR_WORD_VERSION_OF_PUBLISHED_2025_ARTICLE",
+      "author": "张良",
+      "title": "《元史》洪武本述略",
+      "journal": "《儒家典籍与思想研究》第十七辑",
+      "publisher": "北京大学出版社",
+      "publication_year": 2025,
+      "web_date": "2025-07-30",
+      "url": "https://www.sohu.com/a/918972983_121124384",
+      "scoped_locations": [
+        "存世传本：国图甲本 A01173 志五至十二/卷53–60",
+        "存世传本：浙图本 善000022 80册",
+        "现存洪武本的印次：早印/后印分类、上图→浙图→燕京"
+      ],
+      "text_grade": "SECONDARY_SCHOLARLY_ANALYSIS_REPOSTED_AUTHOR_VERSION_NOT_COLLATION_OF_NEW_SOURCE_FOLIO",
+      "warning": "Web republication says author Word version, citation should refer to printed journal; no printed leaf independently read"
+    },
+    {
+      "type": "INSTITUTIONAL_PUBLICATION_CATALOG",
+      "publisher": "复旦大学历史学系",
+      "title": "张良著《〈元史〉成书与流传研究》",
+      "url": "https://history.fudan.edu.cn/info/1423/21802.htm",
+      "posted": "2025-12-12",
+      "edition": "上海古籍出版社2025-11 ISBN 9787573216519",
+      "relevant_contents": [
+        "上编第一章 洪武本存世传本",
+        "现存洪武本的印次",
+        "物质形态",
+        "校勘价值"
+      ],
+      "text_grade": "FIRST_PARTY_INSTITUTIONAL_MODERN_PUBLICATION_IDENTITY_NOT_TARGET_HISTORICAL_GLYPH"
+    },
+    {
+      "type": "DIRECT_FIRST_PERSON_SCHOLAR_INTERVIEW",
+      "author": "张良",
+      "publisher": "澎湃新闻·上海书评",
+      "journalists": [
+        "彭珊珊",
+        "黄晓峰"
+      ],
+      "posted": "2026-04-27",
+      "url": "https://www.thepaper.cn/newsDetail_forward_33010198",
+      "relevant_scope": "Author reports finding 80-fascicle ZJLib 洪武本 (善000022) via https://history.zjlib.cn/ in December 2023; describes Zhejiang as later impression than Shanghai, with no replacement plates in his review",
+      "text_grade": "SCHOLARLY_FIRST_PERSON_ACCOUNT_PUBLISHED_IN_INTERVIEW_NOT_NEW_DIRECT_ORIGINAL_FOLIO"
+    }
+  ],
+  "original_copy_candidates": [
+    {
+      "holding": "浙江图书馆",
+      "shelfmark": "善000022",
+      "fascicles": 80,
+      "plate_lineage": "洪武原版板片",
+      "impression_scope": "张良2025考订为后印本；将浙图与燕京置于弘治十二年至嘉靖八年间约同批次的印本范围，属于版本学推定，非本项目逐叶年代鉴定",
+      "online_series": "ZJLib-631aa101504e722bfaf23b12, PDF 第24册",
+      "target": "志第六=卷54 求遲疾差",
+      "copy_to_wikimedia_page_binding": "UNVERIFIED_SAME_HOLDING_AND_80_FASCICLE_MATCH_ONLY",
+      "volume_pdf_bytes_claimed": 61834354,
+      "pdf_sha256": null,
+      "original_target_folio_acquired": false,
+      "target_literal_unread": true
+    },
+    {
+      "holding": "中国国家图书馆",
+      "shelfmark": "A01173",
+      "fascicles_surviving": 25,
+      "coverage_according_to_scholar": "志五至十二=卷53–60 (includes j54)",
+      "impression_scope": "张良分类为洪武本早印组, distinct physical exemplar candidate, not necessarily impressed in 1370",
+      "original_j54_access": "NOT_LOCATED_FROM_NEW_PRIMARY_IMAGE",
+      "original_target_folio_acquired": false,
+      "target_literal_unread": true
+    }
+  ],
+  "edition_date_firewall": {
+    "edition_plate_date": "明洪武二年至三年刻版 (1369–1370), 13WT官方目录 item03581 称洪武三年内府刻本",
+    "zhejiang_physical_impression_date": "NOT_1370_BY_CATALOG_DESCRIPTION; scholarly later-impression assessment, probably 弘治/嘉靖前 by comparative paper and plates, not independently source-dated",
+    "zhejiang_holding_registration": "张良2025 says entry stamp suggests 1956-09 acquisition; project has not verified stamp",
+    "online_backup_date": "Wikimedia 2024 upload is digital-copy timestamp only",
+    "consequence": "Do not label the ZJLib v24 digitization as a directly verified 1370 physical impression. Update interpretation forward-only without changing 13WT record."
+  },
+  "caveats": [
+    "NLC 03581 original bibliography describes 目录二卷, Wikimedia/ZJLib filename uses 目錄十卷; no original binding resolves discrepancy.",
+    "2025 article and 2026 interview report findings by the same researcher, not independent historic physical text votes.",
+    "Shared 洪武 plate lineage means distinct impressions are physically different copies but not automatically independent textual ancestors or variants.",
+    "National Library A01173 j54 is an exact secondary coverage locator only, not direct physical target glyph. Its digital availability is unknown.",
+    "No original source pixel, SHA-256, line/page/folio or photo is acquired in this batch; 1111萬 vs p56 larger literal remains unadjudicated at YuanShi original level.",
+    "A scholarly generalization about little textual difference across impressions cannot substitute for inspecting the exact 求遲疾差 leaf."
+  ],
+  "next": "Seek public authenticated source-native original of NLC A01173 j54 (志第六), and ZJLib 善000022/ZJLib-v24 exact target folio. Bind owner shelfmark, page, native SHA, glyph and print identity before source-level award. Continue independently Xu-An j45 L132 二/三 and native 疾 constructor/少微; no paid/account routes.",
+  "guards": {
+    "tw_open_0005": "P0_OPEN",
+    "g893_named_controls": "5/6",
+    "g893_final_historical_decisions": "0/6",
+    "matrix": "222/222",
+    "registry_count": 790,
+    "graph_nodes": 254,
+    "graph_edges": 239,
+    "tracked_issues": 11,
+    "new_original_folio_count": 0,
+    "new_physical_original_votes": 0,
+    "new_g893_numeric_final": 0,
+    "new_registry_sources": 0,
+    "new_graph_edges": 0,
+    "algorithm_reopens": 0,
+    "product": "CLOSED"
+  },
+  "transmission_impact": "NONE"
+}
