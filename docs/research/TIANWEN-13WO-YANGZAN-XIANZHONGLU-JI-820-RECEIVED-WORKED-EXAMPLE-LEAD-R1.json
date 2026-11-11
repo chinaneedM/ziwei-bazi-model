@@ -1,0 +1,73 @@
+{
+  "schema": "TIANWEN-13WO-YANGZAN-XIANZHONGLU-JI-820-RECEIVED-WORKED-EXAMPLE-LEAD-R1",
+  "date": "2026-11-11",
+  "issue_id": "TW-OPEN-0005",
+  "classification": "EXISTING_REGISTERED_MANUSCRIPT_NEW_TARGET_PASSAGE_MACHINE_TEXT_ONLY_EXACT_CONDITIONAL_ARITHMETIC_NOT_DIRECT_GLYPH_OR_G893_FINAL",
+  "source_binding": {
+    "registered_source_id": "EXT-SHIDIAN-YANGZAN-XIANZHONGLU-MING-MS",
+    "existing_original_collation": "docs/research/ZIWEI-YANGZAN-XIANZHONGLU-BEIJING-PRECISION-PHYSICAL-COLLATION-R1.json",
+    "provider": "识典古籍",
+    "book_id": "NGJ89241199901864074070",
+    "work": "《閑中錄前集》",
+    "catalogued_author": "楊瓚",
+    "provider_metadata": "明抄本; 国图图像来源",
+    "url": "https://www.shidianguji.com/zh/book/NGJ89241199901864074070/chapter/1lmbc0ddu2g4r",
+    "passage_locator": "步太陰遲疾曆入限定局 → 依定局求遲疾差; rendered machine text near passage line 1128–1177, exact original manuscript leaf/page NOT YET BOUND",
+    "known_existing_source_image_scope": "12CQ directly authenticated manuscript physical pp115–118 for different 步中星 passage ONLY; not these target lines",
+    "work_composition_date": "UNRESOLVED; OCR paratext 弘治戊申孟春/楊述 cannot certify composition or target passage date",
+    "physical_copy_date": "MING_MANUSCRIPT_PROVIDER_METADATA; exact physical date not established",
+    "new_original_target_images": 0,
+    "new_native_glyph_awards": 0,
+    "new_source_registry_entries": 0,
+    "new_independent_physical_or_plate_votes": 0
+  },
+  "machine_text_lead": {
+    "grade": "UNCORRECTED_DIGITAL_MACHINE_TRANSCRIPTION_LOCATOR_ONLY",
+    "candidate_context": "假令疾曆 ... 七十限 ... 余九十五分 ... 益分 ... 如八百二十而一 ... 得二十六秒六十六微殘零弃之",
+    "follow_on": "The same paragraph compares 定局 and 不用定局 calculation, saying the difference reflects 余数/收殘零. Multiple OCR characters are visibly garbled, so this is NOT an authoritative ancient quotation or authenticated manuscript reading.",
+    "unverified_glyphs": [
+      "疾曆 source heading and date/limit",
+      "七十限下日率",
+      "二分三十一十八微少 candidate 2.301825",
+      "二百一十八分六十七秘三十三微太 candidate 218.673375",
+      "八百二十",
+      "二十六秒六十六微",
+      "殘零弃之",
+      "later 九秘有奇 and numerical final",
+      "original folio/page number"
+    ]
+  },
+  "conditional_exact_replay": {
+    "assumed_residual_integer": "95",
+    "assumed_per_limit_gain_rational": "2301825/1000000 = 2.301825",
+    "gain_product_rational": "95*2301825/1000000 = 218673375/1000000 = 218.673375",
+    "divisor_integer": "820",
+    "quotient_exact_rational": "218673375/820000000 = 1749387/6560000",
+    "quotient_decimal_prefix": "0.266674847560975609...",
+    "if_truncate_four_decimal_places": "2666/10000 = 0.2666",
+    "unprinted_positive_remainder_exact": "491/6560000",
+    "reason_for_using_example": "The displayed OCR candidate '二十六秒六十六微' is arithmetically compatible with a 100-based seconds/micro two-place truncation under these assumptions. It independently selects neither original glyph nor original radix/carry.",
+    "source_text_still_unauthenticated": true
+  },
+  "non_equivalences": [
+    "Same registered manuscript image source != a new physically independent witness.",
+    "Machine OCR agreement with assumed fractions != direct original image reading.",
+    "This received 疾 example computes a 差 interpolation, NOT the original Xu-An/Xing juan45 table-B 疾 捷法 coefficient constructor.",
+    "An explicit hypothetical discarded residual in this passage != universal ancient rounding prescription and != original 少/微 unit equivalence.",
+    "No same-field G892/G893 or Ming1569 final numeric award; no justification to reopen CLOSED chart algorithms."
+  ],
+  "next_action": "Locate the ORIGINAL image/page of this exact manuscript passage within existing Shidian chapter p6–123 using provider-issued page bindings and visually collate source-native glyphs, residual sign, 820, fraction unit, and table-vs-direct discrepancy with SHA; separately continue early Xu-An table-B L132 二/三 and independent 疾 constructor search. Do not authenticate OCR via arithmetic alone.",
+  "state_snapshot": {
+    "issue": "TW-OPEN-0005 P0 OPEN",
+    "g893_named": "5/6",
+    "g893_historic_final": "0/6",
+    "matrix": "222/222",
+    "sources": 790,
+    "graph_nodes": 254,
+    "graph_edges": 239,
+    "issues": 11,
+    "chart": "CLOSED",
+    "algorithm_reopens": 0
+  },
+  "transmission_impact": "NONE"
+}
