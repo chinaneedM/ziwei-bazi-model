@@ -1,0 +1,109 @@
+{
+  "schema": "TIANWEN-13WM-NCL06272-FOUR-ROW-SHARED-N-INFEASIBILITY-R1",
+  "date": "2026-11-11",
+  "issue_id": "TW-OPEN-0005",
+  "classification": "EXACT_INTEGER_CONDITIONAL_CROSS_LANE_MODEL_REJECTION_NO_NEW_ORIGINAL_OR_HISTORICAL_FORMULA_ADJUDICATION",
+  "question": "Can one positive shared numerator N satisfy all four same-copy NCL06272 second-limit-table L35/L132 printed rate/coefficient pairs under floor(N/R), allowing unprinted internal rate precision and the unread L35 疾 terminal two digits?",
+  "prior_sources": {
+    "native_original": "docs/research/TIANWEN-13VE-NCL06272-NCL06273-XING-L35-L132-ORIGINAL-RATE-COEFFICIENT-R1.json",
+    "unread_terminal_robustness": "docs/research/TIANWEN-13US-XING-L35-LANE-SCOPED-HIDDEN-RATE-PRECISION-BRACKETS-R1.json",
+    "low_pair_counterexample": "docs/research/TIANWEN-13WL-NCL06272-L35-L132-CROSS-LANE-HIDDEN-PRECISION-EXISTENCE-R1.json",
+    "duplicate_original_erratum": "docs/research/TIANWEN-13WK-NCL06272-13NX-13VE-13WJ-PRIOR-COLLATION-ERRATUM-R1.json",
+    "original_pdf_sha256": "6fa54ca272ad7bceb7bb7301680df32565b1dae3930a293693df4465c1b18d30",
+    "page53_embedded_sha256": "7907dd5efa6de35ff8ded8e619ec35998603b38585bcd10be98b7e0eee442b9c",
+    "page58_embedded_sha256": "aeba3eeb1ea8978de1961f3ad87a7bdb4ebc8b6ffb3b1e3f329d3014a30d10a4",
+    "new_original_images": 0,
+    "new_glyph_decisions": 0,
+    "new_source_registry_entries": 0,
+    "new_independent_plate_votes": 0
+  },
+  "source_local_four_cell_scope": [
+    {
+      "pdf_page": 53,
+      "limit": 35,
+      "lane": "遲",
+      "normalized_printed_r": 10174,
+      "normalized_printed_c": 805967,
+      "glyph_status": "EXACT_PREVIOUS_13VE"
+    },
+    {
+      "pdf_page": 58,
+      "limit": 132,
+      "lane": "疾",
+      "normalized_printed_r": 10174,
+      "normalized_printed_c": 805976,
+      "glyph_status": "EXACT_PREVIOUS_13VE"
+    },
+    {
+      "pdf_page": 53,
+      "limit": 35,
+      "lane": "疾",
+      "normalized_printed_r": 11752,
+      "normalized_printed_c_range_inclusive": [
+        697500,
+        697599
+      ],
+      "glyph_status": "SOURCE_PREFIX_ONLY; LAST_TWO_UNREAD; CONSERVATIVE_13US_BOUND"
+    },
+    {
+      "pdf_page": 58,
+      "limit": 132,
+      "lane": "遲",
+      "normalized_printed_r": 11752,
+      "normalized_printed_c": 697753,
+      "glyph_status": "EXACT_PREVIOUS_13VE"
+    }
+  ],
+  "hypothetical_common_model": {
+    "source_native_formula_attested_for_both_lanes": false,
+    "shared_positive_real_numerator": "N>0 (unfixed; no assumption that N=8200000000)",
+    "common_output_rule": "c=floor(N/R) for all four cells",
+    "rate_internal": "Each cell has its own positive real R; internal hidden precision is unrestricted within the chosen printed-rate display bin",
+    "common_display_cases": [
+      "r=floor(R)",
+      "r=nearest_integer(R), with tie policy irrelevant to strict nonoverlap"
+    ],
+    "source_unit_bridge": "UNPROVED; same numerical normalization assumed only for logical falsification",
+    "conditional_necessary_bound": "For c=floor(N/R), cR <= N < (c+1)R. For displayed r=floor(R), cr <= N < (c+1)(r+1).",
+    "floor_display_integer_bound": {
+      "low_L132_ji_requires_N_at_least": "8199999824",
+      "high_L35_ji_even_with_max_unknown_c_requires_N_strictly_below": "8198892800",
+      "lower_minus_upper_positive_gap": "1107024",
+      "exact_overlap_exists": false,
+      "proof": "L132 疾: N >= 805976*10174=8199999824. L35 疾: c<=697599 and R<11753 imply N < 697600*11753=8198892800. Contradiction for every N, not only 8200000000."
+    },
+    "nearest_display_half_integer_bound": {
+      "low_L132_ji_requires_2N_at_least": "16399193672",
+      "high_L35_ji_requires_2N_strictly_below": "16397088000",
+      "lower_minus_upper_positive_gap_for_2N": "2105672",
+      "gap_in_original_N_units": "1052836",
+      "exact_overlap_exists": false,
+      "proof": "Nearest display: R_low>=10173.5 and R_high<11752.5; 2N>=805976*20347=16399193672, while 2N<697600*23505=16397088000. The exact rational bins cannot overlap."
+    },
+    "computational_method": "Pure integer products and inequalities; no float, OCR or source-derived coefficient completion"
+  },
+  "reconciliation": {
+    "prior_13WL_low_rate_pair_still_feasible_under_fixed_N_8200000000": true,
+    "all_four_cells_under_one_shared_positive_N_and_one_floor_constructor_infeasible": true,
+    "inference": "13WL's two-low-rate existence proof remains valid. This new four-cell conditional test rejects a stronger uniform shared-numerator model, even allowing all 100 unread terminal possibilities for L35 疾. It does not identify which historical assumption fails.",
+    "forbidden_historical_promotions": [
+      "Do not declare the source's printed 疾 formula a copy error, its terminal glyph resolved, or a different historic constructor proven.",
+      "Do not infer original 少/微 base, carrying, hidden precision, phase, operator, table-field equivalence, or printing-block genealogy.",
+      "Do not transpose Xing j45 table-B, G892 or G893 units as if already proven equivalent."
+    ]
+  },
+  "status": {
+    "tw_open_0005": "P0 OPEN",
+    "g893_named_controls": "5/6",
+    "g893_historical_finals": "0/6",
+    "matrix": "222/222",
+    "external_source_records": 790,
+    "genealogy_nodes": 254,
+    "genealogy_edges": 239,
+    "omission_issues": 11,
+    "chart_product": "CLOSED",
+    "algorithm_reopens": 0
+  },
+  "next_action": "Seek an independently original explicit 疾-specific constructor and precise 少/微 place-value/carry, plus authenticated Xu-An L132 damaged 二/三 and G893 source-native same-field identity; avoid further artificial parameter fitting to infer ancient operations.",
+  "transmission_impact": "NONE"
+}
