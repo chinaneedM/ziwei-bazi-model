@@ -12,6 +12,10 @@ jobs:
     timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
+      - name: Install Poppler PDF inspection and rendering tools
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils
       - name: Acquire publicly indexed Zhejiang Library YuanShi fascicle 24 with byte integrity
         shell: bash
         run: |
