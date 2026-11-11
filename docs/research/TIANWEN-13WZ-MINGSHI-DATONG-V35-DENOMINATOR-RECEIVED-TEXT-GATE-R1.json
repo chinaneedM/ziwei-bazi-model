@@ -1,0 +1,116 @@
+{
+  "schema": "TIANWEN-13WZ-MINGSHI-DATONG-V35-DENOMINATOR-RECEIVED-TEXT-GATE-R1",
+  "date": "2026-11-11",
+  "issue_id": "TW-OPEN-0005",
+  "classification": "CROSS_WORK_RECEIVED_TEXT_SCOPED_PROCEDURAL_DENOMINATOR_CONTRAST; MINGSHI_TARGET_ORIGINAL_UNCOLLATED; NO_HISTORICAL_ALGORITHM_OR_G893_NUMERIC_AWARD",
+  "question": "Does MingShi juan35's received Datong procedure specify a different ding-shuo correction denominator from YuanShi juan54 and Ming Xing juan37 Sho-u-shi received/direct-original procedure, and what can be concluded before collating the exact MingShi printed folio?",
+  "context": {
+    "mingshi_work": "《明史》卷三十五《大統曆法三上·步氣朔》, specifically 推加減差, distinct later received Datong scope",
+    "yuan_xing_work": "《元史》卷五十四《授時曆經上》 and 邢雲路《古今律曆考》卷三十七, Sho-u-shi-formula transmission scope",
+    "scope_firewall": "MingShi Qing official historiography and later received web transcriptions are NOT an original Ming-era Datong algorithm witness. Compare texts as different works, not same numeric/temporal/field units."
+  },
+  "received_surfaces": [
+    {
+      "role": "MINGSHI_SIKU_RECEIVED_TEXT",
+      "url": "https://zh.wikisource.org/wiki/明史_(四庫全書本)/卷035",
+      "heading": "推加減差",
+      "source_literal": "各以八百二十分乘之為實再以遲疾限行度内減去八百二十分為定限度為法法除實為加減差",
+      "grade": "LATER_RECEIVED_DIGITAL_TRANSCRIPTION_NOT_DIRECT_PRINTED_GLYPH"
+    },
+    {
+      "role": "MINGSHI_STANDARD_RECEIVED_TEXT",
+      "url": "https://zh.wikisource.org/zh-hant/明史/卷35",
+      "heading": "推加減差",
+      "observed_anomaly": "Standard online edition displays 八百於二十分 in place of 八百二十分; an online transcription anomaly, NOT proof the ancient original printed 於.",
+      "grade": "LATER_RECEIVED_DIGITAL_TRANSCRIPTION_NOT_INDEPENDENT_PLATE_VOTE"
+    },
+    {
+      "role": "MINGSHI_SECONDARY_WEB_REDISPLAY",
+      "url": "https://daizhige.org/史藏/正史/明史/卷035.html",
+      "heading": "推加減差",
+      "observed_clause": "再以遲疾限行度內減去八百二十分，為定限度為法",
+      "grade": "LATER_RECEIVED_TEXT_REDISTRIBUTION_NOT_INDEPENDENT_WITNESS"
+    },
+    {
+      "role": "YUANSHI_RECEIVED_TEXT",
+      "url": "https://zh.wikisource.org/wiki/元史/卷054",
+      "heading": "求朔弦望定日",
+      "observed_clause": "以八百二十乘之，以所入遲疾限下行度除之",
+      "grade": "RECEIVED_DIGITAL_TEXT_OTHER_WORK"
+    },
+    {
+      "role": "XING_JUAN37_SIKU_RECEIVED_TEXT",
+      "url": "https://zh.wikisource.org/wiki/古今律厯考_(四庫全書本)/卷37",
+      "heading": "求朔弦望定日",
+      "observed_clause": "以八百二十乘之，以所入遲疾限下行度除之",
+      "grade": "RECEIVED_DIGITAL_TEXT_OTHER_WORK"
+    }
+  ],
+  "previous_direct_original_controls": [
+    {
+      "doc": "docs/research/TIANWEN-13WD-XING-MING-J37-ORIGINAL-CHIJI-820-DUAL-OPERATOR-BOUNDARY-R1.json",
+      "source": "NLC-CBM1408 juan37 PDF p64",
+      "scope": "Direct original Xing print shows multiplier-820 followed by attained limit movement divisor, and a DIFFERENT 820 division for interpolation; not a MingShi original page."
+    },
+    {
+      "doc": "docs/research/TIANWEN-13WE-XUAN-J37-ORIGINAL-TWO-820-OPERATORS-CROSSPRINT-R1.json",
+      "source": "NLC08938 Xu-An-line juan37 PDF p28",
+      "scope": "Same Xing work, distinct catalog accession, direct original two 820 operator roles; physical plate independence remains unproved."
+    },
+    {
+      "doc": "docs/research/TIANWEN-13MH-BSB-J35-51-IMAGE-REPLAY-C539-FOUR-FIELD-COLLATION-R1.json",
+      "source": "BSB bsb11166691 juan35 source-original 51-canvas coverage",
+      "scope": "Relevant MingShi original surrogate has prior source/hash corpus, but this exact 推加減差 denominator line is NOT mapped to a source canvas/ROI or visually collated in this batch."
+    }
+  ],
+  "bounded_mechanical_contrast": {
+    "shared_received_numerator": "820 × signed combination of 盈縮差 and 遲疾差 (conditional same basic units only)",
+    "yuan_xing_received_denominator": "所入遲疾限下行度",
+    "mingshi_siku_received_denominator": "定限度 = 遲疾限行度 - 820",
+    "status": "TWO_DIFFERENT_LITERALLY_DESCRIBED_OPERAND_PIPELINES_NOT_PROVEN_IMPLEMENTED_OR_UNIT_EQUIVALENT",
+    "prohibited_inference": "No claim that 820 represents a source-original unit-specific solar motion, that numerator/denominator units match, or that one received method corrects the other."
+  },
+  "negative_controls": [
+    "Multiple web renderings of MingShi are not multiple physical impressions or corroborating original glyph votes.",
+    "The malformed 八百於二十分 display in one public transcript must not be accepted as an original edition character; original MingShi page not collated.",
+    "The two text families concern distinct source-labelled programs, and no exact same date/row worked calculation validates executable equivalence or inequivalence.",
+    "Previously inspected BSB juan35 manuscript/digital source pages do not establish this particular denominator line without folio-local native image inspection.",
+    "Do not infer the missing original 疾捷法 coefficient constructor or 少/微 radix/carry from a Datong ding-shuo denominator clause.",
+    "Do not use this contrast to fill damaged Xu-An juan45 table-B L132 二/三, any G893 source-numeric field, genealogy plate edge, or deterministic product algorithm."
+  ],
+  "adjudication": {
+    "new_historical_primary_source_pixels": 0,
+    "new_independent_physical_witnesses": 0,
+    "new_source_registry_entries": 0,
+    "new_transmission_nodes": 0,
+    "new_transmission_edges": 0,
+    "received_procedural_difference_observed": true,
+    "mingshi_exact_source_original_clause": "UNAWARDED",
+    "g893_named_controls": "5/6",
+    "g893_historical_final_verdicts": "0/6",
+    "original_xuan_j45_l132": "UNAWARDED",
+    "original_ji_specific_jiefa_builder": "UNRESOLVED",
+    "original_shao_wei_carry": "UNRESOLVED",
+    "tw_open_0005": "P0 OPEN",
+    "matrix": "222/222",
+    "sources": 794,
+    "graph_nodes": 254,
+    "graph_edges": 239,
+    "omission_issues": 11,
+    "product": "CLOSED",
+    "algorithm_reopens": 0
+  },
+  "next_action": "Reuse already authenticated BSB bsb11166691 明史卷35 source canvas corpus to locate exact 推加減差 original clause, hash original page/ROI, and compare independent Qing or Ming Datong original printed work if accessible. In parallel prioritize original Xu-An j45 table-B L132 二/三 and original 疾捷法/少微 numeric precision; no same-copy vote multiplication.",
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Textual distinction between MingShi Datong and YuanShi/Xing Sho-u-shi cannot itself establish common blocks, copying direction or a single historical rule."
+    ],
+    "unresolved_lineage_questions": [
+      "Was 明史卷35 '內減去八百二十分' printed on each authenticated early MingShi recensional leaf or introduced in later text handling?",
+      "How does an explicitly source-bound Datong numerical worked case differ from Sho-u-shi in comparable units?"
+    ]
+  }
+}
