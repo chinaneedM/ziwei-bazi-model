@@ -1,0 +1,88 @@
+{
+  "schema": "TIANWEN-13XH-TIANJIN-LSWX-2026-FIRSTPARTY-PUBLIC-READER-ACCESS-BOUNDARY-R1",
+  "date": "2026-11-12",
+  "issue_id": "TW-OPEN-0005",
+  "classification": "FIRSTPARTY_INSTITUTIONAL_OPEN_READER_ROUTE_ONLY_NOT_ITEM_OR_FOLIO_PROOF",
+  "question": "Can the potential 28-fascicle Tianjin Xing Yunlu 古今律曆考 digital listing be pursued via an expressly public, login-free first-party library reader rather than treating Commons file-list entries as acquired PDFs?",
+  "firstparty_publication_evidence": [
+    {
+      "publisher": "天津图书馆",
+      "date": "2026-01-05",
+      "url": "https://www.tjl.tj.cn/ArticleContent.aspx?ChannelId=241&ID=29010",
+      "observed": "Announces revised 天津图书馆历史文献数字资源库 beta, official entry http://lswx.tjl.tj.cn:8001, public beta 2026-01-05 through 2026-02-04, and 免登录直接使用. This proves an institutional route and its publication claims, not a present source-item browse result."
+    },
+    {
+      "publisher": "国家图书馆/国家古籍保护中心",
+      "date": "2025-12-31",
+      "url": "https://www.nlc.cn/pcab/zx/xw/20260104_2650321.shtml",
+      "observed": "11th digital-ancient-books joint-release page links Tianjin's history database at the identical :8001 URL; its highlighted newly released Tianjin material is 潮州歌册, not an inventory claim for this Xing source."
+    },
+    {
+      "publisher": "天津图书馆",
+      "date": "2026-02-25",
+      "url": "https://www.tjl.tj.cn/ArticleContent.aspx?ChannelId=244&ID=29202",
+      "observed": "First-party report describes HTML5 upgraded site with no account required; is a service-capability report, not an item/page access proof."
+    }
+  ],
+  "prior_specific_item_locator": {
+    "source_doc": "docs/research/TIANWEN-13XG-TIANJIN-GU-JIN-LV-LI-KAO-28-VOLUME-ORIGINAL-SCAN-ROUTE-R1.json",
+    "catalog_item_prefix": "NLC892-GBZX0301013346",
+    "digital_volumes_named": 28,
+    "source_page": "https://commons.wikimedia.org/wiki/Commons:Library_back_up_project/file_list/NLC/%E5%A4%A9%E6%B4%A5%E5%9C%96%E6%9B%B8%E9%A4%A8%E5%8F%A4%E7%B1%8D/03",
+    "item_to_new_library_reader_crosswalk": "NOT_ESTABLISHED"
+  },
+  "access_probe": {
+    "reader_url": "http://lswx.tjl.tj.cn:8001",
+    "web_tool": "Direct HTTP/HTTPS nonstandard-port opening did not yield a valid source reference; no provider-side HTTP response code or content was obtained.",
+    "commons_specific_pdf": "Attempt to open the named volume18 Commons file page was unsuccessful in the search/browser environment; a file-list title is not a verified uploaded PDF object.",
+    "server_http_status": "NOT_OBSERVED",
+    "exact_book_item_id": "UNRECOVERED",
+    "fascicle_juan45_original_boundary": "UNLOCATED",
+    "native_image_or_pdf_bytes": 0,
+    "source_file_sha256": null,
+    "folio_page": null,
+    "original_L132_glyph": "UNREAD",
+    "original_ji_jiefa": "UNREAD",
+    "original_shao_wei_carry": "UNREAD",
+    "login_performed": false,
+    "payment_performed": false,
+    "negative_catalog_claim": false
+  },
+  "provenance_scope": [
+    "An official public reading platform does not prove the catalog item is present in the same edition or available today.",
+    "The new web reader and Commons NLC892-GBZX0301013346 file-list may describe the same institutional collection; these are access paths, not independently voting physical copies.",
+    "Publication of a current digital platform cannot adjudicate the original 1607 secondary print attribution, original woodblocks or Xu-An/NCL copy relation.",
+    "Tool inability to open port 8001 is not evidence of provider downtime, holdings absence or paywall.",
+    "The item-specific PDF/folio must be positively opened and bound by provider/item/volume/page/image SHA before any numeral or historical method is awarded."
+  ],
+  "decision": {
+    "new_firstparty_service_route": true,
+    "new_original_target_images": 0,
+    "new_original_numeric_votes": 0,
+    "new_source_registry_entries": 0,
+    "new_genealogy_nodes": 0,
+    "new_genealogy_edges": 0,
+    "matrix": "222/222",
+    "registry_unique": 794,
+    "genealogy": "254 nodes/239 edges",
+    "issues_open": 11,
+    "g893_controls_identified": "5/6",
+    "g893_final_numerical_adjudications": "0/6",
+    "issue_status": "TW-OPEN-0005 P0 OPEN",
+    "chart_product": "CLOSED",
+    "algorithm_reopens": 0
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Official reader link and Commons catalog listing are not separate source-original witnesses, nor a proved edition/impression lineage."
+    ],
+    "unresolved_lineage_questions": [
+      "Can the publicly announced Tianjin reader yield a search result for the exact GBZX0301013346 source and printed juan45 target image?",
+      "Does any authenticated Tianjin original leaf directly settle Xu-An j45 table B L132 二/三 or 疾捷法/少微 without conflating print date and digital object?"
+    ]
+  },
+  "next_action": "Attempt lawful anonymous direct item-level search in the first-party Tianjin http://lswx.tjl.tj.cn:8001 reader if a capable HTTP/browser interface is available; then bind a positive book item, original fascicle/juan45 boundaries, folio SHA and native glyphs. Otherwise return to already authenticated early Xu-An/CBM and other independent original access routes; no user login, fee, inferred negative proof or numeric guess."
+}
