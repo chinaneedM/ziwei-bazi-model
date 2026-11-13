@@ -1,0 +1,86 @@
+{
+  "schema": "TIANWEN-13XN-HUANG-RECEIVED-SHOU-SHI-JIEF-820-OPERAND-AND-WEI-XIAN-FIREWALL-R1",
+  "date": "2026-11-13",
+  "issue_id": "TW-OPEN-0005",
+  "classification": "LATER_RECEIVED_TEXT_OPERAND_DISAMBIGUATION_NOT_NATIVE_HUANG_PAGE_OR_G893_SIX_CONTROL_VERDICT",
+  "question": "Does the publicly readable received Huang Zongxi 授時曆故 expression of 損益捷法 supply a distinct 820 denominator operand and an independent original 少/微 or 疾-side rule?",
+  "source": {
+    "work": "黃宗羲《授時曆故》",
+    "received_source_provider": "識典古籍",
+    "provider_item": "https://www.shidianguji.com/zh/mid-page/7555620464333225994",
+    "visible_received_literal_1": "置損益分以日率八百二十分而一滿日率爲砂不滿爲微纖卽爲損益捷法",
+    "visible_received_literal_2": "求遲疾厤限術曰置遲疾厤日及分以十二限二十分乘之",
+    "visible_received_literal_3": "所得限在八十三限己下者不減爲初限己上者置一百六十七限以所得限減之餘爲末限",
+    "visible_received_literal_4": "求遲疾行度術曰置初限行度一度二○七一減去損益定積餘爲所求遲疾行度",
+    "received_text_grade": "ONLINE_RECEIVED_TRANSCRIPTION_WITH_POSSIBLE_OCR_OR_EDITORIAL_SEGMENTATION; not directly rebound to original physical Huang folio",
+    "ambiguous_character": "砂 appears in this received transcription; original glyph and whether it represents 秒/沙/砂 are NOT adjudicated and must not be silently normalized",
+    "exact_original_page_of_this_passage": "UNBOUND",
+    "prior_same_work_original_pdf": "Shanghai dGJ2300966, 97-page PDF, SHA256 c524693e7bad502d222a1444d688cc7d63ca4a4037d7d4e08cee4aa94f9adbae; separate original page 79/80 review in 13KO does not bind this specific line",
+    "prior_original_evidence_doc": "docs/research/TIANWEN-13KO-HUANG-P79-P80-ORIGINAL-NEXTDAY-REVERSE167-R1.json"
+  },
+  "original_comparator": {
+    "doc": "docs/research/TIANWEN-13XM-TIANJIN-J45-NATIVE-TWO-JIEF-EXPLANATORY-OPERATORS-R1.json",
+    "copy": "Tianjin NLC892-GBZX0301013346 original juan45 PDF volume19 SHA256 574b18ccc1288e3a69b68e4c961e7c8362fbec71131f94956cf608eb74f279e8",
+    "first_text_p11": "右遲疾積度相減為損益損益以日率而一為捷法",
+    "second_text_p21": "右置八百二十以遲行度而一為捷法",
+    "original_grade": "DIRECT_BOUND_SOURCE_ORIGINAL_IMAGE_FOR_TIANJIN_ONLY; does not authenticate original Huang wording"
+  },
+  "operator_scope_review": [
+    {
+      "id": "XING_FIRST_JIEF",
+      "source": "13XM original p11",
+      "input": "adjacent 遲疾積度 difference",
+      "divisor": "日率 as printed",
+      "output": "損益捷法",
+      "claim_scope": "bounded qualitative operator sentence; number and units not inferred"
+    },
+    {
+      "id": "XING_SECOND_JIEF",
+      "source": "13XM original p21",
+      "input": "八百二十",
+      "divisor": "遲行度",
+      "output": "another 捷法",
+      "claim_scope": "printed 遲 only; NOT the missing 疾-specific numerator or inferred mirrored law"
+    },
+    {
+      "id": "HUANG_RECEIVED_LOSSGAIN_JIEF",
+      "source": "Shidian received text, original page not reviewed",
+      "input": "損益分",
+      "divisor": "日率八百二十分",
+      "output": "損益捷法 with textual 砂／微纖 residue classification",
+      "claim_scope": "Huang-specific received statement, NOT evidence of G893 header 少, not a separately verified early original formula"
+    }
+  ],
+  "conclusions": {
+    "positive": "The online received Huang line specifies a distinct numerator/denominator direction relative to the previously original-collated Xing second 捷法. The same word 捷法 does not license mechanical equivalence across its distinct operands.",
+    "no_original_huang_direct_glyph_this_batch": true,
+    "no_new_early_physical_witness": true,
+    "no_new_shao_wei_radix_or_rounding_verdict": true,
+    "no_new_ji_specific_coeff_constructor": true,
+    "no_original_xuan_l132_erasure_or_restoration": true,
+    "no_new_g893_exact_field_or_historical_numeric_award": true,
+    "no_registered_new_external_source": true,
+    "named_g893_controls": "5/6",
+    "historical_finals": "0/6",
+    "issue_status": "TW-OPEN-0005 P0 OPEN",
+    "matrix": "222/222",
+    "registry_total": 794,
+    "genealogy": "254 nodes / 239 edges",
+    "open_issues": 11,
+    "chart_product": "CLOSED",
+    "algorithm_reopens": 0
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Received Huang and source-native Xing both call an output 捷法, but the distinct stated operands prohibit inferring same historical table cell, inherited mechanism or printing-plate ancestry."
+    ],
+    "unresolved_questions": [
+      "Find a source-native Shanghai Huang original folio containing the specific received 微纖/砂 expression and verify exact glyph/position.",
+      "Independently adjudicate Xu-An juan45 second-table L132 二/三 and original 疾-specific constructor, alongside G893 native 少/微 scale and carry."
+    ]
+  },
+  "next_action": "Prioritize authenticated higher-detail independent Xu-An1599 L132 source image and native G893 少/微 carry/疾 operator. If later comparing Huang, first bind its received 820 损益捷法 line to the already SHA-bound Shanghai original folio, independently resolve 砂/秒, and keep XING's separate 820÷遲行度 operator distinct. No fees, accounts, inferred numerals or new algorithm."
+}
