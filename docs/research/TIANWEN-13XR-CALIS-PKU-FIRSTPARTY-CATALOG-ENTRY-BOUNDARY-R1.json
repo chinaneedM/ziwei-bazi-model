@@ -1,0 +1,69 @@
+{
+  "schema": "TIANWEN-13XR-CALIS-PKU-FIRSTPARTY-CATALOG-ENTRY-BOUNDARY-R1",
+  "date": "2026-11-13",
+  "issue_id": "TW-OPEN-0005",
+  "classification": "FIRSTPARTY_PUBLIC_CATALOG_SEARCH_ROUTE_CONFIRMED_BUT_TARGET_ITEM_AND_NATIVE_J45_PAGE_UNBOUND",
+  "research_question": "Does a first-party CALIS/PKU public classical-book portal authenticate any of the seven secondary Xu-An 1599 holder leads and expose a free original juan45 leaf?",
+  "firstparty_routes": [
+    {
+      "institution": "北京大學圖書館",
+      "url": "https://lib.pku.edu.cn/publish/bjdxtsg/3wxbz/34gwxzy/349dyxs/index.htm",
+      "observation": "Official PKU site explicitly links 秘籍琳琅 and 學苑汲古 as separate ancient-book catalog and image discovery paths; it describes PKU古籍 entries as separate from modern catalog.",
+      "evidence_grade": "FIRSTPARTY_PLATFORM_NAVIGATION_NOT_EXACT_TITLE_ITEM",
+      "exact_title_item_id": null
+    },
+    {
+      "institution": "CALIS",
+      "url": "https://smart.calis.edu.cn/smartedu-rbsc/index",
+      "observation": "Official 學苑汲古 landing text describes generally public access to university classical book metadata and images and states individual library records are not de-duplicated. During this anonymous web-retrieval observation the platform text included 系统接口501异常, and no title-specific query result returned.",
+      "evidence_grade": "FIRSTPARTY_PLATFORM_SERVICE_DESCRIPTION_AND_ENVIRONMENT_BOUNDED_ERROR_NOT_OBJECT_GLYPH",
+      "exact_title_item_id": null
+    },
+    {
+      "institution": "CALIS",
+      "url": "https://rbsc2.calis.edu.cn/",
+      "observation": "Official PKU link lands on a JavaScript loading shell in current text-only retrieval; this is not evidence of item absence or general public inaccessibility.",
+      "evidence_grade": "DYNAMIC_PAGE_ACCESS_BOUNDARY",
+      "exact_title_item_id": null
+    },
+    {
+      "institution": "北京大學圖書館",
+      "url": "https://rbdl.calis.edu.cn/aopac/indexold.jsp",
+      "observation": "Official PKU link to 秘籍琳琅 timed out in this retrieval environment; no anonymous search result or verified original image was acquired.",
+      "evidence_grade": "CURRENT_RETRIEVAL_TIMEOUT_ONLY",
+      "exact_title_item_id": null
+    }
+  ],
+  "prior_candidate_ref": "docs/research/TIANWEN-13XQ-XUAN1599-SEVEN-HOLDING-SECONDARY-CATALOG-DEDUP-ROUTE-R1.json",
+  "limits": [
+    "Platform-level public availability does not establish access to the exact Xu-An volume or an individual original-page image.",
+    "CALIS description explicitly says records are not deduplicated; results cannot be counted as independent physical copies without object/edition/copy evidence.",
+    "System interface 501 and JS shell are this retrieval's access limits, not whole-service outage or absence of 古今律曆考.",
+    "No account, payment, bypass, speculative query endpoint or repeat generic email was used.",
+    "No source registry entry, edition-level relation, physical witness count or G893 numerical adjudication is supported."
+  ],
+  "next_action": "Use only first-party exact-title item-level results with stable shelfmark, original-juan45 mapping and lawful anonymous image retrieval; otherwise return to other verified original-source routes without treating the CALIS platform as a new witness.",
+  "result": {
+    "firstparty_catalog_platform_routes": 2,
+    "firstparty_target_item_records": 0,
+    "new_source_original_j45_pages": 0,
+    "new_independent_xuan_physical_witnesses": 0,
+    "g893_named_controls": "5/6",
+    "historical_final_controls": "0/6",
+    "tw_open_0005": "P0 OPEN",
+    "matrix": "222/222",
+    "registry_total": 794,
+    "graph": "254 nodes / 239 edges",
+    "open_issues": 11,
+    "p0_issues": 5,
+    "product": "CLOSED",
+    "algorithm_reopen_count": 0
+  },
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_added": [],
+    "unproven": [
+      "No platform metadata route can be promoted into historical source-glyph testimony or copy/edition transmission."
+    ]
+  }
+}
