@@ -1,0 +1,139 @@
+{
+  "schema": "TIANWEN-13XO-HUANG-SHANGHAI-P80-SOURCE-NATIVE-JIEF-820-SECOND-GLYPH-R1",
+  "date": "2026-11-13",
+  "issue_id": "TW-OPEN-0005",
+  "classification": "DIRECT_SAME_DIGITAL_SOURCE_ORIGINAL_GLYPH_AND_820_JIEF_OPERAND_POSITIVE_WITH_RECEIVED_TEXT_VARIANT_FIREWALL",
+  "question": "Is the 13XN Shidian online 黃宗羲《授時曆故》 損益捷法 text with 砂 actually attested in the already indexed Shanghai source-native PDF, and what is the original glyph?",
+  "precedent_docs": [
+    "docs/research/TIANWEN-13XN-HUANG-RECEIVED-SHOU-SHI-JIEF-820-OPERAND-AND-WEI-XIAN-FIREWALL-R1.json",
+    "docs/research/TIANWEN-13KO-HUANG-P79-P80-ORIGINAL-NEXTDAY-REVERSE167-R1.json",
+    "docs/research/TIANWEN-13XM-TIANJIN-J45-NATIVE-TWO-JIEF-EXPLANATORY-OPERATORS-R1.json"
+  ],
+  "original_source": {
+    "work": "黃宗羲《授時曆故》",
+    "source_label": "Shanghai 授時歷故四卷.pdf; Wikimedia Commons dGJ2300966",
+    "public_file_page": "https://commons.wikimedia.org/wiki/File:Shanghai_%E6%8E%88%E6%99%82%E6%AD%B7%E6%95%85%E5%9B%9B%E5%8D%B7.pdf",
+    "previously_recovered_git_actions_artifact_id": 12890397318,
+    "pdf_bytes": 14376480,
+    "pdf_page_count": 97,
+    "pdf_sha256": "c524693e7bad502d222a1444d688cc7d63ca4a4037d7d4e08cee4aa94f9adbae",
+    "exact_pdf_page_one_based": 80,
+    "source_embedded_image_xref": 394,
+    "source_embedded_png_sha256": "1671928f3d4bf85e6e9224f917309e3477b2e82d2e829d5667cfdc5d9950f3f9",
+    "source_embedded_image_native_dimensions_px": [
+      2152,
+      2580
+    ],
+    "normalized_for_legibility": "source embedded PNG oriented by lossless pixel rotation 270 degrees; RGB, no resampling, no OCR",
+    "rotated_rgb_dimensions_px": [
+      2580,
+      2152
+    ],
+    "rotated_full_rgb_sha256": "deb0234afc9d4704a1bac5991cbfc7c843f05ae4e37c952f2bad21814ae8faac",
+    "upstream_physical_copy_identity": "UNVERIFIED",
+    "upstream_original_impression_year": "UNVERIFIED",
+    "physical_copy_independence_of_other_named_witnesses": "UNVERIFIED",
+    "source_registration_status": "EXISTING_PREVIOUSLY_REVIEWED_DIGITAL_OBJECT_NO_NEW_EXTERNAL_SOURCE_ENTRY"
+  },
+  "native_direct_original_review": {
+    "source_edition_scoped_verbatim": "置損益分以日率八百二十分而一滿日率為秒不滿為微纖即為損益捷法",
+    "original_numeral": "八百二十分",
+    "original_specific_glyph": "秒",
+    "contrast_to_online_received_glyph": "砂",
+    "confidence": "DIRECT_SOURCE_ORIGINAL_VISIBLE_FOR_THIS_SINGLE_DIGITAL_OBJECT",
+    "method": "Manual no-OCR visual collation of embedded original PNG and raw rotated RGB ROIs, coordinates on exact 2580x2152 rotated image",
+    "bounded_rgb_rois": [
+      {
+        "scope": "jief_operator_line",
+        "rect_xyxy": [
+          2100,
+          250,
+          2350,
+          2050
+        ],
+        "rgb_sha256": "9037df71716d4bb2dd643bb11ce6c079b1caa9939b7f378e925791c6a5d2c1bb"
+      },
+      {
+        "scope": "second_glyph_exact",
+        "rect_xyxy": [
+          2130,
+          1600,
+          2320,
+          1800
+        ],
+        "rgb_sha256": "c2bd96f04c08492a22646d6e6c422cb1ea4355afa0fb7b4154349bbe2ba60b6d"
+      },
+      {
+        "scope": "jief_concluding_column",
+        "rect_xyxy": [
+          1850,
+          250,
+          2100,
+          1330
+        ],
+        "rgb_sha256": "03d4d179564ad8cdef31c8c314833e654148c278b2a5c921b6d011972b80fe4e"
+      },
+      {
+        "scope": "second_wei_xian_word_sequence",
+        "rect_xyxy": [
+          2100,
+          1520,
+          2350,
+          2060
+        ],
+        "rgb_sha256": "b22fac51e5ee41f2b6ce726cc76041c43c89aba2eff52a702a71c317a2499760"
+      }
+    ],
+    "replay": "Extract pdf page index79 first image xref394 with PyMuPDF; SHA-256 extracted PNG bytes; PIL convert RGB rotate 270 expand=True; SHA-256 all RGB bytes; each ROI crop(...).tobytes() SHA-256."
+  },
+  "received_variant": {
+    "provider": "識典古籍",
+    "url": "https://www.shidianguji.com/zh/mid-page/7555620464333225994",
+    "received_online_text": "置損益分以日率八百二十分而一滿日率爲砂不滿爲微纖卽爲損益捷法",
+    "difference": "ONLINE_砂_VS_THIS_SHANGHAI_DIGITAL_ORIGINAL_秒",
+    "transcription_or_edition_causal_attribution": "UNDETERMINED; could be a received/transcription/editing layer mismatch; provider source-base or physical lineage has not been proved",
+    "forbidden_inference": "The one Shanghai original cannot prove every historical edition should print 秒, or license silently replacing online provider text."
+  },
+  "mechanical_operator_firewall": {
+    "huang_shanghai_source_original": "置損益分以日率八百二十分而一 ... 為損益捷法; 820 is in divisor",
+    "xing_tianjin_j45_p21_source_original": "右置八百二十以遲行度而一為捷法; 820 is placed as dividend/numerator for separately named 遲",
+    "scope": "Shared 捷法/820 terms are not identity of operator, school, printing plate, target cell, G893 少/微 unit or 疾-specific construction"
+  },
+  "adjudication": {
+    "original_huang_passage_page_now_bound": true,
+    "single_source_original_second_glyph_positive": true,
+    "independent_original_huang_physical_edition_proved": false,
+    "received_shidian_base_edition_identified": false,
+    "original_shao_wei_radix_rounding_carry_resolved": false,
+    "original_ji_specific_coefficient_construction_resolved": false,
+    "damaged_xu_an_juan45_L132_er_san_adjudicated": false,
+    "g893_same_field_and_unit_verified": false,
+    "new_historical_g893_numeric_awards": 0,
+    "named_g893_controls": "5/6",
+    "historical_g893_controls": "0/6",
+    "unresolved_issue": "TW-OPEN-0005 P0 OPEN",
+    "matrix": "222/222",
+    "external_registry_total": 794,
+    "genealogy": "254 nodes / 239 edges",
+    "open_issues": 11,
+    "deterministic_chart_product": "CLOSED",
+    "algorithm_reopens": 0,
+    "new_registry_sources": 0,
+    "new_graph_nodes": 0,
+    "new_graph_edges": 0,
+    "new_matrix_rows": 0
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "The native Shanghai Huang 秒 reading refutes only textual identity with this Shidian received 砂 string, not any physically dated direct lineage or cross-version correction."
+    ],
+    "unresolved_lineage_questions": [
+      "Identify the Shanghai original physical copy/print and the Shidian received transcription base separately.",
+      "Acquire an independent source original for damaged Xu-An L132 二/三 and G893-specific 少微 scale/carry and 疾 mechanism."
+    ]
+  },
+  "next_action": "The Shidian 砂 vs native Shanghai 秒 target is now directly original-page bound for one digital witness, so do not repeat this acquisition. Highest priority remains independent higher-detail Xu-An1599/1600 juan45 L132 二/三, source-native 疾-specific 捷法 coefficient and G893 少/微 radix/carry. No fees, login, inferred ancient glyphs or numeric awards; review real NLC reply only on receipt."
+}
