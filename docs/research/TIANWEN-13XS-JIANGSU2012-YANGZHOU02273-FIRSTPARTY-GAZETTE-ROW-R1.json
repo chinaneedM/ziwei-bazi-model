@@ -1,0 +1,68 @@
+{
+  "schema": "TIANWEN-13XS-JIANGSU2012-YANGZHOU02273-FIRSTPARTY-GAZETTE-ROW-R1",
+  "date": "2026-11-14",
+  "issue_id": "TW-OPEN-0005",
+  "classification": "UPGRADED_FROM_SECONDARY_REPRINT_TO_FIRSTPARTY_GOVERNMENT_PUBLISHED_BIBLIOGRAPHIC_ITEM_NOT_ORIGINAL_FOLIO",
+  "research_question": "Can the exact Xu-An 1599 with supplement Yangzhou02273 row be read directly from Jiangsu's original 2012 official government gazette HTML without reusing the blocked DOC attachment?",
+  "first_party_direct_read": {
+    "issuer": "江苏省人民政府",
+    "gazette_year_page": "https://www.jiangsu.gov.cn/col/col46459/index.html",
+    "official_gazette_issue": "https://www.jiangsu.gov.cn/col/col46746/index.html",
+    "direct_official_row_url": "https://www.jiangsu.gov.cn/art/2012/6/29/art_46746_2649485.html",
+    "government_notice": "苏政发〔2012〕86号",
+    "notice_date": "2012-06-29",
+    "list": "第三批江苏省珍贵古籍名录（249部）",
+    "item_no": "02273",
+    "item_text": "02273 古今律历考七十二卷 （明）邢云路撰 明万历二十七年（1599）徐安刻本（有补配） 扬州市图书馆",
+    "first_party_access_path": "Official year 2012 gazette index > 第二十三期 > 省政府关于公布第三批江苏省珍贵古籍名录的通知. The official article itself publishes the 249-item list in HTML and the target item row is visibly part of that official page.",
+    "original_row_obtained": true,
+    "source_type": "PRIMARY_OFFICIAL_PUBLIC_GAZETTE_BIBLIOGRAPHIC_ROW_NOT_16TH_CENTURY_FACSIMILE",
+    "document_bytes_sha256": null,
+    "note": "Verified government HTML row; original separately linked 2012 .doc bytes were not obtained and that earlier acquisition failure remains a valid route-specific observation."
+  },
+  "forward_only_reconciliation": {
+    "older_secondary_locator": "docs/research/TIANWEN-13VT-JIANGSU-YANGZHOU1599-WUXI1608-PROVINCIAL-HOLDINGS-SCOPE-R1.json",
+    "older_doc_access_failure": "docs/research/TIANWEN-13VW-JIANGSU2012-GOVERNMENT-DOC-HTTP403-BOUNDARY-R1.json",
+    "previous_row_grade": "SECONDARY_REPRODUCTION_UNPROMOTED",
+    "current_row_grade": "FIRSTPARTY_APPROVED_PROVINCIAL_HOLDING_BIBLIOGRAPHY_EXACT_ROW",
+    "correction_method": "APPEND_ONLY_SEPARATE_SOURCE_WITHOUT_REWRITING_PRIOR_13VT_OR_13VW_SNAPSHOTS",
+    "supplementary_leaves_flag": "有补配",
+    "caution": "The official title states a 1599 Xu-An edition with supplementation. Neither surviving printed juan45 nor the date/type/location of any supplemented leaf, printing plate, physical copy impression, collation with NLC08938 or an independent L132 glyph has been verified.",
+    "independent_physical_source_status": "ONE_GOVERNMENT_HOLDING_LOCATOR_ONLY_NOT_COUNTED_AS_INDEPENDENT_IMAGE_OR_PRINTING_PLATE",
+    "screenshot_or_native_original_juan45": null
+  },
+  "result": {
+    "firstparty_government_exact_item_rows_newly_verified": 1,
+    "old_unread_government_doc_now_acquired": false,
+    "source_grade_upgrades": 1,
+    "separate_original_image_folios_acquired": 0,
+    "proven_original_juan45_survival": 0,
+    "proven_original_unreplaced_juan45_leaves": 0,
+    "independent_original_plate_votes_added": 0,
+    "xu_an_l132_er_san_decision": "UNRESOLVED",
+    "original_ji_jiefa_constructor": "UNRESOLVED",
+    "original_shao_wei_radix_carry": "UNRESOLVED",
+    "g893_named_controls": "5/6",
+    "g893_final_historical_controls": "0/6",
+    "matrix": "222/222",
+    "registry_total_after_firstparty_catalog_registration": 795,
+    "genealogy": "254 nodes / 239 edges",
+    "remaining_issues": 11,
+    "priority0_issues": 5,
+    "product": "CLOSED",
+    "algorithm_reopen_count": 0
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Government-approved bibliographic listing does not establish a distinct Xu-An printing plate, direct historical glyph, completeness of juan45, or independence of surviving copy from other catalogued holdings."
+    ],
+    "unresolved_lineage_questions": [
+      "Which juan(s) or folios are supplemented within Yangzhou 02273, and is juan45 including L132 originally printed or replaced?",
+      "Does the actual copy contain a source-native independently legible L132 二/三 and the target 疾捷法/少微 technical columns?"
+    ]
+  },
+  "next_action": "Seek lawful zero-cost first-party item/volume/folio image or exact existing Wuxi/Yangzhou institutional item record for 02273 and determine juan45 supplemental boundaries before any numeric glyph vote. Independently prioritize 徐安 B L132 二/三, original 疾 constructor, original 少微 carry. No fees/login/repeat same copy, no source-number backfill."
+}
