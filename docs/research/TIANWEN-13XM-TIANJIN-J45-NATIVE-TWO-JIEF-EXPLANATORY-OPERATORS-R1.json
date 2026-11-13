@@ -1,0 +1,128 @@
+{
+  "schema": "TIANWEN-13XM-TIANJIN-J45-NATIVE-TWO-JIEF-EXPLANATORY-OPERATORS-R1",
+  "date": "2026-11-13",
+  "issue_id": "TW-OPEN-0005",
+  "classification": "SAME_SOURCE_NATIVE_ORIGINAL_PRINTED_TWO_OPERATOR_SENTENCES_DIRECT_IMAGE_POSITIVE_NOT_MECHANICAL_OR_STEMMATIC_CLOSURE",
+  "question": "What do two separate printed 捷法 explanatory sentences actually say in the already SHA-bound Tianjin volume19 juan45 original, and do they prove the absent 疾-specific constructor?",
+  "predecessor": "docs/research/TIANWEN-13XL-TIANJIN-J45-NATIVE-L35-L132-ORIGINAL-SCAN-R1.json",
+  "physical_and_edition_scope": {
+    "work": "邢雲路《古今律曆考》卷四十五",
+    "digital_surrogate": "Tianjin named source NLC892-GBZX0301013346 / public Wikimedia Commons vol19",
+    "historical_edition_year": "UNPROVEN_FROM_THE_REVIEWED_ORIGINAL_PAGES",
+    "physical_copy_independence_from_XuAn1599_NLC08938_or_SunWei1608": "UNPROVEN",
+    "source_pdf_url": "https://upload.wikimedia.org/wikipedia/commons/3/33/NLC892-GBZX0301013346-260932_%E5%8F%A4%E4%BB%8A%E5%BE%8B%E6%9B%86%E8%80%83_%E4%B8%83%E5%8D%81%E4%BA%8C%E5%8D%B7_%E7%AC%AC19%E5%86%8A.pdf",
+    "source_pdf_sha256": "574b18ccc1288e3a69b68e4c961e7c8362fbec71131f94956cf608eb74f279e8",
+    "pdf_pages": 58,
+    "original_juan45_pdf_one_based_page_scope": "2-21",
+    "explicit_juan_end_at_p21": "古今律曆考卷四十五畢",
+    "source_acquisition_run_id": 43393289054,
+    "source_acquisition_artifact_id": 14022056601,
+    "source_acquisition_artifact_name": "tianwen-13xl-tianjin-public-page-index",
+    "downloaded_artifact_zip_sha256": "a0d6c1b49d5a88c89ac64020b05e98eb2937e1bb1dabbbb39d9efa54c62dc569",
+    "original_page_image_dimensions_px": [
+      1920,
+      1600
+    ],
+    "artifact_image_status": "SOURCE_DERIVED_SAME_DIMENSION_JPEG_EXPORT_FROM_ALREADY_VERIFIED_PDF; export hashes are not claimed to equal embedded JPEG hashes",
+    "ocr_used": false,
+    "original_embedded_jpeg_digest_independently_available_for_page11": false
+  },
+  "direct_original_review": [
+    {
+      "pdf_page_one_based": 2,
+      "role": "PRECEDING_FIRST_TABLE_HEADER_CONTEXT",
+      "direct_bounded_header_components": [
+        "太陰限度",
+        "遲疾日率分",
+        "損益捷法"
+      ],
+      "source_derived_jpeg_sha256": "56139d808470f8497c0dea900ff46600e40cc725b60c597af466a45ed375d3b1",
+      "source_derived_rgb_crop_rect_xyxy": [
+        1270,
+        190,
+        1500,
+        1530
+      ],
+      "source_derived_rgb_crop_sha256": "c3e80576e2622fa3f7fa51b5ad5768e05ccf6ca337ed5e7bce7ec8645c942dc0",
+      "conclusion": "Header labels only; no full table, rate or field-unit winner"
+    },
+    {
+      "pdf_page_one_based": 11,
+      "role": "POST_FIRST_TABLE_EXPLANATION_BEFORE_NEXT_TABLE_HEADER",
+      "original_bounded_literal": "右遲疾積度相減為損益損益以日率而一為捷法",
+      "direct_read_components": [
+        "遲疾積度相減為損益",
+        "損益以日率而一為捷法"
+      ],
+      "source_derived_jpeg_sha256": "0f741db7d1727dfbe84a36e6f5b05f1600ac804ef16496d381beb39f3e8bfe1d",
+      "source_derived_rgb_crop_rect_xyxy": [
+        420,
+        175,
+        530,
+        1530
+      ],
+      "source_derived_rgb_crop_sha256": "68279372f0984a539b371207bb39581e176154a891c19177bd0794c0fd54ea96",
+      "original_embedded_jpeg_sha256": "NOT_EXTRACTED_THIS_BATCH",
+      "note": "Human no-OCR visual reading from prior GitHub Actions derived full-page JPEG linked by verified source PDF/archive"
+    },
+    {
+      "pdf_page_one_based": 21,
+      "role": "POST_SECOND_TABLE_EXPLANATION_AND_JUAN_END",
+      "original_bounded_literal": "右置八百二十以遲行度而一為捷法",
+      "direct_read_components": [
+        "置八百二十",
+        "以遲行度而一",
+        "為捷法"
+      ],
+      "source_derived_jpeg_sha256": "accb91ef73813d76b6fce40d2d6d5214b52fe1c10bdde88807898fecdda5d9a7",
+      "source_embedded_jpeg_sha256_from_13XL": "fa0bd2608cdc952dd1fb9ff7b1a6f0aaf4b88a8bdb115c2403dc273930ba5a68",
+      "source_derived_rgb_crop_rect_xyxy": [
+        1400,
+        190,
+        1530,
+        1500
+      ],
+      "source_derived_rgb_crop_sha256": "4a8d39a448c945ed9ea1288d2771e6a2c1ade494aa6de4e5e8142fd5b660efdc",
+      "note": "The sentence is directly printed with 遲行度, not 疾行度; same page carries 卷四十五畢"
+    }
+  ],
+  "interpretation_and_firewalls": {
+    "positive": "Two textually distinct formula/explanation passages are visually original on the same Tianjin digital source. First relates differences in 遲疾積度 and 日率 to 損益捷法; second explicitly writes 820 and 遲行度 for a separate 捷法 sentence.",
+    "not_proven": [
+      "No independent historical printing plate or physical-copy stemma",
+      "No source-original construction rule explicitly providing the 疾-side coefficient here",
+      "No authorization to substitute 疾 for printed 遲 on p21",
+      "No exhaustive whole-work claim that a 疾-side rule is absent",
+      "No original 少/微 radix, carry or rounding instruction adjudication",
+      "No Xu-An1599 damaged L132 二/三 resolution",
+      "No same-field equivalence to G893 and no six-control numeric historical award"
+    ],
+    "received_text_bridge": "Late received Siku/Wikisource Xing juan45 and later Mei v21 interpolation explanations may be compared for context only; not native source votes or proof of direct copying."
+  },
+  "adjudication": {
+    "newly_directly_reviewed_printed_operator_sentences": 2,
+    "newly_authenticated_independent_historical_copies": 0,
+    "g893_named_controls": "5/6",
+    "g893_historical_final_controls": "0/6",
+    "source_registry_total": 794,
+    "matrix": "222/222",
+    "genealogy": "254 nodes / 239 edges",
+    "research_issues_open": 11,
+    "issue_status": "TW-OPEN-0005 P0 OPEN",
+    "chart_product": "CLOSED",
+    "algorithm_reopens": 0
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Shared text or digit on an existing Tianjin surrogate is not a second plate or copy, nor an original G893-to-Xing derivation"
+    ],
+    "remaining_questions": [
+      "Original Xu-An1599 table-B L132 terminal 二/三 remains damaged",
+      "Direct original 疾-side coefficient-construction and 少/微 carry/radix remain unproved"
+    ]
+  },
+  "next_action": "Seek a genuinely independent/clearer source-original Xu-An1599 juan45 L132 二/三 and source-native 疾-specific coefficient constructor and 少/微 radix/carry. Reuse this same-copy p11/p21 positive operator boundary as a control; never infer a mirrored 疾 rule from p21 遲, assign a G893 number or request any paid/account-dependent service. Review actual NLC free public-reader response only if received."
+}
