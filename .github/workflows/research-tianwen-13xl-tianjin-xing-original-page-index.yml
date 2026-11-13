@@ -65,7 +65,7 @@ jobs:
                   row['contact_sha256'] = hashlib.sha256(sheet_bytes).hexdigest()
                   row['contact_bytes'] = len(sheet_bytes)
                   if vol == 19:
-                      for page_no in [20, 21, 22, 23, 24, 30, 32, 35, 38, 39, 40, 41, 42, 43, 44]:
+                      for page_no in range(2, 22):
                           page = doc[page_no-1]
                           images = page.get_images(full=True)
                           if images:
@@ -85,9 +85,6 @@ jobs:
                           data2=buf2.getvalue()
                           (out / f'volume19-page{page_no}-native.jpg').write_bytes(data2)
                           print('NATIVE_IMAGE_INFO', json.dumps({'volume':vol,'pdf_page':page_no,'kind':image_kind,'embedded_sha256':input_hash,'original_dims':original_dims,'export_dims':native.size,'export_jpeg_sha256':hashlib.sha256(data2).hexdigest(),'bytes':len(data2)}, ensure_ascii=False))
-                          encoded2 = base64.b64encode(data2).decode('ascii')
-                          for offset in range(0, len(encoded2), 2500):
-                              print(f'NATIVE19_{page_no}|{offset//2500:04d}|{encoded2[offset:offset+2500]}')
                   print('VOLUME_SOURCE', json.dumps(row, ensure_ascii=False))
                   encoded = base64.b64encode(sheet_bytes).decode('ascii')
                   for i in range(0, len(encoded), 2500):
