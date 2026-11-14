@@ -1,0 +1,83 @@
+name: research-tianwen-13xw-mei-v21-source-original
+on:
+  push:
+    branches: [agent/fusion-chart-core-r1-20260822]
+    paths: [.github/workflows/research-tianwen-13xw-mei-v21-source-original.yml]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  original-page-atlas:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Install public-domain DjVu image tools
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq djvulibre-bin
+          python -m pip install --disable-pip-version-check "Pillow>=10,<12"
+      - name: Validate exact public original and build no-OCR folio atlas
+        run: |
+          python - <<'PY'
+          import base64, hashlib, io, json, subprocess, urllib.parse, urllib.request
+          from pathlib import Path
+          from PIL import Image, ImageDraw
+          root=Path('mei-v21-public-original')
+          root.mkdir(exist_ok=True)
+          name='CADAL06052453 歷算全書·卷二十一.djvu'
+          url='https://upload.wikimedia.org/wikipedia/commons/7/77/'+urllib.parse.quote(name.replace(' ','_'))
+          req=urllib.request.Request(url,headers={'User-Agent':'Tianwen-public-domain-source-verifier/1.0'})
+          with urllib.request.urlopen(req,timeout=90) as resp:
+              raw=resp.read(5_000_001)
+              http=resp.status
+          observed_sha1=hashlib.sha1(raw).hexdigest()
+          assert http==200 and len(raw)==4160868 and observed_sha1=='8c967492d111c5d4e6963b5e896d5cf997f7c878', 'Source bytes not exact Commons object'
+          src=root/'source.djvu'
+          src.write_bytes(raw)
+          result=subprocess.run(['djvused',str(src),'-e','n'],capture_output=True,text=True,check=True)
+          count=int(result.stdout.strip())
+          assert count==128, f'Unexpected page count {count}'
+          record={'provider':'Wikimedia Commons; CADAL 浙江大学 description','source_url':url,'download_http':http,'bytes':len(raw),'sha1':observed_sha1,'sha256':hashlib.sha256(raw).hexdigest(),'pages':count,'method':'existing source DjVu raster decoded by ddjvu; NO OCR; JPEG pages are derivatives, not original image streams','folio_pages':[]}
+          cols,rows=6,5
+          thumbs=[]
+          for page_no in range(1,count+1):
+              ppm=subprocess.run(['ddjvu','-format=ppm',f'-page={page_no}',str(src),'-'],capture_output=True,check=True).stdout
+              im=Image.open(io.BytesIO(ppm)).convert('RGB')
+              rgb_sha=hashlib.sha256(im.tobytes()).hexdigest()
+              jpeg=io.BytesIO()
+              im.save(jpeg,format='JPEG',quality=84,optimize=True)
+              jpg=jpeg.getvalue()
+              (root/f'page-{page_no:03}.jpg').write_bytes(jpg)
+              record['folio_pages'].append({'page':page_no,'width':im.width,'height':im.height,'rgb_sha256':rgb_sha,'derived_jpeg_sha256':hashlib.sha256(jpg).hexdigest()})
+              im.thumbnail((168,225))
+              thumbs.append(im.copy())
+          for start in range(0,count,cols*rows):
+              group=thumbs[start:start+cols*rows]
+              cellw,cellh=190,255
+              sheet=Image.new('RGB',(cols*cellw,rows*cellh),'white')
+              draw=ImageDraw.Draw(sheet)
+              for i,pic in enumerate(group):
+                  x=(i%cols)*cellw
+                  y=(i//cols)*cellh
+                  sheet.paste(pic,(x+9,y+21))
+                  draw.text((x+9,y+4),f'PDF/DJVU folio {start+i+1:03}',fill='black')
+              buf=io.BytesIO()
+              sheet.save(buf,format='JPEG',quality=74,optimize=True)
+              b=buf.getvalue()
+              index=start//(cols*rows)+1
+              (root/f'contact-{index:02}.jpg').write_bytes(b)
+              encoded=base64.b64encode(b).decode('ascii')
+              for k in range(0,len(encoded),2400):
+                  print(f'ATLAS_{index:02}_{k//2400:04}|{encoded[k:k+2400]}')
+              record.setdefault('contact_sheets',[]).append({'index':index,'first_page':start+1,'last_page':start+len(group),'jpeg_sha256':hashlib.sha256(b).hexdigest()})
+          (root/'original-metadata.json').write_text(json.dumps(record,ensure_ascii=False,indent=2),encoding='utf-8')
+          print('SOURCE_ORIGINAL',json.dumps({k:v for k,v in record.items() if k!='folio_pages'},ensure_ascii=False))
+          PY
+      - name: Preserve source and per-folio images for direct manual collation
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tianwen-13xw-mei-v21-public-source-original
+          path: mei-v21-public-original/
+          retention-days: 45
+          if-no-files-found: warn
