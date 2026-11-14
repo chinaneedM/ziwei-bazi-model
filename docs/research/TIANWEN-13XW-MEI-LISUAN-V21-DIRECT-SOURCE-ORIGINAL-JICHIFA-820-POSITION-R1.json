@@ -1,0 +1,88 @@
+{
+  "schema": "TIANWEN-13XW-MEI-LISUAN-V21-DIRECT-SOURCE-ORIGINAL-JICHIFA-820-POSITION-R1",
+  "date": "2026-11-14",
+  "issue_id": "TW-OPEN-0005",
+  "classification": "DIRECT_NATIVE_ORIGINAL_IMAGE_TEXT_FOR_QING_SIKU_RECEIVED_MEI_V21_WITH_UNBOUND_EDITION_COPY_AND_NO_G893_NUMERIC_AWARD",
+  "question": "Can the previously received-text-only 13VX later Mei 《歷算全書》 v21 《推遲疾差法》 820/positional discussion be verified against source-image original printed glyphs without assigning Xu-An1599 j45 or G893 historical fields?",
+  "witness": {
+    "source_title": "《欽定四庫全書》子部《歷算全書》卷二十一（梅文鼎）",
+    "source_id": "EXT-TIANWEN-13XW-CADAL06052453-MEI-LISUAN-V21-NATIVE-JICHIFA",
+    "source_url": "https://upload.wikimedia.org/wikipedia/commons/7/77/CADAL06052453_%E6%AD%B7%E7%AE%97%E5%85%A8%E6%9B%B8%C2%B7%E5%8D%B7%E4%BA%8C%E5%8D%81%E4%B8%80.djvu",
+    "source_issuer": "Wikimedia Commons public file / CADAL 06052453 attributed to Zhejiang University (digital surrogate)",
+    "source_sha1": "8c967492d111c5d4e6963b5e896d5cf997f7c878",
+    "source_sha256": "15fca241d278c6183e9de3a2bb0e99e10e09873c71039613b2980508ce7fb27a",
+    "source_bytes": 4160868,
+    "djvu_pages": 128,
+    "source_http": 200,
+    "source_downloaded_and_sha_verified": true,
+    "native_decode": "ddjvu unmodified DjVu raster; native RGB SHA-256, 128 per-page images; NO OCR or OCR-assisted glyph award",
+    "image_output_note": "Page JPGs are transcodes from DjVu-decoded raster; not source-original compressed streams. Original source bytes persist in short-retention Actions artifact only; source URL/SHA is durable.",
+    "edition_impression_date_bound": false,
+    "physical_copy_catalog_identity_bound": false,
+    "physical_book_plate_independence": "UNVERIFIED",
+    "original_ming_xuan_1599_copy": "NOT_IDENTIFIED",
+    "workflow_run_id": 43544862219,
+    "workflow_job_id": 132293692322,
+    "workflow_commit_sha": "fafba6917e193028b88045fab58dea56490bd4bb",
+    "workflow_path": ".github/workflows/research-tianwen-13xw-mei-v21-source-original.yml",
+    "artifact_id": 14093945653,
+    "artifact_name": "tianwen-13xw-mei-v21-public-source-original",
+    "artifact_zip_sha256": "dde3ff740dcd137f323fbb58e666109b4a59c5f3d1b3c3284d4d7ab26377a664",
+    "manually_collated_pages": [
+      {
+        "page": 90,
+        "sha256": "0294f29089b1edc96e219198438e2a0b6fba0d42ae0f82686fbb48fe261d4c99",
+        "sha_kind": "FULL_DJVU_DECODED_NATIVE_RGB",
+        "direct_literal": "推遲疾差法；置遲疾歷日及分以立成內相同限下日率減之",
+        "review_scope": "VISIBLE_HEADING_AND_OPENING_TO_NEXT_PAGE_NOT_COMPLETE_RULE"
+      },
+      {
+        "page": 91,
+        "sha256": "e7ada8cda47779d1c6b057990c10b2f3d4a2b657a5ed55a37527a9470e8737dc",
+        "sha_kind": "FULL_DJVU_DECODED_NATIVE_RGB",
+        "direct_literal": "以八百二十分去二子為法除之；得數上依位加本限下遲疾積度",
+        "review_scope": "VISIBLE_DENOMINATOR_AND_POSITIONAL_ADD_RULE; SMALL_PRINT_CONTEXT_PRESENT; NOT_WHOLE_FORMULA_REPLAY"
+      },
+      {
+        "page": 92,
+        "sha256": "74d03072c127485c1477cc643342bdd4a58337120591ded06ba9dfb4864a599c",
+        "sha_kind": "FULL_DJVU_DECODED_NATIVE_RGB",
+        "direct_literal": "為一限滿兩個八百二十分則為二限；遲疾歷未必能與各限之日率巧合而無零分",
+        "review_scope": "ORIGINAL_CONTINUATION_OF_DAILY_RATE_820_LIMIT_EXPLANATION"
+      }
+    ],
+    "all_page_atlas_scope": "128/128 raster pages indexed and hash-bound; only p90-92 manually read for the named passage, NOT whole-volume proof or exhaustive negative search"
+  },
+  "original_reading": {
+    "chapter": "推遲疾差法",
+    "opening_native_page": 90,
+    "operand_native_page": 91,
+    "daily_rate_explanation_native_page": 92,
+    "bounded_820_role": "LATER_MEI_SOURCE_PRINTED_DIVISOR_IN_迟疾差_STEP_WITH_去二子_POSITIONAL_OPERATION",
+    "original_position_language": "十分/單分/十秒/單秒 定子; 以八百二十分去二子為法除之; 依位加/內減",
+    "contrast_to_13XM": "13XM Tianjin Xing j45 p21 右置八百二十以遲行度而一 uses 820 as a numerator divided by 遲行度, a DIFFERENT scoped late-table operator, not proved mechanically equivalent",
+    "contrast_to_13VX": "13VX saw later received digital text only; new p90-92 positive native source raster confirms these later received words locally, but source physical edition and copying remain unbound",
+    "arithmetic_replay": "NONE_THIS_BATCH; no inferred G893 field, no fill of Xu-An glyph"
+  },
+  "boundaries": {
+    "original_xuan1599_j45_tableB_L132_last_二_or_三": "STILL_UNRESOLVED",
+    "early_G893_疾捷法_original_constructor": "STILL_UNRESOLVED",
+    "early_G893_少_微_radix_carry": "STILL_UNRESOLVED",
+    "cross_edition_field_and_unit_equivalence": "NOT_ESTABLISHED",
+    "historical_numeric_final_decisions": "0/6",
+    "g893_named_controls": "5/6",
+    "physical_copy_and_plate_votes_added": 0,
+    "new_registered_direct_scan_sources": 1,
+    "source_registry": "647_ROOT+149_EXTENSIONS=796_UNIQUE_IN_93_SHARDS",
+    "genealogy_nodes_added": 0,
+    "genealogy_edges_added": 0,
+    "matrix_row_changes": 0,
+    "chart_product": "CLOSED",
+    "algorithm_defects": 0,
+    "algorithm_reopens": 0,
+    "remaining_open_issues": 11,
+    "p0_issues": 5
+  },
+  "next_action": "Prioritize legally free independently bound Xu-An 1599 juan45 table-B L132 original glyph and an original early 疾-specific coefficient/radix/carry; Mei later image only supports a later operator and its place-value language, not a G893 historical winner.",
+  "transmission_impact": "NONE: later Mei source-specific native passage read, no new direct transmission edge or independently dated printing proven."
+}
