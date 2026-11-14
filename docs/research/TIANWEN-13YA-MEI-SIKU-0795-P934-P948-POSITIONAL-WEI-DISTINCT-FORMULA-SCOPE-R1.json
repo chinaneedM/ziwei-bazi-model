@@ -1,0 +1,76 @@
+{
+  "schema": "TIANWEN-13YA-MEI-SIKU-0795-P934-P948-POSITIONAL-WEI-DISTINCT-FORMULA-SCOPE-R1",
+  "date": "2026-11-14",
+  "issue_id": "TW-OPEN-0005",
+  "research_question": "Do additional page-bound later Mei/Siku received-text loci around 微 and 去子 demonstrate source-formula-dependent place labeling rather than supplying an early G893 少/微 conversion or a universal exponent?",
+  "source": {
+    "file_title": "文淵閣四庫全書 0795冊.djvu",
+    "file_description_url": "https://zh.wikisource.org/wiki/File:%E6%96%87%E6%B7%B5%E9%96%A3%E5%9B%9B%E5%BA%AB%E5%85%A8%E6%9B%B8_0795%E5%86%8A.djvu",
+    "digital_provider": "Wikimedia Commons / Chinese Wikisource",
+    "scan_family": "Later Siku-derived Mei received/facsimile corpus, NOT authenticated early Xu-An1599/1600 or G893 physical plate",
+    "status": "SAME_ALREADY_KNOWN_LATER_SOURCE_FAMILY_NO_NEW_REGISTRY_OR_PHYSICAL_VOTE"
+  },
+  "received_page_evidence": [
+    {
+      "page": "0795 digital page934",
+      "url": "https://zh.wikisource.org/wiki/Page:%E6%96%87%E6%B7%B5%E9%96%A3%E5%9B%9B%E5%BA%AB%E5%85%A8%E6%9B%B8_0795%E5%86%8A.djvu/934",
+      "page_status": "此页尚未校对",
+      "exact_source_page_bound_transcription_fragments": [
+        "一率　定限行度",
+        "二率　五百七十四分〈為十分八百二十而用其七〉",
+        "〈乃度下二位分故加定二子也立大元一〉",
+        "〈子单㣲之下者如一子於實之微下一位〉",
+        "〈也所以然者前所推數皆止于秒秒以下〉"
+      ],
+      "scope": "Different source-specific solar/lunar eclipse calculation with explicit positional-unit and discarded-below-second wording. The received text contains damaged/uncertain glyphs and is not a verified high-resolution original collation.",
+      "thumbnail_observation": "Wikimedia 1280-px p934 thumbnail rendered in web showing a rotated source page with an arithmetic diagram and vertical prose, but exact small-note glyphs were not independently certified from locally saved source-native pixels.",
+      "source_image_acquired": false,
+      "source_image_sha256": null
+    },
+    {
+      "page": "0795 digital page948",
+      "url": "https://zh.wikisource.org/wiki/Page:%E6%96%87%E6%B7%B5%E9%96%A3%E5%9B%9B%E5%BA%AB%E5%85%A8%E6%9B%B8_0795%E5%86%8A.djvu/948",
+      "page_status": "此页尚未校对",
+      "exact_source_page_bound_transcription_fragments": [
+        "得數又以所推定限行度〈去四子空度去三子〉為法除之〈不滿法去一子〉",
+        "〈所定有六子為百分五子為十分〉得為所推既内分也"
+      ],
+      "scope": "A distinct eclipse internal-phase calculation explicitly couples the 去子 instruction to a denominator, unit slots, and resulting fraction. It cannot be collapsed with the 0795 p922 九十六分 example or 0794 p561 820-rate locus without edition, units and full-number replay.",
+      "thumbnail_observation": "Direct p948 1280-px thumbnail retrieval timed out; received web text was visible.",
+      "source_image_acquired": false,
+      "source_image_sha256": null
+    }
+  ],
+  "comparison_with_prior": [
+    "13XW and 13XX previously acquired a different source-native Mei v21 p91 and distinguished large-line 去二 from small interlinear 子; those native bytes remain the higher-grade authority for THAT locus.",
+    "13XY and 13XZ already bound 0795 p922 received 九十六分, 去三子, 退二位 and a thumbnail-only route, without source-native image bytes.",
+    "13YA adds two different, formula-scoped received pages about 位/微/去子; does not retroactively adjudicate the p922 small annotation, the p91 source-native operator or any early original G893 unit."
+  ],
+  "interpretation": {
+    "positive": "Place-keeping terminology in these later received passages is formula- and column-context-dependent; the textual '子' is not independently an integer subtraction, and '微下一位' in a later example cannot by itself establish the G893 original 少/微 radix or carry.",
+    "not_proven": "Neither a universal power-of-ten shift nor a fixed 820−2/818 divisor, nor the identity of a '微' precision lane across Mei, Xing j45, Ming official tables and G893 has been established.",
+    "evidence_grade": "PAGE_SPECIFIC_UNPROOFREAD_RECEIVED_TEXT_WITH_ONE_RENDERED_THUMBNAIL; NO_SHA_BOUND_NATIVE_IMAGE_OR_TARGET_GLYPH",
+    "physical_witness_increment": 0
+  },
+  "bounded_status": {
+    "g893_named_controls": "5/6",
+    "g893_historical_numeric_finals": "0/6",
+    "xu_an1599_j45_b_l132_二_or_三": "UNRESOLVED",
+    "original_ji_jiefa_constructor": "UNRESOLVED",
+    "original_shao_wei_units_and_carry": "UNRESOLVED",
+    "sources_total": 796,
+    "registry_sources_added": 0,
+    "extension_shards": 93,
+    "matrix_rows": 222,
+    "matrix_audited": 222,
+    "genealogy_nodes": 254,
+    "genealogy_edges": 239,
+    "open_issues": 11,
+    "p0_open_issues": 5,
+    "product": "CLOSED",
+    "algorithm_defects": 0,
+    "algorithm_reopens": 0
+  },
+  "next_action": "Prioritize a lawfully accessible authenticated independent Xu-An1599/1600 j45 B-L132 original leaf and native early 疾/少微 instructions, with original bytes and SHA/page/print copy binding; use later Mei page934/p948 only as scoped received controls if the underlying DjVu/source images become obtainable.",
+  "transmission_impact": "NONE; same later Siku-derived Mei text family, no newly authenticated physical witness, original G893 numeric field or lineage edge."
+}
