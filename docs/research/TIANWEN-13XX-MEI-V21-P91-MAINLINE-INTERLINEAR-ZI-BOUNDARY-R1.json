@@ -1,0 +1,62 @@
+{
+  "schema": "TIANWEN-13XX-MEI-V21-P91-MAINLINE-INTERLINEAR-ZI-BOUNDARY-R1",
+  "date": "2026-11-14",
+  "issue_id": "TW-OPEN-0005",
+  "classification": "FORWARD_ONLY_SOURCE_TYPOGRAPHY_SCOPE_PRECISION_NOT_NEW_WITNESS_OR_ALGORITHM",
+  "question": "Does the earlier 13XW flat quotation 去二子 preserve the typographic distinction between the large-line text and the adjacent small interlinear 子 on original Mei Lizuan v21 p91?",
+  "source_binding": {
+    "previous_evidence": "docs/research/TIANWEN-13XW-MEI-LISUAN-V21-DIRECT-SOURCE-ORIGINAL-JICHIFA-820-POSITION-R1.json",
+    "provider": "Wikimedia Commons / CADAL06052453 later Qing Siku received Mei source",
+    "original_source_url": "https://upload.wikimedia.org/wikipedia/commons/7/77/CADAL06052453_%E6%AD%B7%E7%AE%97%E5%85%A8%E6%9B%B8%C2%B7%E5%8D%B7%E4%BA%8C%E5%8D%81%E4%B8%80.djvu",
+    "source_djvu_sha256": "15fca241d278c6183e9de3a2bb0e99e10e09873c71039613b2980508ce7fb27a",
+    "source_djvu_bytes": 4160868,
+    "retrieval_mode": "Reopened exact 13XW original research artifact 14093945653, verified archive SHA256 and source.djvu SHA256. Full page-091 derived JPEG SHA256 matches immutable acquisition metadata; manually inspected p90-p92 without OCR.",
+    "workflow_run_id": 43544862219,
+    "artifact_id": 14093945653,
+    "artifact_zip_sha256": "dde3ff740dcd137f323fbb58e666109b4a59c5f3d1b3c3284d4d7ab26377a664",
+    "page_number": 91,
+    "prior_native_rgb_sha256": "e7ada8cda47779d1c6b057990c10b2f3d4a2b657a5ed55a37527a9470e8737dc",
+    "prior_native_rgb_digest_status": "REPLAYED_FROM_IMMUTABLE_13XW_METADATA_NOT_REDECODED_IN_THIS_REVIEW",
+    "derived_page_jpeg_sha256": "694e62b5bd633cce82151b89d1c6af610e6d3b32b3707c9ee28eac2d649db2b5",
+    "derived_page_jpeg_roi_px": [
+      960,
+      300,
+      1950,
+      2670
+    ],
+    "derived_page_jpeg_roi_rgb_sha256": "778f072274cea12e4f20d8fa046aa6336ff42e958f1906bb14c9a8096a6e0318",
+    "roi_source_kind": "CROP_OF_VERIFIED_ARCHIVED_DJVU_DERIVED_JPEG_NOT_NATIVE_COMPRESSED_STREAM",
+    "no_public_republication_of_original_pixels": true
+  },
+  "direct_visual_observation": {
+    "primary_large_glyph_sequence_bounded": "得數又為實以八百二十分去二為法除之",
+    "adjacent_small_type_after_去二": "子",
+    "source_layout": "The 子 is printed at a distinctly smaller annotation size next to 去二, while the neighboring vertical small-type place-value notes include 十分定五子, 單分定四子, 十秒定三子 and 單秒定二子. These are physical typesetting observations, not a mechanical reconstruction.",
+    "forward_only_13xw_quote_handling": "The prior 13XW flattened quotation 以八百二十分去二子為法除之 is preserved as that historical record; the present note explicitly separates its main-line glyphs and smaller adjacent 字子 instead of silently rewriting the old reading.",
+    "unsupported_literal_parse": "The visually observed typography does NOT prove the arithmetic operation 820 minus the integer 2, an 818 divisor, or any rule about deleting two decimal places. Position/radix implications require independently replayable source-specific analysis.",
+    "other_context": "p90 introduces source-local 遲疾差法 and p92 continues the 820-per-limit rate. The operator remains LATER Mei/Siku source-specific, and distinct from early Xing juan45 '置八百二十以遲行度而一' and any G893 same-field calculation."
+  },
+  "boundaries": {
+    "different_physical_copy_added": 0,
+    "new_source_registry_entries": 0,
+    "source_total": 796,
+    "root_source_count": 647,
+    "extension_source_count": 149,
+    "source_shards": 93,
+    "graph_nodes": 254,
+    "graph_edges": 239,
+    "matrix_rows": 222,
+    "audited_rows": 222,
+    "xu_an1599_j45_table_b_l132_二三": "UNRESOLVED",
+    "early_疾捷法_constructor": "UNRESOLVED",
+    "early_少微_radix_carry": "UNRESOLVED",
+    "g893_named_controls": "5/6",
+    "g893_historical_numeric_finals": "0/6",
+    "issue_status": "P0_OPEN",
+    "deterministic_chart_product": "CLOSED",
+    "algorithm_reopens": 0,
+    "algorithm_defects": 0
+  },
+  "next_action": "Prioritize independently authenticated early Xu-An juan45 table-B L132 original and early original 疾/少微 rules, without interpreting later Mei 820/去二子 as 820−2 or transferring it to G893.",
+  "transmission_impact": "NONE; same previously registered CADAL digital object and textual layout, no independent edition/plate or genealogical edge."
+}
