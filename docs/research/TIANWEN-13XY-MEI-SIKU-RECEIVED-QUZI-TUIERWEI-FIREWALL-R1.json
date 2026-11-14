@@ -1,0 +1,74 @@
+{
+  "schema": "TIANWEN-13XY-MEI-SIKU-RECEIVED-QUZI-TUIERWEI-FIREWALL-R1",
+  "date": "2026-11-14",
+  "issue_id": "TW-OPEN-0005",
+  "classification": "PAGE_BOUND_UNPROOFREAD_WIKISOURCE_RECEIVED_POSITIONAL_PARALLELS_NOT_NATIVE_ORIGINAL_IMAGE",
+  "research_question": "Does another source-scoped Mei received textual locus explicitly qualify 去三子 and 退二位, and what limited bearing may it have on 13XX's source-native interlinear 子 at v21 p91?",
+  "evidence_grade": "DIGITAL_PAGE_SPECIFIC_UNPROOFREAD_TRANSCRIPTION_ONLY; NO_NEW_ORIGINAL_GLYPH_OR_PHYISCAL_BOOK_VOTE",
+  "received_page_links": [
+    {
+      "url": "https://zh.wikisource.org/wiki/Page:%E6%96%87%E6%B7%B5%E9%96%A3%E5%9B%9B%E5%BA%AB%E5%85%A8%E6%9B%B8_0794%E5%86%8A.djvu/561",
+      "page": "文淵閣四庫全書0794冊 digital p561",
+      "observed_transcription_fragments": [
+        "以八百二十分",
+        "去二子",
+        "不滿法又去一子"
+      ],
+      "page_unproofread": true,
+      "original_image_retrieved": false
+    },
+    {
+      "url": "https://zh.wikisource.org/wiki/Page:%E6%96%87%E6%B7%B5%E9%96%A3%E5%9B%9B%E5%BA%AB%E5%85%A8%E6%9B%B8_0794%E5%86%8A.djvu/584",
+      "page": "文淵閣四庫全書0794冊 digital p584",
+      "observed_transcription_fragments": [
+        "去三子",
+        "不滿法去一子",
+        "去二子"
+      ],
+      "page_unproofread": true,
+      "original_image_retrieved": false
+    },
+    {
+      "url": "https://zh.wikisource.org/wiki/Page:%E6%96%87%E6%B7%B5%E9%96%A3%E5%9B%9B%E5%BA%AB%E5%85%A8%E6%9B%B8_0795%E5%86%8A.djvu/922",
+      "page": "文淵閣四庫全書0795冊 digital p922",
+      "observed_transcription_fragments": [
+        "九十六分",
+        "去三子",
+        "去三子者經所謂退二位也"
+      ],
+      "page_unproofread": true,
+      "original_image_retrieved": false
+    }
+  ],
+  "source_scoped_reading": {
+    "relation_to_13xx": "13XX verified a small interlinear 子 beside mainline 去二 using SHA-bound CADAL06052453 source-native p91; new Wiki Page text independently transcribes that as bracketed annotation 去二子, with another received notation linking 去三子 to 退二位.",
+    "conservative_interpretation": "The received-text context strongly flags 子 as notation of positional settings rather than an integer subtraction from 820. The one explicitly glossed '去三子...退二位' passage is source- and formula-specific and may not be algebraically transferred to v21 p91 without an original page and full numerical replay.",
+    "no_operator_818": "A mathematical 820 minus 2 / 818 divisor is unsupported by either the original 13XX glyph or current page-bound transcription.",
+    "source_family_independence": "0794/0795 pages of a later Siku-based received compilation are contextual passages, NOT new independent Ming Xu-An physical witnesses nor proof of independent Siku printings. Related Page text and its document edition cannot be counted as G893 original field votes."
+  },
+  "access_and_verification": {
+    "text_read": "Wikisource Page HTML accessible anonymously; each target page explicitly marked 此页尚未校对.",
+    "direct_image_attempt": "Page thumbnails from thumb.wikimedia.org timed out in web retrieval; a smaller thumbnail URL could not be obtained through the available downloader. No full DjVu/image bytes acquired for these three digital Page objects.",
+    "original_pixel_digest": null,
+    "authenticated_print_impression": null,
+    "offline_image_recheck": false,
+    "previous_native_scan": "docs/research/TIANWEN-13XX-MEI-V21-P91-MAINLINE-INTERLINEAR-ZI-BOUNDARY-R1.json"
+  },
+  "boundaries": {
+    "early_xu_an1599_table_b_l132_glyph": "UNRESOLVED",
+    "native_early_ji_rapid_constructor": "UNRESOLVED",
+    "early_shao_wei_radix_carry": "UNRESOLVED",
+    "g893_named_controls": "5/6",
+    "g893_historical_numeric_finals": "0/6",
+    "registry_sources_added": 0,
+    "combined_source_count": 796,
+    "matrix_changes": 0,
+    "graph_nodes_added": 0,
+    "graph_edges_added": 0,
+    "issue_status": "P0_OPEN",
+    "deterministic_chart_product": "CLOSED",
+    "algorithm_reopens": 0
+  },
+  "next_action": "If useful for source-specific historical place-value collation, independently retrieve and SHA-bind the original 0795 p922 image and check the bracket/line geometry, then replay the actual source operator before assigning positional arithmetic. Higher priority remains independently authenticated Xu-An 1599 juan45 B-L132 and early G893 疾/少微 original. No login, fees, duplicate institutional correspondence or early numeric inference.",
+  "transmission_impact": "NONE; page-bound later received transcriptions only, no authentic early plate, independent physical witness, historic numeric vote or lineage edge."
+}
