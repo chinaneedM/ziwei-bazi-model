@@ -1,0 +1,89 @@
+{
+  "schema": "TIANWEN-13YH-NLC511-1936-J45-L130-L132-CONDITIONAL-RECIPROCAL-R1",
+  "date": "2026-11-15",
+  "issue_id": "TW-OPEN-0005",
+  "classification": "LATER_1936_TYPESET_TABLE_BOUNDED_PAGE_SCREEN_AND_CONDITIONAL_ARITHMETIC_NO_EARLY_ORIGINAL_PROOF",
+  "question": "Does the 1936 modern typeset L130-L132 Ji-side coefficient sequence support an explicitly conditional truncation test, and does this alter early Xu-An/G893 original status?",
+  "primary_rendered_source": {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/1/18/NLC511-023031404025843-33789_%E5%8F%A4%E4%BB%8A%E5%BE%8B%E6%AD%B7%E8%80%83_%E5%85%AB.pdf",
+    "identity": "NLC511-023031404025843-33789, 商務印書館 民國25(1936), volume VIII",
+    "pdf_page_one_based": 79,
+    "pdf_page_zero_based": 78,
+    "printed_page": "七八一 (781)",
+    "section": "古今律歷考卷四十五 第二表 一百三十至一百三十二限",
+    "review_mode": "DIRECT_VISUAL_BROWSER_PDF_PAGE_SCREEN; NO OCR; NO PDF BYTES OR SHA",
+    "original_pdf_bytes_acquired": false,
+    "original_pdf_sha256": null,
+    "source_native_micro_crop_sha256": null
+  },
+  "bounded_visual_rows": [
+    {
+      "limit": 130,
+      "printed_speed": "疾一度〇二〇〇",
+      "printed_coefficient": "八微〇三九二一",
+      "conditional_rate_integer": "10200",
+      "conditional_normalized_coefficient": "8.03921",
+      "exact_test_fraction": "82000/10200",
+      "quotient": "8.039215686274509803921568627450980392157",
+      "floor_five": "8.03921",
+      "half_up_five": "8.03922",
+      "discriminator": "FLOOR5_MATCHES_WHILE_HALF_UP5_DIFFERS_UNDER_ASSUMED_SCALE"
+    },
+    {
+      "limit": 131,
+      "printed_speed": "疾一度〇一八七",
+      "printed_coefficient": "八微〇四九四七",
+      "conditional_rate_integer": "10187",
+      "conditional_normalized_coefficient": "8.04947",
+      "exact_test_fraction": "82000/10187",
+      "quotient": "8.049474820850103072543437714734465495239",
+      "floor_five": "8.04947",
+      "half_up_five": "8.04947",
+      "discriminator": "BOTH_MATCH_UNDER_ASSUMED_SCALE"
+    },
+    {
+      "limit": 132,
+      "printed_speed": "疾一度〇一七四",
+      "printed_coefficient": "八微〇五九七六",
+      "conditional_rate_integer": "10174",
+      "conditional_normalized_coefficient": "8.05976",
+      "exact_test_fraction": "82000/10174",
+      "quotient": "8.059760172989974444662866129349321800668",
+      "floor_five": "8.05976",
+      "half_up_five": "8.05976",
+      "discriminator": "BOTH_MATCH_UNDER_ASSUMED_SCALE"
+    }
+  ],
+  "assumptions": [
+    "Temporary normalized notation treats 微 as a decimal separator and displayed degree rates as integer/10000; this is a MODEL for testing, not a proven historical radix or scaling contract.",
+    "A numerator of 82000 is imposed solely for this numeric check, not independently authenticated as Xu-An's original Ji constructor.",
+    "Browser PDF image pixels were directly viewed at a bounded size; exact provider PDF bytes, native pixel-level last-place and full row/column source binding were NOT reacquired.",
+    "The 1936 printed book is a later typeset textual branch, with a reported Jifu Congshu base; it is NOT an independently authenticated 1599/1600 Xu-An printing or G893 direct original.",
+    "Three consecutive compatible rows do not prove a global operator, quantizer, historical unit, copy lineage or error cause.",
+    "The L130 conditional difference rules out HALF_UP5 solely for those displayed inputs under the explicit normalization; it does not prove historical universal FLOOR5."
+  ],
+  "prior_research": [
+    "docs/research/TIANWEN-13YB-NLC511-1936-XING-J45-L132-LATE-TYPESET-PAGE-BOUNDARY-R1.json",
+    "docs/research/TIANWEN-13YC-1936-XING-CONGSHU-JIFU-BASE-RECENSION-BIBLIOGRAPHIC-BRIDGE-R1.json",
+    "docs/research/TIANWEN-13TR-XING-ORIGINAL-TWO-FIELD-PREFIX-AND-CONDITIONAL-RECIPROCAL-REPLAY-R1.json"
+  ],
+  "outcome": {
+    "verified_new_primary_early_original": 0,
+    "new_physical_witness": 0,
+    "source_registry_added": 0,
+    "genealogy_nodes_added": 0,
+    "genealogy_edges_added": 0,
+    "new_historic_g893_final_numeric_awards": 0,
+    "conditional_later_three_row_replay": "3/3 FLOOR5; 2/3 HALF_UP5",
+    "g893_named": "5/6",
+    "g893_historic_finals": "0/6",
+    "matrix": "222/222",
+    "source_union": 796,
+    "genealogy": "254/239",
+    "issues": 11,
+    "p0": 5,
+    "deterministic_core": "CLOSED",
+    "algorithm_defects": 0
+  },
+  "next_action": "Seek first-party, lawful, free anonymous full-resolution independently authenticated Xu-An 1599/1600 juan45 B-L132 original and printed native 疾捷法 / 少微 units. No Ming/G893 historic glyph promotion from 1936 typesetting or assumed 82000/r; no payment, login, account, fee or speculative lineage."
+}
