@@ -1,0 +1,79 @@
+{
+  "schema": "TIANWEN-13YC-1936-XING-CONGSHU-JIFU-BASE-RECENSION-BIBLIOGRAPHIC-BRIDGE-R1",
+  "date": "2026-11-15",
+  "issue_id": "TW-OPEN-0005",
+  "question": "What printed series and declared base are evidenced for the 1936 Shanghai Commercial Press modern typeset of Xing Yunlu Gujin Lülikao?",
+  "prior_evidence": "13YB NLC511-023031404025843-33789 volume 八 (1936) source-web PDF 83pp p79 original browser rendering has juan45 second-table L132, with no archived native PDF SHA.",
+  "directly_reviewed_1936_browser": {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/1/18/NLC511-023031404025843-33789_%E5%8F%A4%E4%BB%8A%E5%BE%8B%E6%AD%B7%E8%80%83_%E5%85%AB.pdf",
+    "pages_zero_based": [
+      0,
+      1,
+      2,
+      78
+    ],
+    "visible": "八 cover, 邢雲路輯 title, beginning 卷四十三 printed p705, previously page78 target 卷四十五 B L132",
+    "source_original_bytes_acquired": false,
+    "source_pdf_sha256": null,
+    "exact_1936_colophon_and_used_qing_physical_copy": "UNVERIFIED"
+  },
+  "independent_scholarly_bibliography": {
+    "source": "滿田剛〈環濟『呉紀』輯本〉, PDF p5 printed page132",
+    "url": "https://www.totetu.org/assets/media/paper/k029_106.pdf",
+    "observed": "明・邢雲路［撰］『古今律歷考』（上海商務印書館『叢書集成初編』1311〜1323 1936年）",
+    "support": "modern_work_to_1936_series_bibliographic_identity_only"
+  },
+  "corroborating_independent_scholarly_citation": {
+    "url": "https://thjcs.site.nthu.edu.tw/var/file/452/1452/img/4635/517132208.pdf",
+    "observed": "For volume 六, the cited volume is 《叢書集成初編》第1316冊 (上海商務印書館, 1936), consistent with volume-to-series numbering",
+    "support": "independent_secondary_bibliography_not_original_source_photograph"
+  },
+  "source_basis_series_catalog": {
+    "url": "https://zh.wikisource.org/wiki/Portal:%E5%8F%A2%E6%9B%B8%E9%9B%86%E6%88%90/%E5%88%9D%E7%B7%A8",
+    "received_entry": "1311–1323 古今律歷考七十二卷 邢雲路撰 據畿輔叢書本排印",
+    "grade": "LATER_RECEIVED_SERIES_CATALOG_CLAIM",
+    "interpretation": "Bibliography attributes a Qing Jifu Congshu base to the 1936 series typesetting; it does not bind the actual Qing physical source, printing plate or a particular Xu-An Ming original."
+  },
+  "related_prior_qing_holding": {
+    "repository_evidence": "docs/research/TIANWEN-13VH-JIFUCONGSHU-QING-JUAN45-BIBLIOGRAPHIC-AND-ACCESS-BOUNDARY-R1.json",
+    "scope": "Tokyo and Tsukuba university catalogs separately list Guangxu-era Jifu Congshu juan42–45 and juan45–50, not a demonstrated exact source exemplar used by the 1936 typesetter."
+  },
+  "false_early_date_guard": {
+    "bibliographic_lead": "Large 《中國古籍善本書目·子部2》 PDF web extraction has 張崇禎/王國楨 万曆二十六年, in tension with another 1608 張崇禮/王國楨 catalog record and existing official 13VT Wuxi 1608 list.",
+    "original_1994_catalog_row_source_native_visual_check": "NOT_COMPLETED",
+    "inference": "Do not register a supposedly independent 1598 original print from this unverified extracted line; keep the bibliographic conflict a locator only.",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/f/f1/SSID-13990656_%E4%B8%AD%E5%9B%BD%E5%8F%A4%E7%B1%8D%E5%96%84%E6%9C%AC%E4%B9%A6%E7%9B%AE_%E5%AD%90%E9%83%A8_2.pdf",
+    "prior_control": "docs/research/TIANWEN-13VT-JIANGSU-YANGZHOU1599-WUXI1608-PROVINCIAL-HOLDINGS-SCOPE-R1.json"
+  },
+  "adjudication": {
+    "positive": "Modern printed-series identity and its series catalog's named Qing textual base are now bounded bibliographically.",
+    "unresolved": [
+      "Actual 1936 volume VIII printer working exemplar",
+      "Which Qing Jifu edition/copy",
+      "Any direct plate or text dependence on a 1599/1600 Xu-An original",
+      "Xu-An second-table B L132 二 or 三",
+      "Original 疾捷法 construction",
+      "Original 少/微 radix and carry"
+    ],
+    "historical_numerical_winners_added": 0,
+    "source_registry_entries_added": 0,
+    "genealogy_edges_added": 0,
+    "matrix_changes": 0,
+    "algorithm_changes": 0,
+    "no_new_early_physical_original": true
+  },
+  "project_gate": "TW-OPEN-0005 P0 OPEN; G893 named5/6 finals0/6; Matrix222/222; external sources796 (647+149/93 shards); genealogy254 nodes/239 edges; open issues11 P0 five; deterministic product CLOSED algorithm defects0 reopen0.",
+  "next_action": "Prioritize independently authenticated early Xu-An1599/1600 original juan45 B-L132 native glyph with SHA and physical impression/copy identification; modern 1936 series cannot substitute. No fees, login, repeat mail, or numerical back-solving.",
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "A specific Qing Jifu original physical copy or 1599 Xu-An plate -> the 1936 modern typeset remains unproved"
+    ],
+    "unresolved_lineage_questions": [
+      "What exact Qing Jifu edition and physical copy did 1936 printers use?",
+      "What source-original Ming text, if any, was behind that Qing recension?"
+    ]
+  }
+}
