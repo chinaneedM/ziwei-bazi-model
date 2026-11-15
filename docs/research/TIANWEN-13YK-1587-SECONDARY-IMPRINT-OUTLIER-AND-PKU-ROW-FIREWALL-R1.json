@@ -1,0 +1,87 @@
+{
+  "schema": "TIANWEN-13YK-1587-SECONDARY-IMPRINT-OUTLIER-AND-PKU-ROW-FIREWALL-R1",
+  "date": "2026-11-15",
+  "issue_id": "TW-OPEN-0005",
+  "classification": "SECONDARY_1587_FULLBOOK_EDITION_ASSERTION_WITHOUT_HOLDING_OR_NATIVE_TARGET_FOLIO",
+  "question": "Can two online catalog records calling 古今律曆考七十二卷 a Wanli 15 (1587) print establish a pre-Xu-An original for juan45 L132 or a separate early textual recension?",
+  "newly_observed_secondary_claims": [
+    {
+      "url": "https://www.guoxuedashi.com/shumu/gj-186334n.html",
+      "quoted_catalog_metadata": "古今律曆考七十二卷；明邢雲路撰；明萬曆十五年刻本",
+      "grade": "SECONDARY_REPRODUCED_CATALOG_METADATA_ONLY",
+      "catalog_holding": null,
+      "source_native_leaf": null
+    },
+    {
+      "url": "https://www.guoxuedashi.com/shumu/gj-487396a.html",
+      "quoted_catalog_metadata": "古今律历考；明邢云路撰；明万历十五年刻本；七十二卷",
+      "grade": "SECONDARY_REPRODUCED_CATALOG_METADATA_ONLY",
+      "catalog_holding": null,
+      "source_native_leaf": null
+    }
+  ],
+  "dedup_and_boundary": {
+    "two_site_records": "SAME_SECONDARY_HOST; NOT TWO INDEPENDENT PHYSICAL WITNESSES",
+    "pku_public_catalog": "https://commons.wikimedia.org/wiki/File:SSID-12955927_%E5%9C%8B%E7%AB%8B%E5%8C%97%E4%BA%AC%E5%A4%A7%E5%AD%B8%E5%9C%96%E6%9B%B8%E9%A4%A8%E5%96%84%E6%9C%AC%E6%9B%B8%E7%9B%AE_1.pdf",
+    "pku_catalog_bound": "PUBLIC 138-PAGE SCAN AND WEB-EXTRACTED VERTICAL-COLUMN PREVIEW SHOW TITLE 古今律曆考七十二卷 AND NEARBY WANLI YEAR STRINGS, BUT THE NATIVE ITEM-COLUMN-TO-YEAR ASSOCIATION WAS NOT VISUALLY CERTIFIED; CANNOT ATTRIBUTE WANLI 15 TO THIS TITLE",
+    "pku_other_secondary_item": "https://www.guoxuedashi.com/shumu/gj-2937690it.html",
+    "pku_other_item_scope": "A separate secondary record names 北京大學圖書館, 28冊/2函, 明萬曆間陝西刻本; no shared shelfmark or plate binds it to either 1587 entry",
+    "pku_original_pdf_native_bytes_sha256": null,
+    "earliest_imprint_assertion_status": "UNVERIFIED_SECONDARY_CATALOG_OUTLIER_NOT_A_VERIFIED_1587_EDITION",
+    "date_semantics": "An alleged publication year is not a verified edition/impression or physical copy date; Wanli 15 is 1587 by calendar only, not authenticated to a copy"
+  },
+  "independent_stronger_comparison": [
+    {
+      "url": "https://rbook.ncl.edu.tw/NCLSearch/Search/SearchDetail?HasImage=&SourceID=1&item=b150777dc6f64192a13df8409e0ff3fcfDcyNTAx0.VqTuk2tSZyF_yFRuzT2MJrnh3LoXzIYbAW6O1JjTMCU_&page=",
+      "claim": "NCL first-party 06270 explicitly catalogs Xu-An Ming Wanli Gengzi 1600, 72 juan / 40 fascicles",
+      "evidence_grade": "FIRST_PARTY_CATALOG_NOT_TARGET_ORIGINAL_FOLIO"
+    },
+    {
+      "url": "https://hanjihebi.sdu.edu.cn/info/1068/1258.htm",
+      "claim": "Shandong University publisher-project list identifies a NLC-held Xu-An Wanli 27 / 1599 facsimile base; separate institutional bibliographic assertion",
+      "evidence_grade": "PUBLISHER_BIBLIOGRAPHIC_SCOPE_NOT_NEW_ORIGINAL_LEAF"
+    },
+    {
+      "url": "https://www.guoxuedashi.com/shumu/gj-2937690it.html",
+      "claim": "Secondary PKU 28-fascicle Ming-Wanli-range record cannot be deduplicated with 1587 or 1600 without item binding",
+      "evidence_grade": "SECONDARY_METADATA"
+    }
+  ],
+  "adjudication": {
+    "authenticated_1587_impression": false,
+    "authenticated_1587_physical_copy": false,
+    "authenticated_new_early_original": false,
+    "independent_juan45_l132_glyph": false,
+    "later_edition_recension_chain": false,
+    "disease_jiefa_native_constructor": false,
+    "shao_wei_original_radix_and_carry": false,
+    "g893_source_specific_numeric_historical_final": "0/6",
+    "g893_named_source_locators": "5/6",
+    "replayable_target_glyph": "NONE_NEW",
+    "classification": "QUARANTINE_AS_UNVERIFIED_PRE-1599_BIBLIOGRAPHIC_CLAIM_NO_VOTE",
+    "not_a_universal_negative": "No inference that all 1587 copies are nonexistent: original item, collation, title-to-date alignment and image access remain untested",
+    "mathematical_model_not_edition_proof": true
+  },
+  "transmission_impact": {
+    "new_nodes": [],
+    "new_edges": [],
+    "revised_edges": [],
+    "rejected_edges": [],
+    "remaining_questions": [
+      "Whether any item-specific first-party historical catalog or surviving imprint actually supports Wanli 15",
+      "Whether a distinguishable 1587 printed physical copy has full juan45 and native L132"
+    ]
+  },
+  "state_unchanged": {
+    "matrix": "222/222",
+    "external_source_union": 796,
+    "source_registry_shards": 93,
+    "graph": "254/239",
+    "open_issues": 11,
+    "p0_issues": 5,
+    "product": "CLOSED",
+    "algorithm_defects": 0,
+    "algorithm_reopens": 0
+  },
+  "next_action": "Only revisit alleged 1587 branch if an item-bound first-party catalog or inspectable source-original with juan45/colophon/folio is found. Prioritize independent Xu-An 1599/1600 physical j45 B L132 二/三 and first-party G893 疾捷法 / 少微 source-native operands; no payment, login, or repeat generic mail."
+}
