@@ -12,9 +12,9 @@
   "binding": {
     "repository": "chinaneedM/ziwei-bazi-model",
     "branch": "agent/fusion-chart-core-r1-20260822",
-    "reviewed_state_version": "1.1281.0",
-    "source_focus_count": 3001,
-    "latest_research_focus_prefix": "13YO"
+    "reviewed_state_version": "1.1282.0",
+    "source_focus_count": 3002,
+    "latest_research_focus_prefix": "13YP"
   },
   "coverage_axes": [
     "primary_editions_and_physical_copies",
@@ -39,7 +39,8 @@
         "docs/research/MING-DATONG-YEHUOBIAN-12XC-TOKYO-ITEM-SPECIFIC-REPRODUCTION-DOSSIER-R1.json",
         "docs/research/MING-DATONG-YEHUOBIAN-12XE-TOKYO-PRINTED-COPY-CONSERVATION-R1.json",
         "docs/research/MING-DATONG-YEHUOBIAN-12XG-STRICT-ORIGINAL-FOLIO-TECHNICAL-INTAKE-R1.json",
-        "docs/research/TIANWEN-12ZQ-SOURCE-REGISTRY-COUNT-GROWTH-CI-RECOVERY-R1.md"
+        "docs/research/TIANWEN-12ZQ-SOURCE-REGISTRY-COUNT-GROWTH-CI-RECOVERY-R1.md",
+        "docs/research/TIANWEN-13YP-TOKYO-1827-YUARAN-GU20-SEPARATE-COPY-ACCESS-BOUNDARY-R1.json"
       ],
       "evidence_boundary": "东京大学原生详目 9927；CiNii NCID BC0492354X，物品号6403767830。目录属于书目层，尚未取得原叶。",
       "missing_evidence": "可绑定具体实物/原叶号的馆方影像及四处异文原字、复制许可。",
@@ -74,6 +75,17 @@
           "reason": "12ZP new NIKH sources legitimately grew registry to 710; older historic research validators erroneously compared frozen 706 to current count. Preserve archived values; fix current-vs-snapshot checks only.",
           "evidence_refs": [
             "docs/research/TIANWEN-12ZQ-SOURCE-REGISTRY-COUNT-GROWTH-CI-RECOVERY-R1.md"
+          ]
+        },
+        {
+          "event": "ADDITIONAL_SAME_EDITION_COPY_CATALOGUE_AND_ACCESS_BOUNDARY",
+          "date": "2026-11-15",
+          "added_source_refs": [
+            "docs/research/TIANWEN-13YP-TOKYO-1827-YUARAN-GU20-SEPARATE-COPY-ACCESS-BOUNDARY-R1.json"
+          ],
+          "reason": "A separate Tokyo 1827 holding BC08398372 item6411758714 is bibliographically identified; original target is unavailable and missing卷19 leaves cannot close卷20. Preserve original Omoki P0 status and the absence of original-glyph evidence.",
+          "evidence_refs": [
+            "docs/research/TIANWEN-13YP-TOKYO-1827-YUARAN-GU20-SEPARATE-COPY-ACCESS-BOUNDARY-R1.json"
           ]
         }
       ]
@@ -28512,6 +28524,29 @@
       "result": "Reconciled existing 13RW Waseda17 full PDF acquisition as prior source identity and clarified 13YM/13YN failed session acquisition; no native target glyph, source count, Matrix, graph, algorithm, fee, login, issue status or G893 decision change",
       "evidence_refs": [
         "docs/research/TIANWEN-13YO-WASEDA-F17-PRIOR-NATIVE-SHA-AND-13YN-SESSION-BOUNDARY-R1.json"
+      ]
+    },
+    {
+      "id": "OMISSIONS-13YP-TOKYO-YUARAN1827-GU20-PHYSICAL-COPY-ACCESS-20261115",
+      "date": "2026-11-15",
+      "state_version": "1.1282.0",
+      "reviewed_issue_ids": [
+        "TW-OPEN-0001",
+        "TW-OPEN-0002",
+        "TW-OPEN-0003",
+        "TW-OPEN-0004",
+        "TW-OPEN-0005",
+        "TW-OPEN-0006",
+        "TW-OPEN-0007",
+        "TW-OPEN-0008",
+        "TW-OPEN-0009",
+        "TW-OPEN-0010",
+        "TW-OPEN-0011"
+      ],
+      "discovery_mode": "Refreshed exact GitHub HEAD/tree and 285/285 exact-head successful Actions, current continuity/state, original ledger and source/graph boundaries. Opened CiNii BC08398372 official holding-level record; separately bounded Commons NCL02260/2 35-page PDF screenshots at p0,p17,p34. No native 1827 target image or download was obtained.",
+      "result": "Registered a separately catalogued 1827 same-edition physical holding with severe conservation/unavailable gate and卷19 lacuna, without adding original source vote, issuing payment or changing P0 statuses, historical algorithms or source counts.",
+      "evidence_refs": [
+        "docs/research/TIANWEN-13YP-TOKYO-1827-YUARAN-GU20-SEPARATE-COPY-ACCESS-BOUNDARY-R1.json"
       ]
     }
   ],
