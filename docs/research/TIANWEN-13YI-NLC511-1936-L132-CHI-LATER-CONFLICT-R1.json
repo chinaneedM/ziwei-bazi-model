@@ -1,0 +1,75 @@
+{
+  "schema": "TIANWEN-13YI-NLC511-1936-L132-CHI-LATER-CONFLICT-R1",
+  "date": "2026-11-15",
+  "issue_id": "TW-OPEN-0005",
+  "classification": "BOUNDED_LATER_1936_PRINTED_CHI_FIELD_CONDITIONAL_RECIPROCAL_CONFLICT_NOT_MING_ORIGINAL",
+  "source": {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/1/18/NLC511-023031404025843-33789_%E5%8F%A4%E4%BB%8A%E5%BE%8B%E6%AD%B7%E8%80%83_%E5%85%AB.pdf",
+    "title": "1936 商務印書館《古今律歷考》卷45，第八冊",
+    "pdf_page_one_based": 79,
+    "printed_page": "七八一",
+    "method": "browser-visible PDF screenshot at 2026-11-15; no OCR or file bytes",
+    "pdf_sha256": null,
+    "source_native_roi_sha256": null
+  },
+  "bounded_printed_chi_rows": [
+    {
+      "limit": 131,
+      "rate": "遲一度一七三九",
+      "jiefa": "六微九八五二六",
+      "normalized_rate_integer": 11739,
+      "normalized_coefficient": "6.98526",
+      "conditional_floor5": "6.98526",
+      "match": true
+    },
+    {
+      "limit": 132,
+      "rate": "遲一度一七五三",
+      "jiefa": "六微九七七五三",
+      "normalized_rate_integer": 11753,
+      "normalized_coefficient": "6.97753",
+      "conditional_floor5": "6.97694",
+      "match": false
+    },
+    {
+      "limit": 133,
+      "rate": "遲一度一七六四",
+      "jiefa": "六微九七〇四一",
+      "normalized_rate_integer": 11764,
+      "normalized_coefficient": "6.97041",
+      "conditional_floor5": "6.97041",
+      "match": true
+    }
+  ],
+  "explicitly_conditional_test": {
+    "formula": "82000/rate_integer with 5-digit truncation",
+    "l132_if_rate_were_11752": "82000/11752=6.977535738..., truncates to 6.97753",
+    "normalized_model_not_historical_rule": true,
+    "original_glyph_inference_prohibited": true,
+    "reason": "A numeric fit is not a reading of damaged Ming printed 二/三 or a physical-copy/plate authentication."
+  },
+  "prior_original": "docs/research/TIANWEN-13VG-XUAN1599-L132-NATIVE-TERMINAL-GLYPH-RECOVERY-SCOPE-R1.json",
+  "prior_paired": "docs/research/TIANWEN-13UW-XUAN1599-L35-L132-PAIRED-COEFFICIENT-AND-NEIGHBOR-ORIGINAL-COLLATION-R1.json",
+  "prior_later": "docs/research/TIANWEN-13YH-NLC511-1936-J45-L130-L132-CONDITIONAL-RECIPROCAL-R1.json",
+  "limits": [
+    "Printed 1936 later edition is not authenticated early Xu-An original; compositor/base/copy relation unproved",
+    "Browser-visible bounded screenshot, native source PDF SHA and pixel-level crops unavailable",
+    "Nearby matches do not establish original 微 radix, 疾 coefficient rule, global rounding or typographic error cause",
+    "No new original witness, source registry count, graph relation, Matrix change or deterministic algorithm reopen"
+  ],
+  "outcome": {
+    "source_add": 0,
+    "ancient_original_add": 0,
+    "history_final_add": 0,
+    "g893_named": "5/6",
+    "g893_final": "0/6",
+    "tw_open_0005": "P0 OPEN",
+    "matrix": "222/222",
+    "source_union": 796,
+    "graph": "254/239",
+    "issues": 11,
+    "p0": 5,
+    "chart": "CLOSED",
+    "algorithm_defects": 0
+  }
+}
