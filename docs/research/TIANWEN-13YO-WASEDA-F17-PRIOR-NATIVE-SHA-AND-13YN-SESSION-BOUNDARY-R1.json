@@ -1,0 +1,65 @@
+{
+  "schema": "TIANWEN-13YO-WASEDA-F17-PRIOR-NATIVE-SHA-AND-13YN-SESSION-BOUNDARY-R1",
+  "date": "2026-11-15",
+  "issue_id": "TW-OPEN-0005",
+  "question": "Was the exact same Waseda 1833 manuscript fascicle17 PDF already source-native downloaded and SHA-bound in an earlier committed research batch, even though 13YM/13YN attempts failed locally?",
+  "source_work": "兼済堂纂刻梅勿菴先生暦算全書; fascicle17 曆學駢枝",
+  "source_type": "Waseda University 1833 handwritten copy reported after 1723 printed model; NOT a 1723 original printed object or a 1599/1600 Ming Xu-An copy",
+  "matched_exact_public_url": "https://upload.wikimedia.org/wikipedia/commons/7/78/WUL-ni05_01614_%E5%85%BC%E6%BF%9F%E5%A0%82%E7%BA%82%E5%88%BB%E6%A2%85%E5%8B%BF%E8%8F%B4%E5%85%88%E7%94%9F%E6%9B%86%E7%AE%97%E5%85%A8%E6%9B%B8_17.pdf",
+  "previous_recovered_original": {
+    "record": "docs/research/TIANWEN-13RW-MEI-PIANZHI-THREE-COPIES-QIAN-ORIGINAL-QUADRANTS-R1.json",
+    "original_file_id": "mei-waseda-17",
+    "acquired_in_run": 41964050948,
+    "github_job_id": 127036815382,
+    "run_date": "2026-11-05",
+    "workflow_result": "success",
+    "original_pdf_bytes": 28547380,
+    "original_pdf_sha1": "8cd051e791e9cb2769fd66ff271320ef5f0a97c6",
+    "original_pdf_sha256": "dfd78535d9ccbbfaf192d93afad1d80a6996f7f37aae99884bc3e8d9ace5171e",
+    "log_receipt": "GitHub job127036815382 logs independently return mei-waseda-17, bytes28547380 and exact df d785... SHA-256.",
+    "prior_research_archive_artifact_id": 13387285192,
+    "latest_artifact_list_observation": "Current fetch of run41964050948 artifacts returned an EMPTY list; this does not undo documented original download or prove permanently retrievable artifact",
+    "direct_820_glyph_page_collation_in_13rw": false,
+    "prior_13rw_positive_target": "Waseda fascicle18 source-original later 梅文鼎 seasonal quadrant glosses, NOT vol17 820/遲疾 target"
+  },
+  "newer_session_local_boundaries": {
+    "research_13ym": "docs/research/TIANWEN-13YM-WASEDA-1833-COPIED-MEI-JIEF-SOURCE-SCOPE-R1.json",
+    "research_13yn": "docs/research/TIANWEN-13YN-WASEDA-1833-F17-BROWSER-TEXT-LOCATOR-NONORIGINAL-GLYPH-R1.json",
+    "recorded_pdf_bytes": 28547380,
+    "browser_pdf_screenshot": "FAILED_SIZE_CAP",
+    "successful_new_pdf_download_this_session": false,
+    "new_pdf_sha256_acquired_in_13ym_or_13yn": false,
+    "interpretation": "Prior statements correctly describe THOSE sessions' inability to download and source-native read the target; they should not be generalized to say no copy of this URL was ever acquired or hashed in whole project"
+  },
+  "source_scope": "Exactly same filename, provider, volume17 and PDF byte length. Historical version witness count unchanged. Existing SHA is SOURCE-FILE level only; no source-native 820 target folio, image/ROI SHA, human original-glyph interpretation or original printing-plate/lineage attestation.",
+  "required_next_steps": [
+    "No repeated generic catalog searches or duplicate source-existence email",
+    "If Waseda17 native 820 operator is pursued, acquire verified SHA-matched source bytes, identify true PDF page / manuscript folio and perform native human glyph collation against already registered received text",
+    "Keep highest P0 effort on independently authenticated early Xu-An juan45 table-B L132 original and earliest original 疾捷法/少微 unit/carry evidence",
+    "No 1833 value imported to G893 original numeric awards"
+  ],
+  "unchanged": {
+    "g893_named": "5/6",
+    "g893_historical_finals": "0/6",
+    "tw_open_0005": "P0 OPEN",
+    "matrix": "222/222",
+    "source_count": 796,
+    "source_manifest": "647 root + 149 extension, 93/93 Git SHA checked",
+    "graph": "254 nodes / 239 edges",
+    "risks": 11,
+    "p0": 5,
+    "chart": "CLOSED",
+    "algorithm_defects": 0,
+    "algorithm_reopens": 0
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [],
+    "unresolved_lineage_questions": [
+      "Vol17 1833 operator's original native glyphs remain uncollated despite the prior source file download",
+      "Relationship between this 1833 scribal copy and 1723 printed exemplar remains catalog-reported, not original-glyph validated"
+    ]
+  }
+}
