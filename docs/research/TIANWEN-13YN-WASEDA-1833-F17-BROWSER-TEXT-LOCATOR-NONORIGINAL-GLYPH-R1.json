@@ -1,0 +1,89 @@
+{
+  "schema": "TIANWEN-13YN-WASEDA-1833-F17-BROWSER-TEXT-LOCATOR-NONORIGINAL-GLYPH-R1",
+  "date": "2026-11-15",
+  "issue_id": "TW-OPEN-0005",
+  "question": "Can the 1833 Waseda Mei manuscript fascicle17 search surface narrow an operator-bearing page without falsely upgrading web-generated text to direct original handwritten glyph?",
+  "prior_evidence": "docs/research/TIANWEN-13YM-WASEDA-1833-COPIED-MEI-JIEF-SOURCE-SCOPE-R1.json",
+  "source_item": {
+    "institution": "Waseda University Library",
+    "call_number": "ニ05 01614",
+    "physical_object": "細井脩写 天保4[1833]; 24 fascicles; reported copy of 雍正元年[1723] printed model, not that print itself",
+    "volume": "fascicle17, 暦學駢枝"
+  },
+  "public_pdf": {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/7/78/WUL-ni05_01614_%E5%85%BC%E6%BF%9F%E5%A0%82%E7%BA%82%E5%88%BB%E6%A2%85%E5%8B%BF%E8%8F%B4%E5%85%88%E7%94%9F%E6%9B%86%E7%AE%97%E5%85%A8%E6%9B%B8_17.pdf",
+    "web_content_lines": 2312,
+    "pdf_bytes_reported_by_screenshot_failure": 28547380,
+    "web_screenshot": "FAILED_HTTP_400_CONTENT_TOO_LARGE",
+    "container_download": "FAILED_UNAVAILABLE_NETWORK_OR_DOWNLOAD",
+    "downloaded_native_bytes": false,
+    "pdf_sha256": null,
+    "native_image_sha256": null,
+    "printed_leaf_or_pdf_page_index": null
+  },
+  "bounded_machine_surface": {
+    "grade": "BROWSER_GENERATED_UNVERIFIED_TRANSCRIPTION_AND_VISUAL_DESCRIPTION_NOT_ORIGINAL_GLYPH",
+    "exact_web_open": "https://upload.wikimedia.org/wikipedia/commons/7/78/WUL-ni05_01614_%E5%85%BC%E6%BF%9F%E5%A0%82%E7%BA%82%E5%88%BB%E6%A2%85%E5%8B%BF%E8%8F%B4%E5%85%88%E7%94%9F%E6%9B%86%E7%AE%97%E5%85%A8%E6%9B%B8_17.pdf",
+    "excerpt_areas": [
+      {
+        "web_display_line_range": "905-929",
+        "search_only_phrases": [
+          "遲疾積度分",
+          "去而二位",
+          "退位除之",
+          "授時"
+        ],
+        "caution": "Browser-generated characters/segments are garbled and not an exact original copy transcription"
+      },
+      {
+        "web_display_line_range": "931-942",
+        "search_only_phrases": [
+          "八百二十分",
+          "遲用遲行度",
+          "疾用疾行度",
+          "百分",
+          "千分"
+        ],
+        "caution": "Positive OCR-like phrase locator only; cannot reconstruct 820 operator ordering or source exact manuscript glyph"
+      }
+    ],
+    "web_find_behavior": "Find('遲疾') returns line region but Find('八百二十') no-match despite text emitted at line934: automated index is inconsistent and cannot be used as negative proof",
+    "manuscript_legend": "The handwritten page's shape and repeated machine text indicate machine reading instability; do not quote its purported arithmetic as a verified original."
+  },
+  "barriers": [
+    "Same physical 1833 manuscript as 13YM, not another independent print or source count",
+    "1833 manuscript can reflect an earlier printed model but is not proof that a digit/position is identical to that print",
+    "No native PDF bytes, original image SHA, verified physical page ordinal or human paleographic collation",
+    "Web-generated text may hallucinate, transpose and repeat numerals; no historical inference even when it appears to match Siku received text",
+    "No 徐安1599/1600 juan45 B L132 二/三 reading, no independently verified 疾捷法 construction or original 少微 radix/carry"
+  ],
+  "adjudication": {
+    "new_original_glyph_awards": 0,
+    "new_source_registration": 0,
+    "new_genealogy_nodes": 0,
+    "new_genealogy_edges": 0,
+    "new_g893_numeric_decisions": 0,
+    "g893_named_controls": "5/6",
+    "g893_final_numeric_controls": "0/6",
+    "issue": "TW-OPEN-0005 P0 OPEN",
+    "matrix": "222/222",
+    "source_registry": "796=647+149 in 93 sha-matched shards",
+    "graph": "254 nodes /239 edges",
+    "issues": 11,
+    "p0": 5,
+    "deterministic_product": "CLOSED",
+    "algorithm_defects": 0,
+    "algorithm_reopens": 0
+  },
+  "next_action": "Prefer independently authenticated early 徐安卷45 original with readable L132 and original 迟/疾 plus 少/微 units. Revisit Waseda only if free SHA-verifiable native PDF or original page image allows human source-native collation.",
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [],
+    "unresolved_lineage_questions": [
+      "Does the specific 1833 handwritten page reproduce exact older printed 820 and positional notation?",
+      "How is 1833 24-fascicle handwritten content related to distinct 1723/1749 32-fascicle printing?"
+    ]
+  }
+}
