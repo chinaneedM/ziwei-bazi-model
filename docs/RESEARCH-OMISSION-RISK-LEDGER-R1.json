@@ -28371,6 +28371,29 @@
       "evidence_refs": [
         "docs/research/TIANWEN-13YL-1930-PEIPING-EXHIBITION-WANLI-CATALOG-BOUNDARY-R1.json"
       ]
+    },
+    {
+      "id": "OMISSIONS-13YL-CI-GUARD-REPAIR-20261115",
+      "date": "2026-11-15",
+      "state_version": "1.1278.0",
+      "reviewed_issue_ids": [
+        "TW-OPEN-0001",
+        "TW-OPEN-0002",
+        "TW-OPEN-0003",
+        "TW-OPEN-0004",
+        "TW-OPEN-0005",
+        "TW-OPEN-0006",
+        "TW-OPEN-0007",
+        "TW-OPEN-0008",
+        "TW-OPEN-0009",
+        "TW-OPEN-0010",
+        "TW-OPEN-0011"
+      ],
+      "discovery_mode": "Exact 13YL HEAD 257626a Actions failed in unrelated older validators on s.schema_version == l.binding.reviewed_state_version == s.historical_audit.research_omission_guard.reviewed_state_version; 13YL state+ledger bump had omitted only state guard mirror. Failure inspected in 13MW, 13FI, 13IB workflow job logs; technical synchronization correction only, no historical evidence change.",
+      "result": "Restore guard mirror to 1.1278.0; original 13YL historic bibliographic limits and P0 OPEN unchanged. CI on repair HEAD must be rechecked.",
+      "evidence_refs": [
+        "docs/research/TIANWEN-13YL-1930-PEIPING-EXHIBITION-WANLI-CATALOG-BOUNDARY-R1.json"
+      ]
     }
   ],
   "resolution_policy": {
