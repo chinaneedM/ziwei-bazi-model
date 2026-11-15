@@ -1,0 +1,69 @@
+{
+  "schema": "TIANWEN-13YE-NCL-COMMONS-06270-OMISSION-NOT-HOLDING-ABSENCE-R1",
+  "date": "2026-11-15",
+  "issue_id": "TW-OPEN-0005",
+  "question": "Does the public Wikimedia Commons/NCL backed-up file inventory expose a copy-specific Xu-An NCL 06270 full 72-juan original, or only different NCL holdings?",
+  "exact_public_inventory": {
+    "provider": "Wikimedia Commons Library back up project, National Central Library 古籍與特藏文獻1",
+    "url": "https://commons.wikimedia.org/wiki/Commons:Library_back_up_project/file_list/Rare_Books_%26_Special_Collections,_National_Central_Library/%E5%8F%A4%E7%B1%8D%E8%88%87%E7%89%B9%E8%97%8F%E6%96%87%E7%8D%BB1",
+    "visible_contiguous_catalog_sequence": [
+      "NCL-06264 三曆撮要.pdf",
+      "NCL-06271 古今律曆考.pdf",
+      "NCL-06272 1 古今律曆考.pdf",
+      "NCL-06272 2 古今律曆考.pdf",
+      "NCL-06273 1 古今律曆考.pdf",
+      "NCL-06273 2 古今律曆考.pdf",
+      "NCL-06274 庚戌冬至正訛.pdf"
+    ],
+    "list_text_find_exact_NCL_06270": "NO_MATCH_WITHIN_THIS_LIST_DOCUMENT",
+    "positive_NCL_06271_72_73": "LISTED_ONLY: does not establish independently checked target j45 image bytes or full text",
+    "scope": "ONLY this one Wikmedia Commons backup inventory page at session check; not the holdings catalog, not a comprehensive global search, not proof 06270 does not have digital images elsewhere"
+  },
+  "authoritative_copy_identities": [
+    {
+      "provider": "National Central Library Taiwan",
+      "id": "06270",
+      "url": "https://rbook.ncl.edu.tw/NCLSearch/Search/SearchDetail?HasImage=&SourceID=1&item=b150777dc6f64192a13df8409e0ff3fcfDcyNTAx0.VqTuk2tSZyF_yFRuzT2MJrnh3LoXzIYbAW6O1JjTMCU_&page=",
+      "catalog": "徐安明萬曆二十八年(1600)延安府刊本；七十二卷，40冊",
+      "file_list_presence": "NOT_LISTED_ON_REFERENCED_COMMONS_PAGE"
+    },
+    {
+      "provider": "National Central Library Taiwan",
+      "id": "06271",
+      "url": "https://rbook.ncl.edu.tw/NCLSearch/Search/SearchDetail?HasImage=&SourceID=1&item=425ecd7be8ee45acad012ac1be1ab0f9fDcyNTAy0.Gs50AUtHw9wWqxkKZL1QnLgS4WLGSXAzyOxWCdJu5_I_&page=",
+      "catalog": "徐安1600，存卷一至卷二十六，13冊",
+      "scope": "CANNOT_CONTAIN_JUAN45"
+    },
+    {
+      "provider": "National Central Library Taiwan",
+      "id": "06273",
+      "url": "https://rbook.ncl.edu.tw/NCLSearch/Search/SearchDetail?HasImage=&SourceID=1&item=56e6ed5cbce14fc3a10a312cb8057d23fDcyNTA00.dLZGHJOE0XLZf5cTCQKNqbNDaqqjmxH0Dp0meHcb2Ss_&page=",
+      "catalog": "孫瑋明萬曆三十六年(1608)保定刊本，七十二卷附錄一卷",
+      "scope": "LATER_EDITION_NOT_1600_XUAN"
+    }
+  ],
+  "outcome": {
+    "positive": "A collection-specific, publicly visible Commons backup inventory gap is established: 06271 and 06272/06273 listed while complete Xu-An holding 06270 is not listed here.",
+    "prohibited_inferences": [
+      "No proof that NCL 06270 lacks its physical full copy",
+      "No proof NCL 06270 has no other public or institutional digital surrogate",
+      "No inference that 06271 partial卷1–26 supplies j45",
+      "No assertion 1608 06272/06273 photos are Xu-An 1599/1600 plate independent originals",
+      "No 徐安 j45 second-table L132 二/三 glyph",
+      "No original 疾捷法 generator or 少/微 radix/carry",
+      "No G893 historical numeric award"
+    ],
+    "new_early_juan45_original_page_count": 0,
+    "new_registered_source_count": 0,
+    "new_independent_physical_plate_votes": 0,
+    "matrix_changes": 0,
+    "genealogy_node_edge_changes": 0,
+    "algorithm_changes": 0,
+    "issue_status": "TW-OPEN-0005 P0 OPEN",
+    "g893_named_controls": "5/6",
+    "g893_historic_finals": "0/6",
+    "project_state": "Matrix222/222; sources796 root647+extension149 across93 shards; genealogy254 nodes239 edges; ledger issues11 P0 five; chart CLOSED algorithm defects0 reopen0"
+  },
+  "next_action": "Do not repeat the 06270 search in this same Commons list as a claimed original scan. Continue free anonymous first-party item-bound original 徐安1599/1600 卷45 retrieval from another verified digital route; require copy/leaf/page/line and native original pixel SHA before L132 二/三 or 疾/少微 decisions. No pay/login/account/CAPTCHA bypass/duplicate institutional outreach.",
+  "transmission_impact": "NONE; source access/index coverage only, no version genealogy proved"
+}
