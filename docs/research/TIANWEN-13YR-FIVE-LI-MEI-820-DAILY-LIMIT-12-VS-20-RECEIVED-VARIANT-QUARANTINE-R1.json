@@ -1,0 +1,82 @@
+{
+  "schema": "TIANWEN-13YR-FIVE-LI-MEI-820-DAILY-LIMIT-12-VS-20-RECEIVED-VARIANT-QUARANTINE-R1",
+  "date": "2026-11-15",
+  "issue_id": "TW-OPEN-0005",
+  "research_question": "Why do public digital received texts assign twelve versus twenty extra fractional parts after twelve lunar limits per day, when the 820-per-limit conversion is otherwise near parallel?",
+  "evidence_grade": "DIFFERENT_WORK_RECEIVED_DIGITAL_TEXT_VARIANTS_AND_CONDITIONAL_RATIONAL_ARITHMETIC_ONLY__NO_DIRECT_ORIGINAL_FIVE_LI_GLYPH",
+  "received_witnesses": [
+    {
+      "work": "秦蕙田《五禮通考》卷189《觀象授時》引梅文鼎",
+      "reading": "一日分十二限十二分",
+      "urls": [
+        "https://ctext.org/wiki.pl?chapter=663034&if=en",
+        "https://www.shidianguji.com/zh/book/SK0367/chapter/1lcuu11ruq0pz",
+        "https://zh.wikisource.org/zh-hant/%E4%BA%94%E7%A6%AE%E9%80%9A%E8%80%83_(%E5%9B%9B%E5%BA%AB%E5%85%A8%E6%9B%B8%E6%9C%AC)/%E5%8D%B7189"
+      ],
+      "limitations": "Three electronic presentations are not automatically independent transcribed physical originals. The number 12 is not yet visually bound to an institutional Five Li source-native target crop."
+    },
+    {
+      "work": "梅文鼎《歷算全書》卷21《曆學駢枝》",
+      "reading": "一日分十二限二十分",
+      "urls": [
+        "https://zh.wikisource.org/zh-hant/%E6%AD%B7%E7%AE%97%E5%85%A8%E6%9B%B8_(%E5%9B%9B%E5%BA%AB%E5%85%A8%E6%9B%B8%E6%9C%AC)/%E5%8D%B7%E4%BA%8C%E5%8D%81%E4%B8%80",
+        "https://ctext.org/wiki.pl?chapter=848934&if=gb"
+      ],
+      "limitations": "Received digitization and source-work-specific wording. Siku digital page linkage does not alone authenticate its image's exact glyph or show earlier Mei original printing."
+    },
+    {
+      "work": "Prior Tianwen 13KQ original-image controls, separately source scoped to other Ming/Qing astronomical texts",
+      "reading": "十二限二十分",
+      "reference": "13KQ historical-audit current-focus record including Shanghai Huang P75 and prior original P11/P12",
+      "limitations": "Already registered original source evidence, not a first-edition Five Li transcription, not new independent witness or proof that its digits are the correct Five Li print."
+    }
+  ],
+  "conditional_arithmetic": {
+    "premises": "One nominal day = 10000 source-base parts, one limit = 820 such parts, with fractional tail read as hundredths of a limit FOR THE SAKE OF TEST ONLY; does not prove historical suffix radix",
+    "exact_day_limits": "10000/820 = 500/41 = 12 + 8/41",
+    "remainder_source_base_parts": 160,
+    "fractional_limit": "8/41 approximately 0.1951219512",
+    "twenty_hundredths_approximate_day_parts": "12.20 * 820 = 10004 (exceeds nominal day by 4 base parts)",
+    "twelve_hundredths_approximate_day_parts": "12.12 * 820 = 9938.4 (falls short of nominal day by 61.6 base parts)",
+    "scope": "The 20 suffix yields a closer daily approximation under these hypotheses, but arithmetic consistency cannot amend, invent or adjudicate a specific historical printed glyph."
+  },
+  "physical_copy_gate": {
+    "waseda": "1880 江蘇書局《五禮通考》 ワ04 06640 071 PDF publicly indexed, source bytes and target glyph not acquired (13YQ)",
+    "naj": "國立公文書館 274-0087-0065 PDF publicly indexed, physical target glyph and impression-date lineage not proved (13YQ)",
+    "source_specific_next_step": "Collect authenticated exact original leaf/image and hash-bound target crops for both physical copies, then compare number and surrounding punctuation with the author-work original; no automatic same edition or independent plate inference."
+  },
+  "decision": {
+    "received_digital_wording_variant": "12-versus-20",
+    "physical_five_li_glyph_adjudication": "OPEN",
+    "historic_archetype_or_transmission_error_location": "NOT_ESTABLISHED",
+    "new_historical_originals": 0,
+    "new_registry_sources": 0,
+    "new_graph_edges": 0,
+    "new_matrix_rows": 0,
+    "G893_named_controls": "5/6",
+    "G893_final_historical_adjudications": "0/6",
+    "G893_source_operator_or_unit_carry_closure": false,
+    "issue_status": "TW-OPEN-0005 P0 OPEN",
+    "matrix": "222/222",
+    "sources": 796,
+    "shards": 93,
+    "graph_nodes": 254,
+    "graph_edges": 239,
+    "issues": 11,
+    "P0": 5,
+    "product": "DETERMINISTIC_FUSION_CHART_PRODUCT_R1=CLOSED",
+    "algorithm_reopens": 0
+  },
+  "next_gate": "The issue stays focused on authenticated early Xu-An v45 B L132 target and original 疾-specific 捷法 and 少/微 radix/carry. Do not repair Five Li digital 十二 to 二十 from arithmetic; either reading requires source-native folio; later 820 explanation and G893 target table remain different evidentiary layers.",
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Same Mei attribution and parallel 820 wording do not prove authorial copying identity, archetype or physical edition; suspected digital 12/20 discrepancy is not established historical textual corruption."
+    ],
+    "unresolved_lineage_questions": [
+      "Which printed 五禮通考 physical edition, if any, actually carries 十二 instead of 二十, and whether the divergence arose during compilation, printing or modern transcription, is undetermined."
+    ]
+  }
+}
