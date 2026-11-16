@@ -1,0 +1,140 @@
+{
+  "schema": "TIANWEN-13YX-CADAL01020104-MEI-PIANZHI-DIRECT-TWENTY-SCOPE-R1",
+  "date": "2026-11-16",
+  "issue_id": "TW-OPEN-0005",
+  "work": "梅文鼎《曆學駢枝》卷一",
+  "witness": {
+    "source_id": "EXT-TIANWEN-13YX-CADAL01020104-QINGSHANHU-PIANZHI-V1",
+    "source_url": "https://upload.wikimedia.org/wikipedia/commons/a/a8/CADAL01020104_%E6%AD%B7%E7%AE%97%E5%85%A8%E6%9B%B8%C2%B7%E6%9B%86%E5%AD%B8%E9%A7%A2%E6%9E%9D.djvu",
+    "source_sha256": "3fe40258a19f1ef4de95295278fd32e041fd77b55cf309974a0f71de39125207",
+    "source_bytes": 19776320,
+    "digital_pages": 184,
+    "catalogue_url": "https://commons.wikimedia.org/wiki/File:CADAL01020104_歷算全書·曆學駢枝.djvu",
+    "catalogue_identity": "清華大學 CADAL01020104，資料頁題青珊瑚館、咸豐九年（1859）",
+    "edition_impression_date_bound": false,
+    "physical_copy_catalog_identity_bound": false,
+    "method": "ddjvu -page=N -format=ppm, native RGB. Manual comparison. SHA-256 covers RGB pixels in row order. Crop right and bottom edges are exclusive. Captions use editorial punctuation.",
+    "manually_collated_pages": [
+      {
+        "page": 38,
+        "sha256": "26abe1797858278a25d95408569e79903dc3e3ef36a2d52c0bb2d34951a3abde",
+        "regions": [
+          {
+            "scope": "title",
+            "reading": "兼濟堂纂刻梅勿菴先生曆算全書；曆學駢枝；宣城梅文鼎定九著",
+            "rgb_dimensions": [
+              4296,
+              6064
+            ],
+            "roi_xyxy": [
+              2060,
+              860,
+              3750,
+              3660
+            ],
+            "roi_rgb_sha256": "f32439cea2518c80737ddc7de91652afc91f937b45fd191bbc50e6f946852355"
+          }
+        ]
+      },
+      {
+        "page": 78,
+        "sha256": "f87f6946a1fef5ecf80221728acb5db84a3e6e4cede2a741f71f109bd16cc93b",
+        "regions": [
+          {
+            "scope": "daily_start",
+            "reading": "曆家以八百二十分為一限〈即八刻奇〉一日分十二",
+            "rgb_dimensions": [
+              4296,
+              6064
+            ],
+            "roi_xyxy": [
+              705,
+              1830,
+              1030,
+              5300
+            ],
+            "roi_rgb_sha256": "a83ddaa2cf49b3444593b4cd0a31b55cf5826f4361d8b4fe8296cf8c14d6f115"
+          },
+          {
+            "scope": "monthly_tail",
+            "reading": "二十四限一〇；乃二十分尾數積成；退一限減之",
+            "rgb_dimensions": [
+              4296,
+              6064
+            ],
+            "roi_xyxy": [
+              2420,
+              825,
+              3220,
+              5320
+            ],
+            "roi_rgb_sha256": "a35b5ff541a772f55bcf337e1977d9432ab88878c7648722b25506141fd15ec5"
+          }
+        ]
+      },
+      {
+        "page": 79,
+        "sha256": "81e073e0956d111fa1aee2cfd40c576f6f2d0628eae31197f8b57443ec031820",
+        "regions": [
+          {
+            "scope": "daily_end",
+            "reading": "限二十分，而自朝至暮，逐限之遲疾細分可得而求矣",
+            "rgb_dimensions": [
+              4296,
+              6064
+            ],
+            "roi_xyxy": [
+              3460,
+              925,
+              3750,
+              4940
+            ],
+            "roi_rgb_sha256": "7b941540d6bbb9c258406827cfac76963bf4cca8da1b60db5639b3dfe2aa7542"
+          }
+        ]
+      },
+      {
+        "page": 83,
+        "sha256": "097cd8cc32cff1d2382e11ef27f4426a2bfeec5ae9f49e40edccc2d01124664a",
+        "regions": [
+          {
+            "scope": "lane_choice",
+            "reading": "推加減差法；八百二十分乘之；遲用遲行度，疾用疾行度",
+            "rgb_dimensions": [
+              4296,
+              6064
+            ],
+            "roi_xyxy": [
+              1990,
+              815,
+              3720,
+              5280
+            ],
+            "roi_rgb_sha256": "203a3b993df5a4b29d3d9248f2e7839cf00ea476ebb55526b685ed50c0cf9e52"
+          }
+        ]
+      }
+    ]
+  },
+  "comparison": {
+    "combined_daily_reading": "一日分十二限二十分",
+    "mei_work_images_with_this_reading": [
+      "CADAL01020104 pp78–79",
+      "CADAL06052453 p90",
+      "Waseda ニ05 01614 F17 pp43–44"
+    ],
+    "five_rites_local_reading": "一日分十二限十二分 in the two 13YV anthologies",
+    "matching_operator": "p83 again gives the branch-selected lunar motion as the divisor after multiplying the combined correction by 820.",
+    "scope": "The page title preserves the 兼濟堂 compilation title. The source carries the 1859 catalogue label. The inspected pages do not independently establish the printing date, actual use of 1723 plates, or the origin of the Twelve/Twenty difference.",
+    "prior_collation": "docs/research/TIANWEN-13YW-MEI-PIANZHI-ORIGINAL-TWENTY-AND-DUAL-LANE-CONVERSION-R1.json"
+  },
+  "next_action": "Continue authenticating Xu-An1600 NCL06270 juan45 L35/L132 and source-local 疾捷法/少微. For the textual variant, seek early 梅氏叢書冊十 (LOC 2014514417) original leaves. Its catalogue cites a 1706 preface and a gift bookplate that says 1707.",
+  "status": {
+    "source_count": 800,
+    "g893_named_controls": "5/6",
+    "g893_final_adjudications": "0/6",
+    "tw_open_0005": "P0 OPEN",
+    "core": "CLOSED",
+    "transmission_edges_added": 0
+  }
+}
