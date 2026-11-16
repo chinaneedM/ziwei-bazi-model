@@ -1,0 +1,274 @@
+{
+  "schema": "TIANWEN-13YZ-NLC511-1936-XING-J45-NATIVE-L35-L132-RATE-ERRATUM-R1",
+  "date": "2026-11-16",
+  "issue_id": "TW-OPEN-0005",
+  "work": "商務印書館《古今律歷考》第八冊，卷四十五",
+  "starting_remote": {
+    "head": "0f22e3fc7dc69aace6ffa3744d82c48b3f69bb12",
+    "tree": "8033d78660db58793e48b5f531c6bc5bbcccd112",
+    "state_version": "1.1292.0",
+    "continuity_action": "https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/43799432473"
+  },
+  "witness": {
+    "source_id": "EXT-TIANWEN-13YZ-NLC511-1936-XING-J45-LATER-TYPESET",
+    "identifier": "NLC511-023031404025843-33789",
+    "source_url": "https://upload.wikimedia.org/wikipedia/commons/1/18/NLC511-023031404025843-33789_%E5%8F%A4%E4%BB%8A%E5%BE%8B%E6%AD%B7%E8%80%83_%E5%85%AB.pdf",
+    "source_sha256": "3b31b9d6591fe28d9cea0e4b6b735f1de0d26ca0a752650e717273f323ce3bb0",
+    "source_bytes": 1855368,
+    "pdf_pages": 83,
+    "edition_label_basis": "The library inventory identifies the eighth fascicle as 商務印書館 民國25（1936）. The title, printed pagination and juan match the acquired PDF.",
+    "catalogue_url": "https://commons.wikimedia.org/wiki/Commons:Library_back_up_project/file_list/NLC/%E6%B0%91%E5%9C%8B%E6%96%87%E7%8D%BB/05",
+    "method": "PyMuPDF decodes the provider PDF embedded JBIG2 image at native dimensions. SHA-256 covers each raw stream and decoded native RGB in row order. Crops use exclusive right/bottom edges. Manual comparison after nearest-neighbor enlargement.",
+    "manually_collated_pages": [
+      {
+        "printed_page": 775,
+        "image_xref": 505,
+        "native_dimensions_px": [
+          1240,
+          2008
+        ],
+        "raw_embedded_jbig2_sha256": "c1e6ef1d3ea35518238eb37f534901eae4c27c4787b874ad58374bd53f54023f",
+        "regions": [
+          {
+            "label": "L35 full column",
+            "reading": [
+              {
+                "ordinal": 35,
+                "lane": "疾",
+                "printed_rate": "疾一度一七五二",
+                "printed_coefficient": "六微九七七五三",
+                "conditional_integer_rate": 11752,
+                "conditional_integer_coefficient": 697753,
+                "conditional_floor": 697753,
+                "conditional_residual": 0
+              },
+              {
+                "ordinal": 35,
+                "lane": "遲",
+                "printed_rate": "遲一度〇一七四",
+                "printed_coefficient": "八微〇五九六七",
+                "conditional_integer_rate": 10174,
+                "conditional_integer_coefficient": 805967,
+                "conditional_floor": 805976,
+                "conditional_residual": -9
+              }
+            ],
+            "native_rgb_xyxy": [
+              850,
+              132,
+              917,
+              1890
+            ],
+            "native_roi_rgb_sha256": "aea4687d3c2a24d597600e69b0f621033193563761ff93afbaa904070e21a7e0"
+          },
+          {
+            "label": "L35 疾 rate detail",
+            "reading": "一七五二",
+            "native_rgb_xyxy": [
+              850,
+              685,
+              917,
+              844
+            ],
+            "native_roi_rgb_sha256": "1545d7c14ae996602c11819e845e84115382a543208c9e979be2334dab5e8f85"
+          }
+        ],
+        "page": 73,
+        "sha256": "85886835e09520a59052d22b5f3eb7c6b9f8a17b15639ce1277ae7c51baafc41"
+      },
+      {
+        "printed_page": 781,
+        "image_xref": 547,
+        "native_dimensions_px": [
+          1240,
+          2008
+        ],
+        "raw_embedded_jbig2_sha256": "616f2deef0bfaa2eb3d5c3b57a6bd6c6166dcfcc37f6054d905485b8fc6667c2",
+        "regions": [
+          {
+            "label": "L132 full column",
+            "reading": [
+              {
+                "ordinal": 132,
+                "lane": "疾",
+                "printed_rate": "疾一度〇一七四",
+                "printed_coefficient": "八微〇五九七六",
+                "conditional_integer_rate": 10174,
+                "conditional_integer_coefficient": 805976,
+                "conditional_floor": 805976,
+                "conditional_residual": 0
+              },
+              {
+                "ordinal": 132,
+                "lane": "遲",
+                "printed_rate": "遲一度一七五二",
+                "printed_coefficient": "六微九七七五三",
+                "conditional_integer_rate": 11752,
+                "conditional_integer_coefficient": 697753,
+                "conditional_floor": 697753,
+                "conditional_residual": 0
+              }
+            ],
+            "native_rgb_xyxy": [
+              303,
+              148,
+              374,
+              1890
+            ],
+            "native_roi_rgb_sha256": "df72d96840b89c60a8f74f4dcae499aaf9c63f5f973dea961283f6ba0db14b1f"
+          },
+          {
+            "label": "L132 遲 rate detail",
+            "reading": "一七五二",
+            "native_rgb_xyxy": [
+              303,
+              1387,
+              374,
+              1560
+            ],
+            "native_roi_rgb_sha256": "44bd309c762cf8d7582f019f26489a1fb96755e6aa80ef23c00597a740102115"
+          },
+          {
+            "label": "L131 遲 control",
+            "reading": {
+              "ordinal": 131,
+              "lane": "遲",
+              "printed_rate": "遲一度一七三九",
+              "printed_coefficient": "六微九八五二六",
+              "conditional_integer_rate": 11739,
+              "conditional_integer_coefficient": 698526,
+              "conditional_floor": 698526,
+              "conditional_residual": 0
+            },
+            "native_rgb_xyxy": [
+              374,
+              1195,
+              443,
+              1890
+            ],
+            "native_roi_rgb_sha256": "8d86abdb47b5b4ef30a71b88da43ca6bef8f4b6cb5b31fbc7899bdf22edf3d17"
+          },
+          {
+            "label": "L133 遲 control",
+            "reading": {
+              "ordinal": 133,
+              "lane": "遲",
+              "printed_rate": "遲一度一七六四",
+              "printed_coefficient": "六微九七〇四一",
+              "conditional_integer_rate": 11764,
+              "conditional_integer_coefficient": 697041,
+              "conditional_floor": 697041,
+              "conditional_residual": 0
+            },
+            "native_rgb_xyxy": [
+              235,
+              1195,
+              303,
+              1890
+            ],
+            "native_roi_rgb_sha256": "802563a906fd72c1139f0006c9f6f8bf5d84dc786ec6d848469970391a7256e9"
+          }
+        ],
+        "page": 79,
+        "sha256": "08bd005a3ab5a5d91bf8c0263ae7e467a36fe4a39ffe351c5720cf26253db2e7"
+      },
+      {
+        "printed_page": 784,
+        "image_xref": 568,
+        "native_dimensions_px": [
+          1240,
+          2008
+        ],
+        "raw_embedded_jbig2_sha256": "b1dd512b6a22c46154bc863d394e560320610a27be9c3911b8e277d471f65ee4",
+        "regions": [
+          {
+            "label": "Second table closing formula",
+            "reading": "右置八百二十。以遲行度而一。為捷法。",
+            "native_rgb_xyxy": [
+              773,
+              139,
+              852,
+              825
+            ],
+            "native_roi_rgb_sha256": "9cd23877e03d00b4923ec25cfc14fe7b3bf4c46895a27a1265603d87b1b119c4"
+          }
+        ],
+        "page": 82,
+        "sha256": "aab9b4687b017b328403faa989b8e367439270a61f68b133bfe49c1d93e8d102"
+      }
+    ],
+    "edition_impression_date_bound": false,
+    "physical_copy_catalog_identity_bound": false
+  },
+  "forward_erratum": {
+    "affected": "docs/research/TIANWEN-13YI-NLC511-1936-L132-CHI-LATER-CONFLICT-R1.json",
+    "scope": "1936 L132 遲 degree rate and its conditional model claims",
+    "old": "遲一度一七五三",
+    "corrected": "遲一度一七五二",
+    "reason": "Below 五 on p79 there are two separate horizontal strokes. The horizontal stroke in contact with the body of 五 belongs to 五. 三 with three separate strokes is visible in the same column in the terminal coefficient.",
+    "old_conditional_residual": 59,
+    "corrected_conditional_residual": 0,
+    "other_prior_records": [
+      "docs/research/TIANWEN-13YB-NLC511-1936-XING-J45-L132-LATE-TYPESET-PAGE-BOUNDARY-R1.json",
+      "docs/research/TIANWEN-13YC-1936-XING-CONGSHU-JIFU-BASE-RECENSION-BIBLIOGRAPHIC-BRIDGE-R1.json",
+      "docs/research/TIANWEN-13YH-NLC511-1936-J45-L130-L132-CONDITIONAL-RECIPROCAL-R1.json"
+    ],
+    "scope_of_other_prior_records": "New byte/native-image provenance supersedes their then-current access boundary. 13YH uses the 疾 side and its numerical conclusion stands."
+  },
+  "comparison": {
+    "with_13YY": "docs/research/TIANWEN-13YY-XING-V45-L35-COEFFICIENT-ERRATUM-AND-L132-PAIR-R1.json",
+    "later_pair": "L35 疾 and L132 遲 both print 一七五二 and 六微九七七五三. The opposite rate is 〇一七四 at both positions, with different coefficient endings 六七 and 七六.",
+    "Ming_page_controls": "The 1936 rate pair agrees with NCL06272 and NCL06273 at these two local loci. It differs from 13YU NLC08938, whose two source-local rates read 七五三. This is local agreement, with typesetting ancestry open.",
+    "closing_formula_scope": "The late closing instruction on PDF p82 names 遲行度. It provides no additional explicit 疾 denominator or 少/微 rule.",
+    "conditional_l131_l132_l133_chi": [
+      {
+        "ordinal": 131,
+        "lane": "遲",
+        "printed_rate": "遲一度一七三九",
+        "printed_coefficient": "六微九八五二六",
+        "conditional_integer_rate": 11739,
+        "conditional_integer_coefficient": 698526,
+        "conditional_floor": 698526,
+        "conditional_residual": 0
+      },
+      {
+        "ordinal": 132,
+        "lane": "遲",
+        "printed_rate": "遲一度一七五二",
+        "printed_coefficient": "六微九七七五三",
+        "conditional_integer_rate": 11752,
+        "conditional_integer_coefficient": 697753,
+        "conditional_floor": 697753,
+        "conditional_residual": 0
+      },
+      {
+        "ordinal": 133,
+        "lane": "遲",
+        "printed_rate": "遲一度一七六四",
+        "printed_coefficient": "六微九七〇四一",
+        "conditional_integer_rate": 11764,
+        "conditional_integer_coefficient": 697041,
+        "conditional_floor": 697041,
+        "conditional_residual": 0
+      }
+    ],
+    "interpretive_limit": "The inherited floor(8200000000 / assumed_divisor) model is a replay. The improved fit applies to the corrected readings and does not establish the native 疾 constructor or conversion radix and rounding."
+  },
+  "transmission_impact": {
+    "nodes_added": [],
+    "edges_supported": [],
+    "revised_edges": [],
+    "early_plate_votes_added": 0,
+    "Qing_Jifu_scope": "13YC bibliographic evidence attributes 畿輔叢書 to the typeset edition. No specific Qing impression or printer exemplar is authenticated by these pages."
+  },
+  "next_action": "Seek NCL06270 徐安1600 source leaves at L35/L132 and an early source-native 疾捷法 construction and 少/微 radix/carry. Preserve the late two-stroke 二 as a bounded comparison only.",
+  "status": {
+    "source_count": 801,
+    "g893_named_controls": "5/6",
+    "g893_final_adjudications": "0/6",
+    "tw_open_0005": "P0 OPEN",
+    "core": "CLOSED",
+    "matrix": "222/222",
+    "transmission_edges_added": 0
+  }
+}
