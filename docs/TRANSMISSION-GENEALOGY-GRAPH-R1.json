@@ -5008,6 +5008,54 @@
         "EXT-TIANWEN-13ZO-LUOLUZI-TANYING-RECEIVED"
       ],
       "first_explicit_graph_batch": "13ZO"
+    },
+    {
+      "node_id": "TEXT-WORK-JINGXUAN-MINGLI-YUEYAN-WEI-SELECTED",
+      "node_type": "TEXT_WORK",
+      "label": "韦千里选辑《精选命理约言》（与陈素庵旧题《命理约言》分层）",
+      "system_scope": "BAZI",
+      "work_composition_date": null,
+      "edition_impression_date": null,
+      "physical_copy_date": null,
+      "digital_surrogate_date": null,
+      "date_scope_note": "1933 first-edition date is retrospective in the inspected 1935 third-edition colophon; Qing original text and actual 1933 physical print have not been examined.",
+      "evidence": [
+        "EXT-TIANWEN-13ZR-NLC416-JINGXUAN-MINGLI-YUEYAN-1935",
+        "docs/research/TIANWEN-13ZR-JINGXUAN-MINGLI-YUEYAN-1933-1935-EDITION-CROSSWALK-R1.md"
+      ],
+      "first_explicit_graph_batch": "13ZR"
+    },
+    {
+      "node_id": "EDITION-JINGXUAN-MINGLI-YUEYAN-1935-THIRD",
+      "node_type": "EDITION",
+      "label": "《精选命理约言》民国二十四年十月第三版（1935）",
+      "system_scope": "BAZI",
+      "work_composition_date": null,
+      "edition_impression_date": "1935-10",
+      "physical_copy_date": null,
+      "digital_surrogate_date": null,
+      "date_scope_note": "Edition statement directly visible on PDF p184; first May1933 and second Nov1934 listed retrospectively on same page, no separate earliest impressions bound.",
+      "evidence": [
+        "EXT-TIANWEN-13ZR-NLC416-JINGXUAN-MINGLI-YUEYAN-1935",
+        "docs/research/TIANWEN-13ZR-JINGXUAN-MINGLI-YUEYAN-1933-1935-EDITION-CROSSWALK-R1.md"
+      ],
+      "first_explicit_graph_batch": "13ZR"
+    },
+    {
+      "node_id": "DIGITAL-NLC416-JINGXUAN-MINGLI-YUEYAN-COMMONS",
+      "node_type": "DIGITAL_SURROGATE",
+      "label": "Commons NLC416-17jh002578-109774《精选命理约言》185页PDF",
+      "system_scope": "BAZI",
+      "work_composition_date": null,
+      "edition_impression_date": null,
+      "physical_copy_date": null,
+      "digital_surrogate_date": null,
+      "date_scope_note": "Public digital object attributed to NLC; binary/page SHA unbound. Digital-file date and specific physical holding barcode not established.",
+      "evidence": [
+        "EXT-TIANWEN-13ZR-NLC416-JINGXUAN-MINGLI-YUEYAN-1935",
+        "docs/research/TIANWEN-13ZR-JINGXUAN-MINGLI-YUEYAN-1933-1935-EDITION-CROSSWALK-R1.md"
+      ],
+      "first_explicit_graph_batch": "13ZR"
     }
   ],
   "edges": [
@@ -8790,6 +8838,36 @@
       ],
       "scope_note": "The Tanying-title Qing reconstruction preserves the lemma and the separately labelled Wang gloss.",
       "adjudication_batch": "13ZO"
+    },
+    {
+      "edge_id": "TG-E0248",
+      "from": "EDITION-JINGXUAN-MINGLI-YUEYAN-1935-THIRD",
+      "to": "TEXT-WORK-JINGXUAN-MINGLI-YUEYAN-WEI-SELECTED",
+      "relation": "EDITION_OF",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_WITHIN_SAMPLED_SCOPE",
+      "evidence_class": "DIRECT_PAGE_VISUAL_BOUNDED",
+      "evidence": [
+        "EXT-TIANWEN-13ZR-NLC416-JINGXUAN-MINGLI-YUEYAN-1935",
+        "docs/research/TIANWEN-13ZR-JINGXUAN-MINGLI-YUEYAN-1933-1935-EDITION-CROSSWALK-R1.md"
+      ],
+      "scope_note": "1935 edition title and third-impression colophon in one digital surrogate, not Qing original or independent 1933/1934 physical print.",
+      "adjudication_batch": "13ZR"
+    },
+    {
+      "edge_id": "TG-E0249",
+      "from": "DIGITAL-NLC416-JINGXUAN-MINGLI-YUEYAN-COMMONS",
+      "to": "EDITION-JINGXUAN-MINGLI-YUEYAN-1935-THIRD",
+      "relation": "DIGITAL_SURROGATE_OF",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_WITHIN_SAMPLED_SCOPE",
+      "evidence_class": "PUBLIC_SCAN_WITH_BOUNDED_COLOPHON_VISUAL",
+      "evidence": [
+        "EXT-TIANWEN-13ZR-NLC416-JINGXUAN-MINGLI-YUEYAN-1935",
+        "docs/research/TIANWEN-13ZR-JINGXUAN-MINGLI-YUEYAN-1933-1935-EDITION-CROSSWALK-R1.md"
+      ],
+      "scope_note": "Same public 185-page digital file's page184 colophon says 1935 third edition. No specific original NLC barcode or PDF binary hash is inferred.",
+      "adjudication_batch": "13ZR"
     }
   ],
   "lineage_hypotheses": [
@@ -9801,5 +9879,5 @@
     "first_explicit_seed_batch": "BATCH-12-ZIWEI-SISHI-QIHOU-JINGTAI6-TONGSHU-TABLE-CONTROL-CH",
     "future_material_batches_require_transmission_impact": true
   },
-  "updated_at": "2026-11-05"
+  "updated_at": "2026-11-16"
 }
