@@ -12,7 +12,7 @@
   "binding": {
     "repository": "chinaneedM/ziwei-bazi-model",
     "branch": "agent/fusion-chart-core-r1-20260822",
-    "reviewed_state_version": "1.1294.0",
+    "reviewed_state_version": "1.1295.0",
     "source_focus_count": 3012,
     "latest_research_focus_prefix": "13YZ"
   },
@@ -29011,6 +29011,29 @@
       ],
       "discovery_mode": "USER_RECONFIRMED_HISTORICAL_SCOPE_AND_EXECUTION_SEQUENCE_NO_NEW_SOURCE_CLAIM",
       "result": "Reviewed all 11 OPEN/BLOCKED issues (5 P0). Preserved priorities, issues, Matrix, source registry and graph unchanged. Global work shifts to historical breadth-first double framework; TW-OPEN-0005 stays P0 OPEN for later detailed source collation. No issue closure, source-grade upgrade, or numerical adjudication.",
+      "evidence_refs": [
+        "docs/TIANWEN-HISTORY-TRANSMISSION-BREADTH-FIRST-ROADMAP-R1.md"
+      ]
+    },
+    {
+      "id": "OMISSIONS-13ZB-BREADTH-FIRST-CHECKPOINT-ID-FORWARD-CORRECTION-20261116",
+      "date": "2026-11-16",
+      "state_version": "1.1295.0",
+      "reviewed_issue_ids": [
+        "TW-OPEN-0001",
+        "TW-OPEN-0002",
+        "TW-OPEN-0003",
+        "TW-OPEN-0004",
+        "TW-OPEN-0005",
+        "TW-OPEN-0006",
+        "TW-OPEN-0007",
+        "TW-OPEN-0008",
+        "TW-OPEN-0009",
+        "TW-OPEN-0010",
+        "TW-OPEN-0011"
+      ],
+      "discovery_mode": "FORWARD_ONLY_CHECKPOINT_METADATA_ERRATUM",
+      "result": "Corrects the immediately preceding 13ZA checkpoint's 11 null reviewed_issue_ids, caused by using issue_id instead of the real issue.id field while creating the breadth-first plan. The prior checkpoint remains preserved in full. All 11 actual issues, including five P0, have been reviewed; statuses, history, source_refs, priorities and closure gates are unchanged. Current-state omission guard synchronized with reviewed_state_version.",
       "evidence_refs": [
         "docs/TIANWEN-HISTORY-TRANSMISSION-BREADTH-FIRST-ROADMAP-R1.md"
       ]
