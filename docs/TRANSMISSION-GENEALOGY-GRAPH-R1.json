@@ -5056,6 +5056,86 @@
         "docs/research/TIANWEN-13ZR-JINGXUAN-MINGLI-YUEYAN-1933-1935-EDITION-CROSSWALK-R1.md"
       ],
       "first_explicit_graph_batch": "13ZR"
+    },
+    {
+      "node_id": "TEXT-WORK-ZHANG-DOUSHU-MINGLI-XINBIAN",
+      "node_type": "TEXT_WORK",
+      "label": "張開卷《斗數命理新編》（1949／1953同题书目作品层）",
+      "system_scope": "ZIWEI",
+      "work_composition_date": null,
+      "edition_impression_date": null,
+      "physical_copy_date": null,
+      "digital_surrogate_date": null,
+      "date_scope_note": "Two platform records with matching author/title; composition date and textual uniformity unknown",
+      "evidence": [
+        "EXT-TIANWEN-13ZS-GBOOKS-CORNELL-1949-ZHANG-XINBIAN",
+        "docs/research/TIANWEN-13ZS-ZIWEI-1948-1953-1972-HK-REPUBLIC-EDITION-ATLAS-R1.md"
+      ],
+      "first_explicit_graph_batch": "13ZS"
+    },
+    {
+      "node_id": "EDITION-ZHANG-DOUSHU-MINGLI-XINBIAN-1949",
+      "node_type": "EDITION",
+      "label": "《斗數命理新編》紫微斗數命理研究社1949书目版",
+      "system_scope": "ZIWEI",
+      "work_composition_date": null,
+      "edition_impression_date": "1949",
+      "physical_copy_date": null,
+      "digital_surrogate_date": null,
+      "date_scope_note": "Google Books 1949 Cornell source catalog, 152pp; original title/copyright page not read",
+      "evidence": [
+        "EXT-TIANWEN-13ZS-GBOOKS-CORNELL-1949-ZHANG-XINBIAN",
+        "docs/research/TIANWEN-13ZS-ZIWEI-1948-1953-1972-HK-REPUBLIC-EDITION-ATLAS-R1.md"
+      ],
+      "first_explicit_graph_batch": "13ZS"
+    },
+    {
+      "node_id": "EDITION-ZHANG-DOUSHU-MINGLI-XINBIAN-1953",
+      "node_type": "EDITION",
+      "label": "《斗數命理新編》紫微斗數命理研究社1953书目版",
+      "system_scope": "ZIWEI",
+      "work_composition_date": null,
+      "edition_impression_date": "1953",
+      "physical_copy_date": null,
+      "digital_surrogate_date": null,
+      "date_scope_note": "Separate Google Books 1953 152pp metadata record; identity as reprint/edited text vs 1949 is unverified",
+      "evidence": [
+        "EXT-TIANWEN-13ZS-GBOOKS-1953-ZHANG-XINBIAN",
+        "docs/research/TIANWEN-13ZS-ZIWEI-1948-1953-1972-HK-REPUBLIC-EDITION-ATLAS-R1.md"
+      ],
+      "first_explicit_graph_batch": "13ZS"
+    },
+    {
+      "node_id": "TEXT-WORK-ZHANG-ZIWEI-MINGLI-YANJIU",
+      "node_type": "TEXT_WORK",
+      "label": "張開卷《紫微斗數命理研究》（1972馆藏异题，暂不与新編合并）",
+      "system_scope": "ZIWEI",
+      "work_composition_date": null,
+      "edition_impression_date": null,
+      "physical_copy_date": null,
+      "digital_surrogate_date": null,
+      "date_scope_note": "Distinct recorded title for 1972 Tokyo holding; work identity vs 1949 Xinbian and 2018 Xinpian not determined",
+      "evidence": [
+        "EXT-TIANWEN-13ZS-NDL-TOKYO-1972-ZHANG-ZIWEI-YANJIU",
+        "docs/research/TIANWEN-13ZS-ZIWEI-1948-1953-1972-HK-REPUBLIC-EDITION-ATLAS-R1.md"
+      ],
+      "first_explicit_graph_batch": "13ZS"
+    },
+    {
+      "node_id": "EDITION-ZHANG-ZIWEI-MINGLI-YANJIU-1972",
+      "node_type": "EDITION",
+      "label": "《紫微斗數命理研究》1972香港崑崙印本（东京馆藏）",
+      "system_scope": "ZIWEI",
+      "work_composition_date": null,
+      "edition_impression_date": "1972-01",
+      "physical_copy_date": null,
+      "digital_surrogate_date": null,
+      "date_scope_note": "NDL Search linked Tokyo Metropolitan Central Library holdings, call 1488-5004-72; no source pages examined; 2018 editorial reports different title for a 1972 base",
+      "evidence": [
+        "EXT-TIANWEN-13ZS-NDL-TOKYO-1972-ZHANG-ZIWEI-YANJIU",
+        "docs/research/TIANWEN-13ZS-ZIWEI-1948-1953-1972-HK-REPUBLIC-EDITION-ATLAS-R1.md"
+      ],
+      "first_explicit_graph_batch": "13ZS"
     }
   ],
   "edges": [
@@ -8868,6 +8948,51 @@
       ],
       "scope_note": "Same public 185-page digital file's page184 colophon says 1935 third edition. No specific original NLC barcode or PDF binary hash is inferred.",
       "adjudication_batch": "13ZR"
+    },
+    {
+      "edge_id": "TG-E0250",
+      "from": "EDITION-ZHANG-DOUSHU-MINGLI-XINBIAN-1949",
+      "to": "TEXT-WORK-ZHANG-DOUSHU-MINGLI-XINBIAN",
+      "relation": "EDITION_OF",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_FOR_CATALOG_SCOPE_ONLY",
+      "evidence_class": "LIBRARY_OR_BOOK_PLATFORM_BIBLIOGRAPHIC_METADATA",
+      "evidence": [
+        "EXT-TIANWEN-13ZS-GBOOKS-CORNELL-1949-ZHANG-XINBIAN",
+        "docs/research/TIANWEN-13ZS-ZIWEI-1948-1953-1972-HK-REPUBLIC-EDITION-ATLAS-R1.md"
+      ],
+      "scope_note": "Catalog confirms edition-title/author grouping only; not original 1949 page glyph or a rule-origin claim.",
+      "adjudication_batch": "13ZS"
+    },
+    {
+      "edge_id": "TG-E0251",
+      "from": "EDITION-ZHANG-DOUSHU-MINGLI-XINBIAN-1953",
+      "to": "TEXT-WORK-ZHANG-DOUSHU-MINGLI-XINBIAN",
+      "relation": "EDITION_OF",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_FOR_CATALOG_SCOPE_ONLY",
+      "evidence_class": "LIBRARY_OR_BOOK_PLATFORM_BIBLIOGRAPHIC_METADATA",
+      "evidence": [
+        "EXT-TIANWEN-13ZS-GBOOKS-1953-ZHANG-XINBIAN",
+        "docs/research/TIANWEN-13ZS-ZIWEI-1948-1953-1972-HK-REPUBLIC-EDITION-ATLAS-R1.md"
+      ],
+      "scope_note": "Same work title/author as 1949 under catalog grouping; does not prove identical text/plates or direct reprint.",
+      "adjudication_batch": "13ZS"
+    },
+    {
+      "edge_id": "TG-E0252",
+      "from": "EDITION-ZHANG-ZIWEI-MINGLI-YANJIU-1972",
+      "to": "TEXT-WORK-ZHANG-ZIWEI-MINGLI-YANJIU",
+      "relation": "EDITION_OF",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_FOR_CATALOG_SCOPE_ONLY",
+      "evidence_class": "LIBRARY_OR_BOOK_PLATFORM_BIBLIOGRAPHIC_METADATA",
+      "evidence": [
+        "EXT-TIANWEN-13ZS-NDL-TOKYO-1972-ZHANG-ZIWEI-YANJIU",
+        "docs/research/TIANWEN-13ZS-ZIWEI-1948-1953-1972-HK-REPUBLIC-EDITION-ATLAS-R1.md"
+      ],
+      "scope_note": "Exact different 1972 Tokyo-held item title is preserved. No edge to Xinbian, Xinpian or 2018 XuBaiLu base without original title-page collation.",
+      "adjudication_batch": "13ZS"
     }
   ],
   "lineage_hypotheses": [
