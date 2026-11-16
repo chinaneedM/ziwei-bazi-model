@@ -224,6 +224,16 @@ TIANWEN_TRANSMISSION_GENEALOGY_R1=ACTIVE_INCREMENTAL
 
 When retrieving external provenance witnesses, read the original root registry and then `docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json` and every explicitly listed shard. Do not infer a source is absent merely because the root registry alone lacks it. Root and extension counts are separate; the union count and Git blob hashes are checked by `scripts/verify-historical-source-registry-extensions-r1.py` in CI. An extension entry marked `UNVERIFIED_TARGET_LOCATOR_QUARANTINED` or `ACCESS_BOUNDARY_UNVERIFIED` cannot attest a target historical glyph or provide stemmatic voting. Never silently rewrite older historical assertions when direct source recheck fails; publish a forward-only correction record.
 
+## Historical provenance and transmission breadth-first priority — 2026-11-16
+
+The user reconfirmed the overarching objective: reconstruct the **full historical and transmission frameworks of Ziwei Dou Shu and Four Pillars independently, from the earliest verifiable records to modern branches**, and only after those frameworks are laid out proceed to exhaustive single-variant/source-leaf research. Existing deep research remains valid and preserved.
+
+**Read and follow `docs/TIANWEN-HISTORY-TRANSMISSION-BREADTH-FIRST-ROADMAP-R1.md` in every new session after the required source/Matrix/genealogy/omission-ledger checks.** The current active research execution phase is breadth-first historical framework construction. Every work unit should add material coverage to a historical period, major text/version, rule development, person/school, region or transmission relationship and produce navigable human-readable findings.
+
+A P0 open research issue is still P0 and must be reviewed and preserved, but does not indefinitely block historical breadth when its next manuscript/source target is inaccessible and the uncertainty can be kept explicit. Never close, downgrade or invent a historical outcome to move on. In particular TW-OPEN-0005 and prior edition/source scans remain intact as later depth work. Critical provenance corrections, security/CI regressions and genuine chart defects retain their normal gates.
+
+The completion target for breadth is **a source-cited, uncertainty-labelled double historical outline and coverage inventory**, not false claims of having resolved every historical controversy. Detailed philological and numerical adjudication follows, preserving forward-only history and the CLOSED chart core.
+
 ## Simplicity-first execution rule — 2026-10-31
 
 The user explicitly requires avoiding needless complexity across all project work. **Choose the simplest correct, maintainable path that produces the required real outcome.** Before adding a step, ask whether omitting it would materially harm correctness, provenance, acceptance, or delivery; if not, omit it. Reuse already verified sources, tools and implementations before creating new abstractions, helpers, reports, checks or workflows. Do not expand a bounded task after its acceptance criteria are met merely because more detail can be explored; move to the next material priority. Treat unnecessary duplication, speculative engineering and process-for-process's-sake as execution defects to correct, not as progress.
