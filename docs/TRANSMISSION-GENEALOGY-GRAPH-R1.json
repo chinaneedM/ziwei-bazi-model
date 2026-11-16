@@ -4880,6 +4880,70 @@
         "docs/research/TIANWEN-13ZK-JAPAN-KOSOSHA-ZIWEI-BAZI-PUBLICATION-R1.md"
       ],
       "first_explicit_graph_batch": "13ZK"
+    },
+    {
+      "node_id": "TEXT-WORK-WUXING-JINGJI",
+      "node_type": "TEXT_WORK",
+      "label": "廖中《五行精紀》",
+      "system_scope": "BAZI",
+      "work_composition_date": null,
+      "edition_impression_date": null,
+      "physical_copy_date": null,
+      "digital_surrogate_date": null,
+      "date_scope_note": "Song work attribution from received Chen bibliography; exact composition date unbound.",
+      "evidence": [
+        "docs/research/TIANWEN-13ZM-WUXING-JINGJI-IMAGE-EVIDENCE-R1.json",
+        "EXT-TIANWEN-13ZM-ZHIZHAI-J12-WUXING-JINGJI",
+        "EXT-TIANWEN-13ZM-WENXIAN-J220-WUXING-JINGJI"
+      ],
+      "first_explicit_graph_batch": "13ZM"
+    },
+    {
+      "node_id": "PASSAGE-WENXIAN-TONGKAO-J220-WUXING-JINGJI",
+      "node_type": "PASSAGE",
+      "label": "《文献通考》卷二百二十《五行精紀》条",
+      "system_scope": "BAZI",
+      "work_composition_date": null,
+      "edition_impression_date": null,
+      "physical_copy_date": null,
+      "digital_surrogate_date": null,
+      "date_scope_note": "Received text preserves 陳氏曰; physical 1324/1339 target folio not bound.",
+      "evidence": [
+        "docs/research/TIANWEN-13ZM-WUXING-JINGJI-IMAGE-EVIDENCE-R1.json",
+        "EXT-TIANWEN-13ZM-WENXIAN-J220-WUXING-JINGJI"
+      ],
+      "first_explicit_graph_batch": "13ZM"
+    },
+    {
+      "node_id": "SURROGATE-GROUP-WUXING-JINGJI-2621-06584-SAMPLED-LEAVES",
+      "node_type": "DIGITAL_SURROGATE",
+      "label": "《五行精紀》2621／06584 卷首及卷三十三页影组",
+      "system_scope": "BAZI",
+      "work_composition_date": null,
+      "edition_impression_date": null,
+      "physical_copy_date": null,
+      "digital_surrogate_date": null,
+      "date_scope_note": "Sampled matches across digital routes; no custody attribution or exact reproduction direction.",
+      "evidence": [
+        "docs/research/TIANWEN-13ZM-WUXING-JINGJI-IMAGE-EVIDENCE-R1.json",
+        "EXT-TIANWEN-13ZM-NLC2621-WUXING-JINGJI-V33"
+      ],
+      "first_explicit_graph_batch": "13ZM"
+    },
+    {
+      "node_id": "PHYSICAL-COPY-WUXING-JINGJI-NLC06857",
+      "node_type": "PHYSICAL_COPY",
+      "label": "《五行精紀》海虞瞿氏抄本 06857",
+      "system_scope": "BAZI",
+      "work_composition_date": null,
+      "edition_impression_date": null,
+      "physical_copy_date": null,
+      "digital_surrogate_date": null,
+      "date_scope_note": "Physically different ruling and hand in the compared pages. Common textual parent and direction remain open.",
+      "evidence": [
+        "docs/research/TIANWEN-13ZM-WUXING-JINGJI-IMAGE-EVIDENCE-R1.json"
+      ],
+      "first_explicit_graph_batch": "13ZM"
     }
   ],
   "edges": [
@@ -8557,6 +8621,51 @@
       ],
       "scope_note": "The two editions are separately cataloged under Kososha, both credit Zhang Yaowen and carry the Touha label. Textual descent, teacher-student links and rule equivalence remain unproved.",
       "adjudication_batch": "13ZK"
+    },
+    {
+      "edge_id": "TG-E0241",
+      "from": "PASSAGE-WENXIAN-TONGKAO-J220-WUXING-JINGJI",
+      "relation": "EXPLICITLY_CITES",
+      "to": "TEXT-WORK-WUXING-JINGJI",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_WITHIN_SAMPLED_SCOPE",
+      "evidence_class": "RECEIVED_TEXT",
+      "evidence": [
+        "docs/research/TIANWEN-13ZM-WUXING-JINGJI-IMAGE-EVIDENCE-R1.json",
+        "docs/research/TIANWEN-13ZM-WUXING-JINGJI-SONG-YUAN-CATALOG-AND-MANUSCRIPTS-R1.md"
+      ],
+      "scope_note": "Work title, author and 34 juan are explicit; received attribution of the notice to Chen, not two independent catalog votes.",
+      "adjudication_batch": "13ZM"
+    },
+    {
+      "edge_id": "TG-E0242",
+      "from": "SURROGATE-GROUP-WUXING-JINGJI-2621-06584-SAMPLED-LEAVES",
+      "relation": "ATTESTS",
+      "to": "TEXT-WORK-WUXING-JINGJI",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_WITHIN_SAMPLED_SCOPE",
+      "evidence_class": "DIRECT_PHYSICAL_TEXT",
+      "evidence": [
+        "docs/research/TIANWEN-13ZM-WUXING-JINGJI-IMAGE-EVIDENCE-R1.json",
+        "docs/research/TIANWEN-13ZM-WUXING-JINGJI-SONG-YUAN-CATALOG-AND-MANUSCRIPTS-R1.md"
+      ],
+      "scope_note": "Sampled title and juan 33 pages. The 2621 and 06584 readings contribute one evidence group.",
+      "adjudication_batch": "13ZM"
+    },
+    {
+      "edge_id": "TG-E0243",
+      "from": "PHYSICAL-COPY-WUXING-JINGJI-NLC06857",
+      "relation": "ATTESTS",
+      "to": "TEXT-WORK-WUXING-JINGJI",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_WITHIN_SAMPLED_SCOPE",
+      "evidence_class": "DIRECT_PHYSICAL_TEXT",
+      "evidence": [
+        "docs/research/TIANWEN-13ZM-WUXING-JINGJI-IMAGE-EVIDENCE-R1.json",
+        "docs/research/TIANWEN-13ZM-WUXING-JINGJI-SONG-YUAN-CATALOG-AND-MANUSCRIPTS-R1.md"
+      ],
+      "scope_note": "Opening note and sampled juan 33 pages support a distinct written witness; the exemplar relationship remains unknown.",
+      "adjudication_batch": "13ZM"
     }
   ],
   "lineage_hypotheses": [
