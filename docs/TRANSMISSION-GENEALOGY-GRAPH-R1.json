@@ -4848,6 +4848,38 @@
         69,
         70
       ]
+    },
+    {
+      "node_id": "EDITION-KOSOSHA-BAZI-TOUHA-GOKON-1982",
+      "node_type": "EDITION",
+      "label": "香草社《透派秘伝子平推命合婚法》1982年本",
+      "system_scope": "BAZI",
+      "work_composition_date": null,
+      "edition_impression_date": "1982",
+      "physical_copy_date": null,
+      "digital_surrogate_date": null,
+      "date_scope_note": "Osaka catalog B10364530; Tokyo Kososha, 402 pages. Composition date and text not examined.",
+      "evidence": [
+        "docs/research/TIANWEN-13ZK-JAPAN-KOSOSHA-TRANSMISSION-R1.json",
+        "docs/research/TIANWEN-13ZK-JAPAN-KOSOSHA-ZIWEI-BAZI-PUBLICATION-R1.md"
+      ],
+      "first_explicit_graph_batch": "13ZK"
+    },
+    {
+      "node_id": "EDITION-KOSOSHA-ZIWEI-TOUHA-GOKON-1985",
+      "node_type": "EDITION",
+      "label": "香草社《紫薇斗数推命合婚法》1985年第五刷",
+      "system_scope": "ZIWEI",
+      "work_composition_date": null,
+      "edition_impression_date": "1985",
+      "physical_copy_date": null,
+      "digital_surrogate_date": null,
+      "date_scope_note": "Shiga catalog 0770484; the first printing is retrospectively dated 1971 in this record. Its original imprint and subtitle remain unchecked.",
+      "evidence": [
+        "docs/research/TIANWEN-13ZK-JAPAN-KOSOSHA-TRANSMISSION-R1.json",
+        "docs/research/TIANWEN-13ZK-JAPAN-KOSOSHA-ZIWEI-BAZI-PUBLICATION-R1.md"
+      ],
+      "first_explicit_graph_batch": "13ZK"
     }
   ],
   "edges": [
@@ -8510,6 +8542,21 @@
       ],
       "scope_note": "The target is the named work. The cited historical impression or physical exemplar, mutual descent of the collation copies, and an authorial correction of 《大統歷志》 remain unbound.",
       "adjudication_batch": "13RW"
+    },
+    {
+      "edge_id": "TG-E0240",
+      "from": "EDITION-KOSOSHA-BAZI-TOUHA-GOKON-1982",
+      "relation": "PARALLEL_COEXISTS_WITH",
+      "to": "EDITION-KOSOSHA-ZIWEI-TOUHA-GOKON-1985",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_FOR_NEAR_CONTEMPORARY_PUBLICATION_ONLY",
+      "evidence_class": "DIRECT_BIBLIOGRAPHIC_BINDING",
+      "evidence": [
+        "docs/research/TIANWEN-13ZK-JAPAN-KOSOSHA-TRANSMISSION-R1.json",
+        "docs/research/TIANWEN-13ZK-JAPAN-KOSOSHA-ZIWEI-BAZI-PUBLICATION-R1.md"
+      ],
+      "scope_note": "The two editions are separately cataloged under Kososha, both credit Zhang Yaowen and carry the Touha label. Textual descent, teacher-student links and rule equivalence remain unproved.",
+      "adjudication_batch": "13ZK"
     }
   ],
   "lineage_hypotheses": [

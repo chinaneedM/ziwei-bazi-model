@@ -63,6 +63,10 @@
 
 证据：[Batch 12X](https://github.com/chinaneedM/ziwei-bazi-model/blob/agent/fusion-chart-core-r1-20260822/docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JIWEN-1982-1999-AND-DAYUAN-2012-COPY-TEXT-ROUTES-X.md)；源登记 `EXT-WANGTINGZHI-ZHONGZHOU-CHUJI`、`EXT-XINYITANG-ZWDSQS-WENGUANG-FACSIMILE-2017`。
 
+#### 日本香草社的翻译、合著与再版
+
+横滨市立图书馆著录1975年《紫薇斗数推命術》，陈信苍著、佐藤文栞译。1977年多摩馆著录《紫薇斗数鑑法全書》，滋贺馆、国会图书馆另录1984、1994年再版，佐藤文栞的「著／译」责任说明有差异。1981年另见张耀文与佐藤六龙合著《紫薇推命実践命譜》，1987年国会图书馆还著录佐藤文栞著、张耀文监修的《紫薇究明と実践》。1985年《紫薇斗数推命合婚法》第五刷馆目回溯1971年第一刷，最早印次的奥付和副题尚待实物核验。以上馆目建立日本本地出版记录，所据中文底本、实际讲授和师承仍待考。见[馆目对照](./research/TIANWEN-13ZK-JAPAN-KOSOSHA-ZIWEI-BAZI-PUBLICATION-R1.md)。
+
 ## 首轮规则源流骨架（不代替逐条校勘）
 
 | 规则族 | 当前可确定的历史节点 | 不能越过的界限 |
