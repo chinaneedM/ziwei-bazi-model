@@ -1,0 +1,118 @@
+{
+  "batch": "13ZO",
+  "date": "2026-11-16",
+  "witness": {
+    "accession": "Taiwan National Central Library 06589",
+    "catalogued_impression_year": 1578,
+    "existing_same_physical_copy_source": "EXT-SANMING-NCL-1578-MAIN",
+    "copy_vote_increment": 0,
+    "source_url": "https://upload.wikimedia.org/wikipedia/commons/f/f4/NCL-06589_1_%E4%B8%89%E5%91%BD%E9%80%9A%E6%9C%83.pdf",
+    "source_sha256": "3de5c45efb1919965afae00a3c97121054aaabd0f38f9fd5ab8f0a28bb8e36dd",
+    "source_bytes": 101956385,
+    "pdf_page_count": 1000,
+    "page_index": "One-based PDF page. Filename suffix 1 denotes a split PDF, not the first juan.",
+    "render_command": "pdftoppm -f PAGE -l PAGE -singlefile -scale-to 1800 -png SOURCE OUTPUT_PREFIX",
+    "manually_collated_pages": [
+      {
+        "page": 962,
+        "sha256": "9e4d3b58f385a46d9fa8612296f647d75597f8b21cf613281ea4e7313498dccf",
+        "normalized_glyph_anchors": [
+          "三命通會卷之十一",
+          "消息賦",
+          "珞琭子著",
+          "育吾子解",
+          "以干為祿",
+          "以支為命"
+        ]
+      },
+      {
+        "page": 963,
+        "sha256": "45ceeb734ef7b511983e8ae1e0c7864a8982077378f534a3abba022847dfa346",
+        "normalized_glyph_anchors": [
+          "運行則一辰十歲",
+          "折除乃三日為年",
+          "實歷",
+          "就生就節"
+        ]
+      }
+    ]
+  },
+  "received_text_routes": {
+    "chao": "https://ctext.org/wiki.pl?chapter=27348&if=gb",
+    "chen": "https://zh.wikisource.org/zh-hant/直齋書錄解題/卷十二",
+    "xu_proposal": "https://zh.wikisource.org/zh-hant/珞琭子三命消息賦註_(四庫全書本)",
+    "xu_text": "https://zh.wikisource.org/zh-hant/珞琭子三命消息賦注",
+    "tanying_proposal": "https://www.shidianguji.com/zh/book/SK1604/chapter/1m1fa77hoyvih",
+    "tanying_prefaces": "https://www.shidianguji.com/zh/book/SK1604/chapter/1jurf2g00x0di",
+    "tanying_text": "https://www.shidianguji.com/zh/mid-page/7352264381494902811",
+    "sanming_proposal": "https://www.shidianguji.com/zh/book/SK1610/chapter/1m1evhxpy8u15",
+    "sanming_juan11_received": "https://zh.wikisource.org/wiki/三命通會_(四庫全書本)/卷11"
+  },
+  "layers": {
+    "song_catalog": {
+      "chao_title_juan": [
+        1,
+        5
+      ],
+      "chen_title_juan": 1,
+      "original_catalog_leaf_read": false
+    },
+    "dated_preface_statements": {
+      "tanying": 1127,
+      "dong_xun": 1128,
+      "physical_song_leaf_read": false
+    },
+    "qing_reconstruction": {
+      "catalogued_reconstructions": {
+        "xu_title_branch": 2,
+        "tanying_title_branch": 2
+      },
+      "tanying_upper_juan_preserved_commentator_labels": [
+        "王廷光",
+        "李仝",
+        "曇瑩"
+      ],
+      "wang_presentation_year_reported_by_siku": 1123,
+      "qing_reports_ming_yongle_dadian_as_editorial_source": true,
+      "yongle_dadian_target_folio_read": false,
+      "qian_ceng_four_name_notice": "docs/research/TIANWEN-13ZN-QIAN-CENG-WUXING-JINGJI-CATALOG-EVIDENCE-R1.json"
+    },
+    "comparison": {
+      "common_base_lemma": "運行則一辰十歲，折除乃三日為年",
+      "distinct_commentary_scopes": [
+        "育吾子解",
+        "徐子平題名注",
+        "曇瑩題名本王廷光注"
+      ],
+      "same_direct_exemplar_established": false,
+      "complete_leaf_collation": false,
+      "siku_comparison_juan_and_exemplar_bound": false
+    }
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [
+      "TEXT-WORK-LUOLUZI-SANMING-XIAOXI-FU",
+      "PHYSICAL-COPY-SANMING-NCL06589-1578",
+      "PASSAGE-SANMING-1578-J11-XIAOXI-FU",
+      "EDITION-LUOLUZI-XU-SIKU",
+      "EDITION-LUOLUZI-TANYING-SIKU"
+    ],
+    "edges_supported": [
+      "TG-E0244",
+      "TG-E0245",
+      "TG-E0246",
+      "TG-E0247"
+    ],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Direct teacher-student lineage among named commentators",
+      "Direct copying between the examined printed and reconstructed branches",
+      "Exact dating or authorship of the shared lemma from the received commentary labels"
+    ],
+    "unresolved_lineage_questions": [
+      "Song and Yongle original folios",
+      "Physical identity of Qian Ceng's four-name exemplar",
+      "Mechanism and direction of the textual overlap between Wuxing Jingji juan 33 and the Wang commentary"
+    ]
+  }
+}

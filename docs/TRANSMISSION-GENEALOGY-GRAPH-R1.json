@@ -4944,6 +4944,70 @@
         "docs/research/TIANWEN-13ZM-WUXING-JINGJI-IMAGE-EVIDENCE-R1.json"
       ],
       "first_explicit_graph_batch": "13ZM"
+    },
+    {
+      "node_id": "TEXT-WORK-LUOLUZI-SANMING-XIAOXI-FU",
+      "node_type": "TEXT_WORK",
+      "label": "《珞琭子三命消息賦》題名／賦文家族",
+      "system_scope": "BAZI",
+      "work_composition_date": null,
+      "edition_impression_date": null,
+      "physical_copy_date": null,
+      "digital_surrogate_date": null,
+      "date_scope_note": "Song catalog attestation via received texts. Exact composition, author and physical Song leaf unbound.",
+      "evidence": [
+        "docs/research/TIANWEN-13ZO-LUOLUZI-WITNESS-EVIDENCE-R1.json",
+        "EXT-TIANWEN-13ZO-ZHIZHAI-J12-LUOLUZI"
+      ],
+      "first_explicit_graph_batch": "13ZO"
+    },
+    {
+      "node_id": "PASSAGE-SANMING-1578-J11-XIAOXI-FU",
+      "node_type": "PASSAGE",
+      "label": "1578《三命通會》卷十一〈消息賦〉",
+      "system_scope": "BAZI",
+      "work_composition_date": null,
+      "edition_impression_date": "1578",
+      "physical_copy_date": null,
+      "digital_surrogate_date": null,
+      "date_scope_note": "NCL06589 opening and dayun lemma, pp962–963 in the main scan, as found in the catalogued 1578 edition.",
+      "evidence": [
+        "docs/research/TIANWEN-13ZO-LUOLUZI-WITNESS-EVIDENCE-R1.json",
+        "EXT-SANMING-NCL-1578-MAIN"
+      ],
+      "first_explicit_graph_batch": "13ZO"
+    },
+    {
+      "node_id": "EDITION-LUOLUZI-XU-SIKU",
+      "node_type": "EDITION",
+      "label": "四庫所輯徐子平題名《珞琭子三命消息賦注》",
+      "system_scope": "BAZI",
+      "work_composition_date": null,
+      "edition_impression_date": null,
+      "physical_copy_date": null,
+      "digital_surrogate_date": null,
+      "date_scope_note": "Qing editorial reconstruction with a received 1781 prefatory notice; specific physical witness unbound.",
+      "evidence": [
+        "docs/research/TIANWEN-13ZO-LUOLUZI-WITNESS-EVIDENCE-R1.json",
+        "EXT-TIANWEN-13ZO-LUOLUZI-XU-RECEIVED"
+      ],
+      "first_explicit_graph_batch": "13ZO"
+    },
+    {
+      "node_id": "EDITION-LUOLUZI-TANYING-SIKU",
+      "node_type": "EDITION",
+      "label": "四庫所輯曇瑩題名《珞琭子賦注》",
+      "system_scope": "BAZI",
+      "work_composition_date": null,
+      "edition_impression_date": null,
+      "physical_copy_date": null,
+      "digital_surrogate_date": null,
+      "date_scope_note": "Qing editorial reconstruction with a received 1781 prefatory notice and a received 1127 preface; specific physical witness unbound.",
+      "evidence": [
+        "docs/research/TIANWEN-13ZO-LUOLUZI-WITNESS-EVIDENCE-R1.json",
+        "EXT-TIANWEN-13ZO-LUOLUZI-TANYING-RECEIVED"
+      ],
+      "first_explicit_graph_batch": "13ZO"
     }
   ],
   "edges": [
@@ -8666,6 +8730,66 @@
       ],
       "scope_note": "Opening note and sampled juan 33 pages support a distinct written witness; the exemplar relationship remains unknown.",
       "adjudication_batch": "13ZM"
+    },
+    {
+      "edge_id": "TG-E0244",
+      "from": "PHYSICAL-COPY-SANMING-NCL06589-1578",
+      "to": "PASSAGE-SANMING-1578-J11-XIAOXI-FU",
+      "relation": "ATTESTS",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_WITHIN_SAMPLED_SCOPE",
+      "evidence_class": "DIRECT_PHYSICAL_TEXT",
+      "evidence": [
+        "docs/research/TIANWEN-13ZO-LUOLUZI-WITNESS-EVIDENCE-R1.json",
+        "docs/research/TIANWEN-13ZO-LUOLUZI-SONG-CATALOG-MING-PRINT-QING-RECENSIONS-R1.md"
+      ],
+      "scope_note": "Pages 962–963 of the registered physical scan, not an additional copy.",
+      "adjudication_batch": "13ZO"
+    },
+    {
+      "edge_id": "TG-E0245",
+      "from": "PASSAGE-SANMING-1578-J11-XIAOXI-FU",
+      "to": "TEXT-WORK-LUOLUZI-SANMING-XIAOXI-FU",
+      "relation": "ATTESTS",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_WITHIN_SAMPLED_SCOPE",
+      "evidence_class": "DIRECT_PHYSICAL_TEXT",
+      "evidence": [
+        "docs/research/TIANWEN-13ZO-LUOLUZI-WITNESS-EVIDENCE-R1.json",
+        "docs/research/TIANWEN-13ZO-LUOLUZI-SONG-CATALOG-MING-PRINT-QING-RECENSIONS-R1.md"
+      ],
+      "scope_note": "Attribution, common received dayun lemma and Yuwuzi gloss; editorial exemplar unproven.",
+      "adjudication_batch": "13ZO"
+    },
+    {
+      "edge_id": "TG-E0246",
+      "from": "EDITION-LUOLUZI-XU-SIKU",
+      "to": "TEXT-WORK-LUOLUZI-SANMING-XIAOXI-FU",
+      "relation": "ATTESTS",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_WITHIN_SAMPLED_SCOPE",
+      "evidence_class": "RECEIVED_TEXT",
+      "evidence": [
+        "docs/research/TIANWEN-13ZO-LUOLUZI-WITNESS-EVIDENCE-R1.json",
+        "docs/research/TIANWEN-13ZO-LUOLUZI-SONG-CATALOG-MING-PRINT-QING-RECENSIONS-R1.md"
+      ],
+      "scope_note": "The Xu-title Qing reconstruction preserves the sampled lemma with different gloss.",
+      "adjudication_batch": "13ZO"
+    },
+    {
+      "edge_id": "TG-E0247",
+      "from": "EDITION-LUOLUZI-TANYING-SIKU",
+      "to": "TEXT-WORK-LUOLUZI-SANMING-XIAOXI-FU",
+      "relation": "ATTESTS",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_WITHIN_SAMPLED_SCOPE",
+      "evidence_class": "RECEIVED_TEXT",
+      "evidence": [
+        "docs/research/TIANWEN-13ZO-LUOLUZI-WITNESS-EVIDENCE-R1.json",
+        "docs/research/TIANWEN-13ZO-LUOLUZI-SONG-CATALOG-MING-PRINT-QING-RECENSIONS-R1.md"
+      ],
+      "scope_note": "The Tanying-title Qing reconstruction preserves the lemma and the separately labelled Wang gloss.",
+      "adjudication_batch": "13ZO"
     }
   ],
   "lineage_hypotheses": [
