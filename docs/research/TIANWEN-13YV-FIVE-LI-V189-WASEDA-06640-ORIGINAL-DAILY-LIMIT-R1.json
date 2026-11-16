@@ -1,0 +1,98 @@
+{
+  "schema": "TIANWEN-13YV-FIVE-LI-V189-WASEDA-06640-ORIGINAL-DAILY-LIMIT-R1",
+  "date": "2026-11-16",
+  "issue_id": "TW-OPEN-0005",
+  "question": "Does the source copy of 五禮通考卷189 physically read 十二分 or 二十分 in the attributed 梅文鼎 passage?",
+  "witness": {
+    "source_id": "EXT-TIANWEN-13YV-FIVE-LI-V189-WASEDA-06640-NATIVE-TEXT",
+    "work": "秦蕙田《五禮通考》卷一百八十九〈觀象授時〉",
+    "source_url": "https://upload.wikimedia.org/wikipedia/commons/d/da/WUL-wa04_06640_%E4%BA%94%E7%A6%AE%E9%80%9A%E8%80%83_071.pdf",
+    "source_sha256": "5a1ce3dc90055e28158ef33c67f31a5872bd9e4ca904638df3aef021762b9906",
+    "source_bytes": 32570825,
+    "pdf_pages": 75,
+    "catalog_url": "https://www.wul.waseda.ac.jp/kotenseki/html/wa04/wa04_06640/index.html",
+    "catalogued_identity": "ワ04 06640，冊071；館目繫於光緒六年[1880]江蘇書局重刊",
+    "edition_impression_date_bound": false,
+    "physical_copy_catalog_identity_bound": false,
+    "identity_scope": "Catalogue-to-public-surrogate association from 13YQ. Exact impression colophon, physical accession authentication and plate genealogy are outside the reviewed spans.",
+    "manually_collated_pages": [
+      {
+        "page": 70,
+        "literal": "梅氏文鼎曰",
+        "sha256": "af106d966b38cf6c21ba231df743b17b6ce5abf5868c53b385526849b721d02c",
+        "embedded_jpeg_sha256": "dba6ecdf58dc5fcffa99d7d64f15b3f46e74c2e8da291e22f1e50daa124258b3",
+        "sha_kind": "FULL_NATIVE_JPEG_DECODED_RGB",
+        "rgb_dimensions": [
+          2592,
+          1728
+        ],
+        "roi_xyxy": [
+          555,
+          465,
+          665,
+          1505
+        ],
+        "roi_rgb_sha256": "9f516615a28a6d3fc13aea5d26f860029161f1ee4b0d30e7e8cedd5a9eeacf4e"
+      },
+      {
+        "page": 71,
+        "literal": "術家以八百二十分為一限；一日分十二限十二分",
+        "sha256": "90c03bb3230af4c91131da4408acf7df190b501d544847d0e439be088c19f2f0",
+        "embedded_jpeg_sha256": "82e70df2cd373a53fec8fd626da11ee8514e1b12868b87757fa02199e056bf47",
+        "sha_kind": "FULL_NATIVE_JPEG_DECODED_RGB",
+        "rgb_dimensions": [
+          2592,
+          1728
+        ],
+        "roi_xyxy": [
+          1400,
+          480,
+          1590,
+          1500
+        ],
+        "roi_rgb_sha256": "9bd9d41657765fe5509311792dc6d023c84fbbeeb38a7df735cfa4dfa2958f68"
+      },
+      {
+        "page": 72,
+        "literal": "用每限之時刻〈八百二十分〉乘之為實，每限之月行度為法〈即遲疾行度〉除之",
+        "sha256": "d0b1943af54a980d742c03eb3a6e729266e8c5054dcaf8056258b82bc7389db5",
+        "embedded_jpeg_sha256": "1582e0822f6951dfe3cc162fe672d9858ca9b4d77385bb29bd07812bb1616bb6",
+        "sha_kind": "FULL_NATIVE_JPEG_DECODED_RGB",
+        "rgb_dimensions": [
+          2592,
+          1728
+        ],
+        "roi_xyxy": [
+          1280,
+          465,
+          1590,
+          1505
+        ],
+        "roi_rgb_sha256": "4c366cec2ef5856d8d6f68f4eab49d2e37931155e3d486c65020376f65337c4d"
+      }
+    ],
+    "method": "Manual image reading without OCR or arithmetic substitution. Bounds are xyxy in the declared RGB geometry, right/bottom exclusive. Angle brackets above mark original small type. Editorial punctuation is supplied. Digital page numbers are one-based."
+  },
+  "earlier_scope": [
+    "docs/research/TIANWEN-13YQ-WULITONGKAO-V189-LATER-820-EXPLANATION-WUL-NAJ-BIBLIOGRAPHIC-BOUNDARY-R1.json",
+    "docs/research/TIANWEN-13YR-FIVE-LI-MEI-820-DAILY-LIMIT-12-VS-20-RECEIVED-VARIANT-QUARANTINE-R1.json"
+  ],
+  "parallel_original": "docs/research/TIANWEN-13YV-FIVE-LI-V189-NAJ-274-0087-0065-ORIGINAL-DAILY-LIMIT-R1.json",
+  "comparison": {
+    "copy_local_reading": "一日分十二限十二分",
+    "parallel_copy_reading": "一日分十二限十二分",
+    "later_mei_received_own_work_reading": "一日分十二限二十分（13YR 的《歷算全書》卷21收本文字）",
+    "bounded_operator": "The attributed explanation explicitly multiplies the angular increment by 820, then divides by the per-limit lunar angular motion (遲疾行度) to obtain time. This is a late explanation of conversion; exact historical units of the suffix and an early Xu-An 疾 table-generation operation are still open.",
+    "bibliographic_boundary": "NAJ file 65 reaches the close of juan191 at digital p112. The target passage on digital p49 belongs to juan189."
+  },
+  "decision": {
+    "grade": "COPY_SCOPED_DIRECT_SOURCE_IMAGE_COLLATION_OF_LATER_QING_READING",
+    "modern_transcription_error_alone_explains_twelve": false,
+    "authorial_mei_reading_and_transmission_error_origin": "OPEN",
+    "independent_plate_or_direct_copying": "UNPROVEN",
+    "g893_named_controls": "5/6",
+    "g893_historical_finals": "0/6",
+    "core": "CLOSED"
+  },
+  "next_action": "Obtain authenticated 徐安1600 NCL06270 巻45 L35/L132 and direct 疾捷法/少微 evidence. For the separate Twelve/Twenty variant, inspect the same passage in source images of Mei’s own work and the earliest available 五禮通考 copies before dating any divergence."
+}
