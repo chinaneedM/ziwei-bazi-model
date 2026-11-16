@@ -12,9 +12,9 @@
   "binding": {
     "repository": "chinaneedM/ziwei-bazi-model",
     "branch": "agent/fusion-chart-core-r1-20260822",
-    "reviewed_state_version": "1.1295.0",
-    "source_focus_count": 3012,
-    "latest_research_focus_prefix": "13YZ"
+    "reviewed_state_version": "1.1296.0",
+    "source_focus_count": 3013,
+    "latest_research_focus_prefix": "13ZC"
   },
   "coverage_axes": [
     "primary_editions_and_physical_copies",
@@ -29036,6 +29036,31 @@
       "result": "Corrects the immediately preceding 13ZA checkpoint's 11 null reviewed_issue_ids, caused by using issue_id instead of the real issue.id field while creating the breadth-first plan. The prior checkpoint remains preserved in full. All 11 actual issues, including five P0, have been reviewed; statuses, history, source_refs, priorities and closure gates are unchanged. Current-state omission guard synchronized with reviewed_state_version.",
       "evidence_refs": [
         "docs/TIANWEN-HISTORY-TRANSMISSION-BREADTH-FIRST-ROADMAP-R1.md"
+      ]
+    },
+    {
+      "id": "OMISSIONS-13ZC-DUAL-HISTORICAL-OUTLINE-FIRST-PASS-20261116",
+      "date": "2026-11-16",
+      "state_version": "1.1296.0",
+      "reviewed_issue_ids": [
+        "TW-OPEN-0001",
+        "TW-OPEN-0002",
+        "TW-OPEN-0003",
+        "TW-OPEN-0004",
+        "TW-OPEN-0005",
+        "TW-OPEN-0006",
+        "TW-OPEN-0007",
+        "TW-OPEN-0008",
+        "TW-OPEN-0009",
+        "TW-OPEN-0010",
+        "TW-OPEN-0011"
+      ],
+      "discovery_mode": "BREADTH_FIRST_SOURCE_REGISTRY_AND_MATRIX_REUSE_WITH_FIRST_PARTY_1578_BIBLIOGRAPHIC_CROSSCHECK",
+      "result": "All 11 prior issues, including five P0, reviewed without mutation. Created three coverage-first readable history documents from existing evidence. TW-OPEN-0005 stays P0 OPEN; no new numeric or glyph award, issue closure, source count, graph, Matrix, source-page grade or chart algorithm changes. Next work targets earliest chronology and transmission gaps across Ziwei and Bazi.",
+      "evidence_refs": [
+        "docs/TIANWEN-ZIWEI-HISTORICAL-OUTLINE-R1.md",
+        "docs/TIANWEN-BAZI-HISTORICAL-OUTLINE-R1.md",
+        "docs/TIANWEN-DUAL-HISTORY-COVERAGE-ATLAS-R1.md"
       ]
     }
   ],
