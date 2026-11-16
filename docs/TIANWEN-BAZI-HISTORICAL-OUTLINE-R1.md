@@ -30,6 +30,12 @@
 
 原有来源：`EXT-CTEXT-WUXING-JINGJI-V23-BREAK`、`EXT-CTEXT-WUXING-JINGJI-V28`、`EXT-CTEXT-WUXING-JINGJI-V33-DAYUN`（[卷33接受文本](https://ctext.org/wiki.pl?chapter=181298&if=gb&remap=gb)）；[Batch 01](https://github.com/chinaneedM/ziwei-bazi-model/blob/agent/fusion-chart-core-r1-20260822/docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-01-TIME-DAYUN-XIAOYUN.md)。
 
+#### 宋代书目实证及清代自我勘误（13ZE，传本 C／现代印页局部直读）
+
+《郡斋读书志》卷十四“五行类”同时著录**《李虚中命书》三卷**、**《五命秘诀》一卷**及《珞琭子三命》/《珞琭子疏》；在《五命秘诀》条明确区别“年月日支干”的“三命”和另加的**时、胎**。郑樵《通志·艺文略》则将李虚中名下文献列为**《命术》一卷、《命书补遗》一卷**，并列林开《五命秘诀》一卷。本轮直接核看了《万有文库·通志略》的**近代印页百〇二**，其“原页已核”资格只属于近代扫描副本，**不等于宋代古本原字**。这些差异提示**宋代已经有不同的命书目录、卷次和术语分类**，并不能自动证明单一师承。
+
+更关键的是：1781年《四库全书总目》的“李虚中不用时、四柱或后添”评议，受到纪昀自己在《阅微草堂笔记》卷十二中针对**“所直日辰”**的后出句读修正挑战。纪昀明示曾在《四库》沿用旧说，后认为“日辰”可能指时刻，同时保留宋人伪托疑虑。因此**既不可断言唐代一定不用时，亦不可说唐代完整现代八字已被证明**。详见[13ZE 宋代书录／纪昀前后改议证据笔记](https://github.com/chinaneedM/ziwei-bazi-model/blob/agent/fusion-chart-core-r1-20260822/docs/research/TIANWEN-13ZE-SONG-BOOK-CATALOG-JIYUN-SELF-REVISION-R1.md)及[《郡斋》卷十四](https://ctext.org/wiki.pl?chapter=27348&if=gb)、[《通志》卷六十八](https://zh.wikisource.org/wiki/通志_(四庫全書本)/卷068)、[《阅微》卷十二](https://zh.wikisource.org/wiki/閱微草堂筆記/卷12)。
+
 ### 3. 元代及宋元—明的衔接：先标缺口
 
 当前证据组合不足以说明“徐子平→《渊海子平》→《三命通会》”存在逐代、逐书**直接抄承**。应并行核查宋元命书、元明目录、书名异称与《渊海子平》版本，而不是在一条传说中间补上无实物的年代。现代 CText `EXT-CTEXT-YHZP-RECEIVED` 仅证明**被检索的接受本文字**，不证明最早成书／刊刻年代。
