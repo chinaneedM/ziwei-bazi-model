@@ -6497,6 +6497,70 @@
         "docs/research/TIANWEN-14F-JOSEON-ZIPING-PRINTING-AND-ZIWEI-LUO-PREFACE-R1.md"
       ],
       "first_explicit_graph_batch": "14F"
+    },
+    {
+      "node_id": "PASSAGE-JIELAN-1581-OPENING-2016-FACSIMILE",
+      "node_type": "PASSAGE",
+      "label": "王洛川刊《紫微斗數捷覽》卷一书端与星图",
+      "system_scope": "ZIWEI",
+      "work_composition_date": null,
+      "edition_impression_date": null,
+      "physical_copy_date": null,
+      "digital_surrogate_date": "2016",
+      "date_scope_note": "The public page witnesses come from the 2016 facsimile. The imprint line supports Wang Luochuan; the exact 1581 edition date is catalog-level, and the Shanghai shelfmark is outside the preview.",
+      "evidence": [
+        "EXT-TIANWEN-14G-SANMIN-JIELAN-2016-OPENING-P10-P17",
+        "docs/research/TIANWEN-14G-JIELAN-OPENING-AND-NLK-ZIPING-PREFACE-R1.md"
+      ],
+      "first_explicit_graph_batch": "14G"
+    },
+    {
+      "node_id": "PHYSICAL-COPY-NLK-ZIPING-YUANYUAN-FIG10-19-104",
+      "node_type": "PHYSICAL_COPY",
+      "label": "金勉秀图10所见韩国国图《子平淵源》木版本",
+      "system_scope": "BAZI",
+      "work_composition_date": null,
+      "edition_impression_date": null,
+      "physical_copy_date": null,
+      "digital_surrogate_date": null,
+      "date_scope_note": "The dissertation attributes this cover and preface opening to the NLK woodblock copy; the photographed label shows 朝, 19 and 104. The complete current catalog identifier and print date are still pending.",
+      "evidence": [
+        "EXT-TIANWEN-14G-DCOLLECTION-KIM-2019-NLK-ZIPING-FIG10",
+        "docs/research/TIANWEN-14G-JIELAN-OPENING-AND-NLK-ZIPING-PREFACE-R1.md"
+      ],
+      "first_explicit_graph_batch": "14G"
+    },
+    {
+      "node_id": "PASSAGE-NLK-ZIPING-YUANYUAN-PREFACE-OPENING-FIG10",
+      "node_type": "PASSAGE",
+      "label": "韩国国图《子平淵源》传本序首『以日為主搜用八字』",
+      "system_scope": "BAZI",
+      "work_composition_date": null,
+      "edition_impression_date": null,
+      "physical_copy_date": null,
+      "digital_surrogate_date": null,
+      "date_scope_note": "Directly legible in the reproduced opening only. The Bei-you era signature and claimed first-year postface remain reported text pending images of their respective endings.",
+      "evidence": [
+        "EXT-TIANWEN-14G-DCOLLECTION-KIM-2019-NLK-ZIPING-FIG10",
+        "docs/research/TIANWEN-14G-JIELAN-OPENING-AND-NLK-ZIPING-PREFACE-R1.md"
+      ],
+      "first_explicit_graph_batch": "14G"
+    },
+    {
+      "node_id": "EDITION-SEOUL-PUREUNGIL-TONGBIAN-2023",
+      "node_type": "EDITION",
+      "label": "2023首尔푸른길《明通賦／子平三命通變淵源》合刊韩译",
+      "system_scope": "BAZI",
+      "work_composition_date": null,
+      "edition_impression_date": "2023",
+      "physical_copy_date": null,
+      "digital_surrogate_date": null,
+      "date_scope_note": "The 2023 publication and explicit translated title are cataloged. The exact premodern copy reportedly used by the translator has not been authenticated.",
+      "evidence": [
+        "EXT-TIANWEN-14G-NANET-2023-TONGBIAN-KOREAN-TRANSLATION",
+        "docs/research/TIANWEN-14G-JIELAN-OPENING-AND-NLK-ZIPING-PREFACE-R1.md"
+      ],
+      "first_explicit_graph_batch": "14G"
     }
   ],
   "edges": [
@@ -11095,6 +11159,51 @@
       ],
       "scope_note": "Visually readable partial TOC attests the heading family, based on the image and dissertation context. The source copy number, impression and preface attribution remain unbound.",
       "adjudication_batch": "14F"
+    },
+    {
+      "edge_id": "TG-E0301",
+      "from": "PHYSICAL-COPY-NLK-ZIPING-YUANYUAN-FIG10-19-104",
+      "relation": "ATTESTS",
+      "to": "PASSAGE-NLK-ZIPING-YUANYUAN-PREFACE-OPENING-FIG10",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_WITHIN_SAMPLED_SCOPE",
+      "evidence_class": "BOUNDED_FACSIMILE_IN_SECONDARY_SCHOLARSHIP",
+      "evidence": [
+        "EXT-TIANWEN-14G-DCOLLECTION-KIM-2019-NLK-ZIPING-FIG10",
+        "docs/research/TIANWEN-14G-JIELAN-OPENING-AND-NLK-ZIPING-PREFACE-R1.md"
+      ],
+      "scope_note": "The cover and preface opening are paired by the dissertation's figure and its copy attribution, within the limits of those two reproduced images.",
+      "adjudication_batch": "14G"
+    },
+    {
+      "edge_id": "TG-E0302",
+      "from": "PASSAGE-NLK-ZIPING-YUANYUAN-PREFACE-OPENING-FIG10",
+      "relation": "ATTESTS",
+      "to": "TEXT-WORK-JOSEON-ZIPING-SANMING-TONGBIAN-YUANYUAN",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_WITHIN_SAMPLED_SCOPE",
+      "evidence_class": "BOUNDED_FACSIMILE_IN_SECONDARY_SCHOLARSHIP",
+      "evidence": [
+        "EXT-TIANWEN-14G-DCOLLECTION-KIM-2019-NLK-ZIPING-FIG10",
+        "docs/research/TIANWEN-14G-JIELAN-OPENING-AND-NLK-ZIPING-PREFACE-R1.md"
+      ],
+      "scope_note": "The reproduced preface supports the title and the day-centered Eight Characters wording. It does not bind the copy to an historical print order or specific boards.",
+      "adjudication_batch": "14G"
+    },
+    {
+      "edge_id": "TG-E0303",
+      "from": "EDITION-SEOUL-PUREUNGIL-TONGBIAN-2023",
+      "relation": "ATTESTS",
+      "to": "TEXT-WORK-JOSEON-ZIPING-SANMING-TONGBIAN-YUANYUAN",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_WITHIN_SAMPLED_SCOPE",
+      "evidence_class": "INSTITUTIONAL_PUBLICATION_CATALOG",
+      "evidence": [
+        "EXT-TIANWEN-14G-NANET-2023-TONGBIAN-KOREAN-TRANSLATION",
+        "docs/research/TIANWEN-14G-JIELAN-OPENING-AND-NLK-ZIPING-PREFACE-R1.md"
+      ],
+      "scope_note": "The institutional entry explicitly lists this historical title as a translated work in the 2023 publication; the manuscript exemplar and exact transmission route remain unproven.",
+      "adjudication_batch": "14G"
     }
   ],
   "lineage_hypotheses": [
