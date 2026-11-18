@@ -56,18 +56,22 @@ class Waseda13BJ(unittest.TestCase):
   # necessarily supersede the last cited next_action.
   s["schema_version"]="NEXT_FOCUS_ONLY"
   s["historical_audit"]["research_omission_guard"]["reviewed_state_version"]="NEXT_FOCUS_ONLY"
-  s["historical_audit"]["current_focus"].append("13ZZ TEST_ONLY_FOCUS")
+  s["historical_audit"]["current_focus"].append("FUTURE_TEST_BATCH TEST_ONLY_FOCUS")
   l["binding"]["reviewed_state_version"]="NEXT_FOCUS_ONLY"
   l["binding"]["source_focus_count"]=len(s["historical_audit"]["current_focus"])
-  l["binding"]["latest_research_focus_prefix"]="13ZZ"
+  l["binding"]["latest_research_focus_prefix"]="FUTURE_TEST_BATCH"
   l["checkpoint_log"].append({"state_version":"NEXT_FOCUS_ONLY","reviewed_issue_ids":[x["id"] for x in l["issues"]]})
   self.assertEqual(issue["next_action"],prior_action)
   self.assertTrue(self.go(ledger=l,state=s))
  def test_latest_focus_without_action_event_cannot_spoof(self):
-  l=copy.deepcopy(self.ledger)
+  l=copy.deepcopy(self.ledger);s=copy.deepcopy(self.state)
   issue=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
-  issue["next_action"]="13ZZ CURRENT ACTION spoofed without material scope revision"
-  with self.assertRaises(AssertionError):self.go(ledger=l)
+  s["historical_audit"]["current_focus"].append("FUTURE_TEST_BATCH TEST_ONLY_FOCUS")
+  l["binding"]["source_focus_count"]=len(s["historical_audit"]["current_focus"])
+  l["binding"]["latest_research_focus_prefix"]="FUTURE_TEST_BATCH"
+  issue["next_action"]="FUTURE_TEST_BATCH CURRENT ACTION spoofed without action revision"
+  with self.assertRaisesRegex(AssertionError,"action not matched to a source-bound research revision"):
+   self.go(ledger=l,state=s)
  def test_last_action_event_must_authorize_prefix(self):
   l=copy.deepcopy(self.ledger)
   issue=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
