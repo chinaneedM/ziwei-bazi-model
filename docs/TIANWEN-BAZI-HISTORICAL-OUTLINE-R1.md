@@ -172,3 +172,7 @@
 ## 14B 增补｜清《耕寸集》前四页图像核读
 
 接续 [14A](./research/TIANWEN-14A-NCL06599-GENGCUNJI-QING-MANUSCRIPT-CATALOG-R1.md)，利用 NCL06599 同一馆藏的 Commons 页面渲染，目验数字页 1「論十干十二支」、页 3「論陰陽生剋」，数字页 2、4 继续阴阳五行论述。见 [14B 限域研究](./research/TIANWEN-14B-NCL06599-GENGCUNJI-OPEN-PAGE-BOUNDED-READING-R1.md)。这使清代书目节点增加有限正文图像见证，但**未获取原生 PDF 哈希、全册序跋、抄写年、作者及与《子平真詮》的同版同文证据**；篇题相似不构成直接传承，来源/图谱/Matrix 与已封闭排盘核心均不变。
+
+## 14C 增补｜1986 台湾四柱教材系列与香港经销转录线索
+
+1986 年 Google Books B 级聚合书目登记高山靑《四柱與八字》为《世界相命全集》**第 9 册**，并与同系列第 8 册《紫薇斗數》分册登记。网上镜像 PDF 的机器提取文字出现 1986 年 4 月「7版」、台北天相出版社及香港总经销说明，但**未能取得可靠 PDF 截图及原始文件／页级哈希**，只能作 C 级印记/经销线索，不宣称独立原版字形或香港实际教学。两术同时出版不证明共同的古典机械规则。见 [14C 限域证据](./research/TIANWEN-14C-TAIWAN-1986-PARALLEL-ZIWEI-BAZI-SERIES-BIBLIOGRAPHY-R1.md)。
