@@ -12,7 +12,7 @@
   "binding": {
     "repository": "chinaneedM/ziwei-bazi-model",
     "branch": "agent/fusion-chart-core-r1-20260822",
-    "reviewed_state_version": "1.1325.0",
+    "reviewed_state_version": "1.1326.0",
     "source_focus_count": 3044,
     "latest_research_focus_prefix": "13ZZ"
   },
@@ -30510,6 +30510,32 @@
           "status": "OPEN",
           "evidence_ref": "docs/research/TIANWEN-14D-REPUBLICAN-1926-1929-SHENFENGTONGKAO-EDITION-CROSSWALK-R1.md"
         }
+      ]
+    },
+    {
+      "id": "OMISSIONS-14D-CI-STATUS-VOCABULARY-CORRECTION-20261118",
+      "date": "2026-11-18",
+      "state_version": "1.1326.0",
+      "reviewed_issue_ids": [
+        "TW-OPEN-0001",
+        "TW-OPEN-0002",
+        "TW-OPEN-0003",
+        "TW-OPEN-0004",
+        "TW-OPEN-0005",
+        "TW-OPEN-0006",
+        "TW-OPEN-0007",
+        "TW-OPEN-0008",
+        "TW-OPEN-0009",
+        "TW-OPEN-0010",
+        "TW-OPEN-0011"
+      ],
+      "discovery_mode": "FORWARD_ONLY_14D_EXACT_HEAD_CI_REPAIR",
+      "result": "Repair exact-HEAD CI validation: sync current-state research-omission guard version, register all 3 new digital/collation-limited sources as BIBLIOGRAPHIC_METADATA_ONLY (physical_glyph_authority=false) in accepted registry vocabulary, preserve quality_notes and published bounded visual observations. Source counts/identities and 11 existing issues including 5 P0 unchanged. No original glyph, independent physical copy, impression year, lineage edge or runtime claim authorized.",
+      "evidence_refs": [
+        "docs/research/TIANWEN-14D-REPUBLICAN-1926-1929-SHENFENGTONGKAO-EDITION-CROSSWALK-R1.md",
+        "docs/research/TIANWEN-14D-REPUBLICAN-SHENFENG-TONGKAO-SOURCE-SHARD-R1.json",
+        "scripts/verify-historical-source-registry-extensions-r1.py",
+        "scripts/verify-research-omission-risk-ledger-r1.py"
       ]
     }
   ],
