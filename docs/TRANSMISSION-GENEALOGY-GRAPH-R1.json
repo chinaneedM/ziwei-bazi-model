@@ -6431,6 +6431,72 @@
         "docs/research/TIANWEN-14E-REPUBLICAN-FEIXING-TAIWAN-1972-PUBLICATION-SCOPE-R1.md"
       ],
       "first_explicit_graph_batch": "14E"
+    },
+    {
+      "node_id": "PASSAGE-YEONGJO-1741-ZIPING-EXAM-PRINT-ORDER",
+      "node_type": "PASSAGE",
+      "label": "《英祖實錄》1741年《徐子平》命刊条",
+      "system_scope": "BAZI",
+      "work_composition_date": null,
+      "edition_impression_date": null,
+      "physical_copy_date": null,
+      "digital_surrogate_date": null,
+      "date_scope_note": "1741 dates the reported court order. The received NIKH text and its translation establish exam use at the short-title scope; the full-title recension and surviving impressions are unresolved.",
+      "evidence": [
+        "EXT-TIANWEN-14F-NIKH-YEONGJO-1741-ZIPING-PRINT-ORDER",
+        "docs/research/TIANWEN-14F-JOSEON-ZIPING-PRINTING-AND-ZIWEI-LUO-PREFACE-R1.md"
+      ],
+      "first_explicit_graph_batch": "14F"
+    },
+    {
+      "node_id": "PASSAGE-NUPANGO-1941-ZIPING-BOARD-REGISTER",
+      "node_type": "PASSAGE",
+      "label": "《鏤板考》卷四《子平三命通變淵源》及觀象監藏版条",
+      "system_scope": "BAZI",
+      "work_composition_date": null,
+      "edition_impression_date": "1941-06-20",
+      "physical_copy_date": null,
+      "digital_surrogate_date": null,
+      "date_scope_note": "1796 dates the catalog compilation. The directly read p103–104 text is from the 1941 edition and does not identify a date or physical impression of the target Ziping work.",
+      "evidence": [
+        "EXT-TIANWEN-14F-NLK-NUPANGO-1941-P103-P104",
+        "EXT-TIANWEN-14F-AKS-NUPANGO-COMPILATION-1796",
+        "docs/research/TIANWEN-14F-JOSEON-ZIPING-PRINTING-AND-ZIWEI-LUO-PREFACE-R1.md"
+      ],
+      "first_explicit_graph_batch": "14F"
+    },
+    {
+      "node_id": "PASSAGE-LEE-FIG9-NLK-ZIPING-TOC",
+      "node_type": "PASSAGE",
+      "label": "李洙銅论文图9所载《子平三命通變淵源》上卷目录局部",
+      "system_scope": "BAZI",
+      "work_composition_date": null,
+      "edition_impression_date": null,
+      "physical_copy_date": null,
+      "digital_surrogate_date": null,
+      "date_scope_note": "Modern dissertation inset attributed by its author to the NLK copy; no shelfmark or colophon visible. TOC headings are bounded to the image and do not attest full mechanics, preface text or a print date.",
+      "evidence": [
+        "EXT-TIANWEN-14F-WONKWANG-LEE-YINYANG-EXAMINATION",
+        "docs/research/TIANWEN-14F-JOSEON-ZIPING-PRINTING-AND-ZIWEI-LUO-PREFACE-R1.md"
+      ],
+      "first_explicit_graph_batch": "14F"
+    },
+    {
+      "node_id": "PASSAGE-LEE-CHONNAM-ZIWEI-FULLBOOK-LUO-LOCATOR",
+      "node_type": "PASSAGE",
+      "label": "李洙銅论文所记全南大学《紫微斗數全書》载序石印本线索",
+      "system_scope": "ZIWEI",
+      "work_composition_date": null,
+      "edition_impression_date": null,
+      "physical_copy_date": null,
+      "digital_surrogate_date": null,
+      "date_scope_note": "Scholarly holding report at p173, four juan in four fascicles. The reported 1550 is a preface date, not a lithograph date. Original item, date, imprint and relationship to the Shanghai and Taiwan editions are unverified.",
+      "evidence": [
+        "EXT-TIANWEN-14F-WONKWANG-LEE-YINYANG-EXAMINATION",
+        "EXT-NCKU-CHEN-2021-ZIWEI-EDITION-GENEALOGY",
+        "docs/research/TIANWEN-14F-JOSEON-ZIPING-PRINTING-AND-ZIWEI-LUO-PREFACE-R1.md"
+      ],
+      "first_explicit_graph_batch": "14F"
     }
   ],
   "edges": [
@@ -10998,6 +11064,37 @@
       ],
       "scope_note": "Contents and chapter openings confirm the sampled rule text in juan 3 of this holding.",
       "adjudication_batch": "13ZZ"
+    },
+    {
+      "edge_id": "TG-E0299",
+      "from": "PASSAGE-NUPANGO-1941-ZIPING-BOARD-REGISTER",
+      "relation": "ATTESTS",
+      "to": "TEXT-WORK-JOSEON-ZIPING-SANMING-TONGBIAN-YUANYUAN",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_WITHIN_SAMPLED_SCOPE",
+      "evidence_class": "RECEIVED_TEXT",
+      "evidence": [
+        "EXT-TIANWEN-14F-NLK-NUPANGO-1941-P103-P104",
+        "EXT-TIANWEN-14F-AKS-NUPANGO-COMPILATION-1796",
+        "docs/research/TIANWEN-14F-JOSEON-ZIPING-PRINTING-AND-ZIWEI-LUO-PREFACE-R1.md"
+      ],
+      "scope_note": "1941 printed pages attest the received 1796 catalog's full title, two juan, attribution and Observatory board statement. No edition ancestry or surviving original is established.",
+      "adjudication_batch": "14F"
+    },
+    {
+      "edge_id": "TG-E0300",
+      "from": "PASSAGE-LEE-FIG9-NLK-ZIPING-TOC",
+      "relation": "ATTESTS",
+      "to": "TEXT-WORK-JOSEON-ZIPING-SANMING-TONGBIAN-YUANYUAN",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_WITHIN_SAMPLED_SCOPE",
+      "evidence_class": "BOUNDED_FACSIMILE_IN_SECONDARY_SCHOLARSHIP",
+      "evidence": [
+        "EXT-TIANWEN-14F-WONKWANG-LEE-YINYANG-EXAMINATION",
+        "docs/research/TIANWEN-14F-JOSEON-ZIPING-PRINTING-AND-ZIWEI-LUO-PREFACE-R1.md"
+      ],
+      "scope_note": "Visually readable partial TOC attests the heading family, based on the image and dissertation context. The source copy number, impression and preface attribution remain unbound.",
+      "adjudication_batch": "14F"
     }
   ],
   "lineage_hypotheses": [
@@ -12234,6 +12331,20 @@
         "docs/research/TIANWEN-13ZY-WENYUANGE-ZIWEI-ZIPING-JOSEON-PRINTING-R1.md"
       ],
       "adjudication_batch": "13ZY"
+    },
+    {
+      "from": "PASSAGE-YEONGJO-1741-ZIPING-EXAM-PRINT-ORDER",
+      "relation": "PRINT_ORDER_IDENTIFIES_EXACT_RECENSION_OR_SURVIVING_COPY",
+      "to": "TEXT-WORK-JOSEON-ZIPING-SANMING-TONGBIAN-YUANYUAN",
+      "status": "UNRESOLVED",
+      "reason": "The 1741 order reads the short title 徐子平. A later full-title board record and a dissertation TOC inset do not identify the precise full-title edition, boards or surviving impression in that order.",
+      "evidence": [
+        "EXT-TIANWEN-14F-NIKH-YEONGJO-1741-ZIPING-PRINT-ORDER",
+        "EXT-TIANWEN-14F-NLK-NUPANGO-1941-P103-P104",
+        "EXT-TIANWEN-14F-WONKWANG-LEE-YINYANG-EXAMINATION",
+        "docs/research/TIANWEN-14F-JOSEON-ZIPING-PRINTING-AND-ZIWEI-LUO-PREFACE-R1.md"
+      ],
+      "adjudication_batch": "14F"
     }
   ],
   "backfill": {
