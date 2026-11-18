@@ -6851,6 +6851,70 @@
         "docs/research/TIANWEN-14I-XUDAOZANG-ZIWEI-ORIGINAL-LEAVES-R1.md"
       ],
       "first_explicit_graph_batch": "14I"
+    },
+    {
+      "node_id": "PASSAGE-JOSEON-1732-YEONGJO-SILLOK-ZIPING-ACQUISITION",
+      "node_type": "PASSAGE",
+      "label": "《英祖实录》1732-02-10方技购书名目",
+      "system_scope": "BAZI",
+      "work_composition_date": null,
+      "edition_impression_date": null,
+      "physical_copy_date": null,
+      "digital_surrogate_date": null,
+      "date_scope_note": "National Korean History official received text; calendar day belongs to recorded award and acquisition report, not necessarily purchase date.",
+      "evidence": [
+        "EXT-TIANWEN-14K-SILLOK-YEONGJO-1732-ZIPING",
+        "docs/research/TIANWEN-14K-1732-JOSEON-YUANHAI-ZIPING-STATE-ACQUISITION-R1.md"
+      ],
+      "first_explicit_graph_batch": "14K"
+    },
+    {
+      "node_id": "PASSAGE-JOSEON-1732-SEUNGJEONGWON-ZIPING-FIVE-BEN",
+      "node_type": "PASSAGE",
+      "label": "《承政院日记》1732-02-10《淵海》《格海》各五本书目",
+      "system_scope": "BAZI",
+      "work_composition_date": null,
+      "edition_impression_date": null,
+      "physical_copy_date": null,
+      "digital_surrogate_date": null,
+      "date_scope_note": "Wikisource received transcript of same dated official memorial; original folio unexamined and 五本 unit unsettled.",
+      "evidence": [
+        "EXT-TIANWEN-14K-SEUNGJEONGWON-1732-BOOKLIST",
+        "docs/research/TIANWEN-14K-1732-JOSEON-YUANHAI-ZIPING-STATE-ACQUISITION-R1.md"
+      ],
+      "first_explicit_graph_batch": "14K"
+    },
+    {
+      "node_id": "TERM-CONCEPT-JOSEON-1732-YUANHAI-ZIPING-TITLE",
+      "node_type": "TERM_CONCEPT",
+      "label": "1732朝鲜方书清单所见《淵海子平》书名",
+      "system_scope": "BAZI",
+      "work_composition_date": null,
+      "edition_impression_date": null,
+      "physical_copy_date": null,
+      "digital_surrogate_date": null,
+      "date_scope_note": "Title attestations only; relationship to a particular China edition or local copy not established.",
+      "evidence": [
+        "EXT-TIANWEN-14K-SILLOK-YEONGJO-1732-ZIPING",
+        "docs/research/TIANWEN-14K-1732-JOSEON-YUANHAI-ZIPING-STATE-ACQUISITION-R1.md"
+      ],
+      "first_explicit_graph_batch": "14K"
+    },
+    {
+      "node_id": "TERM-CONCEPT-JOSEON-1732-GEHAI-ZIPING-TITLE",
+      "node_type": "TERM_CONCEPT",
+      "label": "1732朝鲜方书清单所见《格海子平》书名",
+      "system_scope": "BAZI",
+      "work_composition_date": null,
+      "edition_impression_date": null,
+      "physical_copy_date": null,
+      "digital_surrogate_date": null,
+      "date_scope_note": "Distinct written title in received sources; same-book, variant, miscopy and independent-work possibilities remain open.",
+      "evidence": [
+        "EXT-TIANWEN-14K-SEUNGJEONGWON-1732-BOOKLIST",
+        "docs/research/TIANWEN-14K-1732-JOSEON-YUANHAI-ZIPING-STATE-ACQUISITION-R1.md"
+      ],
+      "first_explicit_graph_batch": "14K"
     }
   ],
   "edges": [
@@ -11659,6 +11723,66 @@
       ],
       "scope_note": "Attestation of a shared title string at the catalog level; no bibliographic identity or direction of transmission.",
       "adjudication_batch": "14I"
+    },
+    {
+      "edge_id": "TG-E0315",
+      "from": "PASSAGE-JOSEON-1732-YEONGJO-SILLOK-ZIPING-ACQUISITION",
+      "to": "TERM-CONCEPT-JOSEON-1732-YUANHAI-ZIPING-TITLE",
+      "relation": "ATTESTS",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_FOR_PUBLIC_OFFICIAL_RECEIVED_TEXT",
+      "evidence_class": "OFFICIAL_RECEIVED_HISTORICAL_TEXT",
+      "evidence": [
+        "EXT-TIANWEN-14K-SILLOK-YEONGJO-1732-ZIPING",
+        "docs/research/TIANWEN-14K-1732-JOSEON-YUANHAI-ZIPING-STATE-ACQUISITION-R1.md"
+      ],
+      "scope_note": "Explicit titled entry only, not source-book physical specimen, copy identity or proof of source-to-source dependence; same-day account may derive from one official memorial.",
+      "adjudication_batch": "14K"
+    },
+    {
+      "edge_id": "TG-E0316",
+      "from": "PASSAGE-JOSEON-1732-YEONGJO-SILLOK-ZIPING-ACQUISITION",
+      "to": "TERM-CONCEPT-JOSEON-1732-GEHAI-ZIPING-TITLE",
+      "relation": "ATTESTS",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_FOR_PUBLIC_OFFICIAL_RECEIVED_TEXT",
+      "evidence_class": "OFFICIAL_RECEIVED_HISTORICAL_TEXT",
+      "evidence": [
+        "EXT-TIANWEN-14K-SILLOK-YEONGJO-1732-ZIPING",
+        "docs/research/TIANWEN-14K-1732-JOSEON-YUANHAI-ZIPING-STATE-ACQUISITION-R1.md"
+      ],
+      "scope_note": "Explicit titled entry only, not source-book physical specimen, copy identity or proof of source-to-source dependence; same-day account may derive from one official memorial.",
+      "adjudication_batch": "14K"
+    },
+    {
+      "edge_id": "TG-E0317",
+      "from": "PASSAGE-JOSEON-1732-SEUNGJEONGWON-ZIPING-FIVE-BEN",
+      "to": "TERM-CONCEPT-JOSEON-1732-YUANHAI-ZIPING-TITLE",
+      "relation": "ATTESTS",
+      "status": "CONFIRMED",
+      "confidence": "MEDIUM_WITHIN_RECEIVED_TRANSCRIPTION",
+      "evidence_class": "RECEIVED_TEXT_TRANSCRIPTION",
+      "evidence": [
+        "EXT-TIANWEN-14K-SEUNGJEONGWON-1732-BOOKLIST",
+        "docs/research/TIANWEN-14K-1732-JOSEON-YUANHAI-ZIPING-STATE-ACQUISITION-R1.md"
+      ],
+      "scope_note": "Explicit titled entry only, not source-book physical specimen, copy identity or proof of source-to-source dependence; same-day account may derive from one official memorial.",
+      "adjudication_batch": "14K"
+    },
+    {
+      "edge_id": "TG-E0318",
+      "from": "PASSAGE-JOSEON-1732-SEUNGJEONGWON-ZIPING-FIVE-BEN",
+      "to": "TERM-CONCEPT-JOSEON-1732-GEHAI-ZIPING-TITLE",
+      "relation": "ATTESTS",
+      "status": "CONFIRMED",
+      "confidence": "MEDIUM_WITHIN_RECEIVED_TRANSCRIPTION",
+      "evidence_class": "RECEIVED_TEXT_TRANSCRIPTION",
+      "evidence": [
+        "EXT-TIANWEN-14K-SEUNGJEONGWON-1732-BOOKLIST",
+        "docs/research/TIANWEN-14K-1732-JOSEON-YUANHAI-ZIPING-STATE-ACQUISITION-R1.md"
+      ],
+      "scope_note": "Explicit titled entry only, not source-book physical specimen, copy identity or proof of source-to-source dependence; same-day account may derive from one official memorial.",
+      "adjudication_batch": "14K"
     }
   ],
   "lineage_hypotheses": [

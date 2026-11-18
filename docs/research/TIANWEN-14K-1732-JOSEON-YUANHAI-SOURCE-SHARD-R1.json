@@ -1,0 +1,55 @@
+{
+  "schema": "TIANWEN-14K-1732-JOSEON-YUANHAI-SOURCE-SHARD-R1",
+  "date": "2026-11-18",
+  "sources": [
+    {
+      "source_id": "EXT-TIANWEN-14K-SILLOK-YEONGJO-1732-ZIPING",
+      "title": "《英祖实录》1732年二月十日李世澄采购《淵海子平》《格海子平》记载",
+      "provider": "National Institute of Korean History, Annals of the Joseon Dynasty",
+      "url": "https://sillok.history.go.kr/id/kua_10802010_004",
+      "historical_period": "JOSEON_YEONGJO_1732_OFFICIAL_HISTORICAL_RECORD",
+      "source_role": "FIRST_PARTY_OFFICIAL_DIGITAL_RECEIVED_HISTORICAL_TEXT",
+      "quality_notes": "Contemporary historical event in a later chronicle edition. Official native digital transcription is read; physical annals leaf and book copies were not. Names only, no quantities. Not an independent source-copy vote for the purchased books.",
+      "physical_glyph_authority": false,
+      "access_date": "2026-11-18",
+      "evidence": "docs/research/TIANWEN-14K-1732-JOSEON-YUANHAI-ZIPING-STATE-ACQUISITION-R1.md",
+      "verification_status": "RECEIVED_TEXT_VERIFIED",
+      "record_id": "kua_10802010_004"
+    },
+    {
+      "source_id": "EXT-TIANWEN-14K-SEUNGJEONGWON-1732-BOOKLIST",
+      "title": "《承政院日记》英祖八年二月十日购方书清单《淵海子平》五本及格海子平五本",
+      "provider": "Wikisource received transcription of Joseon Seungjeongwon Ilgi",
+      "url": "https://zh.wikisource.org/wiki/承政院日記/英祖/八年/二月",
+      "historical_period": "JOSEON_YEONGJO_1732_DIARY_RECEIVED_TRANSCRIPTION",
+      "source_role": "RECEIVED_HISTORICAL_TEXT_SOURCE_SCOPE_DATE_AND_COUNTS",
+      "quality_notes": "Same-day entry under Feb 10; later transcribed text, not independently authenticated original manuscript leaf. 五本 refers to an unresolved book-unit granularity. Not independent purchased copy evidence or an actual edition witness.",
+      "physical_glyph_authority": false,
+      "access_date": "2026-11-18",
+      "evidence": "docs/research/TIANWEN-14K-1732-JOSEON-YUANHAI-ZIPING-STATE-ACQUISITION-R1.md",
+      "verification_status": "RECEIVED_TEXT_VERIFIED"
+    }
+  ],
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [
+      "PASSAGE-JOSEON-1732-YEONGJO-SILLOK-ZIPING-ACQUISITION",
+      "PASSAGE-JOSEON-1732-SEUNGJEONGWON-ZIPING-FIVE-BEN",
+      "TERM-CONCEPT-JOSEON-1732-YUANHAI-ZIPING-TITLE",
+      "TERM-CONCEPT-JOSEON-1732-GEHAI-ZIPING-TITLE"
+    ],
+    "edges_supported": [
+      "TG-E0315",
+      "TG-E0316",
+      "TG-E0317",
+      "TG-E0318"
+    ],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [],
+    "unresolved_lineage_questions": [
+      "Original Seungjeongwon diary folio and its precise two-title five-ben quantities not yet physical-glyph checked.",
+      "Whether 格海子平 is a separate titled work or a transmission/copying variant is unadjudicated.",
+      "Whether either work connects to surviving China 1600/1606 editions or Joseon Xu Ziping bookplates needs a copy-specific direct bridge.",
+      "Book purchase reported 1732 does not identify original impression dates or physical surviving exemplars."
+    ]
+  }
+}
