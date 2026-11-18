@@ -6252,6 +6252,71 @@
         "docs/research/TIANWEN-13ZY-WENYUANGE-ZIWEI-ZIPING-JOSEON-PRINTING-R1.md"
       ],
       "first_explicit_graph_batch": "13ZY"
+    },
+    {
+      "node_id": "PASSAGE-WENYUANGE-DUHUAZHAI-J15-LIE-FOLIOS-46-48",
+      "node_type": "PASSAGE",
+      "label": "《讀畫齋》本卷十五列字号原页 p46–48",
+      "system_scope": "CROSS_SYSTEM",
+      "work_composition_date": null,
+      "edition_impression_date": null,
+      "physical_copy_date": null,
+      "digital_surrogate_date": null,
+      "date_scope_note": "Later printed recension, nor date of compilation, marks or lost originals inferred from these leaves.",
+      "evidence": [
+        "EXT-TIANWEN-13ZZ-DUHUAZHAI-WENYUANGE-J15-FOLIOS",
+        "docs/research/TIANWEN-13ZZ-WENYUANGE-NANYANGTANG-FOLIO-COLLATION-R1.md"
+      ],
+      "first_explicit_graph_batch": "13ZZ"
+    },
+    {
+      "node_id": "PHYSICAL-COPY-NAJ-NANYANGTANG-Z060-0001",
+      "node_type": "PHYSICAL_COPY",
+      "label": "日本国立公文书馆子060-0001南阳堂七卷本",
+      "system_scope": "ZIWEI",
+      "work_composition_date": null,
+      "edition_impression_date": null,
+      "physical_copy_date": null,
+      "digital_surrogate_date": null,
+      "date_scope_note": "Official Ming print classification with exact printing year unavailable. Mirror is a derivative of this holding.",
+      "evidence": [
+        "EXT-TIANWEN-13ZZ-NAJ-NANYANGTANG-IIIF-CANVASES",
+        "EXT-TIANWEN-13ZZ-NANYANGTANG-OPENING-J3-VISUAL",
+        "docs/research/TIANWEN-13ZZ-WENYUANGE-NANYANGTANG-FOLIO-COLLATION-R1.md"
+      ],
+      "first_explicit_graph_batch": "13ZZ"
+    },
+    {
+      "node_id": "PASSAGE-NAJ-NANYANGTANG-OPENING-1-5",
+      "node_type": "PASSAGE",
+      "label": "南阳堂本封面、扉页和卷一开端",
+      "system_scope": "ZIWEI",
+      "work_composition_date": null,
+      "edition_impression_date": null,
+      "physical_copy_date": null,
+      "digital_surrogate_date": null,
+      "date_scope_note": "Visible call label crosswalk and title-to-text sequence on the first five images of this copy.",
+      "evidence": [
+        "EXT-TIANWEN-13ZZ-NANYANGTANG-OPENING-J3-VISUAL",
+        "docs/research/TIANWEN-13ZZ-WENYUANGE-NANYANGTANG-FOLIO-COLLATION-R1.md"
+      ],
+      "first_explicit_graph_batch": "13ZZ"
+    },
+    {
+      "node_id": "PASSAGE-NAJ-NANYANGTANG-J3-CHART-PLACEMENT",
+      "node_type": "PASSAGE",
+      "label": "南阳堂本卷三安身命、十二宫与南北斗诸星",
+      "system_scope": "ZIWEI",
+      "work_composition_date": null,
+      "edition_impression_date": null,
+      "physical_copy_date": null,
+      "digital_surrogate_date": null,
+      "date_scope_note": "Scope is the sampled juan 3 original-page mirror. Intercalary month placement is an edition-specific witness.",
+      "evidence": [
+        "EXT-TIANWEN-13ZZ-NANYANGTANG-OPENING-J3-VISUAL",
+        "docs/research/TIANWEN-13ZZ-WENYUANGE-NANYANGTANG-FOLIO-COLLATION-R1.md"
+      ],
+      "first_explicit_graph_batch": "13ZZ"
     }
   ],
   "edges": [
@@ -10712,6 +10777,113 @@
       ],
       "scope_note": "The published abstract explicitly reports Xiji and Jishan sections in the upper juan of the Korean-received title.",
       "adjudication_batch": "13ZY"
+    },
+    {
+      "edge_id": "TG-E0292",
+      "from": "PASSAGE-WENYUANGE-DUHUAZHAI-J15-LIE-FOLIOS-46-48",
+      "relation": "ATTESTS",
+      "to": "TERM-CONCEPT-WENYUANGE-ZIWEISHU-TITLE",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_WITHIN_SAMPLED_SCOPE",
+      "evidence_class": "DIRECT_SOURCE_BOUND_CATALOG_FOLIO",
+      "evidence": [
+        "EXT-TIANWEN-13ZZ-DUHUAZHAI-WENYUANGE-J15-FOLIOS",
+        "docs/research/TIANWEN-13ZZ-WENYUANGE-NANYANGTANG-FOLIO-COLLATION-R1.md"
+      ],
+      "scope_note": "Direct visual verification of separate title and missing mark in the catalog recension. The operative text and missing date are unresolved.",
+      "adjudication_batch": "13ZZ"
+    },
+    {
+      "edge_id": "TG-E0293",
+      "from": "PASSAGE-WENYUANGE-DUHUAZHAI-J15-LIE-FOLIOS-46-48",
+      "relation": "ATTESTS",
+      "to": "TERM-CONCEPT-WENYUANGE-ZIWEI-ZHENSHU-TITLE",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_WITHIN_SAMPLED_SCOPE",
+      "evidence_class": "DIRECT_SOURCE_BOUND_CATALOG_FOLIO",
+      "evidence": [
+        "EXT-TIANWEN-13ZZ-DUHUAZHAI-WENYUANGE-J15-FOLIOS",
+        "docs/research/TIANWEN-13ZZ-WENYUANGE-NANYANGTANG-FOLIO-COLLATION-R1.md"
+      ],
+      "scope_note": "Direct visual verification of separate title and missing mark in the catalog recension. The operative text and missing date are unresolved.",
+      "adjudication_batch": "13ZZ"
+    },
+    {
+      "edge_id": "TG-E0294",
+      "from": "PASSAGE-WENYUANGE-DUHUAZHAI-J15-LIE-FOLIOS-46-48",
+      "relation": "ATTESTS",
+      "to": "TERM-CONCEPT-WENYUANGE-ZIWEI-QIANJIN-FU-TITLE",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_WITHIN_SAMPLED_SCOPE",
+      "evidence_class": "DIRECT_SOURCE_BOUND_CATALOG_FOLIO",
+      "evidence": [
+        "EXT-TIANWEN-13ZZ-DUHUAZHAI-WENYUANGE-J15-FOLIOS",
+        "docs/research/TIANWEN-13ZZ-WENYUANGE-NANYANGTANG-FOLIO-COLLATION-R1.md"
+      ],
+      "scope_note": "Direct visual verification of separate title and missing mark in the catalog recension. The operative text and missing date are unresolved.",
+      "adjudication_batch": "13ZZ"
+    },
+    {
+      "edge_id": "TG-E0295",
+      "from": "PASSAGE-WENYUANGE-DUHUAZHAI-J15-LIE-FOLIOS-46-48",
+      "relation": "ATTESTS",
+      "to": "TERM-CONCEPT-WENYUANGE-ZIPING-YUANYUAN-TITLE",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_WITHIN_SAMPLED_SCOPE",
+      "evidence_class": "DIRECT_SOURCE_BOUND_CATALOG_FOLIO",
+      "evidence": [
+        "EXT-TIANWEN-13ZZ-DUHUAZHAI-WENYUANGE-J15-FOLIOS",
+        "docs/research/TIANWEN-13ZZ-WENYUANGE-NANYANGTANG-FOLIO-COLLATION-R1.md"
+      ],
+      "scope_note": "Direct visual verification of separate title and missing mark in the catalog recension. The operative text and missing date are unresolved.",
+      "adjudication_batch": "13ZZ"
+    },
+    {
+      "edge_id": "TG-E0296",
+      "from": "PASSAGE-WENYUANGE-DUHUAZHAI-J15-LIE-FOLIOS-46-48",
+      "relation": "ATTESTS",
+      "to": "TERM-CONCEPT-WENYUANGE-TONGBIAN-YUANYUAN-TITLE",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_WITHIN_SAMPLED_SCOPE",
+      "evidence_class": "DIRECT_SOURCE_BOUND_CATALOG_FOLIO",
+      "evidence": [
+        "EXT-TIANWEN-13ZZ-DUHUAZHAI-WENYUANGE-J15-FOLIOS",
+        "docs/research/TIANWEN-13ZZ-WENYUANGE-NANYANGTANG-FOLIO-COLLATION-R1.md"
+      ],
+      "scope_note": "Direct visual verification of separate title and missing mark in the catalog recension. The operative text and missing date are unresolved.",
+      "adjudication_batch": "13ZZ"
+    },
+    {
+      "edge_id": "TG-E0297",
+      "from": "PASSAGE-NAJ-NANYANGTANG-OPENING-1-5",
+      "relation": "ATTESTS",
+      "to": "PHYSICAL-COPY-NAJ-NANYANGTANG-Z060-0001",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_WITHIN_SAMPLED_SCOPE",
+      "evidence_class": "DIRECT_VISUAL_SURROGATE_WITH_CANVAS_BINDING",
+      "evidence": [
+        "EXT-TIANWEN-13ZZ-NANYANGTANG-OPENING-J3-VISUAL",
+        "EXT-TIANWEN-13ZZ-NAJ-NANYANGTANG-IIIF-CANVASES",
+        "docs/research/TIANWEN-13ZZ-WENYUANGE-NANYANGTANG-FOLIO-COLLATION-R1.md"
+      ],
+      "scope_note": "Cover displays legacy Han 15856 and shelf code Zi 60 1 together. Formal migration is not evidenced separately.",
+      "adjudication_batch": "13ZZ"
+    },
+    {
+      "edge_id": "TG-E0298",
+      "from": "PHYSICAL-COPY-NAJ-NANYANGTANG-Z060-0001",
+      "relation": "ATTESTS",
+      "to": "PASSAGE-NAJ-NANYANGTANG-J3-CHART-PLACEMENT",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_WITHIN_SAMPLED_SCOPE",
+      "evidence_class": "DIRECT_VISUAL_SURROGATE_WITH_CANVAS_BINDING",
+      "evidence": [
+        "EXT-TIANWEN-13ZZ-NANYANGTANG-OPENING-J3-VISUAL",
+        "EXT-TIANWEN-13ZZ-NAJ-NANYANGTANG-IIIF-CANVASES",
+        "docs/research/TIANWEN-13ZZ-WENYUANGE-NANYANGTANG-FOLIO-COLLATION-R1.md"
+      ],
+      "scope_note": "Contents and chapter openings confirm the sampled rule text in juan 3 of this holding.",
+      "adjudication_batch": "13ZZ"
     }
   ],
   "lineage_hypotheses": [
