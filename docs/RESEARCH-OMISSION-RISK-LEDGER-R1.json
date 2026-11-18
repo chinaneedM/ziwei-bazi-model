@@ -12,8 +12,8 @@
   "binding": {
     "repository": "chinaneedM/ziwei-bazi-model",
     "branch": "agent/fusion-chart-core-r1-20260822",
-    "reviewed_state_version": "1.1331.0",
-    "source_focus_count": 3054,
+    "reviewed_state_version": "1.1332.0",
+    "source_focus_count": 3056,
     "latest_research_focus_prefix": "13ZZ"
   },
   "coverage_axes": [
@@ -14212,7 +14212,8 @@
       "source_refs": [
         "docs/research/TIANWEN-14I-XUDAOZANG-ZIWEI-ORIGINAL-LEAVES-R1.md",
         "docs/research/TIANWEN-14I-XUDAOZANG-ZIWEI-FOLIO-EVIDENCE-R1.json",
-        "docs/research/TIANWEN-13ZZ-WENYUANGE-NANYANGTANG-FOLIO-EVIDENCE-R1.json"
+        "docs/research/TIANWEN-13ZZ-WENYUANGE-NANYANGTANG-FOLIO-EVIDENCE-R1.json",
+        "docs/research/TIANWEN-14J-BEIJING-4757-POSTWAR-HOLDING-ROUTES-R1.md"
       ],
       "evidence_boundary": "后出《讀畫齋》书目传本见《紫微照膽經》一部一冊闕；国图《续道藏》镜像卷一见〈照膽經四言十八飛星直指序〉及起例。1445 属卷前御製图版题年。 《菉竹堂書目》传本著录一册，北京人文科学研究所旧目著录无名钞本一卷、号 4757。两明代书目的底目关系及近代钞本现藏待考。",
       "missing_evidence": "能与两处题名关联的独立可断代照胆原页、明确引文或可比的技术内容。",
@@ -14224,6 +14225,15 @@
           "event": "REGISTERED_UNRESOLVED",
           "date": "2026-11-18",
           "basis": "Multiple catalog images attest the exact early title; the 1938–1939 inventory adds traceable manuscript number 4757. Only the later surviving Daozang passage supplies text and examples in the present batch."
+        },
+        {
+          "event": "BREADTH_ARCHIVAL_PROVENANCE_ROUTE_APPEND",
+          "date": "2026-11-18",
+          "basis": "Independent scholarly archival histories and a first-party digitization portal indicate two possible descendant holding systems; no manuscript-specific transfer record or current copy identifier exists in inspected sources. Conflicting 1947 selected-book counts retained without winner.",
+          "evidence_refs": [
+            "docs/research/TIANWEN-14J-BEIJING-4757-POSTWAR-HOLDING-ROUTES-R1.md"
+          ],
+          "status_after": "OPEN"
         }
       ]
     }
@@ -30755,6 +30765,46 @@
           "target": "Korean Yuanyuan preface/postface leaves and Luo-preface original leaves remain outstanding; separate mechanics from vocabulary and printing history.",
           "status": "OPEN",
           "evidence_ref": "docs/research/TIANWEN-14I-XUDAOZANG-ZIWEI-ORIGINAL-LEAVES-R1.md"
+        }
+      ]
+    },
+    {
+      "id": "OMISSIONS-14J-BEIJING-4757-ARCHIVAL-ROUTES-20261118",
+      "date": "2026-11-18",
+      "state_version": "1.1332.0",
+      "reviewed_issue_ids": [
+        "TW-OPEN-0001",
+        "TW-OPEN-0002",
+        "TW-OPEN-0003",
+        "TW-OPEN-0004",
+        "TW-OPEN-0005",
+        "TW-OPEN-0006",
+        "TW-OPEN-0007",
+        "TW-OPEN-0008",
+        "TW-OPEN-0009",
+        "TW-OPEN-0010",
+        "TW-OPEN-0011",
+        "TW-OPEN-0012"
+      ],
+      "discovery_mode": "BREADTH_FIRST_INSTITUTIONAL_PROVENANCE_PATHS_ONLY",
+      "result": "All 12 unresolved issues reviewed, including five P0. TW-OPEN-0012 extended with two unproven present-day holding branches; no original target folio, print identity or direct lineage edge. G893 5/6 located, 0/6 final; chart CLOSED.",
+      "evidence_refs": [
+        "docs/research/TIANWEN-14J-BEIJING-4757-POSTWAR-HOLDING-ROUTES-R1.md",
+        "docs/TIANWEN-ZIWEI-HISTORICAL-OUTLINE-R1.md",
+        "docs/TIANWEN-DUAL-HISTORY-COVERAGE-ATLAS-R1.md"
+      ],
+      "unresolved_breadth_leads": [
+        {
+          "scope": "Anonymous Ziwei Zhaodan manuscript 4757 physical whereabouts",
+          "target": "Obtain present-day copy-specific official catalog or 1945–47 transfer inventory with old number / title / seals; avoid counting institutional branches as current holding evidence.",
+          "status": "OPEN",
+          "evidence_ref": "docs/research/TIANWEN-14J-BEIJING-4757-POSTWAR-HOLDING-ROUTES-R1.md"
+        },
+        {
+          "scope": "Korean Ziping and Luo-preface evidence",
+          "target": "Independently bind original preface/postface leaf evidence against 14H holding records and dated institutional texts.",
+          "status": "OPEN",
+          "evidence_ref": "docs/research/TIANWEN-14J-BEIJING-4757-POSTWAR-HOLDING-ROUTES-R1.md"
         }
       ]
     }
