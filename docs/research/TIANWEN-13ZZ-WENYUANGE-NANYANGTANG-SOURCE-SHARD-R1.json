@@ -1,0 +1,78 @@
+{
+  "schema": "TIANWEN-13ZZ-WENYUANGE-NANYANGTANG-SOURCE-SHARD-R1",
+  "date": "2026-11-18",
+  "sources": [
+    {
+      "source_id": "EXT-TIANWEN-13ZZ-DUHUAZHAI-WENYUANGE-J15-FOLIOS",
+      "title": "《讀畫齋》影印卷十五列字号第46–48页",
+      "provider": "National Library of China scan via Wikimedia Commons",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/f/f3/NLC892-GBZX0301011631-283595_讀畫齋叢書_四十六種一百九十六卷_第38冊.pdf",
+      "historical_period": "LATER_DUHUAZHAI_CATALOG_RECENSION",
+      "source_role": "DIRECT_LIMITED_CATALOG_FOLIO_COLLATION",
+      "quality_notes": "Visual verification of three Ziwei entries and two Yuanyuan entries and their missing marks. Same PDF as the 13ZY image-index record. Neither lost texts nor the date of inventory annotation is bound.",
+      "physical_glyph_authority": true,
+      "access_date": "2026-11-18",
+      "evidence": "docs/research/TIANWEN-13ZZ-WENYUANGE-NANYANGTANG-FOLIO-EVIDENCE-R1.json",
+      "verification_status": "DIRECT_SOURCE_IMAGE_GLYPH_COLLATED_EDITION_UNBOUND",
+      "direct_image_attestation": {
+        "source_url": "https://upload.wikimedia.org/wikipedia/commons/f/f3/NLC892-GBZX0301011631-283595_讀畫齋叢書_四十六種一百九十六卷_第38冊.pdf",
+        "source_sha256": "59f97ac879c2a31b5fe182c971e75a6f6a9ceb4ad3fe8077654dc1c7bb1a2312",
+        "page_sha256": {
+          "46": "3d60146ffe41ad54f37c188609b413bd23e1dfd32eb47d1c755fb4c509afbe49",
+          "47": "2b4c0063f41fb63b2e14bc02ff2f4ed0b321fb25980863a8597e0b6ba0a9b2ea",
+          "48": "5409c2f909e2df01741aea629c2c7fe999ff3a1726055dec8ab61b7458bf01cc"
+        }
+      }
+    },
+    {
+      "source_id": "EXT-TIANWEN-13ZZ-NAJ-NANYANGTANG-IIIF-CANVASES",
+      "title": "日本国立公文书馆南阳堂本上下册 IIIF 影像清单",
+      "provider": "National Archives of Japan",
+      "url": "https://www.digital.archives.go.jp/api/iiif/4468520/manifest.json",
+      "historical_period": "MING_PRINT_IN_MODERN_INSTITUTIONAL_INDEX",
+      "source_role": "OFFICIAL_CATALOG_CANVAS_MANIFEST",
+      "quality_notes": "Source bytes for both manifests verified, 129/137 canvases. Canvas locators alone do not substantiate old marks or wording.",
+      "physical_glyph_authority": false,
+      "access_date": "2026-11-18",
+      "evidence": "docs/research/TIANWEN-13ZZ-WENYUANGE-NANYANGTANG-FOLIO-EVIDENCE-R1.json",
+      "verification_status": "BIBLIOGRAPHIC_METADATA_ONLY"
+    },
+    {
+      "source_id": "EXT-TIANWEN-13ZZ-NANYANGTANG-OPENING-J3-VISUAL",
+      "title": "南阳堂本书衣、扉页、卷一与卷三镜像",
+      "provider": "SNDMP hosted derivatives from National Archives of Japan",
+      "url": "https://sndmp.com/library/quanshu/scan",
+      "historical_period": "MING_PRINT_VIA_MIRRORED_DIGITAL_IMAGES",
+      "source_role": "SAMPLED_MIRRORED_PAGE_VISUAL_COLLATION",
+      "quality_notes": "Eight derivative JPEGs, matched by sequence and visible identifiers to the official canvas locators. Old and new call labels, opening structure and rule text limited to those pages. Official image file bytes were unavailable.",
+      "physical_glyph_authority": false,
+      "access_date": "2026-11-18",
+      "evidence": "docs/research/TIANWEN-13ZZ-WENYUANGE-NANYANGTANG-FOLIO-EVIDENCE-R1.json",
+      "verification_status": "RECEIVED_TEXT_VERIFIED"
+    }
+  ],
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [
+      "PASSAGE-WENYUANGE-DUHUAZHAI-J15-LIE-FOLIOS-46-48",
+      "PHYSICAL-COPY-NAJ-NANYANGTANG-Z060-0001",
+      "PASSAGE-NAJ-NANYANGTANG-OPENING-1-5",
+      "PASSAGE-NAJ-NANYANGTANG-J3-CHART-PLACEMENT"
+    ],
+    "edges_supported": [
+      "TG-E0292",
+      "TG-E0293",
+      "TG-E0294",
+      "TG-E0295",
+      "TG-E0296",
+      "TG-E0297",
+      "TG-E0298"
+    ],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [],
+    "unresolved_lineage_questions": [
+      "When were the Duhuazhai missing marks added and how did the surviving recension relate to the 1441 inventory?",
+      "Which physical edition actually carries the Luo preface and relates to the received three-juan transcription?",
+      "What are the exact Korean Ziping copy dates and is an extant impression from the Observatory boards?"
+    ]
+  }
+}
