@@ -12,8 +12,8 @@
   "binding": {
     "repository": "chinaneedM/ziwei-bazi-model",
     "branch": "agent/fusion-chart-core-r1-20260822",
-    "reviewed_state_version": "1.1340.0",
-    "source_focus_count": 3065,
+    "reviewed_state_version": "1.1341.0",
+    "source_focus_count": 3067,
     "latest_research_focus_prefix": "13ZZ"
   },
   "coverage_axes": [
@@ -31163,6 +31163,40 @@
         {
           "scope": "1877 Tsukuba and Taiwan Xinping copies",
           "target": "Verify Tsukuba volume-two catalog listing and compare authorized original colophons and body pages against Taiwan holding",
+          "status": "OPEN",
+          "evidence_ref": "docs/research/TIANWEN-14R-MING-QING-XINGPING-BOOK-FAMILIES-R1.md"
+        }
+      ]
+    },
+    {
+      "id": "OMISSIONS-14R-POSTCOMMIT-HANDOFF-ERRATUM-20261118",
+      "date": "2026-11-18",
+      "state_version": "1.1341.0",
+      "reviewed_issue_ids": [
+        "TW-OPEN-0001",
+        "TW-OPEN-0002",
+        "TW-OPEN-0003",
+        "TW-OPEN-0004",
+        "TW-OPEN-0005",
+        "TW-OPEN-0006",
+        "TW-OPEN-0007",
+        "TW-OPEN-0008",
+        "TW-OPEN-0009",
+        "TW-OPEN-0010",
+        "TW-OPEN-0011",
+        "TW-OPEN-0012"
+      ],
+      "discovery_mode": "FORWARD_ONLY_CI_CONTINUITY_CORRECTION",
+      "result": "The preceding 14R checkpoint mistakenly serialized undefined issue_id fields as null, and ledger binding still referenced state 1.1340.0 with focus 3065. This append-only erratum keeps that original checkpoint unchanged, re-reviews and names all 12 issue IDs and binds focus count and state version to 1.1341.0. 13ZZ G893 CURRENT ACTION remains the final focus entry for inherited exact-HEAD guards. All historical evidence and unresolved statuses remain unchanged.",
+      "evidence_refs": [
+        "docs/research/TIANWEN-14R-MING-QING-XINGPING-BOOK-FAMILIES-R1.md",
+        "docs/PROJECT-CONTINUITY-PROTOCOL-R1.md",
+        "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json"
+      ],
+      "unresolved_breadth_leads": [
+        {
+          "scope": "14R edition relationship still unverified",
+          "target": "Compare 1611 Harvard folios against received Ming titles and 1877 Tsukuba/Taiwan holdings as allowed; preserve all book/date/rule boundaries.",
           "status": "OPEN",
           "evidence_ref": "docs/research/TIANWEN-14R-MING-QING-XINGPING-BOOK-FAMILIES-R1.md"
         }
