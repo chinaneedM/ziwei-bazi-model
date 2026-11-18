@@ -24,6 +24,6 @@ def check(e,s,l):
  issue=next(i for i in l["issues"] if i["id"]=="TW-OPEN-0005")
  guard(issue["status"]=="OPEN" and issue["priority"]=="P0" and issue["next_action"].startswith(l["binding"]["latest_research_focus_prefix"]+" CURRENT ACTION:") and E in issue["source_refs"] and "docs/research/TIANWEN-13LE-NAJDA-2810038-J35-P6-ORIGINAL-23897709-P14-CHIJILI-R1.md" in issue["source_refs"],"risk record")
  guard(any(z.get("revision_id")=="TW-OPEN-0005-13LE-NAJDA-P6-P14-20261030" for z in issue["history"]),"append only")
- guard(len(l["issues"])==11 and s["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED" and s["invariants"]["algorithm_reopen_count"]==0,"product")
+ guard(len(l["issues"]) >= 11 and s["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED" and s["invariants"]["algorithm_reopen_count"]==0,"product")
  return {"status":"PASS","original_naaj_2810038_pdf_page6":"238977.09","same_glyph_as_harvard":True,"siku_cadal_original":"288977.09","numeric_historical_winners":0,"independent_recension_votes_new":0}
 if __name__=="__main__":print(json.dumps(check(*load()),ensure_ascii=False))

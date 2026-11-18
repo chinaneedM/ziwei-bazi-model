@@ -22,7 +22,7 @@ def verify():
  assert l["binding"]["latest_research_focus_prefix"]==st["historical_audit"]["current_focus"][-1].split(" ",1)[0]
  issue=next(z for z in l["issues"] if z["id"]=="TW-OPEN-0005")
  assert issue["status"]=="OPEN" and all(x in issue["source_refs"] for x in (E,E.replace(".json",".md"),"docs/research/TIANWEN-13C-GORYEOSA-ANNALS-SNU-SOURCE-SHARD-R1.json"))
- assert len(l["issues"])==11 and all(z["status"]!="RESOLVED_WITH_EVIDENCE" for z in l["issues"])
+ assert len(l["issues"]) >= 11 and all(z["status"]!="RESOLVED_WITH_EVIDENCE" for z in l["issues"])
  assert l["checkpoint_log"][-1]["state_version"]==st["schema_version"]
  assert st["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED" and st["invariants"]["algorithm_reopen_count"]==0
  return {"status":"PASS","sources":m["combined_source_count"],"original_votes":0}

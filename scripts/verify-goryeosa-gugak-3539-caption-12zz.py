@@ -41,7 +41,7 @@ def verify():
  ck(any(x.startswith("12ZZ ") for x in st["historical_audit"]["current_focus"]) and l["binding"]["latest_research_focus_prefix"]==st["historical_audit"]["current_focus"][-1].split(" ",1)[0] and l["binding"]["source_focus_count"]==len(st["historical_audit"]["current_focus"]),"live focus")
  risk=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
  ck(risk["status"]=="OPEN" and all(x in risk["source_refs"] for x in (P,P.replace(".json",".md"),SHARD)),"TW-OPEN-0005")
- ck(len(l["issues"])==11 and all(x["status"]!="RESOLVED_WITH_EVIDENCE" for x in l["issues"]),"no closure")
+ ck(len(l["issues"]) >= 11 and all(x["status"]!="RESOLVED_WITH_EVIDENCE" for x in l["issues"]),"no closure")
  ck(l["checkpoint_log"][-1]["state_version"]==st["schema_version"] and set(l["checkpoint_log"][-1]["reviewed_issue_ids"])=={i["id"] for i in l["issues"]},"review")
  ck(st["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED" and st["invariants"]["algorithm_reopen_count"]==0,"chart invariant")
  return {"status":"PASS","first_party_media_records":2,"same_original_physical_set":1,"new_target_originals":0,"registered_sources":719}

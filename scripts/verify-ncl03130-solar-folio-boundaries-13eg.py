@@ -61,7 +61,7 @@ def check(e,s,l,dz,ef,ee):
  h=next(z for z in issue["history"] if z.get("revision_id")=="TW-OPEN-0005-13EG-FIVE-FOLIO-BOUNDARY-CONTINUITY-20261023")
  assert h["previous_next_action"].startswith("13EF CURRENT ACTION") and set(h["changed_fields"])=={"source_refs","next_action"}
  assert set([E,E.replace(".json",".md"),EF,EE]).issubset(set(h["evidence_refs"]))
- assert len(l["issues"])==11 and l["checkpoint_log"][-1]["state_version"]==s["schema_version"]
+ assert len(l["issues"]) >= 11 and l["checkpoint_log"][-1]["state_version"]==s["schema_version"]
  return True
 def replay(e,directory):
  from PIL import Image

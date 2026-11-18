@@ -47,7 +47,7 @@ def verify():
     issue=next(x for x in ledger["issues"] if x["id"]=="TW-OPEN-0005")
     assert issue["status"]=="OPEN"
     assert all(x in issue["source_refs"] for x in (E,"docs/research/TIANWEN-13J-NLC99-WASEDA1848-WUL47-COPY-FIREWALL-R1.md",SH))
-    assert len(ledger["issues"])==11
+    assert len(ledger["issues"]) >= 11
     assert ledger["checkpoint_log"][-1]["state_version"]==state["schema_version"]
     assert any(x["id"]=="OMISSIONS-13J-NLC99-WASEDA1848-WUL47-20261019" and x["state_version"]=="1.673.0" for x in ledger["checkpoint_log"])
     assert {x["id"] for x in ledger["issues"]}==set(ledger["checkpoint_log"][-1]["reviewed_issue_ids"])

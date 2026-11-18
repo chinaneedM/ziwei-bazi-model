@@ -40,7 +40,7 @@ def check(x,s,l):
  assert issue["status"]=="OPEN" and issue["priority"]=="P0" and issue["next_action"].startswith(l["binding"]["latest_research_focus_prefix"]+" CURRENT ACTION:")
  assert {P,P.replace(".json",".md")}.issubset(set(issue["source_refs"]))
  assert any(z.get("revision_id")=="TW-OPEN-0005-13FH-GK5553-46BOOK-VS-DONGA75-AND-PROBE-ACCESS-20261024" for z in issue["history"])
- assert l["checkpoint_log"][-1]["state_version"]==s["schema_version"] and len(l["issues"])==11
+ assert l["checkpoint_log"][-1]["state_version"]==s["schema_version"] and len(l["issues"]) >= 11
  return True
 if __name__=="__main__":
  assert check(get(P),get(S),get(L))

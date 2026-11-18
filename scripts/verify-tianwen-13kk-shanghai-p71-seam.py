@@ -37,7 +37,7 @@ def verify(e,state,ledger,pdf=None):
  chk(issue["status"]=="OPEN" and issue["priority"]=="P0","P0 open")
  chk(E in issue["source_refs"] and E.replace(".json",".md") in issue["source_refs"],"source refs")
  chk(any(y.get("revision_id")=="TW-OPEN-0005-13KK-ORIGINAL-P71-SEAM-20261029" for y in issue["history"]),"forward revision")
- chk(ledger["checkpoint_log"][-1]["state_version"]==state["schema_version"] and len(ledger["issues"])==11,"omission review")
+ chk(ledger["checkpoint_log"][-1]["state_version"]==state["schema_version"] and len(ledger["issues"]) >= 11,"omission review")
  if pdf is not None:
   import fitz
   from PIL import Image

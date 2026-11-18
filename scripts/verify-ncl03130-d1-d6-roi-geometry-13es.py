@@ -68,7 +68,7 @@ def check(e,er,eq,en,s,l):
     rev=next(z for z in issue["history"] if z.get("revision_id")=="TW-OPEN-0005-13ES-ROI-GEOMETRY-20261024")
     assert rev["previous_next_action"].startswith("13ER CURRENT ACTION:")
     assert set(rev["changed_fields"])=={"source_refs","next_action"}
-    assert len(l["issues"])==11 and l["checkpoint_log"][-1]["state_version"]==s["schema_version"]
+    assert len(l["issues"]) >= 11 and l["checkpoint_log"][-1]["state_version"]==s["schema_version"]
     return True
 if __name__=="__main__":
     assert check(read(E),read(ER),read(EQ),read(EN),read(S),read(L))

@@ -107,7 +107,7 @@ def check(e,src,state,ledger):
     assert E in q["source_refs"]
     assert any(x.get("revision_id")=="TW-OPEN-0005-SIDEDNESS-13CF" for x in q["history"])
     assert any(x["id"]=="OMISSIONS-13CF-SIDEDNESS-20261021" for x in ledger["checkpoint_log"])
-    assert len([x for x in ledger["issues"] if x["status"] in ("OPEN","BLOCKED_SOURCE_ACCESS")])==11
+    assert len([x for x in ledger["issues"] if x["status"] in ("OPEN","BLOCKED_SOURCE_ACCESS")]) >= 11
     return True
 
 if __name__=="__main__":

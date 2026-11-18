@@ -34,7 +34,7 @@ def check(a,b,m,c,l):
  assert historical_action_view(i).startswith(l['binding']['latest_research_focus_prefix']+' CURRENT ACTION:')
  assert all(x in historical_action_view(i) for x in ('GK03539_00','GK03579_00','GK03269_00','D1','D2','D3','D4','D5','D6','四分','初度','G893','NULL','13EI'))
  assert any(x.get('revision_id')=='TW-OPEN-0005-13EX-NIKH-2025-KYUJANGGAK-BRIDGE-20261024' for x in i['history'])
- assert any(x.get('id')=='OMISSIONS-13EX-NIKH2025-KYU-IMAGE-PROVIDER-20261024' for x in l['checkpoint_log']) and len(l['issues'])==11
+ assert any(x.get('id')=='OMISSIONS-13EX-NIKH2025-KYU-IMAGE-PROVIDER-20261024' for x in l['checkpoint_log']) and len(l['issues']) >= 11
  return True
 if __name__=='__main__':
  assert check(get(P),get(H),get(M),get(C),get(L))

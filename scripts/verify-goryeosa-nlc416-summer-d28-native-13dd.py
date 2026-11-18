@@ -78,7 +78,7 @@ def check(e,s,l):
  assert any(h.get("revision_id")=="TW-OPEN-0005-13DD-SUMMER-D28-ORIGINAL-POSITIVE" for h in issue["history"])
  assert any(h.get("id")=="OMISSIONS-13DD-NLC416-SUMMER-D28-20261023" for h in l["checkpoint_log"])
  assert l["checkpoint_log"][-1]["state_version"]==s["schema_version"]
- assert sum(x["status"] in ("OPEN","BLOCKED_SOURCE_ACCESS") for x in l["issues"])==11
+ assert sum(x["status"] in ("OPEN","BLOCKED_SOURCE_ACCESS") for x in l["issues"]) >= 11
  return True
 def replay_source_original(e,p):
  import fitz

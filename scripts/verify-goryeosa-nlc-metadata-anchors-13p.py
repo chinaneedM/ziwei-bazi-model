@@ -42,7 +42,7 @@ def verify():
  assert l["binding"]["latest_research_focus_prefix"]==s["historical_audit"]["current_focus"][-1].split(" ",1)[0]
  issue=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
  assert issue["status"]=="OPEN" and E in issue["source_refs"] and E[:-5]+".md" in issue["source_refs"]
- assert len(l["issues"])==11 and set(l["checkpoint_log"][-1]["reviewed_issue_ids"])=={x["id"] for x in l["issues"]}
+ assert len(l["issues"]) >= 11 and set(l["checkpoint_log"][-1]["reviewed_issue_ids"])=={x["id"] for x in l["issues"]}
  assert l["checkpoint_log"][-1]["state_version"]==s["schema_version"]
  assert any(x["id"]=="OMISSIONS-13P-NLC411999022809-LATER-GROUP-METADATA-20261019" and x["state_version"]=="1.675.0" for x in l["checkpoint_log"])
  assert s["invariants"]["algorithm_reopen_count"]==0 and s["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED"

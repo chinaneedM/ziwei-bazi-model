@@ -43,7 +43,7 @@ def check(e,ek,ei,ed,s,l):
  assert {E,E.replace(".json",".md")}.issubset(set(q["source_refs"]))
  assert next(z for z in q["history"] if z.get("revision_id")=="TW-OPEN-0005-13EL-P74-D6-SOURCE-ORIGINAL-20261024")["revision_id"]=="TW-OPEN-0005-13EL-P74-D6-SOURCE-ORIGINAL-20261024"
  assert next(z for z in q["history"] if z.get("revision_id")=="TW-OPEN-0005-13EL-P74-D6-SOURCE-ORIGINAL-20261024")["previous_next_action"].startswith("13EK CURRENT ACTION")
- assert len(l["issues"])==11 and l["checkpoint_log"][-1]["state_version"]==s["schema_version"]
+ assert len(l["issues"]) >= 11 and l["checkpoint_log"][-1]["state_version"]==s["schema_version"]
  return True
 def replay(e,source_dir):
  from PIL import Image

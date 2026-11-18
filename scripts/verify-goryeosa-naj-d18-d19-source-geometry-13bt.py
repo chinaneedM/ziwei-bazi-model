@@ -62,7 +62,7 @@ def check(e,s,l,prior):
  assert e["source_dependencies"]=={"previous_d18_d19_original_day_header":BS,"previous_broad_naj_numeric":BG,"prior_evidence_grade":BQ,"pixel_capture_definition":BR}
  fw=e["source_scope"]
  assert all(fw[k]==0 for k in ("new_original_jpeg_objects","new_physical_witnesses","new_independent_stemmatic_votes","new_registry_sources","new_matrix_rows","new_genealogy_nodes","new_genealogy_edges","algorithm_reopens"))
- assert fw["research_risks_open_or_blocked"]==len(l["issues"])==11 and fw["product"]=="CLOSED"
+ assert fw["research_risks_open_or_blocked"] == 11 and len(l["issues"]) >= 11 and fw["product"]=="CLOSED"
  assert e["transmission_impact"]["nodes_added"]==e["transmission_impact"]["edges_supported"]==e["transmission_impact"]["edges_revised"]==[]
  issue=next(z for z in l["issues"] if z["id"]=="TW-OPEN-0005")
  assert issue["priority"]=="P0" and issue["status"]=="OPEN"

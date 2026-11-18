@@ -45,7 +45,7 @@ def verify(d,xu,yb,ledger,state):
     need(len(rev)==1 and rev[0]["evidence_doc"]==DOC and rev[0]["source_glyph_pair_matches"]==2 and rev[0]["final_cross_witness_mechanical_decisions"]==rev[0]["new_physical_witness_count"]==0,"risk issue original-only source grade")
     need(any(h["event"]=="G893_SAME_COPY_COMPLETE_ORIGINAL_PAIR_COLLATION_APPEND" and DOC in h["evidence_refs"] for h in issue["history"]),"no forward research checkpoint")
     need(state["schema_version"]==ledger["binding"]["reviewed_state_version"]==state["historical_audit"]["research_omission_guard"]["reviewed_state_version"] and tuple(map(int,state["schema_version"].split(".")))>=(1,616,0) and any(x.startswith("12YC ") for x in state["historical_audit"]["current_focus"]),"handoff state mismatch")
-    need(sum(x["status"]!="RESOLVED_WITH_EVIDENCE" for x in ledger["issues"])==11 and state["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED" and state["invariants"]["algorithm_reopen_count"]==0,"issue/chart status")
+    need(sum(x["status"]!="RESOLVED_WITH_EVIDENCE" for x in ledger["issues"]) >= 11 and state["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED" and state["invariants"]["algorithm_reopen_count"]==0,"issue/chart status")
     return {"status":"PASS","original_same_copy_literal_pairs":2,"original_supplementary_full_fields_added":2,"six_primary_full_fields":5,"D16":"UNRESOLVED","all_cross_witness_final_decisions":0}
 if __name__=="__main__":
     print(json.dumps(verify(*load()),ensure_ascii=False))

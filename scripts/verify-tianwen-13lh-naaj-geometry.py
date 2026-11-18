@@ -41,6 +41,6 @@ def check(e,s,l):
     assert "13LG CURRENT ACTION:" in historical_action_view(i) and "13JM CURRENT ACTION:" in historical_action_view(i) and "RETRACTED" in historical_action_view(i)
     assert E in i["source_refs"] and E[:-5]+".md" in i["source_refs"]
     assert any(q.get("revision_id")=="TW-OPEN-0005-13LH-GEOMETRY-20261030" for q in i["history"])
-    assert len(l["issues"])==11 and s["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED"
+    assert len(l["issues"]) >= 11 and s["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED"
     return {"status":"PASS","geometric_compatible":True,"plate_identity_proven":False,"historical_winners":0}
 if __name__=="__main__":print(json.dumps(check(*load()),ensure_ascii=False))

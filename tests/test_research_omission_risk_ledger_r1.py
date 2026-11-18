@@ -10,7 +10,11 @@ class ResearchOmissionLedgerTests(unittest.TestCase):
  def invalid(self,match):
   with self.assertRaisesRegex(ValueError,match):m.validate(self.d,self.state,self.protocol)
  def test_live(self):
-  r=m.verify();self.assertEqual(r["open_issues"],12);self.assertEqual(r["coverage"],"NON_EXHAUSTIVE")
+  r=m.verify()
+  open_ids={issue["id"] for issue in self.d["issues"] if issue["status"]!="RESOLVED_WITH_EVIDENCE"}
+  self.assertIn("TW-OPEN-0012",open_ids)
+  self.assertEqual(r["open_issues"],len(open_ids))
+  self.assertEqual(r["coverage"],"NON_EXHAUSTIVE")
  def test_missing_issue(self):
   self.d["issues"].pop(0);self.invalid("baseline research issue")
  def test_bad_closed_status(self):

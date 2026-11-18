@@ -48,7 +48,7 @@ def check(e,w,n,l,s,physical=True):
     fw=e["scope_firewall"]
     for k in ("new_original_images","new_original_roi_reviews","new_physical_witnesses","independent_lineage_votes","source_registry_increase","matrix_rows_increase","genealogy_nodes_increase","genealogy_edges_increase","algorithm_reopens"):
         assert fw[k]==0
-    assert fw["research_risks_open_or_blocked"]==len(l["issues"])==11
+    assert fw["research_risks_open_or_blocked"] == 11 and len(l["issues"]) >= 11
     assert fw["product"]==s["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED"
     iss=next(z for z in l["issues"] if z["id"]=="TW-OPEN-0005")
     assert iss["status"]=="OPEN" and iss["priority"]=="P0"

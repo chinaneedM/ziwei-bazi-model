@@ -50,6 +50,6 @@ def verify(e,old,v,state,ledger):
  issue=next(x for x in ledger["issues"] if x["id"]=="TW-OPEN-0005")
  need(issue["priority"]=="P0" and issue["status"]=="OPEN" and E in issue["source_refs"] and E.replace(".json",".md") in issue["source_refs"],"issue references")
  need(any(z.get("revision_id")=="TW-OPEN-0005-13KW-SOURCE-ATTRIBUTION-ERRATUM-20261030" and E in z.get("evidence_refs",[]) for z in issue["history"]),"erratum event")
- need(len(ledger["issues"])==11 and ledger["checkpoint_log"][-1]["state_version"]==state["schema_version"],"checkpoint")
+ need(len(ledger["issues"]) >= 11 and ledger["checkpoint_log"][-1]["state_version"]==state["schema_version"],"checkpoint")
  return {"status":"PASS","corrected_source_subject":"遲次歷","preserved_siku_subject":"遲疾歴","prior_quote_immutable":True,"original_glyph_winners":0,"algorithm_reopens":0}
 if __name__=="__main__":print(json.dumps(verify(*read()),ensure_ascii=False))

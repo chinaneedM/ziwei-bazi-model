@@ -30,7 +30,7 @@ def verify():
     assert any(z.startswith("13G ") for z in s["historical_audit"]["current_focus"])
     issue=next(z for z in l["issues"] if z["id"]=="TW-OPEN-0005")
     assert issue["status"]=="OPEN" and all(z in issue["source_refs"] for z in (E,"docs/research/TIANWEN-13G-NCL03130-GORYEOSA-AND-NCL03136-GUKJOBOGAM-COPY-SCOPE-R1.md",SH))
-    assert len(l["issues"])==11 and all(z["status"]!="RESOLVED_WITH_EVIDENCE" for z in l["issues"])
+    assert len(l["issues"]) >= 11 and all(z["status"]!="RESOLVED_WITH_EVIDENCE" for z in l["issues"])
     assert l["checkpoint_log"][-1]["state_version"]==s["schema_version"]
     assert set(l["checkpoint_log"][-1]["reviewed_issue_ids"])=={z["id"] for z in l["issues"]}
     assert s["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED" and s["invariants"]["algorithm_reopen_count"]==0

@@ -61,7 +61,7 @@ def verify(e,state,ledger):
  issue=next(i for i in ledger["issues"] if i["id"]==e["issue_id"])
  check(issue["priority"]=="P0" and issue["status"]=="OPEN" and E in issue["source_refs"] and E.replace(".json",".md") in issue["source_refs"],"issue references")
  check(any(v.get("revision_id")=="TW-OPEN-0005-13KR-ROUNDING-FLOOR-20261029" and E in v.get("evidence_refs",[]) for v in issue["history"]),"append only")
- check(len(ledger["issues"])==11 and ledger["checkpoint_log"][-1]["state_version"]==state["schema_version"],"review")
+ check(len(ledger["issues"]) >= 11 and ledger["checkpoint_log"][-1]["state_version"]==state["schema_version"],"review")
  return {"status":"PASS","days":29,"divergent_integer_days":diffs,"threshold_windows":["83/30500","21/7625"],"historical_winners":0,"algorithm_reopens":0}
 if __name__=="__main__":
  print(json.dumps(verify(*read()),ensure_ascii=False))

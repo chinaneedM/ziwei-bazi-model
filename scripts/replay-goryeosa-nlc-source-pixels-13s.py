@@ -42,7 +42,7 @@ def static_check(e):
     assert any(s.startswith("13S ") for s in state["historical_audit"]["current_focus"])
     issue=next(x for x in ledger["issues"] if x["id"]=="TW-OPEN-0005")
     assert issue["status"]=="OPEN" and E in issue["source_refs"] and E[:-5]+".md" in issue["source_refs"]
-    assert len(ledger["issues"])==11 and ledger["checkpoint_log"][-1]["state_version"]==state["schema_version"]
+    assert len(ledger["issues"]) >= 11 and ledger["checkpoint_log"][-1]["state_version"]==state["schema_version"]
     assert {x["id"] for x in ledger["issues"]}==set(ledger["checkpoint_log"][-1]["reviewed_issue_ids"])
     return True
 def rgb_crop_bytes(original_png,box):

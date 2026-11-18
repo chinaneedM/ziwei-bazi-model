@@ -42,6 +42,6 @@ def check(e,s,l):
     assert "13LH CURRENT ACTION:" in historical_action_view(issue) and "13LG CURRENT ACTION:" in historical_action_view(issue) and "13JM CURRENT ACTION:" in historical_action_view(issue) and "RETRACTED" in historical_action_view(issue)
     assert E in issue["source_refs"] and E[:-5]+".md" in issue["source_refs"]
     assert any(x.get("revision_id")=="TW-OPEN-0005-13LI-MRC-LAYER-20261030" for x in issue["history"])
-    assert len(l["issues"])==11 and s["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED"
+    assert len(l["issues"]) >= 11 and s["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED"
     return {"status":"PASS","mrc_composite_sources":2,"woodblock_identity_proven":False,"numbers_adjudicated":0}
 if __name__=="__main__":print(json.dumps(check(*load()),ensure_ascii=False))

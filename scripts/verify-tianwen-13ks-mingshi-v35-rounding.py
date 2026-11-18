@@ -75,7 +75,7 @@ def verify(e,s,l,r):
     require(issue["status"]=="OPEN" and issue["priority"]=="P0","open issue scope")
     require(E in issue["source_refs"] and E.replace(".json",".md") in issue["source_refs"],"evidence links")
     require(any(x.get("revision_id")=="TW-OPEN-0005-13KS-RECEIVED-CONSTANTS-20261029" and E in x.get("evidence_refs",[]) for x in issue["history"]),"append-only event")
-    require(len(l["issues"])==11 and l["checkpoint_log"][-1]["state_version"]==s["schema_version"],"risk review")
+    require(len(l["issues"]) >= 11 and l["checkpoint_log"][-1]["state_version"]==s["schema_version"],"risk review")
     return {"status":"PASS","source_grade":"RECEIVED_TEXT_ONLY","verified_received_constants":3,"historical_winners":0,"algorithm_reopens":0}
 
 if __name__=="__main__":

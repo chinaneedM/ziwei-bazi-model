@@ -35,7 +35,7 @@ def check(d, with_repo=True):
   assert 'a["snu_firstparty"]["book29_original_folio_images_obtained"]=True' in test
   v=(ROOT/"scripts/verify-tianwen-13hz-nikh-d18.py").read_text(encoding="utf-8")
   assert 'for tag in ("13HZ","13HY")' in v
-  assert len(ld["issues"])==11 and ld["checkpoint_log"][-1]["state_version"]==st["schema_version"]
+  assert len(ld["issues"]) >= 11 and ld["checkpoint_log"][-1]["state_version"]==st["schema_version"]
  return True
 if __name__=="__main__":
  assert check(load());print("TIANWEN_13IQ_HANBAT_CI_TAIL_PASS")

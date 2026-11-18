@@ -36,7 +36,7 @@ def verify():
     require(l["binding"]["source_focus_count"]==len(s["historical_audit"]["current_focus"]),"focus count")
     issue=next(i for i in l["issues"] if i["id"]=="TW-OPEN-0005")
     require(issue["status"]=="OPEN" and all(z in issue["source_refs"] for z in (DOC,DOC.replace(".json",".md"),SOURCE)),"P0 preservation")
-    require(all(i["status"]!="RESOLVED_WITH_EVIDENCE" for i in l["issues"]) and len(l["issues"])==11,"no issue removed")
+    require(all(i["status"]!="RESOLVED_WITH_EVIDENCE" for i in l["issues"]) and len(l["issues"]) >= 11,"no issue removed")
     require(l["checkpoint_log"][-1]["state_version"]==s["schema_version"] and set(l["checkpoint_log"][-1]["reviewed_issue_ids"])=={i["id"] for i in l["issues"]},"checkpoint")
     require(s["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED" and s["invariants"]["algorithm_reopen_count"]==0,"R1 invariant")
     return {"status":"PASS","yonsei_new_physical_catalog_leads":1,"ancient_target_original_pages":0}

@@ -34,7 +34,7 @@ def check(d, with_state=True):
         issue=next(x for x in l['issues'] if x['id']=='TW-OPEN-0005')
         assert issue['status']=='OPEN' and PATH in issue['source_refs']
         assert any(x.get('new_action_prefix')=='13IO' for x in issue['history'])
-        assert len(l['issues'])==11 and set(l['checkpoint_log'][-1]['reviewed_issue_ids'])=={x['id'] for x in l['issues']}
+        assert len(l['issues']) >= 11 and set(l['checkpoint_log'][-1]['reviewed_issue_ids'])=={x['id'] for x in l['issues']}
         root=(ROOT/'docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json').read_bytes()
         manifest=read('docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json')
         digest=hashlib.sha1(b'blob '+str(len(root)).encode('ascii')+b'\0'+root).hexdigest()

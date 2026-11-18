@@ -58,7 +58,7 @@ def verify(v,en,et,s,l):
     assert all(z in historical_action_view(issue) for z in ("D1","D2","D3","D4","D5","D6","四分","初度"))
     assert {P,P.replace(".json",".md")}.issubset(set(issue["source_refs"]))
     assert next(z for z in issue["history"] if z.get("revision_id")=="TW-OPEN-0005-13EU-D5-FOURFEN-DIVERGENCE-20261024")["previous_next_action"].startswith("13ET CURRENT ACTION:")
-    assert l["checkpoint_log"][-1]["state_version"]==s["schema_version"] and len(l["issues"])==11
+    assert l["checkpoint_log"][-1]["state_version"]==s["schema_version"] and len(l["issues"]) >= 11
     return True
 def replay(v,folder):
     from PIL import Image

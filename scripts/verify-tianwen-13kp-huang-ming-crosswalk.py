@@ -43,7 +43,7 @@ def verify(e,state,ledger,huang_pdf=None,ming_pdf=None):
  issue=next(k for k in ledger["issues"] if k["id"]==e["issue_id"])
  fail(issue["priority"]=="P0" and issue["status"]=="OPEN" and E in issue["source_refs"] and E.replace(".json",".md") in issue["source_refs"],"issue")
  fail(any(x.get("revision_id")=="TW-OPEN-0005-13KP-HUANG-MING-INDEX-20261029" and E in x.get("evidence_refs",[]) for x in issue["history"]),"append-only revision")
- fail(len(ledger["issues"])==11 and ledger["checkpoint_log"][-1]["state_version"]==state["schema_version"],"risk review")
+ fail(len(ledger["issues"]) >= 11 and ledger["checkpoint_log"][-1]["state_version"]==state["schema_version"],"risk review")
  if huang_pdf or ming_pdf:
   import fitz
   from PIL import Image

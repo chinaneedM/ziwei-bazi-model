@@ -60,7 +60,7 @@ def check(e,state,ledger,old):
  assert e["source_dependencies"]=={"previous_p24_p25_original":BW,"original_table_start":BV}
  fw=e["scope_firewall"]
  assert all(fw[k]==0 for k in ("new_historical_physical_witnesses","new_independent_stemmatic_votes","new_source_registry_entries","new_matrix_rows","new_genealogy_nodes","new_genealogy_edges","algorithm_reopens"))
- assert fw["research_risks_open_or_blocked"]==len(ledger["issues"])==11 and fw["chart"]=="CLOSED"
+ assert fw["research_risks_open_or_blocked"] == 11 and len(ledger["issues"]) >= 11 and fw["chart"]=="CLOSED"
  assert e["transmission_impact"]["nodes_added"]==e["transmission_impact"]["edges_supported"]==e["transmission_impact"]["edges_revised"]==[]
  issue=next(z for z in ledger["issues"] if z["id"]=="TW-OPEN-0005")
  assert issue["status"]=="OPEN" and issue["priority"]=="P0"

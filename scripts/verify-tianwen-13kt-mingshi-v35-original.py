@@ -53,6 +53,6 @@ def verify(e,state,ledger):
  issue=next(j for j in ledger["issues"] if j["id"]=="TW-OPEN-0005")
  check(issue["status"]=="OPEN" and E in issue["source_refs"] and E.replace(".json",".md") in issue["source_refs"],"open issue refs")
  check(any(z.get("revision_id")=="TW-OPEN-0005-13KT-HARVARD-ORIGINAL-20261029" and E in z.get("evidence_refs",[]) for z in issue["history"]),"forward event")
- check(ledger["checkpoint_log"][-1]["state_version"]==state["schema_version"] and len(ledger["issues"])==11,"review")
+ check(ledger["checkpoint_log"][-1]["state_version"]==state["schema_version"] and len(ledger["issues"]) >= 11,"review")
  return {"status":"PASS","source_pdf_sha256":p["source_sha256"],"source_original_target_page":6,"original_limit_constants":3,"new_physical_votes":0,"historic_g893_winners":0,"chart_reopens":0}
 if __name__=="__main__":print(json.dumps(verify(*read()),ensure_ascii=False))

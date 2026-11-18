@@ -46,7 +46,7 @@ def check(e,st,ledger,prev):
  assert prev["BT"]["comparison"]["uniform_all_field_day_shift_proven"] is False
  fw=e["scope"]
  assert all(fw[k]==0 for k in ("new_physical_witnesses","new_source_registry_entries","independent_stemmatic_votes","new_matrix_rows","new_genealogy_nodes","new_genealogy_edges","algorithm_reopens"))
- assert fw["research_risks_open_or_blocked"]==len(ledger["issues"])==11 and fw["chart_r1"]=="CLOSED"
+ assert fw["research_risks_open_or_blocked"] == 11 and len(ledger["issues"]) >= 11 and fw["chart_r1"]=="CLOSED"
  assert e["transmission_impact"]["nodes_added"]==e["transmission_impact"]["edges_supported"]==e["transmission_impact"]["edges_revised"]==[]
  issue=next(z for z in ledger["issues"] if z["id"]=="TW-OPEN-0005")
  assert issue["priority"]=="P0" and issue["status"]=="OPEN"

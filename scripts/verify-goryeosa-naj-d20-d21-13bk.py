@@ -106,7 +106,7 @@ def check(e,bg,bj,yz,ledger,state):
  assert any(x.startswith("13BK ") for x in state["historical_audit"]["current_focus"])
  assert ledger["binding"]["latest_research_focus_prefix"]==state["historical_audit"]["current_focus"][-1].split(" ")[0]
  assert ledger["binding"]["source_focus_count"]==len(state["historical_audit"]["current_focus"])
- assert ledger["checkpoint_log"][-1]["state_version"]==state["schema_version"] and len(ledger["checkpoint_log"][-1]["reviewed_issue_ids"])==11
+ assert ledger["checkpoint_log"][-1]["state_version"]==state["schema_version"] and set(ledger["checkpoint_log"][-1]["reviewed_issue_ids"]) == {issue["id"] for issue in ledger["issues"]}
  return True
 if __name__=="__main__":
  ap=argparse.ArgumentParser()

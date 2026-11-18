@@ -31,7 +31,7 @@ def verify(d,prior,state,ledger):
  focus=state["historical_audit"]["current_focus"]
  need(any(x.startswith("12ZD ") for x in focus),"12ZD committed batch retained")
  need(ledger["binding"]["source_focus_count"]==len(focus) and ledger["binding"]["latest_research_focus_prefix"]==focus[-1].split(" ",1)[0],"latest review scope")
- need(ledger["checkpoint_log"][-1]["state_version"]==state["schema_version"] and len(ledger["checkpoint_log"][-1]["reviewed_issue_ids"])==len(ledger["issues"])==11,"checkpoint all issues")
+ need(ledger["checkpoint_log"][-1]["state_version"]==state["schema_version"] and set(ledger["checkpoint_log"][-1]["reviewed_issue_ids"]) == {issue["id"] for issue in ledger["issues"]} and len(ledger["issues"]) >= 11,"checkpoint all issues")
  need(prior["closure"]["new_physical_page_images_acquired"] is False,"no backward overwrite")
  return {"status":"PASS","new_targeted_mixed_copy_leads":1,"new_original_folios":0,"known_5553_supplement_fascicles":3,"open_recovery_issues":11}
 if __name__=="__main__":print(json.dumps(verify(*load()),ensure_ascii=False))

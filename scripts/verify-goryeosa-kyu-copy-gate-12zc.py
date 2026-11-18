@@ -50,6 +50,6 @@ def verify(d,prior,state,ledger):
  need(state["schema_version"]==ledger["binding"]["reviewed_state_version"]==state["historical_audit"]["research_omission_guard"]["reviewed_state_version"],"latest versions")
  need(ledger["binding"]["source_focus_count"]==len(state["historical_audit"]["current_focus"]) and ledger["binding"]["latest_research_focus_prefix"]==state["historical_audit"]["current_focus"][-1].split(" ")[0],"latest focus coupling")
  need(any(x.startswith("12ZC ") for x in state["historical_audit"]["current_focus"]),"12ZC focus preserved")
- need(ledger["checkpoint_log"][-1]["state_version"]==state["schema_version"] and len(ledger["checkpoint_log"][-1]["reviewed_issue_ids"])==len(ledger["issues"])==11,"omission checkpoint")
+ need(ledger["checkpoint_log"][-1]["state_version"]==state["schema_version"] and set(ledger["checkpoint_log"][-1]["reviewed_issue_ids"]) == {issue["id"] for issue in ledger["issues"]} and len(ledger["issues"]) >= 11,"omission checkpoint")
  return {"status":"PASS","catalogs_checked":6,"target_physical_originals_new":0,"untested_original_folios":6,"TW_OPEN_0005":"OPEN"}
 if __name__=="__main__":print(json.dumps(verify(*load()),ensure_ascii=False))

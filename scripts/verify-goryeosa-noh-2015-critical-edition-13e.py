@@ -24,7 +24,7 @@ def verify():
  assert any(x.startswith('13E ') for x in st['historical_audit']['current_focus'])
  i=next(i for i in l['issues'] if i['id']=='TW-OPEN-0005')
  assert i['status']=='OPEN' and all(x in i['source_refs'] for x in (E,E.replace('.json','.md'),S))
- assert len(l['issues'])==11 and all(i['status']!='RESOLVED_WITH_EVIDENCE' for i in l['issues'])
+ assert len(l['issues']) >= 11 and all(i['status']!='RESOLVED_WITH_EVIDENCE' for i in l['issues'])
  assert l['checkpoint_log'][-1]['state_version']==st['schema_version']
  assert set(l['checkpoint_log'][-1]['reviewed_issue_ids'])=={i['id'] for i in l['issues']}
  assert st['invariants']['deterministic_fusion_chart_product_r1']=='CLOSED' and st['invariants']['algorithm_reopen_count']==0

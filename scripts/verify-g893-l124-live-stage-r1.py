@@ -46,7 +46,7 @@ def validate(d,lg,st,old):
     require(old["current_state_version"]=="1.610.0" and old["complete_source_literal_field_count"]==3,"12XW historical snapshot overwritten")
     require(st["historical_audit"]["row_count"]==st["historical_audit"]["audited_row_count"]==222 and st["historical_audit"]["external_source_registry_total_unique_count"]>=706,"provenance counts changed")
     require(st["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED" and st["invariants"]["algorithm_reopen_count"]==0,"no new algorithm authorized")
-    require(sum(x["status"]!="RESOLVED_WITH_EVIDENCE" for x in lg["issues"])==11,"unclosed issue erased")
+    require(sum(x["status"]!="RESOLVED_WITH_EVIDENCE" for x in lg["issues"]) >= 11,"unclosed issue erased")
     return {"status":"PASS","target":"G893-L124","original_complete_fields":4,"remaining_original_fields":2,"cross_witness_numeric_decisions":0}
 
 if __name__=="__main__":

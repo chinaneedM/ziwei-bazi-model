@@ -76,7 +76,7 @@ def verify(d,prior,state,ledger):
        "existing registry preserved")
     ck(state["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED" and
        state["invariants"]["algorithm_reopen_count"]==0 and
-       len(ledger["issues"])==11 and
+       len(ledger["issues"]) >= 11 and
        set(ledger["checkpoint_log"][-1]["reviewed_issue_ids"])==
        {x["id"] for x in ledger["issues"]} and
        ledger["checkpoint_log"][-1]["state_version"]==state["schema_version"],

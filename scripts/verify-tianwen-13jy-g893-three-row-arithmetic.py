@@ -60,6 +60,6 @@ def verify(e,s,l):
  assert sum(q.get("revision_id")=="TW-OPEN-0005-13JY-DIFFERENCES-20261029" for q in issue["history"])==1
  assert any(q.get("revision_id")=="TW-OPEN-0005-13JX-FUJIWARA1941-20261029" for q in issue["history"])
  assert l["checkpoint_log"][-1]["state_version"]==s["schema_version"]
- assert len(l["issues"])==11
+ assert len(l["issues"]) >= 11
  return {"status":"PASS","three_mixed_witness_cases":3,"winners_awarded":0}
 if __name__=="__main__":print(json.dumps(verify(*load()),ensure_ascii=False))

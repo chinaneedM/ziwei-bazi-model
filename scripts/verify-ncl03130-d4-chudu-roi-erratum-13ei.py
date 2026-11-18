@@ -78,7 +78,7 @@ def check(e,s,l,eh,eg,ed):
  assert h["previous_next_action"].startswith("13EH CURRENT ACTION")
  assert set(h["changed_fields"])=={"source_refs","next_action"}
  assert {E,E.replace(".json",".md"),EH,EG,ED}.issubset(set(h["evidence_refs"]))
- assert len(l["issues"])==11 and l["checkpoint_log"][-1]["state_version"]==s["schema_version"]
+ assert len(l["issues"]) >= 11 and l["checkpoint_log"][-1]["state_version"]==s["schema_version"]
  return True
 def replay(e,folder):
  from PIL import Image

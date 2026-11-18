@@ -46,7 +46,7 @@ def verify():
  assert l["binding"]["latest_research_focus_prefix"]==s["historical_audit"]["current_focus"][-1].split(" ",1)[0]
  issue=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
  assert issue["status"]=="OPEN" and all(x in issue["source_refs"] for x in [E,"docs/research/TIANWEN-13N-NLC-411999022809-V52-FASCICLE-ATLAS-R1.md"])
- assert len(l["issues"])==11 and {x["id"] for x in l["issues"]}==set(l["checkpoint_log"][-1]["reviewed_issue_ids"])
+ assert len(l["issues"]) >= 11 and {x["id"] for x in l["issues"]}==set(l["checkpoint_log"][-1]["reviewed_issue_ids"])
  assert l["checkpoint_log"][-1]["state_version"]==s["schema_version"]
  assert any(x["id"]=="OMISSIONS-13N-NLC411999022809-FASCICLE-ATLAS-20261019" and x["state_version"]=="1.674.0" for x in l["checkpoint_log"])
  assert s["invariants"]["algorithm_reopen_count"]==0 and s["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED"

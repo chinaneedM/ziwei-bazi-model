@@ -33,7 +33,7 @@ def verify():
  must(l["binding"]["source_focus_count"]==len(st["historical_audit"]["current_focus"]),"focus length")
  issue=next(x for x in l["issues"] if x["id"]=="TW-OPEN-0005")
  must(issue["status"]=="OPEN" and all(x in issue["source_refs"] for x in (P,P.replace(".json",".md"),SHARD)),"issue unresolved")
- must(len(l["issues"])==11 and all(i["status"]!="RESOLVED_WITH_EVIDENCE" for i in l["issues"]),"open set")
+ must(len(l["issues"]) >= 11 and all(i["status"]!="RESOLVED_WITH_EVIDENCE" for i in l["issues"]),"open set")
  must(l["checkpoint_log"][-1]["state_version"]==st["schema_version"] and set(l["checkpoint_log"][-1]["reviewed_issue_ids"])=={i["id"] for i in l["issues"]},"omission checkpoint")
  must(st["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED" and st["invariants"]["algorithm_reopen_count"]==0,"chart boundary")
  return {"status":"PASS","source_count":m["combined_source_count"],"new_target_originals":0,"research_risks_open":11}

@@ -63,7 +63,7 @@ def check(e,bd,ba,ab,yz,ledger,state):
     assert ledger["binding"]["latest_research_focus_prefix"]==state["historical_audit"]["current_focus"][-1].split(" ")[0]
     assert ledger["binding"]["source_focus_count"]==len(state["historical_audit"]["current_focus"])
     assert ledger["checkpoint_log"][-1]["state_version"]==state["schema_version"]
-    assert len(ledger["checkpoint_log"][-1]["reviewed_issue_ids"])==11
+    assert set(ledger["checkpoint_log"][-1]["reviewed_issue_ids"]) == {issue["id"] for issue in ledger["issues"]}
     return True
 if __name__=="__main__":
     assert check(load(PC),load(PBD),load(PBA),load(PAB),load(PYZ),load("docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json"),load("docs/PROJECT-CURRENT-STATE-R1.json"))

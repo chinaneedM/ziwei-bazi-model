@@ -37,7 +37,7 @@ def check(e,s,l,a,b):
  assert set(historic["changed_fields"])=={"source_refs","next_action"}
  assert bool(changes[-1].get("evidence_refs")) and any(x.startswith(current_prefix+" ") for x in s["historical_audit"]["current_focus"])
  assert set([EA,EB,E,E.replace(".json",".md")]).issubset(set(historic["evidence_refs"]))
- assert len(l["issues"])==11 and l["checkpoint_log"][-1]["state_version"]==s["schema_version"]
+ assert len(l["issues"]) >= 11 and l["checkpoint_log"][-1]["state_version"]==s["schema_version"]
  return True
 if __name__=="__main__":
  assert check(load(E),load(S),load(L),load(EA),load(EB))

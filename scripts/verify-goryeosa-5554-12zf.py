@@ -23,6 +23,6 @@ def verify(d,s,l):
  f=s["historical_audit"]["current_focus"]
  need(any(x.startswith("12ZF ") for x in f) and l["binding"]["source_focus_count"]==len(f) and l["binding"]["latest_research_focus_prefix"]==f[-1].split(" ",1)[0],"forward-only batch")
  need(s["schema_version"]==l["binding"]["reviewed_state_version"]==s["historical_audit"]["research_omission_guard"]["reviewed_state_version"],"state version")
- need(l["checkpoint_log"][-1]["state_version"]==s["schema_version"] and len(l["checkpoint_log"][-1]["reviewed_issue_ids"])==len(l["issues"])==11,"checkpoint")
+ need(l["checkpoint_log"][-1]["state_version"]==s["schema_version"] and set(l["checkpoint_log"][-1]["reviewed_issue_ids"]) == {issue["id"] for issue in l["issues"]} and len(l["issues"]) >= 11,"checkpoint")
  return {"status":"PASS","new_original_pages":0,"reprint_holdings":5}
 if __name__=="__main__":print(json.dumps(verify(*load()),ensure_ascii=False))

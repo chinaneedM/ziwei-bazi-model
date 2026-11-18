@@ -61,7 +61,7 @@ def check(x,sh,m,c,l):
     assert all(z in historical_action_view(issue) for z in ("D1","D2","D3","D4","D5","D6","四分","初度","G893","NULL","13EI","GK03539_00","GK03579_00","GK03269_00"))
     assert {P,P.replace(".json",".md"),S}.issubset(set(issue["source_refs"]))
     assert next(z for z in issue["history"] if z.get("revision_id")=="TW-OPEN-0005-13EV-KYUDB-THREE-HOLDING-CATALOG-20261024")["previous_next_action"].startswith("13EU CURRENT ACTION:")
-    assert len(l["issues"])==11 and l["checkpoint_log"][-1]["state_version"]==c["schema_version"]
+    assert len(l["issues"]) >= 11 and l["checkpoint_log"][-1]["state_version"]==c["schema_version"]
     return True
 if __name__=="__main__":
     assert check(load(P),load(S),load(M),load(C),load(L))

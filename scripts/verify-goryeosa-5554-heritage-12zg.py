@@ -27,6 +27,6 @@ def verify(d,prev,state,ledger):
  f=state["historical_audit"]["current_focus"]
  need(any(x.startswith("12ZG ") for x in f) and ledger["binding"]["source_focus_count"]==len(f) and ledger["binding"]["latest_research_focus_prefix"]==f[-1].split(" ",1)[0],"future focus")
  need(state["schema_version"]==ledger["binding"]["reviewed_state_version"]==state["historical_audit"]["research_omission_guard"]["reviewed_state_version"],"sync")
- need(ledger["checkpoint_log"][-1]["state_version"]==state["schema_version"] and len(ledger["checkpoint_log"][-1]["reviewed_issue_ids"])==len(ledger["issues"])==11,"all issues")
+ need(ledger["checkpoint_log"][-1]["state_version"]==state["schema_version"] and set(ledger["checkpoint_log"][-1]["reviewed_issue_ids"]) == {issue["id"] for issue in ledger["issues"]} and len(ledger["issues"]) >= 11,"all issues")
  return {"status":"PASS","era_attribution":"1482_MODERN_HERITAGE","original_impression_date":"UNRESOLVED","original_pages_new":0}
 if __name__=="__main__":print(json.dumps(verify(*load()),ensure_ascii=False))

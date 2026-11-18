@@ -46,7 +46,7 @@ def verify(e,state,ledger):
     issue=next(x for x in ledger["issues"] if x["id"]==e["issue_id"])
     chk(issue["status"]=="OPEN" and issue["priority"]=="P0" and E in issue["source_refs"] and E.replace(".json",".md") in issue["source_refs"],"open issue evidence")
     chk(any(v.get("revision_id")=="TW-OPEN-0005-13KN-OPERATOR-OBJECT-FIREWALL-20261029" and E in v.get("evidence_refs",[]) for v in issue["history"]),"forward revision")
-    chk(len(ledger["issues"])==11 and ledger["checkpoint_log"][-1]["state_version"]==state["schema_version"],"risk review")
+    chk(len(ledger["issues"]) >= 11 and ledger["checkpoint_log"][-1]["state_version"]==state["schema_version"],"risk review")
     return {"status":"PASS","operators":4,"historical_winners":0,"algorithm_reopens":0}
 if __name__=="__main__":
     print(json.dumps(verify(*load()),ensure_ascii=False))

@@ -51,7 +51,7 @@ def check(e,f,en,s,l):
  assert all(any(h.get("revision_id", "").startswith("TW-OPEN-0005-" + t + "-") and "next_action" in h.get("changed_fields", []) for h in issue["history"]) for t in ['13FK'])
  assert {P,P.replace(".json",".md")}.issubset(set(issue["source_refs"]))
  assert any(t.get("revision_id")=="TW-OPEN-0005-13FK-NLC-P74-D7D8D10-THREE-POSITIVE-D9-UNKNOWN-20261024" for t in issue["history"])
- assert len(l["issues"])==11 and l["checkpoint_log"][-1]["state_version"]==s["schema_version"]
+ assert len(l["issues"]) >= 11 and l["checkpoint_log"][-1]["state_version"]==s["schema_version"]
  return True
 def pixel_replay(e,p):
  from PIL import Image

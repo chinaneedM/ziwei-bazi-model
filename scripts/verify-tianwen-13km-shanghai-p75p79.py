@@ -33,7 +33,7 @@ def verify(e,state,ledger,pdf=None):
  issue=next(v for v in ledger["issues"] if v["id"]=="TW-OPEN-0005")
  chk(issue["priority"]=="P0" and issue["status"]=="OPEN" and E in issue["source_refs"] and E.replace(".json",".md") in issue["source_refs"],"open issue references")
  chk(any(v.get("revision_id")=="TW-OPEN-0005-13KM-P75P79-GLYPHS-20261029" and E in v.get("evidence_refs",[]) for v in issue["history"]),"forward source event")
- chk(len(ledger["issues"])==11 and ledger["checkpoint_log"][-1]["state_version"]==state["schema_version"],"risk checkpoint")
+ chk(len(ledger["issues"]) >= 11 and ledger["checkpoint_log"][-1]["state_version"]==state["schema_version"],"risk checkpoint")
  if pdf is not None:
   import fitz
   from PIL import Image

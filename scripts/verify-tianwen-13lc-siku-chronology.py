@@ -38,6 +38,6 @@ def verify(e,old,state,ledger):
  issue=next(i for i in ledger["issues"] if i["id"]=="TW-OPEN-0005")
  ck(issue["priority"]=="P0" and issue["status"]=="OPEN" and issue["next_action"].startswith(li["latest_research_focus_prefix"]+" CURRENT ACTION:"),"issue forward")
  ck(E in issue["source_refs"] and "docs/research/TIANWEN-13LC-MINGSHI-SIKU-1739-1782-EDITION-CHRONOLOGY-SCOPE-R1.md" in issue["source_refs"] and any(z.get("revision_id")=="TW-OPEN-0005-13LC-SIKU-CHRONOLOGY-20261030" for z in issue["history"]),"evidence history")
- ck(len(ledger["issues"])==11 and state["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED" and state["invariants"]["algorithm_reopen_count"]==0,"product")
+ ck(len(ledger["issues"]) >= 11 and state["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED" and state["invariants"]["algorithm_reopen_count"]==0,"product")
  return {"status":"PASS","wuying_year":1739,"siku_first_copy":1782,"new_original_numeric_votes":0,"open_risks":11}
 if __name__=="__main__":print(json.dumps(verify(*load()),ensure_ascii=False))

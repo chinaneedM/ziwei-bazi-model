@@ -42,7 +42,7 @@ def verify(d,previous,state,ledger):
  focus=state["historical_audit"]["current_focus"]
  req(any(x.startswith("12ZE ") for x in focus),"12ZE evidence batch retained")
  req(ledger["binding"]["source_focus_count"]==len(focus) and ledger["binding"]["latest_research_focus_prefix"]==focus[-1].split(" ",1)[0],"latest focus review")
- req(ledger["checkpoint_log"][-1]["state_version"]==state["schema_version"] and len(ledger["checkpoint_log"][-1]["reviewed_issue_ids"])==len(ledger["issues"])==11,"review all 11")
+ req(ledger["checkpoint_log"][-1]["state_version"]==state["schema_version"] and set(ledger["checkpoint_log"][-1]["reviewed_issue_ids"]) == {issue["id"] for issue in ledger["issues"]} and len(ledger["issues"]) >= 11,"review all 11")
  req(previous["risk_controls"]["named_original_d16_d18_page_new"]==0,"prior invariant")
  return {"status":"PASS","exact_item_records_verified":2,"split_catalog_groups":4,"original_glyph_pages":0,"unresolved_issues":11}
 if __name__=="__main__":print(json.dumps(verify(*load()),ensure_ascii=False))

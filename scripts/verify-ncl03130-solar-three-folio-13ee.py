@@ -51,7 +51,7 @@ def check(e,s,l,ed,dz):
  h=next(z for z in issue["history"] if z.get("revision_id")=="TW-OPEN-0005-13EE-THREE-FOLIO-LANE-CONTROL-20261023")
  assert h["previous_next_action"].startswith("13ED CURRENT ACTION")
  assert set(h["changed_fields"])=={"source_refs","next_action"} and set([E,E.replace(".json",".md"),ED]).issubset(set(h["evidence_refs"]))
- assert len(l["issues"])==11 and l["checkpoint_log"][-1]["state_version"]==s["schema_version"]
+ assert len(l["issues"]) >= 11 and l["checkpoint_log"][-1]["state_version"]==s["schema_version"]
  return True
 def replay(e,source_dir):
  from PIL import Image

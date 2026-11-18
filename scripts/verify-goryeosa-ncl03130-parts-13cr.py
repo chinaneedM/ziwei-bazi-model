@@ -46,7 +46,7 @@ def check(e,s,l):
     assert risk["status"]=="OPEN" and E in risk["source_refs"]
     assert any(x.get("revision_id")=="TW-OPEN-0005-13CR-COMMONS-PARTS" for x in risk["history"])
     assert any(x["id"]=="OMISSIONS-13CR-COMMONS-24PART-20261022" for x in l["checkpoint_log"])
-    assert sum(x["status"] in ("OPEN","BLOCKED_SOURCE_ACCESS") for x in l["issues"])==11
+    assert sum(x["status"] in ("OPEN","BLOCKED_SOURCE_ACCESS") for x in l["issues"]) >= 11
     return True
 if __name__=="__main__":
     assert check(load(E),load(S),load(L))

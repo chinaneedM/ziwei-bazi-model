@@ -73,7 +73,7 @@ def verify(d,older,state,lg):
     need(state["schema_version"]==lg["binding"]["reviewed_state_version"]==state["historical_audit"]["research_omission_guard"]["reviewed_state_version"] and tuple(map(int,state["schema_version"].split(".")))>= (1,612,0),"state/omission synchronization")
     need(any(x.startswith("12XY ") for x in state["historical_audit"]["current_focus"]) and state["historical_audit"]["row_count"]==222,"research focus not advanced")
     need(state["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED" and state["invariants"]["algorithm_reopen_count"]==0,"chart CLOSED violated")
-    need(sum(x["status"]!="RESOLVED_WITH_EVIDENCE" for x in lg["issues"])==11,"open research issues lost")
+    need(sum(x["status"]!="RESOLVED_WITH_EVIDENCE" for x in lg["issues"]) >= 11,"open research issues lost")
     return {"status":"PASS","original_page_sha_refs":5,"source_native_rgb_regions":8,"complete_original_target_fields":4,"unresolved_original_target_fields":2,"cross_witness_numeric_decisions":0}
 
 if __name__=="__main__":

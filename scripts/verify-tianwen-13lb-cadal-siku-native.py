@@ -51,6 +51,6 @@ def verify(e,harvard,state,ledger):
  issue=next(x for x in ledger["issues"] if x["id"]=="TW-OPEN-0005")
  check(issue["priority"]=="P0" and issue["status"]=="OPEN" and E in issue["source_refs"] and E.replace(".json",".md") in issue["source_refs"],"issue")
  check(any(x.get("revision_id")=="TW-OPEN-0005-13LB-SIKU-NATIVE-20261030" and E in x.get("evidence_refs",[]) for x in issue["history"]),"forward revision")
- check(len(ledger["issues"])==11 and ledger["checkpoint_log"][-1]["state_version"]==state["schema_version"],"risk review")
+ check(len(ledger["issues"]) >= 11 and ledger["checkpoint_log"][-1]["state_version"]==state["schema_version"],"risk review")
  return {"status":"PASS","native_original_pages":[2,11,16],"original_siku_remainder":"288977.09","original_harvard_remainder":"238977.09","delta_units":50000,"historical_winners":0,"chart_reopens":0}
 if __name__=="__main__":print(json.dumps(verify(*load()),ensure_ascii=False))

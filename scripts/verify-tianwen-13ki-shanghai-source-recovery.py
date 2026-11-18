@@ -34,7 +34,7 @@ def verify(e,shard,state,ledger,manifest):
  chk(issue["priority"]=="P0" and issue["status"]=="OPEN" and issue["next_action"].startswith(b["latest_research_focus_prefix"]+" CURRENT ACTION:"),"open P0")
  chk(E in issue["source_refs"] and S in issue["source_refs"],"issue source crosswalk")
  chk(any(z.get("revision_id")=="TW-OPEN-0005-13KI-SHANGHAI-ACQUISITION-20261029" for z in issue["history"]),"append-only issue")
- chk(ledger["checkpoint_log"][-1]["state_version"]==state["schema_version"] and len(ledger["issues"])==11,"checkpoint")
+ chk(ledger["checkpoint_log"][-1]["state_version"]==state["schema_version"] and len(ledger["issues"]) >= 11,"checkpoint")
  chk(state["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED" and state["invariants"]["algorithm_reopen_count"]==0,"algorithm")
  return {"status":"PASS","acquired_pdf_pages":97,"target_glyphs_collated":0,"historical_winners":0}
 

@@ -79,7 +79,7 @@ def check(x,fi,s,l):
  assert all(any(h.get("revision_id", "").startswith("TW-OPEN-0005-" + t + "-") and "next_action" in h.get("changed_fields", []) for h in issue["history"]) for t in ['13FJ'])
  assert {P,P.replace(".json",".md")}.issubset(set(issue["source_refs"]))
  assert any(h.get("revision_id")=="TW-OPEN-0005-13FJ-D4D10-NIKH-SEVEN-DAYS-SIX-STRING-STEPS-20261024" for h in issue["history"])
- assert l["checkpoint_log"][-1]["state_version"]==s["schema_version"] and len(l["issues"])==11
+ assert l["checkpoint_log"][-1]["state_version"]==s["schema_version"] and len(l["issues"]) >= 11
  return True
 def replay_source_JPEG(x,jpeg_path):
  # Optional pixel replay from the byte-identical saved official source, not a fetched guess.

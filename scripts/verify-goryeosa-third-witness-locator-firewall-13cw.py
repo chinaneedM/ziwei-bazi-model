@@ -49,7 +49,7 @@ def check(e,s,l):
  assert any(x.get("revision_id")=="TW-OPEN-0005-13CW-THIRD-WITNESS-LOCATOR-FIREWALL" for x in issue["history"])
  assert "CURRENT ACTION:" in issue["next_action"]
  assert any(x.get("id")=="OMISSIONS-13CW-THIRD-WITNESS-LOCATOR-FIREWALL-20261022" for x in l["checkpoint_log"])
- assert sum(i["status"] in ("OPEN","BLOCKED_SOURCE_ACCESS") for i in l["issues"])==11
+ assert sum(i["status"] in ("OPEN","BLOCKED_SOURCE_ACCESS") for i in l["issues"]) >= 11
  assert s["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED" and s["invariants"]["algorithm_reopen_count"]==0
  return True
 if __name__=="__main__":

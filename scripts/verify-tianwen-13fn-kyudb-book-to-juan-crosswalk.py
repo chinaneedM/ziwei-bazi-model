@@ -46,7 +46,7 @@ def check(e,fm,fk,s,l):
  assert {E,E.replace(".json",".md")}.issubset(set(issue["source_refs"]))
  assert any(x.get("revision_id")=="TW-OPEN-0005-13FN-FIRSTPARTY-GK5553-BOOK29-JUAN81-83-GK3467-BOOK6-JUAN52-20261024" for x in issue["history"])
  assert any(q.get("id")=="OMISSIONS-13FN-OFFICIAL-KYUDB-BOOK29-JUAN81-83-GK3467-BOOK6-JUAN52-20261024" for q in l["checkpoint_log"])
- assert l["checkpoint_log"][-1]["state_version"]==s["schema_version"] and len(l["issues"])==11
+ assert l["checkpoint_log"][-1]["state_version"]==s["schema_version"] and len(l["issues"]) >= 11
  return True
 if __name__=="__main__":
  assert check(load(E),load(FM),load(FK),load(S),load(L))

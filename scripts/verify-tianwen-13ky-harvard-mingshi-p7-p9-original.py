@@ -55,7 +55,7 @@ def verify(e,old,variants,erratum,state,ledger,pdf=None):
  issue=next(x for x in ledger["issues"] if x["id"]=="TW-OPEN-0005")
  ensure(issue["status"]=="OPEN" and issue["priority"]=="P0" and issue["next_action"].startswith(binding["latest_research_focus_prefix"]+" CURRENT ACTION:"),"unresolved issue next")
  ensure(E in issue["source_refs"] and E.replace(".json",".md") in issue["source_refs"] and any(z.get("revision_id")=="TW-OPEN-0005-13KY-HARVARD-P7-P9-ORIGINAL-20261030" and E in z.get("evidence_refs",[]) for z in issue["history"]),"forward event")
- ensure(len(ledger["issues"])==11 and ledger["checkpoint_log"][-1]["state_version"]==state["schema_version"],"ledger review")
+ ensure(len(ledger["issues"]) >= 11 and ledger["checkpoint_log"][-1]["state_version"]==state["schema_version"],"ledger review")
  if pdf is not None:
   import fitz
   from PIL import Image

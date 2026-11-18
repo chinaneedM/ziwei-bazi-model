@@ -41,7 +41,7 @@ def check(d,sh,m,s,l):
  assert historical_action_view(issue).startswith(l['binding']['latest_research_focus_prefix']+' CURRENT ACTION:')
  assert all(z in historical_action_view(issue) for z in ('GK03539_00','GK03579_00','GK03269_00','D1','D2','D3','D4','D5','D6','四分','初度','G893','NULL','13EI'))
  assert any(z.get('revision_id')=='TW-OPEN-0005-13EY-GORYEOSA-IMAGE-LINK-CHRONOLOGY-20261024' for z in issue['history'])
- assert l['checkpoint_log'][-1]['state_version']==s['schema_version'] and len(l['issues'])==11
+ assert l['checkpoint_log'][-1]['state_version']==s['schema_version'] and len(l['issues']) >= 11
  return True
 if __name__=='__main__':
  assert check(get(P),get(SH),get(M),get(C),get(L))

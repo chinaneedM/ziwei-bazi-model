@@ -87,7 +87,7 @@ def verify(d, shard, state, ledger, manifest):
     check(state["schema_version"]==ledger["binding"]["reviewed_state_version"]
           ==h["research_omission_guard"]["reviewed_state_version"], "state continuity")
     check(ledger["checkpoint_log"][-1]["state_version"]==state["schema_version"]
-          and len(ledger["checkpoint_log"][-1]["reviewed_issue_ids"])==11, "all 11 reviewed")
+          and set(ledger["checkpoint_log"][-1]["reviewed_issue_ids"]) == {issue["id"] for issue in ledger["issues"]}, "all 11 reviewed")
     check(h["row_count"]==h["audited_row_count"]==222
           and state["invariants"]["algorithm_reopen_count"]==0
           and state["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED",

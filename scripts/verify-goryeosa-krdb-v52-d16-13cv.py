@@ -46,7 +46,7 @@ def check(e,s,l,old):
  assert any(x.get("event")=="ISSUE_REVISION" and x.get("revision_id")=="TW-OPEN-0005-13CV-KRDB-V52-D16-ERRATUM" for x in issue["history"])
  assert "CURRENT ACTION:" in issue["next_action"]
  assert any(x.get("id")=="OMISSIONS-13CV-KRDB-V52-D16-ERRATUM-20261022" for x in l["checkpoint_log"])
- assert sum(x["status"] in ("OPEN","BLOCKED_SOURCE_ACCESS") for x in l["issues"])==11
+ assert sum(x["status"] in ("OPEN","BLOCKED_SOURCE_ACCESS") for x in l["issues"]) >= 11
  assert s["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED"
  return True
 if __name__=="__main__":

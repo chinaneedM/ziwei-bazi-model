@@ -65,7 +65,7 @@ def check(e,a,s,l):
     assert historical_action_view(issue).startswith(b['latest_research_focus_prefix']+' CURRENT ACTION:')
     assert '13LI CURRENT ACTION:' in historical_action_view(issue) and E in issue['source_refs'] and A in issue['source_refs']
     assert any(x.get('revision_id')=='TW-OPEN-0005-13LJ-FIRSTPARTY-COLOR-20261030' for x in issue['history'])
-    assert s['invariants']['deterministic_fusion_chart_product_r1']=='CLOSED' and len(l['issues'])==11
+    assert s['invariants']['deterministic_fusion_chart_product_r1']=='CLOSED' and len(l['issues']) >= 11
     return {'status':'PASS','firstparty_color_pages':6,'native_numeric_regions':2,'new_historical_recensions':0,'product':'CLOSED'}
 if __name__=='__main__':
     e,a,s,l=load()

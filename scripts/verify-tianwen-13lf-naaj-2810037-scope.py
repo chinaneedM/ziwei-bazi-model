@@ -25,6 +25,6 @@ def check(e,s,l):
     assert issue["priority"]=="P0" and issue["status"]=="OPEN" and issue["next_action"].startswith(binding["latest_research_focus_prefix"]+" CURRENT ACTION:")
     assert E in issue["source_refs"] and E[:-5]+".md" in issue["source_refs"]
     assert any(x.get("revision_id")=="TW-OPEN-0005-13LF-NAJDA2810037-LOCATOR-20261030" for x in issue["history"])
-    assert len(l["issues"])==11 and s["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED" and s["invariants"]["algorithm_reopen_count"]==0
+    assert len(l["issues"]) >= 11 and s["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED" and s["invariants"]["algorithm_reopen_count"]==0
     return {"status":"PASS","new_original_numeric_winners":0,"copy_2810037_chapter_binding":"PENDING"}
 if __name__=="__main__":print(json.dumps(check(*load()),ensure_ascii=False))

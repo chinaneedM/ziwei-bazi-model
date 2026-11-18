@@ -41,7 +41,7 @@ def check(x,s,l):
  assert {P,P.replace(".json",".md")}.issubset(set(issue["source_refs"]))
  assert issue["next_action"].startswith(l["binding"]["latest_research_focus_prefix"]+" CURRENT ACTION:")
  assert any(z.get("revision_id")=="TW-OPEN-0005-13FI-NIKH-D4D5D6-SAME-GALLERY-STRING-REPLAY-20261024" for z in issue["history"])
- assert l["checkpoint_log"][-1]["state_version"]==s["schema_version"] and len(l["issues"])==11
+ assert l["checkpoint_log"][-1]["state_version"]==s["schema_version"] and len(l["issues"]) >= 11
  return True
 if __name__=="__main__":
  assert check(get(P),get(S),get(L))

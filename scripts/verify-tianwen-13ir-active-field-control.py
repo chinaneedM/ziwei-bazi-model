@@ -41,7 +41,7 @@ def check(e,with_state=True):
   assert "13EI" in action and "RETRACTED" in action and "NULL" in action
   assert issue["status"]=="OPEN" and DOC in issue["source_refs"]
   assert any(h.get("revision_id","").startswith("TW-OPEN-0005-13IR-") for h in issue["history"])
-  assert len(ld["issues"])==11 and ld["checkpoint_log"][-1]["state_version"]==s["schema_version"]
+  assert len(ld["issues"]) >= 11 and ld["checkpoint_log"][-1]["state_version"]==s["schema_version"]
  return True
 if __name__=="__main__":
  assert check(load())

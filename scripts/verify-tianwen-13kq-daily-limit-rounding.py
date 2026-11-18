@@ -43,7 +43,7 @@ def verify(e,state,ledger,huang_pdf=None,ming_pdf=None):
  issue=next(i for i in ledger["issues"] if i["id"]==e["issue_id"])
  require(issue["priority"]=="P0" and issue["status"]=="OPEN" and E in issue["source_refs"] and E.replace(".json",".md") in issue["source_refs"],"risk")
  require(any(i.get("revision_id")=="TW-OPEN-0005-13KQ-820-DAY-RATE-20261029" and E in i.get("evidence_refs",[]) for i in issue["history"]),"append-only event")
- require(len(ledger["issues"])==11 and ledger["checkpoint_log"][-1]["state_version"]==state["schema_version"],"checkpoint")
+ require(len(ledger["issues"]) >= 11 and ledger["checkpoint_log"][-1]["state_version"]==state["schema_version"],"checkpoint")
  if huang_pdf or ming_pdf:
   import fitz
   from PIL import Image

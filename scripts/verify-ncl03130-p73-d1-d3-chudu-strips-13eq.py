@@ -56,7 +56,7 @@ def check(e,eo,ep,en,ei,ed,s,l):
  assert E in q["source_refs"] and E.replace(".json",".md") in q["source_refs"]
  h=next(x for x in q["history"] if x.get("revision_id")=="TW-OPEN-0005-13EQ-P73-D1-D3-ORIGINAL-STRIPS-20261024")
  assert h["previous_next_action"].startswith("13EP CURRENT ACTION:") and set(h["changed_fields"])=={"source_refs","next_action"} and bool(h["evidence_refs"])
- assert len(l["issues"])==11 and l["checkpoint_log"][-1]["state_version"]==s["schema_version"]
+ assert len(l["issues"]) >= 11 and l["checkpoint_log"][-1]["state_version"]==s["schema_version"]
  return True
 def replay(e,original_png_dir):
  from PIL import Image

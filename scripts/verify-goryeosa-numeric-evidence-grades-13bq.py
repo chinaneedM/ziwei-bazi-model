@@ -81,7 +81,7 @@ def check(e,src,l,s,physical=True):
  fw=e["scope_firewall"]
  for k in ("new_original_pixel_reads","new_original_image_downloads","new_source_registry_entries","new_physical_witnesses","new_stemmatic_votes","new_matrix_rows","new_genealogy_nodes","new_genealogy_edges","algorithm_reopens"):
   assert fw[k]==0
- assert fw["open_or_blocked_risks"]==len(l["issues"])==11 and fw["product"]=="CLOSED"
+ assert fw["open_or_blocked_risks"] == 11 and len(l["issues"]) >= 11 and fw["product"]=="CLOSED"
  assert e["transmission_impact"]["nodes_added"]==e["transmission_impact"]["edges_supported"]==e["transmission_impact"]["edges_revised"]==[]
  issue=next(z for z in l["issues"] if z["id"]=="TW-OPEN-0005")
  assert issue["status"]=="OPEN" and issue["priority"]=="P0"

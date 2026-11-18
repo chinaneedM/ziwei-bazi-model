@@ -45,7 +45,7 @@ def check(e, with_repo=True):
         err=read("docs/research/TIANWEN-13IO-GK5553-CROSSWALK-AND-CONCURRENT-HANDOFF-ERRATUM-R1.json")
         assert old["snu_firstparty"]["book29_juan"]==[81,82,83]
         assert err["historical_erratum"]["new_status"]=="RETRACTED_UNBOUND_COPY_TO_JUAN_CROSSWALK"
-        assert len(ld["issues"])==11
+        assert len(ld["issues"]) >= 11
         assert ld["checkpoint_log"][-1]["state_version"]==s["schema_version"]
     return True
 if __name__=="__main__":

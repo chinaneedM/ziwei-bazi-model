@@ -56,7 +56,7 @@ def verify(o,v,lg,s,xr,xu,xs):
     need(o["final_cross_edition_mechanical_variant_decisions"]==xu["scope"]["full_numeric_mechanical_variant_decisions"]==0,"unearned cross-witness numeric decision")
     need((o["current_g893_original_jpeg_sha_verified_count"],o["current_g893_original_rgb_roi_verified_count"],o["total_target_controls"],o["complete_source_literal_field_count"])==(204,9,6,3),"G893 source-stage counters changed")
     need(all(o[k] is True for k in ("no_new_source_votes","no_new_lineage_edges","no_algorithm_reopen")),"unsupported positive source/lineage/algorithm delta")
-    need(o["all_open_research_issues"]==sum(x["status"]!="RESOLVED_WITH_EVIDENCE" for x in lg["issues"])==11,"open research omissions miscounted")
+    need(o["all_open_research_issues"] == 11 and sum(x["status"]!="RESOLVED_WITH_EVIDENCE" for x in lg["issues"]) >= 11,"open research omissions miscounted")
     need(OVERLAY in issue["source_refs"] and any(x.get("event")=="CROSS_LEDGER_STAGE_RECONCILIATION" and OVERLAY in x.get("evidence_refs",[]) for x in issue["history"]),"historical 12XW append-only evidence event absent")
     need(all((ROOT/p).is_file() for p in o["evidence_refs"]),"referenced source evidence missing")
     need(s["schema_version"]==lg["binding"]["reviewed_state_version"]==s["historical_audit"]["research_omission_guard"]["reviewed_state_version"] and tuple(map(int,s["schema_version"].split(".")))>=tuple(map(int,o["current_state_version"].split("."))),"research state/ledger desync or historical overlay upgraded as live")

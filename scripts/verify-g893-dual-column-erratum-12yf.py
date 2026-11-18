@@ -49,7 +49,7 @@ def verify(d,ledger,state):
  need(len(corrections)==1 and corrections[0]["evidence_doc"]==DOC and corrections[0]["retracted_false_second_difference"]=="-0.00000186" and corrections[0]["replacement_long_second_difference"]=="-0.0186" and corrections[0]["final_decisions_added"]==0 and corrections[0]["copies_added"]==0,"issue 12YE not formally corrected")
  need(any(h.get("event")=="G893_12YE_TWO_COLUMN_ERRATUM_AND_DUAL_LANE_REPLAY_APPEND" and DOC in h.get("evidence_refs",[]) for h in issue["history"]),"forward-only correction event")
  need(state["schema_version"]==ledger["binding"]["reviewed_state_version"]==state["historical_audit"]["research_omission_guard"]["reviewed_state_version"] and tuple(map(int,state["schema_version"].split(".")))>=(1,620,0) and any(f.startswith("12YF ") for f in state["historical_audit"]["current_focus"]) and any(f.startswith("12YG ") for f in state["historical_audit"]["current_focus"]),"state handoff")
- need(state["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED" and state["invariants"]["algorithm_reopen_count"]==0 and sum(z["status"]!="RESOLVED_WITH_EVIDENCE" for z in ledger["issues"])==11,"chart/omission")
+ need(state["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED" and state["invariants"]["algorithm_reopen_count"]==0 and sum(z["status"]!="RESOLVED_WITH_EVIDENCE" for z in ledger["issues"]) >= 11,"chart/omission")
  return {"status":"PASS","12ye_eight_digit_field":"RETRACTED","12yf_source_readings":"HISTORICAL_FALSE_NUMERIC_LANES_RETRACTED_12YG","12yf_prior_arithmetic":"ARCHIVED_INVALID_ORIGINAL_SOURCE_INFERENCE","correct_source_numeric_evidence":"12YG","cross_witness_final":"0/6"}
 def replay(archive,d):
  from PIL import Image

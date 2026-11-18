@@ -62,7 +62,7 @@ def verify(d,shard,prior,manifest,state,ledger):
  check(any(x.startswith("12ZS ") for x in focus) and ledger["binding"]["source_focus_count"]==len(focus)
        and ledger["binding"]["latest_research_focus_prefix"]==focus[-1].split(" ",1)[0],"focus live")
  check(state["schema_version"]==ledger["binding"]["reviewed_state_version"]==h["research_omission_guard"]["reviewed_state_version"],"continuity")
- check(ledger["checkpoint_log"][-1]["state_version"]==state["schema_version"] and len(ledger["checkpoint_log"][-1]["reviewed_issue_ids"])==11,"open reviewed")
+ check(ledger["checkpoint_log"][-1]["state_version"]==state["schema_version"] and set(ledger["checkpoint_log"][-1]["reviewed_issue_ids"]) == {issue["id"] for issue in ledger["issues"]},"open reviewed")
  check(state["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED"
        and state["invariants"]["algorithm_reopen_count"]==0,"no runtime")
  return {"status":"PASS","firstparty_catalog_locator":"GK03539_00","new_source_witnesses":0,"open_issues":11}

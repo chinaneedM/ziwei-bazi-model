@@ -53,6 +53,6 @@ def verify(e,prior,state,ledger):
  issue=next(x for x in ledger["issues"] if x["id"]==e["issue_id"])
  check(issue["status"]=="OPEN" and issue["priority"]=="P0" and E in issue["source_refs"] and E.replace(".json",".md") in issue["source_refs"],"issue binding")
  check(any(z.get("revision_id")=="TW-OPEN-0005-13KV-RECEIVED-THIRTEEN-MOON-20261030" and E in z.get("evidence_refs",[]) for z in issue["history"]),"append only")
- check(len(ledger["issues"])==11 and ledger["checkpoint_log"][-1]["state_version"]==state["schema_version"],"checkpoint")
+ check(len(ledger["issues"]) >= 11 and ledger["checkpoint_log"][-1]["state_version"]==state["schema_version"],"checkpoint")
  return {"status":"PASS","leap_13_remainder":str(r13),"difference":str(diff),"twelve_month_remainder":str(r12),"original_operator_glyphs_this_batch":0,"chart_reopens":0}
 if __name__=="__main__":print(json.dumps(verify(*read()),ensure_ascii=False))

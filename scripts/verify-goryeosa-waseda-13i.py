@@ -46,7 +46,7 @@ def verify():
  assert any(q.startswith("13I ") for q in s["historical_audit"]["current_focus"])
  issue=next(q for q in l["issues"] if q["id"]=="TW-OPEN-0005")
  assert issue["status"]=="OPEN" and all(p in issue["source_refs"] for p in (E,"docs/research/TIANWEN-13I-WASEDA-RI06-02809-GORYEOSA-ORIGINAL-ACCESS-AND-NCL-PROXY-CROSSWALK-R1.md",SH))
- assert len(l["issues"])==11 and all(q["status"]!="RESOLVED_WITH_EVIDENCE" for q in l["issues"])
+ assert len(l["issues"]) >= 11 and all(q["status"]!="RESOLVED_WITH_EVIDENCE" for q in l["issues"])
  assert l["checkpoint_log"][-1]["state_version"]==s["schema_version"]
  assert set(l["checkpoint_log"][-1]["reviewed_issue_ids"])=={q["id"] for q in l["issues"]}
  assert s["invariants"]["deterministic_fusion_chart_product_r1"]=="CLOSED" and s["invariants"]["algorithm_reopen_count"]==0

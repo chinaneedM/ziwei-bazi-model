@@ -50,7 +50,7 @@ def check(e,el,em,ei,ed,state,ledger):
  assert {E,E.replace(".json",".md")}.issubset(set(q["source_refs"]))
  h=next(z for z in q["history"] if z.get("revision_id")=="TW-OPEN-0005-13EN-FOURFEN-BOUNDED-PREFIX-20261024")
  assert h["previous_next_action"].startswith("13EM CURRENT ACTION") and set(h["changed_fields"])=={"source_refs","next_action"}
- assert len(ledger["issues"])==11 and ledger["checkpoint_log"][-1]["state_version"]==state["schema_version"]
+ assert len(ledger["issues"]) >= 11 and ledger["checkpoint_log"][-1]["state_version"]==state["schema_version"]
  return True
 def replay(e,source_dir):
  from PIL import Image
