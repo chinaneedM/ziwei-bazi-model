@@ -1,7 +1,7 @@
 {
   "schema": "TIANWEN-RESEARCH-OMISSION-RISK-LEDGER-R1",
   "version": "1.0.0",
-  "updated_at": "2026-11-16",
+  "updated_at": "2026-11-18",
   "definition": "NON_EXHAUSTIVE_RECOVERY_SEED_FROM_LIVE_REMOTE; not proof no other omissions exist",
   "explicit_limits": [
     "The ledger captures known open leads, not every unpublished witness or every possible school.",
@@ -12,9 +12,9 @@
   "binding": {
     "repository": "chinaneedM/ziwei-bazi-model",
     "branch": "agent/fusion-chart-core-r1-20260822",
-    "reviewed_state_version": "1.1320.0",
-    "source_focus_count": 3036,
-    "latest_research_focus_prefix": "13ZZ"
+    "reviewed_state_version": "1.1321.0",
+    "source_focus_count": 3037,
+    "latest_research_focus_prefix": "14A"
   },
   "coverage_axes": [
     "primary_editions_and_physical_copies",
@@ -30328,6 +30328,46 @@
         {
           "scope": "Ziping Korean native copies",
           "target": "Obtain native catalog and image evidence for the circulated Tongbian Yuanyuan and compare running-title and selected chapter passages.",
+          "status": "OPEN",
+          "evidence_ref": "docs/research/TIANWEN-13ZZ-WENYUANGE-NANYANGTANG-FOLIO-COLLATION-R1.md"
+        }
+      ]
+    },
+    {
+      "id": "OMISSIONS-14A-NCL06599-QING-MANUSCRIPT-REVIEW-20261118",
+      "date": "2026-11-18",
+      "state_version": "1.1321.0",
+      "reviewed_issue_ids": [
+        "TW-OPEN-0001",
+        "TW-OPEN-0002",
+        "TW-OPEN-0003",
+        "TW-OPEN-0004",
+        "TW-OPEN-0005",
+        "TW-OPEN-0006",
+        "TW-OPEN-0007",
+        "TW-OPEN-0008",
+        "TW-OPEN-0009",
+        "TW-OPEN-0010",
+        "TW-OPEN-0011"
+      ],
+      "discovery_mode": "BREADTH_FIRST_QING_FIRST_PARTY_MANUSCRIPT_HOLDING_CATALOG",
+      "result": "Reviewed all 11 issues including five P0 without closing or downgrading any. One newly registered Qing manuscript item NCL06599 helps anchor Bazi Qing bibliographic breadth but gives no original folio glyph, precise copy date, author identity or proven Zi Ping Zhen Quan lineage. G893 remains 5/6 located, 0/6 adjudicated; product CLOSED.",
+      "evidence_refs": [
+        "docs/research/TIANWEN-14A-NCL06599-GENGCUNJI-QING-MANUSCRIPT-CATALOG-R1.md",
+        "docs/research/TIANWEN-14A-NCL06599-GENGCUNJI-SOURCE-SHARD-R1.json",
+        "docs/TIANWEN-BAZI-HISTORICAL-OUTLINE-R1.md",
+        "docs/TIANWEN-DUAL-HISTORY-COVERAGE-ATLAS-R1.md"
+      ],
+      "unresolved_breadth_leads": [
+        {
+          "scope": "Qing Gengcunji physical text",
+          "target": "Open original first/last leaves of NCL06599 and compare with specifically identified Zi Ping Zhen Quan impressions; no copied manuscript or author relationship inferred from a book trade title.",
+          "status": "OPEN",
+          "evidence_ref": "docs/research/TIANWEN-14A-NCL06599-GENGCUNJI-QING-MANUSCRIPT-CATALOG-R1.md"
+        },
+        {
+          "scope": "Early Ziwei and Korean Ziping publication",
+          "target": "Continue the Luo preface/Jingluntang and native Tongbian Yuanyuan catalog/chapter evidence retained by 13ZZ",
           "status": "OPEN",
           "evidence_ref": "docs/research/TIANWEN-13ZZ-WENYUANGE-NANYANGTANG-FOLIO-COLLATION-R1.md"
         }
