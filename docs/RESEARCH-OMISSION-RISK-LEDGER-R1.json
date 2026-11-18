@@ -12,8 +12,8 @@
   "binding": {
     "repository": "chinaneedM/ziwei-bazi-model",
     "branch": "agent/fusion-chart-core-r1-20260822",
-    "reviewed_state_version": "1.1330.0",
-    "source_focus_count": 3052,
+    "reviewed_state_version": "1.1331.0",
+    "source_focus_count": 3054,
     "latest_research_focus_prefix": "13ZZ"
   },
   "coverage_axes": [
@@ -14199,6 +14199,31 @@
             "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json",
             "docs/research/TIANWEN-12XJ-QIANLI-AUTHOR-IDENTITY-FORWARD-CORRECTION-R1.md"
           ]
+        }
+      ]
+    },
+    {
+      "id": "TW-OPEN-0012",
+      "title": "明初目录《紫微照膽經》与《续道藏》卷一照胆篇的关系",
+      "priority": "P1",
+      "scope": "ZIWEI_PRE_OR_EARLY_MING_ZHAODAN_TITLE_AND_TEXT_TRANSMISSION",
+      "status": "OPEN",
+      "origin": "14I_DIRECT_PAGE_COMPARISON_2026-11-18",
+      "source_refs": [
+        "docs/research/TIANWEN-14I-XUDAOZANG-ZIWEI-ORIGINAL-LEAVES-R1.md",
+        "docs/research/TIANWEN-14I-XUDAOZANG-ZIWEI-FOLIO-EVIDENCE-R1.json",
+        "docs/research/TIANWEN-13ZZ-WENYUANGE-NANYANGTANG-FOLIO-EVIDENCE-R1.json"
+      ],
+      "evidence_boundary": "后出《讀畫齋》书目传本见《紫微照膽經》一部一冊闕；国图《续道藏》镜像卷一见〈照膽經四言十八飛星直指序〉及起例。1445 属卷前御製图版题年。 《菉竹堂書目》传本著录一册，北京人文科学研究所旧目著录无名钞本一卷、号 4757。两明代书目的底目关系及近代钞本现藏待考。",
+      "missing_evidence": "能与两处题名关联的独立可断代照胆原页、明确引文或可比的技术内容。",
+      "next_action": "先循旧目录号 4757 核北京人文科学研究所旧藏及转藏记录，追索钞本卷端、卷尾、起例；并查独立可断代早期引文。",
+      "closure_criteria": "书目条目标的和至少一处可独立断代的正文或明确引文，足以检验同书、承袭或同名异书的解释。",
+      "resolution_evidence": [],
+      "history": [
+        {
+          "event": "REGISTERED_UNRESOLVED",
+          "date": "2026-11-18",
+          "basis": "Multiple catalog images attest the exact early title; the 1938–1939 inventory adds traceable manuscript number 4757. Only the later surviving Daozang passage supplies text and examples in the present batch."
         }
       ]
     }
@@ -30688,6 +30713,48 @@
           "target": "Acquire actual Luo preface, colophon and copy evidence. Find the separate Chonnam Ziwei item and original Qing Liangyi Tang opening.",
           "status": "OPEN",
           "evidence_ref": "docs/research/TIANWEN-14H-KOREAN-UNION-CATALOG-ZIPING-ZIWEI-HOLDINGS-R1.md"
+        }
+      ]
+    },
+    {
+      "id": "OMISSIONS-14I-XUDAOZANG-ZHAODAN-ORIGINAL-LEAVES-20261118",
+      "date": "2026-11-18",
+      "state_version": "1.1331.0",
+      "reviewed_issue_ids": [
+        "TW-OPEN-0001",
+        "TW-OPEN-0002",
+        "TW-OPEN-0003",
+        "TW-OPEN-0004",
+        "TW-OPEN-0005",
+        "TW-OPEN-0006",
+        "TW-OPEN-0007",
+        "TW-OPEN-0008",
+        "TW-OPEN-0009",
+        "TW-OPEN-0010",
+        "TW-OPEN-0011",
+        "TW-OPEN-0012"
+      ],
+      "discovery_mode": "BREADTH_FIRST_DATED_COLLECTANEA_ORIGINAL_LEAVES_AND_RECEIVED_CATALOG",
+      "result": "Five P0 retained; new P1 TW-OPEN-0012 records the title-lineage evidence gap. G893 remains 5/6 located and 0/6 finally adjudicated. Product remains CLOSED.",
+      "evidence_refs": [
+        "docs/research/TIANWEN-14I-XUDAOZANG-ZIWEI-ORIGINAL-LEAVES-R1.md",
+        "docs/research/TIANWEN-14I-XUDAOZANG-ZIWEI-FOLIO-EVIDENCE-R1.json",
+        "docs/TIANWEN-DUAL-HISTORY-COVERAGE-ATLAS-R1.md",
+        "docs/TIANWEN-ZIWEI-HISTORICAL-OUTLINE-R1.md",
+        "docs/TIANWEN-BAZI-HISTORICAL-OUTLINE-R1.md"
+      ],
+      "unresolved_breadth_leads": [
+        {
+          "scope": "Earlier Zhaodan title and later dated witness",
+          "target": "Trace Beijing Institute manuscript 4757 and acquire exact leaves. Obtain independent dated citation or exemplar, NLC impression confirmation and ten-stem variant controls.",
+          "status": "OPEN",
+          "evidence_ref": "docs/research/TIANWEN-14I-XUDAOZANG-ZIWEI-ORIGINAL-LEAVES-R1.md"
+        },
+        {
+          "scope": "Bazi and Ziwei independent chronologies",
+          "target": "Korean Yuanyuan preface/postface leaves and Luo-preface original leaves remain outstanding; separate mechanics from vocabulary and printing history.",
+          "status": "OPEN",
+          "evidence_ref": "docs/research/TIANWEN-14I-XUDAOZANG-ZIWEI-ORIGINAL-LEAVES-R1.md"
         }
       ]
     }
