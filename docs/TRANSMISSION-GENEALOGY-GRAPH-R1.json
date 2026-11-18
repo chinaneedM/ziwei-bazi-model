@@ -6963,6 +6963,57 @@
         "docs/research/TIANWEN-14L-GANGLING-CHEONBODANG-ZIPING-SHENFENG-LITHOGRAPH-CATALOG-R1.md"
       ],
       "first_explicit_graph_batch": "14L"
+    },
+    {
+      "node_id": "PHYSICAL-COPY-NCL-08346-TINGSHI-1622",
+      "node_type": "PHYSICAL_COPY",
+      "label": "台北国图藏《桯史》08346",
+      "system_scope": "BAZI",
+      "work_composition_date": null,
+      "edition_impression_date": "1622 (mirror description)",
+      "physical_copy_date": null,
+      "digital_surrogate_date": null,
+      "date_scope_note": "Distinct shelfmark and copy description (five fascicles and distinct seal list). Mirror catalog assigns the Changshui Yue family edition. Actual impression sequence and block identity are open.",
+      "evidence": [
+        "EXT-TIANWEN-14S-NCL-TINGSHI-08346",
+        "docs/research/TIANWEN-14S-P4071-TINGSHI-EARLY-NATAL-WITNESSES-R1.md",
+        "docs/research/TIANWEN-14S-P4071-TINGSHI-FOLIO-EVIDENCE-R1.json"
+      ],
+      "first_explicit_graph_batch": "14S"
+    },
+    {
+      "node_id": "DIGITAL-SURROGATE-COMMONS-NCL-08345-TINGSHI",
+      "node_type": "DIGITAL_SURROGATE",
+      "label": "台北国图《桯史》08345 公共镜像 PDF",
+      "system_scope": "BAZI",
+      "work_composition_date": null,
+      "edition_impression_date": null,
+      "physical_copy_date": null,
+      "digital_surrogate_date": null,
+      "date_scope_note": "PDF pages 216–217 and source hashes are bound to the public mirror. Digital capture date remains open.",
+      "evidence": [
+        "EXT-TIANWEN-13ZX-NCL-TINGSHI-08345",
+        "docs/research/TIANWEN-14S-P4071-TINGSHI-EARLY-NATAL-WITNESSES-R1.md",
+        "docs/research/TIANWEN-14S-P4071-TINGSHI-FOLIO-EVIDENCE-R1.json"
+      ],
+      "first_explicit_graph_batch": "14S"
+    },
+    {
+      "node_id": "DIGITAL-SURROGATE-COMMONS-NCL-08346-TINGSHI",
+      "node_type": "DIGITAL_SURROGATE",
+      "label": "台北国图《桯史》08346 公共镜像 PDF",
+      "system_scope": "BAZI",
+      "work_composition_date": null,
+      "edition_impression_date": null,
+      "physical_copy_date": null,
+      "digital_surrogate_date": null,
+      "date_scope_note": "PDF pages 231–232 and source hashes are bound to the public mirror. Digital capture date remains open.",
+      "evidence": [
+        "EXT-TIANWEN-14S-NCL-TINGSHI-08346",
+        "docs/research/TIANWEN-14S-P4071-TINGSHI-EARLY-NATAL-WITNESSES-R1.md",
+        "docs/research/TIANWEN-14S-P4071-TINGSHI-FOLIO-EVIDENCE-R1.json"
+      ],
+      "first_explicit_graph_batch": "14S"
     }
   ],
   "edges": [
@@ -11831,6 +11882,86 @@
       ],
       "scope_note": "Explicit titled entry only, not source-book physical specimen, copy identity or proof of source-to-source dependence; same-day account may derive from one official memorial.",
       "adjudication_batch": "14K"
+    },
+    {
+      "edge_id": "TG-E0319",
+      "from": "DIGITAL-SURROGATE-GALLICA-BTV1B10096956P-P4071",
+      "relation": "ATTESTS",
+      "to": "PASSAGE-P4071-NATAL-INPUTS-AND-LUMINARIES",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_WITHIN_SAMPLED_SCOPE",
+      "evidence_class": "DIRECT_PHYSICAL_TEXT",
+      "evidence": [
+        "EXT-TIANWEN-13ZW-GAL-P4071-SUBSTITUTE",
+        "docs/research/TIANWEN-14S-P4071-TINGSHI-EARLY-NATAL-WITNESSES-R1.md",
+        "docs/research/TIANWEN-14S-P4071-TINGSHI-FOLIO-EVIDENCE-R1.json"
+      ],
+      "scope_note": "Hash-bound imaging via R 26112 confirms sampled opening inputs and luminary placements. The intermediary and other Gallica route refer to the same holding.",
+      "adjudication_batch": "14S"
+    },
+    {
+      "edge_id": "TG-E0320",
+      "from": "DIGITAL-SURROGATE-COMMONS-NCL-08345-TINGSHI",
+      "relation": "DIGITAL_SURROGATE_OF",
+      "to": "PHYSICAL-COPY-NCL-08345-TINGSHI-1622",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_WITHIN_SAMPLED_SCOPE",
+      "evidence_class": "DIRECT_BIBLIOGRAPHIC_BINDING",
+      "evidence": [
+        "EXT-TIANWEN-13ZX-NCL-TINGSHI-08345",
+        "docs/research/TIANWEN-14S-P4071-TINGSHI-EARLY-NATAL-WITNESSES-R1.md",
+        "docs/research/TIANWEN-14S-P4071-TINGSHI-FOLIO-EVIDENCE-R1.json"
+      ],
+      "scope_note": "The public surrogate's item description binds the PDF to this shelfmark. Printing and scan dates are not established from the target pages.",
+      "adjudication_batch": "14S"
+    },
+    {
+      "edge_id": "TG-E0321",
+      "from": "DIGITAL-SURROGATE-COMMONS-NCL-08345-TINGSHI",
+      "relation": "ATTESTS",
+      "to": "PASSAGE-TINGSHI-V15-YANGGEN-NATAL-FOUR-PAIRS",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_WITHIN_SAMPLED_SCOPE",
+      "evidence_class": "DIRECT_PHYSICAL_TEXT",
+      "evidence": [
+        "EXT-TIANWEN-13ZX-NCL-TINGSHI-08345",
+        "docs/research/TIANWEN-14S-P4071-TINGSHI-EARLY-NATAL-WITNESSES-R1.md",
+        "docs/research/TIANWEN-14S-P4071-TINGSHI-FOLIO-EVIDENCE-R1.json"
+      ],
+      "scope_note": "PDF pp. 216–217 preserve the chapter start and Yuan Shao's four pairs. The pages attest text in this copy, not an independent recension or a procedure for deriving the hour stem.",
+      "adjudication_batch": "14S"
+    },
+    {
+      "edge_id": "TG-E0322",
+      "from": "DIGITAL-SURROGATE-COMMONS-NCL-08346-TINGSHI",
+      "relation": "DIGITAL_SURROGATE_OF",
+      "to": "PHYSICAL-COPY-NCL-08346-TINGSHI-1622",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_WITHIN_SAMPLED_SCOPE",
+      "evidence_class": "DIRECT_BIBLIOGRAPHIC_BINDING",
+      "evidence": [
+        "EXT-TIANWEN-14S-NCL-TINGSHI-08346",
+        "docs/research/TIANWEN-14S-P4071-TINGSHI-EARLY-NATAL-WITNESSES-R1.md",
+        "docs/research/TIANWEN-14S-P4071-TINGSHI-FOLIO-EVIDENCE-R1.json"
+      ],
+      "scope_note": "The public surrogate's item description binds the PDF to this shelfmark. Printing and scan dates are not established from the target pages.",
+      "adjudication_batch": "14S"
+    },
+    {
+      "edge_id": "TG-E0323",
+      "from": "DIGITAL-SURROGATE-COMMONS-NCL-08346-TINGSHI",
+      "relation": "ATTESTS",
+      "to": "PASSAGE-TINGSHI-V15-YANGGEN-NATAL-FOUR-PAIRS",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_WITHIN_SAMPLED_SCOPE",
+      "evidence_class": "DIRECT_PHYSICAL_TEXT",
+      "evidence": [
+        "EXT-TIANWEN-14S-NCL-TINGSHI-08346",
+        "docs/research/TIANWEN-14S-P4071-TINGSHI-EARLY-NATAL-WITNESSES-R1.md",
+        "docs/research/TIANWEN-14S-P4071-TINGSHI-FOLIO-EVIDENCE-R1.json"
+      ],
+      "scope_note": "PDF pp. 231–232 preserve the chapter start and Yuan Shao's four pairs. The pages attest text in this copy, not an independent recension or a procedure for deriving the hour stem.",
+      "adjudication_batch": "14S"
     }
   ],
   "lineage_hypotheses": [
