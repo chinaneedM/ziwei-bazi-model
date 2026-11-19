@@ -194,3 +194,8 @@ Open Library 公开再现的 **Harvard University MARC** 记录 \`OCLC 9449353\`
 ## 14W《玄藪》原页与乙亥字本的可重放对照
 
 韩国国图《玄藪》貴456 原影 p57–61 记逆排十二宫、生时纳音与生日定局数及起点，又记太极、天库反向计数。乙亥字《紫微数》馆方原盘的木三局卯起点、巳太极、丑天库都能重放。该传本的起天数按局位阴阳和男女定顺逆，小运反向。乙亥字本同名章原叶、1430 取才关系和承传先后待核。[14W 原页与复算](./research/TIANWEN-14W-XUANSOU-ORIGINAL-AND-FANG-SANCHE-R1.md)
+
+
+## 14Y 增补｜1430朝鲜《紫微數》与1870明經閣本的断年边界
+
+韩国学中央研究院Sillokwiki[〈紫微數〉](https://dh.aks.ac.kr/sillokwiki/index.php/%EC%9E%90%EB%AF%B8%EC%88%98(%E7%B4%AB%E5%BE%AE%E6%95%B8))现代辞条引用1430朝鲜取才名目，另以汉阳大学藏1870明經閣六卷六册本说明书名。后者已在根来源登记，不重复计数；**近现代学术释名不能据此证明1430官署用书就是晚清版，更不能裁决乙亥字《紫微数》与《玄藪》的师承**。原目标篇叶仍缺。[14Y书目分层](./research/TIANWEN-14Y-JOSEON-1430-RETROSPECTIVE-TITLE-IDENTITY-SCOPE-R1.md)

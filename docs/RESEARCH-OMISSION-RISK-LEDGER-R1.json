@@ -12,8 +12,8 @@
   "binding": {
     "repository": "chinaneedM/ziwei-bazi-model",
     "branch": "agent/fusion-chart-core-r1-20260822",
-    "reviewed_state_version": "1.1347.0",
-    "source_focus_count": 3077,
+    "reviewed_state_version": "1.1348.0",
+    "source_focus_count": 3079,
     "latest_research_focus_prefix": "13ZZ"
   },
   "coverage_axes": [
@@ -14253,7 +14253,9 @@
         "docs/research/TIANWEN-14V-JOSEON-GOGEUM-MYEONGSEONGDO-CHARTS-R1.md",
         "docs/research/TIANWEN-14W-XUANSOU-ORIGINAL-AND-FANG-SANCHE-R1.md",
         "docs/research/TIANWEN-14W-XUANSOU-FANG-SANCHE-FOLIO-EVIDENCE-R1.json",
-        "docs/research/TIANWEN-14W-XUANSOU-FANG-SANCHE-SOURCE-SHARD-R1.json"
+        "docs/research/TIANWEN-14W-XUANSOU-FANG-SANCHE-SOURCE-SHARD-R1.json",
+        "docs/research/TIANWEN-14Y-JOSEON-1430-RETROSPECTIVE-TITLE-IDENTITY-SCOPE-R1.md",
+        "docs/research/TIANWEN-14Y-AKS-SANCHE-SILLOKWIKI-SOURCE-SHARD-R1.json"
       ],
       "evidence_boundary": "1430、1441 为题名层。韩国国图古7300-10 著录乙亥字、印年未详、缺首三张，馆方图见木局三数卯上。《玄藪》貴456 另有同类题名。 14W 核《玄藪》原页，单例太极巳、天库丑可以复算一致。残本篇题见馆方解题。",
       "missing_evidence": "乙亥字本原图的物理叶号、对应起例原页，以及可独立断代或明确归书的更早引文。",
@@ -14283,6 +14285,17 @@
             "docs/research/TIANWEN-14W-XUANSOU-ORIGINAL-AND-FANG-SANCHE-R1.md",
             "docs/research/TIANWEN-14W-XUANSOU-FANG-SANCHE-FOLIO-EVIDENCE-R1.json"
           ]
+        },
+        {
+          "event": "EVIDENCE_BOUNDARY_REFINED",
+          "date": "2026-11-19",
+          "basis": "The AKS modern Ziwei entry juxtaposes a 1430 exam short title with a distinct 1870 Hanyang Mingjingge Qing edition already registered, and supplies no new Eulhaeja procedural leaves or early physical-book identity.",
+          "evidence_refs": [
+            "docs/research/TIANWEN-14Y-JOSEON-1430-RETROSPECTIVE-TITLE-IDENTITY-SCOPE-R1.md",
+            "docs/research/TIANWEN-14Y-AKS-SANCHE-SILLOKWIKI-SOURCE-SHARD-R1.json"
+          ],
+          "status_unchanged": "OPEN",
+          "priority_unchanged": "P1"
         }
       ]
     },
@@ -14299,7 +14312,9 @@
         "docs/research/TIANWEN-14W-XUANSOU-FANG-SANCHE-SOURCE-SHARD-R1.json",
         "docs/research/TIANWEN-13ZU-JOSEON-ZIWEI-BAZI-EXAM-INSTITUTIONS-R1.md",
         "docs/research/TIANWEN-14X-JOSEON-SANCHE-1430-1518-EDITION-SCOPE-R1.md",
-        "docs/research/TIANWEN-14X-KU-SANCHE-1518-CATALOG-SOURCE-SHARD-R1.json"
+        "docs/research/TIANWEN-14X-KU-SANCHE-1518-CATALOG-SOURCE-SHARD-R1.json",
+        "docs/research/TIANWEN-14Y-JOSEON-1430-RETROSPECTIVE-TITLE-IDENTITY-SCOPE-R1.md",
+        "docs/research/TIANWEN-14Y-AKS-SANCHE-SILLOKWIKI-SOURCE-SHARD-R1.json"
       ],
       "evidence_boundary": "1430 只见简称。方谦之十卷本原影及高丽大学徐大升名下三卷本馆目为两条可区分的载体，现存印本各有独立断年边界。",
       "missing_evidence": "能将试书简称连接到特定作品的同期人物题署、卷次、引文、印记或官署记录。",
@@ -14323,6 +14338,17 @@
           "evidence_refs": [
             "docs/research/TIANWEN-14X-JOSEON-SANCHE-1430-1518-EDITION-SCOPE-R1.md",
             "docs/research/TIANWEN-14X-KU-SANCHE-1518-CATALOG-SOURCE-SHARD-R1.json"
+          ],
+          "status_unchanged": "OPEN",
+          "priority_unchanged": "P1"
+        },
+        {
+          "event": "EVIDENCE_BOUNDARY_REFINED",
+          "date": "2026-11-19",
+          "basis": "The AKS retrospective Sanche entry equates the 1430 exam short title with later Xu three-juan bibliographic description, reporting 1517 preface and 1518 edition; it does not contain contemporaneous title-to-version or physical witness evidence, so Fang ten-juan/other book candidates remain.",
+          "evidence_refs": [
+            "docs/research/TIANWEN-14Y-JOSEON-1430-RETROSPECTIVE-TITLE-IDENTITY-SCOPE-R1.md",
+            "docs/research/TIANWEN-14Y-AKS-SANCHE-SILLOKWIKI-SOURCE-SHARD-R1.json"
           ],
           "status_unchanged": "OPEN",
           "priority_unchanged": "P1"
@@ -31529,6 +31555,47 @@
           "target": "Contemporaneous title-to-work crosswalk and KU colophon primary leaf",
           "status": "OPEN",
           "evidence_ref": "docs/research/TIANWEN-14X-JOSEON-SANCHE-1430-1518-EDITION-SCOPE-R1.md"
+        }
+      ]
+    },
+    {
+      "id": "OMISSIONS-14Y-JOSEON-RETROSPECTIVE-TITLE-SCOPE-20261119",
+      "date": "2026-11-19",
+      "state_version": "1.1348.0",
+      "reviewed_issue_ids": [
+        "TW-OPEN-0001",
+        "TW-OPEN-0002",
+        "TW-OPEN-0003",
+        "TW-OPEN-0004",
+        "TW-OPEN-0005",
+        "TW-OPEN-0006",
+        "TW-OPEN-0007",
+        "TW-OPEN-0008",
+        "TW-OPEN-0009",
+        "TW-OPEN-0010",
+        "TW-OPEN-0011",
+        "TW-OPEN-0012",
+        "TW-OPEN-0013",
+        "TW-OPEN-0014"
+      ],
+      "discovery_mode": "BREADTH_FIRST_SECONDARY_RETROSPECTIVE_TITLE_AND_DATE_SCOPE",
+      "result": "14 issues and five P0 remain OPEN. Modern AKS title identifications produce one new secondary bibliographic source but no 1430 physical book, new original folio or direct transmission; G893 still five of six targets located and zero finals.",
+      "evidence_refs": [
+        "docs/research/TIANWEN-14Y-JOSEON-1430-RETROSPECTIVE-TITLE-IDENTITY-SCOPE-R1.md",
+        "docs/research/TIANWEN-14Y-AKS-SANCHE-SILLOKWIKI-SOURCE-SHARD-R1.json"
+      ],
+      "unresolved_breadth_leads": [
+        {
+          "scope": "Ziwei Eulhaeja short title",
+          "target": "Find NLK CNTS-00109610231 operational original leaves and independent dating before claiming 1430 identification",
+          "status": "OPEN",
+          "evidence_ref": "docs/research/TIANWEN-14Y-JOSEON-1430-RETROSPECTIVE-TITLE-IDENTITY-SCOPE-R1.md"
+        },
+        {
+          "scope": "Bazi 1430 Sanche short title",
+          "target": "Find KU original Jishan Pian and colophon or genuine 1430 contemporaneous text-to-work identification",
+          "status": "OPEN",
+          "evidence_ref": "docs/research/TIANWEN-14Y-JOSEON-1430-RETROSPECTIVE-TITLE-IDENTITY-SCOPE-R1.md"
         }
       ]
     }
