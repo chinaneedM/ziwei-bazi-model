@@ -7374,6 +7374,57 @@
         "docs/research/TIANWEN-14U-NATAL-HISTORY-FOLIO-EVIDENCE-R1.json"
       ],
       "first_explicit_graph_batch": "14U"
+    },
+    {
+      "node_id": "PHYSICAL-COPY-NLK-GOGEUM-MYEONGSEONGDO-KOL000021670",
+      "node_type": "PHYSICAL_COPY",
+      "label": "韩国国图《古今命星圖》古朝19-37写本",
+      "system_scope": "ZIWEI",
+      "work_composition_date": null,
+      "edition_impression_date": null,
+      "physical_copy_date": null,
+      "digital_surrogate_date": null,
+      "date_scope_note": "Two fascicles, with physical copying date unknown in the MARC.",
+      "evidence": [
+        "EXT-TIANWEN-14V-NLK-GOGEUM-MYEONGSEONGDO-1151569",
+        "EXT-TIANWEN-14V-AKS-GOGEUM-MYEONGSEONGDO-E0003348",
+        "docs/research/TIANWEN-14V-JOSEON-GOGEUM-MYEONGSEONGDO-CHARTS-R1.md"
+      ],
+      "first_explicit_graph_batch": "14V"
+    },
+    {
+      "node_id": "DIGITAL-SURROGATE-AKS-GOGEUM-MYEONGSEONGDO-CHART-IMAGE",
+      "node_type": "DIGITAL_SURROGATE",
+      "label": "韩国学中央研究院《古今命星圖》一叶双盘图版",
+      "system_scope": "ZIWEI",
+      "work_composition_date": null,
+      "edition_impression_date": null,
+      "physical_copy_date": null,
+      "digital_surrogate_date": null,
+      "date_scope_note": "Caption and cover label bind the holding. Photograph date and physical folio number remain unknown.",
+      "evidence": [
+        "EXT-TIANWEN-14V-NLK-GOGEUM-MYEONGSEONGDO-1151569",
+        "EXT-TIANWEN-14V-AKS-GOGEUM-MYEONGSEONGDO-E0003348",
+        "docs/research/TIANWEN-14V-JOSEON-GOGEUM-MYEONGSEONGDO-CHARTS-R1.md"
+      ],
+      "first_explicit_graph_batch": "14V"
+    },
+    {
+      "node_id": "OPERATIONAL-ARTIFACT-NLK-GOGEUM-MYEONGSEONGDO-TWO-CHARTS",
+      "node_type": "OPERATIONAL_ARTIFACT",
+      "label": "《古今命星圖》萧何、严子陵双盘原叶",
+      "system_scope": "ZIWEI",
+      "work_composition_date": null,
+      "edition_impression_date": null,
+      "physical_copy_date": null,
+      "digital_surrogate_date": null,
+      "date_scope_note": "One chart face and two worked examples. Chart inputs are the manuscript's attributions.",
+      "evidence": [
+        "EXT-TIANWEN-14V-NLK-GOGEUM-MYEONGSEONGDO-1151569",
+        "EXT-TIANWEN-14V-AKS-GOGEUM-MYEONGSEONGDO-E0003348",
+        "docs/research/TIANWEN-14V-JOSEON-GOGEUM-MYEONGSEONGDO-CHARTS-R1.md"
+      ],
+      "first_explicit_graph_batch": "14V"
     }
   ],
   "edges": [
@@ -12644,6 +12695,38 @@
       ],
       "scope_note": "Public catalog and its contents link the manuscript to the title and catalog page marker.",
       "adjudication_batch": "14U"
+    },
+    {
+      "edge_id": "TG-E0344",
+      "from": "DIGITAL-SURROGATE-AKS-GOGEUM-MYEONGSEONGDO-CHART-IMAGE",
+      "relation": "DIGITAL_SURROGATE_OF",
+      "to": "PHYSICAL-COPY-NLK-GOGEUM-MYEONGSEONGDO-KOL000021670",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_WITHIN_SAMPLED_SCOPE",
+      "evidence_class": "DIRECT_BIBLIOGRAPHIC_BINDING",
+      "evidence": [
+        "EXT-TIANWEN-14V-NLK-GOGEUM-MYEONGSEONGDO-1151569",
+        "EXT-TIANWEN-14V-AKS-GOGEUM-MYEONGSEONGDO-E0003348",
+        "docs/research/TIANWEN-14V-JOSEON-GOGEUM-MYEONGSEONGDO-CHARTS-R1.md"
+      ],
+      "scope_note": "The AKS page identifies NLK as custodian. The companion cover photograph shows the shelfmark and title.",
+      "adjudication_batch": "14V"
+    },
+    {
+      "edge_id": "TG-E0345",
+      "from": "DIGITAL-SURROGATE-AKS-GOGEUM-MYEONGSEONGDO-CHART-IMAGE",
+      "relation": "ATTESTS",
+      "to": "OPERATIONAL-ARTIFACT-NLK-GOGEUM-MYEONGSEONGDO-TWO-CHARTS",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_WITHIN_SAMPLED_SCOPE",
+      "evidence_class": "DIRECT_PHYSICAL_TEXT",
+      "evidence": [
+        "EXT-TIANWEN-14V-NLK-GOGEUM-MYEONGSEONGDO-1151569",
+        "EXT-TIANWEN-14V-AKS-GOGEUM-MYEONGSEONGDO-E0003348",
+        "docs/research/TIANWEN-14V-JOSEON-GOGEUM-MYEONGSEONGDO-CHARTS-R1.md"
+      ],
+      "scope_note": "Visible two center labels and stem/branch/calendar coordinates, with named cases and bounded 紫 star placements.",
+      "adjudication_batch": "14V"
     }
   ],
   "lineage_hypotheses": [
@@ -13949,6 +14032,19 @@
         "docs/research/TIANWEN-14U-NATAL-HISTORY-FOLIO-EVIDENCE-R1.json"
       ],
       "adjudication_batch": "14U"
+    },
+    {
+      "from": "OPERATIONAL-ARTIFACT-NLK-GOGEUM-MYEONGSEONGDO-TWO-CHARTS",
+      "relation": "IDENTIFIES_SAME_TEXT_OR_DIRECT_ANCESTOR_OF",
+      "to": "PASSAGE-NLK-ZIWEISHU-EXHIBIT-WOOD-EXAMPLE",
+      "status": "UNRESOLVED",
+      "reason": "The manuscript's two chart outputs match a current calculation in bounded respects. The older Eulhaeja figure is a differently structured example. No datable source or shared distinctive passage identifies transmission.",
+      "evidence": [
+        "EXT-TIANWEN-14V-AKS-GOGEUM-MYEONGSEONGDO-E0003348",
+        "docs/research/TIANWEN-14V-JOSEON-GOGEUM-MYEONGSEONGDO-CHARTS-R1.md",
+        "docs/research/TIANWEN-14U-YEAR-DAY-MONTH-COMMAND-AND-JOSEON-ZIWEISHU-R1.md"
+      ],
+      "adjudication_batch": "14V"
     }
   ],
   "backfill": {
