@@ -9,7 +9,7 @@
 
 原图未给这两盘全部地支地址或局数。表中子、午等地址及水二、土五为复演值。复演将盘中干支作为输入，使用两组等值周期标签驱动[原局生成](../../src/fortune_training/ziwei_chart/natal.py)与[主星安置](../../src/fortune_training/ziwei_chart/main_stars.py)。对读范围为阴水／阴土、命格、财身同格、紫星所落宫名。两例均为己年辰时，其余年干、时支、所有星曜及出生年月真伪未作检验。[原叶图版](https://devin.aks.ac.kr/image/ee7d0e97-58e3-4baf-8446-221478586bb2?preset=orig)
 
-两盘把朝鲜文献中「问时月画局」的实践记载接到可见的手绘实例，也提供了与乙亥字《紫微數》圆盘不同的可比坐标。《古今命星图》的抄年及早期来源待证，这一叶的局、宫、星相符可供比较传承，尚缺可断代引文或重合的成组原文来确立具体传授关系。乙亥字本的〈定十二宫〉、〈起天数〉与《玄藪》原叶仍是主线待核对象。[1644 年史料](./TIANWEN-13ZU-JOSEON-ZIWEI-BAZI-EXAM-INSTITUTIONS-R1.md) · [乙亥字本例](./TIANWEN-14U-YEAR-DAY-MONTH-COMMAND-AND-JOSEON-ZIWEISHU-R1.md)
+这两张手绘盘可与朝鲜文献所载询问出生时间、绘制命局的实践对读，也提供了与乙亥字《紫微數》圆盘不同的可比坐标。《古今命星图》的抄年及早期来源待证，这一叶的局、宫、星相符可供比较传承，尚缺可断代引文或重合的成组原文来确立具体传授关系。乙亥字本的〈定十二宫〉、〈起天数〉与《玄藪》原叶仍是主线待核对象。[1644 年史料](./TIANWEN-13ZU-JOSEON-ZIWEI-BAZI-EXAM-INSTITUTIONS-R1.md) · [乙亥字本例](./TIANWEN-14U-YEAR-DAY-MONTH-COMMAND-AND-JOSEON-ZIWEISHU-R1.md)
 
 ## 证据定位与传承图
 
