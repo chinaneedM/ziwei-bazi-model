@@ -1,0 +1,178 @@
+{
+  "schema": "TIANWEN-14U-NATAL-HISTORY-FOLIO-EVIDENCE-R1",
+  "review_date": "2026-11-19",
+  "method": "Visual reading of bounded source pages and publishing specimens. Native PDF objects are hashed after pdfimages -all; Kim figure objects are lossless PNG extractions. Catalog labels and scholarly transcriptions remain separately graded.",
+  "wuxing_jingji": [
+    {
+      "source_url": "https://upload.wikimedia.org/wikipedia/commons/2/2f/NLC892-2621-209456_%E4%BA%94%E8%A1%8C%E7%B2%BE%E7%B4%80_%E7%AC%AC6%E5%86%8A.pdf",
+      "page_count": 56,
+      "pdf_sha256": "70182a2939a52ae896be1ac8a472cd43a0215816071419edf2971f8949833ed4",
+      "reviewed_pdf_pages_1based": {
+        "40": "Juan 32 in left panel. Wang note, outer two columns: year as ben, day as zhu, derive month from year and hour from day.",
+        "41": "Right panel. Case occurrence one: a one-character blank between 庚 and 時. Later in the same case 庚申／時 occurs across a column seam. Year 金 and month 火 are named."
+      },
+      "extracted_image_sha256": {
+        "obj-jingji2621-40-000.jp2": "8ce4c39444539d44598f60db6bfaed2890b62325508227d37137bebdaa19cbd9",
+        "obj-jingji2621-40-001.jp2": "52275162cc688bd90b8b369ba51f369ac6a9518b6474634a40d54468f020c3ab"
+      }
+    },
+    {
+      "source_url": "https://upload.wikimedia.org/wikipedia/commons/a/a0/NLC892-411999013122-114503_%E4%BA%94%E8%A1%8C%E7%B2%BE%E7%B4%80_%E7%AC%AC4%E5%86%8A.pdf",
+      "page_count": 114,
+      "pdf_sha256": "6519fbdc0fa25272bf6aae0fdac8c73107c0f6b852a1b0beebc655344ec2812d",
+      "reviewed_pdf_pages_1based": {
+        "96": "Juan 32 and 雜論 are in left panel. Wang note gives the same year/day and month/hour assignments in its final columns.",
+        "97": "Right panel; fully legible 庚申時 in the four-pillar case. The second occurrence spans the column seam."
+      },
+      "extracted_image_sha256": {
+        "obj-jingji06857-96-000.jp2": "886fab5defc18a1bdecc748be3a8044c1ae2f4e1157d8832f78c8a87811c6ca7",
+        "obj-jingji06857-96-001.jp2": "85dad588077d45982c80fb7b67486676a5df9d128e2d3b137115ae76314e4593"
+      }
+    }
+  ],
+  "year_material_already_observed": {
+    "reference": "docs/research/TIANWEN-13ZM-WUXING-JINGJI-IMAGE-EVIDENCE-R1.json",
+    "separate_locus": "Juan 33, final page of each fascicle witnesses 生年太歲納音."
+  },
+  "wuxing_case_replay": {
+    "chart_as_read": [
+      "甲子",
+      "乙亥",
+      "戊子",
+      "庚申"
+    ],
+    "only_tests": "year stem + assumed month branch; day stem + assumed hour branch",
+    "year_stem_month_start": "甲→丙寅",
+    "month_advance_from_yin": 9,
+    "day_stem_hour_start": "戊→壬子",
+    "hour_advance_from_zi": 8,
+    "result": [
+      "乙亥",
+      "庚申"
+    ]
+  },
+  "qiaoshantang_yuanhai": {
+    "source_url": "https://upload.wikimedia.org/wikipedia/commons/7/71/NCL-06593_%E5%88%BB%E4%BA%AC%E8%87%BA%E5%A2%9E%E8%A3%9C%E6%B7%B5%E6%B5%B7%E5%AD%90%E5%B9%B3%E5%A4%A7%E5%85%A8.pdf",
+    "page_count": 160,
+    "pdf_sha256": "9e95627dd6811e6f3daff83c8413dd32a748362f09591be1dadcea1d2be277a6",
+    "reviewed_pdf_pages_1based": {
+      "35": "Left panel starts 繼善篇 and makes 月令 the 提綱.",
+      "36": "Right panel continues 日干為主本; left panel starts 取用憑於生月.",
+      "79": "Bao Fa I and II. Day stem and month command are distinct roles. Both panels name 西川易鑑 in the relevant passage."
+    },
+    "extracted_image_sha256": {
+      "obj-yuanhai-35-000.jpg": "ded1c41431f5bace259060b6550386f070ad14de4c8901276b2611e09aea41c4",
+      "obj-yuanhai-35-001.jpg": "4fa03a163e6825aa06e3fc6cc91f4d1c7a0817ec5b6e03404d2dd2ef23c2cdfc",
+      "obj-yuanhai-79-000.jpg": "45182bcba0a29d9cc0731aea4c60cbd7fe97cf7dbb86ad59c266c67f976c94f9"
+    }
+  },
+  "kim_korean_blockprint_images_and_quotations": {
+    "source_url": "https://dongbang.dcollection.net/common/orgView/200000198572",
+    "page_count": 174,
+    "pdf_sha256": "2dc454a8061645255bc8b32a640f21b846e3346f6d70e43888cd06c7c31ea879",
+    "reviewed_pdf_pages_1based": {
+      "99": "Fig 10 cover and preface opening, anchored previously by 14G–14H.",
+      "105": "Fig 11 photographs of three table-of-contents pages from the same source, including 定眞論, 喜忌篇, 繼善篇 and 十八格局."
+    },
+    "extracted_image_sha256": {
+      "obj-kim-105-000.png": "c21b5401ba9ee08bb15bda60716370fb23c87d972b9560ecdd79ab6ccc688988",
+      "obj-kim-105-001.png": "a2e35401c45aba54ceb2e380f8f9826841e909409f570ee8c2d817dda7261839",
+      "obj-kim-105-002.png": "17a2144910b3598ac15eeeb04c9d30a62f177bfd15514bae33b594d655ff7fea"
+    },
+    "recognized_holding": "한古朝19-104 / KOL000021734 / CNTS-00047981971",
+    "secondary_transcription_loci": {
+      "100": "Preface signature 寶祐十月望日 (no regnal numeral in quoted line).",
+      "101": "Postface signature 寶祐字元良月望日, interpreted by Kim as 1253.",
+      "155": "Footnote 379 transcribes Jishan Pian day stem and month command passage."
+    },
+    "physical_print_date": null
+  },
+  "sanche_printed_2017_specimens": {
+    "source_url": "https://www.xinyi.hk/goods-7931.html",
+    "evidence_grade": "RECEIVED_TEXT_MODERN_TYPESET_SPECIMENS",
+    "galleries": [
+      {
+        "url": "https://www.xinyi.hk/images/201708/goods_img/7931_P_1503278538784.jpg",
+        "sha256": "4927a32992ac68963bac9521de5a6bb56fbbd3e992c78750d6e0fad281fc21f9",
+        "reading": "Printed p13: 定真論 and gloss setting the day stem as master of the four pillars."
+      },
+      {
+        "url": "https://www.xinyi.hk/images/201708/goods_img/7931_P_1503278540974.jpg",
+        "sha256": "43b6f0fbdca136bc32d86cebfc82325400e0f03394e5c2a118a2ecf8c52de16d",
+        "reading": "Printed pp132–133: juan xia, year as root and day as master in the gloss; selection relying on birth month."
+      }
+    ],
+    "dating_limit": "The seller reports a Zhengde 13 (1518) bear-family Thick Virtue Hall source imprint. This does not date the particular Korean Eulhaeja impression. The public catalog labels 1518 and Jungjong 15 together; originals required."
+  },
+  "nlk_ziweishu": {
+    "catalog_search": "https://www.nl.go.kr/NL/contents/search.do?kwd=%E7%B4%AB%E5%BE%AE%E6%95%B8",
+    "marc_url": "https://www.nl.go.kr/NL/search/marc_view.do?viewKey=30188944&viewType=AH1",
+    "master_bib": "30188944",
+    "holding_id": "KOL200200680",
+    "shelfmark": "古7300-10",
+    "digital_id": "CNTS-00109610231",
+    "catalog_designation": "金屬活字本(乙亥字)",
+    "physical_leaf_range_in_catalog": [
+      4,
+      65
+    ],
+    "missing_first_leaves": [
+      1,
+      2,
+      3
+    ],
+    "physical_print_date": null,
+    "title_taken_from": "版心",
+    "exhibit_url": "https://www.nl.go.kr/NL/contents/N20103000000.do?schIdSub=CO20211102161426612100&schM=contView",
+    "exhibit_date": "2021-11-02",
+    "figure_url": "https://rm.nl.go.kr/imgs/images/000026/2021_dc_astro_math_28_i01.jpg",
+    "figure_sha256": "e56d1cc148c8166cc4c9507ca3cdab616f6c451bedf15db07753b6c43451115c",
+    "figure_dimensions_pixels": [
+      491,
+      741
+    ],
+    "duplicate_header_image_url": "https://www.nl.go.kr/afile/fileDownload/EYimn",
+    "duplicate_header_image_sha256": "e56d1cc148c8166cc4c9507ca3cdab616f6c451bedf15db07753b6c43451115c",
+    "measured_example": {
+      "year_label": "壬子",
+      "month": 7,
+      "day": 8,
+      "hour_pillar": "己巳",
+      "observed_element": "木",
+      "observed_count": 3,
+      "observed_branch": "卯"
+    },
+    "printed_folio_number_of_figure": null,
+    "text_scope": "Central circle and selected clearly visible star names only; procedural context and complete twelve sectors not transcribed.",
+    "reader_url": "https://viewer.nl.go.kr/nlmivs/viewWonmun_js.jsp?cno=CNTS-00109610231&sysid=homepage",
+    "reader_access": "Catalog says free off-site; browser HTML launches a locally installed viewer. No full-volume pages obtained this session.",
+    "comparison": "The stem-branch 己巳 is wood in the received nayin tables. A later online Zhongtian transcription assigns 木局三數 and days 6–8 to 卯. This matches the single observed setting; source identity, algorithm order and priority chronologies remain unbound."
+  },
+  "xuansou_catalog_and_secondary_image": {
+    "catalog_search": "https://www.nl.go.kr/NL/contents/search.do?kwd=%E7%8E%84%E8%97%AA",
+    "detail_endpoint": "https://www.nl.go.kr/NL/search/nl_detail_view.ajax",
+    "request_form": {
+      "viewKey": "1131324",
+      "viewType": "AH1",
+      "category": "고문헌",
+      "pageIdx": "2",
+      "jourId": ""
+    },
+    "holding_id": "KOL000000354",
+    "shelfmark_label_in_catalog": "貴456",
+    "digital_id": "CNTS-00047968254",
+    "format": "手稿本",
+    "extent": "1冊(118張)",
+    "status": "COPYING_DATE_UNSPECIFIED_IN_CATALOG",
+    "catalog_contents_excerpt": "中天太極紫微數秘訣 = 53",
+    "public_secondary_sample": "https://megapx-assets.dcard.tw/images/15371010-ba74-4629-b4d9-d5846dcd078e/640.jpeg",
+    "secondary_image_sha256": "7b7459f7fc279a9df0cde0cad1509992f9a2f13f810b65c3faa5dd735927dac0",
+    "sample_limits": "300×640, 十干變曜 heading and several star labels visible. Attribution and p62–63 locator are supplied by the post, not authenticated by an official image match.",
+    "comparison_transcription": "https://ekachai.pixnet.net/blog/posts/11365237316"
+  },
+  "historical_limits": [
+    "No undated surviving copy is assigned the year of its archival reference, script type, composition, reported preface or digital exhibit.",
+    "Overlap in year/day terms, chapters or one chart example does not establish exclusive descent or identical historical operation.",
+    "The Baizhong Jing source of Nancun Chuogeng Lu and the Zhaodan title relationship remain open."
+  ]
+}
