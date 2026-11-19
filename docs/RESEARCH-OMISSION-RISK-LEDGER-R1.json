@@ -12,7 +12,7 @@
   "binding": {
     "repository": "chinaneedM/ziwei-bazi-model",
     "branch": "agent/fusion-chart-core-r1-20260822",
-    "reviewed_state_version": "1.1346.0",
+    "reviewed_state_version": "1.1347.0",
     "source_focus_count": 3077,
     "latest_research_focus_prefix": "13ZZ"
   },
@@ -14297,7 +14297,9 @@
         "docs/research/TIANWEN-14W-XUANSOU-ORIGINAL-AND-FANG-SANCHE-R1.md",
         "docs/research/TIANWEN-14W-XUANSOU-FANG-SANCHE-FOLIO-EVIDENCE-R1.json",
         "docs/research/TIANWEN-14W-XUANSOU-FANG-SANCHE-SOURCE-SHARD-R1.json",
-        "docs/research/TIANWEN-13ZU-JOSEON-ZIWEI-BAZI-EXAM-INSTITUTIONS-R1.md"
+        "docs/research/TIANWEN-13ZU-JOSEON-ZIWEI-BAZI-EXAM-INSTITUTIONS-R1.md",
+        "docs/research/TIANWEN-14X-JOSEON-SANCHE-1430-1518-EDITION-SCOPE-R1.md",
+        "docs/research/TIANWEN-14X-KU-SANCHE-1518-CATALOG-SOURCE-SHARD-R1.json"
       ],
       "evidence_boundary": "1430 只见简称。方谦之十卷本原影及高丽大学徐大升名下三卷本馆目为两条可区分的载体，现存印本各有独立断年边界。",
       "missing_evidence": "能将试书简称连接到特定作品的同期人物题署、卷次、引文、印记或官署记录。",
@@ -14313,6 +14315,17 @@
             "docs/research/TIANWEN-14W-XUANSOU-ORIGINAL-AND-FANG-SANCHE-R1.md",
             "docs/research/TIANWEN-14W-XUANSOU-FANG-SANCHE-FOLIO-EVIDENCE-R1.json"
           ]
+        },
+        {
+          "event": "EVIDENCE_BOUNDARY_REFINED",
+          "date": "2026-11-19",
+          "basis": "Independent KU Tian/Ren first-party catalog pages bind one three-volume Eulhaeja holding. A 1517 preface and 1518 print notice are secondary-reported paratext; the actual KU holding's impression date remains unknown. The 1430 exam title cannot be collapsed to a later impression or automatically to Fang's ten-volume work.",
+          "evidence_refs": [
+            "docs/research/TIANWEN-14X-JOSEON-SANCHE-1430-1518-EDITION-SCOPE-R1.md",
+            "docs/research/TIANWEN-14X-KU-SANCHE-1518-CATALOG-SOURCE-SHARD-R1.json"
+          ],
+          "status_unchanged": "OPEN",
+          "priority_unchanged": "P1"
         }
       ]
     }
@@ -31475,6 +31488,47 @@
           "target": "Find exam-list precedents, exact imprint evidence and the KU or parallel Jishan Pian primary leaf.",
           "status": "OPEN",
           "evidence_ref": "docs/research/TIANWEN-14W-XUANSOU-ORIGINAL-AND-FANG-SANCHE-R1.md"
+        }
+      ]
+    },
+    {
+      "id": "OMISSIONS-14X-JOSEON-SANCHE-DATING-CROSSWALK-20261119",
+      "date": "2026-11-19",
+      "state_version": "1.1347.0",
+      "reviewed_issue_ids": [
+        "TW-OPEN-0001",
+        "TW-OPEN-0002",
+        "TW-OPEN-0003",
+        "TW-OPEN-0004",
+        "TW-OPEN-0005",
+        "TW-OPEN-0006",
+        "TW-OPEN-0007",
+        "TW-OPEN-0008",
+        "TW-OPEN-0009",
+        "TW-OPEN-0010",
+        "TW-OPEN-0011",
+        "TW-OPEN-0012",
+        "TW-OPEN-0013",
+        "TW-OPEN-0014"
+      ],
+      "discovery_mode": "BREADTH_FIRST_FIRST_PARTY_CATALOG_AND_EDITION_DATE_SCOPE",
+      "result": "Preserve 5 P0 and all 14 open issues; refine TW-OPEN-0014 with KU holding-date/paratext boundary. No original Ziweishu/KU prose obtained, no G893 decision.",
+      "evidence_refs": [
+        "docs/research/TIANWEN-14X-JOSEON-SANCHE-1430-1518-EDITION-SCOPE-R1.md",
+        "docs/research/TIANWEN-14X-KU-SANCHE-1518-CATALOG-SOURCE-SHARD-R1.json"
+      ],
+      "unresolved_breadth_leads": [
+        {
+          "scope": "Ziwei Eulhaeja Ziweishu",
+          "target": "Public original procedure leaves and source-specific dating",
+          "status": "OPEN",
+          "evidence_ref": "docs/research/TIANWEN-14X-JOSEON-SANCHE-1430-1518-EDITION-SCOPE-R1.md"
+        },
+        {
+          "scope": "Bazi 1430 Sanche",
+          "target": "Contemporaneous title-to-work crosswalk and KU colophon primary leaf",
+          "status": "OPEN",
+          "evidence_ref": "docs/research/TIANWEN-14X-JOSEON-SANCHE-1430-1518-EDITION-SCOPE-R1.md"
         }
       ]
     }
