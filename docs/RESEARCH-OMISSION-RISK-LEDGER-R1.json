@@ -1,7 +1,7 @@
 {
   "schema": "TIANWEN-RESEARCH-OMISSION-RISK-LEDGER-R1",
   "version": "1.0.0",
-  "updated_at": "2026-11-19",
+  "updated_at": "2026-11-20",
   "definition": "NON_EXHAUSTIVE_RECOVERY_SEED_FROM_LIVE_REMOTE; not proof no other omissions exist",
   "explicit_limits": [
     "The ledger captures known open leads, not every unpublished witness or every possible school.",
@@ -12,7 +12,7 @@
   "binding": {
     "repository": "chinaneedM/ziwei-bazi-model",
     "branch": "agent/fusion-chart-core-r1-20260822",
-    "reviewed_state_version": "1.1352.0",
+    "reviewed_state_version": "1.1353.0",
     "source_focus_count": 3079,
     "latest_research_focus_prefix": "13ZZ"
   },
@@ -31752,6 +31752,47 @@
         {
           "scope": "Early Joseon original operative leaves",
           "target": "NLK Ziweishu CNTS-00109610231 and KU Sanche Jishan/colophon, including no 1430 title back-projection",
+          "status": "OPEN",
+          "evidence_ref": "docs/research/TIANWEN-14X-JOSEON-SANCHE-1430-1518-EDITION-SCOPE-R1.md"
+        }
+      ]
+    },
+    {
+      "id": "OMISSIONS-15D-JAPAN-MATSUMOTO-1906-1935-PUBLISHING-20261120",
+      "date": "2026-11-20",
+      "state_version": "1.1353.0",
+      "reviewed_issue_ids": [
+        "TW-OPEN-0001",
+        "TW-OPEN-0002",
+        "TW-OPEN-0003",
+        "TW-OPEN-0004",
+        "TW-OPEN-0005",
+        "TW-OPEN-0006",
+        "TW-OPEN-0007",
+        "TW-OPEN-0008",
+        "TW-OPEN-0009",
+        "TW-OPEN-0010",
+        "TW-OPEN-0011",
+        "TW-OPEN-0012",
+        "TW-OPEN-0013",
+        "TW-OPEN-0014"
+      ],
+      "discovery_mode": "BREADTH_FIRST_FIRSTPARTY_JAPAN_BAZI_MATSUMOTO_1906_1912_1935_BIBLIOGRAPHY",
+      "result": "Retain all 14 issues, five P0, zero original folio, no newly adjudicated historical numeric controls. 1906 Osaka four-volume NDL, 1912 Nagasaki ninth edition, and 1935 Kyoto 107p calendrical annex are distinct catalog witnesses; 1933 NDL 105p annex is existing 15C. G893 5/6 localized, 0/6 final, chart CLOSED.",
+      "evidence_refs": [
+        "docs/research/TIANWEN-15D-JAPAN-MATSUMOTO-BAZI-1906-1935-PUBLISHING-CHAIN-R1.md",
+        "docs/research/TIANWEN-15D-JAPAN-MATSUMOTO-NDL-KYOTO-SOURCE-SHARD-R1.json"
+      ],
+      "unresolved_breadth_leads": [
+        {
+          "scope": "Early Japanese Four Pillars Matsumoto physical printing and plate history",
+          "target": "1906/1912 original colophons, NDL 1933 public images, Kyoto 1935 107p calendar annex and 1933 105p pagination comparison",
+          "status": "OPEN",
+          "evidence_ref": "docs/research/TIANWEN-15D-JAPAN-MATSUMOTO-BAZI-1906-1935-PUBLISHING-CHAIN-R1.md"
+        },
+        {
+          "scope": "Early Joseon original operative leaves",
+          "target": "NLK Ziweishu and KU Sanche Jishan colophon, without retrospective 1430 work-identity assumption",
           "status": "OPEN",
           "evidence_ref": "docs/research/TIANWEN-14X-JOSEON-SANCHE-1430-1518-EDITION-SCOPE-R1.md"
         }
