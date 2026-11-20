@@ -1,0 +1,62 @@
+{
+  "schema": "TIANWEN-15E-JAPAN-MATSUMOTO-NDL-1905-1933-DIGITAL-LOCATOR-SHARD-R1",
+  "date": "2026-11-20",
+  "sources": [
+    {
+      "source_id": "EXT-TIANWEN-15E-NDL-MATSUMOTO-V2-1905",
+      "title": "松本義亮《四柱推命奥義秘傳録》卷2 1905大阪单卷著录",
+      "provider": "National Diet Library of Japan / NDL Search",
+      "url": "https://ndlsearch.ndl.go.jp/books/R100000002-I000009251785",
+      "historical_period": "JAPAN_1905_PREWAR_BAZI_SINGLE_VOLUME_CATALOG",
+      "source_role": "FIRSTPARTY_SINGLE_VOLUME_BIBLIOGRAPHY_AND_PUBLIC_DIGITAL_LOCATOR_NOT_ORIGINAL_TEXT_COLLATION",
+      "quality_notes": "NDLBibID 000009251785; pid1083859; Osaka Matsumoto Yoshisuke self-published; 64p; 特21-934; catalog year 1905. Same shelfmark as 1906 four-vol aggregate; cannot infer separate physical witness, four-volume edition date, or original glyph.",
+      "physical_glyph_authority": false,
+      "access_date": "2026-11-20",
+      "evidence": "docs/research/TIANWEN-15E-JAPAN-MATSUMOTO-1905-VOLUMES-1933-ANNEX-LOCATORS-R1.md",
+      "verification_status": "FIRSTPARTY_CATALOG_AND_DIGITAL_LOCATOR_ONLY"
+    },
+    {
+      "source_id": "EXT-TIANWEN-15E-NDL-MATSUMOTO-V1-UNSURE",
+      "title": "《四柱推命奥義秘傳録》卷1 NDL不定年[18--]与长崎天祥舘",
+      "provider": "National Diet Library of Japan / NDL Search",
+      "url": "https://ndlsearch.ndl.go.jp/books/R100000002-I000009251771",
+      "historical_period": "JAPAN_UNDATED_CATALOG_YEAR_BRACKET_18XX_NOT_PHYSICALLY_ADJUDICATED",
+      "source_role": "FIRSTPARTY_CATALOG_UNCERTAIN_DATE_AND_PUBLIC_DIGITAL_LOCATOR",
+      "quality_notes": "NDLBibID 000009251771; pid1083858; Nagasaki Tenshokan; [18--] catalog dating; 51p; 特21-934. Do not convert bracketed date to actual 19th-century original printing. Same shelfmark as 1905 vol2/1906 aggregate; not new independent physical witness.",
+      "physical_glyph_authority": false,
+      "access_date": "2026-11-20",
+      "evidence": "docs/research/TIANWEN-15E-JAPAN-MATSUMOTO-1905-VOLUMES-1933-ANNEX-LOCATORS-R1.md",
+      "verification_status": "FIRSTPARTY_UNCERTAIN_CATALOG_AND_DIGITAL_LOCATOR_ONLY"
+    },
+    {
+      "source_id": "EXT-TIANWEN-15E-NDL-MATSUMOTO-ANNEX-1933",
+      "title": "1933增补改订《四柱推命奥義秘伝録》别册《陰陽暦対照干支一覧》105页",
+      "provider": "National Diet Library of Japan / NDL Search",
+      "url": "https://ndlsearch.ndl.go.jp/books/R100000039-I1104880",
+      "historical_period": "JAPAN_1933_PREWAR_BAZI_CALENDAR_ANNEX",
+      "source_role": "FIRSTPARTY_CATALOG_EXACT_DIGITAL_ANNEX_LOCATOR_SAME_EDITION_AS_15C",
+      "quality_notes": "1933 Osaka Tenshokan; 特261-415; NDL digital pid1104880 and IIIF manifest; same six-volume edition already recorded in 15C; pid1104866 is volume 4, not annex. 105 print pages vs Commons 56 scans not compared. No 1935 Kyoto direct original page comparison.",
+      "physical_glyph_authority": false,
+      "access_date": "2026-11-20",
+      "evidence": "docs/research/TIANWEN-15E-JAPAN-MATSUMOTO-1905-VOLUMES-1933-ANNEX-LOCATORS-R1.md",
+      "verification_status": "FIRSTPARTY_CATALOG_AND_DIGITAL_LOCATOR_ONLY"
+    }
+  ],
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [
+      "EDITION-JAPAN-MATSUMOTO-BAZI-VOL2-1905-CATALOG",
+      "DIGITAL-JAPAN-MATSUMOTO-BAZI-1933-ANNEX-PID1104880"
+    ],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Shared NDL 特21-934 cannot count as separate physical witnesses or prove 1905–1906 plate identity.",
+      "1905 volume2 does not date all four volumes; [18--] for volume1 is not evidence of a precisely dated nineteenth-century printing.",
+      "1933 appendix pid1104880 and volume4 pid1104866 are distinct scans in the existing 1933 edition; not distinct lineage votes."
+    ],
+    "unresolved_lineage_questions": [
+      "Original colophons and plate/layout comparison across 1905/undated/1906/1912.",
+      "1933 pid1104880 original calendar annex versus Kyoto 1935 107p copy direct page-to-page collation."
+    ]
+  }
+}
