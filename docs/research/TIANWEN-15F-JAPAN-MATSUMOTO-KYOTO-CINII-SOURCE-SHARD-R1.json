@@ -1,0 +1,49 @@
+{
+  "schema": "TIANWEN-15F-JAPAN-MATSUMOTO-KYOTO-CINII-SOURCE-SHARD-R1",
+  "date": "2026-11-20",
+  "sources": [
+    {
+      "source_id": "EXT-TIANWEN-15F-KYOTO-MATSUMOTO-1906-PREFACE-V1V2",
+      "title": "京都府立图书馆《四柱推命奥義秘伝録》卷1卷2（1906序）",
+      "provider": "Kyoto Prefectural Library via NDL Search federated catalog",
+      "url": "https://ndlsearch.ndl.go.jp/books/R100000001-I2611B10444987",
+      "historical_period": "JAPAN_1906_PREFACE_DATE_BAZI_KYOTO_HOLDING",
+      "source_role": "FIRSTPARTY_HOLDING_CATALOG_PREFACE_VS_IMPRINT_SEPARATED_NO_ORIGINAL_FOLIO",
+      "quality_notes": "SomokuID B10444987, shelf ﾖ 174/8/, Nagasaki Tenshokan; volumes 1 and 2 54 and 73 pages; catalog 1906序 is preface date, not proven impression. Distinct holding institution from NDL 特21-934, no independent recensional/textual vote.",
+      "physical_glyph_authority": false,
+      "verification_status": "BIBLIOGRAPHIC_METADATA_ONLY",
+      "access_date": "2026-11-20",
+      "evidence": "docs/research/TIANWEN-15F-JAPAN-MATSUMOTO-KYOTO-CINII-PREFACE-DATE-FIREWALL-R1.md"
+    },
+    {
+      "source_id": "EXT-TIANWEN-15F-CINII-MATSUMOTO-CORRECTED-1905-1906",
+      "title": "CiNii BA91379066 松本《四柱推命奥義秘伝録》訂正与1905/1906.5字段差异",
+      "provider": "CiNii Books / National Institute of Informatics via NDL Search",
+      "url": "https://ndlsearch.ndl.go.jp/books/R100000136-I1971712334769451803",
+      "historical_period": "JAPAN_1905_1906_BAZI_CORRECTED_CATALOG_YEAR_CONFLICT",
+      "source_role": "ACADEMIC_LIBRARY_CATALOG_CORRECTED_EDITION_LABEL_YEAR_FIELD_TENSION",
+      "quality_notes": "NCID BA91379066, edition 訂正, publisher 松本義亮, publication 1906.5, W3CDTF 1905, 23cm and catalog statement 天祥館藏版. Neither original leaf nor new independent physical copy verified.",
+      "physical_glyph_authority": false,
+      "verification_status": "BIBLIOGRAPHIC_METADATA_ONLY",
+      "access_date": "2026-11-20",
+      "evidence": "docs/research/TIANWEN-15F-JAPAN-MATSUMOTO-KYOTO-CINII-PREFACE-DATE-FIREWALL-R1.md"
+    }
+  ],
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [
+      "PHYSICAL-COPY-JAPAN-KYOTO-MATSUMOTO-V1V2-1906PREFACE-CATALOG",
+      "EDITION-CATALOG-JAPAN-CINII-MATSUMOTO-CORRECTED-1905-1906"
+    ],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "1906-preface date does not establish exact Kyoto copy printing date.",
+      "CiNii 1906.5 and W3CDTF 1905 are unresolved catalog fields, not original edition verdict.",
+      "1933 annex Commons three thumbnail screens are bounded firstpass, not native source-page glyph collation."
+    ],
+    "unresolved_lineage_questions": [
+      "Kyoto v1-v2 imprint vs NDL 1905 vol2, undated vol1, 1906 4-vol and 1912 ninth-edition original colophons.",
+      "CiNii corrected edition physical identity, actual print date and 1933 vs 1935 annex original relation."
+    ]
+  }
+}
