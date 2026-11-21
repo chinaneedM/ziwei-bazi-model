@@ -1,0 +1,64 @@
+{
+  "schema": "TIANWEN-15K-WENYUANGE-CATALOG-1935-1937-SOURCE-SHARD-R1",
+  "date": "2026-11-21",
+  "sources": [
+    {
+      "source_id": "EXT-TIANWEN-15K-CINII-WENYUANGE-1935-DUHUAZHAI-TYPESET",
+      "title": "1935上海商务印书馆《文淵閣書目及其他一種》据读画斋丛书本排印书目",
+      "provider": "National Institute of Informatics / CiNii Books",
+      "url": "https://ci.nii.ac.jp/ncid/BA62463511",
+      "historical_period": "MODERN_1935_SHANGHAI_PRINTED_RECEIVED_WENYUANGE_CATALOG",
+      "source_role": "FIRSTPARTY_ACADEMIC_BIBLIOGRAPHIC_RECORD_OF_1935_PRINT_AND_DECLARED_DUHUAZHAI_BASE",
+      "quality_notes": "CiNii NCID BA62463511, 1935.12, 商務印書館, 叢書集成初編 0029-0031, three volumes; explicitly '文淵閣書目: 據讀畫齋叢書本排印'. Source-title and stated typeset base, not 1441 original physical copy, direct ancient glyph, a line-by-line collation or source independence vote. Circulating 1935 volume II SSID-12637508 target text not independently validated by native screenshot (web size boundary).",
+      "physical_glyph_authority": false,
+      "verification_status": "BIBLIOGRAPHIC_METADATA_ONLY",
+      "access_date": "2026-11-21",
+      "evidence": "docs/research/TIANWEN-15K-WENYUANGE-1935-1937-PRINT-IMPRINT-ERRATUM-AND-ZIWEI-TITLE-DEPENDENCY-R1.md"
+    },
+    {
+      "source_id": "EXT-TIANWEN-15K-CINII-WENYUANGE-1937-MARCH-ISSUE",
+      "title": "CiNii BA53351131《文淵閣書目》上海商务印书馆1937年3月《国学基本丛书》本",
+      "provider": "National Institute of Informatics / CiNii Books",
+      "url": "https://ci.nii.ac.jp/ncid/BA53351131",
+      "historical_period": "MODERN_1937_MARCH_SHANGHAI_PRINTED_RECEIVED_WENYUANGE_CATALOG",
+      "source_role": "INDEPENDENT_LIBRARY_CATALOG_MONTH_CROSSCHECK_FOR_EXISTING_NLC511_1937_PRINT_IMPRINT_ERRATUM",
+      "quality_notes": "CiNii BA53351131 clearly gives 商務印書館 1937.3 國學基本叢書, 273 printed pages plus front matter. Existing root EXT-NLC-WENYUANGE-SHUMU-1937-BUSINESS-PRESS-ZHUNZHAI-JIULOU incorrectly recorded 二月 while direct PDF index2 copyright page is 三月初版. Catalog corroborates edition month but does not establish its holdings are the same individual NLC/SSID copy.",
+      "physical_glyph_authority": false,
+      "verification_status": "BIBLIOGRAPHIC_METADATA_ONLY",
+      "access_date": "2026-11-21",
+      "evidence": "docs/research/TIANWEN-15K-WENYUANGE-1935-1937-PRINT-IMPRINT-ERRATUM-AND-ZIWEI-TITLE-DEPENDENCY-R1.md"
+    },
+    {
+      "source_id": "EXT-TIANWEN-15K-NCL-NCCULIB-1937-WENYUANGE-HOLDING",
+      "title": "台湾国家图书馆华文电子书库NCCULIB-9900006152 1937《文淵閣書目》政治大学图书馆影像馆藏",
+      "provider": "National Central Library Taiwan eBook catalogue / National Chengchi University Library",
+      "url": "https://taiwanebook.ncl.edu.tw/zh-tw/book/NCCULIB-9900006152",
+      "historical_period": "MODERN_1937_WENYUANGE_BIBLIOGRAPHIC_HOLDING_TAIWAN",
+      "source_role": "OFFICIAL_HOLDING_AND_SURROGATE_PROVIDER_IDENTITY_1937_YEAR_ONLY",
+      "quality_notes": "NCL listing: author 杨士奇等, 上海商务印书馆, year1937, 274 pages, registration C141565, National Chengchi University Library holding and image source. Month not specified in this record; do not count as independent March reading, nor establish whether this is independent physical copy from NLC511 or SSID scanned image.",
+      "physical_glyph_authority": false,
+      "verification_status": "BIBLIOGRAPHIC_METADATA_ONLY",
+      "access_date": "2026-11-21",
+      "evidence": "docs/research/TIANWEN-15K-WENYUANGE-1935-1937-PRINT-IMPRINT-ERRATUM-AND-ZIWEI-TITLE-DEPENDENCY-R1.md"
+    }
+  ],
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [
+      "EDITION-WENYUANGE-DUHUAZHAI-RECEIVED-LAYER",
+      "EDITION-WENYUANGE-CONGSHU-JICHENG-1935"
+    ],
+    "edges_supported": [
+      "TG-E0357"
+    ],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "CiNii says 1935 reprint based on Du Hua Zhai; no source-original and no same-copy adjudication.",
+      "1937 March corrected from NLC physical imprint and CiNii metadata; original root February claim remains preserved in older registry with this erratum.",
+      "1935 and 1937 later catalog witness repetition is not independent 1441 original bibliographic witness."
+    ],
+    "unresolved_lineage_questions": [
+      "Early specific 1441 copy and Ziwei Zhao Dan Jing full text remain unknown.",
+      "1935 versus 1937 exact typesetting or reprint lineage has not been physically collated."
+    ]
+  }
+}

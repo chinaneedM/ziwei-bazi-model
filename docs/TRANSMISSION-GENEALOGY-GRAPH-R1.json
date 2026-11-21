@@ -7856,6 +7856,39 @@
         "docs/research/TIANWEN-15H-JAPAN-ABE-1914-1924-FIVE-VOLUME-STRUCTURE-R1.md"
       ],
       "first_explicit_graph_batch": "15H"
+    },
+    {
+      "node_id": "EDITION-WENYUANGE-DUHUAZHAI-RECEIVED-LAYER",
+      "node_type": "EDITION",
+      "label": "《讀畫齋叢書》所收《文淵閣書目》后出传本（具体初刊年待核）",
+      "system_scope": "CROSS_SYSTEM",
+      "work_composition_date": "1441 catalog event (NOT edition date)",
+      "edition_impression_date": null,
+      "physical_copy_date": null,
+      "digital_surrogate_date": null,
+      "date_scope_note": "13ZZ read specific later printed folios p46-48. CiNii 1935 catalog states this edition family was the basis for typesetting; specific impression or same physical copy not bound.",
+      "evidence": [
+        "EXT-TIANWEN-13ZZ-DUHUAZHAI-WENYUANGE-J15-FOLIOS",
+        "EXT-TIANWEN-15K-CINII-WENYUANGE-1935-DUHUAZHAI-TYPESET",
+        "docs/research/TIANWEN-15K-WENYUANGE-1935-1937-PRINT-IMPRINT-ERRATUM-AND-ZIWEI-TITLE-DEPENDENCY-R1.md"
+      ],
+      "first_explicit_graph_batch": "15K"
+    },
+    {
+      "node_id": "EDITION-WENYUANGE-CONGSHU-JICHENG-1935",
+      "node_type": "EDITION",
+      "label": "1935.12《叢書集成初編》0029—0031 商務排印《文淵閣書目》",
+      "system_scope": "CROSS_SYSTEM",
+      "work_composition_date": "1441 catalog event (NOT edition date)",
+      "edition_impression_date": "1935-12 (CiNii BA62463511 catalog)",
+      "physical_copy_date": null,
+      "digital_surrogate_date": null,
+      "date_scope_note": "Three-volume 1935 printing catalogue says based on Du Hua Zhai Congshu. Exact text and physical edition/plates not collated; not early Ming original.",
+      "evidence": [
+        "EXT-TIANWEN-15K-CINII-WENYUANGE-1935-DUHUAZHAI-TYPESET",
+        "docs/research/TIANWEN-15K-WENYUANGE-1935-1937-PRINT-IMPRINT-ERRATUM-AND-ZIWEI-TITLE-DEPENDENCY-R1.md"
+      ],
+      "first_explicit_graph_batch": "15K"
     }
   ],
   "edges": [
@@ -13337,6 +13370,21 @@
       ],
       "scope_note": "1924 catalog explicitly says same work titled five volumes bound in one corrected reprint; no text identity or direct reprinting plates inferred.",
       "adjudication_batch": "15H"
+    },
+    {
+      "edge_id": "TG-E0357",
+      "from": "EDITION-WENYUANGE-DUHUAZHAI-RECEIVED-LAYER",
+      "relation": "TEXTUAL_ANCESTRY_CANDIDATE_FOR",
+      "to": "EDITION-WENYUANGE-CONGSHU-JICHENG-1935",
+      "status": "PROBABLE",
+      "confidence": "MEDIUM_HIGH_WITHIN_CATALOG_STATEMENT",
+      "evidence_class": "DIRECT_BIBLIOGRAPHIC_BINDING",
+      "evidence": [
+        "EXT-TIANWEN-15K-CINII-WENYUANGE-1935-DUHUAZHAI-TYPESET",
+        "docs/research/TIANWEN-15K-WENYUANGE-1935-1937-PRINT-IMPRINT-ERRATUM-AND-ZIWEI-TITLE-DEPENDENCY-R1.md"
+      ],
+      "scope_note": "CiNii 1935 catalog explicitly asserts 1935 printed edition was typeset from Du Hua Zhai Congshu; source-copy exact identity and textual fidelity remain uncollated. No new independent 1441 physical witness or Ziwei rule inheritance inferred.",
+      "adjudication_batch": "15K"
     }
   ],
   "lineage_hypotheses": [
