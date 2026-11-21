@@ -32714,6 +32714,41 @@
           "evidence_ref": "docs/research/TIANWEN-15AC-VIETNAM-LAM-1973-1974-ZIPING-EDITION-AND-MECHANICS-BOUNDARY-R1.md"
         }
       ]
+    },
+    {
+      "id": "OMISSIONS-15AC-FORWARD-ONLY-REVIEW-ID-CORRECTION-20261121",
+      "date": "2026-11-21",
+      "state_version": "1.1378.0",
+      "reviewed_issue_ids": [
+        "TW-OPEN-0001",
+        "TW-OPEN-0002",
+        "TW-OPEN-0003",
+        "TW-OPEN-0004",
+        "TW-OPEN-0005",
+        "TW-OPEN-0006",
+        "TW-OPEN-0007",
+        "TW-OPEN-0008",
+        "TW-OPEN-0009",
+        "TW-OPEN-0010",
+        "TW-OPEN-0011",
+        "TW-OPEN-0012",
+        "TW-OPEN-0013",
+        "TW-OPEN-0014"
+      ],
+      "discovery_mode": "CI_RECOVERY_FORWARD_ONLY_FIX_FOR_15AC_CHECKPOINT_ISSUE_ID_KEY",
+      "result": "Forward-only correction of the immediately preceding 15AC checkpoint: the writer used missing `issue_id` instead of actual `id` keys, so the original JSON serialized 14 review IDs as null. Preserve that preceding event unchanged for audit, and reattest all 14 original issue IDs using the ledger's actual `id` field. No issue status, priority, source refs, historical claims, matrix, algorithm, source registry or graph is modified; state/omission guard versions remain 1.1378.0, source1027=647+380/159 shards, five P0 OPEN/BLOCKED, G893 final0/6 and deterministic core CLOSED.",
+      "evidence_refs": [
+        "docs/research/TIANWEN-15AC-VIETNAM-LAM-1973-1974-ZIPING-EDITION-AND-MECHANICS-BOUNDARY-R1.md",
+        "docs/research/TIANWEN-15AC-VIETNAM-1970S-ZIPING-RECEIVED-AND-RESELLER-SOURCE-SHARD-R1.json"
+      ],
+      "unresolved_breadth_leads": [
+        {
+          "scope": "VIETNAM_LAM_THE_DUC_ZIPING_1973_PREFACE_1974_PRINT_174P",
+          "target": "Free verified original 1973/1974 title/imprint/copyright leaves, volume/copy/edition identity, compare 90 retypeset digital pages to claimed 174 physical pages, author-claimed Chinese history vs primary Tang/Song source and actual Vietnamese teaching without inferring lineage; no purchase/account/on-site requirement.",
+          "status": "OPEN",
+          "evidence_ref": "docs/research/TIANWEN-15AC-VIETNAM-LAM-1973-1974-ZIPING-EDITION-AND-MECHANICS-BOUNDARY-R1.md"
+        }
+      ]
     }
   ],
   "resolution_policy": {
