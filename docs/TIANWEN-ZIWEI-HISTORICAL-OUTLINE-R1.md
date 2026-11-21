@@ -266,3 +266,9 @@ VNPF[胜严寺 Thắng Nghiêm II 藏书群](https://lib.nomfoundation.org/colle
 ## 15Z 越南范氏家谱两抄本：机构目录将斗数篇定位到A.909
 
 越南汉喃研究院[第一方馆目](https://hannom.vass.gov.vn/?cid=61496&pageid=46955&sachid=2009)登记《唐安丹鑾范家世譜》手写本 **A.909（300页）**、**VHv.1353（162页）**，范廷琥1820年编序不等于两件抄本的抄写年代；A.909内容著录含紫微数术概要。[该院1996年研究报告](https://hannom.vass.gov.vn/tong-muc-luc/2-duong-an-loan-pham-gia-the-pha-mot-cuon-pha-qui-tbhnh-1996-505821)记A.909目录第8部分「Đẩu số y phương khắc trạch」，并警示抄写多误；[1994馆藏缩微目录](https://hannom.vass.gov.vn/web/tchn/data/9404v.htm)给A.909影像路线但不是另一物理见证。**尚未取得古谱原叶**，因此15Y中现代转引范珪／范嘉運授受的逐字、具体师承、紫微安星规则仍OPEN；与四柱子平没有新交叉证明。详见[15Z文献与版本边界](./research/TIANWEN-15Z-VIETNAM-PHAM-GENEALOGY-INSTITUTIONAL-COPIES-R1.md)。史料来源1018（647+371／156分片）、图谱451/364、Matrix222/222、遗漏14含P0五、G893 0/6及排盘核心CLOSED不变。
+
+## 15AA 越南《芸臺類語》可检视抄本与罗纶序传说的原字校勘入口
+
+[越南国图／喃字遗产基金会R.118卷一](https://lib.nomfoundation.org/collection/1/volume/1132/)已有42页公开汉文抄本图像，馆号NLVNPF-0996-01，标记无刊写年份、2009年数字化。现代越文整理《理氣》第38条引述罗纶序、华山了然、陈抟和关于明代才传出的质疑，只属于**译读史料**；该文未与R.118直接原字/页码/图像哈希核对，所以并非原抄本已经证实陈抟授书或确证明以前不存在斗数。
+
+胡志明市综合科学图书馆2019《唐安丹鑾范家世譜》**ISBN 9786049768149**、268页、现代两册馆藏明确可追；它们不能替代古抄A.909/VHv.1353或15Y家传授受句的原叶。VASS1990研究附注对后者另写VHv.1353/2，用号含义未定。详细证据及不确定边界见[15AA报告](./research/TIANWEN-15AA-VIETNAM-LEQUYDON-R118-ORIGINAL-COPY-2019-GENEALOGY-BOOK-R1.md)。来源1022/157分片、图451/364、风险14含五P0，核心CLOSED不变.
