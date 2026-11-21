@@ -1,7 +1,7 @@
 {
   "schema": "TIANWEN-RESEARCH-OMISSION-RISK-LEDGER-R1",
   "version": "1.0.0",
-  "updated_at": "2026-11-20",
+  "updated_at": "2026-11-21",
   "definition": "NON_EXHAUSTIVE_RECOVERY_SEED_FROM_LIVE_REMOTE; not proof no other omissions exist",
   "explicit_limits": [
     "The ledger captures known open leads, not every unpublished witness or every possible school.",
@@ -12,8 +12,8 @@
   "binding": {
     "repository": "chinaneedM/ziwei-bazi-model",
     "branch": "agent/fusion-chart-core-r1-20260822",
-    "reviewed_state_version": "1.1355.0",
-    "source_focus_count": 3079,
+    "reviewed_state_version": "1.1356.0",
+    "source_focus_count": 3080,
     "latest_research_focus_prefix": "13ZZ"
   },
   "coverage_axes": [
@@ -31865,6 +31865,41 @@
           "target": "Kyoto 1906-preface holding original printing vs NDL 1905 vol2, vol1 [18--] and 1906/1912 printed copies; CiNii corrected record date metadata; 1933 annex vs 1935 107p original folio.",
           "status": "OPEN",
           "evidence_ref": "docs/research/TIANWEN-15F-JAPAN-MATSUMOTO-KYOTO-CINII-PREFACE-DATE-FIREWALL-R1.md"
+        }
+      ]
+    },
+    {
+      "id": "OMISSIONS-15G-JAPAN-MATSUMOTO-CINII-UNIVERSITY-HOLDINGS-20261121",
+      "date": "2026-11-21",
+      "state_version": "1.1356.0",
+      "reviewed_issue_ids": [
+        "TW-OPEN-0001",
+        "TW-OPEN-0002",
+        "TW-OPEN-0003",
+        "TW-OPEN-0004",
+        "TW-OPEN-0005",
+        "TW-OPEN-0006",
+        "TW-OPEN-0007",
+        "TW-OPEN-0008",
+        "TW-OPEN-0009",
+        "TW-OPEN-0010",
+        "TW-OPEN-0011",
+        "TW-OPEN-0012",
+        "TW-OPEN-0013",
+        "TW-OPEN-0014"
+      ],
+      "discovery_mode": "BREADTH_FIRST_JAPAN_1906_CINII_UNIVERSITY_V3V4_AND_NDL_SURROGATE_PUBLIC_LOCATORS",
+      "result": "All 14 issues incl five P0 remain OPEN or BLOCKED_SOURCE_ACCESS as before. One new CiNii 1906.4 academic library record v3/v4 covering Kyoto University and Tokyo University; existing NDL 1905/1906/1912 scans have open Commons file locators but no native PDF bytes/folio adjudications. 965 sources/140 shards, graph435/354, Matrix222/222 and chart CLOSED.",
+      "evidence_refs": [
+        "docs/research/TIANWEN-15G-JAPAN-MATSUMOTO-1906-CINII-UNIVERSITY-HOLDINGS-AND-NDL-SURROGATE-ACCESS-R1.md",
+        "docs/research/TIANWEN-15G-JAPAN-MATSUMOTO-1906-CINII-UNIVERSITY-SOURCE-SHARD-R1.json"
+      ],
+      "unresolved_breadth_leads": [
+        {
+          "scope": "Japan early Four Pillars Matsumoto 1905-1912",
+          "target": "Direct original full-resolution prefaces and imprints for pid1083858/1083859/760381/922347 and Kyoto/Tokyo 1906 v3/v4, with first-party copy identity; all remain OPEN.",
+          "status": "OPEN",
+          "evidence_ref": "docs/research/TIANWEN-15G-JAPAN-MATSUMOTO-1906-CINII-UNIVERSITY-HOLDINGS-AND-NDL-SURROGATE-ACCESS-R1.md"
         }
       ]
     }
