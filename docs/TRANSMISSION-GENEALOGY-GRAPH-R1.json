@@ -7889,6 +7889,40 @@
         "docs/research/TIANWEN-15K-WENYUANGE-1935-1937-PRINT-IMPRINT-ERRATUM-AND-ZIWEI-TITLE-DEPENDENCY-R1.md"
       ],
       "first_explicit_graph_batch": "15K"
+    },
+    {
+      "node_id": "TEXT-WORK-QING-DIXING-HUIYUAN-PUBLISHER-2011-IDENTIFIED",
+      "node_type": "TEXT_WORK",
+      "label": "《地星會源》：据2011整理者记载的清钞书名与疑作者何汝檉",
+      "system_scope": "ZIWEI",
+      "work_composition_date": null,
+      "edition_impression_date": null,
+      "physical_copy_date": null,
+      "digital_surrogate_date": null,
+      "date_scope_note": "2011 publisher describes a Tongzhi-era manuscript and Fengweishi/He Rucheng conjectural identity, not independently inspected Qing folio, copy date or authenticated authorship.",
+      "evidence": [
+        "EXT-TIANWEN-15L-XINYITANG-2011-DIXING-DOUSHU-EDITION",
+        "EXT-TIANWEN-15L-KSML-HYREAD-DIXING-2011-ISBN",
+        "docs/research/TIANWEN-15L-QING-DIXING-HUIYUAN-THREE-FEIXING-CATEGORIES-EVIDENCE-BOUNDARY-R1.md"
+      ],
+      "first_explicit_graph_batch": "15L"
+    },
+    {
+      "node_id": "EDITION-HK-XINYITANG-DIXING-DOUSHU-2011-COMBINED",
+      "node_type": "EDITION",
+      "label": "2011香港心一堂《地星會源斗數綱要合刊》现代影印出版版本",
+      "system_scope": "ZIWEI",
+      "work_composition_date": null,
+      "edition_impression_date": "2011 (publisher and library metadata)",
+      "physical_copy_date": null,
+      "digital_surrogate_date": null,
+      "date_scope_note": "ISBN 9789888058754; publisher 164 and library platform 168 page metadata discrepancy unresolved, not evidence for separate printings; no Qing copy binding.",
+      "evidence": [
+        "EXT-TIANWEN-15L-XINYITANG-2011-DIXING-DOUSHU-EDITION",
+        "EXT-TIANWEN-15L-KSML-HYREAD-DIXING-2011-ISBN",
+        "docs/research/TIANWEN-15L-QING-DIXING-HUIYUAN-THREE-FEIXING-CATEGORIES-EVIDENCE-BOUNDARY-R1.md"
+      ],
+      "first_explicit_graph_batch": "15L"
     }
   ],
   "edges": [
@@ -13385,6 +13419,22 @@
       ],
       "scope_note": "CiNii 1935 catalog explicitly asserts 1935 printed edition was typeset from Du Hua Zhai Congshu; source-copy exact identity and textual fidelity remain uncollated. No new independent 1441 physical witness or Ziwei rule inheritance inferred.",
       "adjudication_batch": "15K"
+    },
+    {
+      "edge_id": "TG-E0358",
+      "from": "EDITION-HK-XINYITANG-DIXING-DOUSHU-2011-COMBINED",
+      "relation": "EDITION_OF",
+      "to": "TEXT-WORK-QING-DIXING-HUIYUAN-PUBLISHER-2011-IDENTIFIED",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_WITHIN_2011_PUBLISHER_TITLE_SCOPE",
+      "evidence_class": "DIRECT_BIBLIOGRAPHIC_BINDING",
+      "evidence": [
+        "EXT-TIANWEN-15L-XINYITANG-2011-DIXING-DOUSHU-EDITION",
+        "EXT-TIANWEN-15L-KSML-HYREAD-DIXING-2011-ISBN",
+        "docs/research/TIANWEN-15L-QING-DIXING-HUIYUAN-THREE-FEIXING-CATEGORIES-EVIDENCE-BOUNDARY-R1.md"
+      ],
+      "scope_note": "Only 2011 composite facsimile explicitly includes a segment titled 地星會源; not a validated Qing manuscript or its exact original material copy and not an algorithm/transmission edge.",
+      "adjudication_batch": "15L"
     }
   ],
   "lineage_hypotheses": [
