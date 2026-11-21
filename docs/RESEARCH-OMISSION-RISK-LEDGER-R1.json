@@ -32469,6 +32469,41 @@
           "evidence_ref": "docs/research/TIANWEN-15W-YUANSHUSHAN-1934-SAMPLE-1947-SSID-EDITION-SCOPE-R1.md"
         }
       ]
+    },
+    {
+      "id": "OMISSIONS-15W-CI-REVIEW-ID-ERRATUM-20261121",
+      "date": "2026-11-21",
+      "state_version": "1.1372.0",
+      "reviewed_issue_ids": [
+        "TW-OPEN-0001",
+        "TW-OPEN-0002",
+        "TW-OPEN-0003",
+        "TW-OPEN-0004",
+        "TW-OPEN-0005",
+        "TW-OPEN-0006",
+        "TW-OPEN-0007",
+        "TW-OPEN-0008",
+        "TW-OPEN-0009",
+        "TW-OPEN-0010",
+        "TW-OPEN-0011",
+        "TW-OPEN-0012",
+        "TW-OPEN-0013",
+        "TW-OPEN-0014"
+      ],
+      "discovery_mode": "CI_RECOVERY_APPEND_ONLY_CHECKPOINT_REVIEW_IDS_REPAIRED",
+      "result": "Forward-only correction to the preceding 15W omission checkpoint: its reviewed_issue_ids array was malformed as 14 null entries due to using a non-existent issue identifier field. This checkpoint preserves the original record unchanged and re-attests all 14 live issue IDs (including P0 TW-OPEN-0001, 0002, 0005, 0006, 0007) without claiming new primary evidence, issue closure, chart algorithm change, independent physical witness, or further historical findings.",
+      "evidence_refs": [
+        "docs/research/TIANWEN-15W-YUANSHUSHAN-1934-SAMPLE-1947-SSID-EDITION-SCOPE-R1.md",
+        "docs/research/TIANWEN-15W-YUANSHUSHAN-1934-SAMPLE-1947-SSID-SOURCE-SHARD-R1.json"
+      ],
+      "unresolved_breadth_leads": [
+        {
+          "scope": "REPUBLICAN_YUANSHUSHAN_1934_SAMPLE_1937_SOURCE_1947_SECOND_EDITION_ORIGINAL_BINDING",
+          "target": "Acquire legally public and copy-identified original 1937 and 1947 title/colophon images; independently compare 1947 SSID and NLC per-image openings and close 348/347 scan-count question with SHA/page evidence if possible. Keep 1934 1937 原/源 distinct and explicitly unproven same plates or author instruction.",
+          "status": "OPEN",
+          "evidence_ref": "docs/research/TIANWEN-15W-YUANSHUSHAN-1934-SAMPLE-1947-SSID-EDITION-SCOPE-R1.md"
+        }
+      ]
     }
   ],
   "resolution_policy": {
