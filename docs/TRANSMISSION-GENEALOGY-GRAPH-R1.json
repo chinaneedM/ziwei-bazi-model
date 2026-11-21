@@ -8006,6 +8006,70 @@
         "docs/research/TIANWEN-15M-JAPAN-EDO-SAKURADA-SUIMEISHO-PREFACE-IMPRESSION-REISSUE-BOUNDARY-R1.md"
       ],
       "first_explicit_graph_batch": "15M"
+    },
+    {
+      "node_id": "PHYSICAL-COPY-VIETNAM-THANGNGHIEM-TN208-ANXINGZIWEI",
+      "node_type": "PHYSICAL_COPY",
+      "label": "越南胜严寺TN208未断年汉文《安星紫㣲錦宅》57页抄本",
+      "system_scope": "ZIWEI",
+      "work_composition_date": null,
+      "edition_impression_date": null,
+      "physical_copy_date": null,
+      "digital_surrogate_date": null,
+      "date_scope_note": "Physical manuscript production date unverified; 2013 is a digitization and collection-transfer period.",
+      "evidence": [
+        "EXT-TIANWEN-15R-VNPF-TN208-ANXINGZIWEI-57P",
+        "docs/research/TIANWEN-15R-VIETNAM-THANGNGHIEM-TN208-TN213-MANUAL-CHART-COPY-AND-PAGEBOUNDARY-R1.md"
+      ],
+      "first_explicit_graph_batch": "15R"
+    },
+    {
+      "node_id": "DIGITAL-SURROGATE-VNPF-TN208-2013",
+      "node_type": "DIGITAL_SURROGATE",
+      "label": "2013年VNPF数字影像TN208 / TNVNPF-110",
+      "system_scope": "ZIWEI",
+      "work_composition_date": null,
+      "edition_impression_date": null,
+      "physical_copy_date": null,
+      "digital_surrogate_date": "2013 (VNPF catalog imaging date, no image hash bound)",
+      "date_scope_note": "57-page viewer metadata only, not all original images independently hash-verified.",
+      "evidence": [
+        "EXT-TIANWEN-15R-VNPF-TN208-ANXINGZIWEI-57P",
+        "docs/research/TIANWEN-15R-VIETNAM-THANGNGHIEM-TN208-TN213-MANUAL-CHART-COPY-AND-PAGEBOUNDARY-R1.md"
+      ],
+      "first_explicit_graph_batch": "15R"
+    },
+    {
+      "node_id": "PHYSICAL-COPY-VIETNAM-THANGNGHIEM-TN213-PERSONAL-CHARTS",
+      "node_type": "PHYSICAL_COPY",
+      "label": "越南胜严寺TN213未断年《蘿𢼂紫㣲个人》命盘记录",
+      "system_scope": "ZIWEI",
+      "work_composition_date": null,
+      "edition_impression_date": null,
+      "physical_copy_date": null,
+      "digital_surrogate_date": null,
+      "date_scope_note": "Catalog pages=90 vs viewer=61; woodblock catalog medium conflicts with hand-drawn diagram characterization. No binding edition or manuscript production date.",
+      "evidence": [
+        "EXT-TIANWEN-15R-VNPF-TN213-CHARTS-90V61",
+        "docs/research/TIANWEN-15R-VIETNAM-THANGNGHIEM-TN208-TN213-MANUAL-CHART-COPY-AND-PAGEBOUNDARY-R1.md"
+      ],
+      "first_explicit_graph_batch": "15R"
+    },
+    {
+      "node_id": "DIGITAL-SURROGATE-VNPF-TN213-2013",
+      "node_type": "DIGITAL_SURROGATE",
+      "label": "2013年VNPF数字影像TN213 / TNVNPF-115",
+      "system_scope": "ZIWEI",
+      "work_composition_date": null,
+      "edition_impression_date": null,
+      "physical_copy_date": null,
+      "digital_surrogate_date": "2013 (VNPF catalog imaging date, no image hash bound)",
+      "date_scope_note": "Public viewer 61 images vs metadata 90 pages unresolved; digitization not copy composition year.",
+      "evidence": [
+        "EXT-TIANWEN-15R-VNPF-TN213-CHARTS-90V61",
+        "docs/research/TIANWEN-15R-VIETNAM-THANGNGHIEM-TN208-TN213-MANUAL-CHART-COPY-AND-PAGEBOUNDARY-R1.md"
+      ],
+      "first_explicit_graph_batch": "15R"
     }
   ],
   "edges": [
@@ -13578,6 +13642,36 @@
       ],
       "scope_note": "Only authorship/title catalog-level edition of the named Sakurada work; NO direct edition-to-edition copying, full mechanical equality, original-page validation or first Japan arrival inference.",
       "adjudication_batch": "15M"
+    },
+    {
+      "edge_id": "TG-E0363",
+      "from": "DIGITAL-SURROGATE-VNPF-TN208-2013",
+      "relation": "DIGITAL_SURROGATE_OF",
+      "to": "PHYSICAL-COPY-VIETNAM-THANGNGHIEM-TN208-ANXINGZIWEI",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_WITHIN_INSTITUTIONAL_CATALOG_IDENTITY_SCOPE",
+      "evidence_class": "DIRECT_BIBLIOGRAPHIC_BINDING",
+      "evidence": [
+        "EXT-TIANWEN-15R-VNPF-TN208-ANXINGZIWEI-57P",
+        "docs/research/TIANWEN-15R-VIETNAM-THANGNGHIEM-TN208-TN213-MANUAL-CHART-COPY-AND-PAGEBOUNDARY-R1.md"
+      ],
+      "scope_note": "VNPF digital and institutional TN208 item share TNVNPF-110/TN208; no original text or numeric mechanism confirmed.",
+      "adjudication_batch": "15R"
+    },
+    {
+      "edge_id": "TG-E0364",
+      "from": "DIGITAL-SURROGATE-VNPF-TN213-2013",
+      "relation": "DIGITAL_SURROGATE_OF",
+      "to": "PHYSICAL-COPY-VIETNAM-THANGNGHIEM-TN213-PERSONAL-CHARTS",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_WITHIN_INSTITUTIONAL_CATALOG_IDENTITY_SCOPE",
+      "evidence_class": "DIRECT_BIBLIOGRAPHIC_BINDING",
+      "evidence": [
+        "EXT-TIANWEN-15R-VNPF-TN213-CHARTS-90V61",
+        "docs/research/TIANWEN-15R-VIETNAM-THANGNGHIEM-TN208-TN213-MANUAL-CHART-COPY-AND-PAGEBOUNDARY-R1.md"
+      ],
+      "scope_note": "VNPF digital and institutional TN213 item share TNVNPF-115/TN213; unresolved 90 catalog pages versus 61 viewer images, no source-page text equality proven.",
+      "adjudication_batch": "15R"
     }
   ],
   "lineage_hypotheses": [

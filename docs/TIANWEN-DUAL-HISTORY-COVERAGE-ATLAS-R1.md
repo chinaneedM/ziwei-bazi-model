@@ -558,3 +558,13 @@
 | 数字替身 | [NDL第五数字分册14973918](https://ndlsearch.ndl.go.jp/books/R100000039-I14973918)，关联14973505，2026-08-26互联网公开及IIIF元数据（B级） | 未取得实际画幅和原页SHA，同一份物理馆藏不计两份独立证据 |
 
 [15Q原始书目、分层来源及未决传承](./research/TIANWEN-15Q-ZIWEI-JAPAN-1731-FEIXING-SHANGBO-NDL-DIGITAL-OBJECT-R1.md)。新来源3（996→999）、分片148→149、图447/362、Matrix222/222、14未决含五P0、核心CLOSED不变。
+
+## 15R 覆盖补格｜越南胜严寺2013藏书群：安星文本与实际命盘记录的并存
+
+| 地域／对象 | 可证范围 | 仍未确定 |
+|---|---|---|
+| 越南寺院移交藏书群 | [VNPF Thắng Nghiêm II书群](https://lib.nomfoundation.org/collection/4/)2013年从去世民间灵媒家属移入寺中，共79项、汉喃混合文字并存；这是**现代保藏/转移线** | 不代表这些文字2013年抄成，也不证明单一术师亲传所有术数 |
+| 安星方法文献 | [TN208 / TNVNPF-110《安星紫㣲錦宅》](https://lib.nomfoundation.org/collection/4/volume/1510/)：无名、无断年、汉文手抄、57页，2013数字影像（机构B级） | 具体安星算法、古抄年代、与明《全书》同法及本地首次使用年月 |
+| 命盘实际绘图记录 | [TN213 / TNVNPF-115《蘿𢼂紫㣲个人》](https://lib.nomfoundation.org/collection/4/volume/1515/)：机构说明有出生资料和手绘命盘，元数据90页／[浏览器61页](https://lib.nomfoundation.org/collection/4/volume/1515/page/1)、2013数字化（机构B级） | 90页与61图不等价且木刻标签与手绘描述存在介质张力；需原图校核而不是静默改正 |
+
+**与13ZV去重：**原先NLV R.293／2008喃文抄本和VASS4992十索书号均不重新登记。这两件来自另一个寺院保藏单元的目录新对象。新增3个来源→1002/150分片；传承图谱451节点/364边，新增2条关系仅为数字替身对应实物，**并无书籍师承关系**；Matrix222/222、14问题含5P0、核心CLOSED不变。详见[15R书群与数字证据边界](./research/TIANWEN-15R-VIETNAM-THANGNGHIEM-TN208-TN213-MANUAL-CHART-COPY-AND-PAGEBOUNDARY-R1.md)。

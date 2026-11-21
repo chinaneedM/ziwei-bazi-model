@@ -243,3 +243,7 @@ Open Library 公开再现的 **Harvard University MARC** 记录 \`OCLC 9449353\`
 ## 15Q｜1731《飛星斗數》在日本海商输入书目出现，NDL藏本的2026数字化路径
 
 [《商舶載來書目》卷十受读](https://www.shidianguji.com/zh/book/NCL14973914/chapter/1mf4pt3qkv0gf)在享保十六辛亥（**1731**）记「飛星斗數一部」；比15P记录的卷九宝历四（**1754**）《紫微斗數全書》一部二本早23年。这是**当前已定位受读输入目录的更早书名**，不是日本首次输入或同书、同版、同规则的证明。国立国会图书馆[原生馆目](https://ndlsearch.ndl.go.jp/books/R100000002-I000007297264)著录《商舶載来書目》**10卷5册写本、235-31**，编者向井富／向井元仲，并公开2026年数字化母项14973505及[第五数字分册14973918](https://ndlsearch.ndl.go.jp/books/R100000039-I14973918)。其物理抄写年代不明，受读电子页中的年号有转录错误，本批尚无原稿目标叶图像及SHA，故按C级受读/B级馆目分层，不把「飛星」与1607十八飞星、清抄小飞星或现代术法画直接传承。详见[15Q研究报告](./research/TIANWEN-15Q-ZIWEI-JAPAN-1731-FEIXING-SHANGBO-NDL-DIGITAL-OBJECT-R1.md)。来源999/149分片，图谱447/362，Matrix222/222，14项遗漏包括五P0与核心CLOSED均未变。
+
+## 15R｜越南寺院藏书的紫微安星文本与命盘实例：两类不同历史见证
+
+VNPF[胜严寺 Thắng Nghiêm II 藏书群](https://lib.nomfoundation.org/collection/4/)的2013年移交说明显示此民间文献组有79项。馆目含两件尚未纳入本仓库的独立紫微相关对象：[TN208《安星紫㣲錦宅》](https://lib.nomfoundation.org/collection/4/volume/1510/)为57页、无确年汉文手抄，描述涉及出生年月日时及诸宫位；[TN213《蘿𢼂紫㣲个人》](https://lib.nomfoundation.org/collection/4/volume/1515/)为一组个人命盘、图式和出生资料记录。二者可支持越南当地曾保存**安星文本和应用实例**两类材料，但还不支持它们同套算法或近现代某师承相传。TN213目录总页数90与在线[61图浏览器](https://lib.nomfoundation.org/collection/4/volume/1515/page/1)及“刻印”材料标签暂不一致，保持来源缺口，不把2013移交/数字化混作抄写年代。两件对象区别于13ZV的越南国图R.293喃文《安紫微國語歌》。已新增目录来源3条，图谱只增加四个实物/数字节点和两个“数字替身对应实物”的证据边，未新增直传谱系、未改运行时。见[15R核验报告](./research/TIANWEN-15R-VIETNAM-THANGNGHIEM-TN208-TN213-MANUAL-CHART-COPY-AND-PAGEBOUNDARY-R1.md)。来源1002条/150分片，图谱451/364，Matrix222/222，14遗留含P0五项，排盘CLOSED。
