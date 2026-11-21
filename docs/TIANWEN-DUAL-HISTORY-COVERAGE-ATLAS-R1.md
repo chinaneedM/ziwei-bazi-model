@@ -505,3 +505,13 @@
 | 香港2011影印出版／台湾电子馆配 | B：[心一堂出版页](https://publish.sunyata.hk/product/967.html)和[高雄市图书馆HyRead](https://ksml.ebook.hyread.com.tw/bookDetail.jsp?id=23272)均列ISBN 9789888058754，前者164页、后者168页 | 两份网页同一现代书且介绍同源；不能算两清稿，也不可用页数字段差异编造另一印次；缺原影及版权页 |
 
 [15L专项对照](./research/TIANWEN-15L-QING-DIXING-HUIYUAN-THREE-FEIXING-CATEGORIES-EVIDENCE-BOUNDARY-R1.md)。本次新增来源2（974/144分片）、图谱442节点358边；四柱宋明与区域分支原有覆盖不变，14未决（P0五项）、G893与CLOSED核心均不变。
+
+## 15M 覆盖格｜日本四柱1800年代《推命書》作品、序年、印本、馆藏
+
+| 时段/对象 | 已得B级正式书目/出版史来源 | 仍不能判明 |
+|---|---|---|
+| 1818文政元年《推命書》序/日本仙台至京都书商 | [九州大学碩水文庫](https://catalog.lib.kyushu-u.ac.jp/opac_details/?lang=0&opkey=B179523733097810&srvce=0&amode=11&bibid=1001172671)三卷、见返/刊记转录，明确1818是序年；[CiNii BA49268624](https://ci.nii.ac.jp/ncid/BA49268624?l=ja)另列北海道/德岛零册和单卷馆藏 | 原页图像仍未核，1818是否当前藏本真实印年及与他馆同一版本待核；不能作日本子平首传断年 |
+| 1831天保二年商号档案 | [裳华房官方历史页](https://www.shokabo.co.jp/history.html)记桜田质（虎门）三册、1831及规格 | 无1831版权叶实物独证、与1818同版/补刻或作者修订范围判断 |
+| 明治1884／1901 两刊本 | [NDL 1884寺田荣助](https://ndlsearch.ndl.go.jp/books/R100000002-I000000423419)三卷合本；[NDL 1901風祥堂](https://ndlsearch.ndl.go.jp/books/R100000002-I000000423420)“仮名附”三册及CiNii BA78387864回录1818旧序 | 未比对两代安柱、取格、行运或中国底本原文；数字化链接/馆藏不等于已核正文 |
+
+[15M日本江户—明治源流笔记](./research/TIANWEN-15M-JAPAN-EDO-SAKURADA-SUIMEISHO-PREFACE-IMPRESSION-REISSUE-BOUNDARY-R1.md)。五条不同记录新增的是历史覆盖而非五份机械规则独证；来源合计979／145分片、图谱447/362，Matrix222/222、风险14含5P0、CLOSED不变。

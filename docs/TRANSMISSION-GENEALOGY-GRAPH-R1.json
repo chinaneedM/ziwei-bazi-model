@@ -7923,6 +7923,89 @@
         "docs/research/TIANWEN-15L-QING-DIXING-HUIYUAN-THREE-FEIXING-CATEGORIES-EVIDENCE-BOUNDARY-R1.md"
       ],
       "first_explicit_graph_batch": "15L"
+    },
+    {
+      "node_id": "TEXT-WORK-JAPAN-SAKURADA-SUIMEISHO",
+      "node_type": "TEXT_WORK",
+      "label": "桜田虎門（鼓缶子）《推命書》三卷作品",
+      "system_scope": "BAZI",
+      "work_composition_date": "1818 or earlier (preface dated 1818; exact completion unknown)",
+      "edition_impression_date": null,
+      "physical_copy_date": null,
+      "digital_surrogate_date": null,
+      "date_scope_note": "1818 preface is earliest verified bibliographic tag for this work, not a proof of complete original edition publication or original Chinese source derivation.",
+      "evidence": [
+        "EXT-TIANWEN-15M-KYUSHU-BA68289530-1818-PREFACE",
+        "EXT-TIANWEN-15M-CINII-BA49268624-1818-CATALOG",
+        "EXT-TIANWEN-15M-NDL-1884-SUIMEISHO-BIB",
+        "docs/research/TIANWEN-15M-JAPAN-EDO-SAKURADA-SUIMEISHO-PREFACE-IMPRESSION-REISSUE-BOUNDARY-R1.md"
+      ],
+      "first_explicit_graph_batch": "15M"
+    },
+    {
+      "node_id": "EDITION-JAPAN-SAKURADA-1818-PREFACE-KYUSHU",
+      "node_type": "EDITION",
+      "label": "九州大学碩水文庫《推命書》文政元年1818序本（印年未独证）",
+      "system_scope": "BAZI",
+      "work_composition_date": "1818 or earlier preface only",
+      "edition_impression_date": null,
+      "physical_copy_date": null,
+      "digital_surrogate_date": null,
+      "date_scope_note": "Kyushu catalog contains 1818 preface, 斅學書院蔵版 title page notice and physical copy identifier; publication impression year inferred catalog only. NIJL linked catalog, image not reviewed.",
+      "evidence": [
+        "EXT-TIANWEN-15M-KYUSHU-BA68289530-1818-PREFACE",
+        "EXT-TIANWEN-15M-CINII-BA49268624-1818-CATALOG",
+        "docs/research/TIANWEN-15M-JAPAN-EDO-SAKURADA-SUIMEISHO-PREFACE-IMPRESSION-REISSUE-BOUNDARY-R1.md"
+      ],
+      "first_explicit_graph_batch": "15M"
+    },
+    {
+      "node_id": "EDITION-JAPAN-SAKURADA-1831-SHOKABO-ARCHIVE",
+      "node_type": "EDITION",
+      "label": "裳華房官方出版沿革1831《推命書》三册书目描述",
+      "system_scope": "BAZI",
+      "work_composition_date": null,
+      "edition_impression_date": "1831 (publisher archive claim, physical imprint unreviewed)",
+      "physical_copy_date": null,
+      "digital_surrogate_date": null,
+      "date_scope_note": "Publication date claim from modern publisher historical archive; precise sheet plates, rebound copies and relation to 1818 edition unverified.",
+      "evidence": [
+        "EXT-TIANWEN-15M-SHOKABO-1831-SUIMEISHO-HISTORY",
+        "docs/research/TIANWEN-15M-JAPAN-EDO-SAKURADA-SUIMEISHO-PREFACE-IMPRESSION-REISSUE-BOUNDARY-R1.md"
+      ],
+      "first_explicit_graph_batch": "15M"
+    },
+    {
+      "node_id": "EDITION-JAPAN-SAKURADA-1884-NDL-TERADA",
+      "node_type": "EDITION",
+      "label": "1884.7京都寺田榮助刊《推命書》三卷，NDL 000000423419",
+      "system_scope": "BAZI",
+      "work_composition_date": null,
+      "edition_impression_date": "1884-07 (NDL catalog)",
+      "physical_copy_date": null,
+      "digital_surrogate_date": null,
+      "date_scope_note": "NDL volume scans publicly listed, not directly folio-collated; no exact copy-to-copy transmission asserted.",
+      "evidence": [
+        "EXT-TIANWEN-15M-NDL-1884-SUIMEISHO-BIB",
+        "docs/research/TIANWEN-15M-JAPAN-EDO-SAKURADA-SUIMEISHO-PREFACE-IMPRESSION-REISSUE-BOUNDARY-R1.md"
+      ],
+      "first_explicit_graph_batch": "15M"
+    },
+    {
+      "node_id": "EDITION-JAPAN-SAKURADA-1901-NDL-KANA",
+      "node_type": "EDITION",
+      "label": "1901.5京都風祥堂《推命書：仮名附》三册，NDL 000000423420",
+      "system_scope": "BAZI",
+      "work_composition_date": null,
+      "edition_impression_date": "1901-05 (NDL catalog)",
+      "physical_copy_date": null,
+      "digital_surrogate_date": null,
+      "date_scope_note": "NDL and CiNii identify separate kana-assisted edition retaining older 1818 preface; book itself not collated for mechanics or plate copying.",
+      "evidence": [
+        "EXT-TIANWEN-15M-NDL-1901-SUIMEISHO-KANA",
+        "docs/research/TIANWEN-15M-JAPAN-EDO-SAKURADA-SUIMEISHO-PREFACE-IMPRESSION-REISSUE-BOUNDARY-R1.md"
+      ],
+      "first_explicit_graph_batch": "15M"
     }
   ],
   "edges": [
@@ -13435,6 +13518,66 @@
       ],
       "scope_note": "Only 2011 composite facsimile explicitly includes a segment titled 地星會源; not a validated Qing manuscript or its exact original material copy and not an algorithm/transmission edge.",
       "adjudication_batch": "15L"
+    },
+    {
+      "edge_id": "TG-E0359",
+      "from": "EDITION-JAPAN-SAKURADA-1818-PREFACE-KYUSHU",
+      "relation": "EDITION_OF",
+      "to": "TEXT-WORK-JAPAN-SAKURADA-SUIMEISHO",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_WITHIN_CATALOG_IDENTITY_SCOPE",
+      "evidence_class": "DIRECT_BIBLIOGRAPHIC_BINDING",
+      "evidence": [
+        "EXT-TIANWEN-15M-KYUSHU-BA68289530-1818-PREFACE",
+        "docs/research/TIANWEN-15M-JAPAN-EDO-SAKURADA-SUIMEISHO-PREFACE-IMPRESSION-REISSUE-BOUNDARY-R1.md"
+      ],
+      "scope_note": "Only authorship/title catalog-level edition of the named Sakurada work; NO direct edition-to-edition copying, full mechanical equality, original-page validation or first Japan arrival inference.",
+      "adjudication_batch": "15M"
+    },
+    {
+      "edge_id": "TG-E0360",
+      "from": "EDITION-JAPAN-SAKURADA-1831-SHOKABO-ARCHIVE",
+      "relation": "EDITION_OF",
+      "to": "TEXT-WORK-JAPAN-SAKURADA-SUIMEISHO",
+      "status": "CONFIRMED",
+      "confidence": "MEDIUM_HIGH_WITHIN_PUBLISHER_ARCHIVE_SCOPE",
+      "evidence_class": "DIRECT_BIBLIOGRAPHIC_BINDING",
+      "evidence": [
+        "EXT-TIANWEN-15M-SHOKABO-1831-SUIMEISHO-HISTORY",
+        "docs/research/TIANWEN-15M-JAPAN-EDO-SAKURADA-SUIMEISHO-PREFACE-IMPRESSION-REISSUE-BOUNDARY-R1.md"
+      ],
+      "scope_note": "Only authorship/title catalog-level edition of the named Sakurada work; NO direct edition-to-edition copying, full mechanical equality, original-page validation or first Japan arrival inference.",
+      "adjudication_batch": "15M"
+    },
+    {
+      "edge_id": "TG-E0361",
+      "from": "EDITION-JAPAN-SAKURADA-1884-NDL-TERADA",
+      "relation": "EDITION_OF",
+      "to": "TEXT-WORK-JAPAN-SAKURADA-SUIMEISHO",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_WITHIN_CATALOG_IDENTITY_SCOPE",
+      "evidence_class": "DIRECT_BIBLIOGRAPHIC_BINDING",
+      "evidence": [
+        "EXT-TIANWEN-15M-NDL-1884-SUIMEISHO-BIB",
+        "docs/research/TIANWEN-15M-JAPAN-EDO-SAKURADA-SUIMEISHO-PREFACE-IMPRESSION-REISSUE-BOUNDARY-R1.md"
+      ],
+      "scope_note": "Only authorship/title catalog-level edition of the named Sakurada work; NO direct edition-to-edition copying, full mechanical equality, original-page validation or first Japan arrival inference.",
+      "adjudication_batch": "15M"
+    },
+    {
+      "edge_id": "TG-E0362",
+      "from": "EDITION-JAPAN-SAKURADA-1901-NDL-KANA",
+      "relation": "EDITION_OF",
+      "to": "TEXT-WORK-JAPAN-SAKURADA-SUIMEISHO",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_WITHIN_CATALOG_IDENTITY_SCOPE",
+      "evidence_class": "DIRECT_BIBLIOGRAPHIC_BINDING",
+      "evidence": [
+        "EXT-TIANWEN-15M-NDL-1901-SUIMEISHO-KANA",
+        "docs/research/TIANWEN-15M-JAPAN-EDO-SAKURADA-SUIMEISHO-PREFACE-IMPRESSION-REISSUE-BOUNDARY-R1.md"
+      ],
+      "scope_note": "Only authorship/title catalog-level edition of the named Sakurada work; NO direct edition-to-edition copying, full mechanical equality, original-page validation or first Japan arrival inference.",
+      "adjudication_batch": "15M"
     }
   ],
   "lineage_hypotheses": [
