@@ -263,3 +263,6 @@ VNPF[胜严寺 Thắng Nghiêm II 藏书群](https://lib.nomfoundation.org/colle
 ## 15Y 越南传承线索：18世纪家谱二手引录与2011–2012现代出版
 
 2026年香港中文大学域名托管的裴伯鈞《越南儒者論卜簽》论文引用2019版越南《唐安丹範家世譜》页117–118，对范珪（1712–1779）所得紫微术提到一段**外舅范嘉運的授受叙事**；并称黎貴惇《芸臺類語》〈理氣語〉涉及「紫微斗數」「子平」等术数。以上是**C级有脚注的现代转引**，不是18世纪原书原字或已证同一学校谱系；民间/神异授受不能作为直接传承事实。越南国家图书馆2012年5月国家书目（PDF印页3）另登记2011 `Tử vi đẩu số nhất bản thông` 越语编译及2012 `Trung Châu tử vi đẩu số tam hợp phái` 两卷本（越南出版）：**B级国家书目证据**支持在地出版与流通对象，不支持从香港某中州派到越南书的已证授受。具体见 [15Y越南双时段来源报告](./research/TIANWEN-15Y-VIETNAM-18C-GENEALOGY-2012-NATIONAL-BIBLIOGRAPHY-R1.md)。原谱、原版书端、紫微规则的传授机制仍OPEN。来源登记1015/155分片；图谱451/364、Matrix222/222与五P0均不变。
+## 15Z 越南范氏家谱两抄本：机构目录将斗数篇定位到A.909
+
+越南汉喃研究院[第一方馆目](https://hannom.vass.gov.vn/?cid=61496&pageid=46955&sachid=2009)登记《唐安丹鑾范家世譜》手写本 **A.909（300页）**、**VHv.1353（162页）**，范廷琥1820年编序不等于两件抄本的抄写年代；A.909内容著录含紫微数术概要。[该院1996年研究报告](https://hannom.vass.gov.vn/tong-muc-luc/2-duong-an-loan-pham-gia-the-pha-mot-cuon-pha-qui-tbhnh-1996-505821)记A.909目录第8部分「Đẩu số y phương khắc trạch」，并警示抄写多误；[1994馆藏缩微目录](https://hannom.vass.gov.vn/web/tchn/data/9404v.htm)给A.909影像路线但不是另一物理见证。**尚未取得古谱原叶**，因此15Y中现代转引范珪／范嘉運授受的逐字、具体师承、紫微安星规则仍OPEN；与四柱子平没有新交叉证明。详见[15Z文献与版本边界](./research/TIANWEN-15Z-VIETNAM-PHAM-GENEALOGY-INSTITUTIONAL-COPIES-R1.md)。史料来源1018（647+371／156分片）、图谱451/364、Matrix222/222、遗漏14含P0五、G893 0/6及排盘核心CLOSED不变。
