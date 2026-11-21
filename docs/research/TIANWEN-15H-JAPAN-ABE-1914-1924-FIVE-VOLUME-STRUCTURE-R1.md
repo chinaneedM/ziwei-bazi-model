@@ -32,3 +32,5 @@ NDL单卷数字书目为[卷一 pid918919](https://ndlsearch.ndl.go.jp/books/R10
 - 后续优先级：若公开原生卷一／卷三／卷四图像能取得，核“干合して十二運變化”、神煞取法和大运接木的原页；若受限，转向双史纲中尚缺直证的历史时期，不再无界扩大日本近代馆藏清单。
 
 本批来源新增2条（总967：根647＋扩展320；141分片），图谱增作品节点1、版本节点2及两个有书目证据的`EDITION_OF`关系（438节点／356边），不是术法师承直接关系。历史Matrix222/222；未决14项／P0五项、G893已定位5/6／终判0/6与确定性排盘CLOSED均保持不变。
+
+**15H CI状态枚举补正（2026-11-21，forward-only）**：原来源分片新造的`BIBLIOGRAPHIC_METADATA_AND_UNREVIEWED_TEXT_EXTRACT_SCOPE`不是仓库许可的`verification_status`枚举；依CI合同规范为`BIBLIOGRAPHIC_METADATA_ONLY`。附带网页PDF文本可见性仍是正文未作原图核读的辅助线索，未提升证据等级、未更改任何历史结论。
