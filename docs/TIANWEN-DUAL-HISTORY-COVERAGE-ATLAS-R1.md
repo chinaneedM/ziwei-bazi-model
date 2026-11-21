@@ -568,3 +568,12 @@
 | 命盘实际绘图记录 | [TN213 / TNVNPF-115《蘿𢼂紫㣲个人》](https://lib.nomfoundation.org/collection/4/volume/1515/)：机构说明有出生资料和手绘命盘，元数据90页／[浏览器61页](https://lib.nomfoundation.org/collection/4/volume/1515/page/1)、2013数字化（机构B级） | 90页与61图不等价且木刻标签与手绘描述存在介质张力；需原图校核而不是静默改正 |
 
 **与13ZV去重：**原先NLV R.293／2008喃文抄本和VASS4992十索书号均不重新登记。这两件来自另一个寺院保藏单元的目录新对象。新增3个来源→1002/150分片；传承图谱451节点/364边，新增2条关系仅为数字替身对应实物，**并无书籍师承关系**；Matrix222/222、14问题含5P0、核心CLOSED不变。详见[15R书群与数字证据边界](./research/TIANWEN-15R-VIETNAM-THANGNGHIEM-TN208-TN213-MANUAL-CHART-COPY-AND-PAGEBOUNDARY-R1.md)。
+
+## 15S 覆盖补格｜越南TN208／TN213的少量可见原稿图幅（不等于全卷校毕）
+
+| 区域／字段 | 页级正面证据 | 缺口与禁止外推 |
+|---|---|---|
+| 越南／紫微安星术语 | [TN208数字第3幅](https://lib.nomfoundation.org/collection/4/volume/1510/page/3)的「紫微斗數」「安陰陽命法」及十干阴阳分组可由公开JPEG复看；本轮无原字节SHA、非完整卷页校勘 | 不把基础天干阴阳分组充作独立紫微星曜或明刊版本相承证据；其余安星程序尚未重建 |
+| 越南／实践文书图形与媒材 | [TN213图幅1](https://lib.nomfoundation.org/collection/4/volume/1515/page/1)有中心放射手绘，图幅2—3有红黑笔迹和分区线；馆目仍为木刻、90页，在线至[第61幅](https://lib.nomfoundation.org/collection/4/volume/1515/page/61) | 未证具体十二宫盘式、整件是手抄还是印本加批、90页与61数字幅的换算/缺页、使用人及原制年代；个人生辰不转录 |
+
+[15S证据笔记](./research/TIANWEN-15S-VIETNAM-TN208-TN213-PUBLIC-FOLIO-YINYANG-COPY-MEDIUM-REVIEW-R1.md)为同一15R来源的**页级增补，不新增源记录、独立物理副本或图谱关系**。来源1002/150、图451/364、Matrix222/222、遗漏14含P0五项与核心CLOSED不变。

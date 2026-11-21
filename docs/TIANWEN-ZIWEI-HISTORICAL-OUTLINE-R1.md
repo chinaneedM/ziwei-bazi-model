@@ -247,3 +247,7 @@ Open Library 公开再现的 **Harvard University MARC** 记录 \`OCLC 9449353\`
 ## 15R｜越南寺院藏书的紫微安星文本与命盘实例：两类不同历史见证
 
 VNPF[胜严寺 Thắng Nghiêm II 藏书群](https://lib.nomfoundation.org/collection/4/)的2013年移交说明显示此民间文献组有79项。馆目含两件尚未纳入本仓库的独立紫微相关对象：[TN208《安星紫㣲錦宅》](https://lib.nomfoundation.org/collection/4/volume/1510/)为57页、无确年汉文手抄，描述涉及出生年月日时及诸宫位；[TN213《蘿𢼂紫㣲个人》](https://lib.nomfoundation.org/collection/4/volume/1515/)为一组个人命盘、图式和出生资料记录。二者可支持越南当地曾保存**安星文本和应用实例**两类材料，但还不支持它们同套算法或近现代某师承相传。TN213目录总页数90与在线[61图浏览器](https://lib.nomfoundation.org/collection/4/volume/1515/page/1)及“刻印”材料标签暂不一致，保持来源缺口，不把2013移交/数字化混作抄写年代。两件对象区别于13ZV的越南国图R.293喃文《安紫微國語歌》。已新增目录来源3条，图谱只增加四个实物/数字节点和两个“数字替身对应实物”的证据边，未新增直传谱系、未改运行时。见[15R核验报告](./research/TIANWEN-15R-VIETNAM-THANGNGHIEM-TN208-TN213-MANUAL-CHART-COPY-AND-PAGEBOUNDARY-R1.md)。来源1002条/150分片，图谱451/364，Matrix222/222，14遗留含P0五项，排盘CLOSED。
+
+## 15S｜胜严寺紫微抄本的可见技术字组与命盘媒材张力（页级复核）
+
+进一步目验VNPF公开的[物件TN208第3幅](https://lib.nomfoundation.org/collection/4/volume/1510/page/3)：页上可辨「紫微斗數」「安陰陽命法」及甲丙戊庚壬/乙丁己辛癸的阴阳天干分组，说明15R的手稿馆目描述有一个可定位的**技术条目正文样张**，但未取得原始JPEG字节SHA或全文，不据此重建命宫／十四主星／男女顺逆法。另见[物件TN213第1幅](https://lib.nomfoundation.org/collection/4/volume/1515/page/1)中心放射手绘图形与[第2、3幅](https://lib.nomfoundation.org/collection/4/volume/1515/page/2)的红黑增注：可确认局部手书/图形层，但其馆目仍称木刻，可能有印刷底本与手添混合，不作全本媒材断言。书目90页与数字浏览器至第61幅仍未对应。未记录任何命盘个人生辰；无新增书目源或传承边，图谱451/364，来源1002/150，14问题含五P0，CLOSED不变。详见[15S直接公开叶面笔记](./research/TIANWEN-15S-VIETNAM-TN208-TN213-PUBLIC-FOLIO-YINYANG-COPY-MEDIUM-REVIEW-R1.md)。
