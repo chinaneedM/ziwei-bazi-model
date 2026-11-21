@@ -19,7 +19,7 @@
 | 1607《萬曆續道藏》收录，紫微 | [14I及15J卷一](./TIANWEN-15J-ZIWEI-MING-QING-REPUBLICAN-STAR-SYSTEM-AND-FEIXING-TERM-CROSSWALK-R1.md)，A限核过的原页 | “照膽經／十八飛星”与**按年支起紫微、按月日时起天杖等**为另一套明确的机械输入 | 1445书中题署与1607收录年非作品写成年；不能与十四主星体系凭“紫微”同名直接并法 |
 | 朝鲜紫微数抄本，断年未决 | [14W《玄藪》p57–65与乙亥字本盘例](./TIANWEN-14W-XUANSOU-ORIGINAL-AND-FANG-SANCHE-R1.md)，A限具体页与例 | 生时纳音取局，太极／天库两向安置；一个实例可局部复算；天数/地数层次可区分 | 抄写和刊印确年、与1430取才条目直接同书关系、与明刊十四星谱系均未证 |
 | 清末／1870／民国至1972，紫微 | [15J机械名目对照](./TIANWEN-15J-ZIWEI-MING-QING-REPUBLICAN-STAR-SYSTEM-AND-FEIXING-TERM-CROSSWALK-R1.md)、[13ZH 1928/1935版次界限](./TIANWEN-13ZH-REPUBLICAN-DOUSHU-XUANWEI-1928-1935-PRINT-HISTORY-R1.md)，A/B/C/D分层 | 1870“十八飞星”与民国、台湾“飞星”为题名/刊行见证；民国《斗数宣微》回溯首版说法未闭合 | 不以书名“飞星”判作1607相同公式；刊行地点和藏书不证明线下师承 |
-| 清代抄本—民国—海外，四柱 | [14A/14B《耕寸集》馆目及有限开篇](./TIANWEN-14A-QING-GENGCUNJI-ORIGINAL-CATALOG-R1.md)、[13ZR 1935第三版《精選命理約言》](./TIANWEN-13ZR-JINGXUAN-MINGLI-YUEYAN-1933-1935-EDITION-CROSSWALK-R1.md)、[15H日本1914五卷术法目录](./TIANWEN-15H-JAPAN-ABE-1914-1924-FIVE-VOLUME-STRUCTURE-R1.md) | 清代著作保存，1935印本回溯1933/1934印次，1914日本出版物已有四柱构造/十干合化/大运主题目录 | 现存清抄＝沈孝瞻本人定稿、1935与1936相同版片、1914日本实际承中国某书逐句师授，均不可推定 |
+| 清代抄本—民国—海外，四柱 | [14A/14B《耕寸集》馆目及有限开篇](./TIANWEN-14A-NCL06599-GENGCUNJI-QING-MANUSCRIPT-CATALOG-R1.md)、[13ZR 1935第三版《精選命理約言》](./TIANWEN-13ZR-JINGXUAN-MINGLI-YUEYAN-1933-1935-EDITION-CROSSWALK-R1.md)、[15H日本1914五卷术法目录](./TIANWEN-15H-JAPAN-ABE-1914-1924-FIVE-VOLUME-STRUCTURE-R1.md) | 清代著作保存，1935印本回溯1933/1934印次，1914日本出版物已有四柱构造/十干合化/大运主题目录 | 现存清抄＝沈孝瞻本人定稿、1935与1936相同版片、1914日本实际承中国某书逐句师授，均不可推定 |
 
 ## 二、历史叙述中的五个“断层”，现在不允许自动补桥
 
