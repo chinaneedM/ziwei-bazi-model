@@ -1,0 +1,53 @@
+{
+  "schema": "TIANWEN-15H-JAPAN-ABE-1914-1924-BIBLIOGRAPHY-SOURCE-SHARD-R1",
+  "date": "2026-11-21",
+  "sources": [
+    {
+      "source_id": "EXT-TIANWEN-15H-NDL-ABE-1914-FIVEVOLUME",
+      "title": "阿部熹作1914大阪《四柱推命学大奥極秘伝》一至五卷及卷1/3/4目录",
+      "provider": "National Diet Library of Japan / NDL Search",
+      "url": "https://ndlsearch.ndl.go.jp/books/R100000002-I000000540667",
+      "historical_period": "JAPAN_1914_BAZI_5VOLUME_PRINTING",
+      "source_role": "FIRSTPARTY_1914_CATALOG_AND_SAME_COPY_VOLUME_TOC_RULE_FAMILY_BREADTH",
+      "quality_notes": "NDLBibID 000000540667 特112-995 1914 Yajima Seishindo five volumes; pid918919/918921/918922 index basic chart, combinations/shensha, fortune layers. Commons pid918921 same digital object; PDF web extraction exists but 47 MB native bytes and screenshot not obtained; no native original glyph or mechanical formula adjudication. Do not count each fascicle as a distinct physical witness.",
+      "physical_glyph_authority": false,
+      "verification_status": "BIBLIOGRAPHIC_METADATA_AND_UNREVIEWED_TEXT_EXTRACT_SCOPE",
+      "access_date": "2026-11-21",
+      "evidence": "docs/research/TIANWEN-15H-JAPAN-ABE-1914-1924-FIVE-VOLUME-STRUCTURE-R1.md"
+    },
+    {
+      "source_id": "EXT-TIANWEN-15H-CINII-ABE-1924-CORRECTED-REPRINT",
+      "title": "CiNii BA88607639 阿部熹作1924京都大阪订再版《四柱推命學大奥極秘傳》五册合订本",
+      "provider": "National Institute of Informatics / CiNii Books, Osaka Prefectural Nakanoshima Library holding",
+      "url": "https://ci.nii.ac.jp/ncid/BA88607639",
+      "historical_period": "JAPAN_1924_REPRINT_BAZI_FIVEVOLUME_ABE",
+      "source_role": "ACADEMIC_HOLDING_1924_CORRECTED_REPRINT_AND_RETROSPECTIVE_1914_FIRST_EDITION_COLOPHON",
+      "quality_notes": "NCID BA88607639 1924.8 藤井佐兵衛/矢島誠進堂 one combined physical volume; remark first issue 1914-06-05 transcribed from 1924 copy's colophon, not original 1914 first-print image. Do not equate same author with distinct 1929 Gokui Himitsu Kaiden 3 vols.",
+      "physical_glyph_authority": false,
+      "verification_status": "BIBLIOGRAPHIC_METADATA_ONLY",
+      "access_date": "2026-11-21",
+      "evidence": "docs/research/TIANWEN-15H-JAPAN-ABE-1914-1924-FIVE-VOLUME-STRUCTURE-R1.md"
+    }
+  ],
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [
+      "TEXT-WORK-JAPAN-ABE-SHICHU-DAIO-GOKUHI",
+      "EDITION-JAPAN-ABE-DAIO-GOKUHI-1914-NDL-5V",
+      "EDITION-JAPAN-ABE-DAIO-GOKUHI-1924-CINII-CORRECTED"
+    ],
+    "edges_supported": [
+      "TG-E0355",
+      "TG-E0356"
+    ],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "1924 corrected reprint edition-of same titled work does not attest original word-for-word recensional identity.",
+      "1914 five-volume D aio Gokuhi and 1929 three-volume Gokui Himitsu Kaiden have distinct titles; same author does not prove one edition of the other.",
+      "PDF-derived text headings are not native original folio or mechanism adjudication."
+    ],
+    "unresolved_lineage_questions": [
+      "Original 1914 colophons, 1924 textual differences, Chinese source genealogy of subject rule families.",
+      "Same author’s separate 1929 publication: textual dependence and actual teaching transmission unproved."
+    ]
+  }
+}

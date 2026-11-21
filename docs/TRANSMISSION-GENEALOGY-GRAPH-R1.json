@@ -7807,6 +7807,55 @@
         "docs/research/TIANWEN-15G-JAPAN-MATSUMOTO-1906-CINII-UNIVERSITY-HOLDINGS-AND-NDL-SURROGATE-ACCESS-R1.md"
       ],
       "first_explicit_graph_batch": "15G"
+    },
+    {
+      "node_id": "TEXT-WORK-JAPAN-ABE-SHICHU-DAIO-GOKUHI",
+      "node_type": "TEXT_WORK",
+      "label": "阿部熹作《四柱推命学大奥極秘伝》五卷作品",
+      "system_scope": "BAZI",
+      "work_composition_date": "1914 or earlier (NDL 1914 publication; exact completion date unverified)",
+      "edition_impression_date": null,
+      "physical_copy_date": null,
+      "digital_surrogate_date": null,
+      "date_scope_note": "1914 NDL first known publication anchor, not independently certified 1914 first original imprint; distinguish 1929 differently titled three-volume work.",
+      "evidence": [
+        "EXT-TIANWEN-15H-NDL-ABE-1914-FIVEVOLUME",
+        "EXT-TIANWEN-15H-CINII-ABE-1924-CORRECTED-REPRINT",
+        "docs/research/TIANWEN-15H-JAPAN-ABE-1914-1924-FIVE-VOLUME-STRUCTURE-R1.md"
+      ],
+      "first_explicit_graph_batch": "15H"
+    },
+    {
+      "node_id": "EDITION-JAPAN-ABE-DAIO-GOKUHI-1914-NDL-5V",
+      "node_type": "EDITION",
+      "label": "1914大阪矢島誠進堂 阿部《四柱推命学大奥極秘伝》五卷NDL本",
+      "system_scope": "BAZI",
+      "work_composition_date": null,
+      "edition_impression_date": "1914 (NDL bibliographic publication year)",
+      "physical_copy_date": null,
+      "digital_surrogate_date": "NDL digitization date unverified in this research batch",
+      "date_scope_note": "NDL 000000540667, 特112-995, five fascicles; vol 3 pid918921 same physical collection surrogate, no original glyph or printing colophon read.",
+      "evidence": [
+        "EXT-TIANWEN-15H-NDL-ABE-1914-FIVEVOLUME",
+        "docs/research/TIANWEN-15H-JAPAN-ABE-1914-1924-FIVE-VOLUME-STRUCTURE-R1.md"
+      ],
+      "first_explicit_graph_batch": "15H"
+    },
+    {
+      "node_id": "EDITION-JAPAN-ABE-DAIO-GOKUHI-1924-CINII-CORRECTED",
+      "node_type": "EDITION",
+      "label": "1924京都／大阪同题阿部五卷合订订再版（CiNii BA88607639）",
+      "system_scope": "BAZI",
+      "work_composition_date": null,
+      "edition_impression_date": "1924-08 (CiNii catalog)",
+      "physical_copy_date": null,
+      "digital_surrogate_date": null,
+      "date_scope_note": "One combined volume of five in Osaka Nakanoshima Library. Printed note retrospectively attributes first edition to 1914-06-05; original 1914 colophon and actual revision not checked.",
+      "evidence": [
+        "EXT-TIANWEN-15H-CINII-ABE-1924-CORRECTED-REPRINT",
+        "docs/research/TIANWEN-15H-JAPAN-ABE-1914-1924-FIVE-VOLUME-STRUCTURE-R1.md"
+      ],
+      "first_explicit_graph_batch": "15H"
     }
   ],
   "edges": [
@@ -13258,6 +13307,36 @@
       ],
       "scope_note": "Direct first part pp47–48 year and day roles.",
       "adjudication_batch": "14W"
+    },
+    {
+      "edge_id": "TG-E0355",
+      "from": "EDITION-JAPAN-ABE-DAIO-GOKUHI-1914-NDL-5V",
+      "relation": "EDITION_OF",
+      "to": "TEXT-WORK-JAPAN-ABE-SHICHU-DAIO-GOKUHI",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_WITHIN_CATALOG_SCOPE",
+      "evidence_class": "DIRECT_BIBLIOGRAPHIC_BINDING",
+      "evidence": [
+        "EXT-TIANWEN-15H-NDL-ABE-1914-FIVEVOLUME",
+        "docs/research/TIANWEN-15H-JAPAN-ABE-1914-1924-FIVE-VOLUME-STRUCTURE-R1.md"
+      ],
+      "scope_note": "1914 NDL work-title and five-volume edition binding; not same-copy across later editions.",
+      "adjudication_batch": "15H"
+    },
+    {
+      "edge_id": "TG-E0356",
+      "from": "EDITION-JAPAN-ABE-DAIO-GOKUHI-1924-CINII-CORRECTED",
+      "relation": "EDITION_OF",
+      "to": "TEXT-WORK-JAPAN-ABE-SHICHU-DAIO-GOKUHI",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_WITHIN_CATALOG_SCOPE",
+      "evidence_class": "DIRECT_BIBLIOGRAPHIC_BINDING",
+      "evidence": [
+        "EXT-TIANWEN-15H-CINII-ABE-1924-CORRECTED-REPRINT",
+        "docs/research/TIANWEN-15H-JAPAN-ABE-1914-1924-FIVE-VOLUME-STRUCTURE-R1.md"
+      ],
+      "scope_note": "1924 catalog explicitly says same work titled five volumes bound in one corrected reprint; no text identity or direct reprinting plates inferred.",
+      "adjudication_batch": "15H"
     }
   ],
   "lineage_hypotheses": [
