@@ -251,3 +251,7 @@ VNPF[胜严寺 Thắng Nghiêm II 藏书群](https://lib.nomfoundation.org/colle
 ## 15S｜胜严寺紫微抄本的可见技术字组与命盘媒材张力（页级复核）
 
 进一步目验VNPF公开的[物件TN208第3幅](https://lib.nomfoundation.org/collection/4/volume/1510/page/3)：页上可辨「紫微斗數」「安陰陽命法」及甲丙戊庚壬/乙丁己辛癸的阴阳天干分组，说明15R的手稿馆目描述有一个可定位的**技术条目正文样张**，但未取得原始JPEG字节SHA或全文，不据此重建命宫／十四主星／男女顺逆法。另见[物件TN213第1幅](https://lib.nomfoundation.org/collection/4/volume/1515/page/1)中心放射手绘图形与[第2、3幅](https://lib.nomfoundation.org/collection/4/volume/1515/page/2)的红黑增注：可确认局部手书/图形层，但其馆目仍称木刻，可能有印刷底本与手添混合，不作全本媒材断言。书目90页与数字浏览器至第61幅仍未对应。未记录任何命盘个人生辰；无新增书目源或传承边，图谱451/364，来源1002/150，14问题含五P0，CLOSED不变。详见[15S直接公开叶面笔记](./research/TIANWEN-15S-VIETNAM-TN208-TN213-PUBLIC-FOLIO-YINYANG-COPY-MEDIUM-REVIEW-R1.md)。
+
+## 15T 增补｜广度验收：先证明“术式从哪里出现”，再谈直系传承
+
+[15T 双史纲跨时期源流证据表](./research/TIANWEN-15T-DUAL-HISTORY-MECHANICAL-ATTESTATION-BREADTH-GAP-GATE-R1.md)把北宋星命 P.4071、1430/1441紫微短题、1581《捷览》、明刊南阳堂卷三、1607《续道藏》十八飞星、朝鲜《玄藪》另路起例和1870—1972飞星题名分成**星宫前史／题名／可读操作／现代出版**四种证明。可成立的是各对象在其具体载体上的独立存在与部分机制，未能成立的是由共同“紫微”或“飞星”字眼推出单一创始人、直接抄传或同一安星函数。本表不新增史源、算法或传承关系，仍需补明前紫微有原页的机械过渡与清民国真实教学传承。Matrix222/222、来源1002/150、图451/364、遗留14含5P0及CLOSED不变。
