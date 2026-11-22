@@ -12,7 +12,7 @@
   "binding": {
     "repository": "chinaneedM/ziwei-bazi-model",
     "branch": "agent/fusion-chart-core-r1-20260822",
-    "reviewed_state_version": "1.1404.0",
+    "reviewed_state_version": "1.1405.0",
     "source_focus_count": 3108,
     "latest_research_focus_prefix": "13ZZ"
   },
@@ -33970,6 +33970,53 @@
           "scope": "15BC_TECHNICAL_TERMS_VS_ZIPING_ALGORITHMS",
           "status": "OPEN",
           "next_evidence": "Split terms into rule families and compare independently sourced earlier/later worked examples; historical C term names alone insufficient for production deterministic routines."
+        }
+      ]
+    },
+    {
+      "id": "OMISSIONS-15BD-HU-1776-PREFACE-39-47-AND-SOURCE-ENUM-CI-REPAIR-20261122",
+      "date": "2026-11-22",
+      "state_version": "1.1405.0",
+      "reviewed_issue_ids": [
+        "TW-OPEN-0001",
+        "TW-OPEN-0002",
+        "TW-OPEN-0003",
+        "TW-OPEN-0004",
+        "TW-OPEN-0005",
+        "TW-OPEN-0006",
+        "TW-OPEN-0007",
+        "TW-OPEN-0008",
+        "TW-OPEN-0009",
+        "TW-OPEN-0010",
+        "TW-OPEN-0011",
+        "TW-OPEN-0012",
+        "TW-OPEN-0013",
+        "TW-OPEN-0014",
+        "TW-OPEN-0015"
+      ],
+      "discovery_mode": "BREADTH_FIRST_QING_PREFACE_LATE_SHANGHAI_EDITION_IMAGE_AND_FAIL_CLOSED_SOURCE_REGISTRY_FIX",
+      "result": "Recovered current HEAD 15BC GitHub CI failures and traced 6 jobs to 15BB custom verification_status enum values. Normalized 2 received sources to RECEIVED_TEXT_VERIFIED and unproofread Gujin target to UNVERIFIED_TARGET_LOCATOR_QUARANTINED; all physical_glyph_authority remain false, original SHA and new SHA recorded in manifest. Added one not previously registered NLC416 Shanghai 世界图书馆 later-edition public surrogate, visually inspected source PDF pages 2-4 for 1776 Hu preface recording 39 pieces, initial TOC pages5-6 and later print C-level 47-essay index; original publication [19--?] and lineage to 06599/1895 still unproved. New total source1072=647+425 across174 shards, Matrix222/222 graph451/364, all15 issues including5 P0 OPEN/BLOCKED; no G893 adjudication nor chart runtime change.",
+      "evidence_refs": [
+        "docs/research/TIANWEN-15BD-ZIPING-ZHENQUAN-1776-HU-PREFACE-39-VS-47-SHANGHAI-RECEIVED-R1.md",
+        "docs/research/TIANWEN-15BD-ZIPING-ZHENQUAN-NLC416-1776-HU-PREFACE-SOURCE-SHARD-R1.json",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json",
+        "https://commons.wikimedia.org/wiki/File:NLC416-11jh010455-35296_%E5%AD%90%E5%B9%B3%E7%9C%9F%E8%A9%AE.pdf"
+      ],
+      "unresolved_breadth_leads": [
+        {
+          "scope": "15BD_NLC416_HU_1776_PREFACE_AND_SHANGHAI_EDITION",
+          "status": "OPEN",
+          "next_evidence": "Obtain legal original PDF and page digests if possible; verify exact Shanghai publisher imprint date, 39/47 chapter counts across whole contents, and bundled appendix boundary without assuming 1776 physical imprint."
+        },
+        {
+          "scope": "15BD_NLC06599_GENGCUNJI_AND_NLC416_ZIPING_EDITIONS",
+          "status": "OPEN",
+          "next_evidence": "Compare precisely verified chapter ranges and original fonts/prints, not just analogous titles, to determine if two works share a textual ancestor."
+        },
+        {
+          "scope": "15BD_1895_BAO-HUI_COTTAGE_EDITORIAL_EVIDENCE",
+          "status": "OPEN",
+          "next_evidence": "Locate primary leaf and bibliography for 1895 光绪 报晖草堂; its 2册／1卷 bibliographic differences are not Shanghai NLC416 imprint facts."
         }
       ]
     }
