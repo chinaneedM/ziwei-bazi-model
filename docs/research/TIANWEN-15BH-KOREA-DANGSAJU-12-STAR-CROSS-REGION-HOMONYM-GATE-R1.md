@@ -42,3 +42,8 @@
 **transmission_impact**：只新增「未證/不得直連」研究邊界，圖譜無確證邊；不因2011學者的視覺比較把傳播順序定性。六條新增**來源記錄**含兩個百科頁、一篇論文摘要、一組兩冊韓圖數碼館藏、一件東大藏書接口、一組中國受讀文字，**非六份古籍原頁**。來源1090=根647＋扩展443（178分片）；Matrix222/222、圖451/364、風險15含五P0、G893最終0/6、排盤核心CLOSED不變。
 
 [15BH來源分片](./TIANWEN-15BH-KOREA-DANGSAJU-BOOKS-ACADEMIC-COMPARATORS-SOURCE-SHARD-R1.json)。
+
+
+## 15BI前向书名订正（2026-11-22）
+
+本批来源分片2011KCI论文备注曾把比较书名写为「**大驛單例卜筮元龜**」。依据[京都大学官方RB00012975目录](https://rmda.kulib.kyoto-u.ac.jp/item/rb00012975)及[KCI英文摘要](https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART001567227)的*Daieki danrei bokusei genki*，现应为「**大易斷例卜筮元龜**」。研究所比日本稿本属于**庆应义塾大学斯道文库**，非新发现的京都大学藏本；京都抄本的室町判定和1307年序年相互独立。已在原来源ID备注中明留错字、正确题名和本条勘误；初次Git版本仍存档。详[15BI馆藏核验](./TIANWEN-15BI-DAIEKI-1307-PREFACE-MUROMACHI-COPY-KEIO-COMPARATOR-ERRATUM-R1.md)。15BI另登2个不同馆藏对象，总来源1092（647+445/179片），不变更15BH六条原来源计数和未证传承判定。

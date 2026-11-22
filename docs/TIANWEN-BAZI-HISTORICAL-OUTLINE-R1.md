@@ -476,3 +476,8 @@ NDL第一方编目列[1906年大阪天祥館四册](https://ndlsearch.ndl.go.jp/
 ## 15BH｜朝鮮《唐四柱》十二星法與子平八字的「四柱」同名防火牆（2026-11-22）
 
 韓國學中央研究院[《唐四柱》方法條](https://encykorea.aks.ac.kr/Article/E0013895)明分「用年、月、日、時逐步數十二星」與通常以干支五行/大運構造的四柱命理，後者不能把前者直接等同中國子平。韩国国图**一件两册**笔写本索引CNTS-00047981929/KOL000021690有Commons公开PDF元数据，但本轮因大文件无法核原页、断抄年。2011 Kim Shiduck [书志论文](https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART001567227)以图像分A/B型，提出与中国《演禽斗數三世相》及日本相关抄本可能关联，但共同祖本和传播方向未证。东京大学[ASIA0011《平生四柱吉凶诀》](https://u-parl.lib.u-tokyo.ac.jp/japanese/arldc)为另一朝鲜图解写本、校方暂推约19C末—20C初，**不得据同名认同一书**。中国[《三世相》受读本](https://www.shidianguji.com/zh/book/SDZJ0624/chapter/1lctrnw6deq07)自称嘉靖十九(1540)序，不具原刻日期裁决权；题「唐袁天罡撰」也非唐代作者实证。详[15BH韓國十二星唐四柱與中日傳播候選](./research/TIANWEN-15BH-KOREA-DANGSAJU-12-STAR-CROSS-REGION-HOMONYM-GATE-R1.md)。来源1090（647+443/178片）、Matrix222/222、图451/364、风险15含P0五、G8930/6，排盘CLOSED。
+
+
+## 15BI｜韩《唐四柱》中日文图像书志更正（2026-11-22）
+
+15BH参考2011韩国研究一条日本比较书名误写「大驛單例卜筮元龜」，本轮按[京都大学官方RB00012975](https://rmda.kulib.kyoto-u.ac.jp/item/rb00012975)更正「**大易斷例卜筮元龜**」。其京都两册写本由目录判**室町时代**，序末**大德十一(1307)**仅是序文日期，**不能代表该写本抄年**。另有[国图善本03114](https://commons.wikimedia.org/wiki/File:NLC892-007438117-71566_%E5%A4%A7%E6%98%93%E6%96%B7%E4%BE%8B%E5%8D%9C%E7%AD%AE%E5%85%83%E9%BE%9C_%E7%AC%AC1%E5%86%8A.pdf)的不详年抄本；2011论文实际引用的图像对照是**庆应义塾大学斯道文库**本，又是另一物件。三馆藏、1307序年、实际抄年与2022数字重传分开，不据图像同题推中国子平算法或韩国唐四柱直传。[15BI勘误详证](./research/TIANWEN-15BI-DAIEKI-1307-PREFACE-MUROMACHI-COPY-KEIO-COMPARATOR-ERRATUM-R1.md)。新增两馆藏入口，来源1092/179片、Matrix222/222、图451/364、风险15含五P0、CLOSED不变。
