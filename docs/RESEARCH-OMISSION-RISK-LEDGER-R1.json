@@ -12,7 +12,7 @@
   "binding": {
     "repository": "chinaneedM/ziwei-bazi-model",
     "branch": "agent/fusion-chart-core-r1-20260822",
-    "reviewed_state_version": "1.1393.0",
+    "reviewed_state_version": "1.1394.0",
     "source_focus_count": 3108,
     "latest_research_focus_prefix": "13ZZ"
   },
@@ -33435,6 +33435,49 @@
           "scope": "1934_DINGMINGLU_PHYSICAL_PRINT_AND_MECHANICAL_TEXT_REPLAY",
           "status": "OPEN",
           "next_evidence": "If needed later, acquire lawful complete source PDF bytes, source/page hashes and edition/copy scope before exact glyph collation or comparing mechanical rules"
+        }
+      ]
+    },
+    {
+      "id": "OMISSIONS-15AS-NCL1915-YUAN1951-PREFACE-CHRONOLOGY-ERRATUM-20261122",
+      "date": "2026-11-22",
+      "state_version": "1.1394.0",
+      "reviewed_issue_ids": [
+        "TW-OPEN-0001",
+        "TW-OPEN-0002",
+        "TW-OPEN-0003",
+        "TW-OPEN-0004",
+        "TW-OPEN-0005",
+        "TW-OPEN-0006",
+        "TW-OPEN-0007",
+        "TW-OPEN-0008",
+        "TW-OPEN-0009",
+        "TW-OPEN-0010",
+        "TW-OPEN-0011",
+        "TW-OPEN-0012",
+        "TW-OPEN-0013",
+        "TW-OPEN-0014"
+      ],
+      "discovery_mode": "BREADTH_FIRST_FORWARD_ONLY_EDITION_DATE_SCOPE_CORRECTION_REUSING_NCL_ORIGINAL",
+      "result": "15AS reviews the existing NCL-000002203 1915 Hong Kong catalog and same NCL-origin 486-page public PDF browser text, finding distinct 1915 民國四年 original-preface and 1951 辛卯 author-revision-preface strata. 2014 Heart & Yi Tang first-party retrospective reports separate 1950s Hong Kong reprint base and early 1915/1916 work history; modern reprint private base is not the authenticated NCL original copy. The author's c1951 mention of 上海命學苑之新命 is retrospective and cannot establish the physical 1927 first issue or name spelling. Previous 15U metadata-only source preserved as archival observation; new source1 publisher metadata, union1055/168; graph451/364, Matrix222/222, 14 issues with five P0, G8930/6 and closed chart unchanged. PDF page screenshots failed because 55MB source; no source/page SHA or glyph adjudication.",
+      "evidence_refs": [
+        "docs/research/TIANWEN-15AS-YUAN-XINMINGLI-1915-CATALOG-VS-1951-PREFACE-AND-XINMING-RECALL-R1.md",
+        "docs/research/TIANWEN-15AS-YUAN-1951-PREFACE-2014-PUBLISHER-SCOPE-SOURCE-SHARD-R1.json",
+        "docs/research/TIANWEN-15U-YUANSHUSHAN-1915-1938-NCL-EDITION-TITLE-SCOPE-R1.md",
+        "https://taiwanebook.ncl.edu.tw/zh-tw/book/NCL-000002203",
+        "https://commons.wikimedia.org/wiki/File:NCL-000002203_%E6%96%B0%E5%91%BD%E7%90%86%E6%8E%A2%E5%8E%9F.pdf",
+        "https://store.showwe.tw/books.aspx?b=2946"
+      ],
+      "unresolved_breadth_leads": [
+        {
+          "scope": "NCL000002203_1915_CATALOG_VS_1951_REVISION_COPY_BINDING",
+          "status": "OPEN",
+          "next_evidence": "Acquire original-page bound title, revised and original preface, colophon and folio hash; determine catalog year referent and actual physical print edition without retroactive source mutation"
+        },
+        {
+          "scope": "1927_XINMING_ORIGINAL_FIRST_ISSUE_AND_ASSOCIATION",
+          "status": "OPEN",
+          "next_evidence": "Authenticated first 1927 Xinming original issue, item call number, full title/founding declaration/colophon; only then assess 1951 苑 and 1934 社 wording, not from 2018 publisher blurbs"
         }
       ]
     }
