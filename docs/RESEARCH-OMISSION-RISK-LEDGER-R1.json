@@ -12,7 +12,7 @@
   "binding": {
     "repository": "chinaneedM/ziwei-bazi-model",
     "branch": "agent/fusion-chart-core-r1-20260822",
-    "reviewed_state_version": "1.1400.0",
+    "reviewed_state_version": "1.1401.0",
     "source_focus_count": 3108,
     "latest_research_focus_prefix": "13ZZ"
   },
@@ -14352,6 +14352,35 @@
           ],
           "status_unchanged": "OPEN",
           "priority_unchanged": "P1"
+        }
+      ]
+    },
+    {
+      "id": "TW-OPEN-0015",
+      "title": "徐居正《五行摠括》1458著述回记与1467《五行揔括序》年代及原字归属",
+      "priority": "P1",
+      "scope": "BAZI_JOSEON_1458_VS_1467_OHAENG_PREFACE_DATE_EDITION",
+      "status": "OPEN",
+      "origin": "15AZ_SAGAJIP_FOURPILLAR_RECEIVED_TEXT_2026-11-22",
+      "source_refs": [
+        "docs/research/TIANWEN-15AZ-SAGAJIP-1467-PREFACE-PIRWONJAPGI-FOUR-PILLARS-RECEIVED-TEXT-R1.md",
+        "docs/research/TIANWEN-15AY-JOSEON-1458-OHAENGCHONGGWAL-AND-1791-MYEONGGWA-EXAM-PIVOT-R1.md",
+        "docs/research/TIANWEN-15AZ-SAGAJIP-PIRWONJAPGI-1467-RECEIVED-AND-HOLDINGS-SOURCE-SHARD-R1.json"
+      ],
+      "evidence_boundary": "1488史录回记1458戊寅著《五行摠括》、后传四佳集文集卷四序署丁亥1467并记进书/赐名；尚未取得奎7027或早稻田ヘ16 02415原叶，也未裁定异版或阶段关系。",
+      "missing_evidence": "可单叶鉴定的四佳集卷四原图、旧本校记和1458—1467同期书成／进呈／赐名纪录，摠／揔／總版本归属。",
+      "next_action": "免费合法取得奎7027或早稻田ヘ16 02415卷四目标叶／NLC 한46-529影印底本页，核1458/1467同时代来源；受阻保留OPEN。",
+      "closure_criteria": "至少独立原页和同代日期记事厘清事件层，或形成有边界的可靠分版判读；没有证据不关闭。",
+      "resolution_evidence": [],
+      "history": [
+        {
+          "event": "REGISTERED_UNRESOLVED",
+          "date": "2026-11-22",
+          "basis": "15AY 1488 obituary retrospectively dates work to 1458; 15AZ later received separate text signs 丁亥1467. May be distinct stages, not proved nine-year writing or conflicting editions.",
+          "evidence_refs": [
+            "docs/research/TIANWEN-15AZ-SAGAJIP-1467-PREFACE-PIRWONJAPGI-FOUR-PILLARS-RECEIVED-TEXT-R1.md",
+            "docs/research/TIANWEN-15AY-JOSEON-1458-OHAENGCHONGGWAL-AND-1791-MYEONGGWA-EXAM-PIVOT-R1.md"
+          ]
         }
       ]
     }
@@ -33746,6 +33775,55 @@
           "scope": "15AY_ZIWEI_BAZI_SEPARATE_JOSEON_CURRICULA",
           "status": "OPEN",
           "next_evidence": "Keep 1430 official 紫微數 title and 徐居正 五行摠括 as independent rule/people/course branches; no direct copying inference"
+        }
+      ]
+    },
+    {
+      "id": "OMISSIONS-15AZ-JOSEON-1467-FOURPILLARS-20261122",
+      "date": "2026-11-22",
+      "state_version": "1.1401.0",
+      "reviewed_issue_ids": [
+        "TW-OPEN-0001",
+        "TW-OPEN-0002",
+        "TW-OPEN-0003",
+        "TW-OPEN-0004",
+        "TW-OPEN-0005",
+        "TW-OPEN-0006",
+        "TW-OPEN-0007",
+        "TW-OPEN-0008",
+        "TW-OPEN-0009",
+        "TW-OPEN-0010",
+        "TW-OPEN-0011",
+        "TW-OPEN-0012",
+        "TW-OPEN-0013",
+        "TW-OPEN-0014",
+        "TW-OPEN-0015"
+      ],
+      "discovery_mode": "BREADTH_FIRST_1467_JOSEON_AUTHOR_PREFACE_AND_RECEIVED_FOURPILLARS_TEXT_WITH_INDEPENDENT_HOLDING_METADATA",
+      "result": "15AZ registers new P1 TW-OPEN-0015 concerning 1458/1467 author event separation, received public 四佳集序 with handbook contents, 筆苑雜記 四柱 518400 combinatorial critique, dated late prefaces, Kyu1705-postface and undated Waseda holdings, and MKStudy critical edition base attribution; no original page glyph, direct literary stemma, or mechanical algorithm. Sources1065=647+418/171, graph451/364, Matrix222/222, omission15 incl five unchanged P0, G8930/6, core CLOSED.",
+      "evidence_refs": [
+        "docs/research/TIANWEN-15AZ-SAGAJIP-1467-PREFACE-PIRWONJAPGI-FOUR-PILLARS-RECEIVED-TEXT-R1.md",
+        "docs/research/TIANWEN-15AZ-SAGAJIP-PIRWONJAPGI-1467-RECEIVED-AND-HOLDINGS-SOURCE-SHARD-R1.json",
+        "https://zh.wikisource.org/wiki/四佳集/文集卷四",
+        "https://zh.wikisource.org/wiki/筆苑雜記",
+        "https://kyudb.snu.ac.kr/book/view.do?book_cd=GK07027_00",
+        "https://www.wul.waseda.ac.jp/kotenseki/html/he16/he16_02415/index.html"
+      ],
+      "unresolved_breadth_leads": [
+        {
+          "scope": "15AZ_ORIGINAL_SAGAJIP_1467_AND_1458_EVENT",
+          "status": "OPEN",
+          "next_evidence": "Target original卷四 folio binding and distinct 1458–1467 documentary dates; verify 摠/揔."
+        },
+        {
+          "scope": "15AZ_PIRWONJAPGI_RECEIVED_GLYPH",
+          "status": "OPEN",
+          "next_evidence": "Old print卷一 leaf for 甲巳/甲己 and web Korean fragment; validate actual 1486/1487 preface editions."
+        },
+        {
+          "scope": "15AZ_KYU_WASEDA_NLC_HOLDING_CROSSWALK",
+          "status": "OPEN",
+          "next_evidence": "Page-level original old copies, Kyu versus Waseda identity; edited NLC 한46-529 base provenance."
         }
       ]
     }
