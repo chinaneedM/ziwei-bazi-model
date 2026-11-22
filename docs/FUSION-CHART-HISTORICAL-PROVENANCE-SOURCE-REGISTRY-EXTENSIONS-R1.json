@@ -1043,7 +1043,7 @@
     {
       "path": "docs/research/TIANWEN-15BB-WENSHAN-JOSEON-518400-RECEIVED-CROSSREAD-SOURCE-SHARD-R1.json",
       "schema": "TIANWEN-15BB-WENSHAN-JOSEON-518400-RECEIVED-CROSSREAD-SOURCE-SHARD-R1",
-      "blob_sha": "ed067af791d8e0f3400227cbe7ebeb2162d3542b",
+      "blob_sha": "1e195a2c9ab21d482a5c3ca62d976b2e89c66a7b",
       "source_count": 3
     }
   ],
@@ -1505,5 +1505,32 @@
     "matrix_rows": 222,
     "missing_p0": 5,
     "algorithm_status": "CLOSED"
+  },
+  "forward_only_status_erratum_15bd": {
+    "date": "2026-11-22",
+    "reason": "CI verified source status enum was fail-closed: original 15BB custom C_* status literals not accepted. Metadata grade C belongs to quality notes, not verification_status enumeration.",
+    "source_shard": "docs/research/TIANWEN-15BB-WENSHAN-JOSEON-518400-RECEIVED-CROSSREAD-SOURCE-SHARD-R1.json",
+    "old_blob_sha": "ed067af791d8e0f3400227cbe7ebeb2162d3542b",
+    "new_blob_sha": "1e195a2c9ab21d482a5c3ca62d976b2e89c66a7b",
+    "entry_corrections": [
+      {
+        "source_id": "EXT-TIANWEN-15BB-WENSHAN-SIKU-V13-RECEIVED",
+        "old": "C_RECEIVED_TEXT_NOT_PHYSICAL_GLYPH",
+        "new": "RECEIVED_TEXT_VERIFIED"
+      },
+      {
+        "source_id": "EXT-TIANWEN-15BB-WENSHAN-SIBU-V9-RECEIVED",
+        "old": "C_RECEIVED_TEXT_NOT_PHYSICAL_GLYPH",
+        "new": "RECEIVED_TEXT_VERIFIED"
+      },
+      {
+        "source_id": "EXT-TIANWEN-15BB-GUJIN-472-P123-WENSHAN-QUOTE",
+        "old": "C_UNPROOFREAD_TRANSCRIPTION_NOT_PHYSICAL_GLYPH",
+        "new": "UNVERIFIED_TARGET_LOCATOR_QUARANTINED"
+      }
+    ],
+    "counts_unchanged": true,
+    "glyph_authority_unchanged_false": true,
+    "core_reopened": false
   }
 }
