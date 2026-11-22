@@ -1,7 +1,7 @@
 {
   "schema": "TIANWEN-RESEARCH-OMISSION-RISK-LEDGER-R1",
   "version": "1.0.0",
-  "updated_at": "2026-11-21",
+  "updated_at": "2026-11-22",
   "definition": "NON_EXHAUSTIVE_RECOVERY_SEED_FROM_LIVE_REMOTE; not proof no other omissions exist",
   "explicit_limits": [
     "The ledger captures known open leads, not every unpublished witness or every possible school.",
@@ -12,8 +12,8 @@
   "binding": {
     "repository": "chinaneedM/ziwei-bazi-model",
     "branch": "agent/fusion-chart-core-r1-20260822",
-    "reviewed_state_version": "1.1380.0",
-    "source_focus_count": 3102,
+    "reviewed_state_version": "1.1381.0",
+    "source_focus_count": 3103,
     "latest_research_focus_prefix": "13ZZ"
   },
   "coverage_axes": [
@@ -32842,6 +32842,56 @@
           "target": "Obtain the 2020 NTNU thesis through a free legal route; verify association formation/reorganization and distinguish 星相月刊, 中华星相学术期刊 and 中华星相杂志 using original issues, covers, colophons and archival records; do not link the 2007 same-name legal entity without continuity evidence.",
           "status": "OPEN",
           "evidence_ref": "docs/research/TIANWEN-15AE-TAIWAN-CHINESE-STAR-ASSOCIATION-PERIODICAL-AND-THESIS-ACCESS-AUDIT-R1.md"
+        }
+      ]
+    },
+    {
+      "id": "OMISSIONS-15AF-HK-TAIWAN-PERIODICAL-TITLE-COLLISION-REVIEW-20261122",
+      "date": "2026-11-22",
+      "state_version": "1.1381.0",
+      "reviewed_issue_ids": [
+        "TW-OPEN-0001",
+        "TW-OPEN-0002",
+        "TW-OPEN-0003",
+        "TW-OPEN-0004",
+        "TW-OPEN-0005",
+        "TW-OPEN-0006",
+        "TW-OPEN-0007",
+        "TW-OPEN-0008",
+        "TW-OPEN-0009",
+        "TW-OPEN-0010",
+        "TW-OPEN-0011",
+        "TW-OPEN-0012",
+        "TW-OPEN-0013",
+        "TW-OPEN-0014"
+      ],
+      "discovery_mode": "BREADTH_FIRST_HONG_KONG_TAIWAN_1970S_PERIODICAL_AND_PUBLICATION_NAME_COLLISION_CONTROL",
+      "result": "15AF adds 3 mutually scoped C/B historical sources: academic footnote to 1977–1979 Hong Kong 袁树生/哲学出版社 星相 monthly1–20, 1979 Google Books 中华国粹百科全书 publisher 中华星相杂志社, and received 2013 梁湘润 author wording 中华星相月刊. No original issues/book colophons or independent periodical identity; Taiwan 1973 memoir／1976 publisher chronology／2025 scholar title remain distinct, 1952–1979 society vs 2007 legal namesake remain unlinked. NTNU thesis inquiry remains unanswered as of this review. Source union1043=647+396 across162 shards, graph451/364, Matrix222/222 and all14 issues incl5 P0 unchanged, G8930/6 final, core CLOSED. No issue altered or false resolved.",
+      "evidence_refs": [
+        "docs/research/TIANWEN-15AF-HK-TAIWAN-XINGXIANG-PERIODICAL-NAMES-AND-PUBLISHER-IDENTITY-R1.md",
+        "docs/research/TIANWEN-15AF-HK-TAIWAN-XINGXIANG-PERIODICAL-CROSSCHECK-SOURCE-SHARD-R1.json",
+        "https://www.xiao-en.org/system/magazine/pdf/b7-120_tra.pdf",
+        "https://books.google.com/books/about/%E4%B8%AD%E8%8F%AF%E5%9C%8B%E7%B2%B9%E7%99%BE%E7%A7%91%E5%85%A8%E6%9B%B8.html?id=YsSFtgAACAAJ",
+        "https://www.ncc.com.tw/books/goods.php?id=8199"
+      ],
+      "unresolved_breadth_leads": [
+        {
+          "scope": "TAIWAN_1952_1979_ASSOCIATION_AND_PERIODICAL_THESIS",
+          "target": "Lawful free NTNU 2020 thesis full text with citations, Taiwan 1973/1976 original issue covers, imprint, organization records; compare historical journal names and 2007 namesake only with archival continuity.",
+          "status": "OPEN",
+          "evidence_ref": "docs/research/TIANWEN-15AE-TAIWAN-CHINESE-STAR-ASSOCIATION-PERIODICAL-AND-THESIS-ACCESS-AUDIT-R1.md"
+        },
+        {
+          "scope": "HK_1977_1979_XINGXIANG_MONTHLY_YUAN_SHUSHENG",
+          "target": "Find free original Hong Kong 星相 journal issues1–20, original title/imprint/covers verifying 1977.09–1979.06 scholarly note, isolate physical originals and avoid Taiwanese 1973 same-title merge.",
+          "status": "OPEN",
+          "evidence_ref": "docs/research/TIANWEN-15AF-HK-TAIWAN-XINGXIANG-PERIODICAL-NAMES-AND-PUBLISHER-IDENTITY-R1.md"
+        },
+        {
+          "scope": "TAIWAN_1979_ZHONGHUA_GUOCUI_BOOK_PUBLISHER",
+          "target": "Find original 1979 中华国粹百科全书 title/copyright/colophon to identify 中华星相杂志社, book contributors and publication link with periodical and historical association; no purchase.",
+          "status": "OPEN",
+          "evidence_ref": "docs/research/TIANWEN-15AF-HK-TAIWAN-XINGXIANG-PERIODICAL-NAMES-AND-PUBLISHER-IDENTITY-R1.md"
         }
       ]
     }
