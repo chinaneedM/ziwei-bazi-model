@@ -471,3 +471,8 @@ NDL第一方编目列[1906年大阪天祥館四册](https://ndlsearch.ndl.go.jp/
 ## 15BG｜台灣2019—2026四柱八字教學結構的獨立機構文書（2026-11-22）
 
 臺南2019/2020 [11次子平課程PDF](https://dweb.cjcu.edu.tw/ShepherdFiles/B0402/News/20190927094417185.pdf)（國立臺南護理專科學校署主辦，長榮大學代存檔）；[新北2021三重社大18週計畫](https://cci.ntpc.edu.tw/cht/index.php?class_id=1889&code=list&ids=25)；[臺北大學2024/2025 708期](https://dce.ntpu.edu.tw/list.php?p=1768)納音/日主月令/十神/六親/大運大綱；[輔大2026/12預定課表](https://www.ext.fju.edu.tw/course.php?id=76149)合成四種不同現代課程**文書**，不是四門共同祖源。2019分列年/月、日/時柱、大運、十神、十二長生；2021分列節氣、神煞與案例；2024並列納音與日主；2026「五虎遁五鼠遁求日干和時干」字面同1600原葉**年上起月/日上起時**的輸入輸出不符，只留文案待核，絕不宣稱老師實教錯或真有不同古法。課表、已結束、確定開班、招生中是互異證據級別，無簽到與教案不證全部實際授課。詳見[15BG独立四柱教学结构与文案考证](./research/TIANWEN-15BG-TAIWAN-2019-2026-BAZI-FORMAL-COURSE-TECHNICAL-SYLLABI-R1.md)。四新來源1084／177片，圖451/364，Matrix222/222，15項風險含P0五項，G8930/6、排盤CLOSED。
+
+
+## 15BH｜朝鮮《唐四柱》十二星法與子平八字的「四柱」同名防火牆（2026-11-22）
+
+韓國學中央研究院[《唐四柱》方法條](https://encykorea.aks.ac.kr/Article/E0013895)明分「用年、月、日、時逐步數十二星」與通常以干支五行/大運構造的四柱命理，後者不能把前者直接等同中國子平。韩国国图**一件两册**笔写本索引CNTS-00047981929/KOL000021690有Commons公开PDF元数据，但本轮因大文件无法核原页、断抄年。2011 Kim Shiduck [书志论文](https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART001567227)以图像分A/B型，提出与中国《演禽斗數三世相》及日本相关抄本可能关联，但共同祖本和传播方向未证。东京大学[ASIA0011《平生四柱吉凶诀》](https://u-parl.lib.u-tokyo.ac.jp/japanese/arldc)为另一朝鲜图解写本、校方暂推约19C末—20C初，**不得据同名认同一书**。中国[《三世相》受读本](https://www.shidianguji.com/zh/book/SDZJ0624/chapter/1lctrnw6deq07)自称嘉靖十九(1540)序，不具原刻日期裁决权；题「唐袁天罡撰」也非唐代作者实证。详[15BH韓國十二星唐四柱與中日傳播候選](./research/TIANWEN-15BH-KOREA-DANGSAJU-12-STAR-CROSS-REGION-HOMONYM-GATE-R1.md)。来源1090（647+443/178片）、Matrix222/222、图451/364、风险15含P0五、G8930/6，排盘CLOSED。
