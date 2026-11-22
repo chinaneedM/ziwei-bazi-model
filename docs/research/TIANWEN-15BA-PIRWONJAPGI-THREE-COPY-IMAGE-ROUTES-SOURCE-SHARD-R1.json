@@ -1,0 +1,60 @@
+{
+  "schema": "TIANWEN-15BA-PIRWONJAPGI-THREE-COPY-IMAGE-ROUTES-SOURCE-SHARD-R1",
+  "date": "2026-11-22",
+  "sources": [
+    {
+      "source_id": "EXT-TIANWEN-15BA-NLK-CNTS47968160-KOL259-1487-BIBLIOGRAPHIC-IMAGE",
+      "title": "韩国国图《筆苑雜記》CNTS-00047968160／KOL000000259早期木版本数字影像索引（目录1487）",
+      "provider": "韩国国立中央图书馆／Wikimedia Commons数字镜像",
+      "url": "https://commons.wikimedia.org/wiki/File:CNTS-00047968160_筆苑雜記.pdf",
+      "historical_period": "JOSEON_1487_CATALOG_DATE_IMAGE_ROUTE_NOT_PHYSICAL_FOLIO_COLLATED_2025_MIRROR",
+      "source_role": "BIBLIOGRAPHIC_AND_PUBLIC_DIGITAL_SURROGATE_ROUTE_TARGET_UNREAD",
+      "quality_notes": "NLK master_bib_no=21792301; KOL000000259; MF2-80-11; 2卷1冊, four-side-double border, 12 lines 21 characters; public PDF121 pages 162.38MB; SHA1 7ef74137f3003c08e36c64e645a9394d47443971 site reported not independently hashed; 1487 is catalog date, not verified original imprint or target glyph.",
+      "verification_status": "BIBLIOGRAPHIC_METADATA_ONLY",
+      "physical_glyph_authority": false,
+      "access_date": "2026-11-22",
+      "evidence": "docs/research/TIANWEN-15BA-PIRWONJAPGI-NLK1487-NLK1642-AND-KYOTO-MANUSCRIPT-ROUTES-R1.md"
+    },
+    {
+      "source_id": "EXT-TIANWEN-15BA-NLK-CNTS47987728-KOL28985-1642-BIBLIOGRAPHIC-IMAGE",
+      "title": "韩国国图《筆苑雜記》CNTS-00047987728／KOL000028985木版本数字影像索引（目录1642）",
+      "provider": "韩国国立中央图书馆／Wikimedia Commons数字镜像",
+      "url": "https://commons.wikimedia.org/wiki/File:CNTS-00047987728_筆苑雜記.pdf",
+      "historical_period": "JOSEON_1642_CATALOG_DATE_IMAGE_ROUTE_NOT_PHYSICAL_FOLIO_COLLATED_2025_MIRROR",
+      "source_role": "BIBLIOGRAPHIC_AND_PUBLIC_DIGITAL_SURROGATE_ROUTE_TARGET_UNREAD",
+      "quality_notes": "NLK master_bib_no=21790295; KOL000028985; 1冊, four-side-single border, 10 lines 20 characters, marginal double-line annotation; public PDF149 pages 45.09MB; SHA1 64771a55eca0d220f4dcbccb04972b8175c3d005 site reported only, not rehashed. Distinct layout from earlier catalog candidate; 1642 catalog year not yet original imprint-verified.",
+      "verification_status": "BIBLIOGRAPHIC_METADATA_ONLY",
+      "physical_glyph_authority": false,
+      "access_date": "2026-11-22",
+      "evidence": "docs/research/TIANWEN-15BA-PIRWONJAPGI-NLK1487-NLK1642-AND-KYOTO-MANUSCRIPT-ROUTES-R1.md"
+    },
+    {
+      "source_id": "EXT-TIANWEN-15BA-KYOTO-RB00023634-KAWAI-LATE-JOSEON-MS-IIIF",
+      "title": "京都大学RB00023634河合文库《筆苑雜記》两卷两册朝鲜后期写本与正式IIIF开放图像清单",
+      "provider": "京都大学附属图书馆贵重资料数字档案",
+      "url": "https://rmda.kulib.kyoto-u.ac.jp/item/rb00023634",
+      "historical_period": "JOSEON_LATE_UNDATED_MANUSCRIPT_WITH_1486_1487_PARATEXT_AND_DISCORDANT_REPORTED_LATER_POSTFACE",
+      "source_role": "FIRSTPARTY_INSTITUTIONAL_MANUSCRIPT_CATALOG_IIIF_LOCATOR_TARGET_GLYPH_UNREAD",
+      "quality_notes": "RB00023634 河合文庫/ヒ/8 registration199523, two volumes 51+40 leaves, 10 lines 17 chars, hand-copied. 1486 and 1487 prefaces, 1487 postface, catalog text 皇明崇禎紀元之十四年壬子(1672) internally inconsistent as year notation, requires original. Official /iiif/metadata_manifest/RB00023634/manifest.json route checked; no page pixel/hash collation performed.",
+      "verification_status": "BIBLIOGRAPHIC_METADATA_ONLY",
+      "physical_glyph_authority": false,
+      "access_date": "2026-11-22",
+      "evidence": "docs/research/TIANWEN-15BA-PIRWONJAPGI-NLK1487-NLK1642-AND-KYOTO-MANUSCRIPT-ROUTES-R1.md"
+    }
+  ],
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [],
+    "edges_supported": [],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Two NLK bibliographic layouts do not establish target-glyph textual independence or authentic physical impression years",
+      "Kyoto late manuscript's 1486/1487 paratext dates and ambiguous later era note do not date its copying or connect it to NLK editions",
+      "Digital file listing is not direct original-image glyph collation or a modern Ziwei/Ziping shared algorithm"
+    ],
+    "unresolved_lineage_questions": [
+      "Physical page/image SHA comparison for NLK CNTS-00047968160 vs CNTS-00047987728 near 四柱 and 甲巳/甲己",
+      "Kyoto RB00023634 image folios for 1486/1487 and ambiguous later colophon, and target 四柱 text",
+      "Separate physical impression dates, shared plates or actual ancestor relationships from current catalog dates"
+    ]
+  }
+}
