@@ -14,6 +14,8 @@
 
 每一格可并列多个等级（例如“B + C”），不以单一分值遮蔽证据边界。
 
+**跨轴索引（15BL）：** [双系统时代×规则×地域覆盖与缺格（2026-11-22）](./research/TIANWEN-15BL-DUAL-HISTORY-ERA-REGION-RULE-BREADTH-COVERAGE-CROSSWALK-R1.md)，该表仅整合既有已登记证据，未增来源或传承边。
+
 ## 紫微斗数：时代 × 内容覆盖
 
 | 时间层 | 作品／版本 | 规则形成与变化 | 人物／流派 | 地域／传播 | 下阶段增量 |
@@ -988,3 +990,10 @@ B级NLC来源数字馆目新列**1937上海《命理探源》（源）**与**194
 | PDF标2024（URL目录2023/10） | [CAFS/MYFAD两页宣传PDF](https://www.fengshui-convention.com/wp-content/uploads/2023/10/Master-Ray-Goh-ZIWEIBAZI-ACADEMY-Brochure-double-page12.pdf)第2页回述80年代CAFS、90年代课程、2008ZiweiBazi/MYFAD | 后出机构回忆、校名/课程品牌/法律实体与真正传承不可混一 |
 
 [15BK专项](./research/TIANWEN-15BK-MALAYSIA-2000S-2013-ORIGINAL-TEACHING-AND-CONFERENCE-CHRONOLOGY-R1.md)。新6条文书，累计来源**1104=根647＋扩457/181片**；Matrix222/222、图451/364、未决15/五P0、G8930/6、核心CLOSED不变。
+
+## 15BL｜跨时代／跨地域／跨规则的双史纲广度缺格复核（2026-11-22）
+
+本次不是再收集一条现代学校资料，而是将原有两套史纲、地域研究与规则机制审计显式连接：**[查看15BL时代×规则×地域对照表](./research/TIANWEN-15BL-DUAL-HISTORY-ERA-REGION-RULE-BREADTH-COVERAGE-CROSSWALK-R1.md)**。覆盖早期星宫/三组干支、宋元四组、明初双术书名、明代规则、清代版系、民国选辑与朝鲜/日本/越南/港台/新马近现代传播；每行标明A/B/C/D/E及未证的机械或师承桥。
+
+本轮曾发现国图1935《精选命理约言》原页，但核对完整**扩展分片**后确认为既有[13ZR](./research/TIANWEN-13ZR-JINGXUAN-MINGLI-YUEYAN-1933-1935-EDITION-CROSSWALK-R1.md)已登记的同一证据，故**不重复增录来源，也不增加谱系票数**。P0五项继续开放或受阻；来源1104/181、Matrix222/222、谱图451/364、研究风险15、G8930/6与排盘CLOSED原状保存。
+
