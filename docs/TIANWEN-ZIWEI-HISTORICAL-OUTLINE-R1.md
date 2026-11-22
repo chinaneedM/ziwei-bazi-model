@@ -399,3 +399,8 @@ VNPF[胜严寺 Thắng Nghiêm II 藏书群](https://lib.nomfoundation.org/colle
 ## 15BI｜卜筮图书馆藏与紫微斗数题名防混淆（2026-11-22）
 
 [京都大学RB00012975](https://rmda.kulib.kyoto-u.ac.jp/item/rb00012975)校正15BH误记书名为「**大易斷例卜筮元龜**」；室町写本和1307序末年款不同。中国国图善本03114另是一件抄本，2011韩国图像比较论文实际比对庆应义塾大学斯道文库本，非京都本。**卜筮书/韩国唐四柱的书名、图画近似不能证明与紫微十四主星、十八飞星共用机械来源或传法。** [15BI细案](./research/TIANWEN-15BI-DAIEKI-1307-PREFACE-MUROMACHI-COPY-KEIO-COMPARATOR-ERRATUM-R1.md)。来源1092/179片，Matrix222/222，图451/364、五项P0、确定性核心CLOSED不变。
+
+
+## 15BJ｜马来西亚当代紫微：同期人物报道与现代教学纲目（2026-11-22）
+
+[2013《东方日报》大会推介](https://www.orientaldaily.com.my/news/nation/2013/05/30/31919)在拟定议程中明列紫微斗，但当时仍“筹划中”，不证明会议举办。2015-08-11[《东方日报》槟城潘怡宁访谈](https://www.orientaldaily.com.my/news/gdxl/2015/08/11/97417)记录其参与“八字会天机”网络社群及自述高中研习紫微，这是当代个人与线上传播的同期采访，报道主体亦涉及塔罗，不能无据推导特定四化、十四主星教学体系。[Cheras机构自发的2026紫微课纲](https://www.ziweibazi.my/2025/01/ziweibazi-academy-courses.html)包含十二宫、星曜、Transformation、命盘和大小限；该官网1980年代建校、师承自述缺独立旧刊记和注册原件。同期新闻、现代招生、自述旧史的时间层和证据强度分别登记，不因同一地域即生成学校／古籍直传边。[15BJ证据及地域技术覆盖](./research/TIANWEN-15BJ-MALAYSIA-2013-2026-ZIWEI-BAZI-PRACTICE-COURSE-BREADTH-R1.md)。来源1098／180片、图451/364、Matrix222/222、十五风险含五P0，核心CLOSED。
