@@ -975,3 +975,16 @@ B级NLC来源数字馆目新列**1937上海《命理探源》（源）**与**194
 | 年代未明·马来西亚易经学术研究会八字课程 | A（限单页原PDF纲目）：起八字、五行、六神、十神、取用、排大限、立宫位、流年。**PDF未标年** | 无法将课纲回推至协会自称1983/1986注册年或同Cheras学院连线，缺原教案和实际开班记录 |
 
 [15BJ马来西亚六种材料的证据分层与未决题](./research/TIANWEN-15BJ-MALAYSIA-2013-2026-ZIWEI-BAZI-PRACTICE-COURSE-BREADTH-R1.md)。登记**六种现代传播文书不是六本古籍或六条师承边**；源1098=647+451／180片，Matrix222/222、图451/364、研究风险15含五P0、G893最终0/6，排盘CLOSED。
+
+
+## 15BK｜马来西亚2000—2013教学与跨国交流：扩展及纠误防火墙（2026-11-22）
+
+| 时点 | 紫微／八字的直接信息层 | 不能补造的历史 |
+| --- | --- | --- |
+| 2002—2003（仅后出自述） | [柔佛十林学院](https://perpetualace.com/academy/)自述2002创办；[Hew个人网站](https://ziweiuniversity.com/?page=founder)自述2003马来西亚教授紫微形态数 | 无原年招生、版权页和师承；**2010 ZWCY文字的2002属于日语课** |
+| 2010-12-27 | [ZWCY具名学员](https://lyanncheng.blogspot.com/2010/12/jerry-hew.html?m=0)的同期发文表示曾参加紫微首班，记星系图解教学 | 首班年份未明；学员感言不是全部班次/公式原档 |
+| 2013-05/08会前 | 15BJ既有五月筹办和[8月13日](https://www.orientaldaily.com.my/news/nation/2013/08/13/34416)1300预估及紫微议题 | 会前预算/计划人数和议题非实际结果 |
+| 2013-08-17举行 | [新华社8月18日报道](https://finance.people.com.cn/n/2013/0818/c70846-22603230.html)独立确认吉隆坡大会已举行，近20国350名与会者（报道数） | 非每场紫微/八字授课证明，也不是可重放规则或师承 |
+| PDF标2024（URL目录2023/10） | [CAFS/MYFAD两页宣传PDF](https://www.fengshui-convention.com/wp-content/uploads/2023/10/Master-Ray-Goh-ZIWEIBAZI-ACADEMY-Brochure-double-page12.pdf)第2页回述80年代CAFS、90年代课程、2008ZiweiBazi/MYFAD | 后出机构回忆、校名/课程品牌/法律实体与真正传承不可混一 |
+
+[15BK专项](./research/TIANWEN-15BK-MALAYSIA-2000S-2013-ORIGINAL-TEACHING-AND-CONFERENCE-CHRONOLOGY-R1.md)。新6条文书，累计来源**1104=根647＋扩457/181片**；Matrix222/222、图451/364、未决15/五P0、G8930/6、核心CLOSED不变。

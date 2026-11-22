@@ -404,3 +404,8 @@ VNPF[胜严寺 Thắng Nghiêm II 藏书群](https://lib.nomfoundation.org/colle
 ## 15BJ｜马来西亚当代紫微：同期人物报道与现代教学纲目（2026-11-22）
 
 [2013《东方日报》大会推介](https://www.orientaldaily.com.my/news/nation/2013/05/30/31919)在拟定议程中明列紫微斗，但当时仍“筹划中”，不证明会议举办。2015-08-11[《东方日报》槟城潘怡宁访谈](https://www.orientaldaily.com.my/news/gdxl/2015/08/11/97417)记录其参与“八字会天机”网络社群及自述高中研习紫微，这是当代个人与线上传播的同期采访，报道主体亦涉及塔罗，不能无据推导特定四化、十四主星教学体系。[Cheras机构自发的2026紫微课纲](https://www.ziweibazi.my/2025/01/ziweibazi-academy-courses.html)包含十二宫、星曜、Transformation、命盘和大小限；该官网1980年代建校、师承自述缺独立旧刊记和注册原件。同期新闻、现代招生、自述旧史的时间层和证据强度分别登记，不因同一地域即生成学校／古籍直传边。[15BJ证据及地域技术覆盖](./research/TIANWEN-15BJ-MALAYSIA-2013-2026-ZIWEI-BAZI-PRACTICE-COURSE-BREADTH-R1.md)。来源1098／180片、图451/364、Matrix222/222、十五风险含五P0，核心CLOSED。
+
+
+## 15BK｜马来西亚2010学员自述及2013大会实证（2026-11-22）
+
+2010-12-27[郑莉安ZWCY的Jerry Hew学员稿](https://lyanncheng.blogspot.com/2010/12/jerry-hew.html?m=0)有明确发布时间，学员称参与紫微首班且以星系图辅助学习；**文中2002是日语课，不是紫微课，首班具体年份OPEN**。[东方日报2013-08-13](https://www.orientaldaily.com.my/news/nation/2013/08/13/34416)当时预告紫微斗数研讨且估25国1300人；[新华社2013-08-18同期实报](https://finance.people.com.cn/n/2013/0818/c70846-22603230.html)证实**8月17日吉隆坡实际举行大会**，报道近20国350人，但未证紫微单场是否举办，亦未取得算法原讲义。来自[一份印2024/甲辰的Ziwei Bazi宣传PDF](https://www.fengshui-convention.com/wp-content/uploads/2023/10/Master-Ray-Goh-ZIWEIBAZI-ACADEMY-Brochure-double-page12.pdf)的CAFS1980年代、课程1990年代及MYFAD2008年说法仅是2024字样载体上的历史自述，非各年原件；[Hew个人官网](https://ziweiuniversity.com/?page=founder)的2003教学同样回顾性，不能与ZWCY/CAFS构成确定师承边。详[15BK补证](./research/TIANWEN-15BK-MALAYSIA-2000S-2013-ORIGINAL-TEACHING-AND-CONFERENCE-CHRONOLOGY-R1.md)。来源1104/181片、图451/364、Matrix222/222、十五未决含五P0、核心CLOSED。
