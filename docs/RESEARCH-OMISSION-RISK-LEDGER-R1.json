@@ -12,8 +12,8 @@
   "binding": {
     "repository": "chinaneedM/ziwei-bazi-model",
     "branch": "agent/fusion-chart-core-r1-20260822",
-    "reviewed_state_version": "1.1422.0",
-    "source_focus_count": 3119,
+    "reviewed_state_version": "1.1423.0",
+    "source_focus_count": 3120,
     "latest_research_focus_prefix": "13ZZ"
   },
   "coverage_axes": [
@@ -34705,6 +34705,43 @@
           "scope": "15BT_LEGACY_MYEONGGWA_EXAM_AND_1895_MINISTER_SUBDIVISIONS",
           "status": "OPEN",
           "next_evidence": "Locate actual post1874 restored exam-book order, Myeonggwa exam papers or professional placement under 1894 selection rules, 1895 Hakbu minister Article6 subdivisions, and 1907/1909 original laws; prioritize early Ziwei/Song-Yuan Bazi full outline breadth as next active focus."
+        }
+      ]
+    },
+    {
+      "id": "OMISSIONS-15BU-EXACT-HEAD-REGISTRY-STATUS-FIX-20261123",
+      "date": "2026-11-23",
+      "state_version": "1.1423.0",
+      "reviewed_issue_ids": [
+        "TW-OPEN-0001",
+        "TW-OPEN-0002",
+        "TW-OPEN-0003",
+        "TW-OPEN-0004",
+        "TW-OPEN-0005",
+        "TW-OPEN-0006",
+        "TW-OPEN-0007",
+        "TW-OPEN-0008",
+        "TW-OPEN-0009",
+        "TW-OPEN-0010",
+        "TW-OPEN-0011",
+        "TW-OPEN-0012",
+        "TW-OPEN-0013",
+        "TW-OPEN-0014",
+        "TW-OPEN-0015"
+      ],
+      "discovery_mode": "EXACT_HEAD_CI_RECOVERY_SOURCE_VERIFICATION_STATUS_WHITELIST",
+      "result": "21 observed initial exact-HEAD failed workflows shared unsupported 15BS/15BT status terms unrecognized by strict source registry verifier; remap four official digitized-received texts to RECEIVED_TEXT_VERIFIED and three secondary encyclopedia to BIBLIOGRAPHIC_METADATA_ONLY without changing evidentiary claims. Original statuses retained in manifest forward-only erratum, shard hashes updated. Source1127/189, Matrix222/222, graph456/370, all15 risks incl fiveP0, G8930/6, product CLOSED unchanged.",
+      "evidence_refs": [
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json",
+        "docs/research/TIANWEN-15BS-JOSEON-1894-1909-SOURCE-SHARD-R1.json",
+        "docs/research/TIANWEN-15BT-JOSEON-1894-1895-ORDINANCE-SOURCE-SHARD-R1.json",
+        "scripts/verify-historical-source-registry-extensions-r1.py"
+      ],
+      "unresolved_breadth_leads": [
+        {
+          "scope": "15BU_FOLLOWUP_EXACT_HEAD_CI_RESULTS",
+          "status": "OPEN",
+          "next_evidence": "Read verification gates for newly pushed 15BU exact HEAD; repair only independently failing gates after log evidence, return to historical framework gaps."
         }
       ]
     }

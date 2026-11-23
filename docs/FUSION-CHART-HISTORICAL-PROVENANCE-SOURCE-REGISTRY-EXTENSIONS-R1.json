@@ -1133,13 +1133,13 @@
     {
       "path": "docs/research/TIANWEN-15BS-JOSEON-1894-1909-SOURCE-SHARD-R1.json",
       "schema": "TIANWEN-15BS-JOSEON-1894-1909-SOURCE-SHARD-R1",
-      "blob_sha": "fa1d72193a6439bbdf3ea6bdfa9408e4ba81bf06",
+      "blob_sha": "6f0ea385138bc8ff08b04157c1cecf2fbe2f0a06",
       "source_count": 4
     },
     {
       "path": "docs/research/TIANWEN-15BT-JOSEON-1894-1895-ORDINANCE-SOURCE-SHARD-R1.json",
       "schema": "TIANWEN-15BT-JOSEON-1894-1895-ORDINANCE-SOURCE-SHARD-R1",
-      "blob_sha": "2e7fd98c88f5700144a6d26f9d87f0431d85e4fb",
+      "blob_sha": "a799228617f391b3590a73d517c46081aa088dcb",
       "source_count": 3
     }
   ],
@@ -1801,5 +1801,56 @@
     "physical_glyph_authority": false,
     "transmission_edges_added": 0,
     "scope": "Direct official digital received July12 1894 election / two-stage civil-service examination regulations and March25 1895 promulgated edict47 observatory 7 articles (not original paper images); AKS secondary enactment explanation. These narrow 15BS outstanding code-text gap without proof of Myeonggwa teaching, restored older books, or Ziwei/Ziping rule continuity."
+  },
+  "forward_only_status_erratum_15bu": {
+    "date": "2026-11-23",
+    "reason": "Exact-HEAD CI on 2e16c11 shows source registry verification failed for unsupported vocabulary introduced in 15BS and 15BT; no source, quotation, edition or physical-glyph conclusions changed. Repair mapped only verification-status labels to the existing fail-closed registry whitelist; original 15BS/15BT status wording retained here and earlier Git SHA.",
+    "affected_shards": [
+      "docs/research/TIANWEN-15BS-JOSEON-1894-1909-SOURCE-SHARD-R1.json",
+      "docs/research/TIANWEN-15BT-JOSEON-1894-1895-ORDINANCE-SOURCE-SHARD-R1.json"
+    ],
+    "revisions": [
+      {
+        "source_id": "EXT-TIANWEN-15BS-NIKH-GOJONG-1894-EXAM-CHANGE",
+        "original": "OFFICIAL_RECEIVED_TEXT_VERIFIED",
+        "replacement": "RECEIVED_TEXT_VERIFIED"
+      },
+      {
+        "source_id": "EXT-TIANWEN-15BS-NIKH-GAZETTE-1894-GWANSANGGUK",
+        "original": "OFFICIAL_RECEIVED_TEXT_VERIFIED",
+        "replacement": "RECEIVED_TEXT_VERIFIED"
+      },
+      {
+        "source_id": "EXT-TIANWEN-15BS-AKS-GWANSANGSO-1895-1907",
+        "original": "SECONDARY_REFERENCE_VERIFIED",
+        "replacement": "BIBLIOGRAPHIC_METADATA_ONLY"
+      },
+      {
+        "source_id": "EXT-TIANWEN-15BS-AKS-MYEONGGWA-1909-METADATA",
+        "original": "SECONDARY_REFERENCE_VERIFIED",
+        "replacement": "BIBLIOGRAPHIC_METADATA_ONLY"
+      },
+      {
+        "source_id": "EXT-TIANWEN-15BT-NIKH-1894-07-12-SEONGEO-JEONGOG",
+        "original": "OFFICIAL_RECEIVED_TEXT_VERIFIED",
+        "replacement": "RECEIVED_TEXT_VERIFIED"
+      },
+      {
+        "source_id": "EXT-TIANWEN-15BT-AKS-SEONGEO-1894-REGULATIONS",
+        "original": "SECONDARY_REFERENCE_VERIFIED",
+        "replacement": "BIBLIOGRAPHIC_METADATA_ONLY"
+      },
+      {
+        "source_id": "EXT-TIANWEN-15BT-NIKH-1895-03-25-EDICT47-GWANSANGSO",
+        "original": "OFFICIAL_RECEIVED_TEXT_VERIFIED",
+        "replacement": "RECEIVED_TEXT_VERIFIED"
+      }
+    ],
+    "verification_script": "scripts/verify-historical-source-registry-extensions-r1.py",
+    "failing_ci_examples": [
+      "https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/45124106386",
+      "https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/45124106411"
+    ],
+    "invariants": "No authority increase: OFFICIAL_RECEIVED_TEXT_VERIFIED is only official digital transcription classified RECEIVED_TEXT_VERIFIED; SECONDARY_REFERENCE_VERIFIED is bibliographic/secondary identity classified BIBLIOGRAPHIC_METADATA_ONLY. All physical_glyph_authority=false. Count unchanged."
   }
 }
