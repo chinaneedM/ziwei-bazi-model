@@ -12,8 +12,8 @@
   "binding": {
     "repository": "chinaneedM/ziwei-bazi-model",
     "branch": "agent/fusion-chart-core-r1-20260822",
-    "reviewed_state_version": "1.1432.0",
-    "source_focus_count": 3129,
+    "reviewed_state_version": "1.1433.0",
+    "source_focus_count": 3130,
     "latest_research_focus_prefix": "13ZZ"
   },
   "coverage_axes": [
@@ -35087,6 +35087,42 @@
           "scope": "15CD_CI_REPAIR_EXACT_HEAD_15CC_LEDGER_BINDING",
           "status": "RECOVERED_PENDING_NEW_HEAD_CI",
           "next_evidence": "Check 15CD exact-HEAD workflows for complete pass; if failure, inspect first failure stack and repair in forward-only checkpoint."
+        }
+      ]
+    },
+    {
+      "id": "OMISSIONS-15CE-QING-XUWENXIANTONGKAO-WYG-SOURCE-AND-LOCATOR-20261123",
+      "date": "2026-11-23",
+      "state_version": "1.1433.0",
+      "reviewed_issue_ids": [
+        "TW-OPEN-0001",
+        "TW-OPEN-0002",
+        "TW-OPEN-0003",
+        "TW-OPEN-0004",
+        "TW-OPEN-0005",
+        "TW-OPEN-0006",
+        "TW-OPEN-0007",
+        "TW-OPEN-0008",
+        "TW-OPEN-0009",
+        "TW-OPEN-0010",
+        "TW-OPEN-0011",
+        "TW-OPEN-0012",
+        "TW-OPEN-0013",
+        "TW-OPEN-0014",
+        "TW-OPEN-0015"
+      ],
+      "discovery_mode": "BREADTH_FIRST_QING_BIBLIOGRAPHIC_ORIGINAL_DIGITAL_PAGE_READING_WITH_HTML_IMAGE_LOCATOR_BOUNDARY",
+      "result": "15CE scoped WYG image reading: Xu Wenxian Tongkao v182 attributes Xingxue Dacheng TEN juan and Sanming HuiTong TWELVE to Wan Minying; 15CD modern MingShi EIGHTEEN relocation does not independently certify identical originals. The HTML 14b/WYG0432b text-to-image binding fails against actually matching 0436b image; retain physical folio identity OPEN. One genuinely new source, total 1147=647+500/199 shards, graph456/370 Matrix222/222 issues15 all OPEN including five P0, G8930/6 core CLOSED.",
+      "evidence_refs": [
+        "docs/research/TIANWEN-15CE-XUWENXIANTONGKAO-182-WYG-IMAGE-AND-LOCATOR-COLLATION-R1.md",
+        "docs/research/TIANWEN-15CE-XUWENXIANTONGKAO-182-WYG-SOURCE-SHARD-R1.json",
+        "docs/research/TIANWEN-15CD-MINGSHI-XINGXUE-EIGHTEEN-JUAN-MODERN-CRITICAL-EMENDATION-ERRATUM-R1.md"
+      ],
+      "unresolved_breadth_leads": [
+        {
+          "scope": "15CE_QING_XU_WENXIAN_TONGKAO_SOURCE_FOLIO_BINDING",
+          "status": "OPEN",
+          "next_evidence": "Identify WYG image source copy/shelfmark and verify physical folio pagination, original Qing MingShi v98 18-juan entry, Ji Huang Xu Wenxian Tongkao 182 source image and Wenjinge Siku original book edition. Keep 5/10/18/30-juan concordance OPEN."
         }
       ]
     }
