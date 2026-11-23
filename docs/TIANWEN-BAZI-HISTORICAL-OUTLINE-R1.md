@@ -534,3 +534,8 @@ NDL第一方编目列[1906年大阪天祥館四册](https://ndlsearch.ndl.go.jp/
 [《三命通會》卷七〈子平說辯〉的后出四库接受文本](https://zh.wikisource.org/wiki/三命通會_(四庫全書本)/卷07)既明说“八字以日为主”、月为提纲、财官印食与大运的配合，又叙徐君易（徐居易）字子平，另说徐大升及《三命淵源》。它还讲冲虚子、僧道洪的传法故事，却明白承认中间「其法不知经几变」并以「或谓」指涉是否真传。**读得明人源流叙事≠看到五代／宋的独立师徒或完整日主十神原本**。
 
 该层应跟已有[15BM南宋《桯史》两命例](./research/TIANWEN-15BM-TINGSHI-PKU-OLD-WITNESS-AND-HOUR-STEM-REPLAY-R1.md)、[13ZM/14U《五行精紀》宋编纂与后出抄本中“年为本、以日为主”](./research/TIANWEN-13ZM-WUXING-JINGJI-SONG-YUAN-CATALOG-AND-MANUSCRIPTS-R1.md)、[13ZX清目转述1307年李钦夫书末／1326王瓒中序](./research/TIANWEN-13ZX-SONG-YUAN-NATAL-METHODS-AND-CATALOGS-R1.md)、[13ZG/14T明代1600/1606《淵海子平》印本](./research/TIANWEN-13ZG-MING-YUANHAI-ZIPING-1600-1606-EDITION-CENSUS-R1.md)分四种不同见证类读。**元代后记日期不是现存元原页；徐居易不是无需辨身份就合并的徐大升；明人溯源不是五代发明事实**。详[15BV年代—技术—师承交叉审查](./research/TIANWEN-15BV-ZIPING-MING-RETROSPECTIVE-VS-SONG-YUAN-WITNESS-CHRONOLOGY-R1.md)。新登记1条数字接受文本后来源1128/190分片，图456/370、Matrix222/222、风险15五P0、核心CLOSED。
+
+
+## 15BW 补充｜清代跨术著述是接受史，不是统一算法史
+
+清初邱维屏《邱邦士文集》卷二将〈紫微斗數五行日局解〉与〈滴天髓論己土解〉相邻收入，后一文数字受读明称「子平家書如滴天髓」，属**作者同时阅读斗数与子平**的文本见证（所核为1837/1875重刊家族的数字受读，原页细字尚待校）。晚清俞樾《游藝錄》卷四论子平、大运、命宫，卷五论紫微斗数的安宫、五局与四化。这是两门术数在清代知识人著述中的并列接受记录，不等于唐宋时两套程序已经融合，更不改变软件两门术数独立换日和候选规则。详见[15BW专研](./research/TIANWEN-15BW-QING-ZIWEI-FIVE-BUREAU-ESSAYS-AND-YUYUE-R1.md)。来源1131（647+484／191分片）、Matrix222/222、谱图456/370、15风险五P0及CLOSED均不变。
