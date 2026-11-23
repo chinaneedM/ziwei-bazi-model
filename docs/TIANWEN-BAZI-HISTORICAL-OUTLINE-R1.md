@@ -543,3 +543,7 @@ NDL第一方编目列[1906年大阪天祥館四册](https://ndlsearch.ndl.go.jp/
 ## 15CE｜清《續文獻通考》卷182是兩術書目交叉證據，不是子平宋代原物（2026-11-23）
 
 本卷在宋部後出列「徐子平《徐氏珞琭子賦注》二卷」，附「子平事跡無考」，又在明部以「萬民英《星學大成》十卷、《三命通會》十二卷」並列；它提供**清代官修書目對宋元／明代命理著作的接受編目**，不是徐氏宋代原稿、萬氏十卷星學與十八卷本同一物、或二術傳承合流的證明。後一段已由[WYG0436b數字頁影像](https://c.sou-yun.com/kanripoimgs/KR2m0014/WYG0630/WYG0630-0436b.png)核讀，該站的HTML段落／圖片葉標存在錯位，故不憑其頁標假設原刻頁位。詳[15CE限界報告](./research/TIANWEN-15CE-XUWENXIANTONGKAO-182-WYG-IMAGE-AND-LOCATOR-COLLATION-R1.md)。本條是跨史綱索引，不重複增加來源或紫微—子平直傳邊。
+
+## 15CF｜宋濂〈祿命辨〉從唐宋禄命追述到明初同時異命批判（2026-11-23）
+
+[四部叢刊受讀卷十六](https://zh.wikisource.org/zh-hant/宋學士文集_(四部叢刊本)/卷第十六)先批黃帝風后源流傳說，繼述李虛中、徐子平，並以720×720＝518400質疑同時生者遭際不同，補**明初文人對宋元禄命術的反思**而非同代唐宋機械首證。與[15BB文天祥、朝鮮徐居正同數式](./research/TIANWEN-15BB-WENSHAN-JOSEON-FOURPILLAR-518400-RECEIVED-TEXT-CROSSREAD-R1.md)有跨時文本平行，但未證直接抄本/師承。館目分開1514《宋學士文集》七十五卷和1551《新刊宋學士全集》三十三卷，原頁字形仍待核。[完整研究報告](./research/TIANWEN-15CF-SONGLIAN-LUMINGBIAN-MING-EARLY-THREE-MING-ELEVEN-LUMINARY-AND-518400-R1.md)。來源1150／200分片；歷史矩陣、圖譜、P0及排盤核心不變。

@@ -506,3 +506,7 @@ VNPF[胜严寺 Thắng Nghiêm II 藏书群](https://lib.nomfoundation.org/colle
 ## 15CE｜《續文獻通考》卷182十卷萬氏星學的圖像實見與十八卷歸屬限界（2026-11-23）
 
 [直接核見的WYG編號數字圖像](https://c.sou-yun.com/kanripoimgs/KR2m0014/WYG0630/WYG0630-0436b.png)載「萬民英《星學大成》十卷、《三命通會》十二卷」，補足15CD現代《明史》編輯引據之一的**原圖文字層**。但[轉錄網頁](https://hhl.cnkgraph.com/Book/史部/政書類/欽定續文獻通考/1406/KR2m0014_182)將段落標「14b／WYG0432b」，其圖像與段落不合；本次只引用真正見到文字的0436b圖，不把網頁14b標籤當成已核物理葉碼。清書目萬氏**十卷**與《明史》校勘移正的**十八卷**是不同著錄命題，尚無實物卷次對照；不由書志跳到明代作者親筆、紫微四化祖源或版本同一結論。[15CE完整校核](./research/TIANWEN-15CE-XUWENXIANTONGKAO-182-WYG-IMAGE-AND-LOCATOR-COLLATION-R1.md)。來源1147（647＋500／199片）、圖456/370、Matrix222/222、15項遺留含五P0和G8930/6，排盤CLOSED。
+
+## 15CF｜明初宋濂《祿命辨》的十一曜與紫微十四主星防混同（2026-11-23）
+
+[《宋學士文集》卷十六／《鑾坡集》卷六受讀](https://zh.wikisource.org/zh-hant/宋學士文集_(四部叢刊本)/卷第十六)同篇分別論三命、七政/十一曜、羅睺計都與西域占星，並討論同時出生的吉凶異同。這是**明初作者對星命學的思想史評論**；十一曜不等於十四主星斗數，不能據此上推《捷覽》四化的唐宋來源。[1514七十五卷館目](https://ming.ncl.edu.tw/dihu/handle/dihu/189)與1551三十三卷書志分列，原葉未取得。[15CF研究報告](./research/TIANWEN-15CF-SONGLIAN-LUMINGBIAN-MING-EARLY-THREE-MING-ELEVEN-LUMINARY-AND-518400-R1.md)。三個分層來源新增至1150（647+503/200分片）；圖456/370、Matrix222/222、15未決五P0及CLOSED均不變。
