@@ -8070,6 +8070,40 @@
         "docs/research/TIANWEN-15R-VIETNAM-THANGNGHIEM-TN208-TN213-MANUAL-CHART-COPY-AND-PAGEBOUNDARY-R1.md"
       ],
       "first_explicit_graph_batch": "15R"
+    },
+    {
+      "node_id": "PHYSICAL-COPY-PKU-TINGSHI-SONG-BLOCKS-YUAN-MING-REPAIRS",
+      "node_type": "PHYSICAL_COPY",
+      "label": "北京大学图书馆藏《桯史》宋刻元明递修公文纸印本",
+      "system_scope": "BAZI",
+      "work_composition_date": null,
+      "edition_impression_date": null,
+      "physical_copy_date": null,
+      "digital_surrogate_date": null,
+      "date_scope_note": "Institution identifies Song blocks with Yuan and Ming repairs and manuscript supplements; target leaf and actual printing dates are unassigned.",
+      "evidence": [
+        "EXT-TIANWEN-15BM-PKU-TINGSHI-ZHSY000241",
+        "docs/research/TIANWEN-15BM-TINGSHI-PKU-OLD-WITNESS-AND-HOUR-STEM-REPLAY-R1.md",
+        "docs/research/TIANWEN-15BM-PKU-TINGSHI-SOURCE-SHARD-R1.json"
+      ],
+      "first_explicit_graph_batch": "15BM"
+    },
+    {
+      "node_id": "DIGITAL-SURROGATE-COMMONS-ZHSY000241-TINGSHI",
+      "node_type": "DIGITAL_SURROGATE",
+      "label": "北大藏《桯史》2005 年影印的 Commons 数字替身 ZHSY000241",
+      "system_scope": "BAZI",
+      "work_composition_date": null,
+      "edition_impression_date": null,
+      "physical_copy_date": null,
+      "digital_surrogate_date": null,
+      "date_scope_note": "PDF p2 states the Peking University exemplar and p277 dates the facsimile to December 2005. Digitization date remains unknown.",
+      "evidence": [
+        "EXT-TIANWEN-15BM-PKU-TINGSHI-ZHSY000241",
+        "docs/research/TIANWEN-15BM-TINGSHI-PKU-OLD-WITNESS-AND-HOUR-STEM-REPLAY-R1.md",
+        "docs/research/TIANWEN-15BM-PKU-TINGSHI-SOURCE-SHARD-R1.json"
+      ],
+      "first_explicit_graph_batch": "15BM"
     }
   ],
   "edges": [
@@ -13672,6 +13706,54 @@
       ],
       "scope_note": "VNPF digital and institutional TN213 item share TNVNPF-115/TN213; unresolved 90 catalog pages versus 61 viewer images, no source-page text equality proven.",
       "adjudication_batch": "15R"
+    },
+    {
+      "edge_id": "TG-E0365",
+      "from": "PHYSICAL-COPY-PKU-TINGSHI-SONG-BLOCKS-YUAN-MING-REPAIRS",
+      "relation": "ATTESTS",
+      "to": "TEXT-WORK-YUE-KE-TINGSHI",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_WITHIN_SAMPLED_SCOPE",
+      "evidence_class": "DIRECT_BIBLIOGRAPHIC_BINDING",
+      "evidence": [
+        "EXT-TIANWEN-15BM-PKU-TINGSHI-ZHSY000241",
+        "docs/research/TIANWEN-15BM-TINGSHI-PKU-OLD-WITNESS-AND-HOUR-STEM-REPLAY-R1.md",
+        "docs/research/TIANWEN-15BM-PKU-TINGSHI-SOURCE-SHARD-R1.json"
+      ],
+      "scope_note": "The holding institution identifies this fifteen-juan physical object; neither volume-wide dating nor separate recension is inferred for the target leaves.",
+      "adjudication_batch": "15BM"
+    },
+    {
+      "edge_id": "TG-E0366",
+      "from": "DIGITAL-SURROGATE-COMMONS-ZHSY000241-TINGSHI",
+      "relation": "DIGITAL_SURROGATE_OF",
+      "to": "PHYSICAL-COPY-PKU-TINGSHI-SONG-BLOCKS-YUAN-MING-REPAIRS",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_WITHIN_SAMPLED_SCOPE",
+      "evidence_class": "DIRECT_BIBLIOGRAPHIC_BINDING",
+      "evidence": [
+        "EXT-TIANWEN-15BM-PKU-TINGSHI-ZHSY000241",
+        "docs/research/TIANWEN-15BM-TINGSHI-PKU-OLD-WITNESS-AND-HOUR-STEM-REPLAY-R1.md",
+        "docs/research/TIANWEN-15BM-PKU-TINGSHI-SOURCE-SHARD-R1.json"
+      ],
+      "scope_note": "PDF p2 identifies the Peking University exemplar; the 2005 facsimile is the intermediate carrier and p277 dates its publication.",
+      "adjudication_batch": "15BM"
+    },
+    {
+      "edge_id": "TG-E0367",
+      "from": "DIGITAL-SURROGATE-COMMONS-ZHSY000241-TINGSHI",
+      "relation": "ATTESTS",
+      "to": "PASSAGE-TINGSHI-V15-YANGGEN-NATAL-FOUR-PAIRS",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_WITHIN_SAMPLED_SCOPE",
+      "evidence_class": "DIRECT_PHYSICAL_TEXT",
+      "evidence": [
+        "EXT-TIANWEN-15BM-PKU-TINGSHI-ZHSY000241",
+        "docs/research/TIANWEN-15BM-TINGSHI-PKU-OLD-WITNESS-AND-HOUR-STEM-REPLAY-R1.md",
+        "docs/research/TIANWEN-15BM-PKU-TINGSHI-SOURCE-SHARD-R1.json"
+      ],
+      "scope_note": "Hash-bound pp. 269–270 attest the article and Yuan Shao four pairs on the reviewed facsimile. No target block date or rule transmission is established.",
+      "adjudication_batch": "15BM"
     }
   ],
   "lineage_hypotheses": [
@@ -15025,5 +15107,5 @@
     "first_explicit_seed_batch": "BATCH-12-ZIWEI-SISHI-QIHOU-JINGTAI6-TONGSHU-TABLE-CONTROL-CH",
     "future_material_batches_require_transmission_impact": true
   },
-  "updated_at": "2026-11-21"
+  "updated_at": "2026-11-23"
 }

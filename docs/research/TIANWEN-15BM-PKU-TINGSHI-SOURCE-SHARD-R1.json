@@ -1,0 +1,143 @@
+{
+  "schema": "TIANWEN-15BM-PKU-TINGSHI-SOURCE-SHARD-R1",
+  "date": "2026-11-23",
+  "sources": [
+    {
+      "source_id": "EXT-TIANWEN-15BM-PKU-TINGSHI-ZHSY000241",
+      "title": "北大藏《桯史》宋刻元明递修公文纸印本及《中华再造善本》影印",
+      "provider": "Peking University Library holding; 2005 Beijing Library Press facsimile via Wikimedia Commons",
+      "url": "https://120.lib.pku.edu.cn/node/390",
+      "historical_period": "SOUTHERN_SONG_WORK_AND_SONG_BLOCKS_WITH_YUAN_MING_REPAIRS_PER_PKU_CATALOG",
+      "source_role": "CATALOGED_PHYSICAL_COPY_AND_2005_FACSIMILE_IDENTITY",
+      "quality_notes": "Peking University describes a repaired copy with manuscript supplements. This registry record assigns no leaf-level date or direct glyph authority. The separately hash-bound facsimile pages attest bounded readings and the 2005 facsimile imprint.",
+      "physical_glyph_authority": false,
+      "access_date": "2026-11-23",
+      "evidence": "docs/research/TIANWEN-15BM-TINGSHI-PKU-OLD-WITNESS-AND-HOUR-STEM-REPLAY-R1.md",
+      "verification_status": "BIBLIOGRAPHIC_METADATA_ONLY"
+    }
+  ],
+  "witness": {
+    "institution_catalog": "https://120.lib.pku.edu.cn/node/390",
+    "facsimile_bibliography": "https://ci.nii.ac.jp/ncid/BB15141710",
+    "facsimile_publication": "2005-12, Beijing Library Press, edition 1 impression 1, ISBN 7-5013-3017-4",
+    "digital_object": "ZHSY000241",
+    "source_url": "https://upload.wikimedia.org/wikipedia/commons/d/db/ZHSY000241_%E6%A1%AF%E5%8F%B2%E5%8D%81%E4%BA%94%E5%8D%B7_%28%E5%AE%8B%29%E5%B2%B3%E7%8F%82_%E6%92%B0_%E5%AE%8B%E5%88%BB%E5%85%83%E6%98%8E%E9%81%9E%E4%BF%AE%E5%85%AC%E6%96%87%E7%B4%99%E5%8D%B0%E6%9C%AC.pdf",
+    "source_sha256": "13ca582450bcb51578218d8412e88840a28e62275784f68c097d3887d0348787",
+    "pdf_pages": 278,
+    "method": "Manual visual reading. Embedded JPEG byte hashes reproduced with PyMuPDF 1.26.6 extract_image(xref). PDF pages are one-based.",
+    "manually_collated_pages": [
+      {
+        "page": 2,
+        "xref": 8,
+        "pixels": [
+          2011,
+          1516
+        ],
+        "sha256": "bc8963fca6f6f78d8a37f397c7496c11c2676bdffd1af3d6b8081503d3000a79",
+        "scope": "facsimile exemplar statement"
+      },
+      {
+        "page": 13,
+        "xref": 42,
+        "pixels": [
+          2011,
+          1516
+        ],
+        "sha256": "e8944ebf5c9ad7e352365530b55550f4909f78124f22be7c5f35162d3b801071",
+        "scope": "contents for juan 15"
+      },
+      {
+        "page": 260,
+        "xref": 808,
+        "pixels": [
+          2140,
+          1516
+        ],
+        "sha256": "df16a29c9a0f3213e89d668ca502ea45eb1200b0c37ce46e77ac6897557cae5c",
+        "scope": "juan 15 opening"
+      },
+      {
+        "page": 269,
+        "xref": 836,
+        "pixels": [
+          2140,
+          1516
+        ],
+        "sha256": "b555b4b971ff5aea2e466afe7dde7555da0023d5ee60168f0e700071bca1c915",
+        "scope": "printed folio 10, article heading and Han episode start"
+      },
+      {
+        "page": 270,
+        "xref": 839,
+        "pixels": [
+          2140,
+          1516
+        ],
+        "sha256": "8b08311b25bcdb1a080ed57adbf079d30aae636d4ecaffc9b6cb824a0cacabbd",
+        "scope": "printed folio 11, Han month/day and year context on the right; Yuan four pairs and combination terms on the left"
+      },
+      {
+        "page": 277,
+        "xref": 861,
+        "pixels": [
+          1954,
+          1516
+        ],
+        "sha256": "25cf74d3be1c7206539f62e02ee207eca97709e8637b578d0e0b6bce38fa3d21",
+        "scope": "2005 facsimile imprint"
+      }
+    ],
+    "target_folio_printing_or_block_date": null,
+    "digital_capture_date": null
+  },
+  "replay": {
+    "input_scope": "given stem and branch values only; no birth date conversion, month boundary or day rollover tested",
+    "references": [
+      "HPA-BAZI-017",
+      "HPA-BAZI-020",
+      "docs/research/TIANWEN-14W-XUANSOU-ORIGINAL-AND-FANG-SANCHE-R1.md",
+      "docs/research/TIANWEN-14U-YEAR-DAY-MONTH-COMMAND-AND-JOSEON-ZIWEISHU-R1.md"
+    ],
+    "cases": [
+      {
+        "person": "韓平原",
+        "year": "壬申",
+        "month": "辛亥",
+        "day": "己巳",
+        "hour": "丙寅",
+        "hour_context": "inferred from natal context; later 丙寅歲 is a year",
+        "month_offset_from_yin": 9,
+        "hour_offset_from_zi": 2
+      },
+      {
+        "person": "袁韶",
+        "year": "辛巳",
+        "month": "丙申",
+        "day": "丁亥",
+        "hour": "壬寅",
+        "hour_context": "four pairs printed consecutively",
+        "month_offset_from_yin": 6,
+        "hour_offset_from_zi": 2
+      }
+    ]
+  },
+  "transmission_impact": {
+    "nodes_added_or_strengthened": [
+      "PHYSICAL-COPY-PKU-TINGSHI-SONG-BLOCKS-YUAN-MING-REPAIRS",
+      "DIGITAL-SURROGATE-COMMONS-ZHSY000241-TINGSHI",
+      "PASSAGE-TINGSHI-V15-YANGGEN-NATAL-FOUR-PAIRS"
+    ],
+    "edges_supported": [
+      "TG-E0365",
+      "TG-E0366",
+      "TG-E0367"
+    ],
+    "edges_revised": [],
+    "edges_rejected_or_unproved": [
+      "Directed transmission among Ting shi, Wuxing jingji, and Fang Sanche yilan is unproved."
+    ],
+    "unresolved_lineage_questions": [
+      "Target folio block and impression date; relationship to the 1934 facsimile exemplar; the exact derivation used in the two Song-era cases and the timing of the full day-master framework."
+    ]
+  }
+}
