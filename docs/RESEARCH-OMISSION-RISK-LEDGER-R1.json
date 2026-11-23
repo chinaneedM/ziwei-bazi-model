@@ -12,8 +12,8 @@
   "binding": {
     "repository": "chinaneedM/ziwei-bazi-model",
     "branch": "agent/fusion-chart-core-r1-20260822",
-    "reviewed_state_version": "1.1430.0",
-    "source_focus_count": 3127,
+    "reviewed_state_version": "1.1432.0",
+    "source_focus_count": 3129,
     "latest_research_focus_prefix": "13ZZ"
   },
   "coverage_axes": [
@@ -35045,6 +35045,48 @@
           "scope": "15CC_MINGSHI_EIGHTEEN_JUAN_LU_VS_WAN_PRINTED_RECEIVED_RECENSION",
           "status": "OPEN",
           "next_evidence": "Independent original Qing MingShi volume98 physical leaf and original 八史經籍志 source exemplar, Ming printed author/juan pages, Danshengtang entry; do not infer original author from modern printing or couple Xingxue Ten-Changes with Ziwei Four Transformations."
+        }
+      ]
+    },
+    {
+      "id": "OMISSIONS-15CD-MINGSHI-MODERN-EMENDATION-AND-CI-REPAIR-20261123",
+      "date": "2026-11-23",
+      "state_version": "1.1432.0",
+      "reviewed_issue_ids": [
+        "TW-OPEN-0001",
+        "TW-OPEN-0002",
+        "TW-OPEN-0003",
+        "TW-OPEN-0004",
+        "TW-OPEN-0005",
+        "TW-OPEN-0006",
+        "TW-OPEN-0007",
+        "TW-OPEN-0008",
+        "TW-OPEN-0009",
+        "TW-OPEN-0010",
+        "TW-OPEN-0011",
+        "TW-OPEN-0012",
+        "TW-OPEN-0013",
+        "TW-OPEN-0014",
+        "TW-OPEN-0015"
+      ],
+      "discovery_mode": "BREADTH_FIRST_MINGSHI_EDITORIAL_EMENDATION_FORWARD_ONLY_ERRATUM_AND_CONTINUITY_CI_RECOVERY",
+      "result": "15CD corrects earlier unresolved 15CB/15CC received Lu vs Wan attribution comparison: 2026 digital critical apparatus note5 explicitly says modern editor relocated Xingxue Dacheng 18 from Lu to Wan using Xu Wenxian Tongkao v182 and Wenjinge Siku; actual early original folios and author still OPEN. Separate correction of ledger.binding reviewed_state_version and source_focus_count from 1.1430.0/3127 to 1.1432.0/3129 repairs exact-HEAD failures observed at 15CC. Source1146=647+499/198, graph456/370 Matrix222/222 all 15 OPEN incl five P0 G8930/6 chart CLOSED.",
+      "evidence_refs": [
+        "docs/research/TIANWEN-15CD-MINGSHI-XINGXUE-EIGHTEEN-JUAN-MODERN-CRITICAL-EMENDATION-ERRATUM-R1.md",
+        "docs/research/TIANWEN-15CD-MINGSHI-CRITICAL-NOTE-SOURCE-SHARD-R1.json",
+        "docs/research/TIANWEN-15CC-MINGSHI-YIWENZHI-18-JUAN-PRINTED-PAGE-COLLATION-R1.md",
+        "docs/research/TIANWEN-15CB-XINGXUE-FIVE-TEN-EIGHTEEN-THIRTY-RUSSIAN-WITNESS-R1.md"
+      ],
+      "unresolved_breadth_leads": [
+        {
+          "scope": "15CD_MODERN_MINGSHI_EMENDATION_VS_QING_PRINTED_BIBLIOGRAPHIC_AUTHOR",
+          "status": "OPEN",
+          "next_evidence": "Direct original Qing MingShi v98, original Xu Wenxian Tongkao182/Ji Huang and Wenjinge Siku title folios, Peking University specific critical-edition editor/page. Collate original Qing Siku preface-judged ten-juan physical text against five/eighteen/thirty copies before concluding author or text identity."
+        },
+        {
+          "scope": "15CD_CI_REPAIR_EXACT_HEAD_15CC_LEDGER_BINDING",
+          "status": "RECOVERED_PENDING_NEW_HEAD_CI",
+          "next_evidence": "Check 15CD exact-HEAD workflows for complete pass; if failure, inspect first failure stack and repair in forward-only checkpoint."
         }
       ]
     }
