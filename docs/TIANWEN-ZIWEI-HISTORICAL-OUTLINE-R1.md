@@ -415,3 +415,7 @@ VNPF[胜严寺 Thắng Nghiêm II 藏书群](https://lib.nomfoundation.org/colle
 ## 15BL｜第一阶段跨轴覆盖导航（2026-11-22）
 
 本纲中的按年代节点现已与[15BL双体系“时代×规则×地域”覆盖总表](./research/TIANWEN-15BL-DUAL-HISTORY-ERA-REGION-RULE-BREADTH-COVERAGE-CROSSWALK-R1.md)相互索引。该表严格区别前史材料、版本、民国印本和现代地区教学；所有未证的传承与机械函数仍待补，不据已研究次数或来源条数宣称历史框架全面闭合。本次无新增来源及图谱边。
+
+## 15BO｜1555《經國大典註解》不是「陳摶作紫微」的原證（2026-11-23）
+
+朝鮮1555注解后集的[〈大定數〉](https://db.history.go.kr/joseon/item/level.do?levelId=jlawb_030_0020_0030_0160_0470)称陳摶所述；[〈範圍數〉](https://db.history.go.kr/joseon/item/level.do?levelId=jlawb_030_0020_0030_0160_0480)另称陳摶撰、邵雍等增減。**这些话分别注解两种书名，不是给同列的《紫微數》定作者，更不能倒推出宋代十四主星或十八飞星原始规则。** 官方电子收文属1555时代归属说法的传承层，目标后集原印叶尚未核。与[15BN](./research/TIANWEN-15BN-JOSEON-1430-1485-ZIWEI-EXAM-FOLIOS-R1.md)1430/1485官修考书相邻但不可等同。详[15BO分书考](./research/TIANWEN-15BO-JOSEON-1555-CODE-ANNOTATIONS-ZIWEI-ZIPING-ATTRIBUTION-GATE-R1.md)。新增3条官方独立数字注释来源共1111/184片；图456/370、Matrix222/222、15未决含五P0、CLOSED不变。

@@ -501,3 +501,7 @@ NDL第一方编目列[1906年大阪天祥館四册](https://ndlsearch.ndl.go.jp/
 ## 15BL｜第一阶段跨轴覆盖导航（2026-11-22）
 
 本纲中的按年代节点现已与[15BL双体系“时代×规则×地域”覆盖总表](./research/TIANWEN-15BL-DUAL-HISTORY-ERA-REGION-RULE-BREADTH-COVERAGE-CROSSWALK-R1.md)相互索引。该表严格区别前史材料、版本、民国印本和现代地区教学；所有未证的传承与机械函数仍待补，不据已研究次数或来源条数宣称历史框架全面闭合。本次无新增来源及图谱边。
+
+## 15BO｜朝鮮1555法典注釋的徐子平、徐大升和「定格局」用語（2026-11-23）
+
+國史編纂委員會[《經國大典註解》后集〈徐子平〉](https://db.history.go.kr/joseon/item/level.do?levelId=jlawb_030_0020_0030_0160_0530)收有「宋朝人。其學東齋徐大升傳授，定格局。」**可證的是1555注释传统中已有这样的归属和格局词语；不能据此把宋代时干取法、日主、十神、格局的完整算法逐项反推为宋人原文。** 相邻〈五行精記〉已在13ZU登记；陈抟归属另分别施于《大定数》《范围数》，亦非子平或紫微直祖证据。和[15BM《桯史》命例](./research/TIANWEN-15BM-TINGSHI-PKU-OLD-WITNESS-AND-HOUR-STEM-REPLAY-R1.md)为不同证据层。详[15BO研究报告](./research/TIANWEN-15BO-JOSEON-1555-CODE-ANNOTATIONS-ZIWEI-ZIPING-ATTRIBUTION-GATE-R1.md)。累计1111（647＋464／184分片）；图456/370、Matrix222/222，风险15含五P0，排盘CLOSED。
