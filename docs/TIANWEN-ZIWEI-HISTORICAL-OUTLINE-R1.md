@@ -423,3 +423,7 @@ VNPF[胜严寺 Thắng Nghiêm II 藏书群](https://lib.nomfoundation.org/colle
 ## 15BP｜1471朝鮮命課與地理兼講奏議：不是紫微同法直傳（2026-11-23）
 
 國史編纂委員會新核的[《成宗實錄》卷10，1471年六月三十日](https://sillok.history.go.kr/id/kia_10206030_002)援引《大典》命課學遞兒二、生徒十，官員以「只習命書」提出命課、地理兩學「兼講」書籍，王答「從之」。1474年[已登記官員奏議](https://sillok.history.go.kr/id/kia_10511027_002)稱初設十八生徒、當時「將至廢絶」並請調整人職；兩個數目分屬1471定員與1474追溯初設，無法直接互相排斥。1474人的報告**不能**當成朝鮮紫微學永久斷代，1485法典書目存續亦**不能**證明每年連續教學/相同紫微術式。1471電子漢文「命(譯)〔課〕學」為有校改層，實錄原葉未取得；與1471《辛卯大典》卷三〈取才〉真正書名原葉仍分開。[詳15BP](./research/TIANWEN-15BP-SEONGJONG-1471-JOSEON-FATE-GEOMANCY-EXAM-ADJUSTMENT-R1.md)。累計1112來源／185分片，圖456/370、Matrix222/222、15未決五P0，核心CLOSED。
+
+## 15BQ｜1865—1874朝鲜命课学教材改试与复旧争议（2026-11-23）
+
+[1865《大典会通》官方数字法令](https://db.history.go.kr/joseon/item/level.do?levelId=jlawa_403r_0020_0930_0040) 把命课学考试书分成「原／续／补」制度层，不可将其中《袁天纲》《徐子平》《协吉通义》合称同一年代全部实考书。[1867官方编《史料高宗时代史》PDF第116印页](https://db.history.go.kr/diachronic/publication/download.do?itemFileId=8534992) 载观象监请求以《选择纪要》上下卷替换旧《袁天纲》试书并获「允」；[1874《高宗实录》官方汉文](https://sillok.history.go.kr/id/wza_11102028_001) 载李裕元呈旧书复考请求，高宗只表达理解，没有直接核得重颁批复。官制教材史不能等同紫微原始安星法传承；新增三来源1115／186分片、图456/370、Matrix222/222、十五OPEN含P0五、排盘CLOSED。[完整15BQ记录](./research/TIANWEN-15BQ-JOSEON-1865-1874-MYEONGGWA-EXAM-REVISION-AND-RESTORATION-BOUNDARY-R1.md)。

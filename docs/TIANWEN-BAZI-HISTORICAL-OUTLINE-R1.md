@@ -509,3 +509,7 @@ NDL第一方编目列[1906年大阪天祥館四册](https://ndlsearch.ndl.go.jp/
 ## 15BP｜1471官學「只習命書」、兩學兼講與1791「諏吉／祿命」的雙層對讀（2026-11-23）
 
 [《成宗實錄》1471年六月三十日官修受讀本](https://sillok.history.go.kr/id/kia_10206030_002)引命課學遞兒二、生徒十，並載「只習命書」及擬與地理學「兼講」獲准。這不是所選命書為《徐子平》某一版本的正文，亦不證明實際教過十神、日主、時干公式。對照[15A已登記1474人事危機和1791「今掌諏吉而專講祿命」的改革議案](./research/TIANWEN-15A-JOSEON-INSTITUTION-CURRICULUM-1462-1791-R1.md)，可以辨認不同年官署的命課角色說法與書目變化，不得假設傳承同規則或滿三百年不間斷授業。詳[15BP](./research/TIANWEN-15BP-SEONGJONG-1471-JOSEON-FATE-GEOMANCY-EXAM-ADJUSTMENT-R1.md)。1112來源/185分片、圖456/370、Matrix222/222、風險15含P0五、CLOSED。
+
+## 15BQ｜朝鲜1865—1874「袁天纲／选择纪要」推命—择吉教科争议（2026-11-23）
+
+国编[1865《大典会通》层积考试条](https://db.history.go.kr/joseon/item/level.do?levelId=jlawa_403r_0020_0930_0040) 列旧背讲／临文书、续修和补修择吉书各层；[1867《承政院日记》官方编辑选编页](https://db.history.go.kr/diachronic/publication/download.do?itemFileId=8534992) 记观象监称《袁天纲》专为推命而非择日，奏以《选择纪要》上下卷取代，王「允」；[1874《高宗实录》官方收文](https://sillok.history.go.kr/id/wza_11102028_001) 记学员要求复试旧书，王未明言批准。对照已有1791「今掌诹吉而专讲禄命」改革提案，本次首次补到奏准的科试制度调整及后续争议；不自动证明实际教用、袁天罡唐人作者身份、子平日主算法直传或正式复旧。1867官方现代PDF作「滑吉」、Wikisource受读作「涓吉」，古本字形待证。详[15BQ独立文献](./research/TIANWEN-15BQ-JOSEON-1865-1874-MYEONGGWA-EXAM-REVISION-AND-RESTORATION-BOUNDARY-R1.md)。来源1115=647+468／186片，图456/370、Matrix222/222，15项OPEN五P0、G8930/6、核心CLOSED。
