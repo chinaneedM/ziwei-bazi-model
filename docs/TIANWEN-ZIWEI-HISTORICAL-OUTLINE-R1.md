@@ -427,3 +427,7 @@ VNPF[胜严寺 Thắng Nghiêm II 藏书群](https://lib.nomfoundation.org/colle
 ## 15BQ｜1865—1874朝鲜命课学教材改试与复旧争议（2026-11-23）
 
 [1865《大典会通》官方数字法令](https://db.history.go.kr/joseon/item/level.do?levelId=jlawa_403r_0020_0930_0040) 把命课学考试书分成「原／续／补」制度层，不可将其中《袁天纲》《徐子平》《协吉通义》合称同一年代全部实考书。[1867官方编《史料高宗时代史》PDF第116印页](https://db.history.go.kr/diachronic/publication/download.do?itemFileId=8534992) 载观象监请求以《选择纪要》上下卷替换旧《袁天纲》试书并获「允」；[1874《高宗实录》官方汉文](https://sillok.history.go.kr/id/wza_11102028_001) 载李裕元呈旧书复考请求，高宗只表达理解，没有直接核得重颁批复。官制教材史不能等同紫微原始安星法传承；新增三来源1115／186分片、图456/370、Matrix222/222、十五OPEN含P0五、排盘CLOSED。[完整15BQ记录](./research/TIANWEN-15BQ-JOSEON-1865-1874-MYEONGGWA-EXAM-REVISION-AND-RESTORATION-BOUNDARY-R1.md)。
+
+## 15BR｜1867《選擇紀要》九曜与紫微星曜同名异义（2026-11-23）
+
+[韩国国图两组数字目录及三份PDF](https://commons.wikimedia.org/wiki/Category:%E9%81%B8%E6%93%87%E7%B4%80%E8%A6%81 )核到1867《選擇紀要》全史字本的上/下册与另一合册物件，馆目中的鱼尾和纸框数字不同但**尚不证明独立刻版**。[《上编·游年变卦》现代受读本](https://zh.wikisource.org/wiki/%E9%81%B8%E6%93%87%E7%B4%80%E8%A6%81/%E4%B8%8A%E7%B7%A8 )虽列贪狼、巨门、禄存、文曲、廉贞、武曲、破军、左辅、右弼，却分别说明地理家、选择家起法，是**翻卦/择吉九曜**，不能当成紫微十二宫安星传承。目录是书目级，完整大PDF尚未逐字校图。[15BR证据报告](./research/TIANWEN-15BR-SEONTAEKGIYO-1867-NLK-MULTICATALOG-AND-HOMONYM-SCOPE-R1.md)。新增五源1120（647+473／187片），图456/370、Matrix222/222、遗漏15含五P0、核心CLOSED。

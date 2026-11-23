@@ -513,3 +513,7 @@ NDL第一方编目列[1906年大阪天祥館四册](https://ndlsearch.ndl.go.jp/
 ## 15BQ｜朝鲜1865—1874「袁天纲／选择纪要」推命—择吉教科争议（2026-11-23）
 
 国编[1865《大典会通》层积考试条](https://db.history.go.kr/joseon/item/level.do?levelId=jlawa_403r_0020_0930_0040) 列旧背讲／临文书、续修和补修择吉书各层；[1867《承政院日记》官方编辑选编页](https://db.history.go.kr/diachronic/publication/download.do?itemFileId=8534992) 记观象监称《袁天纲》专为推命而非择日，奏以《选择纪要》上下卷取代，王「允」；[1874《高宗实录》官方收文](https://sillok.history.go.kr/id/wza_11102028_001) 记学员要求复试旧书，王未明言批准。对照已有1791「今掌诹吉而专讲禄命」改革提案，本次首次补到奏准的科试制度调整及后续争议；不自动证明实际教用、袁天罡唐人作者身份、子平日主算法直传或正式复旧。1867官方现代PDF作「滑吉」、Wikisource受读作「涓吉」，古本字形待证。详[15BQ独立文献](./research/TIANWEN-15BQ-JOSEON-1865-1874-MYEONGGWA-EXAM-REVISION-AND-RESTORATION-BOUNDARY-R1.md)。来源1115=647+468／186片，图456/370、Matrix222/222，15项OPEN五P0、G8930/6、核心CLOSED。
+
+## 15BR｜朝鲜《选择纪要》实书登记与八字规则来源防火墙（2026-11-23）
+
+[韩国国图数字目录](https://commons.wikimedia.org/wiki/Category:%E9%81%B8%E6%93%87%E7%B4%80%E8%A6%81 )给出1867年两组《選擇紀要》对象，一组上下2PDF、一组248页合册复制本，**不得计为三部独立原刻**；AKS现代书志和2014KCI论文描述南秉吉与择吉考试的关系，不能代替1867原序及1874之后实际考试记录。[《上编》现代受读文本](https://zh.wikisource.org/wiki/%E9%81%B8%E6%93%87%E7%B4%80%E8%A6%81/%E4%B8%8A%E7%B7%A8 )中的九曜、先天数与干支配数属择日/地理作用域，与子平日主和十神机械规则不等同。原印字形、版次和复旧令均待证。[15BR完整证据](./research/TIANWEN-15BR-SEONTAEKGIYO-1867-NLK-MULTICATALOG-AND-HOMONYM-SCOPE-R1.md)。五新源1120／187片，Matrix222/222、谱图456/370、15风险五P0、G8930/6、排盘CLOSED。
