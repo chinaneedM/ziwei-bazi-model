@@ -1121,7 +1121,7 @@
     {
       "path": "docs/research/TIANWEN-15BQ-JOSEON-1865-1874-EXAM-CHRONOLOGY-SOURCE-SHARD-R1.json",
       "schema": "TIANWEN-15BQ-JOSEON-1865-1874-EXAM-CHRONOLOGY-SOURCE-SHARD-R1",
-      "blob_sha": "79020159bbc0321fa1318231dab5eaa5fe557be1",
+      "blob_sha": "c216740a67710ffec4c57ec33662d132035b6550",
       "source_count": 3
     }
   ],
@@ -1744,5 +1744,17 @@
     "physical_glyph_authority": false,
     "transmission_edges_added": 0,
     "scope": "1865 Daejeon Hoetong stratified exam books, 1867 royal approval to replace Yuan Tiangang with Seontaek Giyo (official edited source page), and 1874 court call to restore former books without explicit royal assent. All history/book/copy/technical claims separated; source image glyph variant remains unclosed."
+  },
+  "forward_only_status_erratum_15bq": {
+    "date": "2026-11-23",
+    "affected_source_id": "EXT-TIANWEN-15BQ-SEUNGJEONGWON-1867-JULY11-SEONTAEK-GIYO",
+    "field": "verification_status",
+    "prior_status": "OFFICIAL_EDITED_PAGE_VISUALLY_VERIFIED",
+    "corrected_status": "RECEIVED_TEXT_VERIFIED",
+    "basis": "Standard source-registry verification enum; prior phrase described visual examination of modern edited NIKH PDF rather than original historical source-image glyph authority. All original-witness limitations and unresolved 滑/涓 reading preserved.",
+    "original_shard_blob_sha": "79020159bbc0321fa1318231dab5eaa5fe557be1",
+    "material_historical_claim_changed": false,
+    "source_count_delta": 0,
+    "algorithm_change": false
   }
 }
