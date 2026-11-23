@@ -465,3 +465,12 @@ VNPF[胜严寺 Thắng Nghiêm II 藏书群](https://lib.nomfoundation.org/colle
 作者称古典格局157种，经其眞格／用格／僞格论述筛除58种而保留99种。这是**2021年作者的归纳与规范性取舍，不是历史上已确立的99种正统格局，更不授权修改确定性排盘**。同一作者亦撰写2018年金緻《深谷秘訣》“初传朝鲜”论文，两项现代叙述不可当作互相独立的早期来源。论文摘要提出《星學大成》〈十干變曜表〉演进为四化的说法，仍需核验万民英时代相应表及明刊《捷览》《全书》《全集》的逐干逐星输出与版次年代才能建立谱系。1430《紫微數》原有书名、乙亥字残本与不定年《深谷秘訣》仍非已证直传。
 
 [15BY馆藏目录与技术索引](./research/TIANWEN-15BY-KOREA-2021-ZIWEI-CLASSIC-GYEOKGUK-BIBLIOGRAPHY-R1.md)；来源1134＝647＋487／193分片，图456/370，Matrix222/222，风险15含五P0及核心CLOSED不变。
+
+
+## 15BZ｜《星學大成》十干變曜和紫微十干四化：同词不等于同运算（2026-11-23）
+
+[《星學大成》卷一四庫傳文](https://zh.wikisource.org/zh-hant/星學大成_(四庫全書本)/卷01)有十類祿／暗／福／耗／蔭／貴／刑／印／囚／權，與十曜火／孛／木／金／土／月／水／炁／計／羅的逐干輪轉；甲年祿火、權羅，乙年祿孛、權火。《古今圖書集成》藝術典卷568〈張果星宗·變曜〉另有[後出彙錄傳文](https://zh.wikisource.org/zh-hant/欽定古今圖書集成/博物彙編/藝術典/第568卷)及[卷568原掃描頁索引](https://zh.wikisource.org/wiki/Page:Gujin_Tushu_Jicheng,_Volume_468_(1700-1725).djvu/30)，但索引頁未校對、非本批原圖哈希校字。其後「天元祿」還需以年干五虎遁和命宮為額外輸入，不能簡化為直接年干四化。
+
+對照已審的1581《捷覽》接受系四化訣：甲廉破武陽（廉祿、破權、武科、陽忌）、乙機梁微月，四類祿／權／科／忌的**用星、類別數量與輸出**都不同，故不以「祿、權」同名建立直接算法同一或明人首創的直傳鏈。**保留可能的後世概念轉化假說，不把間接影響一概否定。** 此外《星學大成》電子傳文於「田宅」重寫「䕃」，而《古今圖書集成》對應段作「印」，缺原刻精確校勘前不判明本原字。
+
+台灣國圖聯合館目 [rb0010178](https://rbook.ncl.edu.tw/NCLSearch/Search/SearchDetail?HasImage=&SourceID=1&item=7f3b6435e5c34370a40ca6d1269bc335fDE0MDAyNA2.EYY4WuXIh75_NJnvoH0reBsFIc6mVeUE_Njh42jAxsE_&page=&sourceWhereString=&whereString=IChDcmVhdGVyX05hbWUgbGlrZSAnJeiQrOawkeiLsSUnIG9yIERvY3VtZW50X1dyaXRlciBsaWtlICcl6JCs5rCR6IuxJScgb3IgSm91cm5hbF9Xcml0ZXIgbGlrZSAnJeiQrOawkeiLsSUnICkg0.kCozK1ger_VDKjWLmYeI3_nb0xMenmNBgvJUAAV7WaE_)記載乾隆間寫文淵閣四庫全書本《星學大成》三十卷二十二冊、故宮博物院圖書文獻館收藏，是清代抄本館藏而非明原刊。三條來源不同作用域，沒有可獨立投票的三份明原件。[15BZ比對全文](./research/TIANWEN-15BZ-XINGXUE-TEN-TRANSFORMATIONS-VS-ZIWEI-FOUR-R1.md)。來源1137＝647＋490／194片；圖456/370、Matrix222/222、15風險含5P0、G893最終0/6、排盤CLOSED。
