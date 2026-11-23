@@ -8104,6 +8104,57 @@
         "docs/research/TIANWEN-15BM-PKU-TINGSHI-SOURCE-SHARD-R1.json"
       ],
       "first_explicit_graph_batch": "15BM"
+    },
+    {
+      "node_id": "DIGITAL-SURROGATE-NTUL-SEJONG-TAEBAEK-FACSIMILE-1930-V4-NO14",
+      "node_type": "DIGITAL_SURROGATE",
+      "label": "台大藏1930年太白山本《世宗实录》影印数字影像",
+      "system_scope": "CROSS_SYSTEM",
+      "work_composition_date": null,
+      "edition_impression_date": null,
+      "physical_copy_date": null,
+      "digital_surrogate_date": null,
+      "date_scope_note": "Event 1430; facsimile dated 1930 by p109; date of the exact underlying leaf and capture unassigned.",
+      "evidence": [
+        "EXT-TIANWEN-15BN-NTUL-TAEBAEK-1430-EXAM-FOLIOS",
+        "docs/research/TIANWEN-15BN-JOSEON-1430-1485-ZIWEI-EXAM-FOLIOS-R1.md",
+        "docs/research/TIANWEN-15BN-JOSEON-EXAM-FOLIOS-SOURCE-SHARD-R1.json"
+      ],
+      "first_explicit_graph_batch": "15BN"
+    },
+    {
+      "node_id": "DIGITAL-SURROGATE-NLK-68012-GYEONGGUK-EULSA-EXAM",
+      "node_type": "DIGITAL_SURROGATE",
+      "label": "韩国国图初铸甲寅字《经国大典》数字影像",
+      "system_scope": "CROSS_SYSTEM",
+      "work_composition_date": null,
+      "edition_impression_date": null,
+      "physical_copy_date": null,
+      "digital_surrogate_date": null,
+      "date_scope_note": "Final code 1485; the institution dates this printing to the first half of the 16th century; image capture date unknown.",
+      "evidence": [
+        "EXT-TIANWEN-15BN-NLK-EULSA-GYEONGGUK-EXAM-FOLIOS",
+        "docs/research/TIANWEN-15BN-JOSEON-1430-1485-ZIWEI-EXAM-FOLIOS-R1.md",
+        "docs/research/TIANWEN-15BN-JOSEON-EXAM-FOLIOS-SOURCE-SHARD-R1.json"
+      ],
+      "first_explicit_graph_batch": "15BN"
+    },
+    {
+      "node_id": "DIGITAL-SURROGATE-SNU-GK01298-GYEONGGUK-1661-EXAM",
+      "node_type": "DIGITAL_SURROGATE",
+      "label": "首尔大学奎1298《经国大典》1661年重印数字影像",
+      "system_scope": "CROSS_SYSTEM",
+      "work_composition_date": null,
+      "edition_impression_date": null,
+      "physical_copy_date": null,
+      "digital_surrogate_date": null,
+      "date_scope_note": "Final code 1485; cataloged 1661 reprint; exact capture date unknown.",
+      "evidence": [
+        "EXT-TIANWEN-15BN-SNU-GK01298-GYEONGGUK-EXAM-FOLIOS",
+        "docs/research/TIANWEN-15BN-JOSEON-1430-1485-ZIWEI-EXAM-FOLIOS-R1.md",
+        "docs/research/TIANWEN-15BN-JOSEON-EXAM-FOLIOS-SOURCE-SHARD-R1.json"
+      ],
+      "first_explicit_graph_batch": "15BN"
     }
   ],
   "edges": [
@@ -13754,6 +13805,54 @@
       ],
       "scope_note": "Hash-bound pp. 269–270 attest the article and Yuan Shao four pairs on the reviewed facsimile. No target block date or rule transmission is established.",
       "adjudication_batch": "15BM"
+    },
+    {
+      "edge_id": "TG-E0368",
+      "from": "DIGITAL-SURROGATE-NTUL-SEJONG-TAEBAEK-FACSIMILE-1930-V4-NO14",
+      "relation": "ATTESTS",
+      "to": "PASSAGE-JOSEON-SEJONG-1430-EXAM-LIST",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_WITHIN_SAMPLED_SCOPE",
+      "evidence_class": "DIRECT_PHYSICAL_TEXT",
+      "evidence": [
+        "EXT-TIANWEN-15BN-NTUL-TAEBAEK-1430-EXAM-FOLIOS",
+        "docs/research/TIANWEN-15BN-JOSEON-1430-1485-ZIWEI-EXAM-FOLIOS-R1.md",
+        "docs/research/TIANWEN-15BN-JOSEON-EXAM-FOLIOS-SOURCE-SHARD-R1.json"
+      ],
+      "scope_note": "PDF p101–102 show article start and short titles on facing sides of folio 28; the image has no title delimiters between Yuan Tiangang and Wuxing Jingji.",
+      "adjudication_batch": "15BN"
+    },
+    {
+      "edge_id": "TG-E0369",
+      "from": "DIGITAL-SURROGATE-NLK-68012-GYEONGGUK-EULSA-EXAM",
+      "relation": "ATTESTS",
+      "to": "PASSAGE-JOSEON-GYEONGGUK-MYEONGGWA-EXAM",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_WITHIN_SAMPLED_SCOPE",
+      "evidence_class": "DIRECT_PHYSICAL_TEXT",
+      "evidence": [
+        "EXT-TIANWEN-15BN-NLK-EULSA-GYEONGGUK-EXAM-FOLIOS",
+        "docs/research/TIANWEN-15BN-JOSEON-1430-1485-ZIWEI-EXAM-FOLIOS-R1.md",
+        "docs/research/TIANWEN-15BN-JOSEON-EXAM-FOLIOS-SOURCE-SHARD-R1.json"
+      ],
+      "scope_note": "PDF pp. 116 and 118 attest the statutory exam list including 紫微數 under 臨文 and 袁天綱 under 背講.",
+      "adjudication_batch": "15BN"
+    },
+    {
+      "edge_id": "TG-E0370",
+      "from": "DIGITAL-SURROGATE-SNU-GK01298-GYEONGGUK-1661-EXAM",
+      "relation": "ATTESTS",
+      "to": "PASSAGE-JOSEON-GYEONGGUK-MYEONGGWA-EXAM",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_WITHIN_SAMPLED_SCOPE",
+      "evidence_class": "DIRECT_PHYSICAL_TEXT",
+      "evidence": [
+        "EXT-TIANWEN-15BN-SNU-GK01298-GYEONGGUK-EXAM-FOLIOS",
+        "docs/research/TIANWEN-15BN-JOSEON-1430-1485-ZIWEI-EXAM-FOLIOS-R1.md",
+        "docs/research/TIANWEN-15BN-JOSEON-EXAM-FOLIOS-SOURCE-SHARD-R1.json"
+      ],
+      "scope_note": "Public viewer 057a and 058a attest the 取才 heading and the same title and examination modalities in the sampled part of the later reprint.",
+      "adjudication_batch": "15BN"
     }
   ],
   "lineage_hypotheses": [
