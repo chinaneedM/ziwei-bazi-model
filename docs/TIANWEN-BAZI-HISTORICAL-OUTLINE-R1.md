@@ -517,3 +517,8 @@ NDL第一方编目列[1906年大阪天祥館四册](https://ndlsearch.ndl.go.jp/
 ## 15BR｜朝鲜《选择纪要》实书登记与八字规则来源防火墙（2026-11-23）
 
 [韩国国图数字目录](https://commons.wikimedia.org/wiki/Category:%E9%81%B8%E6%93%87%E7%B4%80%E8%A6%81 )给出1867年两组《選擇紀要》对象，一组上下2PDF、一组248页合册复制本，**不得计为三部独立原刻**；AKS现代书志和2014KCI论文描述南秉吉与择吉考试的关系，不能代替1867原序及1874之后实际考试记录。[《上编》现代受读文本](https://zh.wikisource.org/wiki/%E9%81%B8%E6%93%87%E7%B4%80%E8%A6%81/%E4%B8%8A%E7%B7%A8 )中的九曜、先天数与干支配数属择日/地理作用域，与子平日主和十神机械规则不等同。原印字形、版次和复旧令均待证。[15BR完整证据](./research/TIANWEN-15BR-SEONTAEKGIYO-1867-NLK-MULTICATALOG-AND-HOMONYM-SCOPE-R1.md)。五新源1120／187片，Matrix222/222、谱图456/370、15风险五P0、G8930/6、排盘CLOSED。
+
+
+## 15BS｜朝鲜1894—1909制度转型的档案与现代元数据分层（2026-11-23）
+
+[1894年七月初三《高宗实录》官方受读](https://sillok.history.go.kr/id/kza_13107003_004)确认军国机务处提一般科举选拔变通与另定条例并获允，**不是1874《袁天纲》复考正式批准**。[1894七月二十八官报草记](https://db.history.go.kr/modern/gb/level.do?levelId=gbdh_1894_07_28_d00000_00020)在学务衙门官制中定观象局掌天文、历数、测候等，未为具体紫微或子平课程书目背书。AKS的[观象所条](https://encykorea.aks.ac.kr/Article/E0004878)（1895/1907机构变动）及[命课学条](https://encykorea.aks.ac.kr/Article/E0080897)（1909废止元数据）均属后出回顾，不能拼接成1894—1909同一教学、考试或术式持续的原始证据。官方数字文字 C、现代百科 D；原印原纸 A 未核。详[15BS制度转型考证](./research/TIANWEN-15BS-JOSEON-1894-1909-EXAMS-AND-OBSERVATORY-TRANSITION-R1.md)。登记4条互补来源，合计1124=647+477/188分片；Matrix222/222、谱图456/370、遗漏风险15含五P0、G893 0/6与核心CLOSED不变。

@@ -431,3 +431,8 @@ VNPF[胜严寺 Thắng Nghiêm II 藏书群](https://lib.nomfoundation.org/colle
 ## 15BR｜1867《選擇紀要》九曜与紫微星曜同名异义（2026-11-23）
 
 [韩国国图两组数字目录及三份PDF](https://commons.wikimedia.org/wiki/Category:%E9%81%B8%E6%93%87%E7%B4%80%E8%A6%81 )核到1867《選擇紀要》全史字本的上/下册与另一合册物件，馆目中的鱼尾和纸框数字不同但**尚不证明独立刻版**。[《上编·游年变卦》现代受读本](https://zh.wikisource.org/wiki/%E9%81%B8%E6%93%87%E7%B4%80%E8%A6%81/%E4%B8%8A%E7%B7%A8 )虽列贪狼、巨门、禄存、文曲、廉贞、武曲、破军、左辅、右弼，却分别说明地理家、选择家起法，是**翻卦/择吉九曜**，不能当成紫微十二宫安星传承。目录是书目级，完整大PDF尚未逐字校图。[15BR证据报告](./research/TIANWEN-15BR-SEONTAEKGIYO-1867-NLK-MULTICATALOG-AND-HOMONYM-SCOPE-R1.md)。新增五源1120（647+473／187片），图456/370、Matrix222/222、遗漏15含五P0、核心CLOSED。
+
+
+## 15BS｜朝鲜1894—1909制度转型的档案与现代元数据分层（2026-11-23）
+
+[1894年七月初三《高宗实录》官方受读](https://sillok.history.go.kr/id/kza_13107003_004)确认军国机务处提一般科举选拔变通与另定条例并获允，**不是1874《袁天纲》复考正式批准**。[1894七月二十八官报草记](https://db.history.go.kr/modern/gb/level.do?levelId=gbdh_1894_07_28_d00000_00020)在学务衙门官制中定观象局掌天文、历数、测候等，未为具体紫微或子平课程书目背书。AKS的[观象所条](https://encykorea.aks.ac.kr/Article/E0004878)（1895/1907机构变动）及[命课学条](https://encykorea.aks.ac.kr/Article/E0080897)（1909废止元数据）均属后出回顾，不能拼接成1894—1909同一教学、考试或术式持续的原始证据。官方数字文字 C、现代百科 D；原印原纸 A 未核。详[15BS制度转型考证](./research/TIANWEN-15BS-JOSEON-1894-1909-EXAMS-AND-OBSERVATORY-TRANSITION-R1.md)。登记4条互补来源，合计1124=647+477/188分片；Matrix222/222、谱图456/370、遗漏风险15含五P0、G893 0/6与核心CLOSED不变。
