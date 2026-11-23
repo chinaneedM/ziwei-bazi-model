@@ -505,3 +505,7 @@ NDL第一方编目列[1906年大阪天祥館四册](https://ndlsearch.ndl.go.jp/
 ## 15BO｜朝鮮1555法典注釋的徐子平、徐大升和「定格局」用語（2026-11-23）
 
 國史編纂委員會[《經國大典註解》后集〈徐子平〉](https://db.history.go.kr/joseon/item/level.do?levelId=jlawb_030_0020_0030_0160_0530)收有「宋朝人。其學東齋徐大升傳授，定格局。」**可證的是1555注释传统中已有这样的归属和格局词语；不能据此把宋代时干取法、日主、十神、格局的完整算法逐项反推为宋人原文。** 相邻〈五行精記〉已在13ZU登记；陈抟归属另分别施于《大定数》《范围数》，亦非子平或紫微直祖证据。和[15BM《桯史》命例](./research/TIANWEN-15BM-TINGSHI-PKU-OLD-WITNESS-AND-HOUR-STEM-REPLAY-R1.md)为不同证据层。详[15BO研究报告](./research/TIANWEN-15BO-JOSEON-1555-CODE-ANNOTATIONS-ZIWEI-ZIPING-ATTRIBUTION-GATE-R1.md)。累计1111（647＋464／184分片）；图456/370、Matrix222/222，风险15含五P0，排盘CLOSED。
+
+## 15BP｜1471官學「只習命書」、兩學兼講與1791「諏吉／祿命」的雙層對讀（2026-11-23）
+
+[《成宗實錄》1471年六月三十日官修受讀本](https://sillok.history.go.kr/id/kia_10206030_002)引命課學遞兒二、生徒十，並載「只習命書」及擬與地理學「兼講」獲准。這不是所選命書為《徐子平》某一版本的正文，亦不證明實際教過十神、日主、時干公式。對照[15A已登記1474人事危機和1791「今掌諏吉而專講祿命」的改革議案](./research/TIANWEN-15A-JOSEON-INSTITUTION-CURRICULUM-1462-1791-R1.md)，可以辨認不同年官署的命課角色說法與書目變化，不得假設傳承同規則或滿三百年不間斷授業。詳[15BP](./research/TIANWEN-15BP-SEONGJONG-1471-JOSEON-FATE-GEOMANCY-EXAM-ADJUSTMENT-R1.md)。1112來源/185分片、圖456/370、Matrix222/222、風險15含P0五、CLOSED。
