@@ -474,3 +474,11 @@ VNPF[胜严寺 Thắng Nghiêm II 藏书群](https://lib.nomfoundation.org/colle
 對照已審的1581《捷覽》接受系四化訣：甲廉破武陽（廉祿、破權、武科、陽忌）、乙機梁微月，四類祿／權／科／忌的**用星、類別數量與輸出**都不同，故不以「祿、權」同名建立直接算法同一或明人首創的直傳鏈。**保留可能的後世概念轉化假說，不把間接影響一概否定。** 此外《星學大成》電子傳文於「田宅」重寫「䕃」，而《古今圖書集成》對應段作「印」，缺原刻精確校勘前不判明本原字。
 
 台灣國圖聯合館目 [rb0010178](https://rbook.ncl.edu.tw/NCLSearch/Search/SearchDetail?HasImage=&SourceID=1&item=7f3b6435e5c34370a40ca6d1269bc335fDE0MDAyNA2.EYY4WuXIh75_NJnvoH0reBsFIc6mVeUE_Njh42jAxsE_&page=&sourceWhereString=&whereString=IChDcmVhdGVyX05hbWUgbGlrZSAnJeiQrOawkeiLsSUnIG9yIERvY3VtZW50X1dyaXRlciBsaWtlICcl6JCs5rCR6IuxJScgb3IgSm91cm5hbF9Xcml0ZXIgbGlrZSAnJeiQrOawkeiLsSUnICkg0.kCozK1ger_VDKjWLmYeI3_nb0xMenmNBgvJUAAV7WaE_)記載乾隆間寫文淵閣四庫全書本《星學大成》三十卷二十二冊、故宮博物院圖書文獻館收藏，是清代抄本館藏而非明原刊。三條來源不同作用域，沒有可獨立投票的三份明原件。[15BZ比對全文](./research/TIANWEN-15BZ-XINGXUE-TEN-TRANSFORMATIONS-VS-ZIWEI-FOUR-R1.md)。來源1137＝647＋490／194片；圖456/370、Matrix222/222、15風險含5P0、G893最終0/6、排盤CLOSED。
+
+## 15CA｜《星學大成》十卷／三十卷與1563署序的版本學邊界（2026-11-23）
+
+清代《四庫全書總目》卷109的[傳本著錄](https://zh.wikisource.org/zh-hans/欽定四庫全書總目_(四庫全書本)/子部/卷109)明稱《星學大成》**十卷、兩淮鹽政采進本**，並按十卷列舉內容門類；而[文淵閣四庫傳文](https://zh.wikisource.org/zh-hant/星學大成_(四庫全書本)/全覽)的提要稱**三十卷**，15BZ已登記的臺灣國圖聯合目錄rb0010178亦列乾隆間寫文淵閣本三十卷、二十二冊。此為**卷數／版本著錄的並存陳述**；尚未逐卷對照兩淮本和文淵閣抄本物理原葉，不能直接判為同版異分卷或兩部不同原作。
+
+[《星學大成原序》後出受讀](https://www.shidianguji.com/zh/book/SK1609/chapter/1m1ele1pgj47v)自署嘉靖四十二年癸亥十月朔（1563），正文自稱輯著「若干卷」，**不是已核1563原刻、原稿或十干變曜首創年**。即使時間上早於1581《捷覽》，也不能建立二者四化機械直接承襲。15BZ十曜變化與斗數四化的「所檢文本非同一算法」維持，間接技術影響仍為未證候選。研究詳[15CA](./research/TIANWEN-15CA-XINGXUE-TEN-THIRTY-JUAN-SIKU-PREFACE-R1.md)。
+
+來源1139＝647根＋492擴展／195片，圖456/370、Matrix222/222、風險15含五P0、G893終裁0/6及CLOSED不變。
