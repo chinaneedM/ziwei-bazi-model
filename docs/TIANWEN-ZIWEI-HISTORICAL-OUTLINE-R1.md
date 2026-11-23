@@ -436,3 +436,8 @@ VNPF[胜严寺 Thắng Nghiêm II 藏书群](https://lib.nomfoundation.org/colle
 ## 15BS｜朝鲜1894—1909制度转型的档案与现代元数据分层（2026-11-23）
 
 [1894年七月初三《高宗实录》官方受读](https://sillok.history.go.kr/id/kza_13107003_004)确认军国机务处提一般科举选拔变通与另定条例并获允，**不是1874《袁天纲》复考正式批准**。[1894七月二十八官报草记](https://db.history.go.kr/modern/gb/level.do?levelId=gbdh_1894_07_28_d00000_00020)在学务衙门官制中定观象局掌天文、历数、测候等，未为具体紫微或子平课程书目背书。AKS的[观象所条](https://encykorea.aks.ac.kr/Article/E0004878)（1895/1907机构变动）及[命课学条](https://encykorea.aks.ac.kr/Article/E0080897)（1909废止元数据）均属后出回顾，不能拼接成1894—1909同一教学、考试或术式持续的原始证据。官方数字文字 C、现代百科 D；原印原纸 A 未核。详[15BS制度转型考证](./research/TIANWEN-15BS-JOSEON-1894-1909-EXAMS-AND-OBSERVATORY-TRANSITION-R1.md)。登记4条互补来源，合计1124=647+477/188分片；Matrix222/222、谱图456/370、遗漏风险15含五P0、G893 0/6与核心CLOSED不变。
+
+
+## 15BT｜1894《選擧條例》与1895敕令47之制度层原文（2026-11-23）
+
+15BS仅能确认1894**七月初三旧历**科举变通议案与**七月二十八旧历**观象局职掌，尚缺后续法规。现核[七月十二日官方《草记》](https://db.history.go.kr/modern/gb/level.do?levelId=gbdh_1894_07_12_d00000_00030)内《選擧條例》四款及《銓考局條例》二阶段普通/特别试验与各科目，**不是命课学实际考题／旧书恢复命令**。[1895三月二十五日《高宗实录》](https://sillok.history.go.kr/id/kza_13203025_011)明确记载敕令47《觀象所官制》**裁可颁布**、第七条自开国504年四月一日施行、第六条分课由学部大臣定。AKS[《選擧條例》回顾](https://encykorea.aks.ac.kr/Article/E0028604)另将1894旧科举转制理解为实施改革，但属于现代制度史说明，不能以此证明所有专业命课考试在相同时间同步终止。两原文本仅是历史官方数字受读 C，尚非原纸字形 A；在紫微/八字软件机械源流层继续不加任何直传边。[15BT详证](./research/TIANWEN-15BT-JOSEON-1894-ELECTION-1895-GWANSANGSO-FORMAL-ORDINANCES-R1.md)。新3源共1127=647+480/189分片；Matrix222/222、图456/370、15遗漏五P0与CLOSED核心不变。
