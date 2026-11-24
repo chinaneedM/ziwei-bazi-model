@@ -12,8 +12,8 @@
   "binding": {
     "repository": "chinaneedM/ziwei-bazi-model",
     "branch": "agent/fusion-chart-core-r1-20260822",
-    "reviewed_state_version": "1.1463.0",
-    "source_focus_count": 3159,
+    "reviewed_state_version": "1.1464.0",
+    "source_focus_count": 3160,
     "latest_research_focus_prefix": "13ZZ"
   },
   "coverage_axes": [
@@ -14653,6 +14653,33 @@
           "evidence_refs": [
             "docs/research/TIANWEN-15DD-TAIWAN-NATAL-PRACTICE-SURVEY-R1.md",
             "docs/research/TIANWEN-15DD-TAIWAN-TSCS-SOURCE-SHARD-R1.json"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "TW-OPEN-0023",
+      "title": "民国北平张云溪《命數叢譚》1933年报章原刊、命例术式与王裁珊交往",
+      "priority": "P1",
+      "scope": "REPUBLICAN_BEIPING_ZIWEI_BAZI_PRESS_PRACTICE",
+      "status": "OPEN",
+      "origin": "15DE_REPUBLICAN_PRESS_PROVISIONAL_2026-11-24",
+      "source_refs": [
+        "docs/research/TIANWEN-15DE-REPUBLICAN-ZIWEI-PRESS-PRACTICE-CHECKPOINT-R1.md"
+      ],
+      "evidence_boundary": "现代出版社2016年回述1933年冬报章专栏、2016重印书目与同出版社2021王裁珊交往叙述。未核到民国原刊或原页；同源转载不作独立见证。",
+      "missing_evidence": "1933报纸名称、日期、版页、专栏原件；旧刊本扉页及刊记、实际紫微命盘或具体技法原页；交往的独立同期书信、署名序跋或材料。",
+      "next_action": "先完成全部来源分片内容查重，再免费查北平报刊、原书馆目和公开合法试阅；若不可取得，保留未决并继续其他实务覆盖。",
+      "closure_criteria": "同期具体报刊/旧书原页及版次绑定支持所述专栏和具体术式，交往与传承分别证实或限定，不把八字命例当紫微命盘。",
+      "matrix_rule_ids": [],
+      "resolution_evidence": [],
+      "history": [
+        {
+          "event": "REGISTERED_UNRESOLVED",
+          "date": "2026-11-24",
+          "basis": "Modern publisher retrospective 1933 newspaper-column lead and named acquaintance require contemporary primary verification; not a confirmed transmission edge.",
+          "evidence_refs": [
+            "docs/research/TIANWEN-15DE-REPUBLICAN-ZIWEI-PRESS-PRACTICE-CHECKPOINT-R1.md"
           ]
         }
       ]
@@ -36534,6 +36561,48 @@
           "scope": "TW-OPEN-0022",
           "status": "OPEN",
           "next_evidence": "Public comparability documentation for survey windows, overlap, skip codes and 2004 archive description."
+        }
+      ]
+    },
+    {
+      "id": "TW-CHECKPOINT-15DE-PROVISIONAL-20261124",
+      "date": "2026-11-24",
+      "state_version": "1.1464.0",
+      "reviewed_issue_ids": [
+        "TW-OPEN-0001",
+        "TW-OPEN-0002",
+        "TW-OPEN-0003",
+        "TW-OPEN-0004",
+        "TW-OPEN-0005",
+        "TW-OPEN-0006",
+        "TW-OPEN-0007",
+        "TW-OPEN-0008",
+        "TW-OPEN-0009",
+        "TW-OPEN-0010",
+        "TW-OPEN-0011",
+        "TW-OPEN-0012",
+        "TW-OPEN-0013",
+        "TW-OPEN-0014",
+        "TW-OPEN-0015",
+        "TW-OPEN-0016",
+        "TW-OPEN-0017",
+        "TW-OPEN-0018",
+        "TW-OPEN-0019",
+        "TW-OPEN-0020",
+        "TW-OPEN-0021",
+        "TW-OPEN-0022",
+        "TW-OPEN-0023"
+      ],
+      "discovery_mode": "BREADTH_FIRST_PROVISIONAL_INTERRUPTION_CHECKPOINT",
+      "result": "13ZZ CURRENT ACTION AFTER 15DE PROVISIONAL BREADTH CHECKPOINT: Republican Beiping Zhang Yunxi Ming Shu Cong Tan (命數叢譚), modern publisher 2016-03-20 reports 1933 winter newspaper column and later compilation, plus publisher's 2021 Wang Caishan book description claims acquaintance. Reprint ISBN9789888317141 (184pp Google Books) and distributor repeat same publisher narrative, not independent contemporary witnesses. No original newspaper name, issue, dated chart, old edition imprint or method-specific original text retrieved. Root647 and eight targeted shards (33 sources) searched for name/title/ISBN/Google Books ID; all 223 manifest paths and hashes match exact tree, 611 declared entries; full shard content traversal not completed (tool-call ceiling); no absence or admission claim. TW-OPEN-0023 records original-source gap. Sources1258, graph467/374, Matrix222/222, five P0 retained, G8930/6 and CLOSED. NEXT resume full shard duplicate scan and original Beiping press/old book preview or catalog retrieval, preserve bounded negative access evidence; latest completed breadth 15DD.",
+      "evidence_refs": [
+        "docs/research/TIANWEN-15DE-REPUBLICAN-ZIWEI-PRESS-PRACTICE-CHECKPOINT-R1.md"
+      ],
+      "unresolved_breadth_leads": [
+        {
+          "scope": "TW-OPEN-0023",
+          "status": "OPEN",
+          "next_evidence": "Full shard content dedup, original 1933 Beiping periodical name/issue/page and old-book imprint or explicit Ziwei practice page; no direct lineage inferred."
         }
       ]
     }
