@@ -12,8 +12,8 @@
   "binding": {
     "repository": "chinaneedM/ziwei-bazi-model",
     "branch": "agent/fusion-chart-core-r1-20260822",
-    "reviewed_state_version": "1.1466.0",
-    "source_focus_count": 3162,
+    "reviewed_state_version": "1.1467.0",
+    "source_focus_count": 3163,
     "latest_research_focus_prefix": "13ZZ"
   },
   "coverage_axes": [
@@ -14713,11 +14713,13 @@
       "status": "OPEN",
       "origin": "15DF_REPUBLICAN_NATAL_PRACTICE_PROVISIONAL_2026-11-24",
       "source_refs": [
-        "docs/research/TIANWEN-15DF-REPUBLICAN-NATAL-PRESS-AND-ZIWEI-MANUSCRIPT-CHECKPOINT-R1.md"
+        "docs/research/TIANWEN-15DF-REPUBLICAN-NATAL-PRESS-AND-ZIWEI-MANUSCRIPT-CHECKPOINT-R1.md",
+        "docs/research/TIANWEN-15DF-REPUBLICAN-NATAL-PRESS-AND-ZIWEI-MANUSCRIPT-R1.md",
+        "docs/research/TIANWEN-15DF-REPUBLICAN-NATAL-PRESS-AND-ZIWEI-MANUSCRIPT-SOURCE-SHARD-R1.json"
       ],
-      "evidence_boundary": "心一堂现代出版方称虚白庐藏民国匿名线装未刊稿；2013重印书目和高雄市图HyRead、秀威经销目录为同一现代版本线索，不是独立同期原稿见证。部分试阅重定向或仅商品检索，未核正文。",
+      "evidence_boundary": "心一堂现代出版方称虚白庐藏民国匿名线装未刊稿；2013重印书目和高雄市图HyRead、秀威经销目录为同一现代版本线索，不是独立同期原稿见证。部分试阅重定向或仅商品检索，未核正文。 15DF完成全库目标查重，正式登记现代出版说明和2013高市图电子版书目，试阅复查仍重定向，出版社封面图亦不可访问；没有提升原稿证据等级。",
       "missing_evidence": "原稿书端、序跋和具体安星、命例原页；物理对象与制作年代、地域及作者绑定；其所称传承和早期版本来源的独立证据。",
-      "next_action": "完整来源分片目标查重，检查合法公开免费预览及原稿目录；原件仍不可得则保留OPEN并转向其它同期实践。",
+      "next_action": "原稿或合法免费原页有新入口时恢复；当前不重复同源简介、登录、付费路径，转向其他独立同期紫微实践资料。",
       "closure_criteria": "原稿或可绑定的可靠影印原页能支持历史时代、独立术式及具体实践；不将现代编辑叙述视作原始字形或直接师承。",
       "matrix_rule_ids": [],
       "resolution_evidence": [],
@@ -14728,6 +14730,23 @@
           "basis": "Publisher reports a Republican anonymous manuscript, but free preview did not expose manuscript leaves; manuscript identity, dates, rules and lineage remain open.",
           "evidence_refs": [
             "docs/research/TIANWEN-15DF-REPUBLICAN-NATAL-PRESS-AND-ZIWEI-MANUSCRIPT-CHECKPOINT-R1.md"
+          ]
+        },
+        {
+          "event": "EVIDENCE_SCOPE_REVISION",
+          "date": "2026-11-24",
+          "changed_fields": [
+            "evidence_boundary",
+            "next_action"
+          ],
+          "previous_fields": {
+            "evidence_boundary": "心一堂现代出版方称虚白庐藏民国匿名线装未刊稿；2013重印书目和高雄市图HyRead、秀威经销目录为同一现代版本线索，不是独立同期原稿见证。部分试阅重定向或仅商品检索，未核正文。",
+            "next_action": "完整来源分片目标查重，检查合法公开免费预览及原稿目录；原件仍不可得则保留OPEN并转向其它同期实践。"
+          },
+          "reason": "15DF full target duplicate scan and bounded modern catalog verification; no original manuscript or historical lineage evidence; preserve OPEN and continue breadth.",
+          "evidence_refs": [
+            "docs/research/TIANWEN-15DF-REPUBLICAN-NATAL-PRESS-AND-ZIWEI-MANUSCRIPT-R1.md",
+            "docs/research/TIANWEN-15DF-REPUBLICAN-NATAL-PRESS-AND-ZIWEI-MANUSCRIPT-SOURCE-SHARD-R1.json"
           ]
         }
       ]
@@ -36742,6 +36761,55 @@
           "scope": "15DF 1940 Zhongmei Zhoukan",
           "status": "OPEN",
           "next_evidence": "Full registry duplicate scan, original PDF byte and institutional object binding when accessible; no Ziwei inference."
+        }
+      ]
+    },
+    {
+      "id": "TW-CHECKPOINT-15DF-COMPLETE-20261124",
+      "date": "2026-11-24",
+      "state_version": "1.1467.0",
+      "reviewed_issue_ids": [
+        "TW-OPEN-0001",
+        "TW-OPEN-0002",
+        "TW-OPEN-0003",
+        "TW-OPEN-0004",
+        "TW-OPEN-0005",
+        "TW-OPEN-0006",
+        "TW-OPEN-0007",
+        "TW-OPEN-0008",
+        "TW-OPEN-0009",
+        "TW-OPEN-0010",
+        "TW-OPEN-0011",
+        "TW-OPEN-0012",
+        "TW-OPEN-0013",
+        "TW-OPEN-0014",
+        "TW-OPEN-0015",
+        "TW-OPEN-0016",
+        "TW-OPEN-0017",
+        "TW-OPEN-0018",
+        "TW-OPEN-0019",
+        "TW-OPEN-0020",
+        "TW-OPEN-0021",
+        "TW-OPEN-0022",
+        "TW-OPEN-0023",
+        "TW-OPEN-0024"
+      ],
+      "discovery_mode": "BREADTH_FIRST_HISTORICAL_PRACTICE",
+      "result": "13ZZ CURRENT ACTION AFTER 15DF COMPLETED BOUNDED BREADTH: Full root647 and 224 prior shards616 content scanned with exact manifest/tree SHA alignment; root single numeric workflow ID collision excluded; no target literal duplicates. Re-rendered 28-page Zhongmei Zhoukan NLC404-01J000634-12923 p0/1/25/27 (1940-02-17, Shanghai commercial context, Bazi/national fate advertisement), no original PDF bytes SHA or specific Ziping/Ziwei method claim. Doushu Yanli publisher retrospective and KSML 2013 ISBN9789888266036 library metadata rechecked, trial and publisher image inaccessible, no original manuscript leaf or historical date/lineage. Three scoped sources =>1266=647+619/225, graph467/374 Matrix222/222, 24 risks incl five P0, G8930/6, core CLOSED. TW-OPEN-0024 retained; NEXT other independent late Qing/Republican Ziwei practice and regional transmission evidence.",
+      "evidence_refs": [
+        "docs/research/TIANWEN-15DF-REPUBLICAN-NATAL-PRESS-AND-ZIWEI-MANUSCRIPT-R1.md",
+        "docs/research/TIANWEN-15DF-REPUBLICAN-NATAL-PRESS-AND-ZIWEI-MANUSCRIPT-SOURCE-SHARD-R1.json"
+      ],
+      "unresolved_breadth_leads": [
+        {
+          "scope": "TW-OPEN-0024",
+          "status": "OPEN",
+          "next_evidence": "Authenticated original manuscript leaf, dates and technique/lineage; defer repeated inaccessible routes."
+        },
+        {
+          "scope": "15DF 1940 Zhongmei Zhoukan",
+          "status": "OPEN",
+          "next_evidence": "Native source bytes and precise physical copy, explicit named method or worked examples; no Ziwei inference."
         }
       ]
     }
