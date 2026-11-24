@@ -550,3 +550,6 @@ VNPF[胜严寺 Thắng Nghiêm II 藏书群](https://lib.nomfoundation.org/colle
 ### 15DA｜战后台湾金玉堂实际流年命书（1965以后，馆目分期）
 
 台湾史博馆2018.024.0059馆目明确将金玉堂流年命书归为紫微斗数，并说明印章式批语。具体制作年、命盘原图和安星机制未核，不倒推日治时期紫微或师承。见 [15DA](research/TIANWEN-15DA-TAIWAN-NMTH-NATAL-PRACTICE-ARTIFACTS-R1.md)。
+
+### 15DB｜战后台湾紫微传媒传播（2026-11-24）
+1971/1972《中華電視週刊》两期馆目为刊物存在的B级证据；1999瞿海源论文印页3报告1992年6月停刊前紫微专栏，原刊内容与初刊年未证。见 [15DB](research/TIANWEN-15DB-TAIWAN-NATAL-PRACTICE-MEDIA-R1.md)。TW-OPEN-0020保留；非术式或师承定论。

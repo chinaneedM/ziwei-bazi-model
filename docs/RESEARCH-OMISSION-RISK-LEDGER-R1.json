@@ -12,8 +12,8 @@
   "binding": {
     "repository": "chinaneedM/ziwei-bazi-model",
     "branch": "agent/fusion-chart-core-r1-20260822",
-    "reviewed_state_version": "1.1460.0",
-    "source_focus_count": 3156,
+    "reviewed_state_version": "1.1461.0",
+    "source_focus_count": 3157,
     "latest_research_focus_prefix": "13ZZ"
   },
   "coverage_axes": [
@@ -14519,7 +14519,9 @@
       "origin": "15DA_TAIWAN_NMTH_NATAL_ARTIFACTS_2026-11-24",
       "source_refs": [
         "docs/research/TIANWEN-15DA-TAIWAN-NMTH-NATAL-PRACTICE-ARTIFACTS-R1.md",
-        "docs/research/TIANWEN-15DA-TAIWAN-NMTH-NATAL-PRACTICE-SOURCE-SHARD-R1.json"
+        "docs/research/TIANWEN-15DA-TAIWAN-NMTH-NATAL-PRACTICE-SOURCE-SHARD-R1.json",
+        "docs/research/TIANWEN-15DB-TAIWAN-NATAL-PRACTICE-MEDIA-R1.md",
+        "docs/research/TIANWEN-15DB-TAIWAN-NATAL-PRACTICE-MEDIA-SOURCE-SHARD-R1.json"
       ],
       "evidence_boundary": "四个独立馆藏号及馆目内容；日治文书仅推定1927–1945，紫微物件1965以后无确年；未核原图，馆目师承未独立印证，不证明术式融合或直接传法。",
       "missing_evidence": "原图与实际栏目、制作年署记、柯馆独立师承证据；0289/0291/0292等相邻物件的完整目录或原图。",
@@ -14535,6 +14537,45 @@
           "evidence_refs": [
             "docs/research/TIANWEN-15DA-TAIWAN-NMTH-NATAL-PRACTICE-ARTIFACTS-R1.md",
             "docs/research/TIANWEN-15DA-TAIWAN-NMTH-NATAL-PRACTICE-SOURCE-SHARD-R1.json"
+          ]
+        },
+        {
+          "event": "ADDITIONAL_CATALOG_EVIDENCE",
+          "date": "2026-11-24",
+          "basis": "0292 full museum catalog reached through alternate official portal; original image, date, lineage and 0289 access remain open.",
+          "evidence_refs": [
+            "docs/research/TIANWEN-15DB-TAIWAN-NATAL-PRACTICE-MEDIA-R1.md",
+            "docs/research/TIANWEN-15DB-TAIWAN-NATAL-PRACTICE-MEDIA-SOURCE-SHARD-R1.json"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "TW-OPEN-0020",
+      "title": "台湾战后紫微传媒专栏的原刊、作者、起始年代及分术式传播证据",
+      "priority": "P1",
+      "scope": "ZIWEI_BAZI_SEPARATE_TAIWAN_MEDIA_RECEPTION",
+      "status": "OPEN",
+      "origin": "15DB_TAIWAN_MEDIA_2026-11-24",
+      "source_refs": [
+        "docs/research/TIANWEN-15DB-TAIWAN-NATAL-PRACTICE-MEDIA-R1.md",
+        "docs/research/TIANWEN-15DB-TAIWAN-NATAL-PRACTICE-MEDIA-SOURCE-SHARD-R1.json",
+        "docs/research/TIANWEN-15DB-TAIWAN-NATAL-PRACTICE-MEDIA-CHECKPOINT-R1.md"
+      ],
+      "evidence_boundary": "1999论文原页报告1992年6月前栏目；1971/1972刊物目录不证原刊栏目；一般算命调查非两术独立比例。",
+      "missing_evidence": "具体期号、原始栏目页、作者及首刊年；分别针对紫微及八字的同代调查或其他独立传播记录。",
+      "next_action": "深研阶段先查合法免费公开原期刊及可独立定年的其他媒体材料；不依赖付费或注册。",
+      "closure_criteria": "原栏目绑定具体物件/期号/日期/可读页；分别标记作者、术式、日期及统计范围，不能仅凭同刊标题或综合调查裁决。",
+      "matrix_rule_ids": [],
+      "resolution_evidence": [],
+      "history": [
+        {
+          "event": "REGISTERED_UNRESOLVED",
+          "date": "2026-11-24",
+          "basis": "Bounded author report and catalog context; original column and technique-specific prevalence unverified.",
+          "evidence_refs": [
+            "docs/research/TIANWEN-15DB-TAIWAN-NATAL-PRACTICE-MEDIA-R1.md",
+            "docs/research/TIANWEN-15DB-TAIWAN-NATAL-PRACTICE-MEDIA-SOURCE-SHARD-R1.json"
           ]
         }
       ]
@@ -36282,6 +36323,52 @@
           "scope": "TW-OPEN-0019 / TAIWAN_ZIWEI_BAZI_MEDIA_RECEPTION",
           "status": "OPEN",
           "next_evidence": "Full 220-shard targeted duplicate check; museum alternative catalog and authorized image, periodical issue catalog and original column; no confirmed date, rule or lineage from indexed lead."
+        }
+      ]
+    },
+    {
+      "id": "TW-CHECKPOINT-15DB-20261124",
+      "date": "2026-11-24",
+      "state_version": "1.1461.0",
+      "reviewed_issue_ids": [
+        "TW-OPEN-0001",
+        "TW-OPEN-0002",
+        "TW-OPEN-0003",
+        "TW-OPEN-0004",
+        "TW-OPEN-0005",
+        "TW-OPEN-0006",
+        "TW-OPEN-0007",
+        "TW-OPEN-0008",
+        "TW-OPEN-0009",
+        "TW-OPEN-0010",
+        "TW-OPEN-0011",
+        "TW-OPEN-0012",
+        "TW-OPEN-0013",
+        "TW-OPEN-0014",
+        "TW-OPEN-0015",
+        "TW-OPEN-0016",
+        "TW-OPEN-0017",
+        "TW-OPEN-0018",
+        "TW-OPEN-0019",
+        "TW-OPEN-0020"
+      ],
+      "discovery_mode": "BREADTH_FIRST_HISTORICAL_PRACTICE",
+      "result": "13ZZ CURRENT ACTION AFTER 15DB COMPLETED BREADTH: Full root647 and all220 extension shards595 target term/ID scan and manifest/tree SHA alignment; no literal duplicate, not semantic identity proof. Admit 0292 Taiwan NMTH Bazi artifact catalog (estimated 1927–1945), two CTS Weekly independent issue catalogs (1971/10/31 and 1972/01/17, publication context only), and Chiu 1999 directly rendered pp3/4/14/16 (pre-Jun1992 Ziwei column report, general fortune-telling survey distinct). Four scoped sources =>1246=647+599/221 shards; graph467/374 (one artifact node), Matrix222/222. 0289 full details still unavailable; TW-OPEN-0019 retained, new TW-OPEN-0020 original magazine and technique-specific reception evidence open. 20 risks incl five P0, G8930/6, core CLOSED. Continue independent dated regional/early practice or transmission gaps; no repeated inaccessible folio loops.",
+      "evidence_refs": [
+        "docs/research/TIANWEN-15DB-TAIWAN-NATAL-PRACTICE-MEDIA-R1.md",
+        "docs/research/TIANWEN-15DB-TAIWAN-NATAL-PRACTICE-MEDIA-SOURCE-SHARD-R1.json",
+        "docs/research/TIANWEN-15DB-TAIWAN-NATAL-PRACTICE-MEDIA-CHECKPOINT-R1.md"
+      ],
+      "unresolved_breadth_leads": [
+        {
+          "scope": "TW-OPEN-0019",
+          "status": "OPEN",
+          "next_evidence": "0289完整馆目和各物件原图、署记、独立师承证据"
+        },
+        {
+          "scope": "TW-OPEN-0020",
+          "status": "OPEN",
+          "next_evidence": "华视周刊原始栏目期号/原页和作者、独立术式传播记录"
         }
       ]
     }
