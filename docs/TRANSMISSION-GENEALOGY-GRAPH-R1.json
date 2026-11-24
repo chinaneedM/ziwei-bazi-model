@@ -8155,6 +8155,60 @@
         "docs/research/TIANWEN-15BN-JOSEON-EXAM-FOLIOS-SOURCE-SHARD-R1.json"
       ],
       "first_explicit_graph_batch": "15BN"
+    },
+    {
+      "node_id": "PHYSICAL-COPY-KUNAICHO-KUJO-179-0003",
+      "node_type": "PHYSICAL_COPY",
+      "label": "宫内厅九・179《赌弓部类记》卷一之二",
+      "system_scope": "JAPANESE_MEDIEVAL_SUKUYO_CONTEXT",
+      "work_composition_date": null,
+      "edition_impression_date": null,
+      "physical_copy_date": "1211 (catalogued carrier copying date)",
+      "digital_surrogate_date": null,
+      "date_scope_note": "Catalog records Kenryaku 1, month 4 for the carrier; Jogen 2, month 11 for verso document 329.",
+      "evidence": [
+        "EXT-TIANWEN-15CW-KUNAICHO-KUJO-179-0003",
+        "EXT-TIANWEN-15CW-KUNAICHO-KUJO-179-VERSO-13",
+        "docs/research/TIANWEN-15CW-JAPAN-MEDIEVAL-SUKUYO-NATAL-AND-ANNUAL-DOCUMENTS-R1.md",
+        "docs/research/TIANWEN-15CW-JAPAN-SUKUYO-SOURCE-SHARD-R1.json"
+      ],
+      "first_explicit_graph_batch": "15CW"
+    },
+    {
+      "node_id": "DIGITAL-SURROGATE-KUNAICHO-KUJO-179-VERSO-13",
+      "node_type": "DIGITAL_SURROGATE",
+      "label": "宫内厅九・179纸背组第13图",
+      "system_scope": "JAPANESE_MEDIEVAL_SUKUYO_CONTEXT",
+      "work_composition_date": null,
+      "edition_impression_date": null,
+      "physical_copy_date": null,
+      "digital_surrogate_date": null,
+      "date_scope_note": "Digital capture date unknown. First-party viewer p13, 5223×3482, SHA-256 6dfb3b3aea133cf986ac5b9a8fb175a6891cd1a2e42feecf08e5e80abb23cf24.",
+      "evidence": [
+        "EXT-TIANWEN-15CW-KUNAICHO-KUJO-179-0003",
+        "EXT-TIANWEN-15CW-KUNAICHO-KUJO-179-VERSO-13",
+        "docs/research/TIANWEN-15CW-JAPAN-MEDIEVAL-SUKUYO-NATAL-AND-ANNUAL-DOCUMENTS-R1.md",
+        "docs/research/TIANWEN-15CW-JAPAN-SUKUYO-SOURCE-SHARD-R1.json"
+      ],
+      "first_explicit_graph_batch": "15CW"
+    },
+    {
+      "node_id": "OPERATIONAL-ARTIFACT-JAPAN-SUKUYO-KANMON-1208-329",
+      "node_type": "OPERATIONAL_ARTIFACT",
+      "label": "承元二年十一月第329号宿曜勘文",
+      "system_scope": "JAPANESE_MEDIEVAL_SUKUYO_CONTEXT",
+      "work_composition_date": "1208 (signed local month 11)",
+      "edition_impression_date": null,
+      "physical_copy_date": null,
+      "digital_surrogate_date": null,
+      "date_scope_note": "Date and month list bounded to one original-document image. Day number and addressee remain unconfirmed.",
+      "evidence": [
+        "EXT-TIANWEN-15CW-KUNAICHO-KUJO-179-0003",
+        "EXT-TIANWEN-15CW-KUNAICHO-KUJO-179-VERSO-13",
+        "docs/research/TIANWEN-15CW-JAPAN-MEDIEVAL-SUKUYO-NATAL-AND-ANNUAL-DOCUMENTS-R1.md",
+        "docs/research/TIANWEN-15CW-JAPAN-SUKUYO-SOURCE-SHARD-R1.json"
+      ],
+      "first_explicit_graph_batch": "15CW"
     }
   ],
   "edges": [
@@ -13853,6 +13907,40 @@
       ],
       "scope_note": "Public viewer 057a and 058a attest the 取才 heading and the same title and examination modalities in the sampled part of the later reprint.",
       "adjudication_batch": "15BN"
+    },
+    {
+      "edge_id": "TG-E0371",
+      "from": "DIGITAL-SURROGATE-KUNAICHO-KUJO-179-VERSO-13",
+      "relation": "DIGITAL_SURROGATE_OF",
+      "to": "PHYSICAL-COPY-KUNAICHO-KUJO-179-0003",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_WITHIN_SAMPLED_SCOPE",
+      "evidence_class": "CATALOG_BOUND_DIRECT_PHYSICAL_OR_SURROGATE_PROVENANCE",
+      "evidence": [
+        "EXT-TIANWEN-15CW-KUNAICHO-KUJO-179-0003",
+        "EXT-TIANWEN-15CW-KUNAICHO-KUJO-179-VERSO-13",
+        "docs/research/TIANWEN-15CW-JAPAN-MEDIEVAL-SUKUYO-NATAL-AND-ANNUAL-DOCUMENTS-R1.md",
+        "docs/research/TIANWEN-15CW-JAPAN-SUKUYO-SOURCE-SHARD-R1.json"
+      ],
+      "scope_note": "First-party viewer group, cover ruler label and exhibit image bind this photograph to the cataloged carrier.",
+      "adjudication_batch": "15CW"
+    },
+    {
+      "edge_id": "TG-E0372",
+      "from": "PHYSICAL-COPY-KUNAICHO-KUJO-179-0003",
+      "relation": "ATTESTS",
+      "to": "OPERATIONAL-ARTIFACT-JAPAN-SUKUYO-KANMON-1208-329",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_WITHIN_SAMPLED_SCOPE",
+      "evidence_class": "DIRECT_PHYSICAL_TEXT",
+      "evidence": [
+        "EXT-TIANWEN-15CW-KUNAICHO-KUJO-179-0003",
+        "EXT-TIANWEN-15CW-KUNAICHO-KUJO-179-VERSO-13",
+        "docs/research/TIANWEN-15CW-JAPAN-MEDIEVAL-SUKUYO-NATAL-AND-ANNUAL-DOCUMENTS-R1.md",
+        "docs/research/TIANWEN-15CW-JAPAN-SUKUYO-SOURCE-SHARD-R1.json"
+      ],
+      "scope_note": "Verso p13 left date and month list plus catalogue document number 329. The edge carries no instructional or direct textual-lineage claim.",
+      "adjudication_batch": "15CW"
     }
   ],
   "lineage_hypotheses": [
@@ -15206,5 +15294,5 @@
     "first_explicit_seed_batch": "BATCH-12-ZIWEI-SISHI-QIHOU-JINGTAI6-TONGSHU-TABLE-CONTROL-CH",
     "future_material_batches_require_transmission_impact": true
   },
-  "updated_at": "2026-11-23"
+  "updated_at": "2026-11-24"
 }
