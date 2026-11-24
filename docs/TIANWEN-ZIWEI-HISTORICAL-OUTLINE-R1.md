@@ -553,3 +553,6 @@ VNPF[胜严寺 Thắng Nghiêm II 藏书群](https://lib.nomfoundation.org/colle
 
 ### 15DB｜战后台湾紫微传媒传播（2026-11-24）
 1971/1972《中華電視週刊》两期馆目为刊物存在的B级证据；1999瞿海源论文印页3报告1992年6月停刊前紫微专栏，原刊内容与初刊年未证。见 [15DB](research/TIANWEN-15DB-TAIWAN-NATAL-PRACTICE-MEDIA-R1.md)。TW-OPEN-0020保留；非术式或师承定论。
+
+### 15DC｜晚清英文星命服务的未定身份（2026-11-24）
+Giles 1876价目另列观星批命，未见紫微题名、十四主星、命宫或四化；仅为邻接行业证据，不填紫微具体术式传播格。见 [15DC](research/TIANWEN-15DC-QING-DOOLITTLE-GILES-NATAL-PRACTICE-R1.md)。

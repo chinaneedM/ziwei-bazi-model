@@ -12,8 +12,8 @@
   "binding": {
     "repository": "chinaneedM/ziwei-bazi-model",
     "branch": "agent/fusion-chart-core-r1-20260822",
-    "reviewed_state_version": "1.1461.0",
-    "source_focus_count": 3157,
+    "reviewed_state_version": "1.1462.0",
+    "source_focus_count": 3158,
     "latest_research_focus_prefix": "13ZZ"
   },
   "coverage_axes": [
@@ -14576,6 +14576,35 @@
           "evidence_refs": [
             "docs/research/TIANWEN-15DB-TAIWAN-NATAL-PRACTICE-MEDIA-R1.md",
             "docs/research/TIANWEN-15DB-TAIWAN-NATAL-PRACTICE-MEDIA-SOURCE-SHARD-R1.json"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "TW-OPEN-0021",
+      "title": "晚清英语命理观察文献的原版页、中文技术术语及具体术法身份",
+      "priority": "P1",
+      "scope": "BAZI_QING_PRACTICE_ENGLISH_OBSERVER_REPORTS_AND_UNIDENTIFIED_STAR_READING",
+      "status": "OPEN",
+      "origin": "15DC_QING_DOOLITTLE_GILES_2026-11-24",
+      "source_refs": [
+        "docs/research/TIANWEN-15DC-QING-DOOLITTLE-GILES-NATAL-PRACTICE-R1.md",
+        "docs/research/TIANWEN-15DC-QING-DOOLITTLE-GILES-SOURCE-SHARD-R1.json"
+      ],
+      "evidence_boundary": "Doolittle后出电子版日柱两字比较，Giles印页抽取星命服务并列；不能直接等同现代日干中心规则或紫微斗数。",
+      "missing_evidence": "1865原印目标页与1876再版关系；Giles具体持有物件/原版图、实际地点；两位观察者所依据中文命书/术语及完整盘例；观星服务是否任何具名系统。",
+      "next_action": "深研阶段核合法公开单页原图及独立中文同代证据，保留作者转述及偏见边界，避免重复大PDF失败。",
+      "closure_criteria": "具体原页/物件/版次可回溯，术语与输入输出作用域获独立中文证据或明确保留未证；不由字面或同一行业认定师承。",
+      "matrix_rule_ids": [],
+      "resolution_evidence": [],
+      "history": [
+        {
+          "event": "REGISTERED_UNRESOLVED",
+          "date": "2026-11-24",
+          "basis": "Historical observer report and received text are positive evidence of described practice but original leaves and technical identities unverified.",
+          "evidence_refs": [
+            "docs/research/TIANWEN-15DC-QING-DOOLITTLE-GILES-NATAL-PRACTICE-R1.md",
+            "docs/research/TIANWEN-15DC-QING-DOOLITTLE-GILES-SOURCE-SHARD-R1.json"
           ]
         }
       ]
@@ -36369,6 +36398,47 @@
           "scope": "TW-OPEN-0020",
           "status": "OPEN",
           "next_evidence": "华视周刊原始栏目期号/原页和作者、独立术式传播记录"
+        }
+      ]
+    },
+    {
+      "id": "TW-CHECKPOINT-15DC-20261124",
+      "date": "2026-11-24",
+      "state_version": "1.1462.0",
+      "reviewed_issue_ids": [
+        "TW-OPEN-0001",
+        "TW-OPEN-0002",
+        "TW-OPEN-0003",
+        "TW-OPEN-0004",
+        "TW-OPEN-0005",
+        "TW-OPEN-0006",
+        "TW-OPEN-0007",
+        "TW-OPEN-0008",
+        "TW-OPEN-0009",
+        "TW-OPEN-0010",
+        "TW-OPEN-0011",
+        "TW-OPEN-0012",
+        "TW-OPEN-0013",
+        "TW-OPEN-0014",
+        "TW-OPEN-0015",
+        "TW-OPEN-0016",
+        "TW-OPEN-0017",
+        "TW-OPEN-0018",
+        "TW-OPEN-0019",
+        "TW-OPEN-0020",
+        "TW-OPEN-0021"
+      ],
+      "discovery_mode": "BREADTH_FIRST_HISTORICAL_PRACTICE",
+      "result": "13ZZ CURRENT ACTION AFTER 15DC COMPLETED BREADTH: Full root647 and all221 shards599 targeted Doolittle/Giles title/name/ID scan, count and manifest/tree SHA alignment, no literal duplicates. Three scoped records (1865 Doolittle IA catalog; UQAM electronic text of 1876 reprint, PDF zero-based379/381 rendered; Giles 1876 printed pp69–72 extraction + same-work comparator). Four birth pairs, day-pair comparator and five-element interactions, street/shop practice and differentiated tariffs, date selection distinct; day-pair is not proven single-day-stem, star reading is not proven Ziwei. Original scan screenshots too large, full 1865 target leaf and Chinese technical source unbound, narrator biases retained. Sources1249=647+602/222 shards, graph467/374 Matrix222/222, 21 risks incl five P0, G8930/6, CLOSED. Continue other dated regional/early/Republican historical practice or transmission gaps.",
+      "evidence_refs": [
+        "docs/research/TIANWEN-15DC-QING-DOOLITTLE-GILES-NATAL-PRACTICE-R1.md",
+        "docs/research/TIANWEN-15DC-QING-DOOLITTLE-GILES-SOURCE-SHARD-R1.json"
+      ],
+      "unresolved_breadth_leads": [
+        {
+          "scope": "TW-OPEN-0021",
+          "status": "OPEN",
+          "next_evidence": "Original 1865/1876 leaves, Giles physical copy identity and Chinese technical witnesses; day-pair vs single stem, unidentified star reading."
         }
       ]
     }
