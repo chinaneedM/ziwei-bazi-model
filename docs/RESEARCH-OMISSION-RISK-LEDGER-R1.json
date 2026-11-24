@@ -12,8 +12,8 @@
   "binding": {
     "repository": "chinaneedM/ziwei-bazi-model",
     "branch": "agent/fusion-chart-core-r1-20260822",
-    "reviewed_state_version": "1.1465.0",
-    "source_focus_count": 3161,
+    "reviewed_state_version": "1.1466.0",
+    "source_focus_count": 3162,
     "latest_research_focus_prefix": "13ZZ"
   },
   "coverage_axes": [
@@ -14701,6 +14701,33 @@
           "evidence_refs": [
             "docs/research/TIANWEN-15DE-REPUBLICAN-ZIWEI-PRESS-PRACTICE-R1.md",
             "docs/research/TIANWEN-15DE-REPUBLICAN-BEIPING-PRESS-SOURCE-SHARD-R1.json"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "TW-OPEN-0024",
+      "title": "匿名《斗數演例》民国稿钞本原页、年代、地域及安星法和实践身份",
+      "priority": "P1",
+      "scope": "REPUBLICAN_ANONYMOUS_ZIWEI_MANUSCRIPT_PRACTICE",
+      "status": "OPEN",
+      "origin": "15DF_REPUBLICAN_NATAL_PRACTICE_PROVISIONAL_2026-11-24",
+      "source_refs": [
+        "docs/research/TIANWEN-15DF-REPUBLICAN-NATAL-PRESS-AND-ZIWEI-MANUSCRIPT-CHECKPOINT-R1.md"
+      ],
+      "evidence_boundary": "心一堂现代出版方称虚白庐藏民国匿名线装未刊稿；2013重印书目和高雄市图HyRead、秀威经销目录为同一现代版本线索，不是独立同期原稿见证。部分试阅重定向或仅商品检索，未核正文。",
+      "missing_evidence": "原稿书端、序跋和具体安星、命例原页；物理对象与制作年代、地域及作者绑定；其所称传承和早期版本来源的独立证据。",
+      "next_action": "完整来源分片目标查重，检查合法公开免费预览及原稿目录；原件仍不可得则保留OPEN并转向其它同期实践。",
+      "closure_criteria": "原稿或可绑定的可靠影印原页能支持历史时代、独立术式及具体实践；不将现代编辑叙述视作原始字形或直接师承。",
+      "matrix_rule_ids": [],
+      "resolution_evidence": [],
+      "history": [
+        {
+          "event": "REGISTERED_UNRESOLVED",
+          "date": "2026-11-24",
+          "basis": "Publisher reports a Republican anonymous manuscript, but free preview did not expose manuscript leaves; manuscript identity, dates, rules and lineage remain open.",
+          "evidence_refs": [
+            "docs/research/TIANWEN-15DF-REPUBLICAN-NATAL-PRESS-AND-ZIWEI-MANUSCRIPT-CHECKPOINT-R1.md"
           ]
         }
       ]
@@ -36667,6 +36694,54 @@
           "scope": "TW-OPEN-0023",
           "status": "OPEN",
           "next_evidence": "Original 1933 column and old imprint, original donor register title and author identification; no direct Ziwei operational or transmission claim."
+        }
+      ]
+    },
+    {
+      "id": "TW-CHECKPOINT-15DF-PROVISIONAL-20261124",
+      "date": "2026-11-24",
+      "state_version": "1.1466.0",
+      "reviewed_issue_ids": [
+        "TW-OPEN-0001",
+        "TW-OPEN-0002",
+        "TW-OPEN-0003",
+        "TW-OPEN-0004",
+        "TW-OPEN-0005",
+        "TW-OPEN-0006",
+        "TW-OPEN-0007",
+        "TW-OPEN-0008",
+        "TW-OPEN-0009",
+        "TW-OPEN-0010",
+        "TW-OPEN-0011",
+        "TW-OPEN-0012",
+        "TW-OPEN-0013",
+        "TW-OPEN-0014",
+        "TW-OPEN-0015",
+        "TW-OPEN-0016",
+        "TW-OPEN-0017",
+        "TW-OPEN-0018",
+        "TW-OPEN-0019",
+        "TW-OPEN-0020",
+        "TW-OPEN-0021",
+        "TW-OPEN-0022",
+        "TW-OPEN-0023",
+        "TW-OPEN-0024"
+      ],
+      "discovery_mode": "BREADTH_FIRST_HISTORICAL_PRACTICE",
+      "result": "13ZZ CURRENT ACTION AFTER 15DF PROVISIONAL BREADTH CHECKPOINT: 1940-02-17 Zhongmei Zhoukan NLC404-01J000634-12923 directly rendered PDF zero-based0/25/27 (28 failed): dated cover and 顧惠思道人命相 advertisement, explicit 中華民國八字及國運 and commercial consulting columns; no Ziwei practice or specific Ziping method inferred. Independent candidate anonymous Doushu Yanli (publisher-reported Republican manuscript), 2013 ISBN9789888266036, KSML HyRead85855 and Showwe metadata, trial redirects and Google Play search only; no original manuscript leaf, date, region or lineage. Root647 and 8 targeted shards34 checked, all224 manifest paths/hashes match tree, full content scan incomplete due call limit; no source admission. TW-OPEN-0024 records manuscript gap. Matrix222/222, sources1263=647+616/224, graph467/374, 24 issues incl five P0, G8930/6, CLOSED. NEXT complete full duplicate scan and bounded source verification/registration; latest completed breadth remains 15DE.",
+      "evidence_refs": [
+        "docs/research/TIANWEN-15DF-REPUBLICAN-NATAL-PRESS-AND-ZIWEI-MANUSCRIPT-CHECKPOINT-R1.md"
+      ],
+      "unresolved_breadth_leads": [
+        {
+          "scope": "TW-OPEN-0024",
+          "status": "OPEN",
+          "next_evidence": "Original manuscript/free facsimile and date binding; complete source duplicate scan before registry admission."
+        },
+        {
+          "scope": "15DF 1940 Zhongmei Zhoukan",
+          "status": "OPEN",
+          "next_evidence": "Full registry duplicate scan, original PDF byte and institutional object binding when accessible; no Ziwei inference."
         }
       ]
     }
