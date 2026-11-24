@@ -518,3 +518,7 @@ VNPF[胜严寺 Thắng Nghiêm II 藏书群](https://lib.nomfoundation.org/colle
 ## 15CI（2026-11-24）：遼麗題署與明初星命書目群的證據限界
 
 《遼史》卷十983–985及《高麗史》卷三984受讀給出同時代邊地背景，但所核單年史事未見耶律純奉使受學，不能以史書沉默作全稱否定。葉盛《菉竹堂書目》受讀列《星命總括》五冊，文淵閣四庫系受讀一冊，兩目九個相鄰書目位置次序相應而部分題名字形不同，編目共源或依存仍待查，不得當作獨立早期斗數原本。清輯三卷與兩目冊數非同一維度。[15CI 研究記錄](research/TIANWEN-15CI-XINGMING-ZONGKUO-LIAO-GORYEO-AND-CATALOG-ORDER-R1.md)。新增4條受讀／校注來源，總1160（647+513；203分片）；不新增確證譜系邊。
+
+### 15CJ 宋代十二宫星命背景
+
+朱翌《猗覺寮雜記》识典传文记十二宫论命、疾厄宫与木土火星，源起未明；OCR 宫序未裁决，不等同十四主星斗数或直接传承。见 `docs/research/TIANWEN-15CJ-ZHUYI-NATAL-HOUR-AND-ASTRAL-PALACES-R1.md`。
