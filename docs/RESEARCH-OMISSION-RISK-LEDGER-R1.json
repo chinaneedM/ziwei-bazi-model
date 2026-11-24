@@ -12,8 +12,8 @@
   "binding": {
     "repository": "chinaneedM/ziwei-bazi-model",
     "branch": "agent/fusion-chart-core-r1-20260822",
-    "reviewed_state_version": "1.1458.0",
-    "source_focus_count": 3154,
+    "reviewed_state_version": "1.1459.0",
+    "source_focus_count": 3155,
     "latest_research_focus_prefix": "13ZZ"
   },
   "coverage_axes": [
@@ -14506,6 +14506,35 @@
           "evidence_refs": [
             "docs/research/TIANWEN-15CZ-HUIZHOU-CHENG-DAILY-LEDGER-PRACTICE-R1.md",
             "docs/research/TIANWEN-15CZ-HUIZHOU-CHENG-DAILY-LEDGER-SOURCE-SHARD-R1.json"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "TW-OPEN-0019",
+      "title": "台湾史博馆日治子平与战后紫微实际命书的原图、制作年代、术式和师承",
+      "priority": "P1",
+      "scope": "BAZI_ZIWEI_SEPARATE_TAIWAN_NMTH_OPERATIONAL_ARTIFACTS",
+      "status": "OPEN",
+      "origin": "15DA_TAIWAN_NMTH_NATAL_ARTIFACTS_2026-11-24",
+      "source_refs": [
+        "docs/research/TIANWEN-15DA-TAIWAN-NMTH-NATAL-PRACTICE-ARTIFACTS-R1.md",
+        "docs/research/TIANWEN-15DA-TAIWAN-NMTH-NATAL-PRACTICE-SOURCE-SHARD-R1.json"
+      ],
+      "evidence_boundary": "四个独立馆藏号及馆目内容；日治文书仅推定1927–1945，紫微物件1965以后无确年；未核原图，馆目师承未独立印证，不证明术式融合或直接传法。",
+      "missing_evidence": "原图与实际栏目、制作年署记、柯馆独立师承证据；0289/0291/0292等相邻物件的完整目录或原图。",
+      "next_action": "广度完成后按合法公开访问途径核图、匿名字段、确年与谱系资料；相邻目录先择可获取者，不使用付费或受限路径。",
+      "closure_criteria": "目标物件与许可范围内原图绑定、制作日期及术式边界可复核、传承说有独立证据或明确未证；不以同城、同馆或共同术语作传承证明。",
+      "matrix_rule_ids": [],
+      "resolution_evidence": [],
+      "history": [
+        {
+          "event": "REGISTERED_UNRESOLVED",
+          "date": "2026-11-24",
+          "basis": "Catalog-only operational artifacts with unresolved dates, images, specific rule fields and family lineage.",
+          "evidence_refs": [
+            "docs/research/TIANWEN-15DA-TAIWAN-NMTH-NATAL-PRACTICE-ARTIFACTS-R1.md",
+            "docs/research/TIANWEN-15DA-TAIWAN-NMTH-NATAL-PRACTICE-SOURCE-SHARD-R1.json"
           ]
         }
       ]
@@ -36176,6 +36205,45 @@
           "scope": "BAZI_QING_HUIZHOU_CHENG_LEDGER_PRACTICE",
           "status": "OPEN",
           "next_evidence": "Target manuscript leaves, original mingzhang and excerpt collation; defer to deep research."
+        }
+      ]
+    },
+    {
+      "id": "TW-CHECKPOINT-15DA-20261124",
+      "date": "2026-11-24",
+      "state_version": "1.1459.0",
+      "reviewed_issue_ids": [
+        "TW-OPEN-0001",
+        "TW-OPEN-0002",
+        "TW-OPEN-0003",
+        "TW-OPEN-0004",
+        "TW-OPEN-0005",
+        "TW-OPEN-0006",
+        "TW-OPEN-0007",
+        "TW-OPEN-0008",
+        "TW-OPEN-0009",
+        "TW-OPEN-0010",
+        "TW-OPEN-0011",
+        "TW-OPEN-0012",
+        "TW-OPEN-0013",
+        "TW-OPEN-0014",
+        "TW-OPEN-0015",
+        "TW-OPEN-0016",
+        "TW-OPEN-0017",
+        "TW-OPEN-0018",
+        "TW-OPEN-0019"
+      ],
+      "discovery_mode": "BREADTH_FIRST_HISTORICAL_PRACTICE",
+      "result": "13ZZ CURRENT ACTION AFTER 15DA: Taiwan NMTH 2011.011.0290/0293/0295 three Bazi practice objects catalog-estimated 1927–1945; 2018.024.0059 post-1965 Ziwei annual reading object, exact date unknown. Four new catalog sources and physical nodes, no lineage edges, no original image reviewed, no rule replay; all 219 prior shards and root checked for target IDs/names. TW-OPEN-0019 preserves image/date/mechanics and lineage gaps. Sources1242=647+595/220; graph466/374 Matrix222/222, 19 risks incl five P0, G8930/6, CLOSED. Next independent dated early/Republican or regional practical history, especially early Ziwei.",
+      "evidence_refs": [
+        "docs/research/TIANWEN-15DA-TAIWAN-NMTH-NATAL-PRACTICE-ARTIFACTS-R1.md",
+        "docs/research/TIANWEN-15DA-TAIWAN-NMTH-NATAL-PRACTICE-SOURCE-SHARD-R1.json"
+      ],
+      "unresolved_breadth_leads": [
+        {
+          "scope": "TW-OPEN-0019",
+          "status": "OPEN",
+          "next_evidence": "Authorized object images, dates, field collation and independent family history; keep Ziwei and Bazi separate."
         }
       ]
     }

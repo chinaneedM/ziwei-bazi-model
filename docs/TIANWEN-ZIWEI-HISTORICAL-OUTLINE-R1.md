@@ -546,3 +546,7 @@ VNPF[胜严寺 Thắng Nghiêm II 藏书群](https://lib.nomfoundation.org/colle
 ## 15CY｜越南未断年手稿的五局起始位置与实际命盘对读（2026-11-24）
 
 15R所登记胜严寺TN208、TN213不同文献实物，本批复用其馆方公开页图而不重复计数。[TN208 p9](https://lib.nomfoundation.org/collection/4/volume/1510/page/9)五局起始生肖序列规范支序与常用整数算式20/20相容；p10–12五局图式、p13南北星诀为独立技术内容而非独立物理证人。p6顺月逆时安命、顺月顺时安身、十二宫逆布。TN213 p45、61为实际十二宫命盘；p61紫微/天府候选位置酉/未与常用配对相容，但另有星曜位置疑点及p45配对待辨，登记TW-OPEN-0017。不能把手稿与实际命盘视为已经同法、同底本或同老师。两件未断年，2013数字化不等于刊抄年；原图字节SHA、原件90页/查看器61页边界、全部150格、完整命盘释读与直接传承均OPEN。见[15CY研究批次](research/TIANWEN-15CY-VIETNAM-TN208-TN213-BOUNDED-RULE-CHART-REPLAY-R1.md)。
+
+### 15DA｜战后台湾金玉堂实际流年命书（1965以后，馆目分期）
+
+台湾史博馆2018.024.0059馆目明确将金玉堂流年命书归为紫微斗数，并说明印章式批语。具体制作年、命盘原图和安星机制未核，不倒推日治时期紫微或师承。见 [15DA](research/TIANWEN-15DA-TAIWAN-NMTH-NATAL-PRACTICE-ARTIFACTS-R1.md)。
