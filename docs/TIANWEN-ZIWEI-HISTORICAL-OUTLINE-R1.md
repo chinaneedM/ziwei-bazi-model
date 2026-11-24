@@ -522,3 +522,7 @@ VNPF[胜严寺 Thắng Nghiêm II 藏书群](https://lib.nomfoundation.org/colle
 ### 15CJ 宋代十二宫星命背景
 
 朱翌《猗覺寮雜記》识典传文记十二宫论命、疾厄宫与木土火星，源起未明；OCR 宫序未裁决，不等同十四主星斗数或直接传承。见 `docs/research/TIANWEN-15CJ-ZHUYI-NATAL-HOUR-AND-ASTRAL-PALACES-R1.md`。
+
+
+## 15CL｜南宋「紫微」術名的獨立見證（2026-11-24）
+洪邁《容齋續筆》自序署紹熙三年（1192），卷八受讀將紫微與三命、五星、六壬等十種術名並列；這是宋代作品層的術名與社會接受史證據，並非十四主星、五行局或現代斗數創立年代的證明。卷八目標原葉、具體版本及術名所指技術均待查。《容齋三筆》所述五星論命與國家星占作用域分離，不轉化為紫微算法。詳見[15CL](./research/TIANWEN-15CL-HONGMAI-SONG-ZIWEI-SANMING-RECEPTION-R1.md)。
