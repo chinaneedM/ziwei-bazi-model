@@ -12,8 +12,8 @@
   "binding": {
     "repository": "chinaneedM/ziwei-bazi-model",
     "branch": "agent/fusion-chart-core-r1-20260822",
-    "reviewed_state_version": "1.1467.0",
-    "source_focus_count": 3163,
+    "reviewed_state_version": "1.1468.0",
+    "source_focus_count": 3164,
     "latest_research_focus_prefix": "13ZZ"
   },
   "coverage_axes": [
@@ -14747,6 +14747,33 @@
           "evidence_refs": [
             "docs/research/TIANWEN-15DF-REPUBLICAN-NATAL-PRESS-AND-ZIWEI-MANUSCRIPT-R1.md",
             "docs/research/TIANWEN-15DF-REPUBLICAN-NATAL-PRESS-AND-ZIWEI-MANUSCRIPT-SOURCE-SHARD-R1.json"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "TW-OPEN-0025",
+      "title": "白鈍僧《飛星紫微斗數》初刊、署年序例与燕市实务背景",
+      "priority": "P1",
+      "scope": "Republican-era Ziwei practice and transmission; modern reprint versus historical witness",
+      "status": "OPEN",
+      "origin": "15DG provisional checkpoint",
+      "source_refs": [
+        "docs/research/TIANWEN-15DG-REPUBLICAN-ZIWEI-PRACTICE-WHITE-MONK-CHECKPOINT-R1.md"
+      ],
+      "evidence_boundary": "1999现代发行书目及销售页面序例转录；无可核初刊原页、明确序年或独立同期证据；扩展登记全文查重未完成。",
+      "missing_evidence": "署年原刊、序页及版本身份；独立同期实践证据；完整登记查重。",
+      "next_action": "完成扩展分片全文去重，寻找合法公开原件与权威馆藏书目；保留未决。",
+      "closure_criteria": "准确区分可验证原始见证和现代转录，核实署年、版本身份及所能支持的历史范围；不能核实时保持OPEN。",
+      "matrix_rule_ids": [],
+      "resolution_evidence": [],
+      "history": [
+        {
+          "event": "REGISTERED_UNRESOLVED",
+          "date": "2026-11-24",
+          "basis": "1999 Sanmin record and transcribed prefatory text; historical identity and date not established.",
+          "evidence_refs": [
+            "docs/research/TIANWEN-15DG-REPUBLICAN-ZIWEI-PRACTICE-WHITE-MONK-CHECKPOINT-R1.md"
           ]
         }
       ]
@@ -36810,6 +36837,50 @@
           "scope": "15DF 1940 Zhongmei Zhoukan",
           "status": "OPEN",
           "next_evidence": "Native source bytes and precise physical copy, explicit named method or worked examples; no Ziwei inference."
+        }
+      ]
+    },
+    {
+      "id": "TW-CHECKPOINT-15DG-PROVISIONAL-20261124",
+      "date": "2026-11-24",
+      "state_version": "1.1468.0",
+      "reviewed_issue_ids": [
+        "TW-OPEN-0001",
+        "TW-OPEN-0002",
+        "TW-OPEN-0003",
+        "TW-OPEN-0004",
+        "TW-OPEN-0005",
+        "TW-OPEN-0006",
+        "TW-OPEN-0007",
+        "TW-OPEN-0008",
+        "TW-OPEN-0009",
+        "TW-OPEN-0010",
+        "TW-OPEN-0011",
+        "TW-OPEN-0012",
+        "TW-OPEN-0013",
+        "TW-OPEN-0014",
+        "TW-OPEN-0015",
+        "TW-OPEN-0016",
+        "TW-OPEN-0017",
+        "TW-OPEN-0018",
+        "TW-OPEN-0019",
+        "TW-OPEN-0020",
+        "TW-OPEN-0021",
+        "TW-OPEN-0022",
+        "TW-OPEN-0023",
+        "TW-OPEN-0024",
+        "TW-OPEN-0025"
+      ],
+      "discovery_mode": "BREADTH_FIRST_HISTORICAL_PRACTICE",
+      "result": "13ZZ CURRENT ACTION AFTER 15DG PROVISIONAL CHECKPOINT: Bai Dun Seng 飛星紫微斗數 1999 Sanmin bibliographic record and retailer-transcribed prefatory material suggest a Beijing encounter and a pedagogical compilation context; original dated edition, attribution and page images remain unverified. 1949/1953 Zhang Kaijuan records are existing evidence, not new admissions; attempted Google Books leaf access blocked. Root and outline screening performed; full extension content dedup interrupted by tool-call limit. No source admission or completed breadth claim. TW-OPEN-0025 added P1; 25 risks incl five P0. Registry1266=647+619/225 graph467/374 Matrix222/222 G8930/6 core CLOSED unchanged. NEXT finish dedup, verify dated witness and source scope; then continue independent Republican Ziwei practice.",
+      "evidence_refs": [
+        "docs/research/TIANWEN-15DG-REPUBLICAN-ZIWEI-PRACTICE-WHITE-MONK-CHECKPOINT-R1.md"
+      ],
+      "unresolved_breadth_leads": [
+        {
+          "scope": "TW-OPEN-0025",
+          "status": "OPEN",
+          "next_evidence": "dated original edition/preface and complete target dedup"
         }
       ]
     }
