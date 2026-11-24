@@ -12,8 +12,8 @@
   "binding": {
     "repository": "chinaneedM/ziwei-bazi-model",
     "branch": "agent/fusion-chart-core-r1-20260822",
-    "reviewed_state_version": "1.1454.0",
-    "source_focus_count": 3150,
+    "reviewed_state_version": "1.1455.0",
+    "source_focus_count": 3151,
     "latest_research_focus_prefix": "13ZZ"
   },
   "coverage_axes": [
@@ -14412,6 +14412,34 @@
           "evidence_refs": [
             "docs/research/TIANWEN-15AZ-SAGAJIP-1467-PREFACE-PIRWONJAPGI-FOUR-PILLARS-RECEIVED-TEXT-R1.md",
             "docs/research/TIANWEN-15AY-JOSEON-1458-OHAENGCHONGGWAL-AND-1791-MYEONGGWA-EXAM-PIVOT-R1.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "TW-OPEN-0016",
+      "title": "权溥墓志原字、日將晡与《笔苑杂记》四柱命例的关系",
+      "priority": "P1",
+      "scope": "BAZI_GORYEO_JOSEON_KWON_BU_EPITAPH_VARIANTS_AND_NATAL_CASE",
+      "status": "OPEN",
+      "origin": "15CX_GORYEO_KWON_BU_EPITAPH_AND_JOSEON_CITATION_2026-11-24",
+      "source_refs": [
+        "docs/research/TIANWEN-15CX-GORYEO-KWON-BU-EPITAPH-AND-JOSEON-CITATION-R1.md",
+        "docs/research/TIANWEN-15CX-GORYEO-KWON-BU-EPITAPH-SOURCE-SHARD-R1.json"
+      ],
+      "evidence_boundary": "1346墓志机构释文与后传笔苑杂记明确引述已核；日將晡与巳时未调和；巳/己及戊/壬异文不得据现代拱禄定字；家世修辞解释、宋元传入假说均未裁定。",
+      "missing_evidence": "原石或可鉴定拓本，益齋亂藁与東文選可辨底本页、2016论文原文及1262年当地历法与时辰依据。",
+      "next_action": "深研阶段合法免费取得原石/拓本及版本目标叶，复核原始日时记录，独立考辨传播路径；未证则保持OPEN。",
+      "closure_criteria": "形成可追溯的原字及版本校勘、日期时辰层与家世修辞/命理解释有边界的裁断；未获必要证据不关闭，不以现代命式吻合替代。",
+      "resolution_evidence": [],
+      "history": [
+        {
+          "event": "REGISTERED_UNRESOLVED",
+          "date": "2026-11-24",
+          "basis": "1346 institutional transcription, later received citation and competing interpretations preserve an unresolved source/semantic/date boundary.",
+          "evidence_refs": [
+            "docs/research/TIANWEN-15CX-GORYEO-KWON-BU-EPITAPH-AND-JOSEON-CITATION-R1.md",
+            "docs/research/TIANWEN-15CX-GORYEO-KWON-BU-EPITAPH-SOURCE-SHARD-R1.json"
           ]
         }
       ]
@@ -35932,6 +35960,42 @@
           "scope": "15CX_GORYEO_KWON_BU_EPITAPH_PROVISIONAL",
           "status": "OPEN",
           "next_evidence": "Read all 217 shards with targeted names/IDs; compare NRICH https://portal.nrich.go.kr/kor/ksmUsrView.do?ksm_idx=3469&menuIdx=584 and NIKH https://db.history.go.kr/id/gsko_002_0070 against original stone image and edition-bound 益齋亂藁; verify 2010/2015/2016 KCI records ART001512374, ART001975159, ART002533154 and calendar evidence. Do not count duplicate transcriptions as independent artifacts."
+        }
+      ]
+    },
+    {
+      "id": "OMISSIONS-15CX-GORYEO-KWON-BU-COMPLETED-20261124",
+      "date": "2026-11-24",
+      "state_version": "1.1455.0",
+      "reviewed_issue_ids": [
+        "TW-OPEN-0001",
+        "TW-OPEN-0002",
+        "TW-OPEN-0003",
+        "TW-OPEN-0004",
+        "TW-OPEN-0005",
+        "TW-OPEN-0006",
+        "TW-OPEN-0007",
+        "TW-OPEN-0008",
+        "TW-OPEN-0009",
+        "TW-OPEN-0010",
+        "TW-OPEN-0011",
+        "TW-OPEN-0012",
+        "TW-OPEN-0013",
+        "TW-OPEN-0014",
+        "TW-OPEN-0015",
+        "TW-OPEN-0016"
+      ],
+      "discovery_mode": "BREADTH_FIRST_COMPLETED_BOUNDED_RESEARCH",
+      "result": "15CX completes bounded Goryeo/Joseon natal-text breadth: NRICH 3469 and NIKH gsko_002_0070 identify 1346 Kwon Bu stone and received lines 54–56; NIKH note004 and Dongmunseon received text retain 巳/己 variation. Reuse 15AZ Pirwonjapgi juan1 four-pair case and explicit citation of Li Qixian's epitaph; 1262 birth, 1346 carving, late fifteenth-century received note remain distinct. Family chronology interpretation, actual hour, original glyph/edition, 2016 secondary quote and route hypotheses remain open; no direct teacher/rule lineage. All 217 prior shards and root scanned for targeted name/ID/term duplication. Five records =>1236=647+589/218 shards; graph462/374, Matrix222/222, 16 risks incl five P0, G8930/6, chart CLOSED.",
+      "evidence_refs": [
+        "docs/research/TIANWEN-15CX-GORYEO-KWON-BU-EPITAPH-AND-JOSEON-CITATION-R1.md",
+        "docs/research/TIANWEN-15CX-GORYEO-KWON-BU-EPITAPH-SOURCE-SHARD-R1.json"
+      ],
+      "unresolved_breadth_leads": [
+        {
+          "scope": "TW-OPEN-0016",
+          "status": "OPEN",
+          "next_evidence": "深研阶段合法免费取得原石/拓本及版本目标叶，复核原始日时记录，独立考辨传播路径；未证则保持OPEN。"
         }
       ]
     }

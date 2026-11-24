@@ -8209,6 +8209,59 @@
         "docs/research/TIANWEN-15CW-JAPAN-SUKUYO-SOURCE-SHARD-R1.json"
       ],
       "first_explicit_graph_batch": "15CW"
+    },
+    {
+      "node_id": "PHYSICAL-COPY-NMK-KWON-BU-EPITAPH-1346",
+      "node_type": "PHYSICAL_COPY",
+      "label": "高丽权溥墓志铭（国立中央博物馆藏）",
+      "system_scope": "BAZI",
+      "work_composition_date": "1346",
+      "edition_impression_date": null,
+      "physical_copy_date": "1346 (institutional catalog)",
+      "digital_surrogate_date": null,
+      "date_scope_note": "Institutional catalog only; original stone glyph not verified.",
+      "evidence": [
+        "EXT-TIANWEN-15CX-NRICH-KWON-BU-3469",
+        "EXT-TIANWEN-15CX-NIKH-GSKO-002-0070",
+        "docs/research/TIANWEN-15CX-GORYEO-KWON-BU-EPITAPH-AND-JOSEON-CITATION-R1.md",
+        "docs/research/TIANWEN-15CX-GORYEO-KWON-BU-EPITAPH-SOURCE-SHARD-R1.json"
+      ],
+      "first_explicit_graph_batch": "15CX"
+    },
+    {
+      "node_id": "PASSAGE-KWON-BU-EPITAPH-54-56",
+      "node_type": "PASSAGE",
+      "label": "權溥墓誌銘背面54–56行",
+      "system_scope": "BAZI",
+      "work_composition_date": "1346",
+      "edition_impression_date": null,
+      "physical_copy_date": null,
+      "digital_surrogate_date": null,
+      "date_scope_note": "Received institutional transcription; 巳/己 variants and family chronology versus natal interpretation open.",
+      "evidence": [
+        "EXT-TIANWEN-15CX-NRICH-KWON-BU-3469",
+        "EXT-TIANWEN-15CX-NIKH-GSKO-002-0070",
+        "docs/research/TIANWEN-15CX-GORYEO-KWON-BU-EPITAPH-AND-JOSEON-CITATION-R1.md",
+        "docs/research/TIANWEN-15CX-GORYEO-KWON-BU-EPITAPH-SOURCE-SHARD-R1.json"
+      ],
+      "first_explicit_graph_batch": "15CX"
+    },
+    {
+      "node_id": "PASSAGE-PIRWONJAPGI-J1-KWON-BU-CASE-AND-CITATION",
+      "node_type": "PASSAGE",
+      "label": "徐居正《筆苑雜記》卷一权溥四柱与墓志引述",
+      "system_scope": "BAZI",
+      "work_composition_date": "Late fifteenth century (preface context)",
+      "edition_impression_date": null,
+      "physical_copy_date": null,
+      "digital_surrogate_date": null,
+      "date_scope_note": "Received text only; 1486/1487 prefaces do not date the physical copy. Actual calendar and hour remain open.",
+      "evidence": [
+        "EXT-TIANWEN-15AZ-PIRWONJAPGI-V1-FOUR-PILLARS-WIKISOURCE-RECEIVED",
+        "docs/research/TIANWEN-15CX-GORYEO-KWON-BU-EPITAPH-AND-JOSEON-CITATION-R1.md",
+        "docs/research/TIANWEN-15CX-GORYEO-KWON-BU-EPITAPH-SOURCE-SHARD-R1.json"
+      ],
+      "first_explicit_graph_batch": "15CX"
     }
   ],
   "edges": [
@@ -13941,6 +13994,41 @@
       ],
       "scope_note": "Verso p13 left date and month list plus catalogue document number 329. The edge carries no instructional or direct textual-lineage claim.",
       "adjudication_batch": "15CW"
+    },
+    {
+      "edge_id": "TG-E0373",
+      "from": "PHYSICAL-COPY-NMK-KWON-BU-EPITAPH-1346",
+      "to": "PASSAGE-KWON-BU-EPITAPH-54-56",
+      "relation": "ATTESTS",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_WITHIN_SAMPLED_SCOPE",
+      "evidence_class": "RECEIVED_TEXT_TRANSCRIPTION",
+      "evidence": [
+        "EXT-TIANWEN-15CX-NRICH-KWON-BU-3469",
+        "EXT-TIANWEN-15CX-NIKH-GSKO-002-0070",
+        "docs/research/TIANWEN-15CX-GORYEO-KWON-BU-EPITAPH-AND-JOSEON-CITATION-R1.md",
+        "docs/research/TIANWEN-15CX-GORYEO-KWON-BU-EPITAPH-SOURCE-SHARD-R1.json"
+      ],
+      "scope_note": "Institutional catalog and numbered transcription associate the passage with the cataloged stone. Not direct original glyph verification or a second physical witness.",
+      "adjudication_batch": "15CX"
+    },
+    {
+      "edge_id": "TG-E0374",
+      "from": "PASSAGE-PIRWONJAPGI-J1-KWON-BU-CASE-AND-CITATION",
+      "to": "PASSAGE-KWON-BU-EPITAPH-54-56",
+      "relation": "EXPLICITLY_CITES",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_WITHIN_SAMPLED_SCOPE",
+      "evidence_class": "RECEIVED_TEXT",
+      "evidence": [
+        "EXT-TIANWEN-15AZ-PIRWONJAPGI-V1-FOUR-PILLARS-WIKISOURCE-RECEIVED",
+        "EXT-TIANWEN-15CX-NRICH-KWON-BU-3469",
+        "EXT-TIANWEN-15CX-NIKH-GSKO-002-0070",
+        "docs/research/TIANWEN-15CX-GORYEO-KWON-BU-EPITAPH-AND-JOSEON-CITATION-R1.md",
+        "docs/research/TIANWEN-15CX-GORYEO-KWON-BU-EPITAPH-SOURCE-SHARD-R1.json"
+      ],
+      "scope_note": "Received Pirwonjapgi explicitly attributes the quoted passage to Li Qixian's Kwon Bu epitaph. No direct physical-copy, teacher, or rule transmission claimed.",
+      "adjudication_batch": "15CX"
     }
   ],
   "lineage_hypotheses": [
