@@ -12,8 +12,8 @@
   "binding": {
     "repository": "chinaneedM/ziwei-bazi-model",
     "branch": "agent/fusion-chart-core-r1-20260822",
-    "reviewed_state_version": "1.1464.0",
-    "source_focus_count": 3160,
+    "reviewed_state_version": "1.1465.0",
+    "source_focus_count": 3161,
     "latest_research_focus_prefix": "13ZZ"
   },
   "coverage_axes": [
@@ -14665,11 +14665,13 @@
       "status": "OPEN",
       "origin": "15DE_REPUBLICAN_PRESS_PROVISIONAL_2026-11-24",
       "source_refs": [
-        "docs/research/TIANWEN-15DE-REPUBLICAN-ZIWEI-PRESS-PRACTICE-CHECKPOINT-R1.md"
+        "docs/research/TIANWEN-15DE-REPUBLICAN-ZIWEI-PRESS-PRACTICE-CHECKPOINT-R1.md",
+        "docs/research/TIANWEN-15DE-REPUBLICAN-ZIWEI-PRESS-PRACTICE-R1.md",
+        "docs/research/TIANWEN-15DE-REPUBLICAN-BEIPING-PRESS-SOURCE-SHARD-R1.json"
       ],
-      "evidence_boundary": "现代出版社2016年回述1933年冬报章专栏、2016重印书目与同出版社2021王裁珊交往叙述。未核到民国原刊或原页；同源转载不作独立见证。",
-      "missing_evidence": "1933报纸名称、日期、版页、专栏原件；旧刊本扉页及刊记、实际紫微命盘或具体技法原页；交往的独立同期书信、署名序跋或材料。",
-      "next_action": "先完成全部来源分片内容查重，再免费查北平报刊、原书馆目和公开合法试阅；若不可取得，保留未决并继续其他实务覆盖。",
+      "evidence_boundary": "现代出版社2016年回述1933年冬报章专栏、2016重印书目与同出版社2021王裁珊交往叙述。未核到民国原刊或原页；同源转载不作独立见证。 15DE后补1934—35馆务报告的两份检索索引赠书条目，题名转写冲突；NDL1120142 page32原缩图仅见赠书名录题署，未获张氏目标。",
+      "missing_evidence": "1933报纸名称、日期、版页、专栏原件；旧刊本扉页及刊记、实际紫微命盘或具体技法原页；交往的独立同期书信、署名序跋或材料。 另缺1935馆务报告张氏赠书目标原页的确切题名、同名人物识别与报告实物关系。",
+      "next_action": "全223分片查重已完成；原刊、书端与赠书目标原图有公开来源时恢复核查。先转向其他同期紫微实践线索。",
       "closure_criteria": "同期具体报刊/旧书原页及版次绑定支持所述专栏和具体术式，交往与传承分别证实或限定，不把八字命例当紫微命盘。",
       "matrix_rule_ids": [],
       "resolution_evidence": [],
@@ -14680,6 +14682,25 @@
           "basis": "Modern publisher retrospective 1933 newspaper-column lead and named acquaintance require contemporary primary verification; not a confirmed transmission edge.",
           "evidence_refs": [
             "docs/research/TIANWEN-15DE-REPUBLICAN-ZIWEI-PRESS-PRACTICE-CHECKPOINT-R1.md"
+          ]
+        },
+        {
+          "event": "EVIDENCE_SCOPE_REVISION",
+          "date": "2026-11-24",
+          "changed_fields": [
+            "evidence_boundary",
+            "missing_evidence",
+            "next_action"
+          ],
+          "previous_fields": {
+            "evidence_boundary": "现代出版社2016年回述1933年冬报章专栏、2016重印书目与同出版社2021王裁珊交往叙述。未核到民国原刊或原页；同源转载不作独立见证。",
+            "missing_evidence": "1933报纸名称、日期、版页、专栏原件；旧刊本扉页及刊记、实际紫微命盘或具体技法原页；交往的独立同期书信、署名序跋或材料。",
+            "next_action": "先完成全部来源分片内容查重，再免费查北平报刊、原书馆目和公开合法试阅；若不可取得，保留未决并继续其他实务覆盖。"
+          },
+          "reason": "15DE full registry scan and bounded donor report locator; title conflict cannot be adjudicated and original source still inaccessible. Continue broader framework.",
+          "evidence_refs": [
+            "docs/research/TIANWEN-15DE-REPUBLICAN-ZIWEI-PRESS-PRACTICE-R1.md",
+            "docs/research/TIANWEN-15DE-REPUBLICAN-BEIPING-PRESS-SOURCE-SHARD-R1.json"
           ]
         }
       ]
@@ -36603,6 +36624,49 @@
           "scope": "TW-OPEN-0023",
           "status": "OPEN",
           "next_evidence": "Full shard content dedup, original 1933 Beiping periodical name/issue/page and old-book imprint or explicit Ziwei practice page; no direct lineage inferred."
+        }
+      ]
+    },
+    {
+      "id": "TW-CHECKPOINT-15DE-COMPLETE-20261124",
+      "date": "2026-11-24",
+      "state_version": "1.1465.0",
+      "reviewed_issue_ids": [
+        "TW-OPEN-0001",
+        "TW-OPEN-0002",
+        "TW-OPEN-0003",
+        "TW-OPEN-0004",
+        "TW-OPEN-0005",
+        "TW-OPEN-0006",
+        "TW-OPEN-0007",
+        "TW-OPEN-0008",
+        "TW-OPEN-0009",
+        "TW-OPEN-0010",
+        "TW-OPEN-0011",
+        "TW-OPEN-0012",
+        "TW-OPEN-0013",
+        "TW-OPEN-0014",
+        "TW-OPEN-0015",
+        "TW-OPEN-0016",
+        "TW-OPEN-0017",
+        "TW-OPEN-0018",
+        "TW-OPEN-0019",
+        "TW-OPEN-0020",
+        "TW-OPEN-0021",
+        "TW-OPEN-0022",
+        "TW-OPEN-0023"
+      ],
+      "discovery_mode": "BREADTH_FIRST_HISTORICAL_PRACTICE",
+      "result": "13ZZ CURRENT ACTION AFTER 15DE COMPLETED BOUNDED BREADTH: Full root647 and 223 extension shards611 content scanned by title/name/ISBN/catalog identifiers, all manifest hashes and counts match live tree; shard193 retried successfully. Rechecked publisher 2016 retrospective on Zhang Yunxi 1933 press column and Google Books 2016 reprint. Found 1934–35 Beiping Library report donor entry candidate in SSID12544994/NLC06jh006351 indexed text with conflicting title transcriptions; PDF screenshots fail, NDL1120142 Commons page32 directly shows donor register heading and period only, target page44 attempt inaccessible. Five new records, two quarantined target locators, no original glyph, independent physical-copy vote, original chart or lineage. Sources1263=647+616/224, graph467/374 Matrix222/222, TW-OPEN-0023 retained and 23 risks incl five P0, G8930/6, core CLOSED. NEXT other independent late-Qing/Republican Ziwei practice sources, retain this issue for original evidence.",
+      "evidence_refs": [
+        "docs/research/TIANWEN-15DE-REPUBLICAN-ZIWEI-PRESS-PRACTICE-R1.md",
+        "docs/research/TIANWEN-15DE-REPUBLICAN-BEIPING-PRESS-SOURCE-SHARD-R1.json"
+      ],
+      "unresolved_breadth_leads": [
+        {
+          "scope": "TW-OPEN-0023",
+          "status": "OPEN",
+          "next_evidence": "Original 1933 column and old imprint, original donor register title and author identification; no direct Ziwei operational or transmission claim."
         }
       ]
     }
