@@ -12,8 +12,8 @@
   "binding": {
     "repository": "chinaneedM/ziwei-bazi-model",
     "branch": "agent/fusion-chart-core-r1-20260822",
-    "reviewed_state_version": "1.1457.0",
-    "source_focus_count": 3153,
+    "reviewed_state_version": "1.1458.0",
+    "source_focus_count": 3154,
     "latest_research_focus_prefix": "13ZZ"
   },
   "coverage_axes": [
@@ -14477,6 +14477,35 @@
             "docs/research/TIANWEN-15CY-VIETNAM-TN208-TN213-BOUNDED-RULE-CHART-REPLAY-R1.md",
             "docs/research/TIANWEN-15CY-VIETNAM-TN208-TN213-ORIGINAL-PAGE-READING-CHECKPOINT-R1.md",
             "docs/research/TIANWEN-15R-VIETNAM-THANGNGHIEM-TN208-TN213-SOURCE-SHARD-R1.json"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "TW-OPEN-0018",
+      "title": "晚清徽州程氏排日账命章、渊海子平摘抄原叶及底本",
+      "priority": "P1",
+      "scope": "BAZI_QING_HUIZHOU_CHENG_LEDGER_PRACTICE",
+      "status": "OPEN",
+      "origin": "15CZ_HUIZHOU_CHENG_DAILY_LEDGER_2026-11-24",
+      "source_refs": [
+        "docs/research/TIANWEN-15CZ-HUIZHOU-CHENG-DAILY-LEDGER-PRACTICE-R1.md",
+        "docs/research/TIANWEN-15CZ-HUIZHOU-CHENG-DAILY-LEDGER-SOURCE-SHARD-R1.json"
+      ],
+      "evidence_boundary": "现代学者引文定位及同刊数字呈现，非原账直接核读；两项现代来源依赖同一账册群。",
+      "missing_evidence": "第5、6、11、12册对应原叶影像/物件标识、命理摘录及底本版本、命章正文；数字文本字形差异未决。",
+      "next_action": "广度后深研，查免费公开原件或合法数字化；逐叶绑定并核读，不由现代规则回填。",
+      "closure_criteria": "原件及目标叶可复核绑定，区分原字、整理者订正与数字识别错误，明确底本和技术范围；证据不足保持OPEN。",
+      "matrix_rule_ids": [],
+      "resolution_evidence": [],
+      "history": [
+        {
+          "event": "REGISTERED_UNRESOLVED",
+          "date": "2026-11-24",
+          "basis": "Reported dated Bazi practical reception, target leaves and technical contents remain unverified.",
+          "evidence_refs": [
+            "docs/research/TIANWEN-15CZ-HUIZHOU-CHENG-DAILY-LEDGER-PRACTICE-R1.md",
+            "docs/research/TIANWEN-15CZ-HUIZHOU-CHENG-DAILY-LEDGER-SOURCE-SHARD-R1.json"
           ]
         }
       ]
@@ -36109,6 +36138,44 @@
           "scope": "TW-OPEN-0017",
           "status": "OPEN",
           "next_evidence": "广度完成后深研：合法免费获得原图并逐格核读p45/p61及TN208对应口诀和图表，保留不合点，核明宫界和可能异法，查独立可断代版本，不能按现代规则反推字形。"
+        }
+      ]
+    },
+    {
+      "id": "TW-CHECKPOINT-15CZ-20261124",
+      "date": "2026-11-24",
+      "state_version": "1.1458.0",
+      "reviewed_issue_ids": [
+        "TW-OPEN-0001",
+        "TW-OPEN-0002",
+        "TW-OPEN-0003",
+        "TW-OPEN-0004",
+        "TW-OPEN-0005",
+        "TW-OPEN-0006",
+        "TW-OPEN-0007",
+        "TW-OPEN-0008",
+        "TW-OPEN-0009",
+        "TW-OPEN-0010",
+        "TW-OPEN-0011",
+        "TW-OPEN-0012",
+        "TW-OPEN-0013",
+        "TW-OPEN-0014",
+        "TW-OPEN-0015",
+        "TW-OPEN-0016",
+        "TW-OPEN-0017",
+        "TW-OPEN-0018"
+      ],
+      "discovery_mode": "BREADTH_FIRST_HISTORICAL_PRACTICE",
+      "result": "13ZZ CURRENT ACTION AFTER 15CZ: Qing Huizhou Cheng daily ledger study — bounded Bazi practical reception evidence: 1872/1881/1895/1900 dated mingzhang occasions, 1878–1881 reported Yuanhai Ziping excerpts. Two dependent modern research records, no target original glyph or chart replay; OCR/edition/target leaf open TW-OPEN-0018. Next prioritize independently dated Ziwei/Bazi late Qing–Republican practical and regional breadth; defer same-collection deep collation.",
+      "evidence_refs": [
+        "docs/research/TIANWEN-15CZ-HUIZHOU-CHENG-DAILY-LEDGER-PRACTICE-R1.md",
+        "docs/research/TIANWEN-15CZ-HUIZHOU-CHENG-DAILY-LEDGER-SOURCE-SHARD-R1.json"
+      ],
+      "unresolved_breadth_leads": [
+        {
+          "scope": "BAZI_QING_HUIZHOU_CHENG_LEDGER_PRACTICE",
+          "status": "OPEN",
+          "next_evidence": "Target manuscript leaves, original mingzhang and excerpt collation; defer to deep research."
         }
       ]
     }
