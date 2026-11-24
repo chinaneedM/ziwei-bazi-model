@@ -12,8 +12,8 @@
   "binding": {
     "repository": "chinaneedM/ziwei-bazi-model",
     "branch": "agent/fusion-chart-core-r1-20260822",
-    "reviewed_state_version": "1.1449.0",
-    "source_focus_count": 3146,
+    "reviewed_state_version": "1.1450.0",
+    "source_focus_count": 3147,
     "latest_research_focus_prefix": "13ZZ"
   },
   "coverage_axes": [
@@ -35738,6 +35738,46 @@
           "scope": "15CS_JAPANESE_HOLDINGS_AND_FULL_REGISTRY_DEDUP",
           "status": "OPEN",
           "next_evidence": "Bind actual physical-copy dates and digital-image hashes for Kojima/NAOJ/Kyoto; audit remaining registry shards, no natal lineage claim."
+        }
+      ]
+    },
+    {
+      "id": "OMISSIONS-15CT-DUNHUANG-P3602-20261124",
+      "date": "2026-11-24",
+      "state_version": "1.1450.0",
+      "reviewed_issue_ids": [
+        "TW-OPEN-0001",
+        "TW-OPEN-0002",
+        "TW-OPEN-0003",
+        "TW-OPEN-0004",
+        "TW-OPEN-0005",
+        "TW-OPEN-0006",
+        "TW-OPEN-0007",
+        "TW-OPEN-0008",
+        "TW-OPEN-0009",
+        "TW-OPEN-0010",
+        "TW-OPEN-0011",
+        "TW-OPEN-0012",
+        "TW-OPEN-0013",
+        "TW-OPEN-0014",
+        "TW-OPEN-0015"
+      ],
+      "discovery_mode": "BREADTH_FIRST_DUNHUANG_LUMING_MANUSCRIPT_TITLE_BOUNDARY",
+      "result": "15CT adds BnF Dunhuang P.3602 (btv1b8303229x) via Commons and bounded visual screen of images 5–9: images 5/6 overlap at the apparent 孟遇禄命一部 title; not independent witnesses. Chen Yuzhu's 2008 article mirror and thesis TOC distinguish wandering-year and other luming categories; Guan Changlong's TOC labels P3602Vb 三命訣 while Va/Vc are separately cataloged. Original BnF access and JPEG download/hash failed; native glyphs, copy date, exact section boundaries and historical rule linkage remain open. Four scoped source objects =>1211=647+564/214 shards; Matrix222/222 graph456/370 fifteen issues incl five P0 G8930/6 chart CLOSED. Full 213-shard keyword/object check and blob alignment completed; no duplicate hit, not semantic equivalence proof.",
+      "evidence_refs": [
+        "docs/research/TIANWEN-15CT-DUNHUANG-P3602-MENGYU-LUMING-TITLE-AND-METHOD-BOUNDARY-R1.md",
+        "docs/research/TIANWEN-15CT-DUNHUANG-P3602-LUMING-SOURCE-SHARD-R1.json"
+      ],
+      "unresolved_breadth_leads": [
+        {
+          "scope": "15CT_P3602_ORIGINAL_TITLE_AND_SECTION_BOUNDARY",
+          "status": "OPEN",
+          "next_evidence": "Bind first-party catalog, native image hashes, glyphs, chronology and section boundaries; do not count overlapping images independently."
+        },
+        {
+          "scope": "15CT_LUMING_YOUNIAN_SANMING_MECHANICAL_BRIDGE",
+          "status": "OPEN",
+          "next_evidence": "Find direct original sections and comparable evidence; no modern Four Pillars or Ziwei lineage established."
         }
       ]
     }
