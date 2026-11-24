@@ -12,8 +12,8 @@
   "binding": {
     "repository": "chinaneedM/ziwei-bazi-model",
     "branch": "agent/fusion-chart-core-r1-20260822",
-    "reviewed_state_version": "1.1462.0",
-    "source_focus_count": 3158,
+    "reviewed_state_version": "1.1463.0",
+    "source_focus_count": 3159,
     "latest_research_focus_prefix": "13ZZ"
   },
   "coverage_axes": [
@@ -14560,10 +14560,12 @@
       "source_refs": [
         "docs/research/TIANWEN-15DB-TAIWAN-NATAL-PRACTICE-MEDIA-R1.md",
         "docs/research/TIANWEN-15DB-TAIWAN-NATAL-PRACTICE-MEDIA-SOURCE-SHARD-R1.json",
-        "docs/research/TIANWEN-15DB-TAIWAN-NATAL-PRACTICE-MEDIA-CHECKPOINT-R1.md"
+        "docs/research/TIANWEN-15DB-TAIWAN-NATAL-PRACTICE-MEDIA-CHECKPOINT-R1.md",
+        "docs/research/TIANWEN-15DD-TAIWAN-NATAL-PRACTICE-SURVEY-R1.md",
+        "docs/research/TIANWEN-15DD-TAIWAN-TSCS-SOURCE-SHARD-R1.json"
       ],
-      "evidence_boundary": "1999论文原页报告1992年6月前栏目；1971/1972刊物目录不证原刊栏目；一般算命调查非两术独立比例。",
-      "missing_evidence": "具体期号、原始栏目页、作者及首刊年；分别针对紫微及八字的同代调查或其他独立传播记录。",
+      "evidence_boundary": "1999论文原页报告1992年6月前栏目；1971/1972刊物目录不证原刊栏目；一般算命调查非两术独立比例。 15DD 另核中研院分术式问卷与汇总频数，支持台湾两术社会使用，其样本和回溯窗口独立于华视刊物史。",
+      "missing_evidence": "具体期号、原始栏目页、作者及首刊年。15DD 已提供分术式地区调查，栏目受众、报刊之间的扩散及具体传播关系仍待独立材料。",
       "next_action": "深研阶段先查合法免费公开原期刊及可独立定年的其他媒体材料；不依赖付费或注册。",
       "closure_criteria": "原栏目绑定具体物件/期号/日期/可读页；分别标记作者、术式、日期及统计范围，不能仅凭同刊标题或综合调查裁决。",
       "matrix_rule_ids": [],
@@ -14576,6 +14578,23 @@
           "evidence_refs": [
             "docs/research/TIANWEN-15DB-TAIWAN-NATAL-PRACTICE-MEDIA-R1.md",
             "docs/research/TIANWEN-15DB-TAIWAN-NATAL-PRACTICE-MEDIA-SOURCE-SHARD-R1.json"
+          ]
+        },
+        {
+          "event": "EVIDENCE_SCOPE_REVISION",
+          "date": "2026-11-24",
+          "changed_fields": [
+            "evidence_boundary",
+            "missing_evidence"
+          ],
+          "previous_fields": {
+            "evidence_boundary": "1999论文原页报告1992年6月前栏目；1971/1972刊物目录不证原刊栏目；一般算命调查非两术独立比例。",
+            "missing_evidence": "具体期号、原始栏目页、作者及首刊年；分别针对紫微及八字的同代调查或其他独立传播记录。"
+          },
+          "reason": "15DD verified technique-specific social reception statistics from public survey waves. The column and its historical transmission remain open.",
+          "evidence_refs": [
+            "docs/research/TIANWEN-15DD-TAIWAN-NATAL-PRACTICE-SURVEY-R1.md",
+            "docs/research/TIANWEN-15DD-TAIWAN-TSCS-SOURCE-SHARD-R1.json"
           ]
         }
       ]
@@ -14605,6 +14624,35 @@
           "evidence_refs": [
             "docs/research/TIANWEN-15DC-QING-DOOLITTLE-GILES-NATAL-PRACTICE-R1.md",
             "docs/research/TIANWEN-15DC-QING-DOOLITTLE-GILES-SOURCE-SHARD-R1.json"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "TW-OPEN-0022",
+      "title": "台湾两术使用调查的跨轮比较、1994共选与2004目录摘要",
+      "priority": "P1",
+      "scope": "TAIWAN_TSCS_NATAL_PRACTICE_RECEPTION_1994_2009",
+      "status": "OPEN",
+      "origin": "15DD_TAIWAN_TSCS_2026-11-24",
+      "source_refs": [
+        "docs/research/TIANWEN-15DD-TAIWAN-NATAL-PRACTICE-SURVEY-R1.md",
+        "docs/research/TIANWEN-15DD-TAIWAN-TSCS-SOURCE-SHARD-R1.json"
+      ],
+      "evidence_boundary": "调查原题与发布频数已核。1999回溯自1994年1月，2004与2009为一年。2004报告及目录结构化字段支持1881，目录摘要另写1862。",
+      "missing_evidence": "1994时段去重、两术共选和后期同口径分术式频数的可复核公开分析。2004摘要差异的编辑记录，以及2004和2009的访员与权重口径对照。",
+      "next_action": "深研阶段优先查公开案卷说明、频数更正和发布者的匹配口径分析。保留原题、分母、跳答和网络服务分类的差异。",
+      "closure_criteria": "公开材料逐项支持问项、编码、跳答、计数和权重的可比范围。交集、年代回忆与摘要差异有明确裁决或限定证据边界，样本比例不推定全体及师承。",
+      "matrix_rule_ids": [],
+      "resolution_evidence": [],
+      "history": [
+        {
+          "event": "REGISTERED_UNRESOLVED",
+          "date": "2026-11-24",
+          "basis": "Published practice statistics are time-window specific; earlier year cells can overlap and the 2004 source metadata contains a contradictory denominator.",
+          "evidence_refs": [
+            "docs/research/TIANWEN-15DD-TAIWAN-NATAL-PRACTICE-SURVEY-R1.md",
+            "docs/research/TIANWEN-15DD-TAIWAN-TSCS-SOURCE-SHARD-R1.json"
           ]
         }
       ]
@@ -36439,6 +36487,53 @@
           "scope": "TW-OPEN-0021",
           "status": "OPEN",
           "next_evidence": "Original 1865/1876 leaves, Giles physical copy identity and Chinese technical witnesses; day-pair vs single stem, unidentified star reading."
+        }
+      ]
+    },
+    {
+      "id": "TW-CHECKPOINT-15DD-20261124",
+      "date": "2026-11-24",
+      "state_version": "1.1463.0",
+      "reviewed_issue_ids": [
+        "TW-OPEN-0001",
+        "TW-OPEN-0002",
+        "TW-OPEN-0003",
+        "TW-OPEN-0004",
+        "TW-OPEN-0005",
+        "TW-OPEN-0006",
+        "TW-OPEN-0007",
+        "TW-OPEN-0008",
+        "TW-OPEN-0009",
+        "TW-OPEN-0010",
+        "TW-OPEN-0011",
+        "TW-OPEN-0012",
+        "TW-OPEN-0013",
+        "TW-OPEN-0014",
+        "TW-OPEN-0015",
+        "TW-OPEN-0016",
+        "TW-OPEN-0017",
+        "TW-OPEN-0018",
+        "TW-OPEN-0019",
+        "TW-OPEN-0020",
+        "TW-OPEN-0021",
+        "TW-OPEN-0022"
+      ],
+      "discovery_mode": "BREADTH_FIRST_HISTORICAL_PRACTICE_SURVEY",
+      "result": "13ZZ CURRENT ACTION AFTER 15DD COMPLETED BREADTH: Verified four Taiwan TSCS questionnaires and four official reports by SHA-256 and target PDF page, plus one conflicting SRDA catalog record. 1994 Q65 retains a 1989 retrospective category (Ziwei23, Bazi37, n1862); 1999 Q65 since 1994-01 Ziwei204/Bazi296 of1925; 2004 Q41 one-year Ziwei65/Bazi109 of1881 and 2009 Q56 one-year Ziwei110/Bazi157 of1927. Belief items and practice distinct, multiple responses and skip rules preserved; 2009 counts human online consultation separately from automated results per interviewer guidance. 2005/2010 one-year table headers must not be applied to their 1999 comparator, and 1881 report denominator is distinct from 1862 in SRDA abstract. TW-OPEN-0020 partially supplemented; TW-OPEN-0022 retains unresolved comparative interpretation and catalog discrepancy. Full root647 and 222 existing shards (602 records) checked for target identifiers, counts and tree/blob matches. Nine new source records =>1258=647+611/223 shards. Matrix222/222, graph467/374, 22 open risks incl five P0, G8930/6, deterministic core CLOSED. NEXT prioritize independently dated late-Qing or Republican Ziwei practice and dissemination, especially original charts, periodical pages or dated instruction.",
+      "evidence_refs": [
+        "docs/research/TIANWEN-15DD-TAIWAN-NATAL-PRACTICE-SURVEY-R1.md",
+        "docs/research/TIANWEN-15DD-TAIWAN-TSCS-SOURCE-SHARD-R1.json"
+      ],
+      "unresolved_breadth_leads": [
+        {
+          "scope": "TW-OPEN-0020",
+          "status": "OPEN",
+          "next_evidence": "Original CTS Weekly column issue/page and independently dated author or circulation evidence."
+        },
+        {
+          "scope": "TW-OPEN-0022",
+          "status": "OPEN",
+          "next_evidence": "Public comparability documentation for survey windows, overlap, skip codes and 2004 archive description."
         }
       ]
     }

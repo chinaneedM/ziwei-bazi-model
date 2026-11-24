@@ -556,3 +556,7 @@ VNPF[胜严寺 Thắng Nghiêm II 藏书群](https://lib.nomfoundation.org/colle
 
 ### 15DC｜晚清英文星命服务的未定身份（2026-11-24）
 Giles 1876价目另列观星批命，未见紫微题名、十四主星、命宫或四化；仅为邻接行业证据，不填紫微具体术式传播格。见 [15DC](research/TIANWEN-15DC-QING-DOOLITTLE-GILES-NATAL-PRACTICE-R1.md)。
+
+### 15DD｜台湾紫微斗数的分术式求问记录（1994—2009）
+
+1994 年中研院宗教组问卷把紫微斗数列为独立术式，1989 年档有 23 人回顾主动求问。1999 年自 1994 年1月起计有 204／1,925 人，2004、2009 年的一年窗口各为 65／1,881 和 110／1,927。三轮比例按原题与全样本读；调查未记具体师承和安星法。见 [15DD](research/TIANWEN-15DD-TAIWAN-NATAL-PRACTICE-SURVEY-R1.md)。
