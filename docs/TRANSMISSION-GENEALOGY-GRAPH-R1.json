@@ -8347,6 +8347,23 @@
         "docs/research/TIANWEN-15DB-TAIWAN-NATAL-PRACTICE-MEDIA-SOURCE-SHARD-R1.json"
       ],
       "first_explicit_graph_batch": "15DB"
+    },
+    {
+      "node_id": "PASSAGE-NLC416-GUANCELU-1938-OBSERVATIONS-AND-NATAL-CASES",
+      "node_type": "PASSAGE",
+      "label": "《斗數觀測錄》紫微命例、灯市口婚事及1938年历日观察",
+      "system_scope": "ZIWEI",
+      "work_composition_date": null,
+      "edition_impression_date": null,
+      "physical_copy_date": null,
+      "digital_surrogate_date": null,
+      "date_scope_note": "Named observations include 1938 calendar-matching dates, not a dated impression. NLC416 original print scan supports the reported examples. Two lunar-input structure/main-star outputs replay on reviewed fields only; person and event details lack independent verification.",
+      "evidence": [
+        "EXT-TIANWEN-14E-NLC416-FEIXING-PUBLIC-SCAN",
+        "docs/research/TIANWEN-15DH-REPUBLICAN-ZIWEI-GUANCELU-DATED-PRACTICE-R1.md",
+        "docs/research/TIANWEN-15DH-REPUBLICAN-ZIWEI-GUANCELU-SOURCE-SHARD-R1.json"
+      ],
+      "first_explicit_graph_batch": "15DH"
     }
   ],
   "edges": [
@@ -14114,6 +14131,22 @@
       ],
       "scope_note": "Received Pirwonjapgi explicitly attributes the quoted passage to Li Qixian's Kwon Bu epitaph. No direct physical-copy, teacher, or rule transmission claimed.",
       "adjudication_batch": "15CX"
+    },
+    {
+      "edge_id": "TG-E0375",
+      "from": "EDITION-NLC-REPUBLICAN-FEIXING-ZIWEI-YUANZHI",
+      "to": "PASSAGE-NLC416-GUANCELU-1938-OBSERVATIONS-AND-NATAL-CASES",
+      "relation": "ATTESTS",
+      "status": "CONFIRMED",
+      "confidence": "HIGH_WITHIN_SAMPLED_SCOPE",
+      "evidence_class": "DIRECT_PHYSICAL_TEXT",
+      "evidence": [
+        "EXT-TIANWEN-14E-NLC416-FEIXING-PUBLIC-SCAN",
+        "docs/research/TIANWEN-15DH-REPUBLICAN-ZIWEI-GUANCELU-DATED-PRACTICE-R1.md",
+        "docs/research/TIANWEN-15DH-REPUBLICAN-ZIWEI-GUANCELU-SOURCE-SHARD-R1.json"
+      ],
+      "scope_note": "Same-copy scan zero-based pp. 13–14, 20–22, 33 and 41–42 attest the reviewed text and listed case coordinates. 2021 samples identify a shared textual tradition without establishing physical copy/edition identity, historical event confirmation or transmission edge.",
+      "adjudication_batch": "15DH"
     }
   ],
   "lineage_hypotheses": [
@@ -15467,5 +15500,5 @@
     "first_explicit_seed_batch": "BATCH-12-ZIWEI-SISHI-QIHOU-JINGTAI6-TONGSHU-TABLE-CONTROL-CH",
     "future_material_batches_require_transmission_impact": true
   },
-  "updated_at": "2026-11-24"
+  "updated_at": "2026-11-25"
 }
