@@ -12,8 +12,8 @@
   "binding": {
     "repository": "chinaneedM/ziwei-bazi-model",
     "branch": "agent/fusion-chart-core-r1-20260822",
-    "reviewed_state_version": "1.1471.0",
-    "source_focus_count": 3167,
+    "reviewed_state_version": "1.1472.0",
+    "source_focus_count": 3168,
     "latest_research_focus_prefix": "13ZZ"
   },
   "coverage_axes": [
@@ -14838,11 +14838,13 @@
       "status": "OPEN",
       "origin": "15DI provisional checkpoint",
       "source_refs": [
-        "docs/research/TIANWEN-15DI-REPUBLICAN-ZIWEI-BEIJING-NORMAL-LIBRARY-CATALOG-CHECKPOINT-R1.md"
+        "docs/research/TIANWEN-15DI-REPUBLICAN-ZIWEI-BEIJING-NORMAL-LIBRARY-CATALOG-CHECKPOINT-R1.md",
+        "docs/research/TIANWEN-15DI-REPUBLICAN-ZIWEI-BEIJING-NORMAL-LIBRARY-CATALOG-R1.md",
+        "docs/research/TIANWEN-15DI-REPUBLICAN-ZIWEI-BEIJING-NORMAL-LIBRARY-CATALOG-SOURCE-SHARD-R1.json"
       ],
-      "evidence_boundary": "1940为Commons国图备份目录的著录层，PDF宗教部术数目标书目仅有自动提取。作者栏及页号疑读，原始PDF截图和下载失败；未获取任何原字或准确页绑定。全分片内容去重尚未完成。",
-      "missing_evidence": "可绑定目录的刊记和目标原页、准确PDF与印页、作者栏和索书号原字、与1935既有书目实物关系、全分片内容去重。",
-      "next_action": "完成全分片目标查重；寻找合法公开目标图像与刊记，核读作者、出版项、页号及索书号；不成功则保留隔离定位，转其他独立传播证据。",
+      "evidence_boundary": "全根及227旧分片623条目标去重完成；1940备份清单和宗教部术数自动提取目标均定位，作者、页号和内部年代有异常，未取得原件图像。1943目录另有定位，检索未命中不作缺藏证明。占领区学院、合并后大学与西迁学校身份须分层。隔离登记一条，不据此认定实物收藏、教学或师承。",
+      "missing_evidence": "可绑定目录刊记和目标原页、准确PDF与印页、作者栏和索书号原字、实际目录页年代及与1935既有书目实物关系；1943目录的目标卷次和版本关系。",
+      "next_action": "有新合法公开原目录刊记与目标原图入口时恢复，核对原字、年代、版次、馆藏身份及1943关系；不反复当前失败路径，先推进其他独立民国传播证据。",
       "closure_criteria": "绑定可复核原目录页和版本/机构日期、准确核对书目原字；独立判定其能支持的收藏记录范围，不把书目等同教学、实务或传承。无法取得时保持OPEN。",
       "matrix_rule_ids": [],
       "resolution_evidence": [],
@@ -14853,6 +14855,25 @@
           "basis": "Indexed historical library catalogue row and mirror publication metadata; target image and exact attribution not verified.",
           "evidence_refs": [
             "docs/research/TIANWEN-15DI-REPUBLICAN-ZIWEI-BEIJING-NORMAL-LIBRARY-CATALOG-CHECKPOINT-R1.md"
+          ]
+        },
+        {
+          "event": "EVIDENCE_SCOPE_REVISION",
+          "date": "2026-11-25",
+          "changed_fields": [
+            "evidence_boundary",
+            "missing_evidence",
+            "next_action"
+          ],
+          "previous_fields": {
+            "evidence_boundary": "1940为Commons国图备份目录的著录层，PDF宗教部术数目标书目仅有自动提取。作者栏及页号疑读，原始PDF截图和下载失败；未获取任何原字或准确页绑定。全分片内容去重尚未完成。",
+            "missing_evidence": "可绑定目录的刊记和目标原页、准确PDF与印页、作者栏和索书号原字、与1935既有书目实物关系、全分片内容去重。",
+            "next_action": "完成全分片目标查重；寻找合法公开目标图像与刊记，核读作者、出版项、页号及索书号；不成功则保留隔离定位，转其他独立传播证据。"
+          },
+          "reason": "15DI full prior registry scan and scoped catalogue locator/context verified; original target still unverified; no source grade upgrade or status closure.",
+          "evidence_refs": [
+            "docs/research/TIANWEN-15DI-REPUBLICAN-ZIWEI-BEIJING-NORMAL-LIBRARY-CATALOG-R1.md",
+            "docs/research/TIANWEN-15DI-REPUBLICAN-ZIWEI-BEIJING-NORMAL-LIBRARY-CATALOG-SOURCE-SHARD-R1.json"
           ]
         }
       ]
@@ -37097,6 +37118,53 @@
           "scope": "TW-OPEN-0027",
           "status": "OPEN",
           "next_evidence": "Full source dedup; original target catalogue page and colophon, author and shelfmark glyphs."
+        }
+      ]
+    },
+    {
+      "id": "TW-CHECKPOINT-15DI-COMPLETE-20261125",
+      "date": "2026-11-25",
+      "state_version": "1.1472.0",
+      "reviewed_issue_ids": [
+        "TW-OPEN-0001",
+        "TW-OPEN-0002",
+        "TW-OPEN-0003",
+        "TW-OPEN-0004",
+        "TW-OPEN-0005",
+        "TW-OPEN-0006",
+        "TW-OPEN-0007",
+        "TW-OPEN-0008",
+        "TW-OPEN-0009",
+        "TW-OPEN-0010",
+        "TW-OPEN-0011",
+        "TW-OPEN-0012",
+        "TW-OPEN-0013",
+        "TW-OPEN-0014",
+        "TW-OPEN-0015",
+        "TW-OPEN-0016",
+        "TW-OPEN-0017",
+        "TW-OPEN-0018",
+        "TW-OPEN-0019",
+        "TW-OPEN-0020",
+        "TW-OPEN-0021",
+        "TW-OPEN-0022",
+        "TW-OPEN-0023",
+        "TW-OPEN-0024",
+        "TW-OPEN-0025",
+        "TW-OPEN-0026",
+        "TW-OPEN-0027"
+      ],
+      "discovery_mode": "BREADTH_FIRST_HISTORICAL_PRACTICE",
+      "result": "13ZZ CURRENT ACTION AFTER 15DI COMPLETED BOUNDED BREADTH: Full root647 and all227 prior shards623 content checked for target catalogue ID/title, shelfmark and Wang name variants; all hashes/counts match live tree; four related hits not duplicate object. One quarantine source NLC416-08jh008864-8627 mirror 1940 and automated 1935 Ziwei Xuanwei row; author/page/date anomalies, screenshot inaccessible, no original glyph or institutional possession claim. Distinct 1943 catalogue locator search misses not negative proof; 2017 scholarship separates occupied Beijing college from westward university, no copy/teaching/lineage inference. Sources1271=647+624/228, graph468/375 Matrix222/222, 27 risks incl five P0, G8930/6, core CLOSED. TW-OPEN-0027 stays OPEN. NEXT independent dated Republican Ziwei practice, regional publication and circulation; reopen catalogue only on new original-page route.",
+      "evidence_refs": [
+        "docs/research/TIANWEN-15DI-REPUBLICAN-ZIWEI-BEIJING-NORMAL-LIBRARY-CATALOG-R1.md",
+        "docs/research/TIANWEN-15DI-REPUBLICAN-ZIWEI-BEIJING-NORMAL-LIBRARY-CATALOG-SOURCE-SHARD-R1.json"
+      ],
+      "unresolved_breadth_leads": [
+        {
+          "scope": "TW-OPEN-0027",
+          "status": "OPEN",
+          "next_evidence": "Original catalogue colophon/target page, author and shelfmark, date and copy identity."
         }
       ]
     }
