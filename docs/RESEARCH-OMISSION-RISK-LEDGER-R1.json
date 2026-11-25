@@ -12,8 +12,8 @@
   "binding": {
     "repository": "chinaneedM/ziwei-bazi-model",
     "branch": "agent/fusion-chart-core-r1-20260822",
-    "reviewed_state_version": "1.1473.0",
-    "source_focus_count": 3169,
+    "reviewed_state_version": "1.1474.0",
+    "source_focus_count": 3170,
     "latest_research_focus_prefix": "13ZZ"
   },
   "coverage_axes": [
@@ -14886,11 +14886,13 @@
       "status": "OPEN",
       "origin": "15DJ provisional checkpoint",
       "source_refs": [
-        "docs/research/TIANWEN-15DJ-TAIWAN-JAPAN-NISHIKAWA-NATAL-METHOD-IDENTITY-CHECKPOINT-R1.md"
+        "docs/research/TIANWEN-15DJ-TAIWAN-JAPAN-NISHIKAWA-NATAL-METHOD-IDENTITY-CHECKPOINT-R1.md",
+        "docs/research/TIANWEN-15DJ-TAIWAN-JAPAN-NISHIKAWA-NATAL-METHOD-IDENTITY-R1.md",
+        "docs/research/TIANWEN-15DJ-TAIWAN-JAPAN-NISHIKAWA-SOURCE-SHARD-R1.json"
       ],
-      "evidence_boundary": "2016新闻术名与2025论文术名须分层；已阅现代论文指定页，NDL1959书目及博物馆刊物索引是定位，原始规则页未阅，早年经历仅后出回顾。根647及定向12分片34条初查，完整去重待完成，未正式入库。",
-      "missing_evidence": "1959年书p20/35/57、1966年第30期p36、1962年第12期pp7–8等原始正文与命盘规则；原始学习材料及师承身份；全分片去重。",
-      "next_action": "完成全分片正文与新增馆藏ID查重，分层登记；有合法免费原页入口再核术式，不能取得则保持开放并继续广度研究。",
+      "evidence_boundary": "完整根647及228分片624条目标字面查重，无命中；六条分层来源登记。1959/1972 NDL书目与2025论文指定页实查；2019同作者摘要、2016媒体紫微称谓、2026从业者十大主星/三柱回顾均非历史原术式。博物馆刊物索引可定位、详情重定向；原页、算法、师承及民国同期传播未证。",
+      "missing_evidence": "1959及1972原书规则页，1966第30期p36、1962第12期pp7–8、1963《天上聖母萬年暦》pp6、22等原始正文、实际命盘结构与输入规则；早年学习和师承材料。",
+      "next_action": "有新的合法免账号免费原页入口时恢复，区分独立算命学、紫微和四柱，保留所有候选；当前转入其他独立可定年民国实务史及传播史。",
       "closure_criteria": "可复核原始术式页支持明确的规则或术名身份及年代，区分紫微、四柱及其他算命术；不以现代报道建立师承。",
       "matrix_rule_ids": [],
       "resolution_evidence": [],
@@ -14901,6 +14903,25 @@
           "basis": "Conflicting retrospective method names, dated publication locator and modern scholarly analysis; original method pages not reviewed.",
           "evidence_refs": [
             "docs/research/TIANWEN-15DJ-TAIWAN-JAPAN-NISHIKAWA-NATAL-METHOD-IDENTITY-CHECKPOINT-R1.md"
+          ]
+        },
+        {
+          "event": "EVIDENCE_SCOPE_REVISION",
+          "date": "2026-11-25",
+          "changed_fields": [
+            "evidence_boundary",
+            "missing_evidence",
+            "next_action"
+          ],
+          "previous_fields": {
+            "evidence_boundary": "2016新闻术名与2025论文术名须分层；已阅现代论文指定页，NDL1959书目及博物馆刊物索引是定位，原始规则页未阅，早年经历仅后出回顾。根647及定向12分片34条初查，完整去重待完成，未正式入库。",
+            "missing_evidence": "1959年书p20/35/57、1966年第30期p36、1962年第12期pp7–8等原始正文与命盘规则；原始学习材料及师承身份；全分片去重。",
+            "next_action": "完成全分片正文与新增馆藏ID查重，分层登记；有合法免费原页入口再核术式，不能取得则保持开放并继续广度研究。"
+          },
+          "reason": "Completed targeted full registry scan and six scoped sources; original method pages not accessible; issue remains OPEN.",
+          "evidence_refs": [
+            "docs/research/TIANWEN-15DJ-TAIWAN-JAPAN-NISHIKAWA-NATAL-METHOD-IDENTITY-R1.md",
+            "docs/research/TIANWEN-15DJ-TAIWAN-JAPAN-NISHIKAWA-SOURCE-SHARD-R1.json"
           ]
         }
       ]
@@ -37239,6 +37260,54 @@
           "scope": "TW-OPEN-0028",
           "status": "OPEN",
           "next_evidence": "Original method pages, dated magazine issue30 p36 and 1959 book, complete registry dedup."
+        }
+      ]
+    },
+    {
+      "id": "TW-CHECKPOINT-15DJ-COMPLETE-20261125",
+      "date": "2026-11-25",
+      "state_version": "1.1474.0",
+      "reviewed_issue_ids": [
+        "TW-OPEN-0001",
+        "TW-OPEN-0002",
+        "TW-OPEN-0003",
+        "TW-OPEN-0004",
+        "TW-OPEN-0005",
+        "TW-OPEN-0006",
+        "TW-OPEN-0007",
+        "TW-OPEN-0008",
+        "TW-OPEN-0009",
+        "TW-OPEN-0010",
+        "TW-OPEN-0011",
+        "TW-OPEN-0012",
+        "TW-OPEN-0013",
+        "TW-OPEN-0014",
+        "TW-OPEN-0015",
+        "TW-OPEN-0016",
+        "TW-OPEN-0017",
+        "TW-OPEN-0018",
+        "TW-OPEN-0019",
+        "TW-OPEN-0020",
+        "TW-OPEN-0021",
+        "TW-OPEN-0022",
+        "TW-OPEN-0023",
+        "TW-OPEN-0024",
+        "TW-OPEN-0025",
+        "TW-OPEN-0026",
+        "TW-OPEN-0027",
+        "TW-OPEN-0028"
+      ],
+      "discovery_mode": "BREADTH_FIRST_HISTORICAL_PRACTICE",
+      "result": "13ZZ CURRENT ACTION AFTER 15DJ COMPLETED BOUNDED BREADTH: All root647 and 228 shards624 parsed, target name/title/ID scan and manifest/tree count/hash alignment complete, zero literal target hits. Six scoped sources: NDL1959 PID2940665 and 1972 PID12282842, 2025 Huang directly rendered pp1,6,7 with dated original-source citations but not original leaves, 2019 same-author TOAJ abstract (verification code boundary), 2016 press Ziwei label, 2026 practitioner report of distinct Sanmeigaku ten-star terminology and three-pillar analysis. 1962/1966 magazine and 1963 almanac original pages unavailable, NMTH index only; no method identity, dated Republican direct practice, teacher chain or historical glyph verdict. Sources1277=647+630/229, graph468/375 Matrix222/222, 28 risks incl five P0, G8930/6, core CLOSED. TW-OPEN-0028 remains OPEN; NEXT independent dated Republican Ziwei practical and regional publication evidence, reopen original pages only on new lawful free route.",
+      "evidence_refs": [
+        "docs/research/TIANWEN-15DJ-TAIWAN-JAPAN-NISHIKAWA-NATAL-METHOD-IDENTITY-R1.md",
+        "docs/research/TIANWEN-15DJ-TAIWAN-JAPAN-NISHIKAWA-SOURCE-SHARD-R1.json"
+      ],
+      "unresolved_breadth_leads": [
+        {
+          "scope": "TW-OPEN-0028",
+          "status": "OPEN",
+          "next_evidence": "Original 1959/1972 books, 1962/1966 magazine, 1963 almanac; method rules and independently dated teacher/practice evidence."
         }
       ]
     }
