@@ -12,8 +12,8 @@
   "binding": {
     "repository": "chinaneedM/ziwei-bazi-model",
     "branch": "agent/fusion-chart-core-r1-20260822",
-    "reviewed_state_version": "1.1474.0",
-    "source_focus_count": 3170,
+    "reviewed_state_version": "1.1475.0",
+    "source_focus_count": 3171,
     "latest_research_focus_prefix": "13ZZ"
   },
   "coverage_axes": [
@@ -14922,6 +14922,33 @@
           "evidence_refs": [
             "docs/research/TIANWEN-15DJ-TAIWAN-JAPAN-NISHIKAWA-NATAL-METHOD-IDENTITY-R1.md",
             "docs/research/TIANWEN-15DJ-TAIWAN-JAPAN-NISHIKAWA-SOURCE-SHARD-R1.json"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "TW-OPEN-0029",
+      "title": "张巢云1927《命學探驪集》原刊身份、职业润例与古籍重编",
+      "priority": "P1",
+      "scope": "Republican Ziping publication, professional practice and received old-text appendix evidence",
+      "status": "OPEN",
+      "origin": "15DK provisional checkpoint",
+      "source_refs": [
+        "docs/research/TIANWEN-15DK-REPUBLICAN-ZIPING-ZHANG-CHAOYUN-1927-CHECKPOINT-R1.md"
+      ],
+      "evidence_boundary": "第三方北大目录索引、现代出版社与电子书平台目录；1927物理原件及刊记/润例未阅。根647及16片53条目标初查，全部229片清单与树SHA对齐，正文全量去重未完成。未正式登记。",
+      "missing_evidence": "北大第一方具体馆藏记录/架号、1927原件题署版权刊记、实际润例及附录原页、具体规则条目及全量去重；2013各平台页数及目录差别须核源页。",
+      "next_action": "完成全分片正文查重与新Google ID检索；评估分层登记；只在合法免费入口核原件/公开试阅。保留紫微独立民国实务及地域传播任务。",
+      "closure_criteria": "可复核的原刊记/实物身份及目标原页，区分现代再版、职业实践和旧文再收录；不以现代目录建立规则、收费金额或师承。",
+      "matrix_rule_ids": [],
+      "resolution_evidence": [],
+      "history": [
+        {
+          "event": "REGISTERED_UNRESOLVED",
+          "date": "2026-11-25",
+          "basis": "New 1927 publication locator and modern reprint/TOC evidence; original object, fee schedule and rule/appendix pages unavailable; dedup incomplete.",
+          "evidence_refs": [
+            "docs/research/TIANWEN-15DK-REPUBLICAN-ZIPING-ZHANG-CHAOYUN-1927-CHECKPOINT-R1.md"
           ]
         }
       ]
@@ -37308,6 +37335,54 @@
           "scope": "TW-OPEN-0028",
           "status": "OPEN",
           "next_evidence": "Original 1959/1972 books, 1962/1966 magazine, 1963 almanac; method rules and independently dated teacher/practice evidence."
+        }
+      ]
+    },
+    {
+      "id": "TW-CHECKPOINT-15DK-PROVISIONAL-20261125",
+      "date": "2026-11-25",
+      "state_version": "1.1475.0",
+      "reviewed_issue_ids": [
+        "TW-OPEN-0001",
+        "TW-OPEN-0002",
+        "TW-OPEN-0003",
+        "TW-OPEN-0004",
+        "TW-OPEN-0005",
+        "TW-OPEN-0006",
+        "TW-OPEN-0007",
+        "TW-OPEN-0008",
+        "TW-OPEN-0009",
+        "TW-OPEN-0010",
+        "TW-OPEN-0011",
+        "TW-OPEN-0012",
+        "TW-OPEN-0013",
+        "TW-OPEN-0014",
+        "TW-OPEN-0015",
+        "TW-OPEN-0016",
+        "TW-OPEN-0017",
+        "TW-OPEN-0018",
+        "TW-OPEN-0019",
+        "TW-OPEN-0020",
+        "TW-OPEN-0021",
+        "TW-OPEN-0022",
+        "TW-OPEN-0023",
+        "TW-OPEN-0024",
+        "TW-OPEN-0025",
+        "TW-OPEN-0026",
+        "TW-OPEN-0027",
+        "TW-OPEN-0028",
+        "TW-OPEN-0029"
+      ],
+      "discovery_mode": "BREADTH_FIRST_HISTORICAL_PRACTICE",
+      "result": "13ZZ CURRENT ACTION AFTER 15DK PROVISIONAL BREADTH CHECKPOINT: Reused 13ZS Zhang Kaijuan 1949/1953/1972 catalog anchors, no duplicate admission. Independent 1927 Bazi Zhang Chaoyun Mingxue Tanliji lead: third-party PKU catalog index gj-2924332oi (direct human verification; no bypass), publisher retrospective self-print and fee schedule, HyRead85870 2013 ISBN9789888266111 TOC with rule/old-text appendix locators, Showwe2674 and Google Play D5GHAgAAQBAJ metadata and pagination discrepancies. No original leaves or fee amount, no confirmed holding identity, rule or direct lineage. Root647 and 16 selected shards53 records checked, all229 manifest/tree hashes aligned; remaining213 shards577 records and new Google ID scan pending. No source/graph/Matrix change. TW-OPEN-0029 P1 OPEN; 29 risks incl five P0, G8930/6, core CLOSED. NEXT full dedup, bounded source admission, original pages only by free lawful route; resume independent Republican Ziwei and dual historical breadth.",
+      "evidence_refs": [
+        "docs/research/TIANWEN-15DK-REPUBLICAN-ZIPING-ZHANG-CHAOYUN-1927-CHECKPOINT-R1.md"
+      ],
+      "unresolved_breadth_leads": [
+        {
+          "scope": "TW-OPEN-0029",
+          "status": "OPEN",
+          "next_evidence": "Full 229-shard target dedup; PKU first-party item, 1927 original imprint, fee schedule and appendix/rule leaves via free lawful access."
         }
       ]
     }
