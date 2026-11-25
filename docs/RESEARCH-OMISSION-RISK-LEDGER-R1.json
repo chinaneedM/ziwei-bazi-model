@@ -12,8 +12,8 @@
   "binding": {
     "repository": "chinaneedM/ziwei-bazi-model",
     "branch": "agent/fusion-chart-core-r1-20260822",
-    "reviewed_state_version": "1.1470.0",
-    "source_focus_count": 3166,
+    "reviewed_state_version": "1.1471.0",
+    "source_focus_count": 3167,
     "latest_research_focus_prefix": "13ZZ"
   },
   "coverage_axes": [
@@ -14826,6 +14826,33 @@
           "evidence_refs": [
             "docs/research/TIANWEN-15DH-REPUBLICAN-ZIWEI-GUANCELU-DATED-PRACTICE-R1.md",
             "docs/research/TIANWEN-15DH-REPUBLICAN-ZIWEI-GUANCELU-SOURCE-SHARD-R1.json"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "TW-OPEN-0027",
+      "title": "1940国立北京师范学院图书馆《紫微斗數宣微》书目原页及作者栏、馆藏身份",
+      "priority": "P1",
+      "scope": "Republican institutional bibliographic reception of Ziwei; catalog date, attribution and copy identity",
+      "status": "OPEN",
+      "origin": "15DI provisional checkpoint",
+      "source_refs": [
+        "docs/research/TIANWEN-15DI-REPUBLICAN-ZIWEI-BEIJING-NORMAL-LIBRARY-CATALOG-CHECKPOINT-R1.md"
+      ],
+      "evidence_boundary": "1940为Commons国图备份目录的著录层，PDF宗教部术数目标书目仅有自动提取。作者栏及页号疑读，原始PDF截图和下载失败；未获取任何原字或准确页绑定。全分片内容去重尚未完成。",
+      "missing_evidence": "可绑定目录的刊记和目标原页、准确PDF与印页、作者栏和索书号原字、与1935既有书目实物关系、全分片内容去重。",
+      "next_action": "完成全分片目标查重；寻找合法公开目标图像与刊记，核读作者、出版项、页号及索书号；不成功则保留隔离定位，转其他独立传播证据。",
+      "closure_criteria": "绑定可复核原目录页和版本/机构日期、准确核对书目原字；独立判定其能支持的收藏记录范围，不把书目等同教学、实务或传承。无法取得时保持OPEN。",
+      "matrix_rule_ids": [],
+      "resolution_evidence": [],
+      "history": [
+        {
+          "event": "REGISTERED_UNRESOLVED",
+          "date": "2026-11-25",
+          "basis": "Indexed historical library catalogue row and mirror publication metadata; target image and exact attribution not verified.",
+          "evidence_refs": [
+            "docs/research/TIANWEN-15DI-REPUBLICAN-ZIWEI-BEIJING-NORMAL-LIBRARY-CATALOG-CHECKPOINT-R1.md"
           ]
         }
       ]
@@ -37024,6 +37051,52 @@
           "scope": "TW-OPEN-0026",
           "status": "OPEN",
           "next_evidence": "Original 1948 bookend/imprint or dated circulation evidence; independent case documentation and identified 2021 exemplar."
+        }
+      ]
+    },
+    {
+      "id": "TW-CHECKPOINT-15DI-PROVISIONAL-20261125",
+      "date": "2026-11-25",
+      "state_version": "1.1471.0",
+      "reviewed_issue_ids": [
+        "TW-OPEN-0001",
+        "TW-OPEN-0002",
+        "TW-OPEN-0003",
+        "TW-OPEN-0004",
+        "TW-OPEN-0005",
+        "TW-OPEN-0006",
+        "TW-OPEN-0007",
+        "TW-OPEN-0008",
+        "TW-OPEN-0009",
+        "TW-OPEN-0010",
+        "TW-OPEN-0011",
+        "TW-OPEN-0012",
+        "TW-OPEN-0013",
+        "TW-OPEN-0014",
+        "TW-OPEN-0015",
+        "TW-OPEN-0016",
+        "TW-OPEN-0017",
+        "TW-OPEN-0018",
+        "TW-OPEN-0019",
+        "TW-OPEN-0020",
+        "TW-OPEN-0021",
+        "TW-OPEN-0022",
+        "TW-OPEN-0023",
+        "TW-OPEN-0024",
+        "TW-OPEN-0025",
+        "TW-OPEN-0026",
+        "TW-OPEN-0027"
+      ],
+      "discovery_mode": "BREADTH_FIRST_HISTORICAL_PRACTICE",
+      "result": "13ZZ CURRENT ACTION AFTER 15DI PROVISIONAL BREADTH CHECKPOINT: NLC416-08jh008864-8627 Beijing Normal College library catalog listed as 1940 in Commons NLC mirror; indexed religion/divination row reports 1935 Ziwei Doushu Xuanwei, Beijing Tianhua, two books one case, call number candidate 293.1/378-113, anomalous author extraction 王我翔. Original PDF screenshot exceeds 11249240-byte limit; local DNS and download failed. No original page, author glyph, exact index or copy identity verified; no teaching/lineage inference. Root647 and 5 targeted shards17 records checked; all227 manifest paths/hashes align to tree, full content dedup incomplete; no new source admission. TW-OPEN-0027 OPEN; 27 risks incl five P0. Matrix222/222, sources1270=647+623/227, graph468/375, G8930/6, core CLOSED. NEXT full source dedup and lawful target page verification before admission; latest completed breadth remains 15DH.",
+      "evidence_refs": [
+        "docs/research/TIANWEN-15DI-REPUBLICAN-ZIWEI-BEIJING-NORMAL-LIBRARY-CATALOG-CHECKPOINT-R1.md"
+      ],
+      "unresolved_breadth_leads": [
+        {
+          "scope": "TW-OPEN-0027",
+          "status": "OPEN",
+          "next_evidence": "Full source dedup; original target catalogue page and colophon, author and shelfmark glyphs."
         }
       ]
     }
