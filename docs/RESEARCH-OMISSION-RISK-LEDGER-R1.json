@@ -12,8 +12,8 @@
   "binding": {
     "repository": "chinaneedM/ziwei-bazi-model",
     "branch": "agent/fusion-chart-core-r1-20260822",
-    "reviewed_state_version": "1.1476.0",
-    "source_focus_count": 3172,
+    "reviewed_state_version": "1.1477.0",
+    "source_focus_count": 3173,
     "latest_research_focus_prefix": "13ZZ"
   },
   "coverage_axes": [
@@ -14970,6 +14970,33 @@
           "evidence_refs": [
             "docs/research/TIANWEN-15DK-REPUBLICAN-ZIPING-ZHANG-CHAOYUN-1927-R1.md",
             "docs/research/TIANWEN-15DK-REPUBLICAN-ZIPING-ZHANG-CHAOYUN-SOURCE-SHARD-R1.json"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "TW-OPEN-0030",
+      "title": "1926著录《五经备旨读本》上海大成/达成书局术数广告的原页与年代",
+      "priority": "P1",
+      "scope": "Republican Shanghai commercial publishing of Ziwei and Ziping titles",
+      "status": "OPEN",
+      "origin": "15DL provisional checkpoint",
+      "source_refs": [
+        "docs/research/TIANWEN-15DL-REPUBLICAN-SHANGHAI-DACHENG-BOOK-AD-CHECKPOINT-R1.md"
+      ],
+      "evidence_boundary": "Commons备份目录1926和达成、PDF网页转录大成与紫微/子平书名；原页截图超限，非原字认证。根647及17片55条定向查重；全230片清单树SHA一致，正文全量查重未完成。",
+      "missing_evidence": "原广告叶与页码、原书刊记、装订和广告日期、出版者字形、原书目和各术数书名/装帧原字、全库目标去重；实际发行及流派未证。",
+      "next_action": "完成全分片正文目标查重，寻免费合法原页和第一方目录；不能获得则保留OPEN，继续民国独立紫微及地域历史。",
+      "closure_criteria": "绑定可复核原页与载体/刊记，分清书目日期和广告日期、广告与实际刊印及具体版本；不从并列书名推定师承或规则。",
+      "matrix_rule_ids": [],
+      "resolution_evidence": [],
+      "history": [
+        {
+          "event": "REGISTERED_UNRESOLVED",
+          "date": "2026-11-25",
+          "basis": "Indexed end-advertisement and backup catalog date, no direct original image; dedup incomplete.",
+          "evidence_refs": [
+            "docs/research/TIANWEN-15DL-REPUBLICAN-SHANGHAI-DACHENG-BOOK-AD-CHECKPOINT-R1.md"
           ]
         }
       ]
@@ -37453,6 +37480,55 @@
           "scope": "TW-OPEN-0029",
           "status": "OPEN",
           "next_evidence": "First-party PKU item, original 1927 imprint, fee schedule, rule and appendix pages via new lawful free access."
+        }
+      ]
+    },
+    {
+      "id": "TW-CHECKPOINT-15DL-PROVISIONAL-20261125",
+      "date": "2026-11-25",
+      "state_version": "1.1477.0",
+      "reviewed_issue_ids": [
+        "TW-OPEN-0001",
+        "TW-OPEN-0002",
+        "TW-OPEN-0003",
+        "TW-OPEN-0004",
+        "TW-OPEN-0005",
+        "TW-OPEN-0006",
+        "TW-OPEN-0007",
+        "TW-OPEN-0008",
+        "TW-OPEN-0009",
+        "TW-OPEN-0010",
+        "TW-OPEN-0011",
+        "TW-OPEN-0012",
+        "TW-OPEN-0013",
+        "TW-OPEN-0014",
+        "TW-OPEN-0015",
+        "TW-OPEN-0016",
+        "TW-OPEN-0017",
+        "TW-OPEN-0018",
+        "TW-OPEN-0019",
+        "TW-OPEN-0020",
+        "TW-OPEN-0021",
+        "TW-OPEN-0022",
+        "TW-OPEN-0023",
+        "TW-OPEN-0024",
+        "TW-OPEN-0025",
+        "TW-OPEN-0026",
+        "TW-OPEN-0027",
+        "TW-OPEN-0028",
+        "TW-OPEN-0029",
+        "TW-OPEN-0030"
+      ],
+      "discovery_mode": "BREADTH_FIRST_HISTORICAL_PRACTICE",
+      "result": "13ZZ CURRENT ACTION AFTER 15DL PROVISIONAL BREADTH CHECKPOINT: SSID12829007 Wujing Beizhi Duben Liji juan6-7: Commons backup metadata assigns 1926 Shanghai Dacheng (达成), indexed PDF cover and end ad transcription 大成 and Ziwei/Ziping titles; original glyphs, carrier and ad date unverified. Screenshot p0/72/73 rejected size 27740549; thumbnail inaccessible. Root647 and 17 selected shards55 records scanned no literal hits; all230 manifest path/blob hashes match tree, remaining213 shards579 records pending. No formal admission or graph/Matrix change. TW-OPEN-0030 P1 OPEN; 30 issues incl five P0, G8930/6, core CLOSED. NEXT full target dedup, lawful free direct image and first-party dated catalog if available, else retain locator and continue independent Republican practice/regional publishing history.",
+      "evidence_refs": [
+        "docs/research/TIANWEN-15DL-REPUBLICAN-SHANGHAI-DACHENG-BOOK-AD-CHECKPOINT-R1.md"
+      ],
+      "unresolved_breadth_leads": [
+        {
+          "scope": "TW-OPEN-0030",
+          "status": "OPEN",
+          "next_evidence": "Full target dedup; public original advertisement leaf, carrier colophon, dated first-party catalog and publisher glyph."
         }
       ]
     }
