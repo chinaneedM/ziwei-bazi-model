@@ -1,7 +1,7 @@
 {
   "schema": "TIANWEN-RESEARCH-OMISSION-RISK-LEDGER-R1",
   "version": "1.0.0",
-  "updated_at": "2026-11-24",
+  "updated_at": "2026-11-25",
   "definition": "NON_EXHAUSTIVE_RECOVERY_SEED_FROM_LIVE_REMOTE; not proof no other omissions exist",
   "explicit_limits": [
     "The ledger captures known open leads, not every unpublished witness or every possible school.",
@@ -12,8 +12,8 @@
   "binding": {
     "repository": "chinaneedM/ziwei-bazi-model",
     "branch": "agent/fusion-chart-core-r1-20260822",
-    "reviewed_state_version": "1.1468.0",
-    "source_focus_count": 3164,
+    "reviewed_state_version": "1.1469.0",
+    "source_focus_count": 3165,
     "latest_research_focus_prefix": "13ZZ"
   },
   "coverage_axes": [
@@ -14759,11 +14759,13 @@
       "status": "OPEN",
       "origin": "15DG provisional checkpoint",
       "source_refs": [
-        "docs/research/TIANWEN-15DG-REPUBLICAN-ZIWEI-PRACTICE-WHITE-MONK-CHECKPOINT-R1.md"
+        "docs/research/TIANWEN-15DG-REPUBLICAN-ZIWEI-PRACTICE-WHITE-MONK-CHECKPOINT-R1.md",
+        "docs/research/TIANWEN-15DG-REPUBLICAN-ZIWEI-PRACTICE-WHITE-MONK-R1.md",
+        "docs/research/TIANWEN-15DG-REPUBLICAN-ZIWEI-PRACTICE-WHITE-MONK-SOURCE-SHARD-R1.json"
       ],
-      "evidence_boundary": "1999现代发行书目及销售页面序例转录；无可核初刊原页、明确序年或独立同期证据；扩展登记全文查重未完成。",
-      "missing_evidence": "署年原刊、序页及版本身份；独立同期实践证据；完整登记查重。",
-      "next_action": "完成扩展分片全文去重，寻找合法公开原件与权威馆藏书目；保留未决。",
+      "evidence_boundary": "1999现代发行书目及销售页面序例转录；无可核初刊原页、明确序年或独立同期证据；扩展登记全文查重未完成。 15DG全225分片查重完成，复用14E；1996钟义明回顾序文、1999同ISBN销售书目及序例核对完成，低清缩图未能裁定原刊或原字；仍非同期证据。",
+      "missing_evidence": "署年原刊、序页及版本身份；独立同期实践证据，明确编纂底本与术式。",
+      "next_action": "有白鈍僧合法公开原刊或署年序页新入口时恢复；不重复同源书商转录，推进其他独立同期紫微实践。",
       "closure_criteria": "准确区分可验证原始见证和现代转录，核实署年、版本身份及所能支持的历史范围；不能核实时保持OPEN。",
       "matrix_rule_ids": [],
       "resolution_evidence": [],
@@ -14774,6 +14776,25 @@
           "basis": "1999 Sanmin record and transcribed prefatory text; historical identity and date not established.",
           "evidence_refs": [
             "docs/research/TIANWEN-15DG-REPUBLICAN-ZIWEI-PRACTICE-WHITE-MONK-CHECKPOINT-R1.md"
+          ]
+        },
+        {
+          "event": "EVIDENCE_SCOPE_REVISION",
+          "date": "2026-11-25",
+          "changed_fields": [
+            "evidence_boundary",
+            "next_action",
+            "missing_evidence"
+          ],
+          "previous_fields": {
+            "evidence_boundary": "1999现代发行书目及销售页面序例转录；无可核初刊原页、明确序年或独立同期证据；扩展登记全文查重未完成。",
+            "next_action": "完成扩展分片全文去重，寻找合法公开原件与权威馆藏书目；保留未决。",
+            "missing_evidence": "署年原刊、序页及版本身份；独立同期实践证据；完整登记查重。"
+          },
+          "reason": "15DG full target dedup and modern bibliographic/retrospective evidence scoped; original witness and lineage remain open.",
+          "evidence_refs": [
+            "docs/research/TIANWEN-15DG-REPUBLICAN-ZIWEI-PRACTICE-WHITE-MONK-R1.md",
+            "docs/research/TIANWEN-15DG-REPUBLICAN-ZIWEI-PRACTICE-WHITE-MONK-SOURCE-SHARD-R1.json"
           ]
         }
       ]
@@ -36881,6 +36902,51 @@
           "scope": "TW-OPEN-0025",
           "status": "OPEN",
           "next_evidence": "dated original edition/preface and complete target dedup"
+        }
+      ]
+    },
+    {
+      "id": "TW-CHECKPOINT-15DG-COMPLETE-20261125",
+      "date": "2026-11-25",
+      "state_version": "1.1469.0",
+      "reviewed_issue_ids": [
+        "TW-OPEN-0001",
+        "TW-OPEN-0002",
+        "TW-OPEN-0003",
+        "TW-OPEN-0004",
+        "TW-OPEN-0005",
+        "TW-OPEN-0006",
+        "TW-OPEN-0007",
+        "TW-OPEN-0008",
+        "TW-OPEN-0009",
+        "TW-OPEN-0010",
+        "TW-OPEN-0011",
+        "TW-OPEN-0012",
+        "TW-OPEN-0013",
+        "TW-OPEN-0014",
+        "TW-OPEN-0015",
+        "TW-OPEN-0016",
+        "TW-OPEN-0017",
+        "TW-OPEN-0018",
+        "TW-OPEN-0019",
+        "TW-OPEN-0020",
+        "TW-OPEN-0021",
+        "TW-OPEN-0022",
+        "TW-OPEN-0023",
+        "TW-OPEN-0024",
+        "TW-OPEN-0025"
+      ],
+      "discovery_mode": "BREADTH_FIRST_HISTORICAL_PRACTICE",
+      "result": "13ZZ CURRENT ACTION AFTER 15DG COMPLETED BOUNDED BREADTH: Full 225 existing shards619 records parsed and matched to manifest/tree; root647 checked for Bai/ISBN/retailer IDs; only extension hit at index112 is existing 14E CiNii BA73216864 reused. 1999 Wuling Bai Dun Seng metadata and retailer preface/contents checked with same-ISBN comparators and low-resolution product thumbnails; 1996 Zhong Yiming online preface independent retrospective author layer reports Bai, Wang, Zhang works, practice examples and teaching gap. No dated original, named base edition, specific algorithm, verified practice or direct lineage. Two scoped new records =>1268=647+621/226 shards. TW-OPEN-0025 P1 retained; 25 risks incl five P0, graph467/374, Matrix222/222, G8930/6, core CLOSED. NEXT other independent dated late Qing/Republican Ziwei practice or regional transmission; recover Bai original only on new evidence.",
+      "evidence_refs": [
+        "docs/research/TIANWEN-15DG-REPUBLICAN-ZIWEI-PRACTICE-WHITE-MONK-R1.md",
+        "docs/research/TIANWEN-15DG-REPUBLICAN-ZIWEI-PRACTICE-WHITE-MONK-SOURCE-SHARD-R1.json"
+      ],
+      "unresolved_breadth_leads": [
+        {
+          "scope": "TW-OPEN-0025",
+          "status": "OPEN",
+          "next_evidence": "authenticated dated original edition/preface and independent practice evidence; no repeated same-source retail listings"
         }
       ]
     }
