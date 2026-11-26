@@ -2,14 +2,14 @@
   "schema": "TIANWEN-CONTEXT-RECOVERY-VIEW-R2",
   "authority": "DERIVED_ONLY",
   "bindings": {
-    "docs/PROJECT-CURRENT-STATE-R1.json": "a02b5d4f018f985493073849b2eaa210549732c2",
-    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "7790061c4b32822d7b0b2146fff5fd3a5d9b1545",
-    "docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json": "56279401774cae5a2f799affef2c8a7a147c4ce8",
+    "docs/PROJECT-CURRENT-STATE-R1.json": "84c940a8da5c26f39ae513a8d5ff7970c4b2f966",
+    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "a2aaa7755215f70673a92e450120bd8f49fa86a9",
+    "docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json": "b538ee24ff95316bbe24591f9f4f86ff8672b6ce",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json": "ea2ab50479450c39ce3fc7a00ea91cd713bf4a60",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json": "5919e1b6bbc3c4b150507c41a13ccc9e13d20f17",
     "docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json": "40d5988bcae7071b761e8a03a249c7e972e8bf46"
   },
-  "state_version": "1.1504.0",
+  "state_version": "1.1505.0",
   "stage": "FUSION_CHART_HISTORICAL_PROVENANCE_AND_SCHOOL_AUDIT_R1",
   "invariants": {
     "deterministic_fusion_chart_product_r1": "CLOSED",
@@ -23,28 +23,28 @@
     "matrix_rows": 222,
     "matrix_audited": 222,
     "root_sources": 647,
-    "extension_sources": 675,
-    "total_sources": 1322,
-    "shards": 244,
+    "extension_sources": 676,
+    "total_sources": 1323,
+    "shards": 245,
     "graph_nodes": 474,
     "graph_edges": 375,
-    "open_issues": 43,
+    "open_issues": 44,
     "p0": 5
   },
   "phase": "BREADTH_FIRST_TWO_SYSTEM_HISTORICAL_FRAMEWORK_R1",
-  "next_deliverable": "核收15DZ全库查重，辨明1935上海《医卜星相百日通》两册/分卷和另藏本关系，核定原刊记与编社名称；按八字教材传播范围审定准入，继续寻找可独立定年的民国紫微命例、从业者及同期报刊。",
+  "next_deliverable": "核收15DZ正式准入后连续性CI及全库复查；继续寻找可独立定年的民国紫微斗数命例、从业者和区域报刊传播证据，保留1935再版教材初版、编社及另藏本关系待补。",
   "latest_matrix_batch": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-FIRSTPARTY-AND-OLD20-ATLAS-QD.md",
   "latest_breadth_batch": "docs/research/TIANWEN-15DZ-1935-SHANGHAI-XINGMING-PUBLIC-TEACHING-CHECKPOINT-R1.md",
   "checkpoint": {
-    "id": "TW-CHECKPOINT-15DZ-PROVISIONAL-20261126",
+    "id": "TW-CHECKPOINT-15DZ-ADMITTED-20261126",
     "evidence_refs": [
       "docs/research/TIANWEN-15DZ-1935-SHANGHAI-XINGMING-PUBLIC-TEACHING-CHECKPOINT-R1.md",
-      "docs/research/TIANWEN-15DY-WANJUANTANG-1570-1919-CATALOGUE-REPUBLICATION-CHECKPOINT-R1.md"
+      "docs/research/TIANWEN-15DZ-SHANGHAI-XINGMING-SOURCE-SHARD-R1.json"
     ]
   },
   "focus": {
-    "index": 3199,
-    "text": "13ZZ CURRENT ACTION AFTER 15DZ PROVISIONAL: 15DY admission exact-HEAD continuity CI PASS (62+7 tests), bound full registry query245 files/1322 records/20 terms, only old root and new 15DY shard, no truncation; 202 success/66 queued/17 running, no known failure. New independent Bazi breadth candidate NLC416-07jh011656 1935 catalogue-dated Yi bu xing xiang bai ri tong, vol1 5161 PDF p0/2/3/4 original Shanghai Central Bookstore and self-study paratext; vol12 5252 p0-3,6-10 original Xing ming feng shui mi chuan contents and pp1-2 school classification, explicitly Shanghai Xingxiang Research Society vs catalogue Xingming Research Society. Bazi-oriented practitioner pedagogy, no explicit Ziwei in bounded classification pages, no entire-book absence claim. p2 discusses birth-hour boundary and calendrical adjustment but no runtime reopen. Date still catalogue-only, original colophon pending; 98980 alternate object access failed, no independent witness. 2013 reprint description mentions Wang Ziwei books as context, not 1935 target. 1949/1953 Zhang Google Books records lead only, no original scan/practice. Full registry dedup pending; no source or graph count change. All 43 issues incl five P0 preserved. NEXT check bound query, decide admission and continue independent dated Republican Ziwei practice/press.",
+    "index": 3200,
+    "text": "13ZZ CURRENT ACTION AFTER 15DZ ADMISSION: exact parent continuity CI PASS 62+7, bound query245 files/1322 records/20 terms, 6 matching files all semantically checked; Zhang 1949/1953 already EXT-TIANWEN-13ZS, 1937 Yuan Xingxiang publisher distinct, other numeric substrings unrelated. Direct recheck 5161 p2,5252 p0/8/9 and NEW 5253 p102 colophon 民國二十四年八月再版, two books, 3 yuan 5 jiao, Central Bookstore Shanghai 四馬路世界里, advertised nationwide booksellers; colophon 國醫學社/星命研究社 vs section 上海星相研究社. Admit ONE catalogue group, no first edition date or independent actual distribution, no extra physical witness or Ziwei rule/practice/lineage; 98980 PDF access text only, screenshots blocked. TW-OPEN-0044 preserves first edition, organization, alternate copy and distribution questions; five P0 unchanged. Sources1323=647+676/245 shards, 44 open, graph474/375, Matrix222/222, core CLOSED. NEXT verify admission exact-HEAD and bound scan, independent dated Republican Ziwei practice/press.",
     "truncated": false
   },
   "p0": [
