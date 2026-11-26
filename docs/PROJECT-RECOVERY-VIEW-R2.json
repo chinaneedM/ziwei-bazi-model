@@ -2,14 +2,14 @@
   "schema": "TIANWEN-CONTEXT-RECOVERY-VIEW-R2",
   "authority": "DERIVED_ONLY",
   "bindings": {
-    "docs/PROJECT-CURRENT-STATE-R1.json": "988d33906382291a09c88fb85c096e7024b40dd5",
-    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "18553517b3c313742d0568136fc7f2cf0353e972",
+    "docs/PROJECT-CURRENT-STATE-R1.json": "da71c802b5d211c7a24b92b7f3a4207075d0ce77",
+    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "52b7ceaf9364188d6b503b6d6f5d3c7936f03af8",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json": "ecbf248658689743dc7f3992a9ee85bde7b4f3c3",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json": "ea2ab50479450c39ce3fc7a00ea91cd713bf4a60",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json": "5919e1b6bbc3c4b150507c41a13ccc9e13d20f17",
     "docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json": "fe44e035c30982a2c0d4e732243c62b570ba7665"
   },
-  "state_version": "1.1516.0",
+  "state_version": "1.1517.0",
   "stage": "FUSION_CHART_HISTORICAL_PROVENANCE_AND_SCHOOL_AUDIT_R1",
   "invariants": {
     "deterministic_fusion_chart_product_r1": "CLOSED",
@@ -28,23 +28,25 @@
     "shards": 250,
     "graph_nodes": 489,
     "graph_edges": 375,
-    "open_issues": 49,
+    "open_issues": 50,
     "p0": 5
   },
   "phase": "BREADTH_FIRST_TWO_SYSTEM_HISTORICAL_FRAMEWORK_R1",
-  "next_deliverable": "继续广度优先：先复核既有地区史纲与来源，找新加坡1990年以前、马来西亚1999年以前独立同期紫微记录，以及未登记港台四柱出版；保留原报图与香港刊记待核。",
+  "next_deliverable": "领取15EG精确HEAD全库查重，核对1989报刊候选与五件马来西亚馆藏著录；按有界证据准入，区分版印、入藏与实际教学；继续早期新马和港台四柱独立证据。",
   "latest_matrix_batch": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-FIRSTPARTY-AND-OLD20-ATLAS-QD.md",
-  "latest_breadth_batch": "docs/research/TIANWEN-15EF-SINGAPORE-1990-ZIWEI-HONG-KONG-BAZI-CHECKPOINT-R1.md",
+  "latest_breadth_batch": "docs/research/TIANWEN-15EG-SINGAPORE-1989-MALAYSIA-CUSTODY-CHECKPOINT-R1.md",
   "checkpoint": {
-    "id": "TW-CHECKPOINT-15EF-ADMITTED-20261126",
+    "id": "TW-CHECKPOINT-15EG-PROVISIONAL-20261126",
     "evidence_refs": [
-      "docs/research/TIANWEN-15EF-SINGAPORE-1990-ZIWEI-HONG-KONG-BAZI-CHECKPOINT-R1.md",
-      "docs/research/TIANWEN-15EF-HONG-KONG-BAZI-CATALOG-SOURCE-SHARD-R1.json"
+      "docs/research/TIANWEN-15EG-SINGAPORE-1989-MALAYSIA-CUSTODY-CHECKPOINT-R1.md",
+      "docs/TIANWEN-ZIWEI-HISTORICAL-OUTLINE-R1.md",
+      "docs/TIANWEN-BAZI-HISTORICAL-OUTLINE-R1.md",
+      "docs/TIANWEN-DUAL-HISTORY-COVERAGE-ATLAS-R1.md"
     ]
   },
   "focus": {
-    "index": 3211,
-    "text": "13ZZ CURRENT ACTION AFTER 15EF ADMISSION: exact 8e8c98f continuity PASS 62+7, query 250 files/1346 records/20 terms, two matching files, no truncation. CORRECTION 1990 Singapore notice already admitted 15BE and 1981 Shenfeng already admitted 13ZQ; not new timeline/edition. 1990 NLB issue page 9 社团天地 article lhwb19900701-1.2.18.1.5 located, detail terms gate, original image/delivery still OPEN. Two new CiNii bounded catalogues 1980 Minglixue Daquan (system uncertain) and 1982 Mingli Zhenji reprint (子平 note); one Bazi edition node, zero edges. TW-OPEN-0049 remains OPEN; sources1348=647+701/250 shards, graph489/375, 49 open incl five P0, Matrix222/222, core CLOSED. NEXT seek pre-1990 Singapore and pre-1999 Malaysia independent Ziwei notices, and genuinely new Taiwan/HK Bazi publication anchors; check existing historical outlines before discovery.",
+    "index": 3212,
+    "text": "13ZZ CURRENT ACTION 15EG PROVISIONAL: exact 690f29f continuity PASS. Reviewed three outlines and relevant Singapore/Malaysia regional shards before search. NLB 1989-12-30 Shin Min page12 two Bei Yuan Jushi column OCR snippets mention Ziwei/Ziwei variant and Tiantong; article IDs .2.24.9 and .2.24.12 terms gate, full system identity and images OPEN, no earlier confirmed Ziwei timeline. MPLRDC five MARC holdings (52427,10508,10510,10512,10544), 1994/1997/1998/1998/undated printing, all Date acquired 10/12/2007 as recorded, common-date migration possibility OPEN; distinguish edition from custody. No pre-1999 Malaysia contemporary teaching proof. TW-OPEN-0050 OPEN; exact full registry query pending. 15EF correction/admission links appended to existing three outlines. NEXT receive 15EG query and adjudicate bounded catalogue admissions; original newspaper/full class identification unresolved; continue independent early regional and Bazi publishing evidence. Matrix222/222, sources1348, graph489/375, core CLOSED.",
     "truncated": false
   },
   "p0": [
