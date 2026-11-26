@@ -12,3 +12,23 @@
 
 ## 3. 当前裁决边界
 以上均待完整字面查重与语义身份裁决。机构史自述可以作为寻找1990年代课程简章/原始教材/报刊及合法公开学会文件的明确入口，但当前仍未获得独立的1999年前马来西亚紫微同期证据。保留TW-OPEN-0047/0048/0050/0051；不新增图边，不改排盘，不付费、注册或复制受限正文。下一轮先领取15EM查询，再判断是否限级准入，寻找机构同期资料。
+
+## 4. Exact-HEAD 全库查重领取与原文复核（2026-11-26，续）
+
+- HEAD `ed311b11d3ae33b94e890b0e0f28c0eb528f5b3a`；[continuity run 45849082899](https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/45849082899)，job 140010363841，success；62项遗漏风险测试及7项R2测试通过；六项派生视图绑定与真实tree一致。query_id `15EM-malaysia-ziweibazi-academy-newspaper`；checkpoint `TW-CHECKPOINT-15EL-ADMITTED-15EM-PROVISIONAL-20261126`；request blob `c02945ddaa6d338b4e782438bc9f672e980aa2d6`；manifest blob `11520016ffeff777d0f28e92d20347cb5b011e4d`；verifier `scripts/project-context-r2.py` blob `3387254ce53ec0a1f1a3b779291e0c40997bf190`。
+- PASS / ALL_REGISTERED_ROOT_AND_SHARDS_LITERAL_ONLY；257 files (root+256 shards), 1372 records, 2 matching files, truncated=false。18词逐项命中分片数：ziweibazi.my=1；Ziwei Bazi Academy=2；紫微八字学院=1；马来西亚易经学术研究会=1；余14词均0（具体词见绑定request）。不等于语义同一或独立史料。
+- 15BJ shard blob `b15b36ff9b424a7f857d372364d25750a7a3216b`：已登记 EXT-TIANWEN-15BJ-MALAYSIA-2026-CHERAS-ZIWEIBAZI-ACADEMY-SYLLABUS，URL与15EM官网完全相同；裁决为同一动态页面的后续核读，**不重复登记**。另有 EXT-TIANWEN-15BJ-MALAYSIA-YICHING-ASSOCIATION-BAZI-UNDATED-SYLLABUS-PDF，与2007帖子所称研究会名称一致但载体不同；未证明2007广告对应这一无日期课程PDF，保留候选关联。
+- 15BK shard blob `6178a80e7b320ddb0a8909ca3e7c9a4b7b3b10ad`：EXT-TIANWEN-15BK-MALAYSIA-CAFS-MYFAD-2024-BROCHURE 已登记。同主体宣传册回顾1980年代CAFS、1990年代课程系统化、2008 MYFAD下学院；现官网称1990年代同名学院。可能是前身、课程品牌与法律实体的不同时间点，不作强行统一。2025演讲者履历、LinkedIn和商业目录检索亦见类似回述，非独立的1990年代原证；不以多个转载增加历史票数。
+
+### 4.1 三条不同载体的证据裁决（尚未正式入registry）
+
+1. IFSA profile 23751，lines65–73，实见现代履历称1980年代研习、1990年代拜多位老师、2008入室及协助教学，另称参与Yap Cheng Hai Academy紫微分析团队（任职日期未明）。属于同一从业者自述的外部托管履历，可限级登记为现代履历记录，不可视作独立机构认证、1990年代课程原件或师承规则证据。
+2. DestinyNet topic14114 post135523，lines10–24、38，显示2002-08-28；正文明确自述以购买讲义方式学中州派紫微并询问亲传弟子，正文另称出生于马来西亚，柔佛仅为现存动态用户资料。与15EL topics3369/7312不同帖，查重标识未命中；可限级登记为现存早期网络学习自述，非师承证明，不把1992–1997问事时间当学习日期，不采集命盘或私人字段，不以转述王亭之语句证明原书内容。
+3. 佳礼 tid801957，lines77–87、109、129，显示2007-03-06发帖、03-08编辑。第一广告称星洲大都会版、八字与紫微等课程，八字授课者林道雄；编辑补称马来西亚易经学术研究会，回复亦提同名。第二广告声称台湾飞星派紫微，地点康乐花园，未获机构全称；“昨天”按发帖日暂定位2007-03-05候选，不能把该日期或报纸刊名当确证，第一广告日期亦不明。现存帖子是广告转述及课程接触自述，不是广告原页、师承认证、正式开班或学员毕业证据。与15BJ无日期PDF不是同一文本；不因地址近似而合并两机构。
+
+### 4.2 同期原件检索边界
+
+- [NUS 中文电子报资源指南](https://libguides.nus.edu.sg/chineseeresources/ch-e-newspapers) lines63–71 指向 NewspaperSG 与南方大学学院剪报数据库；只是公开资源导航，并未取得目标广告原页或证明其收录范围覆盖该版次。
+- 本轮按院名繁简、CAFS/Leyau、Cheras、紫微与1998/2007组合检索，尚未发现独立的1999年前马来西亚紫微课程、创校或报刊原件；限定为本轮检索结果，非历史缺席证明。不采用付费课程资料、不注册、不要求用户介入。
+
+NEXT：将上述三条不同载体按各自有限证据层级正式准入，官网不重复计数；在原子工作单元同步registry/manifest、必要图谱或纲要、状态、风险及R2视图，再继续广度研究。当前只是领取查询和准入前裁决的耐久检查点，未改变语义状态或来源计数；TW-OPEN-0047/0048/0050/0051保持OPEN，排盘CLOSED。旧第3节“待全库查询”为原检查点历史状态，不删除。核查时原HEAD另有clean-training-system运行中，不声称285项全通过。
