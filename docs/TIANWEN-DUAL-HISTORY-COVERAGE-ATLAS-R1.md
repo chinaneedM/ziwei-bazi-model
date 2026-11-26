@@ -1419,3 +1419,6 @@ B：澳门大学1963-/1965-两馆目、Google Books 1963第二卷；C：现代�
 ### 15DP｜1991–1996徐樂吾系子平著作三地出版（馆目层）
 
 四条B层独立目录书目锚点，三地出版与编辑比较；单一既有网络篇章命中非同版书目。民国同期实务格不升级，新增4来源及4 edition节点，零边；1294=647+647／235片，图474/375，Matrix222/222，34风险含五P0，核心CLOSED。TW-OPEN-0034 OPEN。见[15DP](research/TIANWEN-15DP-REGIONAL-XULEWU-RECEIVED-EDITIONS-R1.md)。
+
+### 15DQ｜民国上海与战后香港职业紫微回顾性材料
+[15DQ](research/TIANWEN-15DQ-SHANGHAI-HONGKONG-ZIWEI-PRACTICE-RECOLLECTION-R1.md) 收录《新玄機》同作者2009期次2012修订及2010自述两篇，作为现代回顾文献（非两位独立历史见证）；香港印章命书图为未定年低清衍生图，民国上海职业紫微未获同期可定年实物，铁板图排除。与15AD教学回忆、15DA台湾馆目区分；13ZS出版锚点不重复。TW-OPEN-0035仍OPEN，无师承边、无算法修改。来源1296／236片、图474/375、Matrix222/222、35风险含五P0，核心CLOSED。
