@@ -2,14 +2,14 @@
   "schema": "TIANWEN-CONTEXT-RECOVERY-VIEW-R2",
   "authority": "DERIVED_ONLY",
   "bindings": {
-    "docs/PROJECT-CURRENT-STATE-R1.json": "d07764cbdbd953bb2c5c0dd871537ada15b8effc",
-    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "1d53ed807bd9f06cbf3d60193e947e3cda62e55f",
-    "docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json": "cbe30b19dad3e035c0f12e61d35fcd98b79a30ac",
+    "docs/PROJECT-CURRENT-STATE-R1.json": "0bfb5d92b4d7397c0f386caf758eb219477bdfa1",
+    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "abe8f8cd81c0737c2d8b7be6b1157f6c2002dca0",
+    "docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json": "5de85305cacc949751aa29c4fd6137db1166e475",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json": "ea2ab50479450c39ce3fc7a00ea91cd713bf4a60",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json": "5919e1b6bbc3c4b150507c41a13ccc9e13d20f17",
     "docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json": "40d5988bcae7071b761e8a03a249c7e972e8bf46"
   },
-  "state_version": "1.1498.0",
+  "state_version": "1.1499.0",
   "stage": "FUSION_CHART_HISTORICAL_PROVENANCE_AND_SCHOOL_AUDIT_R1",
   "invariants": {
     "deterministic_fusion_chart_product_r1": "CLOSED",
@@ -23,28 +23,28 @@
     "matrix_rows": 222,
     "matrix_audited": 222,
     "root_sources": 647,
-    "extension_sources": 669,
-    "total_sources": 1316,
-    "shards": 241,
+    "extension_sources": 670,
+    "total_sources": 1317,
+    "shards": 242,
     "graph_nodes": 474,
     "graph_edges": 375,
-    "open_issues": 39,
+    "open_issues": 40,
     "p0": 5
   },
   "phase": "BREADTH_FIRST_TWO_SYSTEM_HISTORICAL_FRAMEWORK_R1",
-  "next_deliverable": "继续民国同期独立紫微实务及港台地域原始出版、报刊和授课记录，保留慧心斋主早期版权页、笔名原报、标章和修订版本关系的未决边界。",
+  "next_deliverable": "继续独立可定年民国紫微实务及地区出版/报刊原始证据；保留1923–26道藏影印具体书端、印次和物件同一性。",
   "latest_matrix_batch": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-FIRSTPARTY-AND-OLD20-ATLAS-QD.md",
-  "latest_breadth_batch": "docs/research/TIANWEN-15DV-HUIXIN-TAIWAN-HONGKONG-PUBLICATION-MEDIA-CHECKPOINT-R1.md",
+  "latest_breadth_batch": "docs/research/TIANWEN-15DW-REPUBLICAN-DAOZANG-AND-HKPL-COLLECTION-CHECKPOINT-R1.md",
   "checkpoint": {
-    "id": "TW-CHECKPOINT-15DV-ADMITTED-20261126",
+    "id": "TW-CHECKPOINT-15DW-ADMITTED-20261126",
     "evidence_refs": [
-      "docs/research/TIANWEN-15DV-HUIXIN-TAIWAN-HONGKONG-PUBLICATION-MEDIA-CHECKPOINT-R1.md",
-      "docs/research/TIANWEN-15DV-HUIXIN-PUBLICATION-MEDIA-SOURCE-SHARD-R1.json"
+      "docs/research/TIANWEN-15DW-REPUBLICAN-DAOZANG-AND-HKPL-COLLECTION-CHECKPOINT-R1.md",
+      "docs/research/TIANWEN-15DW-REPUBLICAN-DAOZANG-REPRINT-SOURCE-SHARD-R1.json"
     ]
   },
   "focus": {
-    "index": 3193,
-    "text": "13ZZ CURRENT ACTION AFTER 15DV ADMISSION: exact-HEAD 20-term full query PASS 241 files/1310 prior sources; 15DS 1989 periodical hit and 15DR 1986 books are distinct objects. Six bounded sources admitted: five Google Books 1982/1985/1992/1994 book records and one 2021 retailer received preface/description reporting 1979/1980 press, pen name and service mark. Shared publisher text not independent; 2021 revised text cannot replace earlier editions; original book/press/service-mark records absent from verified evidence. TW-OPEN-0020/0035/0037/0039 OPEN. Sources1316/241 shards, graph474/375, Matrix222/222, 39 risks incl five P0, core CLOSED. NEXT independent dated Republican Ziwei practice and regional original publication/press, legal free no-account sources only.",
+    "index": 3194,
+    "text": "13ZZ CURRENT ACTION AFTER 15DW ADMISSION: preceding HEAD all 285 Actions successful. Full connector literal search of 647 root and 241 shards/669 extension records against pinned 20-term request; six matching shards, no missing files. 14E/15DH NLC Guancelu and 15AD identical HKPL LAU collection already registered; no duplicate admission. One new bounded catalogue locator rarecatx0428879, Shanghai 1923–26 three-juan 正統道藏 photoreprint, not an independent physical/textual witness or newly composed Republican manual. TW-OPEN-0040 tracks actual edition/copy and original pages; 0026/0036 remain OPEN. Sources1317/242 shards, graph474/375, Matrix222/222, 40 risks incl five P0, core CLOSED. NEXT independent dated Republican Ziwei practice and regional print/media original evidence, legal free no-account. Post-admission bound query and exact-HEAD CI pending.",
     "truncated": false
   },
   "p0": [
