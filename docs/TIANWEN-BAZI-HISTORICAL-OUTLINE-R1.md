@@ -695,3 +695,7 @@ CiNii BA61461510著录1955.8香港实学书店，另有大阪大学伊地智文�
 
 ### 15EI准入／15EJ候选
 [15EI–15EJ](research/TIANWEN-15EI-SINGAPORE-1967-ARTICLE-LOCATORS-REGIONAL-PRACTICE-R1.md)：两期1967一鼎金索引正式准入，分别绑定11月6日第8页文章43.4与12月18日第2页文章16.3；两原文访问门槛保留，完整四柱规则、师承及首传未证。1910职业与1981八字社会话语为候选。 TW-OPEN-0051/0047 OPEN。
+
+
+### 15EJ｜南洋报刊证据分层
+[15EJ](research/TIANWEN-15EJ-REGIONAL-NEWSPAPER-DISCOURSE-ADMISSION-R1.md)：1910一般算命司法报道术法未明，不计四柱实践；1981星洲日报第28页八字公共话语有界准入，未见全文、原图及个案。 来源1364（647+717/254片），图495/375，51开放含五P0，Matrix222/222，核心CLOSED。TW-OPEN-0047/0051 OPEN。
