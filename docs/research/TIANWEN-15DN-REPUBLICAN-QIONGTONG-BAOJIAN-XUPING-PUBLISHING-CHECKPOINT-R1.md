@@ -17,3 +17,13 @@
 根647条已解析；对48608、12jh004238、窮通寶鑑評註/穷通宝鉴评注、乾乾書社/乾乾书社、子平真詮評論/子平真诠评论作字面查重。全部232分片路径/blob SHA与启动tree相符；已读取零基99、100、111、152及220–231共16片56条，根及该范围无字面命中。剩余216片583条待查。不把部分未命中说成全库不存在，不提前准入。正式来源1286=647+639/232、图谱468/375、Matrix222/222、核心CLOSED不变。
 
 TW-OPEN-0032 P1：完成全库目标去重，登记有界书影、目录与广告关系；原始字节SHA、确切刊记及卷册完整性、宏道堂实物、广告所指《子平真诠评论》实际版本另待合法免费免账号证据。既有31项全部保留；五P0不变。继续民国紫微独立定年实务／地域传播与双体系出版史；不据本子平史料推定紫微传承。
+
+## 2026-11-26｜追加：R2.1 全库查询执行证据（不改变临时检查点状态）
+
+旧段落所述216片待查是当时事实；其后真实全库字面查重已执行。验证HEAD `b2782a5cc4d43de51e52f8adc53222371c00368c`，tree `51aebbc1a520b1b699f22733025d2930fb8d06c3`；[CI run 45765999635](https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/45765999635)，job 139726935201 成功；2026-11-26T06:07:31.8283413Z 输出。核验 request blob `6a57066d99a9817a08cf5438c2e365a3e1a81efa`、manifest blob `16659bb7e5d6cb6311bacc129a1e4b2fb9a97e6f`、verifier `scripts/project-context-r2.py` blob `3387254ce53ec0a1f1a3b779291e0c40997bf190`。
+
+```json
+{"query_id":"15DN-target-dedup-r2-20261126","checkpoint_id":"TW-CHECKPOINT-15DN-PROVISIONAL-20261126","request_blob_sha":"6a57066d99a9817a08cf5438c2e365a3e1a81efa","registry_manifest_blob_sha":"16659bb7e5d6cb6311bacc129a1e4b2fb9a97e6f","status":"PASS","scope":"ALL_REGISTERED_ROOT_AND_SHARDS_LITERAL_ONLY","files":233,"records":1286,"matching_files":0,"per_term_matching_files":{"48608":0,"12jh004238":0,"窮通寶鑑評註":0,"穷通宝鉴评注":0,"乾乾書社":0,"乾乾书社":0,"子平真詮評論":0,"子平真诠评论":0,"窮通寶鑑評注":0,"穷通宝鉴評註":0,"窮通寶鑒評註":0},"hits":[],"truncated":false}
+```
+
+这只证实给定十一词在当时绑定的全库原始JSON/解码字符串中零字面命中，不等于不存在同书异名、同版异本、重复数字替身，也不是原页证据。TW-OPEN-0032 保持 OPEN；15DN 仍为临时检查点，正式准入与语义状态更新尚未执行。下轮先复核当前 request/manifest/verifier/checkpoint 绑定与门禁，若未变化无需重复同一全库字面扫描，转入版本身份和有界证据准入裁决。原始PDF字节缺失等其它限制全部保留。
