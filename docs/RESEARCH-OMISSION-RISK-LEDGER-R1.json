@@ -12,8 +12,8 @@
   "binding": {
     "repository": "chinaneedM/ziwei-bazi-model",
     "branch": "agent/fusion-chart-core-r1-20260822",
-    "reviewed_state_version": "1.1482.0",
-    "source_focus_count": 3178,
+    "reviewed_state_version": "1.1483.0",
+    "source_focus_count": 3179,
     "latest_research_focus_prefix": "13ZZ"
   },
   "coverage_axes": [
@@ -15114,6 +15114,33 @@
           "evidence_refs": [
             "docs/research/TIANWEN-15DN-REPUBLICAN-QIONGTONG-BAOJIAN-XUPING-PUBLISHING-R1.md",
             "docs/research/TIANWEN-15DN-REPUBLICAN-QIONGTONG-BAOJIAN-XUPING-PUBLISHING-SOURCE-SHARD-R1.json"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "TW-OPEN-0033",
+      "title": "孔日昌《紫微斗数新解》1979台南版及战后命理出版版本关系",
+      "priority": "P1",
+      "scope": "Postwar Taiwanese Ziwei publishing and cross-system author/publisher comparison",
+      "status": "OPEN",
+      "origin": "15DO provisional checkpoint",
+      "source_refs": [
+        "docs/research/TIANWEN-15DO-HONG-KONG-TAIWAN-NATAL-PUBLISHING-CHECKPOINT-R1.md"
+      ],
+      "evidence_boundary": "1979 CiNii聚合馆目及未定年母丛书；2006零售元数据、未定年点字书目、1984旧书摘录低等级比较；未核原页或全库查重。1955香港关联由TW-OPEN-0032保留。",
+      "missing_evidence": "全库查重和语义身份；1979刊记、目录、正文，2006版次/点字载体身份，1984神峯命理新解实物；不由同名同作者推定规则/师承。",
+      "next_action": "读取绑定当前manifest的R2.1精确HEAD查询结果，辨别既有记录和候选；仅通过合法免费免账号原页路线补证，继续独立民国紫微实务。",
+      "closure_criteria": "确定各版实物、刊记及相应文本证据，分开出版、馆藏、教学与传承；保留未能证实的关系。",
+      "matrix_rule_ids": [],
+      "resolution_evidence": [],
+      "history": [
+        {
+          "event": "REGISTERED_UNRESOLVED",
+          "date": "2026-11-26",
+          "basis": "Dated institutional aggregate catalogue and limited modern comparison locators; original pages, independent edition identity and full query pending.",
+          "evidence_refs": [
+            "docs/research/TIANWEN-15DO-HONG-KONG-TAIWAN-NATAL-PUBLISHING-CHECKPOINT-R1.md"
           ]
         }
       ]
@@ -37900,6 +37927,63 @@
           "scope": "TW-OPEN-0032",
           "status": "OPEN",
           "next_evidence": "原始PDF字节哈希、原馆目录与完整刊记、宏道堂木刻本、广告对应的子平真诠评论实物和版次；1955香港原书及2015底本的身份/版本关系。"
+        }
+      ]
+    },
+    {
+      "id": "TW-CHECKPOINT-15DO-PROVISIONAL-20261126",
+      "date": "2026-11-26",
+      "state_version": "1.1483.0",
+      "reviewed_issue_ids": [
+        "TW-OPEN-0001",
+        "TW-OPEN-0002",
+        "TW-OPEN-0003",
+        "TW-OPEN-0004",
+        "TW-OPEN-0005",
+        "TW-OPEN-0006",
+        "TW-OPEN-0007",
+        "TW-OPEN-0008",
+        "TW-OPEN-0009",
+        "TW-OPEN-0010",
+        "TW-OPEN-0011",
+        "TW-OPEN-0012",
+        "TW-OPEN-0013",
+        "TW-OPEN-0014",
+        "TW-OPEN-0015",
+        "TW-OPEN-0016",
+        "TW-OPEN-0017",
+        "TW-OPEN-0018",
+        "TW-OPEN-0019",
+        "TW-OPEN-0020",
+        "TW-OPEN-0021",
+        "TW-OPEN-0022",
+        "TW-OPEN-0023",
+        "TW-OPEN-0024",
+        "TW-OPEN-0025",
+        "TW-OPEN-0026",
+        "TW-OPEN-0027",
+        "TW-OPEN-0028",
+        "TW-OPEN-0029",
+        "TW-OPEN-0030",
+        "TW-OPEN-0031",
+        "TW-OPEN-0032",
+        "TW-OPEN-0033"
+      ],
+      "discovery_mode": "BREADTH_FIRST_HISTORICAL_PRACTICE",
+      "result": "13ZZ CURRENT ACTION AFTER 15DO PROVISIONAL BREADTH CHECKPOINT: CiNii BA61461510 Hong Kong Shixue 1955.8 Qiongtong Baojian Pingzhu, Osaka Ijichi holding90005239760, direct Osaka OPAC403; existing 15DN 1937 and 2015 comparison scope preserved. CiNii BB26426235 Kong Richang Ziwei Doushu Xinjie 1979.7 Tainan Xibei, 6+228p, Ryukyu holding0020180035342, parent BB26426122 undated series. Sanmin2006 ISBN9789576475412 modern sales metadata, braille catalog42347 no edition date; Japanese used-book 1984 Shenfeng comparator only, detail access incomplete. No original colophon, rule/teaching or direct lineage. R2.1 bound 18-term full registry query requested for existing 233 shards and root; pending, no formal admission. TW-OPEN-0033 P1 OPEN; prior 32 issues incl five P0 preserved; sources1287=647+640/233, graph468/375 Matrix222/222, core CLOSED. NEXT exact-HEAD query result, semantic identity and bounded admission, continue independently dated Republican Ziwei practice and other dual breadth.",
+      "evidence_refs": [
+        "docs/research/TIANWEN-15DO-HONG-KONG-TAIWAN-NATAL-PUBLISHING-CHECKPOINT-R1.md"
+      ],
+      "unresolved_breadth_leads": [
+        {
+          "scope": "TW-OPEN-0033",
+          "status": "OPEN",
+          "next_evidence": "全库查重和语义身份；1979刊记、目录、正文，2006版次/点字载体身份，1984神峯命理新解实物；不由同名同作者推定规则/师承。"
+        },
+        {
+          "scope": "TW-OPEN-0032",
+          "status": "OPEN",
+          "next_evidence": "1955 catalogue identifier dedup and physical original, 2015 comparison"
         }
       ]
     }
