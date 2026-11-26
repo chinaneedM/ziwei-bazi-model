@@ -655,3 +655,7 @@ SSID12829007末尾网页提取层列《管见子平》《星平会海子平合�
 ### 15DN｜1937《穷通宝鉴评注》编辑与出版，1955香港比较线索
 
 民国丁丑序及有界书影见宏道堂木刻补入自述和《子平真诠评论》商业广告；不确证原作年代、原木刻本、印行日期、销量或师承。大阪大学1955香港实学书店馆目及2015现代重刊底本自述待另核查重与原书。见[15DN](research/TIANWEN-15DN-REPUBLICAN-QIONGTONG-BAOJIAN-XUPING-PUBLISHING-R1.md)，TW-OPEN-0032。
+
+### 15DO｜1955香港《穷通宝鉴评注》地域刊本
+
+CiNii BA61461510著录1955.8香港实学书店，另有大阪大学伊地智文库馆藏号；与1937民国书影、2015重刊自述区别，未核原刊记或直传。见[15DO](research/TIANWEN-15DO-HONG-KONG-TAIWAN-NATAL-PUBLISHING-R1.md)，TW-OPEN-0032。

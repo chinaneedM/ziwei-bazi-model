@@ -2,14 +2,14 @@
   "schema": "TIANWEN-CONTEXT-RECOVERY-VIEW-R2",
   "authority": "DERIVED_ONLY",
   "bindings": {
-    "docs/PROJECT-CURRENT-STATE-R1.json": "5453bdfa75fae910a5186dd84bf1899afa372bba",
-    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "f31469577df87aae5e97575c647a2bfbf640b7f0",
-    "docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json": "b2ce5bfa7ab2e8d01a9ddbe68fbc630494f282d0",
+    "docs/PROJECT-CURRENT-STATE-R1.json": "5ae255a3db1a02f6852a6ad70dc79e9a2eda19d2",
+    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "79967cbb9f16d5c900fab96cf39fce37a41615e3",
+    "docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json": "09d0cfadf712806c73eb5e6cc5fa0f1236e1515c",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json": "ea2ab50479450c39ce3fc7a00ea91cd713bf4a60",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json": "5919e1b6bbc3c4b150507c41a13ccc9e13d20f17",
-    "docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json": "593d2dfb693af7efcff950006ad10ef1e1be6393"
+    "docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json": "690c70b0e1e6d1bf6398ab44b12b5350f1262d58"
   },
-  "state_version": "1.1483.0",
+  "state_version": "1.1484.0",
   "stage": "FUSION_CHART_HISTORICAL_PROVENANCE_AND_SCHOOL_AUDIT_R1",
   "invariants": {
     "deterministic_fusion_chart_product_r1": "CLOSED",
@@ -23,27 +23,28 @@
     "matrix_rows": 222,
     "matrix_audited": 222,
     "root_sources": 647,
-    "extension_sources": 640,
-    "total_sources": 1287,
-    "shards": 233,
-    "graph_nodes": 468,
+    "extension_sources": 643,
+    "total_sources": 1290,
+    "shards": 234,
+    "graph_nodes": 470,
     "graph_edges": 375,
     "open_issues": 33,
     "p0": 5
   },
   "phase": "BREADTH_FIRST_TWO_SYSTEM_HISTORICAL_FRAMEWORK_R1",
-  "next_deliverable": "先领取15DO精确HEAD全库查询结果并核语义身份、有界准入1955香港及1979台南候选；继续独立可定年的民国紫微实务、地域传播与双体系出版史。TW-OPEN-0027至0033原页仅在新合法免费免账号入口出现时恢复。",
+  "next_deliverable": "继续独立可定年的民国紫微实务、地域传播与双体系历史骨架；TW-OPEN-0027至0033原页仅在新合法免费免账号入口出现时恢复，保留全部未决事项。",
   "latest_matrix_batch": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-FIRSTPARTY-AND-OLD20-ATLAS-QD.md",
-  "latest_breadth_batch": "docs/research/TIANWEN-15DN-REPUBLICAN-QIONGTONG-BAOJIAN-XUPING-PUBLISHING-R1.md",
+  "latest_breadth_batch": "docs/research/TIANWEN-15DO-HONG-KONG-TAIWAN-NATAL-PUBLISHING-R1.md",
   "checkpoint": {
-    "id": "TW-CHECKPOINT-15DO-PROVISIONAL-20261126",
+    "id": "TW-CHECKPOINT-15DO-COMPLETED-20261126",
     "evidence_refs": [
-      "docs/research/TIANWEN-15DO-HONG-KONG-TAIWAN-NATAL-PUBLISHING-CHECKPOINT-R1.md"
+      "docs/research/TIANWEN-15DO-HONG-KONG-TAIWAN-NATAL-PUBLISHING-R1.md",
+      "docs/research/TIANWEN-15DO-HONG-KONG-TAIWAN-NATAL-PUBLISHING-SOURCE-SHARD-R1.json"
     ]
   },
   "focus": {
-    "index": 3178,
-    "text": "13ZZ CURRENT ACTION AFTER 15DO PROVISIONAL BREADTH CHECKPOINT: CiNii BA61461510 Hong Kong Shixue 1955.8 Qiongtong Baojian Pingzhu, Osaka Ijichi holding90005239760, direct Osaka OPAC403; existing 15DN 1937 and 2015 comparison scope preserved. CiNii BB26426235 Kong Richang Ziwei Doushu Xinjie 1979.7 Tainan Xibei, 6+228p, Ryukyu holding0020180035342, parent BB26426122 undated series. Sanmin2006 ISBN9789576475412 modern sales metadata, braille catalog42347 no edition date; Japanese used-book 1984 Shenfeng comparator only, detail access incomplete. No original colophon, rule/teaching or direct lineage. R2.1 bound 18-term full registry query requested for existing 233 shards and root; pending, no formal admission. TW-OPEN-0033 P1 OPEN; prior 32 issues incl five P0 preserved; sources1287=647+640/233, graph468/375 Matrix222/222, core CLOSED. NEXT exact-HEAD query result, semantic identity and bounded admission, continue independently dated Republican Ziwei practice and other dual breadth.",
+    "index": 3179,
+    "text": "13ZZ CURRENT ACTION AFTER 15DO COMPLETED BOUNDED BREADTH: Exact-HEAD R2.1 query18 terms/234 files/1287 records zero literal hits, bindings verified, no universal semantic absence. Three scoped sources: CiNii BA61461510 Hong Kong Shixue 1955.8 Qiongtong Baojian Pingzhu Osaka Ijichi; CiNii BB26426235 Kong Ziwei Doushu Xinjie 1979.7 Tainan Xibei Ryukyu, undated parent BB26426122; Sanmin ISBN9789576475412 2006 retail comparator. Local OPAC403, no original colophon, exact edition relation, teaching or direct lineage. Two independent catalogue edition nodes, no edges. Braille, 1984 Shenfeng, 2015 reprint remain comparison leads, not separately admitted. TW-OPEN-0032/0033 OPEN; sources1290=647+643/234, graph470/375 Matrix222/222, 33 open risks incl five P0, G8930/6, core CLOSED. NEXT independently dated Republican Ziwei practice/regional publishing and dual historical framework; recover original pages only through lawful free accountless access.",
     "truncated": false
   },
   "p0": [

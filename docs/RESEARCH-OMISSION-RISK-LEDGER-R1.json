@@ -12,8 +12,8 @@
   "binding": {
     "repository": "chinaneedM/ziwei-bazi-model",
     "branch": "agent/fusion-chart-core-r1-20260822",
-    "reviewed_state_version": "1.1483.0",
-    "source_focus_count": 3179,
+    "reviewed_state_version": "1.1484.0",
+    "source_focus_count": 3180,
     "latest_research_focus_prefix": "13ZZ"
   },
   "coverage_axes": [
@@ -15080,11 +15080,13 @@
       "source_refs": [
         "docs/research/TIANWEN-15DN-REPUBLICAN-QIONGTONG-BAOJIAN-XUPING-PUBLISHING-CHECKPOINT-R1.md",
         "docs/research/TIANWEN-15DN-REPUBLICAN-QIONGTONG-BAOJIAN-XUPING-PUBLISHING-R1.md",
-        "docs/research/TIANWEN-15DN-REPUBLICAN-QIONGTONG-BAOJIAN-XUPING-PUBLISHING-SOURCE-SHARD-R1.json"
+        "docs/research/TIANWEN-15DN-REPUBLICAN-QIONGTONG-BAOJIAN-XUPING-PUBLISHING-SOURCE-SHARD-R1.json",
+        "docs/research/TIANWEN-15DO-HONG-KONG-TAIWAN-NATAL-PUBLISHING-R1.md",
+        "docs/research/TIANWEN-15DO-HONG-KONG-TAIWAN-NATAL-PUBLISHING-SOURCE-SHARD-R1.json"
       ],
-      "evidence_boundary": "1937序及镜像目录、NLC416-12jh004238-48608 有界直接渲染；精确HEAD全库11词查重零命中后登记一个数字替身，无物理原页权威；1955香港书目和2015现代出版说明仅为比较线索。",
-      "missing_evidence": "原始PDF字节哈希、原馆目录与完整刊记、宏道堂木刻本、广告对应的子平真诠评论实物和版次；1955香港原书及2015底本的身份/版本关系。",
-      "next_action": "保留OPEN，免费合法免账号原书路线出现时复核；1955与2015新增标识须完成全库查重再有界准入，继续双体系历史广度。",
+      "evidence_boundary": "1937序及镜像目录、NLC416-12jh004238-48608 有界直接渲染；精确HEAD全库11词查重零命中后登记一个数字替身，无物理原页权威；1955香港书目和2015现代出版说明仅为比较线索。 15DO完整查重后准入1955香港CiNii书目，非原本或与1937/2015直传证据。",
+      "missing_evidence": "原始PDF字节哈希、原馆目录与完整刊记、宏道堂木刻本、广告对应的子平真诠评论实物和版次；1955香港原书及2015底本身份/版本关系。",
+      "next_action": "保留OPEN；仅在免费合法免账号原书路线出现时复核；继续双体系历史广度。",
       "closure_criteria": "分离序年、印本、广告及数字替身；绑定具体卷页和原始文件哈希，核宏道堂本及被广告作品版本，避免从作者推测或广告推定早期年代、销售及师承。",
       "matrix_rule_ids": [],
       "resolution_evidence": [],
@@ -15115,6 +15117,25 @@
             "docs/research/TIANWEN-15DN-REPUBLICAN-QIONGTONG-BAOJIAN-XUPING-PUBLISHING-R1.md",
             "docs/research/TIANWEN-15DN-REPUBLICAN-QIONGTONG-BAOJIAN-XUPING-PUBLISHING-SOURCE-SHARD-R1.json"
           ]
+        },
+        {
+          "event": "EVIDENCE_SCOPE_REVISION",
+          "date": "2026-11-26",
+          "changed_fields": [
+            "evidence_boundary",
+            "missing_evidence",
+            "next_action"
+          ],
+          "previous_fields": {
+            "evidence_boundary": "1937序及镜像目录、NLC416-12jh004238-48608 有界直接渲染；精确HEAD全库11词查重零命中后登记一个数字替身，无物理原页权威；1955香港书目和2015现代出版说明仅为比较线索。",
+            "missing_evidence": "原始PDF字节哈希、原馆目录与完整刊记、宏道堂木刻本、广告对应的子平真诠评论实物和版次；1955香港原书及2015底本的身份/版本关系。",
+            "next_action": "保留OPEN，免费合法免账号原书路线出现时复核；1955与2015新增标识须完成全库查重再有界准入，继续双体系历史广度。"
+          },
+          "reason": "Full bound literal dedup completed; catalogued editions and modern comparator admitted with independent evidence boundaries, no original-copy or lineage inference.",
+          "evidence_refs": [
+            "docs/research/TIANWEN-15DO-HONG-KONG-TAIWAN-NATAL-PUBLISHING-R1.md",
+            "docs/research/TIANWEN-15DO-HONG-KONG-TAIWAN-NATAL-PUBLISHING-SOURCE-SHARD-R1.json"
+          ]
         }
       ]
     },
@@ -15126,11 +15147,13 @@
       "status": "OPEN",
       "origin": "15DO provisional checkpoint",
       "source_refs": [
-        "docs/research/TIANWEN-15DO-HONG-KONG-TAIWAN-NATAL-PUBLISHING-CHECKPOINT-R1.md"
+        "docs/research/TIANWEN-15DO-HONG-KONG-TAIWAN-NATAL-PUBLISHING-CHECKPOINT-R1.md",
+        "docs/research/TIANWEN-15DO-HONG-KONG-TAIWAN-NATAL-PUBLISHING-R1.md",
+        "docs/research/TIANWEN-15DO-HONG-KONG-TAIWAN-NATAL-PUBLISHING-SOURCE-SHARD-R1.json"
       ],
-      "evidence_boundary": "1979 CiNii聚合馆目及未定年母丛书；2006零售元数据、未定年点字书目、1984旧书摘录低等级比较；未核原页或全库查重。1955香港关联由TW-OPEN-0032保留。",
-      "missing_evidence": "全库查重和语义身份；1979刊记、目录、正文，2006版次/点字载体身份，1984神峯命理新解实物；不由同名同作者推定规则/师承。",
-      "next_action": "读取绑定当前manifest的R2.1精确HEAD查询结果，辨别既有记录和候选；仅通过合法免费免账号原页路线补证，继续独立民国紫微实务。",
+      "evidence_boundary": "全库18词零字面命中后准入1979 CiNii联合书目、2006三民现代商品元数据；未定年母丛书同记录关联，琉球地方OPAC403；点字及1984摘录仅为比较线索。",
+      "missing_evidence": "1979原刊记、目录、正文，2006版次/点字载体身份，1984神峯命理新解实物；无文本传承及实际教学证明。",
+      "next_action": "保持OPEN，仅通过合法免费免账号原页路线补证；继续独立民国紫微实务。",
       "closure_criteria": "确定各版实物、刊记及相应文本证据，分开出版、馆藏、教学与传承；保留未能证实的关系。",
       "matrix_rule_ids": [],
       "resolution_evidence": [],
@@ -15141,6 +15164,25 @@
           "basis": "Dated institutional aggregate catalogue and limited modern comparison locators; original pages, independent edition identity and full query pending.",
           "evidence_refs": [
             "docs/research/TIANWEN-15DO-HONG-KONG-TAIWAN-NATAL-PUBLISHING-CHECKPOINT-R1.md"
+          ]
+        },
+        {
+          "event": "EVIDENCE_SCOPE_REVISION",
+          "date": "2026-11-26",
+          "changed_fields": [
+            "evidence_boundary",
+            "missing_evidence",
+            "next_action"
+          ],
+          "previous_fields": {
+            "evidence_boundary": "1979 CiNii聚合馆目及未定年母丛书；2006零售元数据、未定年点字书目、1984旧书摘录低等级比较；未核原页或全库查重。1955香港关联由TW-OPEN-0032保留。",
+            "missing_evidence": "全库查重和语义身份；1979刊记、目录、正文，2006版次/点字载体身份，1984神峯命理新解实物；不由同名同作者推定规则/师承。",
+            "next_action": "读取绑定当前manifest的R2.1精确HEAD查询结果，辨别既有记录和候选；仅通过合法免费免账号原页路线补证，继续独立民国紫微实务。"
+          },
+          "reason": "Full bound literal dedup completed; catalogued editions and modern comparator admitted with independent evidence boundaries, no original-copy or lineage inference.",
+          "evidence_refs": [
+            "docs/research/TIANWEN-15DO-HONG-KONG-TAIWAN-NATAL-PUBLISHING-R1.md",
+            "docs/research/TIANWEN-15DO-HONG-KONG-TAIWAN-NATAL-PUBLISHING-SOURCE-SHARD-R1.json"
           ]
         }
       ]
@@ -37984,6 +38026,64 @@
           "scope": "TW-OPEN-0032",
           "status": "OPEN",
           "next_evidence": "1955 catalogue identifier dedup and physical original, 2015 comparison"
+        }
+      ]
+    },
+    {
+      "id": "TW-CHECKPOINT-15DO-COMPLETED-20261126",
+      "date": "2026-11-26",
+      "state_version": "1.1484.0",
+      "reviewed_issue_ids": [
+        "TW-OPEN-0001",
+        "TW-OPEN-0002",
+        "TW-OPEN-0003",
+        "TW-OPEN-0004",
+        "TW-OPEN-0005",
+        "TW-OPEN-0006",
+        "TW-OPEN-0007",
+        "TW-OPEN-0008",
+        "TW-OPEN-0009",
+        "TW-OPEN-0010",
+        "TW-OPEN-0011",
+        "TW-OPEN-0012",
+        "TW-OPEN-0013",
+        "TW-OPEN-0014",
+        "TW-OPEN-0015",
+        "TW-OPEN-0016",
+        "TW-OPEN-0017",
+        "TW-OPEN-0018",
+        "TW-OPEN-0019",
+        "TW-OPEN-0020",
+        "TW-OPEN-0021",
+        "TW-OPEN-0022",
+        "TW-OPEN-0023",
+        "TW-OPEN-0024",
+        "TW-OPEN-0025",
+        "TW-OPEN-0026",
+        "TW-OPEN-0027",
+        "TW-OPEN-0028",
+        "TW-OPEN-0029",
+        "TW-OPEN-0030",
+        "TW-OPEN-0031",
+        "TW-OPEN-0032",
+        "TW-OPEN-0033"
+      ],
+      "discovery_mode": "BREADTH_FIRST_HISTORICAL_PRACTICE",
+      "result": "13ZZ CURRENT ACTION AFTER 15DO COMPLETED BOUNDED BREADTH: Exact-HEAD R2.1 query18 terms/234 files/1287 records zero literal hits, bindings verified, no universal semantic absence. Three scoped sources: CiNii BA61461510 Hong Kong Shixue 1955.8 Qiongtong Baojian Pingzhu Osaka Ijichi; CiNii BB26426235 Kong Ziwei Doushu Xinjie 1979.7 Tainan Xibei Ryukyu, undated parent BB26426122; Sanmin ISBN9789576475412 2006 retail comparator. Local OPAC403, no original colophon, exact edition relation, teaching or direct lineage. Two independent catalogue edition nodes, no edges. Braille, 1984 Shenfeng, 2015 reprint remain comparison leads, not separately admitted. TW-OPEN-0032/0033 OPEN; sources1290=647+643/234, graph470/375 Matrix222/222, 33 open risks incl five P0, G8930/6, core CLOSED. NEXT independently dated Republican Ziwei practice/regional publishing and dual historical framework; recover original pages only through lawful free accountless access.",
+      "evidence_refs": [
+        "docs/research/TIANWEN-15DO-HONG-KONG-TAIWAN-NATAL-PUBLISHING-R1.md",
+        "docs/research/TIANWEN-15DO-HONG-KONG-TAIWAN-NATAL-PUBLISHING-SOURCE-SHARD-R1.json"
+      ],
+      "unresolved_breadth_leads": [
+        {
+          "scope": "TW-OPEN-0032",
+          "status": "OPEN",
+          "next_evidence": "原始PDF字节哈希、原馆目录与完整刊记、宏道堂木刻本、广告对应的子平真诠评论实物和版次；1955香港原书及2015底本身份/版本关系。"
+        },
+        {
+          "scope": "TW-OPEN-0033",
+          "status": "OPEN",
+          "next_evidence": "1979原刊记、目录、正文，2006版次/点字载体身份，1984神峯命理新解实物；无文本传承及实际教学证明。"
         }
       ]
     }
