@@ -2,14 +2,14 @@
   "schema": "TIANWEN-CONTEXT-RECOVERY-VIEW-R2",
   "authority": "DERIVED_ONLY",
   "bindings": {
-    "docs/PROJECT-CURRENT-STATE-R1.json": "84c940a8da5c26f39ae513a8d5ff7970c4b2f966",
-    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "a2aaa7755215f70673a92e450120bd8f49fa86a9",
+    "docs/PROJECT-CURRENT-STATE-R1.json": "d5719ee570f9ccb108aaac440f43515aa6eca306",
+    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "1e87f71d7b9c5f423f93e277286c170957dcfa84",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json": "b538ee24ff95316bbe24591f9f4f86ff8672b6ce",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json": "ea2ab50479450c39ce3fc7a00ea91cd713bf4a60",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json": "5919e1b6bbc3c4b150507c41a13ccc9e13d20f17",
     "docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json": "40d5988bcae7071b761e8a03a249c7e972e8bf46"
   },
-  "state_version": "1.1505.0",
+  "state_version": "1.1506.0",
   "stage": "FUSION_CHART_HISTORICAL_PROVENANCE_AND_SCHOOL_AUDIT_R1",
   "invariants": {
     "deterministic_fusion_chart_product_r1": "CLOSED",
@@ -32,19 +32,20 @@
     "p0": 5
   },
   "phase": "BREADTH_FIRST_TWO_SYSTEM_HISTORICAL_FRAMEWORK_R1",
-  "next_deliverable": "核收15DZ正式准入后连续性CI及全库复查；继续寻找可独立定年的民国紫微斗数命例、从业者和区域报刊传播证据，保留1935再版教材初版、编社及另藏本关系待补。",
+  "next_deliverable": "继续广度优先：寻找民国至战后早期可独立定年的紫微出版、报刊与地域传播证据，避开已登记王裁珊、张云溪书名及后出同源叙述的重复搜索；若同期报刊暂不可得，转向有实物/机构原件的早期香港台湾教学与流派传播，再并行补足八字史纲。TW-OPEN-0023/0026保留开放。",
   "latest_matrix_batch": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-FIRSTPARTY-AND-OLD20-ATLAS-QD.md",
-  "latest_breadth_batch": "docs/research/TIANWEN-15DZ-1935-SHANGHAI-XINGMING-PUBLIC-TEACHING-CHECKPOINT-R1.md",
+  "latest_breadth_batch": "docs/research/TIANWEN-15EA-REPUBLICAN-ZIWEI-CASE-EVIDENCE-SCOPE-R1.md",
   "checkpoint": {
-    "id": "TW-CHECKPOINT-15DZ-ADMITTED-20261126",
+    "id": "TW-CHECKPOINT-15EA-EVIDENCE-SCOPE-20261126",
     "evidence_refs": [
-      "docs/research/TIANWEN-15DZ-1935-SHANGHAI-XINGMING-PUBLIC-TEACHING-CHECKPOINT-R1.md",
-      "docs/research/TIANWEN-15DZ-SHANGHAI-XINGMING-SOURCE-SHARD-R1.json"
+      "docs/research/TIANWEN-15EA-REPUBLICAN-ZIWEI-CASE-EVIDENCE-SCOPE-R1.md",
+      "docs/research/TIANWEN-15DH-REPUBLICAN-ZIWEI-GUANCELU-DATED-PRACTICE-R1.md",
+      "docs/research/TIANWEN-15DZ-1935-SHANGHAI-XINGMING-PUBLIC-TEACHING-CHECKPOINT-R1.md"
     ]
   },
   "focus": {
-    "index": 3200,
-    "text": "13ZZ CURRENT ACTION AFTER 15DZ ADMISSION: exact parent continuity CI PASS 62+7, bound query245 files/1322 records/20 terms, 6 matching files all semantically checked; Zhang 1949/1953 already EXT-TIANWEN-13ZS, 1937 Yuan Xingxiang publisher distinct, other numeric substrings unrelated. Direct recheck 5161 p2,5252 p0/8/9 and NEW 5253 p102 colophon 民國二十四年八月再版, two books, 3 yuan 5 jiao, Central Bookstore Shanghai 四馬路世界里, advertised nationwide booksellers; colophon 國醫學社/星命研究社 vs section 上海星相研究社. Admit ONE catalogue group, no first edition date or independent actual distribution, no extra physical witness or Ziwei rule/practice/lineage; 98980 PDF access text only, screenshots blocked. TW-OPEN-0044 preserves first edition, organization, alternate copy and distribution questions; five P0 unchanged. Sources1323=647+676/245 shards, 44 open, graph474/375, Matrix222/222, core CLOSED. NEXT verify admission exact-HEAD and bound scan, independent dated Republican Ziwei practice/press.",
+    "index": 3201,
+    "text": "13ZZ CURRENT ACTION AFTER 15EA CASE EVIDENCE SCOPE: 15DZ admission exact-HEAD CI PASS 62+7, bound query246 files/1323 records/23 terms/7 matching files no truncation; 284 success, 1 running, no known failures. Rediscovered NLC48693 MG/B992.3/32 under catalogue alternate title, checked against 14E/15DH and confirmed known SAME copy, no new source. New bounded direct screenshot p112 printed107 explicitly says 萬勿以批命看之, 借命盤推演直指用法之意, 命理草案; authorial text claims 十二宮活用假借 as new development and compares 一掌經/子平. p114 printed errata table visible, no print date on inspected terminal pages. Scope revision TW-OPEN-0026: illustrative case/method draft not evidence of every actual paid consultation; no downgrade of 1938 internal anchors or 8 coordinate replay; author identity/1948 imprint still open. Revisited 1933 Zhang Yunxi 0023 and Liu Zhiyu/Tongde names, no independent contemporary target obtained; later publisher repetitions not new. No source/graph/count changes. Five P0 retained. NEXT widen to independently dated Republican/early postwar regional carriers and modern school documentation, keep 0023/0026 open; do not endlessly repeat identical searches.",
     "truncated": false
   },
   "p0": [

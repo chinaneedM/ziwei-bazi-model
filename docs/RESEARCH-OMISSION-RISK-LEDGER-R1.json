@@ -12,8 +12,8 @@
   "binding": {
     "repository": "chinaneedM/ziwei-bazi-model",
     "branch": "agent/fusion-chart-core-r1-20260822",
-    "reviewed_state_version": "1.1505.0",
-    "source_focus_count": 3201,
+    "reviewed_state_version": "1.1506.0",
+    "source_focus_count": 3202,
     "latest_research_focus_prefix": "13ZZ"
   },
   "coverage_axes": [
@@ -14849,9 +14849,10 @@
         "docs/research/TIANWEN-15DH-REPUBLICAN-ZIWEI-GUANCELU-DATED-PRACTICE-R1.md",
         "docs/research/TIANWEN-15DH-REPUBLICAN-ZIWEI-GUANCELU-SOURCE-SHARD-R1.json",
         "docs/research/TIANWEN-14E-REPUBLICAN-FEIXING-TAIWAN-1972-PUBLICATION-SCOPE-R1.md",
-        "docs/research/TIANWEN-13ZS-ZIWEI-1948-1953-1972-HK-REPUBLIC-EDITION-ATLAS-R1.md"
+        "docs/research/TIANWEN-13ZS-ZIWEI-1948-1953-1972-HK-REPUBLIC-EDITION-ATLAS-R1.md",
+        "docs/research/TIANWEN-15EA-REPUBLICAN-ZIWEI-CASE-EVIDENCE-SCOPE-R1.md"
       ],
-      "evidence_boundary": "同一NLC藏本公开扫描、现代2021五页样刊对照与1938历日锚点。印页见命例，能复演8个明示坐标字段。1948由现代出版说明追述，暂无刊记或另一独立实物的比对；序文叙事不能裁定作者或出版。",
+      "evidence_boundary": "同一NLC藏本公开扫描、现代2021五页样刊对照与1938历日锚点。印页见命例，能复演8个明示坐标字段。1948由现代出版说明追述，暂无刊记或另一独立实物的比对；序文叙事不能裁定作者或出版。 15EA同一NLC藏本p112印页107明确要求不作批命看、以命盘推演示用法及命理草案；不将逐案叙述当成独立实际受托或收费证明，亦不否定1938案内日期和8字段复演。",
       "missing_evidence": "可绑定版次和具体藏本的1948书端、刊记、发行记录；各序文字与署名来源、2021复刻底本身份；与灯市口婚例、宣化来平个案等独立对应的同期文献或原命盘。",
       "next_action": "如有公开1948刊记、发行记录、旧书影原件或独立同期实务材料，绑定藏本与叶码再对读；保留1938纪年层与1948刊行层区分。",
       "closure_criteria": "用可核实体或原始出版材料解决印次与底本身份，分开裁定署名、实务对应及传承。历日复算或相同文字不作独立事件与版次证据。",
@@ -14865,6 +14866,21 @@
           "evidence_refs": [
             "docs/research/TIANWEN-15DH-REPUBLICAN-ZIWEI-GUANCELU-DATED-PRACTICE-R1.md",
             "docs/research/TIANWEN-15DH-REPUBLICAN-ZIWEI-GUANCELU-SOURCE-SHARD-R1.json"
+          ]
+        },
+        {
+          "event": "EVIDENCE_SCOPE_REVISION",
+          "date": "2026-11-26",
+          "changed_fields": [
+            "evidence_boundary"
+          ],
+          "previous_fields": {
+            "evidence_boundary": "同一NLC藏本公开扫描、现代2021五页样刊对照与1938历日锚点。印页见命例，能复演8个明示坐标字段。1948由现代出版说明追述，暂无刊记或另一独立实物的比对；序文叙事不能裁定作者或出版。"
+          },
+          "reason": "Same-copy bounded direct terminal screenshot p112/printed107 explicitly qualifies case use; p114 errata present, no new independent source/author/imprint proof. Preserve prior historical evidence and issue status.",
+          "evidence_refs": [
+            "docs/research/TIANWEN-15EA-REPUBLICAN-ZIWEI-CASE-EVIDENCE-SCOPE-R1.md",
+            "docs/research/TIANWEN-15DH-REPUBLICAN-ZIWEI-GUANCELU-DATED-PRACTICE-R1.md"
           ]
         }
       ]
@@ -40024,6 +40040,106 @@
           "scope": "TW-OPEN-0044",
           "status": "OPEN",
           "next_evidence": "初版刊记；编社组织档案或同一性材料；98980原页、馆藏身份及版本关系；同期实际销售/购藏证据。"
+        }
+      ]
+    },
+    {
+      "id": "TW-CHECKPOINT-15EA-EVIDENCE-SCOPE-20261126",
+      "date": "2026-11-26",
+      "state_version": "1.1506.0",
+      "reviewed_issue_ids": [
+        "TW-OPEN-0001",
+        "TW-OPEN-0002",
+        "TW-OPEN-0003",
+        "TW-OPEN-0004",
+        "TW-OPEN-0005",
+        "TW-OPEN-0006",
+        "TW-OPEN-0007",
+        "TW-OPEN-0008",
+        "TW-OPEN-0009",
+        "TW-OPEN-0010",
+        "TW-OPEN-0011",
+        "TW-OPEN-0012",
+        "TW-OPEN-0013",
+        "TW-OPEN-0014",
+        "TW-OPEN-0015",
+        "TW-OPEN-0016",
+        "TW-OPEN-0017",
+        "TW-OPEN-0018",
+        "TW-OPEN-0019",
+        "TW-OPEN-0020",
+        "TW-OPEN-0021",
+        "TW-OPEN-0022",
+        "TW-OPEN-0023",
+        "TW-OPEN-0024",
+        "TW-OPEN-0025",
+        "TW-OPEN-0026",
+        "TW-OPEN-0027",
+        "TW-OPEN-0028",
+        "TW-OPEN-0029",
+        "TW-OPEN-0030",
+        "TW-OPEN-0031",
+        "TW-OPEN-0032",
+        "TW-OPEN-0033",
+        "TW-OPEN-0034",
+        "TW-OPEN-0035",
+        "TW-OPEN-0036",
+        "TW-OPEN-0037",
+        "TW-OPEN-0038",
+        "TW-OPEN-0039",
+        "TW-OPEN-0040",
+        "TW-OPEN-0041",
+        "TW-OPEN-0042",
+        "TW-OPEN-0043",
+        "TW-OPEN-0044"
+      ],
+      "discovery_mode": "BREADTH_FIRST_HISTORICAL_PRACTICE",
+      "result": "13ZZ CURRENT ACTION AFTER 15EA CASE EVIDENCE SCOPE: 15DZ admission exact-HEAD CI PASS 62+7, bound query246 files/1323 records/23 terms/7 matching files no truncation; 284 success, 1 running, no known failures. Rediscovered NLC48693 MG/B992.3/32 under catalogue alternate title, checked against 14E/15DH and confirmed known SAME copy, no new source. New bounded direct screenshot p112 printed107 explicitly says 萬勿以批命看之, 借命盤推演直指用法之意, 命理草案; authorial text claims 十二宮活用假借 as new development and compares 一掌經/子平. p114 printed errata table visible, no print date on inspected terminal pages. Scope revision TW-OPEN-0026: illustrative case/method draft not evidence of every actual paid consultation; no downgrade of 1938 internal anchors or 8 coordinate replay; author identity/1948 imprint still open. Revisited 1933 Zhang Yunxi 0023 and Liu Zhiyu/Tongde names, no independent contemporary target obtained; later publisher repetitions not new. No source/graph/count changes. Five P0 retained. NEXT widen to independently dated Republican/early postwar regional carriers and modern school documentation, keep 0023/0026 open; do not endlessly repeat identical searches.",
+      "evidence_refs": [
+        "docs/research/TIANWEN-15EA-REPUBLICAN-ZIWEI-CASE-EVIDENCE-SCOPE-R1.md",
+        "docs/research/TIANWEN-15DH-REPUBLICAN-ZIWEI-GUANCELU-DATED-PRACTICE-R1.md",
+        "docs/research/TIANWEN-15DZ-1935-SHANGHAI-XINGMING-PUBLIC-TEACHING-CHECKPOINT-R1.md"
+      ],
+      "unresolved_breadth_leads": [
+        {
+          "scope": "TW-OPEN-0026",
+          "status": "OPEN",
+          "next_evidence": "可绑定版次和具体藏本的1948书端、刊记、发行记录；各序文字与署名来源、2021复刻底本身份；与灯市口婚例、宣化来平个案等独立对应的同期文献或原命盘。"
+        },
+        {
+          "scope": "TW-OPEN-0036",
+          "status": "OPEN",
+          "next_evidence": "各书原刊记/版本及馆藏条码；1986港台同作者不同题名、1993–95梁氏教材的实际版本及独立实物；具体购入/入藏时点若有公开证据。"
+        },
+        {
+          "scope": "TW-OPEN-0040",
+          "status": "OPEN",
+          "next_evidence": "目标物件原书端、刊记、册号及可绑定的原叶；与其他道藏影印/更早版本之物理身份与文本关系。"
+        },
+        {
+          "scope": "TW-OPEN-0041",
+          "status": "OPEN",
+          "next_evidence": "刊载序跋、所据底本和明代书目各传本之关系。"
+        },
+        {
+          "scope": "TW-OPEN-0042",
+          "status": "OPEN",
+          "next_evidence": "六卷本书端、刊记、原叶、实物及版次；书商同期地址或销售/购藏记录。"
+        },
+        {
+          "scope": "TW-OPEN-0043",
+          "status": "OPEN",
+          "next_evidence": "各藏本目标目录原叶、序与刊记原图、清抄本与刊本关系、八卷术书身份及内容。"
+        },
+        {
+          "scope": "TW-OPEN-0044",
+          "status": "OPEN",
+          "next_evidence": "初版刊记；编社组织档案或同一性材料；98980原页、馆藏身份及版本关系；同期实际销售/购藏证据。"
+        },
+        {
+          "scope": "TW-OPEN-0023",
+          "status": "OPEN",
+          "next_evidence": "独立1933报章原刊/旧版实物，继续广度而不反复检索同源现代描述。"
         }
       ]
     }
