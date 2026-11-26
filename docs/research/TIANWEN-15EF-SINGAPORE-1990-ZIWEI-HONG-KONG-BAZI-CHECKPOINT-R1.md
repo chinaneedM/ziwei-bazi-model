@@ -12,3 +12,12 @@
 补充定位线索：[2000-10-02 联合晚报](https://eresources.nlb.gov.sg/newspapers/digitised/issue/lhwb20001002-2)索引列新加坡易经研究会初级八字及紫微班；[2007-10-29 联合早报](https://eresources.nlb.gov.sg/newspapers/digitised/issue/lhzb20071029-1)索引列道家学术研究会紫微入门与排命盘班。暂不与1990道家学会合并或重复登记。马来西亚1999之前未取得独立同期正证，不作缺失的否定结论。
 
 TW-OPEN-0049 OPEN。全库查询请求15EF-singapore-1990-hk-bazi；未领取结果，尚未完成语义去重和来源准入。下一步领取精确HEAD的全库查询结果，确认既有登记、补核NLB文章定位及香港版本身份，按有界证据准入。全部既有P0及TW-OPEN-0047/0048仍OPEN或原有阻塞状态。
+
+
+## 15EF 正式准入与前向勘误（2026-11-26）
+
+精确HEAD 8e8c98f14eae92478c0cb718329e1dc4a463b777，[run 45833756528/job 139957041149](https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/45833756528/job/139957041149) success；62+7 tests PASS。query_id=15EF-singapore-1990-hk-bazi，checkpoint=TW-CHECKPOINT-15EF-PROVISIONAL-20261126，request blob=3a7d50d2f765060f6afea22415bf9f4d467aa43d，manifest blob=ff1eb472136fb2b7a966efd96dde96d244731a7c，script blob=3387254ce53ec0a1f1a3b779291e0c40997bf190，scope=ALL_REGISTERED_ROOT_AND_SHARDS_LITERAL_ONLY，250 files/1346 records/20 terms，2 matching files，truncated=false，PASS。命中 lhwb19900701-1、道家学会、lhwb20001002-2、lhzb20071029-1、BA57765395、神峰通考闢謬各1；其余14词0。命中15BE shard 1fc5e294b8dd8d072b4c08f35a1fbe4388a67afa及13ZQ shard c2ecf5c8aef27f6d9cb00bfe331a75c058192624，读取记录完成语义去重。
+
+**勘误：**1990年公告已在15BE登记（EXT-TIANWEN-15BE-SG-NEWS-1990-ZIWEI-DAOSOCIETY），不能将本批次宣称为由1994提前至1990的首次发现；1981《神峰通考》已在13ZQ登记（EXT-TIANWEN-13ZQ-CINII1981-SHENFENG），2000/2007公告同属15BE。均复用而不重计。1990新增的是定位精度：NLB期号第9版「社团天地」明确列出该题及摘录，[独立文章](https://eresources.nlb.gov.sg/newspapers/digitised/article/lhwb19900701-1.2.18.1.5)返回使用条款确认页；未点击接受、未核原图及全文，不作实际授课或直接谱系证明。1981原链接一度访问失败，[同一NCID日文馆目](https://ci.nii.ac.jp/ncid/BA57765395?l=ja)及[CiNii Research](https://cir.nii.ac.jp/crid/1971993809783390510)交叉支持，同一目录不计两来源。
+
+1980及1982馆目正文再次核实，两个NCID各自独立登记，详见[分片](TIANWEN-15EF-HONG-KONG-BAZI-CATALOG-SOURCE-SHARD-R1.json)。1980术数内容范围不明，不设BAZI节点；1982注记子平命理精解，建立书目限定版次节点一项，不推断初版或机械规则。马来西亚早期同期记录仍未取得；[厦门大学东南亚研究中心报刊馆藏目录](https://nanyang.xmu.edu.cn/info/1114/10550.htm)仅为后续检索入口，非紫微存在证据，不入库。TW-OPEN-0049保留OPEN。无算法变化，无新传承边。

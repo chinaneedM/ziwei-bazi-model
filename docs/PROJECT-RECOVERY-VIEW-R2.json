@@ -2,14 +2,14 @@
   "schema": "TIANWEN-CONTEXT-RECOVERY-VIEW-R2",
   "authority": "DERIVED_ONLY",
   "bindings": {
-    "docs/PROJECT-CURRENT-STATE-R1.json": "fc2b137e078f83b989d35eb5400810474374c993",
-    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "fc770a27bcdabdd5c67e7a2252abab12f26a93bd",
-    "docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json": "ff1eb472136fb2b7a966efd96dde96d244731a7c",
+    "docs/PROJECT-CURRENT-STATE-R1.json": "988d33906382291a09c88fb85c096e7024b40dd5",
+    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "18553517b3c313742d0568136fc7f2cf0353e972",
+    "docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json": "ecbf248658689743dc7f3992a9ee85bde7b4f3c3",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json": "ea2ab50479450c39ce3fc7a00ea91cd713bf4a60",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json": "5919e1b6bbc3c4b150507c41a13ccc9e13d20f17",
-    "docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json": "dc049a7adc0d23527f09a632f278e8553f3e65b4"
+    "docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json": "fe44e035c30982a2c0d4e732243c62b570ba7665"
   },
-  "state_version": "1.1515.0",
+  "state_version": "1.1516.0",
   "stage": "FUSION_CHART_HISTORICAL_PROVENANCE_AND_SCHOOL_AUDIT_R1",
   "invariants": {
     "deterministic_fusion_chart_product_r1": "CLOSED",
@@ -23,27 +23,28 @@
     "matrix_rows": 222,
     "matrix_audited": 222,
     "root_sources": 647,
-    "extension_sources": 699,
-    "total_sources": 1346,
-    "shards": 249,
-    "graph_nodes": 488,
+    "extension_sources": 701,
+    "total_sources": 1348,
+    "shards": 250,
+    "graph_nodes": 489,
     "graph_edges": 375,
     "open_issues": 49,
     "p0": 5
   },
   "phase": "BREADTH_FIRST_TWO_SYSTEM_HISTORICAL_FRAMEWORK_R1",
-  "next_deliverable": "领取15EF精确HEAD全库查重，核对1990新加坡紫微招生原刊及1980–82香港命理馆目，按证据等级准入；继续更早新马同期紫微及港台四柱版本。",
+  "next_deliverable": "继续广度优先：先复核既有地区史纲与来源，找新加坡1990年以前、马来西亚1999年以前独立同期紫微记录，以及未登记港台四柱出版；保留原报图与香港刊记待核。",
   "latest_matrix_batch": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-FIRSTPARTY-AND-OLD20-ATLAS-QD.md",
   "latest_breadth_batch": "docs/research/TIANWEN-15EF-SINGAPORE-1990-ZIWEI-HONG-KONG-BAZI-CHECKPOINT-R1.md",
   "checkpoint": {
-    "id": "TW-CHECKPOINT-15EF-PROVISIONAL-20261126",
+    "id": "TW-CHECKPOINT-15EF-ADMITTED-20261126",
     "evidence_refs": [
-      "docs/research/TIANWEN-15EF-SINGAPORE-1990-ZIWEI-HONG-KONG-BAZI-CHECKPOINT-R1.md"
+      "docs/research/TIANWEN-15EF-SINGAPORE-1990-ZIWEI-HONG-KONG-BAZI-CHECKPOINT-R1.md",
+      "docs/research/TIANWEN-15EF-HONG-KONG-BAZI-CATALOG-SOURCE-SHARD-R1.json"
     ]
   },
   "focus": {
-    "index": 3210,
-    "text": "13ZZ CURRENT ACTION 15EF PROVISIONAL: 1990-07-01 Singapore Lianhe Wanbao NLB indexed heading announces Taoist association Ziwei and physiognomy courses July 4–Aug 3; direct opened issue text search did not recover target, original page/article ID and actual delivery OPEN. CiNii BA57765431 1980 Li Kangjie Minglixue Daquan (content scope pending), BA57765395 1981 Zhang Nan Shenfeng Tongkao reprint with Wei Qianli/You Daren editors, BA57765442 1982 Chen Xinrang Mingli Zhenji reprint, each Hong Kong Shanghai press with two institutional holdings. No new admission pending full query. TW-OPEN-0049 OPEN; all earlier risks preserved. NEXT retrieve exact full registry query and adjudicate scoped source admission, seek direct NLB locator and earlier independent Malaysia Ziwei. Matrix222/222, sources1346, graph488/375, core CLOSED.",
+    "index": 3211,
+    "text": "13ZZ CURRENT ACTION AFTER 15EF ADMISSION: exact 8e8c98f continuity PASS 62+7, query 250 files/1346 records/20 terms, two matching files, no truncation. CORRECTION 1990 Singapore notice already admitted 15BE and 1981 Shenfeng already admitted 13ZQ; not new timeline/edition. 1990 NLB issue page 9 社团天地 article lhwb19900701-1.2.18.1.5 located, detail terms gate, original image/delivery still OPEN. Two new CiNii bounded catalogues 1980 Minglixue Daquan (system uncertain) and 1982 Mingli Zhenji reprint (子平 note); one Bazi edition node, zero edges. TW-OPEN-0049 remains OPEN; sources1348=647+701/250 shards, graph489/375, 49 open incl five P0, Matrix222/222, core CLOSED. NEXT seek pre-1990 Singapore and pre-1999 Malaysia independent Ziwei notices, and genuinely new Taiwan/HK Bazi publication anchors; check existing historical outlines before discovery.",
     "truncated": false
   },
   "p0": [
