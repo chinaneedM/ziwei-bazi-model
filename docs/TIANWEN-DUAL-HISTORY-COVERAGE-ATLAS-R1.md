@@ -1495,3 +1495,8 @@ B：澳门大学1963-/1965-两馆目、Google Books 1963第二卷；C：现代�
 ### 15EL｜马来西亚社团和早期网络交流（2026-11-26）
 
 学会官网后出沿革及历届理事会资料、2001/2002命理网紫微交流文本共四条有限来源登记。1991注册、1997分会及后出八字课程记载不能证明早期紫微专项教学；论坛时间/地点字段保留限制。另15EM紫微八字学院1990年代机构自述及2002/2007传播线索待查重，不作为同期史实或传承边。参见 [15EL](research/TIANWEN-15EL-MALAYSIA-ASSOCIATION-EARLY-WEB-ARCHIVE-CHECKPOINT-R1.md) 与 [15EM](research/TIANWEN-15EM-MALAYSIA-ZIWEIBAZI-ACADEMY-NEWSPAPER-LEADS-R1.md)。
+
+
+### 15EM｜马来西亚学院沿革与早期网络传播（2026-11-26）
+
+[15EM](research/TIANWEN-15EM-MALAYSIA-ZIWEIBAZI-ACADEMY-NEWSPAPER-LEADS-R1.md)：三条有界来源准入，现代会员履历、2002中州派讲义自学及地域时间争议讨论、2007报刊招生转述；已有学院官网不重复登记。同机构回忆不证明1990年代实际创校/授课，2007广告原页和1999年前独立同期紫微证据仍待核；不增传承边。来源1375（647+728/257片），图495/375，51开放含五P0，Matrix222/222，核心CLOSED。
