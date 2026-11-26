@@ -2,14 +2,14 @@
   "schema": "TIANWEN-CONTEXT-RECOVERY-VIEW-R2",
   "authority": "DERIVED_ONLY",
   "bindings": {
-    "docs/PROJECT-CURRENT-STATE-R1.json": "0bfb5d92b4d7397c0f386caf758eb219477bdfa1",
-    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "abe8f8cd81c0737c2d8b7be6b1157f6c2002dca0",
+    "docs/PROJECT-CURRENT-STATE-R1.json": "1dcffe970e2a0d98ca63b4ba95984f2641ed87bf",
+    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "5e3c952ca6044961547f97e8e47a1ca11ea741e4",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json": "5de85305cacc949751aa29c4fd6137db1166e475",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json": "ea2ab50479450c39ce3fc7a00ea91cd713bf4a60",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json": "5919e1b6bbc3c4b150507c41a13ccc9e13d20f17",
     "docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json": "40d5988bcae7071b761e8a03a249c7e972e8bf46"
   },
-  "state_version": "1.1499.0",
+  "state_version": "1.1500.0",
   "stage": "FUSION_CHART_HISTORICAL_PROVENANCE_AND_SCHOOL_AUDIT_R1",
   "invariants": {
     "deterministic_fusion_chart_product_r1": "CLOSED",
@@ -32,19 +32,19 @@
     "p0": 5
   },
   "phase": "BREADTH_FIRST_TWO_SYSTEM_HISTORICAL_FRAMEWORK_R1",
-  "next_deliverable": "继续独立可定年民国紫微实务及地区出版/报刊原始证据；保留1923–26道藏影印具体书端、印次和物件同一性。",
+  "next_deliverable": "核收15DX绑定全库查重结果，辨明1929书目再刊与1937三友堂售书目录是否为已登记对象，分级准入；继续民国紫微实务及地区出版/报刊原始证据。",
   "latest_matrix_batch": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-FIRSTPARTY-AND-OLD20-ATLAS-QD.md",
-  "latest_breadth_batch": "docs/research/TIANWEN-15DW-REPUBLICAN-DAOZANG-AND-HKPL-COLLECTION-CHECKPOINT-R1.md",
+  "latest_breadth_batch": "docs/research/TIANWEN-15DX-REPUBLICAN-ZIWEI-BAOWENTANG-SANYOUTANG-CHECKPOINT-R1.md",
   "checkpoint": {
-    "id": "TW-CHECKPOINT-15DW-ADMITTED-20261126",
+    "id": "TW-CHECKPOINT-15DX-PROVISIONAL-20261126",
     "evidence_refs": [
-      "docs/research/TIANWEN-15DW-REPUBLICAN-DAOZANG-AND-HKPL-COLLECTION-CHECKPOINT-R1.md",
-      "docs/research/TIANWEN-15DW-REPUBLICAN-DAOZANG-REPRINT-SOURCE-SHARD-R1.json"
+      "docs/research/TIANWEN-15DX-REPUBLICAN-ZIWEI-BAOWENTANG-SANYOUTANG-CHECKPOINT-R1.md",
+      "docs/research/TIANWEN-15DW-REPUBLICAN-DAOZANG-AND-HKPL-COLLECTION-CHECKPOINT-R1.md"
     ]
   },
   "focus": {
-    "index": 3194,
-    "text": "13ZZ CURRENT ACTION AFTER 15DW ADMISSION: preceding HEAD all 285 Actions successful. Full connector literal search of 647 root and 241 shards/669 extension records against pinned 20-term request; six matching shards, no missing files. 14E/15DH NLC Guancelu and 15AD identical HKPL LAU collection already registered; no duplicate admission. One new bounded catalogue locator rarecatx0428879, Shanghai 1923–26 three-juan 正統道藏 photoreprint, not an independent physical/textual witness or newly composed Republican manual. TW-OPEN-0040 tracks actual edition/copy and original pages; 0026/0036 remain OPEN. Sources1317/242 shards, graph474/375, Matrix222/222, 40 risks incl five P0, core CLOSED. NEXT independent dated Republican Ziwei practice and regional print/media original evidence, legal free no-account. Post-admission bound query and exact-HEAD CI pending.",
+    "index": 3195,
+    "text": "13ZZ CURRENT ACTION AFTER 15DX PROVISIONAL: 15DW exact-HEAD continuity CI and full bound registry query PASS (243 files/1317 records, seven matches, no truncation); clean-training-system still running at inspection. 15DX directly inspected two dated Republican catalogue-publication objects: Sep 1929 National Beiping Library monthly vol3 no3 printed p405 PDF index110, Ming Chao Bao Wen Tang bibliography lists 紫微斗數; Mar 1937 Sanyoutang catalogue issue3 printed p129 PDF index129 item1610 紫微斗數六卷, Song Chen Xiyi attribution, small blocks, bamboo paper four books, eight jiao. Correct automated item1910/year misreading. 1929 re-publication is not contemporary practice; 1937 sale-list evidence is not proof of actual sale, edition date, physical survival, rule family or lineage. Both pending full registry literal query and semantic identity review; no admission/count/graph change. All 40 issues incl five P0 reviewed; preserve 0026/0036/0040. Core CLOSED. NEXT inspect bound exact-HEAD query and adjudicate candidates, then independent dated Republican practice and regional print/media.",
     "truncated": false
   },
   "p0": [
