@@ -267,3 +267,7 @@ Canonical restart:
 ```text
 继续《命运／天问》项目：chinaneedM/ziwei-bazi-model，agent/fusion-chart-core-r1-20260822。按 docs/PROJECT-CONTINUITY-PROTOCOL-R1.md 的远端最新规范恢复并继续推进。
 ```
+
+## 2026-11-26 — R2 context-governance pilot (user-authorized)
+
+For every subsequent startup and work unit, read and apply [PROJECT-CONTINUITY-PROTOCOL-R2.md](PROJECT-CONTINUITY-PROTOCOL-R2.md). R2 supersedes R1 only for bounded retrieval, validated derived recovery, redundant reads and tool output. All R1 historical evidence, complete registry search, P0/forward-only, exact-HEAD CI and publication gates remain unchanged. The derived view is never authoritative. Until its exact-HEAD verifier succeeds, or if stale/incomplete, use R1 compact tool-layer canonical recovery. Existing short restart remains valid; no user action is added.

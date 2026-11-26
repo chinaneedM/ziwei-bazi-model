@@ -7,6 +7,13 @@ on:
       - docs/PROJECT-CURRENT-STATE-R1.json
       - docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json
       - docs/PROJECT-CONTINUITY-PROTOCOL-R1.md
+      - docs/PROJECT-CONTINUITY-PROTOCOL-R2.md
+      - docs/PROJECT-RECOVERY-VIEW-R2.json
+      - docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json
+      - docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json
+      - docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json
+      - scripts/project-context-r2.py
+      - tests/test_project_context_r2.py
       - scripts/verify-research-omission-risk-ledger-r1.py
       - tests/test_research_omission_risk_ledger_r1.py
       - .github/workflows/verify-research-omission-continuity.yml
@@ -31,3 +38,5 @@ jobs:
           python scripts/verify-historical-source-registry-extensions-r1.py
           python scripts/verify-research-omission-risk-ledger-r1.py --check-parent
           python -m unittest discover -s tests -p 'test_research_omission_risk_ledger_r1.py' -v
+          python scripts/project-context-r2.py verify
+          python -m unittest discover -s tests -p 'test_project_context_r2.py' -v

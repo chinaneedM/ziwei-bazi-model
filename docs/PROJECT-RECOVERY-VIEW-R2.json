@@ -1,0 +1,81 @@
+{
+  "schema": "TIANWEN-CONTEXT-RECOVERY-VIEW-R2",
+  "authority": "DERIVED_ONLY",
+  "bindings": {
+    "docs/PROJECT-CURRENT-STATE-R1.json": "1f749256e8ea7496d73151049452b0688f77e8b5",
+    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "f0d53363ee8674793e42e4d88f3bad67810827d8",
+    "docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json": "16659bb7e5d6cb6311bacc129a1e4b2fb9a97e6f",
+    "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json": "ea2ab50479450c39ce3fc7a00ea91cd713bf4a60",
+    "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json": "5919e1b6bbc3c4b150507c41a13ccc9e13d20f17",
+    "docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json": "593d2dfb693af7efcff950006ad10ef1e1be6393"
+  },
+  "state_version": "1.1481.0",
+  "stage": "FUSION_CHART_HISTORICAL_PROVENANCE_AND_SCHOOL_AUDIT_R1",
+  "invariants": {
+    "deterministic_fusion_chart_product_r1": "CLOSED",
+    "confirmed_chart_algorithm_defect_count": 0,
+    "algorithm_reopen_count": 0,
+    "candidate_collapse_count": 0,
+    "ziwei_self_inward_transformation_direction": "NOT_YET_FORMALIZED",
+    "prediction_ai_interpretation_scope": "OUT_OF_SCOPE_FOR_CURRENT_STAGE"
+  },
+  "counts": {
+    "matrix_rows": 222,
+    "matrix_audited": 222,
+    "root_sources": 647,
+    "extension_sources": 639,
+    "total_sources": 1286,
+    "shards": 232,
+    "graph_nodes": 468,
+    "graph_edges": 375,
+    "open_issues": 32,
+    "p0": 5
+  },
+  "phase": "BREADTH_FIRST_TWO_SYSTEM_HISTORICAL_FRAMEWORK_R1",
+  "next_deliverable": "先完成15DN全库目标去重与有界书影登记；继续独立可定年的民国紫微实务、地域传播与双体系出版史；TW-OPEN-0027至0032原页仅在新合法免账号免费入口出现时恢复，保留全部未决事项。",
+  "latest_matrix_batch": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-FIRSTPARTY-AND-OLD20-ATLAS-QD.md",
+  "latest_breadth_batch": "docs/research/TIANWEN-15DM-QI-DONGYE-NATAL-REMINISCENCE-R1.md",
+  "checkpoint": {
+    "id": "TW-CHECKPOINT-15DN-PROVISIONAL-20261126",
+    "evidence_refs": [
+      "docs/research/TIANWEN-15DN-REPUBLICAN-QIONGTONG-BAOJIAN-XUPING-PUBLISHING-CHECKPOINT-R1.md"
+    ]
+  },
+  "focus": {
+    "index": 3176,
+    "text": "13ZZ CURRENT ACTION AFTER 15DN PROVISIONAL BREADTH CHECKPOINT: NLC416-12jh004238-48608 Qiongtong Baojian Pingzhu public 277-page PDF mirror catalog 1937; directly rendered zero-based0/1/2/3/110/128/129/130/135: title East Sea Lewu, Qianqian publishing; 1937 Dingchou preface, editorial historical hypotheses and methodological selection in fanli; juan3 printed p5 expressly reports Hongdaotang woodblock supplementation, next unnumbered advertisement for Ziping Zhenquan Pinglun with introductory examples, six juan/two books, list price 2.5 yuan/special 1 yuan, Shanghai Qianqian and Qianqingtang agent; following Wutu monthly table. Same scan, not independent works' original copies. Original PDF byte retrieval DNS failure; no SHA-256 or exhaustive collation. Root647 and selected16 shards56 records literal scan no hits; all232 manifest/tree hashes match; remaining216 shards583 records pending. No formal source admission, lineage inference or chart/Matrix change. TW-OPEN-0032 P1 OPEN, 32 issues incl five P0; sources1286=647+639/232, graph468/375, Matrix222/222, G8930/6, core CLOSED. NEXT full registry dedup and bounded admission; separately seek Hongdaotang source and advertised work only by lawful free routes; continue independent dated Republican Ziwei practical/regional and dual-history publishing coverage.",
+    "truncated": false
+  },
+  "p0": [
+    {
+      "id": "TW-OPEN-0001",
+      "title": "1827 大木本《野获编》卷二十〈改造漏刻〉原叶",
+      "status": "BLOCKED_SOURCE_ACCESS",
+      "next_action": "获取馆方正式的原叶定位与获准复制，保存 URL、物品号、图像 SHA-256 与逐字核读。"
+    },
+    {
+      "id": "TW-OPEN-0002",
+      "title": "1869 仓石本《野获编》卷二十〈改造漏刻〉原叶",
+      "status": "BLOCKED_SOURCE_ACCESS",
+      "next_action": "询问具体卷册影像及许可，与1827本逐页比对。"
+    },
+    {
+      "id": "TW-OPEN-0005",
+      "title": "G893《授时历立成》六组直接目标数值",
+      "status": "OPEN",
+      "next_action": "13ZZ CURRENT ACTION: TW-OPEN-0005 G893 P0 OPEN; named original controls 5/6, final historical adjudications 0/6. Continue original-source recovery for the Xu-An 1600 volume45 L132 target when an authenticated public native folio is available, preserving copy identity, page evidence grade and arithmetic scope."
+    },
+    {
+      "id": "TW-OPEN-0006",
+      "title": "紫微早夜子时上五刻属亥候选 HPA-ZDATE-006",
+      "status": "OPEN",
+      "next_action": "核对更早/独立版刻目标叶并分清紫微/四柱各自的换日政策。"
+    },
+    {
+      "id": "TW-OPEN-0007",
+      "title": "MD-G03 历法跨时代绝对计时坐标适配器",
+      "status": "OPEN",
+      "next_action": "继续元明官方数表、器物、诏令、地方标准分层证据核查。"
+    }
+  ]
+}
