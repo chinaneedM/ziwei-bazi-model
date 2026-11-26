@@ -2,14 +2,14 @@
   "schema": "TIANWEN-CONTEXT-RECOVERY-VIEW-R2",
   "authority": "DERIVED_ONLY",
   "bindings": {
-    "docs/PROJECT-CURRENT-STATE-R1.json": "f8d80567fe5c5608a7939048d8df2410268e5329",
-    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "f0d85b0db6d9c7ecd343c281c4da8077de54275f",
-    "docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json": "05518b6c83b38885c7c287d809cfe37936c4c5dd",
+    "docs/PROJECT-CURRENT-STATE-R1.json": "3e231c9bfe08406d387151fa36b806639775ff33",
+    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "03684e09eb7164d386ab6e3918f5acdfd513163f",
+    "docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json": "1b2670caea03928e4b1b29c9a9c3366f56d22df3",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json": "ea2ab50479450c39ce3fc7a00ea91cd713bf4a60",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json": "5919e1b6bbc3c4b150507c41a13ccc9e13d20f17",
     "docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json": "40d5988bcae7071b761e8a03a249c7e972e8bf46"
   },
-  "state_version": "1.1492.0",
+  "state_version": "1.1493.0",
   "stage": "FUSION_CHART_HISTORICAL_PROVENANCE_AND_SCHOOL_AUDIT_R1",
   "invariants": {
     "deterministic_fusion_chart_product_r1": "CLOSED",
@@ -23,27 +23,28 @@
     "matrix_rows": 222,
     "matrix_audited": 222,
     "root_sources": 647,
-    "extension_sources": 652,
-    "total_sources": 1299,
-    "shards": 237,
+    "extension_sources": 656,
+    "total_sources": 1303,
+    "shards": 238,
     "graph_nodes": 474,
     "graph_edges": 375,
     "open_issues": 38,
     "p0": 5
   },
   "phase": "BREADTH_FIRST_TWO_SYSTEM_HISTORICAL_FRAMEWORK_R1",
-  "next_deliverable": "领取15DT全库查重与语义裁决；核查新加坡1994年紫微报刊连载及讲座接受记述；继续独立可定年民国紫微实务及港台地域传播。仅合法免费免账号原件。",
+  "next_deliverable": "领取15DT新增三篇专栏的绑定查重并作语义裁决；继续独立可定年民国紫微实务及港台地域传播；原报正文仅合法免费免账号核查。",
   "latest_matrix_batch": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-FIRSTPARTY-AND-OLD20-ATLAS-QD.md",
   "latest_breadth_batch": "docs/research/TIANWEN-15DT-SINGAPORE-1994-ZIWEI-COLUMN-LECTURE-CHECKPOINT-R1.md",
   "checkpoint": {
-    "id": "TW-CHECKPOINT-15DT-PROVISIONAL-20261126",
+    "id": "TW-CHECKPOINT-15DT-SUPPLEMENT-20261126",
     "evidence_refs": [
-      "docs/research/TIANWEN-15DT-SINGAPORE-1994-ZIWEI-COLUMN-LECTURE-CHECKPOINT-R1.md"
+      "docs/research/TIANWEN-15DT-SINGAPORE-1994-ZIWEI-COLUMN-LECTURE-CHECKPOINT-R1.md",
+      "docs/research/TIANWEN-15DT-SINGAPORE-1994-ZIWEI-COLUMN-LECTURE-SOURCE-SHARD-R1.json"
     ]
   },
   "focus": {
-    "index": 3187,
-    "text": "13ZZ CURRENT ACTION AFTER 15DT PROVISIONAL BREADTH: NLB NewspaperSG 1994-06-15 LHZB Liu Hanzhi lecture reception locator and three LHWB Li Fo same-title Ziwei column issue locators (1994-07-14, 10-21, 11-03), limited OCR; no original page or complete text, no teacher lineage or exact rule. Prior 15BE four notices already registered, 2000 page-number ambiguity retained for recheck. Full query pending; TW-OPEN-0038 P1 OPEN. 0035 Republican contemporaneous practice and 0037 Taiwan original journals remain OPEN. Sources1299/237, graph474/375, Matrix222/222, 38 risks incl five P0, core CLOSED. NEXT bound 15DT query and semantic review; continue independently dated Republican practice and regional publication.",
+    "index": 3188,
+    "text": "13ZZ CURRENT ACTION AFTER 15DT BOUNDED ADMISSION AND SUPPLEMENT: exact-HEAD 20-term prior full registry query PASS 238 files/1299 sources, only prior 15BE two notices in one shard. Four distinct 1994 NLB issue records admitted (June15 lecture reception mention; July14, Oct21, Nov3 Li Fo column); bounded OCR, not original pages or lineage. Three additional same-column issues Oct24, Nov10, Nov27 recorded pending separate bound query; observed date range July14-Nov27 not full run. TW-OPEN-0038 OPEN; 0035 Republican practice and 0037 Taiwan original journals remain OPEN. Sources1303/238 shards, graph474/375, Matrix222/222, 38 risks incl five P0, core CLOSED. NEXT supplement query and semantic review; then independently dated Republican practice and regional publication/practice.",
     "truncated": false
   },
   "p0": [

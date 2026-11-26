@@ -26,3 +26,68 @@
 提交与现有237分片manifest绑定的R2.1全库字面检索请求，含期次号、栏目繁简体、题名、作者与异体组合；待精确HEAD日志和语义裁决后才决定新增条目。TW-OPEN-0038 P1 OPEN：全库查重、原报图/正文、专栏起止及讲座具体上下文。TW-OPEN-0035、0037保持OPEN；民国独立实践和港台地域传播仍为后续主线，补东南亚同期证据是广度覆盖而非改换项目方向。
 
 目前1299=647+652／237片、图474/375、Matrix222/222、38开放风险含五P0；无新增来源、图节点或边，无算法修改。
+
+## 15DT 有界准入及补充定位（2026-11-26，追加）
+
+[旧精确HEAD连续性CI](https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/45803273075)，HEAD `cd28fe0793644a3a0d8a185e1b92d72b08e923d2`，job `139851750380`，62项遗漏门禁测试与7项R2测试通过。查询脚本blob `3387254ce53ec0a1f1a3b779291e0c40997bf190`。实际查询日志保全：
+
+```json
+{
+  "query_id": "15DT-singapore-1994-ziwei-column-lecture-dedup-r2-20261126",
+  "checkpoint_id": "TW-CHECKPOINT-15DT-PROVISIONAL-20261126",
+  "request_blob_sha": "ad43a450fe2c0cb631729a38b2e95895d1807814",
+  "registry_manifest_blob_sha": "05518b6c83b38885c7c287d809cfe37936c4c5dd",
+  "status": "PASS",
+  "scope": "ALL_REGISTERED_ROOT_AND_SHARDS_LITERAL_ONLY",
+  "files": 238,
+  "records": 1299,
+  "matching_files": 1,
+  "per_term_matching_files": {
+    "lhzb19940615-1": 0,
+    "lhwb19940714-1": 0,
+    "lhwb19941021-1": 0,
+    "lhwb19941103-1": 0,
+    "海阔天空谈紫微": 0,
+    "海闊天空談紫微": 0,
+    "太阳星正直有为": 0,
+    "太陽星正直有為": 0,
+    "动态与静态的人生": 0,
+    "動態與靜態的人生": 0,
+    "紫微破军谋定后动": 0,
+    "紫微破軍謀定後動": 0,
+    "过尽千驹战胜自己": 0,
+    "過盡千駒戰勝自己": 0,
+    "刘含芝": 0,
+    "劉含芝": 0,
+    "李佛": 0,
+    "Li Fo": 0,
+    "lhwb19900701-1": 1,
+    "lhwb20001002-2": 1
+  },
+  "hits": [
+    {
+      "path": "docs/research/TIANWEN-15BE-SINGAPORE-1990-2007-COURSE-ANNOUNCEMENTS-SOURCE-SHARD-R1.json",
+      "blob_sha": "1fc5e294b8dd8d072b4c08f35a1fbe4388a67afa",
+      "terms": [
+        "lhwb19900701-1",
+        "lhwb20001002-2"
+      ]
+    }
+  ],
+  "truncated": false
+}
+```
+
+唯一命中分片为15BE既有课程公告，复核blob `1fc5e294b8dd8d072b4c08f35a1fbe4388a67afa` 与四个期次URL，与本批四期不同，不重复登记。字面零命中不是语义无重复；四个原候选重新复核机构页题名、日期、作者、栏目和有限OCR，按 `RECEIVED_TEXT_VERIFIED`（仅可见索引/片段范围）准入，[分片](./TIANWEN-15DT-SINGAPORE-1994-ZIWEI-COLUMN-LECTURE-SOURCE-SHARD-R1.json)。六月讲座记述作者不同于专栏作者，但不证明讲座内容或师承，不将同作者三期视为独立传承证词。
+
+### 三个新增同栏期次（待独立查重，不计入来源）
+
+| 日期及期次 | 栏目题名与定位 |
+|---|---|
+| [1994-10-24 联合晚报](https://eresources.nlb.gov.sg/newspapers/digitised/issue/lhwb19941024-1) | 第19页，L1413–1421，李佛〈‘机、月、同、梁’型的人生〉；有限OCR提示主星分类 |
+| [1994-11-10 联合晚报](https://eresources.nlb.gov.sg/newspapers/digitised/issue/lhwb19941110-1) | L1417–1425，李佛〈武曲天相进入各宫〉；可见题名和有限双星说明 |
+| [1994-11-27 联合晚报](https://eresources.nlb.gov.sg/newspapers/digitised/issue/lhwb19941127-1) | 第15页，L1082、1098–1105，李佛〈太阳太阴明暗生辉〉；OCR严重乱码，不据其裁决义理 |
+
+已定位专栏观察区间7月14日至11月27日，至少六期候选，三期已登记，不证明连续日刊或完整篇目。[NLB OneSearch FAQ](https://search.nlb.gov.sg/onesearch/FAQs) 说明完整报纸记录可到馆访问；[Newslink FAQ](https://eresources.nlb.gov.sg/main/Open/FAQ/10) 的账户/馆内限制不作为自主免费免账号获取路径。不要求用户到馆，不宣称原图已获。
+
+TW-OPEN-0038 保留，补充查询绑定新manifest；TW-OPEN-0035、0037仍OPEN。来源1303=647+656／238片，图474/375、Matrix222/222、38风险含五P0，核心CLOSED。
