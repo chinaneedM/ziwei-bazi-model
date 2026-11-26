@@ -17,3 +17,60 @@
 
 ## NEXT
 绑定查询覆盖当前根+240片全部1310来源，检索书目ID、题名、异体笔名与媒体定位；精确字面检索后仍作语义裁决。TW-OPEN-0020原有媒体传播缺口追加笔名与早期出版核查，不关闭任何事项。原书、原刊与标章只循合法免费免账号公开路线。无新史料登记、无图谱或规则变更。Matrix222/222、图474/375、39开放风险含五P0、核心CLOSED。
+
+
+## 15DV 准入裁决（2026-11-26，追加）
+
+精确HEAD `ad12eaf72254f6f7c4d4e2fc645471f7dadbc126`、[连续性CI](https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/45810066300) job `139875281027` 成功；62项遗漏风险测试、7项R2测试通过。验证程序blob `3387254ce53ec0a1f1a3b779291e0c40997bf190`，请求及manifest绑定如下。原始检索输出（字面非语义查重）：
+
+```json
+{
+  "query_id": "15DV-huixin-publication-media-dedup-r2-20261126",
+  "checkpoint_id": "TW-CHECKPOINT-15DV-PROVISIONAL-20261126",
+  "request_blob_sha": "8ca5eae3a33154d2fe09ca945f42fab64997616d",
+  "registry_manifest_blob_sha": "20644d274b35fa4afbf11ba72a2372b419b25322",
+  "status": "PASS",
+  "scope": "ALL_REGISTERED_ROOT_AND_SHARDS_LITERAL_ONLY",
+  "files": 241,
+  "records": 1310,
+  "matching_files": 1,
+  "per_term_matching_files": {
+    "12680": 0,
+    "178313": 0,
+    "慧心齋主": 1,
+    "慧心斋主": 0,
+    "馥廬": 0,
+    "馥庐": 0,
+    "DBAtPAAACAAJ": 0,
+    "gG25tgAACAAJ": 0,
+    "cqxdAAAACAAJ": 0,
+    "nSMaAAAACAAJ": 0,
+    "xCzfAQAACAAJ": 0,
+    "S9oWEAAAQBAJ": 0,
+    "9789621710369": 0,
+    "9571301213": 0,
+    "紫微斗數看婚姻": 0,
+    "如何推算命運": 0,
+    "紫微斗數導讀": 0,
+    "紫微斗數看命宮": 0,
+    "goods-8733.html": 0,
+    "book/detail/10748": 0
+  },
+  "hits": [
+    {
+      "path": "docs/research/TIANWEN-15DS-TAIWAN-ZIWEI-PERIODICAL-INDEX-SOURCE-SHARD-R1.json",
+      "blob_sha": "91140cc427e0c8fb789fc4b771467f8cb85847ea",
+      "terms": [
+        "慧心齋主"
+      ]
+    }
+  ],
+  "truncated": false
+}
+```
+
+唯一命中15DS，1989《拾穗》黄露惠访谈式题名（A07050233），不是本批书籍或自序。额外复核15DR既有金庸文库目录中1986《紫微斗數看錢財》《紫微斗數趨吉避凶法》，也为不同文献对象；两部1986书籍不再次登记。五项Google Books书目按检索索引重新核对题名、作者、出版年及页数，其中三个简短ID链接当前直接打开失败，但以题名检索均返回准确对应的书目ID及字段。1982/1985/1992/1994各书版权页、印次、实体本与完整正文未核，1994《紫微斗數看命宮》副题据书目补为《現象說與溯因說》。1985记录另见零售所列1986/1995日期，仅保留印次待核，不作新源。两本1994书目零售分别报199/227页，作为辅助定位。参考：[1994导读](https://www.sanmin.com.tw/product/index/000088759)、[1994看命宫](https://www.sanmin.com.tw/product/index/001551076)、[1986零售日期](https://www.taaze.tw/products/11100210973.html)、[1995零售日期](https://www.eslite.com/product/1001110931408376)。
+
+2021零售页L196–207、235–274、394–437复核到受传自序及出版简介，前者含笔名和标章自述，后者含1979/1981及香港专栏、后期改写的叙述。新北市立图书馆udn电子书页L25–37与后者高度同文，故不作为独立传播证词。大块10748当前打开跳首页，仅其搜索摘要定位，不能提升验证等级。2021 Google Books 418页与零售414页/附册字段有差异；无书端，不另作版次结论或重复计数。零售所载辛酉序、自序和2021营销文案必须分别辨析形成时间，不能把2021页面日期当作序文撰写日期，也不能把修订本内容倒推1980年代。两术分立及图谱无变更。
+
+正式准入五条书目和一条受传自序/简介，共六个有限来源对象，见[分片](TIANWEN-15DV-HUIXIN-PUBLICATION-MEDIA-SOURCE-SHARD-R1.json)。不证1979/1980同期原刊、12680正式标章、跨地区确切专栏序列或独立师承。不宣称原书原报不存在。TW-OPEN-0020/0035/0037/0039保持OPEN。来源1316=647+669／241片，图474/375，Matrix222/222，39开放风险含五P0，核心CLOSED。NEXT：继续民国同期独立紫微实务与港台原始出版及报刊传播。

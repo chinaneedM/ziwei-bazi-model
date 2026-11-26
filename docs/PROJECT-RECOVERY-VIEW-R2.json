@@ -2,14 +2,14 @@
   "schema": "TIANWEN-CONTEXT-RECOVERY-VIEW-R2",
   "authority": "DERIVED_ONLY",
   "bindings": {
-    "docs/PROJECT-CURRENT-STATE-R1.json": "88698ecee48be667d41b354a81eae95f4c9cdb4c",
-    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "f3b4141b1ed04e31a116852d1eed44c95fd6cba7",
-    "docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json": "20644d274b35fa4afbf11ba72a2372b419b25322",
+    "docs/PROJECT-CURRENT-STATE-R1.json": "d07764cbdbd953bb2c5c0dd871537ada15b8effc",
+    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "1d53ed807bd9f06cbf3d60193e947e3cda62e55f",
+    "docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json": "cbe30b19dad3e035c0f12e61d35fcd98b79a30ac",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json": "ea2ab50479450c39ce3fc7a00ea91cd713bf4a60",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json": "5919e1b6bbc3c4b150507c41a13ccc9e13d20f17",
     "docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json": "40d5988bcae7071b761e8a03a249c7e972e8bf46"
   },
-  "state_version": "1.1497.0",
+  "state_version": "1.1498.0",
   "stage": "FUSION_CHART_HISTORICAL_PROVENANCE_AND_SCHOOL_AUDIT_R1",
   "invariants": {
     "deterministic_fusion_chart_product_r1": "CLOSED",
@@ -23,27 +23,28 @@
     "matrix_rows": 222,
     "matrix_audited": 222,
     "root_sources": 647,
-    "extension_sources": 663,
-    "total_sources": 1310,
-    "shards": 240,
+    "extension_sources": 669,
+    "total_sources": 1316,
+    "shards": 241,
     "graph_nodes": 474,
     "graph_edges": 375,
     "open_issues": 39,
     "p0": 5
   },
   "phase": "BREADTH_FIRST_TWO_SYSTEM_HISTORICAL_FRAMEWORK_R1",
-  "next_deliverable": "领取15DV慧心斋主早期出版、跨地区报刊与笔名候选的绑定全库查询；区分1982/1985/1992/1994馆目与后出自述，继续民国独立同期实务取证。",
+  "next_deliverable": "继续民国同期独立紫微实务及港台地域原始出版、报刊和授课记录，保留慧心斋主早期版权页、笔名原报、标章和修订版本关系的未决边界。",
   "latest_matrix_batch": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-FIRSTPARTY-AND-OLD20-ATLAS-QD.md",
   "latest_breadth_batch": "docs/research/TIANWEN-15DV-HUIXIN-TAIWAN-HONGKONG-PUBLICATION-MEDIA-CHECKPOINT-R1.md",
   "checkpoint": {
-    "id": "TW-CHECKPOINT-15DV-PROVISIONAL-20261126",
+    "id": "TW-CHECKPOINT-15DV-ADMITTED-20261126",
     "evidence_refs": [
-      "docs/research/TIANWEN-15DV-HUIXIN-TAIWAN-HONGKONG-PUBLICATION-MEDIA-CHECKPOINT-R1.md"
+      "docs/research/TIANWEN-15DV-HUIXIN-TAIWAN-HONGKONG-PUBLICATION-MEDIA-CHECKPOINT-R1.md",
+      "docs/research/TIANWEN-15DV-HUIXIN-PUBLICATION-MEDIA-SOURCE-SHARD-R1.json"
     ]
   },
   "focus": {
-    "index": 3192,
-    "text": "13ZZ CURRENT ACTION 15DV PROVISIONAL: recheck 1972 Zhang Kaijuan Tokyo catalogue and 2018 Sunyata facsimile already covered in outline, no new source. Huixin candidates Google Books 1982 marriage edition4 DBAtPAAACAAJ, 1985 transformation gG25tgAACAAJ, 1992 Boyi entry cqxdAAAACAAJ, 1994 series nSMaAAAACAAJ/xCzfAQAACAAJ; 2021 received retail preface self-reports 1980 Taiwan Daily pen name Fu Lu and service mark12680, exact glyph/original page unverified; modern publisher biography claims 1979 United Daily column and 1981 book. Full registry dedup pending; TW-OPEN-0020/0035/0037/0039 remain OPEN. Sources1310/240 shards, graph474/375, Matrix222/222, 39 risks incl five P0, core CLOSED. NEXT bound query and semantic admission; no original 1979/1980 newspaper or early book pages.",
+    "index": 3193,
+    "text": "13ZZ CURRENT ACTION AFTER 15DV ADMISSION: exact-HEAD 20-term full query PASS 241 files/1310 prior sources; 15DS 1989 periodical hit and 15DR 1986 books are distinct objects. Six bounded sources admitted: five Google Books 1982/1985/1992/1994 book records and one 2021 retailer received preface/description reporting 1979/1980 press, pen name and service mark. Shared publisher text not independent; 2021 revised text cannot replace earlier editions; original book/press/service-mark records absent from verified evidence. TW-OPEN-0020/0035/0037/0039 OPEN. Sources1316/241 shards, graph474/375, Matrix222/222, 39 risks incl five P0, core CLOSED. NEXT independent dated Republican Ziwei practice and regional original publication/press, legal free no-account sources only.",
     "truncated": false
   },
   "p0": [
