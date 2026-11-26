@@ -19,3 +19,18 @@
 - 15EC原书端等未决项及全部P0保持原状。新问题 TW-OPEN-0047 OPEN；Elliott 1955 first-edition title/copyright and p37 text comparison; 1964 Singapore Donald Moore physical title/colophon and target page; National Museum accession 2011-03153-007 direct catalogue/object image and individual item dates; earlier dated Singapore/Malaya Ziwei or explicit Bazi teaching/publication records and Taiwan/HK contemporary Bazi sources.
 - 领取15ED完整全库查询及语义辨重；核验1955、1964版次及博物馆原物目录/图像，区分实地调查时间、初刊、再版和数字替身；继续寻找南洋紫微及港台四柱独立同期出版证据。
 - 完整查询请求为 `15ED-southeast-asia-bazi-practice`，尚未领取成功结果。无新正式来源、无图谱关系、无Matrix或排盘变更。
+
+
+## 15ED 正式准入追加（2026-11-26）
+
+精确HEAD `8e470d4e3b9639ae85972f4c35ccfc362f935909`：[continuity run 45828431276](https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/45828431276/job/139938543340)，62项遗漏测试及7项R2测试成功。query_id=`15ED-southeast-asia-bazi-practice`，checkpoint=`TW-CHECKPOINT-15ED-PROVISIONAL-20261126`，request blob=`6d7a52242ae9279469a99bcbc342419f2201e554`，manifest blob=`f80d3cc6ace81b9b9041319fc322b62982703398`，project-context-r2.py blob=`3387254ce53ec0a1f1a3b779291e0c40997bf190`。scope=ALL_REGISTERED_ROOT_AND_SHARDS_LITERAL_ONLY，PASS，248文件（根+247分片）、1338条记录，18词逐词0 matching files（见精确提交[请求词表](https://github.com/chinaneedM/ziwei-bazi-model/blob/8e470d4e3b9639ae85972f4c35ccfc362f935909/docs/PROJECT-REGISTRY-QUERY-R2.json)），truncated=false。字面查重不等于绝对语义排除；同一田野著作各版及引文不视作独立田野。旧12IU工作流状态发布步骤遇GitHub服务端错误，[run 45828433825](https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/45828433825) attempt 2 重跑成功；检查时另有一项仍运行，不能宣称全量通过。
+
+### 证据复核与分层
+
+- 1955初刊书目由[1956年书评](https://www.cambridge.org/core/journals/journal-of-asian-studies/article/abs/chinese-spiritmedium-cults-in-singapore-by-alan-j-a-elliott-monographs-on-social-anthropology-no-14-new-series-department-of-anthropology-the-london-school-of-economics-and-political-science-london-1955-179-p/3D33C7E60B57E86D9E261282EE9944BF)及[1957年书评](https://www.persee.fr/doc/rhr_0035-1423_1957_num_152_1_8738)交叉支持，179页。2020数字文本版权与CIP（1990二版、2020再刊）与1955初刊分开。p37及p46可检索文本明确年/月/日/时四组；截图重试仍受13MB限制，未核初版原页。香港通书输入不推出具体子平传承。
+- 1964年新加坡版：1973 SMJ原扫描PDF页索引6、印刷p61第4引文目验；[马来西亚 DBP 书目](https://prpm.dbp.gov.my/Cari1?d=202792&keyword=medium)列1964 Donald Moore Press Ltd.及1955 Jarrolds。原书端未核；书目仅作同对象佐证，不另立来源。
+- [NLB 2014](https://biblioasia.nlb.gov.sg/all-sections/vol-9-issue-4-jan-march-2014-forgotten-trades-singapore/)原网页明确八字为职业方法之一，不将算命职业19世纪起点等同八字起点。
+- [2024道教学院公告](https://taoistcollege.org.sg/course/zwds-2024/)明确李山鹤道长及7月5—21日初级紫微课程安排；不证明实际开课或历史传承，不付费。
+- 1922—1931命书 accession 2011-03153-007 仍为检索摘要的间接线索，二手页重取502，馆方原对象未获；不准入、不造节点、不倒推起始年代。
+
+五条有界来源见[分片](TIANWEN-15ED-SOUTHEAST-ASIA-PRACTICE-SOURCE-SHARD-R1.json)，新增两出版语境节点、零传承边。紫微/四柱独立，Matrix不变，核心CLOSED；TW-OPEN-0047与全部既有未决项保持OPEN。下一步优先寻找南洋早期紫微出版、报刊或授课及港台1970年代四柱出版。
