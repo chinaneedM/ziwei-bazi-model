@@ -91,3 +91,53 @@
 已定位专栏观察区间7月14日至11月27日，至少六期候选，三期已登记，不证明连续日刊或完整篇目。[NLB OneSearch FAQ](https://search.nlb.gov.sg/onesearch/FAQs) 说明完整报纸记录可到馆访问；[Newslink FAQ](https://eresources.nlb.gov.sg/main/Open/FAQ/10) 的账户/馆内限制不作为自主免费免账号获取路径。不要求用户到馆，不宣称原图已获。
 
 TW-OPEN-0038 保留，补充查询绑定新manifest；TW-OPEN-0035、0037仍OPEN。来源1303=647+656／238片，图474/375、Matrix222/222、38风险含五P0，核心CLOSED。
+
+## 15DT 补充三期准入（2026-11-26，追加）
+
+精确HEAD `294ff2f8661a420560ba11c9311f7d2b807baf2e`，[连续性CI](https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/45804545566)，job `139856198424`，62项遗漏测试、7项R2测试通过。验证程序blob `3387254ce53ec0a1f1a3b779291e0c40997bf190`。保全实际全库查询日志：
+
+```json
+{
+  "query_id": "15DT-singapore-1994-supplement-column-dedup-r2-20261126",
+  "checkpoint_id": "TW-CHECKPOINT-15DT-SUPPLEMENT-20261126",
+  "request_blob_sha": "3a44aa551b3b17b73745ce462bc6db3756fa2a7f",
+  "registry_manifest_blob_sha": "1b2670caea03928e4b1b29c9a9c3366f56d22df3",
+  "status": "PASS",
+  "scope": "ALL_REGISTERED_ROOT_AND_SHARDS_LITERAL_ONLY",
+  "files": 239,
+  "records": 1303,
+  "matching_files": 1,
+  "per_term_matching_files": {
+    "lhwb19941024-1": 0,
+    "lhwb19941110-1": 0,
+    "lhwb19941127-1": 0,
+    "机、月、同、梁": 0,
+    "機、月、同、梁": 0,
+    "机月同梁型的人生": 0,
+    "機月同梁型的人生": 0,
+    "武曲天相进入各宫": 0,
+    "武曲天相進入各宮": 0,
+    "太阳太阴明暗生辉": 0,
+    "太陽太陰明暗生輝": 0,
+    "海阔天空谈紫微": 1,
+    "海闊天空談紫微": 0,
+    "李佛": 1,
+    "Li Fo": 0
+  },
+  "hits": [
+    {
+      "path": "docs/research/TIANWEN-15DT-SINGAPORE-1994-ZIWEI-COLUMN-LECTURE-SOURCE-SHARD-R1.json",
+      "blob_sha": "2547a8a81993bd8579262e3b0a1ab279bdebeb66",
+      "terms": [
+        "海阔天空谈紫微",
+        "李佛"
+      ]
+    }
+  ],
+  "truncated": false
+}
+```
+
+唯一命中为本批原四期分片（blob `2547a8a81993bd8579262e3b0a1ab279bdebeb66`）；原记录日期为6月15日、7月14日、10月21日、11月3日，与新增10月24日、11月10日、11月27日期次不同。同一栏目、同一作者不等于相同文章对象；未取得完整正文，不能排除内容重复或改写。复查机构期次网页：10月24日第19页L1413–1421，11月10日**第21页**L1384及1417–1425，11月27日第15页L1082及1098–1105；前两条可见有界主题片段，后者OCR严重乱码，仅采用题名、作者、栏目、日期。三条均按 RECEIVED_TEXT_VERIFIED 限定公开索引/片段准入，非原报字形或完整术理证明。[新增分片](./TIANWEN-15DT-SINGAPORE-1994-ZIWEI-COLUMN-SUPPLEMENT-SOURCE-SHARD-R1.json)。
+
+至此1994年7月14日至11月27日至少六个已登记的同栏发表期次，另有6月15日不同作者的讲座接受记述；不宣称完整连载、师承、实际授课细节或最早传播日期。TW-OPEN-0038、0035、0037均保留。1306=647+659／239片，图474/375，Matrix222/222，38风险含五P0，核心CLOSED。下一单元回到独立可定年民国紫微实务及港台出版/实践传播。

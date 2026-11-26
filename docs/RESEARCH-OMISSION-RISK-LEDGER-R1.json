@@ -12,8 +12,8 @@
   "binding": {
     "repository": "chinaneedM/ziwei-bazi-model",
     "branch": "agent/fusion-chart-core-r1-20260822",
-    "reviewed_state_version": "1.1493.0",
-    "source_focus_count": 3189,
+    "reviewed_state_version": "1.1494.0",
+    "source_focus_count": 3190,
     "latest_research_focus_prefix": "13ZZ"
   },
   "coverage_axes": [
@@ -15367,11 +15367,12 @@
       "origin": "15DT provisional breadth checkpoint",
       "source_refs": [
         "docs/research/TIANWEN-15DT-SINGAPORE-1994-ZIWEI-COLUMN-LECTURE-CHECKPOINT-R1.md",
-        "docs/research/TIANWEN-15DT-SINGAPORE-1994-ZIWEI-COLUMN-LECTURE-SOURCE-SHARD-R1.json"
+        "docs/research/TIANWEN-15DT-SINGAPORE-1994-ZIWEI-COLUMN-LECTURE-SOURCE-SHARD-R1.json",
+        "docs/research/TIANWEN-15DT-SINGAPORE-1994-ZIWEI-COLUMN-SUPPLEMENT-SOURCE-SHARD-R1.json"
       ],
-      "evidence_boundary": "原四期全库查重和语义裁决完成，按有限馆方索引/OCR入库；新定位三期同名专栏尚未全库查重，七期均无原报像素及完整正文。",
-      "missing_evidence": "新增三期全库查重和语义核查；七期原报图/完整正文、专栏起止与其他期次、讲座地点日期及内容、15BE 2000页位差异。",
-      "next_action": "领取与新manifest绑定的三期补充查询；仅合法免费免账号原页；不依标题/OCR立师承或精确术式。",
+      "evidence_boundary": "七个不同同期报纸期次完成绑定全库字面查询及语义核查；六期同作者专栏及一则不同作者讲座接受记述按有限索引/OCR入库，均无原报像素及完整正文。",
+      "missing_evidence": "七期原报图/完整正文、专栏起止与其他期次、讲座地点日期及内容、15BE 2000页位差异。",
+      "next_action": "仅合法免费免账号原页；核查专栏完整序列、独立讲座上下文和15BE页位差异；不依标题/OCR立师承或精确术式。",
       "closure_criteria": "定位并核实原报图/文字及其日期、栏目、实际叙事范围，区分同作者连续出版与独立接受证据；不凭表面术语推断直接师承。",
       "matrix_rule_ids": [],
       "resolution_evidence": [],
@@ -15401,6 +15402,25 @@
           "evidence_refs": [
             "docs/research/TIANWEN-15DT-SINGAPORE-1994-ZIWEI-COLUMN-LECTURE-CHECKPOINT-R1.md",
             "docs/research/TIANWEN-15DT-SINGAPORE-1994-ZIWEI-COLUMN-LECTURE-SOURCE-SHARD-R1.json"
+          ]
+        },
+        {
+          "event": "EVIDENCE_SCOPE_REVISION",
+          "date": "2026-11-26",
+          "changed_fields": [
+            "evidence_boundary",
+            "missing_evidence",
+            "next_action"
+          ],
+          "previous_fields": {
+            "evidence_boundary": "原四期全库查重和语义裁决完成，按有限馆方索引/OCR入库；新定位三期同名专栏尚未全库查重，七期均无原报像素及完整正文。",
+            "missing_evidence": "新增三期全库查重和语义核查；七期原报图/完整正文、专栏起止与其他期次、讲座地点日期及内容、15BE 2000页位差异。",
+            "next_action": "领取与新manifest绑定的三期补充查询；仅合法免费免账号原页；不依标题/OCR立师承或精确术式。"
+          },
+          "reason": "Exact-HEAD full query plus same-author distinct issue semantic review; three new bounded issue sources admitted, original-page gaps retained.",
+          "evidence_refs": [
+            "docs/research/TIANWEN-15DT-SINGAPORE-1994-ZIWEI-COLUMN-LECTURE-CHECKPOINT-R1.md",
+            "docs/research/TIANWEN-15DT-SINGAPORE-1994-ZIWEI-COLUMN-SUPPLEMENT-SOURCE-SHARD-R1.json"
           ]
         }
       ]
@@ -38816,6 +38836,75 @@
           "scope": "TW-OPEN-0035",
           "status": "OPEN",
           "next_evidence": "同期上海命馆/广告/明确术式原件、香港印章命书的物理身份及制作日期、2009原刊与2012修订对照、授课和传承的独立证据。"
+        }
+      ]
+    },
+    {
+      "id": "TW-CHECKPOINT-15DT-SUPPLEMENT-ADMITTED-20261126",
+      "date": "2026-11-26",
+      "state_version": "1.1494.0",
+      "reviewed_issue_ids": [
+        "TW-OPEN-0001",
+        "TW-OPEN-0002",
+        "TW-OPEN-0003",
+        "TW-OPEN-0004",
+        "TW-OPEN-0005",
+        "TW-OPEN-0006",
+        "TW-OPEN-0007",
+        "TW-OPEN-0008",
+        "TW-OPEN-0009",
+        "TW-OPEN-0010",
+        "TW-OPEN-0011",
+        "TW-OPEN-0012",
+        "TW-OPEN-0013",
+        "TW-OPEN-0014",
+        "TW-OPEN-0015",
+        "TW-OPEN-0016",
+        "TW-OPEN-0017",
+        "TW-OPEN-0018",
+        "TW-OPEN-0019",
+        "TW-OPEN-0020",
+        "TW-OPEN-0021",
+        "TW-OPEN-0022",
+        "TW-OPEN-0023",
+        "TW-OPEN-0024",
+        "TW-OPEN-0025",
+        "TW-OPEN-0026",
+        "TW-OPEN-0027",
+        "TW-OPEN-0028",
+        "TW-OPEN-0029",
+        "TW-OPEN-0030",
+        "TW-OPEN-0031",
+        "TW-OPEN-0032",
+        "TW-OPEN-0033",
+        "TW-OPEN-0034",
+        "TW-OPEN-0035",
+        "TW-OPEN-0036",
+        "TW-OPEN-0037",
+        "TW-OPEN-0038"
+      ],
+      "discovery_mode": "BREADTH_FIRST_HISTORICAL_PRACTICE",
+      "result": "13ZZ CURRENT ACTION AFTER 15DT SUPPLEMENT ADMISSION: exact-HEAD 15-term full query PASS 239 files/1303 sources, one prior same-column shard hit only; three distinct dated NLB issue records Oct24, Nov10, Nov27 admitted as bounded index/OCR, not original pages or lineage. Six registered Li Fo column issues July14-Nov27 plus one separate June15 lecture reception mention; not complete run or six independent lineage witnesses. TW-OPEN-0038, 0035, 0037 remain OPEN. Sources1306/239 shards, graph474/375, Matrix222/222, 38 risks incl five P0, core CLOSED. NEXT independent dated Republican Ziwei practice and Hong Kong/Taiwan regional publishing/practice; preserve original-page gaps.",
+      "evidence_refs": [
+        "docs/research/TIANWEN-15DT-SINGAPORE-1994-ZIWEI-COLUMN-LECTURE-CHECKPOINT-R1.md",
+        "docs/research/TIANWEN-15DT-SINGAPORE-1994-ZIWEI-COLUMN-LECTURE-SOURCE-SHARD-R1.json",
+        "docs/research/TIANWEN-15DT-SINGAPORE-1994-ZIWEI-COLUMN-SUPPLEMENT-SOURCE-SHARD-R1.json"
+      ],
+      "unresolved_breadth_leads": [
+        {
+          "scope": "TW-OPEN-0038",
+          "status": "OPEN",
+          "next_evidence": "七期原报图/完整正文、专栏起止与其他期次、讲座地点日期及内容、15BE 2000页位差异。"
+        },
+        {
+          "scope": "TW-OPEN-0035",
+          "status": "OPEN",
+          "next_evidence": "同期上海命馆/广告/明确术式原件、香港印章命书的物理身份及制作日期、2009原刊与2012修订对照、授课和传承的独立证据。"
+        },
+        {
+          "scope": "TW-OPEN-0037",
+          "status": "OPEN",
+          "next_evidence": "三篇原刊正文及页图，访谈、个案与商业媒体叙事的实际内容及传播边界；同刊及其他传播材料的独立证据。"
         }
       ]
     }
