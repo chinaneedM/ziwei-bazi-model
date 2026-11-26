@@ -21,3 +21,9 @@
 ## 四、下一步
 
 15DY保留上述目录版本与民国再刊旁证，启动绑定当前manifest的全库字面查询；须补读匹配对象语义去重，目标原页未核不得升格。正式来源1319（647+672／243分片）、42开放风险（含五项P0）、Matrix222/222、图474/375、核心CLOSED不变。下一步仍以独立同期实践证据为重点，附带完成这一有材料的出版传播节点；不展开单一原本校勘深研。
+
+## 五、15DY正式准入（2026-11-26）
+
+父HEAD `6c31a0f4c2930c0bd019c08b4ef25f0455c2db04`、tree `cc9c464c86f540b8339adf91ca6343fc8210fa7f`；[精确HEAD连续性CI run45817793951](https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/45817793951)，job139901909934；62项原遗漏测试和7项R2测试通过。query_id=15DY-wanjuantang-1903-1919-republication-dedup-r2-20261126，checkpoint_id=TW-CHECKPOINT-15DY-PROVISIONAL-20261126，request blob `7eb6643931dfa0ce3b449bcaabdc211bc05781ad`，manifest blob `e9279b1e89f2c06bb4b7f8bf7b7ae7f0d3496f5f`，verifier blob `3387254ce53ec0a1f1a3b779291e0c40997bf190`。status=PASS，scope=ALL_REGISTERED_ROOT_AND_SHARDS_LITERAL_ONLY，files244、records1319、matching_files1（root blob ea2ab50479450c39ce3fc7a00ea91cd713bf4a60）、truncated=false；20词中04979、7502.pdf各1，其余18词0。复核命中记录：04979为无关CADAL06049792《虎鈐經》编号子串，7502.pdf为既登记EXT-NCKU-CHEN-2021-ZIWEI-EDITION-GENEALOGY，不重复准入。该查询非语义或外部资料穷尽。父HEAD其余工作流统计106成功、161排队、16运行，无已知失败，未全绿。
+
+重新打开NCL04979及两条CiNii详目，核对书号、藏书文库、书志日期与刊记转录。大木24-12与仓石20723:2有不同条码、装帧集合及印记描述；只登记两个馆藏目录定位，不推定不同刊刻系统；大木条目中1902刊记属于《絳雲樓書目補遺》，不得移用于《萬卷堂書目》。正式准入三条BIBLIOGRAPHIC_METADATA_ONLY来源（分片 docs/research/TIANWEN-15DY-WANJUANTANG-CATALOGUE-SOURCE-SHARD-R1.json），不额外登记同件Commons替身、不登记未绑定的电子录文和1826物件。目录所报1570序与清钞本、1903刊记、1919母书出版事项分别记录；尚无八卷题名原页、独立物件/印次核读、机械规则或师承证据。新增TW-OPEN-0043保留目标原页及版本身份问题；不修改此前问题，五P0保持开放。1322来源（647+675／244片），43开放风险，Matrix222/222，图474/375，核心CLOSED。准入后全库请求绑定新manifest，待精确HEAD CI重验。下一步为独立定年民国实务及地区印刷/报刊证据。

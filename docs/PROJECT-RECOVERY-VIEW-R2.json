@@ -2,14 +2,14 @@
   "schema": "TIANWEN-CONTEXT-RECOVERY-VIEW-R2",
   "authority": "DERIVED_ONLY",
   "bindings": {
-    "docs/PROJECT-CURRENT-STATE-R1.json": "1db04438791d49e2adbdddec657734793b700fa5",
-    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "66b640443482957217b87273d399b835dc3c55fe",
-    "docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json": "e9279b1e89f2c06bb4b7f8bf7b7ae7f0d3496f5f",
+    "docs/PROJECT-CURRENT-STATE-R1.json": "ed5c6f3f32a4312b46bd01a73d83c93181f293e1",
+    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "d2980b6e260480e1aabad7d246020e1260407e2e",
+    "docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json": "56279401774cae5a2f799affef2c8a7a147c4ce8",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json": "ea2ab50479450c39ce3fc7a00ea91cd713bf4a60",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json": "5919e1b6bbc3c4b150507c41a13ccc9e13d20f17",
     "docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json": "40d5988bcae7071b761e8a03a249c7e972e8bf46"
   },
-  "state_version": "1.1502.0",
+  "state_version": "1.1503.0",
   "stage": "FUSION_CHART_HISTORICAL_PROVENANCE_AND_SCHOOL_AUDIT_R1",
   "invariants": {
     "deterministic_fusion_chart_product_r1": "CLOSED",
@@ -23,28 +23,28 @@
     "matrix_rows": 222,
     "matrix_audited": 222,
     "root_sources": 647,
-    "extension_sources": 672,
-    "total_sources": 1319,
-    "shards": 243,
+    "extension_sources": 675,
+    "total_sources": 1322,
+    "shards": 244,
     "graph_nodes": 474,
     "graph_edges": 375,
-    "open_issues": 42,
+    "open_issues": 43,
     "p0": 5
   },
   "phase": "BREADTH_FIRST_TWO_SYSTEM_HISTORICAL_FRAMEWORK_R1",
-  "next_deliverable": "核收15DY全库查重，审定1570书目序、清钞本、1903叶氏刊本及1919重编馆藏证据的同一性与准入范围；继续独立可定年民国紫微实务、从业及报刊记录。",
+  "next_deliverable": "继续寻找可独立定年的民国紫微命例、从业者和区域报刊传播证据；核收15DY准入后的全库检索与精确HEAD门禁，保留万卷堂目录目标原叶及八卷书实物身份未决。",
   "latest_matrix_batch": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-FIRSTPARTY-AND-OLD20-ATLAS-QD.md",
   "latest_breadth_batch": "docs/research/TIANWEN-15DY-WANJUANTANG-1570-1919-CATALOGUE-REPUBLICATION-CHECKPOINT-R1.md",
   "checkpoint": {
-    "id": "TW-CHECKPOINT-15DY-PROVISIONAL-20261126",
+    "id": "TW-CHECKPOINT-15DY-ADMITTED-20261126",
     "evidence_refs": [
       "docs/research/TIANWEN-15DY-WANJUANTANG-1570-1919-CATALOGUE-REPUBLICATION-CHECKPOINT-R1.md",
-      "docs/research/TIANWEN-15DX-REPUBLICAN-ZIWEI-BAOWENTANG-SANYOUTANG-CHECKPOINT-R1.md"
+      "docs/research/TIANWEN-15DY-WANJUANTANG-CATALOGUE-SOURCE-SHARD-R1.json"
     ]
   },
   "focus": {
-    "index": 3197,
-    "text": "13ZZ CURRENT ACTION AFTER 15DY PROVISIONAL: 15DX admission exact-HEAD continuity CI and bound registry recheck PASS 244 files/1319 records/18 terms, one new shard only, no truncation; other Actions 227 success/42 queued/16 running at inspection. Adjacent dated Republican re-publication lead: CiNii BD01599249 and BC0440753X Tokyo Univ IASA holdings Kuraishi 20723:2 6403953992 and Oki 24-12 6403755736, parent 1919 and reported leaf 1903; do not date individual impression or target title from parent metadata alone. NCL04979 Qing manuscript catalog cites 1570 preface and Zhang Ji note, target eight-juan title received transcription separately corroborated by Shidian NGJ892001929162317368 chapter3 and CADAL02091194 index; large NCL04979/109216 PDFs screenshots blocked, target original folio unverified. Exclude false indexed 1916 Jing Shi Education Report title after direct screenshot; Waseda he16_02426/26 mismatched topic unverified, no admission. 2015 forum attribution Nanbei Shanren not evidence of pre-1949 practice. Pending full registry literal query and semantic identity review, no source/graph/count change. All 42 issues incl five P0 retained. NEXT check 15DY query; pursue independently dated Republican practice and regional media.",
+    "index": 3198,
+    "text": "13ZZ CURRENT ACTION AFTER 15DY ADMISSION: parent exact-HEAD continuity CI PASS, full registry query 244 files/1319 records/20 terms, root only 04979 and 7502.pdf, no truncation. 04979 substring belongs to unrelated CADAL06049792 Huqianjing; Chen 2021 paper already registered EXT-NCKU-CHEN-2021-ZIWEI-EDITION-GENEALOGY. Reopened NCL04979 and CiNii BD01599249/BC0440753X; admit three catalogue records only, no original folio, imprint-instance date, independent ancient witness or lineage. 1570 reported preface, Qing copy, 1903 reported Ye imprint and 1919 parent collection separately scoped. TW-OPEN-0043 retains exact folio/copy/edition and eight-juan book identity gaps; all previous issues and five P0 retained. Sources1322=647+675/244 shards, 43 open, graph474/375, Matrix222/222, core CLOSED. NEXT independent dated Republican practice and regional print/media; verify post-admission registry and exact-HEAD gates.",
     "truncated": false
   },
   "p0": [
