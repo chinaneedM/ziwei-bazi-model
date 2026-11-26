@@ -12,8 +12,8 @@
   "binding": {
     "repository": "chinaneedM/ziwei-bazi-model",
     "branch": "agent/fusion-chart-core-r1-20260822",
-    "reviewed_state_version": "1.1500.0",
-    "source_focus_count": 3196,
+    "reviewed_state_version": "1.1501.0",
+    "source_focus_count": 3197,
     "latest_research_focus_prefix": "13ZZ"
   },
   "coverage_axes": [
@@ -15536,6 +15536,64 @@
           "evidence_refs": [
             "docs/research/TIANWEN-15DW-REPUBLICAN-DAOZANG-AND-HKPL-COLLECTION-CHECKPOINT-R1.md",
             "docs/research/TIANWEN-15DW-REPUBLICAN-DAOZANG-REPRINT-SOURCE-SHARD-R1.json"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "TW-OPEN-0041",
+      "title": "1929北平《晁氏寶文堂書目》再刊底本及明代目录关系",
+      "priority": "P1",
+      "scope": "NLC404-01J000024-72809 dated bibliography publication, printed p405",
+      "status": "OPEN",
+      "origin": "15DX admitted breadth checkpoint",
+      "source_refs": [
+        "docs/research/TIANWEN-15DX-REPUBLICAN-ZIWEI-BAOWENTANG-SANYOUTANG-CHECKPOINT-R1.md",
+        "docs/research/TIANWEN-15DX-REPUBLICAN-ZIWEI-CATALOGUES-SOURCE-SHARD-R1.json"
+      ],
+      "evidence_boundary": "1929年9月原刊封面和印页405题名可见；只证明该次刊载，不证明1929年实务或独立明代底本。",
+      "missing_evidence": "刊载序跋、所据底本和明代书目各传本之关系。",
+      "next_action": "以公开原刊及可绑定更早书目传本核对刊载说明与目标题名。",
+      "closure_criteria": "核定底本与传本身份、版本关系并保存可重放证据；不据再刊推论独立传承。",
+      "matrix_rule_ids": [],
+      "resolution_evidence": [],
+      "history": [
+        {
+          "event": "REGISTERED_UNRESOLVED",
+          "date": "2026-11-26",
+          "basis": "Exact-HEAD full registry query PASS (243 files / 1317 records / 18 terms / zero matches); separate periodical and sale-catalogue original surrogate pages rechecked; actual underlying edition identity unresolved.",
+          "evidence_refs": [
+            "docs/research/TIANWEN-15DX-REPUBLICAN-ZIWEI-BAOWENTANG-SANYOUTANG-CHECKPOINT-R1.md",
+            "docs/research/TIANWEN-15DX-REPUBLICAN-ZIWEI-CATALOGUES-SOURCE-SHARD-R1.json"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "TW-OPEN-0042",
+      "title": "1937三友堂书目1610号《紫微斗數》六卷实物、版次与流通关系",
+      "priority": "P1",
+      "scope": "NLC511-023031404016073-52526 March 1937 sale catalogue printed p129 item1610",
+      "status": "OPEN",
+      "origin": "15DX admitted breadth checkpoint",
+      "source_refs": [
+        "docs/research/TIANWEN-15DX-REPUBLICAN-ZIWEI-BAOWENTANG-SANYOUTANG-CHECKPOINT-R1.md",
+        "docs/research/TIANWEN-15DX-REPUBLICAN-ZIWEI-CATALOGUES-SOURCE-SHARD-R1.json"
+      ],
+      "evidence_boundary": "可核同期售书目录，题名、六卷、署宋陈希夷、小板、竹纸四本、八角；目录日期并非所列书刊刻日期，不证明实际成交。",
+      "missing_evidence": "六卷本书端、刊记、原叶、实物及版次；书商同期地址或销售/购藏记录。",
+      "next_action": "合法免费免账号搜索同店其他期目录、书端、馆藏记录、购买或藏书记录；保持目录与实物分层。",
+      "closure_criteria": "以原页和版次/物件绑定识别目标书，独立核实交易或流通范围；未获相应证据保留开放。",
+      "matrix_rule_ids": [],
+      "resolution_evidence": [],
+      "history": [
+        {
+          "event": "REGISTERED_UNRESOLVED",
+          "date": "2026-11-26",
+          "basis": "Exact-HEAD full registry query PASS (243 files / 1317 records / 18 terms / zero matches); separate periodical and sale-catalogue original surrogate pages rechecked; actual underlying edition identity unresolved.",
+          "evidence_refs": [
+            "docs/research/TIANWEN-15DX-REPUBLICAN-ZIWEI-BAOWENTANG-SANYOUTANG-CHECKPOINT-R1.md",
+            "docs/research/TIANWEN-15DX-REPUBLICAN-ZIWEI-CATALOGUES-SOURCE-SHARD-R1.json"
           ]
         }
       ]
@@ -39464,6 +39522,88 @@
           "scope": "15DX-1937-SANYOUTANG",
           "status": "OPEN",
           "next_evidence": "全库去重、六卷本书端刊记、实物身份及原叶；销售目录不等于成交或师承。"
+        }
+      ]
+    },
+    {
+      "id": "TW-CHECKPOINT-15DX-ADMITTED-20261126",
+      "date": "2026-11-26",
+      "state_version": "1.1501.0",
+      "reviewed_issue_ids": [
+        "TW-OPEN-0001",
+        "TW-OPEN-0002",
+        "TW-OPEN-0003",
+        "TW-OPEN-0004",
+        "TW-OPEN-0005",
+        "TW-OPEN-0006",
+        "TW-OPEN-0007",
+        "TW-OPEN-0008",
+        "TW-OPEN-0009",
+        "TW-OPEN-0010",
+        "TW-OPEN-0011",
+        "TW-OPEN-0012",
+        "TW-OPEN-0013",
+        "TW-OPEN-0014",
+        "TW-OPEN-0015",
+        "TW-OPEN-0016",
+        "TW-OPEN-0017",
+        "TW-OPEN-0018",
+        "TW-OPEN-0019",
+        "TW-OPEN-0020",
+        "TW-OPEN-0021",
+        "TW-OPEN-0022",
+        "TW-OPEN-0023",
+        "TW-OPEN-0024",
+        "TW-OPEN-0025",
+        "TW-OPEN-0026",
+        "TW-OPEN-0027",
+        "TW-OPEN-0028",
+        "TW-OPEN-0029",
+        "TW-OPEN-0030",
+        "TW-OPEN-0031",
+        "TW-OPEN-0032",
+        "TW-OPEN-0033",
+        "TW-OPEN-0034",
+        "TW-OPEN-0035",
+        "TW-OPEN-0036",
+        "TW-OPEN-0037",
+        "TW-OPEN-0038",
+        "TW-OPEN-0039",
+        "TW-OPEN-0040",
+        "TW-OPEN-0041",
+        "TW-OPEN-0042"
+      ],
+      "discovery_mode": "BREADTH_FIRST_HISTORICAL_PRACTICE",
+      "result": "13ZZ CURRENT ACTION AFTER 15DX ADMISSION: exact provisional HEAD continuity CI PASS, bound full registry query 243 files/1317 records/18 terms/zero hits/no truncation; independently rechecked 1929 Beiping monthly index0/110 and 1937 Sanyoutang catalogue index0/1/129/264/265. Admit two distinct Republican bibliographic publication objects, not target Ziwei rule glyph witnesses or actual sold copies; no lineage inferred. 1937 item1610 six juan, Chen Xiyi attribution, small blocks, bamboo paper four books, eight jiao; index0 Chen Yuan name/signature, no authorship inference. TW-OPEN-0041/0042 track underlying Ming catalogue and 1937 book identity/location. Sources1319=647+672/243 shards, 42 open incl five P0; graph474/375, Matrix222/222, core CLOSED. Previous head 284/285 success, clean-training-system still running. NEXT independent dated Republican practitioner/press and regional circulation original evidence; post-admission query/CI pending.",
+      "evidence_refs": [
+        "docs/research/TIANWEN-15DX-REPUBLICAN-ZIWEI-BAOWENTANG-SANYOUTANG-CHECKPOINT-R1.md",
+        "docs/research/TIANWEN-15DX-REPUBLICAN-ZIWEI-CATALOGUES-SOURCE-SHARD-R1.json"
+      ],
+      "unresolved_breadth_leads": [
+        {
+          "scope": "TW-OPEN-0026",
+          "status": "OPEN",
+          "next_evidence": "可绑定版次和具体藏本的1948书端、刊记、发行记录；各序文字与署名来源、2021复刻底本身份；与灯市口婚例、宣化来平个案等独立对应的同期文献或原命盘。"
+        },
+        {
+          "scope": "TW-OPEN-0036",
+          "status": "OPEN",
+          "next_evidence": "各书原刊记/版本及馆藏条码；1986港台同作者不同题名、1993–95梁氏教材的实际版本及独立实物；具体购入/入藏时点若有公开证据。"
+        },
+        {
+          "scope": "TW-OPEN-0040",
+          "status": "OPEN",
+          "next_evidence": "目标物件原书端、刊记、册号及可绑定的原叶；与其他道藏影印/更早版本之物理身份与文本关系。"
+        },
+        {
+          "scope": "TW-OPEN-0041",
+          "status": "OPEN",
+          "next_evidence": "刊载序跋、所据底本和明代书目各传本之关系。"
+        },
+        {
+          "scope": "TW-OPEN-0042",
+          "status": "OPEN",
+          "next_evidence": "六卷本书端、刊记、原叶、实物及版次；书商同期地址或销售/购藏记录。"
         }
       ]
     }

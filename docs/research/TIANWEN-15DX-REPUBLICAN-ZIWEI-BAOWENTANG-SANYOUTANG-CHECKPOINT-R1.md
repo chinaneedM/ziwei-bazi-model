@@ -20,3 +20,11 @@
 ## 3. 查重与准入界限
 
 两份原刊扫描及目标页已定位；提交绑定现有manifest的R2字面检索，须在精确HEAD CI取得结果后核对所有命中、区分同一刊物数字替身、明代目录原作及民国再刊、书商所列书与实物。若已有同一对象，复用并追加原页定位，不重复计数。保留本检查点未决线索，不增加正式来源、图谱节点/边或关闭风险。40项开放问题、五项P0、Matrix222/222、来源1317（647+670／242片）、图474/375及核心CLOSED不变。TW-OPEN-0026、0036、0040保留。下一步先核收查重，按原页证据范围准入或排除，再继续独立民国实务史料。
+
+## 4. 15DX正式准入及复核（2026-11-26）
+
+父HEAD `b130304fbc7a935af45147755d349f408fc05349`、tree `c5bb8104489ad465816a6d27afb10b133f8ac6c9`。[连续性CI run45815822649](https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/45815822649)，job139895161107，实际日志 query_id=15DX-republican-baowentang-sanyoutang-dedup-r2-20261126，checkpoint_id=TW-CHECKPOINT-15DX-PROVISIONAL-20261126，request blob `e88f4ed003b23afbd2368cd0e5d4aabe3a12fa51`，manifest blob `5de85305cacc949751aa29c4fd6137db1166e475`，verifier script blob `3387254ce53ec0a1f1a3b779291e0c40997bf190`。status=PASS，scope=ALL_REGISTERED_ROOT_AND_SHARDS_LITERAL_ONLY，files243、records1317、matching_files0、18个原请求词逐词均0、hits=[]、truncated=false。该结果是完整登记库字面查询，不宣称外部史料穷尽；两个候选不同刊物、不同刊期及数字物件号，不是彼此重复，也不将明代原目录与1929重刊视为两个独立明代证人。父HEAD全285项复核284成功，clean-training-system run45815825330仍运行，无已知失败。
+
+再次打开两份原刊扫描：1929 PDF p0与p110；1937 PDF p1与p129；关键原字与编号重核相符。另见1937 p0封面署“陳垣”及印章，仅支持封面题签署名，不能认定陈垣编写书目、拥有该斗数书或从事命理。p264为末页补目，p265为封底，所查页未见地址，不作整刊无地址结论。1936年第二期[后出目录](https://www.guoxuedashi.com/shumu/gj-3045324vk.html)著录北平三友堂；2006年[书业回顾](https://news.sina.cn/sa/2006-05-22/detail-ikknscsk0254464.d.html)称其与文奎堂比邻、经营者高新元；仅作北平区域待核旁证，尚未核当年营业地址、同期账簿或第二期原页，二者不单独准入、不新增师承边。
+
+正式准入两个独立**出版目录对象**，仅以目录级权威登记（BIBLIOGRAPHIC_METADATA_ONLY，physical_glyph_authority=false），虽核见目录原图，不是目标紫微术书原页，更无完整PDF及原页独立哈希，故不升级机械规则证据等级。新增分片 `docs/research/TIANWEN-15DX-REPUBLICAN-ZIWEI-CATALOGUES-SOURCE-SHARD-R1.json`；新风险TW-OPEN-0041、0042分别保留明代目录底本和1937六卷本及交易/地点身份，五P0和此前全部开放项不变。来源1319=647+672／243片，风险42，Matrix222/222，图474/375，确定性核心CLOSED。新请求与准入后manifest绑定，待本HEAD精确CI重验。

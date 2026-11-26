@@ -2,14 +2,14 @@
   "schema": "TIANWEN-CONTEXT-RECOVERY-VIEW-R2",
   "authority": "DERIVED_ONLY",
   "bindings": {
-    "docs/PROJECT-CURRENT-STATE-R1.json": "1dcffe970e2a0d98ca63b4ba95984f2641ed87bf",
-    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "5e3c952ca6044961547f97e8e47a1ca11ea741e4",
-    "docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json": "5de85305cacc949751aa29c4fd6137db1166e475",
+    "docs/PROJECT-CURRENT-STATE-R1.json": "5d206082dfddc3c618e4505e3492426f40f62920",
+    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "0e791567410281a81a0f661fc1bf387136135bab",
+    "docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json": "e9279b1e89f2c06bb4b7f8bf7b7ae7f0d3496f5f",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json": "ea2ab50479450c39ce3fc7a00ea91cd713bf4a60",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json": "5919e1b6bbc3c4b150507c41a13ccc9e13d20f17",
     "docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json": "40d5988bcae7071b761e8a03a249c7e972e8bf46"
   },
-  "state_version": "1.1500.0",
+  "state_version": "1.1501.0",
   "stage": "FUSION_CHART_HISTORICAL_PROVENANCE_AND_SCHOOL_AUDIT_R1",
   "invariants": {
     "deterministic_fusion_chart_product_r1": "CLOSED",
@@ -23,28 +23,28 @@
     "matrix_rows": 222,
     "matrix_audited": 222,
     "root_sources": 647,
-    "extension_sources": 670,
-    "total_sources": 1317,
-    "shards": 242,
+    "extension_sources": 672,
+    "total_sources": 1319,
+    "shards": 243,
     "graph_nodes": 474,
     "graph_edges": 375,
-    "open_issues": 40,
+    "open_issues": 42,
     "p0": 5
   },
   "phase": "BREADTH_FIRST_TWO_SYSTEM_HISTORICAL_FRAMEWORK_R1",
-  "next_deliverable": "核收15DX绑定全库查重结果，辨明1929书目再刊与1937三友堂售书目录是否为已登记对象，分级准入；继续民国紫微实务及地区出版/报刊原始证据。",
+  "next_deliverable": "继续民国紫微斗数可独立定年的实际命例、从业者及报刊传播证据；兼查北平三友堂其他期书目、六卷本实物及同期交易记录，保留1929书目底本和1937版次边界。",
   "latest_matrix_batch": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-FIRSTPARTY-AND-OLD20-ATLAS-QD.md",
   "latest_breadth_batch": "docs/research/TIANWEN-15DX-REPUBLICAN-ZIWEI-BAOWENTANG-SANYOUTANG-CHECKPOINT-R1.md",
   "checkpoint": {
-    "id": "TW-CHECKPOINT-15DX-PROVISIONAL-20261126",
+    "id": "TW-CHECKPOINT-15DX-ADMITTED-20261126",
     "evidence_refs": [
       "docs/research/TIANWEN-15DX-REPUBLICAN-ZIWEI-BAOWENTANG-SANYOUTANG-CHECKPOINT-R1.md",
-      "docs/research/TIANWEN-15DW-REPUBLICAN-DAOZANG-AND-HKPL-COLLECTION-CHECKPOINT-R1.md"
+      "docs/research/TIANWEN-15DX-REPUBLICAN-ZIWEI-CATALOGUES-SOURCE-SHARD-R1.json"
     ]
   },
   "focus": {
-    "index": 3195,
-    "text": "13ZZ CURRENT ACTION AFTER 15DX PROVISIONAL: 15DW exact-HEAD continuity CI and full bound registry query PASS (243 files/1317 records, seven matches, no truncation); clean-training-system still running at inspection. 15DX directly inspected two dated Republican catalogue-publication objects: Sep 1929 National Beiping Library monthly vol3 no3 printed p405 PDF index110, Ming Chao Bao Wen Tang bibliography lists 紫微斗數; Mar 1937 Sanyoutang catalogue issue3 printed p129 PDF index129 item1610 紫微斗數六卷, Song Chen Xiyi attribution, small blocks, bamboo paper four books, eight jiao. Correct automated item1910/year misreading. 1929 re-publication is not contemporary practice; 1937 sale-list evidence is not proof of actual sale, edition date, physical survival, rule family or lineage. Both pending full registry literal query and semantic identity review; no admission/count/graph change. All 40 issues incl five P0 reviewed; preserve 0026/0036/0040. Core CLOSED. NEXT inspect bound exact-HEAD query and adjudicate candidates, then independent dated Republican practice and regional print/media.",
+    "index": 3196,
+    "text": "13ZZ CURRENT ACTION AFTER 15DX ADMISSION: exact provisional HEAD continuity CI PASS, bound full registry query 243 files/1317 records/18 terms/zero hits/no truncation; independently rechecked 1929 Beiping monthly index0/110 and 1937 Sanyoutang catalogue index0/1/129/264/265. Admit two distinct Republican bibliographic publication objects, not target Ziwei rule glyph witnesses or actual sold copies; no lineage inferred. 1937 item1610 six juan, Chen Xiyi attribution, small blocks, bamboo paper four books, eight jiao; index0 Chen Yuan name/signature, no authorship inference. TW-OPEN-0041/0042 track underlying Ming catalogue and 1937 book identity/location. Sources1319=647+672/243 shards, 42 open incl five P0; graph474/375, Matrix222/222, core CLOSED. Previous head 284/285 success, clean-training-system still running. NEXT independent dated Republican practitioner/press and regional circulation original evidence; post-admission query/CI pending.",
     "truncated": false
   },
   "p0": [
