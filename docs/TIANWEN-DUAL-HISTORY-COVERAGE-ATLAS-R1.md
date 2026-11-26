@@ -1407,3 +1407,7 @@ B：Commons备份目录载体著录1926及出版者异名；D：目标广告网�
 ### 15DM｜战后命理回忆出版与术式分类线索（B/C层）
 
 B：澳门大学1963-/1965-两馆目、Google Books 1963第二卷；C：现代出版者追述星数/子平分类及署名变迁。独立1980书目提示《知命識相五十年》题名异于重刊说明，但未获原序。两术同期实务覆盖不升级，新增3条来源，1286=647+639／232片，图468/375、Matrix222/222、31风险含五P0、核心CLOSED；TW-OPEN-0031仍OPEN。见[15DM](research/TIANWEN-15DM-QI-DONGYE-NATAL-REMINISCENCE-R1.md)。
+
+### 15DN｜民国子平编辑与出版广告（有界书影）
+
+1937序及镜像书影见补书自述、广告与月令表；1955香港馆目、2015重刊说明为比较线索，非独立原本/直传证明。紫微实践格不升级；一条来源入库，1287=647+640／233片；图468/375、Matrix222/222、32风险含五P0、核心CLOSED。TW-OPEN-0032 OPEN。[15DN](research/TIANWEN-15DN-REPUBLICAN-QIONGTONG-BAOJIAN-XUPING-PUBLISHING-R1.md)。
