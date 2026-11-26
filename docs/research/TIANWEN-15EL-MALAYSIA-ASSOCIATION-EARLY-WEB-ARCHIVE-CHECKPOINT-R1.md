@@ -18,3 +18,9 @@
 - 1999年前马来西亚独立明确紫微同期文献仍未取得；一般算命与四柱/紫微、当地出版/藏书与实际教学地点严格分层。网络候选晚于目标年，不作为其替代。现阶段不声称最早年份，不改排盘。
 
 发起15EL全库字面查询，针对各机构名、帖子ID、书目ISBN及档案入口进行查重，随后作语义辨重与限级准入。开放TW-OPEN-0047/0048/0050/0051；五P0保留。来源1368=647+721、255分片，图495/375、Matrix222/222、51开放含5P0；确定性核心CLOSED。
+
+## 15EL 查询领取与有限准入（2026-11-26）
+
+精确HEAD 0302f0e52076c8deb0099728702e3b7c1b1e6099 [连续性run45848204454](https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/45848204454)，job140007293678 PASS。query_id=15EL-malaysia-association-early-web-archives；checkpoint=TW-CHECKPOINT-15EL-PROVISIONAL-20261126；request blob 2327bf180e9809fdbf0203a2ca311af6c0737109；manifest blob 3097bb7cf1584cee413286965d21ef685d56d75e；script blob 3387254ce53ec0a1f1a3b779291e0c40997bf190。scope ALL_REGISTERED_ROOT_AND_SHARDS_LITERAL_ONLY，256 files/1368 records，matching_files=0，hits=[]，truncated=false，全部17词逐项0：Persatuan I-Ching Malaysia；馬來西亞易經學會；马来西亚易经学会；i-ching.org.my；1332/91；destiny.to/ubbthreads/topic/3369；24552；destiny.to/ubbthreads/topic/7312；65368；Chinese Newspapers in Southeast Asia；digitalgems.nus.edu.sg；集贤图书馆；陳充恩；陈充恩；davidchenlib.org；xsystem.sc.edu.my；9789574335466。六绑定一致；精确连续性成功，其它Actions仍未全部验收。
+
+语义辨重后准入四条：同一机构的简介、理事会两份独立页面（不当两套独立证人），以及不同编号的2001/2002论坛正文对象。直接网页再核见简介1997蒲种分会与一般授课，不能证明1997紫微课；理事会1991–93、1994–95、1996–97、1998–99早期文教/讲学组和2012–13明确八字组，后者不可向前回填。2001发帖/注册日期逆序及2002槟城动态资料边界完整保留；不摘录私人命盘或出生资料。NUS/CMCS档案入口仍为访问线索，不登记无目标原文的额外来源。1999前明确当地紫微同期史料仍未取得。登记见 docs/research/TIANWEN-15EL-MALAYSIA-ASSOCIATION-EARLY-WEB-SOURCE-SHARD-R1.json。源1372=647+725/256 shards，图495/375、Matrix222/222、51 open incl5P0、core CLOSED。随后转15EM，继续独立证据调查。

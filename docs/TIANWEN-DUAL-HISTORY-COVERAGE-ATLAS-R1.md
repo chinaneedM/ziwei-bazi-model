@@ -1490,3 +1490,8 @@ B：澳门大学1963-/1965-两馆目、Google Books 1963第二卷；C：现代�
 ### 15EK｜马来亚历史研究的版本与田野边界（2026-11-26）
 
 1955/1960 Comber馆目确认一般华人术数研究出版史；DeBernardi Stanford序言确认1979–81槟城田野但并非全部观察时间，NUS 2011版与2006原作分开。四项有限来源登记；未读目标算命/八字段落，不据此确认四柱具体实践或1999年前马来西亚紫微传播、师承。参见 [15EK研究检查点](research/TIANWEN-15EK-MALAYA-COMBER-PENANG-ETHNOGRAPHY-CHECKPOINT-R1.md)。
+
+
+### 15EL｜马来西亚社团和早期网络交流（2026-11-26）
+
+学会官网后出沿革及历届理事会资料、2001/2002命理网紫微交流文本共四条有限来源登记。1991注册、1997分会及后出八字课程记载不能证明早期紫微专项教学；论坛时间/地点字段保留限制。另15EM紫微八字学院1990年代机构自述及2002/2007传播线索待查重，不作为同期史实或传承边。参见 [15EL](research/TIANWEN-15EL-MALAYSIA-ASSOCIATION-EARLY-WEB-ARCHIVE-CHECKPOINT-R1.md) 与 [15EM](research/TIANWEN-15EM-MALAYSIA-ZIWEIBAZI-ACADEMY-NEWSPAPER-LEADS-R1.md)。

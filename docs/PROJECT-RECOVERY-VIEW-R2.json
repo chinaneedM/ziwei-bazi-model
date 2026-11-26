@@ -2,14 +2,14 @@
   "schema": "TIANWEN-CONTEXT-RECOVERY-VIEW-R2",
   "authority": "DERIVED_ONLY",
   "bindings": {
-    "docs/PROJECT-CURRENT-STATE-R1.json": "9211ce15de81d7609e88d3ce1c3876d6090f08b3",
-    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "aaa4b78726542a548f669ffea53bac0976825dd4",
-    "docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json": "3097bb7cf1584cee413286965d21ef685d56d75e",
+    "docs/PROJECT-CURRENT-STATE-R1.json": "0ef3b0c5f4c6e41b9cfa164c23598c75cd1604c5",
+    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "cf0300be4b95471106faf8a653428d08665866a3",
+    "docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json": "11520016ffeff777d0f28e92d20347cb5b011e4d",
     "docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json": "280e023bcd6e0625f0dca2fd54d6c9423f286fd5",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json": "5919e1b6bbc3c4b150507c41a13ccc9e13d20f17",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json": "ea2ab50479450c39ce3fc7a00ea91cd713bf4a60"
   },
-  "state_version": "1.1524.0",
+  "state_version": "1.1525.0",
   "stage": "FUSION_CHART_HISTORICAL_PROVENANCE_AND_SCHOOL_AUDIT_R1",
   "invariants": {
     "deterministic_fusion_chart_product_r1": "CLOSED",
@@ -23,28 +23,33 @@
     "matrix_rows": 222,
     "matrix_audited": 222,
     "root_sources": 647,
-    "extension_sources": 721,
-    "total_sources": 1368,
-    "shards": 255,
+    "extension_sources": 725,
+    "total_sources": 1372,
+    "shards": 256,
     "graph_nodes": 495,
     "graph_edges": 375,
     "open_issues": 51,
     "p0": 5
   },
   "phase": "BREADTH_FIRST_TWO_SYSTEM_HISTORICAL_FRAMEWORK_R1",
-  "next_deliverable": "领取15EL全库查询，区分1991马来西亚易经学会后出机构沿革、2001/2002网络同期文本及可变个人资料/签名字段；核对协会早期实际紫微与四柱课程、1999年前独立报刊，并保留集贤剪报和NUS旧报访问边界。",
+  "next_deliverable": "领取15EM全库查询；核对中央风水学院与蕉赖紫微八字学院1980/1990年代机构自述、2008/2010时间分层；2002柔佛网络学习文本、2007佳礼报刊招生转述；寻找原始课程/报刊，避免同主体或后出回顾充作独立早期史实。",
   "latest_matrix_batch": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-FIRSTPARTY-AND-OLD20-ATLAS-QD.md",
-  "latest_breadth_batch": "docs/research/TIANWEN-15EL-MALAYSIA-ASSOCIATION-EARLY-WEB-ARCHIVE-CHECKPOINT-R1.md",
+  "latest_breadth_batch": "docs/research/TIANWEN-15EM-MALAYSIA-ZIWEIBAZI-ACADEMY-NEWSPAPER-LEADS-R1.md",
   "checkpoint": {
-    "id": "TW-CHECKPOINT-15EL-PROVISIONAL-20261126",
+    "id": "TW-CHECKPOINT-15EL-ADMITTED-15EM-PROVISIONAL-20261126",
     "evidence_refs": [
       "docs/research/TIANWEN-15EL-MALAYSIA-ASSOCIATION-EARLY-WEB-ARCHIVE-CHECKPOINT-R1.md",
-      "docs/PROJECT-REGISTRY-QUERY-R2.json"
+      "docs/research/TIANWEN-15EL-MALAYSIA-ASSOCIATION-EARLY-WEB-SOURCE-SHARD-R1.json",
+      "docs/research/TIANWEN-15EM-MALAYSIA-ZIWEIBAZI-ACADEMY-NEWSPAPER-LEADS-R1.md",
+      "docs/PROJECT-REGISTRY-QUERY-R2.json",
+      "docs/TIANWEN-ZIWEI-HISTORICAL-OUTLINE-R1.md",
+      "docs/TIANWEN-BAZI-HISTORICAL-OUTLINE-R1.md",
+      "docs/TIANWEN-DUAL-HISTORY-COVERAGE-ATLAS-R1.md"
     ]
   },
   "focus": {
-    "index": 3219,
-    "text": "13ZZ CURRENT ACTION AFTER 15EK ACCEPTANCE / 15EL PROVISIONAL: exact c0cd8b4f continuity run 45847472089 PASS, six bindings match; 283 Actions observed 159 success/124 pending, zero completed failures. New Malaysia I-Ching association retrospective 1990 organizing/1991-08-07 registration, old committee rosters and undated Bazi course retrospective; no pre-1999 named Ziwei course. DestinyNet topic3369 post24552 displayed 2001-07-17 Malaysia self-report, book self-study, account registration 2001-09-03 later than post; topic7312 post65368 displayed 2002-02-07 Penang profile and Wang Tingzhi Zhongzhou book discourse, location dynamic and migration/time caveats. NUS/CMCS institutional archive leads, actual access blocked/limited. NEXT full registry query and scope adjudication. TW-OPEN-0047/0048/0050/0051 OPEN, sources1368/255 shards, Matrix222/222 graph495/375 51 open incl five P0 core CLOSED.",
+    "index": 3220,
+    "text": "13ZZ CURRENT ACTION AFTER 15EL ADMISSION / 15EM PROVISIONAL: exact 0302f0e continuity run45848204454 PASS, six bindings match, query17 terms 256files/1368records zero hits untruncated. Four bounded received records admitted: same-association history and rosters, distinct DestinyNet topics3369/7312; display date/profile anomalies retained, no direct early lineage. New leads: current Ziwei Bazi Academy retrospective claims 1980s CAFS and 1990s Cheras Ziwei/Bazi institution; member profile not independent; topic14114 post135523 2002 Johor self-study and Cari tid801957 2007 newspaper recruitment report. NEXT exact 15EM query and pre-1999 original sources. TW-OPEN-0047/0048/0050/0051 OPEN; sources1372=647+725/256 shards, graph495/375 Matrix222/222 51 open incl five P0 core CLOSED.",
     "truncated": false
   },
   "p0": [
