@@ -2,14 +2,14 @@
   "schema": "TIANWEN-CONTEXT-RECOVERY-VIEW-R2",
   "authority": "DERIVED_ONLY",
   "bindings": {
-    "docs/PROJECT-CURRENT-STATE-R1.json": "18ec97c61159b398662385cb50362fe64658a20c",
-    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "1e83d9a7df1b87b562df4903e3a4aa11f575f8e7",
+    "docs/PROJECT-CURRENT-STATE-R1.json": "bb6ddabeb429fa10fcf12471fe72da83f96bd247",
+    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "cf62f683ce1df3ee81dfec35acf1d497e9d5112c",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json": "5ed110ad352f0d6c6dd9baa0bad3938eb6060f51",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json": "ea2ab50479450c39ce3fc7a00ea91cd713bf4a60",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json": "5919e1b6bbc3c4b150507c41a13ccc9e13d20f17",
     "docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json": "623c6390f3c7938eaf79a1b6676db767e3cdbda8"
   },
-  "state_version": "1.1508.0",
+  "state_version": "1.1509.0",
   "stage": "FUSION_CHART_HISTORICAL_PROVENANCE_AND_SCHOOL_AUDIT_R1",
   "invariants": {
     "deterministic_fusion_chart_product_r1": "CLOSED",
@@ -28,24 +28,22 @@
     "shards": 246,
     "graph_nodes": 481,
     "graph_edges": 375,
-    "open_issues": 45,
+    "open_issues": 46,
     "p0": 5
   },
   "phase": "BREADTH_FIRST_TWO_SYSTEM_HISTORICAL_FRAMEWORK_R1",
-  "next_deliverable": "继续广度优先：由15EB书目补漏转向独立可定年的1960–1970年代台湾、香港及南洋紫微出版与授课原件，并行补足四柱出版传播；TW-OPEN-0045原刊记、底本及授课证据保持开放，不重复同源书目。",
+  "next_deliverable": "完成15EC港台1970年代候选书目全库查重、语义辨版及证据分级；追查1975合集、1979三版及《卜筮星相》原刊；保持TW-OPEN-0046及五P0，南洋独立原件继续补格。",
   "latest_matrix_batch": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-FIRSTPARTY-AND-OLD20-ATLAS-QD.md",
-  "latest_breadth_batch": "docs/research/TIANWEN-15EB-POSTWAR-JAPAN-ZIWEI-PUBLISHING-CHECKPOINT-R1.md",
+  "latest_breadth_batch": "docs/research/TIANWEN-15EC-TAIWAN-HK-1970S-ZIWEI-BAZI-PRINT-CHECKPOINT-R1.md",
   "checkpoint": {
-    "id": "TW-CHECKPOINT-15EB-ADMITTED-20261126",
+    "id": "TW-CHECKPOINT-15EC-PROVISIONAL-20261126",
     "evidence_refs": [
-      "docs/research/TIANWEN-15EB-POSTWAR-JAPAN-ZIWEI-PUBLISHING-CHECKPOINT-R1.md",
-      "docs/research/TIANWEN-15EB-POSTWAR-JAPAN-ZIWEI-SOURCE-SHARD-R1.json",
-      "docs/research/TIANWEN-13ZK-JAPAN-KOSOSHA-ZIWEI-BAZI-PUBLICATION-R1.md"
+      "docs/research/TIANWEN-15EC-TAIWAN-HK-1970S-ZIWEI-BAZI-PRINT-CHECKPOINT-R1.md"
     ]
   },
   "focus": {
-    "index": 3203,
-    "text": "13ZZ CURRENT ACTION AFTER 15EB ADMISSION: exact parent continuity CI PASS 62+7; query 246 files/1323 records/24 terms/2 matching files, no truncation; two hits prewar Abe Bazi different titles. 13ZK/13ZL earlier research already documented six Kososha catalogue records, now backfill registry rather than miscount new discoveries. Direct NDL/CiNii 1958, 1975/1977 (two holdings),1984/1990/1994/2012 reread; 1968 IHP extracted catalogue title/author variants, PDF screen failed; no glyph authority. 1990 Shiga explicit Zhang oral/Chen author/Sato translator/Huang supervisor; 1984 translator vs 1977/1994 authorship metadata; no actual teacher-student/technical lineage. 10 bounded catalogue records added (1333=647+686/246 shards); 7 catalogue publication nodes, graph481/375, no new edge. TW-OPEN-0045 OPEN; 45 risks incl five P0; Matrix222/222 core CLOSED. NEXT widen independently dated Taiwan/HK/SE Asian regional print/teaching evidence; seek 1960s–70s Taiwan Ziwei or parallel Bazi publications, original title/colophons and periodicals; do not rerun identical search.",
+    "index": 3204,
+    "text": "13ZZ CURRENT ACTION 15EC PROVISIONAL: Taiwan/HK 1970s candidate search: Google Books 1_1IAAAAMAAJ records 1975 387p Michigan original/digitized 2007 for 飛星紫微斗數, 紫微斗數考證合集 with no author/publisher; WorldCat OCLC32761793 records 梁湘潤 1979 台北臺灣文源書局 third edition of 紫微斗數考証, no listed holding. 2011 auction lot 785 reports 韋千里 香港韋氏命苑 1975 卜筮星相 nos.2–3; no original images. Later 2019 reprint publisher describes 汪季高 1965 香港五行出版社 人的運氣, not independent original colophon. NDL 000001244131 parallel 1975 Japan Bazi and access restriction as comparison. All provisional until complete registry literal query and semantic review; TW-OPEN-0046 OPEN. No source/graph/Matrix additions; core CLOSED. NEXT obtain 15EC exact checkpoint CI query, resolve prior records and edition/holding distinctions; seek actual title/colophon or dated periodical issue; continue regional breadth.",
     "truncated": false
   },
   "p0": [
