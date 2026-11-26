@@ -2,14 +2,14 @@
   "schema": "TIANWEN-CONTEXT-RECOVERY-VIEW-R2",
   "authority": "DERIVED_ONLY",
   "bindings": {
-    "docs/PROJECT-CURRENT-STATE-R1.json": "e5b1a744187e70c7c96366a395b10607f6c7681a",
-    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "dc30b4e05247891aa22cd27aa247449eadafba7d",
-    "docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json": "09d0cfadf712806c73eb5e6cc5fa0f1236e1515c",
+    "docs/PROJECT-CURRENT-STATE-R1.json": "dbfa35b31553e41ed553e32d34f050a3fa9b63be",
+    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "e517dc2fdc343e2c5b57aee5409a3d0e472207b5",
+    "docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json": "5cdc567bcac918e3177723e607d8441cd3a0ad76",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json": "ea2ab50479450c39ce3fc7a00ea91cd713bf4a60",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json": "5919e1b6bbc3c4b150507c41a13ccc9e13d20f17",
-    "docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json": "690c70b0e1e6d1bf6398ab44b12b5350f1262d58"
+    "docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json": "40d5988bcae7071b761e8a03a249c7e972e8bf46"
   },
-  "state_version": "1.1485.0",
+  "state_version": "1.1486.0",
   "stage": "FUSION_CHART_HISTORICAL_PROVENANCE_AND_SCHOOL_AUDIT_R1",
   "invariants": {
     "deterministic_fusion_chart_product_r1": "CLOSED",
@@ -23,27 +23,28 @@
     "matrix_rows": 222,
     "matrix_audited": 222,
     "root_sources": 647,
-    "extension_sources": 643,
-    "total_sources": 1290,
-    "shards": 234,
-    "graph_nodes": 470,
+    "extension_sources": 647,
+    "total_sources": 1294,
+    "shards": 235,
+    "graph_nodes": 474,
     "graph_edges": 375,
     "open_issues": 34,
     "p0": 5
   },
   "phase": "BREADTH_FIRST_TWO_SYSTEM_HISTORICAL_FRAMEWORK_R1",
-  "next_deliverable": "领取15DP绑定当前manifest的全库查询结果、完成语义去重及有界证据裁决；继续独立可定年的民国紫微实务、地域传播与双体系历史骨架。仅在新合法免费免账号入口出现时恢复未决原页。",
+  "next_deliverable": "继续独立可定年的民国紫微实务、地域传播与双体系历史骨架；TW-OPEN-0027至0034原页仅在新合法免费免账号入口出现时恢复，保留全部未决事项。",
   "latest_matrix_batch": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-FIRSTPARTY-AND-OLD20-ATLAS-QD.md",
-  "latest_breadth_batch": "docs/research/TIANWEN-15DP-REGIONAL-XULEWU-RECEIVED-EDITIONS-CHECKPOINT-R1.md",
+  "latest_breadth_batch": "docs/research/TIANWEN-15DP-REGIONAL-XULEWU-RECEIVED-EDITIONS-R1.md",
   "checkpoint": {
-    "id": "TW-CHECKPOINT-15DP-PROVISIONAL-20261126",
+    "id": "TW-CHECKPOINT-15DP-COMPLETED-20261126",
     "evidence_refs": [
-      "docs/research/TIANWEN-15DP-REGIONAL-XULEWU-RECEIVED-EDITIONS-CHECKPOINT-R1.md"
+      "docs/research/TIANWEN-15DP-REGIONAL-XULEWU-RECEIVED-EDITIONS-R1.md",
+      "docs/research/TIANWEN-15DP-REGIONAL-XULEWU-RECEIVED-EDITIONS-SOURCE-SHARD-R1.json"
     ]
   },
   "focus": {
-    "index": 3180,
-    "text": "13ZZ CURRENT ACTION AFTER 15DP PROVISIONAL BREADTH: 1971 Xinzhu CiNii BA73215453 and 1972 Taipei BA73216864 already registered as 13ZT/14E, no duplicate admission. Four dated Xu Lewu received/edited edition catalogue leads: 1991 Taipei Jiw en BA47473520, 1994 Zhengzhou Zhongzhou BA59778911, 1995 Hong Kong Juxianguan BA47411228, 1996 Taipei Ruicheng BA47492999; holdings/edition identifiers verified in CiNii, not original colophons or rule text. R2.1 full-registry query pending; TW-OPEN-0034 P1 OPEN, five P0 preserved. No new registered sources, graph nodes/edges, algorithm change or lineage claim. NEXT full bound query and semantic duplicate review, then return to independently dated Republican Ziwei practice and dual historical framework.",
+    "index": 3181,
+    "text": "13ZZ CURRENT ACTION AFTER 15DP COMPLETED BOUNDED BREADTH: exact-HEAD full query20 terms/235 files/1290 records, one root hit EXT-CTEXT-ZIPING-ZHENQUAN-PINGZHU-ZAQI distinct received passage, no 1994 edition identity. Four CiNii edition sources admitted 1991 Taipei BA47473520, 1994 Zhengzhou BA59778911, 1995 Hong Kong BA47411228, 1996 Taipei BA47492999; four independent BAZI edition nodes, no edges, original colophons/base texts/rules/lineage unproved. 1971/1972 Ziwei catalogue duplicates excluded. TW-OPEN-0034 OPEN, sources1294=647+647/235, graph474/375, Matrix222/222, 34 open risks incl five P0, core CLOSED. NEXT independently dated Republican Ziwei practice, regional transmission and dual historical framework; original pages only via lawful free accountless access.",
     "truncated": false
   },
   "p0": [

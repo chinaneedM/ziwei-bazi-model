@@ -1415,3 +1415,7 @@ B：澳门大学1963-/1965-两馆目、Google Books 1963第二卷；C：现代�
 ### 15DO｜战后香港、台南出版与日本馆藏（B/现代商品书目层）
 
 1955香港子平和1979台南紫微独立书目，另2006紫微商品比较；新增3条来源，两个edition节点，无直传边。民国同期实践格不升级；来源1290=647+643／234片、图470/375、Matrix222/222、33风险含五P0、核心CLOSED。TW-OPEN-0032/0033 OPEN。见[15DO](research/TIANWEN-15DO-HONG-KONG-TAIWAN-NATAL-PUBLISHING-R1.md)。
+
+### 15DP｜1991–1996徐樂吾系子平著作三地出版（馆目层）
+
+四条B层独立目录书目锚点，三地出版与编辑比较；单一既有网络篇章命中非同版书目。民国同期实务格不升级，新增4来源及4 edition节点，零边；1294=647+647／235片，图474/375，Matrix222/222，34风险含五P0，核心CLOSED。TW-OPEN-0034 OPEN。见[15DP](research/TIANWEN-15DP-REGIONAL-XULEWU-RECEIVED-EDITIONS-R1.md)。
