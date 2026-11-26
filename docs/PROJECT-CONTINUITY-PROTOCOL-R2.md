@@ -24,3 +24,11 @@ Chat connector-only 无本地checkout时，用 `functions.exec` 工具层逐批�
 ## 4. 试点验收与复盘
 
 基线HEAD 3a36af6bab030623c543a64bdfd30327cb78baa2。六个权威JSON工具返回合计7,609,276字符，派生视图4,594字符（99.94%字符量缩减；非实际token/总启动成本）。232分片，1286来源，32开放风险（P0五项），Matrix222/222，图468/375；15DN provisional仍为当前研究任务。不改变语义状态，原资料不删除。原先单次操作枚举1096个workflow或大量文件名会产生不必要返回，后续仅取相关统计/异常。当前直接git checkout因DNS不可用；真实数据上的Python测试由远端CI执行，未通过前保持试点，不使用快路径。后续用真实新会话对照启动输出、调用数、时长和有效完成量，检验索引方案及大量历史workflow触发成本；先统计触发条件和保留功能，不擅自停用旧门禁。确认稳定收益后才向另外两个项目推广。禁止承诺固定对话容量或固定运行时间。
+
+## 5. R2.1：复用现有CI作精确全库查询（2026-11-26）
+
+R2首版真实CI中全库控制检索与其余5项测试合计0.143秒；连接器单次32片读取亦已超调用限制。因此优先采用已存在的检查点与CI计算，不另建索引数据库、重复语料包或新workflow。对需要全库字面查重的研究，在**原本就需要提交的研究检查点**同一原子提交添加或替换 `docs/PROJECT-REGISTRY-QUERY-R2.json`（schema、query_id、当前checkpoint_id、registry manifest blob SHA、明确异文/编号terms、limit≤20），保持研究语义未结项。现有 `verify-research-omission-continuity` 调用 `request`，在真实checkout中重跑R1完整来源门禁并逐字搜索所有根及分片。禁止为查询任意外部命令、网络地址或路径；请求仅为固定字段的字面字符串。
+ 
+领取结果：读取精确提交的成功workflow/job日志，在工具层只提取 query_id 对应JSON一行，核验 checkpoint_id、request_blob_sha、registry_manifest_blob_sha、全库files/records、per_term_matching_files、scope、status=PASS、truncated。不得把NO_REQUEST、STALE_CHECKPOINT、失败、排队或缺失输出当作零命中；活动请求manifest变更必须修正后再执行。旧请求不属当前checkpoint时明确跳过，无须删除历史提交。若truncated=true，不作完整候选判定，按需要补读匹配路径或细分查询。语义近似、异体字、同本/版本/物件/替身仍由研究者判断，不升级为原页证据。
+ 
+结果若已满足且manifest/request/checkpoint/验证程序均未改变，可复用相应已验证结果作候选来源；新HEAD接受仍按R1/R2验收门禁，发生源登记变更立即失效。此方案利用现有阶段检查点，不增加用户操作；无需检查点或CI不可用时仍用本地全库命令/连接器小批扫描，不为了查询制造无意义提交或等待空转。试点15DN请求覆盖此前明确的八个查重词并补三个书名异体组合，保留TW-OPEN-0032，未据查询自行准入来源或改变历史状态。

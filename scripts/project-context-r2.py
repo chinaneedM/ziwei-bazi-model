@@ -130,12 +130,46 @@ def scan_registry(root, terms, limit=20):
     need(records == verified["combined_source_count"], "incomplete registry scan")
     return {"status": "PASS", "scope": "ALL_REGISTERED_ROOT_AND_SHARDS_LITERAL_ONLY", "files": len(specs), "records": records, "matching_files": total_hits, "per_term_matching_files": totals, "hits": hits, "truncated": total_hits > len(hits)}
 
+
+REQUEST = "docs/PROJECT-REGISTRY-QUERY-R2.json"
+
+def validate_request(q, checkpoint_id, manifest_sha):
+    fields = {"schema", "query_id", "checkpoint_id", "manifest_blob_sha", "terms", "limit"}
+    need(isinstance(q, dict) and set(q) == fields and q["schema"] == "TIANWEN-REGISTRY-QUERY-REQUEST-R2", "invalid request schema")
+    for key in ("query_id", "checkpoint_id"):
+        need(isinstance(q[key], str) and 0 < len(q[key]) <= 120, "invalid request identity")
+    terms = q["terms"]
+    need(isinstance(terms, list) and 0 < len(terms) <= 24 and all(isinstance(t, str) and 0 < len(t) <= 256 for t in terms), "invalid request terms")
+    need(len(set(terms)) == len(terms), "duplicate request terms")
+    need(type(q["limit"]) is int and 1 <= q["limit"] <= 20, "request limit must be 1..20")
+    need(isinstance(q["manifest_blob_sha"], str) and len(q["manifest_blob_sha"]) == 40 and all(c in "0123456789abcdef" for c in q["manifest_blob_sha"]), "invalid request manifest SHA")
+    if q["checkpoint_id"] != checkpoint_id:
+        return False
+    need(q["manifest_blob_sha"] == manifest_sha, "active request manifest changed; refresh request")
+    return True
+
+def run_request(root):
+    target = root / REQUEST
+    if not target.exists():
+        return {"status": "NO_REQUEST"}
+    raw = target.read_bytes()
+    need(len(raw) <= 8192, "request budget exceeded")
+    q = json.loads(raw)
+    verify_view(root)
+    view = json.loads((root / VIEW).read_bytes())
+    manifest_sha = blob_sha((root / PATHS["manifest"]).read_bytes())
+    if not validate_request(q, view["checkpoint"]["id"], manifest_sha):
+        return {"status": "STALE_CHECKPOINT", "query_id": q["query_id"], "request_blob_sha": blob_sha(raw)}
+    result = scan_registry(root, q["terms"], q["limit"])
+    return {"query_id": q["query_id"], "checkpoint_id": q["checkpoint_id"], "request_blob_sha": blob_sha(raw), "registry_manifest_blob_sha": manifest_sha, **result}
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--root", type=Path, default=ROOT)
     sub = parser.add_subparsers(dest="action", required=True)
     sub.add_parser("build")
     sub.add_parser("verify")
+    sub.add_parser("request")
     scan = sub.add_parser("search")
     scan.add_argument("terms", nargs="+")
     scan.add_argument("--limit", type=int, default=20)
@@ -147,6 +181,8 @@ def main():
             result = verify_view(args.root)
         elif args.action == "verify":
             result = verify_view(args.root)
+        elif args.action == "request":
+            result = run_request(args.root)
         else:
             result = scan_registry(args.root, args.terms, args.limit)
         print(json.dumps(result, ensure_ascii=False, separators=(",", ":")))

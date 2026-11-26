@@ -37,5 +37,28 @@ class ContextR2Tests(unittest.TestCase):
         self.assertGreaterEqual(result["per_term_matching_files"][term], 1)
         self.assertEqual(result["records"], json.loads((ROOT / mod["PATHS"]["manifest"]).read_bytes())["combined_source_count"])
 
+
+    def test_request_pins_checkpoint_and_manifest(self):
+        sha = "1" * 40
+        q = {"schema":"TIANWEN-REGISTRY-QUERY-REQUEST-R2","query_id":"q","checkpoint_id":"cp","manifest_blob_sha":sha,"terms":["紫微"],"limit":5}
+        self.assertTrue(mod["validate_request"](q, "cp", sha))
+        self.assertFalse(mod["validate_request"](q, "other", sha))
+        with self.assertRaises(ValueError):
+            mod["validate_request"](q, "cp", "2" * 40)
+        with self.assertRaises(ValueError):
+            mod["validate_request"]({**q, "terms":[""]}, "cp", sha)
+
+    def test_active_request_real_registry_or_explicit_skip(self):
+        result = mod["run_request"](ROOT)
+        self.assertIn(result["status"], {"PASS", "STALE_CHECKPOINT", "NO_REQUEST"})
+        if result["status"] == "PASS":
+            view = json.loads((ROOT / mod["VIEW"]).read_bytes())
+            self.assertEqual(result["records"], view["counts"]["total_sources"])
+            self.assertEqual(result["files"], view["counts"]["shards"] + 1)
+            self.assertEqual(result["checkpoint_id"], view["checkpoint"]["id"])
+            q = json.loads((ROOT / mod["REQUEST"]).read_bytes())
+            self.assertEqual(set(result["per_term_matching_files"]), set(q["terms"]))
+            self.assertEqual(result["registry_manifest_blob_sha"], q["manifest_blob_sha"])
+
 if __name__ == "__main__":
     unittest.main()
