@@ -17,3 +17,124 @@
 ## 门禁与下一步
 
 当前未作全库查重结论。通过R2.1既有CI请求覆盖题名、繁简/异文、馆目识别号及作者/出版者；收取精确checkpoint成功日志，处理匹配路径和语义后才决定准入。查重未完成，不新增source、graph node/edge、Matrix或算法结论。TW-OPEN-0046保持OPEN；五项P0原状态不变。不得将后出书目当成原刊记；不购买、不登录、不要求用户操作。
+
+## 15EC正式准入追加：精确全库查询及版次辨析（2026-11-26）
+
+[run 45826158887](https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/45826158887)，job 139930716204，exact HEAD `961bc39ccdc5e5b3dd8fe4a94b125d922da9b902`，62项R1及7项R2测试通过。R2程序blob `3387254ce53ec0a1f1a3b779291e0c40997bf190`。以下是完整旧manifest查询输出；新增后不可作为新manifest扫描。
+
+```json
+{
+  "query_id": "15EC-taiwan-hk-1970s-print",
+  "checkpoint_id": "TW-CHECKPOINT-15EC-PROVISIONAL-20261126",
+  "request_blob_sha": "8e5863ae1918c414ca74ae0aefaee3de2de31641",
+  "registry_manifest_blob_sha": "5ed110ad352f0d6c6dd9baa0bad3938eb6060f51",
+  "status": "PASS",
+  "scope": "ALL_REGISTERED_ROOT_AND_SHARDS_LITERAL_ONLY",
+  "files": 247,
+  "records": 1333,
+  "matching_files": 9,
+  "per_term_matching_files": {
+    "12282559": 0,
+    "32761793": 0,
+    "1_1IAAAAMAAJ": 0,
+    "飛星紫微斗數": 3,
+    "飞星紫微斗数": 1,
+    "紫微斗數考證": 0,
+    "紫微斗數考証": 0,
+    "紫微斗數考证": 0,
+    "紫微斗数考证": 0,
+    "梁湘潤": 3,
+    "梁湘润": 3,
+    "臺灣文源書局": 0,
+    "台灣文源": 0,
+    "卜筮星相": 1,
+    "韋氏命苑": 1,
+    "韦氏命苑": 0,
+    "人的運氣": 0,
+    "人的运气": 0,
+    "汪季高": 0,
+    "五行出版社": 0,
+    "000001244131": 0,
+    "生れ日の人間学": 0,
+    "設楽幸聖": 0,
+    "设乐幸圣": 0
+  },
+  "hits": [
+    {
+      "path": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json",
+      "blob_sha": "ea2ab50479450c39ce3fc7a00ea91cd713bf4a60",
+      "terms": [
+        "飛星紫微斗數",
+        "飞星紫微斗数",
+        "梁湘潤",
+        "韋氏命苑"
+      ]
+    },
+    {
+      "path": "docs/research/TIANWEN-14E-FEIXING-ZIWEI-SOURCE-SHARD-R1.json",
+      "blob_sha": "d30d9b042e3f111ffad02deb76565c6fbb18ab3f",
+      "terms": [
+        "飛星紫微斗數"
+      ]
+    },
+    {
+      "path": "docs/research/TIANWEN-15W-YUANSHUSHAN-1934-SAMPLE-1947-SSID-SOURCE-SHARD-R1.json",
+      "blob_sha": "e76408ec2ac079d2b027a699eebd66317977a2e9",
+      "terms": [
+        "卜筮星相"
+      ]
+    },
+    {
+      "path": "docs/research/TIANWEN-15AD-HK-ZIWEI-TAIWAN-ZIPING-MODERN-TEACHING-NETWORKS-SOURCE-SHARD-R1.json",
+      "blob_sha": "b2440edf822163ffd57d584e6abcf59a216ba6d4",
+      "terms": [
+        "梁湘潤"
+      ]
+    },
+    {
+      "path": "docs/research/TIANWEN-15AE-TAIWAN-CHINESE-STAR-ASSOCIATION-PERIODICAL-SOURCE-SHARD-R1.json",
+      "blob_sha": "a4d5354483b1bc66c2402b2e7bba44f63b031ff0",
+      "terms": [
+        "梁湘润"
+      ]
+    },
+    {
+      "path": "docs/research/TIANWEN-15AF-HK-TAIWAN-XINGXIANG-PERIODICAL-CROSSCHECK-SOURCE-SHARD-R1.json",
+      "blob_sha": "159989a07ad5fa75811ea35a1e98c82071558dba",
+      "terms": [
+        "梁湘润"
+      ]
+    },
+    {
+      "path": "docs/research/TIANWEN-15AG-TAIWAN-XINGXIANG-PERIODICAL-PHOTO-AND-BOOK-EDITION-SOURCE-SHARD-R1.json",
+      "blob_sha": "56fa8fad00f852b6cd826d010d2b4f4d5615e952",
+      "terms": [
+        "梁湘潤"
+      ]
+    },
+    {
+      "path": "docs/research/TIANWEN-15AH-TAIWAN-1979-1980-LECTURE-AND-ENCYCLOPEDIA-SOURCE-SHARD-R1.json",
+      "blob_sha": "281261477cc00560d48adf482d658bfbe0ba9765",
+      "terms": [
+        "梁湘润"
+      ]
+    },
+    {
+      "path": "docs/research/TIANWEN-15DG-REPUBLICAN-ZIWEI-PRACTICE-WHITE-MONK-SOURCE-SHARD-R1.json",
+      "blob_sha": "93006a36da0efa1f4725ba2d13989f84d9c718b6",
+      "terms": [
+        "飛星紫微斗數"
+      ]
+    }
+  ],
+  "truncated": false
+}
+```
+
+九份命中语义审查：root清代十八飞星、2010《前定數》、1934/1936韋氏讲义及1935《千里命稿》非本次对象；14E民国《飛星紫微斗數原旨》及1972.10文源書局編輯部第三版（CiNii BA73216864，214页/19cm，东京中央馆400005730）为前置比较；15W袁樹珊1934《述卜筮星相學》缩印样书非韋氏刊物；15AD/AE/AF/AG/AH为梁氏后出自序、课程、年表及星相期刊/百科书系，袁樹生1977–79香港《星相》非1975《卜筮星相》；15DG白鈍僧1999武陵《飛星紫微斗數》为另版。未见本次五条对应记录，不声称无语义近似遗漏。
+
+补证：[星僑1988合集商品页](https://ncc.com.tw/books/goods.php?id=9828)列陳錦芳、文源、ISBN9570458321、173页，转录梁湘潤1975乙卯春署名序及《考證》前言；[星易同ISBN](https://www.xinyi.hk/goods-9288.html?from=rss)标题陳錦芳但作者字段梁湘潤，标1988初版，与1975/387页馆目不宜合并。三张100px预览缩图无法核清文字/刊记。[露天卖家](https://www.ruten.com.tw/item/22627040095939/)搜索标题称1975.9《考證》初版，直接打开超时；[2010个人书目](https://classic-blog.udn.com/DejaVu/3899301?f_UA=pc)称1975梁氏考證与另项合订。仅为版本边界比较，未另增来源计数；不得倒证1975书或飞星流派起源。署序年不等于出版年。1975合集与1979 WorldCat重开失败，仅索引及先前所录字段可用，保留原页及作者/版次未决。
+
+[2011新亞拍卖785](https://sunahbooks.blogspot.com/2011/07/701800.html)全文索引明确韋千里主編、香港韋氏命苑1975、第2/3期及两册，无原刊页。[三民2019复刻](https://www.sanmin.com.tw/product/index/007126903)简介列双桐馆主、1954–60年代星島晚報/天下半月刊及英文四柱（所称pp27–28），为后出出版方陈述。[NDL 000001244131](https://ndlsearch.ndl.go.jp/books/R100000002-I000001244131)复核1975东京、254p、authority 00073228，另青森/大阪/高知馆藏，非三个版本。南洋同期原件仍缺。
+
+准入五条有界来源，见[分片](./TIANWEN-15EC-TAIWAN-HK-1970S-PRINT-SOURCE-SHARD-R1.json)。新增三个出版组节点、零传承边。总1338=647+691／247片，图484/375，Matrix222/222；TW-OPEN-0046 OPEN、46风险含五P0，核心CLOSED。
