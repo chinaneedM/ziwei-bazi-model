@@ -2,14 +2,14 @@
   "schema": "TIANWEN-CONTEXT-RECOVERY-VIEW-R2",
   "authority": "DERIVED_ONLY",
   "bindings": {
-    "docs/PROJECT-CURRENT-STATE-R1.json": "127b78c07a511d736f39dce43fa60129f3e0819e",
-    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "25d015f534c9eaadf9083bea1d0808364e5ed37d",
+    "docs/PROJECT-CURRENT-STATE-R1.json": "f20c2fa73d50b4daf4fde89d78159149889c2a9b",
+    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "9b6f5a738377ec0baee138a504bee841cc58abac",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json": "f80d3cc6ace81b9b9041319fc322b62982703398",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json": "ea2ab50479450c39ce3fc7a00ea91cd713bf4a60",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json": "5919e1b6bbc3c4b150507c41a13ccc9e13d20f17",
     "docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json": "123f4487104b3d07f260ece1247c96de8a19b7e6"
   },
-  "state_version": "1.1510.0",
+  "state_version": "1.1511.0",
   "stage": "FUSION_CHART_HISTORICAL_PROVENANCE_AND_SCHOOL_AUDIT_R1",
   "invariants": {
     "deterministic_fusion_chart_product_r1": "CLOSED",
@@ -28,24 +28,22 @@
     "shards": 247,
     "graph_nodes": 484,
     "graph_edges": 375,
-    "open_issues": 46,
+    "open_issues": 47,
     "p0": 5
   },
   "phase": "BREADTH_FIRST_TWO_SYSTEM_HISTORICAL_FRAMEWORK_R1",
-  "next_deliverable": "继续广度优先：转向南洋、新加坡及马来西亚可独立定年的紫微或四柱出版、报刊、授课证据，并补台湾/香港四柱同期出版；15EC原书端、梁氏版次、韦氏期刊及汪氏原报保持OPEN，不重复同源书目。",
+  "next_deliverable": "领取15ED完整全库查询及语义辨重；核验1955、1964版次及博物馆原物目录/图像，区分实地调查时间、初刊、再版和数字替身；继续寻找南洋紫微及港台四柱独立同期出版证据。",
   "latest_matrix_batch": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-FIRSTPARTY-AND-OLD20-ATLAS-QD.md",
-  "latest_breadth_batch": "docs/research/TIANWEN-15EC-TAIWAN-HK-1970S-ZIWEI-BAZI-PRINT-CHECKPOINT-R1.md",
+  "latest_breadth_batch": "docs/research/TIANWEN-15ED-SOUTHEAST-ASIA-EARLY-BAZI-PRACTICE-CHECKPOINT-R1.md",
   "checkpoint": {
-    "id": "TW-CHECKPOINT-15EC-ADMITTED-20261126",
+    "id": "TW-CHECKPOINT-15ED-PROVISIONAL-20261126",
     "evidence_refs": [
-      "docs/research/TIANWEN-15EC-TAIWAN-HK-1970S-ZIWEI-BAZI-PRINT-CHECKPOINT-R1.md",
-      "docs/research/TIANWEN-15EC-TAIWAN-HK-1970S-PRINT-SOURCE-SHARD-R1.json",
-      "docs/research/TIANWEN-14E-REPUBLICAN-FEIXING-TAIWAN-1972-PUBLICATION-SCOPE-R1.md"
+      "docs/research/TIANWEN-15ED-SOUTHEAST-ASIA-EARLY-BAZI-PRACTICE-CHECKPOINT-R1.md"
     ]
   },
   "focus": {
-    "index": 3205,
-    "text": "13ZZ CURRENT ACTION AFTER 15EC ADMISSION: exact 961bc39 continuity PASS 62+7; full query 247 files/1333 records/24 terms/9 matching files, no truncation; semantic review includes existing 1972 CiNii BA73216864 standalone 3rd edition 214p and distinct Republican/1999 Feixing records; 1975 combined Google catalogue 387p vs 1979 WorldCat Liang third edition vs 1988 commercial ISBN9570458321 contradictory author/173p; later transcribed Liang 1975 spring preface and seller Sept first edition not original colophon. Wei 1975 auction nos2/3 distinct from 1977–79 Xingxiang; Wang 1965 retrospective publisher claim only; NDL Shitara 1975 independent Bazi bibliographic record. Five bounded sources admitted (1338=647+691/247 shards), three edition nodes graph484/375, no edges; TW-OPEN-0046 OPEN; 46 risks including five P0; Matrix222/222 core CLOSED. NEXT regional breadth: independent Southeast Asian dated newspaper/print or teaching evidence, parallel Taiwan/HK Bazi coverage, retain original-page gaps; do not repeat inaccessible catalogues.",
+    "index": 3206,
+    "text": "13ZZ CURRENT ACTION 15ED PROVISIONAL: 15EC exact HEAD 6cb5e7c continuity PASS, 284 success/1 in progress at review. Southeast Asia Bazi practice candidates: Alan J. A. Elliott 1950–51 Singapore fieldwork (preface), 1955 first publication per edition catalogue/Cambridge, 2020 Routledge second-edition digital text p37 explicitly four pairs year/month/day/two-hour and Five Elements, screenshot fetch failed due 13MB size; first edition p37 comparison pending. Singapore Medical Journal 1973 v14n1 p61 ref4 image confirms citation to 1964 Singapore Donald Moore Press edition, not original colophon. NLB 2014 retrospective describes Bazi among fortune-telling methods, no proof of 19th-century specific Bazi start. Reported museum accession 2011-03153-007 1922–31 charts indirect only, direct object record not retrieved. 2024 Taoist College Ziwei course contemporary comparator, not early transmission. TW-OPEN-0047 OPEN; no admission pending complete query; Matrix222/222, sources1338, graph484/375, core CLOSED. NEXT exact checkpoint query and semantic review; original title/page and museum identity, regional Ziwei and parallel Bazi publication.",
     "truncated": false
   },
   "p0": [
