@@ -687,3 +687,7 @@ CiNii BA61461510著录1955.8香港实学书店，另有大阪大学伊地智文�
 
 ### 15EH｜1968–69新加坡一鼎金命理专栏候选
 [15EH](research/TIANWEN-15EH-SINGAPORE-1968-1969-BAZI-COLUMN-PAN-EDITION-CHECKPOINT-R1.md) 1968-06-11/08-21/09-17/11-08与1969-04-01新明日报索引中一鼎金问答，干支、柱中、印官语词提示子平关联，1969分苑公告另列；原图全文和实地教学OPEN，暂未准入；15ED既有1950–51田野不重复计。
+
+
+### 15EH准入／15EI候选
+[15EH–15EI](research/TIANWEN-15EH-SINGAPORE-1968-1969-BAZI-COLUMN-PAN-EDITION-CHECKPOINT-R1.md)：1968–69五期新加坡一鼎金命理问答期号索引有界准入；1967-11-06与12-18更早候选待查重，不证原图、首传、实际授课及完整四柱规则。 TW-OPEN-0051 OPEN。
