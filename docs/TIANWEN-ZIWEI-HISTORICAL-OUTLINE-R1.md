@@ -646,3 +646,6 @@ CiNii BB26426235著录1979.7台南西北出版社及琉球大学馆藏，母丛�
 
 ### 15EF｜新加坡1990招生定位复核
 [15EF](research/TIANWEN-15EF-SINGAPORE-1990-ZIWEI-HONG-KONG-BAZI-CHECKPOINT-R1.md)：全库命中15BE，1990公告非新增、不得重计；NLB第9版社团天地独立文章号 lhwb19900701-1.2.18.1.5，详情条款确认边界保留，原报图未核、实际授课与师承未证。TW-OPEN-0049 OPEN。
+
+### 15EG–15EH｜马来西亚馆藏与台湾紫微版目
+[15EG](research/TIANWEN-15EG-SINGAPORE-1989-MALAYSIA-CUSTODY-CHECKPOINT-R1.md) 五件MPLRDC独立条码目录准入，1994/1997/1998/1998/无年版印与共同2007入藏字段分离，迁移含义未明；1989新加坡OCR候选不提前1990确证时间线。[15EH](research/TIANWEN-15EH-SINGAPORE-1968-1969-BAZI-COLUMN-PAN-EDITION-CHECKPOINT-R1.md) 新候选1986潘傑增订本480页馆目与武陵A340 482页商品著录，原刊记及版本关系OPEN；不计新增来源。

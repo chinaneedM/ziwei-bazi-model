@@ -21,3 +21,13 @@ Malaysian Public Library, Research and Development Centre (MPLRDC)公开馆目�
 五记录005最新交易均2022-01-04，008开头210129；馆藏另列2014–2019最后借阅日期、2021最后见到日期。10/12/2007按馆目日期习惯可读2007-12-10，但统一原字段可能反映批量入藏或系统迁移，未取原始登记故不断言真实入藏日，更不能倒推1994–98当地存在。1994与1998同ISBN不同版印、条码，不合并物件或证明文本变动。无年初版不得擅定出版地、时间。此前10510请求超时，重新直接打开MARC页面成功。作者检索为检索入口，不另计物件。马来西亚馆目支持现代收藏线索，不证明1999前的授课或传播时点。四柱检索入口本轮未取得可用结果，不作缺失否证。
 
 TW-OPEN-0050 OPEN；全库查询请求15EG-singapore-1989-mplrdc-custody；未领取结果，不提前入库。后续核对原图、相同馆藏记录与既有版次节点、获取更早独立同期证据，若无合法免费原图则保留边界，继续广度。此前五P0及全部既有问题保持原状态。
+
+## 15EG 正式准入及精确查重保全（2026-11-26）
+
+精确 HEAD `eb702cbda7fb6d3230ff86f2e0d5b0de84dd4047`，continuity run [45835467373](https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/45835467373)，job 139963042639，62原连续性测试及7 R2测试通过。查询 `15EG-singapore-1989-mplrdc-custody`，checkpoint `TW-CHECKPOINT-15EG-PROVISIONAL-20261126`；request blob `bfbb3eea543fcbe70a983e5e2389d45a6f063694`；manifest blob `ecbf248658689743dc7f3992a9ee85bde7b4f3c3`；verifier blob `3387254ce53ec0a1f1a3b779291e0c40997bf190`；scope `ALL_REGISTERED_ROOT_AND_SHARDS_LITERAL_ONLY`，251 files / 1348 records，matching_files=0，truncated=false，status=PASS。逐词 matching_files（24个）均为0：
+
+```json
+{"shinmin19891230-1":0,"蓓缘居士":0,"蓓緣居士":0,"koha.mplrdc.org.my":0,"MPLRDC":0,"biblionumber=52427":0,"biblionumber=10508":0,"biblionumber=10510":0,"biblionumber=10512":0,"biblionumber=10544":0,"957-35-0310-7":0,"957-35-0268-2":0,"957-35-1043-X":0,"962-8280-12-0":0,"紫微斗数看人生":0,"紫微斗數看人生":0,"紫微斗数研究":0,"紫微斗數研究":0,"紫微斗数看病":0,"紫微斗數看病":0,"紫微斗数心得":0,"紫微斗數心得":0,"潘子渔":0,"潘子漁":0}
+```
+
+五个不同MARC号及条码的馆藏目录按BIBLIOGRAPHIC_METADATA_ONLY准入；五物件目录节点、零传承边。52427与10510同题名同ISBN而不同版印/条码，不合并或推定正文关系。当前重新打开52427及子平查询入口未成功，故本次准入使用前一检查点已经记录的馆目字段而不声称本轮重核原页。1989报刊候选不准入、不提前1990明确公告时间线。TW-OPEN-0050仍OPEN。来源1353（647+706/251片），图494/375，Matrix222/222，核心CLOSED。新分片 [15EG](./TIANWEN-15EG-MPLRDC-ZIWEI-HOLDINGS-SOURCE-SHARD-R1.json)。

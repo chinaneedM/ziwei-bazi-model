@@ -2,14 +2,14 @@
   "schema": "TIANWEN-CONTEXT-RECOVERY-VIEW-R2",
   "authority": "DERIVED_ONLY",
   "bindings": {
-    "docs/PROJECT-CURRENT-STATE-R1.json": "da71c802b5d211c7a24b92b7f3a4207075d0ce77",
-    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "52b7ceaf9364188d6b503b6d6f5d3c7936f03af8",
-    "docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json": "ecbf248658689743dc7f3992a9ee85bde7b4f3c3",
-    "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json": "ea2ab50479450c39ce3fc7a00ea91cd713bf4a60",
+    "docs/PROJECT-CURRENT-STATE-R1.json": "4735e06c35eb4311936c34c51c2240355f7b4042",
+    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "72be69d84aa84cc995ba0db84def0588841b5a8d",
+    "docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json": "6e5c3b5370fa5465f5ff099b99081355a374d10a",
+    "docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json": "1a86c8448c2e3186d8b153301590a8e01fd25819",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json": "5919e1b6bbc3c4b150507c41a13ccc9e13d20f17",
-    "docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json": "fe44e035c30982a2c0d4e732243c62b570ba7665"
+    "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json": "ea2ab50479450c39ce3fc7a00ea91cd713bf4a60"
   },
-  "state_version": "1.1517.0",
+  "state_version": "1.1518.0",
   "stage": "FUSION_CHART_HISTORICAL_PROVENANCE_AND_SCHOOL_AUDIT_R1",
   "invariants": {
     "deterministic_fusion_chart_product_r1": "CLOSED",
@@ -23,30 +23,32 @@
     "matrix_rows": 222,
     "matrix_audited": 222,
     "root_sources": 647,
-    "extension_sources": 701,
-    "total_sources": 1348,
-    "shards": 250,
-    "graph_nodes": 489,
+    "extension_sources": 706,
+    "total_sources": 1353,
+    "shards": 251,
+    "graph_nodes": 494,
     "graph_edges": 375,
-    "open_issues": 50,
+    "open_issues": 51,
     "p0": 5
   },
   "phase": "BREADTH_FIRST_TWO_SYSTEM_HISTORICAL_FRAMEWORK_R1",
-  "next_deliverable": "领取15EG精确HEAD全库查重，核对1989报刊候选与五件马来西亚馆藏著录；按有界证据准入，区分版印、入藏与实际教学；继续早期新马和港台四柱独立证据。",
+  "next_deliverable": "领取15EH精确HEAD全库查询，辨别1968–69一鼎金专栏四柱证据等级与潘子渔1986版目，保留报刊原图、实际授课与马来西亚入藏边界；继续双体系地域史。",
   "latest_matrix_batch": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-FIRSTPARTY-AND-OLD20-ATLAS-QD.md",
-  "latest_breadth_batch": "docs/research/TIANWEN-15EG-SINGAPORE-1989-MALAYSIA-CUSTODY-CHECKPOINT-R1.md",
+  "latest_breadth_batch": "docs/research/TIANWEN-15EH-SINGAPORE-1968-1969-BAZI-COLUMN-PAN-EDITION-CHECKPOINT-R1.md",
   "checkpoint": {
-    "id": "TW-CHECKPOINT-15EG-PROVISIONAL-20261126",
+    "id": "TW-CHECKPOINT-15EG-ADMITTED-15EH-PROVISIONAL-20261126",
     "evidence_refs": [
       "docs/research/TIANWEN-15EG-SINGAPORE-1989-MALAYSIA-CUSTODY-CHECKPOINT-R1.md",
+      "docs/research/TIANWEN-15EG-MPLRDC-ZIWEI-HOLDINGS-SOURCE-SHARD-R1.json",
+      "docs/research/TIANWEN-15EH-SINGAPORE-1968-1969-BAZI-COLUMN-PAN-EDITION-CHECKPOINT-R1.md",
       "docs/TIANWEN-ZIWEI-HISTORICAL-OUTLINE-R1.md",
       "docs/TIANWEN-BAZI-HISTORICAL-OUTLINE-R1.md",
       "docs/TIANWEN-DUAL-HISTORY-COVERAGE-ATLAS-R1.md"
     ]
   },
   "focus": {
-    "index": 3212,
-    "text": "13ZZ CURRENT ACTION 15EG PROVISIONAL: exact 690f29f continuity PASS. Reviewed three outlines and relevant Singapore/Malaysia regional shards before search. NLB 1989-12-30 Shin Min page12 two Bei Yuan Jushi column OCR snippets mention Ziwei/Ziwei variant and Tiantong; article IDs .2.24.9 and .2.24.12 terms gate, full system identity and images OPEN, no earlier confirmed Ziwei timeline. MPLRDC five MARC holdings (52427,10508,10510,10512,10544), 1994/1997/1998/1998/undated printing, all Date acquired 10/12/2007 as recorded, common-date migration possibility OPEN; distinguish edition from custody. No pre-1999 Malaysia contemporary teaching proof. TW-OPEN-0050 OPEN; exact full registry query pending. 15EF correction/admission links appended to existing three outlines. NEXT receive 15EG query and adjudicate bounded catalogue admissions; original newspaper/full class identification unresolved; continue independent early regional and Bazi publishing evidence. Matrix222/222, sources1348, graph489/375, core CLOSED.",
+    "index": 3213,
+    "text": "13ZZ CURRENT ACTION AFTER 15EG ADMISSION / 15EH PROVISIONAL: exact eb702cb continuity PASS 62+7; 251 files/1348 records/24 terms zero literal matches, no truncation. Five MPLRDC MARC holding records admitted at bibliography-only grade, five physical-copy catalogue nodes, zero edges; common Date acquired 10/12/2007 not 1990s Malaysia circulation. 1989 Singapore OCR remains candidate. 15EH new NewspaperSG 1968-06-11/08-21/09-17/11-08 and 1969-04-01 Yidingjin column OCR with stem-branch and officer/seal terms, plus 1969 branch notice; not original text or verified teaching. IUCAT 121840 1986 revised Pan Jie imprint 480pp vs Woolin 1986 A340 482pp: distinguish bibliographic records, no direct colophon or stemma. TW-OPEN-0050 and new TW-OPEN-0051 OPEN. NEXT receive 15EH full registry query and adjudicate bounded sources. Matrix222/222, sources1353=647+706/251 shards, graph494/375, 51 open incl five P0, core CLOSED.",
     "truncated": false
   },
   "p0": [
