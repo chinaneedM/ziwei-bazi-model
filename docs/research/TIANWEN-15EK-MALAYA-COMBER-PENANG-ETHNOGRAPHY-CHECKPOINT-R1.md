@@ -29,3 +29,13 @@
 [出版社平台 DOI 10.1515/9781503625648](https://www.degruyterbrill.com/de/document/doi/10.1515/9781503625648/html) 区分2006出版/版权与2022-01-21电子版发布；目录列 Introduction p1、Part One p43、Part Two p167、Conclusion p293、Notes p307、Bibliography p327、Glossary p345、Index p357；公开标识限于前置部分（frontmatter、目录、图表目录、序言），未见目标正文免费可读。Google Books 2021条目 wcWmzgEACAAJ 为后出目录线索，不能倒填2006版页码或1979–81观察日期。目标八字段落尚只有此前非官方检索定位，不录受限全文、不付费、不注册。1999年前马来西亚紫微独立同期证据仍未找到，非不存在结论。
 
 本次是同一15EK开放检查点的查询保全和版目补证，不是新完成批次；未正式准入来源、未新增图节点/边、未改风险级别或历史语义状态。新增馆目编号与链接在后续正式准入前补作身份及查重核验；NEXT：对现有候选进行有限证据级别准入裁决，继续寻找可合法公开的目标正文及独立紫微同期证据。保留TW-OPEN-0047/0048/0050/0051；不得用本记录关闭它们。
+
+## 15EK 有限准入及前向版次更正（2026-11-26）
+
+290c2eb精确HEAD共20项Actions，复查时19成功，clean-training-system运行中，连续性workflow未触发，不能将bcea82f的通过冒充当前HEAD成功；本次以canonical blob恢复，前次绑定的完整查询证据仍可复用（manifest、request、验证脚本及checkpoint未变）。工具端实际解析state、ledger、Matrix、graph、root、manifest，五P0均保留。
+
+直接复核CiNii [1955 BA86177357](https://ci.nii.ac.jp/ncid/BA86177357) 与 [1960 BA63140813](https://ci.nii.ac.jp/ncid/BA63140813)，其出版地、版次、页数和馆藏条目成立于馆目等级；[Finna vaari.3049309](https://kansalliskirjasto.finna.fi/Record/vaari.3049309) 再证1960第三修订版；[1981 BA02929507](https://ci.nii.ac.jp/ncid/BA02929507) 注明1960第三修订版为底本，非独立马来亚史实。另见Google Books [2009合刊 XvoMAQAAMAAJ](https://books.google.com/books?id=XvoMAQAAMAAJ)，收录四种1950年代著作，具体底本未核。1957、1981、2009暂保留为比较线索，不另登记，不提供原页票数。1955 Google Books版次冲突及p8目标页仍未核。
+
+**前向更正**：原检查点将NUS Press书目与2006 Stanford原作合并表述，实际[NUS官方页](https://nuspress.nus.edu.sg/products/the-way-that-lives-in-the-heart)明确2011年出版、392页、ISBN 978-9971-69-417-3；区分作品初版和新加坡后出版本，不更改旧文字。Stanford官方序言零基3、4（印刷xiv、xv）再核：1979–81槟城田野，随后多轮研究与匿名化说明；不以序言推断目标八字个案年代。De Gruyter Brill DOI页面本轮复访405，保留上轮观察不宣称本次可读。未取得合法公开目标正文。13词全库结果涵盖作者、作品名、1955/1960编号及序言文件名；结合不同出版物语义判别，准入四条有限来源，NUS 2011独立出版记录非独立田野见证。其余比较编号留作进一步查重。未获得1999年前马来西亚独立同期紫微史料。
+
+四条登记见 docs/research/TIANWEN-15EK-MALAYA-COMBER-PENANG-ETHNOGRAPHY-SOURCE-SHARD-R1.json。来源1368=647+721，255分片；Matrix222/222、图495/375、51开放含五P0，核心CLOSED。未新增传承边或闭合疑案；下一步优先公开区域报刊和馆目，不反复空转同一不可读正文。

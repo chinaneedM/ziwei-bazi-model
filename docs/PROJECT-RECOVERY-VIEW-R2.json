@@ -2,14 +2,14 @@
   "schema": "TIANWEN-CONTEXT-RECOVERY-VIEW-R2",
   "authority": "DERIVED_ONLY",
   "bindings": {
-    "docs/PROJECT-CURRENT-STATE-R1.json": "11e334a1495a514d4088982c0a492c6b3cebcf14",
-    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "97634459d36a305802e1245706fc666ffc10a7d5",
-    "docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json": "d50f81928b4a6574b6535a2003bac0f579e893ff",
+    "docs/PROJECT-CURRENT-STATE-R1.json": "99851acda8c29de5d2200888d863f12a035aabeb",
+    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "54e4635cb09b9d9cc36264960371f70a468f8cc0",
+    "docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json": "3097bb7cf1584cee413286965d21ef685d56d75e",
     "docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json": "280e023bcd6e0625f0dca2fd54d6c9423f286fd5",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json": "5919e1b6bbc3c4b150507c41a13ccc9e13d20f17",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json": "ea2ab50479450c39ce3fc7a00ea91cd713bf4a60"
   },
-  "state_version": "1.1522.0",
+  "state_version": "1.1523.0",
   "stage": "FUSION_CHART_HISTORICAL_PROVENANCE_AND_SCHOOL_AUDIT_R1",
   "invariants": {
     "deterministic_fusion_chart_product_r1": "CLOSED",
@@ -23,28 +23,31 @@
     "matrix_rows": 222,
     "matrix_audited": 222,
     "root_sources": 647,
-    "extension_sources": 717,
-    "total_sources": 1364,
-    "shards": 254,
+    "extension_sources": 721,
+    "total_sources": 1368,
+    "shards": 255,
     "graph_nodes": 495,
     "graph_edges": 375,
     "open_issues": 51,
     "p0": 5
   },
   "phase": "BREADTH_FIRST_TWO_SYSTEM_HISTORICAL_FRAMEWORK_R1",
-  "next_deliverable": "领取15EK全库查询，核对Comber 1955/1960版目与Google Books edition字段冲突，争取合法公开算命章节；DeBernardi 2006八字段落定位与1979–1981田野年代分层，继续独立寻找1999年前马来西亚紫微同期史料。",
+  "next_deliverable": "继续独立寻找1999年前马来西亚紫微斗数同期教学、出版或实践史料；优先公开报刊、馆目，Comber和DeBernardi目标页及1957/1981/2009版本比较保留未决，不把一般算命等同四柱或紫微。",
   "latest_matrix_batch": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-FIRSTPARTY-AND-OLD20-ATLAS-QD.md",
   "latest_breadth_batch": "docs/research/TIANWEN-15EK-MALAYA-COMBER-PENANG-ETHNOGRAPHY-CHECKPOINT-R1.md",
   "checkpoint": {
-    "id": "TW-CHECKPOINT-15EK-PROVISIONAL-20261126",
+    "id": "TW-CHECKPOINT-15EK-ADMITTED-20261126",
     "evidence_refs": [
       "docs/research/TIANWEN-15EK-MALAYA-COMBER-PENANG-ETHNOGRAPHY-CHECKPOINT-R1.md",
-      "docs/PROJECT-REGISTRY-QUERY-R2.json"
+      "docs/research/TIANWEN-15EK-MALAYA-COMBER-PENANG-ETHNOGRAPHY-SOURCE-SHARD-R1.json",
+      "docs/TIANWEN-ZIWEI-HISTORICAL-OUTLINE-R1.md",
+      "docs/TIANWEN-BAZI-HISTORICAL-OUTLINE-R1.md",
+      "docs/TIANWEN-DUAL-HISTORY-COVERAGE-ATLAS-R1.md"
     ]
   },
   "focus": {
-    "index": 3217,
-    "text": "13ZZ CURRENT ACTION AFTER 15EJ ACCEPTANCE / 15EK PROVISIONAL: exact 56be86e9 continuity PASS, six bindings match. New Comber 1955 CiNii BA86177357 and 1960 3rd ed BA63140813, Google Books jXI0AAAAMAAJ 1955/edition3 conflict and p8 fortune-telling heading; no target page or named system. DeBernardi 2006 Penang ethnography, official preface image xiv confirms 1979–81 fieldwork and later research, xv anonymization; eight-character horoscope text index provisional, no official target page or exact observation date. No new source admission, no independent pre-1999 Malaysian Ziwei witness. NEXT 15EK full registry query, edition identity and legitimate target pages. TW-OPEN-0047/0048/0050/0051 OPEN; Matrix222/222, sources1364/254 shards, graph495/375, 51 open incl five P0, core CLOSED.",
+    "index": 3218,
+    "text": "13ZZ CURRENT ACTION AFTER 15EK BOUNDED ADMISSION: exact bcea82f continuity PASS and bound 255-file 1364-record 13-term registry query zero hits, preserved at 290c2eb; exact 290c2eb continuity workflow not triggered, canonical blobs recovered instead. Four scoped records admitted: Comber 1955 and 1960 CiNii edition metadata, Stanford preface xiv–xv fieldwork chronology, NUS Press 2011 edition metadata (forward correction to previous 2006 wording). 1957/1981/2009 comparison leads not separately admitted; original fortune-telling and horoscope passages missing. NEXT independent pre-1999 Malaysian Ziwei and Bazi contemporary evidence. TW-OPEN-0047/0048/0050/0051 OPEN; Matrix222/222, sources1368=647+721/255 shards, graph495/375, 51 open incl five P0, core CLOSED.",
     "truncated": false
   },
   "p0": [

@@ -699,3 +699,8 @@ CiNii BA61461510著录1955.8香港实学书店，另有大阪大学伊地智文�
 
 ### 15EJ｜南洋报刊证据分层
 [15EJ](research/TIANWEN-15EJ-REGIONAL-NEWSPAPER-DISCOURSE-ADMISSION-R1.md)：1910一般算命司法报道术法未明，不计四柱实践；1981星洲日报第28页八字公共话语有界准入，未见全文、原图及个案。 来源1364（647+717/254片），图495/375，51开放含五P0，Matrix222/222，核心CLOSED。TW-OPEN-0047/0051 OPEN。
+
+
+### 15EK｜马来亚历史研究的版本与田野边界（2026-11-26）
+
+1955/1960 Comber馆目确认一般华人术数研究出版史；DeBernardi Stanford序言确认1979–81槟城田野但并非全部观察时间，NUS 2011版与2006原作分开。四项有限来源登记；未读目标算命/八字段落，不据此确认四柱具体实践或1999年前马来西亚紫微传播、师承。参见 [15EK研究检查点](research/TIANWEN-15EK-MALAYA-COMBER-PENANG-ETHNOGRAPHY-CHECKPOINT-R1.md)。
