@@ -2,14 +2,14 @@
   "schema": "TIANWEN-CONTEXT-RECOVERY-VIEW-R2",
   "authority": "DERIVED_ONLY",
   "bindings": {
-    "docs/PROJECT-CURRENT-STATE-R1.json": "60c074f2726589dff5d4ba7527a231c503a16482",
-    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "e0dc6aa8460527f75b9d73e161af61e1bef30623",
-    "docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json": "c00acbdef82c2309eeaf8c3a59bdd6217df360ce",
+    "docs/PROJECT-CURRENT-STATE-R1.json": "0a4592d85a360168c64ce23ecd06573ded7c4677",
+    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "90549b031ff0ced58f678a6cc95f110bc64ecfeb",
+    "docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json": "ff1eb472136fb2b7a966efd96dde96d244731a7c",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json": "ea2ab50479450c39ce3fc7a00ea91cd713bf4a60",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json": "5919e1b6bbc3c4b150507c41a13ccc9e13d20f17",
-    "docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json": "7de994aadfed6526bdd68209c0f1d0f1061bbbe8"
+    "docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json": "dc049a7adc0d23527f09a632f278e8553f3e65b4"
   },
-  "state_version": "1.1513.0",
+  "state_version": "1.1514.0",
   "stage": "FUSION_CHART_HISTORICAL_PROVENANCE_AND_SCHOOL_AUDIT_R1",
   "invariants": {
     "deterministic_fusion_chart_product_r1": "CLOSED",
@@ -23,27 +23,28 @@
     "matrix_rows": 222,
     "matrix_audited": 222,
     "root_sources": 647,
-    "extension_sources": 696,
-    "total_sources": 1343,
-    "shards": 248,
-    "graph_nodes": 486,
+    "extension_sources": 699,
+    "total_sources": 1346,
+    "shards": 249,
+    "graph_nodes": 488,
     "graph_edges": 375,
     "open_issues": 48,
     "p0": 5
   },
   "phase": "BREADTH_FIRST_TWO_SYSTEM_HISTORICAL_FRAMEWORK_R1",
-  "next_deliverable": "领取15EE精确HEAD全库查重；对1972《子平粹言》、1978《大流年批導法》著录差异及马来西亚紫微履历作语义去重与有界准入，保留原刊记、同期授课证据及新马早期紫微待核事项。",
+  "next_deliverable": "继续广度优先：寻找马来西亚1999以前及新加坡1994以前独立同期紫微报刊、课程、出版记录，并补港台四柱出版的独立馆目与学术书目；保留15EE各原刊记、同源年表和马来西亚授课同期证据未决项。",
   "latest_matrix_batch": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-FIRSTPARTY-AND-OLD20-ATLAS-QD.md",
   "latest_breadth_batch": "docs/research/TIANWEN-15EE-1970S-BAZI-PUBLICATION-MALAYSIA-ZIWEI-CHECKPOINT-R1.md",
   "checkpoint": {
-    "id": "TW-CHECKPOINT-15EE-PROVISIONAL-20261126",
+    "id": "TW-CHECKPOINT-15EE-ADMITTED-20261126",
     "evidence_refs": [
-      "docs/research/TIANWEN-15EE-1970S-BAZI-PUBLICATION-MALAYSIA-ZIWEI-CHECKPOINT-R1.md"
+      "docs/research/TIANWEN-15EE-1970S-BAZI-PUBLICATION-MALAYSIA-ZIWEI-CHECKPOINT-R1.md",
+      "docs/research/TIANWEN-15EE-REGIONAL-PUBLICATION-TEACHING-SOURCE-SHARD-R1.json"
     ]
   },
   "focus": {
-    "index": 3208,
-    "text": "13ZZ CURRENT ACTION 15EE PROVISIONAL: 15ED exact HEAD 795e69f continuity success, other actions pending/no failure at review. Taiwan 1972 Letian Ziping Cuiyan bibliographic record Ob340QEACAAJ and NCCU thesis Dec reprint; 1978 Daliunian Pidaofa NCCU cites Liang/Chen self-published Oct, publisher retrospective Nov 1/Qian Daren/432pp; distinguish date and responsibility fields, seek original colophon. 1976–79 Liang publisher chronology includes Ziping poetry/rhapsody collections, 1979 Daliunian Panli; 1978 Lin Zong Mingli Jiexi retailer date weak. HK Shanghai press 1973/1985 secondhand listings not original proof. Malaysian academy bio claims 1989 study, 1999 Ziwei teaching, 2002–05 teaching; Hong Kong practitioner bio 1990 Singapore/Malaysia trips lists fengshui/ritual, NOT Ziwei evidence. NewspaperSG query inaccessible; no earlier independently dated Ziwei witness. TW-OPEN-0048 OPEN, 0047 and all P0 retained; no source or graph admission pending exact full registry search. Matrix222/222, sources1343, graph486/375, core CLOSED.",
+    "index": 3209,
+    "text": "13ZZ CURRENT ACTION AFTER 15EE ADMISSION: exact ea5453e continuity PASS 62+7; query 249 files/1343 records/19 terms, two matching files, no truncation. 15AE publisher chronology reused, not recounted; 15DP 1991 CiNii distinct from 1972 Letian. Three bounded sources: Google Books 1972 metadata, NCCU Zhang 2002 bibliography reporting Dec 1972 reprint and Oct 1978 Daliunian Pidaofa (Liang/Chen), academy Wu retrospective claims 1999/2002–05 teaching. Existing chronology reports Nov 1 1978/432pp/issuer Qian; date conflict OPEN, distinct responsibility fields. Retailer Lin 1978 and HK 1973/1985 market leads withheld; original colophons and Malaysia contemporary evidence OPEN. Two bibliographic edition nodes, no edges; sources1346=647+699/249 shards, graph488/375, 48 open incl five P0, Matrix222/222, core CLOSED. NEXT earlier independent Malaysia/Singapore Ziwei contemporary print/teaching and Taiwan/HK Bazi dated editions, broaden academic and library catalogue anchors.",
     "truncated": false
   },
   "p0": [
