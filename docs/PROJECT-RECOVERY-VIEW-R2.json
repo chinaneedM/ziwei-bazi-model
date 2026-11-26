@@ -2,14 +2,14 @@
   "schema": "TIANWEN-CONTEXT-RECOVERY-VIEW-R2",
   "authority": "DERIVED_ONLY",
   "bindings": {
-    "docs/PROJECT-CURRENT-STATE-R1.json": "836eb92def23c4a172f8b21c8ec752861d9554fe",
-    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "94fda0553744c0e7b5321eacaf4349c48698aaa7",
-    "docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json": "ef0ba8f7e9b31e5fb5d38ba68e64bec11f7db6de",
+    "docs/PROJECT-CURRENT-STATE-R1.json": "4ab9a8dd8d0abd2bd33e040baf8cf0b354ea4e21",
+    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "a499d378aff7ae0b71c6849ec9ff4081a2f51599",
+    "docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json": "20644d274b35fa4afbf11ba72a2372b419b25322",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json": "ea2ab50479450c39ce3fc7a00ea91cd713bf4a60",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json": "5919e1b6bbc3c4b150507c41a13ccc9e13d20f17",
     "docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json": "40d5988bcae7071b761e8a03a249c7e972e8bf46"
   },
-  "state_version": "1.1495.0",
+  "state_version": "1.1496.0",
   "stage": "FUSION_CHART_HISTORICAL_PROVENANCE_AND_SCHOOL_AUDIT_R1",
   "invariants": {
     "deterministic_fusion_chart_product_r1": "CLOSED",
@@ -23,27 +23,28 @@
     "matrix_rows": 222,
     "matrix_audited": 222,
     "root_sources": 647,
-    "extension_sources": 659,
-    "total_sources": 1306,
-    "shards": 239,
+    "extension_sources": 663,
+    "total_sources": 1310,
+    "shards": 240,
     "graph_nodes": 474,
     "graph_edges": 375,
     "open_issues": 39,
     "p0": 5
   },
   "phase": "BREADTH_FIRST_TWO_SYSTEM_HISTORICAL_FRAMEWORK_R1",
-  "next_deliverable": "领取15DU香港紫微杨出版及传播候选的绑定全库查询并作语义准入裁决；继续民国同期独立紫微实务与港台地域传播，原书原报仅合法免费免账号核查。",
+  "next_deliverable": "继续民国同期独立紫微实务及港台地域出版、授课和报刊传播；原书原刊仅合法免费免账号核查，15DU原件缺口保持OPEN。",
   "latest_matrix_batch": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-FIRSTPARTY-AND-OLD20-ATLAS-QD.md",
   "latest_breadth_batch": "docs/research/TIANWEN-15DU-HONGKONG-ZIWEI-YANG-PUBLICATION-RECEPTION-CHECKPOINT-R1.md",
   "checkpoint": {
-    "id": "TW-CHECKPOINT-15DU-PROVISIONAL-20261126",
+    "id": "TW-CHECKPOINT-15DU-ADMITTED-20261126",
     "evidence_refs": [
-      "docs/research/TIANWEN-15DU-HONGKONG-ZIWEI-YANG-PUBLICATION-RECEPTION-CHECKPOINT-R1.md"
+      "docs/research/TIANWEN-15DU-HONGKONG-ZIWEI-YANG-PUBLICATION-RECEPTION-CHECKPOINT-R1.md",
+      "docs/research/TIANWEN-15DU-HONGKONG-ZIWEI-YANG-PUBLICATION-RECEPTION-SOURCE-SHARD-R1.json"
     ]
   },
   "focus": {
-    "index": 3190,
-    "text": "13ZZ CURRENT ACTION 15DU PROVISIONAL: HKBU 2009 Contemporary Historical Review vol10 no2 original rendered modern bibliography p67/PDF31 lists Ziwei Yang Qingshi Qishu Lu, Ming Pao Publishing, 1988; UM Dec2020 new-books list 2006 edition ISBN9789628918034; retailer received author revision preface dates earliest Ziwei Xianhua 1985 and last Ranxi Rizhilu 1994, describes material revision; 2011 Shen Aoran and 2024 Jiang Kuangwen retrospective Hong Kong media/teaching leads. Full registry dedup pending, no original 1980s book/press/lineage; TW-OPEN-0039 P1 OPEN, 0035 remains OPEN. Sources1306/239 shards, graph474/375, Matrix222/222, 39 risks incl five P0, core CLOSED. NEXT bound 15DU query and semantic adjudication; continue independent Republican dated practice and regional media.",
+    "index": 3191,
+    "text": "13ZZ CURRENT ACTION AFTER 15DU ADMISSION: exact-HEAD 20-term full query PASS 240 files/1306 prior sources, one existing 15AD Shen Aoran article hit reused. Four bounded document objects admitted: HKBU 2009 bibliography reporting 1988, UM 2006 edition catalogued 2020, retailer received revision preface (1985/1994 retrospective dates), Jiang Kuangwen 2024 recollection of 1984 press practice. No original 1980s books/press, exact edition succession or direct lineage. TW-OPEN-0039, 0035, 0037, 0038 OPEN. Sources1310/240 shards, graph474/375, Matrix222/222, 39 risks incl five P0, core CLOSED. NEXT independent dated Republican Ziwei practice and regional Hong Kong/Taiwan original publishing/practice, legal free no-account sources only.",
     "truncated": false
   },
   "p0": [

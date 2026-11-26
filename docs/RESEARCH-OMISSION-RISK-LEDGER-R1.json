@@ -12,8 +12,8 @@
   "binding": {
     "repository": "chinaneedM/ziwei-bazi-model",
     "branch": "agent/fusion-chart-core-r1-20260822",
-    "reviewed_state_version": "1.1495.0",
-    "source_focus_count": 3191,
+    "reviewed_state_version": "1.1496.0",
+    "source_focus_count": 3192,
     "latest_research_focus_prefix": "13ZZ"
   },
   "coverage_axes": [
@@ -15433,11 +15433,12 @@
       "status": "OPEN",
       "origin": "15DU provisional breadth checkpoint",
       "source_refs": [
-        "docs/research/TIANWEN-15DU-HONGKONG-ZIWEI-YANG-PUBLICATION-RECEPTION-CHECKPOINT-R1.md"
+        "docs/research/TIANWEN-15DU-HONGKONG-ZIWEI-YANG-PUBLICATION-RECEPTION-CHECKPOINT-R1.md",
+        "docs/research/TIANWEN-15DU-HONGKONG-ZIWEI-YANG-PUBLICATION-RECEPTION-SOURCE-SHARD-R1.json"
       ],
-      "evidence_boundary": "2009史学期刊书目第67页目验、2006版澳门大学馆目、零售页所载修订序、2011及2024回顾文章；全库查重未完成，未见1980年代原书原刊或实授证据。",
-      "missing_evidence": "全库字面查询及语义裁决；1985《紫微闲话》、1988《清室气数录》原版版权页、修订前后正文、同期《明报》《东方日报》《清新周刊》栏目、独立教学及传承证明。",
-      "next_action": "领取15DU绑定全库查询，逐条辨别文献身份与相互依赖；合法免费免账号原件，不把回忆当同期原证。",
+      "evidence_boundary": "绑定全库查重及语义裁决完成；四条有限来源登记，2011沈傲然文复用15AD；2009书目、2006版馆目、零售所载修订序、2024回顾各限其证据层，不见1980年代原书原刊或实授证据。",
+      "missing_evidence": "1985《紫微闲话》、1988《清室气数录》原版版权页、修订前后正文、同期《明报》《东方日报》《清新周刊》栏目、独立教学及传承证明。",
+      "next_action": "仅合法免费免账号核查原书原刊及独立教学证据；继续民国同期独立实务及港台地区传播，区分回忆与同期原证。",
       "closure_criteria": "区分现代书目和原版印次、修订序与原序、同期报刊与回顾；核对独立实务和传承记录，不从相似论法或师徒自述自动建立规则传承边。",
       "matrix_rule_ids": [],
       "resolution_evidence": [],
@@ -15448,6 +15449,25 @@
           "basis": "Rendered HKBU bibliography p67 and UM 2006 catalogue plus received preface and dated retrospective leads; no original 1980s publication or teaching proof; full registry check pending.",
           "evidence_refs": [
             "docs/research/TIANWEN-15DU-HONGKONG-ZIWEI-YANG-PUBLICATION-RECEPTION-CHECKPOINT-R1.md"
+          ]
+        },
+        {
+          "event": "EVIDENCE_SCOPE_REVISION",
+          "date": "2026-11-26",
+          "changed_fields": [
+            "evidence_boundary",
+            "missing_evidence",
+            "next_action"
+          ],
+          "previous_fields": {
+            "evidence_boundary": "2009史学期刊书目第67页目验、2006版澳门大学馆目、零售页所载修订序、2011及2024回顾文章；全库查重未完成，未见1980年代原书原刊或实授证据。",
+            "missing_evidence": "全库字面查询及语义裁决；1985《紫微闲话》、1988《清室气数录》原版版权页、修订前后正文、同期《明报》《东方日报》《清新周刊》栏目、独立教学及传承证明。",
+            "next_action": "领取15DU绑定全库查询，逐条辨别文献身份与相互依赖；合法免费免账号原件，不把回忆当同期原证。"
+          },
+          "reason": "Exact-HEAD bound full literal query and semantic review; four bounded documents admitted, one already-registered article reused, original-source gaps retained.",
+          "evidence_refs": [
+            "docs/research/TIANWEN-15DU-HONGKONG-ZIWEI-YANG-PUBLICATION-RECEPTION-CHECKPOINT-R1.md",
+            "docs/research/TIANWEN-15DU-HONGKONG-ZIWEI-YANG-PUBLICATION-RECEPTION-SOURCE-SHARD-R1.json"
           ]
         }
       ]
@@ -38990,6 +39010,80 @@
           "scope": "TW-OPEN-0039",
           "status": "OPEN",
           "next_evidence": "全库字面查询及语义裁决；1985《紫微闲话》、1988《清室气数录》原版版权页、修订前后正文、同期《明报》《东方日报》《清新周刊》栏目、独立教学及传承证明。"
+        },
+        {
+          "scope": "TW-OPEN-0035",
+          "status": "OPEN",
+          "next_evidence": "同期上海命馆/广告/明确术式原件、香港印章命书的物理身份及制作日期、2009原刊与2012修订对照、授课和传承的独立证据。"
+        },
+        {
+          "scope": "TW-OPEN-0037",
+          "status": "OPEN",
+          "next_evidence": "三篇原刊正文及页图，访谈、个案与商业媒体叙事的实际内容及传播边界；同刊及其他传播材料的独立证据。"
+        },
+        {
+          "scope": "TW-OPEN-0038",
+          "status": "OPEN",
+          "next_evidence": "七期原报图/完整正文、专栏起止与其他期次、讲座地点日期及内容、15BE 2000页位差异。"
+        }
+      ]
+    },
+    {
+      "id": "TW-CHECKPOINT-15DU-ADMITTED-20261126",
+      "date": "2026-11-26",
+      "state_version": "1.1496.0",
+      "reviewed_issue_ids": [
+        "TW-OPEN-0001",
+        "TW-OPEN-0002",
+        "TW-OPEN-0003",
+        "TW-OPEN-0004",
+        "TW-OPEN-0005",
+        "TW-OPEN-0006",
+        "TW-OPEN-0007",
+        "TW-OPEN-0008",
+        "TW-OPEN-0009",
+        "TW-OPEN-0010",
+        "TW-OPEN-0011",
+        "TW-OPEN-0012",
+        "TW-OPEN-0013",
+        "TW-OPEN-0014",
+        "TW-OPEN-0015",
+        "TW-OPEN-0016",
+        "TW-OPEN-0017",
+        "TW-OPEN-0018",
+        "TW-OPEN-0019",
+        "TW-OPEN-0020",
+        "TW-OPEN-0021",
+        "TW-OPEN-0022",
+        "TW-OPEN-0023",
+        "TW-OPEN-0024",
+        "TW-OPEN-0025",
+        "TW-OPEN-0026",
+        "TW-OPEN-0027",
+        "TW-OPEN-0028",
+        "TW-OPEN-0029",
+        "TW-OPEN-0030",
+        "TW-OPEN-0031",
+        "TW-OPEN-0032",
+        "TW-OPEN-0033",
+        "TW-OPEN-0034",
+        "TW-OPEN-0035",
+        "TW-OPEN-0036",
+        "TW-OPEN-0037",
+        "TW-OPEN-0038",
+        "TW-OPEN-0039"
+      ],
+      "discovery_mode": "BREADTH_FIRST_HISTORICAL_PRACTICE",
+      "result": "13ZZ CURRENT ACTION AFTER 15DU ADMISSION: exact-HEAD 20-term full query PASS 240 files/1306 prior sources, one existing 15AD Shen Aoran article hit reused. Four bounded document objects admitted: HKBU 2009 bibliography reporting 1988, UM 2006 edition catalogued 2020, retailer received revision preface (1985/1994 retrospective dates), Jiang Kuangwen 2024 recollection of 1984 press practice. No original 1980s books/press, exact edition succession or direct lineage. TW-OPEN-0039, 0035, 0037, 0038 OPEN. Sources1310/240 shards, graph474/375, Matrix222/222, 39 risks incl five P0, core CLOSED. NEXT independent dated Republican Ziwei practice and regional Hong Kong/Taiwan original publishing/practice, legal free no-account sources only.",
+      "evidence_refs": [
+        "docs/research/TIANWEN-15DU-HONGKONG-ZIWEI-YANG-PUBLICATION-RECEPTION-CHECKPOINT-R1.md",
+        "docs/research/TIANWEN-15DU-HONGKONG-ZIWEI-YANG-PUBLICATION-RECEPTION-SOURCE-SHARD-R1.json"
+      ],
+      "unresolved_breadth_leads": [
+        {
+          "scope": "TW-OPEN-0039",
+          "status": "OPEN",
+          "next_evidence": "1985《紫微闲话》、1988《清室气数录》原版版权页、修订前后正文、同期《明报》《东方日报》《清新周刊》栏目、独立教学及传承证明。"
         },
         {
           "scope": "TW-OPEN-0035",
