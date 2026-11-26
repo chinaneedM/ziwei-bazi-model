@@ -1,0 +1,23 @@
+# 15DY：万卷堂八卷本著录与1903–1919再刊（待准入检查点）
+
+2026-11-26；父HEAD `a99597a622a598b3228bc2cbae863749e42dc322`，tree `1789c10f4b26906e4dbc53ab93ed148f79a216a8`。[精确HEAD连续性CI](https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/45816872897) 成功，前一正式登记查询核收，详见15DX追加段；同HEAD另285项工作流合计227成功、42排队、16运行，无已知失败，未全绿。五项P0全部保持原状，核心CLOSED。
+
+## 一、明代目录作品与清代物件
+
+[台湾国家图书馆第一方详目](https://rbook.ncl.edu.tw/NCLSearch/Search/SearchDetail?HasImage=&SourceID=1&item=d47594708e0741f7ab5c987c53914e8bfDYzODc00.b_Wjo6j74dQ4WslpTYDTUlkVpKkLQOt4RK1EaNr88k0_&page=16&sourceWhereString=&whereString=IChEYXRlX0NyZWF0ZWQgbGlrZSAnJTE2NDQtMTkxMSUnIG9yIERvY3VtZW50X1llYXIgbGlrZSAnJTE2NDQtMTkxMSUnICkg0.9WR3qOhKTZoOHWcO76m4ix1MkYxrhvXwOnjMQcb3zFs_) 44–65行著录朱睦㮮《萬卷堂書目》，清正文齋烏絲欄鈔本，不分卷、一册、书号04979、索书号214 04979；目录引序署隆慶庚午（1570），另曹溶跋、张继手书题记（题记未标确切年，提北平馆丹铅精舍钞本及两本关系不明）。**1570是书目所报序年，不是现存清钞本抄写年，也不直接给出八卷紫微斗数书的成书日。** 题记不得径直定为民国某年。
+
+[同一物件Commons替身](https://commons.wikimedia.org/wiki/File:NCL-04979_%E8%90%AC%E5%8D%B7%E5%A0%82%E6%9B%B8%E7%9B%AE.pdf) 声明91页、18001394 bytes、provider-declared SHA1 8acd4ba7f366cdce4f70131b69d12fe2540662ba（未独立重算）；[PDF](https://upload.wikimedia.org/wikipedia/commons/5/57/NCL-04979_%E8%90%AC%E5%8D%B7%E5%A0%82%E6%9B%B8%E7%9B%AE.pdf) 自动抽取3187行报“紫微斗數八卷”，对零基60/61页截图均因文件过大失败；未定位真正目标页，不授原字权威。另[中国国图 NLC892-411999007617-109216](https://upload.wikimedia.org/wikipedia/commons/f/fd/NLC892-411999007617-109216_%E8%90%AC%E5%8D%B7%E5%A0%82%E8%97%9D%E6%96%87%E7%9B%AE%E9%8C%84.pdf) 自动抽取2318行同题八卷；[后出目录](https://www.guoxuedashi.com/shumu/gj-836428tz.html)报清道光六年1826东武刘氏味经书屋钞本；PDF index55截图因40407412 bytes失败，不能当原页核见，物件与年代须再绑定。两件未可视为独立文本传承票。
+
+## 二、叶氏刊本和民国重编
+
+[CiNii BD01599249](https://ci.nii.ac.jp/ncid/BD01599249) 118–175行：东京大学东洋文化研究所倉石文庫20723:2、6403953992，《萬卷堂書目》四卷，观古堂丛刻[7]，出版事项据母书为1919；馆录封面裏有光緒癸卯秋長沙葉氏刊（1903），左右双边11行22字，内匡17.8×12.4cm，有朱笔等。 [CiNii BC0440753X](https://ci.nii.ac.jp/ncid/BC0440753X?l=en) 138–213行：同馆大木文库24-12、6403755736，《萬卷堂書目》与绛云楼书目等合录，丛刻[12]-[13]，母书1919，封面里同1903刊记；内匡17.8×12.5cm、另有大木文库印。是不同馆藏定位候选，具体实物及印次须原书端复查；母书重编1919不等于各册必于1919新印。第一件OPAC链接403，未核书端原图。无需账号或付费申请。
+
+[识典古籍 NGJ892001929162317368 卷三](https://www.shidianguji.com/zh/book/NGJ892001929162317368/chapter/1lvuusdjfcra2) 390–396行可读取八卷题名，邻接命数歌诀、醉醒集、梅花分金数等；[CADAL02091194卷三](https://www.shidianguji.com/zh/book/CADAL02091194/chapter/1lb4xo87e57oi) 检索摘要同。二书级入口直接访问404，未核版本页，不能把电子录文归入上列两个东京馆藏物件或证明彼此独立。 [ctext 806428](https://ctext.org/wiki.pl?chapter=806428&if=en) 检索索引也同，直接访问403。八卷题名为收到的目录文字线索，尚不是目标原字或目标术书；与1937六卷、1923–26道藏三卷分列，既不合并也不推定术法异同或传承。
+
+## 三、检索误命中与后出归属边界
+
+[1916京师教育报第30期](https://upload.wikimedia.org/wikipedia/commons/d/df/NLC404-01J000120-6439_%E4%BA%AC%E5%B8%AB%E6%95%99%E8%82%B2%E5%A0%B1_1916%E5%B9%B430%E6%9C%9F.pdf) 自动抽取封面错误称“紫微斗数”；零基p0原图明确“京師教育報”，下方第三十期京師學務局印行；p2目录明确民国五年六月十五日出版。排除该**封面检索误命中**，不声称整刊所有页无该词。[栗谷先生全书 WUL-he16_02426_26](https://upload.wikimedia.org/wikipedia/commons/9/99/WUL-he16_02426_%E6%A0%97%E8%B0%B7%E5%85%88%E7%94%9F%E5%85%A8%E6%9B%B8_26.pdf) 自动抽取封面报斗数而后页为《擊蒙要訣》，p0截图失败，保留为未核且疑误检，不计韩国斗数证据。[2015论坛](https://destiny.to/ubbthreads/topic/206743) 标“民國·南北山人撰”无精确年、原刊；[2021陈昭吟《道經中署名羅洪先之著作考辨》](https://chinese.ncku.edu.tw/var/file/142/1142/img/4253/7502.pdf) 原图零基29印页62注87明确转引傲天行2009对南北山人/童彭年同人之说，非独立身份或1949年前实务见证；两线索不作为新民国实例准入。零星广告、零售后出文字仅作查找入口。
+
+## 四、下一步
+
+15DY保留上述目录版本与民国再刊旁证，启动绑定当前manifest的全库字面查询；须补读匹配对象语义去重，目标原页未核不得升格。正式来源1319（647+672／243分片）、42开放风险（含五项P0）、Matrix222/222、图474/375、核心CLOSED不变。下一步仍以独立同期实践证据为重点，附带完成这一有材料的出版传播节点；不展开单一原本校勘深研。

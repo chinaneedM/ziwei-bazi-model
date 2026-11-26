@@ -28,3 +28,7 @@
 再次打开两份原刊扫描：1929 PDF p0与p110；1937 PDF p1与p129；关键原字与编号重核相符。另见1937 p0封面署“陳垣”及印章，仅支持封面题签署名，不能认定陈垣编写书目、拥有该斗数书或从事命理。p264为末页补目，p265为封底，所查页未见地址，不作整刊无地址结论。1936年第二期[后出目录](https://www.guoxuedashi.com/shumu/gj-3045324vk.html)著录北平三友堂；2006年[书业回顾](https://news.sina.cn/sa/2006-05-22/detail-ikknscsk0254464.d.html)称其与文奎堂比邻、经营者高新元；仅作北平区域待核旁证，尚未核当年营业地址、同期账簿或第二期原页，二者不单独准入、不新增师承边。
 
 正式准入两个独立**出版目录对象**，仅以目录级权威登记（BIBLIOGRAPHIC_METADATA_ONLY，physical_glyph_authority=false），虽核见目录原图，不是目标紫微术书原页，更无完整PDF及原页独立哈希，故不升级机械规则证据等级。新增分片 `docs/research/TIANWEN-15DX-REPUBLICAN-ZIWEI-CATALOGUES-SOURCE-SHARD-R1.json`；新风险TW-OPEN-0041、0042分别保留明代目录底本和1937六卷本及交易/地点身份，五P0和此前全部开放项不变。来源1319=647+672／243片，风险42，Matrix222/222，图474/375，确定性核心CLOSED。新请求与准入后manifest绑定，待本HEAD精确CI重验。
+
+## 5. 15DX准入后查询保全（15DY续接）
+
+HEAD `a99597a622a598b3228bc2cbae863749e42dc322`，run [45816872897](https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/45816872897)，job139898757276 成功；query_id=15DX-post-admission-registry-recheck-r2-20261126，checkpoint_id=TW-CHECKPOINT-15DX-ADMITTED-20261126，request blob `444fe0b739575e1896546325b5f9e0d46c704fb4`、manifest blob `e9279b1e89f2c06bb4b7f8bf7b7ae7f0d3496f5f`、project-context-r2.py blob `3387254ce53ec0a1f1a3b779291e0c40997bf190`。实际日志 status=PASS，scope=ALL_REGISTERED_ROOT_AND_SHARDS_LITERAL_ONLY，files244、records1319、matching_files1、truncated=false。逐词匹配文件数按请求顺序为1,1,1,1,1,0,0,0,1,0,1,0,1,0,1,0,0,0；唯一命中15DX新分片blob `c7de908edcf65287734c1747d873e27974646b4c`，符合预期。其余精确HEAD Actions 227成功/42排队/16运行，未宣称全绿。
