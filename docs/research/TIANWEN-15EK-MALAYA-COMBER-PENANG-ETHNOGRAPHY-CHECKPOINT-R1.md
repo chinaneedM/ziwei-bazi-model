@@ -14,3 +14,18 @@
 - 1999年前明确当地紫微同期证据仍未取得。已知吴俊宏1989从师、1999导师为后出机构履历，与此前15EE复用，不重计；1997等MPLRDC馆藏版印及2007入藏问题仍按15EG范围。宗教研究、灵媒与一般术数不能推定紫微。
 
 本轮未准入新来源，不改图谱和Matrix；TW-OPEN-0047/0048/0050/0051保持OPEN。发起15EK字面全库查询，随后核定语义身份和证据等级。1364来源/254分片，图495/375，Matrix222/222，51开放含5P0，核心CLOSED。
+
+## 15EK 查询领取与版目补证（后续追加，2026-11-26）
+
+精确 HEAD `bcea82f279d1c6e18d967188c26d339405eef47f` 的 [continuity run 45843603872](https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/45843603872)、job 139991406409 成功。query_id=15EK-comber-debernardi-malaya；checkpoint_id=TW-CHECKPOINT-15EK-PROVISIONAL-20261126；request blob 11d7d81d21d869bf0eaa34cfd4a7d3349aef6644；manifest blob d50f81928b4a6574b6535a2003bac0f579e893ff；scripts/project-context-r2.py blob 3387254ce53ec0a1f1a3b779291e0c40997bf190。日志返回 PASS / ALL_REGISTERED_ROOT_AND_SHARDS_LITERAL_ONLY，255 files、1364 records、matching_files=0、hits=[]、truncated=false。13个请求词逐词匹配文件数均为0：Leon Comber；Chinese magic and superstitions in Malaya；Chinese Magic and Superstitions in Malaya；BA86177357；BA63140813；jXI0AAAAMAAJ；DeBernardi；Debernardi；The Way That Lives in the Heart；The Way that Lives in the Heart；9781503625648；8110_Preface.pdf；Ritual and Change in a Malaysian Chinese Community。此结果只证明该manifest下的字面查询，不替代语义消歧或原页核读。六个恢复视图绑定与真实docs tree一致；285项Actions分页检查时284成功、clean-training-system仍运行，不作全绿断言。
+
+### Comber 版本链的新增机构证据
+- [马来西亚 Dewan Bahasa dan Pustaka PRPM 书目](https://prpm.dbp.gov.my/Cari1?d=202792&keyword=magic) 明列题名、Donald Moore Press、1957，未标明版次；与原先书商称第二版的候选相区分。可支持1957出版著录，不可证实第二版或馆藏原件。
+- [芬兰国家图书馆 Finna 聚合目录 vaari.3049309](https://kansalliskirjasto.finna.fi/Record/vaari.3049309) 提供 Varastokirjasto 记录：1960第三修订版，Singapore、Eastern Universities Press、79页、Malayan heritage books 5，注1955初刊。与CiNii BA63140813互证1960第三版目录身份；并非同一物理本，也不是两个独立历史术理见证。
+- [CiNii BA02929507](https://ci.nii.ac.jp/ncid/BA02929507) 著录 New York: AMS Press, [1981]，x+79页，ISBN 0404168086，LCCN 77087023，明确重印1960新加坡第三修订版；参考文献页74–75，附索引。45条馆藏展示不计为45个传承证据。此为1960版的后出重印候选，不作1981年马来西亚当地实践证据。美国国会图书馆LCCN跳转本轮不可读取，不能声称LOC已核。
+- 因而目前目录级版本骨架为1955初刊、1957出版著录（版次待核）、1960第三修订版、[1981]美国重印。Google Books 1955/edition3冲突仍待刊记；不得把它强行归入任何一版。未取得合法公开的第8页算命章节，未证明四柱或紫微命名。
+
+### DeBernardi 的电子版层与访问边界
+[出版社平台 DOI 10.1515/9781503625648](https://www.degruyterbrill.com/de/document/doi/10.1515/9781503625648/html) 区分2006出版/版权与2022-01-21电子版发布；目录列 Introduction p1、Part One p43、Part Two p167、Conclusion p293、Notes p307、Bibliography p327、Glossary p345、Index p357；公开标识限于前置部分（frontmatter、目录、图表目录、序言），未见目标正文免费可读。Google Books 2021条目 wcWmzgEACAAJ 为后出目录线索，不能倒填2006版页码或1979–81观察日期。目标八字段落尚只有此前非官方检索定位，不录受限全文、不付费、不注册。1999年前马来西亚紫微独立同期证据仍未找到，非不存在结论。
+
+本次是同一15EK开放检查点的查询保全和版目补证，不是新完成批次；未正式准入来源、未新增图节点/边、未改风险级别或历史语义状态。新增馆目编号与链接在后续正式准入前补作身份及查重核验；NEXT：对现有候选进行有限证据级别准入裁决，继续寻找可合法公开的目标正文及独立紫微同期证据。保留TW-OPEN-0047/0048/0050/0051；不得用本记录关闭它们。
