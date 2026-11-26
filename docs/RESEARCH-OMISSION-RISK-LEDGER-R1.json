@@ -12,8 +12,8 @@
   "binding": {
     "repository": "chinaneedM/ziwei-bazi-model",
     "branch": "agent/fusion-chart-core-r1-20260822",
-    "reviewed_state_version": "1.1479.0",
-    "source_focus_count": 3175,
+    "reviewed_state_version": "1.1480.0",
+    "source_focus_count": 3176,
     "latest_research_focus_prefix": "13ZZ"
   },
   "coverage_axes": [
@@ -15030,11 +15030,13 @@
       "status": "OPEN",
       "origin": "15DM provisional checkpoint",
       "source_refs": [
-        "docs/research/TIANWEN-15DM-QI-DONGYE-NATAL-REMINISCENCE-CHECKPOINT-R1.md"
+        "docs/research/TIANWEN-15DM-QI-DONGYE-NATAL-REMINISCENCE-CHECKPOINT-R1.md",
+        "docs/research/TIANWEN-15DM-QI-DONGYE-NATAL-REMINISCENCE-R1.md",
+        "docs/research/TIANWEN-15DM-QI-DONGYE-NATAL-REMINISCENCE-SOURCE-SHARD-R1.json"
       ],
-      "evidence_boundary": "澳门大学公开新书目录1963-/1965-两条馆藏号，详目403；Google Books第2卷1963聚合书目与词频索引；现代出版者转引星数/子平分类及作者更正说，未核原页。根647、十片37条定向查重，全231片清单与树SHA一致；正文去重未完成。",
-      "missing_evidence": "剩余221片599条目标查重；原刊记、分类段及具独立年代的原案例、1980韦氏更正原序、完整馆藏记录、实际版本与传播关系。",
-      "next_action": "完成全库目标去重；仅经合法免费免账号路径核查原刊记、分类和更正原页；如不可获取，保持OPEN，分层登记有限书目/回顾并继续其他广度单元。",
+      "evidence_boundary": "全根647、全部231分片636条正文目标查重完成，路径/blob SHA全匹配；三条分层来源入册。澳门大学1963-/1965-两条书目，Google Books 1963第二卷，心一堂后出回顾。1980第一卷书目作知命識相五十年，对比现代说明知人識相五十年；第十册商家小言转录非作者更正原序。未得原页、署名更正或实际传承证据。",
+      "missing_evidence": "原刊记、分类段及具独立年代的原案例、1980韦氏更正原序的具体卷页及实际印次，完整馆藏记录、改题／误署各版本及实际传播关系。",
+      "next_action": "仅在新合法免费免账号原页入口出现时恢复原刊记、分类及更正原序核查，保持OPEN，继续其他独立可定年民国紫微实务及双体系出版史。",
       "closure_criteria": "以原页、版本、物理对象及数字替身分层绑定分类段、实际案例年代与1980更正原序；不由后出叙述推定民国实践、传承或具体规则。",
       "matrix_rule_ids": [],
       "resolution_evidence": [],
@@ -15045,6 +15047,25 @@
           "basis": "New catalog and retrospective publication leads; exact original pages and full dedup missing.",
           "evidence_refs": [
             "docs/research/TIANWEN-15DM-QI-DONGYE-NATAL-REMINISCENCE-CHECKPOINT-R1.md"
+          ]
+        },
+        {
+          "event": "EVIDENCE_SCOPE_REVISION",
+          "date": "2026-11-26",
+          "changed_fields": [
+            "evidence_boundary",
+            "missing_evidence",
+            "next_action"
+          ],
+          "previous_fields": {
+            "evidence_boundary": "澳门大学公开新书目录1963-/1965-两条馆藏号，详目403；Google Books第2卷1963聚合书目与词频索引；现代出版者转引星数/子平分类及作者更正说，未核原页。根647、十片37条定向查重，全231片清单与树SHA一致；正文去重未完成。",
+            "missing_evidence": "剩余221片599条目标查重；原刊记、分类段及具独立年代的原案例、1980韦氏更正原序、完整馆藏记录、实际版本与传播关系。",
+            "next_action": "完成全库目标去重；仅经合法免费免账号路径核查原刊记、分类和更正原页；如不可获取，保持OPEN，分层登记有限书目/回顾并继续其他广度单元。"
+          },
+          "reason": "Completed all target dedup and bounded three-source admission; independent bibliographic title comparator differs from modern publisher, but original attribution/case pages remain unavailable.",
+          "evidence_refs": [
+            "docs/research/TIANWEN-15DM-QI-DONGYE-NATAL-REMINISCENCE-R1.md",
+            "docs/research/TIANWEN-15DM-QI-DONGYE-NATAL-REMINISCENCE-SOURCE-SHARD-R1.json"
           ]
         }
       ]
@@ -37677,6 +37698,57 @@
           "scope": "TW-OPEN-0031",
           "status": "OPEN",
           "next_evidence": "Full registry target dedup; lawful free original imprint, classification passage, independently dated case and 1980 attribution correction."
+        }
+      ]
+    },
+    {
+      "id": "TW-CHECKPOINT-15DM-COMPLETE-20261126",
+      "date": "2026-11-26",
+      "state_version": "1.1480.0",
+      "reviewed_issue_ids": [
+        "TW-OPEN-0001",
+        "TW-OPEN-0002",
+        "TW-OPEN-0003",
+        "TW-OPEN-0004",
+        "TW-OPEN-0005",
+        "TW-OPEN-0006",
+        "TW-OPEN-0007",
+        "TW-OPEN-0008",
+        "TW-OPEN-0009",
+        "TW-OPEN-0010",
+        "TW-OPEN-0011",
+        "TW-OPEN-0012",
+        "TW-OPEN-0013",
+        "TW-OPEN-0014",
+        "TW-OPEN-0015",
+        "TW-OPEN-0016",
+        "TW-OPEN-0017",
+        "TW-OPEN-0018",
+        "TW-OPEN-0019",
+        "TW-OPEN-0020",
+        "TW-OPEN-0021",
+        "TW-OPEN-0022",
+        "TW-OPEN-0023",
+        "TW-OPEN-0024",
+        "TW-OPEN-0025",
+        "TW-OPEN-0026",
+        "TW-OPEN-0027",
+        "TW-OPEN-0028",
+        "TW-OPEN-0029",
+        "TW-OPEN-0030",
+        "TW-OPEN-0031"
+      ],
+      "discovery_mode": "BREADTH_FIRST_HISTORICAL_PRACTICE",
+      "result": "13ZZ CURRENT ACTION AFTER 15DM COMPLETED BOUNDED BREADTH: Root647 and all231 prior shards636 parsed for Mingxiang Tanqi title variants, Qi Dongye/Wu Ouyuan and Macau/Google IDs, all path/blob SHA bindings match exact tree; no literal hits, not semantic dedup. Three scoped sources: UM 1963-/1965- two catalog locators, Google Books 1963 vol2 Indiana University source, Sunyata retrospective classification and author attribution. New comparison Google Books 8M7htQEACAAJ catalogs 知命識相五十年 vol1 1980 versus publisher 知人識相五十年; retailer 10th volume 小言 transcription not original correction. UM 1980-82 comparator search result direct open502; no original imprint, named dated Republican case, exact classification text, 1980 erratum or lineage. Comparator locators not separately admitted, shared marketing not independent. Sources1286=647+639/232, graph468/375 Matrix222/222, 31 issues incl five P0, G8930/6, core CLOSED. TW-OPEN-0031 remains OPEN. NEXT independent dated Republican Ziwei practical and regional publication evidence and other dual-history breadth gaps; recover Qi original and attribution only on new lawful free route.",
+      "evidence_refs": [
+        "docs/research/TIANWEN-15DM-QI-DONGYE-NATAL-REMINISCENCE-R1.md",
+        "docs/research/TIANWEN-15DM-QI-DONGYE-NATAL-REMINISCENCE-SOURCE-SHARD-R1.json"
+      ],
+      "unresolved_breadth_leads": [
+        {
+          "scope": "TW-OPEN-0031",
+          "status": "OPEN",
+          "next_evidence": "Original colophon, dated case and classification page, precise volume/leaf of Wei's attribution correction, original reprints and periodicals, through new lawful free access."
         }
       ]
     }
