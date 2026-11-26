@@ -2,14 +2,14 @@
   "schema": "TIANWEN-CONTEXT-RECOVERY-VIEW-R2",
   "authority": "DERIVED_ONLY",
   "bindings": {
-    "docs/PROJECT-CURRENT-STATE-R1.json": "8dfbd2c563b07639a65634b120df0c266b43785f",
-    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "d82b56dfa51f172f7bf29d3b6dd61bf30177115a",
+    "docs/PROJECT-CURRENT-STATE-R1.json": "60c074f2726589dff5d4ba7527a231c503a16482",
+    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "e0dc6aa8460527f75b9d73e161af61e1bef30623",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json": "c00acbdef82c2309eeaf8c3a59bdd6217df360ce",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json": "ea2ab50479450c39ce3fc7a00ea91cd713bf4a60",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json": "5919e1b6bbc3c4b150507c41a13ccc9e13d20f17",
     "docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json": "7de994aadfed6526bdd68209c0f1d0f1061bbbe8"
   },
-  "state_version": "1.1512.0",
+  "state_version": "1.1513.0",
   "stage": "FUSION_CHART_HISTORICAL_PROVENANCE_AND_SCHOOL_AUDIT_R1",
   "invariants": {
     "deterministic_fusion_chart_product_r1": "CLOSED",
@@ -28,23 +28,22 @@
     "shards": 248,
     "graph_nodes": 486,
     "graph_edges": 375,
-    "open_issues": 47,
+    "open_issues": 48,
     "p0": 5
   },
   "phase": "BREADTH_FIRST_TWO_SYSTEM_HISTORICAL_FRAMEWORK_R1",
-  "next_deliverable": "继续广度优先：优先寻找新加坡、马来西亚较早独立定年紫微报刊/出版/授课，补台湾香港1970年代四柱出版；Elliott初版、1964版原页及馆藏2011-03153-007保持OPEN，不重复同源书目。",
+  "next_deliverable": "领取15EE精确HEAD全库查重；对1972《子平粹言》、1978《大流年批導法》著录差异及马来西亚紫微履历作语义去重与有界准入，保留原刊记、同期授课证据及新马早期紫微待核事项。",
   "latest_matrix_batch": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-FIRSTPARTY-AND-OLD20-ATLAS-QD.md",
-  "latest_breadth_batch": "docs/research/TIANWEN-15ED-SOUTHEAST-ASIA-EARLY-BAZI-PRACTICE-CHECKPOINT-R1.md",
+  "latest_breadth_batch": "docs/research/TIANWEN-15EE-1970S-BAZI-PUBLICATION-MALAYSIA-ZIWEI-CHECKPOINT-R1.md",
   "checkpoint": {
-    "id": "TW-CHECKPOINT-15ED-ADMITTED-20261126",
+    "id": "TW-CHECKPOINT-15EE-PROVISIONAL-20261126",
     "evidence_refs": [
-      "docs/research/TIANWEN-15ED-SOUTHEAST-ASIA-EARLY-BAZI-PRACTICE-CHECKPOINT-R1.md",
-      "docs/research/TIANWEN-15ED-SOUTHEAST-ASIA-PRACTICE-SOURCE-SHARD-R1.json"
+      "docs/research/TIANWEN-15EE-1970S-BAZI-PUBLICATION-MALAYSIA-ZIWEI-CHECKPOINT-R1.md"
     ]
   },
   "focus": {
-    "index": 3207,
-    "text": "13ZZ CURRENT ACTION AFTER 15ED ADMISSION: exact 8e470d4 continuity PASS 62+7; query 248 files/1338 records/18 terms/0 matching files, no truncation; legacy 12iu status-publish server error rerun success. Elliott 1955 catalogue corroborated by contemporary reviews, 1964 Singapore reprint cited in 1973 journal p61 screenshot and Malaysia DBP book list; 2020 later-edition text p37/p46 independently checked, fieldwork 1950–51 per preface, first-edition wording and original colophon remain OPEN. NLB2014 retrospective does not date specific Bazi to 1800s; 2024 official advertised Ziwei course only. Museum accession 2011-03153-007 direct catalogue not retrieved, not admitted. Five bounded sources (1343=647+696/248 shards), two context edition nodes graph486/375, zero new edges; TW-OPEN-0047 OPEN; 47 risks incl five P0; Matrix222/222 core CLOSED. NEXT earlier Southeast Asian Ziwei dated print/teaching and parallel Taiwan/HK Bazi publication, retain all original-page gaps.",
+    "index": 3208,
+    "text": "13ZZ CURRENT ACTION 15EE PROVISIONAL: 15ED exact HEAD 795e69f continuity success, other actions pending/no failure at review. Taiwan 1972 Letian Ziping Cuiyan bibliographic record Ob340QEACAAJ and NCCU thesis Dec reprint; 1978 Daliunian Pidaofa NCCU cites Liang/Chen self-published Oct, publisher retrospective Nov 1/Qian Daren/432pp; distinguish date and responsibility fields, seek original colophon. 1976–79 Liang publisher chronology includes Ziping poetry/rhapsody collections, 1979 Daliunian Panli; 1978 Lin Zong Mingli Jiexi retailer date weak. HK Shanghai press 1973/1985 secondhand listings not original proof. Malaysian academy bio claims 1989 study, 1999 Ziwei teaching, 2002–05 teaching; Hong Kong practitioner bio 1990 Singapore/Malaysia trips lists fengshui/ritual, NOT Ziwei evidence. NewspaperSG query inaccessible; no earlier independently dated Ziwei witness. TW-OPEN-0048 OPEN, 0047 and all P0 retained; no source or graph admission pending exact full registry search. Matrix222/222, sources1343, graph486/375, core CLOSED.",
     "truncated": false
   },
   "p0": [
