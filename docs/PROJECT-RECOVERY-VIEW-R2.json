@@ -2,14 +2,14 @@
   "schema": "TIANWEN-CONTEXT-RECOVERY-VIEW-R2",
   "authority": "DERIVED_ONLY",
   "bindings": {
-    "docs/PROJECT-CURRENT-STATE-R1.json": "02cecbfd3cd034cc4ffc82a69aaad7b67499985e",
-    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "4d931b5d443d51c42a6d97cec7e3535b7ad3bcc1",
-    "docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json": "b538ee24ff95316bbe24591f9f4f86ff8672b6ce",
+    "docs/PROJECT-CURRENT-STATE-R1.json": "18ec97c61159b398662385cb50362fe64658a20c",
+    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "1e83d9a7df1b87b562df4903e3a4aa11f575f8e7",
+    "docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json": "5ed110ad352f0d6c6dd9baa0bad3938eb6060f51",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json": "ea2ab50479450c39ce3fc7a00ea91cd713bf4a60",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json": "5919e1b6bbc3c4b150507c41a13ccc9e13d20f17",
-    "docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json": "40d5988bcae7071b761e8a03a249c7e972e8bf46"
+    "docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json": "623c6390f3c7938eaf79a1b6676db767e3cdbda8"
   },
-  "state_version": "1.1507.0",
+  "state_version": "1.1508.0",
   "stage": "FUSION_CHART_HISTORICAL_PROVENANCE_AND_SCHOOL_AUDIT_R1",
   "invariants": {
     "deterministic_fusion_chart_product_r1": "CLOSED",
@@ -23,28 +23,29 @@
     "matrix_rows": 222,
     "matrix_audited": 222,
     "root_sources": 647,
-    "extension_sources": 676,
-    "total_sources": 1323,
-    "shards": 245,
-    "graph_nodes": 474,
+    "extension_sources": 686,
+    "total_sources": 1333,
+    "shards": 246,
+    "graph_nodes": 481,
     "graph_edges": 375,
-    "open_issues": 44,
+    "open_issues": 45,
     "p0": 5
   },
   "phase": "BREADTH_FIRST_TWO_SYSTEM_HISTORICAL_FRAMEWORK_R1",
-  "next_deliverable": "15EB候选：先领取精确HEAD连续性CI的全库查重结果，核定1958阿部熹作／泰山、1968佐藤文栞书目异名、1975陈信苍译本与1977张耀文合著两藏本的已登记情况及物件／版本边界；目录证据不替代原书，保持民国与战后港澳台、南洋的未决线索开放。",
+  "next_deliverable": "继续广度优先：由15EB书目补漏转向独立可定年的1960–1970年代台湾、香港及南洋紫微出版与授课原件，并行补足四柱出版传播；TW-OPEN-0045原刊记、底本及授课证据保持开放，不重复同源书目。",
   "latest_matrix_batch": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-FIRSTPARTY-AND-OLD20-ATLAS-QD.md",
   "latest_breadth_batch": "docs/research/TIANWEN-15EB-POSTWAR-JAPAN-ZIWEI-PUBLISHING-CHECKPOINT-R1.md",
   "checkpoint": {
-    "id": "TW-CHECKPOINT-15EB-PROVISIONAL-20261126",
+    "id": "TW-CHECKPOINT-15EB-ADMITTED-20261126",
     "evidence_refs": [
       "docs/research/TIANWEN-15EB-POSTWAR-JAPAN-ZIWEI-PUBLISHING-CHECKPOINT-R1.md",
-      "docs/research/TIANWEN-15EA-REPUBLICAN-ZIWEI-CASE-EVIDENCE-SCOPE-R1.md"
+      "docs/research/TIANWEN-15EB-POSTWAR-JAPAN-ZIWEI-SOURCE-SHARD-R1.json",
+      "docs/research/TIANWEN-13ZK-JAPAN-KOSOSHA-ZIWEI-BAZI-PUBLICATION-R1.md"
     ]
   },
   "focus": {
-    "index": 3202,
-    "text": "13ZZ CURRENT ACTION AFTER 15EB PROVISIONAL: parent exact-HEAD omission continuity PASS run45822978579; 284 success, 1 running, no known failure. R1 fallback six authority blobs parsed; five P0 retained. New candidates NDL 000000979294 / pid2967985 and CiNii BA38759500 independently catalogue Abe Kisaku/Taizan 1958 Kyoto Shoin (not proof of asserted 1956 first edition); IHP FAN292.62 1575 catalogue no331 1968 Tokyo Haga second printing with conflicting title/name transcription, screenshot unavailable. NDL partner Yokohama 1975.6 Chen Xincang/Sato Fumishio translated title 411pp id2012931100; Tokyo Tama and Hyogo 1977 Zhang Yaowen/Sato coauthor 400pp distinct copies/catalogue title variants, not established different editions. All catalogue candidates; no original text or direct lineage inference. HKPL queue and CUHK repository 403; NUS regional newspaper collection accessible but no target issue; no negative historical conclusion. NEXT bound full registry query then semantic dedupe, verify identities and exact copy/edition boundaries before any source admission. TW-OPEN-0023/0026 unchanged; no algorithm/graph/source/count changes.",
+    "index": 3203,
+    "text": "13ZZ CURRENT ACTION AFTER 15EB ADMISSION: exact parent continuity CI PASS 62+7; query 246 files/1323 records/24 terms/2 matching files, no truncation; two hits prewar Abe Bazi different titles. 13ZK/13ZL earlier research already documented six Kososha catalogue records, now backfill registry rather than miscount new discoveries. Direct NDL/CiNii 1958, 1975/1977 (two holdings),1984/1990/1994/2012 reread; 1968 IHP extracted catalogue title/author variants, PDF screen failed; no glyph authority. 1990 Shiga explicit Zhang oral/Chen author/Sato translator/Huang supervisor; 1984 translator vs 1977/1994 authorship metadata; no actual teacher-student/technical lineage. 10 bounded catalogue records added (1333=647+686/246 shards); 7 catalogue publication nodes, graph481/375, no new edge. TW-OPEN-0045 OPEN; 45 risks incl five P0; Matrix222/222 core CLOSED. NEXT widen independently dated Taiwan/HK/SE Asian regional print/teaching evidence; seek 1960s–70s Taiwan Ziwei or parallel Bazi publications, original title/colophons and periodicals; do not rerun identical search.",
     "truncated": false
   },
   "p0": [
