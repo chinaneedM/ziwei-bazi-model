@@ -2,14 +2,14 @@
   "schema": "TIANWEN-CONTEXT-RECOVERY-VIEW-R2",
   "authority": "DERIVED_ONLY",
   "bindings": {
-    "docs/PROJECT-CURRENT-STATE-R1.json": "cab765aaf1843cc3cad9679eebf9b436ba300a50",
-    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "5c368fcc2ef9e421cd62bf2780b6b3495c10528e",
-    "docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json": "07fd93e42570681f89e68703a5a54a9c69312594",
+    "docs/PROJECT-CURRENT-STATE-R1.json": "589e432648d298e85ed762d4109500819e30e433",
+    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "7b2e2e803e9798b0c25e0d95ac18cc662044b626",
+    "docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json": "05518b6c83b38885c7c287d809cfe37936c4c5dd",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json": "ea2ab50479450c39ce3fc7a00ea91cd713bf4a60",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json": "5919e1b6bbc3c4b150507c41a13ccc9e13d20f17",
     "docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json": "40d5988bcae7071b761e8a03a249c7e972e8bf46"
   },
-  "state_version": "1.1490.0",
+  "state_version": "1.1491.0",
   "stage": "FUSION_CHART_HISTORICAL_PROVENANCE_AND_SCHOOL_AUDIT_R1",
   "invariants": {
     "deterministic_fusion_chart_product_r1": "CLOSED",
@@ -23,27 +23,28 @@
     "matrix_rows": 222,
     "matrix_audited": 222,
     "root_sources": 647,
-    "extension_sources": 649,
-    "total_sources": 1296,
-    "shards": 236,
+    "extension_sources": 652,
+    "total_sources": 1299,
+    "shards": 237,
     "graph_nodes": 474,
     "graph_edges": 375,
     "open_issues": 37,
     "p0": 5
   },
   "phase": "BREADTH_FIRST_TWO_SYSTEM_HISTORICAL_FRAMEWORK_R1",
-  "next_deliverable": "领取15DS全库查重及语义裁决；核查台湾1989–1995紫微期刊传播索引；继续独立可定年民国紫微实务及港台地域传播。仅合法免费免账号原件。",
+  "next_deliverable": "继续独立可定年民国紫微实务及港台地域传播，优先同期报刊、命馆广告、命书与可核原刊；台湾1989–1995三条期刊正文仍待免费免账号核查。",
   "latest_matrix_batch": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-FIRSTPARTY-AND-OLD20-ATLAS-QD.md",
   "latest_breadth_batch": "docs/research/TIANWEN-15DS-TAIWAN-ZIWEI-PERIODICAL-INDEX-CHECKPOINT-R1.md",
   "checkpoint": {
-    "id": "TW-CHECKPOINT-15DS-PROVISIONAL-20261126",
+    "id": "TW-CHECKPOINT-15DS-COMPLETED-20261126",
     "evidence_refs": [
-      "docs/research/TIANWEN-15DS-TAIWAN-ZIWEI-PERIODICAL-INDEX-CHECKPOINT-R1.md"
+      "docs/research/TIANWEN-15DS-TAIWAN-ZIWEI-PERIODICAL-INDEX-CHECKPOINT-R1.md",
+      "docs/research/TIANWEN-15DS-TAIWAN-ZIWEI-PERIODICAL-INDEX-SOURCE-SHARD-R1.json"
     ]
   },
   "focus": {
-    "index": 3185,
-    "text": "13ZZ CURRENT ACTION AFTER 15DS PROVISIONAL BREADTH: Republican 1923–26 NCL rarecatx0428879 already 13ZI. 1940 Culture News No105 PDF p2 direct render disproves extracted Ziwei and Ziping headings; actual live-drama/book publishing headings, no full-issue absence claim. CADAL newspaper database institution/paid access excluded. Three Taiwan periodical index candidates A07050233 1989-12 Shisui pp76–77 Huixin Zhaizhu interview, A06044192 1990-07 Liyumei pp104–109 case title, A05045529 1995-04-03/09 Business Weekly pp26–27 public figure report; direct NCL detail links 403, aggregator metadata only. R2.1 full query pending, TW-OPEN-0037 P1 OPEN; no admission or edges. TW-OPEN-0035 remains OPEN. Sources1296/236, graph474/375, Matrix222/222, 37 risks incl five P0, core CLOSED. NEXT bound query and semantic review; continue independently dated Republican Ziwei practice and regional framework.",
+    "index": 3186,
+    "text": "13ZZ CURRENT ACTION AFTER 15DS BOUNDED COMPLETION: 19-term exact-HEAD R2.1 full literal query PASS, 237 files/1296 prior sources, zero hits, not semantic absence; rarecatx0428879 already known via 13ZI so no new source for it. Three Taiwan 1989–1995 NCL-derived article index records admitted as distinct catalogue objects only (A07050233, A06044192, A05045529); original index 403 at provisional checkpoint, no original journal pages, rule or lineage. 1940 false headings remain excluded, no whole-issue absence. TW-OPEN-0037 and 0035 remain OPEN. Sources1299/237 shards, graph474/375, Matrix222/222, 37 risks incl five P0, core CLOSED. NEXT independently dated Republican Ziwei practice and regional publication/practice gaps; seek free no-account original periodicals where accessible.",
     "truncated": false
   },
   "p0": [

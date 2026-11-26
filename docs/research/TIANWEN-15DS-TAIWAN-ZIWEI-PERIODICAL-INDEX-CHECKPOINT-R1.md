@@ -23,3 +23,48 @@
 ## 下一步
 
 TW-OPEN-0037 P1 OPEN：领取绑定236分片manifest的全库字面查询结果，结合文章标题/索引号/载体/日期作语义裁决；若准入仅限期刊索引著录，不重复登记同原始索引与聚合目录；原刊仅合法免费免账号路线。TW-OPEN-0035仍OPEN，无同期民国紫微独立职业实务新证据。当前1296来源/236片、图474/375、Matrix222/222、37开放风险含五P0、确定性核心CLOSED。
+
+## 15DS 正式有界裁决（2026-11-26，追加）
+
+精确旧HEAD `b0fa28700c6c8942a1c50c8cf0205e8af707b237`，[连续性CI 45801532773](https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/45801532773)，job `139845704330`，62项遗漏测试与7项R2测试通过。验证程序blob `3387254ce53ec0a1f1a3b779291e0c40997bf190`。查询结果以下为实际日志JSON，作为保留期限之外的可复核记录：
+
+```json
+{
+  "query_id": "15DS-taiwan-ziwei-periodical-index-dedup-r2-20261126",
+  "checkpoint_id": "TW-CHECKPOINT-15DS-PROVISIONAL-20261126",
+  "request_blob_sha": "7f6a79e685162acf1618bf7571db6776d193589b",
+  "registry_manifest_blob_sha": "07fd93e42570681f89e68703a5a54a9c69312594",
+  "status": "PASS",
+  "scope": "ALL_REGISTERED_ROOT_AND_SHARDS_LITERAL_ONLY",
+  "files": 237,
+  "records": 1296,
+  "matching_files": 0,
+  "per_term_matching_files": {
+    "4950072": 0,
+    "5020167": 0,
+    "5370070": 0,
+    "A07050233": 0,
+    "A06044192": 0,
+    "A05045529": 0,
+    "慧心齋主談紫微斗數真義": 0,
+    "慧心斋主谈紫微斗数真义": 0,
+    "從紫微斗數看一位紅顏的遭遇": 0,
+    "从紫微斗数看一位红颜的遭遇": 0,
+    "青創楷模林正倫": 0,
+    "青创楷模林正伦": 0,
+    "00/51/f0/d6.html": 0,
+    "00/4c/9a/07.html": 0,
+    "00/4b/88/38.html": 0,
+    "NLC404-00J010053-103975": 0,
+    "rarecatx0428879": 0,
+    "幻業居士": 0,
+    "幻业居士": 0
+  },
+  "hits": [],
+  "truncated": false
+}
+```
+
+目录三页本轮再次核阅题名/作者/刊期/页码。全库字面零命中不等于语义无重复；既有13ZI的1923–26《道藏》影印锚点即使编号零命中仍不新增。15DR的1986慧心齋主两种图书与1989访谈式期刊题名为不同载体和书目对象。三条索引ID、作者、刊物、日期、页码互异；聚合目录与其NCL原始索引同源，不双重计数。另两个1980–90年代期刊题名不证所叙事实或任何直接传承。没有原刊，不确定正文、术式、师承、职业身份、传播规模或实际读者。
+
+准入3条 `BIBLIOGRAPHIC_METADATA_ONLY` 来源，[新分片](./TIANWEN-15DS-TAIWAN-ZIWEI-PERIODICAL-INDEX-SOURCE-SHARD-R1.json)；不增图节点/边，不把1940假阳性入库。TW-OPEN-0037保留OPEN并追加证据范围修订，TW-OPEN-0035仍OPEN。来源1299=647+652／237片、图474/375、Matrix222/222、37开放风险含五P0，核心CLOSED。下一步继续独立可定年民国紫微实务、港台地域传播及合法免费原刊，非重复查询已登记索引。
