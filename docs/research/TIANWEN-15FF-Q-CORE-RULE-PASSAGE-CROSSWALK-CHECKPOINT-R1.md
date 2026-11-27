@@ -630,3 +630,67 @@ transmission_impact: 新增22个限定ATTESTS（TG-E0462–0483）、11受读篇
 **四柱关系**：BREL-001既有NTL五合配对E0431仅证五组配对，不证名义化气元素或合化；新入图BREL-002..009及012只证几何/语词。相穿/害同几何，三刑命名异文保留；四土局与三合不同元数；早四破与后六破不合并；座下自化与紫微自化无直传证据。BREL-010后出六破保持争议，BREL-011现代半合拱合仍现代兼容，BAFF中性透干/同元素显示不伪造古籍规则族。所有既有候选、风险及Matrix状态不变。
 
 状态1.1578.0；新39节点/25限定ATTESTS，累计图748/534。state/graph/ledger/R2/本检查点原子提交；无损紧凑台账保留全部旧issues/checkpoints。节点ID/边ID唯一、端点存在，CI待新HEAD核实。NEXT四柱运限/神煞及第三第四门槛；核心CLOSED。transmission_impact: 39 nodes, 25 evidence-scoped ATTESTS, no direct lineage, no runtime changes.
+
+
+## L. 四柱运限／神煞机械族逐项导航（2026-11-27，待入图）
+
+基线 29309ddd875d793c82b846ffae1b61b6061e4357 / f926ee7cdc158cb863e3c0c69fe0f0e7459a24e3；R2六绑定与完整树一致，schema 1.1578.0、五P0已复核。精确HEAD连续性 run45985660666 success；分页285项Actions观察284成功、clean-training-system 45985660186运行中，不能宣告全绿。读取完整222行Matrix、全748节点/534边（ID检查入口）、01、03、09B、11B、12NH、12OR、12OV、12MO、S11 segment-0001..0009的目标索引与神煞实现函数入口。S11 segment-0009的CH024..045及054目录行区间已核；目录不是逐字受读文本，更不是原页。以下是既有证据的机械规则导航，不是新原页校勘或新裁决。既有登记来源复用，不新增外部候选、未执行276分片新来源全库查重，不作缺失断言。
+
+### L1. 大运、小运、交运（18行）
+
+| Matrix ID | 机械族 | 当前状态 | 既有证据坐标 | 拆分/入图限定 |
+|---|---|---|---|---|
+| HPA-DAYUN-001 | Dayun direction by year-stem yin/yang and sex | SUPPORTED_BUT_SCHOOL_SPECIFIC | EXT-CTEXT-SMTHE-SIKU-V2 / 《论大运》 | 年干阴阳与性别为本族输入；日干派不能据异说名义直接确立。 |
+| HPA-DAYUN-002 | Jie anchor for Jiaoyun | HISTORICALLY_SUPPORTED | EXT-CTEXT-SMTHE-SIKU-V2 / 《论大运》 | 前/后节；不以中气替代；等号另族。 |
+| HPA-DAYUN-003 | Three-days-one-year symbolic-age conversion | HISTORICALLY_SUPPORTED | EXT-CTEXT-WUXING-JINGJI-V33-DAYUN; EXT-CTEXT-SANMING-V2-DAYUN | 三日一岁及十年一辰的符号比例；非UTC绝对时长。 |
+| HPA-DAYUN-004 | Dayun Ganzhi sequence from month pillar | HISTORICALLY_SUPPORTED | EXT-CTEXT-QIANLI-MINGGAO-DAYUN lines 242–258; EXT-CTEXT-MINGLI-TANYUAN-DAYUN examples 42–47 | 月柱为序列基，SEQ-001/002拆分；不重复入图。 |
+| HPA-DAYUN-005 | Continuous temporal realization of Jiaoyun interval | MODERN_COMPATIBILITY_ONLY | src/fortune_training/bazi_temporal/engine.py _symbolic_age/_jiaoyun_for_seed; profile.py; Batch 11B sources | 现代连续实现，不设古籍ATTESTS。 |
+| HPA-DAYUN-006 | Wenzhen China Dayun compatibility realization | MODERN_COMPATIBILITY_ONLY | tests/fixtures/bazi-dayun-wenzhen-compatibility-r1.json authority/capture/model contract | 现代文真兼容，不设古籍ATTESTS。 |
+| HPA-DAYUN-007 | Exact-Jie tie handling | MODERN_COMPATIBILITY_ONLY | EXT-CTEXT-WUXING-JINGJI-V33-DAYUN; EXT-CTEXT-SANMING-V2-DAYUN | 严格前后措辞不证明等号；项目FAIL_CLOSED，不设古籍正面等号边。 |
+| HPA-XIAOYUN-001 | Hour-pillar start + year yin/yang/sex direction Xiaoyun | DISPUTED_MULTIPLE_CANDIDATES | EXT-CTEXT-SMTHE-SIKU-V2 / 《论小运》; repository S12:SMTH-SEG-01200 and S12:YHZP-USR-S03778 | 醉醒子时柱起，年定顺逆；年龄索引须另证。 |
+| HPA-XIAOYUN-002 | Fixed male Bingyin / female Renshen Xiaoyun | DISPUTED_MULTIPLE_CANDIDATES | EXT-CTEXT-SMTHE-SIKU-V2 / 《论小运》; repository S12:SMTH-SEG-01199 | 男丙寅顺女壬申逆；与时柱法并存，非同一算法或直接师承。 |
+| HPA-DAYUN-SEQ-001 | First formal Dayun is adjacent to natal month pillar in resolved direction | HISTORICALLY_SUPPORTED | EXT-CTEXT-QIANLI-MINGGAO-DAYUN received text lines 242–258; EXT-CTEXT-MINGLI-TANYUAN-DAYUN | 首正式运相邻月柱；PRE_DAYUN不是第一运。 |
+| HPA-DAYUN-SEQ-002 | Subsequent Dayun Ganzhi advance one sexagenary step in the same direction | HISTORICALLY_SUPPORTED | EXT-CTEXT-QIANLI-MINGGAO-DAYUN received text lines 244–258 | 后续每步同方向干支推进。 |
+| HPA-DAYUN-CAL-001 | Discrete source-resolution Dayun remainder conversion | HISTORICALLY_SUPPORTED | EXT-CTEXT-WUXING-JINGJI-V33-DAYUN; EXT-CTEXT-SANMING-V2-DAYUN《论大运》 | 整日/时辰粒度360/30/10；不推出微秒精度。 |
+| HPA-DAYUN-CAL-002 | Classical lunisolar first Jiaoyun calendarization with small/leap-month correction | MISSING_FROM_PRODUCT | EXT-CTEXT-SANMING-V2-DAYUN《论大运》; S15 LHV-04 | 12OV小月补差与闰月总量校正仅限实例；非法日、重复闰月坐标未决。 |
+| HPA-DAYUN-CAL-003 | Later calendar-age years plus remainder-days Jiaoyun method | MISSING_FROM_PRODUCT | 《韋千里命學講義》1934/1936 NLC target leaves; docs/research/QIANLI-MINGXUE-JIANGYI-JIAOYUN-CALENDAR-SEMANTICS-R1.json | 复用韦千里既有篇页/规则节点；140/190为30日名义位置单位，非实际天数。 |
+| HPA-DAYUN-CAL-004 | Ten-year Dayun exchange recurrence from first handover | MISSING_FROM_PRODUCT | 《韋千里命學講義》1934/1936 NLC target leaves; docs/research/QIANLI-MINGXUE-JIANGYI-JIAOYUN-CALENDAR-SEMANTICS-R1.json | 复用韦千里节点；明受读十周年与民国同农历坐标须分别记载；异常日期执行仍阻塞。 |
+| HPA-DAYUN-CAL-005 | Continuous microsecond x120 absolute-duration Jiaoyun realization | MODERN_COMPATIBILITY_ONLY | src/fortune_training/bazi_temporal/engine.py _symbolic_age/_jiaoyun_for_seed | 现代连续微秒×120，不设古籍ATTESTS。 |
+| HPA-DAYUN-CAL-006 | Wenzhen Gregorian month-displacement Jiaoyun realization | MODERN_COMPATIBILITY_ONLY | src/fortune_training/bazi_temporal/engine.py realize_wenzhen_calendar_month_displacement_utc | 现代固定UTC+8公历移月，不设古籍ATTESTS。 |
+| HPA-DAYUN-CAL-007 | Proleptic-Gregorian ten-year Dayun boundary anniversaries | MODERN_COMPATIBILITY_ONLY | src/fortune_training/bazi_temporal/profile.py dayun_boundary_rule_set; engine.py _dayun_anniversary | 现代公历周年，不设古籍ATTESTS。 |
+
+三层算子必须分立：选节及实历时距→符号岁数→实际交运历日。小月补差、闰月总量调整与重号月份身份并非同一问题。12OR两件NLC原页（1934 17jh007058/102955；1936 01jh000368/10155）已有 PASSAGE-QIANLI-MINGXUE-JIANGYI-QILI-JIAOYUN 与 RULE-FAMILY-QIANLI-JIAOYUN-NOMINAL-30DAY-LUNISOLAR；后续不再创建等价节点。HKO旧控制137/215实际日与原文140/190名义日不一致，故不套用现代连续加日。三项DAYUN-CAL-002..004保持MISSING_FROM_PRODUCT；全部历法边界与现存遗漏风险不关闭。明代《三命通会》卷二目标受读本不是1578目标原叶；宋《五行精纪》卷三十三为后出受读，不误标宋刻原页。
+
+### L2. 神煞（21行）
+
+| Matrix ID | 机械族 | 当前状态 | 既有证据坐标 | 已审计机械范围／限制 |
+|---|---|---|---|---|
+| HPA-SHENSHA-001 | 天乙贵人 | DISPUTED_MULTIPLE_CANDIDATES | S11:YHZP-USR-S00235; S11:YHZP-CH-024 | Simple five-group table matches; anchor candidates are preserved, but Sanming yin/yang/day-night formulations are not yet all productized. Add separate formalized Tianyi school candidates only after each formulation is fully replayable; current simple table remains valid, not universal. |
+| HPA-SHENSHA-002 | 天官贵人 | HISTORICALLY_SUPPORTED | S11:YHZP-USR-S00240; S11:YHZP-CH-025 | Year-stem anchor and branch table match exactly. No reopen. |
+| HPA-SHENSHA-003 | 禄神 | HISTORICALLY_SUPPORTED | S11:YHZP-USR-S00278; S11:YHZP-CH-034 | Ten-stem Lu table matches. No reopen; keep identity separate from fortune judgment. |
+| HPA-SHENSHA-004 | 驿马 | DISPUTED_MULTIPLE_CANDIDATES | S11:YHZP-USR-S00285; S11:YHZP-CH-035 | Branch table matches; year/day/other anchor scope is intentionally preserved as candidates. Keep anchor candidates separate; continue school attribution. |
+| HPA-SHENSHA-005 | 华盖 | DISPUTED_MULTIPLE_CANDIDATES | S11:YHZP-USR-S00296; S11:YHZP-CH-037 | Branch table matches; anchor scope remains candidate-shaped. No winner until source scopes are fully separated. |
+| HPA-SHENSHA-006 | 月德 | HISTORICALLY_SUPPORTED | S11:YHZP-USR-S00255..256; S11:YHZP-CH-028 | Month-group table and ONLY_DAY scope match explicit source wording. No reopen. |
+| HPA-SHENSHA-007 | 月德合 | DISPUTED_MULTIPLE_CANDIDATES | S11:YHZP-USR-S00262; S11:YHZP-CH-029 | Value table matches; source target scope is less explicit, so day-only and all-pillars remain candidates. Preserve both scopes. |
+| HPA-SHENSHA-008 | 天德 | DISPUTED_MULTIPLE_CANDIDATES | S11:YHZP-USR-S00264..265; S11:YHZP-CH-030; EXT:CTEXT-SMTHE-V3-TIANYUEDE | Value table matches. Product now preserves YHZP all-pillars commentary scope and Sanming day-only scope as separate candidates. Keep both; no winner. |
+| HPA-SHENSHA-009 | 天厨贵人 | DISPUTED_MULTIPLE_CANDIDATES | S11:YHZP-USR-S00268; S11:YHZP-USR-S00304; S11:YHZP-CH-031 | Derived table matches source logic; which stem is the operative anchor remains candidate-shaped. Preserve stem-anchor candidates. |
+| HPA-SHENSHA-010 | 福星贵人 | DISPUTED_MULTIPLE_CANDIDATES | S11:YHZP-USR-S00272; S11:YHZP-CH-032 | Target table matches received verse; operative stem anchor remains candidate-shaped. Preserve candidates and continue collation of variant verses. |
+| HPA-SHENSHA-011 | 太极贵人 | HISTORICALLY_SUPPORTED | S11:YHZP-USR-S00243..244; S11:YHZP-CH-026 | Year-stem-only implementation matches explicit source restriction. No reopen. |
+| HPA-SHENSHA-012 | 三奇 | SUPPORTED_BUT_SCHOOL_SPECIFIC | S11:YHZP-USR-S00248..251; S11:YHZP-CH-027 | Ordered consecutive-stem base sequence matches; output explicitly marks auxiliary qualification conditions as not arbitrated. Continue formalizing Tianmen/wind-thunder/etc. qualifiers; do not upgrade base sequence to full qualification. |
+| HPA-SHENSHA-013 | 天赦 | HISTORICALLY_SUPPORTED | S11:YHZP-USR-S00293; S11:YHZP-CH-036 | Seasonal Ganzhi table and ONLY_DAY scope match source. No reopen. |
+| HPA-SHENSHA-014 | 学堂 | DISPUTED_MULTIPLE_CANDIDATES | S11:YHZP-USR-S00301; S11:YHZP-CH-014/038 | NaYin-element table matches; year/day NaYin anchor alternatives remain explicit candidates. Trace '生人' anchor genealogy before selecting a default. |
+| HPA-SHENSHA-015 | 金舆禄 | DISPUTED_MULTIPLE_CANDIDATES | S11:YHZP-USR-S00312; S11:YHZP-USR-S00278; S11:YHZP-CH-040 | Derived target branch is correct; source-stem anchor remains candidate-shaped. No winner. |
+| HPA-SHENSHA-016 | 暗禄 | DISPUTED_MULTIPLE_CANDIDATES | S11:YHZP-USR-S00324; S11:YHZP-CH-043; S14:YHZP-CH-007 | Lu-Liuhe derivation matches; anchor ambiguity remains explicit. Retain commentary qualification separately from identity. |
+| HPA-SHENSHA-017 | 夹禄 | DISPUTED_MULTIPLE_CANDIDATES | S11:YHZP-USR-S00327; S11:YHZP-CH-044 | Both-neighbour requirement and derivation match; anchor ambiguity remains. No reopen. |
+| HPA-SHENSHA-018 | 拱禄 | HISTORICALLY_SUPPORTED | S11:YHZP-USR-S00315..317; S11:YHZP-CH-041 | Exact four reciprocal Ganzhi cases match source closure. Keep exact finite set; do not generalize. |
+| HPA-SHENSHA-019 | 垣城 | HISTORICALLY_SUPPORTED | S11:YHZP-USR-S00330; S11:YHZP-CH-045; S11:YHZP-CH-015; S11:YHZP-USR-S00285; S14:YHZP-CH-007 | Formula replay matches source example. A stale Twelve-Growth source ref was repaired from CH016 to CH015. Provenance repair only; no algorithm reopen. |
+| HPA-SHENSHA-020 | 羊刃 | SUPPORTED_BUT_SCHOOL_SPECIFIC | S11:YHZP-USR-S00282; S11:YHZP-USR-S02740; S11:YHZP-CH-224 | Current five-yang-stem table is a scoped operational family, while the corpus also preserves broader ten-stem blade/Feiren material. Do not collapse yin-stem blade traditions into the current Yangren table; continue school genealogy. |
+| HPA-SHENSHA-021 | 飞刃 | HISTORICALLY_SUPPORTED | S11:YHZP-USR-S00378..388 | All-ten-stem Feiren table matches explicit source enumeration. No reopen. |
+
+S11 segment-0009 目录核对：CH024 1167–1205，025 1206–1241，026 1242–1283，027 1284–1328，028 1329–1371，029 1372–1408，030 1409–1440，031 1441–1452，032 1453–1488，034 1524–1569，035 1570–1612，036 1613–1646，037 1647–1691，038 1692–1733，040 1777–1811，041 1812–1825，043 1853–1885，044 1886–1923，045 1924–1967，054 2303–2353。均为项目受读语料编目行号，非版刻叶码。CH224及飞刃具体段落仍须另取正文核实。
+
+历史身份须分为表值、锚点、目标柱、资格条件。天乙五组仅是本族；额外昼夜阴阳方法不伪造。月德ONLY_DAY、月德合双候选、天德渊海全柱/三命日柱分别保存；垣城须日干长生＋日支驿马六合（CH015而非CH016），三奇只证有序基础序列，不证明辅条件成立；拱禄严格四组，不概括为夹禄。羊刃五阳干与飞刃十干不并族。跨紫微同名神煞仅可作比较入口，不能以几何相同确立直接传承。FLOW-005依12MO仅继承来源候选target-match；21个profile、38 source candidates（32单目标/6结构排除）与15项常用显示口径不是同一计数对象；不宣称跨时层古法成立或神煞激活。
+
+### L3. 后续与证据边界
+
+本节给出39个既有Matrix ID的具体入图导航；未新增图节点或关系，未修改六个权威输入、状态版本、风险或R2。下一步在本节坐标上逐族打开已登记受读正文、与图全ID/语义去重，区分宋/明的比例与交运、近代韦氏既有原页、两种小运和各神煞独立锚点，原子发布graph/state/ledger/R2；再依路线逐项复评第三/第四门槛。保持图748/534、Matrix222/222、1488来源/276分片、58 OPEN五P0、核心CLOSED。transmission_impact=NONE（导航检查点）。本轮没有新原页、版本、直传或运行时结论。
