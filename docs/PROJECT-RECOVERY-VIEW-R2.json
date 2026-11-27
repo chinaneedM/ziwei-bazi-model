@@ -2,14 +2,14 @@
   "schema": "TIANWEN-CONTEXT-RECOVERY-VIEW-R2",
   "authority": "DERIVED_ONLY",
   "bindings": {
-    "docs/PROJECT-CURRENT-STATE-R1.json": "19ae3ffa150b6553d3837a1cd417e92e4ca7d19c",
-    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "64f900a24066183a691b6889e33444145d746657",
+    "docs/PROJECT-CURRENT-STATE-R1.json": "0699a6bde2bc56a9c105bbcb0d5d0fea72844492",
+    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "5ff8c94e049f8b40bdeb4ceb81ce20273dade514",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json": "d5081119bedd4afa0324a7eec36bc5b1ce4372c3",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json": "ea2ab50479450c39ce3fc7a00ea91cd713bf4a60",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json": "5919e1b6bbc3c4b150507c41a13ccc9e13d20f17",
-    "docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json": "3b0211aa3efbb884837920fb988e05a58426706e"
+    "docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json": "35e42d89f601fe7d7bbd7bb45e51b1c48f3f8ee8"
   },
-  "state_version": "1.1573.0",
+  "state_version": "1.1574.0",
   "stage": "FUSION_CHART_HISTORICAL_PROVENANCE_AND_SCHOOL_AUDIT_R1",
   "invariants": {
     "deterministic_fusion_chart_product_r1": "CLOSED",
@@ -26,31 +26,29 @@
     "extension_sources": 841,
     "total_sources": 1488,
     "shards": 276,
-    "graph_nodes": 613,
-    "graph_edges": 451,
+    "graph_nodes": 622,
+    "graph_edges": 457,
     "open_issues": 58,
     "p0": 5
   },
   "phase": "BREADTH_FIRST_TWO_SYSTEM_HISTORICAL_FRAMEWORK_R1",
-  "next_deliverable": "15FF-Q续：补紫微与四柱历法时间、换日、闰月、节月、时刻坐标独立证据链；复核所有58项风险及广度第一阶段验收门槛；保留《捷览》CH20–22目标原刻与南阳堂精确条目待核。",
+  "next_deliverable": "15FF-Q续：补时刻坐标、现代历法及中州流月与本命闰月的证据范围；完成剩余规则族、58项风险与广度第一阶段验收门槛复核；保留《捷览》CH20–22目标原刻、南阳堂精确条目及五P0。",
   "latest_matrix_batch": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-FIRSTPARTY-AND-OLD20-ATLAS-QD.md",
   "latest_breadth_batch": "docs/research/TIANWEN-15FF-Q-CORE-RULE-PASSAGE-CROSSWALK-CHECKPOINT-R1.md",
   "checkpoint": {
-    "id": "TW-CHECKPOINT-15FF-Q-NATAL-PLACEMENT-RULE-GRAPH-20261127",
+    "id": "TW-CHECKPOINT-15FF-Q-TIME-CALENDAR-RULE-GRAPH-20261127",
     "evidence_refs": [
       "docs/research/TIANWEN-15FF-Q-CORE-RULE-PASSAGE-CROSSWALK-CHECKPOINT-R1.md",
       "docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json",
+      "docs/research/ZIWEI-QUANSHU-NANYANGTANG-LATE-ZI-DIRECT-COLLATION-R1.json",
+      "docs/research/ZIWEI-SANMING-TONGHUI-1578-TIMEKEEPING-PHYSICAL-COLLATION-R1.json",
       "docs/research/TIANWEN-13ZZ-WENYUANGE-NANYANGTANG-FOLIO-COLLATION-R1.md",
-      "docs/research/TIANWEN-13ZZ-WENYUANGE-NANYANGTANG-FOLIO-EVIDENCE-R1.json",
-      "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-06-ZIWEI-NATAL-FOUNDATIONS.md",
-      "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-04-ZIWEI-EARLY-PRINT-CORE.md",
-      "docs/research/TIANWEN-15AM-JIELAN-FIVE-BUREAU-BIRTHDAY-VS-XUDAOZANG-YEAR-BRANCH-ZIWEI-R1.md",
-      "docs/research/TIANWEN-14I-XUDAOZANG-ZIWEI-ORIGINAL-LEAVES-R1.md"
+      "docs/research/TIANWEN-13ZZ-WENYUANGE-NANYANGTANG-FOLIO-EVIDENCE-R1.json"
     ]
   },
   "focus": {
-    "index": 3268,
-    "text": "13ZZ CURRENT ACTION 15FF-Q: natal palace/stem/NaYin/bureau and main-star anchors layered into 5 passage + 9 rule-family nodes, 12 scoped ATTESTS, graph613/451. South/North group original-page scope separated from exact received sequences, Jielan CH20–22 received only, Xudaozang birth-year anchor independent. No new sources or original recollation; 120/120 formal stem-branch parity control; Matrix/core unchanged, 58 OPEN five P0. NEXT time/calendar and remaining breadth gate review.",
+    "index": 3269,
+    "text": "13ZZ CURRENT ACTION 15FF-Q: calendar/time crosswalk +9 nodes/+6 scoped ATTESTS graph622/457. Nanyangtang p320 Hai/Zi branch split separate from Sanming 1578 half-Zi day attribution (existing TG-E0041/42); natal leap-next-month and received Tanyuan Lichun/Jie/night-Zi day-old/hour-new families separate. Reuse recorded evidence, no original recollation or new sources; no modern clock conversion or algorithm reopen. Matrix222/222, 58 unresolved five P0; NEXT remaining coordinate/leap scopes and breadth gate.",
     "truncated": false
   },
   "p0": [
