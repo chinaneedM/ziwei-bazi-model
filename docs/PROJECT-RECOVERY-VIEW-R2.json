@@ -2,14 +2,14 @@
   "schema": "TIANWEN-CONTEXT-RECOVERY-VIEW-R2",
   "authority": "DERIVED_ONLY",
   "bindings": {
-    "docs/PROJECT-CURRENT-STATE-R1.json": "eb61d3b5b89d8ba337cdd65484c278c0e0544dd3",
-    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "a5324a70d3930cceb44c99f5aaf003cf6320c26f",
+    "docs/PROJECT-CURRENT-STATE-R1.json": "79df3a20f42cc7d7107a88a868714d451ddc1302",
+    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "fab60b1114a530be393b801e673de06a81fda933",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json": "d5081119bedd4afa0324a7eec36bc5b1ce4372c3",
-    "docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json": "66ed426f2178dcbe0ec2790d34918aa8f8eab664",
+    "docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json": "b08c59c9aee606951e7d8bebccc241ec7c12e8b9",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json": "5919e1b6bbc3c4b150507c41a13ccc9e13d20f17",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json": "ea2ab50479450c39ce3fc7a00ea91cd713bf4a60"
   },
-  "state_version": "1.1565.0",
+  "state_version": "1.1566.0",
   "stage": "FUSION_CHART_HISTORICAL_PROVENANCE_AND_SCHOOL_AUDIT_R1",
   "invariants": {
     "deterministic_fusion_chart_product_r1": "CLOSED",
@@ -26,27 +26,28 @@
     "extension_sources": 841,
     "total_sources": 1488,
     "shards": 276,
-    "graph_nodes": 528,
-    "graph_edges": 388,
+    "graph_nodes": 539,
+    "graph_edges": 394,
     "open_issues": 58,
     "p0": 5
   },
   "phase": "BREADTH_FIRST_TWO_SYSTEM_HISTORICAL_FRAMEWORK_R1",
-  "next_deliverable": "沿15FF-E继续补齐韩国、台湾、香港、日本近现代具名人物、译者、出版及学会机构；完成双体系独立主纲导航后逐项复核广度门槛。TW-OPEN-0058及五P0保持原状态，排盘CLOSED。",
+  "next_deliverable": "沿15FF-F将现有双体系历史主纲、人物及机构锚点、地域传播、规则族导航交叉核对；补齐仍缺的流派/译者锚点，逐项验收广度门槛。TW-OPEN-0058及五P0保持原状态，排盘CLOSED。",
   "latest_matrix_batch": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-FIRSTPARTY-AND-OLD20-ATLAS-QD.md",
   "latest_breadth_batch": "docs/research/TIANWEN-15BL-DUAL-HISTORY-ERA-REGION-RULE-BREADTH-COVERAGE-CROSSWALK-R1.md",
   "checkpoint": {
-    "id": "TW-CHECKPOINT-15FF-E-ACTOR-BACKFILL-20261127",
+    "id": "TW-CHECKPOINT-15FF-F-EAST-ASIA-ACTOR-BACKFILL-20261127",
     "evidence_refs": [
       "docs/research/TIANWEN-15BL-DUAL-HISTORY-ERA-REGION-RULE-BREADTH-COVERAGE-CROSSWALK-R1.md",
       "docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json",
-      "docs/research/TIANWEN-15CM-YUAN-MING-LIAO-RUCHUAN-AND-ZIPING-ATTRIBUTION-R1.md",
-      "docs/research/TIANWEN-15EB-POSTWAR-JAPAN-ZIWEI-PUBLISHING-CHECKPOINT-R1.md"
+      "docs/research/TIANWEN-15BY-KOREA-2021-ZIWEI-CLASSIC-GYEOKGUK-BIBLIOGRAPHY-R1.md",
+      "docs/research/TIANWEN-15D-JAPAN-MATSUMOTO-BAZI-1906-1935-PUBLISHING-CHAIN-R1.md",
+      "docs/research/TIANWEN-15DJ-TAIWAN-JAPAN-NISHIKAWA-NATAL-METHOD-IDENTITY-R1.md"
     ]
   },
   "focus": {
-    "index": 3260,
-    "text": "13ZZ CURRENT ACTION 15FF-E: Tang/Song/Yuan reception and named practitioners plus Japan publishing actors; ten PERSON nodes, six catalogue-only ATTESTS, no teacher-lineage or rule transmission upgrades. Distinguish Dong Ziping from Xu Ziping, Liao Ruchuan's attributed Li tradition from direct teaching, Abe's two separate systems. Graph528/388 (PERSON30 INSTITUTION6), sources1488/276 Matrix222/222 58 OPEN five P0 core CLOSED. NEXT Korea/Taiwan/Hong Kong/Japan actors and institutions, then integrate independent outlines and breadth gate.",
+    "index": 3261,
+    "text": "13ZZ CURRENT ACTION 15FF-F: East Asian actors; six PERSON five INSTITUTION anchors from seven existing shards, six catalogue-only ATTESTS. Korea Oh 2018/2021 same researcher; Matsumoto reading and 1935 identity unresolved; Nishikawa adjacent natal reception, no Ziwei/Bazi classification; HK and Taiwan periodical institutions separate. Graph539/394 (PERSON36 INSTITUTION11), sources1488/276 Matrix222/222 58 OPEN five P0 core CLOSED. NEXT independent dual historical outline navigation, remaining school/translator anchors and breadth acceptance review.",
     "truncated": false
   },
   "p0": [
