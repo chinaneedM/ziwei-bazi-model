@@ -722,3 +722,19 @@ S11 segment-0009 目录核对：CH024 1167–1205，025 1206–1241，026 1242�
 机械复算：明受读五日三时＝63时辰，×10＝630名义日＝360＋270＝一岁九月；同电子本另见六十三日措辞，不能当作原刻正确字形。小运固定法一岁男丙寅女壬申，二岁男丁卯女辛未，六十一岁回到起点（15CK既有逐年一位证据）。醉醒子阳年阳命甲子时首运乙丑、二岁丙寅；不是固定起点，也不由此证明具体民用岁界。明小月补差与闰月总量调整分立；闰月目标重号及非法日仍无闭合规则。HPA-DAYUN-CAL-002..004依然MISSING_FROM_PRODUCT。HPA-DAYUN-007精确交节FAIL_CLOSED和现代continuous／文真历法不造古籍ATTESTS。未证明早期全套起运法、直接传承或流派胜者。
 
 新增15节点（5篇页、10规则族）/14限定ATTESTS，累计763/548。全节点/边ID唯一，端点完整；原有图谱对象未覆盖。状态1.1579.0，同一原子提交更新state/graph/ledger/R2/本检查点；58个旧issues与全部旧checkpoints保持；Matrix222/222、1488来源/276分片、核心CLOSED。NEXT 09B两序列子规则与21项神煞正文仍待入图，第三/第四门槛待复评。transmission_impact: 15 nodes/14 scoped ATTESTS, no direct lineage, no runtime change. 新HEAD CI待验证。
+
+
+## N. 大运正式首运及后续序列：受读复核与待入图检查点（2026-11-27）
+
+基线 b9f4e8979f2e6218c91dd4f2b4d6ee7a5284f0b6 / 86bf4d6ed0544ffac84448612cf6914d9af19bb4。六项R2绑定吻合，连续性45987834927成功；285项Actions分三页核查，初见283成功、12IZ失败、clean-training-system运行中。12IZ的规则、连续性、图谱验证均通过，状态发布环节报Unexpected end of JSON input；45987838876重跑第2次成功。clean-training-system未确认完成。五P0及58项未决均保留。
+
+核对09B、Matrix HPA-DAYUN-SEQ-001/002及root registry EXT-CTEXT-MINGLI-TANYUAN-DAYUN、EXT-CTEXT-QIANLI-MINGGAO-DAYUN。两登记CText入口本轮均403。韦氏CText题名《千里命稿》底本未绑定，不能归为1935《千里命稿》第一集原页；1934/1936《命学讲义》已核交运内容也不自动证明本处列运文字。补充公开电子受读观察 https://www.cafengshuinet.com/m/show_detail.php?id=3251 及 https://libokang.com/classics/bazi/%E5%91%BD%E7%90%86%E6%8E%A2%E6%BA%90/ 与袁氏壬寅逆首辛丑、后庚子己亥相符，并见壬寅顺首癸卯；底本未核、未全库查重，不准入、不计独立物件。
+
+| 待入图规则 | 已有09B受读回放 |
+|---|---|
+| HPA-DAYUN-SEQ-001 正式首运相邻 | 袁氏壬寅逆辛丑；韦氏受读丙寅顺丁卯、戊寅逆丁丑 |
+| HPA-DAYUN-SEQ-002 后续同向一步 | 袁氏辛丑→庚子→己亥；韦氏丁卯→戊辰→己巳／丁丑→丙子→乙亥 |
+
+机械复算（甲子0）：丙寅2→丁卯3→戊辰4→己巳5；戊寅14→丁丑13→丙子12→乙亥11；壬寅38→辛丑37→庚子36→己亥35。正式第n运=(生月index+方向×n) mod 60，n从1起；n=0为交运前生月基点。序列与起运岁数、交运历日、现代时间边界分别验证。明代月上起/一辰十年仅框架，不推直接传承。
+
+待发布图谱计划：PASSAGE-MINGLI-TANYUAN-RECEIVED-DAYUN、PASSAGE-QIANLI-RECEIVED-DAYUN-EXAMPLES，RULE-FAMILY-BAZI-DAYUN-FORMAL-FIRST-ADJACENT、RULE-FAMILY-BAZI-DAYUN-SUBSEQUENT-SEXAGENARY-STEP；两篇页分别指向两规则族的四条限定ATTESTS，证据以09B及已登记受读为限。全图语义核查仅见既有生月基点节点，未见这两条独立序列节点。此前原子提交工具返回h2读取连接错误，重新检查分支仍为b9f4e8979f2e6218c91dd4f2b4d6ee7a5284f0b6，故本检查点只保存实证、计划和阻塞，不声称入图。六权威输入未修改，状态1.1579.0、图763/548、Matrix222/222、来源1488/276分片、58 OPEN五P0、核心CLOSED均保持。NEXT 先安全发布上述序列图谱及R2，再核21神煞和广度第三/第四门槛。transmission_impact=NONE (unpublished proposal).
