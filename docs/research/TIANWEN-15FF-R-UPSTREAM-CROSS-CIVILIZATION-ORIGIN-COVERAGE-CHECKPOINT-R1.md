@@ -728,3 +728,10 @@ transmission_impact=NONE；本次仅保全未完成研究工作及恢复合同�
 **本提交仅在现有R2测试文件追加只读静态依赖清点，不增加workflow、不改权限、不改变任何原有断言。** CI在实际checkout对全部Git tracked text执行git grep，输出HEAD及三类精确字面命中（ledger路径/Schema、字段、verifier入口），docs中的JSON/MD/TXT仅计数，其他文件路径完整输出。需要领取精确HEAD成功日志中 TIANWEN_LEDGER_DEPENDENCY_INVENTORY，逐一检查实际调用语义，尤其历史工作流的直接读取、父版本对比、测试fixtures及脚本动态路径。静态字面清单不是动态调用图；迁移必须额外复核间接导入及路径拼装。不得把无匹配或未领取CI结果称作完成审计。
 
 候选迁移验收原则：①使用唯一权威manifest绑定各原始块，复原完整旧JSON并逐对象与基线完全相等（含所有历史、顺序、未知字段）；②所有活跃读取者和Git父版本对比同时支持旧格式与分片格式，历史workflow按实际兼容需要处理，不降级已有校验；③R2绑定必须覆盖全部权威块，不能只哈希未绑定的索引；④按UTF-8上限分块，旧块不可改写，任何新增变更经过原有validate及check_forward_only；⑤现有测试全通过并增加缺块/篡改/重复/顺序/错误parent/状态失配的负向测试；⑥迁移与六条史料正式准入可独立验证，不把迁移成功等同历史裁决。无完整依赖审计及兼容验证前不实施迁移。当前任务仍为TW-OPEN-0059，59未决五P0、核心CLOSED、不终验。
+
+
+### 11d. 全库依赖实测后的低风险发布路线（2026-11-27）
+
+基线 HEAD `9ff598487b5f32ae539d3cdb5996dffae314d490`、tree `95740bebf533d618e2987dc4e53bf82c0ebaf43f`。六绑定一致；21 Actions中20 success、clean-training-system in_progress；[continuity run 46008937761](https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/46008937761) job140539151184实际62+8 tests成功。日志 TIANWEN_LEDGER_DEPENDENCY_INVENTORY 是精确HEAD全Git tracked text字面扫描；path/schema 428命中（93 workflow、296 scripts、30 tests、9 docs数据），field 441（295 scripts、139 tests、7 docs），verifier入口78（66 workflow、1 script、3 tests、8 docs）。三组相互重叠，不得相加为独立调用者。全清单仍在该job日志，未逐一动态审计。实读13MX脚本等直接JSON读取、12XW读取台账并检查历史事件和版本，主CI及历史workflows大量调用。另有旧sync-project-state-batch-12cp workflow具contents:write但写入过时1.102.0状态，不得触发、改用或绕过权限。当前真实容器git ls-remote测试DNS失败。
+
+**取舍：现阶段优先保持所有旧格式直接读取者兼容，验证小型确定性增量程序在具备checkout的执行通道重建完整文件；不是立即切换分片格式。** 新增固定范围 scripts/prepare-tianwen-r8-admission.py，8个已核blob pins、限定R8六来源、原check_forward_only；输出仅到checkout外新目录，无远端写、无权限改变。测试在临时本地硬链接镜像中先unlink再写替换文件，核原始台账字节未变，运行既有state/来源/遗漏/forward-only/R2 view及query门禁，核1018个旧checkpoint完整保留和1019新计数。该测试复用现有R2 CI，未改既有workflow和权威文件。需要领取 TIANWEN_R8_PREPARED_REPLAY 精确HEAD实际成功日志；若失败先检查原验证错误、资源或兼容问题。即便PASS也仅是预发布重放，不是远端正式准入或对传承争议裁决；不得提前更新语义计数。现有1.1587.0、1499/279、59 OPEN五P0及CLOSED保留。正常具备Git checkout和写权限的发布路线仍是独立依赖；未授权或不可用时不声称完成，不改变工作流权限。避免因为一个大文件就未经审计地改动数百历史校验器。
