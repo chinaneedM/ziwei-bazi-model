@@ -19,3 +19,11 @@
 
 ## 15FE 正式全库查询绑定（2026-11-27）
 15FD正式准入HEAD a3a39624 continuity run45953125870 SUCCESS。候选检查点7d37e96a所见20项Actions中19成功、1运行；无失败。六项权威绑定核对一致；权威状态/风险重新解析，58 OPEN及五P0保持。四个来源URL均重新取得公开正文：Mingli L7–25；baczi.uz L7–15（塔什干标题仅作地域线索）；Rising Dragon L160–183；Sri Lanka blog L12–19/90–93（日期仅属文章，不属侧栏）。查询绑定 15FE-residual-central-south-asia-pacific-regional-evidence，20词，manifest fa6e5d253162f81a643ed07ced1513e5574d379d，待本次精确HEAD成功专项日志、命中消歧和证据边界裁决。无正式准入、图谱增边或算法变化。
+
+## 15FE 查询领取、语义消歧及来源重核（2026-11-27）
+
+查询提交 `5449fd27bdec69551ed3c3434f8b5a30b4476bb6`，exact-HEAD [continuity run 45954096165](https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/45954096165/job/140356445575) SUCCESS。日志 2026-11-27T06:50:17.2669603Z：query_id=15FE-residual-central-south-asia-pacific-regional-evidence；checkpoint_id=TW-CHECKPOINT-15FE-PROVISIONAL-20261127；request blob a5af6befa7f43a7188631192e14e43a8ad95afc1；manifest blob fa6e5d253162f81a643ed07ced1513e5574d379d；verifier script blob 3387254ce53ec0a1f1a3b779291e0c40997bf190。PASS，scope=ALL_REGISTERED_ROOT_AND_SHARDS_LITERAL_ONLY，files=276，records=1486，matching_files=1，truncated=false。原请求20词，仅 Manfred Kubny 命中1文件，其余19词均0。唯一命中 docs/research/TIANWEN-15EW-EUROPE-SOURCE-SHARD-R1.json blob 1e87221e51bf7ca6ea9e9525e734435117c0ccfe。已直读源记录 EXT-TIANWEN-15EW-DE-KUBNY-CURRICULUM：德国四柱课程发布页，与乌兹别克斯坦自述不是相同文献；德国课程内容不证明个别学员实际受训。比什凯克名录也列 Manfred Kubny 俄文异拼（L16 Манфреда Кубни），只属于一般师资自述，不绑定到任一独立体系。字面检索不证明语义同一或首次出现。
+
+重核：Mingli 直读 L7–25，两体系并列，可作为现代职业方法自述候选；Rising Dragon 直读 L160–183，明确2024视频服务关岛，不是当地教学；Kubny德国原站 L24–66 课程说明，保持原15EW分类。baczi.uz 此次超时，斯里兰卡博客此次被Google访问拦截；此前两次公开正文读取记录仍保留，不将本次受阻解释为不存在或重新验证成功。两个受阻候选须按已有证据及访问边界分别裁决，未正式准入。
+
+恢复基线 `1046ce12466494d91a8a32889bb220046006cbb1` / tree 481693a6189760483ea207d4eee48a75a20ee07d：最新三份双体系纲要/atlas对齐提交只有20项Actions，19成功、clean-training-system运行中，无本HEAD continuity专项。按R1回退已精确解析六个权威blob，绑定与树相符；58 OPEN及五P0均复核。查询提交分页285项、284成功、1运行；不得声称最新HEAD全通过。当前manifest/request/verifier与查询提交一致；查询结果作为可复用证据收存。未改权威状态、来源、图谱、算法或风险等级。NEXT：四个候选按证据等级准入裁决并原子同步登记/状态/ledger/R2，继而全球覆盖复核。TW-OPEN-0058仍OPEN。
