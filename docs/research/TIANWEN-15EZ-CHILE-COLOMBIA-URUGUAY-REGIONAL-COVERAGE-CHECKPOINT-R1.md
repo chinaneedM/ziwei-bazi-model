@@ -26,3 +26,7 @@
 
 ## 15EZ 有界准入裁决（2026-11-27）
 五份直接可阅的现代文本纳入 docs/research/TIANWEN-15EZ-CHILE-COLOMBIA-URUGUAY-SOURCE-SHARD-R1.json：Chile Boero 回忆、Ecovisiones 术名页、Uruguay Milagros 四柱课程及紫微界面、Colombia Boada 2012 地域自述（同2007博客，不是独立师承）。智利2003广告目标图再次超时、乌拉圭2009博客直接访问仍阻断；不准入为直接核读。Murcia/Távata仍待核。依据上文14词完整查重，按不同文档及其证据等级辨识，不以零命中自动证明无重复。1454=647+807、270分片；Matrix222/222，graph495/375，58 OPEN/5 P0，核心CLOSED。下一步15FA，继续剩余拉美，再非洲、中西亚。
+
+
+## 15FA 后续候选证据保全（2026-11-27）
+15EZ 已提交但精确 HEAD 连续性运行45946987595仍排队。后续候选调查已保存于 [15FA provisional checkpoint](TIANWEN-15FA-REMAINING-LATIN-AMERICA-REGIONAL-COVERAGE-CHECKPOINT-R1.md)，属于 TW-OPEN-0058 已登记开放范围；不改变权威状态，待门禁及完整查重后正式准入。恢复时先检查15EZ原提交的精确CI，再续15FA。
