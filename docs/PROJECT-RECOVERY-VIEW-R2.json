@@ -2,14 +2,14 @@
   "schema": "TIANWEN-CONTEXT-RECOVERY-VIEW-R2",
   "authority": "DERIVED_ONLY",
   "bindings": {
-    "docs/PROJECT-CURRENT-STATE-R1.json": "e199bc552994be581a838c3aa7b17efa90fee1bc",
-    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "b1458180400a0f0d4c9caebd5ce688851113546b",
+    "docs/PROJECT-CURRENT-STATE-R1.json": "92198ea0f0508c36e79a14e9a72b33c982ca1dab",
+    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "4fc23c76d0525e227084516ba5e521e3379b8fc4",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json": "d5081119bedd4afa0324a7eec36bc5b1ce4372c3",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json": "ea2ab50479450c39ce3fc7a00ea91cd713bf4a60",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json": "5919e1b6bbc3c4b150507c41a13ccc9e13d20f17",
     "docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json": "5ef9ca3e5507df6ea4250453cf7f663b3d2137cc"
   },
-  "state_version": "1.1581.0",
+  "state_version": "1.1582.0",
   "stage": "FUSION_CHART_HISTORICAL_PROVENANCE_AND_SCHOOL_AUDIT_R1",
   "invariants": {
     "deterministic_fusion_chart_product_r1": "CLOSED",
@@ -28,26 +28,29 @@
     "shards": 276,
     "graph_nodes": 819,
     "graph_edges": 581,
-    "open_issues": 58,
+    "open_issues": 59,
     "p0": 5
   },
   "phase": "BREADTH_FIRST_TWO_SYSTEM_HISTORICAL_FRAMEWORK_R1",
-  "next_deliverable": "15FF-Q续：按双史纲、覆盖图册、图谱与风险台账复评广度第三/第四验收门槛；保留所有未证关联及原页缺口。",
+  "next_deliverable": "15FF-R续：领取当前检查点全库字面检索，去重并分级古代上游源流见证；按南亚/印度（含南印度特异性）、希腊化、伊朗/中亚、唐宋中介和中国本土分轴补齐双史纲，复核四门槛后再决定广度验收；保留15FF-Q缺口及五P0。",
   "latest_matrix_batch": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-FIRSTPARTY-AND-OLD20-ATLAS-QD.md",
-  "latest_breadth_batch": "docs/research/TIANWEN-15FF-Q-CORE-RULE-PASSAGE-CROSSWALK-CHECKPOINT-R1.md",
+  "latest_breadth_batch": "docs/research/TIANWEN-15FF-R-UPSTREAM-CROSS-CIVILIZATION-ORIGIN-COVERAGE-CHECKPOINT-R1.md",
   "checkpoint": {
-    "id": "TW-CHECKPOINT-15FF-Q-BAZI-SHENSHA-PASSAGE-MAP-20261127",
+    "id": "TW-CHECKPOINT-15FF-R-UPSTREAM-ORIGIN-20261127",
     "evidence_refs": [
+      "docs/research/TIANWEN-15FF-R-UPSTREAM-CROSS-CIVILIZATION-ORIGIN-COVERAGE-CHECKPOINT-R1.md",
+      "docs/TIANWEN-ZIWEI-HISTORICAL-OUTLINE-R1.md",
+      "docs/TIANWEN-BAZI-HISTORICAL-OUTLINE-R1.md",
+      "docs/TIANWEN-DUAL-HISTORY-COVERAGE-ATLAS-R1.md",
       "docs/research/TIANWEN-15FF-Q-CORE-RULE-PASSAGE-CROSSWALK-CHECKPOINT-R1.md",
-      "docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json",
-      "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-03-BAZI-SHENSHA.md",
-      "sources/canonical-runtime/S11/segment-0010.txt",
-      "sources/canonical-runtime/S11/segment-0011.txt"
+      "docs/research/TIANWEN-13ZW-TANG-SONG-NATAL-EVIDENCE-DUNHUANG-R1.md",
+      "docs/research/TIANWEN-14S-P4071-TINGSHI-EARLY-NATAL-WITNESSES-R1.md",
+      "docs/PROJECT-REGISTRY-QUERY-R2.json"
     ]
   },
   "focus": {
-    "index": 3276,
-    "text": "13ZZ CURRENT ACTION 15FF-Q: P maps 21 Bazi shensha from S11 received corpus and rechecks Sanming v3 received variants. 52 nodes/29 scoped ATTESTS (25 passages/27 families); 819/581 graph. Tianyi solstice/day-night, Tianyue month-step/day qualification, Sanqi competing classifications, five-yang subset vs ten-stem blade separated. CText 403; Wikisource Siku received corroboration only, no new physical witness or source admission. Matrix222/222, 58 OPEN five P0, core CLOSED. NEXT assess breadth gates 3/4 against dual outlines, atlas and ledger; retain historical gaps.",
+    "index": 3277,
+    "text": "13ZZ CURRENT ACTION 15FF-R: user clarified upstream origin scope before breadth acceptance. Reviewed both outlines/atlas/graph and R1 canonical six blobs after exact-HEAD c23b7ab 20 triggered successes but no continuity run; R2 binding 6/6. P.4071/Dumu/solar-mansion anchors reused; outbound modern South Asia distinct from inbound ancient astrology. Register TW-OPEN-0059 P1, no new historical source/edge/ruling. Matrix222/222, sources1488/276, graph819/581, 59 OPEN five P0, core CLOSED. NEXT consume exact full-registry query and classify ancient source/route candidates; retain Q unresolved rule crosswalk and review four gates.",
     "truncated": false
   },
   "p0": [
