@@ -741,3 +741,7 @@ CiNii BA61461510著录1955.8香港实学书店，另有大阪大学伊地智文�
 ### 15EU｜文莱、东帝汶地域证据更新（2026-11-27）
 [15EU考据与准入裁决](research/TIANWEN-15EU-BRUNEI-TIMOR-LESTE-REGIONAL-METHOD-IDENTITY-CHECKPOINT-R1.md)，[四条有界来源](research/TIANWEN-15EU-BRUNEI-TIMOR-LESTE-SOURCE-SHARD-R1.json)。全库具名16词查询264文件/1402条零字面命中，无截断；复载与同源原发线索不重复计数。文莱2005 NST刊期为2025经营者复载所标，原刊未核；2023经营宣传含四柱概念，实际开业日期及当地教学未证。东帝汶2002、2019两篇报道描述求签而非出生排盘。TW-OPEN-0057 OPEN；不新增图谱边、历史首传年或算法裁决。
 四柱：文莱为跨境接受史及经营宣传（C级）；独立当地实践、教学、出版及传承未证。东帝汶仍为E级目标术法缺口，求签仅反例。
+
+
+### 15EV｜北美及澳大利亚有界准入（2026-11-27）
+[15EV](research/TIANWEN-15EV-GLOBAL-REGIONAL-COVERAGE-NORTH-AMERICA-OCEANIA-CHECKPOINT-R1.md) 六条来源正式登记，精确全库16词查询265文件/1406条零字面命中无截断；TW-OPEN-0058 OPEN。 澳大利亚VU20815 2012–16、11079NAT 2021–26课程注册及ACES NAT11079004三页规格，明确四柱、大运流年、喜忌和案例考核；CFSCAR401等效映射非同师承。加拿大目录仅接受渠道，美国独立四柱教学仍待证。

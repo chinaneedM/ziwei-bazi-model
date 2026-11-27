@@ -2,14 +2,14 @@
   "schema": "TIANWEN-CONTEXT-RECOVERY-VIEW-R2",
   "authority": "DERIVED_ONLY",
   "bindings": {
-    "docs/PROJECT-CURRENT-STATE-R1.json": "30cba392e99ebc8176015c44b11a7c488eb00629",
-    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "526bf59a60933e5e2c6bf99bf96ab2218a2c3e18",
-    "docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json": "359757ac503e50e3e81014df51d987a6fffc2574",
+    "docs/PROJECT-CURRENT-STATE-R1.json": "604892be1de46e4497231788caac448299751876",
+    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "9e8dd90d5341dd800afb1d0e81a3dbb2cf315be5",
+    "docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json": "4aec223f8b464034beb20f2695e33d321f98731d",
     "docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json": "280e023bcd6e0625f0dca2fd54d6c9423f286fd5",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json": "5919e1b6bbc3c4b150507c41a13ccc9e13d20f17",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json": "ea2ab50479450c39ce3fc7a00ea91cd713bf4a60"
   },
-  "state_version": "1.1543.0",
+  "state_version": "1.1544.0",
   "stage": "FUSION_CHART_HISTORICAL_PROVENANCE_AND_SCHOOL_AUDIT_R1",
   "invariants": {
     "deterministic_fusion_chart_product_r1": "CLOSED",
@@ -23,29 +23,32 @@
     "matrix_rows": 222,
     "matrix_audited": 222,
     "root_sources": 647,
-    "extension_sources": 759,
-    "total_sources": 1406,
-    "shards": 264,
+    "extension_sources": 765,
+    "total_sources": 1412,
+    "shards": 265,
     "graph_nodes": 495,
     "graph_edges": 375,
     "open_issues": 58,
     "p0": 5
   },
   "phase": "BREADTH_FIRST_TWO_SYSTEM_HISTORICAL_FRAMEWORK_R1",
-  "next_deliverable": "领取15EV全库字面查重，核实美国AFSI 2006教材与2007招生页、澳大利亚21929VIC/22194VIC与NAT11079004官方注册和原课程规格、加拿大数字借阅记录的出版/保藏/授课边界；语义查重后有界准入，继续欧洲、南美、非洲及其他亚太空白。排盘CLOSED。",
+  "next_deliverable": "继续15EW欧洲地域传播框架：按英国、法国、德国及其他欧洲区域分线核查紫微与四柱独立出版/教学/实践，区分馆藏及本地传播；北美澳洲早期实践与教学师承保持OPEN。排盘CLOSED。",
   "latest_matrix_batch": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-FIRSTPARTY-AND-OLD20-ATLAS-QD.md",
   "latest_breadth_batch": "docs/research/TIANWEN-15EV-GLOBAL-REGIONAL-COVERAGE-NORTH-AMERICA-OCEANIA-CHECKPOINT-R1.md",
   "checkpoint": {
-    "id": "TW-CHECKPOINT-15EV-PROVISIONAL-20261127",
+    "id": "TW-CHECKPOINT-15EV-ADMITTED-20261127",
     "evidence_refs": [
       "docs/research/TIANWEN-15EV-GLOBAL-REGIONAL-COVERAGE-NORTH-AMERICA-OCEANIA-CHECKPOINT-R1.md",
+      "docs/research/TIANWEN-15EV-NORTH-AMERICA-OCEANIA-SOURCE-SHARD-R1.json",
       "docs/research/TIANWEN-15BL-DUAL-HISTORY-ERA-REGION-RULE-BREADTH-COVERAGE-CROSSWALK-R1.md",
-      "docs/PROJECT-REGISTRY-QUERY-R2.json"
+      "docs/TIANWEN-ZIWEI-HISTORICAL-OUTLINE-R1.md",
+      "docs/TIANWEN-BAZI-HISTORICAL-OUTLINE-R1.md",
+      "docs/TIANWEN-DUAL-HISTORY-COVERAGE-ATLAS-R1.md"
     ]
   },
   "focus": {
-    "index": 3238,
-    "text": "13ZZ CURRENT ACTION 15EV PROVISIONAL: recovered interrupted checkpoint 81e34496. Global regional outline review distinguishes US Vietnamese reprint (14O), European/Russian holding vs local practice, Southeast Asia 11 bounded screens, and unsurveyed areas. New unadmitted candidates: AFSI 2006 English Ziwei course material and 2007 Monterey Park notice, Australian national training register 21929VIC/22194VIC and NAT11079004 plus provider unit page explicitly Four Pillars, Toronto OverDrive borrowing record. Full-registry query requested; no new source or graph admission. TW-OPEN-0058 OPEN; sources1406/264, graph495/375, Matrix222/222, 58 OPEN five P0, core CLOSED. NEXT retrieve query, scope and deduplicate.",
+    "index": 3239,
+    "text": "13ZZ CURRENT ACTION 15EV ADMITTED: c2b90fb4 exact continuity run45939438558/job140310103409 SUCCESS, 62 ledger+7 R2 tests. Full 16-term query 265 files/1406 records zero literal matches untruncated. Six scoped records: US AFSI 2006 AS211 teaching PDF (p0,24,25 rendered) and 2007 AS201 notice; Australia VU20815 2012-16, 11079NAT 2021-26 registration and ACES 3-page NAT11079004 specification with CFSCAR401 equivalence; Toronto OverDrive 2010 ebook listing, not local teaching. No proof of class delivery, Canadian acquisition date, direct lineage or original historical glyphs. TW-OPEN-0058 OPEN. Sources1412/265, graph495/375, Matrix222/222,58 OPEN five P0, core CLOSED. NEXT Europe regional breadth.",
     "truncated": false
   },
   "p0": [

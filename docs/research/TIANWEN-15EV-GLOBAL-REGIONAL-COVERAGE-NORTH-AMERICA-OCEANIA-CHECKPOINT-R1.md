@@ -32,3 +32,13 @@ American Feng Shui Institute；amfengshui.com；Lorraine Wilcox；Monterey Park�
 
 ## 正式恢复登记（2026-11-27）
 本轮从81e34496恢复，六绑定一致；20项Actions中19成功、一项运行中，未见该HEAD连续性workflow，不能借用上一HEAD成功作为新HEAD验收。分离大型blob写入，保持同一原子tree/commit发布，正式登记TW-OPEN-0058、state 1.1543.0及R2视图，并提交16词全库查询请求。查询待CI，不作零命中或正式来源准入。现有1406来源、495/375图谱、222/222 Matrix、58开放风险含五P0、排盘CLOSED。下一步：领取15EV全库字面查重，核实美国AFSI 2006教材与2007招生页、澳大利亚21929VIC/22194VIC与NAT11079004官方注册和原课程规格、加拿大数字借阅记录的出版/保藏/授课边界；语义查重后有界准入，继续欧洲、南美、非洲及其他亚太空白。排盘CLOSED。
+
+
+## 15EV 正式准入（2026-11-27）
+精确HEAD c2b90fb43bb475c2b7df06cb86e5015bb750af8b，continuity run45939438558 / job140310103409 SUCCESS；62 ledger、7 R2 tests。query_id 15EV-global-north-america-oceania-identity，checkpoint TW-CHECKPOINT-15EV-PROVISIONAL-20261127，request blob 7e3cef81522ddc75567e2136683b98431e5e7f7c，manifest 359757ac503e50e3e81014df51d987a6fffc2574，verifier script 3387254ce53ec0a1f1a3b779291e0c40997bf190。ALL_REGISTERED_ROOT_AND_SHARDS_LITERAL_ONLY：PASS，265文件/1406记录，原请求全部16词逐项0、matching_files=0、hits=[]、truncated=false。字面查重不证明语义全覆盖；依载体、课程号、版本和地域复核后正式准入六条。恢复时285项Actions中284成功、clean-training-system运行中，不记全绿。
+
+- AFSI教材第0、24、25幅直接核图：2006版权、AS211中级教材、印页3-20十干四化全表、3-21示例，生年/大限/流年层次区分。与2007网页AS201招生是不同课程，不作同一开班或独立师承。教材版权限制，未复制原PDF入库；未获取原始字节hash，非古籍字形权威。公告附带垃圾内容排除，实开与原始时间待证。
+- 澳洲VU20815官方索引给出2012-01-01至2016-12-31有效期并列22194VIC；11079NAT课程2021-07-01至2026-06-30，已非current，单位NAT11079004另标current；10189NAT是该课程前版。21929VIC仅由通用单位交叉索引见名，不单独登记。ACES原三页逐页核图：明列四柱、Self Element、喜忌、大运及年柱、五类关系、至少一个排盘案例的考核要求；第1印页CFSCAR401等效映射，不由此推断与VU20815同师承。非实际授课或预测有效证据。
+- 多伦多OverDrive直接正文89–128行：Shelly Wu、Red Wheel Weiser、2010-01-21电子发行、ISBN 9781601637550；介绍具名紫微及四组生辰干支。美国纸本2010书目为不同ISBN的关联候选，未独立查重，不另登记。不将电子发行日期当加拿大入藏、当地印刷或实务日期。
+
+[六条来源](./TIANWEN-15EV-NORTH-AMERICA-OCEANIA-SOURCE-SHARD-R1.json)有界正式登记。TW-OPEN-0058 OPEN，五P0不变，图495/375、Matrix222/222、来源1412（647+765/265片），排盘CLOSED。NEXT：欧洲具名两术的独立出版、教学与实践框架，先英国、法国、德国及其他地区；北美及澳洲早期活动、传承与实开仍待查。

@@ -699,3 +699,7 @@ CiNii BB26426235著录1979.7台南西北出版社及琉球大学馆藏，母丛�
 ### 15EU｜文莱、东帝汶地域证据更新（2026-11-27）
 [15EU考据与准入裁决](research/TIANWEN-15EU-BRUNEI-TIMOR-LESTE-REGIONAL-METHOD-IDENTITY-CHECKPOINT-R1.md)，[四条有界来源](research/TIANWEN-15EU-BRUNEI-TIMOR-LESTE-SOURCE-SHARD-R1.json)。全库具名16词查询264文件/1402条零字面命中，无截断；复载与同源原发线索不重复计数。文莱2005 NST刊期为2025经营者复载所标，原刊未核；2023经营宣传含四柱概念，实际开业日期及当地教学未证。东帝汶2002、2019两篇报道描述求签而非出生排盘。TW-OPEN-0057 OPEN；不新增图谱边、历史首传年或算法裁决。
 紫微：两地均为有界检索后独立具名史证缺口；不以八字服务或求签填补紫微传播格。
+
+
+### 15EV｜北美及澳大利亚有界准入（2026-11-27）
+[15EV](research/TIANWEN-15EV-GLOBAL-REGIONAL-COVERAGE-NORTH-AMERICA-OCEANIA-CHECKPOINT-R1.md) 六条来源正式登记，精确全库16词查询265文件/1406条零字面命中无截断；TW-OPEN-0058 OPEN。 美国2006版权AS211教材完整十干四化表与示例直接核图，2007 AS201加州招生独立载体，不证明实际开课与师承；加拿大电子借阅目录仅接受渠道。澳洲独立紫微仍待证。

@@ -1524,3 +1524,7 @@ B：澳门大学1963-/1965-两馆目、Google Books 1963第二卷；C：现代�
 ### 15EU｜文莱、东帝汶地域证据更新（2026-11-27）
 [15EU考据与准入裁决](research/TIANWEN-15EU-BRUNEI-TIMOR-LESTE-REGIONAL-METHOD-IDENTITY-CHECKPOINT-R1.md)，[四条有界来源](research/TIANWEN-15EU-BRUNEI-TIMOR-LESTE-SOURCE-SHARD-R1.json)。全库具名16词查询264文件/1402条零字面命中，无截断；复载与同源原发线索不重复计数。文莱2005 NST刊期为2025经营者复载所标，原刊未核；2023经营宣传含四柱概念，实际开业日期及当地教学未证。东帝汶2002、2019两篇报道描述求签而非出生排盘。TW-OPEN-0057 OPEN；不新增图谱边、历史首传年或算法裁决。
 地域导航：文莱紫微E／四柱C（跨境及宣传），东帝汶紫微E／四柱E（求签非目标）。11地已作有界筛查，不等于全球框架完成。
+
+
+### 15EV｜北美及澳大利亚有界准入（2026-11-27）
+[15EV](research/TIANWEN-15EV-GLOBAL-REGIONAL-COVERAGE-NORTH-AMERICA-OCEANIA-CHECKPOINT-R1.md) 六条来源正式登记，精确全库16词查询265文件/1406条零字面命中无截断；TW-OPEN-0058 OPEN。 美国紫微教材/招生、澳大利亚四柱注册/规格及加拿大电子书目录共六载体，分开出版、馆藏、注册、实开及师承。来源1412/265，图495/375，Matrix222/222，58开放含五P0，核心CLOSED。NEXT欧洲。
