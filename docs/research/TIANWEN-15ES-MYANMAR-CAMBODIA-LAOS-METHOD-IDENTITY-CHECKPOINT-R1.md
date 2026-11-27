@@ -27,3 +27,11 @@ HEAD d1c1b4a634ba5d125fda22b24a539883748b9039 / tree 5203af70f10e33c3e13c50cc126
 ## 6. 下一步
 
 24词查询15ES-mainland-southeast-asia-method-identity，绑定manifest 4fdeb029d791e8a66628b292b20b2df595182d48，新checkpoint TW-CHECKPOINT-15ES-PROVISIONAL-20261127。包括具名候选与地名繁简/英语，广义地名可能导致截断，须分词细查或核匹配记录，不以截断判无重复。正式来源未准入；新增TW-OPEN-0056，记录三地分别的紫微/子平证据缺口与术语反例。来源、图谱、Matrix、算法不变。优先领取查重，分开判断现代柬埔寨具名BAZI与地方占术背景，继而补缅甸、老挝及三地紫微。无付费、注册或登录。
+
+## 7. 15ES查重验收与正式有界准入（2026-11-27）
+
+精确HEAD 0d1abc4baeb8089851a081d4ee83525bc2234979 / tree cdc23e13ffeba647877c14ad1c00dd602278c8f4；[continuity run45934467813](https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/45934467813) job140294382576 SUCCESS，62 ledger+7 R2 tests，六绑定匹配。Actions分页读取期间状态变化，共观察281个独立run，其中242成功、12运行、27排队；总数285，未宣称全量完成。query 15ES-mainland-southeast-asia-method-identity，checkpoint TW-CHECKPOINT-15ES-PROVISIONAL-20261127，request blob da72c0aca7d0550761692317e391a5cf59101ec9，manifest blob 4fdeb029d791e8a66628b292b20b2df595182d48；PASS，ALL_REGISTERED_ROOT_AND_SHARDS_LITERAL_ONLY，263 files/1397 records，原请求24词逐词0，matching_files=0，hits=[]，truncated=false。字面查重不等同所有同义词和所有地区史料穷尽；原请求保留在该HEAD。
+
+五个来源重新直接核对，正式登记见[分片](./TIANWEN-15ES-MAINLAND-SOUTHEAST-ASIA-METHOD-IDENTITY-SOURCE-SHARD-R1.json)。两个明确BAZI命名载体：服务页与应用商店页；IFSA总部页面仅组织背景；Diogenes论文仅生肖借用和地方术法比较；缅华网仅术语反例。公司About与服务页同运营方，地方分会与总部是关联组织，不额外累计同一背景。论文中1971高棉译本为访谈转述，未核原刊；1912泰文出版信息不作为子平版本。所有来源均非原书规则证据。没有确认柬埔寨首次传入或任何三地师承。
+
+1900地方志替代定位：[Google Books n7oMAAAAIAAJ](https://books.google.com/books?id=n7oMAAAAIAAJ) 为目标Part I Vol II书目；[Chughtai Library 40819](https://www.chughtailibrary.com/digital_library/repository_detail.php?id=40819) 列目标卷3388；[Myanmar Law Library PDF](https://myanmar-law-library.org/IMG/pdf/shan_state_part_i_volume_ii.pdf) 为另数字入口，未取得目标图；[BL IOR/X/12142](https://searcharchives.bl.uk/catalog/040-004534578) 馆目明确其所述组缺Part I Vol II，不能用作目标实物证明。只保留新定位不准入额外见证，不认为各镜像为不同实物；pp45–47原图、表格及页映射仍待核。无老挝具名术法新证据，不以检索未见为不存在。TW-OPEN-0056保持OPEN。来源1402（647+755、263片），图495/375，Matrix222/222，56 OPEN含五P0，核心CLOSED。
