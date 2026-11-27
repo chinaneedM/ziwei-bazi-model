@@ -27,3 +27,15 @@
 
 ## 查重与下一步
 待15FB门禁成功后，用当前manifest SHA aea89719278c959ce4df01ac905eb2b31239353f 发起正式15FC全库查询。建议词：fsrc.co.za、traditionalfengshui.co.za、Antoinette Pedro、Joëlle Delille Venco、joelledv-energie.com、Patricia Ebrard、janae.fr、Antoine Menguy、antoinemenguy.com、Jin Peh、jinpeh.com、fengshuitoday.com、speakers-jin-peh、formosa-art.com、dubaifengshui.com、Master Hang、Ran Beneli、moonstation.vision、Aaron Zizov、netofknowledge.com、Sinem Oktay、sinemoktay.com、Hagit Mashiach Alon。按现行查询词数上限拆分（若需），已登记URL不得重复，语义辨析另行进行。以上均为候选或明确排除，尚无新增正式来源，不关闭TW-OPEN-0058，不重开算法。后续查中亚、南亚和太平洋其他地域。
+
+
+## 15FC 复核及正式查重检查点（2026-11-27）
+15FB exact HEAD f07fd2e293f2d6ba94b613c67171009a5f22acd0 [run45950359290/job140344519448](https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/45950359290) SUCCESS，62风险、7 R2 tests；15FB旧查询STALE_CHECKPOINT符合已准入状态。15FC基线6225c810仅新增候选文档、六权威绑定吻合；该文档提交未触发连续性专项，不能将前一HEAD CI写为当前HEAD CI。20项Actions观察无失败，clean-training-system仍运行。
+
+- 南非FSRC正文重核15–18、28行：明确Four Pillars、Cape Town、1999学习中国术数自述；风水认证与四柱培训分开。traditionalfengshui初次打开取得标题及导言，目标段与about二次取数429；先保留先前技术定位、不给同作者或规则结论，待直接重核。不得将版权页日期当首发。
+- 留尼汪2025活动重核32–69行，报名/公告非开办证明。Janae目录复检目标行请求超时，但检索返回具体Saint-Leu/Patricia Ebrard/Ba Zi认证条目；仍需直接正文目标复核。新增 [Janae学员留言](https://janae.fr/vos-temoignages/) 374–388行，Patricia Ebrard自述2019-10-26正在随Fabienne学习BaZi，使用教材及Skype，曾赴巴黎参加首次研习；Fabienne Grenier次日回复确认陪伴学习。系同一机构发布的署名双向交流，日期为网页自载，未独立存档；留言未直接写留尼汪，须与目录身份互校，不作独立师承边，不推断2019当地实际授课。较2025公告更早的跨境学习线索。
+- 毛里求斯官网自述2023年底迁居、现行线上八字与实体针灸分别提供；不推定2023即已开办八字。
+- 阿联酋访谈重核13–14、29–30行，四柱Lily Chung/旧金山及紫微Tony Tan/新加坡属于访谈导语，2004迪拜居住为本人答语，两者不可拼接成2004授课；协会65–66行2013起多国授课未绑定每门课；Formosa学校目录 P112C000S109、795–826行 Dubai/Global，明确两术；Master Hang 72–74行确有Ba Zi服务主张，不据其风水宣传认定四柱师承。
+- 以色列Moonstation 7、21行及Net of Knowledge 69–72行重核：2022课程发布日期自述；医学学历不为术式入门时间。土耳其Formosa P144C144S000、2065–2106行列四柱与Istanbul从业，成立日期并非八字教学日期。
+
+本批13份候选（含2个可能已登记的目录、1份新增Janae留言），仅完整查重、语义身份和证据等级复核后准入；对无法重取目标段的南非技术文本、Janae目录保留明确边界。当前注册1467、273分片，58 OPEN/5 P0；无新图谱边或排盘改动。新查询15FC-africa-west-asia-regional-evidence绑定当前manifest aea89719278c959ce4df01ac905eb2b31239353f，覆盖24词，含新增Fabienne Grenier。待精确HEAD查询PASS及候选语义核对。
