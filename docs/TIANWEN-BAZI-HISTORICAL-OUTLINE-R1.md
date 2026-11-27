@@ -763,3 +763,8 @@ CiNii BA61461510著录1955.8香港实学书店，另有大阪大学伊地智文�
 - [15FC](research/TIANWEN-15FC-AFRICA-WEST-ASIA-REGIONAL-COVERAGE-CHECKPOINT-R1.md) 南非开普敦具名四柱自述、留尼汪2025工作坊公告（2019跨境学习留言的地理归属待核）、毛里求斯线上服务、阿联酋访谈／课程目录及服务、以色列2022课程自述及履历；土耳其复用既有从业目录。均非独立证明最早传入或实际授课。南非技术目标页仍429。
 - [15FD](research/TIANWEN-15FD-CENTRAL-SOUTH-ASIA-PACIFIC-REGIONAL-COVERAGE-CHECKPOINT-R1.md) 哈萨克斯坦2023收费表与课程、印度具名四柱受训／服务及术语、新加坡从业者跨境学习履历（不作印度在地证据）、塔希提与新喀里多尼亚具名服务。[15FE（待准入）](research/TIANWEN-15FE-CENTRAL-SOUTH-ASIA-PACIFIC-RESIDUAL-REGIONAL-CHECKPOINT-R1.md) 乌兹别克斯坦、吉尔吉斯斯坦、斯里兰卡及关岛仍为待查重候选，不计入正式来源。
 本次仅补录已准入批次导航，TW-OPEN-0058 OPEN；确定性核心不变。
+
+
+### 15FE 正式准入补记及整体覆盖初审（2026-11-27）
+[15FE](research/TIANWEN-15FE-CENTRAL-SOUTH-ASIA-PACIFIC-RESIDUAL-REGIONAL-CHECKPOINT-R1.md)：比什凯克双术名录为现代从业方法自述；2024关岛视频咨询为跨境服务提供者报告，不证明当地学校、首传或实际教学。乌兹别克斯坦与斯里兰卡仍为未准入受阻候选。上文候选标签保留原检查时态，当前两份来源已登记。
+[整体覆盖复核](research/TIANWEN-15BL-DUAL-HISTORY-ERA-REGION-RULE-BREADTH-COVERAGE-CROSSWALK-R1.md)：补强人物／流派／机构的证据导航，尤其日主、月令、格局与用神等观念史不能用计算规则Matrix代替；独立保留子平传承、版本与规则的未证连接，不重开排盘。

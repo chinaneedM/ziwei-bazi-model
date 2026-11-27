@@ -720,3 +720,8 @@ CiNii BB26426235著录1979.7台南西北出版社及琉球大学馆藏，母丛�
 - 非洲、西亚：[15FC](research/TIANWEN-15FC-AFRICA-WEST-ASIA-REGIONAL-COVERAGE-CHECKPOINT-R1.md) 迪拜具名学校目录分别列两术，2020访谈导语将Tony Tan（新加坡）与紫微学习配对，属履历转述，不以2004居住年份定当地开课；南非、留尼汪、毛里求斯、以色列、土耳其独立紫微证据缺口保留。
 - 中亚、南亚、太平洋：[15FD](research/TIANWEN-15FD-CENTRAL-SOUTH-ASIA-PACIFIC-REGIONAL-COVERAGE-CHECKPOINT-R1.md) 哈萨克斯坦阿拉木图招生表分别列四柱与紫微，标注2023-09-01收费表，不证明实际开班；独立紫微目标页重取受阻。印度Lizia函授名录未准入；印度、塔希提、新喀里多尼亚四柱材料不算紫微证据。[15FE（待准入）](research/TIANWEN-15FE-CENTRAL-SOUTH-ASIA-PACIFIC-RESIDUAL-REGIONAL-CHECKPOINT-R1.md) 比什凯克双术自述为候选，查重未完成，不纳入正式统计。
 本次仅补录已准入批次的导航，不新增史实、独立师承、首次传入或规则裁决。TW-OPEN-0058 OPEN。
+
+
+### 15FE 正式准入补记及整体覆盖初审（2026-11-27）
+[15FE](research/TIANWEN-15FE-CENTRAL-SOUTH-ASIA-PACIFIC-RESIDUAL-REGIONAL-CHECKPOINT-R1.md)：吉尔吉斯斯坦比什凯克具名从业者名录分别列紫微与四柱，已登记现代传文；2000为一般兴趣自述，不是紫微授课、传入或资格年份。关岛记录属于四柱跨境服务，不补紫微格。乌兹别克斯坦和斯里兰卡访问受阻，紫微独立证据仍待核。上文“待准入／查重未完成”保留为历史检查点，当前状态为两份有界来源已登记。
+[整体覆盖复核](research/TIANWEN-15BL-DUAL-HISTORY-ERA-REGION-RULE-BREADTH-COVERAGE-CROSSWALK-R1.md)：下一重点为人物／流派／机构的年代、作品、活动、教学与传承关系分层；现有图谱偏重文献和规则，不据从业者自述新增确认师承。前史至明代的机械连接及清民国版本系谱仍是深研主线。

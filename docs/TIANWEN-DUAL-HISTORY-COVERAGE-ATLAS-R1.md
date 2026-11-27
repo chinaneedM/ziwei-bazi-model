@@ -1551,3 +1551,9 @@ B：澳门大学1963-/1965-两馆目、Google Books 1963第二卷；C：现代�
 | [15FE（待准入）](research/TIANWEN-15FE-CENTRAL-SOUTH-ASIA-PACIFIC-RESIDUAL-REGIONAL-CHECKPOINT-R1.md) | 吉尔吉斯斯坦候选，未准入 | 吉尔吉斯斯坦、乌兹别克斯坦、斯里兰卡、关岛候选，未准入 | 0 |
 
 15FD正式状态：1486来源（647根＋839扩展，275分片）、图谱495/375、Matrix222/222、58开放含五P0、核心CLOSED。此导航仅复用已登记材料，不变更语义状态或查询绑定。15FE query须领取5449fd27bdec精确专项结果，完整查重及身份复核后另行准入；TW-OPEN-0058保持OPEN。后续按既有广度路线检查时代×核心知识领域×主要地域的两套独立框架。
+
+
+### 15FE 正式状态与广度骨架结构初审（2026-11-27）
+[15FE](research/TIANWEN-15FE-CENTRAL-SOUTH-ASIA-PACIFIC-RESIDUAL-REGIONAL-CHECKPOINT-R1.md) 两条有界现代传文正式登记：吉尔吉斯斯坦双术从业者自述（C），关岛跨境四柱咨询报告（C）；乌兹别克斯坦、斯里兰卡直接访问受阻，候选不计入。现为1488来源＝647根＋841扩展／276分片，图495节点／375边，Matrix222/222，58 OPEN含五P0，核心CLOSED。以上旧表15FE待准入为历史状态，不覆盖此补记。
+
+[15BL整体结构初审](research/TIANWEN-15BL-DUAL-HISTORY-ERA-REGION-RULE-BREADTH-COVERAGE-CROSSWALK-R1.md)：Matrix按系统ZIWEI114、BAZI94、SHARED6、COMBINED8；历史支持104、学校特定25、争议候选27、现代相容50、来源不足11、未形式化1、产品未含4。此为确定性规则库存，不是历史观念、流派或预测准确率覆盖。图495节点中PERSON1、INSTITUTION2、RULE_FAMILY40、PASSAGE139、TEXT_WORK34、EDITION80、PHYSICAL_COPY107、DIGITAL_SURROGATE47；375边中ATTESTS188、EXPLICITLY_CITES33、TRANSMITS_RULE28（确认16），不能把375解释为师徒传承数。主要缺格是人物／机构／流派的证据索引及年代—地域—规则桥，而不是再无限扩张现代服务目录。五P0保持原状；不宣告广度阶段验收完成。
