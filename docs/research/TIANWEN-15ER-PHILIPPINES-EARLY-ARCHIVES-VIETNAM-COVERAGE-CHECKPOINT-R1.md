@@ -30,3 +30,21 @@ HEAD e95eb9333cee274ad9315a63a547ba00a048398b，tree d28a43a30238c47c550cfe43f1b
 ## E｜任务边界
 
 TW-OPEN-0054继续OPEN，未取得全文/原页/明确术法的线索不升格。既有54开放问题、五P0、1390来源和图谱均不变；本批仅增加可复查候选和越南已有覆盖核对，不改算法。NEXT：领取15ER查重，按受传司法文书/学位馆目/本土术法边界裁决，若无公开原文则转越南未覆盖年代。
+
+
+## F｜15ER精确全库查重领取、证据分级（2026-11-27，前向追加）
+
+HEAD 4cdf19ab964d477ced0efa694b475f4d405d372f / tree a2b58ae34553f94bedc5a05cff1938db51c7ac5e，六绑定逐一匹配。精确 [continuity run45930714486](https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/45930714486)，job140282430925 SUCCESS，62项ledger、7项R2测试通过。分页Actions瞬时读取259次success记录、16运行、10排队（284 unique；逐页实时变化造成计数快照并非严格同一时刻，不能称全通过），无所见失败；本分支无开放PR。
+
+查询15ER-philippines-early-archives、checkpoint TW-CHECKPOINT-15ER-PROVISIONAL-20261127、request blob de48ed58a42e317c87e5e9fc0fb0fc0370d5a71c、manifest blob 5811df962256220d88699f11fd8e30426e2e5630、scripts/project-context-r2.py blob 3387254ce53ec0a1f1a3b779291e0c40997bf190。PASS，scope ALL_REGISTERED_ROOT_AND_SHARDS_LITERAL_ONLY，262文件、1390记录。原请求12个逐词计数：TU04353=0；TU05380=0；etd_bachelors/8290=0；etd_bachelors/17441=0；Courtship and marriage rituals of selected Filipino-Chinese=0；A study on the practices of superstitious beliefs among the Filipino-Chinese=0；Sy Joc Lieng=0；Sy Quia=0；G.R. No. 4718=0；Chang Tai Ei=0；la-xpm-1988-07-23-mn-6345-story=0；plan-your-destiny-with-dato-joey-yap=0。matching_files=0、hits=[]、truncated=false。仅字面查重，不自动准入。
+
+裁决：1989 DLSU为占星从业者参与的调查线索（摘要层）；1991 DLSU仅目录层，不能提升成四柱或紫微证明。1910判决为受传文献中的争议中国婚俗，不是菲律宾本地术法；两个判决网站只算同一判决。1988候选为海外从业、全文访问受限；2015原发布者归档对应已准入同一采访，不能新增为独立事件。上述均不计为新增菲律宾本地四柱/紫微独立术法来源；保留所有定位与限制，不关闭TW-OPEN-0054。
+
+## G｜越南四柱出版和教学候选（未查全库、未准入）
+
+1. [Tử Bình Thuyết Minh 69页数字重排](https://www.huyenhocvietnam.vn/upload/attach/hhvn2021745154542q7Lx50.pdf)，PDF标 Microsoft Word，页眉 tuvilyso.com。核PDF第1、67、68页截图（0-based 0、66、67）；第一张从源流/阴阳正文开始，无原刊名页；第67页参考书目列台中1968/1969出版物、台北1972《Tử-Bình chân thuyên》及香港1973《Tử-Bình túy ngôn》，并有署HOA-LƯ的拟刊续作 Tử-Bình bí giải 告示；第68页保留原书页次至103的勘误，与69页重排分页不等。正文L3281–3359有四柱、大运、小运、命宫、胎元及胎息的总结与算例；仅为受传文本范围，不可据OCR/重排表格直接改机械规则。作者身份候选 Đỗ Đình Tuân；[旧书商记录](https://muabansachcu.vn/products/tu-binh-thuyet-minh) L273–283著录1974、自刊、100+页；[另一后出作者序言/书目PDF](https://www.huyenhocvietnam.vn/upload/attach/hhvn2021745224513chx3Bn.pdf) 搜索片段标1975 HOA LƯ，尚未核页，不视为已核正文。两刊年说法未决；未见原刊版权页，不把重排发布日期、书商年代、后出书目混为一谈。参考书目提供越南子平与台港文本接触候选，不证明直接师承、具体版本抄袭、古代源流准确性；续作拟出版不等于实际出版。
+2. [越南国家图书馆2022年2月国家书目](https://nlv.gov.vn/dmdocuments/tmqg-02-2022.pdf)，PDF第10/11页（0-based 9/10）截图直接核读：条目125 Tử Bình nhập môn（文本提取误作Tư Bình，影像为Tử Bình），Nguyễn Ngọc Hải编、Nguyễn Văn Chinh校，Hồng Đức，河内，2021，442页，s502625；条目131 Tự xem Bát tự Tứ trụ，Quảng Tuệ，Thanh Hoá，2021，287页，s503300，明确再版。两独立书目条目，不等于两独立传承谱系或两个原书全文；2022目录日期区别于2021版年，再版不能推定初版年。
+3. [Học viện lý số 八字子平教学提纲](https://hocvienlyso.org/de_cuong_mon_hoc_bat_tu_tu_binh.html) L62–90、118–126、255–388：公开列格局及日主旺衰流派、节气及地方时、四柱与八宫、行运、在线/线下教学，署讲师 Hoàng Mạnh Trung。可作当代自述课程内容候选；具体发布日期需页面再次核对，不以搜索引擎相对时间反推；非国家认证学历或完成授课的独立证明，非预测效力证据。
+4. 后续目录检索优先：Tử Bình Thuyết Minh / Tử-Bình thuyết minh / Đỗ Đình Tuân / Đỗ đình Tuân / Hoa Lư / hhvn2021745154542q7Lx50 / Tử-Bình bí giải / s502625 / s503300 / Nguyễn Ngọc Hải / Quảng Tuệ / de_cuong_mon_hoc_bat_tu_tu_binh / Hoàng Mạnh Trung；必须先做完整登记库字面检索，再做语义/同物件消歧；不以九个具名分片代全库。补1950–1960年代及1990–2000年代，优先机构原目和原刊；当前未找到足以断代的这些时期新证据。
+
+本追加仅为既有检查点的查询结果保全、分级和待核候选，未变更六权威JSON、正式登记量、图谱、开放问题或排盘算法；既有NEXT仍有效（F节领取已完成，G节查重和原刊/出版层核实尚待完成）。所有未决事项继续OPEN；不把此追加当正式15ER准入完成。
