@@ -544,3 +544,56 @@ R3第二轮完整查询已回收；根647记录单独查询五行大义相关词
 - **希腊实物定位**：[佛罗伦萨Laurenziana第一方数字馆](https://tecabml.contentdm.oclc.org/digital/collection/plutei/id/567885)列 IT:FI0100_Plutei_28.34，1001–1100、羊皮纸、170 cc.、图像目录369项及目标143v；提供 [IIIF manifest](https://tecabml.contentdm.oclc.org/iiif/info/plutei/567885/manifest.json)。本轮未实见143v，不能把现代图19当古叶；原图、巴黎对本及二者具体版式异同待核。
 
 机械比较独立四层：图框/分格几何、宫位坐标与命宫输入、天体或符号赋值、运限机制；每层均需独立年代与传播证据。反向传播、平行发展、多源汇流均为待检假说。下一步先保全原R7第六轮查询日志并核验所有命中，继而同一次全库查询加 Thomann、Eutocius、Jones、18852314、Plut.28.34、Par.gr.2425、Pelliot chinois 2964、btv1b8302295m、afmgm695、AJA.23 等明确异文与馆号，按实际字面命中及语义去重裁决；再取Iyer印页6、Laur.143v、P.2964及Tamil原叶。没有完成这些门禁之前，不新增登记或传承边，不做终验。transmission_impact=NONE；核心CLOSED及59 OPEN/五P0不变。
+
+
+### 10b. 15FF-R7 延续｜第六轮全库查询保全与古代纸草对照（2026-11-27）
+
+基线 HEAD `870d4653cd9d650506f3323032f6e61aed0abcf0`、tree `0f1d4249a6019450c188d0dcfcf8d1ff1689835f`。六权威输入blob与同对话上次已完整解析者完全一致；无需重复展开。精确HEAD Actions 20项（19 success、1 clean-training-system in_progress），无 continuity workflow，未冒用前一HEAD验收当前HEAD。相关PR #364 base为工作分支、head为12nk政策独立性分支，本次不合并或改动；另两PR base main。第六轮全库请求绑定未变，原请求提交 `cf579d12def723403ee9c5639d1b10258308a2af` 的 [continuity run 46005276026](https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/46005276026) job 140526757928 success，实取日志，62遗漏风险测试及7 R2测试通过；验证脚本blob 3387254ce53ec0a1f1a3b779291e0c40997bf190。以下为日志实际JSON字段保全：
+
+```json
+{
+  "query_id": "15FF-R7-regional-chart-witnesses",
+  "checkpoint_id": "TW-CHECKPOINT-15FF-R7-NAKAMURA-REGIONAL-CHARTS-20261127",
+  "request_blob_sha": "a9ade5d54a8db04d9692d9cba735342079574825",
+  "registry_manifest_blob_sha": "46a75cadb4940cf265fb302f0e911fa646d50253",
+  "status": "PASS",
+  "scope": "ALL_REGISTERED_ROOT_AND_SHARDS_LITERAL_ONLY",
+  "files": 280,
+  "records": 1499,
+  "matching_files": 0,
+  "per_term_matching_files": {
+    "Chidambaram Iyer": 0,
+    "Chidambaram Aiyar": 0,
+    "b2488442x": 0,
+    "22501499401": 0,
+    "brihatjatakavar00iyergoog": 0,
+    "Tiruvadi": 0,
+    "Rasi Chakra": 0,
+    "Rāśi Cakra": 0,
+    "EAP1294/2/33": 0,
+    "EAP1294/2/55": 0,
+    "EAP1294": 0,
+    "Stotrapāṭhaṃ": 0,
+    "Stotrapatham": 0,
+    "Deśaporuttaṃ": 0,
+    "Tamil Country": 0,
+    "Jaimini": 0,
+    "南印度": 0,
+    "五行大義の基礎的研究": 0,
+    "000001242501": 0,
+    "000007719927": 0
+  },
+  "hits": [],
+  "truncated": false
+}
+```
+
+无命中仅指原请求20个字面词，非语义无重复结论；旧请求结果已保全，可更新同检查点的查询合同。
+
+**古代实物对照 P.Berl.9825。** Dorian Greenbaum & Alexander Jones, 2017, ISAW Papers 12, PDF印题页所示持久链接 http://doi.org/2333.1/brv15m2（规范引用以 [NYU原刊目录](https://dlib.nyu.edu/awdl/isaw/isaw-papers/) 的[文章](https://dlib.nyu.edu/awdl/isaw/isaw-papers/12/) 与[存档记录](https://archive.nyu.edu/jspui/handle/2451/49543)为准，原刊xhtml在本工具中不支持）。[作者存档PDF](https://archive.nyu.edu/jspui/bitstream/2451/49543/4/Greenbaum%20and%20Jones%202017%20PBerl%209825%20ISAW%20Papers.pdf)实见截图index0,4,6,7,28（页1/5/7/8/29），index5超时。图2、4、5为柏林埃及博物馆纸草馆Sandra Steiß摄影的同一纸草不同装框，实见残损希腊文字及分栏网格，不是三件独立文物；限发表照片的布局级核阅，未获馆方原始高分辨率对象图像，未逐字校勘。p8正文称现存四段分表，以红线框分；字迹符合由内容推算的四世纪年代，出生地纬度近Syene而出土地/编制地点不明；开端残缺，319是作者根据天文资料复算的事件日期，不是保存完整的抄写纪年。p29表7把此纸草与四种详细希腊命盘比较，包括黄道位置、宫主/界主、擢升、月交点、分点及命主等；仅用作独立技术比较。保留文物残损及未见装框B限制，不能由三幅照片断言原文完整地绝无其他图形。论文现代重绘图不等于古代纸草原图。此证据有助区分早期星占表格和后代方形十二宫，不能证明后代方盘已于319出现，更不证明紫微直接源于希腊。
+
+**版本独立性与反证。** 2026 Jones论文另实读pp2–3（截图index1–2）：Vind. phil. gr. 179 ff80v–83r为节本，图式另见ff38v–39（作者叙述，未核原叶）；作者认为P与V经失传中介有共同祖本、L与该祖本又上溯非作者原稿的祖型。L删去历表引介、P保存相关文字及后章；图和正文传承可能不同步。原页待核，不能把三抄本视作三独立源头或把497事件日期作图式年代。 [Pinakes目录16215](https://pinakes.irht.cnrs.fr/notices/cote/16215/) 对Plut.28.34馆藏及11世纪后半作另一目录定位；其中Eutocius条目140v–142*，与论文141v–143v范围不完全同，仍以具体原叶验证。此处需更正10a中对该佛罗伦萨抄本11世纪的宽定年不能变成精确叶面日期。
+
+**获取障碍及冲突。** Wellcome单页viewer入口出现JS反机器人检查，Florence IIIF manifest工具无法获取；[巴黎对本Gallica](https://gallica.bnf.fr/ark:/12148/btv1b107240960)返回403；BL EAP1294/2/33目录继续仅可能包含出生盘，未核图。Deborah Houlding的[现代图式讨论](https://www.skyscript.co.uk/greek_horoscope.html)指向1959 Neugebauer/Van Hoesen摄影翻印，主张497图可能保有早期内容，且将Laurentianus描述为10世纪；与第一方11世纪目录及Jones后加可能性形成待核对意见，不能据该网站裁决年代或独立见证。保留两种解释，不重复把现代转绘当原叶。
+
+**下一步**：同一既有检查点发布第七轮全库字面请求，检索上述反向传播研究、古代纸草、抄本编号及Wellcome对象，待CI实际成功并核读命中后准入。Iyer、EAP的第六轮查询有效，仍待图页/语义消歧。保持TW-OPEN-0059、59 OPEN/五P0、Q不足项、Matrix222/222、来源1499/279、图819/581、双体系独立、核心CLOSED；本轮不改变语义状态、不新增source/edge、transmission_impact=NONE，不终验。
