@@ -2,14 +2,14 @@
   "schema": "TIANWEN-CONTEXT-RECOVERY-VIEW-R2",
   "authority": "DERIVED_ONLY",
   "bindings": {
-    "docs/PROJECT-CURRENT-STATE-R1.json": "4788772b235322e54cc8a2959932c142f865325f",
-    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "a9f1e7f0a8e1ac256bdb65ca5c2f2caafe61e81e",
+    "docs/PROJECT-CURRENT-STATE-R1.json": "dcd215ff70aceff826e94e2a348e38d02c60f279",
+    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "fb3700c774224ec417894a57fa61ec18cfd71d39",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json": "d5081119bedd4afa0324a7eec36bc5b1ce4372c3",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json": "ea2ab50479450c39ce3fc7a00ea91cd713bf4a60",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json": "5919e1b6bbc3c4b150507c41a13ccc9e13d20f17",
-    "docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json": "dcfeb1ea164965d5ffb1cc1bb5babcc55ff6b76d"
+    "docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json": "8fedb713a5ada0f96363d770a0abf0b9e2174d68"
   },
-  "state_version": "1.1570.0",
+  "state_version": "1.1571.0",
   "stage": "FUSION_CHART_HISTORICAL_PROVENANCE_AND_SCHOOL_AUDIT_R1",
   "invariants": {
     "deterministic_fusion_chart_product_r1": "CLOSED",
@@ -26,31 +26,28 @@
     "extension_sources": 841,
     "total_sources": 1488,
     "shards": 276,
-    "graph_nodes": 584,
-    "graph_edges": 424,
+    "graph_nodes": 592,
+    "graph_edges": 431,
     "open_issues": 58,
     "p0": 5
   },
   "phase": "BREADTH_FIRST_TWO_SYSTEM_HISTORICAL_FRAMEWORK_R1",
-  "next_deliverable": "沿15FF-Q复用现有来源与已核页，补齐缺少图谱链接的核心规则族：紫微本命/主星/十二宫/大限/动态层，以及四柱构造/十神/藏干/大运/小运/神煞。逐条绑定作品、版本、现存物件、数字替身、目标篇页、HPA规则ID、Matrix状态、图谱节点/关系与缺口。仅在有明确版本与篇页证据时增图谱节点/边；不造传承。随后复核58项风险和第一阶段整体门槛。",
+  "next_deliverable": "15FF-Q续：按1600《渊海》、1607《续道藏》及南阳堂原页分立安命安身规则族；补齐剩余紫微本命、宫位、历法时间及规则图谱缺口，复核58项风险与第一阶段门槛。",
   "latest_matrix_batch": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-FIRSTPARTY-AND-OLD20-ATLAS-QD.md",
-  "latest_breadth_batch": "docs/research/TIANWEN-15FF-P-RULE-VERSION-TRACEABILITY-MAP-R1.md",
+  "latest_breadth_batch": "docs/research/TIANWEN-15FF-Q-CORE-RULE-PASSAGE-CROSSWALK-CHECKPOINT-R1.md",
   "checkpoint": {
-    "id": "TW-CHECKPOINT-15FF-J-EUROPE-VIETNAM-RECEPTION-ACTORS-20261127",
+    "id": "TW-CHECKPOINT-15FF-Q-NTL-CORE-RULE-GRAPH-20261127",
     "evidence_refs": [
-      "docs/research/TIANWEN-15BL-DUAL-HISTORY-ERA-REGION-RULE-BREADTH-COVERAGE-CROSSWALK-R1.md",
-      "docs/TIANWEN-ZIWEI-HISTORICAL-OUTLINE-R1.md",
-      "docs/TIANWEN-BAZI-HISTORICAL-OUTLINE-R1.md",
-      "docs/TIANWEN-DUAL-HISTORY-COVERAGE-ATLAS-R1.md",
+      "docs/research/TIANWEN-15FF-Q-CORE-RULE-PASSAGE-CROSSWALK-CHECKPOINT-R1.md",
       "docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json",
-      "docs/research/TIANWEN-15EW-EUROPE-REGIONAL-COVERAGE-CHECKPOINT-R1.md",
-      "docs/research/TIANWEN-15EX-EUROPE-EARLY-ZIWEI-REGIONAL-CHECKPOINT-R1.md",
-      "docs/research/TIANWEN-15ER-PHILIPPINES-EARLY-ARCHIVES-VIETNAM-COVERAGE-CHECKPOINT-R1.md"
+      "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json",
+      "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-STEM-FIVE-COMBINATION-IDENTITY-AUDIT-MM.md",
+      "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-TEMPORAL-TEN-GOD-PROJECTION-AUDIT-ML.md"
     ]
   },
   "focus": {
-    "index": 3265,
-    "text": "13ZZ CURRENT ACTION 15FF-J: 17 European/Vietnamese named reception actors, 11 edition/catalogue anchors, 17 ATTESTS limited to responsibility fields; 2004 Paris Truc Lam Tu plan only received preface, French Ziwei labels and 1989/1990/2004 variants bounded, no direct teacher or rule-transmission edge. Graph584/424 (PERSON67 INSTITUTION11 SCHOOL1), sources1488/276 Matrix222/222 58 OPEN five P0 core CLOSED. NEXT independent breadth gate acceptance, preserve unresolved witnesses.",
+    "index": 3266,
+    "text": "13ZZ CURRENT ACTION 15FF-Q: 108 initial Matrix crosswalks; NTL-9900014379 catalogue/physical/scan and direct ten-god/five-combination loci backfilled +8 nodes/+7 scoped edges, graph592/431. No new sources, direct lineage, Matrix change or algorithm reopen. 58 OPEN five P0 core CLOSED. NEXT 1600/1607 and Nanyangtang independent Ming/Shen families, remaining Ziwei natal/palace/time and breadth gate review.",
     "truncated": false
   },
   "p0": [
