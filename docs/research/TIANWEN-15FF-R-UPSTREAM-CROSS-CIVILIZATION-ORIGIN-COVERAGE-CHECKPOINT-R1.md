@@ -465,3 +465,70 @@ R3第二轮完整查询已回收；根647记录单独查询五行大义相关词
 **《五行大义》两条版本线。** 新发现中村璋八《日本の仏典に引用された五行大義に就いて》，《密教文化》1960 48–50，[J-STAGE原刊PDF](https://www.jstage.jst.go.jp/article/jeb1947/1960/48-50/1960_48-50_31/_pdf/-char/en)，实际截图index0/1（印页31/32）。p32作者论1699元禄刊本、1799《佚存丛书》、1804许宗彦校刊、1813知不足斋、1897盛氏、1939丛书集成的关系；又区分穂久邇文库元弘五帖、神宫文库模写本，与高野山卷五、天理图书馆1540–41天文钞本、阳明文库转写本的另一候选系谱。此为现代版本学判断；p32原刊图像可见卷五46处异同的作者统计，不是本项目独立重算。1959补印所据1939本与上述刊本链有明确研究入口，但未核实具体近代底本或卷四古写本异文。1958《日本中国学会报》第十集[PDF](https://spc.jst.go.jp/cad/literatures/download/1730) 可检索到同主题正文和奥书图版定位，尚未定位截图页、未准入、不将转写当古本；与1960文的同源关系需核。二文及其他版本名进入第五轮精确查重。日本文化厅01763与NDL本馆第二册馆目本轮再次实读，分别为物件和近代影印册书目证据；既有BN04262897复用。历史所藏与当前所有者连续性仍未证，原页仍未取得。
 
 结论：新增4有限来源，1497总来源/278分片；图819/581，Matrix222/222；59未决含五P0。保留TW-OPEN-0059及15FF-Q缺口；本轮无新图谱边（transmission_impact=NONE），无历史直接祖源裁决，无排盘算法重开。下一步核第五轮查询、中村版本研究及天理/神宫卷四原页，继而南北印度地域证据和伊朗中亚具体中介。不作第一阶段终验。
+
+## 10. 15FF-R7｜版本学复核与南印度方盘的可定年证据入口（2026-11-27）
+
+基线 HEAD `f24c01c50fb88585e74a8fc4e21e81c66d8d379d`、tree `8178f78f15ccffe36730fb74640dd706cf20df69`。R2恢复视图六绑定与真实树一致；精确HEAD[连续性CI](https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/46004260627) job140523331888 success，62风险测试、7 R2测试通过；首轮分页查询285 Actions中未见已完成失败，但有未完成项，不作全绿宣告。五P0保留。第五轮实际查询（验证程序blob 3387254ce53ec0a1f1a3b779291e0c40997bf190）：
+
+```json
+{
+  "query_id": "15FF-R6-nakamura-manuscript-lanes",
+  "checkpoint_id": "TW-CHECKPOINT-15FF-R6-NAVAGRAHA-AND-EDITION-LANES-20261127",
+  "request_blob_sha": "dec398cec5394a85b89b2049ab55e14747219687",
+  "registry_manifest_blob_sha": "aa62b2c746e4a6e34a13e4deeb9782f06a305b96",
+  "status": "PASS",
+  "scope": "ALL_REGISTERED_ROOT_AND_SHARDS_LITERAL_ONLY",
+  "files": 279,
+  "records": 1497,
+  "matching_files": 2,
+  "per_term_matching_files": {
+    "1699": 2,
+    "1799": 1,
+    "1960_48-50_31": 0,
+    "日本の仏典に引用された": 0,
+    "日本の佛典に引用された": 0,
+    "中村璋八": 0,
+    "Nakamura Shohachi": 0,
+    "spc.jst.go.jp/cad/literatures/download/1730": 0,
+    "天文鈔本": 0,
+    "天文写本": 0,
+    "天理図書館": 0,
+    "天理圖書館": 0,
+    "卜部兼右": 0,
+    "神宮文庫": 0,
+    "陽明文庫": 0,
+    "元弘相傳本": 0,
+    "元弘相伝本": 0,
+    "佚存叢書": 1
+  },
+  "hits": [
+    {
+      "path": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json",
+      "blob_sha": "ea2ab50479450c39ce3fc7a00ea91cd713bf4a60",
+      "terms": [
+        "1699",
+        "1799"
+      ]
+    },
+    {
+      "path": "docs/research/TIANWEN-15CU-WUXING-DAYI-YOUNIAN-SOURCE-SHARD-R1.json",
+      "blob_sha": "06ad0517fc9be40c786cd36ace7d4c14e1add404",
+      "terms": [
+        "1699",
+        "佚存叢書"
+      ]
+    }
+  ],
+  "truncated": false
+}
+```
+
+全部两命中文件实读并语义核查：根647条中命中为Fozhu编号或《文渊阁书目》1799见证，与《五行大义》版本学论文无关；15CU七项中复用1699元禄馆目及盛氏重雕馆目。新增两篇现代研究，不计为独立古物、亦不将同一作者的两篇文章计为两个独立校勘证据。见[来源分片](TIANWEN-15FF-R7-NAKAMURA-EDITION-STUDIES-SOURCE-SHARD-R1.json)。
+
+**A. 1958版本研究与1960引文研究。** [JST正式论文目录](https://spc.jst.go.jp/cad/literatures/1730)确定中村璋八1958年《五行大義鈔本・版本の傳流とその資料的價値》；[全文PDF](https://spc.jst.go.jp/cad/literatures/download/1730)14页，本轮截图index0–4、12–13（印77–81、89–90）成功，index11超时，文字提取大量乱码，采用人工图像核读。p80作者比较1699元禄校刊本与元弘相传本，区分1799佚存丛书本，论后者较接近元禄刊本而非直接钞古本；p81区分清代许宗彦改订、知不足斋、常州先哲遗书等再刊与1939丛书集成初编，不能当作彼此独立的古代文本投票。pp89–90提到钞本批校、异本夹注以及从日本其他引文判别其可能归属，作者对材料不足的推断明确保留。该版本学分析比简单二分支更复杂，尤其不能把共享异文等同直接父子本。[1960密教文化原刊](https://www.jstage.jst.go.jp/article/jeb1947/1960/48-50/1960_48-50_31/_pdf/-char/ja)截图index0、1（31、32）本轮重新成功：p31记757阴阳生书目及日本历代引用，p32记版本回传、卷五异文46处及1540–41天文钞本。46为作者统计，尚非本项目复算，卷五不能替代卷四目标叶。未获取天理、神宫文库古叶，不将现代文献中的书目转述升级成原件核读。
+
+**B. 南印度方盘分离“图式”“历法输入”“安星”。** [1885 Iyer英译本 Wellcome 馆藏扫描替身](https://upload.wikimedia.org/wikipedia/commons/a/a9/The_Brihat_jataka_of_Varaha_Mihira_%28IA_b2488442x%29.pdf)网页提取题名页为Madras Foster Press 1885、N. Chidambaram Iyer，印页6章一第6颂后的译者注说明南印度使用归于Jaimini的Rasi Chakra，并列十二固定黄道格：顶行双鱼、白羊、金牛、双子；右侧巨蟹、狮子；底行从右往左处女、天秤、天蝎、射手；左侧从下往上摩羯、水瓶。此为译者时代的地域见证候选，不是六世纪梵文原作所画图，也不能因归于Jaimini就认定古代年代。另一[Google扫描替身](https://www.wilbourhall.org/pdfs/the_brihat_jataka_of_varaha_mihira.pdf)同段可提取但顶行首格OCR错写Mesha，提示不能依网页文本定稿；Wellcome PDF截图请求因16MB大小限制失败，另一PDF截图超时。本轮**未实见图像**、未核馆藏号，不准入原页证据。其格固定黄道星座及行星守护，与紫微地支固定宫格的表现相似不等于相同坐标、命宫算法或星曜排布。下一步取得可复核页面及更早地域物证。
+
+**C. 南印度地方文献检索。** [英国图书馆临时目录](https://searcharchives.bl.uk/?f%5Blevel_ssi%5D%5B%5D=%5B40%5D+File&f%5Bmaterial_type_ssi%5D%5B%5D=Archives+and+Manuscripts&f%5Bproject_collections_ssim%5D%5B%5D=Private+Collections+of+Palm-Leaf+Manuscripts+from+the+Tamil+Country&f%5Brelated_places_ssim%5D%5B%5D=India%2C+Asia&f%5Brelated_subjects_ssim%5D%5B%5D=Astrology&per_page=100)实际目录EAP1294/2/33 Stotrapāṭhaṃ，梵文及泰米尔文，1750–1900，27叶、33 TIFF，目录仅称可能包含命盘；EAP1294/2/55 Deśaporuttaṃ 同期、19叶加封叶、23 TIFF，婚配术候选。未见原叶或年代自证，不登记为实见方盘。已开第六轮精确查重，前两项目录、1885英译及中村1976专著等仅候选。继续查实际图像及较早文献，不从晚近形制倒推传入中国时间。
+
+1499总来源/279分片；图819/581、Matrix222/222、59未决五P0。未新增传承边（transmission_impact=NONE），未裁决南印度独有祖源，不重开核心，不终验。保留Q不足项、TW-OPEN-0059及版本未绑定。新HEAD CI待复核。
