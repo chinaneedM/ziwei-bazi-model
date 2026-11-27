@@ -13207,6 +13207,76 @@
         "docs/research/TIANWEN-15FF-Q-CORE-RULE-PASSAGE-CROSSWALK-CHECKPOINT-R1.md"
       ],
       "first_explicit_graph_batch": "15FF-Q"
+    },
+    {
+      "node_id": "PASSAGE-MINGLI-TANYUAN-RECEIVED-DAYUN",
+      "node_type": "PASSAGE",
+      "label": "《命理探源》卷二起大运法受读",
+      "system_scope": "BAZI",
+      "work_composition_date": null,
+      "edition_impression_date": null,
+      "physical_copy_date": null,
+      "digital_surrogate_date": null,
+      "date_scope_note": "既有09B受读例；前轮原登记CText入口403；不绑定原版原叶",
+      "evidence": [
+        "EXT-CTEXT-MINGLI-TANYUAN-DAYUN",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-09-BAZI-DAYUN-SEQUENCE-B.md",
+        "docs/research/TIANWEN-15FF-Q-CORE-RULE-PASSAGE-CROSSWALK-CHECKPOINT-R1.md"
+      ],
+      "first_explicit_graph_batch": "15FF-Q"
+    },
+    {
+      "node_id": "PASSAGE-QIANLI-RECEIVED-DAYUN-EXAMPLES",
+      "node_type": "PASSAGE",
+      "label": "韦千里大运顺逆列运受读例（CText题名底本未绑定）",
+      "system_scope": "BAZI",
+      "work_composition_date": null,
+      "edition_impression_date": null,
+      "physical_copy_date": null,
+      "digital_surrogate_date": null,
+      "date_scope_note": "既有09B受读242–258行；前轮CText入口403；不得归为1935《千里命稿》原叶",
+      "evidence": [
+        "EXT-CTEXT-QIANLI-MINGGAO-DAYUN",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-09-BAZI-DAYUN-SEQUENCE-B.md",
+        "docs/research/TIANWEN-15FF-Q-CORE-RULE-PASSAGE-CROSSWALK-CHECKPOINT-R1.md"
+      ],
+      "first_explicit_graph_batch": "15FF-Q"
+    },
+    {
+      "node_id": "RULE-FAMILY-BAZI-DAYUN-FORMAL-FIRST-ADJACENT",
+      "node_type": "RULE_FAMILY",
+      "label": "大运正式首运按顺逆取生月相邻干支",
+      "system_scope": "BAZI",
+      "work_composition_date": null,
+      "edition_impression_date": null,
+      "physical_copy_date": null,
+      "digital_surrogate_date": null,
+      "date_scope_note": "HPA-DAYUN-SEQ-001；正式首运与交运前生月分列；不决定交运日期",
+      "evidence": [
+        "EXT-CTEXT-MINGLI-TANYUAN-DAYUN",
+        "EXT-CTEXT-QIANLI-MINGGAO-DAYUN",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-09-BAZI-DAYUN-SEQUENCE-B.md",
+        "docs/research/TIANWEN-15FF-Q-CORE-RULE-PASSAGE-CROSSWALK-CHECKPOINT-R1.md"
+      ],
+      "first_explicit_graph_batch": "15FF-Q"
+    },
+    {
+      "node_id": "RULE-FAMILY-BAZI-DAYUN-SUBSEQUENT-SEXAGENARY-STEP",
+      "node_type": "RULE_FAMILY",
+      "label": "大运后续干支同向逐位递进",
+      "system_scope": "BAZI",
+      "work_composition_date": null,
+      "edition_impression_date": null,
+      "physical_copy_date": null,
+      "digital_surrogate_date": null,
+      "date_scope_note": "HPA-DAYUN-SEQ-002；干支序列不决定十年边界时间",
+      "evidence": [
+        "EXT-CTEXT-MINGLI-TANYUAN-DAYUN",
+        "EXT-CTEXT-QIANLI-MINGGAO-DAYUN",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-09-BAZI-DAYUN-SEQUENCE-B.md",
+        "docs/research/TIANWEN-15FF-Q-CORE-RULE-PASSAGE-CROSSWALK-CHECKPOINT-R1.md"
+      ],
+      "first_explicit_graph_batch": "15FF-Q"
     }
   ],
   "edges": [
@@ -21788,6 +21858,70 @@
         "docs/research/TIANWEN-15FF-Q-CORE-RULE-PASSAGE-CROSSWALK-CHECKPOINT-R1.md"
       ],
       "scope_note": "阳年阳命甲子时，出生行乙丑、二岁丙寅；逆行类另依年与性别，非现代边界授权",
+      "adjudication_batch": "15FF-Q"
+    },
+    {
+      "edge_id": "TG-E0549",
+      "from": "PASSAGE-MINGLI-TANYUAN-RECEIVED-DAYUN",
+      "relation": "ATTESTS",
+      "to": "RULE-FAMILY-BAZI-DAYUN-FORMAL-FIRST-ADJACENT",
+      "status": "CONFIRMED",
+      "confidence": "MEDIUM",
+      "evidence_class": "REGISTERED_RECEIVED_TEXT_SCOPED",
+      "evidence": [
+        "EXT-CTEXT-MINGLI-TANYUAN-DAYUN",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-09-BAZI-DAYUN-SEQUENCE-B.md",
+        "docs/research/TIANWEN-15FF-Q-CORE-RULE-PASSAGE-CROSSWALK-CHECKPOINT-R1.md"
+      ],
+      "scope_note": "壬寅逆首辛丑；既有09B受读，非本轮原叶复核",
+      "adjudication_batch": "15FF-Q"
+    },
+    {
+      "edge_id": "TG-E0550",
+      "from": "PASSAGE-MINGLI-TANYUAN-RECEIVED-DAYUN",
+      "relation": "ATTESTS",
+      "to": "RULE-FAMILY-BAZI-DAYUN-SUBSEQUENT-SEXAGENARY-STEP",
+      "status": "CONFIRMED",
+      "confidence": "MEDIUM",
+      "evidence_class": "REGISTERED_RECEIVED_TEXT_SCOPED",
+      "evidence": [
+        "EXT-CTEXT-MINGLI-TANYUAN-DAYUN",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-09-BAZI-DAYUN-SEQUENCE-B.md",
+        "docs/research/TIANWEN-15FF-Q-CORE-RULE-PASSAGE-CROSSWALK-CHECKPOINT-R1.md"
+      ],
+      "scope_note": "辛丑后庚子、己亥；既有09B受读，仅证序列",
+      "adjudication_batch": "15FF-Q"
+    },
+    {
+      "edge_id": "TG-E0551",
+      "from": "PASSAGE-QIANLI-RECEIVED-DAYUN-EXAMPLES",
+      "relation": "ATTESTS",
+      "to": "RULE-FAMILY-BAZI-DAYUN-FORMAL-FIRST-ADJACENT",
+      "status": "CONFIRMED",
+      "confidence": "MEDIUM",
+      "evidence_class": "REGISTERED_RECEIVED_TEXT_SCOPED",
+      "evidence": [
+        "EXT-CTEXT-QIANLI-MINGGAO-DAYUN",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-09-BAZI-DAYUN-SEQUENCE-B.md",
+        "docs/research/TIANWEN-15FF-Q-CORE-RULE-PASSAGE-CROSSWALK-CHECKPOINT-R1.md"
+      ],
+      "scope_note": "丙寅顺首丁卯、戊寅逆首丁丑；09B受读，物理作品身份未绑定",
+      "adjudication_batch": "15FF-Q"
+    },
+    {
+      "edge_id": "TG-E0552",
+      "from": "PASSAGE-QIANLI-RECEIVED-DAYUN-EXAMPLES",
+      "relation": "ATTESTS",
+      "to": "RULE-FAMILY-BAZI-DAYUN-SUBSEQUENT-SEXAGENARY-STEP",
+      "status": "CONFIRMED",
+      "confidence": "MEDIUM",
+      "evidence_class": "REGISTERED_RECEIVED_TEXT_SCOPED",
+      "evidence": [
+        "EXT-CTEXT-QIANLI-MINGGAO-DAYUN",
+        "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-09-BAZI-DAYUN-SEQUENCE-B.md",
+        "docs/research/TIANWEN-15FF-Q-CORE-RULE-PASSAGE-CROSSWALK-CHECKPOINT-R1.md"
+      ],
+      "scope_note": "顺丁卯、戊辰、己巳；逆丁丑、丙子、乙亥；既有受读，非1935原叶",
       "adjudication_batch": "15FF-Q"
     }
   ],

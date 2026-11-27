@@ -738,3 +738,9 @@ S11 segment-0009 目录核对：CH024 1167–1205，025 1206–1241，026 1242�
 机械复算（甲子0）：丙寅2→丁卯3→戊辰4→己巳5；戊寅14→丁丑13→丙子12→乙亥11；壬寅38→辛丑37→庚子36→己亥35。正式第n运=(生月index+方向×n) mod 60，n从1起；n=0为交运前生月基点。序列与起运岁数、交运历日、现代时间边界分别验证。明代月上起/一辰十年仅框架，不推直接传承。
 
 待发布图谱计划：PASSAGE-MINGLI-TANYUAN-RECEIVED-DAYUN、PASSAGE-QIANLI-RECEIVED-DAYUN-EXAMPLES，RULE-FAMILY-BAZI-DAYUN-FORMAL-FIRST-ADJACENT、RULE-FAMILY-BAZI-DAYUN-SUBSEQUENT-SEXAGENARY-STEP；两篇页分别指向两规则族的四条限定ATTESTS，证据以09B及已登记受读为限。全图语义核查仅见既有生月基点节点，未见这两条独立序列节点。此前原子提交工具返回h2读取连接错误，重新检查分支仍为b9f4e8979f2e6218c91dd4f2b4d6ee7a5284f0b6，故本检查点只保存实证、计划和阻塞，不声称入图。六权威输入未修改，状态1.1579.0、图763/548、Matrix222/222、来源1488/276分片、58 OPEN五P0、核心CLOSED均保持。NEXT 先安全发布上述序列图谱及R2，再核21神煞和广度第三/第四门槛。transmission_impact=NONE (unpublished proposal).
+
+### N.1 原子发布补记（2026-11-27）
+
+检查点HEAD 015064ed13b88c88c1e3ff31e45069a9131e2aa5，tree 30ac5957a3be1b53a25ce508eca6cc3e9f4eb11e；20项Actions观察19成功、clean-training-system运行中，未见独立连续性专项，故回读权威graph/state/ledger并依R2合同重新生成视图。前轮大文件一次上传h2错误复现于风险台账4.23M字符的缩进序列化；本轮以紧凑JSON 3.71M字符成功生成Blob，旧issues及全部历史checkpoint逐对象一致，仅追加新检查点和更新绑定；排版改变不改变证据。分别生成五个Blob后以单一tree/commit、HEAD lease发布，不逐文件提交。
+
+四条限定关系：TG-E0549/0550 袁氏受读→正式首运相邻／后续同向一步；TG-E0551/0552 韦氏受读→同两规则。均REGISTERED_RECEIVED_TEXT_SCOPED，MEDIUM；非本轮新核原叶，非新物件、非直接传承。保留上节受读访问和作品身份边界。新增4节点/4边，图767/552，状态1.1580.0；Matrix222/222、来源1488/276分片、58未决五P0、核心CLOSED。NEXT 21项四柱神煞正文及机械条件，随后复评广度第三/第四门槛。transmission_impact: 4 nodes/4 scoped ATTESTS, no direct lineage, no runtime change. exact-HEAD CI待验证。
