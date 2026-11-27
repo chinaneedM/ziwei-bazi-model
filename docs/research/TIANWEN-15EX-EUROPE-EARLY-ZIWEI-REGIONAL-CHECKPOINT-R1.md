@@ -66,3 +66,59 @@
   "limit": 20
 }
 ```
+
+## 2026-11-27 15EX-A 完整查重结果保全及 B 启动
+
+精确HEAD 56e5fb1e8fc67d74acab9501e51f74d43575a027 的 continuity [run 45943397873](https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/45943397873) / job 140322525961 SUCCESS。复查时21项Actions中20成功、1仍运行，未声称全部通过。验证脚本 blob 3387254ce53ec0a1f1a3b779291e0c40997bf190。请求及manifest绑定一致，完整267文件/1422记录，无截断。以下为实际查询返回，不是拟执行请求：
+
+```json
+{
+  "query_id": "15EX-europe-early-ziwei-regional-identity-A",
+  "checkpoint_id": "TW-CHECKPOINT-15EX-PROVISIONAL-20261127",
+  "request_blob_sha": "62aeb3d433c21223b4d6226b0c3acd221879de7b",
+  "registry_manifest_blob_sha": "3f616c7616a3f4b545b6398efc4db8a4d153c8a2",
+  "status": "PASS",
+  "scope": "ALL_REGISTERED_ROOT_AND_SHARDS_LITERAL_ONLY",
+  "files": 267,
+  "records": 1422,
+  "matching_files": 1,
+  "per_term_matching_files": {
+    "1857781813": 0,
+    "2713801281": 0,
+    "Vo Van Em": 0,
+    "Võ Văn Em": 0,
+    "Vo-Van-Em": 0,
+    "François Villée": 0,
+    "Francois Villee": 0,
+    "9782713801280": 0,
+    "La Véritable Astrologie Chinoise": 0,
+    "Olivia Roy": 0,
+    "Tu Vi version 3.0": 0,
+    "sma-internet.com": 0,
+    "Jenny Mai Ngo": 0,
+    "Nguyen Ngoc Rao": 0,
+    "Kwok Man-Ho": 0,
+    "Man-Ho Kwok": 0,
+    "Complete Chinese Horoscopes": 0,
+    "Kermadec": 1,
+    "9782901795094": 0,
+    "masteres.mtc.es": 0,
+    "Francesco Rossena": 0,
+    "architettiimperia.it": 0,
+    "fengshui-italia.com": 0,
+    "catalinvasiloiu.ro": 0
+  },
+  "hits": [
+    {
+      "path": "docs/research/TIANWEN-15EW-EUROPE-SOURCE-SHARD-R1.json",
+      "blob_sha": "1e87221e51bf7ca6ea9e9525e734435117c0ccfe",
+      "terms": [
+        "Kermadec"
+      ]
+    }
+  ],
+  "truncated": false
+}
+```
+
+命中分片 docs/research/TIANWEN-15EW-EUROPE-SOURCE-SHARD-R1.json 原blob 1e87221e51bf7ca6ea9e9525e734435117c0ccfe 已逐条核对：EXT-TIANWEN-15EW-FR-KERMADEC-1995（1995 Les piliers du destin）、EXT-TIANWEN-15EW-UK-KERMADEC-1983（1983英译馆目）、EXT-TIANWEN-15EW-FR-KERMADEC-1984（1984修订版馆目）。此三条均为既登记版本，不重复登记；1981初版仍须独立馆目证明，不因同作者命中或ISBN零命中而成立。其余23个词的零命中仅为字面检索结果，不是作品、作者或版本绝对不存在的证明。A通过后按原保留的B请求启动12词查询；未改变来源、图谱、五P0、风险或任何排盘规则。NEXT领取B exact-HEAD PASS，并对全部候选逐项完成语义消歧与有界准入。
