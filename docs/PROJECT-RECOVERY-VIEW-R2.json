@@ -2,14 +2,14 @@
   "schema": "TIANWEN-CONTEXT-RECOVERY-VIEW-R2",
   "authority": "DERIVED_ONLY",
   "bindings": {
-    "docs/PROJECT-CURRENT-STATE-R1.json": "71ac92c49ed82579dec086eb58e1f22ed1644eca",
-    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "743a0c4b7741080e8b43ec7f0be583c5f3479b48",
+    "docs/PROJECT-CURRENT-STATE-R1.json": "d139345ca7ec5a9497af67a6e554b1863c48823f",
+    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "3f33d6c750e794e7c17e055aa0347aecfccd9447",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json": "62917a0ae1f4fde7e262c550ad50d152b1a5f839",
     "docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json": "280e023bcd6e0625f0dca2fd54d6c9423f286fd5",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json": "5919e1b6bbc3c4b150507c41a13ccc9e13d20f17",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json": "ea2ab50479450c39ce3fc7a00ea91cd713bf4a60"
   },
-  "state_version": "1.1539.0",
+  "state_version": "1.1540.0",
   "stage": "FUSION_CHART_HISTORICAL_PROVENANCE_AND_SCHOOL_AUDIT_R1",
   "invariants": {
     "deterministic_fusion_chart_product_r1": "CLOSED",
@@ -32,18 +32,22 @@
     "p0": 5
   },
   "phase": "BREADTH_FIRST_TWO_SYSTEM_HISTORICAL_FRAMEWORK_R1",
-  "next_deliverable": "15ES替代地方志重排PDF及三地旧报刊馆目补查已完成有界检查。原刊第46页完整表、物件身份及三地独立紫微/子平历史证据仍缺；TW-OPEN-0056 OPEN。下一步区域广度覆盖复盘：按地域×术法×时期核既有覆盖表和实际证据，找下一实质缺口；保留旧报刊馆目候选，不重复空转，不以目录为术法证明。排盘CLOSED。",
+  "next_deliverable": "15ET完成东南亚区域总纲同步及11地双体系覆盖导航；下一步领取文莱/东帝汶全库字面查询，核实际命中及语义地域身份，再有界筛查两地具名紫微/子平独立史料。两地仅列待专项复核，不宣称全库无记录。既有TW-OPEN-0047至0056保持OPEN；无合格证据则明示范围缺口并转其他广度专题。排盘CLOSED。",
   "latest_matrix_batch": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-FIRSTPARTY-AND-OLD20-ATLAS-QD.md",
-  "latest_breadth_batch": "docs/research/TIANWEN-15ES-MYANMAR-CAMBODIA-LAOS-METHOD-IDENTITY-CHECKPOINT-R1.md",
+  "latest_breadth_batch": "docs/research/TIANWEN-15BL-DUAL-HISTORY-ERA-REGION-RULE-BREADTH-COVERAGE-CROSSWALK-R1.md",
   "checkpoint": {
-    "id": "TW-CHECKPOINT-15ES-FOLLOWUP-20261127",
+    "id": "TW-CHECKPOINT-15ET-REGIONAL-COVERAGE-20261127",
     "evidence_refs": [
-      "docs/research/TIANWEN-15ES-MYANMAR-CAMBODIA-LAOS-METHOD-IDENTITY-CHECKPOINT-R1.md"
+      "docs/research/TIANWEN-15BL-DUAL-HISTORY-ERA-REGION-RULE-BREADTH-COVERAGE-CROSSWALK-R1.md",
+      "docs/TIANWEN-DUAL-HISTORY-COVERAGE-ATLAS-R1.md",
+      "docs/TIANWEN-ZIWEI-HISTORICAL-OUTLINE-R1.md",
+      "docs/TIANWEN-BAZI-HISTORICAL-OUTLINE-R1.md",
+      "docs/PROJECT-REGISTRY-QUERY-R2.json"
     ]
   },
   "focus": {
-    "index": 3234,
-    "text": "13ZZ CURRENT ACTION 15ES FOLLOWUP: caaa63a5 exact continuity run45935056593 SUCCESS; six derived bindings verified; 285 run entries observed 284 success, clean-training-system in progress (not all green). Myanmar Law Library 616-page retypeset PDF p0 title, indices50/51/52 printed45/46/47 visually reviewed; p46 embedded table image visibly clipped (9 rows of six cells in displayed orientation, no exhaustive sixty-cell transcription); original physical copy and full table unverified. p45 year/month/day sixty-cycle; p47 weekday/Rahu and lunar calendar distinct from Ziping. XMU holding list lines235–253 gives Cambodia8 Myanmar9 Laos2 title rows, catalog only, no method article verified. NewspaperSG broad issue hits not article evidence. No new formal sources/edges or method adjudication; TW-OPEN-0056 remains OPEN. Move to regional coverage review. Sources1402/263 shards, graph495/375, Matrix222/222, 56 open five P0, core CLOSED.",
+    "index": 3235,
+    "text": "13ZZ CURRENT ACTION 15ET REGIONAL COVERAGE: exact 0c801c08 continuity run45935996189 SUCCESS; six bindings matched, canonical state/ledger parsed, five P0 retained. Three outlines end at 15EP, missing admitted 15EQ/ER/ES; append separate system summaries and 11-region bounded coverage crosswalk to existing 15BL/atlas, reuse actual 6+7+5 admitted records, not 18 new sources. Brunei/Timor-Leste are next targeted screen, not proven absent; request full registry literal search, pending. No source/graph/Matrix change; 1402/263,495/375,222/222,56 OPEN five P0, core CLOSED.",
     "truncated": false
   },
   "p0": [

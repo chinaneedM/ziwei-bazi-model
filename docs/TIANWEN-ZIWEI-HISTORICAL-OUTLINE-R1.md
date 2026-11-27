@@ -686,3 +686,11 @@ CiNii BB26426235著录1979.7台南西北出版社及琉球大学馆藏，母丛�
 ### 15EP 泰国传播补证（2026-11-27）
 
 泰国紫微：2026-06-26泰语电子书MEB454196为零售出版元数据，平台责任字段与简介编者姓名未消歧；2021慧心斋主泰国世界日报专栏回顾复用15DV，未获原报日期。 见 `docs/research/TIANWEN-15EP-THAILAND-ZIWEI-BAZI-PUBLICATION-TEACHING-CHECKPOINT-R1.md`；不推断直接传承或首次引入。
+
+
+### 15ET｜菲律宾、越南与缅柬老紫微传播史纲同步（2026-11-27）
+
+- [15EQ](research/TIANWEN-15EQ-PHILIPPINES-ZIWEI-BAZI-NEWSPAPER-TEACHING-CHECKPOINT-R1.md)：2013-07-24 SunStar课程宣传及2013-08-29 Freeman报道属同一宿务教学事件群；8月25日预讲被报道举行，正式主课完成与日期差异待证。不可用2017马尼拉四柱讲座的讲者双体系简介推断紫微课程。
+- [15ER](research/TIANWEN-15ER-PHILIPPINES-EARLY-ARCHIVES-VIETNAM-COVERAGE-CHECKPOINT-R1.md)：本批七正式来源均属越文子平出版/教学/接受史，不新增紫微史证；既有13ZV、15AB/AC等汉喃抄本、译述与近现代出版沿用，原本和具体传承不由同地域四柱出版证明。
+- [15ES](research/TIANWEN-15ES-MYANMAR-CAMBODIA-LAOS-METHOD-IDENTITY-CHECKPOINT-R1.md)：缅甸、柬埔寨、老挝均仍缺有界调查中的独立紫微证据；生肖、六十周期、“八字帖”、协会背景、具名BAZI服务及华文报刊馆目不作紫微史料。文莱/东帝汶待专项复核，不宣称无史料。
+- [15BL跨轴地域复盘](research/TIANWEN-15BL-DUAL-HISTORY-ERA-REGION-RULE-BREADTH-COVERAGE-CROSSWALK-R1.md#15et东南亚11地双体系覆盖导航2026-11-27) 补齐既有史纲导航；不新增来源、节点、边，不更改算法。TW-OPEN-0054–0056 OPEN。

@@ -728,3 +728,11 @@ CiNii BA61461510著录1955.8香港实学书店，另有大阪大学伊地智文�
 ### 15EP 泰国传播补证（2026-11-27）
 
 泰国四柱：2015-09-14 Tiantek网站刊载高级教材作者自述，区分署帖者与签名作者；2005报刊转录、2012论文目标页与早期师承仍待核。 见 `docs/research/TIANWEN-15EP-THAILAND-ZIWEI-BAZI-PUBLICATION-TEACHING-CHECKPOINT-R1.md`；不推断直接传承或首次引入。
+
+
+### 15ET｜菲律宾、越南与缅柬老四柱传播史纲同步（2026-11-27）
+
+- [15EQ](research/TIANWEN-15EQ-PHILIPPINES-ZIWEI-BAZI-NEWSPAPER-TEACHING-CHECKPOINT-R1.md)：2003-02-01 Philippine Star当地采访、2015原发布归档2月18日/受传本2月19日（同一采访、原正文访问受限）、2016碧瑶专栏、2017马尼拉讲者自述，四记录；不能把从业年数倒推具名四柱起点。2013宿务紫微报道不计四柱证据。
+- [15ER](research/TIANWEN-15ER-PHILIPPINES-EARLY-ARCHIVES-VIETNAM-COVERAGE-CHECKPOINT-R1.md)：1974/1975《Tử Bình Thuyết Minh》现代受传及版年未决；1996邵伟华越译馆目、2005商目分存（404/408页差异）；2004巴黎序仅作者拟出版/网络传播自述，非实际刊行；2018海防馆目、2021国家书目两出版对象同一目录载体、2021-11-07课程网页。七来源不建立直接师承。
+- [15ES](research/TIANWEN-15ES-MYANMAR-CAMBODIA-LAOS-METHOD-IDENTITY-CHECKPOINT-R1.md)：柬埔寨两明确BAZI现代载体（服务、应用条目）；协会及泰介生肖研究为背景，不是完整子平；缅甸2015“八字帖”与1900掸族六十周期不等于子平，替代重排PDF原刊完整表未证；老挝具名本地子平仍缺。文莱/东帝汶待专项复核。
+- [15BL跨轴地域复盘](research/TIANWEN-15BL-DUAL-HISTORY-ERA-REGION-RULE-BREADTH-COVERAGE-CROSSWALK-R1.md) 补齐既有总纲，来源及图谱不变，TW-OPEN-0054–0056 OPEN。以上年份均证据限定，不判首次传入。

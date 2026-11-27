@@ -1514,3 +1514,8 @@ B：澳门大学1963-/1965-两馆目、Google Books 1963第二卷；C：现代�
 ### 15EP 泰国传播补证（2026-11-27）
 
 泰国15EP新增两条分级来源，四柱2015受传教学文本、紫微2026电子书目；早期同期在地材料未闭合，TW-OPEN-0053仍OPEN。 见 `docs/research/TIANWEN-15EP-THAILAND-ZIWEI-BAZI-PUBLICATION-TEACHING-CHECKPOINT-R1.md`；不推断直接传承或首次引入。
+
+
+### 15ET｜15EQ–15ES同步与东南亚区域复盘（2026-11-27）
+
+见[15BL新增11地双体系覆盖导航](research/TIANWEN-15BL-DUAL-HISTORY-ERA-REGION-RULE-BREADTH-COVERAGE-CROSSWALK-R1.md)；三份总纲此前停于15EP，现补齐菲律宾6载体、越南7载体、缅柬老5载体既有分级成果。文莱/东帝汶为下一专项检索对象，未做全库否定。各地早期原页与在地术法、具体师承保持未决，TW-OPEN-0047–0056 OPEN。来源1402（647+755/263片），图495/375，Matrix222/222，56 OPEN五P0，核心CLOSED。此次纯证据导航及查重请求，不新增正式来源或历史裁决。
