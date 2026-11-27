@@ -15,3 +15,13 @@
 
 ## 四、下一步
 新增TW-OPEN-0057，保留文莱2005原刊、2023原报道及本地独立术法证据，东帝汶两篇原报及目标术法缺口。新查询针对具名作者、报道标题、网站与标识，既有15地名结果不等同候选查重。先领取真实全库结果再作语义消歧、有界准入；不新增传承边、不伪造原页或首次传入年代。来源1402（647+755/263片），图495/375，Matrix222/222，57 OPEN含五P0，排盘CLOSED。
+
+
+## 五、15EU 查询领取与原载复核（2026-11-27，追加检查点）
+
+- 真实 HEAD `a6ecae2137a409b15760880758fc36895a60bc4d`，tree `384e7b3fabd3bb20dd8381c41aa8be706df1a7e2`；[exact-HEAD continuity run45937109284](https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/45937109284)，job140302745989 SUCCESS；62项遗漏账本测试、7项R2测试通过，六绑定逐一吻合。分页查看283个Actions，采样时仍有排队/运行，未见已完成失败；不称全绿。五项P0原样保留。
+- 查询 `15EU-brunei-timor-candidate-identity`，checkpoint TW-CHECKPOINT-15EU-PROVISIONAL-20261127，request blob 5af904cc715aecffccc57117f8b801347b7801be，manifest blob 62917a0ae1f4fde7e262c550ad50d152b1a5f839，验证程序 scripts/project-context-r2.py blob 3387254ce53ec0a1f1a3b779291e0c40997bf190。PASS，scope ALL_REGISTERED_ROOT_AND_SHARDS_LITERAL_ONLY，264 files/1402 records，matching_files=0，hits=[]，truncated=false；以下16项逐词匹配文件数均0：Steer Your Rudder to Success、Karina Foo、Richard Tan、adestiny.com、richard_nst.jpg、Master Yang Brunei Brunch Opened、masteryangfengshui.com、Batu Bersurat、weareunited.com.my/12009311、Fearing the wrath of someone else's god、Jill Jolliffe、Randy Mulyanto、3030631、Cina Maromak、Fong Kui Kong、Chinese in East Timor。只证明当前登记的精确字面搜索无命中，不证明语义无重复或历史不存在。
+- 文莱2005：检查 [Google Books New Straits Times 2005 年度现存期号列表](https://books.google.com/books?atm_aiy=2005&cad=1&id=yiwhAAAAIBAJ&source=gbs_all_issues_r)（可见列表L54–103）从8月20日跳至10月20日，目标9月8日未列。该数字化期号清单非报纸完整出版目录；不否定报道存在，也不能据此确定原刊日期。马来西亚 New Straits Times 与新加坡 The Straits Times 是不同报纸，后者的2005年9月扫描不构成目标证据。保留前节2025经营者复载及裁切图，允许跨境接受史候选，不升级独立原刊。
+- 文莱2023：[经营者事件页](https://www.masteryangfengshui.com/event/master-yang-brunei-brunch-opened)仍显示2023-08-06，同时正文称次日6日开业；[原链接](https://weareunited.com.my/12009311/)本次仍不可访问。经营者[现有自述](https://www.masteryangfengshui.com/about)列文莱分支及相同地址，可用于同主体经营宣称的一致性核对，不是独立新闻、实际开业日或当地教学的证明；不采纳其师承代数宣称，不新增图谱边。由于该页仍属同一已检索域名且新增页面尚未独立正式登记，仅作辅助定位。
+- 东帝汶2019：[SCMP发布者域名原文章](https://www.scmp.com/lifestyle/family-relationships/article/3030631/chinese-east-timor-former-portuguese-colony-model)的搜索索引本次返回标题、作者、发布时间2019-09-30及更新2019-10-03和明确 qiu qian 的正文段，内容与APSN复载同源相符；直接打开仍403。证据等级仅发布者索引正文片段+同文复载，非直接原网页核读、非独立两篇见证。2002 The Age 原发页面/版面仍未获得，APSN转录中的编号签与印尼语签文继续证明其叙述对象为求签而非可确认的四柱或紫微。两篇只作术法身份反例候选。
+- 裁决：具名查重已领取、关键访问边界和同源关系已细化；未完成正式来源准入和双纲同步。TW-OPEN-0057仍OPEN；保持本批次及权威状态的待办，不修改六权威输入、来源数量、图谱或Matrix，不生成新的研究版本。NEXT：复核登记格式及语义候选，按经营者复载/宣传、新闻转录、发布者索引的各自边界决定准入并同步双纲；原刊未获继续保留缺口，随后全球地域覆盖复盘。不可把本追加检查点当作正式批次验收。
