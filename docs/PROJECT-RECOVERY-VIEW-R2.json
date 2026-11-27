@@ -2,14 +2,14 @@
   "schema": "TIANWEN-CONTEXT-RECOVERY-VIEW-R2",
   "authority": "DERIVED_ONLY",
   "bindings": {
-    "docs/PROJECT-CURRENT-STATE-R1.json": "b60896fdb8bc1cd3ce1e4aa8f0d960cffefbc1a3",
-    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "346e51563d7d5d2f91d5edfff92da33692758608",
-    "docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json": "f31af659cd2ec2d2ec7ef4f83449f3d41d27221f",
+    "docs/PROJECT-CURRENT-STATE-R1.json": "52d2e05f268e13ca351f40f782a1311a6a48f17f",
+    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "4a94d4551d7ae9b0dbac9243a51935c97cc7f3d0",
+    "docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json": "3f616c7616a3f4b545b6398efc4db8a4d153c8a2",
     "docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json": "280e023bcd6e0625f0dca2fd54d6c9423f286fd5",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json": "5919e1b6bbc3c4b150507c41a13ccc9e13d20f17",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json": "ea2ab50479450c39ce3fc7a00ea91cd713bf4a60"
   },
-  "state_version": "1.1545.0",
+  "state_version": "1.1546.0",
   "stage": "FUSION_CHART_HISTORICAL_PROVENANCE_AND_SCHOOL_AUDIT_R1",
   "invariants": {
     "deterministic_fusion_chart_product_r1": "CLOSED",
@@ -23,28 +23,31 @@
     "matrix_rows": 222,
     "matrix_audited": 222,
     "root_sources": 647,
-    "extension_sources": 765,
-    "total_sources": 1412,
-    "shards": 265,
+    "extension_sources": 775,
+    "total_sources": 1422,
+    "shards": 266,
     "graph_nodes": 495,
     "graph_edges": 375,
     "open_issues": 58,
     "p0": 5
   },
   "phase": "BREADTH_FIRST_TWO_SYSTEM_HISTORICAL_FRAMEWORK_R1",
-  "next_deliverable": "领取15EW精确全库字面查重并核对命中记录；法国1995/2014–15/2017出版、德国2000专著及现代课程、英国2022授课公告、法国紫微与四柱分科公告分别裁决。继续欧洲其他区域及独立紫微早期出版/实际授课查证。TW-OPEN-0058 OPEN，排盘CLOSED。",
+  "next_deliverable": "继续15EX欧洲早期传播补证：对1981 Kermadec初版、法国Võ Văn Em/François Villée 1989/1990异年、Jenny Mai Ngo 1999 Tu vi、英国Kwok 1995 Tzu Wei以及其他欧洲来源发起完整查重并核原始馆目/术式；再推进拉美、非洲、中西亚及其他空白。TW-OPEN-0058 OPEN，排盘CLOSED。",
   "latest_matrix_batch": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-FIRSTPARTY-AND-OLD20-ATLAS-QD.md",
   "latest_breadth_batch": "docs/research/TIANWEN-15EW-EUROPE-REGIONAL-COVERAGE-CHECKPOINT-R1.md",
   "checkpoint": {
-    "id": "TW-CHECKPOINT-15EW-PROVISIONAL-20261127",
+    "id": "TW-CHECKPOINT-15EW-ADMITTED-20261127",
     "evidence_refs": [
       "docs/research/TIANWEN-15EW-EUROPE-REGIONAL-COVERAGE-CHECKPOINT-R1.md",
-      "docs/PROJECT-REGISTRY-QUERY-R2.json"
+      "docs/research/TIANWEN-15EW-EUROPE-SOURCE-SHARD-R1.json",
+      "docs/TIANWEN-ZIWEI-HISTORICAL-OUTLINE-R1.md",
+      "docs/TIANWEN-BAZI-HISTORICAL-OUTLINE-R1.md",
+      "docs/TIANWEN-DUAL-HISTORY-COVERAGE-ATLAS-R1.md"
     ]
   },
   "focus": {
-    "index": 3240,
-    "text": "13ZZ CURRENT ACTION 15EW PROVISIONAL: European public candidate review: France Kermadec 1995 publisher/contents, BnF Goh translations 2014/2015 and Bonin/Lautard 2017 FRBNF45268406, Paris distinct BaZi/Zi Wei course offers; Germany Kubny 2000 publisher/FAU bibliography and Bazi curriculum with Ziwei palace attribution; UK Feng Shui Society 2022 Ashworth online course notice. Catalogue, publisher, advertisement, actual teaching and lineage remain separate. Full registry query pending; no admission, no new graph edges. TW-OPEN-0058 OPEN; sources1412/265, graph495/375, Matrix222/222,58 OPEN five P0, core CLOSED. NEXT exact query and semantic adjudication.",
+    "index": 3241,
+    "text": "13ZZ CURRENT ACTION 15EW ADMITTED: exact HEAD 7fca41ee continuity run45941574200/job140316853335 SUCCESS 62+7 tests; 20-term all registry query 266 files/1412 records, zero literal matches, no truncation. Ten bounded records: Kermadec 1983 London translation, 1984 revised French, 1995 publisher; Goh Paris 2014/2015 independent catalogue volumes, Bonin/Lautard 2017; Paris Ziwei/Bazi offer, Kubny 2000 book and modern curriculum, Ashworth 2022 UK offer. Early France Vietnamese Tử vi and UK 1995 purple-star candidates pending next dedup. No direct lineage, original glyph or class delivery. Sources1422/266 graph495/375 Matrix222/222 58 OPEN five P0 core CLOSED. NEXT 15EX.",
     "truncated": false
   },
   "p0": [

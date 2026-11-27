@@ -23,3 +23,21 @@
 NEXT：领取15EW精确全库字面查重并核对命中记录；法国1995/2014–15/2017出版、德国2000专著及现代课程、英国2022授课公告、法国紫微与四柱分科公告分别裁决。继续欧洲其他区域及独立紫微早期出版/实际授课查证。TW-OPEN-0058 OPEN，排盘CLOSED。
 
 执行自审：工具投影曾误对长字符串调用 Object.keys，产生截断的大输出；此前状态内容已在工具侧实际解析，但不得将截断视为完整展示。下轮只输出明确标量及短字符串，禁止枚举长字符串字符索引。无需改变R2证据门禁。
+
+
+## 15EW 正式有界准入（2026-11-27）
+精确HEAD 7fca41ee83ae4535977b060db04c046c6fc5d1f3，continuity run45941574200 / job140316853335 SUCCESS，62 ledger + 7 R2 tests。query_id 15EW-europe-regional-identity；checkpoint TW-CHECKPOINT-15EW-PROVISIONAL-20261127；request blob a95cd9987a579ad7d47b388bdca626a5a15cf91b；manifest f31af659cd2ec2d2ec7ef4f83449f3d41d27221f；verifier 3387254ce53ec0a1f1a3b779291e0c40997bf190。ALL_REGISTERED_ROOT_AND_SHARDS_LITERAL_ONLY PASS，266 files/1412 records，原20词全部逐项0，matching_files=0，hits=[]，truncated=false。285 Actions中284成功，clean-training-system仍运行。字面查重不等于语义全覆盖；按作者、版本、载体、书号分别准入十条。
+
+- Kermadec 1983伦敦英译（CiNii BA50619850，0041330102，译者N. Derek Poulsen、John Blofeld序，原本语言法语）与1984巴黎修订增补版（Open Library OL32119048M/OCLC493394936，9782901795193）均属于原查询作者/旧作题名范围；与1995出版社后续著作分存，英译底本版次未证。
+- Goh 两卷直接核独立BnF FRBNF43872379（2014印刷，9782916751221，馆号2014-172589，原题 Essentials of four pillars）及 FRBNF44401890（2015法定送存，9782916751238，馆号2015-208840，原题 Four pillars of destiny），译编责任者分录。总书目及2021版不重复登记；第二卷出版社摘要见十神、神煞、大运，不是原页校勘。
+- 2017 Bonin/Lautard书目、巴黎两术分科咨询、德国Kubny 2000专著与FAU履历互证（一个出版对象）、现代课程十二宫归源紫微主张、英国2022 Ashworth公告，各限定证据范围。
+- [十条来源](./TIANWEN-15EW-EUROPE-SOURCE-SHARD-R1.json)。图495/375、Matrix222/222、来源1422（647+775/266片）、58开放含五P0、核心CLOSED。
+
+### 15EX 早期传播补充候选（未准入）
+1. 1981法国旧作：BnF主题索引 https://data.bnf.fr/fr/see_all_documents_subject/12009712/page1 搜索索引见巴黎L’Asiathèque 1981，直接打开页未复现条目；二手书目 https://www.chasse-aux-livres.fr/prix/2901795099/les-huit-signes-de-votre-destin-jean-michel-huon-de-kermadec-9782901795094 给ISBN9782901795094。1981与1984不同版本，原刊记待核。
+2. 1989/1990法国：越南师范大学图书馆公开PDF搜索索引 https://lib.hcmue.edu.vn/sites/default/files/Danh%20muc%201976-2000_0.pdf 列 Võ Văn Em、Francois Villée，Paris Traditionelles 1989、531页（仅索引，未分析PDF）；法国书商 https://www.fnac.com/a8407777/Vo-Van-Em-La-veritable-astrologie-chinoise 列1990。现代引用指向Tử vi语境，但不证明原术式或真实师承，需原书端和独立馆目。
+3. 1995英国： https://obnb.uk/p12989058-complete-chinese-horoscopes GBA472770，1857781813，London Sunburst，Kwok Man-Ho、Martin Palmer、Joanne O'Brien，670页；Open Library https://openlibrary.org/works/OL27693128W/Complete_Chinese_horoscopes?edition=completechineseh0000kwok 同ISBN但672页；https://www.abebooks.co.uk/9781857781816/Complete-Book-Chinese-Horoscopes-Kwok-1857781813/plp 摘要见Tzu Wei，但注明可能属其他版，原术式页待核。
+4. 1999法国：同BnF主题搜索索引列 Jenny Mai Ngo, Tu vi, Le Raincy, Cabinet de voyance Alliard-Ngo, 1999；直接主题页未复现，待独立原馆记录和原题页。
+5. 西班牙 https://masteres.mtc.es/formacionavanzadacosmologia/docs/catalogo-master-cosmologia.pdf 搜索索引分列Zi Wei Do Shu与Zi Ping Ba Zi；瑞士 https://www.freiraeume.ch/docs/2023%20BaZi%20Suangming.pdf 搜索索引见Kubny与十二宫；意大利 https://www.fengshui-italia.com/wp-content/uploads/2014/06/Un-po-di-storia-del-Feng-Shui-Classico.pdf 搜索索引见2010版权与两术。均未分析PDF页，时间、机构、课程与实际发生待核。
+
+NEXT 15EX：继续早期欧洲及其他区域独立证据查重和准入，再推进拉美、非洲、中西亚等空白。TW-OPEN-0058 OPEN，排盘CLOSED。工具输出投影曾误展开manifest历史字段并截断，原子发布调用数量超限后拆分Git对象创建，最终仍须一次提交、非破坏性lease；不将未发布对象当作成果。

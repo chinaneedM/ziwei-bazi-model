@@ -1528,3 +1528,6 @@ B：澳门大学1963-/1965-两馆目、Google Books 1963第二卷；C：现代�
 
 ### 15EV｜北美及澳大利亚有界准入（2026-11-27）
 [15EV](research/TIANWEN-15EV-GLOBAL-REGIONAL-COVERAGE-NORTH-AMERICA-OCEANIA-CHECKPOINT-R1.md) 六条来源正式登记，精确全库16词查询265文件/1406条零字面命中无截断；TW-OPEN-0058 OPEN。 美国紫微教材/招生、澳大利亚四柱注册/规格及加拿大电子书目录共六载体，分开出版、馆藏、注册、实开及师承。来源1412/265，图495/375，Matrix222/222，58开放含五P0，核心CLOSED。NEXT欧洲。
+
+
+[15EW](research/TIANWEN-15EW-EUROPE-REGIONAL-COVERAGE-CHECKPOINT-R1.md)：欧洲四柱出版见1983英国、1984/1995/2014/2015/2017法国、2000德国；巴黎两术教学咨询、德国现代十二宫来源说及英国2022四柱公告。法国早期Tử vi与英国1995紫微内容候选保持未决。精确266文件/1412条查重后十来源有界准入，1422/266，图495/375，Matrix222/222，58 OPEN五P0，排盘CLOSED。

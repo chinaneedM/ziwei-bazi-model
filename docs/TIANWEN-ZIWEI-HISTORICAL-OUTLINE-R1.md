@@ -703,3 +703,7 @@ CiNii BB26426235著录1979.7台南西北出版社及琉球大学馆藏，母丛�
 
 ### 15EV｜北美及澳大利亚有界准入（2026-11-27）
 [15EV](research/TIANWEN-15EV-GLOBAL-REGIONAL-COVERAGE-NORTH-AMERICA-OCEANIA-CHECKPOINT-R1.md) 六条来源正式登记，精确全库16词查询265文件/1406条零字面命中无截断；TW-OPEN-0058 OPEN。 美国2006版权AS211教材完整十干四化表与示例直接核图，2007 AS201加州招生独立载体，不证明实际开课与师承；加拿大电子借阅目录仅接受渠道。澳洲独立紫微仍待证。
+
+
+### 欧洲现代传播（15EW，2026-11-27）
+法国巴黎公开教学咨询分别列出紫微斗数与四柱；德国现代四柱课程把十二宫归源于Ziwei Doushu，但这不是独立紫微授课或古代源流证据。英国1995 Tzu Wei内容及法国1989/1990、1999越南传法著作仍是待查重、原书与版次待核候选。见 [15EW](research/TIANWEN-15EW-EUROPE-REGIONAL-COVERAGE-CHECKPOINT-R1.md)。

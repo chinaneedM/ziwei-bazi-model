@@ -745,3 +745,7 @@ CiNii BA61461510著录1955.8香港实学书店，另有大阪大学伊地智文�
 
 ### 15EV｜北美及澳大利亚有界准入（2026-11-27）
 [15EV](research/TIANWEN-15EV-GLOBAL-REGIONAL-COVERAGE-NORTH-AMERICA-OCEANIA-CHECKPOINT-R1.md) 六条来源正式登记，精确全库16词查询265文件/1406条零字面命中无截断；TW-OPEN-0058 OPEN。 澳大利亚VU20815 2012–16、11079NAT 2021–26课程注册及ACES NAT11079004三页规格，明确四柱、大运流年、喜忌和案例考核；CFSCAR401等效映射非同师承。加拿大目录仅接受渠道，美国独立四柱教学仍待证。
+
+
+### 欧洲现代传播（15EW，2026-11-27）
+1983 Kermadec伦敦英译（CiNii BA50619850）、1984巴黎修订法文版、1995法国后续著作；德国Kubny 2000专著；巴黎Goh 2014/2015两卷译编与2017 Bonin/Lautard书目；英国2022课程公告。出版、译编、教学宣介与实际授课及师承各自独立，1981旧作初版仍待原书。见 [15EW](research/TIANWEN-15EW-EUROPE-REGIONAL-COVERAGE-CHECKPOINT-R1.md)。
