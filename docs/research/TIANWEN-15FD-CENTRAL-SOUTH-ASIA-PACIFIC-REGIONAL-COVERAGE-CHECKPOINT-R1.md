@@ -27,3 +27,7 @@
 ## 待查与准入门禁
 
 拟查重词（全部根+274分片，绑定当前manifest 4dcf68b07e8e52fe6bed4be3bc0eec0ef91a2892）：fsa.kz、Свищук、Дзы Вэй Доу Шу、Lizia Batla、oocities.org/zhen_qi/01practitioners.html、Raajeish P Shah、Sharmila Mohanan、sharmilamohanan.com、Surendran、fengshuiserver.com、Meenakkshi、meenakkshi.com、Priya Subberwal、dishasconsulting.com、Asiri Wanigaratne、Wanigarathne、asiriwanigaratnefengshuilanka、Sophie Druart、tahitifengshui.com、Sabine Vico、sabine-vico.com、Paht Chee。词命中后读取已有记录做语义身份辨析；本轮未运行完整查询，绝不声称全库无重复。恢复时检查本候选文档新于15FC，按R2.1将正式查询与权威检查点原子绑定。中亚其他国家、南亚其他国家、斐济/关岛等太平洋地区未获本轮可核实独立双体系证据，不作不存在的结论；这些地域缺口在正式准入或后续风险审计中保留。没有新图谱关系或算法结论。
+
+## 15FD 正式全库查重检查点（2026-11-27）
+
+前一正式准入HEAD f04b2155 的研究连续性专项 run45951761585 已成功。候选文档提交 a54ffc15 的六个绑定不变，所见20项Actions无失败；clean-training-system 尚未完成，不能宣称全绿。此次通过精确blob读取并解析权威状态与风险台账，核对版本、focus计数、58开放及5项P0，风险原记录不变。绑定22词查询 `15FD-central-south-asia-pacific-regional-evidence` 至 `TW-CHECKPOINT-15FD-PROVISIONAL-20261127` 与 manifest `4dcf68b07e8e52fe6bed4be3bc0eec0ef91a2892`，待新HEAD专项日志 PASS、查重命中语义消歧及原页复核后准入。候选来源不计入1477正式记录，未新增图谱边、未关闭风险、未改变排盘核心。
