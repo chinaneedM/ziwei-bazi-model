@@ -42,3 +42,7 @@ American Feng Shui Institute；amfengshui.com；Lorraine Wilcox；Monterey Park�
 - 多伦多OverDrive直接正文89–128行：Shelly Wu、Red Wheel Weiser、2010-01-21电子发行、ISBN 9781601637550；介绍具名紫微及四组生辰干支。美国纸本2010书目为不同ISBN的关联候选，未独立查重，不另登记。不将电子发行日期当加拿大入藏、当地印刷或实务日期。
 
 [六条来源](./TIANWEN-15EV-NORTH-AMERICA-OCEANIA-SOURCE-SHARD-R1.json)有界正式登记。TW-OPEN-0058 OPEN，五P0不变，图495/375、Matrix222/222、来源1412（647+765/265片），排盘CLOSED。NEXT：欧洲具名两术的独立出版、教学与实践框架，先英国、法国、德国及其他地区；北美及澳洲早期活动、传承与实开仍待查。
+
+
+## 15EV 前向状态枚举勘误（2026-11-27）
+163f496e精确HEAD连续性run45940164993/job140312413005失败：unrecognized source verification status。澳大利亚VU20815与11079NAT两记录误用了CATALOG_METADATA_VERIFIED，现按既有验证器改为BIBLIOGRAPHIC_METADATA_ONLY；原blob 0bc34a28d86a353a53bcbd3252365a92f7bfe586保留于历史，修正blob d3c1a6232f6542227d4901177468fbd53d58f3de。未放宽门禁，未改变来源数量、内容范围、图谱、排盘或语义状态；manifest与R2绑定同步。启动时285项CI中61失败，已定位共享来源门禁的直接错误，但其余失败是否同根因仍由修复后精确HEAD验收确认。NEXT先核新CI，再进入15EW。
