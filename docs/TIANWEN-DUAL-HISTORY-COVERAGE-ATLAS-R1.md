@@ -1714,3 +1714,8 @@ B：澳门大学1963-/1965-两馆目、Google Books 1963第二卷；C：现代�
 ## 15FF-P｜关键作品—版本—规则族追溯
 
 已建立24个Matrix模块的规则与版本索引，见[15FF-P追溯图](research/TIANWEN-15FF-P-RULE-VERSION-TRACEABILITY-MAP-R1.md)。本轮只建立既有材料的可追溯入口；不把书目当原页、不把现代受读当古本、不把相似规则当直接传承。第三门槛仍部分符合，重点缺口为紫微主星/命身/大限动态，以及四柱十神/藏干/神煞/小运/大运的Edition—Passage—Rule Family链。
+
+
+### 15FF-Q｜第三、第四门槛复评（2026-11-27，非终验）
+
+[15FF-Q Q节实测](research/TIANWEN-15FF-Q-CORE-RULE-PASSAGE-CROSSWALK-CHECKPOINT-R1.md)对照精确HEAD、双纲、图谱和风险台账：222条Matrix ID全部在各自史纲或本图册定位；明确ZIWEI/BAZI scope的78/60规则节点均有PASSAGE→ATTESTS或TRANSMITS_RULE关系，分别80/69边，均保留证据及作用域；非全体古籍原刻版本链的证明。第三门槛由部分符合推进至核心规则骨架结构具备。第四门槛现有58风险字段和最新检查点完整、四项产品未含交叉绑定正确，3访问受阻、五P0原状。11条SOURCE_INSUFFICIENT无逐ID风险绑定；Q2已分组列出既有缺口（两父级不重复，藏干顺序与语义分离），下一步核实独立深研入口后作整体验收。第一/第二门槛结构符合的既有结论不变，不提前宣告第一阶段正式结束。无新来源、历史裁决、图谱或语义状态变动，核心CLOSED。

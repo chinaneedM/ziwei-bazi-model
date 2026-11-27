@@ -816,3 +816,43 @@ S11 segment-0009 目录核对：CH024 1167–1205，025 1206–1241，026 1242�
 | TG-E0581 | PASSAGE-SANMING-RECEIVED-V3-YANGREN | RULE-FAMILY-BAZI-SHENSHA-YANGREN-TEN-STEM-BLADE-TABLE | 285行列阴阳木火金水刃位及禄前一辰原理；戊己土未逐干单列，不宣称全十干表二次核实 |
 
 25篇页+27规则族＝52节点，29条限定ATTESTS；图819/581，状态1.1581.0。Matrix222/222（21项神煞8支持、11争议、2特定流派）；来源1488/276分片、58 OPEN五P0、核心CLOSED。历史风险旧对象及checkpoint逐对象保留；未增来源、未裁候选、未作运行时修改。NEXT 对照双史纲、覆盖图册、图谱和风险台账复评广度第三/第四门槛。transmission_impact: 52 nodes/29 scoped ATTESTS, no direct lineage, no runtime change. exact-HEAD CI待验证。
+
+
+## Q. 广度第三／第四门槛实测复评（2026-11-27，非终验）
+
+基线 HEAD `f38e018bc30701b845aaf00ffd83e1e3c8325f44` / tree `7ada2174f3302ec2b1866c8ed07cf7603441f565`。精确HEAD Actions 285项分100/100/85三页全部成功，连续性专项[45992468344](https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/45992468344)成功。R2六个绑定与真实docs tree吻合；常规state fetch_file空正文，依已通过的R2快路径恢复，不将空文当作权威正文。额外直接解析真实graph、Matrix、ledger blob及双史纲、覆盖图册、15FF-P/Q正文。相关开放PR #364 为独立历法政策审计，不合并。
+
+### Q1. 第三门槛：版本与规则源流骨架
+
+按图谱node_type∈{RULE_FAMILY,MECHANICAL_RULE}及**精确**system_scope=ZIWEI或BAZI筛选，检查from为PASSAGE、to为该规则、relation为ATTESTS或TRANSMITS_RULE的有向边；不把其他历史历法、旧细分scope、跨术式或现代结构节点硬归入两个分母。
+
+| 对象 | 紫微 | 四柱 |
+|---|---:|---:|
+| Matrix独立规则ID（史纲逐ID实际字面定位） | 114/114 | 94/94 |
+| 明确system_scope的图谱规则节点 | 78 | 60 |
+| 具有上述篇页关系的规则节点 | 78/78 | 60/60 |
+| 对应篇页节点（各术内去重） | 48 | 49 |
+| 篇页→规则关系 | 80 ATTESTS | 67 ATTESTS + 2 TRANSMITS_RULE |
+
+共享/组合14条在覆盖图册逐ID定位，三文件222/222无缺失；不要求每条Matrix恰好有一规则节点。全图819节点及581边ID唯一、0悬空端点；全部scope的PASSAGE→规则 ATTESTS有157边、143目标，合入TRANSMITS_RULE为184边、159目标。两条仅有TRANSMITS_RULE而无ATTESTS的明确四柱族为RULE-FAMILY-BAZI-TEN-GOD-RELATIONAL-IDENTITY和RULE-FAMILY-BAZI-FIVE-STEM-COMBINATION-PAIR-IDENTITY（NTL-9900014379篇页）；不据筛选误报缺链。上述149条明确两术边均有evidence和scope_note。图谱现有87 explicit_non_edges、1 lineage_hypothesis；不把513 CONFIRMED关系自动解释为直接师承。
+
+15FF-P的24个模块索引及G1导航，与A–P实际篇页回填合读；第三门槛**核心规则骨架结构具备**（由15FF-P的部分符合推进），但这是导航与限定关系实测，不是每个规则版本—物件—数字替身—篇页完整链均获原刻验证。历史受读、现代流派表、古代原页分层；14/18星及朝鲜紫微数分别保留。尚须确认作品及版本链未证目标均有后续入口；不以关系数量证实传承。来源不足、现代兼容、候选及未形式化状态一律不升级。
+
+### Q2. 第四门槛：现有风险可恢复与深研入口缺口
+
+逐项解析58个风险：55 OPEN、3 BLOCKED_SOURCE_ACCESS（0001/0002/0003）；5 P0、53 P1。全部58项有evidence_boundary、missing_evidence、next_action、closure_criteria，最新checkpoint.reviewed_issue_ids全部覆盖；未验证每个风险原页。四条MISSING_FROM_PRODUCT准确绑定HPA-ZDATE-006→0006、HPA-DAYUN-CAL-002→0008、003→0010、004→0011。五P0保持原状态和下一动作。
+
+额外检查所有11条SOURCE_INSUFFICIENT：目前无逐ID matrix_rule_ids风险绑定（不违反现有四条MISSING_FROM_PRODUCT强制门禁，亦非新发现历史异文）。保留Matrix既有原始状态，不能把导航空白当作无史料；给后续深研显式索引如下，避免11条重复立项：
+
+| 范围 | 既有Matrix ID | 深研边界 |
+|---|---|---|
+| 两个父级汇总 | HPA-ZIWEI-008、HPA-ZIWEI-011 | 子项已拆，不另造统一历史祖本；随子项核查 |
+| 藏干序位一组 | HPA-BAZI-015、HPA-BHIDDEN-002 | 来源文字顺序、软件显示顺序、主中余气/强度语义分立；不把ordinal解释为强度 |
+| 子午神主火铃 | HPA-ZIWEI-023 | 火铃复合措辞；需版本限定异文及机械定义，保持fail-closed |
+| 本命月德/天德 | HPA-ZMINOR-022、HPA-ZMINOR-027 | 《神峰通考》跨术同形不能证明紫微本命采用；流年另立 |
+| 天巫、天月、阴煞 | HPA-ZMINOR-024、HPA-ZMINOR-025、HPA-ZMINOR-026 | 分别追月表、十二值与六宫循环，历法同名/现代软件不是前现代紫微证据 |
+| 将前环 | HPA-ZIWEI-026 | 现代中州整环与《捷览》局部年支证据；本命与流年独立 |
+
+该表是已有缺口索引，不新增或关闭历史风险，不把两个父级重复计为独立问题。另27 DISPUTED_MULTIPLE_CANDIDATES、25 SUPPORTED_BUT_SCHOOL_SPECIFIC、50 MODERN_COMPATIBILITY_ONLY、104 HISTORICALLY_SUPPORTED、1 NOT_YET_FORMALIZED及4 MISSING_FROM_PRODUCT保持现状。第四门槛**现有台账结构与强制交叉索引符合，非穷尽性仍明确**；下一步将上述既有不足项按语义检查旧风险关联，并为真实独立深研问题建立有界入口，避免重复父项；同时对双纲15FF-P旧时点提示追加当前版本说明。之后再做四门槛整体验收决定，而非在本检查点宣告阶段二启动。任何版本原页、直接师承、早期传播或未证争议均不因广度验收自动关闭。
+
+本轮仅结构复评及既有缺口导航，无新增源、原页、历史裁决、图谱边、风险状态或排盘改变；六权威输入与R2不变，保持state 1.1581.0、Matrix222/222、1488来源/276分片、图819/581、58未决五P0、核心CLOSED。transmission_impact=NONE。新文档HEAD Actions待验。
