@@ -24,3 +24,22 @@ HEAD ff50b33818bebb3aed0d7fb0e264656e466c0c7d，tree 18fe582e19b6b73dcdaaa9fb0ee
 远端树已显示13ZV越南汉喃、14N序跋、14P Thái Thứ Lang、15AA–AC等1970年代传播、15Y/Z馆目/研究、15R/CY原页候选分片。仅路径定位，不据此断言具体条目已覆盖；后续先读相关记录并做精确全库检索再补证。
 
 新增TW-OPEN-0054，保存22词查重请求，待原有CI执行；本批仅候选发现，不新增正式来源、图谱边或算法变更。开放54项含五P0。下一步按来源层级及语义重复裁决。
+
+
+## E｜精确全库查询领取及第二次来源裁决（2026-11-27，前向追加）
+
+[exact HEAD bd673720 continuity run45928595458](https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/45928595458)，job140275730419，SUCCESS；62项ledger、7项R2测试通过。六个恢复视图绑定与HEAD tree逐一一致。Actions分页285项中284成功、一项clean-training-system运行中（读取时），不宣布全部通过。
+
+查询 `15EQ-philippines-newspaper-teaching`，checkpoint `TW-CHECKPOINT-15EQ-PROVISIONAL-20261127`，request blob f9c148e3663b605bdad63d9bf6eadcdcb1cabdfe，manifest blob 42d66200edd62c59ebb0ae2b2c230fe3e43f0766；scope ALL_REGISTERED_ROOT_AND_SHARDS_LITERAL_ONLY，PASS，261文件（根+260片）、1384条，22个请求原词逐词matching_files均为0，matching_files=0，hits=[]，truncated=false。原请求保留于同一HEAD的docs/PROJECT-REGISTRY-QUERY-R2.json。字面未命中不等于语义无重复，也不证明独立传承。
+
+六个原候选网页重查，证据类别和事件边界：
+- Philippine Star 2003-02-01：本地采访，可作四柱术语及当地使用的同期媒体证据；从业15年与香港学艺回顾不能回推具体四柱起点。
+- SunStar 2013-07-24 与 Freeman 2013-08-29：两个文章载体、同一宿务教学宣传事件群；后者报道8月25日预讲举行，主课日期异文保持，均不证正式主课完成或全国首次。两篇中相近宣传段落不得加权为独立传承。
+- **2015原发布者定位补证/日期修订（保留上文）**：[BusinessMirror栏目归档](https://businessmirror.com.ph/category/business/perspective/page/18/)列 Francis L. Bonnevie、Plan your destiny with Dato Joey Yap、2015-02-18（检索行694–698），[原发布文章链接](https://businessmirror.com.ph/2015/02/18/plan-your-destiny-with-dato-joey-yap/)已成功定位并打开页面，后续正文定位遇HTTP429；不得声称原刊全文逐段核对。讲师网站受传本标2015-02-19；同题、同作者、同首段，暂作同一采访的发布者与转载载体，不作为两独立见证。原刊网页日期和转载日期分存，均区别于2015-01-29演讲事件日期。纸本期号、全文差异仍OPEN。
+- SunStar 2016-04-28：当地从业专栏自述，师承关系待独立证据；Feng Shui Today 2017-12-07：讲者自述11月19日四柱会议，作者简历两体系导师分记，不能证该会议有紫微授课。两者不能作为排盘机械规则或预测效力证据。
+
+### 新早期跨境候选（尚未入库，归TW-OPEN-0054的更早材料追查）
+
+[Los Angeles Times, 1988-07-23, Ancient Chinese Craft: Feng Shui: It Can Make a Difference](https://www.latimes.com/archives/la-xpm-1988-07-23-mn-6345-story.html)，Ashley Dunn / Victor Zonana。搜索引擎返回正文，直接打开403。报道称来自菲律宾的华人从业者Chang Tai Ei在美国Monterey Park提供风水服务，并谈及八字及出生日期；报道另说明四时间单位。这个材料至多支持1988年菲律宾关联从业者跨境使用八字的候选线索，不证明菲律宾本土1988年四柱活动、受教地或中文姓名。保留报纸档案访问限制；不复制报道全文、不造原页、不提升证据等级。新词 Chang Tai Ei、la-xpm-1988-07-23-mn-6345-story、plan-your-destiny-with-dato-joey-yap 尚未纳入已完成22词请求，后续需要补查及语义消歧。
+
+本次为既有15EQ检查点追加已验证查询与来源裁决，非正式来源准入；未变更六权威JSON、计数、图谱、算法或开放状态。TW-OPEN-0054保持OPEN；NEXT：补查新增定位词、核对原刊正文及更早候选，按现有源注册/图谱/状态合同原子准入有界来源。不得把本追加当作正式批次完成。
