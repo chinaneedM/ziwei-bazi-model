@@ -597,3 +597,56 @@ R3第二轮完整查询已回收；根647记录单独查询五行大义相关词
 **获取障碍及冲突。** Wellcome单页viewer入口出现JS反机器人检查，Florence IIIF manifest工具无法获取；[巴黎对本Gallica](https://gallica.bnf.fr/ark:/12148/btv1b107240960)返回403；BL EAP1294/2/33目录继续仅可能包含出生盘，未核图。Deborah Houlding的[现代图式讨论](https://www.skyscript.co.uk/greek_horoscope.html)指向1959 Neugebauer/Van Hoesen摄影翻印，主张497图可能保有早期内容，且将Laurentianus描述为10世纪；与第一方11世纪目录及Jones后加可能性形成待核对意见，不能据该网站裁决年代或独立见证。保留两种解释，不重复把现代转绘当原叶。
 
 **下一步**：同一既有检查点发布第七轮全库字面请求，检索上述反向传播研究、古代纸草、抄本编号及Wellcome对象，待CI实际成功并核读命中后准入。Iyer、EAP的第六轮查询有效，仍待图页/语义消歧。保持TW-OPEN-0059、59 OPEN/五P0、Q不足项、Matrix222/222、来源1499/279、图819/581、双体系独立、核心CLOSED；本轮不改变语义状态、不新增source/edge、transmission_impact=NONE，不终验。
+
+
+### 10c. 15FF-R7 延续｜梵文星占文本的年代校勘与传播机制（2026-11-27）
+
+基线 HEAD `30ff4181102fd64f1ef59446c5efd41f1fc6a20a`、tree `6ce77ced38c1d79b5cf808b06a15120824e0934f`。六权威输入哈希仍与真实树一致。精确HEAD Actions 21项：20 success、clean-training-system in_progress；[continuity run 46006580879](https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/46006580879) job 140531138166 实际成功，62+7测试。第七轮查询日志按实际JSON保全（验证程序blob 3387254ce53ec0a1f1a3b779291e0c40997bf190）：
+
+```json
+{
+  "query_id": "15FF-R7-counterdirection-and-papyrus-witnesses",
+  "checkpoint_id": "TW-CHECKPOINT-15FF-R7-NAKAMURA-REGIONAL-CHARTS-20261127",
+  "request_blob_sha": "5f80dd4260d4be7dacb41019818c1aae17221da3",
+  "registry_manifest_blob_sha": "46a75cadb4940cf265fb302f0e911fa646d50253",
+  "status": "PASS",
+  "scope": "ALL_REGISTERED_ROOT_AND_SHARDS_LITERAL_ONLY",
+  "files": 280,
+  "records": 1499,
+  "matching_files": 0,
+  "per_term_matching_files": {
+    "18852314": 0,
+    "Thomann": 0,
+    "Eutocius": 0,
+    "Jones": 0,
+    "Plut.28.34": 0,
+    "Plut. 28.34": 0,
+    "Par. gr. 2425": 0,
+    "Vind. phil. gr. 179": 0,
+    "Pelliot chinois 2964": 0,
+    "Pelliot 2964": 0,
+    "btv1b8302295m": 0,
+    "afmgm695": 0,
+    "AJA.23": 0,
+    "P.Berl. 9825": 0,
+    "P.Berol. inv. 9825": 0,
+    "P.Berl.9825": 0,
+    "brv15m2": 0,
+    "Greenbaum": 0,
+    "btv1b107240960": 0,
+    "Houlding": 0
+  },
+  "hits": [],
+  "truncated": false
+}
+```
+
+零字面命中不是语义无重复。上一轮候选仍需入库裁决，尤其原件/现代论文/目录身份各自独立，禁止直接祖源边。不要因本节继续另一条研究支线而遗忘已完成的两轮查重和待准入来源。
+
+**希腊—印度：Yavanajātaka 断代不是定论。** 本轮实读 Bill M. Mak, “The Date and Nature of Sphujidhvaja’s Yavanajātaka Reconsidered in the Light of Some Newly Discovered Materials”, HSSA 1 (2013), 1–20, [DOI](https://doi.org/10.18732/H2RP4T)，[大学期刊原刊PDF](https://journals.library.ualberta.ca/hssa/index.php/hssa/article/download/7/7/13)，[Érudit替身](https://www.erudit.org/en/journals/hssa/2013-v1-hssa09872/1116424ar.pdf)，印pp2–4、10–16、18的提取文本。截图尝试被反机器人或限制阻断，不能宣称实际核读其梵文原叶图1、2。另读同作者 [SCIAMVS 14 (2013) 59–148原刊](https://www.sciamvs.org/files/SCIAMVS_14_059-148_Mak.pdf) pp59、63–64、83校勘本提取文本；截图因13.8MB尺寸受阻。两篇不同论文、同一研究者和重叠手稿材料，不作独立古证投票。
+
+- Pingree 1978的149/150及269/270 CE两日期是对末章第60–62颂的数字词（bhūtasaṃkhyā）及文字复原所得，不是明确抄本纪年。Mak HSSA pp13–14依据新抄本Q90v与N103r的异文，反对将相应词组解成71、191；p16指出希腊技术借词与印度本地材料并存，反对把现传本简化为希腊原典翻译。这里只记录作者的校勘论证与反驳，尚无独立梵文逐字重校，不能将新作者定为绝对权威。p10第14颂56/66及Śaka历元前后之争，亦说明追算历元不等于作品年代。Mak指出22 CE至多为相关章的年代下限候选，不能直接作为抄本或全书成书年。
+- 抄本N：NGMPP A31/16，SCIAMVS列NAK 1/1180，HSSA缩写表另作NAK 1180/vi.jyaut.45，约12世纪为字形推定而非自署纪年。1954 Tucci摄影、1970缩微和2011彩色数字照片是N不同替身，不是独立古本。Q：NGMPP A1122/3 = NAK 6/2397，约18世纪纸本，新尼瓦尔文字，目录曾误题Bṛhadyavanajātaka；Q的独特异文可帮助弥补N损坏，并非较晚即无价值。HSSA p4称现有78页、编号至90；SCIAMVS p63则列81 folios (8–87,90)，数字与计量对象需原目录/实物核对，保留差异而不强行统一。Q把Pingree章77–79合为一章，报告104颂、N为101颂；另有章题和总颂数之争。
+- 技术层：Mak p16列horā（希腊语对应）、drekkāṇa（三分/旬区）、liptā（角分）等借词与业力、阿育吠陀、印度诸神及165年yuga并存；这些是可分解的比较目标，不是对紫微星曜或安星算法的直接见证。p18指出与Sārāvalī、Mīnarāja的Vṛddhayavanajātaka共享段落的方向需要重新审查，不能把有共同文字预设为后书抄前书。
+- 与天问相关的研究方法：先给跨文明文献的具体见证建立年代区间、原词与运算语义，再与中国本命北斗、十二宫/星宫、日月行星历表和后世斗数安星逐条比对。希腊—印度技术接触不等于印度—中国全部传承，更不能直接推出南印度—紫微单向复制。前两节的方盘图式反向传播候选独立保留。
+- 未获取N、Q馆方完整原图，未确认现代论文中所用替身与馆藏在线物件的一一绑定。本轮第八轮查询加入梵文题名异体、作者、稿本号、两篇论文的稳定标识和相关反证著作。上轮第七轮查重与第六轮查重均已经保全；在新增登记使manifest变更之前，复用其现有结果，先完成前批候选语义消歧及准入，不无限延长查询循环。当前研究是既有TW-OPEN-0059支线，未新增风险类别、未改状态版本；59 OPEN五P0、1499来源/279分片、Matrix222/222、图819/581不变，transmission_impact=NONE，核心CLOSED，不终验。
