@@ -2,14 +2,14 @@
   "schema": "TIANWEN-CONTEXT-RECOVERY-VIEW-R2",
   "authority": "DERIVED_ONLY",
   "bindings": {
-    "docs/PROJECT-CURRENT-STATE-R1.json": "0699a6bde2bc56a9c105bbcb0d5d0fea72844492",
-    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "5ff8c94e049f8b40bdeb4ceb81ce20273dade514",
+    "docs/PROJECT-CURRENT-STATE-R1.json": "b51c2f8555a01fb3110a8c0d0b5975bb6b7d4942",
+    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "4efcb2d760cfd4db135417bca01e9552f1cab204",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json": "d5081119bedd4afa0324a7eec36bc5b1ce4372c3",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json": "ea2ab50479450c39ce3fc7a00ea91cd713bf4a60",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json": "5919e1b6bbc3c4b150507c41a13ccc9e13d20f17",
-    "docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json": "35e42d89f601fe7d7bbd7bb45e51b1c48f3f8ee8"
+    "docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json": "5589340cabc42f0a126248657dd6fc2c9c8abf7f"
   },
-  "state_version": "1.1574.0",
+  "state_version": "1.1575.0",
   "stage": "FUSION_CHART_HISTORICAL_PROVENANCE_AND_SCHOOL_AUDIT_R1",
   "invariants": {
     "deterministic_fusion_chart_product_r1": "CLOSED",
@@ -26,29 +26,30 @@
     "extension_sources": 841,
     "total_sources": 1488,
     "shards": 276,
-    "graph_nodes": 622,
-    "graph_edges": 457,
+    "graph_nodes": 630,
+    "graph_edges": 461,
     "open_issues": 58,
     "p0": 5
   },
   "phase": "BREADTH_FIRST_TWO_SYSTEM_HISTORICAL_FRAMEWORK_R1",
-  "next_deliverable": "15FF-Q续：补时刻坐标、现代历法及中州流月与本命闰月的证据范围；完成剩余规则族、58项风险与广度第一阶段验收门槛复核；保留《捷览》CH20–22目标原刻、南阳堂精确条目及五P0。",
+  "next_deliverable": "15FF-Q续：复核双体系核心规则族索引完整性（按222个Matrix ID逐项区分历史规则、现代实现与未决候选）、58项风险和第一阶段四项验收门槛；保留目标原页及独立传承缺口。",
   "latest_matrix_batch": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-FIRSTPARTY-AND-OLD20-ATLAS-QD.md",
   "latest_breadth_batch": "docs/research/TIANWEN-15FF-Q-CORE-RULE-PASSAGE-CROSSWALK-CHECKPOINT-R1.md",
   "checkpoint": {
-    "id": "TW-CHECKPOINT-15FF-Q-TIME-CALENDAR-RULE-GRAPH-20261127",
+    "id": "TW-CHECKPOINT-15FF-Q-TIME-STANDARD-LEAP-SCOPE-20261127",
     "evidence_refs": [
       "docs/research/TIANWEN-15FF-Q-CORE-RULE-PASSAGE-CROSSWALK-CHECKPOINT-R1.md",
       "docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json",
-      "docs/research/ZIWEI-QUANSHU-NANYANGTANG-LATE-ZI-DIRECT-COLLATION-R1.json",
-      "docs/research/ZIWEI-SANMING-TONGHUI-1578-TIMEKEEPING-PHYSICAL-COLLATION-R1.json",
-      "docs/research/TIANWEN-13ZZ-WENYUANGE-NANYANGTANG-FOLIO-COLLATION-R1.md",
-      "docs/research/TIANWEN-13ZZ-WENYUANGE-NANYANGTANG-FOLIO-EVIDENCE-R1.json"
+      "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-08-ZIWEI-TIME-STANDARDS-C.md",
+      "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-08-ZIWEI-TEMPORAL-FRAMES-B.md",
+      "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-08-ZIWEI-CALENDAR-DATE-BOUNDARY-D.md",
+      "docs/TIME-CALENDAR-FOUNDATION-R1.md",
+      "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-09-TIME-SOLAR-TERMS-BAZI-YEAR-MONTH-A.md"
     ]
   },
   "focus": {
-    "index": 3269,
-    "text": "13ZZ CURRENT ACTION 15FF-Q: calendar/time crosswalk +9 nodes/+6 scoped ATTESTS graph622/457. Nanyangtang p320 Hai/Zi branch split separate from Sanming 1578 half-Zi day attribution (existing TG-E0041/42); natal leap-next-month and received Tanyuan Lichun/Jie/night-Zi day-old/hour-new families separate. Reuse recorded evidence, no original recollation or new sources; no modern clock conversion or algorithm reopen. Matrix222/222, 58 unresolved five P0; NEXT remaining coordinate/leap scopes and breadth gate.",
+    "index": 3270,
+    "text": "13ZZ CURRENT ACTION 15FF-Q: Zhongzhou longitude standard and flow leap half-split, modern apparent solar adoption and late-Zi date alternatives +8 nodes/+4 scoped ATTESTS graph630/461. Shared modern astronomy/civil/calendar implementation kept separate; no historical clock conversion or school lineage inferred. Reused 08B/C/D and foundation; no new sources or original recollation; Matrix222/222, 58 OPEN five P0, core CLOSED. NEXT full rule-index and breadth-gate review.",
     "truncated": false
   },
   "p0": [
