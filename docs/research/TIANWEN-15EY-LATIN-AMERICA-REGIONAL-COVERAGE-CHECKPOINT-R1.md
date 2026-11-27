@@ -25,3 +25,54 @@
 ## 门禁及续接
 
 本轮不准入新来源、节点或边，不修改史纲已确认结论。请求对候选作者、ISBN、域名进行完整全库字面查重（最多24词，实际22），命中逐项辨别语义身份；再核原刊记、早期同期材料、机构位置及真实实开。来源1435/267，图495/375，Matrix222/222，58 OPEN含五P0。NEXT领取15EY查重并按证据范围裁决；优先巴西机构史与2016公告、墨西哥2025原PDF和明确课程、阿根廷书目及秘鲁题名边界，再拓展拉美其余地区、非洲、中西亚。
+
+
+## 15EY 精确全库查重结果保全及补充证据（2026-11-27）
+
+精确 HEAD `ce9f7aa7b36114c90cf17d77793d739dd43d5f5f`，连续性 [run45944695682](https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/45944695682)，job140326604435 SUCCESS；7项R2测试通过。查询脚本 blob `3387254ce53ec0a1f1a3b779291e0c40997bf190`。285项Actions复核时224成功、18运行、43排队，未见失败，不宣告全部通过。六权威绑定一致，五P0保持。
+
+```json
+{
+  "query_id": "15EY-latin-america-regional-identity",
+  "checkpoint_id": "TW-CHECKPOINT-15EY-PROVISIONAL-20261127",
+  "request_blob_sha": "2d58494418d5e7608ee87c535f5a7c8a25bb792a",
+  "registry_manifest_blob_sha": "bfa261a3bf83790cabd1ebc3101213e9ea5b631a",
+  "status": "PASS",
+  "scope": "ALL_REGISTERED_ROOT_AND_SHARDS_LITERAL_ONLY",
+  "files": 268,
+  "records": 1435,
+  "matching_files": 0,
+  "per_term_matching_files": {
+    "Sociedade Taoísta do Brasil": 0,
+    "Sociedade Taoista": 0,
+    "taoismo.org.br": 0,
+    "Mestre Cherng": 0,
+    "Aurimar Cerqueira": 0,
+    "terapiaschinesas.com.br": 0,
+    "institutoeq.com.br": 0,
+    "Eternal Qi": 0,
+    "Laura M. de Flores": 0,
+    "vientoyagua.mx": 0,
+    "fengshui-monicakoppel.com.mx": 0,
+    "Mónica Koppel": 0,
+    "Bruno Koppel": 0,
+    "Silva Ramos": 0,
+    "9789707751781": 0,
+    "9707751789": 0,
+    "cincoartes.com": 0,
+    "Marcelo Viggiano": 0,
+    "fengshui-argentina.com": 0,
+    "9789873910227": 0,
+    "cieloytierra.pe": 0,
+    "Tzu-Wei Tou-Shu": 0
+  },
+  "hits": [],
+  "truncated": false
+}
+```
+
+字面查重通过，不等于语义身份或自动准入。已初步裁决13条有界候选：巴西协会历史、紫微专文、服务、2016四柱公告及Eternal Qi课纲；墨西哥2025 PDF、紫微服务、Koppel四柱课纲、Silva书目及作者介绍；阿根廷出版、网课；秘鲁题名/课纲。各来源等级依本检查点原证据范围，均无古籍原字、实授或独立师承证明。准入原子提交遇连接 h2 body error，复查分支仍在原HEAD；本节只保全研究结果，不宣告准入或改动权威语义状态。NEXT先完成13条正式准入及同步状态。
+
+补充线索（未登记，待全库补充检索及语义核验）：[BooksRun](https://booksrun.com/9789707751781-bazi-los-cuatro-pilares-del-destino-spanish-edition) 与 [AbeBooks](https://www.abebooks.com/9789707751781/Bazi-cuatro-pilares-destino-Spanish-9707751789/plp) 同ISBN列2012、Grupo Editorial Tomo、Rodolfo；Libristo列2006、Tomorrow's Guides、Rudolfo。原刊记/版次未闭合。出版社目录 https://tomobooksmx.com/pdf/catalogo_grupo_tomo.pdf 返回502、https://tomobooksmx.com/pdf/catalogo-2022.pdf 超时，未核原页。[作者介绍](https://cincoartes.com/acerca-de/) 19–27行自称Rodolfo、独学、多国五艺课程及子平教学；不能将每国五艺活动等同当地八字实授，瑜伽师承、2017气功证书不等同子平师承。
+
+[Boada博客](https://carhel168.wordpress.com/2007/06/10/los-4-pilares-del-destino/) 16–43行署Rodolfo Silva Ramos、墨西哥风水研究中心及子平八字，页面标注2007-06-10；评论95–97、136–137行有波哥大研讨会链接。仅为早期西语转载候选，非书籍刊年、哥伦比亚实际授课、古法有效性证据；无独立同期存档或研讨会原PDF。建议补充检索 Carmen Helena Boada、carhel168.wordpress.com、habitatfengshui.com、Seminario_Bogota、Grupo Editorial Tomo、tomobooksmx.com、Rodolfo Silva Ramos。TW-OPEN-0058保持OPEN，其他五P0不变。
