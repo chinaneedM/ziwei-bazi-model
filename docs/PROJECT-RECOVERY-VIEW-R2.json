@@ -2,14 +2,14 @@
   "schema": "TIANWEN-CONTEXT-RECOVERY-VIEW-R2",
   "authority": "DERIVED_ONLY",
   "bindings": {
-    "docs/PROJECT-CURRENT-STATE-R1.json": "aa0779ff6b1326d9e2a9167548d9539102591820",
-    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "b6c32d0220294d126ca7f26d1ffba6f255e41c1b",
+    "docs/PROJECT-CURRENT-STATE-R1.json": "ea223815f47b9378d78c1cd65ddaa1756308734b",
+    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "bd87d767d66ee4c01336faf3176fddb45cf14ec9",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json": "2b2dc24e8f939f7316f43a3567f8a2205b28c44d",
     "docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json": "280e023bcd6e0625f0dca2fd54d6c9423f286fd5",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json": "5919e1b6bbc3c4b150507c41a13ccc9e13d20f17",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json": "ea2ab50479450c39ce3fc7a00ea91cd713bf4a60"
   },
-  "state_version": "1.1528.0",
+  "state_version": "1.1529.0",
   "stage": "FUSION_CHART_HISTORICAL_PROVENANCE_AND_SCHOOL_AUDIT_R1",
   "invariants": {
     "deterministic_fusion_chart_product_r1": "CLOSED",
@@ -28,26 +28,23 @@
     "shards": 258,
     "graph_nodes": 495,
     "graph_edges": 375,
-    "open_issues": 51,
+    "open_issues": 52,
     "p0": 5
   },
   "phase": "BREADTH_FIRST_TWO_SYSTEM_HISTORICAL_FRAMEWORK_R1",
-  "next_deliverable": "完成15EN有界准入后，复盘泰国、印尼、越南等地区在双史纲中的已有覆盖与缺口，优先寻找可公开核实、独立且明确属紫微或四柱的同期出版、报刊或教学资料；厦大馆藏定位仅作检索入口。1999年前马来西亚紫微及2007广告、勸學齋原稿/版次/时间校正正文保留OPEN，不重查同源零售宣传，不改算法。",
+  "next_deliverable": "领取15EO精确全库查询；按2014考古期刊原页、2012网评、雅加达2012四柱馆目、内政部2024紫微馆目、2024国家书目候选分别核对身份与有界准入。继续核查2008–2010 Yap Liat Kian各册、2010 Rahardjo紫微原版刊记和早期印尼四柱独立来源；泰国另作地域广度审计，不改排盘算法。",
   "latest_matrix_batch": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-FIRSTPARTY-AND-OLD20-ATLAS-QD.md",
-  "latest_breadth_batch": "docs/research/TIANWEN-15EN-NANYANG-QUANXUEZHAI-TIME-CORRECTION-NEWSPAPER-LOCATORS-R1.md",
+  "latest_breadth_batch": "docs/research/TIANWEN-15EO-INDONESIA-ZIWEI-BAZI-PUBLICATION-JOURNAL-CHECKPOINT-R1.md",
   "checkpoint": {
-    "id": "TW-CHECKPOINT-15EN-ADMITTED-20261127",
+    "id": "TW-CHECKPOINT-15EO-PROVISIONAL-20261127",
     "evidence_refs": [
-      "docs/research/TIANWEN-15EN-NANYANG-QUANXUEZHAI-TIME-CORRECTION-NEWSPAPER-LOCATORS-R1.md",
-      "docs/research/TIANWEN-15EN-NANYANG-QUANXUEZHAI-TIME-CORRECTION-SOURCE-SHARD-R1.json",
-      "docs/TIANWEN-ZIWEI-HISTORICAL-OUTLINE-R1.md",
-      "docs/TIANWEN-BAZI-HISTORICAL-OUTLINE-R1.md",
-      "docs/TIANWEN-DUAL-HISTORY-COVERAGE-ATLAS-R1.md"
+      "docs/research/TIANWEN-15EO-INDONESIA-ZIWEI-BAZI-PUBLICATION-JOURNAL-CHECKPOINT-R1.md",
+      "docs/PROJECT-REGISTRY-QUERY-R2.json"
     ]
   },
   "focus": {
-    "index": 3223,
-    "text": "13ZZ CURRENT ACTION AFTER 15EN ADMISSION: ac2be88c exact continuity run45853829430 job140026860585 PASS (62 ledger+7 R2 tests), 20-term complete 258files/1375records literal query zero hits, untruncated; 98c25be6 20/20 Actions success but no exact continuity workflow, canonical blob fallback verified. Three bounded records admitted: Quanxuezhai vol3 ISBN9789868004146 2008 note reported by two retailer contents, 2009/2023 listing dates separated; vol5 ISBN9789868004160 2022 regional time correction contents; XMU institutional newspaper holdings locator. NCL deposit list pending original page. No original target pages, direct lineage, mechanical identity or runtime change. NEXT review Thailand/Indonesia/Vietnam coverage and pursue distinct dated system-specific regional evidence. TW-OPEN-0047/0048/0050/0051 OPEN; 1378=647+731/258 shards; graph495/375 Matrix222/222 51 open incl five P0 core CLOSED.",
+    "index": 3224,
+    "text": "13ZZ CURRENT ACTION 15EO PROVISIONAL: 79b3deec exact continuity run45924688142 job140263167614 SUCCESS, 273/285 successful and 12 in progress at last scan; six R2 bindings match. Dual outlines/atlas literal scan shows substantial Vietnam coverage but no Thailand/Indonesia terms in the three files (not whole-registry absence). Indonesia candidates: 2014 Berkala Arkeologi 34(1) pp85–96 original journal PDF screenshots p85/p94/p95, separate web-sourced Ziwei/Bazi charts and 2010 Rahardjo book bibliography; 2012 blog review reports Yap Liat Kian five volumes 2008–10, not original colophons; Jakarta library INLIS000000000784695 Bazi 2012 ISBN9789790749009 and three item numbers; Kemendagri catalogue8705 Ziwei 2024 ISBN9786230416880; 2024 BIP ISBN9786230420153 text only, screenshot403. NEXT complete exact query and semantic deduplication, check original edition metadata; Thailand later coverage. TW-OPEN-0052 added, 52 open incl five P0; 1378 sources/258 shards; graph495/375 Matrix222/222 core CLOSED.",
     "truncated": false
   },
   "p0": [
