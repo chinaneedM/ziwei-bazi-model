@@ -48,3 +48,14 @@
 
 ## 15FA 正式准入（2026-11-27）
 九项文献经上述完整查重与语义复核准入 `docs/research/TIANWEN-15FA-REMAINING-LATIN-AMERICA-SOURCE-SHARD-R1.json`（blob `00992145787e9f0efc4b4c74dede669eb999a82f`），来源1463（647+816，271分片）。不认定最早传入、实际授课、师承或算法正确性。15FA-S 2017候选新查询绑定 manifest `49c7f7c5807771e77244db4a5354ef85d1fb59e7`、checkpoint `TW-CHECKPOINT-15FA-ADMITTED-20261127`，request `fa871885794ed341c5c35687676f65f6b8a1fff3`；未完成前不准入。图谱495/375，Matrix222/222，58 OPEN/5 P0，排盘CLOSED。
+
+## 15FA-S 正式准入、15FB 候选（2026-11-27）
+精确HEAD `0990ad1aedf9208df9b7c05980ecee4f2c21f85a` [run45949039447/job140340356025](https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/45949039447) SUCCESS；62风险/7 R2测试，恢复视图PASS 4383字节，query `15FA-S-venezuela-2017`、checkpoint `TW-CHECKPOINT-15FA-ADMITTED-20261127`、request `fa871885794ed341c5c35687676f65f6b8a1fff3`、manifest `49c7f7c5807771e77244db4a5354ef85d1fb59e7`；272文件1463来源，七词均0，未截断。复核2017文章原文5、36、73、77–78行，署名及地理自述与日主术理明确，准入一份有界文本 `docs/research/TIANWEN-15FA-S-VENEZUELA-2017-SOURCE-SHARD-R1.json`（blob `c3a0cce23b093fafbc5a43934609bd8cb74ccce5`）；页面自载1月13/21日，未独立存档，生肖春节描述不证明四柱换年规则。无师承、最早传入或实占验证。
+
+15FB补查：
+- [Podimo: Feng Shui Coaching con Carmen Irizarry](https://podimo.com/dk/shows/feng-shui-coaching-con-carmen-irizarry) 33–41行，具名 Carmen Irizarry Fuentes / Feng Shui Academia，简介明确八字与面向波多黎各、加勒比、西语受众的线上课程；唯一可见首集2021-05-02实际题名为风水基础而非八字，不能倒推简介日期或八字实授，未付费或收听。
+- [Booking.page: fengshuibycarmen](https://booking.page/en/company/page/fengshuibycarmenirizarry) 94–110、222–248行，Hatillo Puerto Rico 地理与现行八字咨询明确，自述2021起 Master BaZi，非独立资格验证；文案含2026服务，非2021同期实授。与播客同一提供者，不作独立师承证人。
+- [Mikura Feng Shui: ¿Quién Soy?](https://mikurafengshui.com/quien-soy/) 124–131行，载多米尼加客户 Milena 的八字咨询自述，属提供者发布的跨境评价，日期、实际地点及身份未独立核实；旁列2019高级研习会评价来自秘鲁同学，不得误归多米尼加。
+- 危地马拉检索误命中 [IESonoterapia目录](https://www.iesonoterapia.com/alumnos-certificacion-de-cuencos-tibetanos) 604–619行：八字咨询属哥斯达黎加 Ana María Valverde Ramos，紧邻危地马拉另一个瑜伽从业者条目，不可拼接。巴拉圭、危地马拉、独立紫微本轮未获合格材料，不等于无传播。
+
+15FB以上三份候选未准入；新查询 `15FB-caribbean-regional-evidence` 绑定manifest `0debefc29dbcf9699a0894a8d0253f1983876d63`、request `06110af17bce2678dff85ff1fdce54c1bcd051a7`、checkpoint `TW-CHECKPOINT-15FB-PROVISIONAL-20261127`。来源1464（647+817，272分片），图谱495/375，Matrix222/222，58 OPEN/5 P0，排盘CLOSED。
