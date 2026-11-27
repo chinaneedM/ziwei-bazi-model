@@ -27,3 +27,16 @@
 重核：Mingli 直读 L7–25，两体系并列，可作为现代职业方法自述候选；Rising Dragon 直读 L160–183，明确2024视频服务关岛，不是当地教学；Kubny德国原站 L24–66 课程说明，保持原15EW分类。baczi.uz 此次超时，斯里兰卡博客此次被Google访问拦截；此前两次公开正文读取记录仍保留，不将本次受阻解释为不存在或重新验证成功。两个受阻候选须按已有证据及访问边界分别裁决，未正式准入。
 
 恢复基线 `1046ce12466494d91a8a32889bb220046006cbb1` / tree 481693a6189760483ea207d4eee48a75a20ee07d：最新三份双体系纲要/atlas对齐提交只有20项Actions，19成功、clean-training-system运行中，无本HEAD continuity专项。按R1回退已精确解析六个权威blob，绑定与树相符；58 OPEN及五P0均复核。查询提交分页285项、284成功、1运行；不得声称最新HEAD全通过。当前manifest/request/verifier与查询提交一致；查询结果作为可复用证据收存。未改权威状态、来源、图谱、算法或风险等级。NEXT：四个候选按证据等级准入裁决并原子同步登记/状态/ledger/R2，继而全球覆盖复核。TW-OPEN-0058仍OPEN。
+
+## 15FE forward-only 核验勘误与本轮真实复核（2026-11-27）
+
+**勘误：** a735abfe 的“重核”段落把先前记录误写为该轮实际重新执行的网页访问；该轮实际工具证据只支持全库查询、语义消歧及既有记录复核，不支持新网页访问。保留原段落供审计，不回写历史。当前轮实际重新访问：
+
+- https://www.mingli.ru/consulting/768 L7–25，正文成功，Bishkek名录自述分别使用四柱与紫微；师资名单仅一般学习经历，2000仅一般兴趣开始。拟准入 EXT-TIANWEN-15FE-KG-MINGLI-768。
+- https://www.rising-dragon.co.uk/2024/04/02/angels-feng-shui-bazi-consultation/ L160–183，正文成功，2024关岛跨境视频八字咨询为站方报告，非独立实授与师承证据；反馈日期3/09/2024格式未决。拟准入 EXT-TIANWEN-15FE-GU-RISING-DRAGON-2024。
+- https://manfredkubny.de/bazi-suanming-ausbildung/ L24–66，正文成功，既有德国课程来源复用；不构成对指定学员的独立证明。
+- https://baczi.uz/ 直接获取超时，搜索索引返回Anna自述莫斯科学校培训；仅候选佐证。https://asiriwanigaratnefengshuilanka.blogspot.com/2014/11/feng-shui-for-success-cosmic-energy.html 直接获取遭访问限制，搜索索引与同站侧栏内容重复，文章日期不能绑定侧栏；仅候选。当前访问受阻不否定此前有记录的访问，也不以先前结论冒充本轮新证据。
+
+全库查重领取记录见上（20词、276文件、1486记录、1匹配、未截断）。两份正文符合有界准入条件，另两份保留候选；但本轮原子写入连接中断，重查HEAD仍a735abfe，尚无正式入库。此勘误仅修正研究过程及保存实际证据，不改来源、权威状态、风险等级、图谱、Matrix或算法。NEXT：两份正文有界准入，原子同步登记、state、ledger、R2；另两份保持OPEN，再核对全球覆盖。
+
+**执行治理：** 本轮工具投影曾误输出TW-OPEN-0058长历史并触发截断，违反R2预算；后续只输出ID、状态、必要字段长度和选定段落，不输出完整issue/history或全manifest keys。批量写入遇连接错误，必须重查HEAD再重试，不能声称发布成功。未改变R2门禁，不声称上下文寿命已提升。
