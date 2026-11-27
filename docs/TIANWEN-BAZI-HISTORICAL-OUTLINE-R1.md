@@ -736,3 +736,8 @@ CiNii BA61461510著录1955.8香港实学书店，另有大阪大学伊地智文�
 - [15ER](research/TIANWEN-15ER-PHILIPPINES-EARLY-ARCHIVES-VIETNAM-COVERAGE-CHECKPOINT-R1.md)：1974/1975《Tử Bình Thuyết Minh》现代受传及版年未决；1996邵伟华越译馆目、2005商目分存（404/408页差异）；2004巴黎序仅作者拟出版/网络传播自述，非实际刊行；2018海防馆目、2021国家书目两出版对象同一目录载体、2021-11-07课程网页。七来源不建立直接师承。
 - [15ES](research/TIANWEN-15ES-MYANMAR-CAMBODIA-LAOS-METHOD-IDENTITY-CHECKPOINT-R1.md)：柬埔寨两明确BAZI现代载体（服务、应用条目）；协会及泰介生肖研究为背景，不是完整子平；缅甸2015“八字帖”与1900掸族六十周期不等于子平，替代重排PDF原刊完整表未证；老挝具名本地子平仍缺。文莱/东帝汶待专项复核。
 - [15BL跨轴地域复盘](research/TIANWEN-15BL-DUAL-HISTORY-ERA-REGION-RULE-BREADTH-COVERAGE-CROSSWALK-R1.md) 补齐既有总纲，来源及图谱不变，TW-OPEN-0054–0056 OPEN。以上年份均证据限定，不判首次传入。
+
+
+### 15EU｜文莱、东帝汶地域证据更新（2026-11-27）
+[15EU考据与准入裁决](research/TIANWEN-15EU-BRUNEI-TIMOR-LESTE-REGIONAL-METHOD-IDENTITY-CHECKPOINT-R1.md)，[四条有界来源](research/TIANWEN-15EU-BRUNEI-TIMOR-LESTE-SOURCE-SHARD-R1.json)。全库具名16词查询264文件/1402条零字面命中，无截断；复载与同源原发线索不重复计数。文莱2005 NST刊期为2025经营者复载所标，原刊未核；2023经营宣传含四柱概念，实际开业日期及当地教学未证。东帝汶2002、2019两篇报道描述求签而非出生排盘。TW-OPEN-0057 OPEN；不新增图谱边、历史首传年或算法裁决。
+四柱：文莱为跨境接受史及经营宣传（C级）；独立当地实践、教学、出版及传承未证。东帝汶仍为E级目标术法缺口，求签仅反例。

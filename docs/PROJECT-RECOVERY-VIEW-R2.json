@@ -2,14 +2,14 @@
   "schema": "TIANWEN-CONTEXT-RECOVERY-VIEW-R2",
   "authority": "DERIVED_ONLY",
   "bindings": {
-    "docs/PROJECT-CURRENT-STATE-R1.json": "01c89f8f01985adec29c49f38fa3aba8d0457a15",
-    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "5783afe663d1020af760da68255e945d342c627e",
-    "docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json": "62917a0ae1f4fde7e262c550ad50d152b1a5f839",
+    "docs/PROJECT-CURRENT-STATE-R1.json": "f03ca2879fdbbe4d7420f4955579b892a37d264d",
+    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "84929756e6c04eae9d42f37b025ad9df82e39b06",
+    "docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json": "359757ac503e50e3e81014df51d987a6fffc2574",
     "docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json": "280e023bcd6e0625f0dca2fd54d6c9423f286fd5",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json": "5919e1b6bbc3c4b150507c41a13ccc9e13d20f17",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json": "ea2ab50479450c39ce3fc7a00ea91cd713bf4a60"
   },
-  "state_version": "1.1541.0",
+  "state_version": "1.1542.0",
   "stage": "FUSION_CHART_HISTORICAL_PROVENANCE_AND_SCHOOL_AUDIT_R1",
   "invariants": {
     "deterministic_fusion_chart_product_r1": "CLOSED",
@@ -23,29 +23,32 @@
     "matrix_rows": 222,
     "matrix_audited": 222,
     "root_sources": 647,
-    "extension_sources": 755,
-    "total_sources": 1402,
-    "shards": 263,
+    "extension_sources": 759,
+    "total_sources": 1406,
+    "shards": 264,
     "graph_nodes": 495,
     "graph_edges": 375,
     "open_issues": 57,
     "p0": 5
   },
   "phase": "BREADTH_FIRST_TWO_SYSTEM_HISTORICAL_FRAMEWORK_R1",
-  "next_deliverable": "领取15EU具名候选全库查重并核实际命中；优先核2005 NST原刊日期/版面、2023文莱开业原报道与计划/实际区别、东帝汶2002与2019求签报道原载。只按跨境八字接受、当地经营宣传及术法辨析有界准入，勿把求签算作子平/紫微。TW-OPEN-0057 OPEN；随后同步双纲、复盘全球地域框架。排盘CLOSED。",
+  "next_deliverable": "15EU四条有界来源正式登记，两地独立紫微及在地四柱仍待证，TW-OPEN-0057 OPEN。下一步进行全球地域传播框架覆盖复盘：先按现存双纲、覆盖图和源登记区分已证地域、候选、未调查及非目标术法，优先补实质地域空白，不把东南亚筛查当作全球覆盖完成。排盘CLOSED。",
   "latest_matrix_batch": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-FIRSTPARTY-AND-OLD20-ATLAS-QD.md",
   "latest_breadth_batch": "docs/research/TIANWEN-15EU-BRUNEI-TIMOR-LESTE-REGIONAL-METHOD-IDENTITY-CHECKPOINT-R1.md",
   "checkpoint": {
-    "id": "TW-CHECKPOINT-15EU-PROVISIONAL-20261127",
+    "id": "TW-CHECKPOINT-15EU-ADMITTED-20261127",
     "evidence_refs": [
       "docs/research/TIANWEN-15EU-BRUNEI-TIMOR-LESTE-REGIONAL-METHOD-IDENTITY-CHECKPOINT-R1.md",
-      "docs/PROJECT-REGISTRY-QUERY-R2.json",
-      "docs/research/TIANWEN-15BL-DUAL-HISTORY-ERA-REGION-RULE-BREADTH-COVERAGE-CROSSWALK-R1.md"
+      "docs/research/TIANWEN-15EU-BRUNEI-TIMOR-LESTE-SOURCE-SHARD-R1.json",
+      "docs/research/TIANWEN-15BL-DUAL-HISTORY-ERA-REGION-RULE-BREADTH-COVERAGE-CROSSWALK-R1.md",
+      "docs/TIANWEN-ZIWEI-HISTORICAL-OUTLINE-R1.md",
+      "docs/TIANWEN-BAZI-HISTORICAL-OUTLINE-R1.md",
+      "docs/TIANWEN-DUAL-HISTORY-COVERAGE-ATLAS-R1.md"
     ]
   },
   "focus": {
-    "index": 3236,
-    "text": "13ZZ CURRENT ACTION 15EU PROVISIONAL: exact 31c317fa continuity run45936374559/job140300416860 SUCCESS, 62 ledger+7 R2 tests, six bindings match; 285 runs 284 success one running. 15ET literal full registry query PASS 264 files/1402 records, all 15 terms zero, no truncation. Brunei 2005 NST claimed date in 2025 vendor reproduction, actual cropped newspaper image visually read Brunei E-Bazi customer statement but no masthead/date/page; 2023-08-06 vendor event page lists local store and Four Pillars in explanatory text, original linked report timed out, planned/actual distinction. Timor 2002 Age received report labels horoscope but describes numbered sticks; 2019 SCMP received report explicitly qiu qian; neither target method. New TW-OPEN-0057, candidate-specific query pending; no formal source/graph changes. Sources1402/263, graph495/375, Matrix222/222,57 OPEN five P0, core CLOSED.",
+    "index": 3237,
+    "text": "13ZZ CURRENT ACTION 15EU ADMITTED: exact a6ecae21 continuity run45937109284/job140302745989 SUCCESS, 62 ledger+7 R2 tests, six bindings match; 16-term full registry query 264 files/1402 records zero hits untruncated, preserved at 16fbf65. Four bounded records admitted: Brunei 2025 vendor reproduction attributed 2005 NST cross-border E-Bazi customers, 2023 operator promotion with Four Pillars context; Timor 2002 and 2019 received press reports on fortune sticks (not natal systems). No original press dates/pages, actual local teaching or direct lineage adjudication. Outlines/atlas/crosswalk updated; TW-OPEN-0057 OPEN. Sources1406/264, graph495/375, Matrix222/222,57 OPEN five P0, core CLOSED. NEXT global regional breadth review.",
     "truncated": false
   },
   "p0": [

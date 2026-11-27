@@ -1519,3 +1519,8 @@ B：澳门大学1963-/1965-两馆目、Google Books 1963第二卷；C：现代�
 ### 15ET｜15EQ–15ES同步与东南亚区域复盘（2026-11-27）
 
 见[15BL新增11地双体系覆盖导航](research/TIANWEN-15BL-DUAL-HISTORY-ERA-REGION-RULE-BREADTH-COVERAGE-CROSSWALK-R1.md)；三份总纲此前停于15EP，现补齐菲律宾6载体、越南7载体、缅柬老5载体既有分级成果。文莱/东帝汶为下一专项检索对象，未做全库否定。各地早期原页与在地术法、具体师承保持未决，TW-OPEN-0047–0056 OPEN。来源1402（647+755/263片），图495/375，Matrix222/222，56 OPEN五P0，核心CLOSED。此次纯证据导航及查重请求，不新增正式来源或历史裁决。
+
+
+### 15EU｜文莱、东帝汶地域证据更新（2026-11-27）
+[15EU考据与准入裁决](research/TIANWEN-15EU-BRUNEI-TIMOR-LESTE-REGIONAL-METHOD-IDENTITY-CHECKPOINT-R1.md)，[四条有界来源](research/TIANWEN-15EU-BRUNEI-TIMOR-LESTE-SOURCE-SHARD-R1.json)。全库具名16词查询264文件/1402条零字面命中，无截断；复载与同源原发线索不重复计数。文莱2005 NST刊期为2025经营者复载所标，原刊未核；2023经营宣传含四柱概念，实际开业日期及当地教学未证。东帝汶2002、2019两篇报道描述求签而非出生排盘。TW-OPEN-0057 OPEN；不新增图谱边、历史首传年或算法裁决。
+地域导航：文莱紫微E／四柱C（跨境及宣传），东帝汶紫微E／四柱E（求签非目标）。11地已作有界筛查，不等于全球框架完成。

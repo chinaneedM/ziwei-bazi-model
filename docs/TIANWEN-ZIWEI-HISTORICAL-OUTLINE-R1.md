@@ -694,3 +694,8 @@ CiNii BB26426235著录1979.7台南西北出版社及琉球大学馆藏，母丛�
 - [15ER](research/TIANWEN-15ER-PHILIPPINES-EARLY-ARCHIVES-VIETNAM-COVERAGE-CHECKPOINT-R1.md)：本批七正式来源均属越文子平出版/教学/接受史，不新增紫微史证；既有13ZV、15AB/AC等汉喃抄本、译述与近现代出版沿用，原本和具体传承不由同地域四柱出版证明。
 - [15ES](research/TIANWEN-15ES-MYANMAR-CAMBODIA-LAOS-METHOD-IDENTITY-CHECKPOINT-R1.md)：缅甸、柬埔寨、老挝均仍缺有界调查中的独立紫微证据；生肖、六十周期、“八字帖”、协会背景、具名BAZI服务及华文报刊馆目不作紫微史料。文莱/东帝汶待专项复核，不宣称无史料。
 - [15BL跨轴地域复盘](research/TIANWEN-15BL-DUAL-HISTORY-ERA-REGION-RULE-BREADTH-COVERAGE-CROSSWALK-R1.md#15et东南亚11地双体系覆盖导航2026-11-27) 补齐既有史纲导航；不新增来源、节点、边，不更改算法。TW-OPEN-0054–0056 OPEN。
+
+
+### 15EU｜文莱、东帝汶地域证据更新（2026-11-27）
+[15EU考据与准入裁决](research/TIANWEN-15EU-BRUNEI-TIMOR-LESTE-REGIONAL-METHOD-IDENTITY-CHECKPOINT-R1.md)，[四条有界来源](research/TIANWEN-15EU-BRUNEI-TIMOR-LESTE-SOURCE-SHARD-R1.json)。全库具名16词查询264文件/1402条零字面命中，无截断；复载与同源原发线索不重复计数。文莱2005 NST刊期为2025经营者复载所标，原刊未核；2023经营宣传含四柱概念，实际开业日期及当地教学未证。东帝汶2002、2019两篇报道描述求签而非出生排盘。TW-OPEN-0057 OPEN；不新增图谱边、历史首传年或算法裁决。
+紫微：两地均为有界检索后独立具名史证缺口；不以八字服务或求签填补紫微传播格。
