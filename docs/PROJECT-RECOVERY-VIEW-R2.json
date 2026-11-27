@@ -2,14 +2,14 @@
   "schema": "TIANWEN-CONTEXT-RECOVERY-VIEW-R2",
   "authority": "DERIVED_ONLY",
   "bindings": {
-    "docs/PROJECT-CURRENT-STATE-R1.json": "d760cb1aace94bf9715f3470bc93d793db02d250",
-    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "82e8af7b2f136ba452796eb60d37a7764c10d9f0",
+    "docs/PROJECT-CURRENT-STATE-R1.json": "67de814505e64f0d0a26e146b8f84e99b5d994eb",
+    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "1b1084850d297d038734805c8b122c20fc8576ad",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json": "d5081119bedd4afa0324a7eec36bc5b1ce4372c3",
-    "docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json": "44e33f772289f6edc9e51f3d2c9d0b77d6c625a5",
+    "docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json": "773dc3738235071f5dc45b22d37c2f1ea7c31327",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json": "5919e1b6bbc3c4b150507c41a13ccc9e13d20f17",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json": "ea2ab50479450c39ce3fc7a00ea91cd713bf4a60"
   },
-  "state_version": "1.1563.0",
+  "state_version": "1.1564.0",
   "stage": "FUSION_CHART_HISTORICAL_PROVENANCE_AND_SCHOOL_AUDIT_R1",
   "invariants": {
     "deterministic_fusion_chart_product_r1": "CLOSED",
@@ -26,25 +26,27 @@
     "extension_sources": 841,
     "total_sources": 1488,
     "shards": 276,
-    "graph_nodes": 506,
-    "graph_edges": 379,
+    "graph_nodes": 518,
+    "graph_edges": 382,
     "open_issues": 58,
     "p0": 5
   },
   "phase": "BREADTH_FIRST_TWO_SYSTEM_HISTORICAL_FRAMEWORK_R1",
-  "next_deliverable": "沿15FF-B继续独立整理紫微与四柱早期人物、关键近代出版及学会机构，核定题署、作品、授课、自述师承和独立关系证据；补足人物流派框架后复核广度验收门槛。TW-OPEN-0058及五P0保持原状态，排盘CLOSED。",
+  "next_deliverable": "沿15FF-D继续核定宋元具名术者及近现代东亚紫微/四柱出版人、学会与课程机构，补齐人物、地域及规则史独立导航，复核广度验收门槛。TW-OPEN-0058及五P0保持原状态，排盘CLOSED。",
   "latest_matrix_batch": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-FIRSTPARTY-AND-OLD20-ATLAS-QD.md",
   "latest_breadth_batch": "docs/research/TIANWEN-15BL-DUAL-HISTORY-ERA-REGION-RULE-BREADTH-COVERAGE-CROSSWALK-R1.md",
   "checkpoint": {
-    "id": "TW-CHECKPOINT-15FF-B-ACTOR-BACKFILL-20261127",
+    "id": "TW-CHECKPOINT-15FF-D-ACTOR-BACKFILL-20261127",
     "evidence_refs": [
       "docs/research/TIANWEN-15BL-DUAL-HISTORY-ERA-REGION-RULE-BREADTH-COVERAGE-CROSSWALK-R1.md",
-      "docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json"
+      "docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json",
+      "docs/research/TIANWEN-13ZD-TANG-LIXUZHONG-SIKU-CRITICAL-RECEIVED-WITNESSES-R1.md",
+      "docs/research/TIANWEN-15AP-WEI-QIANLI-1934-CORRESPONDENCE-TEACHING-ORIGINAL-FOLIOS-R1.md"
     ]
   },
   "focus": {
-    "index": 3258,
-    "text": "13ZZ CURRENT ACTION 15FF-B: dual-history structural review 15FF-A and first actor backfill: nine PERSON and two INSTITUTION nodes, four ATTESTS scoped only to received text or catalogue attribution, zero direct lineage upgrades. Seven existing shards read; no full registry absence claim. Graph506/379 (PERSON10 INSTITUTION4), sources1488/276 Matrix222/222 58 OPEN five P0 core CLOSED. NEXT continue early person and modern publication/association evidence anchors, separate claimed transmission from verified relations; global framework acceptance not complete.",
+    "index": 3259,
+    "text": "13ZZ CURRENT ACTION 15FF-D: second actor backfill following 15FF-C: ten PERSON and two INSTITUTION anchors, three ATTESTS limited to received-title or original-book attribution/imprint; no direct lineage upgrades. Li Xuzhong 813 epitaph received text distinguished from complete Bazi and later attributed books; Chen/Luo attribution disputed. Graph518/382 (PERSON20 INSTITUTION6), sources1488/276 Matrix222/222 58 OPEN five P0 core CLOSED. NEXT early Song/Yuan named practitioners and modern East Asian publication actors, then independent outlines and breadth gate.",
     "truncated": false
   },
   "p0": [
