@@ -818,3 +818,16 @@ CiNii BA61461510著录1955.8香港实学书店，另有大阪大学伊地智文�
 身份缺口：史纲已有万民英《三命通會》1578馆目、沈孝瞻《子平真詮》1776胡焜倬序原图局部、袁树珊1915书目和1951新版自序，以及徐乐吾系现代出版导航。陈素庵、胡焜倬、徐乐吾、袁树珊、万民英、沈孝瞻、越译者Chu Tước Nhi等应据各自已登记来源及题署角色回填。著作作者、评注者、发行者及译者不得直接等同于流派创始人；格局、旺衰、调候、用神等方法分类不等同于师承组织。共享／相邻身份见双史纲覆盖台账15FF-G；梁湘潤四柱锚点与1979紫微著作书目分层，不重复建人。
 
 入口：[15BL／15FF研究记录](research/TIANWEN-15BL-DUAL-HISTORY-ERA-REGION-RULE-BREADTH-COVERAGE-CROSSWALK-R1.md)、[图谱](TRANSMISSION-GENEALOGY-GRAPH-R1.json)、[Matrix](FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json)、[双史纲覆盖台账](TIANWEN-DUAL-HISTORY-COVERAGE-ATLAS-R1.md)。
+
+
+### 15FF-H｜著者、序者、评注者及译者（2026-11-27）
+
+| 身份 | 图谱节点 | 可证范围／未决 |
+|---|---|---|
+| 萬民英（清代书志所列） | `PERSON-WAN-MINYING-RECEIVED-ATTRIBUTION` | 明代著作归属；清编书志后出图像见证；《續文獻通考》卷182所见万氏与《三命通會》十二卷、《星學大成》十卷同列；不以清目认证明代亲笔、十八卷本责任或独立流派。 |
+| 沈孝瞻（《子平真诠》序文归属） | `PERSON-SHEN-XIAOZHAN-RECEIVED-PREFACE` | 1776署序；后出上海印本；胡序称手录三十九篇；现见47篇印本目录，八篇差额、原稿及编辑链未决。 |
+| 胡焜倬（字雲甫，序末署名） | `PERSON-HU-KUNZHUO-PREFACE` | 1776署序；后出上海印本；PDF第4页序三具年款及「同里後學胡焜倬雲甫謹識」；非1776亲笔实体或独立生平证明。 |
+| 徐樂吾（著述及评注书目归属） | `PERSON-XU-LEWU-CATALOG-ATTRIBUTION` | 1991–1996后出版本书目；1991署東海徐樂吾著，1995补注、1996注；不能把重印年当生平活动年或证明同底本及直接师承。 |
+| Chu Tước Nhi（越南国家书目译者） | `PERSON-CHU-TUOC-NHI-2011-TRANSLATOR` | 2011河内国家书目第33页第497条；《子平真詮》越译责任者；中文姓名、原底本、首译年份、实际授业和师承未证。 |
+
+不由上述责任者推定流派创立、传法或完整版本链。详见[15FF-H双史纲记录](research/TIANWEN-15BL-DUAL-HISTORY-ERA-REGION-RULE-BREADTH-COVERAGE-CROSSWALK-R1.md)。

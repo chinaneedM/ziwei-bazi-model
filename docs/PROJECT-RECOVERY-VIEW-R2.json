@@ -2,14 +2,14 @@
   "schema": "TIANWEN-CONTEXT-RECOVERY-VIEW-R2",
   "authority": "DERIVED_ONLY",
   "bindings": {
-    "docs/PROJECT-CURRENT-STATE-R1.json": "1ad63e293ef15a063fa742cbbe30689ba763b560",
-    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "9f23576b5bafd858d20d749771678f665b7fb022",
+    "docs/PROJECT-CURRENT-STATE-R1.json": "282d7c02dc0a26f250b4d25a0c820b43d5b7af29",
+    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "b240823efc0dc2e432222b322b8ba48d60acf03a",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json": "d5081119bedd4afa0324a7eec36bc5b1ce4372c3",
-    "docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json": "b08c59c9aee606951e7d8bebccc241ec7c12e8b9",
+    "docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json": "2844af839a3df6ebac91f550b8a0d82a40406cf8",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json": "5919e1b6bbc3c4b150507c41a13ccc9e13d20f17",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json": "ea2ab50479450c39ce3fc7a00ea91cd713bf4a60"
   },
-  "state_version": "1.1567.0",
+  "state_version": "1.1568.0",
   "stage": "FUSION_CHART_HISTORICAL_PROVENANCE_AND_SCHOOL_AUDIT_R1",
   "invariants": {
     "deterministic_fusion_chart_product_r1": "CLOSED",
@@ -26,29 +26,33 @@
     "extension_sources": 841,
     "total_sources": 1488,
     "shards": 276,
-    "graph_nodes": 539,
-    "graph_edges": 394,
+    "graph_nodes": 545,
+    "graph_edges": 397,
     "open_issues": 58,
     "p0": 5
   },
   "phase": "BREADTH_FIRST_TWO_SYSTEM_HISTORICAL_FRAMEWORK_R1",
-  "next_deliverable": "沿15FF-G优先补齐已有证据的紫微流派（中州／中洲及飞星题名边界）与四柱核心著作者、评注者和译者身份锚点，明确方法分类不等于师承组织；再完成双体系广度门槛逐项验收。TW-OPEN-0058及五P0原状，排盘CLOSED。",
+  "next_deliverable": "沿15FF-H继续回填袁树珊、陈素庵等具名责任者和其他译者、具名流派证据；中洲口述名称与中州讲义的同一性及飞星题名保留未证，不以格局、调候等方法分类制造师承。再逐项验收双体系广度门槛。TW-OPEN-0058及五P0原状，排盘CLOSED。",
   "latest_matrix_batch": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-FIRSTPARTY-AND-OLD20-ATLAS-QD.md",
   "latest_breadth_batch": "docs/research/TIANWEN-15BL-DUAL-HISTORY-ERA-REGION-RULE-BREADTH-COVERAGE-CROSSWALK-R1.md",
   "checkpoint": {
-    "id": "TW-CHECKPOINT-15FF-G-DUAL-OUTLINE-NAVIGATION-20261127",
+    "id": "TW-CHECKPOINT-15FF-H-SCOPED-SCHOOL-AND-BAZI-ACTORS-20261127",
     "evidence_refs": [
       "docs/research/TIANWEN-15BL-DUAL-HISTORY-ERA-REGION-RULE-BREADTH-COVERAGE-CROSSWALK-R1.md",
       "docs/TIANWEN-ZIWEI-HISTORICAL-OUTLINE-R1.md",
       "docs/TIANWEN-BAZI-HISTORICAL-OUTLINE-R1.md",
       "docs/TIANWEN-DUAL-HISTORY-COVERAGE-ATLAS-R1.md",
       "docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json",
-      "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json"
+      "docs/research/TIANWEN-15BD-ZIPING-ZHENQUAN-1776-HU-PREFACE-39-VS-47-SHANGHAI-RECEIVED-R1.md",
+      "docs/research/TIANWEN-15CE-XUWENXIANTONGKAO-182-WYG-IMAGE-AND-LOCATOR-COLLATION-R1.md",
+      "docs/research/TIANWEN-15DP-REGIONAL-XULEWU-RECEIVED-EDITIONS-R1.md",
+      "docs/research/TIANWEN-13ZV-VIETNAM-HAN-NOM-ZIWEI-BAZI-TRANSMISSION-R1.md",
+      "docs/research/TIANWEN-15AD-HONG-KONG-ZIWEI-TAIWAN-ZIPING-MODERN-TEACHING-NETWORKS-R1.md"
     ]
   },
   "focus": {
-    "index": 3262,
-    "text": "13ZZ CURRENT ACTION 15FF-G: independent dual outline navigation from exact graph and Matrix. All 47 actor anchors split Ziwei 12, Bazi 24, context 11; exact module ID lists 114/94/6/8, no historical completeness claim. SCHOOL nodes zero; existing Zhongzhou and other named evidence needs scoped school backfill, core Bazi authors/commentators/translators missing anchors. Graph539/394 sources1488/276 Matrix222/222 58 OPEN five P0 core CLOSED. NEXT scoped school/author/translator anchors then breadth acceptance.",
+    "index": 3263,
+    "text": "13ZZ CURRENT ACTION 15FF-H: one scoped SCHOOL from Wang Tingzhi modern Zhongzhou manual title, five Bazi named author/preface/commentator/translator anchors from 15BD/15CE/15DP/13ZV; three ATTESTS limited to title or catalogue responsibility. Zhongzhou vs Zhongzhou variant oral label and Feixing titles not established organizational lineage. Graph545/397 (PERSON41 INSTITUTION11 SCHOOL1), sources1488/276 Matrix222/222 58 OPEN five P0 core CLOSED. NEXT Yuan Shushan, Chen Suan, remaining translators and scoped school evidence, then breadth acceptance.",
     "truncated": false
   },
   "p0": [

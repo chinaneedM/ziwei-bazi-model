@@ -771,3 +771,13 @@ CiNii BB26426235著录1979.7台南西北出版社及琉球大学馆藏，母丛�
 流派缺口：王亭之中州派现代四化表及自述授受、禤百昌访谈中中洲派命名与讲义、飞星类作品题名应分别核实。中州／中洲字形不得仅凭近似合并；飞星书名不证流派成立或师承。三合、飞星、钦天等称谓应先查项目已有具名文献、术式、自称及年代，再决定能否建立独立SCHOOL节点。金緻《深谷秘訣》及越南范珪／范嘉運作为已研究待入图候选，不升级作者归属或师承。共享／相邻身份见双史纲覆盖台账15FF-G；阿部1958紫微见证与其四柱作品分开。
 
 入口：[15BL／15FF研究记录](research/TIANWEN-15BL-DUAL-HISTORY-ERA-REGION-RULE-BREADTH-COVERAGE-CROSSWALK-R1.md)、[图谱](TRANSMISSION-GENEALOGY-GRAPH-R1.json)、[Matrix](FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json)、[双史纲覆盖台账](TIANWEN-DUAL-HISTORY-COVERAGE-ATLAS-R1.md)。
+
+
+### 15FF-H｜流派题名边界（2026-11-27）
+
+| 身份 | 图谱节点 | 可证范围／未决 |
+|---|---|---|
+| 中州派（王亭之署名讲义所见） | `SCHOOL-ZIWEI-ZHONGZHOU-WANG-MODERN` | 现代讲义见证；1986署序／2004转载为相邻人物证据；仅确认现代讲义题名及其规则表达；不确认流派成立时间、组织法人、独家正统、刘／陆师承或与口述「中洲派」同一性。 |
+
+中州／中洲：15AD 的2010禤百昌访谈回忆1981／1982年前未听过「中洲派」，是后出记忆，不能据同音认定与王亭之讲义所署「中州派」同一或互斥；不据此建立第二个已证流派组织。民国《飛星紫微斗數原旨》、1972第三版《飛星紫微斗數》、1975合集、1607十八飞星及现代四化飞星分别是题名或机械证据层，不证明同一组织或直传。格局、旺衰、调候、用神等为术理分类，不等于师承组织。
+详见[15FF-H双史纲记录](research/TIANWEN-15BL-DUAL-HISTORY-ERA-REGION-RULE-BREADTH-COVERAGE-CROSSWALK-R1.md)。

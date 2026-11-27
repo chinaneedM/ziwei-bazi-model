@@ -1599,3 +1599,17 @@ B：澳门大学1963-/1965-两馆目、Google Books 1963第二卷；C：现代�
 不发布综合完成百分比，不宣布广度通过，不新增史源或图谱节点。
 
 入口：[15BL／15FF研究记录](research/TIANWEN-15BL-DUAL-HISTORY-ERA-REGION-RULE-BREADTH-COVERAGE-CROSSWALK-R1.md)、[图谱](TRANSMISSION-GENEALOGY-GRAPH-R1.json)、[Matrix](FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json)、[双史纲覆盖台账](TIANWEN-DUAL-HISTORY-COVERAGE-ATLAS-R1.md)。
+
+
+### 15FF-H 续补（覆盖初审之后，非终验）
+
+| 身份 | 图谱节点 | 可证范围／未决 |
+|---|---|---|
+| 中州派（王亭之署名讲义所见） | `SCHOOL-ZIWEI-ZHONGZHOU-WANG-MODERN` | 现代讲义见证；1986署序／2004转载为相邻人物证据；仅确认现代讲义题名及其规则表达；不确认流派成立时间、组织法人、独家正统、刘／陆师承或与口述「中洲派」同一性。 |
+| 萬民英（清代书志所列） | `PERSON-WAN-MINYING-RECEIVED-ATTRIBUTION` | 明代著作归属；清编书志后出图像见证；《續文獻通考》卷182所见万氏与《三命通會》十二卷、《星學大成》十卷同列；不以清目认证明代亲笔、十八卷本责任或独立流派。 |
+| 沈孝瞻（《子平真诠》序文归属） | `PERSON-SHEN-XIAOZHAN-RECEIVED-PREFACE` | 1776署序；后出上海印本；胡序称手录三十九篇；现见47篇印本目录，八篇差额、原稿及编辑链未决。 |
+| 胡焜倬（字雲甫，序末署名） | `PERSON-HU-KUNZHUO-PREFACE` | 1776署序；后出上海印本；PDF第4页序三具年款及「同里後學胡焜倬雲甫謹識」；非1776亲笔实体或独立生平证明。 |
+| 徐樂吾（著述及评注书目归属） | `PERSON-XU-LEWU-CATALOG-ATTRIBUTION` | 1991–1996后出版本书目；1991署東海徐樂吾著，1995补注、1996注；不能把重印年当生平活动年或证明同底本及直接师承。 |
+| Chu Tước Nhi（越南国家书目译者） | `PERSON-CHU-TUOC-NHI-2011-TRANSLATOR` | 2011河内国家书目第33页第497条；《子平真詮》越译责任者；中文姓名、原底本、首译年份、实际授业和师承未证。 |
+
+当前 PERSON41／INSTITUTION11／SCHOOL1，旧15FF-G的47个身份锚点为当时快照；现人物及机构共52个，另1个限定流派。58 OPEN五P0原状态不变。中州／中洲：15AD 的2010禤百昌访谈回忆1981／1982年前未听过「中洲派」，是后出记忆，不能据同音认定与王亭之讲义所署「中州派」同一或互斥；不据此建立第二个已证流派组织。民国《飛星紫微斗數原旨》、1972第三版《飛星紫微斗數》、1975合集、1607十八飞星及现代四化飞星分别是题名或机械证据层，不证明同一组织或直传。格局、旺衰、调候、用神等为术理分类，不等于师承组织。
