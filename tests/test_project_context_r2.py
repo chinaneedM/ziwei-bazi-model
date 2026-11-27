@@ -159,8 +159,12 @@ class ContextR2Tests(unittest.TestCase):
                 self.assertEqual(proc.returncode, 0, proc.stdout[-2000:] + proc.stderr[-3000:])
                 result = json.loads(proc.stdout.strip().splitlines()[-1])
                 expected = "STALE_CHECKPOINT" if extra == ["request"] else "PASS"
-                self.assertEqual(result["status"], expected)
-                reports[script + " " + " ".join(extra)] = result["status"]
+                # The original omission verifier intentionally reports "result";
+                # other gates report "status". Keep both contracts unchanged.
+                field = ("result" if script == "scripts/verify-research-omission-risk-ledger-r1.py"
+                         else "status")
+                self.assertEqual(result[field], expected, f"{script}: {result}")
+                reports[script + " " + " ".join(extra)] = result[field]
             self.assertEqual((ROOT / mod["PATHS"]["ledger"]).read_bytes(), original_ledger)
             candidate_ledger = json.loads((candidate / mod["PATHS"]["ledger"]).read_bytes())
             self.assertEqual(len(candidate_ledger["issues"]), 59)
