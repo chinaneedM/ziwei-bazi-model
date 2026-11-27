@@ -312,3 +312,111 @@ transmission_impact: MATERIAL_EVIDENCE_SCOPED_GRAPH_BACKFILL — 8 nodes, 7 scop
 **transmission_impact**：新增8节点（4文字见证篇页/聚合入口及4规则族）及TG-E0458–0461共4条受读限定ATTESTS；现代争议两来源为聚合索引，不等同同一本书或独立原件；不新增直接承袭或师承边。现代工程规则保留Matrix/配置导航，不为了覆盖率造历史见证。图630/461，来源1488/276，Matrix222/222，58开放五P0及核心CLOSED保持。第一阶段未终验。
 
 状态1.1575.0；NEXT：15FF-Q续：复核双体系核心规则族索引完整性（按222个Matrix ID逐项区分历史规则、现代实现与未决候选）、58项风险和第一阶段四项验收门槛；保留目标原页及独立传承缺口。
+
+
+## G. 15FF-Q续｜222规则ID全覆盖导航及广度门槛复核（2026-11-27）
+
+基线 264b28ffddb6d4be9369f7e8c5b0e15979af4f98，tree c3572c39861fb30abf3660b6d373bd72bf0c34ab；R2六绑定与docs树一致，连续性精确HEAD运行45975156521成功；读取285项Actions时284成功、clean-training-system仍运行，不称全绿。Matrix 5919e1b6bbc3c4b150507c41a13ccc9e13d20f17、ledger 4efcb2d760cfd4db135417bca01e9552f1cab204、graph 5589340cabc42f0a126248657dd6fc2c9c8abf7f。已复核两史纲、覆盖台账、15FF-P、15BL/15FF-O、12QD及本检查点；无新来源准入或原页校勘，不作全分片无命中判断。
+
+### G1. 全量规则ID导航（可复算，不是新增历史裁决）
+
+逐条读取Matrix rows；222个唯一ID与222个已审计ID集合完全相同。按ID前缀及现有状态聚合，以下后缀与首列前缀连接即完整ID。H=历史支持104，S=流派特定25，D=多候选27，M=现代相容50，I=来源不足11，P=产品未含4，N=尚未形式化1。历史支持不自动代表原刻直证；现代/产品/结构字段不冒充古法；混合前缀不代替system字段（紫微114、四柱94、共享／组合14）。本索引仅提供逐ID可回查入口，不能证明222条均已建立独立版本—篇页—规则族链。
+
+| 完整ID前缀 | 现有状态及三位后缀 | 条数 |
+|---|---|---:|
+| HPA-TIME | M: 001, 002, 003, 004, 005, 011；H: 006；D: 007, 008, 009；S: 010 | 11 |
+| HPA-BAZI | M: 001, 016, 018, 019；H: 017, 020, 002, 003, 004, 006, 007, 008, 009, 011, 012, 013, 014；D: 005, 010；I: 015 | 20 |
+| HPA-DAYUN | S: 001；H: 002, 003, 004；M: 005, 006, 007 | 7 |
+| HPA-XIAOYUN | D: 001, 002 | 2 |
+| HPA-SHENSHA | D: 001, 004, 005, 007, 008, 009, 010, 014, 015, 016, 017；H: 002, 003, 006, 011, 013, 018, 019, 021；S: 012, 020 | 21 |
+| HPA-BAZI-FLOW | M: 001, 005, 006, 007；H: 002, 003, 004, 008, 009, 010 | 10 |
+| HPA-ZIWEI | D: 001, 007, 012, 025；H: 002, 003, 004, 005, 006, 010, 013, 014, 015, 016, 017, 018, 019, 020, 021, 022, 024；I: 008, 011, 023, 026；M: 009 | 26 |
+| HPA-ZT | H: 001, 002, 003, 004, 005, 006, 007, 008, 013；S: 009, 010, 012, 015；D: 011, 014；N: 016 | 16 |
+| HPA-STRUCT | M: 001, 002, 003, 012, 004, 005, 006, 007, 008, 014, 016, 018, 020；S: 009, 010, 011, 013, 015, 017, 019 | 20 |
+| HPA-COMB | M: 001, 002, 003, 004, 005, 006, 007, 008 | 8 |
+| HPA-ZMINOR | H: 001, 002, 003, 004, 005, 006, 007, 008, 009, 010, 011, 012, 013, 014, 015, 016, 017, 018, 019, 020, 021, 023；I: 022, 024, 025, 026, 027 | 27 |
+| HPA-ZAUX | H: 001；S: 002, 003, 004, 005, 007, 008；M: 006 | 8 |
+| HPA-ZTEMP | H: 001, 002, 003, 004, 007；S: 005, 006 | 7 |
+| HPA-ZTIME | S: 001；M: 002 | 2 |
+| HPA-ZDATE | M: 001, 002, 004, 005；D: 003；P: 006 | 6 |
+| HPA-BTIME | M: 001；H: 002, 003, 004 | 4 |
+| HPA-DAYUN-SEQ | H: 001, 002 | 2 |
+| HPA-BAFF | H: 001, 002 | 2 |
+| HPA-BREL | H: 001, 002, 003, 004, 005, 006, 007, 008, 009, 012；D: 010；M: 011 | 12 |
+| HPA-BCAND | D: 001 | 1 |
+| HPA-BHIDDEN | H: 001；I: 002；S: 003 | 3 |
+| HPA-DAYUN-CAL | H: 001；P: 002, 003, 004；M: 005, 006, 007 | 7 |
+
+### G2. 本命辅星、杂曜、四化、庙陷、三环补足导航
+
+以下47条为对A/D等既有本命主星重点索引之外的紫微本命及杂曜条目的补充；定位原样取自Matrix，而非本轮新核原文。所列捷览CH为受读章节定位，尚未与1581子4051目标原刻逐页绑定，不从目录升级为直接原页。现代实现与既有源流索引分别读取。
+
+| Matrix ID | 规则／字段 | 状态 | 既有证据定位 |
+|---|---|---|---|
+| HPA-ZIWEI-001 | Ziwei day-boundary policy | D | S01:ZZZA-A-0052..0057; S01:ZZZA-CF-001; EXT-ZIWEI-QUANSHU-NANYANGTANG-SCAN PDF p.320; docs/research/ZIWEI-QUANSHU-NANYANGTANG-LATE-ZI-DIRECT-COLLATION-R1.json |
+| HPA-ZIWEI-007 | Core auxiliary placement | D | EXT-ZIWEI-JIELAN-1581:CH22／CH25／CH27; S01:ZZZA-PR-016..021 |
+| HPA-ZIWEI-008 | Operational minor-star family R4 | I | EXT-ZIWEI-JIELAN-1581:CH24; S01:ZZQS-A-1854/1855; minor-star rule routes |
+| HPA-ZIWEI-009 | Operational R4 dignity states | M | docs/ZIWEI-DIGNITY-ANNOTATION-PROVENANCE-R1.md; EXT-ZIWEI-JIELAN-1581:CH69／CH70 |
+| HPA-ZIWEI-010 | Ten-stem four-transformation assignment | H | EXT-ZIWEI-JIELAN-1581:CH23; S08-ASG-01..40 |
+| HPA-ZIWEI-011 | 博士/将前/岁前三环 | I | docs/research/ZIWEI-THREE-RING-SOURCE-SCOPE-AUDIT-R1.json |
+| HPA-ZIWEI-012 | Star role/dependency identities | D | EXT-ZIWEI-JIELAN-1581:CH31／CH32; S01:ZZQS-A-1995..1997／2003..2004 |
+| HPA-ZIWEI-013 | Body-palace Ganzhi visibility | H | S01:ZZQS-A-1744 and ZZQS-A-1755..1756 (received Fullbook atoms already audited in Batch 06); src/fortune_training/combined_chart_application/ziwei_basic_info_assets.py:palaceGanzhi |
+| HPA-ZIWEI-014 | Competing Four-Transformation table families | H | EXT-ZIWEI-JIELAN-1581:CH23; EXT-SHIDIAN-ZWDSQS-FOUR-TRANSFORMATIONS; S01:ZZZA-A-0393..0395 |
+| HPA-ZIWEI-015 | 1581 Jielan Kui/Yue Geng-stem variant | H | EXT-ZIWEI-JIELAN-1581:CH25 |
+| HPA-ZIWEI-016 | 1581 Jielan Fire/Bell 巳酉丑 starting-branch variant | H | EXT-ZIWEI-JIELAN-1581:CH27 |
+| HPA-ZIWEI-017 | TianShang/TianShi fixed Life-palace geometry | H | EXT-ZIWEI-JIELAN-1581:CH24; S01:ZZQS-A-1854/1855 |
+| HPA-ZIWEI-018 | 1581 Jielan historical dignity table | H | EXT-ZIWEI-JIELAN-1581:CH69／CH70 |
+| HPA-ZIWEI-019 | Five-bureau Changsheng ring anchor and direction | H | EXT-ZIWEI-JIELAN-1581:CH19; S01:ZZZA-PR-057 |
+| HPA-ZIWEI-021 | Fu/Bi, Chang/Qu, DiKong/DiJie early-print placement geometry | H | EXT-ZIWEI-JIELAN-1581:CH22 |
+| HPA-ZIWEI-022 | 1581 Jielan Mingzhu birth-year-branch basis | H | EXT-ZIWEI-JIELAN-1581:CH31 |
+| HPA-ZIWEI-023 | Zi/Wu Shenzhu Fire/Bell textual composite | I | EXT-ZIWEI-JIELAN-1581:CH32; S01:ZZQS-A-2003 |
+| HPA-ZIWEI-024 | Boshi Twelve-God ring | H | EXT-ZIWEI-JIELAN-1581:BOSHI12; S01:ZZQS-A-1862..1866 |
+| HPA-ZMINOR-001 | 天哭 / 天虚 birth-year-branch geometry | H | S01:ZZQS-A-1886; S01:ZZQS-A-1887 |
+| HPA-ZMINOR-002 | 红鸾 / 天喜 birth-year-branch geometry | H | S01:ZZQS-A-1918; S01:ZZQS-A-1919 |
+| HPA-ZMINOR-003 | 龙池 / 凤阁 birth-year-branch geometry | H | S01:ZZQS-A-1893 |
+| HPA-ZMINOR-004 | 台辅 / 封诰 birth-hour geometry | H | S01:ZZQS-A-1899; S01:ZZQS-A-1905 |
+| HPA-ZMINOR-005 | 天刑 / 天姚 lunar-month geometry | H | S01:ZZQS-A-1872; S01:ZZQS-A-1873 |
+| HPA-ZMINOR-006 | Year-based 解神 geometry (modern 年解 display) | H | S01:ZZQS-A-1945; EXT-ZIWEI-QUANSHU-RECEIVED / 卷二《安天德月德解神诀》 |
+| HPA-ZMINOR-007 | 天厨 birth-year heavenly-stem ten-value table | H | EXT-WIKISOURCE-XINGXUE-DACHENG-TIANCHU / 《星学大成》(四库全书本)卷一《论天厨》; S01:ZZZA-PR-023 |
+| HPA-ZMINOR-008 | 天寿 Body-palace basis + birth-year-branch offset | H | EXT-ZIWEI-JIELAN-1581 / 卷一第35章《安天才天寿台辅封诰星诀》; S01:ZZZA-A-0830..0834 |
+| HPA-ZMINOR-009 | 天官 / 天福 birth-year-stem tables | H | EXT-ZIWEI-JIELAN-1581 / 卷一第37章《安天官贵人星诀》、第38章《安天福贵人星诀》; S01:ZZZA-PR-022 |
+| HPA-ZMINOR-010 | 天空 birth-year-branch next-palace geometry | H | EXT-ZIWEI-JIELAN-1581 / 卷一第39章《安天空星诀》; S01:ZZZA-PR-027 |
+| HPA-ZMINOR-011 | 旬中空亡 two-branch pair geometry (旬空 / 副旬 presentation split) | H | EXT-ZIWEI-JIELAN-1581 / 卷一第40章《定旬中空亡诀》; S01:ZZZA-PR-025 |
+| HPA-ZMINOR-012 | 截路空亡 / 截空 pair and 正空/傍空 ordering | H | EXT-ZIWEI-JIELAN-1581 / 卷一第41章《定截路空亡诀》; S01:ZZZA-PR-024 |
+| HPA-ZMINOR-013 | 孤辰 / 寡宿 birth-year-branch group table | H | EXT-ZIWEI-JIELAN-1581 / 卷一第43章《安孤辰寡宿星诀》; S01:ZZZA-PR-030 |
+| HPA-ZMINOR-014 | 劫煞 birth-year-branch trine-group table | H | EXT-ZIWEI-JIELAN-1581 / 卷一第44章《安劫杀星诀》; S01:ZZZA-PR-031 |
+| HPA-ZMINOR-015 | 华盖 birth-year-branch trine-group table | H | EXT-ZIWEI-JIELAN-1581 / 卷一第45章《安华盖星诀》; S01:ZZZA-PR-035 |
+| HPA-ZMINOR-016 | 咸池 placement geometry / 1581 桃花杀 naming bridge | H | EXT-ZIWEI-JIELAN-1581 / 卷一第46章《安桃花杀诀》; S01:ZZZA-PR-036 |
+| HPA-ZMINOR-017 | 大耗 birth-year-branch placement | H | EXT-ZIWEI-JIELAN-1581 / 卷一第47章《安大耗杀诀》; S01:ZZZA-PR-032 |
+| HPA-ZMINOR-018 | 破碎 birth-year-branch group table | H | EXT-ZIWEI-JIELAN-1581 / 卷一第48章《安破碎杀诀》; S01:ZZZA-PR-034 |
+| HPA-ZMINOR-019 | 天才 Life-palace basis + birth-year-branch offset | H | EXT-ZIWEI-JIELAN-1581 / 卷一第35章《安天才天寿台辅封诰星诀》; S01:ZZZA-PR-041 |
+| HPA-ZMINOR-020 | Standalone 蜚廉 birth-year-branch table vs 博士十二神 飞/蜚廉 identity | H | EXT-SHIDIAN-LISHIMINGYUAN-FEILIAN; EXT-CTEXT-XINGLI-KAOYUAN-FEILIAN; EXT-WIKISOURCE-XIEJI-BIANFANG-FEILIAN; docs/research/ZIWEI-STANDALONE-FEILIAN-HISTORICAL-IDENTITY-CLOSURE-R1.json |
+| HPA-ZMINOR-021 | 龙德 birth-year-branch +7 geometry / 岁前十二神 projection | H | EXT-ZIWEI-JIELAN-1581 / 卷一第49章《安生年太岁十二神诀》; S01:ZZZA-PR-037 |
+| HPA-ZMINOR-022 | Natal 月德 birth-year Si-start geometry and historical adoption scope | I | EXT-CTEXT-SHENFENG-TONGKAO / 鸾喜二德解神歌; S01:ZZQS-A-1944; EXT-ZIWEI-QUANSHU-RECEIVED / 卷二《安天德月德解神诀》 |
+| HPA-ZMINOR-023 | 月解 / month-based 解神 two-month table | H | EXT-SHIDIAN-LISHIMINGYUAN-JIESHEN; EXT-CTEXT-XINGLI-KAOYUAN-JIESHEN; EXT-WIKISOURCE-XIEJI-BIANFANG-JIESHEN; docs/research/ZIWEI-MONTH-JIESHEN-HISTORICAL-IDENTITY-CLOSURE-R1.json |
+| HPA-ZMINOR-024 | 天巫 lunar-month table | I | EXT-SHIDIAN-LISHIMINGYUAN-TIANWU; EXT-CTEXT-XINGLI-KAOYUAN-TIANWU; EXT-WIKISOURCE-XIEJI-BIANFANG-TIANWU; docs/research/ZIWEI-TIANWU-HOMONYM-MECHANICAL-SEPARATION-R1.json |
+| HPA-ZMINOR-025 | 天月 lunar-month twelve-value table | I | EXT-IZTRO-TIANYUE-MODERN; EXT-XSTARS-TIANYUE-MODERN; docs/research/ZIWEI-TIANYUE-MODERN-RECEIVED-SOURCE-BOUNDARY-R1.json |
+| HPA-ZMINOR-026 | 阴煞 lunar-month six-palace cycle | I | EXT-IZTRO-YINSHA-MODERN; EXT-XSTARS-YINSHA-MODERN; docs/research/ZIWEI-YINSHA-MODERN-RECEIVED-SOURCE-BOUNDARY-R1.json |
+| HPA-ZIWEI-025 | TaiSui / Suiqian twelve-member birth-branch ring: geometry vs label candidates | D | EXT-ZIWEI-JIELAN-SHIXINGJI-RECEIVED-RINGS 卷一（五）; docs/research/ZIWEI-THREE-RING-SOURCE-SCOPE-AUDIT-R1.json |
+| HPA-ZIWEI-026 | Jiangqian twelve-member trine-wang ring and temporal/source scope | I | EXT-WANGTINGZHI-ANXING-RECEIVED-RING-TEXT printed pp47–48 heading40; EXT-ZIWEI-JIELAN-1581:CH58; docs/research/ZIWEI-JIANGQIAN-TEMPORAL-SOURCE-SCOPE-CLOSURE-R1.json |
+| HPA-ZMINOR-027 | Natal 天德 birth-year You-start geometry and historical adoption scope | I | EXT-CTEXT-SHENFENG-TONGKAO / 鸾喜二德解神歌; S01:ZZQS-A-1943; EXT-ZIWEI-QUANSHU-RECEIVED / 卷二《安天德月德解神诀》 |
+
+已有图谱的关键分族核对（读实际节点与边）：
+- 四化 HPA-ZIWEI-010/014：TG-E0157–0162 保留《捷览》CH23、识典《全书》卷三、中州王亭之三表的限定见证及平行关系；ZT-016仍N，不从十干四化推出自化方向。
+- 庙陷 HPA-ZIWEI-009/018：TG-E0163/0164 连接CH69/70原始语词规则族；现代庙旺显示为M，不以古籍存在推出现行整表。
+- 蜚廉 ZMINOR-020：TG-E0117–0124 分开年支表与博士飞廉；解神 ZMINOR-006/023：E0125–0134 分开月与年基；天巫 ZMINOR-024：E0135–0144 历法月神与紫微四马月表平行，不能以同名补历史采用。
+- 天德/月德 ZMINOR-022/027、ZTEMP-007：E0145–0151 只支持相应年运、岁支起位或结构候选；本命采纳与流年分立，不补作确定传承。天才/天寿 ZMINOR-019/008：E0152–0154 分命宫与身宫输入。天月/阴煞 ZMINOR-025/026保持I。
+- 辅星魁钺庚干、火铃巳酉丑、命主/身主火铃合词、博士/将前/岁前三环，按ZIWEI-007/011/012/015/016/019/021–026独立处理；CH25/27/31/32与现代归一化不可混同。剩余杂曜和动态条目只有Matrix/受读入口者，不强造原页图谱边。四柱FLOW及STRUCT/COMB全ID已在G1定位，现代时间投影与古典本命继承需分别追证，不能以历史支持字样证明古代已有七层软件结构。
+
+### G3. 58项风险及四门槛复核（非终验）
+
+完整读取58项风险对象，核验每项证据边界、缺失证据、下一动作、关闭条件字段存在；58项均未解决，其中BLOCKED_SOURCE_ACCESS 3、OPEN 55，P0五项不动。未实施各项原页取证，字段存在不代表内容实证充分。产品未含四项逐项交叉：HPA-ZDATE-006 → TW-OPEN-0006；HPA-DAYUN-CAL-002 → TW-OPEN-0008；HPA-DAYUN-CAL-003 → TW-OPEN-0010；HPA-DAYUN-CAL-004 → TW-OPEN-0011。其他53项P1仍留原优先级；0003/0004/0009属抄本身份/卷页，0012–0017属早期源流与跨域术式，0018–0051属实际使用、原刊、书目和近现代出版传播，0052–0058属东南亚及全球区域边界。分组仅导航，不改变原条目。
+
+| 第一阶段门槛 | 本轮有限判定 | 未完成边界 |
+|---|---|---|
+| 双史纲可读、按时代和证据 | 结构具备；两份史纲有独立时间线及来源索引 | 旧段落的时间性缺口与新增批次需合并阅读；未完成历史事实终验 |
+| 时代×知识×地域覆盖表 | 结构具备；15FF-O三轴及U/E/A/B/C/D分层 | 13地域组非国家穷举；未把材料条目数当覆盖率 |
+| 关键作品版本与规则族 | 222/222 ID导航、24术式模块已具；图谱630/461 | 仍部分符合：原刻目标篇页、动态规则、杂曜、四柱派生/神煞等链未完全建立；不能以本索引代替证据链 |
+| 风险与矛盾公开保留 | 58条在册，五P0、四未入产品均有入口 | 风险台账明确非穷尽；需对剩余未建图/未具原页链按证据缺口逐项归并，不能以台账数字宣告全史完成 |
+
+下一步：优先复用现有杂曜/四化/三环和四柱动态字段的历史审计报告，对G2所列源入口逐族判定已存在的篇页图谱、限定受读或尚缺证据（不制造重复节点）；随后将G1全量导航与图谱规则族做双向可查映射，区分纯现代字段，不以222条机械建222节点。再评估第三/第四门槛，第一阶段暂不终验。此检查点只增加索引和结构审查，未改变任何权威历史裁决、风险状态、源登记、图谱、产品或当前下一任务；因此六个权威JSON和R2视图保持不变，不另增语义版本。transmission_impact: NONE。
