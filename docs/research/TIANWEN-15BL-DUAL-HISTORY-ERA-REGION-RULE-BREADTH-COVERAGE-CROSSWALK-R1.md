@@ -93,3 +93,7 @@
 **事件/载体分层**：15EQ六载体五记录组；15ER七来源载体（国家书目一个载体两出版条目）；15ES五来源仅两明确BAZI命名载体。无新传承边。三批合计18条已登记来源，本轮不得重复累计。[菲律宾](TIANWEN-15EQ-PHILIPPINES-ZIWEI-BAZI-NEWSPAPER-TEACHING-CHECKPOINT-R1.md)、[越南](TIANWEN-15ER-PHILIPPINES-EARLY-ARCHIVES-VIETNAM-COVERAGE-CHECKPOINT-R1.md)、[缅柬老](TIANWEN-15ES-MYANMAR-CAMBODIA-LAOS-METHOD-IDENTITY-CHECKPOINT-R1.md)。早期档案/原版/课程实开及师承仍是下一阶段深度问题；五P0不变。
 
 **恢复及下一步**：基线 `0c801c08bef0e50313a915d38515ab4613453648` / tree `af688e505ffbd95dccd565483736811b8f93e235`；[exact continuity](https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/45935996189) SUCCESS，六绑定逐项与真实docs目录吻合；其他Actions仍有运行/排队，不记全绿。直接解析权威state和ledger并核读上述三批实际18条来源记录及检查点，发现三份总纲均止于15EP，现前向补齐。不改历史来源或图谱；新查询仅用于下一轮文莱/东帝汶地域盘点，必须领取当前manifest绑定的真实全库结果，核对实际内容、异名及事件地，不能由路径或字面零命中宣告历史不存在。来源1402（647+755/263片），图495/375，Matrix222/222，56 OPEN含五P0，核心CLOSED。
+
+
+### 15EU候选补查（2026-11-27）
+[15EU](./TIANWEN-15EU-BRUNEI-TIMOR-LESTE-REGIONAL-METHOD-IDENTITY-CHECKPOINT-R1.md)：15ET全库15地名查询PASS（264文件/1402条，零命中、无截断）；文莱2005报纸剪报复载/2023经营宣传、东帝汶2002/2019求签报道待候选查重，未正式准入。TW-OPEN-0057 OPEN，两地独立紫微与在地子平仍待核。不增加正式来源。
