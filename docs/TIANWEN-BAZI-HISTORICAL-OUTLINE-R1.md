@@ -849,3 +849,26 @@ CiNii BA61461510著录1955.8香港实学书店，另有大阪大学伊地智文�
 
 日本两种透派书题名分别建TERM_CONCEPT，非正式组织SCHOOL证据；1985所见题名不回填1971。佐藤两种NDL典据号保持分别著录，未认证实际人物互相关系；各版责任者字段差异不被统一改写。民国陈氏原著、袁氏序、韦氏选辑与清原抄本分别记录。
 详[15FF-I双史纲记录](research/TIANWEN-15BL-DUAL-HISTORY-ERA-REGION-RULE-BREADTH-COVERAGE-CROSSWALK-R1.md)。
+
+
+### 15FF-J｜欧洲及越南四柱著译身份（2026-11-27）
+
+| 身份 | 图谱节点 | 可证范围／未决 |
+|---|---|---|
+| Jean-Michel de Kermadec | `PERSON-KERMADEC-RECEPTION` | 1983英译／1984法语修订／1995法语后作；原著责任；1981初版、英译所据法文版次、古法底本与师承未核。 |
+| N. Derek Poulsen | `PERSON-POULSEN-RECEPTION` | 1983伦敦英译书目；译者责任，原法文底本版次未决。 |
+| John Blofeld | `PERSON-BLOFELD-RECEPTION` | 1983伦敦英译书目；序者责任，不据序文身份判定本人四柱术法或师承。 |
+| Manfred Kubny | `PERSON-KUBNY-RECEPTION` | 2000德语出版；现代课程页；著者及课程自述；十二宫归源紫微是现代主张，不作独立紫微术式或古源证明。 |
+| Goh Guan Leong | `PERSON-GOH-GUAN-LEONG-RECEPTION` | 2014／2015法语两卷馆目；翻译／改编责任，保留两个独立原题及版次；不推定首译或同一底本。 |
+| Philippe Bonin | `PERSON-BONIN-RECEPTION` | 2017巴黎法定送存；与Thierry Lautard合著书目；不证医学效力、实授或师承。 |
+| Thierry Lautard | `PERSON-LAUTARD-RECEPTION` | 2017巴黎法定送存；与Philippe Bonin合著书目；不证医学效力、实授或师承。 |
+| Thiệu Vĩ Hoa／邵伟华 | `PERSON-SHAO-WEIHUA-RECEPTION` | 1996越译机构馆目；2005商目；原著责任；两版404/408页差异、原书底本及首译时间未决。 |
+| Nguyễn Văn Mậu | `PERSON-NGUYEN-VAN-MAU-RECEPTION` | 1996越译机构馆目；2005商目；译者责任，不擅定汉字姓名，不因同名书目判同版或直接传授。 |
+| Trúc Lâm Tử（署名） | `PERSON-TRUC-LAM-TU-RECEPTION` | 2004年12月巴黎署序受读；拟自行出版与网站免费传播的自述，不证实际印行、上线或家属转述史实；与紫微台湾出版社Trúc Lâm不合并。 |
+| Lê Văn Triệu | `PERSON-LE-VAN-TRIEU-RECEPTION` | 2018出版／2019海防新书目录；具名著者目录，原书正文及具体术式未核。 |
+| Nguyễn Ngọc Hải | `PERSON-NGUYEN-NGOC-HAI-RECEPTION` | 2021出版／2022国家书目125；《Tử Bình nhập môn》编者责任；具体底本和编订改动未核。 |
+| Nguyễn Văn Chinh | `PERSON-NGUYEN-VAN-CHINH-RECEPTION` | 2021出版／2022国家书目125；同册校者责任；不等于原著者或实际授课。 |
+| Quảng Tuệ | `PERSON-QUANG-TUE-RECEPTION` | 2021再版／2022国家书目131；《Tự xem Bát tự Tứ trụ》具名责任者；再版不等于初版，未核原书及身份异名。 |
+
+法语紫微关联属于现代接受史，不证明所见书原版机械规则；1989／1990／2004不能定初版。越南1974／1975《Tử Bình Thuyết Minh》作者候选Đỗ Đình Tuân及HOA-LƯ署名关系未裁决，不新增确定身份。Trúc Lâm Tử是署名文本，不与紫微底本出版社Trúc Lâm混同。未增加源登记或未证师承，TW-OPEN-0055/0058及五P0保留。
+详[15FF-J双史纲记录](research/TIANWEN-15BL-DUAL-HISTORY-ERA-REGION-RULE-BREADTH-COVERAGE-CROSSWALK-R1.md)。

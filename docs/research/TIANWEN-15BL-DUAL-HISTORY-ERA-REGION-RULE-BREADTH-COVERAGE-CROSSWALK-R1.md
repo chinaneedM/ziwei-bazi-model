@@ -287,3 +287,44 @@ transmission_impact：新增1 SCHOOL、5 PERSON；3 ATTESTS仅确认讲义题名
 日本两种透派书题名分别建TERM_CONCEPT，非正式组织SCHOOL证据；1985所见题名不回填1971。佐藤两种NDL典据号保持分别著录，未认证实际人物互相关系；各版责任者字段差异不被统一改写。民国陈氏原著、袁氏序、韦氏选辑与清原抄本分别记录。
 
 transmission_impact：新增9 PERSON、2 TERM_CONCEPT、10 ATTESTS仅限定所见题名、序文及书目责任；无新增TRANSMITS_RULE或直接师承关系。图556/407（PERSON50、INSTITUTION11、SCHOOL1）；来源1488/276、Matrix222/222、58 OPEN五P0、核心CLOSED不变。NEXT 欧洲与越南著译身份补全，再广度逐项验收。
+
+
+## 15FF-J｜欧洲与越南著译及版本责任（2026-11-27）
+
+| 身份 | 图谱节点 | 可证范围／未决 |
+|---|---|---|
+| Jean-Michel de Kermadec | `PERSON-KERMADEC-RECEPTION` | 1983英译／1984法语修订／1995法语后作；原著责任；1981初版、英译所据法文版次、古法底本与师承未核。 |
+| N. Derek Poulsen | `PERSON-POULSEN-RECEPTION` | 1983伦敦英译书目；译者责任，原法文底本版次未决。 |
+| John Blofeld | `PERSON-BLOFELD-RECEPTION` | 1983伦敦英译书目；序者责任，不据序文身份判定本人四柱术法或师承。 |
+| Manfred Kubny | `PERSON-KUBNY-RECEPTION` | 2000德语出版；现代课程页；著者及课程自述；十二宫归源紫微是现代主张，不作独立紫微术式或古源证明。 |
+| Goh Guan Leong | `PERSON-GOH-GUAN-LEONG-RECEPTION` | 2014／2015法语两卷馆目；翻译／改编责任，保留两个独立原题及版次；不推定首译或同一底本。 |
+| Philippe Bonin | `PERSON-BONIN-RECEPTION` | 2017巴黎法定送存；与Thierry Lautard合著书目；不证医学效力、实授或师承。 |
+| Thierry Lautard | `PERSON-LAUTARD-RECEPTION` | 2017巴黎法定送存；与Philippe Bonin合著书目；不证医学效力、实授或师承。 |
+| Võ Văn Em | `PERSON-VO-VAN-EM-RECEPTION` | 1990商目合著；1989／2004异年未决；后出软件自述引用合著，2024回顾师承非同期独立档案；原刊记、具体术式未核。 |
+| François Villée | `PERSON-FRANCOIS-VILLEE-RECEPTION` | 1990商目合著；2024回顾；1996起教学为后出传述，不能确认同期授课或直接师承；原书版年未决。 |
+| Nguyen Ngoc-Rao | `PERSON-NGUYEN-NGOC-RAO-RECEPTION` | 1999巴黎馆目；后出软件手册；BnF著者字段与软件归属主张分层；不推定具体印次用于软件、机械等价或中文姓名。 |
+| Thiệu Vĩ Hoa／邵伟华 | `PERSON-SHAO-WEIHUA-RECEPTION` | 1996越译机构馆目；2005商目；原著责任；两版404/408页差异、原书底本及首译时间未决。 |
+| Nguyễn Văn Mậu | `PERSON-NGUYEN-VAN-MAU-RECEPTION` | 1996越译机构馆目；2005商目；译者责任，不擅定汉字姓名，不因同名书目判同版或直接传授。 |
+| Trúc Lâm Tử（署名） | `PERSON-TRUC-LAM-TU-RECEPTION` | 2004年12月巴黎署序受读；拟自行出版与网站免费传播的自述，不证实际印行、上线或家属转述史实；与紫微台湾出版社Trúc Lâm不合并。 |
+| Lê Văn Triệu | `PERSON-LE-VAN-TRIEU-RECEPTION` | 2018出版／2019海防新书目录；具名著者目录，原书正文及具体术式未核。 |
+| Nguyễn Ngọc Hải | `PERSON-NGUYEN-NGOC-HAI-RECEPTION` | 2021出版／2022国家书目125；《Tử Bình nhập môn》编者责任；具体底本和编订改动未核。 |
+| Nguyễn Văn Chinh | `PERSON-NGUYEN-VAN-CHINH-RECEPTION` | 2021出版／2022国家书目125；同册校者责任；不等于原著者或实际授课。 |
+| Quảng Tuệ | `PERSON-QUANG-TUE-RECEPTION` | 2021再版／2022国家书目131；《Tự xem Bát tự Tứ trụ》具名责任者；再版不等于初版，未核原书及身份异名。 |
+
+| 版本馆目 | 图谱节点 | 证据边界 |
+|---|---|---|
+| 1983伦敦《The way to Chinese astrology》英译 | `EDITION-EU-1983-KERMADEC-EN` | CiNii BA50619850；法文底本版次未核。 |
+| 2000《Traditionelle chinesische Astrologie》德语卷一 | `EDITION-EU-2000-KUBNY-DE` | 出版社与机构履历同一出版对象，非两个物证。 |
+| 2014法语《Les quatre piliers de la destinée》第一卷 | `EDITION-EU-2014-GOH-FR-V1` | BnF FRBNF43872379，原题 Essentials of four pillars。 |
+| 2015法语《Les quatre piliers de la destinée》第二卷 | `EDITION-EU-2015-GOH-FR-V2` | BnF FRBNF44401890，原题 Four pillars of destiny。 |
+| 2017巴黎《Le Bazi, 4 piliers de la destinée》 | `EDITION-EU-2017-BONIN-LAUTARD` | BnF FRBNF45268406；原书正文及医学效果未裁决。 |
+| 《La Véritable Astrologie Chinoise》1990商目所列 | `EDITION-EU-1990-VO-VILLEE-CATALOG` | ISBN9782713801280，原刊记及530/531页差异未决；紫微关联为后出软件引用，不证原书具体规则。 |
+| 1999巴黎《L’astrologie chinoise authentique》 | `EDITION-EU-1999-RAO-FR` | BnF FRBNF37113260；软件引用与具体印次同一性未核。 |
+| 1996河内《Dự đoán theo tứ trụ》 | `EDITION-VN-1996-SHAO-TRANSLATION` | GSL000048777，404页；2005商目408页另存，原版及首译未核。 |
+| 2018《Thực hành dự đoán theo tứ trụ》 | `EDITION-VN-2018-LE-VAN-TRIEU` | DVN.040535，2019海防目录；未阅原书。 |
+| 2021《Tử Bình nhập môn》 | `EDITION-VN-2021-TUBINH-NHAPMON` | 国家书目2022.2条125 s502625；未阅原书。 |
+| 2021《Tự xem Bát tự Tứ trụ》再版 | `EDITION-VN-2021-TUXEM-BATTU` | 国家书目2022.2条131 s503300；与125同一书目载体但不同出版对象。 |
+
+法语紫微关联属于现代接受史，不证明所见书原版机械规则；1989／1990／2004不能定初版。越南1974／1975《Tử Bình Thuyết Minh》作者候选Đỗ Đình Tuân及HOA-LƯ署名关系未裁决，不新增确定身份。Trúc Lâm Tử是署名文本，不与紫微底本出版社Trúc Lâm混同。未增加源登记或未证师承，TW-OPEN-0055/0058及五P0保留。
+
+transmission_impact：17 PERSON、11 EDITION、17 ATTESTS仅责任字段；图584/424（PERSON67、INSTITUTION11、SCHOOL1），源1488/276、Matrix222/222、58 OPEN五P0、核心CLOSED。NEXT 双体系广度门槛逐项验收；缺口保留，不宣布历史完备。

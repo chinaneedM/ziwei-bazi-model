@@ -794,3 +794,15 @@ CiNii BB26426235著录1979.7台南西北出版社及琉球大学馆藏，母丛�
 
 日本两种透派书题名分别建TERM_CONCEPT，非正式组织SCHOOL证据；1985所见题名不回填1971。佐藤两种NDL典据号保持分别著录，未认证实际人物互相关系；各版责任者字段差异不被统一改写。民国陈氏原著、袁氏序、韦氏选辑与清原抄本分别记录。
 详[15FF-I双史纲记录](research/TIANWEN-15BL-DUAL-HISTORY-ERA-REGION-RULE-BREADTH-COVERAGE-CROSSWALK-R1.md)。
+
+
+### 15FF-J｜法语紫微相关接受史身份（2026-11-27）
+
+| 身份 | 图谱节点 | 可证范围／未决 |
+|---|---|---|
+| Võ Văn Em | `PERSON-VO-VAN-EM-RECEPTION` | 1990商目合著；1989／2004异年未决；后出软件自述引用合著，2024回顾师承非同期独立档案；原刊记、具体术式未核。 |
+| François Villée | `PERSON-FRANCOIS-VILLEE-RECEPTION` | 1990商目合著；2024回顾；1996起教学为后出传述，不能确认同期授课或直接师承；原书版年未决。 |
+| Nguyen Ngoc-Rao | `PERSON-NGUYEN-NGOC-RAO-RECEPTION` | 1999巴黎馆目；后出软件手册；BnF著者字段与软件归属主张分层；不推定具体印次用于软件、机械等价或中文姓名。 |
+
+法语紫微关联属于现代接受史，不证明所见书原版机械规则；1989／1990／2004不能定初版。越南1974／1975《Tử Bình Thuyết Minh》作者候选Đỗ Đình Tuân及HOA-LƯ署名关系未裁决，不新增确定身份。Trúc Lâm Tử是署名文本，不与紫微底本出版社Trúc Lâm混同。未增加源登记或未证师承，TW-OPEN-0055/0058及五P0保留。
+详[15FF-J双史纲记录](research/TIANWEN-15BL-DUAL-HISTORY-ERA-REGION-RULE-BREADTH-COVERAGE-CROSSWALK-R1.md)。
