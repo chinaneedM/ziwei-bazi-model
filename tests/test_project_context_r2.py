@@ -60,5 +60,55 @@ class ContextR2Tests(unittest.TestCase):
             self.assertEqual(set(result["per_term_matching_files"]), set(q["terms"]))
             self.assertEqual(result["registry_manifest_blob_sha"], q["manifest_blob_sha"])
 
+
+    def test_ledger_dependency_inventory_for_storage_migration(self):
+        """Read-only exact-HEAD static inventory; no storage or validation changes."""
+        import subprocess
+
+        revision = subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT,
+                                  capture_output=True, text=True)
+        if revision.returncode:
+            self.skipTest("dependency inventory requires a Git checkout")
+        head = revision.stdout.strip()
+
+        def grep_paths(terms):
+            args = ["git", "grep", "-I", "-l", "-F"]
+            for term in terms:
+                args.extend(["-e", term])
+            args.extend([head, "--"])
+            proc = subprocess.run(args, cwd=ROOT, capture_output=True, text=True)
+            self.assertIn(proc.returncode, (0, 1), proc.stderr)
+            prefix = head + ":"
+            return sorted(line[len(prefix):] for line in proc.stdout.splitlines()
+                          if line.startswith(prefix))
+
+        groups = {
+            "ledger_path_or_schema": [
+                "RESEARCH-OMISSION-RISK-LEDGER-R1.json",
+                "TIANWEN-RESEARCH-OMISSION-RISK-LEDGER-R1",
+            ],
+            "ledger_fields": ["checkpoint_log", "reviewed_state_version",
+                              "source_focus_count", "record_statuses("],
+            "verifier_entrypoint": ["verify-research-omission-risk-ledger-r1.py"],
+        }
+        report = {"head": head, "scope": "ALL_TRACKED_TEXT_STATIC_LITERAL_REFERENCES"}
+        for key, terms in groups.items():
+            paths = grep_paths(terms)
+            # Evidence documents and JSON data beneath docs/ are not executable
+            # readers; retain counts and identify every other matching file.
+            evidence = [p for p in paths if p.startswith("docs/") and
+                        Path(p).suffix.lower() in {".json", ".md", ".txt"}]
+            executable_or_config = [p for p in paths if p not in evidence]
+            report[key] = {
+                "total": len(paths), "docs_data_count": len(evidence),
+                "other_paths": executable_or_config,
+            }
+        direct = report["ledger_path_or_schema"]["other_paths"]
+        self.assertIn("scripts/project-context-r2.py", direct)
+        self.assertIn("scripts/verify-research-omission-risk-ledger-r1.py", direct)
+        self.assertIn(".github/workflows/verify-research-omission-continuity.yml", direct)
+        print("TIANWEN_LEDGER_DEPENDENCY_INVENTORY " +
+              json.dumps(report, ensure_ascii=False, separators=(",", ":")), flush=True)
+
 if __name__ == "__main__":
     unittest.main()

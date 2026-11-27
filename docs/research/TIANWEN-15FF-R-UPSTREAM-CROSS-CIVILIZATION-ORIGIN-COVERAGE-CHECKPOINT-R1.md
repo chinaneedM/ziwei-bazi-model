@@ -715,3 +715,16 @@ Wellcome 1885 Iyer、BL EAP1294/2/33仅馆目；Thomann 2008限书目及反向�
 4. 如果当前执行通道仍无法写入4MB台账，不得反复提交同一失败尝试。保留本checkpoint，转向不改变权威状态且可合规完成的原始资料调查；长期可评估保留全部历史、兼容全部调用者及CI门禁的台账分片方案，但未经过完整依赖审计和验证不实施迁移。
 
 transmission_impact=NONE；本次仅保全未完成研究工作及恢复合同，不更改正式语义状态、计数或历史裁决。当前研究保持广度优先、不终验。
+
+
+### 11b. 大台账存储治理：实际分布与依赖审计（2026-11-27）
+
+基线 HEAD `22955d20275975654eac5cf0be7324ed59ea79f8`、tree `b83665851b199814f89a63f81d9492bbb486e652`。6个canonical binding核对一致；20 Actions中19成功、clean-training-system未完成；未把无触发的continuity当作当前成功。实际本地 git ls-remote 再试，github.com DNS不可解析。保留§11的六条候选和正式1499来源；不重试已证实失败的大blob写入。
+
+原ledger完整解析（实际UTF-8 4,070,463字节），issues数组2,456,296字节、checkpoint_log数组1,612,785字节。TW-OPEN-0005一条2,198,111字节，其中history 741条、2,020,129字节，source_refs 1089条/91,331字节；TW-OPEN-0058 63,218字节。检查点按既有顺序每100条的大小分别为69,500/72,203/70,731/80,958/82,887/97,538/97,813/133,679/196,816/568,735字节，末18条141,935。单按issue分片仍会保留一个2.2MB的大热点；单按条数分组亦不能约束UTF-8字节。优先评估基于真实字节上限的不可变历史块+小型活动头/清单，不删除或重写任何既有语义记录，不把衍生视图改为权威。
+
+已实际读取主要代码：scripts/verify-research-omission-risk-ledger-r1.py 的 read(LEDGER)与parent_revision直接从HEAD^同路径json反序列化，check_forward_only比较完整history/checkpoint前缀；scripts/project-context-r2.py 的make_view和SHA绑定直接使用六权威原始文件；tests/test_research_omission_risk_ledger_r1.py使用verifier.read(m.LEDGER)，tests/test_project_context_r2.py还直接从PATHS读取原始ledger并构造投影。现有workflow的路径过滤与父提交fetch-depth=2也需兼容。已检查verify-project-continuity-state-r1.py及两图谱脚本，没有发现该路径直接引用；不是全库无其它依赖的证明。
+
+**本提交仅在现有R2测试文件追加只读静态依赖清点，不增加workflow、不改权限、不改变任何原有断言。** CI在实际checkout对全部Git tracked text执行git grep，输出HEAD及三类精确字面命中（ledger路径/Schema、字段、verifier入口），docs中的JSON/MD/TXT仅计数，其他文件路径完整输出。需要领取精确HEAD成功日志中 TIANWEN_LEDGER_DEPENDENCY_INVENTORY，逐一检查实际调用语义，尤其历史工作流的直接读取、父版本对比、测试fixtures及脚本动态路径。静态字面清单不是动态调用图；迁移必须额外复核间接导入及路径拼装。不得把无匹配或未领取CI结果称作完成审计。
+
+候选迁移验收原则：①使用唯一权威manifest绑定各原始块，复原完整旧JSON并逐对象与基线完全相等（含所有历史、顺序、未知字段）；②所有活跃读取者和Git父版本对比同时支持旧格式与分片格式，历史workflow按实际兼容需要处理，不降级已有校验；③R2绑定必须覆盖全部权威块，不能只哈希未绑定的索引；④按UTF-8上限分块，旧块不可改写，任何新增变更经过原有validate及check_forward_only；⑤现有测试全通过并增加缺块/篡改/重复/顺序/错误parent/状态失配的负向测试；⑥迁移与六条史料正式准入可独立验证，不把迁移成功等同历史裁决。无完整依赖审计及兼容验证前不实施迁移。当前任务仍为TW-OPEN-0059，59未决五P0、核心CLOSED、不终验。
