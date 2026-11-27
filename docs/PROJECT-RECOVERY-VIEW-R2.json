@@ -2,14 +2,14 @@
   "schema": "TIANWEN-CONTEXT-RECOVERY-VIEW-R2",
   "authority": "DERIVED_ONLY",
   "bindings": {
-    "docs/PROJECT-CURRENT-STATE-R1.json": "16c33a7656e668d2c3bf646e60a8dc72c9ab07e7",
-    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "fdd533d0216d1562f6fb88564003eb71d020c8e8",
-    "docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json": "88dc59635a757dd38e81e331cb7be3633b9fa2a9",
+    "docs/PROJECT-CURRENT-STATE-R1.json": "6cf41ede653a06cf7b38bc37c8f68e20781a7040",
+    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "ad1c049285ac0ae84d8dba13f364f4b1ff6e9a5f",
+    "docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json": "b843e86d310218b52d25eef111ac5b99fca112b8",
     "docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json": "280e023bcd6e0625f0dca2fd54d6c9423f286fd5",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json": "5919e1b6bbc3c4b150507c41a13ccc9e13d20f17",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json": "ea2ab50479450c39ce3fc7a00ea91cd713bf4a60"
   },
-  "state_version": "1.1551.0",
+  "state_version": "1.1552.0",
   "stage": "FUSION_CHART_HISTORICAL_PROVENANCE_AND_SCHOOL_AUDIT_R1",
   "invariants": {
     "deterministic_fusion_chart_product_r1": "CLOSED",
@@ -23,30 +23,28 @@
     "matrix_rows": 222,
     "matrix_audited": 222,
     "root_sources": 647,
-    "extension_sources": 802,
-    "total_sources": 1449,
-    "shards": 269,
+    "extension_sources": 807,
+    "total_sources": 1454,
+    "shards": 270,
     "graph_nodes": 495,
     "graph_edges": 375,
     "open_issues": 58,
     "p0": 5
   },
   "phase": "BREADTH_FIRST_TWO_SYSTEM_HISTORICAL_FRAMEWORK_R1",
-  "next_deliverable": "领取15EZ完整全库查重，核智利2003同期课程公告及组织者回忆、乌拉圭2009八字教材与访问限制、哥伦比亚具名传播记录、智利紫微术名；继续拉美其余地区、非洲、中西亚。TW-OPEN-0058 OPEN，排盘CLOSED。",
+  "next_deliverable": "继续15FA拉美其余区域（厄瓜多尔、玻利维亚、巴拉圭、委内瑞拉及中美洲/加勒比）具名紫微及四柱传播来源；再推进非洲、中西亚。智利2003广告原图、乌拉圭2009教材、哥伦比亚实际授课与师承维持未决，TW-OPEN-0058 OPEN，排盘CLOSED。",
   "latest_matrix_batch": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-FIRSTPARTY-AND-OLD20-ATLAS-QD.md",
   "latest_breadth_batch": "docs/research/TIANWEN-15EZ-CHILE-COLOMBIA-URUGUAY-REGIONAL-COVERAGE-CHECKPOINT-R1.md",
   "checkpoint": {
-    "id": "TW-CHECKPOINT-15EZ-PROVISIONAL-20261127",
+    "id": "TW-CHECKPOINT-15EZ-ADMITTED-20261127",
     "evidence_refs": [
-      "docs/research/TIANWEN-15EY-LATIN-AMERICA-REGIONAL-COVERAGE-CHECKPOINT-R1.md",
-      "docs/research/TIANWEN-15EY-S-LATIN-AMERICA-SOURCE-SHARD-R1.json",
       "docs/research/TIANWEN-15EZ-CHILE-COLOMBIA-URUGUAY-REGIONAL-COVERAGE-CHECKPOINT-R1.md",
-      "docs/PROJECT-REGISTRY-QUERY-R2.json"
+      "docs/research/TIANWEN-15EZ-CHILE-COLOMBIA-URUGUAY-SOURCE-SHARD-R1.json"
     ]
   },
   "focus": {
-    "index": 3246,
-    "text": "13ZZ CURRENT ACTION 15EZ PROVISIONAL: a8c19624 continuity run45945587471/job140329413724 SUCCESS; 15EY-S full query 269 files/1448 records, known Silva ISBN shard only, no truncation. One 2007 Boada attributed repost admitted. Chile Ecovisiones no9 announces Joseph Yu 2003-10-16/19 four pillars course, organizer Lucía Boero later self-report; cover seen but target image timeout, extracted ad only. Uruguay Diana Torales 2009 blog indexed Bazi mechanical material, live direct 429; Colombia 2012/13 Boada location and Murcia retrospective, not verified class delivery. Chile explicit Ziwei name undated, no Ziwei class. Sources1449/269 graph495/375 Matrix222/222 58 OPEN five P0 core CLOSED. NEXT 15EZ full query.",
+    "index": 3247,
+    "text": "13ZZ CURRENT ACTION 15EZ ADMITTED: exact db5ed8a7 continuity run45946123169/job140331127311 PASS; 270 files/1449 records, one known Boada shard, no truncation; five bounded direct received texts (Chile organizer retrospective and named two systems; Uruguay Bazi course and distinct Ziwei interface; Colombia 2012 dated locality context, same author as 2007). Chile ad target image timeout and Uruguay 2009 blog blocked remain unadmitted; no actual delivery/lineage or chart algorithm verdict. Sources1454/270 shards graph495/375 Matrix222/222 58 OPEN five P0 core CLOSED. NEXT 15FA remaining Latin America, then Africa and Middle/Central Asia.",
     "truncated": false
   },
   "p0": [
