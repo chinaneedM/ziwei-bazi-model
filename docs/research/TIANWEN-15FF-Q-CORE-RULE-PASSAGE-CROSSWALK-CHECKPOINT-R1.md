@@ -212,3 +212,28 @@ transmission_impact: NONE（证据交叉索引；不新增传承或同本关系�
 状态1.1571.0；58项风险及五P0保持，追加同步检查点。R2视图与图、状态、台账同一原子提交。连接器完整缩进台账写入发生h2传输中断，改用等价紧凑JSON序列化，所有原有issues和checkpoint内容保留，仅新增当前checkpoint并更新binding。此前计划的1600/1607与南阳堂安命安身族未在本次提交落地，留下一轮继续；不得把候选分析当作已入图。确定性排盘CLOSED。
 
 transmission_impact: MATERIAL_EVIDENCE_SCOPED_GRAPH_BACKFILL — 8 nodes, 7 scoped edges, no direct textual dependence or teacher lineage, no algorithm reopen.
+
+### 15FF-Q续｜三组安命安身原页规则族入图（2026-11-27）
+
+复用已登记、已核局部原页的14T、14I、13ZZ及15AU/15AT，**本轮未重新取得或逐字校勘原扫描**。三个已登记分片及其原source ID保持不变。1600为NCL06593卷六p160刊记；1607为《续道藏》收录层；南阳堂确切印年未定。作品形成、版本、物件、替身年代不互代。
+
+| 物件／目标篇页 | 安命子族 | 安身子族 | Matrix边界 |
+|---|---|---|---|
+| NCL06593《渊海》p3〈論安身命法〉 | 子起正月逆月，生时顺至卯 | 同坐标续至酉 | HPA-BAZI-011/012为同形旁证，不替代指定《三命通会》与《神峰通考》原页 |
+| NLC892/411999007380第167册p29、31–32 | 天杖由子逆月、杖宫标生时顺至卯 | 天杖按生日逆数，二日半一宫 | 十八飞星独立家族；半日边界、p32极性异文未裁；不套HPA-ZIWEI-002十四主星排盘 |
+| NAJ子060-0001卷三图73–75 | 寅起正月顺月，子时逆至生时 | 同月位子时顺至生时 | HPA-ZIWEI-002普通月时；闰正月按二月为该页例，不据此统一其他流派闰月 |
+
+复算15AU普通月时144组：1600与1607安命144/144相同，南阳堂与两者144/144不同。1600安身与1607生日步距不同；不裁1607半日进位。不把宋元日家太阳宿度安命、月时安命及身宫归一。只证所引见证下的规则结构，不证预测有效性、原始创制者或直接抄传。TW-OPEN-0012、58项未决及五P0继续保留。
+
+**transmission_impact**：新增独立篇页1及规则族6；节点ID如下（原有卷一照胆、卷三本命篇页复用）：
+- `PASSAGE-YUANHAI-06593-J1-MINGSHEN`：喬山堂本卷一〈論安身命法〉
+- `RULE-FAMILY-BAZI-YUANHAI-MONTH-REVERSE-HOUR-FORWARD-TO-MAO`：1600《渊海》子起正月逆月、生时顺至卯安命
+- `RULE-FAMILY-BAZI-YUANHAI-MONTH-HOUR-TO-YOU-BODY`：1600《渊海》同月时坐标续数至酉安身
+- `RULE-FAMILY-ZIWEI-XUDAOZANG-TIANZHANG-HOUR-TO-MAO-LIFE`：《续道藏》十八飞星天杖宫生时顺至卯安命
+- `RULE-FAMILY-ZIWEI-XUDAOZANG-TIANZHANG-BIRTHDAY-REVERSE-BODY`：《续道藏》天杖宫按生日逆数二日半一宫安身
+- `RULE-FAMILY-ZIWEI-NANYANGTANG-MONTH-FORWARD-HOUR-REVERSE-LIFE`：南阳堂十四主星法寅起正月顺月、子时逆数安命
+- `RULE-FAMILY-ZIWEI-NANYANGTANG-MONTH-FORWARD-HOUR-FORWARD-BODY`：南阳堂十四主星法寅起正月顺月、子时顺数安身
+
+新增TG-E0432–0438为直接见证范围内ATTESTS；TG-E0439仅同形子函数的PARALLEL_COEXISTS_WITH。无旧边修改、无确认师承/抄写边。图599节点/439边；来源1488（647+841，276分片）、Matrix222/222不变；算法不重开，确定性核心CLOSED。历史问题：指定《三命通会》《神峰》原页、1600/1607互引或独立更早见证、1607生日半步及南阳堂精确印年均不能由本次回填结案。
+
+状态1.1572.0；NEXT：15FF-Q续：补齐剩余紫微本命主星/十二宫/五寅/局数及历法时间规则的作品—版次—篇页—图谱链接；核验1581《捷览》目标页边界；复核58项风险及第一阶段验收门槛。
