@@ -237,3 +237,35 @@ transmission_impact: MATERIAL_EVIDENCE_SCOPED_GRAPH_BACKFILL — 8 nodes, 7 scop
 新增TG-E0432–0438为直接见证范围内ATTESTS；TG-E0439仅同形子函数的PARALLEL_COEXISTS_WITH。无旧边修改、无确认师承/抄写边。图599节点/439边；来源1488（647+841，276分片）、Matrix222/222不变；算法不重开，确定性核心CLOSED。历史问题：指定《三命通会》《神峰》原页、1600/1607互引或独立更早见证、1607生日半步及南阳堂精确印年均不能由本次回填结案。
 
 状态1.1572.0；NEXT：15FF-Q续：补齐剩余紫微本命主星/十二宫/五寅/局数及历法时间规则的作品—版次—篇页—图谱链接；核验1581《捷览》目标页边界；复核58项风险及第一阶段验收门槛。
+
+### 15FF-Q续｜紫微本命宫序、五寅、纳音与主星规则证据分层（2026-11-27）
+
+依据既有13ZZ、Batch 04、Batch 06、15AM及14I的原页核读与受读记录。南阳堂图0074/0075原镜像本轮重新获取失败（连接环境DNS及网页读取不通）；只复用旧图像哈希和既有核读范围，不声称重新核验字形。南阳堂子060-0001图0074（SHA256 78406c40bc7826d8b89bc2e17a9b1eeba80172d0092d68ec2327cfb728ca89b4）确见安十二宫、起五寅、纳音篇题；图0075（SHA256 eb711a4260ce9e9c074082563726a7bd1ad661df575a7b1300a56eb2b66c3a65）为两组星序，未将完整宫序、五组起干、全部六十纳音、局数和星位偏移升级为该古本逐字证据。1581《捷览》子4051馆目及2016影印开卷仅证明版本、署名及框架；CH20–22仍限定现代受读，不声称1581原印目标叶已核。四层年代及物件身份不合并。
+
+| Matrix | 已有精确受读锚 | 机械边界 |
+|---|---|---|
+| HPA-ZIWEI-003 | S01 ZZQS-A-1749/1751 | 命兄妻子财疾迁奴官田福父逆布，现代显示称谓与宫位几何分离 |
+| HPA-ZIWEI-004 | S01 ZZQS-A-1755/1756 | 甲己丙、乙庚戊、丙辛庚、丁壬壬、戊癸甲起寅；10年干×12宫形式化奇偶合法性120/120，非产品运行回归或史料实测 |
+| HPA-ZIWEI-005 | S01 ZZQS-A-1747、1760–1767 | 命宫干支→纳音五行→局，甲年命寅丙寅炉中火→火局；五局数字及生日安星另证 |
+| HPA-ZIWEI-006/020 | 《捷览》CH20–22受读、15AM | 金四局初三紫微丑天府卯，初八紫微卯天府丑；分开紫微北斗逆行、天府南斗顺行，原刻全图与偏移待核 |
+| 独立十八飞星 | 14I第167册p29–30 | 未起子年顺至生年支，寅年紫微酉；与五局生日输入不同，不并入十四主星族 |
+
+**transmission_impact**：新增5篇页、9规则族及TG-E0440–0451共12条限定ATTESTS。仅南阳堂图75向两组星序结构建直接页证边；图74篇题不向完整机械映射强建证据边。受读各规则明确标记RECEIVED_TEXT。节点列表：
+- `PASSAGE-NAJ-NANYANGTANG-J3-IMAGE74`：南阳堂卷三图0074安十二宫例、起五寅例、纳音
+- `PASSAGE-NAJ-NANYANGTANG-J3-IMAGE75`：南阳堂卷三图0075南北斗星序
+- `PASSAGE-FULLBOOK-S01-NATAL-PALACES-STEMS-BUREAU`：受读《全书》安十二宫、起五寅、纳音及定局
+- `PASSAGE-JIELAN-RECEIVED-CH20-21-ZIWEI-TIANFU`：《捷览》现代受读CH20–21安紫微天府诀及安紫府图
+- `PASSAGE-JIELAN-RECEIVED-CH22-DIPPER-SEQUENCE`：《捷览》现代受读CH22布南北二斗诸星诀
+- `RULE-FAMILY-ZIWEI-RECEIVED-TWELVE-PALACE-REVERSE-ORDER`：命宫起十二宫逆序排列
+- `RULE-FAMILY-ZIWEI-RECEIVED-FIVE-TIGERS-PALACE-STEMS`：年干五组起寅宫干再顺布十二宫干
+- `RULE-FAMILY-ZIWEI-RECEIVED-NAYIN-GANZHI-ELEMENT`：六十甲子纳音五行映射
+- `RULE-FAMILY-ZIWEI-RECEIVED-LIFE-PALACE-NAYIN-BUREAU`：命宫干支纳音决定五行局
+- `RULE-FAMILY-ZIWEI-JIELAN-RECEIVED-BUREAU-BIRTHDAY-ZIWEI`：五行局与生日查紫微天府位置
+- `RULE-FAMILY-ZIWEI-NORTH-SOUTH-DIPPER-GROUP-STRUCTURE`：南北斗两组布星结构
+- `RULE-FAMILY-ZIWEI-JIELAN-RECEIVED-NORTH-DIPPER-REVERSE-SEQUENCE`：紫微天机星逆行的北斗星序
+- `RULE-FAMILY-ZIWEI-JIELAN-RECEIVED-SOUTH-DIPPER-FORWARD-SEQUENCE`：天府太阴顺贪狼的南斗星序
+- `RULE-FAMILY-ZIWEI-XUDAOZANG-YEAR-BRANCH-ZIWEI-ANCHOR`：《续道藏》未起子顺至出生年支安紫微
+
+无新来源、无独立物理见证、无新增师承/抄传、无Matrix修改、无算法重开。图613/451；来源1488（647+841，276分片），Matrix222/222，58 OPEN及五P0原状，核心CLOSED。第一阶段尚未终验。待核《捷览》原刻CH20–22与南阳堂具体表行及星位，保留TW-OPEN-0012等既有线索。
+
+状态1.1573.0；NEXT：15FF-Q续：补紫微与四柱历法时间、换日、闰月、节月、时刻坐标独立证据链；复核所有58项风险及广度第一阶段验收门槛；保留《捷览》CH20–22目标原刻与南阳堂精确条目待核。
