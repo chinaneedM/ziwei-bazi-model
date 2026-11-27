@@ -516,7 +516,7 @@ NEXT：15FF-M以同一分格口径复用中国唐宋元至民国和日韩／越�
 | 日本 | `UUUUUU` | `UUUUUU` | `UUUUUU` | `DEDEEE` | `UUUUUU` | `EEEEEE` | `UUUUUU` |
 | 越南 | `UUUUUU` | `UUUUUU` | `UUUUUU` | `UUUUUU` | `UUUUUU` | `CEEBEE` | `EEEEEE` |
 | 其他东南亚 | `UUUUUU` | `UUUUUU` | `UUUUUU` | `UUUUUU` | `UUUUUU` | `CAAACE` | `UUUUUU` |
-| 欧洲 | `UUUUUU` | `UUUUUU` | `UUUUUU` | `UUUUUU` | `UUUUUU` | `CCCCCC` | `UUUUUU` |
+| 欧洲 | `UUUUUU` | `UUUUUU` | `UUUUUU` | `UUUUUU` | `UUUUUU` | `CCCECC` | `UUUUUU` |
 | 北美 | `UUUUUU` | `UUUUUU` | `UUUUUU` | `UUUUUU` | `UUUUUU` | `CEEAAE` | `UUUUUU` |
 | 大洋洲 | `UUUUUU` | `UUUUUU` | `UUUUUU` | `UUUUUU` | `UUUUUU` | `UUUUUU` | `UUUUUU` |
 | 拉丁美洲 | `UUUUUU` | `UUUUUU` | `UUUUUU` | `UUUUUU` | `UUUUUU` | `CCCCCC` | `UUUUUU` |
@@ -527,7 +527,7 @@ NEXT：15FF-M以同一分格口径复用中国唐宋元至民国和日韩／越�
 
 | 地域组 | 960年前 | 960–1367 | 1368–1644 | 1645–1911 | 1912–1949 | 1950–2026 | 未断年／跨期 |
 |---|---|---|---|---|---|---|---|
-| 中国大陆 | `CEEEEE` | `ACCEEE` | `AAACCA` | `CECEEE` | `AAAEAA` | `UUUUUU` | `AAEEEA` |
+| 中国大陆 | `CEEEEE` | `ADDEEE` | `AAACCA` | `DEDEEE` | `AAAEAE` | `UUUUUU` | `AAAEAA` |
 | 香港 | `UUUUUU` | `UUUUUU` | `UUUUUU` | `UUUUUU` | `UUUUUU` | `EEEEEE` | `UUUUUU` |
 | 台湾 | `UUUUUU` | `UUUUUU` | `UUUUUU` | `UUUUUU` | `UUUUUU` | `CCCCCC` | `UUUUUU` |
 | 朝鲜／韩国 | `UUUUUU` | `UUUUUU` | `AAEEEA` | `CEEEEE` | `UUUUUU` | `UUUUUU` | `UUUUUU` |
@@ -565,3 +565,8 @@ NEXT：15FF-M以同一分格口径复用中国唐宋元至民国和日韩／越�
 ### 5. 第二门槛判定与仍需做的工作
 
 **有限结构判定：双体系三轴覆盖清单已形成，可供框架验收；不判定全历史覆盖或全部规则实证达成。** 13大地域组与六历史时代是本轮自主选定的导航粒度，不是世界所有国家、所有流派、所有历史时期的细粒度普查。明确U/E及原页A作用域，未确认的古典原叶与谱系继续OPEN，特别五P0和0052–0058；未将没有新证据的E或U自动膨胀为新的风险，先复用58项旧台账。首两门槛仅结构符合，第一阶段整体正式验收未通过。下一步15FF-P：以Matrix 16个紫微模块、8个四柱模块（不含共享组合）对接关键作品、版本、具体规则族与既有原页/受读/异法，重点对主辅杂曜、庙旺、限运、神煞、十神、格局、起运、小运建立可回溯入口并列缺口，完成第三门槛版本及规则源流骨架验收；继而图谱与风险闭合检查。保持广度优先，不无限搜索现代服务网页。本轮仅索引、计数校验及已有报告/Matrix对照；没有新增外部原页、历史裁决、来源/风险/图谱/算法或权威语义状态改变，不更新state/ledger/R2。
+
+
+### 15FF-O 同轮前向复核勘误
+
+原提交 fb0921913f6097f7f32861d2163c47a49b5f8161 的向量存在三处过度归类，现更正表格并保留原提交：欧洲近现代紫微第4位四化/飞星为E（所选Tu Vi手册与未来课目并未明确给出该主题证据）；中国四柱960–1367日主/格局位由C降为D（后出抄本与目录之内容形成时代待证），1645–1911的1776署序不证明后出上海印本具体目录已在当年存在，日干、用神等按相应争议格D处理；民国其他派生位A改E，后出未断年上海本目录的格局/行运/刑冲会合原页章名归未断年A（不是清代原稿内容或民国确年印本）。此处向量主标记仅导航，非新史料裁决。维持原69行414格首标统计、67分组条目和双表坐标数不变。
