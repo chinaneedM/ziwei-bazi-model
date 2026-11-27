@@ -755,3 +755,11 @@ CiNii BA61461510著录1955.8香港实学书店，另有大阪大学伊地智文�
 
 
 - 15EY（拉丁美洲）：巴西2016-03-13具日期四柱课程公告、墨西哥2025指南四柱图与具名课纲、2006/2012同ISBN书目冲突、阿根廷电子书及课程。均不等同实际授课、首传或算法证明。见 `docs/research/TIANWEN-15EY-LATIN-AMERICA-REGIONAL-COVERAGE-CHECKPOINT-R1.md`。
+
+
+### 15EZ–15FD｜全球地域传播证据导航补齐（2026-11-27）
+- [15EZ](research/TIANWEN-15EZ-CHILE-COLOMBIA-URUGUAY-REGIONAL-COVERAGE-CHECKPOINT-R1.md) 智利Joseph Yu四柱授课为组织者回忆，2003公告原图尚未目核；乌拉圭具名课程目录可阅，2009大运博客仍受阻；哥伦比亚Boada博客作为同一提供者的地域自述，不作独立师承。
+- [15FA／15FA-S／15FB](research/TIANWEN-15FA-REMAINING-LATIN-AMERICA-REGIONAL-COVERAGE-CHECKPOINT-R1.md) 厄瓜多尔四柱课程／计算器（未测试）、玻利维亚与巴拿马受训自述、委内瑞拉2017术理文章与2019媒体、哥斯达黎加2024社群讲座公告、波多黎各具名服务与多米尼加跨境客户评价。网页日期与实际教学、资格和师承分离；2021波多黎各播客首集题为风水而非四柱。巴拉圭、危地马拉保持缺口。
+- [15FC](research/TIANWEN-15FC-AFRICA-WEST-ASIA-REGIONAL-COVERAGE-CHECKPOINT-R1.md) 南非开普敦具名四柱自述、留尼汪2025工作坊公告（2019跨境学习留言的地理归属待核）、毛里求斯线上服务、阿联酋访谈／课程目录及服务、以色列2022课程自述及履历；土耳其复用既有从业目录。均非独立证明最早传入或实际授课。南非技术目标页仍429。
+- [15FD](research/TIANWEN-15FD-CENTRAL-SOUTH-ASIA-PACIFIC-REGIONAL-COVERAGE-CHECKPOINT-R1.md) 哈萨克斯坦2023收费表与课程、印度具名四柱受训／服务及术语、新加坡从业者跨境学习履历（不作印度在地证据）、塔希提与新喀里多尼亚具名服务。[15FE（待准入）](research/TIANWEN-15FE-CENTRAL-SOUTH-ASIA-PACIFIC-RESIDUAL-REGIONAL-CHECKPOINT-R1.md) 乌兹别克斯坦、吉尔吉斯斯坦、斯里兰卡及关岛仍为待查重候选，不计入正式来源。
+本次仅补录已准入批次导航，TW-OPEN-0058 OPEN；确定性核心不变。

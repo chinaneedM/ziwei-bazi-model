@@ -1537,3 +1537,17 @@ B：澳门大学1963-/1965-两馆目、Google Books 1963第二卷；C：现代�
 
 
 - 15EY：巴西/墨西哥两术具名传播载体；阿根廷四柱出版/课程，秘鲁四柱概述及紫微题名。13条有界来源，出版/课程/自述/服务分层；其余拉美地域仍待核，TW-OPEN-0058 OPEN。见 `docs/research/TIANWEN-15EY-LATIN-AMERICA-REGIONAL-COVERAGE-CHECKPOINT-R1.md`。
+
+
+### 15EZ–15FD｜全球地域传播证据导航补齐（2026-11-27）
+以下为已登记批次的地域索引，不是全球覆盖率或首传年结论。网页服务/自述、课程广告、技术界面、出版和原始实授分别处理；同提供者多文档不计独立师承。
+
+| 批次 | 紫微斗数覆盖 | 四柱八字覆盖 | 正式新增来源 |
+|---|---|---|---:|
+| [15EZ](research/TIANWEN-15EZ-CHILE-COLOMBIA-URUGUAY-REGIONAL-COVERAGE-CHECKPOINT-R1.md) | 智利术名、乌拉圭公开界面；哥伦比亚独立实践待证 | 智利回忆、乌拉圭课程、哥伦比亚地域自述；2003广告图及2009博客仍待核 | 5 |
+| [15FA／15FA-S／15FB](research/TIANWEN-15FA-REMAINING-LATIN-AMERICA-REGIONAL-COVERAGE-CHECKPOINT-R1.md) | 各新增地域独立紫微仍待证 | 厄瓜多尔、玻利维亚、巴拿马、委内瑞拉、哥斯达黎加、波多黎各及多米尼加：具名课程、自述、服务或跨境评价；巴拉圭/危地马拉缺口 | 13（9+1+3） |
+| [15FC](research/TIANWEN-15FC-AFRICA-WEST-ASIA-REGIONAL-COVERAGE-CHECKPOINT-R1.md) | 阿联酋双术学校目录与访谈履历；非洲及其他西亚独立证据缺口 | 南非、留尼汪、毛里求斯、阿联酋、以色列；土耳其复用目录，非新增计数 | 10 |
+| [15FD](research/TIANWEN-15FD-CENTRAL-SOUTH-ASIA-PACIFIC-REGIONAL-COVERAGE-CHECKPOINT-R1.md) | 哈萨克斯坦并列招生；印度函授候选未准入 | 哈萨克斯坦、印度、塔希提、新喀里多尼亚；新加坡跨境履历不算印度实际授课 | 9 |
+| [15FE（待准入）](research/TIANWEN-15FE-CENTRAL-SOUTH-ASIA-PACIFIC-RESIDUAL-REGIONAL-CHECKPOINT-R1.md) | 吉尔吉斯斯坦候选，未准入 | 吉尔吉斯斯坦、乌兹别克斯坦、斯里兰卡、关岛候选，未准入 | 0 |
+
+15FD正式状态：1486来源（647根＋839扩展，275分片）、图谱495/375、Matrix222/222、58开放含五P0、核心CLOSED。此导航仅复用已登记材料，不变更语义状态或查询绑定。15FE query须领取5449fd27bdec精确专项结果，完整查重及身份复核后另行准入；TW-OPEN-0058保持OPEN。后续按既有广度路线检查时代×核心知识领域×主要地域的两套独立框架。

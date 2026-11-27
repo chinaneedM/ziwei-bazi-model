@@ -713,3 +713,10 @@ CiNii BB26426235著录1979.7台南西北出版社及琉球大学馆藏，母丛�
 
 
 - 15EY（拉丁美洲）：巴西道教协会历史自述与现代紫微服务、Eternal Qi独立紫微课纲；墨西哥2025作者指南履历与服务；秘鲁仅具名课程题名。年代、师承及实授未闭合。见 `docs/research/TIANWEN-15EY-LATIN-AMERICA-REGIONAL-COVERAGE-CHECKPOINT-R1.md`。
+
+
+### 15EZ–15FD｜全球地域传播证据导航补齐（2026-11-27）
+- 拉美：[15EZ](research/TIANWEN-15EZ-CHILE-COLOMBIA-URUGUAY-REGIONAL-COVERAGE-CHECKPOINT-R1.md) 智利术名页区分紫微与四柱，乌拉圭机构提供具名紫微排盘界面，未运行算法、未确定独立发布日期。哥伦比亚具名紫微实践未证。[15FA／15FA-S／15FB](research/TIANWEN-15FA-REMAINING-LATIN-AMERICA-REGIONAL-COVERAGE-CHECKPOINT-R1.md) 厄瓜多尔、玻利维亚、巴拿马、委内瑞拉、哥斯达黎加、波多黎各、多米尼加的新增正式材料不填补独立紫微术式格；巴拉圭、危地马拉仍有证据缺口。
+- 非洲、西亚：[15FC](research/TIANWEN-15FC-AFRICA-WEST-ASIA-REGIONAL-COVERAGE-CHECKPOINT-R1.md) 迪拜具名学校目录分别列两术，2020访谈导语将Tony Tan（新加坡）与紫微学习配对，属履历转述，不以2004居住年份定当地开课；南非、留尼汪、毛里求斯、以色列、土耳其独立紫微证据缺口保留。
+- 中亚、南亚、太平洋：[15FD](research/TIANWEN-15FD-CENTRAL-SOUTH-ASIA-PACIFIC-REGIONAL-COVERAGE-CHECKPOINT-R1.md) 哈萨克斯坦阿拉木图招生表分别列四柱与紫微，标注2023-09-01收费表，不证明实际开班；独立紫微目标页重取受阻。印度Lizia函授名录未准入；印度、塔希提、新喀里多尼亚四柱材料不算紫微证据。[15FE（待准入）](research/TIANWEN-15FE-CENTRAL-SOUTH-ASIA-PACIFIC-RESIDUAL-REGIONAL-CHECKPOINT-R1.md) 比什凯克双术自述为候选，查重未完成，不纳入正式统计。
+本次仅补录已准入批次的导航，不新增史实、独立师承、首次传入或规则裁决。TW-OPEN-0058 OPEN。
