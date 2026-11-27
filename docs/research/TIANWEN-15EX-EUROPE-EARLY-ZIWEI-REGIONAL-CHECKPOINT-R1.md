@@ -33,4 +33,36 @@
 - 官方功能页 https://www.tuvi.fr/le-logiciel-astrologie-chinoise-tu-vi/ 54–61行分别归属不同作者的方法；74–106行列多国地方时模块，含阿尔及利亚、喀麦隆、加蓬、伊拉克、黎巴嫩、马达加斯加、摩洛哥、突尼斯及委内瑞拉等。软件支持某地域出生时间 != 当地实际使用、课程、出版或师承；只作后续全球调查线索。未购买模块。
 - 法国国家图书馆独立馆目 https://catalogue.bnf.fr/ark:/12148/cb37113260v （FRBNF37113260，55–73、94–104行）：Nguyêñ, Ngọc Rao (1938-....)，L'astrologie chinoise authentique: notions fondamentales: établissement de thèmes，Paris，Éd. du Dauphin，1999，408页，ISBN 2-7163-1140-4；馆藏 2000-99641 一册。出版身份和馆藏对象可分别记录；未读原书术式页，不能由题名判定具体机械规则。与软件引用的书名、作者一致，但尚未证明软件实际用的是该印次而非后续版。1999 Jenny Mai Ngo《Tu vi》仍只有 BnF 搜索索引，直接主题页未重现独立馆目，不升级。
 
-本补证仅收窄现代软件传承的证据范围，并为后续查重、语义身份消歧与可能准入补足第一方证据；现有 1422 来源、266分片、495节点/375边、Matrix222/222、58 OPEN/五P0、产品 CLOSED 均不变。NEXT仍为领取15EX查询及正式有界裁决；本次新增候选不得绕过全库查重。 
+本补证仅收窄现代软件传承的证据范围，并为后续查重、语义身份消歧与可能准入补足第一方证据；现有 1422 来源、266分片、495节点/375边、Matrix222/222、58 OPEN/五P0、产品 CLOSED 均不变。NEXT仍为领取15EX查询及正式有界裁决；本次新增候选不得绕过全库查重。
+
+## 2026-11-27 查重请求前向纠错（15EX-A / 15EX-B）
+
+精确原HEAD 707b097ccf20a1a8e230993106017b96430d98e8 的 continuity [run 45942931822](https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/45942931822) / job 140321084298 失败，日志为 `{"status": "FAIL", "error": "invalid request terms"}`。当前验证器 validate_request 限制每请求最多24个词，原请求 blob 2d76a2ee9a0b07627140c8fbd123acb424359479 含28个词，属于请求构造错误，不是来源数或历史裁决错误。保留原提交及原请求，不修改校验器或放宽预算。
+
+本次原子修复发布 A（原请求前24词），B保留原请求余4词及上次补证新增8词。先领取 A 的 exact-HEAD PASS 并保全结果，再将下列 B 替换为活动请求；A/B 均完成前不得宣称15EX全库查重完成或准入来源。若任一结果截断须继续消歧。manifest 与 checkpoint 均不变，所有研究状态、来源数量及 P0 不变。
+
+待执行 B 请求（不是已执行结果）：
+
+```json
+{
+  "schema": "TIANWEN-REGISTRY-QUERY-REQUEST-R2",
+  "query_id": "15EX-europe-early-ziwei-regional-identity-B",
+  "checkpoint_id": "TW-CHECKPOINT-15EX-PROVISIONAL-20261127",
+  "manifest_blob_sha": "3f616c7616a3f4b545b6398efc4db8a4d153c8a2",
+  "terms": [
+    "feng-shui-institute-portugal.com",
+    "escolamacrobiotica.pt",
+    "escolafengshui.com",
+    "freiraeume.ch",
+    "tuvi.fr",
+    "FRBNF37113260",
+    "cb37113260v",
+    "Ngoc-Rao",
+    "2716311404",
+    "Nghia Huu Tran",
+    "Huu Nghia Tran",
+    "Nathalie Lim Nguyen"
+  ],
+  "limit": 20
+}
+```
