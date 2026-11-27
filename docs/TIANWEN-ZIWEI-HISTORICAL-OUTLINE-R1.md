@@ -677,3 +677,7 @@ CiNii BB26426235著录1979.7台南西北出版社及琉球大学馆藏，母丛�
 ### 15EN｜勸學齋南洋学员笔记与地域校时（2026-11-27）
 
 [15EN](research/TIANWEN-15EN-NANYANG-QUANXUEZHAI-TIME-CORRECTION-NEWSPAPER-LOCATORS-R1.md)：三组有界来源准入（两书目/目录、一机构报刊馆藏定位），2008马来西亚学生笔记仅为后见目录日期，2009/2023商品著录不合并印次；2022新马学员地域校时署名不证具体算法或授课地，亦不等于洛阳折时。厦大馆藏按国别与时段分开，不证目标报文。四柱方面仅共享检索入口及书名借鉴记录，不计紫微资料为四柱实践或机械传承。NCL清单原页待核。来源1378（647+731/258片），图495/375，Matrix222/222，51开放含五P0，核心CLOSED。TW-OPEN-0047/0048/0050/0051保持OPEN。
+
+## 15EO｜印度尼西亚紫微斗数出版与接受史（2026-11-27）
+
+2012署Djulianto Susantio书评追述Yap Liat Kian五册（2008–2010）及Rahardjo夫妇2010雅加达著作；2014《Berkala Arkeologi》34(1)印页94–95载紫微图及2010书目；2024内政部纸本馆目ISBN9786230416880。2010早版刊记、在地师承与首传仍OPEN；2024电子书不等同纸本。详见 [15EO](research/TIANWEN-15EO-INDONESIA-ZIWEI-BAZI-PUBLICATION-JOURNAL-CHECKPOINT-R1.md)。
