@@ -2,14 +2,14 @@
   "schema": "TIANWEN-CONTEXT-RECOVERY-VIEW-R2",
   "authority": "DERIVED_ONLY",
   "bindings": {
-    "docs/PROJECT-CURRENT-STATE-R1.json": "ea3dbab673b2f54e77f1a76267425d36f8bd7a87",
-    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "48f841e95c8b208908c707d2e2e3fea26bc3216d",
-    "docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json": "42d66200edd62c59ebb0ae2b2c230fe3e43f0766",
+    "docs/PROJECT-CURRENT-STATE-R1.json": "920f55695e42b0e085af1c2ac4c53d516352b5bb",
+    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "123466f7f121e3ac906eff559cf3cd045c612672",
+    "docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json": "5811df962256220d88699f11fd8e30426e2e5630",
     "docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json": "280e023bcd6e0625f0dca2fd54d6c9423f286fd5",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json": "5919e1b6bbc3c4b150507c41a13ccc9e13d20f17",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json": "ea2ab50479450c39ce3fc7a00ea91cd713bf4a60"
   },
-  "state_version": "1.1533.0",
+  "state_version": "1.1534.0",
   "stage": "FUSION_CHART_HISTORICAL_PROVENANCE_AND_SCHOOL_AUDIT_R1",
   "invariants": {
     "deterministic_fusion_chart_product_r1": "CLOSED",
@@ -23,28 +23,28 @@
     "matrix_rows": 222,
     "matrix_audited": 222,
     "root_sources": 647,
-    "extension_sources": 737,
-    "total_sources": 1384,
-    "shards": 260,
+    "extension_sources": 743,
+    "total_sources": 1390,
+    "shards": 261,
     "graph_nodes": 495,
     "graph_edges": 375,
     "open_issues": 54,
     "p0": 5
   },
   "phase": "BREADTH_FIRST_TWO_SYSTEM_HISTORICAL_FRAMEWORK_R1",
-  "next_deliverable": "领取15EQ精确全库查重并语义消歧，按2003菲律宾本地四柱采访、2013宿务紫微预讲/课程公告、2015马尼拉八字访谈、2016碧瑶四柱实践自述及2017马尼拉演讲逐项有界准入；继续更早菲律宾独立同期材料。越南已存在13ZV、14N、14P、15AA–AC、15Y/Z、15R/CY等来源分片，优先查现有登记后再拓新，不重复旧版。双体系独立，不改排盘。",
+  "next_deliverable": "继续追查更早菲律宾独立同期紫微及四柱材料，补查1988跨境候选及2015原发布定位词；越南优先核既有13ZV、14N、14P、15AA–AC、15Y/Z、15R/CY分片正文再补拓，避免重复。TW-OPEN-0054保持OPEN；两体系独立，排盘CLOSED。",
   "latest_matrix_batch": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-FIRSTPARTY-AND-OLD20-ATLAS-QD.md",
   "latest_breadth_batch": "docs/research/TIANWEN-15EQ-PHILIPPINES-ZIWEI-BAZI-NEWSPAPER-TEACHING-CHECKPOINT-R1.md",
   "checkpoint": {
-    "id": "TW-CHECKPOINT-15EQ-PROVISIONAL-20261127",
+    "id": "TW-CHECKPOINT-15EQ-ADMITTED-20261127",
     "evidence_refs": [
       "docs/research/TIANWEN-15EQ-PHILIPPINES-ZIWEI-BAZI-NEWSPAPER-TEACHING-CHECKPOINT-R1.md",
-      "docs/PROJECT-REGISTRY-QUERY-R2.json"
+      "docs/research/TIANWEN-15EQ-PHILIPPINES-NEWSPAPER-TEACHING-SOURCE-SHARD-R1.json"
     ]
   },
   "focus": {
-    "index": 3228,
-    "text": "13ZZ CURRENT ACTION 15EQ PROVISIONAL: ff50b33 exact continuity run45927783931 job140273107786 passed 62 ledger + 7 R2 tests, all six bindings match; no overall acceptance while remaining Actions running. Philippines dated candidates: 2003 Philippine Star local interview explains natal Four Pillars explicitly, not merely Feng Shui label; 2013 SunStar/The Freeman Cebu Ziwei preview/course promotion (July and August, conflicting September dates, reported Aug25 preview not proof course finished); 2015 Manila interview received practitioner copy; 2016 Baguio practitioner column with reported mentor; 2017 Manila conference presenter account. Vietnam earlier registered breadth shards already exist, avoid repeat. TW-OPEN-0054 OPEN; 22-term exact registry query pending. Sources1384/260 shards, graph495/375, Matrix222/222, 54 open incl five P0, core CLOSED.",
+    "index": 3229,
+    "text": "13ZZ CURRENT ACTION 15EQ ADMITTED: exact bd673720 continuity run45928595458/job140275730419 completed 62 ledger + 7 R2 tests; 22 terms zero hits across 261 files/1384 records; 025c6595 full canonical fallback and six direct received-text rechecks. Six bounded media source records (two 2013 Cebu Ziwei articles same event cluster, four Bazi records 2003/2015/2016/2017); 2015 original publisher archive Feb18 vs received Feb19 one interview, original text HTTP429. 1988 overseas lead not admitted. TW-OPEN-0054 OPEN; no new genealogy nodes/edges. Sources1390/261 shards, graph495/375, Matrix222/222, 54 open incl five P0, core CLOSED. NEXT earlier Philippines and deduplicated Vietnam breadth.",
     "truncated": false
   },
   "p0": [

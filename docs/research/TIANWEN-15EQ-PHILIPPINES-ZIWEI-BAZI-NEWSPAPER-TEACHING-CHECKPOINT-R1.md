@@ -43,3 +43,12 @@ HEAD ff50b33818bebb3aed0d7fb0e264656e466c0c7d，tree 18fe582e19b6b73dcdaaa9fb0ee
 [Los Angeles Times, 1988-07-23, Ancient Chinese Craft: Feng Shui: It Can Make a Difference](https://www.latimes.com/archives/la-xpm-1988-07-23-mn-6345-story.html)，Ashley Dunn / Victor Zonana。搜索引擎返回正文，直接打开403。报道称来自菲律宾的华人从业者Chang Tai Ei在美国Monterey Park提供风水服务，并谈及八字及出生日期；报道另说明四时间单位。这个材料至多支持1988年菲律宾关联从业者跨境使用八字的候选线索，不证明菲律宾本土1988年四柱活动、受教地或中文姓名。保留报纸档案访问限制；不复制报道全文、不造原页、不提升证据等级。新词 Chang Tai Ei、la-xpm-1988-07-23-mn-6345-story、plan-your-destiny-with-dato-joey-yap 尚未纳入已完成22词请求，后续需要补查及语义消歧。
 
 本次为既有15EQ检查点追加已验证查询与来源裁决，非正式来源准入；未变更六权威JSON、计数、图谱、算法或开放状态。TW-OPEN-0054保持OPEN；NEXT：补查新增定位词、核对原刊正文及更早候选，按现有源注册/图谱/状态合同原子准入有界来源。不得把本追加当作正式批次完成。
+
+
+## F｜正式有界来源准入（2026-11-27）
+
+本HEAD 025c6595 为仅追加检查点的提交，20项Actions在复核时19成功、1项运行中，未触发连续性workflow。遵循R2回退R1：六权威blob完整解析，根647、分片737/260、图495/375、Matrix222/222、54 OPEN含五P0；根和图的菲律宾/Manila/Cebu/Baguio及繁简地名检索无匹配，manifest无菲律宾题名分片。复用E节绑定的真实22词完整查询（所有来源未改变，261文件1384记录，无命中），不把字面查重当作所有别名的穷尽证明。
+
+本轮直接重新打开六个候选，定位关键正文，分别准入为 RECEIVED_TEXT_VERIFIED、physical_glyph_authority=false，详见 [15EQ来源分片](./TIANWEN-15EQ-PHILIPPINES-NEWSPAPER-TEACHING-SOURCE-SHARD-R1.json)。2003 Philstar L179–188；2013 SunStar L29–44、57–62；Freeman L125–144；2015转载 L124–160；2016 SunStar L170–179、186–191；2017 Feng Shui Today L1–24。2015 BusinessMirror原文再次HTTP429，栏目归档检索核实同题、作者、2015-02-18；只登记一条受传采访。2013两篇是不同日期文章，非两次独立传承，预讲为报道已发生、主课仍为计划；日期差异不裁成确定事实。2016为关联专栏作者的观察与所报导师，不是独立师承核验。2017演讲者报告四柱内容，简历中两体系导师不合并。
+
+共6条来源载体、5个事件/实践记录组，其中2条紫微报道属同一宿务事件群，4条四柱记录；不新增图谱节点或边。1988洛杉矶档案候选未完成额外查重且正文访问受限，不准入；不把海外移民个人实践推作菲律宾本土传入年代。TW-OPEN-0054保留OPEN，待更早本地证据、原报/课程/传承独立材料。来源总数1390（647+743、261分片），图495/375、Matrix222/222、54开放含五P0，排盘CLOSED。下一步追查更早菲律宾独立同期史料，兼核越南已登记来源再推进广度，勿重复旧版。
