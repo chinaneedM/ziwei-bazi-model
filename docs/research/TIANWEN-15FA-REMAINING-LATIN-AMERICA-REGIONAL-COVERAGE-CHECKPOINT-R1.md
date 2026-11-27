@@ -36,3 +36,6 @@
 
 ## 后续查重与边界
 在15EZ门禁核定之后，以实际当前 manifest SHA 和新检查点绑定进行R2全库查重，建议词（字面匹配，不代替语义查重）：amandamanuela.com、Amanda Manuela、formosa-art.com、Viviana Guzman Derpic、Viviana Guzmán Derpic、fengshuiasociacion.com、Ángela María Naranjo、Angela Maria Naranjo、noticiasaldiayalahora.co、Alicia Sánchez、Alicia Sanchez、comunidadchinacr.com、Siulem Li Fallas、Siulem María Li Fallas、siulem.com、jeniecastillo0865、Jenie Castillo Alonso、nortesurarquitectos.com、fengshui-argentina.com、guia_feng_2013.pdf、Bruno Koppel、fengshui-monicakoppel.com.mx。先确认实际现行查询词数门禁并拆批（如需）；全部候选未正式准入。继续找加勒比、中美洲及其他南美地区具名紫微和可定年八字载体，继而非洲、中西亚。
+
+## 15FA 正式候选检查点（2026-11-27）
+15EZ exact HEAD d7384b2876ecf0975f02e0f6ac9339be9d9e9d49 continuity run45946987595/job140333835408 SUCCESS；62项风险及7项R2测试通过，恢复视图1454来源/270分片、58 OPEN/5 P0。旧15EZ请求STALE_CHECKPOINT属预期（已准入）。新15FA请求22词，query_id=15FA-remaining-latin-america，checkpoint_id=TW-CHECKPOINT-15FA-PROVISIONAL-20261127，request blob ca0803c35e8e06a18b7af36f154937b746056981，manifest b843e86d310218b52d25eef111ac5b99fca112b8。候选仍未准入；待精确HEAD完整查询结果及语义身份复核。上一提交2ded7875观察19成功、1运行；不宣称全部门禁通过。
