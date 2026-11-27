@@ -1509,3 +1509,8 @@ B：澳门大学1963-/1965-两馆目、Google Books 1963第二卷；C：现代�
 ## 15EO｜印尼地域覆盖补充（2026-11-27）
 
 紫微：2008–2010五册书评、2010著作参考文献、2014期刊与2024馆目；四柱：2012馆目与2014期刊。四项有界来源，未证首传/原书端/直接师承。泰国独立覆盖下一步；印尼TW-OPEN-0052保持OPEN。详见 [15EO](research/TIANWEN-15EO-INDONESIA-ZIWEI-BAZI-PUBLICATION-JOURNAL-CHECKPOINT-R1.md)。
+
+
+### 15EP 泰国传播补证（2026-11-27）
+
+泰国15EP新增两条分级来源，四柱2015受传教学文本、紫微2026电子书目；早期同期在地材料未闭合，TW-OPEN-0053仍OPEN。 见 `docs/research/TIANWEN-15EP-THAILAND-ZIWEI-BAZI-PUBLICATION-TEACHING-CHECKPOINT-R1.md`；不推断直接传承或首次引入。

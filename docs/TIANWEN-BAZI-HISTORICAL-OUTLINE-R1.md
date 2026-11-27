@@ -723,3 +723,8 @@ CiNii BA61461510著录1955.8香港实学书店，另有大阪大学伊地智文�
 ## 15EO｜印度尼西亚四柱出版与接受史（2026-11-27）
 
 雅加达JAKLITERA馆目INLIS000000000784695著录2012印尼语四柱书327页及三件馆藏；2014《Berkala Arkeologi》34(1)印页94载外部网页来源四柱图，非本地排盘算法证据。2024国家书目候选及2012责任页仍待原页；不由紫微并列刊载推定四柱师承。详见 [15EO](research/TIANWEN-15EO-INDONESIA-ZIWEI-BAZI-PUBLICATION-JOURNAL-CHECKPOINT-R1.md)。
+
+
+### 15EP 泰国传播补证（2026-11-27）
+
+泰国四柱：2015-09-14 Tiantek网站刊载高级教材作者自述，区分署帖者与签名作者；2005报刊转录、2012论文目标页与早期师承仍待核。 见 `docs/research/TIANWEN-15EP-THAILAND-ZIWEI-BAZI-PUBLICATION-TEACHING-CHECKPOINT-R1.md`；不推断直接传承或首次引入。

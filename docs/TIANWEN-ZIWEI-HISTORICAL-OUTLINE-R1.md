@@ -681,3 +681,8 @@ CiNii BB26426235著录1979.7台南西北出版社及琉球大学馆藏，母丛�
 ## 15EO｜印度尼西亚紫微斗数出版与接受史（2026-11-27）
 
 2012署Djulianto Susantio书评追述Yap Liat Kian五册（2008–2010）及Rahardjo夫妇2010雅加达著作；2014《Berkala Arkeologi》34(1)印页94–95载紫微图及2010书目；2024内政部纸本馆目ISBN9786230416880。2010早版刊记、在地师承与首传仍OPEN；2024电子书不等同纸本。详见 [15EO](research/TIANWEN-15EO-INDONESIA-ZIWEI-BAZI-PUBLICATION-JOURNAL-CHECKPOINT-R1.md)。
+
+
+### 15EP 泰国传播补证（2026-11-27）
+
+泰国紫微：2026-06-26泰语电子书MEB454196为零售出版元数据，平台责任字段与简介编者姓名未消歧；2021慧心斋主泰国世界日报专栏回顾复用15DV，未获原报日期。 见 `docs/research/TIANWEN-15EP-THAILAND-ZIWEI-BAZI-PUBLICATION-TEACHING-CHECKPOINT-R1.md`；不推断直接传承或首次引入。
