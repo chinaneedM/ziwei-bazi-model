@@ -81,3 +81,46 @@
 ## 15EY 正式准入（2026-11-27）
 
 前述连接失败已通过拆分blob生成恢复。本批13条有界来源按已保全的全库检索及语义身份审查准入，见 `docs/research/TIANWEN-15EY-LATIN-AMERICA-SOURCE-SHARD-R1.json`。巴西5条、墨西哥5条、阿根廷2条、秘鲁1条；同一机构多页不构成独立师承，2006/2012同ISBN不构成两个版本。2025 PDF为现代接收文本与有限页图证据，无原始古籍字形或算法权威。来源1448/268；图495/375、Matrix222/222、58 OPEN及五P0不变；排盘CLOSED。补充查询15EY-S绑定新manifest和当前检查点，早期转载及出版冲突尚未准入。NEXT领取15EY-S，再继续拉美其余地区、非洲、中西亚。
+
+
+## 15EY-S 补充准入（2026-11-27）
+
+精确HEAD `a8c1962497ddf08841551654c6dc80b15449e23f`，[连续性run45945587471](https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/45945587471)，job140329413724 SUCCESS，7项R2测试通过。查询脚本blob `3387254ce53ec0a1f1a3b779291e0c40997bf190`。
+
+```json
+{
+  "query_id": "15EY-S-latin-america-silva-boada-imprint",
+  "checkpoint_id": "TW-CHECKPOINT-15EY-ADMISSION-20261127",
+  "request_blob_sha": "cf421ec1fdb57adbd7adedb03261ea6ede03023c",
+  "registry_manifest_blob_sha": "e8178188a830ef9aea32e5815db9b8ff742e6831",
+  "status": "PASS",
+  "scope": "ALL_REGISTERED_ROOT_AND_SHARDS_LITERAL_ONLY",
+  "files": 269,
+  "records": 1448,
+  "matching_files": 1,
+  "per_term_matching_files": {
+    "Carmen Helena Boada": 0,
+    "carhel168.wordpress.com": 0,
+    "habitatfengshui.com": 0,
+    "Seminario_Bogota": 0,
+    "Grupo Editorial Tomo": 1,
+    "tomobooksmx.com": 0,
+    "booksrun.com/9789707751781": 0,
+    "9789707751781": 1,
+    "Rodolfo Silva Ramos": 0
+  },
+  "hits": [
+    {
+      "path": "docs/research/TIANWEN-15EY-LATIN-AMERICA-SOURCE-SHARD-R1.json",
+      "blob_sha": "9b5c2d64e30af777a8973f26f2e56ca6f902b5f9",
+      "terms": [
+        "Grupo Editorial Tomo",
+        "9789707751781"
+      ]
+    }
+  ],
+  "truncated": false
+}
+```
+
+唯一命中是15EY已登记同ISBN书目，不重复登记版次。Boada 2007署名转载独立于书目，准入一条RECEIVED_TEXT，见 `docs/research/TIANWEN-15EY-S-LATIN-AMERICA-SOURCE-SHARD-R1.json`，不等同初版、实际研讨会或直接师承。其他早期出版问题保留。下一批 `docs/research/TIANWEN-15EZ-CHILE-COLOMBIA-URUGUAY-REGIONAL-COVERAGE-CHECKPOINT-R1.md`。
