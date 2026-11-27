@@ -134,3 +134,23 @@ Matrix状态：HISTORICALLY_SUPPORTED104、SUPPORTED_BUT_SCHOOL_SPECIFIC25、DIS
 优先复用已有15AD至15FE及早期著作考据，按历史时期列具名人物、学校／机构、著作、授课计划／实授证据与独立师承状态；明确不同译名和相同提供者，未证关系只保留候选。再更新两条主干与地域覆盖表，校对核心规则族到Matrix的实际入口；完成广度验收前不跳入无止境的原叶深研。原始P0与真正缺陷门禁不变。无新来源、图谱、Matrix、状态版本或风险修改；该段是当前全球覆盖复核的第一步，未完成完整人物索引与逐格验收。当前来源1488/276、图495/375、Matrix222/222、58 OPEN/五P0，核心CLOSED。
 
 执行治理：工具返回曾因同时展开多份长史纲而截断；后续先在工具层取目录、分期、规则分类、计数及具体冲突段，避免长首尾拼接。现有15BL作为唯一交叉覆盖入口，避免另起重复台账。
+
+## 15FF-B｜人物及机构传承骨架首批回填（2026-11-27）
+
+基线 40c7037d3784f2bfde13c66bc7508a024974cb07。沿15FF-A结构审计，直接读取并核对13ZS、15AB、15AC、15AD、15AE、15AY、15AZ七个已登记分片的实际记录与manifest blob；不是全库穷尽查询，无新外部来源。只纳入有明确具名证据及作用域的身份锚点，未核生卒、别名、首传、实际授课与师承不填推测。前一语义提交de634138连续性专项PASS，本HEAD仅文档更新，20项Actions中19成功、1运行；六权威绑定未变，五P0保持原状。
+
+| 身份锚点 | 系统／日期（证据时态） | 作用域与限制 | 既有来源ID |
+|---|---|---|---|
+| 張開卷 | ZIWEI；1949/1953/1972 | 1949、1953同题及1972异题书目责任者，非实物书端校定；不合并作品或推定师承。 | `EXT-TIANWEN-13ZS-GBOOKS-CORNELL-1949-ZHANG-XINBIAN`；`EXT-TIANWEN-13ZS-GBOOKS-1953-ZHANG-XINBIAN`；`EXT-TIANWEN-13ZS-NDL-TOKYO-1972-ZHANG-ZIWEI-YANJIU` |
+| 王亭之 | ZIWEI；1986署序／2004转载 | 署名补注序及现代中州派规则见证；自述1970年代初师从刘惠苍，不认证直接师承或古代源流。 | `EXT-TIANWEN-15AD-NCC-2004-LU-BINZHAO-WANG-TINGZHI-PREFACE`；`EXT-WANGTINGZHI-ZHONGZHOU-CHUJI` |
+| 陸斌兆 | ZIWEI；1950年代（后出回忆） | 王亭之1986署序经2004重印页转载述1950年代香港授课与油印讲义；原讲义及同期授课记录未核。 | `EXT-TIANWEN-15AD-NCC-2004-LU-BINZHAO-WANG-TINGZHI-PREFACE` |
+| 劉惠蒼 | ZIWEI；1970年代初（自述） | 王亭之自述师名；仅建立被提及人物身份锚点，不确证师承，不与陆氏系合并。 | `EXT-TIANWEN-15AD-NCC-2004-LU-BINZHAO-WANG-TINGZHI-PREFACE` |
+| 禤百昌 | ZIWEI；2010访谈回述1970–80年代 | 具名采访及讲义局部照片；无完整题名/作者/年代；清廷故事及中洲派命名时点均非独立历史确证。 | `EXT-TIANWEN-15AD-NEWXUANJI-2010-XUAN-BAICHANG-INTERVIEW-REDBOOK` |
+| 梁湘潤 | BAZI；2009署序／2010刊载 | 自述1973学会命理委员会、期刊与讲座及1979任职，原刊及会议档案待核；不将任职自述升级为同期档案。 | `EXT-TIANWEN-15AD-XINYI-2010-LIANG-XIANGRUN-AUTHOR-PREFACE`；`EXT-TIANWEN-15AD-NCC-2022-LIANG-ZIPING-CURRICULUM-PREFACE` |
+| Vũ Tài Lục | ZIWEI；1973（现代重排本所记） | 越文译者归属及台湾底本自述；1972/1973原刊、具体台湾版与师承未证；不擅定中文本名。 | `EXT-TIANWEN-15AB-VUTAILUC-VIETNAMESE-RETYPESET-PDF-1973-REPORTED`；`EXT-TIANWEN-15AB-RESELLER-VUTAILUC-1972-CATALOG-CLAIM` |
+| Lâm Thế Đức／林世德 | BAZI；1973西贡署序（现代重排） | 现代PDF存署名序与四柱术语；1974旧书商候选未核原刊，书中师承故事不作独立证明。 | `EXT-TIANWEN-15AC-LAM-THE-DUC-ZIPING-1973-RECEIVED-DIGITAL-90P`；`EXT-TIANWEN-15AC-SACHBAOKHANG-LAM-ZIPING-1974-174P-RESELLER` |
+| 徐居正 | BAZI；1458事件／1488卒记；1467序传文 | 1488《成宗实录》回载1458奉命著《五行摠括》，后出《四佳集》与《筆苑雜記》传文；不认定现存1458原书或特定完整算法。 | `EXT-TIANWEN-15AY-1488-SEONGJONG-SILLok-SEO-GEOJEONG-1458-OHAENGCHONGGWAL`；`EXT-TIANWEN-15AZ-SAGAJIP-V4-OHAENG-JOGGWAL-WIKISOURCE-RECEIVED`；`EXT-TIANWEN-15AZ-PIRWONJAPGI-V1-FOUR-PILLARS-WIKISOURCE-RECEIVED` |
+| 朝鮮觀象監（命課學制度证据） | BAZI；1791制度记录 | 《正祖实录》取才与教学改革传文，不据此证明全年代统一实践或连续师承。 | `EXT-TIANWEN-15AY-1791-JEONGJO-SILLok-MYEONGGWA-REFORM` |
+| 中華星相學會（1952–1979研究对象） | BAZI_AND_ZIWEI_RECEPTION_CONTEXT；1952–1979（2020论文题名范围） | 现代论文书目及2025学术综述与梁氏自述；全文及同期章程未核，不直接等同2007登记法人、不推定全部课程或成员。 | `EXT-TIANWEN-15AE-ITH-2020-BIBLIOGRAPHY-THESIS-RECORD`；`EXT-TIANWEN-15AE-HISTORY-TAIWAN-2025-REVIEW-OF-THESIS`；`EXT-TIANWEN-15AD-XINYI-2010-LIANG-XIANGRUN-AUTHOR-PREFACE` |
+
+transmission_impact：新增9 PERSON及2 INSTITUTION；新增4条ATTESTS，仅确认书目或传文所示责任归属（張開卷1949、1972，王亭之现代规则段，徐居正《筆苑雜記》传文）；不是四条确认师承，也不新增TRANSMITS_RULE。其余7节点为有来源锚定的待关联节点，不能因未建关系判定历史不存在。保留王亭之自述刘惠蒼、陸斌兆授课回忆、禤氏口述、越文译本底本及梁氏学会经历的证据差异；未证关系不强行画边。李虚中813墓志、徐子平传统归属、罗洪先署序争议等下一批从既有文献独立校对，不由传统姓名直接建师承树。现图506/379（PERSON10、INSTITUTION4）；源1488/276、Matrix222/222、58 OPEN及五P0、核心CLOSED不变。下一步：继续早期人物及关键近代出版、社团分线回填，并审查现有关系类型能否准确表达署名、任职、授课与自述师承；不在证据不足时另创确认关系。
