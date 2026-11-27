@@ -25,3 +25,72 @@
 ## D｜后续
 
 新增TW-OPEN-0053，保留原报、原书端、师承、早期在地材料。22词精确全库查询与本检查点同提交，待CI取得结果；未新增任何正式来源、图谱边或节点。1382来源/259分片、图495/375、Matrix222/222、53开放含五P0，核心CLOSED。优先免费公开原报与馆目，若不可取得则保留缺口后继续地域广度。泰国国家图书馆泛占星、生肖、风水文献不自动归属紫微/四柱。
+
+## E｜15EP 精确查重领取及语义裁决（2026-11-27，forward-only）
+
+精确HEAD `d6ab3571fd61475153448c9b85a82483c600066a`，tree `021e01030642f95d04154ba952085f2fecc19705`，六恢复视图绑定与真实树完全匹配，连续性 [run45926693401](https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/45926693401) / job140269550702 completed/success，62项遗漏风险测试及7项R2测试通过。全HEAD 282项工作流分页读取时165成功、16执行中、101排队，未宣告全部通过。五项P0均保留。
+
+查询脚本blob `3387254ce53ec0a1f1a3b779291e0c40997bf190`，工作流blob `d355ea877a9ec233ced90d4d00ab70945f24d4eb`。以下是该成功job中经绑定核对的真实查询结果（字面检索，不等于语义唯一）：
+
+```json
+{
+  "query_id": "15EP-thailand-newspaper-teaching-publication",
+  "checkpoint_id": "TW-CHECKPOINT-15EP-PROVISIONAL-20261127",
+  "request_blob_sha": "f75cf64a269b2074831242e56fa166a7b51b5f89",
+  "registry_manifest_blob_sha": "fbab9745b766838b34c608c117468c9e656fe0a6",
+  "status": "PASS",
+  "scope": "ALL_REGISTERED_ROOT_AND_SHARDS_LITERAL_ONLY",
+  "files": 260,
+  "records": 1382,
+  "matching_files": 2,
+  "per_term_matching_files": {
+    "454196": 0,
+    "132150899": 0,
+    "โป๊ยหยี่สี่เถียว": 0,
+    "โป๊ยหยี่สี่เถี่ยว": 0,
+    "เทียนเต็ก": 0,
+    "สำนักแชลั้ง": 0,
+    "สินศักดิ์ วิศิษฏ์สกุล": 0,
+    "ตำราเรียนดวงจีนเบื้องต้น": 0,
+    "tiantek.blogspot.com": 0,
+    "www.watdaeng.com": 0,
+    "Kitchupong Chatjaroonsin": 0,
+    "070f4099-eef0-4edb-bb6c-6bdfceb2dfc7": 0,
+    "泰國世界日報": 0,
+    "泰国世界日报": 0,
+    "慧心齋主": 2,
+    "慧心斋主": 0,
+    "9789865549411": 0,
+    "S9oWEAAAQBAJ": 0,
+    "จื่อเวยโต้วซู่": 0,
+    "จื่อเวยโต่วซู่": 0,
+    "賀恒昌": 0,
+    "เทียนเต็ก ซินแซ": 0
+  },
+  "hits": [
+    {
+      "path": "docs/research/TIANWEN-15DS-TAIWAN-ZIWEI-PERIODICAL-INDEX-SOURCE-SHARD-R1.json",
+      "blob_sha": "91140cc427e0c8fb789fc4b771467f8cb85847ea",
+      "terms": [
+        "慧心齋主"
+      ]
+    },
+    {
+      "path": "docs/research/TIANWEN-15DV-HUIXIN-PUBLICATION-MEDIA-SOURCE-SHARD-R1.json",
+      "blob_sha": "24313bf6f4bee5262154c13cd21853455d5561ae",
+      "terms": [
+        "慧心齋主"
+      ]
+    }
+  ],
+  "truncated": false
+}
+```
+
+- 两个命中分片正文已按该HEAD复核：15DS为1989年《拾穗》访谈式题名索引，非2021版；15DV的 `EXT-TIANWEN-15DV-XINYI-2021-RECEIVED-PREFACE` 已登记2021《紫微斗數新詮》增订版自序与简介，并明确保留Google Books 418页与零售414页及附册差别。故Google Books S9oWEAAAQBAJ、ISBN9789865549411即使字面未命中，也不能另计独立来源；泰国线索复用15DV，不能把同文简介当新证人。
+- [大块文化709](https://www.locuspublishing.com/book/detail/709)及[10749](https://locuspublishing.com/book/detail/10749)搜索摘要也报告泰国世界日报专栏；直接打开709跳转首页，未获出版社原页。零售[星易8733](https://www.xinyi.hk/goods-8733.html)复现同文简介，仅为既有15DV内容定位。未得泰国专栏题名、日期或原报，不能以1979/1981台湾事件作泰国日期。
+- 四柱原报：[Scribd 132150899](https://www.scribd.com/doc/132150899)再定位，未发现独立同期原报；泰文检索另发现[零售初级教材30001](https://www.wealthdecor.com/content/30001/)与[二手书1089575](https://www.getbookie.com/products/1089575)，均仅搜索摘要/书目定位，不能核刊记。另出现泰文书名中的流派拼法异文 สำนักแซลั๊ง / สำนักแชลั้ง，先保留，不擅自回译中文派名。
+- [Silpakorn机构记录10485](https://sure.su.ac.th/xmlui/handle/123456789/10485?attempt=2&attempt=3&locale-attribute=en)可搜索定位，直接打开超时；[论文PDF](https://sure.su.ac.th/xmlui/bitstream/id/070f4099-eef0-4edb-bb6c-6bdfceb2dfc7/fulltext.pdf?attempt=2)复核提取层L21–57，英文名和Academic Year 2012一致；页索引1/39截图再度超时，未取得可核图像或字节，不升级为原页。与机构目录是同一论文，非两个独立见证。
+- 23词中22词零命中，且2个命中文件均只含慧心齋主。2005报刊转录、2015作者博客、寺院目录、2012论文及2026电子书仍可依证据等级裁决，不以无字面命中证明历史唯一。零售或后出材料不得推前年代。
+
+本次只领取查重结果、完成既有版本语义去重并记录复查边界，不变更六权威JSON、不增加来源或图谱节点、不关闭TW-OPEN-0053。下一工作单元：就已定位的独立载体分别作受传文本/教学目录/学位论文文本层/电子书目准入裁决，更新来源分片、风险与状态；未得原刊记、原报及确切师承继续OPEN。排盘CLOSED。
