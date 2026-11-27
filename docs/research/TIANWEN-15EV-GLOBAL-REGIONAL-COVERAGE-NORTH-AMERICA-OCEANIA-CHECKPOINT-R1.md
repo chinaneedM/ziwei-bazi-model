@@ -28,3 +28,7 @@
 美国2006教材制作/首发、2007实开及独立师承；澳大利亚早期资格注册的生效/替代、实际授课考核和独立紫微材料；加拿大当地出版教学；欧洲、拉美、非洲、中西亚/南亚及太平洋其他地区具名术式史证。下一轮先恢复并原子登记风险、状态和R2视图；与当前manifest 359757ac503e50e3e81014df51d987a6fffc2574绑定创建精确全库查重请求，词项：
 American Feng Shui Institute；amfengshui.com；Lorraine Wilcox；Monterey Park；Zi Wei Dou Shu Astrology 3；ZiWeiDouShu3.pdf；Australian College of Environmental Studies；aces.edu.au；21929VIC；22194VIC；VU20815；11079NAT；NAT11079004；The Definitive Book of Chinese Astrology；toronto.overdrive.com；Toronto Public Library。
 查询未执行、未声称零命中；按实际结果语义去重再裁决准入。当前权威state仍1.1542.0，正式来源1406/264片，图495/375，Matrix222/222，57正式开放风险含五P0，排盘CLOSED。保持15EU已正式准入的结论，不覆写历史。
+
+
+## 正式恢复登记（2026-11-27）
+本轮从81e34496恢复，六绑定一致；20项Actions中19成功、一项运行中，未见该HEAD连续性workflow，不能借用上一HEAD成功作为新HEAD验收。分离大型blob写入，保持同一原子tree/commit发布，正式登记TW-OPEN-0058、state 1.1543.0及R2视图，并提交16词全库查询请求。查询待CI，不作零命中或正式来源准入。现有1406来源、495/375图谱、222/222 Matrix、58开放风险含五P0、排盘CLOSED。下一步：领取15EV全库字面查重，核实美国AFSI 2006教材与2007招生页、澳大利亚21929VIC/22194VIC与NAT11079004官方注册和原课程规格、加拿大数字借阅记录的出版/保藏/授课边界；语义查重后有界准入，继续欧洲、南美、非洲及其他亚太空白。排盘CLOSED。
