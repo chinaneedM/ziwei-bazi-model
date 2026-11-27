@@ -154,3 +154,22 @@ Matrix状态：HISTORICALLY_SUPPORTED104、SUPPORTED_BUT_SCHOOL_SPECIFIC25、DIS
 | 中華星相學會（1952–1979研究对象） | BAZI_AND_ZIWEI_RECEPTION_CONTEXT；1952–1979（2020论文题名范围） | 现代论文书目及2025学术综述与梁氏自述；全文及同期章程未核，不直接等同2007登记法人、不推定全部课程或成员。 | `EXT-TIANWEN-15AE-ITH-2020-BIBLIOGRAPHY-THESIS-RECORD`；`EXT-TIANWEN-15AE-HISTORY-TAIWAN-2025-REVIEW-OF-THESIS`；`EXT-TIANWEN-15AD-XINYI-2010-LIANG-XIANGRUN-AUTHOR-PREFACE` |
 
 transmission_impact：新增9 PERSON及2 INSTITUTION；新增4条ATTESTS，仅确认书目或传文所示责任归属（張開卷1949、1972，王亭之现代规则段，徐居正《筆苑雜記》传文）；不是四条确认师承，也不新增TRANSMITS_RULE。其余7节点为有来源锚定的待关联节点，不能因未建关系判定历史不存在。保留王亭之自述刘惠蒼、陸斌兆授课回忆、禤氏口述、越文译本底本及梁氏学会经历的证据差异；未证关系不强行画边。李虚中813墓志、徐子平传统归属、罗洪先署序争议等下一批从既有文献独立校对，不由传统姓名直接建师承树。现图506/379（PERSON10、INSTITUTION4）；源1488/276、Matrix222/222、58 OPEN及五P0、核心CLOSED不变。下一步：继续早期人物及关键近代出版、社团分线回填，并审查现有关系类型能否准确表达署名、任职、授课与自述师承；不在证据不足时另创确认关系。
+
+
+## 15FF-C｜早期题署与民国出版机构：第二批人物候选预审（2026-11-27）
+
+基线 `f7bb0667eca6be9a92cd6277b917c2e79fdc6e9c` / tree `baed5f626c40071d5f7854bc37b052dc5d87f5c7`；六项R2绑定与精确docs tree一致，continuity run45957253880 SUCCESS；全体Actions仍有排队/运行且分页枚举存在重复，不能宣布全部门禁通过。直接读根登记的三项相关记录、15AI/AQ/AR/BV/CF五个既有分片实际内容及对应原考据批次、15AP原页审读记录，核查既有图谱PERSON/INSTITUTION名称。另检查15DK分片作后续候选导航。此次只作既有证据的候选预审与阶段导航，未重新目验外部原叶，不新增来源或正式图谱节点；不是全库穷尽查重。
+
+| 候选身份／系统 | 已核既有证据及日期作用域 | 正式入图前的界限 |
+|---|---|---|
+| 陳抟、羅洪先／ZIWEI | `EXT-ZIWEI-QUANSHU-RECEIVED`；`EXT-TIANWEN-15AI-NTU-DLBS-FGU-LIAO-2020-ATTRIBUTED-LUO-PREFACE-ABSTRACT`；`EXT-NCKU-CHEN-2021-ZIWEI-EDITION-GENEALOGY`；15AI记1550署序、2020编辑假说、2021署名辨伪研究 | 可登记被题署人物身份及学术争论，不确证作者、编者、1550印本或陈抟后裔直传；旧根登记的author_attribution只能作题署字段 |
+| 李虛中、徐子平、徐大升／BAZI | `EXT-TIANWEN-15BV-SIKU-SANMING-V7-ZIPINGSHUOBIAN-RECEIVED`：1578作品体系的清四库受读；`EXT-TIANWEN-15CF-SONGLIAN-LUMINGBIAN-SIBU-RECEIVED-V16`：明初作者的后出正德本系受读 | 早期人物并非同一时期；分别补核李氏813墓志及徐氏早期目录/文本，区分徐君易／居易和徐大升，不将后出回顾链变成确认师承 |
+| 宋濂／BAZI思想史 | 15CF上述《祿命辨》受读，及 `EXT-TIANWEN-15CF-NCL-MINGLITERATURE-SONGXUESHIWENJI-1514-CATALOG`、`EXT-TIANWEN-15CF-GUJI-PROTECTION-09012-09017-SONGLIAN-1514-1551-EDITION-HOLDINGS` | 可作禄命术评论者/文献作者锚点，不作命理流派创始人；作品写作时点不等于1514/1551刊印年 |
+| 觀瀑主人／BAZI | `EXT-TIANWEN-15AQ-NLC-1924-RENJIAN-VOLS-ORIGINAL-DIGITAL`：1924《人鑑》作者页题署、自序p1、目录及正文；`EXT-TIANWEN-15AQ-HEARTANDYI-2018-XINMING-1927-REPRINT-NOTICE`：后出本名称林庚白 | 原册署号与后出本名归属须分层，不作已核法律身份、社团任职或共同师承 |
+| 張一蟠、上海命學社／BAZI | `EXT-TIANWEN-15AR-NLC416-1934-DINGMINGLU-ORIGINAL-SOCIETY-IMPRINT`：1934《定命錄》p4署序及p219编著、发行刊记 | 1934作品内证支持编著及发行角色；1927命學苑／宛与1934命學社同一性未证 |
+| 韋千里、韋氏命苑／BAZI | `EXT-NLC-QIANLI-MINGXUE-JIANGYI-1934`：15AP所核p10–14他序/自序、p15–18课程分类及四柱正文、p400–401刊记与广告 | 支持同年出版、具名教材及函授自述；不确证实际招生量、全部授课或两家1934上海机构共同师承 |
+
+关系建模先沿用现有ATTESTS证据限定方式；本次区分六类：原书题署、作者/编著刊记、作品/机构发行声明、同期自述授课、后出回忆/本名归属、历史师承假说。即使两份资料同年同地也不可由共存推导传承关系。原始材料未重新查图，故不把现有既有批次局部审读夸为本次原页复核。
+
+下一步：先核对候选图谱节点的确切既有文本/版本节点、李虛中墓志登记及徐子平早期书目，择真实证据范围内人物/机构回填；随后在同一原子提交更新graph/state/ledger/R2。当前预审不改变语义状态：源1488/276、图506/379、Matrix222/222、58 OPEN及五P0、核心CLOSED；TW-OPEN-0058保持OPEN。保留15FF-B为正式下一任务，不宣告广度验收或第二批人物正式准入。
+
