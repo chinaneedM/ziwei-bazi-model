@@ -487,3 +487,67 @@ transmission_impact: MATERIAL_EVIDENCE_SCOPED_GRAPH_BACKFILL — 8 nodes, 7 scop
 本原子提交纳入graph c8eb896391fec7021e141c9058630bca22833c8f、state d05c9214707a48241a1efb7a655b4bea40823e16、ledger 271c3e8d7ef278b9ff692d0cc68db14004b54d55、重新派生R2及本检查点：state1.1576.0、图663/483、222/222 Matrix、1488来源/276分片、58 OPEN含五P0、核心CLOSED。精确HEAD远端CI结果须在提交后单独核验，不在提交前声称已通过。H3为当时真实阻塞，保留不覆盖。传输恢复仅解决本次，无证据保证未来无限增长；后续优先保持已有紧凑JSON，若再次失败再评估有验证门禁的历史归档分片方案，禁止删除历史或改写风险内容规避限制。
 
 transmission_impact: 新增22个限定ATTESTS（TG-E0462–0483）、11受读篇页和22规则族；无新增直接抄传/师承/同版关系。NEXT 四柱动态继承与剩余紫微本命辅杂星的双向索引；第三/第四门槛仍待复评。
+
+
+## I. 四柱动态继承／紫微本命辅杂曜双向导航检查点（2026-11-27）
+
+固定基线 fa525e109e941653e74488f7d23b1f635c992f72 / c48c1ebb12bcfe2a38665a7a958f7c50096963a6。六个R2绑定逐一核对；直接读取六权威JSON（state、ledger、Matrix、root、manifest、graph）而非以空fetch_file正文冒认。精确HEAD连续性CI 45978846506已成功；分页观察时284项中仍有排队/执行，clean-training-system 45978849435尚未完成，不宣告全CI通过。PR 364为独立换日审计，仍OPEN，不合并。五项P0保留，0001/0002原叶访问阻塞、0005控制5/6最终0/6、0006夜子时候选、0007计时适配器；58风险不改。此单元仅复用已登记史料、既有审计和图谱，未检索新外部来源，未逐片搜索276分片，不作全库来源缺失断言。
+
+### I1. 四柱动态十项双向导航（Matrix 10/10）
+
+正向：目标投影→父本命规则→已有来源/图谱；反向：父规则仅给其现代消费者提供机械身份，不给整个现代时间轴授予历史地位。复读12ML、12MN、12MO与固定Matrix。以下候选新族仅为后续导航，不是已经新增的节点或关系。
+
+| Matrix | 规则 | 当前状态 | 已有定位 | 对接与禁止越界 |
+|---|---|---|---|---|
+| HPA-BAZI-FLOW-001 | Unified target timeline 原局→大运→小运→流年→流月→流日→流时 | MODERN_COMPATIBILITY_ONLY | src/fortune_training/bazi_application/flow_service.py BaziApplicationFlowService._build_view; src/fortune_training/bazi_application/flow_integrity.py; docs/BAZI-ZIWEI-UNIFIED-TARGET-TIMELINE-R1.md | 仅现代统一时间轴；不建立古籍ATTESTS。 |
+| HPA-BAZI-FLOW-002 | Target-layer Ten-God projection | HISTORICALLY_SUPPORTED | Inherited S11:YHZP-CH-016／017／057／065; NTL-9900014379 PDF pp37-39 / printed18-20 table; PDF p64 / printed47 day-self anchor; source content and locations are distinct from modern layer/API composition. | 父003→既有RULE-FAMILY-BAZI-TEN-GOD-RELATIONAL-IDENTITY（E0430）；藏干父002及FLOW-003另行定位。本命日干为参照，不改为目标干。 |
+| HPA-BAZI-FLOW-003 | Target-layer hidden stems | HISTORICALLY_SUPPORTED | src/fortune_training/bazi_application/temporal_annotations.py temporal_classical_annotation; docs/BAZI-TEMPORAL-CLASSICAL-ANNOTATIONS-R1.md | 父002藏干成员；时层仅复用合法目标支，显示顺序是lineage而非独立历史规则。待独立藏干篇页锚。 |
+| HPA-BAZI-FLOW-004 | Target-layer NaYin/XunKong/Twelve Growth | HISTORICALLY_SUPPORTED | src/fortune_training/bazi_application/temporal_annotations.py; src/fortune_training/bazi_application/classical_annotations.py; src/fortune_training/bazi_nayin_annotation/registry.py; inherited source locations in HPA-BAZI-006/007/008 | 父006/007/008；由子008/009/010拆分，汇总项不重复造一个古代规则族。 |
+| HPA-BAZI-FLOW-005 | Temporal ShenSha target projection | MODERN_COMPATIBILITY_ONLY | docs/BAZI-TEMPORAL-SHENSHA-PROJECTION-R1.md; src/fortune_training/bazi_application/temporal_shensha.py | 父SHENSHA-001..021；保留每项来源及候选，temporal_applicability_status=NOT_CLASSICALLY_ARBITRATED；不建立神煞激活或预测关系。 |
+| HPA-BAZI-FLOW-006 | Structural Context target projection | MODERN_COMPATIBILITY_ONLY | docs/BAZI-STRUCTURAL-CONTEXT-R1.md; docs/BAZI-TARGET-FLOW-STRUCTURAL-PROJECTION-R1.md; src/fortune_training/bazi_structural/generation.py; src/fortune_training/bazi_application/structural_projection.py | 父002/003/004/005/013及BAFF-002；中性结构事实的现代合成，不能作为古法统一结构。 |
+| HPA-BAZI-FLOW-007 | Structural Support candidate projection | MODERN_COMPATIBILITY_ONLY | docs/BAZI-STRUCTURAL-SUPPORT-FOUNDATION-R1.md; docs/BAZI-TARGET-FLOW-STRUCTURAL-SUPPORT-PROJECTION-R1.md; src/fortune_training/bazi_structural_support/generation.py; src/fortune_training/bazi_application/structural_support_projection.py | 父002/004/013、BAFF-002、FLOW-003/006；现代证据类别候选，非旺衰、格局、用神裁决。 |
+| HPA-BAZI-FLOW-008 | Target-layer NaYin identity projection | HISTORICALLY_SUPPORTED | HPA-BAZI-006; S11:YHZP-CH-014; src/fortune_training/bazi_nayin_annotation/registry.py | 父006纳音；已有RULE-FAMILY-ZIWEI-RECEIVED-NAYIN-GANZHI-ELEMENT仅作同型检索入口，仍需四柱作品/表的独立见证，不能跨系统挪用证据。 |
+| HPA-BAZI-FLOW-009 | Target-layer XunKong identity projection | HISTORICALLY_SUPPORTED | HPA-BAZI-007; S14:YHZP-CH-047; S14:7.7; src/fortune_training/bazi_application/classical_annotations.py | 父007旬空；合法目标干支所属旬的两空支；不等于紫微副旬显示或吉凶判断。待四柱独立篇页锚。 |
+| HPA-BAZI-FLOW-010 | Target-layer Twelve-Growth identity projections | HISTORICALLY_SUPPORTED | HPA-BAZI-008; S11:YHZP-CH-015; src/fortune_training/bazi_application/classical_annotations.py; src/fortune_training/bazi_application/temporal_annotations.py | 父008十二长生；本命日主→目标支、目标干→目标支两视图；非紫微五局长生或旺衰预测。待四柱独立篇页锚。 |
+
+反向索引：BAZI-003→FLOW-002；BAZI-002→FLOW-002/003/006/007；BAZI-004/013、BAFF-002→FLOW-006/007；BAZI-005→FLOW-006；BAZI-006→FLOW-004/008；BAZI-007→FLOW-004/009；BAZI-008→FLOW-004/010；SHENSHA-001..021→FLOW-005；FLOW-003→FLOW-002/007，FLOW-006→FLOW-007。FLOW-001现代组合总轴不作为以上历史规则的共同祖本。FLOW-003的父002由12ML明确，Matrix该行无显式upstream_rule_ids，本文只记录可复核导航而不直接改Matrix字段。12MN所述profile同步是既有PROV-DEFECT-009，不重复计为新缺陷。
+
+### I2. 紫微本命杂曜全27项对接表
+
+读取07A/B/C、固定Matrix与全部663图谱节点/483边。以下是逐项当前导航及候选入图边界，并非27项新历史裁决；其中受读章名、项目语料定位不能替代1581原刻目标叶。历史身份与现代显示保持分立。
+
+| Matrix | 规则 | 当前状态 | 已有定位 | 对接或待核入口 |
+|---|---|---|---|---|
+| HPA-ZMINOR-001 | 天哭 / 天虚 birth-year-branch geometry | HISTORICALLY_SUPPORTED | S01:ZZQS-A-1886; S01:ZZQS-A-1887 | 候选新族：生年支天哭/天虚，分两输出；S01受读定位待绑定原页。 |
+| HPA-ZMINOR-002 | 红鸾 / 天喜 birth-year-branch geometry | HISTORICALLY_SUPPORTED | S01:ZZQS-A-1918; S01:ZZQS-A-1919 | 候选新族：生年支红鸾/天喜；对宫关系不证明历史传承。 |
+| HPA-ZMINOR-003 | 龙池 / 凤阁 birth-year-branch geometry | HISTORICALLY_SUPPORTED | S01:ZZQS-A-1893 | 候选新族：生年支龙池/凤阁，两方向分别审。 |
+| HPA-ZMINOR-004 | 台辅 / 封诰 birth-hour geometry | HISTORICALLY_SUPPORTED | S01:ZZQS-A-1899; S01:ZZQS-A-1905 | 候选新族：生时台辅/封诰，另核《捷览》CH35目标文字，不能只由篇名推定完整表。 |
+| HPA-ZMINOR-005 | 天刑 / 天姚 lunar-month geometry | HISTORICALLY_SUPPORTED | S01:ZZQS-A-1872; S01:ZZQS-A-1873 | 候选新族：农历月天刑/天姚，两起宫独立。 |
+| HPA-ZMINOR-006 | Year-based 解神 geometry (modern 年解 display) | HISTORICALLY_SUPPORTED | S01:ZZQS-A-1945; EXT-ZIWEI-QUANSHU-RECEIVED / 卷二《安天德月德解神诀》 | 复用 RULE-FAMILY-ZIWEI-JIESHEN-YEAR，E0147仅受读年支语境；不合并月解。 |
+| HPA-ZMINOR-007 | 天厨 birth-year heavenly-stem ten-value table | HISTORICALLY_SUPPORTED | EXT-WIKISOURCE-XINGXUE-DACHENG-TIANCHU / 《星学大成》(四库全书本)卷一《论天厨》; S01:ZZZA-PR-023 | 复用 RULE-FAMILY-ZIWEI-NATAL-TIANCHU-CURRENT；E0156 PROBABLE，古天厨表不证明紫微采用。 |
+| HPA-ZMINOR-008 | 天寿 Body-palace basis + birth-year-branch offset | HISTORICALLY_SUPPORTED | EXT-ZIWEI-JIELAN-1581 / 卷一第35章《安天才天寿台辅封诰星诀》; S01:ZZZA-A-0830..0834 | 复用 RULE-FAMILY-ZIWEI-NATAL-TIANSHOU-BODY-BASIS；E0153，身宫基准非命宫。 |
+| HPA-ZMINOR-009 | 天官 / 天福 birth-year-stem tables | HISTORICALLY_SUPPORTED | EXT-ZIWEI-JIELAN-1581 / 卷一第37章《安天官贵人星诀》、第38章《安天福贵人星诀》; S01:ZZZA-PR-022 | 候选两族：天官/天福生年干表，《捷览》CH37/38分别入图。 |
+| HPA-ZMINOR-010 | 天空 birth-year-branch next-palace geometry | HISTORICALLY_SUPPORTED | EXT-ZIWEI-JIELAN-1581 / 卷一第39章《安天空星诀》; S01:ZZZA-PR-027 | 候选新族：生年支下一宫天空；非地空。 |
+| HPA-ZMINOR-011 | 旬中空亡 two-branch pair geometry (旬空 / 副旬 presentation split) | HISTORICALLY_SUPPORTED | EXT-ZIWEI-JIELAN-1581 / 卷一第40章《定旬中空亡诀》; S01:ZZZA-PR-025 | 候选新族：旬中两空支；正副显示另层，不倒投古文。 |
+| HPA-ZMINOR-012 | 截路空亡 / 截空 pair and 正空/傍空 ordering | HISTORICALLY_SUPPORTED | EXT-ZIWEI-JIELAN-1581 / 卷一第41章《定截路空亡诀》; S01:ZZZA-PR-024 | 候选新族：截路空亡两值及正傍次序分别审；非旬空。 |
+| HPA-ZMINOR-013 | 孤辰 / 寡宿 birth-year-branch group table | HISTORICALLY_SUPPORTED | EXT-ZIWEI-JIELAN-1581 / 卷一第43章《安孤辰寡宿星诀》; S01:ZZZA-PR-030 | 候选两族：孤辰/寡宿年支组；不借同名四柱神煞。 |
+| HPA-ZMINOR-014 | 劫煞 birth-year-branch trine-group table | HISTORICALLY_SUPPORTED | EXT-ZIWEI-JIELAN-1581 / 卷一第44章《安劫杀星诀》; S01:ZZZA-PR-031 | 候选新族：劫煞年支三合组；不等于四柱时层适用。 |
+| HPA-ZMINOR-015 | 华盖 birth-year-branch trine-group table | HISTORICALLY_SUPPORTED | EXT-ZIWEI-JIELAN-1581 / 卷一第45章《安华盖星诀》; S01:ZZZA-PR-035 | 候选新族：华盖年支三合组；同名不证明从四柱移植。 |
+| HPA-ZMINOR-016 | 咸池 placement geometry / 1581 桃花杀 naming bridge | HISTORICALLY_SUPPORTED | EXT-ZIWEI-JIELAN-1581 / 卷一第46章《安桃花杀诀》; S01:ZZZA-PR-036 | 候选新族：桃花杀/咸池几何与名称桥分层。 |
+| HPA-ZMINOR-017 | 大耗 birth-year-branch placement | HISTORICALLY_SUPPORTED | EXT-ZIWEI-JIELAN-1581 / 卷一第47章《安大耗杀诀》; S01:ZZZA-PR-032 | 候选新族：独立大耗，区别岁前、博士同名成员。 |
+| HPA-ZMINOR-018 | 破碎 birth-year-branch group table | HISTORICALLY_SUPPORTED | EXT-ZIWEI-JIELAN-1581 / 卷一第48章《安破碎杀诀》; S01:ZZZA-PR-034 | 候选新族：破碎年支分组。 |
+| HPA-ZMINOR-019 | 天才 Life-palace basis + birth-year-branch offset | HISTORICALLY_SUPPORTED | EXT-ZIWEI-JIELAN-1581 / 卷一第35章《安天才天寿台辅封诰星诀》; S01:ZZZA-PR-041 | 复用 RULE-FAMILY-ZIWEI-NATAL-TIANCAI-LIFE-BASIS；E0152，命宫基准。 |
+| HPA-ZMINOR-020 | Standalone 蜚廉 birth-year-branch table vs 博士十二神 飞/蜚廉 identity | HISTORICALLY_SUPPORTED | EXT-SHIDIAN-LISHIMINGYUAN-FEILIAN; EXT-CTEXT-XINGLI-KAOYUAN-FEILIAN; EXT-WIKISOURCE-XIEJI-BIANFANG-FEILIAN; docs/research/ZIWEI-STANDALONE-FEILIAN-HISTORICAL-IDENTITY-CLOSURE-R1.json | 复用 RULE-FAMILY-FEILIAN-YEAR-BRANCH；E0117–0119；区别RULE-FAMILY-ZIWEI-BOSHI-FEILIAN。 |
+| HPA-ZMINOR-021 | 龙德 birth-year-branch +7 geometry / 岁前十二神 projection | HISTORICALLY_SUPPORTED | EXT-ZIWEI-JIELAN-1581 / 卷一第49章《安生年太岁十二神诀》; S01:ZZZA-PR-037 | 复用 RULE-FAMILY-ZIWEI-SUIQIAN-YEAR-BRANCH-RING；E0482；龙德位置与名称桥分立。 |
+| HPA-ZMINOR-022 | Natal 月德 birth-year Si-start geometry and historical adoption scope | SOURCE_INSUFFICIENT | EXT-CTEXT-SHENFENG-TONGKAO / 鸾喜二德解神歌; S01:ZZQS-A-1944; EXT-ZIWEI-QUANSHU-RECEIVED / 卷二《安天德月德解神诀》 | 复用 RULE-FAMILY-ZIWEI-NATAL-YUEDE-SI-START；E0148 POSSIBLE；本命采用证据未足，流年子起另族。 |
+| HPA-ZMINOR-023 | 月解 / month-based 解神 two-month table | HISTORICALLY_SUPPORTED | EXT-SHIDIAN-LISHIMINGYUAN-JIESHEN; EXT-CTEXT-XINGLI-KAOYUAN-JIESHEN; EXT-WIKISOURCE-XIEJI-BIANFANG-JIESHEN; docs/research/ZIWEI-MONTH-JIESHEN-HISTORICAL-IDENTITY-CLOSURE-R1.json | 复用 RULE-FAMILY-JIESHEN-MONTH；E0125/0128/0131；E0134并存非同算法。 |
+| HPA-ZMINOR-024 | 天巫 lunar-month table | SOURCE_INSUFFICIENT | EXT-SHIDIAN-LISHIMINGYUAN-TIANWU; EXT-CTEXT-XINGLI-KAOYUAN-TIANWU; EXT-WIKISOURCE-XIEJI-BIANFANG-TIANWU; docs/research/ZIWEI-TIANWU-HOMONYM-MECHANICAL-SEPARATION-R1.json | 复用 RULE-FAMILY-ZIWEI-TIANWU-FOUR-HORSE-MONTH；E0144仅并存，择日月建前二辰非紫微月表。 |
+| HPA-ZMINOR-025 | 天月 lunar-month twelve-value table | SOURCE_INSUFFICIENT | EXT-IZTRO-TIANYUE-MODERN; EXT-XSTARS-TIANYUE-MODERN; docs/research/ZIWEI-TIANYUE-MODERN-RECEIVED-SOURCE-BOUNDARY-R1.json | 候选现代天月月表；无足够早期原页，不新增历史传承边。 |
+| HPA-ZMINOR-026 | 阴煞 lunar-month six-palace cycle | SOURCE_INSUFFICIENT | EXT-IZTRO-YINSHA-MODERN; EXT-XSTARS-YINSHA-MODERN; docs/research/ZIWEI-YINSHA-MODERN-RECEIVED-SOURCE-BOUNDARY-R1.json | 候选现代阴煞六宫循环；无足够早期原页，不新增历史传承边。 |
+| HPA-ZMINOR-027 | Natal 天德 birth-year You-start geometry and historical adoption scope | SOURCE_INSUFFICIENT | EXT-CTEXT-SHENFENG-TONGKAO / 鸾喜二德解神歌; S01:ZZQS-A-1943; EXT-ZIWEI-QUANSHU-RECEIVED / 卷二《安天德月德解神诀》 | 复用 RULE-FAMILY-ZIWEI-NATAL-TIANDE-YOU-START；E0149 POSSIBLE；起宫同流年而输入不同，不升级本命采用。 |
+
+补充本命核心辅星：ZIWEI-007为候选总族，015《捷览》CH25庚干魁钺异表、016 CH27巳酉丑火铃起支异法、021 CH22左辅右弼/昌曲/地空地劫各分独立规则；017 CH24天伤天使固定命宫几何，不能替008整个R4杂曜源不足项；009运行时庙旺为现代兼容、018 CH69/70历史表另族；012星曜角色/依赖争议、022 CH31命主年支依据、023 CH32子午身主火铃复合源不足应保持独立。下一步核读各章具体已登记受读文本及先前审计，按精确机械输入、表项和边界生成候选图谱，勿把篇名当作整表实证。上述涉及源不足的ZMINOR-022/024/025/026/027及ZIWEI-008/023均保持原状态。
+
+### I3. 恢复与验收边界
+
+本次建立10项动态与27项本命杂曜的可重放导航，另明确11个核心辅星/角色/庙旺Matrix ID的拆分入口；均是既有222项的索引完善，不增加已审计行数、来源、图谱边或历史裁决数。未改语义状态/R2/Matrix/graph/ledger，故无新状态版本及风险结项。此前H4已经正式发布，不再重复。当前仍为15FF-Q未结项；下一轮按I1/I2中明确证据逐族核对、语义去重并原子发布新图谱和状态（优先四柱藏干、纳音、旬空、十二长生与紫微《捷览》CH35/37–48等可定位受读族）；随后才复评第三/第四门槛。transmission_impact: NONE（仅索引检查点）。核心CLOSED，预测仍OUT_OF_SCOPE。
