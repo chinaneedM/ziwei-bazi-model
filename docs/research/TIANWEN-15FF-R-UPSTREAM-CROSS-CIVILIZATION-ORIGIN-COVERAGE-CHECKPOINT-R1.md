@@ -650,3 +650,68 @@ R3第二轮完整查询已回收；根647记录单独查询五行大义相关词
 - 技术层：Mak p16列horā（希腊语对应）、drekkāṇa（三分/旬区）、liptā（角分）等借词与业力、阿育吠陀、印度诸神及165年yuga并存；这些是可分解的比较目标，不是对紫微星曜或安星算法的直接见证。p18指出与Sārāvalī、Mīnarāja的Vṛddhayavanajātaka共享段落的方向需要重新审查，不能把有共同文字预设为后书抄前书。
 - 与天问相关的研究方法：先给跨文明文献的具体见证建立年代区间、原词与运算语义，再与中国本命北斗、十二宫/星宫、日月行星历表和后世斗数安星逐条比对。希腊—印度技术接触不等于印度—中国全部传承，更不能直接推出南印度—紫微单向复制。前两节的方盘图式反向传播候选独立保留。
 - 未获取N、Q馆方完整原图，未确认现代论文中所用替身与馆藏在线物件的一一绑定。本轮第八轮查询加入梵文题名异体、作者、稿本号、两篇论文的稳定标识和相关反证著作。上轮第七轮查重与第六轮查重均已经保全；在新增登记使manifest变更之前，复用其现有结果，先完成前批候选语义消歧及准入，不无限延长查询循环。当前研究是既有TW-OPEN-0059支线，未新增风险类别、未改状态版本；59 OPEN五P0、1499来源/279分片、Matrix222/222、图819/581不变，transmission_impact=NONE，核心CLOSED，不终验。
+
+
+## 11. 15FF-R8｜六来源裁决完成，原子发布待恢复（2026-11-27）
+
+**状态：PENDING_ATOMIC_PUBLICATION，非正式准入。** 基线 HEAD `8ac248dcf70649cff9a732832bb49546b46ec5a8`、tree `dcbc81f60c96990d30e69c12774ba6b820a20cbd`。该HEAD [continuity run 46007149769](https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/46007149769) job140533070997 success，62+7 tests；21 Actions中20 success、1 clean-training-system in_progress。第八轮实际日志如下，验证脚本blob 3387254ce53ec0a1f1a3b779291e0c40997bf190：
+
+```json
+{
+  "query_id": "15FF-R7-yavanajataka-dating-and-textual-witnesses",
+  "checkpoint_id": "TW-CHECKPOINT-15FF-R7-NAKAMURA-REGIONAL-CHARTS-20261127",
+  "request_blob_sha": "e26b9fc5901b4e44f64ace37fe4d1ab2bc2c802f",
+  "registry_manifest_blob_sha": "46a75cadb4940cf265fb302f0e911fa646d50253",
+  "status": "PASS",
+  "scope": "ALL_REGISTERED_ROOT_AND_SHARDS_LITERAL_ONLY",
+  "files": 280,
+  "records": 1499,
+  "matching_files": 0,
+  "per_term_matching_files": {
+    "Yavanajātaka": 0,
+    "Yavanajataka": 0,
+    "Yavanajātaka": 0,
+    "Sphujidhvaja": 0,
+    "Yavaneśvara": 0,
+    "Bill M. Mak": 0,
+    "Bill Mak": 0,
+    "H2RP4T": 0,
+    "h2rp4t": 0,
+    "1116424ar": 0,
+    "SCIAMVS_14_059-148_Mak": 0,
+    "A31/16": 0,
+    "A1122/3": 0,
+    "NAK 6/2397": 0,
+    "NAK 1/1180": 0,
+    "vi.jyaut.45": 0,
+    "Bṛhadyavanajātaka": 0,
+    "Vṛddhayavanajātaka": 0,
+    "Mīnarāja": 0,
+    "Sārāvalī": 0
+  },
+  "hits": [],
+  "truncated": false
+}
+```
+
+第六、七轮结果见§10b/c。三轮均280文件/1499来源/20词零字面命中；仅对具体候选身份及字面检索范围作判断，不作普遍语义无重复断言。本轮六项有限准入裁决已完成，具体条目见[待登记分片](TIANWEN-15FF-R8-REGIONAL-AND-CROSS-CIVILIZATION-SOURCE-SHARD-R1.json)。该文件暂不在manifest中，不能计入正式来源总数，不能据其增加图谱节点/边。
+
+Wellcome 1885 Iyer、BL EAP1294/2/33仅馆目；Thomann 2008限书目及反向假说归属；Greenbaum/Jones 2017为现代研究及同一P.Berl.9825四装框发表照片（本轮补读Fig3 frame B cols v–vii，版式级核阅）；Jones 2026 pp35–36复核为现代批判校勘及图式年代讨论；Mak HSSA 2013 pp13–18提取文本，截图受阻，非独立梵文原字裁决。EAP1294/2/44另有个人命盘的目录线索尚未查重、未取得原图。以上为上一工作单元的研究记录；本恢复轮不声称新增原图实读。保留Iyer印页6、Florence/BnF原叶、Mak SCIAMVS、天理/神宫卷四、1959底本、伊朗中亚中介等未决。不增加物理字形权威。
+
+### 11a. 发布阻塞的精确复现与恢复合同
+
+- 远端正式 state=1.1587.0，1499来源/279分片、Matrix222/222、图819/581、59 OPEN含五P0；core CLOSED。不得提前宣告1.1588.0或1505来源。
+- 拟提交分片 Git blob `9c11f0d0b4229ca899526b9e8b9dd9b21e6a5e9d` 已生成并回读六条完整记录，本次仅将其作为未登记候选附在既有研究检查点。
+- 拟提交manifest blob `a3931ce82103490efb1ef6f6cda740cc5f839be1` 已回读，六条新增、总1505/280分片。拟提交state blob `c4e1d8f81d75f764c10ddb335f27c851cacd6e1c` 已回读，schema1.1588.0、focus3284。二者仍未挂接权威路径，不是live state；若对象未来不可读则从当前权威文件和候选分片重建，不依赖孤立对象长期存续。
+- 原台账blob `5453fef89e6e3173337043381b9d5e35010fc1c1`，实际紧凑UTF-8 4,070,463字节、3,737,867字符、1018 checkpoints，JSON parse及重序列化字节数一致。按原规则追加后的紧凑内容3,743,131字符。多次 create_blob（含紧凑编码）及 create_tree inline content 均失败，报 h2 protocol error: error reading a body from connection。不能确认具体服务端限额；不是可通过去掉缩进解决的问题。容器 curl/git ls-remote 无法解析github.com，无本地checkout发布路线。**未削弱校验、未删除任何历史数据、未修改工作流权限。**
+
+恢复时先重新发现HEAD并验证canonical bindings/最新检查点/最新CI；若仍为1.1587.0及相同三权威blob，六条候选查重仍可复用。用具备真实checkout与Git写权限的执行路径（或后续可承载大blob的正常连接）完成：
+1. 在同一工作树中保留候选分片，按已回读拟manifest/state的具体差异更新，核旧分片及来源计数完整、状态版本1.1588.0。
+2. 读取原ledger全量JSON；保留旧对象、旧历史与1018个checkpoint原值。更新binding.reviewed_state_version=1.1588.0、source_focus_count=3284、latest_research_focus_prefix=13ZZ。对TW-OPEN-0059追加下述evidence_boundary（保留原文），next_action用拟state.research_execution_strategy.next_deliverable；source_refs只增不删，增加本分片路径；append EVIDENCE_SCOPE_REVISION，changed_fields=[evidence_boundary,next_action]、previous_fields为旧字段原值、reason为“Complete exact-HEAD registry rounds and bounded evidence admission, not historical closure.”、evidence_refs为本检查点及分片路径。追加checkpoint（复制上一个checkpoint中全部reviewed_issue_ids与discovery_mode，覆盖id为TW-CHECKPOINT-15FF-R8-REGIONAL-CROSS-CIVILIZATION-ADMISSION-20261127、date=2026-11-27、state_version=1.1588.0、result为拟state最后focus；evidence_refs为本检查点、双历史覆盖atlas、紫微outline、分片及现有query合同；unresolved_breadth_leads保留TW-OPEN-0059 OPEN，next_evidence为next_action）。evidence_boundary追加：
+```text
+ R8: rounds 6–8 full 280-file/1499-record literal queries passed; six scoped bibliographic/secondary sources admitted. P.Berl.9825 frame B photograph recovered (four frames one artifact), Jones pp35–36 rechecked, Mak HSSA received text only. No ancient square chart, original Sanskrit glyph or direct lineage adjudication.
+```
+3. 更新紫微历史纲及双史atlas的有限准入导航；将本节追加完成状态（不得重写本失败记录），运行 scripts/project-context-r2.py build/verify，现有来源和遗漏/forward-only gates；旧query checkpoint变更后应为STALE_CHECKPOINT，不是新manifest零命中。所有权威变更及派生view同一原子提交，非破坏性lease，回读远端及精确HEAD CI。新HEAD若已经推进则重新语义合并，不盲用拟blob。
+4. 如果当前执行通道仍无法写入4MB台账，不得反复提交同一失败尝试。保留本checkpoint，转向不改变权威状态且可合规完成的原始资料调查；长期可评估保留全部历史、兼容全部调用者及CI门禁的台账分片方案，但未经过完整依赖审计和验证不实施迁移。
+
+transmission_impact=NONE；本次仅保全未完成研究工作及恢复合同，不更改正式语义状态、计数或历史裁决。当前研究保持广度优先、不终验。
