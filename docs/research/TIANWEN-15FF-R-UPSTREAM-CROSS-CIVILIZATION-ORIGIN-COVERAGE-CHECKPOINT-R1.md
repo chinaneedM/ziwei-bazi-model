@@ -307,3 +307,149 @@ R3第二轮完整查询已回收；根647记录单独查询五行大义相关词
 [公开扫描 NLC511-023031404016947-25263 第二册](https://upload.wikimedia.org/wikipedia/commons/9/9a/NLC511-023031404016947-25263_%E4%BA%94%E8%A1%8C%E5%A4%A7%E7%BE%A9_%E4%BA%8C.pdf) 实际截图：PDF零基index2版权页，1939年12月初版、1959年10月补印、商务印书馆；index12印页74卷四，第十六论七政，人工辨读从右数第四至第六栏黃帝斗圖引文及相邻文字，贪狼子、巨门丑亥、禄存寅戌、文曲卯酉、廉贞辰申、武曲巳未、破军午可辨，均与京都受读相合。网页提取误把生读作牛、亥作女、辰申间夹巳等，不采用；以所见印页为该近代印本读字证据，不是隋代或镰仓原件；底本、馆藏实物精确绑定和图像字节SHA尚未取得，不准入物理字形权威。index14、15印页76–77为邻段控制。本轮两项目标页截图成功，未保存原PDF或SHA，NLC及五帖目录等待第四轮精确物件查询，不另计来源。CiNii BA71079398直开超时；不将超时记为无书。
 
 已更新紫微史纲/双史图册及语义状态，当前1.1585.0；647+846=1493来源、277分片，819/581图谱、222/222 Matrix、59未决含五P0，核心CLOSED。保留Q不足项与TW-OPEN-0059 OPEN。下一步第四轮物件查询覆盖新manifest；不得以广义1959/出版社命中多寡当语义裁决。未获南印度可定年早期方盘或直传证据，T1311/Kotyk 2017仍候选。第一阶段不终验，transmission_impact=NONE。
+
+## 8. 15FF-R5续｜第四轮全库查重回收、元弘相传本与九曜传文候选复核（2026-11-27，未结项）
+
+基线 HEAD `416ae62354b5a083f24a7dbf48020e19d05ffcba`，tree `aeb7aae09370792670bf44ecb907ac6992cec73f`。R2派生视图六项绑定一致，但初始 exact-HEAD continuity queued，故实际读取、解析六权威blob回退R1，核对222/222、647+846/277、819/581、59未决五P0，均一致；随后[本HEAD连续性CI](https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/46002841826) job140518585502 success，62遗漏与7 R2测试通过。首次全页Actions复核285个（231 success、37 queued、17 in_progress，无已知失败），不称全绿。R1大state普通读取为空，精确blob恢复成功。此次仍有全库命中语义核对和候选资料获取任务，未将运行状态误认成验收。
+
+第四轮查询结果，验证程序blob 3387254ce53ec0a1f1a3b779291e0c40997bf190：
+
+```json
+{
+  "query_id": "15FF-R5-wuxing-edition-and-object",
+  "checkpoint_id": "TW-CHECKPOINT-15FF-R5-PASSAGE-ADMISSION-20261127",
+  "request_blob_sha": "ed4e3188c46e49d6582cfc03a623dce042707a48",
+  "registry_manifest_blob_sha": "318b3f3beb9da3590d9656cd17929e303857a551",
+  "status": "PASS",
+  "scope": "ALL_REGISTERED_ROOT_AND_SHARDS_LITERAL_ONLY",
+  "files": 278,
+  "records": 1493,
+  "matching_files": 13,
+  "per_term_matching_files": {
+    "1959": 7,
+    "NLC511-023031404016947-25263": 0,
+    "023031404016947": 0,
+    "叢書集成初編": 2,
+    "丛书集成初编": 0,
+    "商務印書館": 6,
+    "201/8362": 0,
+    "01763": 0,
+    "元弘三年": 0,
+    "元弘相伝": 0,
+    "穂久邇": 1,
+    "穗久邇": 0,
+    "音羽産業": 0,
+    "BN04262897": 1,
+    "000002057459": 0,
+    "T1311": 0,
+    "梵天火羅九曜": 0,
+    "Iranian Elements in Late-Tang Buddhist Astrology": 0
+  },
+  "hits": [
+    {
+      "path": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json",
+      "blob_sha": "ea2ab50479450c39ce3fc7a00ea91cd713bf4a60",
+      "terms": [
+        "商務印書館",
+        "1959"
+      ]
+    },
+    {
+      "path": "docs/research/MING-DATONG-YEHUOBIAN-12QE-EXTERNAL-SOURCE-REGISTRY-DELTA-R1.json",
+      "blob_sha": "498ec4b80bfd7eca14b98b5642d8547ca32038d6",
+      "terms": [
+        "1959"
+      ]
+    },
+    {
+      "path": "docs/research/MING-DATONG-YEHUOBIAN-12TN-MODERN-1959-2012-SOURCE-SHARD-R1.json",
+      "blob_sha": "98e868d66dc054f17eb7ac62ee353073fb33a5c7",
+      "terms": [
+        "1959"
+      ]
+    },
+    {
+      "path": "docs/research/MING-DATONG-YEHUOBIAN-12TP-JOURNAL-NDL-SOURCE-SHARD-R1.json",
+      "blob_sha": "deca7555ebe14c27c202f26dff45fc33be4f5f70",
+      "terms": [
+        "1959"
+      ]
+    },
+    {
+      "path": "docs/research/MING-DATONG-YEHUOBIAN-12VA-PANG1959-SCHOLARLY-SOURCE-SHARD-R1.json",
+      "blob_sha": "1933aedc64503732750d18a64c424d07d65fdd07",
+      "terms": [
+        "1959"
+      ]
+    },
+    {
+      "path": "docs/research/MING-DATONG-YEHUOBIAN-12VQ-MODERN-EDITION-DESCRIPTOR-FIREWALL-SOURCE-SHARD-R1.json",
+      "blob_sha": "48d80ebc1f12d5dd3e78e05bd4a07b7c97368291",
+      "terms": [
+        "1959"
+      ]
+    },
+    {
+      "path": "docs/research/TIANWEN-13YZ-NLC511-1936-XING-J45-SOURCE-SHARD-R1.json",
+      "blob_sha": "ab2841b5c92634e21a7adbd6bc4b1390c953bd7d",
+      "terms": [
+        "商務印書館"
+      ]
+    },
+    {
+      "path": "docs/research/TIANWEN-15K-WENYUANGE-CATALOG-1935-1937-SOURCE-SHARD-R1.json",
+      "blob_sha": "d54229af6ebcf3d2db12f322aae35f917f6a084f",
+      "terms": [
+        "叢書集成初編",
+        "商務印書館"
+      ]
+    },
+    {
+      "path": "docs/research/TIANWEN-15CC-MINGSHI-YIWENZHI-NLC-SCAN-SOURCE-SHARD-R1.json",
+      "blob_sha": "187ac72d8392323dad26ba7ea04fafe7d2bfd5fe",
+      "terms": [
+        "叢書集成初編",
+        "商務印書館"
+      ]
+    },
+    {
+      "path": "docs/research/TIANWEN-15CH-XINGMING-ZONGKUO-PALACE-DEGREE-AND-ATTRIBUTION-SOURCE-SHARD-R1.json",
+      "blob_sha": "a14ec0c934d29c0edd8b2993feb24ea870ce14da",
+      "terms": [
+        "商務印書館"
+      ]
+    },
+    {
+      "path": "docs/research/TIANWEN-15CN-SONG-DONG-ZIPING-TAIYIN-SANMING-SOURCE-SHARD-R1.json",
+      "blob_sha": "b300d94c60032cfba9b9b9fdd6fce1e16d8c9e1d",
+      "terms": [
+        "商務印書館"
+      ]
+    },
+    {
+      "path": "docs/research/TIANWEN-15CU-WUXING-DAYI-YOUNIAN-SOURCE-SHARD-R1.json",
+      "blob_sha": "06ad0517fc9be40c786cd36ace7d4c14e1add404",
+      "terms": [
+        "穂久邇",
+        "BN04262897"
+      ]
+    },
+    {
+      "path": "docs/research/TIANWEN-15DJ-TAIWAN-JAPAN-NISHIKAWA-SOURCE-SHARD-R1.json",
+      "blob_sha": "d9b1a34c5da42e2888b24bca46781bb190c8e381",
+      "terms": [
+        "1959"
+      ]
+    }
+  ],
+  "truncated": false
+}
+```
+
+实际读取并解析全部13命中文件（根647条及12个分片）。唯一相关的既有版本馆目为15CU的 EXT-TIANWEN-15CU-NDL-CINII-BN04262897-1989，复用而不重复登记；广义1959、出版社、丛书名命中不指向新增NLC卷四物件，根内卷二亦非卷四。字面查询结果不等于语义全库穷尽，新增异名、馆藏变迁仍需核实。
+
+- [日本国会图书馆联合目录 BN04262897](https://ndlsearch.ndl.go.jp/books/R100000136-I1971149384758468106)实读：1989.12–1990.7汲古书院两册，第一册正文、第二册纸背，穂久邇文库所藏古写本影印；已登记15CU，复用。[NDL本馆第2册](https://ndlsearch.ndl.go.jp/books/R100000002-I000002057459)实读：1990.7、HR511-E143、pid13275615，馆内限定公开，不获得原页、不提出付费或登录申请。书店[ISBN 4762910929](https://www.toho-shoten.co.jp/toho-web/search/detail?bookType=jp&id=4762910929)记穂久邇文库五帖、元弘三年知円相传奥书，与[文化厅01763](https://kunishitei.bunka.go.jp/heritage/detail/201/8362)五帖、镰仓、元弘三年闰二月智円相传奥书、音羽产业所有描述高度相合；书店标第2册1989.12，与NDL 1990.7有差异，日期以对应馆目分层保留。现有证据加强同物候选，仍缺直接所有权/实物连续证据及卷四目标叶，不能合并为已确认同一物；亦不将1333奥书直接当正文抄写年代。1959近代印本与该古写本的底本关系仍未证。
+- [SAT T1311 梵天火羅九曜](https://21dzk.l.u-tokyo.ac.jp/SAT/ddb-sat2.php?mode=detail&nonum=1&useid=1311_,00,0462)实读首段：一行修述署名与咸通十五年甲午（874）历年记载并存，不能把现存传文整体直接定年一行生前。又见罗睺年龄序列1、10、19等九年间隔，土星2、11、20等，属于另一类岁数九曜分配和攘灾机制，不能混作北斗七星地支本命或斗数十四主星安星。CBETA/SAT为传文校验，不计为两古本；段落年代与原刊图形待核。
+- Kotyk 2017 [Asia Major 原刊](https://www11.ihp.sinica.edu.tw/storage/w2_file/2754DfNUyFU.pdf)实际截图index0/14（印页25/39）：作者明确将T1308视为多源合编，并以罗睺历表806起点及宗叡865请来目录作编纂区间的论证；书在中国实际运用范围不明，日本宿曜道使用的证据不能倒推紫微直接传承。这是现代研究论证，不是古物证据；T1308与T1311的署名及内在年代各自审查。
+
+本节仅在已登记TW-OPEN-0059下追加实读候选与可复验查询结果，尚未准入新source、未新增图节点/边、未作语义状态结项；旧state/ledger当前检查点仍指本文件，前节“第四轮待领取”由本节成功查询回收事实补正。保留全部59未决/五P0、Q不足项及紫微/子平独立、CLOSED产品。下一步从本节直接进行已有候选的准入裁决（T1311、Kotyk 2017、NLC1959印本证据、文化厅物件和NDL特定影印册），核南北印度方盘历史见证与希腊化/伊朗中介具体机制；若有新词/编号，按现有R2.1查询规则执行，不重复领取已保全查询。原页身份未绑定及第一阶段不终验均不变。transmission_impact=NONE。
