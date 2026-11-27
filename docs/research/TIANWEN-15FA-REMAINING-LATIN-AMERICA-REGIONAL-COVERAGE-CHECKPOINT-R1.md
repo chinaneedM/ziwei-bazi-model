@@ -59,3 +59,7 @@
 - 危地马拉检索误命中 [IESonoterapia目录](https://www.iesonoterapia.com/alumnos-certificacion-de-cuencos-tibetanos) 604–619行：八字咨询属哥斯达黎加 Ana María Valverde Ramos，紧邻危地马拉另一个瑜伽从业者条目，不可拼接。巴拉圭、危地马拉、独立紫微本轮未获合格材料，不等于无传播。
 
 15FB以上三份候选未准入；新查询 `15FB-caribbean-regional-evidence` 绑定manifest `0debefc29dbcf9699a0894a8d0253f1983876d63`、request `06110af17bce2678dff85ff1fdce54c1bcd051a7`、checkpoint `TW-CHECKPOINT-15FB-PROVISIONAL-20261127`。来源1464（647+817，272分片），图谱495/375，Matrix222/222，58 OPEN/5 P0，排盘CLOSED。
+
+
+## 15FB 正式准入（2026-11-27）
+精确 HEAD `666b66d7c42eea6f7b50cb04ad6a7880c95c2a43`，[run45949637047/job140342249076](https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/45949637047) SUCCESS；62项风险、7项R2测试，六个恢复视图绑定吻合。查询 `15FB-caribbean-regional-evidence`，checkpoint `TW-CHECKPOINT-15FB-PROVISIONAL-20261127`，request `06110af17bce2678dff85ff1fdce54c1bcd051a7`，manifest `0debefc29dbcf9699a0894a8d0253f1983876d63`；ALL_REGISTERED_ROOT_AND_SHARDS_LITERAL_ONLY，273文件/1464来源，11词均0，PASS，truncated=false。复核 Podimo 33–41、Booking 55/87–110/225–251、Mikura 7–14/124–131。三份有界来源准入 `docs/research/TIANWEN-15FB-CARIBBEAN-SOURCE-SHARD-R1.json` (blob `99c4c9b0426dd750c040017bfd6c7a328c38eb6c`)；同一波多黎各从业者两个载体不作独立传承投票。2021节目实际仅见风水基础题名，不能回推八字开课日期。服务文案称“ocho pilares del destino”，不采作八柱规则。多米尼加仅提供者公布的客户评价；2019高级研习会评价属秘鲁，导师评价两处文字重复，不作独立师承证据。巴拉圭、危地马拉、加勒比独立紫微的复检未得合格记录：邮寄国别清单、app可用国别与同页误配均排除；不证明术式未传播。无课程实开、最早传入、独立师承或规则裁决。未付费/注册。来源1467（647+820，273分片），图谱495/375、Matrix222/222、58 OPEN/5 P0不变。TW-OPEN-0058保持OPEN。广度优先下一步转非洲、中西亚，再补南亚、其他太平洋地域；拉美剩余缺口保留待可核证据，不反复空查。
