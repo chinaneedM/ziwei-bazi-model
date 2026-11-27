@@ -76,3 +76,8 @@
 补充线索（未登记，待全库补充检索及语义核验）：[BooksRun](https://booksrun.com/9789707751781-bazi-los-cuatro-pilares-del-destino-spanish-edition) 与 [AbeBooks](https://www.abebooks.com/9789707751781/Bazi-cuatro-pilares-destino-Spanish-9707751789/plp) 同ISBN列2012、Grupo Editorial Tomo、Rodolfo；Libristo列2006、Tomorrow's Guides、Rudolfo。原刊记/版次未闭合。出版社目录 https://tomobooksmx.com/pdf/catalogo_grupo_tomo.pdf 返回502、https://tomobooksmx.com/pdf/catalogo-2022.pdf 超时，未核原页。[作者介绍](https://cincoartes.com/acerca-de/) 19–27行自称Rodolfo、独学、多国五艺课程及子平教学；不能将每国五艺活动等同当地八字实授，瑜伽师承、2017气功证书不等同子平师承。
 
 [Boada博客](https://carhel168.wordpress.com/2007/06/10/los-4-pilares-del-destino/) 16–43行署Rodolfo Silva Ramos、墨西哥风水研究中心及子平八字，页面标注2007-06-10；评论95–97、136–137行有波哥大研讨会链接。仅为早期西语转载候选，非书籍刊年、哥伦比亚实际授课、古法有效性证据；无独立同期存档或研讨会原PDF。建议补充检索 Carmen Helena Boada、carhel168.wordpress.com、habitatfengshui.com、Seminario_Bogota、Grupo Editorial Tomo、tomobooksmx.com、Rodolfo Silva Ramos。TW-OPEN-0058保持OPEN，其他五P0不变。
+
+
+## 15EY 正式准入（2026-11-27）
+
+前述连接失败已通过拆分blob生成恢复。本批13条有界来源按已保全的全库检索及语义身份审查准入，见 `docs/research/TIANWEN-15EY-LATIN-AMERICA-SOURCE-SHARD-R1.json`。巴西5条、墨西哥5条、阿根廷2条、秘鲁1条；同一机构多页不构成独立师承，2006/2012同ISBN不构成两个版本。2025 PDF为现代接收文本与有限页图证据，无原始古籍字形或算法权威。来源1448/268；图495/375、Matrix222/222、58 OPEN及五P0不变；排盘CLOSED。补充查询15EY-S绑定新manifest和当前检查点，早期转载及出版冲突尚未准入。NEXT领取15EY-S，再继续拉美其余地区、非洲、中西亚。

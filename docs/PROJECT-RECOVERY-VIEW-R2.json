@@ -2,14 +2,14 @@
   "schema": "TIANWEN-CONTEXT-RECOVERY-VIEW-R2",
   "authority": "DERIVED_ONLY",
   "bindings": {
-    "docs/PROJECT-CURRENT-STATE-R1.json": "cc69035744a180f32da036e55cf144e284285cb6",
-    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "60049f8227059fc648b1ac59e951dfbf110a5f5e",
-    "docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json": "bfa261a3bf83790cabd1ebc3101213e9ea5b631a",
+    "docs/PROJECT-CURRENT-STATE-R1.json": "ce53592a537b315fd7ebe7953711bcd720f12d2a",
+    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "223d25057ab34144e459f7cbae6ff96fdb42e497",
+    "docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json": "e8178188a830ef9aea32e5815db9b8ff742e6831",
     "docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json": "280e023bcd6e0625f0dca2fd54d6c9423f286fd5",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json": "5919e1b6bbc3c4b150507c41a13ccc9e13d20f17",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json": "ea2ab50479450c39ce3fc7a00ea91cd713bf4a60"
   },
-  "state_version": "1.1549.0",
+  "state_version": "1.1550.0",
   "stage": "FUSION_CHART_HISTORICAL_PROVENANCE_AND_SCHOOL_AUDIT_R1",
   "invariants": {
     "deterministic_fusion_chart_product_r1": "CLOSED",
@@ -23,28 +23,29 @@
     "matrix_rows": 222,
     "matrix_audited": 222,
     "root_sources": 647,
-    "extension_sources": 788,
-    "total_sources": 1435,
-    "shards": 267,
+    "extension_sources": 801,
+    "total_sources": 1448,
+    "shards": 268,
     "graph_nodes": 495,
     "graph_edges": 375,
     "open_issues": 58,
     "p0": 5
   },
   "phase": "BREADTH_FIRST_TWO_SYSTEM_HISTORICAL_FRAMEWORK_R1",
-  "next_deliverable": "领取15EY完整全库查重，按巴西机构史/2016四柱公告、墨西哥2025原PDF及课程/2006书目、阿根廷书目课程、秘鲁术名边界分别核准；继续拉美其余地区、非洲、中西亚。TW-OPEN-0058 OPEN，排盘CLOSED。",
+  "next_deliverable": "领取15EY-S补充全库查重（2007 Boada 转载、波哥大研讨会、Tomo出版目录与2006/2012冲突），限定网络传播及书目证据；继续拉美其余地区、非洲、中西亚。TW-OPEN-0058 OPEN，排盘CLOSED。",
   "latest_matrix_batch": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-FIRSTPARTY-AND-OLD20-ATLAS-QD.md",
   "latest_breadth_batch": "docs/research/TIANWEN-15EY-LATIN-AMERICA-REGIONAL-COVERAGE-CHECKPOINT-R1.md",
   "checkpoint": {
-    "id": "TW-CHECKPOINT-15EY-PROVISIONAL-20261127",
+    "id": "TW-CHECKPOINT-15EY-ADMISSION-20261127",
     "evidence_refs": [
       "docs/research/TIANWEN-15EY-LATIN-AMERICA-REGIONAL-COVERAGE-CHECKPOINT-R1.md",
+      "docs/research/TIANWEN-15EY-LATIN-AMERICA-SOURCE-SHARD-R1.json",
       "docs/PROJECT-REGISTRY-QUERY-R2.json"
     ]
   },
   "focus": {
-    "index": 3244,
-    "text": "13ZZ CURRENT ACTION 15EY PROVISIONAL: 5949c30 continuity run45944265793/job140325257109 SUCCESS, 127/285 successful, 15 running, 143 queued, no observed failure. Brazil Sociedade Taoista retrospective/modern Ziwei services, 2016-03-13 Sao Paulo Bazi course announcement and Eternal Qi distinct curricula; Mexico Laura M. de Flores 2025 PDF visual pp cover/contents/1/10 shows four-pillar chart and named Ziwei self-report, Koppel Bazi syllabus, Silva Ramos 2006 retailer/author identity unresolved; Argentina Viggiano ebook and online Bazi offer, Peru Tzu-Wei title only. No actual teaching/lineage adjudication, new admission or algorithm change. Sources1435/267 graph495/375 Matrix222/222 58 OPEN five P0 core CLOSED. NEXT full query.",
+    "index": 3245,
+    "text": "13ZZ CURRENT ACTION 15EY: 13 bounded Latin America records admitted after exact ce9f7aa7 continuity run45944695682/job140326604435, 22 terms, 268 files/1435 records, zero hits, no truncation. Brazil institutional and 2016 course records; Mexico 2025 guide and curricula, conflicting 2006/2012 ISBN; Argentina publication/course and Peru title-only. New 2007 dated blog attributed to Silva Ramos and Bogota seminar link, publisher catalog access failures, not yet admitted pending supplemental literal dedup. Sources1448/268 graph495/375 Matrix222/222 58 OPEN five P0 core CLOSED. NEXT supplementary query, then remaining Latin America/ Africa/West-Central Asia.",
     "truncated": false
   },
   "p0": [

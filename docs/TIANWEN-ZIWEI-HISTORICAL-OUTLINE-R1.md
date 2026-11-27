@@ -710,3 +710,6 @@ CiNii BB26426235著录1979.7台南西北出版社及琉球大学馆藏，母丛�
 
 ### 15EX｜欧洲早期紫微候选与现代软件传播（2026-11-27）
 [考据及13条分级来源](research/TIANWEN-15EX-EUROPE-EARLY-ZIWEI-REGIONAL-CHECKPOINT-R1.md)：法国Võ Văn Em/Villée 1990商目（1989/2004异年未决）、2024回忆、Tu Vi 3与4手册及版本记录、1999 BnF Rao书目；英国1995馆目原术式未证。意大利、罗马尼亚、葡萄牙具名紫微课目/自述/未来计划不等于实际授课。软件作者引用和星曜规则变体不作古代直接师承或机械等价。TW-OPEN-0058 OPEN。
+
+
+- 15EY（拉丁美洲）：巴西道教协会历史自述与现代紫微服务、Eternal Qi独立紫微课纲；墨西哥2025作者指南履历与服务；秘鲁仅具名课程题名。年代、师承及实授未闭合。见 `docs/research/TIANWEN-15EY-LATIN-AMERICA-REGIONAL-COVERAGE-CHECKPOINT-R1.md`。

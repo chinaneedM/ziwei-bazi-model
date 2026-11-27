@@ -752,3 +752,6 @@ CiNii BA61461510著录1955.8香港实学书店，另有大阪大学伊地智文�
 
 ### 15EX｜欧洲四柱课程地域补证（2026-11-27）
 [15EX](research/TIANWEN-15EX-EUROPE-EARLY-ZIWEI-REGIONAL-CHECKPOINT-R1.md)：西班牙FEMTCI明确四柱课程，意大利2011–12计划课表列2012-05-13 BA-ZI入门，葡萄牙2027-12-04/05为未来课程计划。均不认定实际开课、最早传入或独立师承；不将紫微软件资料自动算作四柱术法史料。TW-OPEN-0058 OPEN。
+
+
+- 15EY（拉丁美洲）：巴西2016-03-13具日期四柱课程公告、墨西哥2025指南四柱图与具名课纲、2006/2012同ISBN书目冲突、阿根廷电子书及课程。均不等同实际授课、首传或算法证明。见 `docs/research/TIANWEN-15EY-LATIN-AMERICA-REGIONAL-COVERAGE-CHECKPOINT-R1.md`。

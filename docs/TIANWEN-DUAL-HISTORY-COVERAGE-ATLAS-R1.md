@@ -1534,3 +1534,6 @@ B：澳门大学1963-/1965-两馆目、Google Books 1963第二卷；C：现代�
 
 ### 15EX｜欧洲早期与其他区域有界补证（2026-11-27）
 [15EX](research/TIANWEN-15EX-EUROPE-EARLY-ZIWEI-REGIONAL-CHECKPOINT-R1.md) A/B完整36词、267文件/1422条查重，13条正式来源；法国现代紫微软件与书目、英国1995馆目未核术式、西班牙四柱课程、意大利双术课程公告、罗马尼亚紫微从业者自述、葡萄牙未来双术计划，按各自证据等级覆盖，不把计划、软件支持地区或后世回忆当作实际授课。来源1435/267，图495/375，Matrix222/222，58 OPEN五P0，核心CLOSED。NEXT拉美。
+
+
+- 15EY：巴西/墨西哥两术具名传播载体；阿根廷四柱出版/课程，秘鲁四柱概述及紫微题名。13条有界来源，出版/课程/自述/服务分层；其余拉美地域仍待核，TW-OPEN-0058 OPEN。见 `docs/research/TIANWEN-15EY-LATIN-AMERICA-REGIONAL-COVERAGE-CHECKPOINT-R1.md`。
