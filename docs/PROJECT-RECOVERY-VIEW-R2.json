@@ -2,14 +2,14 @@
   "schema": "TIANWEN-CONTEXT-RECOVERY-VIEW-R2",
   "authority": "DERIVED_ONLY",
   "bindings": {
-    "docs/PROJECT-CURRENT-STATE-R1.json": "301f24145e974773e043962a7791efffde6fd83e",
-    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "35b65dd0ca1995c0bc63a528de648c50c18a3d66",
-    "docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json": "b843e86d310218b52d25eef111ac5b99fca112b8",
+    "docs/PROJECT-CURRENT-STATE-R1.json": "e86960626c86dbcef21b1d4baa36e5c5a70ec796",
+    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "f3998c6cbdd1532c1500c5fda4f99cff10b54fc2",
+    "docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json": "49c7f7c5807771e77244db4a5354ef85d1fb59e7",
     "docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json": "280e023bcd6e0625f0dca2fd54d6c9423f286fd5",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json": "5919e1b6bbc3c4b150507c41a13ccc9e13d20f17",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json": "ea2ab50479450c39ce3fc7a00ea91cd713bf4a60"
   },
-  "state_version": "1.1553.0",
+  "state_version": "1.1554.0",
   "stage": "FUSION_CHART_HISTORICAL_PROVENANCE_AND_SCHOOL_AUDIT_R1",
   "invariants": {
     "deterministic_fusion_chart_product_r1": "CLOSED",
@@ -23,28 +23,29 @@
     "matrix_rows": 222,
     "matrix_audited": 222,
     "root_sources": 647,
-    "extension_sources": 807,
-    "total_sources": 1454,
-    "shards": 270,
+    "extension_sources": 816,
+    "total_sources": 1463,
+    "shards": 271,
     "graph_nodes": 495,
     "graph_edges": 375,
     "open_issues": 58,
     "p0": 5
   },
   "phase": "BREADTH_FIRST_TWO_SYSTEM_HISTORICAL_FRAMEWORK_R1",
-  "next_deliverable": "领取15FA完整22词全库查询并核对命中源；厄瓜多尔、玻利维亚、巴拿马、委内瑞拉、哥斯达黎加候选按文献身份和证据级别分别准入；补查加勒比、中美洲和独立紫微，再非洲、中西亚。TW-OPEN-0058 OPEN，排盘CLOSED。",
+  "next_deliverable": "领取15FA-S委内瑞拉2017具名四柱候选全库查重；补查加勒比、中美洲、巴拉圭及独立紫微，再非洲、中西亚。TW-OPEN-0058 OPEN，排盘CLOSED。",
   "latest_matrix_batch": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-FIRSTPARTY-AND-OLD20-ATLAS-QD.md",
   "latest_breadth_batch": "docs/research/TIANWEN-15FA-REMAINING-LATIN-AMERICA-REGIONAL-COVERAGE-CHECKPOINT-R1.md",
   "checkpoint": {
-    "id": "TW-CHECKPOINT-15FA-PROVISIONAL-20261127",
+    "id": "TW-CHECKPOINT-15FA-ADMITTED-20261127",
     "evidence_refs": [
       "docs/research/TIANWEN-15FA-REMAINING-LATIN-AMERICA-REGIONAL-COVERAGE-CHECKPOINT-R1.md",
+      "docs/research/TIANWEN-15FA-REMAINING-LATIN-AMERICA-SOURCE-SHARD-R1.json",
       "docs/PROJECT-REGISTRY-QUERY-R2.json"
     ]
   },
   "focus": {
-    "index": 3248,
-    "text": "13ZZ CURRENT ACTION 15FA PROVISIONAL: d7384b28 exact continuity run45946987595/job140333835408 SUCCESS (62 risk/7 R2 tests). Ecuador Bazi directory/calculator/course, Bolivia and Panama named training profiles, Venezuela 2019 media and Costa Rica 2024 community workshop announcement and retrospective; distinguish advertised, self-reported and delivered practice. Paraguay/Guatemala/Caribbean and independent Ziwei remain gaps. No new source or edge admitted. Exact 22-term query bound to manifest b843e86d. Sources1454/270 shards graph495/375 Matrix222/222 58 OPEN five P0 core CLOSED. NEXT 15FA full query and semantic admission.",
+    "index": 3249,
+    "text": "13ZZ CURRENT ACTION 15FA ADMITTED: exact ff9dfc65 run45948143745/job140337491244 PASS, 22 terms 271 files/1454 records, one existing 15EY shard, no truncation. Nine bounded documents Ecuador/Bolivia/Panama/Venezuela/Costa Rica; 2017 Venezuela signed four-pillar article provisional pending fresh query. No verified delivery, genealogy or algorithm verdict. Sources1463/271 shards graph495/375 Matrix222/222 58 OPEN five P0 core CLOSED. NEXT 15FA-S and Caribbean/Central America/independent Ziwei, then Africa/Middle Asia.",
     "truncated": false
   },
   "p0": [
