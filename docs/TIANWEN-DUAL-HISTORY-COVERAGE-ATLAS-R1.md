@@ -1557,3 +1557,45 @@ B：澳门大学1963-/1965-两馆目、Google Books 1963第二卷；C：现代�
 [15FE](research/TIANWEN-15FE-CENTRAL-SOUTH-ASIA-PACIFIC-RESIDUAL-REGIONAL-CHECKPOINT-R1.md) 两条有界现代传文正式登记：吉尔吉斯斯坦双术从业者自述（C），关岛跨境四柱咨询报告（C）；乌兹别克斯坦、斯里兰卡直接访问受阻，候选不计入。现为1488来源＝647根＋841扩展／276分片，图495节点／375边，Matrix222/222，58 OPEN含五P0，核心CLOSED。以上旧表15FE待准入为历史状态，不覆盖此补记。
 
 [15BL整体结构初审](research/TIANWEN-15BL-DUAL-HISTORY-ERA-REGION-RULE-BREADTH-COVERAGE-CROSSWALK-R1.md)：Matrix按系统ZIWEI114、BAZI94、SHARED6、COMBINED8；历史支持104、学校特定25、争议候选27、现代相容50、来源不足11、未形式化1、产品未含4。此为确定性规则库存，不是历史观念、流派或预测准确率覆盖。图495节点中PERSON1、INSTITUTION2、RULE_FAMILY40、PASSAGE139、TEXT_WORK34、EDITION80、PHYSICAL_COPY107、DIGITAL_SURROGATE47；375边中ATTESTS188、EXPLICITLY_CITES33、TRANSMITS_RULE28（确认16），不能把375解释为师徒传承数。主要缺格是人物／机构／流派的证据索引及年代—地域—规则桥，而不是再无限扩张现代服务目录。五P0保持原状；不宣告广度阶段验收完成。
+
+## 15FF-G｜双体系独立导航及验收边界（2026-11-27）
+
+精确基线 `3750b597b7565912655d1a2c4719412572275921`。47个人物／机构节点按原system_scope分组：紫微专属12、四柱专属24、共享／相邻／历法背景11，合计47；不是两门全部传承人物数或47名术者。两套史纲分别新增专属身份和完整Matrix模块ID入口，不改节点范围。
+
+| 人物／机构 | 图谱节点ID | 证据时态及边界 |
+|---|---|---|
+| 趙友欽 / 趙緣督 | `PERSON-ZHAO-YOUQIN-YUANDU` | undefined；undefined |
+| 元至元十六年大都司天臺 | `INSTITUTION-YUAN-DADU-SITIANTAI-1279` | 1279；undefined |
+| 明欽天監：官方報時／交食時刻／大統曆編造機構層 | `INSTITUTION-MING-QINTIANJIAN-OFFICIAL-TIME-ALMANAC` | undefined；undefined |
+| 中華星相學會（1952–1979研究对象） | `INSTITUTION-TAIWAN-XINGXIANG-1952-1979-RESEARCH` | 1952–1979（2020论文题名范围）；现代论文书目及2025学术综述与梁氏自述；全文及同期章程未核，不直接等同2007登记法人、不推定全部课程或成员。 |
+| 洪邁（術數記述者） | `PERSON-HONG-MAI-SANMING-ZIWEI-RECEPTION` | 1192《容齋續筆》序；卷八受讀；文中三命、紫微分别列名；非现代紫微斗数全名、算法或本人实践证据。 |
+| 鄒淮（相鄰星命術者） | `PERSON-ZOU-HUAI-ASTRAL-NATAL-CONTEXT` | 宋魏了翁序受读；1144为数据起点；序记十一曜、宫宿度数及出生四项；相邻星命史，不当作子平或紫微斗数术式，1144非个人活动始年。 |
+| 阿部熹作（规范标目阿部泰山） | `PERSON-ABE-KISAKU-TAIZAN-CATALOG` | 1914/1924/1929四柱；1958紫微书目；1958 NDL/CiNii责任者规范标目关联；各作品、版本、术式独立，1956初版回述未核，不证跨术式师承。 |
+| 袁树生（《星相》引录责任者） | `PERSON-YUAN-SHUSHENG-PERIODICAL-CITATION` | 1977–1979期刊范围（后出论文注）；王琛发论文注所引香港《星相》月刊1–20期的具名责任者；非已阅原刊，不确证编辑全期、具体术式或师承。 |
+| 西川滿（西川満；命术身份未定） | `PERSON-NISHIKAWA-MITSURU-RECEPTION` | 1959/1972著作书目；2019/2025研究、2016报道；馆目作品责任者、学术研究及媒体术名各自分开；不确认紫微斗数或子平技术身份、十大主星规则同一、出生年或直接师承。 |
+| 哲学出版社（香港《星相》后出引录） | `INSTITUTION-HK-ZHEXUE-XINGXIANG-CITATION` | 1977–1979期刊范围（后出论文注）；后出论文引录出版者；未核原刊刊记，不能与台湾同名杂志或法人合并。 |
+| 中華星相雜誌社（1979书目） | `INSTITUTION-TAIWAN-ZHONGHUA-XINGXIANG-MAGAZINE-1979` | 1979；《中華國粹百科全書》Google Books出版者字段；与学会关系、实际课程及法人身份未证。 |
+
+### 共享及组合运行时规则（14条，不能算作专属历史源流）
+
+| 系统／模块 | 数量 | 精确规则ID（非连续范围） |
+|---|---:|---|
+| SHARED／Time / Calendar | 6 | `HPA-TIME-001`、`HPA-TIME-002`、`HPA-TIME-003`、`HPA-TIME-004`、`HPA-TIME-005`、`HPA-TIME-011` |
+| COMBINED／Combined Fusion | 4 | `HPA-COMB-001`、`HPA-COMB-002`、`HPA-COMB-005`、`HPA-COMB-006` |
+| COMBINED／candidate/profile rules | 1 | `HPA-COMB-003` |
+| COMBINED／八字动态时限 | 1 | `HPA-COMB-004` |
+| COMBINED／provenance / hashes / lineage | 2 | `HPA-COMB-007`、`HPA-COMB-008` |
+
+### 广度门槛初审
+
+| 门槛 | 当前判定 | 剩余工作 |
+|---|---|---|
+| 独立可读双历史纲要 | 已建立并增加精确导航 | 核心著作者、译者锚点补齐，区分旧状态与后续补记 |
+| 时代×知识领域×主要地域 | 15BL及全球批次已有有界框架；未终验 | 逐格区分证据类型、未调查及受阻，独立两术地域边界 |
+| 著作、版本与规则源流 | 222条库存已全部按精确ID导航；未终验 | 将关键著作、理论术语、历史规则与具体版本证据关联，不以库存代替历史理论 |
+| 人物、流派、机构 | 47个身份锚点，SCHOOL节点0；未达成 | 复用中州／中洲等实际见证及核心四柱人物、译者；不以方法名称制造师承 |
+| 缺口公开保留 | 58 OPEN含5 P0；原状态未变 | 对照遗漏台账和批次，继续前向补证 |
+
+不发布综合完成百分比，不宣布广度通过，不新增史源或图谱节点。
+
+入口：[15BL／15FF研究记录](research/TIANWEN-15BL-DUAL-HISTORY-ERA-REGION-RULE-BREADTH-COVERAGE-CROSSWALK-R1.md)、[图谱](TRANSMISSION-GENEALOGY-GRAPH-R1.json)、[Matrix](FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json)、[双史纲覆盖台账](TIANWEN-DUAL-HISTORY-COVERAGE-ATLAS-R1.md)。

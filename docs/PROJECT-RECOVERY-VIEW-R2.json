@@ -2,14 +2,14 @@
   "schema": "TIANWEN-CONTEXT-RECOVERY-VIEW-R2",
   "authority": "DERIVED_ONLY",
   "bindings": {
-    "docs/PROJECT-CURRENT-STATE-R1.json": "79df3a20f42cc7d7107a88a868714d451ddc1302",
-    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "fab60b1114a530be393b801e673de06a81fda933",
+    "docs/PROJECT-CURRENT-STATE-R1.json": "1ad63e293ef15a063fa742cbbe30689ba763b560",
+    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "9f23576b5bafd858d20d749771678f665b7fb022",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json": "d5081119bedd4afa0324a7eec36bc5b1ce4372c3",
     "docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json": "b08c59c9aee606951e7d8bebccc241ec7c12e8b9",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json": "5919e1b6bbc3c4b150507c41a13ccc9e13d20f17",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json": "ea2ab50479450c39ce3fc7a00ea91cd713bf4a60"
   },
-  "state_version": "1.1566.0",
+  "state_version": "1.1567.0",
   "stage": "FUSION_CHART_HISTORICAL_PROVENANCE_AND_SCHOOL_AUDIT_R1",
   "invariants": {
     "deterministic_fusion_chart_product_r1": "CLOSED",
@@ -32,22 +32,23 @@
     "p0": 5
   },
   "phase": "BREADTH_FIRST_TWO_SYSTEM_HISTORICAL_FRAMEWORK_R1",
-  "next_deliverable": "沿15FF-F将现有双体系历史主纲、人物及机构锚点、地域传播、规则族导航交叉核对；补齐仍缺的流派/译者锚点，逐项验收广度门槛。TW-OPEN-0058及五P0保持原状态，排盘CLOSED。",
+  "next_deliverable": "沿15FF-G优先补齐已有证据的紫微流派（中州／中洲及飞星题名边界）与四柱核心著作者、评注者和译者身份锚点，明确方法分类不等于师承组织；再完成双体系广度门槛逐项验收。TW-OPEN-0058及五P0原状，排盘CLOSED。",
   "latest_matrix_batch": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-FIRSTPARTY-AND-OLD20-ATLAS-QD.md",
   "latest_breadth_batch": "docs/research/TIANWEN-15BL-DUAL-HISTORY-ERA-REGION-RULE-BREADTH-COVERAGE-CROSSWALK-R1.md",
   "checkpoint": {
-    "id": "TW-CHECKPOINT-15FF-F-EAST-ASIA-ACTOR-BACKFILL-20261127",
+    "id": "TW-CHECKPOINT-15FF-G-DUAL-OUTLINE-NAVIGATION-20261127",
     "evidence_refs": [
       "docs/research/TIANWEN-15BL-DUAL-HISTORY-ERA-REGION-RULE-BREADTH-COVERAGE-CROSSWALK-R1.md",
+      "docs/TIANWEN-ZIWEI-HISTORICAL-OUTLINE-R1.md",
+      "docs/TIANWEN-BAZI-HISTORICAL-OUTLINE-R1.md",
+      "docs/TIANWEN-DUAL-HISTORY-COVERAGE-ATLAS-R1.md",
       "docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json",
-      "docs/research/TIANWEN-15BY-KOREA-2021-ZIWEI-CLASSIC-GYEOKGUK-BIBLIOGRAPHY-R1.md",
-      "docs/research/TIANWEN-15D-JAPAN-MATSUMOTO-BAZI-1906-1935-PUBLISHING-CHAIN-R1.md",
-      "docs/research/TIANWEN-15DJ-TAIWAN-JAPAN-NISHIKAWA-NATAL-METHOD-IDENTITY-R1.md"
+      "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json"
     ]
   },
   "focus": {
-    "index": 3261,
-    "text": "13ZZ CURRENT ACTION 15FF-F: East Asian actors; six PERSON five INSTITUTION anchors from seven existing shards, six catalogue-only ATTESTS. Korea Oh 2018/2021 same researcher; Matsumoto reading and 1935 identity unresolved; Nishikawa adjacent natal reception, no Ziwei/Bazi classification; HK and Taiwan periodical institutions separate. Graph539/394 (PERSON36 INSTITUTION11), sources1488/276 Matrix222/222 58 OPEN five P0 core CLOSED. NEXT independent dual historical outline navigation, remaining school/translator anchors and breadth acceptance review.",
+    "index": 3262,
+    "text": "13ZZ CURRENT ACTION 15FF-G: independent dual outline navigation from exact graph and Matrix. All 47 actor anchors split Ziwei 12, Bazi 24, context 11; exact module ID lists 114/94/6/8, no historical completeness claim. SCHOOL nodes zero; existing Zhongzhou and other named evidence needs scoped school backfill, core Bazi authors/commentators/translators missing anchors. Graph539/394 sources1488/276 Matrix222/222 58 OPEN five P0 core CLOSED. NEXT scoped school/author/translator anchors then breadth acceptance.",
     "truncated": false
   },
   "p0": [

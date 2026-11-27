@@ -725,3 +725,49 @@ CiNii BB26426235著录1979.7台南西北出版社及琉球大学馆藏，母丛�
 ### 15FE 正式准入补记及整体覆盖初审（2026-11-27）
 [15FE](research/TIANWEN-15FE-CENTRAL-SOUTH-ASIA-PACIFIC-RESIDUAL-REGIONAL-CHECKPOINT-R1.md)：吉尔吉斯斯坦比什凯克具名从业者名录分别列紫微与四柱，已登记现代传文；2000为一般兴趣自述，不是紫微授课、传入或资格年份。关岛记录属于四柱跨境服务，不补紫微格。乌兹别克斯坦和斯里兰卡访问受阻，紫微独立证据仍待核。上文“待准入／查重未完成”保留为历史检查点，当前状态为两份有界来源已登记。
 [整体覆盖复核](research/TIANWEN-15BL-DUAL-HISTORY-ERA-REGION-RULE-BREADTH-COVERAGE-CROSSWALK-R1.md)：下一重点为人物／流派／机构的年代、作品、活动、教学与传承关系分层；现有图谱偏重文献和规则，不据从业者自述新增确认师承。前史至明代的机械连接及清民国版本系谱仍是深研主线。
+
+## 15FF-G｜紫微人物、机构与规则导航（2026-11-27）
+
+本节为已登记证据的索引，不是新增历史裁决。沿用15FF-B/D/E/F和节点evidence；题署、责任者、出版者并非独立师承证据。Matrix是确定性规则库存，不代表思想史、流派或预测的覆盖。共享历法、双术并行出版和相邻命术不并入专属传承。
+
+### 紫微专属身份锚点（12项）
+
+| 人物／机构 | 图谱节点ID | 证据时态及边界 |
+|---|---|---|
+| 張開卷 | `PERSON-ZHANG-KAIJUAN` | 1949/1953/1972；1949、1953同题及1972异题书目责任者，非实物书端校定；不合并作品或推定师承。 |
+| 王亭之 | `PERSON-WANG-TINGZHI` | 1986署序／2004转载；署名补注序及现代中州派规则见证；自述1970年代初师从刘惠苍，不认证直接师承或古代源流。 |
+| 陸斌兆 | `PERSON-LU-BINZHAO` | 1950年代（后出回忆）；王亭之1986署序经2004重印页转载述1950年代香港授课与油印讲义；原讲义及同期授课记录未核。 |
+| 劉惠蒼 | `PERSON-LIU-HUICANG` | 1970年代初（自述）；王亭之自述师名；仅建立被提及人物身份锚点，不确证师承，不与陆氏系合并。 |
+| 禤百昌 | `PERSON-XUAN-BAICHANG` | 2010访谈回述1970–80年代；具名采访及讲义局部照片；无完整题名/作者/年代；清廷故事及中洲派命名时点均非独立历史确证。 |
+| Vũ Tài Lục | `PERSON-VU-TAI-LUC` | 1973（现代重排本所记）；越文译者归属及台湾底本自述；1972/1973原刊、具体台湾版与师承未证；不擅定中文本名。 |
+| 陳抟（紫微旧题署） | `PERSON-CHEN-TUAN-ATTRIBUTION` | 后出传本题署；2020/2021学术考辨；被题署人物；不确认撰书、后裔直传或创术。 |
+| 羅洪先（紫微序题署争议） | `PERSON-LUO-HONGXIAN-ATTRIBUTION` | 1550自署年代；2020/2021考辨；编辑假说与署名辨伪并存；不确认编撰、1550印本或师承。 |
+| 千種堅 | `PERSON-CHIGUSA-KEN-CATALOG` | 1980.12东京二見書房书目；《中国紫微斗数運命学》责任者著录；2026数字化非出版年；未核正文、底本或实际教学。 |
+| 吳定祐（紫微研究者） | `PERSON-OH-JEONGWOO-RESEARCH` | 2018/2021论文目录与摘要；两篇同作者现代研究；金緻与《深谷秘訣》早期传入及格局起源为研究者主张，不是古代独立证言。 |
+| 孔日昌 | `PERSON-KONG-RICHANG-CATALOG` | 1979.7台南馆目；《紫微斗數新解》责任者，2006商品书目不能反推1979刊记、师承、首次出版。 |
+| 西北出版社（1979台南书目） | `INSTITUTION-TAINAN-XIBEI-1979-IMPRINT` | 1979.7；CiNii BB26426235出版者著录；未核原书刊记及法人。 |
+
+### 独立规则库存（114条）
+
+| 系统／模块 | 数量 | 精确规则ID（非连续范围） |
+|---|---:|---|
+| ZIWEI／Time / Calendar | 10 | `HPA-TIME-009`、`HPA-TIME-010`、`HPA-ZTIME-001`、`HPA-ZTIME-002`、`HPA-ZDATE-001`、`HPA-ZDATE-002`、`HPA-ZDATE-003`、`HPA-ZDATE-004`、`HPA-ZDATE-005`、`HPA-ZDATE-006` |
+| ZIWEI／紫微本命 | 8 | `HPA-ZIWEI-001`、`HPA-ZIWEI-002`、`HPA-ZIWEI-005`、`HPA-ZIWEI-012`、`HPA-ZIWEI-013`、`HPA-ZIWEI-019`、`HPA-ZIWEI-022`、`HPA-ZIWEI-023` |
+| ZIWEI／十二宫 | 6 | `HPA-ZIWEI-003`、`HPA-ZIWEI-004`、`HPA-ZIWEI-011`、`HPA-ZIWEI-024`、`HPA-ZIWEI-025`、`HPA-ZIWEI-026` |
+| ZIWEI／主星 | 2 | `HPA-ZIWEI-006`、`HPA-ZIWEI-020` |
+| ZIWEI／辅星 | 4 | `HPA-ZIWEI-007`、`HPA-ZIWEI-015`、`HPA-ZIWEI-016`、`HPA-ZIWEI-021` |
+| ZIWEI／杂曜 | 29 | `HPA-ZIWEI-008`、`HPA-ZIWEI-017`、`HPA-ZMINOR-001`、`HPA-ZMINOR-002`、`HPA-ZMINOR-003`、`HPA-ZMINOR-004`、`HPA-ZMINOR-005`、`HPA-ZMINOR-006`、`HPA-ZMINOR-007`、`HPA-ZMINOR-008`、`HPA-ZMINOR-009`、`HPA-ZMINOR-010`、`HPA-ZMINOR-011`、`HPA-ZMINOR-012`、`HPA-ZMINOR-013`、`HPA-ZMINOR-014`、`HPA-ZMINOR-015`、`HPA-ZMINOR-016`、`HPA-ZMINOR-017`、`HPA-ZMINOR-018`、`HPA-ZMINOR-019`、`HPA-ZMINOR-020`、`HPA-ZMINOR-021`、`HPA-ZMINOR-022`、`HPA-ZMINOR-023`、`HPA-ZMINOR-024`、`HPA-ZMINOR-025`、`HPA-ZMINOR-026`、`HPA-ZMINOR-027` |
+| ZIWEI／庙旺落陷 | 2 | `HPA-ZIWEI-009`、`HPA-ZIWEI-018` |
+| ZIWEI／四化 | 3 | `HPA-ZIWEI-010`、`HPA-ZT-016`、`HPA-ZIWEI-014` |
+| ZIWEI／大限 | 3 | `HPA-ZT-001`、`HPA-ZT-002`、`HPA-ZT-003` |
+| ZIWEI／流年 | 3 | `HPA-ZT-004`、`HPA-ZT-005`、`HPA-ZTEMP-001` |
+| ZIWEI／流月 | 5 | `HPA-ZT-006`、`HPA-ZT-007`、`HPA-ZT-015`、`HPA-ZTEMP-002`、`HPA-ZTEMP-006` |
+| ZIWEI／小限 | 1 | `HPA-ZT-008` |
+| ZIWEI／动态辅助星 | 13 | `HPA-ZT-009`、`HPA-ZT-010`、`HPA-ZT-011`、`HPA-ZT-012`、`HPA-ZAUX-001`、`HPA-ZAUX-002`、`HPA-ZAUX-003`、`HPA-ZAUX-004`、`HPA-ZAUX-005`、`HPA-ZAUX-006`、`HPA-ZAUX-007`、`HPA-ZAUX-008`、`HPA-ZTEMP-007` |
+| ZIWEI／流日 | 2 | `HPA-ZT-013`、`HPA-ZTEMP-003` |
+| ZIWEI／流时 | 3 | `HPA-ZT-014`、`HPA-ZTEMP-004`、`HPA-ZTEMP-005` |
+| ZIWEI／Structural R1–R8 | 20 | `HPA-STRUCT-001`、`HPA-STRUCT-002`、`HPA-STRUCT-003`、`HPA-STRUCT-009`、`HPA-STRUCT-010`、`HPA-STRUCT-011`、`HPA-STRUCT-012`、`HPA-STRUCT-004`、`HPA-STRUCT-005`、`HPA-STRUCT-006`、`HPA-STRUCT-007`、`HPA-STRUCT-008`、`HPA-STRUCT-013`、`HPA-STRUCT-014`、`HPA-STRUCT-015`、`HPA-STRUCT-016`、`HPA-STRUCT-017`、`HPA-STRUCT-018`、`HPA-STRUCT-019`、`HPA-STRUCT-020` |
+
+流派缺口：王亭之中州派现代四化表及自述授受、禤百昌访谈中中洲派命名与讲义、飞星类作品题名应分别核实。中州／中洲字形不得仅凭近似合并；飞星书名不证流派成立或师承。三合、飞星、钦天等称谓应先查项目已有具名文献、术式、自称及年代，再决定能否建立独立SCHOOL节点。金緻《深谷秘訣》及越南范珪／范嘉運作为已研究待入图候选，不升级作者归属或师承。共享／相邻身份见双史纲覆盖台账15FF-G；阿部1958紫微见证与其四柱作品分开。
+
+入口：[15BL／15FF研究记录](research/TIANWEN-15BL-DUAL-HISTORY-ERA-REGION-RULE-BREADTH-COVERAGE-CROSSWALK-R1.md)、[图谱](TRANSMISSION-GENEALOGY-GRAPH-R1.json)、[Matrix](FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json)、[双史纲覆盖台账](TIANWEN-DUAL-HISTORY-COVERAGE-ATLAS-R1.md)。

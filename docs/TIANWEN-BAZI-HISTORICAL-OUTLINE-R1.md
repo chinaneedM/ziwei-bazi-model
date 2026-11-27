@@ -768,3 +768,53 @@ CiNii BA61461510著录1955.8香港实学书店，另有大阪大学伊地智文�
 ### 15FE 正式准入补记及整体覆盖初审（2026-11-27）
 [15FE](research/TIANWEN-15FE-CENTRAL-SOUTH-ASIA-PACIFIC-RESIDUAL-REGIONAL-CHECKPOINT-R1.md)：比什凯克双术名录为现代从业方法自述；2024关岛视频咨询为跨境服务提供者报告，不证明当地学校、首传或实际教学。乌兹别克斯坦与斯里兰卡仍为未准入受阻候选。上文候选标签保留原检查时态，当前两份来源已登记。
 [整体覆盖复核](research/TIANWEN-15BL-DUAL-HISTORY-ERA-REGION-RULE-BREADTH-COVERAGE-CROSSWALK-R1.md)：补强人物／流派／机构的证据导航，尤其日主、月令、格局与用神等观念史不能用计算规则Matrix代替；独立保留子平传承、版本与规则的未证连接，不重开排盘。
+
+## 15FF-G｜四柱人物、机构与规则导航（2026-11-27）
+
+本节为已登记证据的索引，不是新增历史裁决。沿用15FF-B/D/E/F和节点evidence；题署、责任者、出版者并非独立师承证据。Matrix是确定性规则库存，不代表思想史、流派或预测的覆盖。共享历法、双术并行出版和相邻命术不并入专属传承。
+
+### 四柱专属身份锚点（24项）
+
+| 人物／机构 | 图谱节点ID | 证据时态及边界 |
+|---|---|---|
+| 梁湘潤 | `PERSON-LIANG-XIANGRUN` | 2009署序／2010刊载；自述1973学会命理委员会、期刊与讲座及1979任职，原刊及会议档案待核；不将任职自述升级为同期档案。 |
+| Lâm Thế Đức／林世德 | `PERSON-LAM-THE-DUC` | 1973西贡署序（现代重排）；现代PDF存署名序与四柱术语；1974旧书商候选未核原刊，书中师承故事不作独立证明。 |
+| 徐居正 | `PERSON-SEO-GEOJEONG` | 1458事件／1488卒记；1467序传文；1488《成宗实录》回载1458奉命著《五行摠括》，后出《四佳集》与《筆苑雜記》传文；不认定现存1458原书或特定完整算法。 |
+| 朝鮮觀象監（命課學制度证据） | `INSTITUTION-JOSEON-GWANSANGGAM-MYEONGGWA` | 1791制度记录；《正祖实录》取才与教学改革传文，不据此证明全年代统一实践或连续师承。 |
+| 李虛中 | `PERSON-LI-XUZHONG-NATAL-PREHISTORY` | 813卒葬（韩愈墓志传文）；传文记年、月、日及干支五行命术；非唐原石，未证完整时柱、十神或今传命书亲撰。 |
+| 韓愈（李虛中墓志作者归属） | `PERSON-HAN-YU-LI-EPITAPH` | 813卒葬叙事；后世墓志传本；历史记述者而非已证禄命从业者；不同整理本非独立唐代实物。 |
+| 徐子平（徐君易／徐居易题名传统） | `PERSON-XU-ZIPING-ATTRIBUTION` | 明代作品后出传文；清四库辑本题名；不确认五代宋初确切生平、同名同人、日主法首创或直接师承；与徐大升分列。 |
+| 徐大升（子平传承叙述） | `PERSON-XU-DASHENG-ATTRIBUTION` | 1578作品体系；清四库受读；后出追述；不证明原始著作、生平或徐子平直接师承。 |
+| 宋濂 | `PERSON-SONG-LIAN-LUMING-CRITIQUE` | 明初作者；1514/1551刊本著录；《祿命辨》后出传文所示评论者；非流派创始人，作文年非刊印年。 |
+| 觀瀑主人（后出归属林庚白） | `PERSON-GUANPU-ZHUREN-RENJIAN` | 1924原册署号；2018后出本名归属；《人鑑》p0–1署号；本名来自后出说明，非原册身份文件。 |
+| 張一蟠 | `PERSON-ZHANG-YIPAN-DINGMINGLU` | 1934自序、刊记；《定命錄》p4、p219编著者；不确认1927参与、机构同一或师承。 |
+| 韋千里 | `PERSON-WEI-QIANLI` | 1934印本自序、课程及刊记；具名著述与同期函授自述；实际学员量、办学规模及师承未证。 |
+| 上海命學社（1934出版声明） | `INSTITUTION-SHANGHAI-MINGXUESHE-1934` | 1934年9月自序；10月刊记；《定命錄》p4及p219发行声明；不合并1927命學苑／宛，不认证法人。 |
+| 韋氏命苑（1934出版／函授自述） | `INSTITUTION-WEI-MINGYUAN-1934` | 1934年10月刊记；同期序文及广告；出版物机构称谓与函授宣传；不证实际教学规模、法人登记或共同师承。 |
+| 董子平 | `PERSON-DONG-ZIPING-CATALOG-ATTRIBUTION` | 宋人目录受读；近代《通志略》印页100；《太陰三命歌》一卷董子平撰著录；歌与秘诀题异，未见原书，不与徐子平合并。 |
+| 朱元炳／斗南／月窗 | `PERSON-ZHU-YUANBING-DOUNAN` | 南宋作者文集后出受读；文天祥信记名、字、号及参证多家命书；欧阳守道赠序记分时和组合讨论，非直接师承或完整算法。 |
+| 廖如川 | `PERSON-LIAO-RUCHUAN` | 元代作者文集后出受读；朱德润、许有壬不同作者叙述四项出生字段、五行及李虚中学说归属；非唐元直接师承或完整子平算法。 |
+| 房景星 | `PERSON-FANG-JINGXING` | 元明之际作者文集；1371自序非目标篇署年；舒頔赠序记家学及徐子平五行说；为传文自述/归属，不确证直接受业或具体术式。 |
+| 呂才（祿命術評論者） | `PERSON-LU-CAI-LUMING-CRITIQUE` | 641官修叙事；后出新旧唐书受读；官方阴阳书编校及禄命批评的史传记述，不是四柱创始或实际预测成效证据。 |
+| 高木乗 | `PERSON-TAKAGI-NORI-CATALOG` | 1931东京春秋社书目；《四柱推命学》责任者著录；未核原书、读音及师承。 |
+| 松本義亮（书目责任者） | `PERSON-MATSUMOTO-YOSHIAKI-CATALOG` | 1906/1912/1935书目；1906及1912四柱著作同名责任者；1935历法别册为同字名候选，馆目假名ヨシアキ／ギリョウ不一致，未确证读音、生平、同一人或师承。 |
+| 設楽幸聖 | `PERSON-SHITARA-KOSEI-CATALOG` | 1975东京馆目；《生れ日の人間学：淵海子平・流運看命》责任者，未核正文、读音、生平及1976–77后续版关系。 |
+| 天祥館（1906大阪书目出版者） | `INSTITUTION-JAPAN-TENSHOKAN-IMPRINT-1906` | 1906大阪；1912长崎同名刊记著录；馆目出版者名称，异地同名不证明机构持续性、法人或分支关系。 |
+| 實學書店（1955香港书目） | `INSTITUTION-HK-SHIXUE-1955-IMPRINT` | 1955.8；CiNii BA61461510《窮通寶鑑評註》出版者著录；不证明实际发行量、书店教学或师承。 |
+
+### 独立规则库存（94条）
+
+| 系统／模块 | 数量 | 精确规则ID（非连续范围） |
+|---|---:|---|
+| BAZI／Time / Calendar | 7 | `HPA-TIME-006`、`HPA-TIME-007`、`HPA-TIME-008`、`HPA-BTIME-001`、`HPA-BTIME-002`、`HPA-BTIME-003`、`HPA-BTIME-004` |
+| BAZI／四柱本命 | 6 | `HPA-BAZI-001`、`HPA-BAZI-016`、`HPA-BAZI-017`、`HPA-BAZI-018`、`HPA-BAZI-019`、`HPA-BAZI-020` |
+| BAZI／八字派生字段 | 31 | `HPA-BAZI-002`、`HPA-BAZI-003`、`HPA-BAZI-004`、`HPA-BAZI-005`、`HPA-BAZI-006`、`HPA-BAZI-007`、`HPA-BAZI-008`、`HPA-BAZI-009`、`HPA-BAZI-010`、`HPA-BAZI-011`、`HPA-BAZI-012`、`HPA-BAZI-013`、`HPA-BAZI-014`、`HPA-BAZI-015`、`HPA-BAFF-001`、`HPA-BAFF-002`、`HPA-BREL-001`、`HPA-BREL-002`、`HPA-BREL-003`、`HPA-BREL-004`、`HPA-BREL-005`、`HPA-BREL-006`、`HPA-BREL-007`、`HPA-BREL-008`、`HPA-BREL-009`、`HPA-BREL-010`、`HPA-BREL-011`、`HPA-BREL-012`、`HPA-BHIDDEN-001`、`HPA-BHIDDEN-002`、`HPA-BHIDDEN-003` |
+| BAZI／大运 | 16 | `HPA-DAYUN-001`、`HPA-DAYUN-002`、`HPA-DAYUN-003`、`HPA-DAYUN-004`、`HPA-DAYUN-005`、`HPA-DAYUN-006`、`HPA-DAYUN-007`、`HPA-DAYUN-SEQ-001`、`HPA-DAYUN-SEQ-002`、`HPA-DAYUN-CAL-001`、`HPA-DAYUN-CAL-002`、`HPA-DAYUN-CAL-003`、`HPA-DAYUN-CAL-004`、`HPA-DAYUN-CAL-005`、`HPA-DAYUN-CAL-006`、`HPA-DAYUN-CAL-007` |
+| BAZI／小运 | 2 | `HPA-XIAOYUN-001`、`HPA-XIAOYUN-002` |
+| BAZI／神煞 | 21 | `HPA-SHENSHA-001`、`HPA-SHENSHA-002`、`HPA-SHENSHA-003`、`HPA-SHENSHA-004`、`HPA-SHENSHA-005`、`HPA-SHENSHA-006`、`HPA-SHENSHA-007`、`HPA-SHENSHA-008`、`HPA-SHENSHA-009`、`HPA-SHENSHA-010`、`HPA-SHENSHA-011`、`HPA-SHENSHA-012`、`HPA-SHENSHA-013`、`HPA-SHENSHA-014`、`HPA-SHENSHA-015`、`HPA-SHENSHA-016`、`HPA-SHENSHA-017`、`HPA-SHENSHA-018`、`HPA-SHENSHA-019`、`HPA-SHENSHA-020`、`HPA-SHENSHA-021` |
+| BAZI／八字动态时限 | 10 | `HPA-BAZI-FLOW-001`、`HPA-BAZI-FLOW-002`、`HPA-BAZI-FLOW-003`、`HPA-BAZI-FLOW-004`、`HPA-BAZI-FLOW-005`、`HPA-BAZI-FLOW-006`、`HPA-BAZI-FLOW-007`、`HPA-BAZI-FLOW-008`、`HPA-BAZI-FLOW-009`、`HPA-BAZI-FLOW-010` |
+| BAZI／candidate/profile rules | 1 | `HPA-BCAND-001` |
+
+身份缺口：史纲已有万民英《三命通會》1578馆目、沈孝瞻《子平真詮》1776胡焜倬序原图局部、袁树珊1915书目和1951新版自序，以及徐乐吾系现代出版导航。陈素庵、胡焜倬、徐乐吾、袁树珊、万民英、沈孝瞻、越译者Chu Tước Nhi等应据各自已登记来源及题署角色回填。著作作者、评注者、发行者及译者不得直接等同于流派创始人；格局、旺衰、调候、用神等方法分类不等同于师承组织。共享／相邻身份见双史纲覆盖台账15FF-G；梁湘潤四柱锚点与1979紫微著作书目分层，不重复建人。
+
+入口：[15BL／15FF研究记录](research/TIANWEN-15BL-DUAL-HISTORY-ERA-REGION-RULE-BREADTH-COVERAGE-CROSSWALK-R1.md)、[图谱](TRANSMISSION-GENEALOGY-GRAPH-R1.json)、[Matrix](FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json)、[双史纲覆盖台账](TIANWEN-DUAL-HISTORY-COVERAGE-ATLAS-R1.md)。
