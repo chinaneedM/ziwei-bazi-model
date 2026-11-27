@@ -1,5 +1,8 @@
 # 天问·紫微斗数历史源流与传承史纲 R1（广度优先，首轮）
 
+> **2026-11-27 · 15FF-K 阅读入口（结构复核，非历史终验）**：本纲开头为2026-11-16首轮骨架，后续按研究批次前向增补；旧章节中的阶段性“未调查”不自动等于最新状态。现有紫微专属17个人物／机构／流派图谱节点及114条规则ID均在本纲出现（库存导航，不是完整性或师承裁决）。先读历史分期，再参照[双史纲覆盖台账](./TIANWEN-DUAL-HISTORY-COVERAGE-ATLAS-R1.md)的最新增补及[15BL／15FF跨轴验收记录](./research/TIANWEN-15BL-DUAL-HISTORY-ERA-REGION-RULE-BREADTH-COVERAGE-CROSSWALK-R1.md)。地域阅读按中国历代、朝鲜／韩国、日本、越南、港台、东南亚及其他全球传播批次检索，区分藏本所在地与术式实际接受。共享历法、组合运行时规则及相邻人物另列于覆盖台账，不并入本术专属历史源流。仍需逐格核实地域、规则及具体版本见证；不得据目录、题署或现代课名确认古法机械规则与直传。
+
+
 建立日期：2026-11-16。性质：**待增补的可阅读历史骨架**，不是定稿、谱系胜负裁决或占断教程。执行依据：[广度优先路线](https://github.com/chinaneedM/ziwei-bazi-model/blob/agent/fusion-chart-core-r1-20260822/docs/TIANWEN-HISTORY-TRANSMISSION-BREADTH-FIRST-ROADMAP-R1.md)。
 
 ## 如何阅读此纲
