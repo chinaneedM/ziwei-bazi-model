@@ -39,3 +39,79 @@
 本检查点覆盖10个既有Matrix ID的初步映射；没有宣告对应族全部闭合。尚未完成：逐项定位原页和来源登记、其余本命与十二宫、紫微大限及动态层、四柱十神/藏干/大运/小运/神煞；随后按证据补图谱，并复核58项风险及第一阶段门槛。新增来源查重未启动，因为本次只复用已有证据。下一轮必须检查本文件之后的远端提交和精确HEAD CI；现有状态指向15FF-Q，不得把本检查点误当正式完成批次。
 
 transmission_impact: NONE（证据交叉索引；不新增传承或同本关系，不更改Matrix历史裁决）。排盘CLOSED，预测/AI解释OUT_OF_SCOPE。
+
+
+## D. 第二组检查点：紫微动态、四柱运限、派生字段与神煞（2026-11-27）
+
+基线HEAD 9632a984b4ed948f8c87aaf86661e16b0d8d7f00，tree 6fb5a73d8df40cea569609c3e20ea95f5dfcb11b。权威六绑定不变；Matrix、graph、风险台账（58 issues，1001 checkpoints）及根647来源完整解析。基线Actions20项，读取时19成功、clean-training-system运行中；当前HEAD未见连续性运行，不能使用前HEAD的成功代替。仅复用已登记证据，未登记新来源，未穷举276分片，不作全库无命中判断。
+
+### D1. 前向勘误：15FF-P 四柱大运模块
+
+15FF-P 将未入产品的三个规则误列为 CAL-002/004/006。保持原记录；依据精确Matrix blob 5919e1b6bbc3c4b150507c41a13ccc9e13d20f17、风险ledger blob a9f1e7f0a8e1ac256bdb65ca5c2f2caafe61e81e，正确交叉表如下：
+
+| 规则 | Matrix状态 | 未决台账 |
+|---|---|---|
+| HPA-DAYUN-CAL-002 | MISSING_FROM_PRODUCT | TW-OPEN-0008 |
+| HPA-DAYUN-CAL-003 | MISSING_FROM_PRODUCT | TW-OPEN-0010 |
+| HPA-DAYUN-CAL-004 | MISSING_FROM_PRODUCT | TW-OPEN-0011 |
+| HPA-DAYUN-CAL-006 | MODERN_COMPATIBILITY_ONLY | 非上述三项；文墨公历月位移实现 |
+
+这是一处索引笔误修正，不改变Matrix、产品、遗漏台账或历史裁决。前述15FF-P文件继续保存。三项未入产品不等于算法缺陷，不授权重开。
+
+### D2. 紫微动态规则：受读层与原页层的分别索引
+
+复核根登记 EXT-ZIWEI-JIELAN-1581 是在线受读；EXT-SHANGHAI-LIB-JIELAN-1581 是1581四卷馆目。2016影印开卷图谱节点仅支持开卷与星图，未绑定CH51/52/54原印目标叶。中州派来源 EXT-WANGTINGZHI-ZHONGZHOU-CHUJI 是后出讲义受读，EXT-XINGQIAO-WANGTINGZHI-ZHONGZHOU-CHUJI 是出版目录。以下均是已审计规则的索引，而非原刻原字新裁决。
+
+| HPA规则编号（省略共同HPA-前缀） | 当前Matrix状态 | 目标章、独立算子、证据缺口 |
+|---|---|---|
+| ZT-001/002/003 | HISTORICALLY_SUPPORTED | 《捷览》CH51定大限诀。分别为男女阴阳顺逆、局数起岁、每十年移一宫；金四局起四岁、顺行下一宫十四岁的例，仅支持所见受读，不能扩张为公历交界法。 |
+| ZT-004、ZT-005、ZT-006、ZTEMP-001 | HISTORICALLY_SUPPORTED | 《捷览》CH54安流年斗君法、S01全书受读。流年宫序、太岁宫锚、斗君由生月时定位、流月由斗君起正月四个算子分开。未获得与1581子4051物件相绑定目标页。 |
+| ZT-008 | HISTORICALLY_SUPPORTED | 《捷览》CH52定小限诀、全书受读。紫微小限为宫序体系，不能与四柱干支小运合并。 |
+| ZT-013、ZTEMP-003 | HISTORICALLY_SUPPORTED | CH54及中州流日受读；月宫起初一按日顺移。宫位序列不等于流日干支或实际午夜换日政策。 |
+| ZT-014 | DISPUTED_MULTIPLE_CANDIDATES | CH54与中州讲义流时两候选，不能坍缩。 |
+| ZTEMP-004 | HISTORICALLY_SUPPORTED | CH54受读日宫起子时顺行，给定流日宫和时支。 |
+| ZTEMP-005 | SUPPORTED_BUT_SCHOOL_SPECIFIC | 中州讲义固定地支宫对应时支及五子遁，固定地支候选不等于CH54日宫锚。 |
+| ZT-015、ZTEMP-006 | SUPPORTED_BUT_SCHOOL_SPECIFIC | 中州闰月分段候选；与南阳堂卷三本命闰月安身命例分层，不以一个领域的闰月规则代替另一领域。 |
+
+图谱：当前已存在 PASSAGE-JIELAN-1581-OPENING-2016-FACSIMILE、PASSAGE-NAJ-NANYANGTANG-J3-CHART-PLACEMENT，均非CH51/52/54目标页。当前未建立上述15条规则专属完整作品—版本—篇页—规则链。可索引但不作新增ATTESTS/TRANSMITS_RULE边。后续原页复核须按卷次、版心、影像页与受读章编号对齐，避免把现代章节编号直接写作古刻页码。
+
+### D3. 四柱大运16条、小运2条：版本及规则层拆分
+
+| HPA编号（省略共同HPA-前缀） | Matrix状态 | 版本/来源/规则与图谱缺口 |
+|---|---|---|
+| DAYUN-001 | SUPPORTED_BUT_SCHOOL_SPECIFIC | 《三命通会》卷二《论大运》四库受读，按年干阴阳及性别决定顺逆；原刻目标页另核。 |
+| DAYUN-002/003、DAYUN-CAL-001 | HISTORICALLY_SUPPORTED | EXT-CTEXT-SANMING-V2-DAYUN、EXT-CTEXT-WUXING-JINGJI-V33-DAYUN：节锚、三日一年、离散余数换算；受读定位不等于1578原页或宋刊原字。 |
+| DAYUN-004、DAYUN-SEQ-001/002 | HISTORICALLY_SUPPORTED | 《千里命稿》受读242–258行及《命理探源》例42–47：月柱相邻起运、同方向逐步推移。序列与首次交运绝对时刻分立。 |
+| DAYUN-CAL-002 | MISSING_FROM_PRODUCT | 《三命通会》卷二小月闰月修正，以及大统历历日控制；TW-OPEN-0008，未完成所有适配语义。 |
+| DAYUN-CAL-003/004 | MISSING_FROM_PRODUCT | 1934/1936《韋千里命學講義》原页报告已区分两个物件；见D4完整链。TW-OPEN-0010/0011。 |
+| DAYUN-005/006/007、DAYUN-CAL-005/006/007 | MODERN_COMPATIBILITY_ONLY | 连续时间实现、文墨兼容、节界平局、微秒乘120、公历月位移、公历十年周年；不倒投为古籍规则。 |
+| XIAOYUN-001 | DISPUTED_MULTIPLE_CANDIDATES | 《三命通会》卷二醉醒子从时柱按年阴阳顺逆，四库受读；原刻目标叶及起运界待核。 |
+| XIAOYUN-002 | DISPUTED_MULTIPLE_CANDIDATES | 同书固定男女起点法、《五行精纪》卷33、朱翌传文与隋《五行大义》卷5受读；起点、方向、步长及交界各自举证。 |
+
+15CK报告（blob 15d716578bd9682989426900c0a318d612927453）核对朱翌传文与《五行精纪》卷33。甲子年男丙寅女壬申同时符合固定起点与年遁寅申月，不能由单例归一。四库受读有女起丙申/壬申文字冲突，待原叶。15CU报告（blob 0a412d3fcafaf59fe78ac7cfa350ee75c86f29e3）核对《五行大义》卷5固定六甲行年及候病六旬法，并列1699日本刊本、1804许校本等书目；隋作品年代与后出物件必须分离，京都/维基受读不作两件古本。固定起点同形只支持比较，不支持隋至宋明的直接子平师承；亦非八卦游年算法。以上小运候选未新增图谱关系，未关闭。
+
+### D4. 韦千里大运的既有完整图谱链与复算
+
+精确旧证据文件 QIANLI-MINGXUE-JIANGYI-JIAOYUN-CALENDAR-SEMANTICS-R1.json，2026-10-06 OR批，直接物件：
+- 1934：EXT-NLC-QIANLI-MINGXUE-JIANGYI-1934，17jh007058 / 102955；TG-E0166/0167/0168 版本、物件、数字替身。
+- 1936：EXT-NLC-QIANLI-MINGXUE-JIANGYI-1936，01jh000368 / 10155；TG-E0169/0170/0171 对应独立版本链。
+- TG-E0172/0173 两物件分别 ATTESTS 同一作用域的起例问答篇页 PASSAGE-QIANLI-MINGXUE-JIANGYI-QILI-JIAOYUN；E0174 TRANSMITS_RULE（HIGH_CONFIDENCE）→ RULE-FAMILY-QIANLI-JIAOYUN-NOMINAL-30DAY-LUNISOLAR，对应CAL-003/004。此链已存在，无须重复建节点；未证明两版全书相同。
+
+复核旧算例：140名义日=4月20日，正月十五推至六月初五；实际137日。190名义日=6月10日，正月十五推至七月廿五；实际215日且期间有闰二月。故30日名义月推进与实际天数增加不能混同。每十年同名义农历坐标递推是另一算子。小月不存在目标日、闰月重复坐标及递推边界仍未解决，产品未实现状态不变。目标页数字页码尚需回查原叶定位记录，不能从报告内物品号臆定。
+
+### D5. 四柱派生字段与神煞首批
+
+| HPA编号（省略HPA-） | 当前状态 | 文本与范围 |
+|---|---|---|
+| BAZI-002、BHIDDEN-001 | HISTORICALLY_SUPPORTED | S11 YHZP-CH-061《又地支藏遁歌》及 EXT-CTEXT-YHZP-RECEIVED，藏干成员与原文次序分别保存；尚无确定古刻目标页链。 |
+| BAZI-015、BHIDDEN-002 | SOURCE_INSUFFICIENT | 现代藏干展示序及规范化registry不能由成员歌诀直接推出。 |
+| BHIDDEN-003 | SUPPORTED_BUT_SCHOOL_SPECIFIC | EXT-CTEXT-ZIPING-ZHENQUAN-PINGZHU-ZAQI《论杂气如何取用》受读，本气层级与显示序不同。 |
+| BAZI-003 | HISTORICALLY_SUPPORTED | S11 YHZP-CH-016/017/057/065；生我、我生、克我、我克、同类及阴阳映射。已见1600《渊海》继善篇与宝法篇页图谱节点不直接证明完整十神配对表，须核对应原叶。 |
+| SHENSHA-001 | DISPUTED_MULTIPLE_CANDIDATES | S11 YHZP-CH-024；15CK《密斋笔记》宋作品层传文中甲戊庚牛羊只支持部分映射，年干/日干与昼夜政策均未由此裁决。 |
+| SHENSHA-008 | DISPUTED_MULTIPLE_CANDIDATES | S11 YHZP-CH-030及《三命通会》卷三天月德受读；15CK《密斋笔记》寅月丁、卯月申是两项局部映射，非完整12项表；与紫微本命/流年天德分族。 |
+| SHENSHA-006 | HISTORICALLY_SUPPORTED | S11 YHZP-CH-028；四柱月德与图谱中紫微月德年支顺行族不是同一输入函数。 |
+| SHENSHA-009 | DISPUTED_MULTIPLE_CANDIDATES | S11 YHZP-CH-031《论天厨贵人》，食神禄推法；已有 RULE-FAMILY-PREMODERN-TIANCHU-STEM-TABLE 与 RULE-FAMILY-ZIWEI-NATAL-TIANCHU-CURRENT 两个规则族，不能仅因名称相同增加跨系统传承边。 |
+
+### D6. 当前恢复点
+
+本次新增43个不同Matrix ID的分组索引，合计首、第二组53个；并复核大运未入产品编号及3项风险绑定。这里的索引数量不是原页闭合数。未修改权威状态、R2视图、Matrix、根/分片、图谱或风险记录。仍属15FF-Q未结项；下一步优先补全其他八字派生字段、剩余神煞、紫微动态辅助星，并对真正有确切作品/版本/原页绑定的节点判定增链；复核风险台账及整体验收。无新原图、无新登记、无算法重开，五P0保留。不能将本检查点当作第一阶段完成。transmission_impact: NONE。
