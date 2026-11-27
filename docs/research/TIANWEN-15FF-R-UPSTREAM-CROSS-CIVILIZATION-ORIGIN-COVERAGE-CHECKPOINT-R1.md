@@ -740,3 +740,57 @@ transmission_impact=NONE；本次仅保全未完成研究工作及恢复合同�
 ### 11e. R8增量重放首次CI的接口纠正（2026-11-27）
 
 基线HEAD `1e35cf3094072a5b7a6ba96dbbae1e7e9be799b6`、tree `acfd18e90b72c1df9317bfe27e00722c27990f0d`。六权威绑定一致；21 Actions中19 success、1 in_progress、1 failure。精确HEAD [continuity run 46009495893](https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/46009495893) job140541075419实读日志：62原遗漏风险测试通过，当前权威视图与全库查询PASS；9项R2测试中8项成功、新增R8重放测试在line162因KeyError 'status'失败。该测试依次执行候选state、来源登记、遗漏风险等旧门禁，已到达遗漏风险输出解析；原verifier实际返回 {"result":"PASS",...} 而非 {"status":"PASS",...}，其进程退出码已通过检查。不能将此前失败记作完整候选验收，后续R2及全历史前缀断言未走完。本提交仅在新测试按特定verifier原合同读取result字段，并增加明确错误诊断；其余门禁、权威文件、prepare程序与权限不变。新HEAD须领取精确CI TIANWEN_R8_PREPARED_REPLAY成功结果，不以旧失败推断成功。当前仍1499/279、1.1587.0、59 OPEN五P0、CLOSED；正式发布路径仍未解决。
+
+
+### 11f. 增量重放通过，待独立发布（2026-11-27）
+
+精确HEAD `77e9c3823448362ad43eed20982c9fecf74ddcd3`、tree `46bab244503a13a45be0153006f37a0c1728d899`，六绑定一致。21 Actions中20 success、1 clean-training-system in_progress。[continuity run 46009705352](https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/46009705352) job140541786156成功，62+9 tests，实取候选重放日志如下：
+
+```json
+{
+  "status": "PASS_PREPARED_NOT_PUBLISHED",
+  "gates": {
+    "scripts/verify-project-continuity-state-r1.py ": "PASS",
+    "scripts/verify-historical-source-registry-extensions-r1.py ": "PASS",
+    "scripts/verify-research-omission-risk-ledger-r1.py ": "PASS",
+    "scripts/project-context-r2.py verify": "PASS",
+    "scripts/project-context-r2.py request": "STALE_CHECKPOINT"
+  },
+  "replacement_bytes": {
+    "docs/PROJECT-CURRENT-STATE-R1.json": 1804737,
+    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": 4076303,
+    "docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json": 183859,
+    "docs/PROJECT-RECOVERY-VIEW-R2.json": 4907,
+    "docs/research/TIANWEN-15FF-R-UPSTREAM-CROSS-CIVILIZATION-ORIGIN-COVERAGE-CHECKPOINT-R1.md": 75267,
+    "docs/TIANWEN-ZIWEI-HISTORICAL-OUTLINE-R1.md": 152535,
+    "docs/TIANWEN-DUAL-HISTORY-COVERAGE-ATLAS-R1.md": 238794
+  },
+  "candidate_blob_sha": {
+    "docs/PROJECT-CURRENT-STATE-R1.json": "c4e1d8f81d75f764c10ddb335f27c851cacd6e1c",
+    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "7f9799d56bfe3e3f5265ae55fc7488b0c4b622bb",
+    "docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json": "a3931ce82103490efb1ef6f6cda740cc5f839be1",
+    "docs/PROJECT-RECOVERY-VIEW-R2.json": "33a4235957bc1edc6a255c2c691e78bfa3b7f4d1",
+    "docs/research/TIANWEN-15FF-R-UPSTREAM-CROSS-CIVILIZATION-ORIGIN-COVERAGE-CHECKPOINT-R1.md": "8b59b012ae6968cef72c9c6887dd5c4746831b0e",
+    "docs/TIANWEN-ZIWEI-HISTORICAL-OUTLINE-R1.md": "322e63f69d51e04f868b826ddcb9829cf9519091",
+    "docs/TIANWEN-DUAL-HISTORY-COVERAGE-ATLAS-R1.md": "488aced24cc74b37651bd0ea7377b6a3e6fc1846"
+  }
+}
+```
+
+实际隔离重建、既有状态/来源/遗漏/前向历史/R2验证均成功，1018旧checkpoint完整保留，候选1019；旧query正确返回STALE_CHECKPOINT。原始台账未改。候选台账4,076,303字节；远端fetch_blob对候选ledger及view均404，故本地重放成功不等于Git远端对象已写入。后续doc追加会改变候选BATCH摘要，prepare需对当前checkout重新生成；不要把上述整套候选hash当作永久固定包。保持无远端写权限的测试通道，既有发布阻塞未解除；无需重复同一4MB上传失败，也不改旧工作流权限。当前1499正式来源、六候选、1.1587.0、59 OPEN五P0不变。
+
+## 12. 15FF-R9候选｜伊朗与中亚技术中介的独立证据路线（2026-11-27）
+
+本节不是新准入；无重复全库查询结果、无古代字形裁决。避免工程发布阻塞全部源流研究。继续保留南印度实际方盘、Iyer印页6、希腊及敦煌原叶、Mak SCIAMVS和五P0。与前面R8准入程序的QUERY pin保持一致，本轮不改现行query合同；待发布或重新设计兼容的查重路线后统一检索以下候选。
+
+**伊朗技术层。** 实读 David Pingree, [HOROSCOPE, Encyclopaedia Iranica XII/5, 477–478](https://www.iranicaonline.org/articles/horoscope/)（2004-12-15，2015-07-15更新）网页。作者把281-10-20与381-02-26两个星占事件定位在Dorotheus希腊作品的巴列维语翻译插入层，主要经约800年Umar ibn al-Farrukhan al-Tabari阿拉伯译文保存；书中事件日期不等同现存抄本纪年，未直接读取原译文或图。星占十二宫第一宫以出生时东方地平交黄道定升点（tale），宫界按不同数学分宫法；黄道等分星座不是同一坐标。技术比较候选：四角宫、三分/九分/十二分细分、月球两交点与七行星组成九曜。作者将九曜的额外两点归于印度实践，仍需原文本和中国中间载体核证；与紫微生年支、月时、十四主星排布没有直接同源证明。不得以四元素三合组类比中国五行三合即认定规则传承。
+
+**中亚实物与佛经翻译。** Pingree 1963 [Isis 54:229–246](https://www.journals.uchicago.edu/doi/10.1086/349703)（DOI 10.1086/349703），[公开文本转录](https://penelope.uchicago.edu/Thayer/E/Journals/ISIS/54/2/Astronomy_and_Astrology_in_India_and_Iran%2A.html) pp240–243提出经佛教传播的nakshatra宿占路线及萨珊/阿拉伯技术汇合。与2004条目同研究者，不作两份独立古证。较有价值的版本学核验入口为创价大学国际佛教学高等研究所2015 [Buddhist Manuscripts from Central Asia: The St. Petersburg Sanskrit Fragments I](https://iriab.soka.ac.jp/content/pdf/stpsf/StPSF%20I%202015%28final%29.pdf)，实际读提取文本前言viii–ix及正文pp1–5（截图index10超时，未核图）。Miyazaki/Nagashima/Tamai/Zhou Liqun, “The Śārdūlakarṇāvadāna from Central Asia”：
+
+- SI 1942圣彼得堡馆藏纸本：作者以字形定为约4世纪，22叶、18cm，前后部分笔迹不同；正文抄录由folio16起，残损及缺字明确标识。Bodleian MS. Sansk.e.23(P), part one 1091(1-8) 的Weber藏片folio7–15来自新疆南缘Kugiār（柯克亚附近），作者依据尺寸、连续叶码和前代校勘提出同一抄本的分藏关系；不是两独立古本投票。BL Or.15010/6,20为另一已刊残片线索，未核实物。抄本时代估计与1963 Pingree所述约500年需并列核验，不武断统一。
+- SI 1942 folio16r转录l1–8含二十八宿分类、月与宿相对运行及其他天文词，现仅现代编辑转录；叶36v题记的编辑读法指月与行星占验。此为宿占/历法前史，不能等同后世十二宫命盘或斗数。编辑对梵、藏、汉文本逐行对照，指出部分读法接近竺法护《舍頭諫太子二十八宿經》(T1301)，另列《摩登伽經》(T1300)、T551、T552；需区分短本、天文增广本和后世尼泊尔历法增补。已明确作者及馆号，后续应实查T1300/T1301具体28宿顺序、分类与时间机制，不能用共同故事推断全部术数译传。
+- 周利群2013北大博士论文《〈虎耳譬喻经〉与早期来华的印度星占术——基于中亚梵文残本与其他梵藏汉文本的对勘研究》是直接相关研究入口，本轮仅书目线索，未获全文。不得算独立于同作者2015导言的投票。
+
+**11世纪伊朗星学著作与15世纪实物分层。** [Iranica KETĀB AL-TAFHIM](https://www.iranicaonline.org/articles/ketab-al-tafhim/) 已读网页：比鲁尼问答体兼算学、几何、天文学及占星，阿拉伯与波斯文版本具有内容差异，不用任一后世译本代替全体。第一方QDL/BL [Or 8349 馆目PDF](https://www.qdl.qa/download/pdf/81055_vdc_100022596633.0x000001_en.pdf) 提取文本：ff.i+159+ii，最早藏家题记Rajab 839/1436年1–2月，馆方推定抄写不迟于该时间附近；不是作者1029年亲笔本。馆目网页403，94,996,480字节PDF截图index0超限，未实际核阅图像。优先取单叶和具体分宫/星曜段。1920s以前版本及现代译本仍待核。
+
+候选后续查重词（尚未发送）：Pingree、349703、Dorotheus、al-Farrukhan、Thabari/Tabari、al-Biruni/Bīrūnī、Ketab al-tafhim、Or 8349、SI 1942、Sansk.e.23、Or.15010、Śārdūlakarṇāvadāna/Sardulakarnavadana、虎耳譬喻经、摩登伽經、舍頭諫太子二十八宿經、周利群、StPSF。若后续查重命中旧T1300/T1301等记录，复用而非重建，仍需逐条核读。保留TW-OPEN-0059，transmission_impact=NONE，历史广度不终验。
