@@ -694,3 +694,31 @@ S11 segment-0009 目录核对：CH024 1167–1205，025 1206–1241，026 1242�
 ### L3. 后续与证据边界
 
 本节给出39个既有Matrix ID的具体入图导航；未新增图节点或关系，未修改六个权威输入、状态版本、风险或R2。下一步在本节坐标上逐族打开已登记受读正文、与图全ID/语义去重，区分宋/明的比例与交运、近代韦氏既有原页、两种小运和各神煞独立锚点，原子发布graph/state/ledger/R2；再依路线逐项复评第三/第四门槛。保持图748/534、Matrix222/222、1488来源/276分片、58 OPEN五P0、核心CLOSED。transmission_impact=NONE（导航检查点）。本轮没有新原页、版本、直传或运行时结论。
+
+
+## M. 四柱运限受读证据实际入图（2026-11-27）
+
+基线 8e62e60ff8f1b7792da669af7225bba4fa28df9b / c8e4ba9299eb36163153cc43c1ff7928928722ae；20项Actions观察19成功、clean-training-system运行中，未观察到独立连续性专项（文档检查点），回读权威graph/state/ledger及Matrix/root/manifest，六绑定一致，58风险五P0维持。全图748/534及相关中文语义检索无同族节点；韦千里现有E0174及其规则节点复用。
+
+本轮重核[《三命通会》卷二四库受读](https://zh.wikisource.org/zh-hans/三命通會_(四庫全書本)/卷02)第232–233、242、244行，[朱翌《猗觉寮杂记》卷下SK1789](https://www.shidianguji.com/book/SK1789/chapter/1m1e9xkcnzyfd)第411行。前者属现存四库电子受读，与已登记CTEXT入口不计独立物件，不宣称1578原页。15CK《五行精纪》卷33末入口本轮被安全验证阻断，《命理探源》CTEXT入口403；既有登记和审计保留原等级，不称本轮重新核文或新原叶。15CK分片blob 72f00b7e0c8f63c5e35aafaf293b82498575a91a 已核真实内容及manifest；未新增外部来源或宣称全276分片新来源无命中。
+
+| 边 | 篇页 | 规则族 | 限定 |
+|---|---|---|---|
+| TG-E0535 | PASSAGE-SANMING-RECEIVED-V2-DAYUN | RULE-FAMILY-BAZI-DAYUN-YEAR-SEX-DIRECTION | 阳男阴女顺、阴男阳女逆；甲子阳男例支持年干输入，非唯一历史传统 |
+| TG-E0536 | PASSAGE-SANMING-RECEIVED-V2-DAYUN | RULE-FAMILY-BAZI-DAYUN-STRICT-JIE-ANCHOR | 生日后／生日前节气与六节措辞；不证精确等号归属 |
+| TG-E0537 | PASSAGE-SANMING-RECEIVED-V2-DAYUN | RULE-FAMILY-BAZI-DAYUN-DISCRETE-SYMBOLIC-AGE | 受读63时例630名义日即1年9月；电子本文字实历过六十三日与下句时数不一致，保留不裁原字；不推微秒插值 |
+| TG-E0538 | PASSAGE-WUXING-JINGJI-RECEIVED-V33-DAYUN | RULE-FAMILY-BAZI-DAYUN-DISCRETE-SYMBOLIC-AGE | 既有11B审计支持实历日时折除与三日一岁；不声称新读取宋本 |
+| TG-E0539 | PASSAGE-SANMING-RECEIVED-V2-DAYUN | RULE-FAMILY-BAZI-DAYUN-NATAL-MONTH-PILLAR-BASE | 卷二第242行月上起；不以一句话证明完整干支步进 |
+| TG-E0540 | PASSAGE-SANMING-RECEIVED-V2-DAYUN | RULE-FAMILY-BAZI-DAYUN-MING-SMALL-MONTH-DEFICIT | 实例进六日；不普遍化为历法适配器 |
+| TG-E0541 | PASSAGE-SANMING-RECEIVED-V2-DAYUN | RULE-FAMILY-BAZI-DAYUN-MING-INTERCALARY-COUNT | 实例退一月以足十二月；不裁常月／闰月目标重号选择 |
+| TG-E0542 | PASSAGE-SANMING-RECEIVED-V2-DAYUN | RULE-FAMILY-BAZI-DAYUN-MING-TEN-ANNIVERSARY-STATEMENT | 交运后十周年方换一运；不证现代公历周年或异常日处理 |
+| TG-E0543 | PASSAGE-SANMING-RECEIVED-V2-XIAOYUN | RULE-FAMILY-BAZI-XIAOYUN-FIXED-SEX-START | 后段明确丙寅／壬申；同页开头丙申保留，非明刻原字裁决 |
+| TG-E0544 | PASSAGE-ZHUYI-YIJUELIAO-RECEIVED-V2-XIAOYUN | RULE-FAMILY-BAZI-XIAOYUN-FIXED-SEX-START | 朱翌仅证两个起点，不证每岁一步或方向 |
+| TG-E0545 | PASSAGE-WUXING-JINGJI-RECEIVED-V33-XIAOYUN | RULE-FAMILY-BAZI-XIAOYUN-FIXED-SEX-START | 15CK既有受读《烛神经》引文；非独立原书 |
+| TG-E0546 | PASSAGE-SANMING-RECEIVED-V2-XIAOYUN | RULE-FAMILY-BAZI-XIAOYUN-FIXED-SEX-DIRECTION-ANNUAL-STEP | 固定法明确男顺女逆；同章年步语句与历史解释不等于现代交界规则 |
+| TG-E0547 | PASSAGE-WUXING-JINGJI-RECEIVED-V33-XIAOYUN | RULE-FAMILY-BAZI-XIAOYUN-FIXED-SEX-DIRECTION-ANNUAL-STEP | 15CK引《烛神经》《三命提要》一岁起、每年一位、61岁循环；引书不算独立古本 |
+| TG-E0548 | PASSAGE-SANMING-RECEIVED-V2-XIAOYUN | RULE-FAMILY-BAZI-XIAOYUN-HOUR-PILLAR-YEAR-DIRECTION | 阳年阳命甲子时，出生行乙丑、二岁丙寅；逆行类另依年与性别，非现代边界授权 |
+
+机械复算：明受读五日三时＝63时辰，×10＝630名义日＝360＋270＝一岁九月；同电子本另见六十三日措辞，不能当作原刻正确字形。小运固定法一岁男丙寅女壬申，二岁男丁卯女辛未，六十一岁回到起点（15CK既有逐年一位证据）。醉醒子阳年阳命甲子时首运乙丑、二岁丙寅；不是固定起点，也不由此证明具体民用岁界。明小月补差与闰月总量调整分立；闰月目标重号及非法日仍无闭合规则。HPA-DAYUN-CAL-002..004依然MISSING_FROM_PRODUCT。HPA-DAYUN-007精确交节FAIL_CLOSED和现代continuous／文真历法不造古籍ATTESTS。未证明早期全套起运法、直接传承或流派胜者。
+
+新增15节点（5篇页、10规则族）/14限定ATTESTS，累计763/548。全节点/边ID唯一，端点完整；原有图谱对象未覆盖。状态1.1579.0，同一原子提交更新state/graph/ledger/R2/本检查点；58个旧issues与全部旧checkpoints保持；Matrix222/222、1488来源/276分片、核心CLOSED。NEXT 09B两序列子规则与21项神煞正文仍待入图，第三/第四门槛待复评。transmission_impact: 15 nodes/14 scoped ATTESTS, no direct lineage, no runtime change. 新HEAD CI待验证。

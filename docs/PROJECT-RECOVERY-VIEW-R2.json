@@ -2,14 +2,14 @@
   "schema": "TIANWEN-CONTEXT-RECOVERY-VIEW-R2",
   "authority": "DERIVED_ONLY",
   "bindings": {
-    "docs/PROJECT-CURRENT-STATE-R1.json": "980b7fa190a5115d865351469bd3d6da2148db3e",
-    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "60ccc2a27ea3d06039af71f2cecc5044c911705d",
+    "docs/PROJECT-CURRENT-STATE-R1.json": "bda684121d12589f96e652a150764862986fd5fa",
+    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "dfb79519436e7f56bd102d94444ba336bfd1ca3c",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json": "d5081119bedd4afa0324a7eec36bc5b1ce4372c3",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json": "ea2ab50479450c39ce3fc7a00ea91cd713bf4a60",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json": "5919e1b6bbc3c4b150507c41a13ccc9e13d20f17",
-    "docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json": "9e6be694e31db465f47788f907a54fdaf2f43772"
+    "docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json": "6959ee4859102349360ac04ba95d540aadc4c981"
   },
-  "state_version": "1.1578.0",
+  "state_version": "1.1579.0",
   "stage": "FUSION_CHART_HISTORICAL_PROVENANCE_AND_SCHOOL_AUDIT_R1",
   "invariants": {
     "deterministic_fusion_chart_product_r1": "CLOSED",
@@ -26,32 +26,33 @@
     "extension_sources": 841,
     "total_sources": 1488,
     "shards": 276,
-    "graph_nodes": 748,
-    "graph_edges": 534,
+    "graph_nodes": 763,
+    "graph_edges": 548,
     "open_issues": 58,
     "p0": 5
   },
   "phase": "BREADTH_FIRST_TWO_SYSTEM_HISTORICAL_FRAMEWORK_R1",
-  "next_deliverable": "15FF-Q续：完成四柱运限起运、顺逆及神煞历史机械规则导航／有界入图；随后按广度路线复评第三/第四验收门槛，保留候选及全部未决事项。",
+  "next_deliverable": "15FF-Q续：核读四柱大运正式首运与后续序列的既有受读例（09B），及21项神煞目标正文与机械条件，按来源范围入图；随后复评广度第三/第四门槛。",
   "latest_matrix_batch": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-FIRSTPARTY-AND-OLD20-ATLAS-QD.md",
   "latest_breadth_batch": "docs/research/TIANWEN-15FF-Q-CORE-RULE-PASSAGE-CROSSWALK-CHECKPOINT-R1.md",
   "checkpoint": {
-    "id": "TW-CHECKPOINT-15FF-Q-CORE-AUX-ROLE-BAZI-RELATION-MAP-20261127",
+    "id": "TW-CHECKPOINT-15FF-Q-BAZI-LUCK-RULE-MAP-20261127",
     "evidence_refs": [
       "docs/research/TIANWEN-15FF-Q-CORE-RULE-PASSAGE-CROSSWALK-CHECKPOINT-R1.md",
       "docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json",
-      "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-04-ZIWEI-EARLY-PRINT-CORE.md",
-      "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-05-ZIWEI-ROLES-LIMITS-RINGS.md",
-      "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JIELAN-SOURCE-SCOPED-NATAL-CANDIDATE-PRODUCTIZATION-OI.md",
-      "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-ZIWEI-JIELAN-DIGNITY-CH69-CH70-CELL-CROSS-COLLATION-ON.md",
-      "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-10-BAZI-RAW-RELATIONS-AFFINITY-A.md",
-      "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-10-BAZI-EXCLUDED-RELATION-FAMILIES-B.md",
-      "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-10-BAZI-HISTORICAL-RELATION-CANDIDATES-C.md"
+      "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-01-TIME-DAYUN-XIAOYUN.md",
+      "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-11-BAZI-DAYUN-CALENDAR-REALIZATION-B.md",
+      "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-09-BAZI-DAYUN-SEQUENCE-B.md",
+      "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-DAYUN-EXACT-JIE-TIE-HANDLING-AUDIT-NH.md",
+      "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-SANMING-DAYUN-CALENDAR-ADDITION-EDGE-SEMANTICS-OV.md",
+      "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-QIANLI-MINGXUE-JIANGYI-JIAOYUN-CALENDAR-SEMANTICS-OR.md",
+      "docs/research/TIANWEN-15CK-SONG-XIAOYUN-AND-MIZHAI-NATAL-EXAMPLES-R1.md",
+      "docs/research/TIANWEN-15CK-SONG-XIAOYUN-AND-MIZHAI-NATAL-EXAMPLES-SOURCE-SHARD-R1.json"
     ]
   },
   "focus": {
-    "index": 3273,
-    "text": "13ZZ CURRENT ACTION 15FF-Q: K adds 39 graph nodes/25 scoped ATTESTS for Ziwei core natal auxiliaries, Mingzhu basis alternatives, Zi/Wu Shenzhu textual ambiguity and Bazi branch relation mechanics. Reuse CH69/70 dignity graph E0163-65; no new original leaf/source/direct lineage/winner. Graph 748/534, Matrix222/222, 58 OPEN five P0, core CLOSED. NEXT Bazi luck and shensha remaining historical rule map, then breadth gate 3/4 review.",
+    "index": 3274,
+    "text": "13ZZ CURRENT ACTION 15FF-Q: M adds 15 graph nodes/14 scoped ATTESTS for Bazi Dayun direction/Jie/discrete age/month base/Ming calendar operations and two Xiaoyun families. 2026-11-27 reread Sanming v2 and Zhu Yi; earlier Wuxing received evidence reused at original grade; two current access blocks, no new original/source or direct lineage. Qianli E0174 reused; three calendar gaps remain. Graph 763/548, Matrix222/222, 58 OPEN five P0, core CLOSED. NEXT formal Dayun adjacent/step and 21 shensha, then breadth gate 3/4.",
     "truncated": false
   },
   "p0": [
