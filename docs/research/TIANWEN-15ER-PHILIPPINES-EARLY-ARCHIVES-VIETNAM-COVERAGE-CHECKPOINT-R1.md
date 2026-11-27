@@ -61,3 +61,9 @@ HEAD 4cdf19ab964d477ced0efa694b475f4d405d372f / tree a2b58ae34553f94bedc5a05cff1
 5. 1950–1960年代越文四柱独立刊物本轮仍未找到可确认机构馆目或原刊，不能由检索未命中断言不存在；1996之前与1975后连续出版仍有间隙。1998《Can Chi thông luận》及1990/2000其他术数书不据题名直接归入子平主线。
 
 **查重请求**：15ER-vietnam-bazi-publication-24terms，同一checkpoint，manifest 5811df962256220d88699f11fd8e30426e2e5630，24词见原子提交内docs/PROJECT-REGISTRY-QUERY-R2.json。覆盖G/H节具名候选和标识（2018用馆藏号，邵伟华用越文名/书名及馆藏号），12词菲律宾旧结果已在F节永久保全，不重复查询。宽词可能多命中；如truncated须细分或读取完整匹配清单，不能宣称全部无重复。仅在全库查询PASS、语义/载体/版本裁决及原文证据层明确后准入正式来源。暂不改变TW-OPEN-0054及其他开放事项；来源1390、图495/375、Matrix222/222、五P0、核心CLOSED保持不变。
+
+## I｜15ER全库查询验收与正式来源准入（2026-11-27）
+
+精确HEAD d8567717fb1a8f814d0375a93cda910cdb04446e，tree 761f20843c1ed99536e6b2110c18c9eb72b28e3f；[continuity run45931668118](https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/45931668118) job140285463219 SUCCESS，21/21 Actions通过，62 ledger及7 R2 tests通过，六绑定一致。query 15ER-vietnam-bazi-publication-24terms，checkpoint TW-CHECKPOINT-15ER-PROVISIONAL-20261127，request blob 10ba68db30375993f36ae1a0bf6caaa030499aa9，manifest blob 5811df962256220d88699f11fd8e30426e2e5630，verifier blob 3387254ce53ec0a1f1a3b779291e0c40997bf190，PASS，ALL_REGISTERED_ROOT_AND_SHARDS_LITERAL_ONLY，262 files/1390 records，原请求24词逐词0，matching_files=0、hits=[]、truncated=false。原请求完整保存在该HEAD，登记manifest改变后不复用为新全库查询。
+
+重新直接打开七个来源；69页本p67、529页本p4、国家书目p10/11均再次截图核对。巴黎序明确2004年12月作者自述拟自行出版及免费网络传播，不证明实际印行或上线时间；1974/1975版年未决。2021国家书目两条不同出版对象合计一个来源载体，不以同PDF双重计数。课程页明确2021-11-07，当前正文修改史未核。正式准入[七条来源](./TIANWEN-15ER-VIETNAM-BAZI-PUBLICATION-SOURCE-SHARD-R1.json)；不新增图谱边或节点，不认定直接师承，不改算法。菲律宾四类候选保持非准入、TW-OPEN-0054继续OPEN；新TW-OPEN-0055明确登记越南出版断层和原刊缺口。来源1397（647+750、262片）、图495/375、Matrix222/222、55 OPEN含五P0、核心CLOSED。
