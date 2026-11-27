@@ -16,3 +16,6 @@
 ## 下一步
 
 拟查重词（全根及275分片；manifest fa6e5d253162f81a643ed07ced1513e5574d379d）：baczi.uz、Анна、Манфред Кубни、Manfred Kubny、Наталья Игнатьева、Игнатьева、Natalia Ignatieva、Nataliya Ignatyeva、mingli.ru/consulting/768、consulting/768、Бишкек、Kyrgyzstan、Guam、Angel Garces、Angela Ang、angels-feng-shui-bazi-consultation、Asiri Wanigaratne、Asiri Wanigarathne、asiriwanigaratnefengshuilanka、feng-shui-for-success-cosmic-energy。根登记647项已对其中6词（baczi.uz、Игнатьева、mingli.ru/consulting/768、angel-garces、angels-feng-shui-bazi-consultation、Wanigaratne）作字面筛查均0命中；不代表全库查重完成。高频词可分组，命中需读原记录语义消歧，不以零字面命中证明独立。先复核基线及新HEAD门禁，按R2.1原子绑定全库查询并保留本候选；完成查重和证据分级后才准入。下一阶段核对全球历史框架覆盖，不关闭TW-OPEN-0058。无新增传承边或机械结论。
+
+## 15FE 正式全库查询绑定（2026-11-27）
+15FD正式准入HEAD a3a39624 continuity run45953125870 SUCCESS。候选检查点7d37e96a所见20项Actions中19成功、1运行；无失败。六项权威绑定核对一致；权威状态/风险重新解析，58 OPEN及五P0保持。四个来源URL均重新取得公开正文：Mingli L7–25；baczi.uz L7–15（塔什干标题仅作地域线索）；Rising Dragon L160–183；Sri Lanka blog L12–19/90–93（日期仅属文章，不属侧栏）。查询绑定 15FE-residual-central-south-asia-pacific-regional-evidence，20词，manifest fa6e5d253162f81a643ed07ced1513e5574d379d，待本次精确HEAD成功专项日志、命中消歧和证据边界裁决。无正式准入、图谱增边或算法变化。
