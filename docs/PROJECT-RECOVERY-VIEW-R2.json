@@ -2,14 +2,14 @@
   "schema": "TIANWEN-CONTEXT-RECOVERY-VIEW-R2",
   "authority": "DERIVED_ONLY",
   "bindings": {
-    "docs/PROJECT-CURRENT-STATE-R1.json": "d832b3ce01546f3c60e283495ee03f4e59e0f870",
-    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "b0a07035012d530f4eb351d7938b2e6c04b86c02",
-    "docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json": "59e26089d66b2a225a08e32e451755fc5a75bf3d",
+    "docs/PROJECT-CURRENT-STATE-R1.json": "aa0779ff6b1326d9e2a9167548d9539102591820",
+    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "b6c32d0220294d126ca7f26d1ffba6f255e41c1b",
+    "docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json": "2b2dc24e8f939f7316f43a3567f8a2205b28c44d",
     "docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json": "280e023bcd6e0625f0dca2fd54d6c9423f286fd5",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json": "5919e1b6bbc3c4b150507c41a13ccc9e13d20f17",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json": "ea2ab50479450c39ce3fc7a00ea91cd713bf4a60"
   },
-  "state_version": "1.1527.0",
+  "state_version": "1.1528.0",
   "stage": "FUSION_CHART_HISTORICAL_PROVENANCE_AND_SCHOOL_AUDIT_R1",
   "invariants": {
     "deterministic_fusion_chart_product_r1": "CLOSED",
@@ -23,28 +23,31 @@
     "matrix_rows": 222,
     "matrix_audited": 222,
     "root_sources": 647,
-    "extension_sources": 728,
-    "total_sources": 1375,
-    "shards": 257,
+    "extension_sources": 731,
+    "total_sources": 1378,
+    "shards": 258,
     "graph_nodes": 495,
     "graph_edges": 375,
     "open_issues": 51,
     "p0": 5
   },
   "phase": "BREADTH_FIRST_TWO_SYSTEM_HISTORICAL_FRAMEWORK_R1",
-  "next_deliverable": "领取15EN精确全库查询；核对勸學齋三、五册版本及2008马来西亚学员笔记、2022新马经纬时校正目录。厦大报纸馆藏仅为原刊定位入口，保留1999年前同期紫微及2007广告缺口；不把洛阳折时与经纬时校正合并、不改算法。",
+  "next_deliverable": "完成15EN有界准入后，复盘泰国、印尼、越南等地区在双史纲中的已有覆盖与缺口，优先寻找可公开核实、独立且明确属紫微或四柱的同期出版、报刊或教学资料；厦大馆藏定位仅作检索入口。1999年前马来西亚紫微及2007广告、勸學齋原稿/版次/时间校正正文保留OPEN，不重查同源零售宣传，不改算法。",
   "latest_matrix_batch": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-FIRSTPARTY-AND-OLD20-ATLAS-QD.md",
   "latest_breadth_batch": "docs/research/TIANWEN-15EN-NANYANG-QUANXUEZHAI-TIME-CORRECTION-NEWSPAPER-LOCATORS-R1.md",
   "checkpoint": {
-    "id": "TW-CHECKPOINT-15EN-PROVISIONAL-20261126",
+    "id": "TW-CHECKPOINT-15EN-ADMITTED-20261127",
     "evidence_refs": [
       "docs/research/TIANWEN-15EN-NANYANG-QUANXUEZHAI-TIME-CORRECTION-NEWSPAPER-LOCATORS-R1.md",
-      "docs/PROJECT-REGISTRY-QUERY-R2.json"
+      "docs/research/TIANWEN-15EN-NANYANG-QUANXUEZHAI-TIME-CORRECTION-SOURCE-SHARD-R1.json",
+      "docs/TIANWEN-ZIWEI-HISTORICAL-OUTLINE-R1.md",
+      "docs/TIANWEN-BAZI-HISTORICAL-OUTLINE-R1.md",
+      "docs/TIANWEN-DUAL-HISTORY-COVERAGE-ATLAS-R1.md"
     ]
   },
   "focus": {
-    "index": 3222,
-    "text": "13ZZ CURRENT ACTION 15EN PROVISIONAL: f5938b57 continuity run45852659790 PASS (62 ledger+7 R2 tests), source1375/257 shards, six bindings match. 13HB source transport timeout run45852652412 attempt1; failed-job-only retry attempt2 SUCCESS; no hash/glyph failure or weakened gate. New distinct candidate locators: Quanxuezhai vol3 ISBN9789868004146 2009 retailer edition vs 2023 Kingstone listing p229 attributes Malaysian student notes dated 2008-08-22; vol5 ISBN9789868004160 2022 contents name Malaysia/Singapore longitude-time correction articles by students; no original pages or algorithm. XMU Chinese newspaper holding list Malaysia rows17–31 including Sin Chew 1981–87/1988–96 and Nanyang 1976–95/1997 onward; list not target pages nor proven free remote delivery. NEXT exact 15EN query, semantic identity, narrow admission or defer. TW-OPEN-0047/0048/0050/0051 remain OPEN, graph495/375, Matrix222/222, 51 open incl five P0 core CLOSED.",
+    "index": 3223,
+    "text": "13ZZ CURRENT ACTION AFTER 15EN ADMISSION: ac2be88c exact continuity run45853829430 job140026860585 PASS (62 ledger+7 R2 tests), 20-term complete 258files/1375records literal query zero hits, untruncated; 98c25be6 20/20 Actions success but no exact continuity workflow, canonical blob fallback verified. Three bounded records admitted: Quanxuezhai vol3 ISBN9789868004146 2008 note reported by two retailer contents, 2009/2023 listing dates separated; vol5 ISBN9789868004160 2022 regional time correction contents; XMU institutional newspaper holdings locator. NCL deposit list pending original page. No original target pages, direct lineage, mechanical identity or runtime change. NEXT review Thailand/Indonesia/Vietnam coverage and pursue distinct dated system-specific regional evidence. TW-OPEN-0047/0048/0050/0051 OPEN; 1378=647+731/258 shards; graph495/375 Matrix222/222 51 open incl five P0 core CLOSED.",
     "truncated": false
   },
   "p0": [
