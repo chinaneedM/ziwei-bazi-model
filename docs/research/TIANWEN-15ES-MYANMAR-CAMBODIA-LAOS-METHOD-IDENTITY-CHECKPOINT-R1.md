@@ -35,3 +35,18 @@ HEAD d1c1b4a634ba5d125fda22b24a539883748b9039 / tree 5203af70f10e33c3e13c50cc126
 五个来源重新直接核对，正式登记见[分片](./TIANWEN-15ES-MAINLAND-SOUTHEAST-ASIA-METHOD-IDENTITY-SOURCE-SHARD-R1.json)。两个明确BAZI命名载体：服务页与应用商店页；IFSA总部页面仅组织背景；Diogenes论文仅生肖借用和地方术法比较；缅华网仅术语反例。公司About与服务页同运营方，地方分会与总部是关联组织，不额外累计同一背景。论文中1971高棉译本为访谈转述，未核原刊；1912泰文出版信息不作为子平版本。所有来源均非原书规则证据。没有确认柬埔寨首次传入或任何三地师承。
 
 1900地方志替代定位：[Google Books n7oMAAAAIAAJ](https://books.google.com/books?id=n7oMAAAAIAAJ) 为目标Part I Vol II书目；[Chughtai Library 40819](https://www.chughtailibrary.com/digital_library/repository_detail.php?id=40819) 列目标卷3388；[Myanmar Law Library PDF](https://myanmar-law-library.org/IMG/pdf/shan_state_part_i_volume_ii.pdf) 为另数字入口，未取得目标图；[BL IOR/X/12142](https://searcharchives.bl.uk/catalog/040-004534578) 馆目明确其所述组缺Part I Vol II，不能用作目标实物证明。只保留新定位不准入额外见证，不认为各镜像为不同实物；pp45–47原图、表格及页映射仍待核。无老挝具名术法新证据，不以检索未见为不存在。TW-OPEN-0056保持OPEN。来源1402（647+755、263片），图495/375，Matrix222/222，56 OPEN含五P0，核心CLOSED。
+
+
+## 8. 15ES 有界补查：地方志替代图与华文报刊馆目（2026-11-27）
+
+恢复基线 `caaa63a55a14be65c1203cdb346dc897fe9ff8cb` / tree `4a4fe71926d11c0a46be23cc8bf987d7b4ac3dfd`；[exact continuity run45935056593](https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/45935056593) SUCCESS；六个R2 bindings与真实docs目录逐项吻合。Actions三页返回285条，284成功、clean-training-system运行中，不记全绿。P0五项保持。现有PR未合并，不改变本轮范围。
+
+### 1900地方志替代数字载体
+[Myanmar Law Library PDF](https://myanmar-law-library.org/IMG/pdf/shan_state_part_i_volume_ii.pdf)，616 PDF页，索引0标题页与1900 Rangoon Part I Vol II一致；索引49=印刷44、50=45、51=46、52=47。直接截图核读索引0、49、50、51、52；51首次redirect loop，重试成功。版面显现代重排，46页为嵌入的旧式表格图，截图可见九条横向行、每行六个格位（以显示方向计），不可据此断言全表六十格皆完整；不作逐格原文转写、数值校定或完整原版影印认定。PDF的原始底本、物件号、文件SHA及表外缘缺失原因未核；不将此数字载体计作新实物见证。原Wikimedia PDF直接打开仍因44,548,035字节超限失败。原刊原叶仍待核。
+
+印刷45页（提取L1790–1819）报告掸族Hpè-wan以六十周期计年、月、日并用于命盘等占术；47页（L1820–1855）叙述当地阴历月、岁首及星期/Rahu分类。没有从这些已阅页核得四组干支、日主十神或紫微十四主星。报告的印度/中国传播推断是编者说法，不作本项目已证传承边。仅为当地计时与术法区别的有界比较证据；既有1900候选保留，原页等级不升级。
+
+### 三国华文报刊候选入口
+[厦门大学东南亚研究中心：中心馆藏中文报纸](https://nanyang.xmu.edu.cn/info/1114/10550.htm)，直接核阅L235–253，序号88–95柬埔寨8条、96–104缅甸9条、105–106老挝2条。可定位例如棉华日报（1956–1967间断馆藏）、新仰光报（1950–1964间断馆藏）、寮华日报（1959年9–10月）、老华日报（1976年1–2月若干日）。馆目不是报纸原页，所列年代是馆藏范围而非创刊或终刊日。页面未核实可免费远程逐期阅览路径，不申请登录、不承诺付费。NewspaperSG以三国地名加八字/紫微/算命的外部检索仅得整期共现等非目标条目；不以此当独立文章命中或穷尽。保留厦大馆目为未准入检索线索；未做新一轮全库字面查重，故不新增来源登记。
+
+本轮结论：两种入口均推进定位，但没有新的独立具名术法史证。保留TW-OPEN-0056 OPEN、五P0、原刊完整表与三地独立史证缺口。下一步区域广度覆盖复盘（地域×术法×时期），寻找下一实质缺口，不重复相同无收益搜索。来源1402/263片，图495/375，Matrix222/222，56 OPEN，排盘CLOSED。
