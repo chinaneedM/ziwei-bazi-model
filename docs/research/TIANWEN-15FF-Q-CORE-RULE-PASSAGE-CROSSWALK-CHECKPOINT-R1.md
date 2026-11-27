@@ -478,3 +478,12 @@ transmission_impact: MATERIAL_EVIDENCE_SCOPED_GRAPH_BACKFILL — 8 nodes, 7 scop
 已成功生成候选图谱blob c8eb896391fec7021e141c9058630bca22833c8f（拟663/483）和候选state blob d05c9214707a48241a1efb7a655b4bea40823e16（拟1.1576.0）。**二者均未纳入分支tree，不能当作远端当前事实；孤立对象可能被回收。** 对约367万字符的遗漏台账进行完整更新时，批量create_blob、独立create_blob以及create_tree内联content均出现HTTP/2连接读取错误。为维持原子性，不单独发布图谱或state，不压缩/删减历史台账来规避门禁。先提交本检查点保全实际证据映射；当前权威六文件及R2视图不变，state 1.1575.0、图630/461，58未决五P0，核心CLOSED。
 
 恢复时优先从当前HEAD核实H段、CI及六权威绑定；尝试可靠的完整台账写入路径，再将11篇页+22规则族+22 ATTESTS、state/ledger/R2及本段发布结果同一原子提交。若候选blob不可读，使用H1/H2表重建（所有日期未定、REGISTERED_RECEIVED_TEXT_SCOPED、CONFIRMED/MEDIUM仅限scope，adjudication_batch=15FF-Q）。不擅自把待发布图谱算作已交付，不制造新来源或权威状态。可在不改变语义状态的前提下继续四柱动态继承与剩余本命辅杂曜的证据定位，但第三/第四门槛正式验收前必须完成本次待发布单元。transmission_impact: PENDING_ATOMIC_PUBLICATION。
+
+
+### H4. 待发布单元恢复与原子交付（2026-11-27）
+
+恢复基线 3bbf25805a3b1d85117be707187e7f6b1a21284c / b4e1e10daad9b1d6df42ba6916a1b472f4c4c5ae；六项R2绑定与远端树一致；读取时19/20 Actions成功，clean-training-system仍运行，未取得该HEAD连续性专项成功，故实际读取六权威blob回退。候选图谱与state对象均可回读。定位到原风险台账紧凑JSON为3,673,310字符（3,978,782 UTF-8字节，不含结尾换行），而重新二空格缩进后达4,182,132字符，额外508,822字符；此前HTTP/2错误的具体平台上限未证，但无损恢复原有紧凑序列化后完整ledger create_blob实际成功。未更改任何既有风险条目、历史checkpoint或原有图谱节点/边；逐对象核验保留全部58 issues及1006旧checkpoints，追加第1007个checkpoint；state旧focus完整保留，追加第3272条。图谱新33节点、22边，所有ID唯一及端点存在；22规则族、11受读篇页严格按H1/H2，不升级原页、版本、源流或师承证据。
+
+本原子提交纳入graph c8eb896391fec7021e141c9058630bca22833c8f、state d05c9214707a48241a1efb7a655b4bea40823e16、ledger 271c3e8d7ef278b9ff692d0cc68db14004b54d55、重新派生R2及本检查点：state1.1576.0、图663/483、222/222 Matrix、1488来源/276分片、58 OPEN含五P0、核心CLOSED。精确HEAD远端CI结果须在提交后单独核验，不在提交前声称已通过。H3为当时真实阻塞，保留不覆盖。传输恢复仅解决本次，无证据保证未来无限增长；后续优先保持已有紧凑JSON，若再次失败再评估有验证门禁的历史归档分片方案，禁止删除历史或改写风险内容规避限制。
+
+transmission_impact: 新增22个限定ATTESTS（TG-E0462–0483）、11受读篇页和22规则族；无新增直接抄传/师承/同版关系。NEXT 四柱动态继承与剩余紫微本命辅杂星的双向索引；第三/第四门槛仍待复评。
