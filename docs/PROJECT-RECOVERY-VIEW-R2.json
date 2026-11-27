@@ -2,14 +2,14 @@
   "schema": "TIANWEN-CONTEXT-RECOVERY-VIEW-R2",
   "authority": "DERIVED_ONLY",
   "bindings": {
-    "docs/PROJECT-CURRENT-STATE-R1.json": "92198ea0f0508c36e79a14e9a72b33c982ca1dab",
-    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "4fc23c76d0525e227084516ba5e521e3379b8fc4",
+    "docs/PROJECT-CURRENT-STATE-R1.json": "cf1629c2fc72aaf853a23508a5aa2947d687ab9a",
+    "docs/RESEARCH-OMISSION-RISK-LEDGER-R1.json": "379b38684e5f14bd929b7e3f9e8ae6858e6a5bdc",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-SOURCE-REGISTRY-EXTENSIONS-R1.json": "d5081119bedd4afa0324a7eec36bc5b1ce4372c3",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-EXTERNAL-SOURCE-REGISTRY-R1.json": "ea2ab50479450c39ce3fc7a00ea91cd713bf4a60",
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json": "5919e1b6bbc3c4b150507c41a13ccc9e13d20f17",
     "docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json": "5ef9ca3e5507df6ea4250453cf7f663b3d2137cc"
   },
-  "state_version": "1.1582.0",
+  "state_version": "1.1583.0",
   "stage": "FUSION_CHART_HISTORICAL_PROVENANCE_AND_SCHOOL_AUDIT_R1",
   "invariants": {
     "deterministic_fusion_chart_product_r1": "CLOSED",
@@ -32,25 +32,21 @@
     "p0": 5
   },
   "phase": "BREADTH_FIRST_TWO_SYSTEM_HISTORICAL_FRAMEWORK_R1",
-  "next_deliverable": "15FF-R续：领取当前检查点全库字面检索，去重并分级古代上游源流见证；按南亚/印度（含南印度特异性）、希腊化、伊朗/中亚、唐宋中介和中国本土分轴补齐双史纲，复核四门槛后再决定广度验收；保留15FF-Q缺口及五P0。",
+  "next_deliverable": "15FF-R续：领取第二轮精确全库查询（T1308/T1299、書名決/訣、Kotyk 282与Mak作品异名），语义去重并裁定候选准入；核T1308卷下p0452b、T1299及梵文/南印度特异性，继续上游五轴覆盖；保留15FF-Q不足项及五P0，第一阶段不终验。",
   "latest_matrix_batch": "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-BATCH-12-BAZI-MING-DATONG-YEHUOBIAN-SHLIB-FIRSTPARTY-AND-OLD20-ATLAS-QD.md",
   "latest_breadth_batch": "docs/research/TIANWEN-15FF-R-UPSTREAM-CROSS-CIVILIZATION-ORIGIN-COVERAGE-CHECKPOINT-R1.md",
   "checkpoint": {
-    "id": "TW-CHECKPOINT-15FF-R-UPSTREAM-ORIGIN-20261127",
+    "id": "TW-CHECKPOINT-15FF-R-SINO-IRANIAN-HOUSES-20261127",
     "evidence_refs": [
       "docs/research/TIANWEN-15FF-R-UPSTREAM-CROSS-CIVILIZATION-ORIGIN-COVERAGE-CHECKPOINT-R1.md",
       "docs/TIANWEN-ZIWEI-HISTORICAL-OUTLINE-R1.md",
-      "docs/TIANWEN-BAZI-HISTORICAL-OUTLINE-R1.md",
       "docs/TIANWEN-DUAL-HISTORY-COVERAGE-ATLAS-R1.md",
-      "docs/research/TIANWEN-15FF-Q-CORE-RULE-PASSAGE-CROSSWALK-CHECKPOINT-R1.md",
-      "docs/research/TIANWEN-13ZW-TANG-SONG-NATAL-EVIDENCE-DUNHUANG-R1.md",
-      "docs/research/TIANWEN-14S-P4071-TINGSHI-EARLY-NATAL-WITNESSES-R1.md",
       "docs/PROJECT-REGISTRY-QUERY-R2.json"
     ]
   },
   "focus": {
-    "index": 3277,
-    "text": "13ZZ CURRENT ACTION 15FF-R: user clarified upstream origin scope before breadth acceptance. Reviewed both outlines/atlas/graph and R1 canonical six blobs after exact-HEAD c23b7ab 20 triggered successes but no continuity run; R2 binding 6/6. P.4071/Dumu/solar-mansion anchors reused; outbound modern South Asia distinct from inbound ancient astrology. Register TW-OPEN-0059 P1, no new historical source/edge/ruling. Matrix222/222, sources1488/276, graph819/581, 59 OPEN five P0, core CLOSED. NEXT consume exact full-registry query and classify ancient source/route candidates; retain Q unresolved rule crosswalk and review four gates.",
+    "index": 3278,
+    "text": "13ZZ CURRENT ACTION 15FF-R2: exact 47b36fb continuity PASS 62+7 tests; registry query 277 files/1488 records, 3 matching shards, no truncation; reused Mak 2014, Zhao 2023, Kotyk Japan 2018. SAT T1308 p0427c08-p0428a15 received twelve-house table; Kotyk SPP282 pp26-28 screenshots distinguish zodiac/house/solar-hour and modern redraw. New candidates not admitted, exact alias query pending. TW-OPEN-0059 OPEN; 59 issues five P0, Matrix222/222, sources1488/276, graph819/581, core CLOSED. NEXT consume query, scope candidate sources and upstream coverage, preserve Q gaps.",
     "truncated": false
   },
   "p0": [

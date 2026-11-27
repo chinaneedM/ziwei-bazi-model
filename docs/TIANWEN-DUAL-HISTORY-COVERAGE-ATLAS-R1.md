@@ -1724,3 +1724,8 @@ B：澳门大学1963-/1965-两馆目、Google Books 1963第二卷；C：现代�
 ## 15FF-R｜上游源流覆盖补审（2026-11-27，非终验）
 
 [15FF-R检查点](research/TIANWEN-15FF-R-UPSTREAM-CROSS-CIVILIZATION-ORIGIN-COVERAGE-CHECKPOINT-R1.md) 将古代技术输入、共同知识背景与现代地域传播分轴，保留唐宋星命、禄命及各自独立规则。新增 TW-OPEN-0059 P1（印度含南印度、希腊化、伊朗/中亚及本土形成路径待证）；无新增历史来源、原页、图谱边或裁决，不将跨文明相似认定为抄传。全库字面查询待领取，保留15FF-Q原有11条不足项及五P0，第一阶段仍未终验。
+
+
+### 15FF-R2 上游证据导航（候选未准入）
+
+[本轮检查点§4](research/TIANWEN-15FF-R-UPSTREAM-CROSS-CIVILIZATION-ORIGIN-COVERAGE-CHECKPOINT-R1.md)保存真实277文件/1488记录全库查询、SAT T1308七曜旁通十二宫传文定位与Kotyk 2018 SPP282印页26–28的技术比较。宫义有交集而宫序/输入不同；唐原叶、传播链、南印度特异性均待核。TW-OPEN-0059 OPEN，未增来源/图谱边；二轮精确异名查重待领取，第一阶段非终验。
