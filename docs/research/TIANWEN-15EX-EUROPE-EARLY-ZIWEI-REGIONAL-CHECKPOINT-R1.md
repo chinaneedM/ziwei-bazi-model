@@ -122,3 +122,46 @@
 ```
 
 命中分片 docs/research/TIANWEN-15EW-EUROPE-SOURCE-SHARD-R1.json 原blob 1e87221e51bf7ca6ea9e9525e734435117c0ccfe 已逐条核对：EXT-TIANWEN-15EW-FR-KERMADEC-1995（1995 Les piliers du destin）、EXT-TIANWEN-15EW-UK-KERMADEC-1983（1983英译馆目）、EXT-TIANWEN-15EW-FR-KERMADEC-1984（1984修订版馆目）。此三条均为既登记版本，不重复登记；1981初版仍须独立馆目证明，不因同作者命中或ISBN零命中而成立。其余23个词的零命中仅为字面检索结果，不是作品、作者或版本绝对不存在的证明。A通过后按原保留的B请求启动12词查询；未改变来源、图谱、五P0、风险或任何排盘规则。NEXT领取B exact-HEAD PASS，并对全部候选逐项完成语义消歧与有界准入。
+
+## 2026-11-27 15EX-B 完整查重及正式有界准入
+
+精确HEAD 83a5cbf08eba30090b33f94dac3235c638185c04 continuity [run45943845426](https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/45943845426) / job140323936354 SUCCESS；当时21 Actions中20成功，1仍运行。验证程序blob 3387254ce53ec0a1f1a3b779291e0c40997bf190。B返回如下：
+
+```json
+{
+  "query_id": "15EX-europe-early-ziwei-regional-identity-B",
+  "checkpoint_id": "TW-CHECKPOINT-15EX-PROVISIONAL-20261127",
+  "request_blob_sha": "a89dc3c68dc866de51bb939f1963e4833f3b49e4",
+  "registry_manifest_blob_sha": "3f616c7616a3f4b545b6398efc4db8a4d153c8a2",
+  "status": "PASS",
+  "scope": "ALL_REGISTERED_ROOT_AND_SHARDS_LITERAL_ONLY",
+  "files": 267,
+  "records": 1422,
+  "matching_files": 0,
+  "per_term_matching_files": {
+    "2716311404": 0,
+    "feng-shui-institute-portugal.com": 0,
+    "escolamacrobiotica.pt": 0,
+    "escolafengshui.com": 0,
+    "freiraeume.ch": 0,
+    "tuvi.fr": 0,
+    "FRBNF37113260": 0,
+    "cb37113260v": 0,
+    "Ngoc-Rao": 0,
+    "Nghia Huu Tran": 0,
+    "Huu Nghia Tran": 0,
+    "Nathalie Lim Nguyen": 0
+  },
+  "hits": [],
+  "truncated": false
+}
+```
+
+A/B合计36个词，均完整遍历267文件/1422条，无截断；A仅Kermadec已登记三个版本，B零字面命中。按作者、题名、版次、ISBN、馆目及载体逐项身份区分；字面检索并不证明全语义无重。正式准入[13条有界来源](./TIANWEN-15EX-EUROPE-EARLY-ZIWEI-SOURCE-SHARD-R1.json)：
+
+- 法国：Võ Văn Em/Villée合著书商书目与2024回忆传记分存；Tu Vi 3受传说明书、Tu Vi 4官方手册、更新记录、功能页为不同版本/文档用途，不作独立古籍见证；BnF 1999 Nguyen Ngoc-Rao独立馆目。
+- 英国：1995 Kwok等馆目仅书目身份，Open Library同ISBN互证不另计；Tzu Wei原术式页尚未核实。
+- 西班牙FEMTCI四柱课纲、意大利2011–12计划课程及另一紫微课目、罗马尼亚从业者自述、葡萄牙2027/28未来双术课程公告；均不证明实际授课或首次传入。葡萄牙其他可能相关站点及瑞士候选暂不准入，待直接核验与机构消歧。
+- 1981 Kermadec初版、1989/1990/2004印次冲突、1999 Jenny Mai Ngo独立馆目、英国原书术式、软件原始版本日期与星曜映射、独立师承及各地实开继续OPEN；不购买、不注册，不认定西方首次传播。
+
+本轮只登记现代有界来源，不新建图谱直接师承关系，不升格物理原字证据，不改算法。来源1435（647+788/267片），图495/375，Matrix222/222，58 OPEN含五P0，核心CLOSED。NEXT 15EY拉丁美洲具名两术当地证据，再推进非洲、中西亚。TW-OPEN-0058 OPEN。

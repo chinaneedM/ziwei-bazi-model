@@ -749,3 +749,6 @@ CiNii BA61461510著录1955.8香港实学书店，另有大阪大学伊地智文�
 
 ### 欧洲现代传播（15EW，2026-11-27）
 1983 Kermadec伦敦英译（CiNii BA50619850）、1984巴黎修订法文版、1995法国后续著作；德国Kubny 2000专著；巴黎Goh 2014/2015两卷译编与2017 Bonin/Lautard书目；英国2022课程公告。出版、译编、教学宣介与实际授课及师承各自独立，1981旧作初版仍待原书。见 [15EW](research/TIANWEN-15EW-EUROPE-REGIONAL-COVERAGE-CHECKPOINT-R1.md)。
+
+### 15EX｜欧洲四柱课程地域补证（2026-11-27）
+[15EX](research/TIANWEN-15EX-EUROPE-EARLY-ZIWEI-REGIONAL-CHECKPOINT-R1.md)：西班牙FEMTCI明确四柱课程，意大利2011–12计划课表列2012-05-13 BA-ZI入门，葡萄牙2027-12-04/05为未来课程计划。均不认定实际开课、最早传入或独立师承；不将紫微软件资料自动算作四柱术法史料。TW-OPEN-0058 OPEN。
