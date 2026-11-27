@@ -23,3 +23,14 @@
 
 ## 证据门槛与下一步
 上述候选全量查重尚待新精确HEAD验证。保留1989/1990/2004及530/531页冲突，1999馆目、英国原书、瑞士及各地区实际授课/师承开放。PDF全部明示截图障碍；未获取原始字节哈希，不宣告原页核图。无新增正式来源或师承边、无算法改动。五P0状态不变、1422来源/266分片、图495/375、Matrix222/222、58开放含五P0、核心CLOSED。NEXT领取15EX完整查询及逐项有界准入，再推进拉美、非洲、中西亚。
+
+## 2026-11-27 同检查点补证：法国 Tu Vi 4 官方手册、更新记录与1999馆目（仍 PROVISIONAL）
+
+15EX 原请求及 manifest 不变。原检查点 HEAD 707b097ccf20a1a8e230993106017b96430d98e8 的 continuity run 45942931822 在本次复查仍 QUEUED，不能领取或宣称零命中。六份权威 JSON 已通过精确 blob 读取解析；六绑定一致，266 分片路径/哈希与 tree 一致，五 P0 均复核保留。此补证属于同一未决 TW-OPEN-0058，不构成新的准入、语义状态变更或风险关闭。现有 query_id、checkpoint_id、request 和 manifest 均保持原状，后续按 R2.1 领取原请求及当前 HEAD 门禁；新增 URL/异体未覆盖的字面检索须补做，尤其 tuvi.fr、FRBNF37113260、cb37113260v、Ngoc-Rao、2716311404、Nghia Huu Tran、Huu Nghia Tran、Nathalie Lim Nguyen。
+
+- 开发商第一方法文手册：https://www.tuvi.fr/wp-content/uploads/2024/03/manuel.pdf 。PDF index 29/印页29成功截图目核，自动解读前言明确归于 Vo Van Em 与 François Villée 合著；推荐书目同时列 Huu Nghia Tran/Nathalie Lim Nguyen 的明确 Zì Wēi Dòu Shù / Tử vi đấu số 手册、Jenny Mai Ngo/Patrick Alliard 与 Nguyen Ngoc Rao。index 30成功截图，index 28及32超时。提取101–110行说明111指标、十二宫、十年期、四时间门户、流动星；596–598行区分 Ngo/Alliard 的分析与 Vo/Villée、Tran 的十二宫解读。英文同版本手册 https://www.tuvi.fr/wp-content/uploads/2024/03/manuel_EN.pdf 提取55–107、497–504、546–547、768–774行对应，index2截图超时；两语言文本属同一开发商文档体系，不作为独立传承见证。当前未获取完整PDF字节/哈希；仅记录直接网页及已目核页面的有界观察，不能据此裁决古籍原字或精确安星算法。
+- 官方更新记录 https://www.tuvi.fr/mise-a-jour-de-tu-vi/ 61–81行：4.1.19记录开始整合 Nghia Huu Tran 流派数据，包括部分星曜位置、五行、亮度和时间分析等；4.1.18记录三种来源的 Miracles 星曜安置。4.0.14（218–224行）调整部分星曜亮度，4.0.10（230–234行）修改太阳时处理。开发者自述的版本变化是现代技术传播和规则变体证据；不证明三来源的具体名称、中文星曜映射、各算法正确性、版本发布日期或古代直接师承。无授权购买、运行或改动天问排盘。
+- 官方功能页 https://www.tuvi.fr/le-logiciel-astrologie-chinoise-tu-vi/ 54–61行分别归属不同作者的方法；74–106行列多国地方时模块，含阿尔及利亚、喀麦隆、加蓬、伊拉克、黎巴嫩、马达加斯加、摩洛哥、突尼斯及委内瑞拉等。软件支持某地域出生时间 != 当地实际使用、课程、出版或师承；只作后续全球调查线索。未购买模块。
+- 法国国家图书馆独立馆目 https://catalogue.bnf.fr/ark:/12148/cb37113260v （FRBNF37113260，55–73、94–104行）：Nguyêñ, Ngọc Rao (1938-....)，L'astrologie chinoise authentique: notions fondamentales: établissement de thèmes，Paris，Éd. du Dauphin，1999，408页，ISBN 2-7163-1140-4；馆藏 2000-99641 一册。出版身份和馆藏对象可分别记录；未读原书术式页，不能由题名判定具体机械规则。与软件引用的书名、作者一致，但尚未证明软件实际用的是该印次而非后续版。1999 Jenny Mai Ngo《Tu vi》仍只有 BnF 搜索索引，直接主题页未重现独立馆目，不升级。
+
+本补证仅收窄现代软件传承的证据范围，并为后续查重、语义身份消歧与可能准入补足第一方证据；现有 1422 来源、266分片、495节点/375边、Matrix222/222、58 OPEN/五P0、产品 CLOSED 均不变。NEXT仍为领取15EX查询及正式有界裁决；本次新增候选不得绕过全库查重。 
