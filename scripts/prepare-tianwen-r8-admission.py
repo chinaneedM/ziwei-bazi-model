@@ -27,7 +27,9 @@ PINS = {
     "docs/FUSION-CHART-HISTORICAL-PROVENANCE-AUDIT-MATRIX-R1.json": "5919e1b6bbc3c4b150507c41a13ccc9e13d20f17",
     "docs/TRANSMISSION-GENEALOGY-GRAPH-R1.json": "5ef9ca3e5507df6ea4250453cf7f663b3d2137cc",
     SHARD: "9c11f0d0b4229ca899526b9e8b9dd9b21e6a5e9d",
-    QUERY: "e26b9fc5901b4e44f64ace37fe4d1ab2bc2c802f",
+    # The new literal query keeps the same pre-admission checkpoint and manifest.
+    # Its evidence is not used to broaden the six-source R8 transaction.
+    QUERY: "6191233a1e58797456e5266f34528f5232bd0ac6",
 }
 VERSION = "1.1588.0"
 CP = "TW-CHECKPOINT-15FF-R8-REGIONAL-CROSS-CIVILIZATION-ADMISSION-20261127"

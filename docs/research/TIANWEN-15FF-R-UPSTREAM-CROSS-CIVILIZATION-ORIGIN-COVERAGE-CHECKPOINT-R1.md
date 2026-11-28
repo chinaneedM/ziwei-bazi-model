@@ -1808,3 +1808,16 @@ NEXT：优先取得可合法下载的下册PDF或独立馆方高分图（保持�
 **前次增量纠偏。** 回读四柱史纲14A/14B及原研究14B（blob2af98532986a07abf7eba23c5cfa61f1d540ac09），2026-11-18已读06599数字前4页。13al前2页不是首次取得此物件图像，真正新增的仅是这两页版心“子平真詮”的明确读法及后出的两印本相神异文；保留13al原记录，拒绝重复计物件/新增页数或独立文本票数。13aj精选命理约言也已有13ZR书目/版本层；新增只是所指目标页及反分日数字核读，非新书。检查点追加是防遗漏，不是完成正式准入；此前工作对整体现有覆盖回查不足，本轮明确修正，减少重复访问。
 
 **下一步优先级（未关闭风险）。** 先领取本次24词精确全库查重并读命中项，处理明确可判的同物及候选证据；再继续R8正式台账可行发布方案、Q不足项交叉核对；研究上回到Iyer 1885 p6、EAP1294/2/33及更早可定年方盘，区分图式、黄道/宿度、安星输入与传播链。保留5 P0、0059/0006/0013，及新增358/360/380、版本异文候选。R2试点的有限投影仍有效，但每轮触发有效专项和领取查询是实际待修复环节。本轮不改权威六输入、不准入来源/边、不改变正式统计、core或终验；transmission_impact=NONE。
+
+
+### 13ao. 全库查询真实结果、三件旧来源复用与R8待发布事务的查询绑定修复（2026-11-28）
+
+基线HEAD `fd8c5c3993f6ccfa01617a63004e7eae32019bee`、tree `81ff13d3eece2ad1a914b211710065df874451a4`；精确HEAD Actions 21项，19 success、1 in_progress、1 failure。失败为[verify-research-omission-continuity run46102243837](https://github.com/chinaneedM/ziwei-bazi-model/actions/runs/46102243837)，job140847055575。实际读取完整目标日志：来源门禁及request执行成功，但其后test_pending_r8_admission_replays_existing_full_gates报ValueError: stale pinned input: docs/PROJECT-REGISTRY-QUERY-R2.json。因此不能把中间查询PASS当专项CI通过，R2快路径不启用。此为13an改变查询文件时遗漏待发布事务依赖的真实执行缺陷，优先修复而不转入新史料族。
+
+**查询结果保全（中间步骤实测，整体CI失败，待修复后重跑）。** query_id=15FF-R7-cross-period-primary-witnesses-20261128；checkpoint=TW-CHECKPOINT-15FF-R7-NAKAMURA-REGIONAL-CHARTS-20261127；request blob=6191233a1e58797456e5266f34528f5232bd0ac6；manifest blob=46a75cadb4940cf265fb302f0e911fa646d50253；验证程序blob3387254ce53ec0a1f1a3b779291e0c40997bf190；scope ALL_REGISTERED_ROOT_AND_SHARDS_LITERAL_ONLY；files280/records1499、matching_files4、truncated=false。24词逐项：06581=1、敬一堂=1、NLC416-11jh010455-35296=1、NLC416-17jh002578-109774=1，其他20词均0（实际请求文件及原日志可复核）。零字面命中不证明无异名/同物登记。
+
+**四个命中全部读取并消歧。** ①13ZR分片86b8c68c0bb07ba69356fa2e0bfc59d54df066d3，EXT-TIANWEN-13ZR-NLC416-JINGXUAN-MINGLI-YUEYAN-1935，已核该同一物件PDF p184版权页1935第三版；13aj所称1934年候选不能当本件版年，纠正为1935第三版（初版日期仍分离）。13aj印页11–14仅是旧源目标页补读。②14A分片edd639092ff8a5fea7b9575bbc0e9dd38a342b2f，EXT-TIANWEN-14A-NCL06599-GENGCUNJI-QING-MS，同一06599物件；13al前两页属复核与版心补读，延续13an纠偏。③15BD分片780f16358cd8dded7ce3e527a63ff04a9afd6df4，EXT-TIANWEN-15BD-NLC416-ZIPING-ZHENQUAN-HU-1776-RECEIVED-IMAGE，35296同一数字印本及旧序1776/39篇已登记；13ak旧序不是新物件/独立早期证言，新增仅为具体正文与其他版异文比较。④15DH分片727629df90ab505ff4f3ec33ecae7aefc11ae09d，“06581”实际位于页6图像SHA256 0e06581ace96a120c24cfcdec299b037c781e2b73b264b9d39cf51c1ad3fca81，非台湾馆号；排除本条字面假阳性，不宣称06581候选已全语义查重。
+
+**修复措施与边界。** 实读tests/test_project_context_r2.py及scripts/prepare-tianwen-r8-admission.py（原blob bf6ba9033d16fcd72bfde1ec85977b4daa8cc9d8）。真实树核验六权威输入及R8六来源预备分片9c11f0d0b4229ca899526b9e8b9dd9b21e6a5e9d均仍符合旧PINS；唯一改变为QUERY从e26b9fc5901b4e44f64ace37fe4d1ab2bc2c802f到6191233a1e58797456e5266f34528f5232bd0ac6。新请求沿用原checkpoint和manifest，R8准入事务的六来源、scope、旧三轮成功日志、版本及全部其他输入不变；准备后的新checkpoint仍应令旧查询STALE_CHECKPOINT。因此只显式更新这一固定pin，保留严格全输入校验和完整隔离overlay测试，不跳过测试、不放宽校验、不伪造PASS。旧请求及实际结果由Git和原检查点保留。修复提交后须取得精确HEAD专项CI并复核真实请求输出方能恢复通过；本轮未本地执行Python测试，真实测试以远端CI为准。
+
+**R8发布与后续。** 真实ledger blob仍4,070,463字节、state1,776,127字节；此前巨量权威文件传输阻塞尚未解除，本轮仅修复待发布事务的查询依赖，不把预备分片当正式准入。正式1.1587.0、1499来源/279分片、222/222、图819/581、59 OPEN五P0、core CLOSED保持不变。下一轮先查专项结果，若通过再研究真实R8原子发布可行路径，避免新查询再次造成待发布事务失配；跨文明源流研究仍按13an优先序，不宣称第一阶段终验。
